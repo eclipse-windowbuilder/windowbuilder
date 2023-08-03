@@ -26,7 +26,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.swt.SWT;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * Test for parsing {@link MenuInfo}, {@link MenuItemInfo} and its basic properties.
 	 */
+	@Test
 	public void test_parse() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -77,7 +79,7 @@ public class MenuItemTest extends XwtModelTest {
 		MenuInfo subMenu = getObjectByName("subMenu");
 		// check items
 		List<MenuItemInfo> items = menuBar.getItems();
-		assertThat(items).containsExactly(item_1, item_2);
+		Assertions.assertThat(items).containsExactly(item_1, item_2);
 		// "item_1" has no subMenu
 		assertSame(null, item_1.getSubMenu());
 		// "item_2" has subMenu
@@ -92,6 +94,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * Test for {@link MenuItemLiveManager}.
 	 */
+	@Test
 	public void test_liveStyle() throws Exception {
 		parse("<Shell/>");
 		// NONE
@@ -134,6 +137,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * Test for {@link MenuItemStylePresentation}.
 	 */
+	@Test
 	public void test_MenuItemStylePresentation() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -178,6 +182,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * Test that {@link MenuItemInfo} can be adapted to {@link IMenuItemInfo}.
 	 */
+	@Test
 	public void test_impl() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -219,6 +224,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * Set {@link MenuItemInfo} style to SWT.CASCADE. A sub menu should be added.
 	 */
+	@Test
 	public void test_setStyle_toCascade() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -261,6 +267,7 @@ public class MenuItemTest extends XwtModelTest {
 	 * <p>
 	 * Only the style should changed.
 	 */
+	@Test
 	public void test_setStyle_noCascade() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -299,6 +306,7 @@ public class MenuItemTest extends XwtModelTest {
 	 * <p>
 	 * Sub menu should be removed.
 	 */
+	@Test
 	public void test_setStyle_fromCascade() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -341,6 +349,7 @@ public class MenuItemTest extends XwtModelTest {
 	 * <p>
 	 * No sub menu, so nothing to remove.
 	 */
+	@Test
 	public void test_setStyle_fromCascade_noSubMenu() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -379,6 +388,7 @@ public class MenuItemTest extends XwtModelTest {
 	 * <p>
 	 * <code>setText()</code> should be removed.
 	 */
+	@Test
 	public void test_setStyle_toSeparator() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -417,6 +427,7 @@ public class MenuItemTest extends XwtModelTest {
 	 * <p>
 	 * Sub menu and <code>setText</code> should be removed because the separator doesn't need it.
 	 */
+	@Test
 	public void test_setStyle_fromCascade_toSeparator() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -462,6 +473,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * {@link MenuItemInfo} does not accept anything with create/paste.
 	 */
+	@Test
 	public void test_IMenuItemInfo_noCreateOrPaste() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -498,6 +510,7 @@ public class MenuItemTest extends XwtModelTest {
 	/**
 	 * {@link MenuInfo} can be moved on {@link MenuItemInfo}.
 	 */
+	@Test
 	public void test_IMenuItemInfo_move() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

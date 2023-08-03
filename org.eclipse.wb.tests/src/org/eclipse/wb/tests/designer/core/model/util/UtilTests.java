@@ -10,34 +10,34 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.core.model.util.generic.GenericTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class UtilTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util");
-		suite.addTest(createSingleSuite(ExposeComponentSupportTest.class));
-		suite.addTest(FactoryActionsTests.suite());
-		suite.addTest(createSingleSuite(JavaInfoUtilsTest.class));
-		suite.addTest(createSingleSuite(ObjectInfoUtilsTest.class));
-		suite.addTest(createSingleSuite(GenericTypeResolverJavaInfoTest.class));
-		suite.addTest(createSingleSuite(TemplateUtilsTest.class));
-		suite.addTest(createSingleSuite(ScriptUtilsTest.class));
-		suite.addTest(createSingleSuite(MethodOrderTest.class));
-		suite.addTest(createSingleSuite(ComponentOrderTest.class));
-		suite.addTest(createSingleSuite(MorphingSupportTest.class));
-		suite.addTest(createSingleSuite(ObjectsLabelProviderTest.class));
-		suite.addTest(createSingleSuite(ObjectsTreeContentProviderTest.class));
-		suite.addTest(createSingleSuite(RenameConvertSupportTest.class));
-		suite.addTest(createSingleSuite(PredicatesTest.class));
-		suite.addTest(createSingleSuite(StackContainerSupportTest.class));
-		suite.addTest(GenericTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ExposeComponentSupportTest.class,
+		FactoryActionsTests.class,
+		JavaInfoUtilsTest.class,
+		ObjectInfoUtilsTest.class,
+		GenericTypeResolverJavaInfoTest.class,
+		TemplateUtilsTest.class,
+		ScriptUtilsTest.class,
+		MethodOrderTest.class,
+		ComponentOrderTest.class,
+		MorphingSupportTest.class,
+		ObjectsLabelProviderTest.class,
+		ObjectsTreeContentProviderTest.class,
+		RenameConvertSupportTest.class,
+		PredicatesTest.class,
+		StackContainerSupportTest.class,
+		GenericTests.class,
+		PropertyUtilsTest.class
+})
+public class UtilTests {
 }

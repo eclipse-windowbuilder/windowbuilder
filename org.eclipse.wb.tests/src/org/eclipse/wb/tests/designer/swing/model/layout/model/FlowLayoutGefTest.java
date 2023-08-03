@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.gef.AbstractLayoutPolicyTest;
 
+import org.junit.Test;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -41,6 +43,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Set {@link FlowLayout} instead of explicit {@link BorderLayout}.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		String[] source =
 				new String[]{
@@ -70,6 +73,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Set {@link FlowLayout} instead of implicit {@link BorderLayout}.
 	 */
+	@Test
 	public void test_setLayout2() throws Exception {
 		String[] source =
 				new String[]{
@@ -100,6 +104,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_onEmpty() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -124,6 +129,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_beforeExisting() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -154,6 +160,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_afterExisting() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -187,6 +194,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	/**
 	 * We should now be able to use exposed component as reference.
 	 */
+	@Test
 	public void test_CREATE_hasExposed() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -230,6 +238,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	// CREATE RTL
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_RTL_onEmpty() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -254,6 +263,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_RTL_last() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -286,6 +296,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_RTL_beforeExisting() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -318,6 +329,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_RTL_betweenExisting() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -366,6 +378,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Flow container supports moving only single component.
 	 */
+	@Test
 	public void test_MOVE_twoComponents() throws Exception {
 		String[] lines =
 				new String[]{
@@ -398,6 +411,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 		assertEditor(lines);
 	}
 
+	@Test
 	public void test_MOVE_localVariable() throws Exception {
 		String[] source =
 				new String[]{
@@ -430,6 +444,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 		check_MOVE(source, source2);
 	}
 
+	@Test
 	public void test_MOVE_lazy() throws Exception {
 		String[] source =
 				new String[]{
@@ -513,6 +528,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -555,6 +571,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_twoComponents() throws Exception {
 		String[] lines =
 			{

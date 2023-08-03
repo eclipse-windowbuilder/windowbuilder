@@ -14,6 +14,9 @@ import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.branding.IBrandingDescription;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.After;
+import org.junit.Test;
+
 /**
  * Test for {@link BrandingUtils}.
  *
@@ -27,7 +30,8 @@ public class BrandingUtilsTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 	}
 
@@ -39,6 +43,7 @@ public class BrandingUtilsTest extends DesignerTestCase {
 	/**
 	 * We run tests with multiple products.
 	 */
+	@Test
 	public void test_getBranding_multi() throws Exception {
 		IBrandingDescription branding = BrandingUtils.getBranding();
 		assertNotNull(branding);

@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link FieldReuseVariableSupport}.
@@ -40,6 +41,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 	// getReferenceExpression()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getReferenceExpression_local() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -56,7 +58,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 						"    }",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(2);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(2);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		VariableSupport variableSupport = button.getVariableSupport();
@@ -65,6 +67,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 		assertEquals("button", variableSupport.getReferenceExpression(target));
 	}
 
+	@Test
 	public void test_getReferenceExpression_remote() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -81,7 +84,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 						"    }",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(2);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(2);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		VariableSupport variableSupport = button.getVariableSupport();
@@ -114,6 +117,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link FieldReuseVariableSupport} when field is assigned for this component.
 	 */
+	@Test
 	public void test_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -124,7 +128,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 						"    add(button);",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(1);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(1);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		VariableSupport variableSupport = button.getVariableSupport();
@@ -151,6 +155,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link FieldReuseVariableSupport} when field is declared with this component.
 	 */
+	@Test
 	public void test_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -161,7 +166,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 						"    button = new JButton('2');",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(1);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(1);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		{
@@ -207,6 +212,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link FieldReuseVariableSupport#setName(String)} and static context.
 	 */
+	@Test
 	public void test_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -249,6 +255,7 @@ public class FieldReuseTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link FieldReuseVariableSupport} when field is declared with this component.
 	 */
+	@Test
 	public void test_setType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

@@ -31,7 +31,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 	/**
 	 * Touch no-op implementations of {@link PaletteEventListener}.
 	 */
+	@Test
 	public void test_PaletteEventListener() throws Exception {
 		PaletteEventListener listener = new PaletteEventListener() {
 		};
@@ -69,6 +71,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		listener.entries(null, null);
 	}
 
+	@Test
 	public void test_restorePalette() throws Exception {
 		openEditor("<Shell/>");
 		// remove "System"
@@ -80,7 +83,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		{
 			PaletteInfo palette = m_paletteManager.getPalette();
 			CategoryInfo category = palette.getCategories().get(0);
-			assertThat(category.getName()).isNotEqualTo("System");
+			Assertions.assertThat(category.getName()).isNotEqualTo("System");
 		}
 		// animate dialog
 		new UiContext().executeAndCheck(new UIRunnable() {
@@ -101,7 +104,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		{
 			PaletteInfo palette = m_paletteManager.getPalette();
 			CategoryInfo category = palette.getCategories().get(0);
-			assertThat(category.getName()).isEqualTo("System");
+			Assertions.assertThat(category.getName()).isEqualTo("System");
 		}
 	}
 
@@ -113,6 +116,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 	/**
 	 * Test for configuring palette settings.
 	 */
+	@Test
 	public void test_settings() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -137,6 +141,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 	// Category
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addCategory_beforeFirst() throws Exception {
 		openEditor("<Shell/>");
 		// use "System" as target
@@ -168,13 +173,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 			CategoryInfo newCategory = palette.getCategory(m_newId);
 			assertNotNull(newCategory);
 			assertEquals("New category", newCategory.getName());
-			assertThat(newCategory.getEntries()).isEmpty();
+			Assertions.assertThat(newCategory.getEntries()).isEmpty();
 			// it is first
 			assertSame(newCategory, palette.getCategories().get(0));
 			assertSame(target, palette.getCategories().get(1));
 		}
 	}
 
+	@Test
 	public void test_addCategory_asLast() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -205,6 +211,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_editCategory() throws Exception {
 		openEditor("<Shell/>");
 		// use "System" as target
@@ -236,6 +243,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		assertEquals("System2", category.getName());
 	}
 
+	@Test
 	public void test_removeCategory() throws Exception {
 		openEditor("<Shell/>");
 		// use "System" as target
@@ -261,7 +269,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		// no "System"
 		PaletteInfo palette = m_paletteManager.getPalette();
 		CategoryInfo category = palette.getCategories().get(0);
-		assertThat(category.getName()).isNotEqualTo("System");
+		Assertions.assertThat(category.getName()).isNotEqualTo("System");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -269,6 +277,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 	// Component
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addComponent() throws Exception {
 		openEditor("<Shell/>");
 		// use "System" as target
@@ -276,7 +285,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 			CategoryInfo category = m_paletteManager.getPalette().getCategories().get(0);
 			setTargetObject(category);
 			// 3 entry initially
-			assertThat(category.getEntries()).hasSize(3);
+			Assertions.assertThat(category.getEntries()).hasSize(3);
 		}
 		// animate dialog
 		new UiContext().executeAndCheck(new UIRunnable() {
@@ -293,7 +302,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 				chooseComponentClass(context, "org.eclipse.swt.widgets.Button");
 				// default name
 				assertEquals("Button", context.getTextByLabel("&Name:").getText());
-				assertThat(context.getTextByLabel("&Description:").getText()).contains(
+				Assertions.assertThat(context.getTextByLabel("&Description:").getText()).contains(
 						"pressed and released");
 				// set custom name
 				context.getTextByLabel("&Name:").setText("My name");
@@ -305,7 +314,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		// new entry added
 		CategoryInfo category = m_paletteManager.getPalette().getCategories().get(0);
 		List<EntryInfo> entries = category.getEntries();
-		assertThat(entries).hasSize(4);
+		Assertions.assertThat(entries).hasSize(4);
 		{
 			ComponentEntryInfo newComponent = (ComponentEntryInfo) entries.get(3);
 			assertEquals("org.eclipse.swt.widgets.Button", newComponent.getClassName());
@@ -313,6 +322,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_editComponent() throws Exception {
 		openEditor("<Shell/>");
 		// add Button component to "System" and use it as target
@@ -325,7 +335,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 					true,
 					"org.eclipse.swt.widgets.Button",
 					category));
-			assertThat(category.getEntries()).hasSize(4);
+			Assertions.assertThat(category.getEntries()).hasSize(4);
 			ReflectionUtils.invokeMethod(m_designerPalette, "showPalette()");
 			setTargetObject(category.getEntries().get(3));
 		}
@@ -354,7 +364,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		ComponentEntryInfo editedComponent = (ComponentEntryInfo) category.getEntries().get(3);
 		assertEquals("org.eclipse.swt.widgets.Text", editedComponent.getClassName());
 		assertEquals("Text", editedComponent.getName());
-		assertThat(editedComponent.getDescription()).contains("enter and modify text");
+		Assertions.assertThat(editedComponent.getDescription()).contains("enter and modify text");
 	}
 
 	private void chooseComponentClass(final UiContext context_, final String className)
@@ -389,6 +399,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		});
 	}
 
+	@Test
 	public void test_removeEntry() throws Exception {
 		openEditor("<Shell/>");
 		// use "System" as target
@@ -417,9 +428,10 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		PaletteInfo palette = m_paletteManager.getPalette();
 		CategoryInfo category = palette.getCategories().get(0);
 		EntryInfo entry = category.getEntries().get(0);
-		assertThat(entry.getName()).isNotEqualTo("Selection");
+		Assertions.assertThat(entry.getName()).isNotEqualTo("Selection");
 	}
 
+	@Test
 	public void test_paletteManager_dragEntry_onCategory() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -453,6 +465,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		assertEquals("Selection", entries.get(entries.size() - 1).getName());
 	}
 
+	@Test
 	public void test_paletteManager_dragEntry_beforeOther() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -485,6 +498,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		assertEquals("Selection", entries.get(1).getName());
 	}
 
+	@Test
 	public void test_paletteManager_dragEntry_afterOther() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -522,6 +536,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 	// Palette manager dialog
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_paletteManager_filter() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -558,6 +573,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		});
 	}
 
+	@Test
 	public void test_paletteManager_expandCollapse() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -587,6 +603,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		});
 	}
 
+	@Test
 	public void test_paletteManager_dragCategory() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -618,6 +635,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		assertEquals("System", m_paletteManager.getPalette().getCategories().get(1).getName());
 	}
 
+	@Test
 	public void test_paletteManager_addCategory() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -670,6 +688,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_paletteManager_addComponent() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -729,6 +748,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_paletteManager_editCategory() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -778,6 +798,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_paletteManager_editComponent() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -829,6 +850,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_paletteManager_moveCategory() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -865,6 +887,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_paletteManager_moveEntry() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -902,6 +925,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		}
 	}
 
+	@Test
 	public void test_paletteManager_removeCategory() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -946,10 +970,11 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 		{
 			PaletteInfo palette = m_paletteManager.getPalette();
 			CategoryInfo category = palette.getCategories().get(0);
-			assertThat(category.getName()).isNotEqualTo("System");
+			Assertions.assertThat(category.getName()).isNotEqualTo("System");
 		}
 	}
 
+	@Test
 	public void test_paletteManager_removeEntry() throws Exception {
 		openEditor("<Shell/>");
 		// animate dialog
@@ -996,7 +1021,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 			PaletteInfo palette = m_paletteManager.getPalette();
 			CategoryInfo category = palette.getCategories().get(0);
 			EntryInfo entry = category.getEntries().get(0);
-			assertThat(entry.getName()).isNotEqualTo("Selection");
+			Assertions.assertThat(entry.getName()).isNotEqualTo("Selection");
 		}
 	}
 

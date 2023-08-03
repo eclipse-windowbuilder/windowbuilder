@@ -15,6 +15,8 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test {@link ModelClassLayoutRequestValidator}.
  *
@@ -38,6 +40,7 @@ public class ModelClassLayoutRequestValidatorTest extends AbstractLayoutRequestV
 	/**
 	 * Test for create/move/add.
 	 */
+	@Test
 	public void test_CMA() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -67,6 +70,7 @@ public class ModelClassLayoutRequestValidatorTest extends AbstractLayoutRequestV
 	/**
 	 * Test for paste.
 	 */
+	@Test
 	public void test_validatePasteRequest() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

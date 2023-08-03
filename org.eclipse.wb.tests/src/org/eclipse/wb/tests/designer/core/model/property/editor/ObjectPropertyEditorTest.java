@@ -28,7 +28,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 
@@ -58,6 +59,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link ObjectPropertyEditor} can be used to select object of any type, as non-visual bean.
 	 */
+	@Test
 	public void test_nonVisualBean() throws Exception {
 		setJavaContentSrc("test", "MyObject", new String[]{
 				"public class MyObject {",
@@ -105,7 +107,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		assertSame(PropertyCategory.ADVANCED, property.getCategory());
 		// prepare editor
 		final PropertyEditor propertyEditor = property.getEditor();
-		assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
 		// animate
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -124,7 +126,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 				TreeItem beansContainer;
 				{
 					TreeItem[] childItems = panelItem.getItems();
-					assertThat(childItems).hasSize(1);
+					Assertions.assertThat(childItems).hasSize(1);
 					assertEquals("(non-visual beans)", childItems[0].getText());
 					beansContainer = childItems[0];
 				}
@@ -132,7 +134,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 				TreeItem myObjectItem;
 				{
 					TreeItem[] beanItems = beansContainer.getItems();
-					assertThat(beanItems).hasSize(1);
+					Assertions.assertThat(beanItems).hasSize(1);
 					assertEquals("object_1", beanItems[0].getText());
 					myObjectItem = beanItems[0];
 				}
@@ -170,6 +172,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link ObjectPropertyEditor} can be used to select subclass {@link Component}.
 	 */
+	@Test
 	public void test_subclassOfComponent() throws Exception {
 		setJavaContentSrc("test", "MyComponent", new String[]{
 				"public class MyComponent extends JLabel {",
@@ -196,7 +199,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		assertFalse(property.isModified());
 		// prepare editor
 		final PropertyEditor propertyEditor = property.getEditor();
-		assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
 		// animate
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -213,7 +216,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 				assertFalse(okButton.isEnabled());
 				// prepare items
 				TreeItem[] childItems = panelItem.getItems();
-				assertThat(childItems).hasSize(1);
+				Assertions.assertThat(childItems).hasSize(1);
 				assertEquals("button", childItems[0].getText());
 				// JButton - valid
 				UiContext.setSelection(childItems[0]);
@@ -242,6 +245,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link ObjectPropertyEditor} should select current value in dialog.
 	 */
+	@Test
 	public void test_initialSelection() throws Exception {
 		setJavaContentSrc("test", "MyComponent", new String[]{
 				"public class MyComponent extends JLabel {",
@@ -268,7 +272,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		assertNotNull(property);
 		// prepare editor
 		final PropertyEditor propertyEditor = property.getEditor();
-		assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
 		// animate
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -283,7 +287,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 				try {
 					TreeItem itemButton_2 = context.getTreeItem("button_2");
 					TreeItem[] selection = itemButton_2.getParent().getSelection();
-					assertThat(selection).containsOnly(itemButton_2);
+					Assertions.assertThat(selection).containsOnly(itemButton_2);
 				} finally {
 					context.clickButton("Cancel");
 				}
@@ -299,6 +303,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * No invocation for this method.
 	 */
+	@Test
 	public void test_getText_noInvocation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -322,13 +327,14 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		// check sub-properties
 		{
 			ObjectPropertyEditor opEditor = (ObjectPropertyEditor) labelForProperty.getEditor();
-			assertThat(opEditor.getProperties(labelForProperty).length).isEqualTo(0);
+			Assertions.assertThat(opEditor.getProperties(labelForProperty).length).isEqualTo(0);
 		}
 	}
 
 	/**
 	 * We have invocation for this method.
 	 */
+	@Test
 	public void test_getText_hasInvocation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -350,13 +356,14 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		// check sub-properties
 		{
 			ObjectPropertyEditor opEditor = (ObjectPropertyEditor) labelForProperty.getEditor();
-			assertThat(opEditor.getProperties(labelForProperty).length).isGreaterThan(0);
+			Assertions.assertThat(opEditor.getProperties(labelForProperty).length).isGreaterThan(0);
 		}
 	}
 
 	/**
 	 * Absolute layout has <code>null</code> component class, should be handled correctly.
 	 */
+	@Test
 	public void test_withAbsoluteLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -371,7 +378,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		// prepare property
 		final Property property = label.getPropertyByTitle("labelFor");
 		final PropertyEditor propertyEditor = property.getEditor();
-		assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
 		// animate - just open and ensure that dialog opened (no exception during this)
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -390,6 +397,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link JLabel} is before {@link JTextField}.
 	 */
+	@Test
 	public void test_setComponent_labelBefore() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -430,6 +438,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link JLabel} is after {@link JTextField}.
 	 */
+	@Test
 	public void test_setComponent_labelAfter() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -471,6 +480,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	 * {@link LazyVariableSupport} for {@link JLabel} and {@link JTextField}. We can put
 	 * {@link JLabel#setLabelFor(Component)} in any place, but prefer {@link JLabel} method.
 	 */
+	@Test
 	public void test_setComponent_lazy() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -526,6 +536,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Set to different {@link JTextField}.
 	 */
+	@Test
 	public void test_setComponent_newComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -576,6 +587,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Use <code>null</code> to remove existing value.
 	 */
+	@Test
 	public void test_setComponent_noComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -616,6 +628,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Use {@link ObjectPropertyEditor} for constructor argument.
 	 */
+	@Test
 	public void test_setComponent_constructor() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

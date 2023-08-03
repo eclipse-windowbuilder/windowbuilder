@@ -21,6 +21,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link FormLayoutInfoImplAutomatic}.
  *
@@ -39,6 +42,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing with changing alignment, attached to component.
 	 */
+	@Test
 	public void test_move_to_trailing_change_alignment_2component() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -105,6 +109,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in leading with changing alignment, attached to component.
 	 */
+	@Test
 	public void test_move_to_leading_change_alignment_2component() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -168,6 +173,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing without changing alignment, attached to component.
 	 */
+	@Test
 	public void test_move_to_trailing_keep_alignment_2component() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -234,6 +240,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in leading without changing alignment, attached to component.
 	 */
+	@Test
 	public void test_move_to_leading_keep_alignment_2component() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -297,7 +304,9 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing with changing alignment.
 	 */
-	public void DISABLE_test_move_to_trailing_change_alignment() throws Exception {
+	@Ignore
+	@Test
+	public void test_move_to_trailing_change_alignment() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
 				parseComposite(
@@ -341,6 +350,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in leading with changing alignment.
 	 */
+	@Test
 	public void test_move_to_leading_change_alignment() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -383,7 +393,9 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing without changing alignment.
 	 */
-	public void DISABLE_test_move_to_trailing_keep_alignment() throws Exception {
+	@Ignore
+	@Test
+	public void test_move_to_trailing_keep_alignment() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
 				parseComposite(
@@ -427,6 +439,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in leading without changing alignment.
 	 */
+	@Test
 	public void test_move_to_leading_keep_alignment() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =

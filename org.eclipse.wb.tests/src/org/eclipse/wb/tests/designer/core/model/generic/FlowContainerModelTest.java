@@ -29,13 +29,14 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.mockito.InOrder;
 
 import java.text.MessageFormat;
@@ -61,6 +62,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	// FlowContainer_Factory: horizontal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getConfigurations_horizontal_trueByDefault() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -68,10 +70,11 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "alwaysTrue", "%parent%.add(%child%)");
 	}
 
+	@Test
 	public void test_getConfigurations_horizontal_complexExpression() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -80,7 +83,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "isHorizontal()", "%parent%.add(%child%)");
 	}
 
@@ -92,6 +95,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * No special container association, so only {@link Association} from component will be used.
 	 */
+	@Test
 	public void test_getConfigurations_noContainerAssociation() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -99,7 +103,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "true", "NO");
 	}
 
@@ -107,6 +111,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	 * If no known names of association found, then "invocationChild" is implied, but it should start
 	 * with "%parent%.".
 	 */
+	@Test
 	public void test_getConfigurations_invalidInvocationChild() throws Exception {
 		try {
 			getConfigurations(true, new String[][]{
@@ -123,6 +128,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Specify "invocationChild" association explicitly.
 	 */
+	@Test
 	public void test_getConfigurations_explicitInvocationChild() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -131,7 +137,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "invocationChild %parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -148,6 +154,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Exception when no "component" validator.
 	 */
+	@Test
 	public void test_getConfigurations_noComponentValidator() throws Exception {
 		try {
 			getConfigurations(true, new String[][]{
@@ -159,6 +166,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_getConfigurations_explicitComponentTypes() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -167,7 +175,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "javax.swing.JButton javax.swing.JTextField"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -179,6 +187,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Use default component validator.
 	 */
+	@Test
 	public void test_getConfigurations_defaultComponent() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -187,7 +196,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer", "true"},
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.association", "%parent%.add(%child%)"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -196,6 +205,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 				"java.awt.Component");
 	}
 
+	@Test
 	public void test_getConfigurations_componentValidatorExpression() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -204,7 +214,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component-validator", "isComponentType(java.awt.Component)"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -221,6 +231,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * No reference expression or string. So, error.
 	 */
+	@Test
 	public void test_getConfigurations_noReference() throws Exception {
 		try {
 			getConfigurations(true, new String[][]{
@@ -233,6 +244,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_getConfigurations_explicitReferenceTypes() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -241,7 +253,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "javax.swing.JButton javax.swing.JTextField"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -250,6 +262,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 				"javax.swing.JButton javax.swing.JTextField");
 	}
 
+	@Test
 	public void test_getConfigurations_referenceValidatorExpression() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -258,7 +271,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference-validator", "isReferenceType(java.awt.Component)"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -270,6 +283,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * When no "reference" specified, same predicate as for "component" should be used.
 	 */
+	@Test
 	public void test_getConfigurations_referencesAsComponents() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -277,7 +291,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -289,6 +303,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Use default reference validator.
 	 */
+	@Test
 	public void test_getConfigurations_defaultReference() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -297,7 +312,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer", "true"},
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.association", "%parent%.add(%child%)"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -314,6 +329,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Ask "forCanvas", return common configuration for both - canvas/tree.
 	 */
+	@Test
 	public void test_getConfigurations_forCanvas_common() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -322,7 +338,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -334,6 +350,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Ask "forCanvas", return explicit "forCanvas".
 	 */
+	@Test
 	public void test_getConfigurations_forCanvas_explicit() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -342,7 +359,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.canvas.association", "%parent%.add(%child%)"},
 					{"flowContainer.canvas.component", "java.awt.Component"},
 					{"flowContainer.canvas.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -354,6 +371,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Ask "forCanvas", but only "forTree" exist.
 	 */
+	@Test
 	public void test_getConfigurations_forCanvas_onlyForTree() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -362,12 +380,13 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.tree.association", "%parent%.add(%child%)"},
 					{"flowContainer.tree.component", "java.awt.Component"},
 					{"flowContainer.tree.reference", "java.awt.Component"},});
-		assertThat(configurations).isEmpty();
+		Assertions.assertThat(configurations).isEmpty();
 	}
 
 	/**
 	 * Ask "forTree", return common configuration for both - canvas/tree.
 	 */
+	@Test
 	public void test_getConfigurations_forTree_common() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(false, new String[][]{
@@ -376,12 +395,13 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 	}
 
 	/**
 	 * Ask "forTree", return explicit "forTree".
 	 */
+	@Test
 	public void test_getConfigurations_forTree_explicit() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(false, new String[][]{
@@ -390,12 +410,13 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.tree.association", "%parent%.add(%child%)"},
 					{"flowContainer.tree.component", "java.awt.Component"},
 					{"flowContainer.tree.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 	}
 
 	/**
 	 * Several different configurations.
 	 */
+	@Test
 	public void test_getConfigurations_3_count() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -414,7 +435,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.5.association", "%parent%.add(%child%)"},
 					{"flowContainer.5.component", "javax.swing.JTextField"},
 					{"flowContainer.5.reference", "javax.swing.JTextField"},});
-		assertThat(configurations).hasSize(3);
+		Assertions.assertThat(configurations).hasSize(3);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -438,6 +459,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Ignore if <code>flowContainer</code> value is not <code>true</code>.
 	 */
+	@Test
 	public void test_getConfigurations_ignoreFalse() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -446,7 +468,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 					{"flowContainer.association", "%parent%.add(%child%)"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(0);
+		Assertions.assertThat(configurations).hasSize(0);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -587,6 +609,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	 * CREATE/MOVE methods in container {@link JavaInfo} and use them instead of generic
 	 * implementation.
 	 */
+	@Test
 	public void test_duckTyping() throws Exception {
 		final JavaInfo component = mock(JavaInfo.class);
 		final JavaInfo nextComponent = mock(JavaInfo.class);
@@ -619,6 +642,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Test that most specific version "command_CREATE" method is used.
 	 */
+	@Test
 	public void test_duckTyping_useMostSpecific() throws Exception {
 		final JavaInfo component = mock(JavaInfo.class);
 		final JavaInfo nextComponent = mock(JavaInfo.class);
@@ -644,6 +668,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	// Validation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validateMethods() throws Exception {
 		final JavaInfo container = mock(JavaInfo.class);
 		final JavaInfo component = mock(JavaInfo.class);
@@ -686,6 +711,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Test for {@link FlowContainerConfigurable#command_CREATE(Object, Object)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		prepareFlowPanel();
 		ContainerInfo panel =
@@ -728,6 +754,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Ensure that we can: create, delete and create new component again.
 	 */
+	@Test
 	public void test_CREATE_twoTimes() throws Exception {
 		prepareFlowPanel();
 		ContainerInfo panel =
@@ -766,6 +793,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 	/**
 	 * Test for {@link FlowContainerConfigurable#command_MOVE(Object, Object)}.
 	 */
+	@Test
 	public void test_MOVE() throws Exception {
 		prepareFlowPanel();
 		ContainerInfo panel =

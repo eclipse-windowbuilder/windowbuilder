@@ -22,6 +22,8 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DeleteAction}.
  *
@@ -45,6 +47,7 @@ public class DeleteActionTest extends SwingGefTest {
 	/**
 	 * Test for deleting selected parent and its child.
 	 */
+	@Test
 	public void test_ParentChild() throws Exception {
 		ContainerInfo thisPanel =
 				openContainer(
@@ -82,6 +85,7 @@ public class DeleteActionTest extends SwingGefTest {
 	/**
 	 * We can delete even "root" component, but this works as clearing it.
 	 */
+	@Test
 	public void test_canRootComponent() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -111,6 +115,7 @@ public class DeleteActionTest extends SwingGefTest {
 	 * We should be able to select and delete {@link ObjectInfo} that is displayed only in components
 	 * tree, even if it does not exist on design canvas.
 	 */
+	@Test
 	public void test_componentInTree_butNotOnDesign() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -157,6 +162,7 @@ public class DeleteActionTest extends SwingGefTest {
 	 * Test that when "Design" page is first, then actions are still correctly mapped to Designer
 	 * handlers.
 	 */
+	@Test
 	public void test_DesignPageFirst() throws Exception {
 		IPreferenceStore preferences = DesignerPlugin.getPreferences();
 		preferences.setValue(

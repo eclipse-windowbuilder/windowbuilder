@@ -10,20 +10,18 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class FactoryActionsTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util.FactoryActions");
-		suite.addTest(createSingleSuite(FactoryActionsSupportTest.class));
-		suite.addTest(createSingleSuite(FactoryCreateActionTest.class));
-		suite.addTest(createSingleSuite(FactoryApplyActionTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		FactoryActionsSupportTest.class,
+		FactoryCreateActionTest.class,
+		FactoryApplyActionTest.class
+})
+public class FactoryActionsTests {
 }

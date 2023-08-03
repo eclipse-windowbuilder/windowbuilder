@@ -24,6 +24,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.swt.widgets.Table;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_access() throws Exception {
 		InstanceFactoryEntryInfo entry = new InstanceFactoryEntryInfo();
 		// factoryClassName
@@ -62,6 +65,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * Only absolutely required values are specified in XML, all other values should be derived from
 	 * them.
 	 */
+	@Test
 	public void test_parse_defaults() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -101,6 +105,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * No instance factory instance in class, create new.
 	 */
+	@Test
 	public void test_createTool_new() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -153,6 +158,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * There is already single instance factory instance in class, use it.
 	 */
+	@Test
 	public void test_createTool_single() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -209,6 +215,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * There are already two instance factory instance in class, select one.
 	 */
+	@Test
 	public void test_createTool_multiSelect() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -284,6 +291,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * There are already two instance factory instance in class, cancel selection.
 	 */
+	@Test
 	public void test_createTool_multiCancel() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",

@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -30,6 +32,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parsing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -74,6 +77,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_removeFromGroup() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -119,6 +123,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_unGroupColumns() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -168,6 +173,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_groupNew() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -229,6 +235,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_ignoreOne() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -260,6 +267,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 		assertEditor(expectedSource, m_lastEditor);
 	}
 
+	@Test
 	public void test_groupWithExisting() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -314,6 +322,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_groupIgnoreTwoGroups() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -363,6 +372,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 	// Rows
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_groupRows() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -417,6 +427,7 @@ public class FormLayoutGroupsTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_unGroupRows() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

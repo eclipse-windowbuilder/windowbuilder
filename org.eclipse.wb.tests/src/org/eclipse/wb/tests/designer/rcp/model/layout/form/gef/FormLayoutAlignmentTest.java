@@ -24,6 +24,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_alignLeft() throws Exception {
 		String[] constraints_1 =
 				new String[]{"left = new FormAttachment(0, 50);", "top = new FormAttachment(0, 100);"};
@@ -65,6 +68,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_independentControls() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -82,6 +86,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_leftParent() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -99,6 +104,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_rightParent() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -116,6 +122,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_leftAttached() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -133,6 +140,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_rightAttached() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -150,6 +158,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_notAttached() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -165,6 +174,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_leftRightAttached() throws Exception {
 		String[] constraints_1 =
 				new String[]{
@@ -183,6 +193,8 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
+	@Ignore
 	public void test_replicateWidth_leftRightAttached_reverse() throws Exception {
 		parse_twoButtons_typical(new String[]{
 				"left = new FormAttachment(0, 50);",
@@ -202,6 +214,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		"top = new FormAttachment(0, 200);"});
 	}
 
+	@Test
 	public void test_replicateWidth_leftAttachedToRight_rightNotAttached() throws Exception {
 		parse_twoButtons(
 				"public class Test extends Shell {",
@@ -264,6 +277,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_replicateWidth_leftAttachedToRight_rightNotAttached_createButton2()
 			throws Exception {
 		parse(

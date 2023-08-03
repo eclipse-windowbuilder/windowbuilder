@@ -17,6 +17,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jface.window.Window;
 
+import org.junit.Test;
+
 /**
  * Test for {@link WindowTopBoundsSupport}.
  *
@@ -42,6 +44,7 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Window} with default source, i.e. no any special method.
 	 */
+	@Test
 	public void test_apply_defaultSize() throws Exception {
 		WindowInfo window =
 				parseJavaInfo(
@@ -61,6 +64,7 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Window} with <code>getInitialSize()</code>.
 	 */
+	@Test
 	public void test_apply_getInitialSize() throws Exception {
 		WindowInfo window =
 				parseJavaInfo(
@@ -88,6 +92,7 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Window} with default source, i.e. no any special method.
 	 */
+	@Test
 	public void test_setSize_defaultSize() throws Exception {
 		WindowInfo window =
 				parseJavaInfo(
@@ -110,6 +115,7 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Window} with <code>getInitialSize()</code>.
 	 */
+	@Test
 	public void test_setSize_getInitialSize() throws Exception {
 		WindowInfo window =
 				parseJavaInfo(

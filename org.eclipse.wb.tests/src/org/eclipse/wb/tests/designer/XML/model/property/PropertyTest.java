@@ -31,7 +31,8 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.eclipse.swt.SWT;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.lang.reflect.TypeVariable;
 
@@ -58,6 +59,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyImpl#getDescription()}.
 	 */
+	@Test
 	public void test_getDescription() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -72,6 +74,7 @@ public class PropertyTest extends AbstractCoreTest {
 		assertNotNull(textProperty.getDescription());
 	}
 
+	@Test
 	public void test_makeCopy() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -91,6 +94,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyImpl#getType()}.
 	 */
+	@Test
 	public void test_getType() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -108,6 +112,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Property for type which is {@link TypeVariable}.
 	 */
+	@Test
 	public void test_typeVariableProperty() throws Exception {
 		setFileContentSrc(
 				"test/MySuper.java",
@@ -153,6 +158,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericProperty#hasTrueTag(String)}.
 	 */
+	@Test
 	public void test_hasTrueTag() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -176,6 +182,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link PropertyTooltipProvider} implementation.
 	 */
+	@Test
 	public void test_getAdapter_PropertyTooltipProvider() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -192,7 +199,7 @@ public class PropertyTest extends AbstractCoreTest {
 						tooltipProvider,
 						"getText(org.eclipse.wb.internal.core.model.property.Property)",
 						property);
-		assertThat(tooltip).contains("Enables the receiver if the argument").contains(
+		Assertions.assertThat(tooltip).contains("Enables the receiver if the argument").contains(
 				"and disables it otherwise.");
 	}
 
@@ -201,6 +208,7 @@ public class PropertyTest extends AbstractCoreTest {
 	// Value
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getValue_modified() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -223,6 +231,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using tag "x-rawValue".
 	 */
+	@Test
 	public void test_getValue_rawValue_modified() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -248,6 +257,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using tag "x-rawValue".
 	 */
+	@Test
 	public void test_getValue_rawValue_default() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -274,6 +284,7 @@ public class PropertyTest extends AbstractCoreTest {
 		assertEquals("555", property.getValue());
 	}
 
+	@Test
 	public void test_getValue_notModified_defaultInDescription() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -298,6 +309,7 @@ public class PropertyTest extends AbstractCoreTest {
 		assertEquals(555, property.getValue());
 	}
 
+	@Test
 	public void test_getValue_notModified_defaultFromGetter() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -324,6 +336,7 @@ public class PropertyTest extends AbstractCoreTest {
 		assertEquals(555, property.getValue());
 	}
 
+	@Test
 	public void test_getValue_notModified_defaultFromField() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -348,6 +361,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link MethodExpressionAccessor} in {@link GenericProperty#setValue(Object)}.
 	 */
+	@Test
 	public void test_setValue_method_noGetter() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -407,6 +421,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link MethodExpressionAccessor} in {@link GenericProperty#setValue(Object)}.
 	 */
+	@Test
 	public void test_setValue_method_hasGetter() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -467,6 +482,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link FieldExpressionAccessor} in {@link GenericProperty#setValue(Object)}.
 	 */
+	@Test
 	public void test_setValue_field() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -518,6 +534,7 @@ public class PropertyTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_setValue_keepDefault_setDefault() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -556,6 +573,7 @@ public class PropertyTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_setValue_keepDefault_askRemove() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -597,6 +615,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link IExpressionPropertyEditor}.
 	 */
+	@Test
 	public void test_setValue_forStaticField() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -620,6 +639,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link ContentExpressionAccessor}.
 	 */
+	@Test
 	public void test_isContent() throws Exception {
 		prepareMyComponent(
 				new String[]{
@@ -681,6 +701,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericProperty#getExpression()}.
 	 */
+	@Test
 	public void test_getExpression() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -702,6 +723,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericProperty#setExpression(String)}.
 	 */
+	@Test
 	public void test_setExpression() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -747,6 +769,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link GenericPropertySetValue} for validation.
 	 */
+	@Test
 	public void test_GenericProperty_valueValidation_1() throws Exception {
 		XmlObjectInfo panel = parse("<Shell/>");
 		Property enabledProperty = panel.getPropertyByTitle("enabled");
@@ -768,6 +791,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link GenericPropertySetValue} for validation.
 	 */
+	@Test
 	public void test_GenericProperty_valueValidation_2() throws Exception {
 		XmlObjectInfo panel = parse("<Shell/>");
 		Property enabledProperty = panel.getPropertyByTitle("enabled");
@@ -789,6 +813,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for using {@link GenericPropertySetExpression} for validation.
 	 */
+	@Test
 	public void test_GenericProperty_expressionValidation_1() throws Exception {
 		XmlObjectInfo panel = parse("<Shell/>");
 		GenericProperty enabledProperty = (GenericProperty) panel.getPropertyByTitle("enabled");
@@ -819,6 +844,7 @@ public class PropertyTest extends AbstractCoreTest {
 	 * <p>
 	 * Return {@link String} instead of <code>boolean</code>.
 	 */
+	@Test
 	public void test_GenericProperty_getPropertyValue_String() throws Exception {
 		XmlObjectInfo panel = parse("<Shell/>");
 		final GenericProperty enabledProperty = (GenericProperty) panel.getPropertyByTitle("enabled");
@@ -846,6 +872,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyImpl#getClipboardSource()}.
 	 */
+	@Test
 	public void test_getClipboardSource_notModified() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -864,6 +891,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyImpl#getClipboardSource()}.
 	 */
+	@Test
 	public void test_getClipboardSource_noConverter() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -888,6 +916,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyImpl#getClipboardSource()}.
 	 */
+	@Test
 	public void test_getClipboardSource_useConverter() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -906,6 +935,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyImpl#getClipboardSource()}.
 	 */
+	@Test
 	public void test_getClipboardSource_useEditor() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -930,6 +960,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for implementation of {@link Property#getComposite(Property[])}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -1022,6 +1053,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for implementation of {@link Property#getComposite(Property[])}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getType_sameType() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1048,6 +1080,7 @@ public class PropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for implementation of {@link Property#getComposite(Property[])}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getType_differentType() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

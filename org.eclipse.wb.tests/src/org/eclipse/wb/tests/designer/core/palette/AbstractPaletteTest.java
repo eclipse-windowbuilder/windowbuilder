@@ -20,6 +20,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.After;
 
 import javax.swing.JPanel;
 
@@ -28,7 +29,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
-public class AbstractPaletteTest extends SwingModelTest {
+public abstract class AbstractPaletteTest extends SwingModelTest {
 	private static final String POINT_ID = "org.eclipse.wb.core.toolkits";
 	protected static final String PALETTE_EXTENSION_ID = "testPaletteId";
 	protected static final String TOOLKIT_ID = "test.toolkit";
@@ -39,7 +40,8 @@ public class AbstractPaletteTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		removeToolkitExtension();
 		if (m_lastManager != null) {
 			m_lastManager.commands_clear();

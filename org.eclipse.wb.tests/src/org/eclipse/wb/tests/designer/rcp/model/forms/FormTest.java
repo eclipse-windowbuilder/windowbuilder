@@ -29,7 +29,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class FormTest extends AbstractFormsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_properties() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -75,6 +77,7 @@ public class FormTest extends AbstractFormsTest {
 	 * {@link ControlInfo}. In contrast "body" is rightful {@link CompositeInfo}, that can have
 	 * {@link LayoutInfo} and accept many {@link ControlInfo}'s.
 	 */
+	@Test
 	public void test_getHead_getBody() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -92,13 +95,13 @@ public class FormTest extends AbstractFormsTest {
 		{
 			CompositeInfo head = (CompositeInfo) childrenControls.get(0);
 			assertSame(head, form.getHead());
-			assertThat(head.toString()).contains("getHead()");
+			Assertions.assertThat(head.toString()).contains("getHead()");
 			assertFalse(head.hasLayout());
 		}
 		{
 			CompositeInfo body = (CompositeInfo) childrenControls.get(1);
 			assertSame(body, form.getBody());
-			assertThat(body.toString()).contains("getBody()");
+			Assertions.assertThat(body.toString()).contains("getBody()");
 			assertTrue(body.hasLayout());
 		}
 	}
@@ -111,6 +114,7 @@ public class FormTest extends AbstractFormsTest {
 	/**
 	 * Test for {@link FormInfo#getHeadClient()}.
 	 */
+	@Test
 	public void test_head_getHeadClient() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -138,6 +142,7 @@ public class FormTest extends AbstractFormsTest {
 	/**
 	 * Test for {@link FormInfo#setHeadClient(ControlInfo)}.
 	 */
+	@Test
 	public void test_head_setHeadClient() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -171,6 +176,7 @@ public class FormTest extends AbstractFormsTest {
 	/**
 	 * Test for moving "head client" out.
 	 */
+	@Test
 	public void test_head_MoveOut() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -206,6 +212,7 @@ public class FormTest extends AbstractFormsTest {
 	/**
 	 * Test for moving "head client" in.
 	 */
+	@Test
 	public void test_head_MoveIn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -245,6 +252,7 @@ public class FormTest extends AbstractFormsTest {
 	/**
 	 * We should support {@link Form#getToolBarManager()} and {@link Form#getMenuManager()}.
 	 */
+	@Test
 	public void test_exposedManagers_0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -271,6 +279,7 @@ public class FormTest extends AbstractFormsTest {
 	/**
 	 * We should support {@link Form#getToolBarManager()} and {@link Form#getMenuManager()}.
 	 */
+	@Test
 	public void test_exposedManagers_toolBarManager() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -287,13 +296,14 @@ public class FormTest extends AbstractFormsTest {
 		{
 			assertNotNull(form.getToolBarManager());
 			Rectangle bounds = form.getToolBarManager().getBounds();
-			assertThat(bounds.width).isLessThan(100);
+			Assertions.assertThat(bounds.width).isLessThan(100);
 		}
 	}
 
 	/**
 	 * We should support {@link Form#getToolBarManager()} and {@link Form#getMenuManager()}.
 	 */
+	@Test
 	public void test_exposedManagers_menuManager() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -313,14 +323,15 @@ public class FormTest extends AbstractFormsTest {
 			IMenuPopupInfo popupInfo = form.getMenuImpl(menuManager);
 			assertSame(menuManager, popupInfo.getModel());
 			Rectangle bounds = popupInfo.getBounds();
-			assertThat(bounds.width).isGreaterThan(10);
-			assertThat(bounds.height).isGreaterThan(10);
+			Assertions.assertThat(bounds.width).isGreaterThan(10);
+			Assertions.assertThat(bounds.height).isGreaterThan(10);
 		}
 	}
 
 	/**
 	 * We should support {@link Form#getToolBarManager()} and {@link Form#getMenuManager()}.
 	 */
+	@Test
 	public void test_exposedManagers_createAction() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -364,6 +375,7 @@ public class FormTest extends AbstractFormsTest {
 	 * {@link FormInfo} should have in context menu action to add/remove
 	 * {@link FormToolkit#decorateFormHeading(Form)}.
 	 */
+	@Test
 	public void test_FormToolkit_decorateFormHeading() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

@@ -20,7 +20,8 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 
 import org.eclipse.swt.widgets.Control;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test {@link BorderLayoutInfo}.
@@ -42,6 +43,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -57,13 +59,14 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 				"  {new: swing2swt.layout.BorderLayout} {empty} {/setLayout(new BorderLayout(0, 0))/}");
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		// BorderLayout is "flow container" only for tree
-		assertThat(new FlowContainerFactory(layout, true).get()).isEmpty();
-		assertThat(new FlowContainerFactory(layout, false).get()).isNotEmpty();
+		Assertions.assertThat(new FlowContainerFactory(layout, true).get()).isEmpty();
+		Assertions.assertThat(new FlowContainerFactory(layout, false).get()).isNotEmpty();
 	}
 
 	/**
 	 * Test for {@link BorderLayoutInfo#getControl(String)}.
 	 */
+	@Test
 	public void test_getControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -98,6 +101,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	 * {@link Control#setLayoutData(Object)} invocations, because there are no real
 	 * {@link LayoutDataInfo} to remove (which does this automatically).
 	 */
+	@Test
 	public void test_whenLayoutDelete_setLayoutData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -141,6 +145,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_CREATE(ControlInfo, String)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -176,6 +181,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_MOVE(ControlInfo, String)}.
 	 */
+	@Test
 	public void test_MOVE_setRegion() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -210,6 +216,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_MOVE(ControlInfo, String)}.
 	 */
+	@Test
 	public void test_MOVE_withReparent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -260,6 +267,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	// "Region" property
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_RegionProperty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -298,6 +306,7 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 				"}");
 	}
 
+	@Test
 	public void test_RegionProperty_noValue() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

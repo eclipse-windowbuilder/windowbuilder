@@ -17,11 +17,12 @@ import org.eclipse.wb.internal.core.model.property.editor.TextDisplayPropertyEdi
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import org.assertj.core.api.Assertions;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ import java.util.Map;
  *
  * @author sablin_aa
  */
-public class AbstractTextPropertyEditorTest extends SwingModelTest {
+public abstract class AbstractTextPropertyEditorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Assertions
@@ -96,7 +97,7 @@ public class AbstractTextPropertyEditorTest extends SwingModelTest {
 	 */
 	protected static void assertContainsOnly(Object editor, String fieldName, List<?> expected)
 			throws Exception {
-		assertThat((Object[]) getFieldValue(editor, fieldName)).containsOnly(expected.toArray());
+		Assertions.assertThat((Object[]) getFieldValue(editor, fieldName)).containsOnly(expected.toArray());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

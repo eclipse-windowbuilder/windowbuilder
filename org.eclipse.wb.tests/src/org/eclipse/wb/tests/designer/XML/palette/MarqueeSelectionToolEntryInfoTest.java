@@ -14,12 +14,15 @@ import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.MarqueeSelectionToolEntryInfo;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 /**
  * Test for {@link MarqueeSelectionToolEntryInfo}.
  *
  * @author scheglov_ke
  */
 public class MarqueeSelectionToolEntryInfoTest extends DesignerTestCase {
+	@Test
 	public void test() throws Exception {
 		MarqueeSelectionToolEntryInfo entry = new MarqueeSelectionToolEntryInfo();
 		assertEquals("Marquee", entry.getName());

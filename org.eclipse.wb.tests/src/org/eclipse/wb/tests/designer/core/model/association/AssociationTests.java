@@ -11,38 +11,37 @@
 package org.eclipse.wb.tests.designer.core.model.association;
 
 import org.eclipse.wb.core.model.association.Association;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link Association}'s.
  *
  * @author scheglov_ke
  */
-public class AssociationTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.association");
+@RunWith(Suite.class)
+@SuiteClasses({
 		// constructor
-		suite.addTest(createSingleSuite(ConstructorParentAssociationTest.class));
-		suite.addTest(createSingleSuite(ConstructorChildAssociationTest.class));
+		ConstructorParentAssociationTest.class,
+		ConstructorChildAssociationTest.class,
 		// invocation
-		suite.addTest(createSingleSuite(InvocationChildAssociationTest.class));
-		suite.addTest(createSingleSuite(InvocationVoidAssociationTest.class));
-		suite.addTest(createSingleSuite(InvocationSecondaryAssociationTest.class));
-		suite.addTest(createSingleSuite(FactoryParentAssociationTest.class));
+		InvocationChildAssociationTest.class,
+		InvocationVoidAssociationTest.class,
+		InvocationSecondaryAssociationTest.class,
+		FactoryParentAssociationTest.class,
 		// other
-		suite.addTest(createSingleSuite(RootAssociationTest.class));
-		suite.addTest(createSingleSuite(EmptyAssociationTest.class));
-		suite.addTest(createSingleSuite(UnknownAssociationTest.class));
-		suite.addTest(createSingleSuite(SuperConstructorArgumentAssociationTest.class));
-		suite.addTest(createSingleSuite(ImplicitObjectAssociationTest.class));
-		suite.addTest(createSingleSuite(ImplicitFactoryArgumentAssociationTest.class));
-		suite.addTest(createSingleSuite(CompoundAssociationTest.class));
+		RootAssociationTest.class,
+		EmptyAssociationTest.class,
+		UnknownAssociationTest.class,
+		SuperConstructorArgumentAssociationTest.class,
+		ImplicitObjectAssociationTest.class,
+		ImplicitFactoryArgumentAssociationTest.class,
+		CompoundAssociationTest.class,
 		// object/factory
-		suite.addTest(createSingleSuite(AssociationObjectsTest.class));
-		suite.addTest(createSingleSuite(AssociationObjectFactoriesTest.class));
-		return suite;
-	}
+		AssociationObjectsTest.class,
+		AssociationObjectFactoriesTest.class
+})
+public class AssociationTests {
 }

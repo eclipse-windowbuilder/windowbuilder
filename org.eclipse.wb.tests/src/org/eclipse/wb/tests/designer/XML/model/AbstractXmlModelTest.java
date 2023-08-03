@@ -26,9 +26,9 @@ import org.eclipse.wb.internal.core.xml.model.utils.GlobalStateXml;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.AbstractXmlObjectTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
+import org.junit.After;
 
 import java.util.List;
 
@@ -44,7 +44,8 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		disposeLastModel();
 		super.tearDown();
 	}
@@ -85,14 +86,14 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
 	public static void assertVisibleInTree(final ObjectInfo child, boolean expected) throws Exception {
 		List<ObjectInfo> children = child.getParent().getPresentation().getChildrenTree();
 		if (expected) {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should be visible it tree: " + child;
 				}
 			}).contains(child);
 		} else {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should not be visible it tree: " + child;
@@ -108,14 +109,14 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
 			throws Exception {
 		List<ObjectInfo> children = child.getParent().getPresentation().getChildrenGraphical();
 		if (expected) {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should be visible on canvas: " + child;
 				}
 			}).contains(child);
 		} else {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should not be visible on canvas: " + child;

@@ -20,6 +20,9 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
 import org.eclipse.swt.graphics.Point;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for basic {@link PropertyTable} features.
  *
@@ -35,7 +38,8 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// set up properties
 		{
@@ -84,6 +88,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	/**
 	 * Test for clearing properties.
 	 */
+	@Test
 	public void test_setInput_null() throws Exception {
 		m_propertyTable.setInput(null);
 		waitEventLoop(0);
@@ -92,6 +97,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	/**
 	 * Tests cursor.
 	 */
+	@Test
 	public void test_cursor() throws Exception {
 		m_sender.moveTo(10, 10);
 		assertNull(m_propertyTable.getCursor());
@@ -109,6 +115,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	/**
 	 * Tests splitter resize.
 	 */
+	@Test
 	public void test_splitter() throws Exception {
 		int width = m_propertyTable.getClientArea().width;
 		// check initial position
@@ -138,6 +145,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	/**
 	 * Test for expand/collapse complex property
 	 */
+	@Test
 	public void test_expandCollapse() throws Exception {
 		// for not existing property location is "null"
 		assertNull(m_propertyTable.forTests_getStateLocation(null));
@@ -168,6 +176,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	/**
 	 * Test for clipped "<No Properties>" message.
 	 */
+	@Test
 	public void test_noPropertiesClip() throws Exception {
 		m_propertyTable.setInput(null);
 		m_shell.setSize(100, 100);
@@ -177,6 +186,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	/**
 	 * Set of sub-properties is changed to same complex property.
 	 */
+	@Test
 	public void test_setInput_complexPropertySubPropertiesChanged() throws Exception {
 		TestProperty propertyA = new TestProperty("a", true, 1, IntegerPropertyEditor.INSTANCE);
 		TestProperty propertyB = new TestProperty("b", true, 2, IntegerPropertyEditor.INSTANCE);

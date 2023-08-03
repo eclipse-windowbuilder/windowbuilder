@@ -22,7 +22,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getText(Property)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -66,21 +68,23 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getTitles(Property[])}.
 	 */
+	@Test
 	public void test_getTitles_asArray() throws Exception {
 		Property property_1 = new PropertyWithTitle("a");
 		Property property_2 = new PropertyWithTitle("b");
-		assertThat(PropertyUtils.getTitles(property_1, property_2)).isEqualTo(new String[]{"a", "b"});
+		Assertions.assertThat(PropertyUtils.getTitles(property_1, property_2)).isEqualTo(new String[]{"a", "b"});
 	}
 
 	/**
 	 * Test for {@link PropertyUtils#getTitles(List)}.
 	 */
+	@Test
 	public void test_getTitles_asList() throws Exception {
 		Property property_1 = new PropertyWithTitle("a");
 		Property property_2 = new PropertyWithTitle("b");
 		List<Property> properties = ImmutableList.of(property_1, property_2);
 		List<String> expectedTitles = ImmutableList.of("a", "b");
-		assertThat(PropertyUtils.getTitles(properties)).isEqualTo(expectedTitles);
+		Assertions.assertThat(PropertyUtils.getTitles(properties)).isEqualTo(expectedTitles);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -91,6 +95,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getByTitle(Property[], String)}.
 	 */
+	@Test
 	public void test_getByTitle_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -110,6 +115,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getByTitle(List, String)}.
 	 */
+	@Test
 	public void test_getByTitle_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -134,6 +140,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getByPath(JavaInfo, String)}.
 	 */
+	@Test
 	public void test_getByPath_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -176,6 +183,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getByPath(List, String)}.
 	 */
+	@Test
 	public void test_getByPath_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -214,6 +222,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getChildren(Property)}.
 	 */
+	@Test
 	public void test_getChildren() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -226,7 +235,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 		//
 		Property constructorProperty = PropertyUtils.getByPath(button, "Constructor");
 		Property[] subProperties = PropertyUtils.getChildren(constructorProperty);
-		assertThat(subProperties).hasSize(2);
+		Assertions.assertThat(subProperties).hasSize(2);
 		assertEquals("text", subProperties[0].getTitle());
 		assertEquals("icon", subProperties[1].getTitle());
 	}
@@ -239,6 +248,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getExcludeByTitlePredicate(String...)}.
 	 */
+	@Test
 	public void test_getExcludeByTitlePredicate() throws Exception {
 		Predicate<Property> predicate = PropertyUtils.getExcludeByTitlePredicate("a", "c");
 		{
@@ -258,6 +268,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getIncludeByTitlePredicate(String...)}.
 	 */
+	@Test
 	public void test_getIncludeByTitlePredicate() throws Exception {
 		Predicate<Property> predicate = PropertyUtils.getIncludeByTitlePredicate("a", "c");
 		{
@@ -277,6 +288,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getProperties(JavaInfo, Predicate)}.
 	 */
+	@Test
 	public void test_getProperties_withPredicate() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -289,20 +301,21 @@ public class PropertyUtilsTest extends SwingModelTest {
 		{
 			Property[] properties = panel.getProperties();
 			String[] titles = PropertyUtils.getTitles(properties);
-			assertThat(titles).contains("enabled");
+			Assertions.assertThat(titles).contains("enabled");
 		}
 		// use predicate that excludes "enabled"
 		{
 			Predicate<Property> predicate = PropertyUtils.getExcludeByTitlePredicate("enabled");
 			List<Property> properties = PropertyUtils.getProperties(panel, predicate);
 			List<String> titles = PropertyUtils.getTitles(properties);
-			assertThat(titles).doesNotContain("enabled").contains("background");
+			Assertions.assertThat(titles).doesNotContain("enabled").contains("background");
 		}
 	}
 
 	/**
 	 * Test for {@link PropertyUtils#getExcludeByTitlePredicate(JavaInfo, String)}.
 	 */
+	@Test
 	public void test_getExcludeByTitlePredicate_forParameter() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -348,6 +361,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyUtils#getProperties_excludeByParameter(JavaInfo, String)}.
 	 */
+	@Test
 	public void test_getProperties_excludeByParameter() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -378,20 +392,21 @@ public class PropertyUtilsTest extends SwingModelTest {
 		{
 			Property[] properties = panel.getProperties();
 			String[] titles = PropertyUtils.getTitles(properties);
-			assertThat(titles).contains("enabled", "visible");
+			Assertions.assertThat(titles).contains("enabled", "visible");
 		}
 		// but we use predicate that excludes "enabled" and "visible"
 		{
 			List<Property> properties =
 					PropertyUtils.getProperties_excludeByParameter(panel, "exclude-parameter");
 			List<String> titles = PropertyUtils.getTitles(properties);
-			assertThat(titles).doesNotContain("enabled", "visible").contains("background");
+			Assertions.assertThat(titles).doesNotContain("enabled", "visible").contains("background");
 		}
 	}
 
 	/**
 	 * Test for {@link PropertyUtils#filterProperties(List, Predicate)}.
 	 */
+	@Test
 	public void test_filterProperties() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -404,18 +419,18 @@ public class PropertyUtilsTest extends SwingModelTest {
 		{
 			Property[] properties = panel.getProperties();
 			String[] titles = PropertyUtils.getTitles(properties);
-			assertThat(titles).contains("enabled");
+			Assertions.assertThat(titles).contains("enabled");
 		}
 		// use predicate that includes only "enabled"
 		{
 			List<Property> properties = Lists.newArrayList(panel.getProperties());
-			assertThat(properties.size()).isGreaterThan(10);
+			Assertions.assertThat(properties.size()).isGreaterThan(10);
 			//
 			PropertyUtils.filterProperties(
 					properties,
 					PropertyUtils.getIncludeByTitlePredicate("enabled"));
 			List<String> titles = PropertyUtils.getTitles(properties);
-			assertThat(titles).hasSize(1).contains("enabled");
+			Assertions.assertThat(titles).hasSize(1).contains("enabled");
 		}
 	}
 }

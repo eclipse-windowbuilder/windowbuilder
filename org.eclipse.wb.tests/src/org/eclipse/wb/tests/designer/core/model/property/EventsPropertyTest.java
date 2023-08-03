@@ -42,13 +42,16 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 
@@ -67,13 +70,15 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		setPreferencesDefaults();
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		waitEventLoop(0);
 		setPreferencesDefaults();
 		super.tearDown();
@@ -118,6 +123,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// Parsing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noListeners() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -132,6 +138,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		eventsProperty.setValue(null); // ignored
 	}
 
+	@Test
 	public void test_hasListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -179,6 +186,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 	}
 
+	@Test
 	public void test_listenerInVariable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -196,6 +204,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		assertTrue(keyPressedProperty.isModified());
 	}
 
+	@Test
 	public void test_listenerInnerType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -224,6 +233,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When component has "addXListener()" methods with same name, but different parameters, we should
 	 * show qualified listener names to user.
 	 */
+	@Test
 	public void test_qualifeidListenerNames() throws Exception {
 		setFileContentSrc(
 				"test/Listener_1.java",
@@ -270,6 +280,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * "this" listener handler.<br>
 	 * No conditions that check {@link EventObject#getSource()}, so all listener methods are handlers.
 	 */
+	@Test
 	public void test_listenerThis_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -299,6 +310,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * "this" listener handler.<br>
 	 * Conditions that check {@link EventObject#getSource()}.
 	 */
+	@Test
 	public void test_listenerThis_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -337,6 +349,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * "this" listener handler.<br> {@link Statement} as {@link IfStatement#THEN_STATEMENT_PROPERTY}.
 	 */
+	@Test
 	public void test_listenerThis_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -380,6 +393,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * know that some {@link JavaInfo} was assigned into <code>m_button</code> (at least 20080516), so
 	 * don't understand routing to stub.
 	 */
+	@Test
 	public void test_listenerAndExecutionFlow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -436,6 +450,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		});
 	}
 
+	@Test
 	public void test_delete_method_noListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -455,6 +470,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_delete_method_noMethod() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -480,6 +496,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_delete_method_Cancel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -510,6 +527,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		assertEditor(expectedSource, m_lastEditor);
 	}
 
+	@Test
 	public void test_delete_method() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -533,6 +551,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_delete_methodWithStub() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -559,6 +578,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_delete_listener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -590,6 +610,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// Delete and inner class
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteInner_method() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -616,6 +637,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_deleteInner_listener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -646,6 +668,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When we delete component, we should also delete its inner {@link TypeDeclaration} used as
 	 * listener.
 	 */
+	@Test
 	public void test_deleteInner_componentWithListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -676,6 +699,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * When we delete component, we should delete only its event handlers.
 	 */
+	@Test
 	public void test_deleteComponent_andOtherListeners() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -713,6 +737,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When delete {@link JavaInfo}, in general we should also delete its "inner listener", so we may
 	 * ask about multiple usages. But we should not do this.
 	 */
+	@Test
 	public void test_deleteInner_listener_twoUsages_deleteJavaInfo() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -754,6 +779,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_deleteInner_listener_twoUsages_keepOne() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -802,6 +828,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_deleteInner_listener_twoUsages_removeAll() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -877,6 +904,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * "this" listener handler.<br>
 	 * When delete component: its stubs, routing to stubs should be removed.
 	 */
+	@Test
 	public void test_deleteThis_listener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -924,6 +952,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * "this" listener handler, delete single stub.
 	 */
+	@Test
 	public void test_delete_method_interfaceWithDirectStub() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -961,6 +990,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * "this" listener handler, delete single stub.
 	 */
+	@Test
 	public void test_delete_method_interfaceWithConditionalStub_block() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1000,6 +1030,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * "this" listener handler, delete single stub.
 	 */
+	@Test
 	public void test_delete_method_interfaceWithConditionalStub_flat() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1039,6 +1070,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * "this" listener handler, delete single stub.<br>
 	 * Keep stub method, because it is invoked from other places, not only from listener method.
 	 */
+	@Test
 	public void test_delete_method_interfaceWithConditionalStub_plusOtherPlace() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1085,6 +1117,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// ensureListenerMethod()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ensureListenerMethod_addListenerMethod() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1109,6 +1142,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_addListenerMethod_Java14() throws Exception {
 		String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
 		try {
@@ -1138,6 +1172,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 	}
 
+	@Test
 	public void test_ensureListenerMethod_addListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1186,6 +1221,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 	}
 
+	@Test
 	public void test_addListener_deleteListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1227,6 +1263,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// ensureListenerMethod(): inner class
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ensureListenerMethod_inner_badPosition() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1248,6 +1285,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_firstInType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1277,6 +1315,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_lastInType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1306,6 +1345,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_beforeExistingListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1335,6 +1375,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_beforeNotExistingListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1364,6 +1405,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_afterExistingListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1393,6 +1435,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_noAdapter() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1424,6 +1467,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_exposedVariable() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -1454,6 +1498,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_ensureListenerMethod_inner_nameTemplate() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1493,6 +1538,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * "this" listener.<br>
 	 * No stubs.
 	 */
+	@Test
 	public void test_ensureListenerMethod_interface_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1526,6 +1572,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * "this" listener.<br>
 	 * With stubs.
 	 */
+	@Test
 	public void test_ensureStubMethod_interface_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1566,6 +1613,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// Stub
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_openStubMethod() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1634,6 +1682,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * In theory we should generate/use stub here, but practically this causes much pain in
 	 * implementation, so I've decided to avoid this.
 	 */
+	@Test
 	public void test_openStubMethod_whenInnerClass() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1667,6 +1716,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Use openStubMethod(), but no stub enabled, so open listener method.
 	 */
+	@Test
 	public void test_openStubMethod_noStub() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1695,6 +1745,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Use ensureStubMethod(), but no stub enabled, so open listener method.
 	 */
+	@Test
 	public void test_ensureStubMethod_noStub() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1725,6 +1776,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Use openStubMethod(), stub enabled, but existing source has no stub.
 	 */
+	@Test
 	public void test_openStubMethod_noStub2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1754,6 +1806,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				"}");
 	}
 
+	@Test
 	public void test_openStubMethod_static() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1789,6 +1842,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * We should be able to handle "local" listener class (not just inner), because it is used in GWT
 	 * sample.
 	 */
+	@Test
 	public void test_openStubMethod_whenLocalClass() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1826,6 +1880,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * listener.<br>
 	 * In this case such listener/method combination exists.
 	 */
+	@Test
 	public void test_openStubListenerMethod_valid() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1866,6 +1921,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * <p>
 	 * Support for special "wbp:openSource" name.
 	 */
+	@Test
 	public void test_openStubListenerMethod_openSource() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -1913,6 +1969,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * <p>
 	 * Support for special "wbp:broadcast" name and {@link JavaInfoEventOpen} broadcast.
 	 */
+	@Test
 	public void test_openStubListenerMethod_sendBroadcast() throws Exception {
 		String name = "wbp:broadcast with parameters";
 		ContainerInfo panel =
@@ -1950,6 +2007,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * listener.<br>
 	 * In this case such listener/method combination does NOT exist.
 	 */
+	@Test
 	public void test_openStubListenerMethod_invalid() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1986,6 +2044,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Custom listener with several parameters in handler method.
 	 */
+	@Test
 	public void test_ensureListenerMethod_customListener() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2033,6 +2092,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Component that can accept some listener in constructor. Such components exist in GWT.
 	 */
+	@Test
 	public void test_ensureListenerMethod_listenerInConstructor() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -2078,6 +2138,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * Component that can accept some listener in constructor. Such components exist in GWT.<br>
 	 * Case when listener is not directly in constructor argument, but in variable.
 	 */
+	@Test
 	public void test_listenerInConstructor_inVariable() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -2125,6 +2186,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				m_lastEditor.getSource(listenerMethod));
 	}
 
+	@Test
 	public void test_ensureListenerMethod_final() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2160,6 +2222,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Test that icon of components with event handlers is decorated.
 	 */
+	@Test
 	public void test_decorateIcon() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2201,6 +2264,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// ListenerMethodPropertyEditor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ListenerMethodPropertyEditor_doubleClick() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2243,6 +2307,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * Create listener method using
 	 * {@link PropertyEditor#activate(PropertyTable, Property, org.eclipse.swt.graphics.Point)}.
 	 */
+	@Test
 	public void test_ListenerMethodPropertyEditor_activate() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2285,6 +2350,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * "Handler" suffix for addX[Listener/Handler]() methods.
 	 */
+	@Test
 	public void test_addXHandler() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -2310,6 +2376,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * ExtGWT uses classes (not interfaces) as listener parameter. We check that this is supported.
 	 */
+	@Test
 	public void test_listenerAsClass() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2338,7 +2405,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(panel, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 		// open "my.handle" listener method
@@ -2358,6 +2425,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * ExtGWT uses classes (not interfaces) as listener parameter. When "inner type" code generation.
 	 */
+	@Test
 	public void test_listenerAsClass_innerType() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2404,6 +2472,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * ExtGWT uses non-abstract methods in class as listener methods, for example
 	 * <code>WidgetListener</code>.
 	 */
+	@Test
 	public void test_listenerAsClass_useDeclaredNonAbstractMethods() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2435,7 +2504,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(panel, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(2);
+			Assertions.assertThat(methods).hasSize(2);
 			assertEquals("handle", methods[0].getTitle());
 			assertEquals("handle2", methods[1].getTitle());
 		}
@@ -2456,6 +2525,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Test that implementation of generic interface does not cause duplicate methods.
 	 */
+	@Test
 	public void test_listenerAsClass_implementGenericInterface() throws Exception {
 		setFileContentSrc(
 				"test/MyInterface.java",
@@ -2493,7 +2563,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(panel, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 	}
@@ -2501,6 +2571,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * ExtGWT uses listener classes with generics.
 	 */
+	@Test
 	public void test_listenerWithGeneric() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2529,7 +2600,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(panel, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 		// open "my.handle" listener method
@@ -2549,6 +2620,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * ExtGWT uses listener classes with generics.
 	 */
+	@Test
 	public void test_listenerWithGeneric_innerType() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2596,6 +2668,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * parameterized (again!) <code>ValueChangeEvent</code>. So, we should resolve type parameters
 	 * deeply.
 	 */
+	@Test
 	public void test_listenerWithGeneric_parameterizedEvent() throws Exception {
 		setFileContentSrc(
 				"test/MyEvent.java",
@@ -2632,7 +2705,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(panel, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 		// open "my.handle" listener method
@@ -2653,6 +2726,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * <code>Listener</code> has parameter for <code>Event</code> and value of this type parameter is
 	 * specified in component creation.
 	 */
+	@Test
 	public void test_listenerWithGeneric_parameterizedEvent_actualInType() throws Exception {
 		setFileContentSrc(
 				"test/MyEvent.java",
@@ -2701,7 +2775,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(inner, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 		// open "my.handle" listener method
@@ -2726,6 +2800,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * <code>Listener</code> has parameter for <code>Event</code> and value of this type parameter is
 	 * specified in one of the superclasses.
 	 */
+	@Test
 	public void test_listenerWithGeneric_parameterizedEvent_actualInSuperclass() throws Exception {
 		setFileContentSrc(
 				"test/MyEvent.java",
@@ -2810,6 +2885,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Test for case when value for type parameter is not specified in {@link ClassInstanceCreation}.
 	 */
+	@Test
 	public void test_listenerWithGeneric_parameterizedEvent_noTypeArgument() throws Exception {
 		setFileContentSrc(
 				"test/MyEvent.java",
@@ -2850,7 +2926,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(inner, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 		// open "my.handle" listener method
@@ -2875,6 +2951,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * Case when we add listener to for the generic component, and type argument is type parameter of
 	 * form which we parse now. So this type argument can not be resolved to an actual {@link Class}.
 	 */
+	@Test
 	public void test_listenerWithGeneric_pureTypeVariable() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -2905,7 +2982,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			Property listener = getEventsListener(myPanel, "my");
 			assertNotNull(listener);
 			Property[] methods = getSubProperties(listener);
-			assertThat(methods).hasSize(1);
+			Assertions.assertThat(methods).hasSize(1);
 			assertEquals("handle", methods[0].getTitle());
 		}
 		// open "my.handle" listener method
@@ -2927,6 +3004,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Listener that has name "addListener".
 	 */
+	@Test
 	public void test_addListener_justSuchName() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -2970,6 +3048,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * "Adapter" that is constructed by adding word "Adapter" to the "MyListener" name.
 	 */
+	@Test
 	public void test_addMyListenerAdapter() throws Exception {
 		setFileContentSrc(
 				"test/MyListener.java",
@@ -3026,6 +3105,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	/**
 	 * Test for case when there are inheritance for listeners, so also inheritance for adapters.
 	 */
+	@Test
 	public void test_addAdapterInheritance() throws Exception {
 		setFileContentSrc(
 				"test/SuperListener.java",
@@ -3098,6 +3178,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When listener is defined not as top level, but as inner type of component, it has
 	 * <code>$</code> in its name, but we should use its "source" name.
 	 */
+	@Test
 	public void test_listenerAsInnerTypeOfComponent_anonymous() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent();
 		ContainerInfo panel =
@@ -3130,6 +3211,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When listener is defined not as top level, but as inner type of component, it has
 	 * <code>$</code> in its name, but we should use its "source" name.
 	 */
+	@Test
 	public void test_listenerAsInnerTypeOfComponent_inner() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent();
 		ContainerInfo panel =
@@ -3167,6 +3249,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When listener is defined not as top level, but as inner type of component, it has
 	 * <code>$</code> in its name, but we should use its "source" name.
 	 */
+	@Test
 	public void test_listenerAsInnerTypeOfComponent_innerAdapter() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent_withAdapter();
 		ContainerInfo panel =
@@ -3204,6 +3287,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * When listener is defined not as top level, but as inner type of component, it has
 	 * <code>$</code> in its name, but we should use its "source" name.
 	 */
+	@Test
 	public void test_listenerAsInnerTypeOfComponent_interface() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent();
 		ContainerInfo panel =
@@ -3275,6 +3359,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_understand() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -3294,6 +3379,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		assertEquals("line 8", getPropertyText(keyReleasedProperty));
 	}
 
+	@Test
 	public void test_contextMenu() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -3366,6 +3452,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	// Deprecated
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deprecatedListenerMethod() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

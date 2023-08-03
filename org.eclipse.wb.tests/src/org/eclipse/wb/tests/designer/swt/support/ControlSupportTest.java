@@ -21,6 +21,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ControlSupport}.
  *
@@ -57,11 +59,13 @@ public class ControlSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getWidgetClass() throws Exception {
 		Class<?> WidgetClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Widget");
 		assertSame(WidgetClass, ControlSupport.getWidgetClass());
 	}
 
+	@Test
 	public void test_getControlClass() throws Exception {
 		Class<?> ControlClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Control");
 		assertSame(ControlClass, ControlSupport.getControlClass());
@@ -70,6 +74,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ControlSupport#isControlClass(Class)}.
 	 */
+	@Test
 	public void test_isControlClass() throws Exception {
 		// Object is not Control
 		assertFalse(ControlSupport.isControlClass(Object.class));
@@ -79,6 +84,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertTrue(ControlSupport.isControlClass(ContainerSupport.getShellClass()));
 	}
 
+	@Test
 	public void test_isControl() throws Exception {
 		// "null" is not Control
 		assertFalse(ControlSupport.isControl(null));
@@ -93,6 +99,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		}
 	}
 
+	@Test
 	public void test_getStyle() throws Exception {
 		Object button = getButton();
 		assertEquals(
@@ -100,18 +107,21 @@ public class ControlSupportTest extends AbstractSupportTest {
 				ControlSupport.getStyle(button));
 	}
 
+	@Test
 	public void test_isStyle() throws Exception {
 		Object button = getButton();
 		assertTrue(ControlSupport.isStyle(button, SWT.CHECK));
 		assertFalse(ControlSupport.isStyle(button, SWT.RADIO));
 	}
 
+	@Test
 	public void test_getBounds() throws Exception {
 		Object button = getButton();
 		Rectangle bounds = ControlSupport.getBounds(button);
 		assertEquals(new Rectangle(10, 20, 50, 30), bounds);
 	}
 
+	@Test
 	public void test_toDisplay() throws Exception {
 		Object button = getButton();
 		Object toDisplayPoint = ReflectionUtils.invokeMethod(button, "toDisplay(int,int)", 5, 5);
@@ -121,6 +131,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertEquals(ReflectionUtils.getFieldInt(toDisplayPoint, "y"), toDisplayPointTest.y);
 	}
 
+	@Test
 	public void test_setSize() throws Exception {
 		Object button = getButton();
 		ControlSupport.setSize(button, 55, 25);
@@ -129,6 +140,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertEquals(25, ReflectionUtils.getFieldInt(size, "y"));
 	}
 
+	@Test
 	public void test_setLocation() throws Exception {
 		Object button = getButton();
 		ControlSupport.setLocation(button, 20, 10);
@@ -137,6 +149,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertEquals(10, ReflectionUtils.getFieldInt(location, "y"));
 	}
 
+	@Test
 	public void test_getPreferredSize() throws Exception {
 		Object button = getButton();
 		Object preferredSize = ControlSupport.computeSize_DEFAULT(button);
@@ -146,6 +159,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertEquals(ReflectionUtils.getFieldInt(preferredSize, "y"), preferredSizeTest.height);
 	}
 
+	@Test
 	public void test_pack() throws Exception {
 		Object shell = m_shell.getObject();
 		ReflectionUtils.invokeMethod(shell, "setSize(int,int)", 300, 200);
@@ -160,6 +174,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 				ReflectionUtils.getFieldInt(testSize, "y"));
 	}
 
+	@Test
 	public void test_data() throws Exception {
 		Object button = getButton();
 		assertNull(ControlSupport.getData(button, "key"));
@@ -169,6 +184,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertNull(ControlSupport.getData(button, "key"));
 	}
 
+	@Test
 	public void test_getParent() throws Exception {
 		Object shell = m_shell.getObject();
 		Object button = getButton();
@@ -176,16 +192,19 @@ public class ControlSupportTest extends AbstractSupportTest {
 		assertNull(ControlSupport.getParent(shell));
 	}
 
+	@Test
 	public void test_getShell() throws Exception {
 		Object shell = m_shell.getObject();
 		Object button = getButton();
 		assertSame(shell, ControlSupport.getShell(button));
 	}
 
+	@Test
 	public void test_dispose_ignoreNull() throws Exception {
 		ControlSupport.dispose(null);
 	}
 
+	@Test
 	public void test_dispose() throws Exception {
 		Object button = getButton();
 		// initially not disposed
@@ -200,6 +219,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ControlSupport#getLayoutData(Object)}
 	 */
+	@Test
 	public void test_getLayoutData() throws Exception {
 		disposeLastModel();
 		CompositeInfo shellInfo =

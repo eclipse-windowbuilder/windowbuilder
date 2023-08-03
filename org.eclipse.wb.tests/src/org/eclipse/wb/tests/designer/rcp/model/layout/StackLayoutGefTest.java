@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link StackLayoutInfo} in GEF.
  *
@@ -36,6 +38,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 	// CREATE on canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_onCanvas_empty() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -58,6 +61,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_onCanvas_beforeExisting() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -89,6 +93,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_onCanvas_afterExisting() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -125,6 +130,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 	// CREATE in tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_inTree_empty() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -149,6 +155,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_inTree_beforeExisting() throws Exception {
 		openComposite(
 				"public class Test extends Shell {",
@@ -177,6 +184,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_inTree_afterExisting() throws Exception {
 		openComposite(
 				"public class Test extends Shell {",
@@ -210,6 +218,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 	// MOVE in tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_inTree() throws Exception {
 		openComposite(
 				"public class Test extends Shell {",
@@ -250,6 +259,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 	// Navigation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_navigation_next() throws Exception {
 		openComposite(
 				"public class Test extends Shell {",
@@ -294,6 +304,7 @@ public class StackLayoutGefTest extends RcpGefTest {
 		canvas.assertNullEditPart(button_3);
 	}
 
+	@Test
 	public void test_navigation_prev() throws Exception {
 		openComposite(
 				"public class Test extends Shell {",

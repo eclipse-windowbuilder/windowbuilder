@@ -15,7 +15,8 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.swing2swt.layout.BoxLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test {@link BoxLayoutInfo}.
@@ -37,6 +38,7 @@ public class BoxLayoutTest extends AbstractSwing2SwtTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -52,13 +54,14 @@ public class BoxLayoutTest extends AbstractSwing2SwtTest {
 				"  {new: swing2swt.layout.BoxLayout} {empty} {/setLayout(new BoxLayout(BoxLayout.X_AXIS))/}");
 		BoxLayoutInfo layout = (BoxLayoutInfo) shell.getLayout();
 		// BoxLayout is "flow container"
-		assertThat(new FlowContainerFactory(layout, true).get()).isNotEmpty();
-		assertThat(new FlowContainerFactory(layout, false).get()).isNotEmpty();
+		Assertions.assertThat(new FlowContainerFactory(layout, true).get()).isNotEmpty();
+		Assertions.assertThat(new FlowContainerFactory(layout, false).get()).isNotEmpty();
 	}
 
 	/**
 	 * Test for "axis" property and {@link BoxLayoutInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_axis() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

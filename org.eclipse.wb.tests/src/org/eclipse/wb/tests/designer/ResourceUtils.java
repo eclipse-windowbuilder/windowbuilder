@@ -12,16 +12,16 @@ package org.eclipse.wb.tests.designer;
 
 import org.eclipse.wb.tests.designer.core.TestProject;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaModelException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
 import org.osgi.framework.Bundle;
 
 import java.io.FileNotFoundException;
@@ -49,13 +49,23 @@ public class ResourceUtils {
 		return getEntry(path + "/" + name);
 	}
 
+	private static void createFolderStructure(IContainer container) throws CoreException {
+		if (!container.exists() && container instanceof IFolder && container.getParent() != null) {
+			if (container.getParent().exists()) {
+				((IFolder) container).create(true, true, null);
+			} else {
+				createFolderStructure(container.getParent());
+			}
+		}
+	}
+
 	/**
 	 * Copy test resources from specified subpath to test project.
 	 */
 	public static void resources2project(TestProject project, String path, String[] skipEntries)
 			throws IOException, CoreException, JavaModelException, Exception {
 		Enumeration<URL> pathEntries = m_testBundle.findEntries(path, "*", true);
-		assertThat(pathEntries).isNotNull();
+		Assertions.assertThat(pathEntries).isNotNull();
 		while (pathEntries.hasMoreElements()) {
 			URL entryURL = pathEntries.nextElement();
 			String entryPathBase = entryURL.getPath();
@@ -72,6 +82,7 @@ public class ResourceUtils {
 					if (file.exists()) {
 						file.setContents(entryStream, true, false, null);
 					} else {
+						createFolderStructure(file.getParent());
 						file.create(entryStream, true, null);
 					}
 				}

@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swt.support.RowLayoutSupport;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 /**
  * Test for {@link RowLayoutSupport}.
  *
@@ -35,6 +37,7 @@ public class RowLayoutSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getType() throws Exception {
 		Object layout = getLayoutClass().newInstance();
 		assertEquals(SWT.HORIZONTAL, RowLayoutSupport.getType(layout));
@@ -42,6 +45,7 @@ public class RowLayoutSupportTest extends AbstractSupportTest {
 		assertEquals(SWT.VERTICAL, RowLayoutSupport.getType(layout));
 	}
 
+	@Test
 	public void test_isHorizontal() throws Exception {
 		Object layout = getLayoutClass().newInstance();
 		assertTrue(RowLayoutSupport.isHorizontal(layout));
@@ -49,6 +53,7 @@ public class RowLayoutSupportTest extends AbstractSupportTest {
 		assertFalse(RowLayoutSupport.isHorizontal(layout));
 	}
 
+	@Test
 	public void test_createRowData() throws Exception {
 		Object data = RowLayoutSupport.createRowData();
 		assertNotNull(data);

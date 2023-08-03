@@ -10,23 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.wizard;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for XWT wizards.
  *
  * @author scheglov_ke
  */
-public class WizardTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.wizard");
-		suite.addTest(createSingleSuite(ApplicationWizardTest.class));
-		suite.addTest(createSingleSuite(CompositeWizardTest.class));
-		suite.addTest(createSingleSuite(FormsApplicationWizardTest.class));
-		suite.addTest(createSingleSuite(FormsCompositeWizardTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ApplicationWizardTest.class,
+		CompositeWizardTest.class,
+		FormsApplicationWizardTest.class,
+		FormsCompositeWizardTest.class,
+		XwtWizardTest.class
+})
+public class WizardTests {
 }

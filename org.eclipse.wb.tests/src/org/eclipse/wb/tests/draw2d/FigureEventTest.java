@@ -24,6 +24,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
@@ -35,20 +39,12 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public FigureEventTest() {
-		super(Figure.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// SetUp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_shell = new Shell();
@@ -57,10 +53,9 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		m_sender = new EventSender(m_canvas);
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		m_shell.dispose();
-		super.tearDown();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -68,6 +63,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 	// Track tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_handleMouseEvents() throws Exception {
 		Layer layer1 = new Layer("1");
 		Figure figure11 = new Figure() {

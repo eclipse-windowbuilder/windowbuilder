@@ -17,6 +17,9 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.xwt.model.util.XwtListenerProperties;
 
+import org.junit.After;
+import org.junit.Test;
+
 /**
  * Test for {@link XwtListenerProperties}.
  *
@@ -38,7 +41,8 @@ public class XwtListenerPropertiesTest extends XwtModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		DesignerPlugin.getActivePage().closeAllEditors(false);
 		super.tearDown();
 	}
@@ -51,6 +55,7 @@ public class XwtListenerPropertiesTest extends XwtModelTest {
 	/**
 	 * If widget has no name, we generate handler method name without widget name.
 	 */
+	@Test
 	public void test_openListener_noName() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -87,6 +92,7 @@ public class XwtListenerPropertiesTest extends XwtModelTest {
 	/**
 	 * When widget has name, we should include it into event listener method name.
 	 */
+	@Test
 	public void test_openListener_hasName() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",

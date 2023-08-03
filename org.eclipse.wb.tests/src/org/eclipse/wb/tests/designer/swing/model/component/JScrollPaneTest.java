@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import javax.swing.JScrollPane;
 
 /**
@@ -43,6 +45,7 @@ public class JScrollPaneTest extends SwingModelTest {
 	/**
 	 * Test for association using constructor.
 	 */
+	@Test
 	public void test_association_constructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -73,6 +76,7 @@ public class JScrollPaneTest extends SwingModelTest {
 	/**
 	 * Test for association using "setColumnHeaderView".
 	 */
+	@Test
 	public void test_association_setColumnHeaderView() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -106,6 +110,7 @@ public class JScrollPaneTest extends SwingModelTest {
 	/**
 	 * We should be able to parse <code>scroll.getViewport().add()</code>.
 	 */
+	@Test
 	public void test_getViewport_add() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -141,6 +146,7 @@ public class JScrollPaneTest extends SwingModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -175,6 +181,7 @@ public class JScrollPaneTest extends SwingModelTest {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_OUT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -217,6 +224,7 @@ public class JScrollPaneTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -253,6 +261,7 @@ public class JScrollPaneTest extends SwingModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

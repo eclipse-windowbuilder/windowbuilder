@@ -24,6 +24,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.ViewerObser
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -36,6 +38,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_fields_methods() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -94,6 +97,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				observes.get(3));
 	}
 
+	@Test
 	public void test_children_properties() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -233,6 +237,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				listProperties.get(2));
 	}
 
+	@Test
 	public void test_superClass_thisMethods() throws Exception {
 		setFileContentSrc(
 				"test/TestSuper.java",
@@ -298,6 +303,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				observes.get(3));
 	}
 
+	@Test
 	public void test_viewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

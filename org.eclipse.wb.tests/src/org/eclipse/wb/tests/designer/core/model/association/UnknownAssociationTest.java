@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core.model.association;
 import org.eclipse.wb.core.model.association.UnknownAssociation;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link UnknownAssociation}.
  *
@@ -24,6 +26,7 @@ public class UnknownAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test() throws Exception {
 		UnknownAssociation association = new UnknownAssociation();
 		assertFalse(association.canDelete());

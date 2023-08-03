@@ -32,6 +32,8 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import static org.mockito.Mockito.mock;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -57,6 +59,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Request {@link RenameConvertSupport} with zero or one component.
 	 */
+	@Test
 	public void test_action_zeroOrOne() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -97,6 +100,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link RenameConvertSupport} action.
 	 */
+	@Test
 	public void test_action_hashEquals() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -118,6 +122,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Request {@link RenameConvertSupport} with two components.
 	 */
+	@Test
 	public void test_action_multiSelect() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -158,6 +163,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Open dialog using {@link RenameConvertSupport#rename(List)}.
 	 */
+	@Test
 	public void test_animateUI_openDialog() throws Exception {
 		parseContainer(
 				"// filler filler filler filler filler",
@@ -186,6 +192,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Set new name.
 	 */
+	@Test
 	public void test_animateUI_setName() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -231,6 +238,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Convert local -> field.
 	 */
+	@Test
 	public void test_animateUI_toField() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -277,6 +285,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Set new name.
 	 */
+	@Test
 	public void test_animateUI_setName_lazy() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -347,6 +356,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Test that if there are no commands, no refresh will happen on "execute" request.
 	 */
+	@Test
 	public void test_commands_executeNoCommands() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -370,6 +380,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * We should return same command for all requests with same {@link JavaInfo}.
 	 */
+	@Test
 	public void test_commands_sameCommand() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -387,6 +398,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Set new name, single component.
 	 */
+	@Test
 	public void test_commands_setName_single() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -414,6 +426,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Set new name, auto-generate unique.
 	 */
+	@Test
 	public void test_commands_setName_autoUnique() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -445,6 +458,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Convert local -> field.
 	 */
+	@Test
 	public void test_commands_toField() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -473,6 +487,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Convert field -> local.
 	 */
+	@Test
 	public void test_commands_toLocal() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -501,6 +516,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Conversion local -> field -> local is ignored.
 	 */
+	@Test
 	public void test_commands_toField_toLocal() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -524,6 +540,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Conversion field -> local -> field is ignored.
 	 */
+	@Test
 	public void test_commands_toLocal_toField() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -553,6 +570,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * No commands -> all OK.
 	 */
+	@Test
 	public void test_validate_OK() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -570,6 +588,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	/**
 	 * Attempt to set invalid identifier.
 	 */
+	@Test
 	public void test_validate_invalidIdentifier() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",

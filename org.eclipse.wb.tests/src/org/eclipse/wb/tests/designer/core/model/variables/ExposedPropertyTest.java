@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
 
 import org.eclipse.jdt.core.dom.Statement;
 
+import org.junit.Test;
+
 import java.awt.Component;
 
 import javax.swing.JTextField;
@@ -45,6 +47,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_object() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -105,6 +108,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getChildTarget() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -125,6 +129,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	/**
 	 * Test that we add new component after last {@link Statement} of contentPane.
 	 */
+	@Test
 	public void test_addButton() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -160,6 +165,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	 * <p>
 	 * No related nodes, so target is determined by "this", i.e. in constructor.
 	 */
+	@Test
 	public void test_getStatementTarget_noRelatedNodes() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -199,6 +205,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	 * <p>
 	 * Related statement in constructor, target = before it.
 	 */
+	@Test
 	public void test_getStatementTarget_hasRelatedStatement() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -245,6 +252,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	/**
 	 * Getter returns <code>null</code>, so nothing to expose.
 	 */
+	@Test
 	public void test_nullComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -271,6 +279,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	 * Superclass has method that returns some {@link Component}, however this component is not bound
 	 * to parent object. So, such method should be ignored.
 	 */
+	@Test
 	public void test_ignoreDisconnectedComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -302,6 +311,7 @@ public class ExposedPropertyTest extends AbstractVariableTest {
 	 * component association, even if it is not connected to host. For example we need this for
 	 * exposing {@link JTextField#getDocument()}.
 	 */
+	@Test
 	public void test_forceDisconnectedComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

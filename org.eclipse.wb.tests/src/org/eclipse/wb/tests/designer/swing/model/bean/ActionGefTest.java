@@ -30,6 +30,9 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -57,6 +60,7 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for {@link ActionNewEntryInfo}.
 	 */
+	@Test
 	public void test_JToolBar_ActionNewEntryInfo() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -126,6 +130,7 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for {@link ActionUseEntryInfo}.
 	 */
+	@Test
 	public void test_JToolBar_ActionUseEntryInfo_canvas() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -177,6 +182,7 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for {@link ActionUseEntryInfo}.
 	 */
+	@Test
 	public void test_JToolBar_ActionUseEntryInfo_tree() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -228,7 +234,9 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for {@link ActionExternalEntryInfo}.
 	 */
-	public void DISABLE_test_JToolBar_ActionExternalEntryInfo() throws Exception {
+	@Ignore
+	@Test
+	public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
 		createExternalAction();
 		final ContainerInfo panel =
 				openContainer(
@@ -317,6 +325,7 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for dropping {@link ActionInfo} on {@link JButton}.
 	 */
+	@Test
 	public void test_JButton_setAction() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -361,6 +370,7 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for dropping {@link ActionInfo} between two {@link JMenuItem} in {@link JMenu}.
 	 */
+	@Test
 	public void test_JMenu_dropBetween_JMenuItem() throws Exception {
 		createExternalAction();
 		ContainerInfo frame =

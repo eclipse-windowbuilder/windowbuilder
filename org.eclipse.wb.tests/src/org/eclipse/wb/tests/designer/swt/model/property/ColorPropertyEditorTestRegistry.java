@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.swt.model.property.editor.color.ColorPropertyEdit
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -41,6 +43,7 @@ public class ColorPropertyEditorTestRegistry extends ColorPropertyEditorTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_info() throws Exception {
 		createASTCompilationUnit(
 				"test",
@@ -82,6 +85,7 @@ public class ColorPropertyEditorTestRegistry extends ColorPropertyEditorTest {
 		assertNull(keyFieldInfo.value);
 	}
 
+	@Test
 	public void test_value() throws Exception {
 		createASTCompilationUnit(
 				"test",

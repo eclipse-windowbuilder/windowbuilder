@@ -25,9 +25,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -54,6 +53,7 @@ public class CoolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link CoolBarInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -80,6 +80,7 @@ public class CoolBarTest extends RcpModelTest {
 	/**
 	 * {@link CoolBar} with {@link CoolItem}'s.
 	 */
+	@Test
 	public void test_parseItems() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -112,8 +113,8 @@ public class CoolBarTest extends RcpModelTest {
 		// bounds
 		{
 			Rectangle modelBounds = item_0.getModelBounds();
-			assertThat(modelBounds.width).isGreaterThan(15);
-			assertThat(modelBounds.height).isGreaterThan(20);
+			Assertions.assertThat(modelBounds.width).isGreaterThan(15);
+			Assertions.assertThat(modelBounds.height).isGreaterThan(20);
 		}
 		// no setControl() invocations
 		assertNull(item_0.getControl());
@@ -128,6 +129,7 @@ public class CoolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link CoolItem#setControl(org.eclipse.swt.widgets.Control)}.
 	 */
+	@Test
 	public void test_setControl_get() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -152,24 +154,25 @@ public class CoolBarTest extends RcpModelTest {
 		ControlInfo button = coolBar.getChildrenControls().get(0);
 		// "button" is set using setControl()
 		assertSame(button, item.getControl());
-		assertThat(item.getSimpleContainerChildren()).containsExactly(button);
+		Assertions.assertThat(item.getSimpleContainerChildren()).containsExactly(button);
 		// check that "button" is wide
 		{
-			assertThat(button.getBounds().width).isGreaterThan(70);
-			assertThat(item.getBounds().width).isGreaterThan(80);
+			Assertions.assertThat(button.getBounds().width).isGreaterThan(70);
+			Assertions.assertThat(item.getBounds().width).isGreaterThan(80);
 		}
 		// check hierarchy: "button" should be in "item", but not in "coolBar"
 		{
-			assertThat(item.getPresentation().getChildrenTree()).containsExactly(button);
-			assertThat(item.getPresentation().getChildrenGraphical()).containsExactly(button);
-			assertThat(coolBar.getPresentation().getChildrenTree()).containsExactly(item);
-			assertThat(coolBar.getPresentation().getChildrenGraphical()).containsExactly(item);
+			Assertions.assertThat(item.getPresentation().getChildrenTree()).containsExactly(button);
+			Assertions.assertThat(item.getPresentation().getChildrenGraphical()).containsExactly(button);
+			Assertions.assertThat(coolBar.getPresentation().getChildrenTree()).containsExactly(item);
+			Assertions.assertThat(coolBar.getPresentation().getChildrenGraphical()).containsExactly(item);
 		}
 	}
 
 	/**
 	 * Test for {@link CoolItemInfo#command_CREATE(ControlInfo)}.
 	 */
+	@Test
 	public void test_setControl_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -188,13 +191,13 @@ public class CoolBarTest extends RcpModelTest {
 		CoolItemInfo item = coolBar.getItems().get(0);
 		// no control initially
 		assertNull(item.getControl());
-		assertThat(item.getSimpleContainerChildren()).isEmpty();
+		Assertions.assertThat(item.getSimpleContainerChildren()).isEmpty();
 		// set Button on "item"
 		ControlInfo button = BTestUtils.createButton();
 		simpleContainer_CREATE(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertThat(item.getSimpleContainerChildren()).containsExactly(button);
+		Assertions.assertThat(item.getSimpleContainerChildren()).containsExactly(button);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",
@@ -214,6 +217,7 @@ public class CoolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link CoolItemInfo#command_ADD(ControlInfo)}.
 	 */
+	@Test
 	public void test_setControl_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -259,6 +263,7 @@ public class CoolBarTest extends RcpModelTest {
 	/**
 	 * Move {@link ControlInfo} from one {@link CoolItemInfo} to other.
 	 */
+	@Test
 	public void test_setControl_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -318,6 +323,7 @@ public class CoolBarTest extends RcpModelTest {
 	/**
 	 * When we move {@link CoolItemInfo} with {@link ControlInfo}, they should move together.
 	 */
+	@Test
 	public void test_setControl_MOVEItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -377,6 +383,7 @@ public class CoolBarTest extends RcpModelTest {
 	 * When we move {@link ControlInfo} out from {@link CoolItemInfo}, the
 	 * {@link CoolItem#setControl(org.eclipse.swt.widgets.Control)} invocation should be removed.
 	 */
+	@Test
 	public void test_setControl_moveOut() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -422,6 +429,7 @@ public class CoolBarTest extends RcpModelTest {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -454,6 +462,7 @@ public class CoolBarTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

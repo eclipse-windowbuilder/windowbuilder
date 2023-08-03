@@ -18,6 +18,8 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DropTargetInfo} in GEF.
  *
@@ -41,6 +43,7 @@ public class DropTargetGefTest extends XwtGefTest {
 	/**
 	 * We should have {@link EditPart} in tree and on canvas.
 	 */
+	@Test
 	public void test_editParts() throws Exception {
 		openEditor(
 				"<Shell xmlns:p1='clr-namespace:org.eclipse.swt.dnd'>",
@@ -57,6 +60,7 @@ public class DropTargetGefTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE() throws Exception {
 		XmlObjectInfo shell = openEditor("<Shell/>");
 		//

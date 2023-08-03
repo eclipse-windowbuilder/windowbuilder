@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.XML.editor;
 import org.eclipse.wb.internal.core.xml.editor.actions.RefreshAction;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link RefreshAction}.
  *
@@ -24,6 +26,7 @@ public class RefreshActionTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_run() throws Exception {
 		openEditor("<Shell/>");
 		Object oldObject = m_lastObject;

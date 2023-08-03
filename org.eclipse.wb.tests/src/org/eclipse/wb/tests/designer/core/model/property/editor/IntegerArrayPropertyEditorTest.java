@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
+import org.junit.Test;
+
 /**
  * Test for {@link IntegerArrayPropertyEditor}.
  *
@@ -39,6 +41,7 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link IntegerArrayPropertyEditor#getText(Property)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		assert_getText(null, IntegerArrayPropertyEditor.INSTANCE, Property.UNKNOWN_VALUE);
 		assert_getText("1 2 3", IntegerArrayPropertyEditor.INSTANCE, new int[]{1, 2, 3});
@@ -47,6 +50,7 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link IntegerArrayPropertyEditor#getEditorText(Property)}.
 	 */
+	@Test
 	public void test_getEditorText() throws Exception {
 		assert_getEditorText(null, IntegerArrayPropertyEditor.INSTANCE, Property.UNKNOWN_VALUE);
 		assert_getEditorText("1 2 3", IntegerArrayPropertyEditor.INSTANCE, new int[]{1, 2, 3});
@@ -60,6 +64,7 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link IntegerArrayPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_setValue() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =
@@ -85,6 +90,7 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link IntegerArrayPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_removeValue_emptyString() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =
@@ -110,6 +116,7 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link IntegerArrayPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_removeValue_whitespaceString() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =
@@ -135,6 +142,7 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link IntegerArrayPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_invalidValue() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =

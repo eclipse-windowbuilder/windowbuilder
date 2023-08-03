@@ -28,6 +28,8 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -53,6 +55,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Creation code is not valid at all, so has no {@link ITypeBinding}.
 	 */
+	@Test
 	public void test_addBadCode_veryBad() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -101,6 +104,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Conflict with visible variables.
 	 */
+	@Test
 	public void test_moveRenameConflict_visible() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -139,6 +143,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Conflict with visible variables, not only for moved component, but also for its child.
 	 */
+	@Test
 	public void test_moveRenameConflict_visibleChilren() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -186,6 +191,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	 * Conflict with visible variable only for child with {@link LocalUniqueVariableSupport}. Parent
 	 * of this child is {@link FieldInitializerVariableSupport}, so does not need rename check.
 	 */
+	@Test
 	public void test_moveRenameConflict_visibleChilren2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -232,6 +238,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Components in blocks, no conflict.
 	 */
+	@Test
 	public void test_moveRenameConflict_noConflict() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -271,6 +278,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Moved component will shadow variable below.
 	 */
+	@Test
 	public void test_moveRenameConflict_shadow_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -305,6 +313,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	 * Moved component will shadow variable below.<br>
 	 * But there is also possible conflict with child of moved container.
 	 */
+	@Test
 	public void test_moveRenameConflict_shadow_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -388,6 +397,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Move without conflict.
 	 */
+	@Test
 	public void test_move_noConflict() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -439,6 +449,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link AbstractSimpleVariableSupport#ensureInstanceReadyAt(StatementTarget)}.
 	 */
+	@Test
 	public void test_ensureInstanceReadyAt() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -497,6 +508,7 @@ public class AbstractSimpleTest extends AbstractVariableTest {
 	 * <p>
 	 * We should not move loosely related nodes (in different method).
 	 */
+	@Test
 	public void test_ensureInstanceReadyAt_relatedNodeLoosely() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

@@ -25,6 +25,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -46,6 +48,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_widgets() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -131,6 +134,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_widget_Shell_properties() throws Exception {
 		WidgetBindableInfo root = parseBindings("  //", "    //");
 		List<IObserveInfo> properties = root.getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -138,18 +142,21 @@ public class WidgetBindableTest extends AbstractBindingTest {
 		widget_Link_Shell_properties(properties);
 	}
 
+	@Test
 	public void test_widget_Label_properties() throws Exception {
 		widget_Label_CLabel_properties(
 				"  private Label m_label;",
 				"    m_label = new Label(m_shell, SWT.NONE);");
 	}
 
+	@Test
 	public void test_widget_CLabel_properties() throws Exception {
 		widget_Label_CLabel_properties(
 				"  private CLabel m_clabel;",
 				"    m_clabel = new CLabel(m_shell, SWT.NONE);");
 	}
 
+	@Test
 	public void test_widget_Link_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings("  private Link m_link;", "    m_link = new Link(m_shell, SWT.NONE);");
@@ -288,6 +295,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(10));
 	}
 
+	@Test
 	public void test_widget_Composite_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings(
@@ -349,6 +357,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(9));
 	}
 
+	@Test
 	public void test_widget_Form_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings("  private Form m_form;", "    m_form = new Form(m_shell, SWT.NONE);");
@@ -413,6 +422,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(10));
 	}
 
+	@Test
 	public void test_widget_Button_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings("  private Button m_button;", "    m_button = new Button(m_shell, SWT.NONE);");
@@ -487,6 +497,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(12));
 	}
 
+	@Test
 	public void test_widget_Text_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings("  private Text m_text;", "    m_text = new Text(m_shell, SWT.NONE);");
@@ -561,12 +572,14 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(12));
 	}
 
+	@Test
 	public void test_widget_Spinner_properties() throws Exception {
 		widget_Spinner_Scale_properties(
 				"  private Spinner m_spinner;",
 				"    m_spinner = new Spinner(m_shell, SWT.NONE);");
 	}
 
+	@Test
 	public void test_widget_Scale_properties() throws Exception {
 		widget_Spinner_Scale_properties(
 				"  private Scale m_scale;",
@@ -647,12 +660,14 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(12));
 	}
 
+	@Test
 	public void test_widget_Combo_properties() throws Exception {
 		widget_Combo_CCombo_properties(
 				"  private Combo m_combo;",
 				"    m_combo = new Combo(m_shell, SWT.NONE);");
 	}
 
+	@Test
 	public void test_widget_CCombo_properties() throws Exception {
 		widget_Combo_CCombo_properties(
 				"  private CCombo m_ccombo;",
@@ -742,6 +757,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(13));
 	}
 
+	@Test
 	public void test_widget_List_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings("  private List m_list;", "    m_list = new List(m_shell, SWT.NONE);");
@@ -816,6 +832,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(12));
 	}
 
+	@Test
 	public void test_widget_Table_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings("  private Table m_table;", "    m_table = new Table(m_shell, SWT.NONE);");
@@ -879,6 +896,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				properties.get(10));
 	}
 
+	@Test
 	public void test_widget_Viewer_properties() throws Exception {
 		WidgetBindableInfo root =
 				parseBindings(
@@ -923,12 +941,14 @@ public class WidgetBindableTest extends AbstractBindingTest {
 				false));
 	}
 
+	@Test
 	public void test_widget_CheckboxTableViewer_properties() throws Exception {
 		widget_Checkable_properties(
 				"  private CheckboxTableViewer m_viewer;",
 				"    m_viewer = new CheckboxTableViewer(m_shell, SWT.NONE);");
 	}
 
+	@Test
 	public void test_widget_CheckboxTreeViewer_properties() throws Exception {
 		widget_Checkable_properties(
 				"  private CheckboxTreeViewer m_viewer;",
@@ -1015,6 +1035,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 		return (WidgetBindableInfo) observes.get(0);
 	}
 
+	@Test
 	public void test_widget_noProperties() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(

@@ -30,7 +30,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -38,21 +39,14 @@ import java.util.List;
  * @author lobas_av
  *
  */
-public class RequestsTest extends TestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public RequestsTest() {
-		super(Request.class.getName());
-	}
+public class RequestsTest extends Assert {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Request() throws Exception {
 		Request request = new Request();
 		//
@@ -77,6 +71,7 @@ public class RequestsTest extends TestCase {
 		assertTrue(request.isAnyMouseButtonPressed());
 	}
 
+	@Test
 	public void test_GroupRequest() throws Exception {
 		GroupRequest request = new GroupRequest();
 		//
@@ -113,6 +108,7 @@ public class RequestsTest extends TestCase {
 		assertSame(editParts, request.getEditParts());
 	}
 
+	@Test
 	public void test_ChangeBoundsRequest() throws Exception {
 		ChangeBoundsRequest request = new ChangeBoundsRequest();
 		// check new ChangeBoundsRequest
@@ -160,6 +156,7 @@ public class RequestsTest extends TestCase {
 		assertSame(sizeDelta, request.getSizeDelta());
 	}
 
+	@Test
 	public void test_LocationRequest() throws Exception {
 		LocationRequest request = new LocationRequest();
 		//
@@ -174,6 +171,7 @@ public class RequestsTest extends TestCase {
 		assertEquals(new Point(1, 2), request.getLocation());
 	}
 
+	@Test
 	public void test_SelectionRequest() throws Exception {
 		SelectionRequest request = new SelectionRequest();
 		//
@@ -214,6 +212,7 @@ public class RequestsTest extends TestCase {
 		assertFalse(request.isAnyMouseButtonPressed());
 	}
 
+	@Test
 	public void test_CreateRequest() throws Exception {
 		ICreationFactory factory = new ICreationFactory() {
 			@Override
@@ -256,6 +255,7 @@ public class RequestsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void test_PasteRequest() throws Exception {
 		Object memnto = "_Test_Memento_";
 		PasteRequest request = new PasteRequest(memnto);

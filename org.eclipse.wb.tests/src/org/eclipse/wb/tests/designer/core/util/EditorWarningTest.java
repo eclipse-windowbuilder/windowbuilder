@@ -13,12 +13,15 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 /**
  * Test for {@link EditorWarning}.
  *
  * @author scheglov_ke
  */
 public class EditorWarningTest extends DesignerTestCase {
+	@Test
 	public void test() throws Exception {
 		String message = "message";
 		Exception exception = new Exception();

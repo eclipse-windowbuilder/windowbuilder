@@ -15,6 +15,9 @@ import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.rcp.model.widgets.TableInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link TableInfo} in GEF.
  *
@@ -36,7 +39,9 @@ public class TableGefTest extends RcpGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	public void DISABLED_test_canvas_CREATE_column() throws Exception {
+	@Ignore
+	@Test
+	public void test_canvas_CREATE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
 				"  public Test(Composite parent, int style) {",
@@ -75,7 +80,9 @@ public class TableGefTest extends RcpGefTest {
 	}
 
 	// Test get stuck during the Linux build...
-	public void DISABLE_test_canvas_MOVE_column() throws Exception {
+	@Ignore
+	@Test
+	public void test_canvas_MOVE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
 				"  public Test(Composite parent, int style) {",
@@ -118,7 +125,9 @@ public class TableGefTest extends RcpGefTest {
 	}
 
 	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	public void DISABLE_test_canvas_RESIZE_column() throws Exception {
+	@Ignore
+	@Test
+	public void test_canvas_RESIZE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
 				"  public Test(Composite parent, int style) {",
@@ -149,6 +158,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_item() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
@@ -184,6 +194,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_MOVE_item() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
@@ -224,6 +235,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_cursor() throws Exception {
 		JavaInfo table =
 				openJavaInfo(
@@ -260,6 +272,7 @@ public class TableGefTest extends RcpGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
@@ -296,6 +309,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_MOVE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
@@ -337,6 +351,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_item() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
@@ -370,6 +385,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_MOVE_item() throws Exception {
 		openJavaInfo(
 				"public class Test extends Table {",
@@ -407,6 +423,7 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_cursor() throws Exception {
 		JavaInfo table =
 				openJavaInfo(

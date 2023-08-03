@@ -12,6 +12,9 @@ package org.eclipse.wb.tests.designer.core.eval.other;
 
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 /**
  * @author scheglov_ke
  */
@@ -21,7 +24,8 @@ public class StringTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
 
@@ -30,30 +34,37 @@ public class StringTest extends AbstractEngineTest {
 	// String
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_string_literal() throws Exception {
 		check_String("string", "\"string\"");
 	}
 
+	@Test
 	public void test_string_literal_quoted() throws Exception {
 		check_String("a\"b\"", "\"a\\\"b\\\"\"");
 	}
 
+	@Test
 	public void test_string_plus() throws Exception {
 		check_String("a" + "b", "\"a\" + \"b\"");
 	}
 
+	@Test
 	public void test_string_plus3() throws Exception {
 		check_String("a" + "b" + "c", "\"a\" + \"b\" + \"c\"");
 	}
 
+	@Test
 	public void test_string_plus4() throws Exception {
 		check_String("a" + "b" + "c" + "d", "\"a\" + \"b\" + \"c\" + \"d\"");
 	}
 
+	@Test
 	public void test_String_plus_int() throws Exception {
 		check_String("a2", "\"a\" + 2");
 	}
 
+	@Test
 	public void test_String_plus_null() throws Exception {
 		check_String("anull", "\"a\" + null");
 	}
@@ -65,16 +76,5 @@ public class StringTest extends AbstractEngineTest {
 	////////////////////////////////////////////////////////////////////////////
 	private void check_String(String expected, String expression) throws Exception {
 		assertEquals(expected, evaluateExpression(expression, "java.lang.String"));
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		//System.exit(0);
-		do_projectDispose();
 	}
 }

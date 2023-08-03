@@ -48,10 +48,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.util.Map;
@@ -83,6 +84,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Check for {@link ComponentEntryInfo} access methods.
 	 */
+	@Test
 	public void test_access() throws Exception {
 		ComponentEntryInfo componentEntry = new ComponentEntryInfo();
 		componentEntry.setComponentClassName("javax.swing.JPanel");
@@ -106,6 +108,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Only "class" specified in extension, so other things are deduced.
 	 */
+	@Test
 	public void test_parse_onlyClass() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -137,6 +140,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * "id", "name", "description" and "icon" specified in extension.
 	 */
+	@Test
 	public void test_parse_valuesFromExtension() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -172,6 +176,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * If "description" text is empty, then description from {@link ComponentDescription} should be
 	 * used.
 	 */
+	@Test
 	public void test_parse_descriptionText_emptyString() throws Exception {
 		assertDescriptionText_fromComponentDescription("");
 	}
@@ -180,6 +185,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * If "description" text is empty, then description from {@link ComponentDescription} should be
 	 * used.
 	 */
+	@Test
 	public void test_parse_descriptionText_spacesString() throws Exception {
 		assertDescriptionText_fromComponentDescription(" \t");
 	}
@@ -188,6 +194,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * If "description" text is exactly name of class (we generate such description when user adds
 	 * component using UI), then description from {@link ComponentDescription} should be used.
 	 */
+	@Test
 	public void test_parse_descriptionText_className() throws Exception {
 		assertDescriptionText_fromComponentDescription("javax.swing.JPanel");
 	}
@@ -215,6 +222,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Standard {@link JPanel}, description and icon from {@link ComponentDescription}.
 	 */
+	@Test
 	public void test_initialize_1_allDefaults() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -240,6 +248,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Bad component class, failed to initialize.
 	 */
+	@Test
 	public void test_initialize_2_badComponentClass() throws Exception {
 		JavaInfo panel = parseEmptyPanel();
 		assertEquals(0, m_lastState.getWarnings().size());
@@ -258,12 +267,13 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// do initialize, failed
 		assertFalse(componentEntry.initialize(null, panel));
 		// no warnings
-		assertThat(m_lastState.getWarnings()).isEmpty();
+		Assertions.assertThat(m_lastState.getWarnings()).isEmpty();
 	}
 
 	/**
 	 * Bad component description, failed to initialize.
 	 */
+	@Test
 	public void test_initialize_2_badComponentDescription() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -300,12 +310,13 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		ComponentEntryInfo componentEntry = (ComponentEntryInfo) category.getEntries().get(0);
 		// do initialize, we have warning, because we still load description (as slow) and it is invalid
 		assertFalse(componentEntry.initialize(null, panel));
-		assertThat(m_lastState.getWarnings()).hasSize(1);
+		Assertions.assertThat(m_lastState.getWarnings()).hasSize(1);
 	}
 
 	/**
 	 * Object without description.
 	 */
+	@Test
 	public void test_initialize_noDescription() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -326,6 +337,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Several "creation" sections.
 	 */
+	@Test
 	public void test_initialize_severalCreations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -389,6 +401,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * No "creation" with requested "id", and also no "description", so no "fast" presentation.
 	 */
+	@Test
 	public void test_initialize_noSuchCreation() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -414,9 +427,9 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		CategoryInfo category = palette.getCategory("category_1");
 		ComponentEntryInfo componentEntry = (ComponentEntryInfo) category.getEntries().get(0);
 		// check component
-		assertThat(m_lastState.getWarnings()).hasSize(0);
+		Assertions.assertThat(m_lastState.getWarnings()).hasSize(0);
 		assertFalse(componentEntry.initialize(null, panel));
-		assertThat(m_lastState.getWarnings()).hasSize(1);
+		Assertions.assertThat(m_lastState.getWarnings()).hasSize(1);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -427,6 +440,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Test that "enabled" script can be used to disable.
 	 */
+	@Test
 	public void test_isEnabled_enabledScript() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -451,6 +465,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	// Tool
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createTool() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -481,6 +496,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * We should not allow to drop abstract components.
 	 */
+	@Test
 	public void test_createTool_abstractClass() throws Exception {
 		setFileContentSrc(
 				"test/MyAbstractButton.java",
@@ -524,6 +540,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		});
 	}
 
+	@Test
 	public void test_createTool_abstractClass_ignored() throws Exception {
 		setFileContentSrc(
 				"test/MyAbstractButton.java",
@@ -570,6 +587,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * Simulate case when component was initialized, but at loading {@link ComponentDescription} some
 	 * problem happened.
 	 */
+	@Test
 	public void test_createTool_badClass() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -583,10 +601,10 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		m_lastParseInfo.putArbitraryValue(ComponentEntryInfo.KEY_SIMULATE_PRESENTATION, true);
 		assertTrue(componentEntry.initialize(null, m_lastParseInfo));
 		// create tool
-		assertThat(m_lastState.getWarnings()).hasSize(0);
+		Assertions.assertThat(m_lastState.getWarnings()).hasSize(0);
 		CreationTool creationTool = (CreationTool) componentEntry.createTool();
 		assertNull(creationTool);
-		assertThat(m_lastState.getWarnings()).hasSize(1);
+		Assertions.assertThat(m_lastState.getWarnings()).hasSize(1);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -598,6 +616,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * When component has "library" tag, this library should be added to classpath.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_createTool_withLibrary() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -662,6 +681,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * Two "library" tags.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_createTool_withLibrary2() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -740,6 +760,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * Project is also PDE project, so manifest also should be updated.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_createTool_withLibrary_whenPDE() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_project, null);
 		TestBundle testBundle = new TestBundle();
@@ -780,7 +801,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 				// PDE manifest also updated
 				{
 					String manifest = getFileContent("META-INF/MANIFEST.MF");
-					assertThat(manifest).contains("Bundle-ClassPath: .,\n myClasses.jar");
+					Assertions.assertThat(manifest).contains("Bundle-ClassPath: .,\n myClasses.jar");
 				}
 			}
 		} finally {
@@ -796,6 +817,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * No special "component" rule.
 	 */
+	@Test
 	public void test_hasClass_noSpecialRule() throws Exception {
 		// prepare MyComponent
 		prepareMyComponent();
@@ -814,6 +836,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * <p>
 	 * Here "witness" class exists, so we don't even check class itself.
 	 */
+	@Test
 	public void test_hasClass_useWitness_true() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -850,6 +873,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * <p>
 	 * Here "witness" class does not exist, so no matter even if class itself exists.
 	 */
+	@Test
 	public void test_hasClass_useWitness_false() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -879,6 +903,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * Here {@link Class} exists, but we remove corresponding Java file (without building project), so
 	 * {@link IJavaProject} sees that {@link IType} does not exist.
 	 */
+	@Test
 	public void test_hasClass_hasType_false() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -912,6 +937,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * <p>
 	 * Both {@link Class} and {@link IType} exist.
 	 */
+	@Test
 	public void test_hasClass_hasType_true() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -939,6 +965,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * automatically add corresponding jar file into {@link IJavaProject} classpath. So, this
 	 * component can be considered as always accessible.
 	 */
+	@Test
 	public void test_hasClass_always() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -977,6 +1004,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * <p>
 	 * This requires for -DFLAG_NO_PALETTE flag.
 	 */
+	@Test
 	public void test_preloadingCache() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		Image image = new Image(null, 11, 29);
@@ -1069,6 +1097,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Test for "typeParameter" support.
 	 */
+	@Test
 	public void test_typeParameters_chooseType() throws Exception {
 		final ComponentEntryInfo componentEntry = prepare_typeParameters();
 		// animate createTool()
@@ -1127,7 +1156,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// new component has "template arguments"
 		{
 			Map<String, String> templateArguments = newComponent.getTemplateArguments();
-			assertThat(templateArguments).contains(entry("rowType", "java.lang.String"));
+			Assertions.assertThat(templateArguments).contains(entry("rowType", "java.lang.String"));
 		}
 	}
 
@@ -1136,6 +1165,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * <p>
 	 * Cancel type choosing, and type parameters dialog then.
 	 */
+	@Test
 	public void test_typeParameters_cancel() throws Exception {
 		final ComponentEntryInfo componentEntry = prepare_typeParameters();
 		// animate createTool()
@@ -1192,6 +1222,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 	 * <p>
 	 * Attempt to choose type which is not subclass of required.
 	 */
+	@Test
 	public void test_typeParameters_chooseBadType() throws Exception {
 		final ComponentEntryInfo componentEntry;
 		{

@@ -28,9 +28,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -52,7 +52,8 @@ public class ArrayObjectTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// clear fields
 		for (Field field : getClass().getDeclaredFields()) {
 			if (field.getName().indexOf('$') == -1 && Object.class.isAssignableFrom(field.getType())) {
@@ -77,17 +78,18 @@ public class ArrayObjectTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		getParsedContainer();
 		// ArrayObjectInfo
 		{
 			assertSame(myPanel, arrayInfo.getParent());
-			assertThat(arrayInfo.getChildren()).isEmpty();
+			Assertions.assertThat(arrayInfo.getChildren()).isEmpty();
 			// check tuning
 			assertTrue(arrayInfo.isRemoveOnEmpty());
 			assertTrue(!arrayInfo.isHideInTree());
 			// check item type
-			assertThat(arrayInfo.getItemClass()).isEqualTo(
+			Assertions.assertThat(arrayInfo.getItemClass()).isEqualTo(
 					ReflectionUtils.getClassByName(
 							EditorState.get(m_lastEditor).getEditorLoader(),
 							"javax.swing.JButton"));
@@ -104,6 +106,7 @@ public class ArrayObjectTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_Presentation() throws Exception {
 		getParsedContainer();
 		IObjectPresentation presentation = arrayInfo.getPresentation();
@@ -113,23 +116,24 @@ public class ArrayObjectTest extends SwingModelTest {
 		// tree children
 		{
 			List<ObjectInfo> childrenTree = presentation.getChildrenTree();
-			assertThat(childrenTree).hasSize(2);
-			assertThat(childrenTree).isEqualTo(myPanel.getChildrenComponents());
-			assertThat(childrenTree).containsOnly(localButton, emptyButton);
+			Assertions.assertThat(childrenTree).hasSize(2);
+			Assertions.assertThat(childrenTree).isEqualTo(myPanel.getChildrenComponents());
+			Assertions.assertThat(childrenTree).containsOnly(localButton, emptyButton);
 		}
 		// graphical children
 		{
 			List<ObjectInfo> childrenGraphical = presentation.getChildrenGraphical();
-			assertThat(childrenGraphical).isEmpty();
+			Assertions.assertThat(childrenGraphical).isEmpty();
 		}
 		// when we ask tree children for MyPanel, ArrayObjectInof does not allow to see buttons
-		assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
+		Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 	}
 
+	@Test
 	public void test_deleteItem_withLocal() throws Exception {
 		getParsedContainer();
 		// initially "localButton" is in "array"
-		assertThat(arrayInfo.getItems()).hasSize(2).contains(localButton);
+		Assertions.assertThat(arrayInfo.getItems()).hasSize(2).contains(localButton);
 		// do delete
 		assertTrue(localButton.canDelete());
 		localButton.delete();
@@ -142,14 +146,15 @@ public class ArrayObjectTest extends SwingModelTest {
 				"  }",
 				"}");
 		// no "localButton" in "array"
-		assertThat(arrayInfo.getItems()).containsOnly(emptyButton);
-		assertThat(myPanel.getChildren()).doesNotContain(localButton);
+		Assertions.assertThat(arrayInfo.getItems()).containsOnly(emptyButton);
+		Assertions.assertThat(myPanel.getChildren()).doesNotContain(localButton);
 	}
 
+	@Test
 	public void test_deleteItem_withEmpty() throws Exception {
 		getParsedContainer();
 		// initially "emptyButton" is in "array"
-		assertThat(arrayInfo.getItems()).hasSize(2).contains(emptyButton);
+		Assertions.assertThat(arrayInfo.getItems()).hasSize(2).contains(emptyButton);
 		// do delete
 		assertTrue(emptyButton.canDelete());
 		emptyButton.delete();
@@ -163,10 +168,11 @@ public class ArrayObjectTest extends SwingModelTest {
 				"  }",
 				"}");
 		// no "emptyButton" in "array"
-		assertThat(arrayInfo.getItems()).containsOnly(localButton);
-		assertThat(myPanel.getChildren()).doesNotContain(emptyButton);
+		Assertions.assertThat(arrayInfo.getItems()).containsOnly(localButton);
+		Assertions.assertThat(myPanel.getChildren()).doesNotContain(emptyButton);
 	}
 
+	@Test
 	public void test_deleteAllItems() throws Exception {
 		getParsedContainer();
 		// delete all buttons
@@ -179,9 +185,10 @@ public class ArrayObjectTest extends SwingModelTest {
 				"  public Test() {",
 				"  }",
 				"}");
-		assertThat(myPanel.getChildren()).doesNotContain(arrayInfo, localButton, emptyButton);
+		Assertions.assertThat(myPanel.getChildren()).doesNotContain(arrayInfo, localButton, emptyButton);
 	}
 
+	@Test
 	public void test_deleteArrayObjectInfo() throws Exception {
 		getParsedContainer();
 		// do delete
@@ -194,14 +201,15 @@ public class ArrayObjectTest extends SwingModelTest {
 				"  public Test() {",
 				"  }",
 				"}");
-		assertThat(myPanel.getChildren()).doesNotContain(arrayInfo, localButton, emptyButton);
+		Assertions.assertThat(myPanel.getChildren()).doesNotContain(arrayInfo, localButton, emptyButton);
 	}
 
+	@Test
 	public void test_addItem() throws Exception {
 		getParsedContainer();
 		// check exists
-		assertThat(localButton).isNotNull();
-		assertThat(emptyButton).isNotNull();
+		Assertions.assertThat(localButton).isNotNull();
+		Assertions.assertThat(emptyButton).isNotNull();
 		// add new button
 		JavaInfo newButton = createJavaInfo("javax.swing.JButton");
 		arrayInfo.command_CREATE(newButton, null);
@@ -214,21 +222,22 @@ public class ArrayObjectTest extends SwingModelTest {
 				"    addButtons( new JButton[] { button, new JButton(), new JButton('New button') } );",
 				"  }",
 				"}");
-		assertThat(myPanel.getChildren(ArrayObjectInfo.class)).containsOnly(arrayInfo);
+		Assertions.assertThat(myPanel.getChildren(ArrayObjectInfo.class)).containsOnly(arrayInfo);
 		Assertions.<JavaInfo>assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
 		// check objects
 		myPanel.refresh();
-		assertThat(localButton.getObject()).isNotNull();
-		assertThat(emptyButton.getObject()).isNotNull();
-		assertThat(newButton.getObject()).isNotNull();
+		Assertions.assertThat(localButton.getObject()).isNotNull();
+		Assertions.assertThat(emptyButton.getObject()).isNotNull();
+		Assertions.assertThat(newButton.getObject()).isNotNull();
 	}
 
+	@Test
 	public void test_moveItemInside() throws Exception {
 		getParsedContainer();
 		// check exists
-		assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
-		assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
+		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
+		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// move button
 		arrayInfo.command_MOVE(emptyButton, localButton);
@@ -241,22 +250,23 @@ public class ArrayObjectTest extends SwingModelTest {
 				"    addButtons( new JButton[] { new JButton(), button } );",
 				"  }",
 				"}");
-		assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(1);
-		assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(0);
-		assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isGreaterThan(
+		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(1);
+		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(0);
+		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isGreaterThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// check objects
 		myPanel.refresh();
-		assertThat(localButton.getObject()).isNotNull();
-		assertThat(emptyButton.getObject()).isNotNull();
+		Assertions.assertThat(localButton.getObject()).isNotNull();
+		Assertions.assertThat(emptyButton.getObject()).isNotNull();
 	}
 
+	@Test
 	public void test_moveItemBetween() throws Exception {
 		getParsedContainer();
 		// check exists
-		assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
-		assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
+		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
+		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// create new invocation
 		MethodInvocation newMethodInvocation =
@@ -297,14 +307,14 @@ public class ArrayObjectTest extends SwingModelTest {
 					"    addButtons( new JButton[] { new JButton() } );",
 					"  }",
 					"}");
-			assertThat(arrayInfo.getItems()).containsOnly(emptyButton);
-			assertThat(newArrayInfo.getItems()).containsOnly(localButton);
-			assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton);
-			assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo, newArrayInfo);
+			Assertions.assertThat(arrayInfo.getItems()).containsOnly(emptyButton);
+			Assertions.assertThat(newArrayInfo.getItems()).containsOnly(localButton);
+			Assertions.assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton);
+			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo, newArrayInfo);
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
 		}
 		{
 			// move empty button too
@@ -318,16 +328,17 @@ public class ArrayObjectTest extends SwingModelTest {
 					"    addButtons(new JButton[]{button, new JButton()});",
 					"  }",
 					"}");
-			assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton);
-			assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(newArrayInfo);
-			assertThat(newArrayInfo.getItems()).containsOnly(localButton, emptyButton);
+			Assertions.assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton);
+			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(newArrayInfo);
+			Assertions.assertThat(newArrayInfo.getItems()).containsOnly(localButton, emptyButton);
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
 		}
 	}
 
+	@Test
 	public void test_moveItemOutside() throws Exception {
 		getParsedContainer(new String[]{
 				"public class Test extends MyPanel {",
@@ -342,12 +353,12 @@ public class ArrayObjectTest extends SwingModelTest {
 				"  }",
 		"}"});
 		// check exists
-		assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
-		assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
+		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
+		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// outside JButton
-		assertThat(myPanel.getChildrenComponents()).hasSize(3);
+		Assertions.assertThat(myPanel.getChildrenComponents()).hasSize(3);
 		ComponentInfo newButton = myPanel.getChildrenComponents().get(2);
 		// move button
 		arrayInfo.command_MOVE(newButton, emptyButton);
@@ -365,14 +376,14 @@ public class ArrayObjectTest extends SwingModelTest {
 					"    addButtons( new JButton[] { button, button_1, new JButton() } );",
 					"  }",
 					"}");
-			assertThat(arrayInfo.getItems()).containsOnly(localButton, emptyButton, newButton);
-			assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
-			assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
+			Assertions.assertThat(arrayInfo.getItems()).containsOnly(localButton, emptyButton, newButton);
+			Assertions.assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
+			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
-			assertThat(newButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(newButton.getObject()).isNotNull();
 		}
 		{
 			// check source on delete
@@ -386,11 +397,12 @@ public class ArrayObjectTest extends SwingModelTest {
 					"}");
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
 		}
 	}
 
+	@Test
 	public void test_moveItemOutside_inlined() throws Exception {
 		getParsedContainer(new String[]{
 				"public class Test extends MyPanel {",
@@ -401,12 +413,12 @@ public class ArrayObjectTest extends SwingModelTest {
 				"  }",
 		"}"});
 		// check exists
-		assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
-		assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
+		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
+		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// outside JButton
-		assertThat(myPanel.getChildrenComponents()).hasSize(3);
+		Assertions.assertThat(myPanel.getChildrenComponents()).hasSize(3);
 		ComponentInfo newButton = myPanel.getChildrenComponents().get(2);
 		// move button
 		arrayInfo.command_MOVE(newButton, emptyButton);
@@ -419,14 +431,14 @@ public class ArrayObjectTest extends SwingModelTest {
 					"    addButtons( new JButton[] { button, new JButton('Button'), new JButton() } );",
 					"  }",
 					"}");
-			assertThat(arrayInfo.getItems()).containsOnly(localButton, emptyButton, newButton);
-			assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
-			assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
+			Assertions.assertThat(arrayInfo.getItems()).containsOnly(localButton, emptyButton, newButton);
+			Assertions.assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
+			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
-			assertThat(newButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(newButton.getObject()).isNotNull();
 		}
 		{
 			// check source on delete
@@ -440,17 +452,18 @@ public class ArrayObjectTest extends SwingModelTest {
 					"}");
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
 		}
 	}
 
+	@Test
 	public void test_moveItemOutside_inlining() throws Exception {
 		getParsedContainer();
 		// check exists
-		assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
-		assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
+		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
+		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// add new JButton
 		ComponentInfo newButton;
@@ -472,8 +485,8 @@ public class ArrayObjectTest extends SwingModelTest {
 				"    }",
 				"  }",
 				"}");
-		assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo, newButton);
-		assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
+		Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo, newButton);
+		Assertions.assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
 		// move button
 		arrayInfo.command_MOVE(newButton, emptyButton);
 		{
@@ -486,14 +499,14 @@ public class ArrayObjectTest extends SwingModelTest {
 					"    addButtons( new JButton[] { button, new JButton('New button'), new JButton() } );",
 					"  }",
 					"}");
-			assertThat(arrayInfo.getItems()).containsOnly(localButton, emptyButton, newButton);
-			assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
-			assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
+			Assertions.assertThat(arrayInfo.getItems()).containsOnly(localButton, emptyButton, newButton);
+			Assertions.assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
+			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
-			assertThat(newButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(newButton.getObject()).isNotNull();
 		}
 		{
 			// check source on delete
@@ -508,12 +521,13 @@ public class ArrayObjectTest extends SwingModelTest {
 					"}");
 			// check objects
 			myPanel.refresh();
-			assertThat(localButton.getObject()).isNotNull();
-			assertThat(emptyButton.getObject()).isNotNull();
+			Assertions.assertThat(localButton.getObject()).isNotNull();
+			Assertions.assertThat(emptyButton.getObject()).isNotNull();
 		}
 	}
 
 	/* this feature is not allowed :(
+	@Test
   public void test_OutsideInitialization() throws Exception {
   	getParsedContainer(new String[]{
   			"public class Test extends MyPanel {",
@@ -524,8 +538,8 @@ public class ArrayObjectTest extends SwingModelTest {
   			"  }",
   			"}"});
   	// 1 array + 2 buttons
-  	assertThat(myPanel.getChildren(ArrayObjectInfo.class)).hasSize(1);
-  	assertThat(myPanel.getChildren(ComponentInfo.class)).hasSize(2);
+  	Assertions.assertThat(myPanel.getChildren(ArrayObjectInfo.class)).hasSize(1);
+  	Assertions.assertThat(myPanel.getChildren(ComponentInfo.class)).hasSize(2);
   	// get models
   	arrayInfo = myPanel.getChildren(ArrayObjectInfo.class).get(0);
   	localButton = myPanel.getChildrenComponents().get(0);
@@ -557,8 +571,8 @@ public class ArrayObjectTest extends SwingModelTest {
 		configureProject2();
 		myPanel = parseContainer(sourceLines);
 		// 1 array + 2 buttons
-		assertThat(myPanel.getChildren(ArrayObjectInfo.class)).hasSize(1);
-		assertThat(myPanel.getChildren(ComponentInfo.class).size()).isGreaterThanOrEqualTo(2);
+		Assertions.assertThat(myPanel.getChildren(ArrayObjectInfo.class)).hasSize(1);
+		Assertions.assertThat(myPanel.getChildren(ComponentInfo.class).size()).isGreaterThanOrEqualTo(2);
 		// get models
 		arrayInfo = myPanel.getChildren(ArrayObjectInfo.class).get(0);
 		localButton = myPanel.getChildrenComponents().get(0);

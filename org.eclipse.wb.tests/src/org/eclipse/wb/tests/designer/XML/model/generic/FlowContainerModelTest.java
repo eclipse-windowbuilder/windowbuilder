@@ -29,12 +29,13 @@ import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerConfiguration
 import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerFactory;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.mockito.InOrder;
 
 import java.text.MessageFormat;
@@ -60,16 +61,18 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	// FlowContainer_Factory: horizontal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getConfigurations_horizontal_trueByDefault() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
 					{"flowContainer", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "alwaysTrue", "direct");
 	}
 
+	@Test
 	public void test_getConfigurations_horizontal_complexExpression() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -77,7 +80,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "isHorizontal()"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "isHorizontal()", "direct");
 	}
 
@@ -89,6 +92,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * No special container association, so "direct" is used.
 	 */
+	@Test
 	public void test_getConfigurations_association_implicitDirect() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -96,13 +100,14 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "true", "direct");
 	}
 
 	/**
 	 * The "property" association.
 	 */
+	@Test
 	public void test_getConfigurations_association_property() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -111,13 +116,14 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.x-association", "property myProperty"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "true", "property myProperty");
 	}
 
 	/**
 	 * The "inter" association.
 	 */
+	@Test
 	public void test_getConfigurations_association_inter() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -126,10 +132,11 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.x-association", "inter myName attrA='a a' attrB='b'"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(configurations.get(0), "true", "inter myName {attrA=a a, attrB=b}");
 	}
 
+	@Test
 	public void test_getConfigurations_association_bad() throws Exception {
 		try {
 			getConfigurations(true, new String[][]{
@@ -141,7 +148,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 			fail();
 		} catch (Throwable e) {
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
-			assertThat(rootCause).isExactlyInstanceOf(AssertionFailedException.class);
+			Assertions.assertThat(rootCause).isExactlyInstanceOf(AssertionFailedException.class);
 		}
 	}
 
@@ -153,6 +160,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Exception when no "component" validator.
 	 */
+	@Test
 	public void test_getConfigurations_noComponentValidator() throws Exception {
 		try {
 			getConfigurations(true, new String[][]{
@@ -163,6 +171,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_getConfigurations_explicitComponentTypes() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -170,7 +179,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "javax.swing.JButton javax.swing.JTextField"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -182,6 +191,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Use default component validator.
 	 */
+	@Test
 	public void test_getConfigurations_defaultComponent() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -189,7 +199,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.defaultReference", "java.awt.Component"},
 					{"flowContainer", "true"},
 					{"flowContainer.horizontal", "true"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -198,6 +208,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 				"java.awt.Component");
 	}
 
+	@Test
 	public void test_getConfigurations_componentValidatorExpression() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -205,7 +216,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component-validator", "isComponentType(java.awt.Component)"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -222,6 +233,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * No reference expression or string. So, error.
 	 */
+	@Test
 	public void test_getConfigurations_noReference() throws Exception {
 		try {
 			getConfigurations(true, new String[][]{
@@ -233,6 +245,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_getConfigurations_explicitReferenceTypes() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -240,7 +253,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "javax.swing.JButton javax.swing.JTextField"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -249,6 +262,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 				"javax.swing.JButton javax.swing.JTextField");
 	}
 
+	@Test
 	public void test_getConfigurations_referenceValidatorExpression() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -256,7 +270,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference-validator", "isReferenceType(java.awt.Component)"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -268,13 +282,14 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * When no "reference" specified, same predicate as for "component" should be used.
 	 */
+	@Test
 	public void test_getConfigurations_referencesAsComponents() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
 					{"flowContainer", "true"},
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -286,6 +301,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Use default reference validator.
 	 */
+	@Test
 	public void test_getConfigurations_defaultReference() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -293,7 +309,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.defaultReference", "java.awt.Component"},
 					{"flowContainer", "true"},
 					{"flowContainer.horizontal", "true"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -310,6 +326,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Ask "forCanvas", return common configuration for both - canvas/tree.
 	 */
+	@Test
 	public void test_getConfigurations_forCanvas_common() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -317,7 +334,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -329,6 +346,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Ask "forCanvas", return explicit "forCanvas".
 	 */
+	@Test
 	public void test_getConfigurations_forCanvas_explicit() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -336,7 +354,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.canvas.horizontal", "true"},
 					{"flowContainer.canvas.component", "java.awt.Component"},
 					{"flowContainer.canvas.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -348,6 +366,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Ask "forCanvas", but only "forTree" exist.
 	 */
+	@Test
 	public void test_getConfigurations_forCanvas_onlyForTree() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -355,12 +374,13 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.tree.horizontal", "true"},
 					{"flowContainer.tree.component", "java.awt.Component"},
 					{"flowContainer.tree.reference", "java.awt.Component"},});
-		assertThat(configurations).isEmpty();
+		Assertions.assertThat(configurations).isEmpty();
 	}
 
 	/**
 	 * Ask "forTree", return common configuration for both - canvas/tree.
 	 */
+	@Test
 	public void test_getConfigurations_forTree_common() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(false, new String[][]{
@@ -368,12 +388,13 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 	}
 
 	/**
 	 * Ask "forTree", return explicit "forTree".
 	 */
+	@Test
 	public void test_getConfigurations_forTree_explicit() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(false, new String[][]{
@@ -381,12 +402,13 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.tree.horizontal", "true"},
 					{"flowContainer.tree.component", "java.awt.Component"},
 					{"flowContainer.tree.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(1);
+		Assertions.assertThat(configurations).hasSize(1);
 	}
 
 	/**
 	 * Several different configurations.
 	 */
+	@Test
 	public void test_getConfigurations_3_count() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -402,7 +424,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.5.horizontal", "true"},
 					{"flowContainer.5.component", "javax.swing.JTextField"},
 					{"flowContainer.5.reference", "javax.swing.JTextField"},});
-		assertThat(configurations).hasSize(3);
+		Assertions.assertThat(configurations).hasSize(3);
 		assertConfiguration(
 				configurations.get(0),
 				"true",
@@ -426,6 +448,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Ignore if <code>flowContainer</code> value is not <code>true</code>.
 	 */
+	@Test
 	public void test_getConfigurations_ignoreFalse() throws Exception {
 		List<FlowContainerConfiguration> configurations =
 				getConfigurations(true, new String[][]{
@@ -433,7 +456,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 					{"flowContainer.horizontal", "true"},
 					{"flowContainer.component", "java.awt.Component"},
 					{"flowContainer.reference", "java.awt.Component"},});
-		assertThat(configurations).hasSize(0);
+		Assertions.assertThat(configurations).hasSize(0);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -573,6 +596,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	 * CREATE/MOVE methods in container {@link JavaInfo} and use them instead of generic
 	 * implementation.
 	 */
+	@Test
 	public void test_duckTyping() throws Exception {
 		final XmlObjectInfo component = mock(XmlObjectInfo.class);
 		final XmlObjectInfo nextComponent = mock(XmlObjectInfo.class);
@@ -605,6 +629,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * After ADD operation method "command_ADD_after" should be called.
 	 */
+	@Test
 	public void test_duckTyping_ADD() throws Exception {
 		final XmlObjectInfo component = mock(XmlObjectInfo.class);
 		final XmlObjectInfo oldContainer = mock(XmlObjectInfo.class);
@@ -636,6 +661,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Test that most specific version "command_CREATE" method is used.
 	 */
+	@Test
 	public void test_duckTyping_useMostSpecific() throws Exception {
 		final XmlObjectInfo component = mock(XmlObjectInfo.class);
 		final XmlObjectInfo nextComponent = mock(XmlObjectInfo.class);
@@ -660,6 +686,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	// Validation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validateMethods() throws Exception {
 		XmlObjectInfo container = mock(XmlObjectInfo.class);
 		final XmlObjectInfo component = mock(XmlObjectInfo.class);
@@ -702,6 +729,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link FlowContainerConfigurable#command_CREATE(Object, Object)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		prepareFlowPanel();
 		XmlObjectInfo panel =
@@ -734,6 +762,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Ensure that we can: create, delete and create new component again.
 	 */
+	@Test
 	public void test_CREATE_twoTimes() throws Exception {
 		prepareFlowPanel();
 		XmlObjectInfo panel =
@@ -765,6 +794,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link FlowContainerConfigurable#command_MOVE(Object, Object)}.
 	 */
+	@Test
 	public void test_MOVE() throws Exception {
 		prepareFlowPanel();
 		XmlObjectInfo panel =

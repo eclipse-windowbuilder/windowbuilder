@@ -30,6 +30,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.Test;
+
 import java.util.List;
 
 import javax.swing.JButton;
@@ -57,6 +59,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	// NamesManager
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getDefaultVariableName() throws Exception {
 		assertEquals("button", invoke_getDefaultName("a.b.Button"));
 		assertEquals("button", invoke_getDefaultName("a.b.JButton"));
@@ -72,6 +75,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 				qualifiedClassName);
 	}
 
+	@Test
 	public void test_getDefaultAcronym() throws Exception {
 		assertEquals("btn", invoke_getDefaultAcronym("org.eclipse.swt.widgets.Button"));
 		assertEquals("btn", invoke_getDefaultAcronym("javax.swing.JButton"));
@@ -93,6 +97,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	// Name/Acronym
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getNameAcronym_default() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -106,6 +111,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 		assertEquals("pnl", NamesManager.getAcronym(panel));
 	}
 
+	@Test
 	public void test_getNameAcronym_explicit() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -143,6 +149,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	 * If explicit name was set in superclass, we still want to be able to use default name in
 	 * subclass.
 	 */
+	@Test
 	public void test_getNameAcronym_resetExplicit() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -199,6 +206,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	// ComponentNameDescription
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getNameDescriptions_setNameDescriptions() throws Exception {
 		// set descriptions
 		{
@@ -238,6 +246,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getNameDescription() throws Exception {
 		// parse to have context for loading ComponentDescription
 		parseContainer(
@@ -282,6 +291,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getNameDescription_innerClass() throws Exception {
 		class MyPanel {
 		}
@@ -304,6 +314,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	 * <p>
 	 * No component class in {@link ComponentDescription}, for example for "absolute" layout.
 	 */
+	@Test
 	public void test_getNameDescription_nullClass() throws Exception {
 		ComponentDescription description = new ComponentDescription(null);
 		ComponentNameDescription nameDescription = invoke_getNameDescription(description);
@@ -314,6 +325,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	 * Test that {@link GenerationSettings#getVariable(JavaInfo)} uses
 	 * {@link ComponentNameDescription} for returning {@link VariableSupportDescription}.
 	 */
+	@Test
 	public void test_VariableSupportDescription_from_ComponentNameDescription() throws Exception {
 		// parse to have context for loading ComponentDescription
 		parseContainer(
@@ -364,12 +376,14 @@ public class NamesManagerTest extends AbstractVariableTest {
 				componentDescription);
 	}
 
+	@Test
 	public void test_ComponentNameDescription_empty() throws Exception {
 		IPreferenceStore preferences = TOOLKIT.getPreferences();
 		preferences.setValue(IPreferenceConstants.P_VARIABLE_TYPE_SPECIFIC, "");
 		assertEquals(0, NamesManager.getNameDescriptions(TOOLKIT, false).size());
 	}
 
+	@Test
 	public void test_ComponentNameDescription_default() throws Exception {
 		IPreferenceStore preferences = TOOLKIT.getPreferences();
 		preferences.setDefault(IPreferenceConstants.P_VARIABLE_TYPE_SPECIFIC, "");
@@ -379,6 +393,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link NamesManager#getDefaultNameDescription(String)}.
 	 */
+	@Test
 	public void test_getDefaultNameDescription() throws Exception {
 		ComponentNameDescription description =
 				NamesManager.getDefaultNameDescription("javax.swing.JButton");
@@ -395,6 +410,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link NamesManager#validate(String)}.
 	 */
+	@Test
 	public void test_validate() throws Exception {
 		assertNull(NamesManager.validate("${text}"));
 		assertNull(NamesManager.validate("${default_name}"));

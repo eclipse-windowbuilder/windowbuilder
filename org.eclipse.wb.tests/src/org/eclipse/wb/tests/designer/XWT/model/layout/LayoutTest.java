@@ -39,9 +39,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.Collection;
 import java.util.List;
@@ -72,6 +72,7 @@ public class LayoutTest extends XwtModelTest {
 	 * When {@link CompositeInfo} has explicit {@link LayoutInfo}, we should not have implicit
 	 * {@link LayoutInfo} in children.
 	 */
+	@Test
 	public void test_hasExplicitLayout() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -95,6 +96,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * We don't show {@link LayoutInfo} in tree or on canvas.
 	 */
+	@Test
 	public void test_presentation_FillLayout() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -117,6 +119,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * We don't show {@link LayoutInfo} in tree or on canvas.
 	 */
+	@Test
 	public void test_presentation_AbsoluteLayout() throws Exception {
 		CompositeInfo composite = parse("<Shell/>");
 		assertHierarchy(
@@ -134,6 +137,7 @@ public class LayoutTest extends XwtModelTest {
 	// Implicit
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noImplicitLayout() throws Exception {
 		prepareMyComposite(ESA, ESA, new String[]{
 				"<parameters>",
@@ -154,6 +158,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for implicit {@link FillLayout} and {@link ImplicitLayoutCreationSupport}.
 	 */
+	@Test
 	public void test_implicit_FillLayout() throws Exception {
 		prepareMyComposite(new String[]{
 				"// filler filler filler filler filler",
@@ -202,6 +207,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for implicit {@link AbsoluteLayoutInfo}.
 	 */
+	@Test
 	public void test_implicit_absolute() throws Exception {
 		CompositeInfo composite = parse("<Shell/>");
 		assertHierarchy(
@@ -226,6 +232,7 @@ public class LayoutTest extends XwtModelTest {
 	 * <p>
 	 * Also test for {@link LayoutInfo#isActive()}.
 	 */
+	@Test
 	public void test_delete_isActive() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -265,6 +272,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link CompositeInfo#setLayout(LayoutInfo)}.
 	 */
+	@Test
 	public void test_setLayout_replaceImplicit() throws Exception {
 		CompositeInfo shell = parse("<Shell/>");
 		assertHierarchy(
@@ -296,6 +304,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link CompositeInfo#setLayout(LayoutInfo)}.
 	 */
+	@Test
 	public void test_setLayout_replaceExplicit() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -339,6 +348,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link LayoutInfo#command_CREATE(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -372,6 +382,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link LayoutInfo#command_CREATE(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_CREATE_withNext() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -411,6 +422,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link LayoutInfo#command_MOVE(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_MOVE_last() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -455,6 +467,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link LayoutInfo#command_MOVE(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_MOVE_withNext() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -500,6 +513,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link LayoutInfo#command_MOVE(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_MOVE_reparent() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -554,6 +568,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for "Layout" complex property.
 	 */
+	@Test
 	public void test_Layout_complexProperty() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -577,7 +592,7 @@ public class LayoutTest extends XwtModelTest {
 		// sub-properties
 		Property[] subProperties = PropertyUtils.getChildren(layoutProperty);
 		String[] subTitles = PropertyUtils.getTitles(subProperties);
-		assertThat(subTitles).contains("Class", "center", "fill", "spacing", "marginLeft");
+		Assertions.assertThat(subTitles).contains("Class", "center", "fill", "spacing", "marginLeft");
 		// delete
 		layoutProperty.setValue(Property.UNKNOWN_VALUE);
 		assertXML(
@@ -589,6 +604,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for "Layout" complex property.
 	 */
+	@Test
 	public void test_Layout_complexProperty_absolute() throws Exception {
 		CompositeInfo composite = parse("<Shell/>");
 		refresh();
@@ -598,12 +614,13 @@ public class LayoutTest extends XwtModelTest {
 		assertEquals("(absolute)", getPropertyText(layoutProperty));
 		// sub-properties
 		Property[] subProperties = PropertyUtils.getChildren(layoutProperty);
-		assertThat(subProperties).isEmpty();
+		Assertions.assertThat(subProperties).isEmpty();
 	}
 
 	/**
 	 * Test for drop-down menu of "Layout" complex property.
 	 */
+	@Test
 	public void test_Layout_complexProperty_dropDown() throws Exception {
 		CompositeInfo composite = parse("<Shell/>");
 		refresh();
@@ -636,7 +653,7 @@ public class LayoutTest extends XwtModelTest {
 					for (MenuItem menuItem : dropDown.getItems()) {
 						itemTexts.add(menuItem.getText());
 					}
-					assertThat(itemTexts).contains("FillLayout", "RowLayout", "GridLayout");
+					Assertions.assertThat(itemTexts).contains("FillLayout", "RowLayout", "GridLayout");
 				}
 			} finally {
 				dropDown.setVisible(false);
@@ -654,6 +671,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test that we can parse "real" {@link LayoutDataInfo} and bind it to {@link ControlInfo}.
 	 */
+	@Test
 	public void test_LayoutData_parse() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -687,6 +705,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for "LayoutData" complex property.
 	 */
+	@Test
 	public void test_LayoutData_complexProperty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -719,7 +738,7 @@ public class LayoutTest extends XwtModelTest {
 			// sub-properties
 			Property[] subProperties = PropertyUtils.getChildren(dataProperty);
 			String[] subTitles = PropertyUtils.getTitles(subProperties);
-			assertThat(subTitles).contains("Class", "exclude", "width", "height");
+			Assertions.assertThat(subTitles).contains("Class", "exclude", "width", "height");
 			// delete
 			dataProperty.setValue(Property.UNKNOWN_VALUE);
 			assertXML(
@@ -746,6 +765,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test that after parsing {@link ControlInfo} has virtual {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_LayoutData_virtual() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -780,6 +800,7 @@ public class LayoutTest extends XwtModelTest {
 	/**
 	 * Test for materializing virtual {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_LayoutData_materialize() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -822,6 +843,7 @@ public class LayoutTest extends XwtModelTest {
 				"    <RowData width='100'>");
 	}
 
+	@Test
 	public void test_LayoutData_createVirtual_whenDeleteReal() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -862,6 +884,7 @@ public class LayoutTest extends XwtModelTest {
 				"    virtual-LayoutData: org.eclipse.swt.layout.RowData");
 	}
 
+	@Test
 	public void test_LayoutData_createVirtual_whenAddControl() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -890,6 +913,7 @@ public class LayoutTest extends XwtModelTest {
 				"    virtual-LayoutData: org.eclipse.swt.layout.RowData");
 	}
 
+	@Test
 	public void test_LayoutData_createVirtual_whenSetLayout() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -924,6 +948,7 @@ public class LayoutTest extends XwtModelTest {
 				"    virtual-LayoutData: org.eclipse.swt.layout.RowData");
 	}
 
+	@Test
 	public void test_LayoutData_deleteIt_whenNoAttributes() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -963,6 +988,7 @@ public class LayoutTest extends XwtModelTest {
 				"    virtual-LayoutData: org.eclipse.swt.layout.RowData");
 	}
 
+	@Test
 	public void test_LayoutData_deleteIt_hasChildElement_dontDelete() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1007,6 +1033,7 @@ public class LayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_LayoutData_deleteIt_whenReparentControl() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -1054,6 +1081,7 @@ public class LayoutTest extends XwtModelTest {
 				"  <Button wbp:name='button'>");
 	}
 
+	@Test
 	public void test_LayoutData_deleteThem_whenReplaceLayout() throws Exception {
 		CompositeInfo composite =
 				parse(

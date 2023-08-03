@@ -11,36 +11,25 @@
 package org.eclipse.wb.tests.designer.core.model.creation;
 
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link FactoryDescriptionHelper} and static/instance factories.
  *
  * @author scheglov_ke
  */
-public class CreationsTests extends DesignerSuiteTests {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Suite
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.creation");
+@RunWith(Suite.class)
+@SuiteClasses({
 		// creations
-		suite.addTest(createSingleSuite(ThisCreationSupportTest.class));
-		suite.addTest(createSingleSuite(ConstructorCreationSupportTest.class));
-		suite.addTest(createSingleSuite(ExposedPropertyCreationSupportTest.class));
-		suite.addTest(createSingleSuite(ExposedFieldCreationSupportTest.class));
-		suite.addTest(createSingleSuite(SuperInvocationCreationSupportTest.class));
+		ThisCreationSupportTest.class, ConstructorCreationSupportTest.class, ExposedPropertyCreationSupportTest.class,
+		ExposedFieldCreationSupportTest.class, SuperInvocationCreationSupportTest.class,
 		// factories
-		suite.addTest(FactoriesTests.suite());
+		FactoriesTests.class,
 		// other
-		suite.addTest(createSingleSuite(InvocationChainCreationSupportTest.class));
-		suite.addTest(createSingleSuite(ICreationSupportPermissionsTest.class));
-		suite.addTest(createSingleSuite(OpaqueCreationSupportTest.class));
-		return suite;
-	}
+		InvocationChainCreationSupportTest.class, ICreationSupportPermissionsTest.class,
+		OpaqueCreationSupportTest.class })
+public class CreationsTests {
 }

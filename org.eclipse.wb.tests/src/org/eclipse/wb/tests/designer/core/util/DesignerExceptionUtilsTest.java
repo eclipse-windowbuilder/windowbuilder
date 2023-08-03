@@ -20,7 +20,9 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 /**
  * Test for {@link DesignerExceptionUtils}.
@@ -34,7 +36,8 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		DesignerExceptionUtils.flushErrorEntriesCache();
 		super.tearDown();
 	}
@@ -44,17 +47,20 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	// getRootCause()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getRootCause_noCause() {
 		Throwable e = new Throwable();
 		assertSame(e, DesignerExceptionUtils.getRootCause(e));
 	}
 
+	@Test
 	public void test_getRootCause_singleCause() {
 		Throwable e1 = new Throwable();
 		Throwable e2 = new Throwable(e1);
 		assertSame(e1, DesignerExceptionUtils.getRootCause(e2));
 	}
 
+	@Test
 	public void test_getRootCause_twoCauses() {
 		Throwable e1 = new Throwable();
 		Throwable e2 = new Throwable(e1);
@@ -67,22 +73,26 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	// getDesignerCause()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getDesignerCause_noDesignerException() throws Exception {
 		Throwable e = new Throwable();
 		assertSame(e, DesignerExceptionUtils.getDesignerCause(e));
 	}
 
+	@Test
 	public void test_getDesignerCause_itself() throws Exception {
 		Throwable e = new DesignerException(-1);
 		assertSame(e, DesignerExceptionUtils.getDesignerCause(e));
 	}
 
+	@Test
 	public void test_getDesignerCause_withInner() throws Exception {
 		Throwable e = new Throwable();
 		Throwable e1 = new DesignerException(-1, e);
 		assertSame(e1, DesignerExceptionUtils.getDesignerCause(e1));
 	}
 
+	@Test
 	public void test_getDesignerCause_inError() throws Exception {
 		Throwable e = new DesignerException(-1);
 		Throwable e1 = new Error(e);
@@ -94,6 +104,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	// getDesignerException()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getDesignerException_noDesignerException() throws Exception {
 		Throwable e = new Throwable();
 		try {
@@ -103,17 +114,20 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getDesignerException_itself() throws Exception {
 		Throwable e = new DesignerException(-1);
 		assertSame(e, DesignerExceptionUtils.getDesignerException(e));
 	}
 
+	@Test
 	public void test_getDesignerException_withInner() throws Exception {
 		Throwable e = new Throwable();
 		Throwable e1 = new DesignerException(-1, e);
 		assertSame(e1, DesignerExceptionUtils.getDesignerException(e1));
 	}
 
+	@Test
 	public void test_getDesignerException_inError() throws Exception {
 		Throwable e = new DesignerException(-1);
 		Throwable e1 = new Error(e);
@@ -125,11 +139,13 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	// getSourcePosition()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getSourcePosition_notSet() throws Exception {
 		Throwable throwable = new Error();
 		assertEquals(-1, DesignerExceptionUtils.getSourcePosition(throwable));
 	}
 
+	@Test
 	public void test_getSourcePosition_wasSet() throws Exception {
 		Throwable throwable = new Error();
 		DesignerExceptionUtils.setSourcePosition(throwable, 123);
@@ -144,6 +160,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#isWarning(Throwable)}.
 	 */
+	@Test
 	public void test_isWarning_notDesignerException() throws Exception {
 		Throwable e = new Error();
 		assertFalse(DesignerExceptionUtils.isWarning(e));
@@ -152,6 +169,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#isWarning(Throwable)}.
 	 */
+	@Test
 	public void test_isWarning_notWarning() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -176,6 +194,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#isWarning(Throwable)}.
 	 */
+	@Test
 	public void test_isWarning_true() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -205,6 +224,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#isFatal(Throwable)}.
 	 */
+	@Test
 	public void test_isFatal_false() throws Exception {
 		Throwable e = new Error();
 		assertFalse(DesignerExceptionUtils.isFatal(e));
@@ -213,6 +233,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#isFatal(Throwable)}.
 	 */
+	@Test
 	public void test_isFatal_directly() throws Exception {
 		Throwable fde = new FatalDesignerException(-1);
 		assertTrue(DesignerExceptionUtils.isFatal(fde));
@@ -221,6 +242,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#isFatal(Throwable)}.
 	 */
+	@Test
 	public void test_isFatal_indirectly() throws Exception {
 		Throwable fde = new FatalDesignerException(-1);
 		Throwable e = new Error(fde);
@@ -235,6 +257,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getExceptionTitle(int)}.
 	 */
+	@Test
 	public void test_getExceptionTitle_notFound() throws Exception {
 		String title = DesignerExceptionUtils.getExceptionTitle(-1000);
 		assertEquals("No description", title);
@@ -243,6 +266,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getExceptionTitle(int)}.
 	 */
+	@Test
 	public void test_getExceptionTitle_hasTitle() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -275,6 +299,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getErrorEntry(int, String...)}.
 	 */
+	@Test
 	public void test_getErrorEntry_notFound() throws Exception {
 		ErrorEntryInfo entry = DesignerExceptionUtils.getErrorEntry(-1000);
 		assertNotNull(entry);
@@ -286,6 +311,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getErrorEntry(int, String...)}.
 	 */
+	@Test
 	public void test_getErrorEntry_basic() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -318,6 +344,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getErrorEntry(int, String...)}.
 	 */
+	@Test
 	public void test_getErrorEntry_escapeParametersForHTML() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -352,6 +379,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getErrorDescription(Throwable)}.
 	 */
+	@Test
 	public void test_getErrorDescription_DesignerException() throws Exception {
 		int code = ICoreExceptionConstants.FUTURE;
 		Throwable e = new DesignerException(code);
@@ -363,6 +391,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getErrorDescription(Throwable)}.
 	 */
+	@Test
 	public void test_getErrorDescription_genericThrowable() throws Exception {
 		Throwable e = new Error("foo");
 		ErrorEntryInfo entry = DesignerExceptionUtils.getErrorEntry(e);
@@ -378,6 +407,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#rewriteException(Throwable)}.
 	 */
+	@Test
 	public void test_rewriteException() throws Exception {
 		// generic Exception
 		{
@@ -401,6 +431,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#hasTraceElementsSequence(Throwable, String[][])}.
 	 */
+	@Test
 	public void test_hasTraceElementsSequence() throws Exception {
 		Throwable e = new Exception();
 		// no such sequence
@@ -421,6 +452,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link DesignerExceptionUtils#getExceptionHTML(Throwable)}.
 	 */
+	@Test
 	public void test_getExceptionHTML() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -439,15 +471,15 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 			try {
 				Throwable e = new DesignerException(-1000, "AAA", "BBB");
 				String html = DesignerExceptionUtils.getExceptionHTML(e);
-				assertThat(html).contains("My description AAA + BBB.");
+				Assertions.assertThat(html).contains("My description AAA + BBB.");
 				// HTML tags are removed if the shell can't display html-based text
 				if (BrowserComposite.browserAvailable(DesignerPlugin.getShell())) {
-					assertThat(html).contains("javascript:toggleVisibleAll()");
-					assertThat(html).contains("javascript:toggleVisibleAll()");
-					assertThat(html).contains("Show stack trace.");
-					assertThat(html).contains("Hide stack trace.");
+					Assertions.assertThat(html).contains("javascript:toggleVisibleAll()");
+					Assertions.assertThat(html).contains("javascript:toggleVisibleAll()");
+					Assertions.assertThat(html).contains("Show stack trace.");
+					Assertions.assertThat(html).contains("Hide stack trace.");
 				}
-				assertThat(html).contains(
+				Assertions.assertThat(html).contains(
 						"at org.eclipse.wb.tests.designer.core.util.DesignerExceptionUtilsTest.test_getExceptionHTML");
 			} finally {
 				testBundle.uninstall();

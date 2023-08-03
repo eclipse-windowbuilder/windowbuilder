@@ -38,6 +38,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.After;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.List;
@@ -54,7 +56,8 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		action = null;
 		super.tearDown();
 	}
@@ -81,6 +84,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * No factory units.
 	 */
+	@Test
 	public void test_findFactoryUnit_noUnits() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -96,6 +100,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * We have factory class, however it is not marked with tag or <code>*.wbp-factory.xml</code>.
 	 */
+	@Test
 	public void test_findFactoryUnit_noTagOrDescription() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory_.java",
@@ -120,6 +125,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Test for factory with <code>@wbp.factory</code> in source.
 	 */
+	@Test
 	public void test_findFactoryUnit_tag() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -149,6 +155,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Test for factory with <code>@wbp.factory</code> in source, but not active.
 	 */
+	@Test
 	public void test_findFactoryUnit_tagInComment() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory_.java",
@@ -174,6 +181,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * We have factory class and <code>*.wbp-factory.xml</code>.
 	 */
+	@Test
 	public void test_findFactoryUnit_description() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -209,6 +217,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * We have factory class and <code>*.wbp-factory.xml</code>, but not factory methods.
 	 */
+	@Test
 	public void test_findFactoryUnit_descriptionNoMethods() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory_.java",
@@ -238,6 +247,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	// validate()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validate() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -336,6 +346,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_validate_existingMethod() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -392,6 +403,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Simplest test for preview.
 	 */
+	@Test
 	public void test_preview() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -428,6 +440,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * No parameters, use same class.
 	 */
+	@Test
 	public void test_generate_sameFactoryClass() throws Exception {
 		// parse
 		ContainerInfo panel =
@@ -484,6 +497,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * No parameters, use just existing creation source.
 	 */
+	@Test
 	public void test_generate_newFactoryClass() throws Exception {
 		// parse
 		ContainerInfo panel =
@@ -536,6 +550,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Test that we add {@link FactoryAddCommand} to the palette.
 	 */
+	@Test
 	public void test_generate_addFactoryOnPalette() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -618,6 +633,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * No parameters, use just existing creation source.
 	 */
+	@Test
 	public void test_generate_creationParameters_0() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -672,6 +688,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Single creation argument as parameter.
 	 */
+	@Test
 	public void test_generate_creationParameters_1() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -727,6 +744,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Two creation arguments as parameters.
 	 */
+	@Test
 	public void test_generate_creationParameters_2() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -783,6 +801,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Check that we generate non-conflicting parameter names.
 	 */
+	@Test
 	public void test_generate_uniqueParameterNames() throws Exception {
 		setFileContentSrc(
 				"test/Text.java",
@@ -843,6 +862,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Single invocation argument as parameter.
 	 */
+	@Test
 	public void test_generate_invocationParameters_1() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -898,6 +918,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Two invocation arguments as parameters.
 	 */
+	@Test
 	public void test_generate_invocationParameters_2() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -956,6 +977,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Creation and invocation parameters.
 	 */
+	@Test
 	public void test_generate_creation_invocation_parameters() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -1015,6 +1037,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Test that we skip invocations with variables.
 	 */
+	@Test
 	public void test_generate_invocations() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1043,6 +1066,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * {@link Object#getClass()} is used, extracted as parameter.
 	 */
+	@Test
 	public void test_generate_getClass_parameter() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1104,6 +1128,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * {@link Object#getClass()} is used and extracted as value in factory method.
 	 */
+	@Test
 	public void test_generate_getClass_asValue() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1164,6 +1189,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * We should skip {@link AnnotationTypeDeclaration}'s, such as event listeners.
 	 */
+	@Test
 	public void test_generate_skipAnonymousCreations() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -1196,6 +1222,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	 * By default we don't mark invocations like <code>setBounds()/setLocation()/setSize()</code> as
 	 * extracted.
 	 */
+	@Test
 	public void test_generate_dontExtractSetBounds() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -1348,6 +1375,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Creation arguments with "parent" parameter.
 	 */
+	@Test
 	public void test_generate_creationParameters_parent() throws Exception {
 		ICompilationUnit factoryUnit = prepare_generate_creationParameters_parent();
 		ContainerInfo panel =
@@ -1391,6 +1419,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	/**
 	 * Creation arguments with "parent" parameter.
 	 */
+	@Test
 	public void test_generate_creationParameters_parent_usingDialog() throws Exception {
 		ICompilationUnit factoryUnit = prepare_generate_creationParameters_parent();
 		ContainerInfo panel =

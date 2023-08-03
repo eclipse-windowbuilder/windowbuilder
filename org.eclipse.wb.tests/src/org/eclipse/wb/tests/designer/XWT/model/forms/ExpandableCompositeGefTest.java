@@ -14,6 +14,8 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.xwt.model.forms.ExpandableCompositeInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ExpandableCompositeInfo} in GEF.
  *
@@ -36,6 +38,7 @@ public class ExpandableCompositeGefTest extends XwtGefTest {
 	// Canvas, CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_textClient() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -52,6 +55,7 @@ public class ExpandableCompositeGefTest extends XwtGefTest {
 				"</ExpandableComposite>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_client() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -92,6 +96,7 @@ public class ExpandableCompositeGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_left() throws Exception {
 		prepare_canvas_CREATE();
 		// use tree

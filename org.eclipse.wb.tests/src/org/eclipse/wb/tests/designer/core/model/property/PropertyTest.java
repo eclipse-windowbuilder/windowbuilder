@@ -40,7 +40,8 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyNoValue;
 
 import org.eclipse.jdt.core.dom.Expression;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -64,6 +65,7 @@ public class PropertyTest extends SwingModelTest {
 	// UNKNOWN_VALUE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_unknown() throws Exception {
 		assertEquals("UNKNOWN_VALUE", Property.UNKNOWN_VALUE.toString());
 	}
@@ -76,6 +78,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaProperty#getJavaInfo()}.
 	 */
+	@Test
 	public void test_JavaProperty_getJavaInfo() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -94,6 +97,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaProperty#getTitle()}.
 	 */
+	@Test
 	public void test_JavaProperty_getTitle() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -119,6 +123,7 @@ public class PropertyTest extends SwingModelTest {
 	 * Test for {@link GenericPropertyComposite}, implementation for
 	 * {@link Property#getComposite(Property[])} .
 	 */
+	@Test
 	public void test_GenericPropertyComposite() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -221,6 +226,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link GenericPropertyComposite#getDefaultValue()}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getDefaultValue_sameValue() throws Exception {
 		GenericProperty property_1 = create_GenericProperty_defaultValue("A");
 		GenericProperty property_2 = create_GenericProperty_defaultValue("A");
@@ -231,6 +237,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link GenericPropertyComposite#getDefaultValue()}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getDefaultValue_differentValues() throws Exception {
 		GenericProperty property_1 = create_GenericProperty_defaultValue("A");
 		GenericProperty property_2 = create_GenericProperty_defaultValue("B");
@@ -255,6 +262,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link GenericPropertyComposite#getType()}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getType_sameTypes() throws Exception {
 		GenericProperty property_1 = createGenericProperty_withType(String.class);
 		GenericProperty property_2 = createGenericProperty_withType(String.class);
@@ -265,6 +273,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link GenericPropertyComposite#getType()}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getType_differentTypes() throws Exception {
 		GenericProperty property_1 = createGenericProperty_withType(String.class);
 		GenericProperty property_2 = createGenericProperty_withType(Object.class);
@@ -275,6 +284,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link GenericPropertyComposite#getType()}.
 	 */
+	@Test
 	public void test_GenericPropertyComposite_getType_oneNull() throws Exception {
 		GenericProperty property_1 = createGenericProperty_withType(null);
 		GenericProperty property_2 = createGenericProperty_withType(String.class);
@@ -300,6 +310,7 @@ public class PropertyTest extends SwingModelTest {
 	 * Test for creating copy of {@link GenericPropertyImpl} using
 	 * {@link GenericPropertyImpl#GenericPropertyImpl(GenericPropertyImpl)} constructor.
 	 */
+	@Test
 	public void test_GenericPropertyImpl_copyConstructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -330,6 +341,7 @@ public class PropertyTest extends SwingModelTest {
 	 * Test for creating copy of {@link GenericPropertyImpl} using
 	 * {@link GenericPropertyImpl#GenericPropertyImpl(GenericPropertyImpl, String)} constructor.
 	 */
+	@Test
 	public void test_GenericPropertyImpl_copyConstructor2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -360,6 +372,7 @@ public class PropertyTest extends SwingModelTest {
 	 * "Constructor/text" has no {@link GenericPropertyDescription}, but we still want to know type in
 	 * copy.
 	 */
+	@Test
 	public void test_GenericPropertyImpl_copyConstructor_copyType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -390,6 +403,7 @@ public class PropertyTest extends SwingModelTest {
 	 * then this value can be accessed using {@link GenericProperty#getValue()} even without
 	 * refresh().
 	 */
+	@Test
 	public void test_GenericPropertyImpl_setValue_getValue_withoutRefresh() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -423,6 +437,7 @@ public class PropertyTest extends SwingModelTest {
 	 * {@link GenericProperty#setExpression(String, Object)} and <b>do</b> refresh, we should not
 	 * break existing value.
 	 */
+	@Test
 	public void test_GenericPropertyImpl_setValueUNKNOWN_getValue_withRefresh() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -455,6 +470,7 @@ public class PropertyTest extends SwingModelTest {
 	 * Test that {@link GenericProperty#setExpression(String, Object)} accepts source with "%this%"
 	 * pattern.
 	 */
+	@Test
 	public void test_GenericPropertyImpl_setExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -487,6 +503,7 @@ public class PropertyTest extends SwingModelTest {
 	 * {@link GenericPropertySetValue#invoke(GenericPropertyImpl, Object[], boolean[])} for
 	 * validation.
 	 */
+	@Test
 	public void test_GenericProperty_valueValidation_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -519,6 +536,7 @@ public class PropertyTest extends SwingModelTest {
 	 * {@link GenericPropertySetValue#invoke(GenericPropertyImpl, Object[], boolean[])} for
 	 * participation.
 	 */
+	@Test
 	public void test_GenericProperty_valueValidation_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -555,6 +573,7 @@ public class PropertyTest extends SwingModelTest {
 	 * {@link JavaEventListener#setPropertyExpression(GenericPropertyImpl, String[], boolean[])} for
 	 * validation.
 	 */
+	@Test
 	public void test_GenericProperty_expressionValidation_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -597,6 +616,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test that {@link JavaEventListener#propertyValueWasSet(GenericPropertyImpl)} event is fired.
 	 */
+	@Test
 	public void test_GenericProperty_propertyValueWasSet() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -654,6 +674,7 @@ public class PropertyTest extends SwingModelTest {
 	 * Test that we can use
 	 * {@link JavaEventListener#invoke(GenericPropertyImpl, Expression, Object[])}.
 	 */
+	@Test
 	public void test_GenericProperty_getValue_expressionListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -685,6 +706,7 @@ public class PropertyTest extends SwingModelTest {
 	 * <p>
 	 * Return {@link String} instead of <code>boolean</code>.
 	 */
+	@Test
 	public void test_GenericProperty_getValue_unconditionaListener_String() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -716,6 +738,7 @@ public class PropertyTest extends SwingModelTest {
 	 * <p>
 	 * Check that <code>null</code> is considered as valid value.
 	 */
+	@Test
 	public void test_GenericProperty_getValue_unconditionaListener_null() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -745,6 +768,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * When default value specified in description, value of getter is ignored.
 	 */
+	@Test
 	public void test_defaultPropertyValue_ignoreAccessor() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -793,6 +817,7 @@ public class PropertyTest extends SwingModelTest {
 	 * value, and it returns also same value. So, we consider that default value is set and try to
 	 * remove source. This is not valid, because we trying to set value using "constructor" accessor.
 	 */
+	@Test
 	public void test_defaultPropertyValue_noDefaultValue_forConstructor() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -835,6 +860,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * No getter, no forced default value.
 	 */
+	@Test
 	public void test_defaultPropertyValue_noDefaultValue() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -858,6 +884,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link GenericProperty#getType()}.
 	 */
+	@Test
 	public void test_GenericProperty_getType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -875,6 +902,7 @@ public class PropertyTest extends SwingModelTest {
 	 * <p>
 	 * Properties created for constructor parameter also should provide type.
 	 */
+	@Test
 	public void test_GenericProperty_getType_forConstructor_subProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -900,6 +928,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link SetterAccessor}.
 	 */
+	@Test
 	public void test_setterAccessor() throws Exception {
 		JavaInfo panel =
 				parseSource(
@@ -939,7 +968,7 @@ public class PropertyTest extends SwingModelTest {
 								new Class[]{Property.class});
 				getText_method.setAccessible(true);
 				String text = (String) getText_method.invoke(tooltipProvider, new Object[]{property});
-				assertThat(text).contains("this component");
+				Assertions.assertThat(text).contains("this component");
 			}
 		}
 		// initial check
@@ -1052,6 +1081,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for property that has {@link ConstructorAccessor} but it is not used.
 	 */
+	@Test
 	public void test_constructorAccessor_1() throws Exception {
 		JavaInfo button =
 				parseSource(
@@ -1113,6 +1143,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for property that has active {@link ConstructorAccessor}.
 	 */
+	@Test
 	public void test_constructorAccessor_2() throws Exception {
 		JavaInfo button =
 				parseSource(
@@ -1190,6 +1221,7 @@ public class PropertyTest extends SwingModelTest {
 	 * Test for setters with same name, but different types. We should have properties for both
 	 * setters.
 	 */
+	@Test
 	public void test_StandardBeanPropertiesRule_twoSettersWithSameName() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1223,6 +1255,7 @@ public class PropertyTest extends SwingModelTest {
 	/**
 	 * Test for {@link Property#getArbitraryValue(Object)}, etc.
 	 */
+	@Test
 	public void test_arbitraryValuesMap() throws Exception {
 		Property property = new PropertyNoValue(StringPropertyEditor.INSTANCE);
 		String key = "myKey";

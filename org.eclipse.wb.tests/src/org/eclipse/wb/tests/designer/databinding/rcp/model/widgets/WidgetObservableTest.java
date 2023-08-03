@@ -25,6 +25,8 @@ import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_observeEnabled() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.enabled().observe(m_shell);",
@@ -44,6 +47,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_shell.enabled");
 	}
 
+	@Test
 	public void test_observeVisible() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.visible().observe(m_shell);",
@@ -51,6 +55,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_shell.visible");
 	}
 
+	@Test
 	public void test_observeText() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
@@ -58,6 +63,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_shell.text");
 	}
 
+	@Test
 	public void test_observeTooltipText() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.tooltipText().observe(m_shell);",
@@ -65,6 +71,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_shell.tooltipText");
 	}
 
+	@Test
 	public void test_observeForeground() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.foreground().observe(m_shell);",
@@ -72,6 +79,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_shell.foreground");
 	}
 
+	@Test
 	public void test_observeBackground() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.background().observe(m_shell);",
@@ -79,6 +87,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_shell.background");
 	}
 
+	@Test
 	public void test_observeFont() throws Exception {
 		observeControl(
 				"    IObservableValue observeWidget = WidgetProperties.font().observe(m_shell);",
@@ -153,6 +162,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				observable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeDelay() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -219,6 +229,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				observable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeEditable() throws Exception {
 		observeWidget(
 				"  private Text m_text;",
@@ -229,6 +240,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_text.editable");
 	}
 
+	@Test
 	public void test_observeMin_Spinner() throws Exception {
 		observeWidget(
 				"  private Spinner m_spinner;",
@@ -239,6 +251,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_spinner.minimum");
 	}
 
+	@Test
 	public void test_observeMax_Spinner() throws Exception {
 		observeWidget(
 				"  private Spinner m_spinner;",
@@ -249,6 +262,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_spinner.maximum");
 	}
 
+	@Test
 	public void test_observeMin_Scale() throws Exception {
 		observeWidget(
 				"  private Scale m_scale;",
@@ -259,6 +273,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_scale.minimum");
 	}
 
+	@Test
 	public void test_observeMax_Scale() throws Exception {
 		observeWidget(
 				"  private Scale m_scale;",
@@ -269,6 +284,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_scale.maximum");
 	}
 
+	@Test
 	public void test_observeSelection_Spinner() throws Exception {
 		observeWidget(
 				"  private Spinner m_spinner;",
@@ -279,6 +295,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_spinner.selection");
 	}
 
+	@Test
 	public void test_observeSelection_Scale() throws Exception {
 		observeWidget(
 				"  private Scale m_scale;",
@@ -289,6 +306,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_scale.selection");
 	}
 
+	@Test
 	public void test_observeSelection_Button() throws Exception {
 		observeWidget(
 				"  private Button m_button;",
@@ -299,6 +317,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_button.selection");
 	}
 
+	@Test
 	public void test_observeSelection_Combo() throws Exception {
 		observeWidget(
 				"  private Combo m_combo;",
@@ -309,6 +328,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_combo.selection");
 	}
 
+	@Test
 	public void test_observeSelection_CCombo() throws Exception {
 		observeWidget(
 				"  private CCombo m_combo;",
@@ -319,6 +339,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_combo.selection");
 	}
 
+	@Test
 	public void test_observeSelection_List() throws Exception {
 		observeWidget(
 				"  private List m_list;",
@@ -329,6 +350,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_list.selection");
 	}
 
+	@Test
 	public void test_observeSingleSelectionIndex_Combo() throws Exception {
 		observeWidget(
 				"  private Combo m_combo;",
@@ -339,6 +361,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_combo.singleSelectionIndex");
 	}
 
+	@Test
 	public void test_observeSingleSelectionIndex_CCombo() throws Exception {
 		observeWidget(
 				"  private CCombo m_combo;",
@@ -349,6 +372,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_combo.singleSelectionIndex");
 	}
 
+	@Test
 	public void test_observeSingleSelectionIndex_List() throws Exception {
 		observeWidget(
 				"  private List m_list;",
@@ -359,6 +383,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_list.singleSelectionIndex");
 	}
 
+	@Test
 	public void test_observeSingleSelectionIndex_Table() throws Exception {
 		observeWidget(
 				"  private Table m_table;",
@@ -442,6 +467,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				observable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeText_Modify() throws Exception {
 		observeText(
 				"    IObservableValue observeWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
@@ -450,6 +476,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_text.text(SWT.Modify)");
 	}
 
+	@Test
 	public void test_observeText_FocusOut() throws Exception {
 		observeText(
 				"    IObservableValue observeWidget = WidgetProperties.text(SWT.FocusOut).observe(m_text);",
@@ -458,6 +485,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_text.text(SWT.FocusOut)");
 	}
 
+	@Test
 	public void test_observeText_NONE() throws Exception {
 		observeText(
 				"    IObservableValue observeWidget = WidgetProperties.text(SWT.NONE).observe(m_text);",
@@ -466,6 +494,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_text.text(SWT.NONE)");
 	}
 
+	@Test
 	public void test_observeText_None() throws Exception {
 		observeText(
 				"    IObservableValue observeWidget = WidgetProperties.text(SWT.None).observe(m_text);",
@@ -548,6 +577,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 		//assertEquals(updateEventTypeIndex, observable.getUpdateEventTypeIndex()); XXX
 	}
 
+	@Test
 	public void test_z_observeItems_Combo() throws Exception {
 		observeItems(
 				"  private Combo m_combo;",
@@ -557,6 +587,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_combo.items");
 	}
 
+	@Test
 	public void test_z_observeItems_CCombo() throws Exception {
 		observeItems(
 				"  private CCombo m_combo;",
@@ -566,6 +597,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 				"m_combo.items");
 	}
 
+	@Test
 	public void test_z_observeItems_List() throws Exception {
 		observeItems(
 				"  private List m_list;",

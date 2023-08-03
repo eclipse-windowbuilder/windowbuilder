@@ -18,7 +18,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.applet.Applet;
 
@@ -49,6 +50,7 @@ public class AppletTest extends SwingModelTest {
 	 * Java thinks that {@link Applet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
 	 * test that we handle {@link Applet} correctly.
 	 */
+	@Test
 	public void test_Applet_bounds() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -67,8 +69,8 @@ public class AppletTest extends SwingModelTest {
 		assertEquals(new Rectangle(0, 0, 450, 300), applet.getBounds());
 		{
 			Rectangle bounds = button.getBounds();
-			assertThat(bounds.x).isGreaterThan(100).isLessThan(300);
-			assertThat(bounds.y).isEqualTo(5);
+			Assertions.assertThat(bounds.x).isGreaterThan(100).isLessThan(300);
+			Assertions.assertThat(bounds.y).isEqualTo(5);
 		}
 	}
 
@@ -76,6 +78,7 @@ public class AppletTest extends SwingModelTest {
 	 * Java thinks that {@link JApplet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
 	 * test that we handle {@link JApplet} correctly.
 	 */
+	@Test
 	public void test_JApplet_bounds() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -102,6 +105,7 @@ public class AppletTest extends SwingModelTest {
 	 * {@link JApplet#getParent()} returns <code>null</code>, but we should not fail, and it is not
 	 * included into hierarchy.
 	 */
+	@Test
 	public void test_JApplet_getParent() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -129,6 +133,7 @@ public class AppletTest extends SwingModelTest {
 	 * Java thinks that {@link Applet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
 	 * test that we get correct screen shot of {@link Applet}.
 	 */
+	@Test
 	public void test_Applet_screenShot() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -147,6 +152,7 @@ public class AppletTest extends SwingModelTest {
 	 * Java thinks that {@link JApplet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
 	 * test that we get correct screen shot of {@link JApplet}.
 	 */
+	@Test
 	public void test_JApplet_screenShot() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -172,6 +178,7 @@ public class AppletTest extends SwingModelTest {
 	// Execution flow
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_GUI_inConstructor() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -192,6 +199,7 @@ public class AppletTest extends SwingModelTest {
 		assertNotNull(applet.getChildrenComponents().get(0).getComponent());
 	}
 
+	@Test
 	public void test_GUI_inMethod_init() throws Exception {
 		ContainerInfo applet =
 				parseContainer(
@@ -214,6 +222,7 @@ public class AppletTest extends SwingModelTest {
 		assertNotNull(applet.getChildrenComponents().get(0).getComponent());
 	}
 
+	@Test
 	public void test_GUI_initInExecutionFlow() throws Exception {
 		setFileContentSrc(
 				"test/MyApplet.java",
@@ -250,6 +259,7 @@ public class AppletTest extends SwingModelTest {
 	// Cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_applet_in_applet() throws Exception {
 		// this should just parse
 		ContainerInfo applet =

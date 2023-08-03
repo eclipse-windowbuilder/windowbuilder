@@ -26,7 +26,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class WizardPageTest extends RcpModelTest {
 	/**
 	 * Just parsing for some {@link WizardPage}.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		WizardPageInfo wizardPage =
 				parseJavaInfo(
@@ -77,23 +79,24 @@ public class WizardPageTest extends RcpModelTest {
 		// refresh()
 		wizardPage.refresh();
 		// check bounds
-		assertThat(wizardPage.getBounds().width).isEqualTo(600);
-		assertThat(wizardPage.getBounds().height).isEqualTo(500);
-		assertThat(parentComposite.getBounds().width).isGreaterThan(500);
-		assertThat(parentComposite.getBounds().height).isGreaterThan(230);
-		assertThat(container.getBounds().width).isGreaterThan(500);
-		assertThat(container.getBounds().height).isGreaterThan(220);
+		Assertions.assertThat(wizardPage.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(wizardPage.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(500);
+		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(230);
+		Assertions.assertThat(container.getBounds().width).isGreaterThan(500);
+		Assertions.assertThat(container.getBounds().height).isGreaterThan(220);
 		// set new bounds
 		wizardPage.getTopBoundsSupport().setSize(500, 400);
 		wizardPage.refresh();
-		assertThat(wizardPage.getBounds().width).isEqualTo(500);
-		assertThat(wizardPage.getBounds().height).isEqualTo(400);
+		Assertions.assertThat(wizardPage.getBounds().width).isEqualTo(500);
+		Assertions.assertThat(wizardPage.getBounds().height).isEqualTo(400);
 	}
 
 	/**
 	 * When we test/preview {@link WizardPage} and close {@link WizardDialog} its {@link Shell}
 	 * becomes disposed, so we should not try to close {@link WizardDialog} again.
 	 */
+	@Test
 	public void test_refresh_whenAlreadyDisposed() throws Exception {
 		WizardPageInfo wizardPage =
 				parseJavaInfo(
@@ -119,6 +122,7 @@ public class WizardPageTest extends RcpModelTest {
 	 * User may override {@link WizardPage#getControl()}, but we allow to visit it only one time, and
 	 * second time return <code>null</code>, and this causes problems.
 	 */
+	@Test
 	public void test_override_getControl() throws Exception {
 		WizardPageInfo wizardPage =
 				parseJavaInfo(
@@ -150,6 +154,7 @@ public class WizardPageTest extends RcpModelTest {
 	 * Some not-so-smart users (no, Eric just reproduced this :-)) may try to edit {@link WizardPage}
 	 * without {@link Control}.
 	 */
+	@Test
 	public void test_noControl() throws Exception {
 		try {
 			parseJavaInfo(
@@ -169,6 +174,7 @@ public class WizardPageTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_simulateException_inCreate() throws Exception {
 		String key = "__wbp_WizardPage_simulateException";
 		try {
@@ -196,6 +202,7 @@ public class WizardPageTest extends RcpModelTest {
 	/**
 	 * We replace bad control with placeholder in {@link WizardPage#createControl(Composite)} too.
 	 */
+	@Test
 	public void test_exceptionInCreate() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -228,13 +235,14 @@ public class WizardPageTest extends RcpModelTest {
 				"    {new: test.MyButton} {empty} {/setControl(new MyButton(parent, SWT.NONE))/}");
 		// check logged exceptions
 		List<BadNodeInformation> badNodes = m_lastState.getBadRefreshNodes().nodes();
-		assertThat(badNodes).hasSize(1);
+		Assertions.assertThat(badNodes).hasSize(1);
 	}
 
 	/**
 	 * We should invoke method only one time, and handle this correctly even for case of
 	 * "special rendering", i.e. when execution flow is not known for parser.
 	 */
+	@Test
 	public void test_duplicateMethodInvocation() throws Exception {
 		WizardPageInfo wizardPage =
 				parseJavaInfo(
@@ -268,6 +276,7 @@ public class WizardPageTest extends RcpModelTest {
 	/**
 	 * Here we test, that assignments made in constructor are visible in "render" method.
 	 */
+	@Test
 	public void test_specialRendering_andAssignmentInConstructor() throws Exception {
 		WizardPageInfo wizardPage =
 				parseJavaInfo(
@@ -301,6 +310,7 @@ public class WizardPageTest extends RcpModelTest {
 	 * Use tried to render {@link WizardPage} which requires not <code>null</code>
 	 * {@link IStructuredSelection} argument. We always can provide good, empty instance for it.
 	 */
+	@Test
 	public void test_ISelection_constructorArgument() throws Exception {
 		setFileContentSrc(
 				"test/MyWizardPage.java",

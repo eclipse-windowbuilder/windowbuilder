@@ -10,36 +10,36 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
+import org.eclipse.wb.tests.designer.WaitForMemoryProfilerTest;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP models.
  *
  * @author scheglov_ke
  */
-public class TheRcpTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.rcp");
-		suite.addTest(createSingleSuite(PropertyPageTest.class));
-		suite.addTest(createSingleSuite(PdeUtilsTest.class));
-		suite.addTest(createSingleSuite(ExtensionElementPropertyTest.class));
-		suite.addTest(createSingleSuite(ViewPartTest.class));
-		suite.addTest(createSingleSuite(ViewPartGefTest.class));
-		suite.addTest(createSingleSuite(ViewCategoryPropertyEditorTest.class));
-		suite.addTest(createSingleSuite(EditorPartTest.class));
-		suite.addTest(createSingleSuite(AbstractSplashHandlerTest.class));
-		suite.addTest(createSingleSuite(MultiPageEditorPartTest.class));
-		suite.addTest(createSingleSuite(PageTest.class));
-		suite.addTest(createSingleSuite(PageLayoutTest.class));
-		suite.addTest(createSingleSuite(PageLayoutGefTest.class));
-		suite.addTest(createSingleSuite(ActionBarAdvisorTest.class));
-		suite.addTest(createSingleSuite(ActionFactoryTest.class));
-		suite.addTest(createSingleSuite(FilteredItemsSelectionDialogTest.class));
-		suite.addTest(createSingleSuite(RcpWizardsTest.class));
-		//suite.addTest(createSingleSuite(WaitForMemoryProfilerTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		PropertyPageTest.class,
+		PdeUtilsTest.class,
+		ExtensionElementPropertyTest.class,
+		ViewPartTest.class,
+		ViewPartGefTest.class,
+		ViewCategoryPropertyEditorTest.class,
+		EditorPartTest.class,
+		AbstractSplashHandlerTest.class,
+		MultiPageEditorPartTest.class,
+		PageTest.class,
+		PageLayoutTest.class,
+		PageLayoutGefTest.class,
+		ActionBarAdvisorTest.class,
+		ActionFactoryTest.class,
+		FilteredItemsSelectionDialogTest.class,
+		RcpWizardsTest.class,
+		WaitForMemoryProfilerTest.class
+})
+public class TheRcpTests {
 }

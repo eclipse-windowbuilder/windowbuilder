@@ -24,6 +24,8 @@ import org.eclipse.wb.internal.core.xml.editor.palette.model.ComponentEntryInfo;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.EntryInfo;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.PaletteInfo;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	// Add
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_add() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -76,6 +79,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	// Edit
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_edit() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -121,6 +125,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_move_before() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -151,6 +156,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_move_last() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -179,6 +185,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_move_noop() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -213,6 +220,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	 * Remove old "move" commands if same entry is moved several times.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void test_move_twoTimes() throws Exception {
 		PaletteManager manager = loadManager();
 		List<Command> commands = (List<Command>) ReflectionUtils.getFieldObject(manager, "m_commands");
@@ -250,6 +258,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	 * Stop "move" optimization if entry used as target.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void test_move_stopIfTarget() throws Exception {
 		PaletteManager manager = loadManager();
 		List<Command> commands = (List<Command>) ReflectionUtils.getFieldObject(manager, "m_commands");
@@ -299,6 +308,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_move_noSource() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -332,6 +342,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_move_noTargetCategory() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -365,6 +376,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_move_otherCategory() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -400,6 +412,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	// Remove
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_remove() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -428,6 +441,7 @@ public class ComponentCommandsTest extends AbstractPaletteTest {
 	// Visibility
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_visibility() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette

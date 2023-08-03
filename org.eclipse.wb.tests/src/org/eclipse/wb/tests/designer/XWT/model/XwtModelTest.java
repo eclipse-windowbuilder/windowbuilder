@@ -33,6 +33,8 @@ import org.eclipse.swt.widgets.Button;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * Abstract super class for XWT tests.
@@ -48,14 +50,16 @@ public abstract class XwtModelTest extends AbstractXmlModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		configureForTestPreferences(RcpToolkitDescription.INSTANCE);
 		m_getSource_includeStandardNamespaces = true;
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		configureDefaultPreferences(RcpToolkitDescription.INSTANCE);
 		super.tearDown();
 	}

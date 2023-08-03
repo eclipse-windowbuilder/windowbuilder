@@ -17,6 +17,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.widgets.Dialog;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DialogTopBoundsSupport}.
  *
@@ -42,6 +44,7 @@ public class DialogTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Dialog} with default source, i.e. no any special sizing method.
 	 */
+	@Test
 	public void test_defaultSize() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -71,6 +74,7 @@ public class DialogTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Dialog} without <code>setSize()</code>.
 	 */
+	@Test
 	public void test_setSize_add() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -111,6 +115,7 @@ public class DialogTopBoundsSupportTest extends RcpModelTest {
 	 * <p>
 	 * {@link Dialog} with <code>setSize()</code>.
 	 */
+	@Test
 	public void test_setSize_update() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(

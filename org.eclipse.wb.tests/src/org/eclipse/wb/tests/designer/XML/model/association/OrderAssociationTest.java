@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Test;
 
 /**
  * Test for {@link OrderAssociation}.
@@ -40,6 +41,7 @@ public class OrderAssociationTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString() throws Exception {
 		Association association = OrderAssociation.INSTANCE;
 		assertEquals("order", association.toString());
@@ -48,6 +50,7 @@ public class OrderAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#add(XmlObjectInfo, ElementTarget)}.
 	 */
+	@Test
 	public void test_add_notImplemented() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		// add
@@ -63,6 +66,7 @@ public class OrderAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#move(XmlObjectInfo, ElementTarget, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_reorder() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -97,6 +101,7 @@ public class OrderAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#move(XmlObjectInfo, ElementTarget, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_reparent_notImplemented() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

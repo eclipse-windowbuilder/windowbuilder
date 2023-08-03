@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test for {@link LocalReuseVariableSupport}.
  *
@@ -39,6 +41,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_object() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -91,6 +94,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	// setName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setName_justField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -131,6 +135,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 				m_lastEditor.getSource());
 	}
 
+	@Test
 	public void test_setName_split() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -169,6 +174,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	/**
 	 * Ask expression directly in block "1".
 	 */
+	@Test
 	public void test_getReferenceExpression_local_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -197,6 +203,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	/**
 	 * Ask expression directly after block "1".
 	 */
+	@Test
 	public void test_getReferenceExpression_local_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -226,6 +233,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	 * Ask expression after block "2", so variable was already reassigned and should be converted into
 	 * field.
 	 */
+	@Test
 	public void test_getReferenceExpression_remote() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -271,6 +279,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	// toField
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -324,6 +333,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	 * Test for {@link LocalReuseVariableSupport#setType(String)}, new variable in block, so same name
 	 * can be used.
 	 */
+	@Test
 	public void test_setType_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -372,6 +382,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	 * Test for {@link LocalReuseVariableSupport#setType(String)}, no blocks, so new unique name
 	 * should be generated.
 	 */
+	@Test
 	public void test_setType_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -416,6 +427,7 @@ public class LocalReuseTest extends AbstractVariableTest {
 	 * Test for {@link LocalReuseVariableSupport#setType(String)}, no blocks, initialization in
 	 * declaration, so new unique name should be generated.
 	 */
+	@Test
 	public void test_setType_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

@@ -20,6 +20,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 
+import org.junit.Test;
+
 /**
  * Test for {@link SelectSupport}.
  *
@@ -31,6 +33,7 @@ public class SelectSupportTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_all() throws Exception {
 		JavaInfo panel =
 				openContainer(
@@ -104,6 +107,7 @@ public class SelectSupportTest extends SwingGefTest {
 		}
 	}
 
+	@Test
 	public void test_disposeHierarchy() throws Exception {
 		openContainer(
 				"// filler filler filler filler filler",

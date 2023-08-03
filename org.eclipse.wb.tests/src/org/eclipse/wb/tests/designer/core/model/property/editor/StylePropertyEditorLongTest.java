@@ -32,7 +32,9 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 import java.text.MessageFormat;
 
@@ -85,7 +87,8 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 
 	// TODO clear all fields in DesignerEditorTestCase
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		m_styleProperty = null;
 		m_editor = null;
 		m_properties = null;
@@ -107,10 +110,11 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	// Set
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_StyleProperty_Set_1() throws Exception {
 		parseStyleProperties("set|B0 B1 B2:specialName");
 		{
-			assertThat(m_properties).hasSize(3);
+			Assertions.assertThat(m_properties).hasSize(3);
 			// titles
 			assertEquals("b0", m_properties[0].getTitle());
 			assertEquals("b1", m_properties[1].getTitle());
@@ -145,11 +149,12 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		assertEditorText("[]");
 	}
 
+	@Test
 	public void test_StyleProperty_Set_2() throws Exception {
 		parseStyleProperties("set|B0 noSuchField");
 		// check
 		String[] names = PropertyUtils.getTitles(m_properties);
-		assertThat(names).containsOnly("b0");
+		Assertions.assertThat(names).containsOnly("b0");
 		// warnings expected
 		checkWarning("StylePropertyEditor: can not find field test.SWT.noSuchField");
 	}
@@ -159,6 +164,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	// Select
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Select_1() throws Exception {
 		parseStyleProperties("set|B0 B1", "select0|align R1 R1 R2 R3");
 		// check sub properties
@@ -211,9 +217,10 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		assertEditorText("[]");
 	}
 
+	@Test
 	public void test_Select_2() throws Exception {
 		parseStyleProperties("select0|align 15 15 R1 noSuchField");
-		assertThat(PropertyUtils.getTitles(m_properties)).containsOnly("align");
+		Assertions.assertThat(PropertyUtils.getTitles(m_properties)).containsOnly("align");
 		Property alignProperty = m_properties[0];
 		//
 		assertEquals("align", alignProperty.getTitle());
@@ -229,6 +236,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		checkWarning("StylePropertyEditor: can not find field test.SWT.noSuchField");
 	}
 
+	@Test
 	public void test_Select_for_methodProperty() throws Exception {
 		setFileContentSrc(
 				"test/TestComposite.java",
@@ -263,7 +271,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 				"    add(composite);",
 				"  }",
 		"}"});
-		assertThat(m_properties).hasSize(1);
+		Assertions.assertThat(m_properties).hasSize(1);
 		Property alignProperty = m_properties[0];
 		// initially no style
 		assertEditorText("[]");
@@ -309,6 +317,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	// Macro
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Macro_1() throws Exception {
 		parseStyleProperties("set|B0 B1 B2 B3", "macro0|mix B0_B1 B0_B2 R1");
 		Property property_B0 = m_properties[0];
@@ -350,6 +359,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		assertEditorText("[R1]");
 	}
 
+	@Test
 	public void test_Macro_2() throws Exception {
 		parseStyleProperties("set|B0 B1", "macro0|mix B0_B1 R1");
 		Property property_B0 = m_properties[0];
@@ -376,6 +386,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	// Enumeration
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_enum() throws Exception {
 		parseStyleProperties("SWT.R1", new String[]{"set|B0 B1", "enum0|en 0xF0 R1 R2 R3"});
 		// "B0"
@@ -442,11 +453,12 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		styleItems = styleMenu.getItems();
 	}
 
+	@Test
 	public void test_popup() throws Exception {
 		parseStyleProperties("set|B0 B1 B2", "select0|align R1 R1 R2 R3");
 		prepareStyleItems(false);
 		// check items
-		assertThat(styleItems).hasSize(7);
+		Assertions.assertThat(styleItems).hasSize(7);
 		IContributionItem item_B0 = styleItems[0];
 		IContributionItem item_R2 = styleItems[5];
 		checkItem("b0", IAction.AS_CHECK_BOX, false, item_B0);
@@ -465,11 +477,12 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		assertStyleSource("SWT.B0 | SWT.R2");
 	}
 
+	@Test
 	public void test_popup_cascade() throws Exception {
 		parseStyleProperties("set|B0 B1", "select0|align R1 R1 R2 R3");
 		prepareStyleItems(true);
 		//
-		assertThat(styleItems).hasSize(4);
+		Assertions.assertThat(styleItems).hasSize(4);
 		checkItem("b0", IAction.AS_CHECK_BOX, false, styleItems[0]);
 		checkItem("b1", IAction.AS_CHECK_BOX, false, styleItems[1]);
 		assertInstanceOf(Separator.class, styleItems[2]);
@@ -477,18 +490,19 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		//
 		IMenuManager alignMenu = (IMenuManager) styleItems[3];
 		IContributionItem[] alignItems = alignMenu.getItems();
-		assertThat(alignItems).hasSize(4);
+		Assertions.assertThat(alignItems).hasSize(4);
 		assertInstanceOf(Separator.class, alignItems[0]);
 		checkItem("R1", IAction.AS_RADIO_BUTTON, true, alignItems[1]);
 		checkItem("R2", IAction.AS_RADIO_BUTTON, false, alignItems[2]);
 		checkItem("R3", IAction.AS_RADIO_BUTTON, false, alignItems[3]);
 	}
 
+	@Test
 	public void test_popup_enum() throws Exception {
 		parseStyleProperties("set|B0 B1", "enum0|enum 0xF0 R1 R2 R3");
 		prepareStyleItems(false);
 		//
-		assertThat(styleItems).hasSize(2 + 1 + 3);
+		Assertions.assertThat(styleItems).hasSize(2 + 1 + 3);
 		checkItem("b0", IAction.AS_CHECK_BOX, false, styleItems[0]);
 		checkItem("b1", IAction.AS_CHECK_BOX, false, styleItems[1]);
 		assertInstanceOf(Separator.class, styleItems[2]);
@@ -497,11 +511,12 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		checkItem("R3", IAction.AS_RADIO_BUTTON, false, styleItems[5]);
 	}
 
+	@Test
 	public void test_popup_macro() throws Exception {
 		parseStyleProperties("set|B0 B1", "macro0|mix B0_B1 B0_B2 R1");
 		prepareStyleItems(false);
 		//
-		assertThat(styleItems).hasSize(2 + 1 + 3);
+		Assertions.assertThat(styleItems).hasSize(2 + 1 + 3);
 		checkItem("b0", IAction.AS_CHECK_BOX, false, styleItems[0]);
 		checkItem("b1", IAction.AS_CHECK_BOX, false, styleItems[1]);
 		assertInstanceOf(Separator.class, styleItems[2]);
@@ -526,6 +541,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	// IValueSourcePropertyEditor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_IValueSourcePropertyEditor() throws Exception {
 		int value = 1 << 0 | 1 << 2;
 		parseStyleProperties("set|B0 B1 B2");
@@ -547,6 +563,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	// IClipboardSourceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_IClipboardSourceProvider() throws Exception {
 		parseStyleProperties("SWT.B0 | SWT.B2", new String[]{"set|B0 B1 B2"});
 		// check clipboard source

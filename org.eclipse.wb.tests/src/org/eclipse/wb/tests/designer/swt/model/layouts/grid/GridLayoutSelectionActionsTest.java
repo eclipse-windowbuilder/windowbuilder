@@ -18,7 +18,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Control;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_emptySelection() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -54,9 +56,10 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions();
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -105,6 +108,7 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 		assertFalse(findAction(actions, "Horizontal grab").isChecked());
 	}
 
+	@Test
 	public void test_grabAction() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -158,6 +162,7 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_alignmentAction() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -215,6 +220,7 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Indirectly exposed {@link Control}'s should be ignored.
 	 */
+	@Test
 	public void test_indirectExposedChild() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -255,6 +261,6 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 		// prepare actions: button
 		List<Object> actions = getSelectionActions(button);
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 }

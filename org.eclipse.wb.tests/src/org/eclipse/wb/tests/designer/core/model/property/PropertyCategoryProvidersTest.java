@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
+import org.junit.Test;
+
 /**
  * Test for {@link PropertyCategoryProviders}.
  *
@@ -42,6 +44,7 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyCategoryProviders#fromProperty()}.
 	 */
+	@Test
 	public void test_fromProperty() throws Exception {
 		PropertyCategoryProvider provider = PropertyCategoryProviders.fromProperty();
 		Property property = new PropertyWithTitle("title");
@@ -62,6 +65,7 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyCategoryProviders#forcedByUser()}.
 	 */
+	@Test
 	public void test_forcedByUser() throws Exception {
 		PropertyCategoryProvider provider = PropertyCategoryProviders.forcedByUser();
 		ContainerInfo panel =
@@ -89,6 +93,7 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyCategoryProviders#combine(PropertyCategoryProvider...)}.
 	 */
+	@Test
 	public void test_combine_empty() throws Exception {
 		PropertyCategoryProvider provider = PropertyCategoryProviders.combine();
 		Property property = new PropertyWithTitle("title");
@@ -102,6 +107,7 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyCategoryProviders#combine(PropertyCategoryProvider...)}.
 	 */
+	@Test
 	public void test_combine_atLeastNormal() throws Exception {
 		PropertyCategoryProvider atLeastNormal = new PropertyCategoryProvider() {
 			@Override
@@ -141,6 +147,7 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyCategoryProviders#def()}.
 	 */
+	@Test
 	public void test_def() throws Exception {
 		PropertyCategoryProvider provider = PropertyCategoryProviders.def();
 		ContainerInfo panel =

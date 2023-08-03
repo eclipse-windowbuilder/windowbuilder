@@ -24,6 +24,9 @@ import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.After;
+import org.junit.Before;
+
 import javax.swing.JButton;
 
 /**
@@ -31,14 +34,15 @@ import javax.swing.JButton;
  *
  * @author scheglov_ke
  */
-public class SwingGefTest extends DesignerEditorTestCase {
+public abstract class SwingGefTest extends DesignerEditorTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		configureDefaults(org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION);
 		if (m_testProject == null) {
@@ -55,7 +59,8 @@ public class SwingGefTest extends DesignerEditorTestCase {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		configureDefaults();
 		super.tearDown();
 	}

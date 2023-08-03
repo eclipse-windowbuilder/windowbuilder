@@ -32,12 +32,13 @@ import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.apache.commons.digester3.Digester;
 import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ComponentDescription} which can not be parsed.
 	 */
+	@Test
 	public void test_bad() throws Exception {
 		prepareMyComponent(ESA, new String[]{"bad xml"});
 		try {
@@ -80,6 +82,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for basic {@link ComponentDescription} parsing features.
 	 */
+	@Test
 	public void test_basic() throws Exception {
 		ComponentDescription description = getDescription("org.eclipse.swt.widgets.Composite");
 		assertNotNull(description);
@@ -89,7 +92,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		// toolkit
 		assertSame(RcpToolkitDescription.INSTANCE, description.getToolkit());
 		// presentation
-		assertThat(description.getDescription()).isNotEmpty();
+		Assertions.assertThat(description.getDescription()).isNotEmpty();
 		{
 			ImageDescriptor icon = description.getIcon();
 			assertNotNull(icon);
@@ -101,6 +104,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link UseModelIfNotAlready} annotation.
 	 */
+	@Test
 	public void test_UseModelIfNotAlready() throws Exception {
 		setFileContentSrc(
 				"test/MyInterface.java",
@@ -179,6 +183,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test that we can parse HTML description text, specific for custom component.
 	 */
+	@Test
 	public void test_specificDescription() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"// filler filler filler filler filler",
@@ -188,6 +193,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		assertEquals("My <p/> description", description.getDescription());
 	}
 
+	@Test
 	public void test_useIconOfSuperclass() throws Exception {
 		prepareMyComponent();
 		ComponentDescription description = getMyDescription();
@@ -211,6 +217,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	 * Test for {@link AbstractDescription#getArbitraryValue(Object)} and
 	 * {@link AbstractDescription#putArbitraryValue(Object, Object)}.
 	 */
+	@Test
 	public void test_arbitraries() throws Exception {
 		String key = "test.key";
 		ComponentDescription description = getDescription("org.eclipse.swt.widgets.Composite");
@@ -229,6 +236,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test that {@link IDescriptionProcessor}s are used.
 	 */
+	@Test
 	public void test_IDescriptionProcessor() throws Exception {
 		// add dynamic processor and re-load
 		addProcessorExtension(MyDescriptionProcessor.class.getName());
@@ -278,6 +286,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test that {@link IDescriptionRulesProvider}s are used.
 	 */
+	@Test
 	public void test_IDescriptionRulesProvider() throws Exception {
 		addRulesProviderExtension(MyDescriptionRulesProvider.class.getName());
 		try {
@@ -321,6 +330,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ComponentDescription#getParameters()}.
 	 */
+	@Test
 	public void test_parameters() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"  <parameters>",
@@ -339,7 +349,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		// parameters as Map
 		{
 			Map<String, String> parameters = description.getParameters();
-			assertThat(parameters).contains(
+			Assertions.assertThat(parameters).contains(
 					entry("parameter_1", "AAA"),
 					entry("parameter_2", "BBB"),
 					entry("parameter_3", ""));
@@ -349,6 +359,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ComponentDescription#hasTrueParameter(String)}.
 	 */
+	@Test
 	public void test_hasTrueParameter() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"  <parameters>",
@@ -366,6 +377,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Test that {@link IProject} "wbp-meta" folder it used to get description.
 	 */
+	@Test
 	public void test_descriptionFromProject_meta() throws Exception {
 		setFileContentSrc(
 				"test/MyComponent.java",
@@ -397,6 +409,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	// CreationDescription
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CreationDescription_noID() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"// filler filler filler filler filler",
@@ -409,7 +422,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		ComponentDescription description = getMyDescription();
 		// creations
 		List<CreationDescription> creations = description.getCreations();
-		assertThat(creations).hasSize(1);
+		Assertions.assertThat(creations).hasSize(1);
 		// single CreationDescription
 		{
 			CreationDescription creation = creations.get(0);
@@ -421,7 +434,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 			// attributes
 			{
 				List<CreationAttributeDescription> attributes = creation.getAttributes();
-				assertThat(attributes).hasSize(2);
+				Assertions.assertThat(attributes).hasSize(2);
 				{
 					CreationAttributeDescription attribute = attributes.get(0);
 					assertEquals("ns1", attribute.getNamespace());
@@ -438,6 +451,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_CreationDescription_withID() throws Exception {
 		TestUtils.createImagePNG(m_testProject, "src/test/MyComponent_my.png", 5, 10);
 		prepareMyComponent(ESA, new String[]{
@@ -449,7 +463,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		ComponentDescription description = getMyDescription();
 		// creations
 		List<CreationDescription> creations = description.getCreations();
-		assertThat(creations).hasSize(1);
+		Assertions.assertThat(creations).hasSize(1);
 		// "my" CreationDescription
 		{
 			CreationDescription creation = description.getCreation("my");
@@ -464,7 +478,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 			// attributes
 			{
 				List<CreationAttributeDescription> attributes = creation.getAttributes();
-				assertThat(attributes).hasSize(0);
+				Assertions.assertThat(attributes).hasSize(0);
 			}
 		}
 		// no such creation
@@ -474,6 +488,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * No "creation" element, so use default {@link CreationDescription}.
 	 */
+	@Test
 	public void test_CreationDescription_default() throws Exception {
 		prepareMyComponent(ESA, new String[]{"  <description>Some description</description>"});
 		waitForAutoBuild();
@@ -483,12 +498,13 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		assertNotNull(creation);
 		assertEquals("Some description", creation.getDescription());
 		// it should be in all creations
-		assertThat(description.getCreations()).containsExactly(creation);
+		Assertions.assertThat(description.getCreations()).containsExactly(creation);
 	}
 
 	/**
 	 * Load {@link CreationDescription} with specified <code>parameter</code> elements.
 	 */
+	@Test
 	public void test_CreationDescription_withParameters() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"  <creation id='withParameters'>",
@@ -500,7 +516,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		ComponentDescription description = getMyDescription();
 		// check
 		CreationDescription creation = description.getCreation("withParameters");
-		assertThat(creation.getParameters()).contains(
+		Assertions.assertThat(creation.getParameters()).contains(
 				entry("name_1", "value_1"),
 				entry("name_2", "value_2"));
 	}
@@ -508,6 +524,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 	/**
 	 * Load {@link CreationDescription} with specified <code>x-content</code> element.
 	 */
+	@Test
 	public void test_CreationDescription_withContent() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"  <creation>",

@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 import javax.swing.JButton;
 
 /**
@@ -32,6 +34,7 @@ public class EmptyInvocationTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

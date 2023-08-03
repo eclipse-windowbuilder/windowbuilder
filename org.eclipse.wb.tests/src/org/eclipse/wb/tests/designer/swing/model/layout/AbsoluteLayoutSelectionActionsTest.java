@@ -22,7 +22,8 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.SelectionActionsSupport;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	// Common
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_selectionActions() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -172,6 +174,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	 * component using "layout" of <em>target</em>. This is incorrect, you should ask container/layout
 	 * of <em>component</em> to set required bounds.
 	 */
+	@Test
 	public void test_rootComponentInSelection() throws Exception {
 		String[] lines =
 			{
@@ -197,7 +200,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		List<Object> actions = Lists.newArrayList();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// bad selection, so no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -208,6 +211,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_left_edges_1a() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends JPanel {",
@@ -230,6 +234,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_left_edges_1b() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends JPanel {",
@@ -252,6 +257,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_left_edges_2a() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends JPanel {",
@@ -280,6 +286,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_left_edges_2b() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends JPanel {",
@@ -308,6 +315,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_right_edges_1a() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends JPanel {",
@@ -330,6 +338,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_right_edges_1b() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends JPanel {",
@@ -352,6 +361,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_right_edges_2a() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends JPanel {",
@@ -380,6 +390,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_right_edges_2b() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends JPanel {",
@@ -408,6 +419,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_horizontal_centers_1a() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends JPanel {",
@@ -430,6 +442,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_horizontal_centers_1b() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends JPanel {",
@@ -452,6 +465,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_horizontal_centers_2a() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends JPanel {",
@@ -480,6 +494,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_horizontal_centers_2b() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends JPanel {",
@@ -559,6 +574,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_top_edges_1a() throws Exception {
 		check_align_vertical(new String[]{
 				"class Test extends JPanel {",
@@ -581,6 +597,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_top_edges_1b() throws Exception {
 		check_align_vertical(new String[]{
 				"class Test extends JPanel {",
@@ -603,6 +620,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_top_edges_2a() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends JPanel {",
@@ -631,6 +649,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_top_edges_2b() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends JPanel {",
@@ -659,6 +678,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_bottom_edges_1a() throws Exception {
 		// y2:100 + h2:80 - h1:40 = y1:140
 		check_align_vertical(new String[]{
@@ -682,6 +702,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_bottom_edges_1b() throws Exception {
 		// y2:100 + h2:80 - h1:40 = y1:140
 		check_align_vertical(new String[]{
@@ -705,6 +726,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_bottom_edges_2a() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends JPanel {",
@@ -733,6 +755,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_bottom_edges_2b() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends JPanel {",
@@ -761,6 +784,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_vertical_centers_1a() throws Exception {
 		// y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
 		check_align_vertical(new String[]{
@@ -784,6 +808,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_vertical_centers_1b() throws Exception {
 		// y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
 		check_align_vertical(new String[]{
@@ -807,6 +832,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_vertical_centers_2a() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends JPanel {",
@@ -835,6 +861,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_vertical_centers_2b() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends JPanel {",
@@ -911,6 +938,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	// Width/Height
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_align_replicate_width() throws Exception {
 		check_align(new String[]{
 				"class Test extends JPanel {",
@@ -945,6 +973,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		"}"}, "Replicate width", true);
 	}
 
+	@Test
 	public void test_align_replicate_height() throws Exception {
 		check_align(new String[]{
 				"class Test extends JPanel {",
@@ -987,6 +1016,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Test for two object's without Ctrl pressed.
 	 */
+	@Test
 	public void test_align_space_equally_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1041,6 +1071,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Test for three object's with Ctrl pressed.
 	 */
+	@Test
 	public void test_align_space_equally_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1113,6 +1144,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	// Center in window
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_align_center_in_window() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1161,6 +1193,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 	/**
 	 * Container without layout on the way to root should not cause exceptions.
 	 */
+	@Test
 	public void test_JTabbedPane_onWayToRoot() throws Exception {
 		ContainerInfo root =
 				parseContainer(

@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.swing.model;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CoordinateUtils}.
  *
@@ -27,6 +29,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link CoordinateUtils#get(java.awt.Point)}.
 	 */
+	@Test
 	public void test_toDraw2d_Point() throws Exception {
 		assertEquals(
 				new org.eclipse.draw2d.geometry.Point(1, 2),
@@ -36,6 +39,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link CoordinateUtils#get(java.awt.Rectangle)}.
 	 */
+	@Test
 	public void test_toDraw2d_Rectangle() throws Exception {
 		assertEquals(
 				new org.eclipse.draw2d.geometry.Rectangle(1, 2, 3, 4),
@@ -45,6 +49,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link CoordinateUtils#get(java.awt.Dimension)}.
 	 */
+	@Test
 	public void test_toDraw2d_Dimension() throws Exception {
 		assertEquals(
 				new org.eclipse.draw2d.geometry.Dimension(1, 2),
@@ -54,6 +59,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link CoordinateUtils#get(java.awt.Insets)}.
 	 */
+	@Test
 	public void test_toDraw2d_Insets() throws Exception {
 		assertEquals(
 				new org.eclipse.draw2d.geometry.Insets(1, 2, 3, 4),
@@ -68,6 +74,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link CoordinateUtils#get(org.eclipse.draw2d.geometry.Insets)}.
 	 */
+	@Test
 	public void test_toAWT_Insets() throws Exception {
 		assertEquals(
 				new java.awt.Insets(1, 2, 3, 4),

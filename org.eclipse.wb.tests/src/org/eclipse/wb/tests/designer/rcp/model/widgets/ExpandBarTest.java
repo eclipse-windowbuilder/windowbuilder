@@ -22,9 +22,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -52,7 +52,9 @@ public class ExpandBarTest extends RcpModelTest {
 	 * {@link ExpandBar} with {@link ExpandItem}'s.
 	 */
 	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	public void DISABLE_test_parseItems() throws Exception {
+	@Ignore
+	@Test
+	public void test_parseItems() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",
@@ -78,7 +80,7 @@ public class ExpandBarTest extends RcpModelTest {
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
 		// check items
 		List<ExpandItemInfo> items = expandBar.getItems();
-		assertThat(items).hasSize(2);
+		Assertions.assertThat(items).hasSize(2);
 		ExpandItemInfo item_0 = items.get(0);
 		ExpandItemInfo item_1 = items.get(1);
 		// text
@@ -87,14 +89,14 @@ public class ExpandBarTest extends RcpModelTest {
 		// bounds for "item_0"
 		{
 			Rectangle modelBounds_0 = item_0.getModelBounds();
-			assertThat(modelBounds_0.width).isGreaterThan(450);
-			assertThat(modelBounds_0.height).isGreaterThan(20);
+			Assertions.assertThat(modelBounds_0.width).isGreaterThan(450);
+			Assertions.assertThat(modelBounds_0.height).isGreaterThan(20);
 		}
 		// bounds for "item_1"
 		{
 			Rectangle modelBounds_1 = item_1.getModelBounds();
-			assertThat(modelBounds_1.width).isGreaterThan(450);
-			assertThat(modelBounds_1.height).isGreaterThan(220);
+			Assertions.assertThat(modelBounds_1.width).isGreaterThan(450);
+			Assertions.assertThat(modelBounds_1.height).isGreaterThan(220);
 		}
 		// no setControl() invocations
 		assertNull(item_0.getControl());
@@ -105,6 +107,7 @@ public class ExpandBarTest extends RcpModelTest {
 	 * We should show on design canvas only {@link ControlInfo}'s of expanded {@link ExpandItemInfo}
 	 * 's.
 	 */
+	@Test
 	public void test_presentationChildrenGraphical() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -157,6 +160,7 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ExpandItem#setControl(org.eclipse.swt.widgets.Control)}.
 	 */
+	@Test
 	public void test_setControl_get() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -184,16 +188,16 @@ public class ExpandBarTest extends RcpModelTest {
 		assertSame(button, item.getControl());
 		// check that "button" is wide
 		{
-			assertThat(item.getBounds().height).isGreaterThan(200);
-			assertThat(button.getBounds().height).isGreaterThanOrEqualTo(195); // platform-specific tolerance
-			assertThat(button.getBounds().height).isLessThanOrEqualTo(205);
+			Assertions.assertThat(item.getBounds().height).isGreaterThan(200);
+			Assertions.assertThat(button.getBounds().height).isGreaterThanOrEqualTo(195); // platform-specific tolerance
+			Assertions.assertThat(button.getBounds().height).isLessThanOrEqualTo(205);
 		}
 		// check hierarchy: "button" should be in "item", but not in "expandBar"
 		{
-			assertThat(item.getPresentation().getChildrenTree()).containsExactly(button);
-			assertThat(item.getPresentation().getChildrenGraphical()).containsExactly(button);
-			assertThat(expandBar.getPresentation().getChildrenTree()).containsExactly(item);
-			assertThat(expandBar.getPresentation().getChildrenGraphical()).containsExactly(item);
+			Assertions.assertThat(item.getPresentation().getChildrenTree()).containsExactly(button);
+			Assertions.assertThat(item.getPresentation().getChildrenGraphical()).containsExactly(button);
+			Assertions.assertThat(expandBar.getPresentation().getChildrenTree()).containsExactly(item);
+			Assertions.assertThat(expandBar.getPresentation().getChildrenGraphical()).containsExactly(item);
 		}
 	}
 
@@ -201,6 +205,7 @@ public class ExpandBarTest extends RcpModelTest {
 	 * Test for {@link ExpandItemInfo#command_CREATE(ControlInfo)}.<br>
 	 * There is already {@link ExpandItem#setHeight(int)}, so it is kept.
 	 */
+	@Test
 	public void test_setControl_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -247,6 +252,7 @@ public class ExpandBarTest extends RcpModelTest {
 	 * Test for {@link ExpandItemInfo#command_CREATE(ControlInfo)}.<br>
 	 * There are not {@link ExpandItem#setHeight(int)}, so we add new one, with preferred height.
 	 */
+	@Test
 	public void test_setControl_CREATE2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -291,6 +297,7 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ExpandItemInfo#command_ADD(ControlInfo)}.
 	 */
+	@Test
 	public void test_setControl_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -339,6 +346,7 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * Move {@link ControlInfo} from one {@link ExpandItemInfo} to other.
 	 */
+	@Test
 	public void test_setControl_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -367,7 +375,7 @@ public class ExpandBarTest extends RcpModelTest {
 		ExpandItemInfo item_2 = expandBar.getItems().get(1);
 		ControlInfo button = item_2.getControl();
 		// initially "button" is after "item_2"
-		assertThat(expandBar.getChildrenJava()).containsSequence(item_2, button);
+		Assertions.assertThat(expandBar.getChildrenJava()).containsSequence(item_2, button);
 		// move "button" on "item_1"
 		simpleContainer_ADD(item_1, button);
 		assertNull(item_2.getControl());
@@ -400,6 +408,7 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * When we move {@link ExpandItemInfo} with {@link ControlInfo}, they should move together.
 	 */
+	@Test
 	public void test_setControl_MOVEItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -463,6 +472,7 @@ public class ExpandBarTest extends RcpModelTest {
 	 * When we move {@link ControlInfo} out from {@link ExpandItemInfo}, the
 	 * {@link ExpandItem#setControl(org.eclipse.swt.widgets.Control)} invocation should be removed.
 	 */
+	@Test
 	public void test_setControl_moveOut() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -511,6 +521,7 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ExpandBarInfo#command_CREATE(ExpandItemInfo, ExpandItemInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -547,6 +558,7 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ExpandBarInfo#command_MOVE2(ExpandItemInfo, ExpandItemInfo)}.
 	 */
+	@Test
 	public void test_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

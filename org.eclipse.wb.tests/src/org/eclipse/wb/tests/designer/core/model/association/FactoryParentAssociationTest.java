@@ -25,6 +25,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link FactoryParentAssociation}.
  *
@@ -36,6 +38,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -56,6 +59,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
 		assertInstanceOf(EmptyVariableSupport.class, button.getVariableSupport());
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -83,6 +87,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
 	 * Note, that when we morph from "factory", target {@link CreationSupport} is
 	 * {@link ConstructorCreationSupport}.
 	 */
+	@Test
 	public void test_morph() throws Exception {
 		configureProject();
 		setFileContentSrc(
@@ -126,6 +131,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_add() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -155,6 +161,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
 		assertEquals("MyFactory.addButton(this)", association.getSource());
 	}
 
+	@Test
 	public void test_moveInner() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -192,6 +199,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
 		assertEquals("MyFactory.addButton(this)", association.getSource());
 	}
 
+	@Test
 	public void test_moveReparent() throws Exception {
 		configureProject();
 		ContainerInfo panel =

@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.utils.NamespacesHelper;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link NamespacesHelper}.
  *
@@ -38,6 +40,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#getURI(String)}.
 	 */
+	@Test
 	public void test_getURI_no() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		DocumentElement element = shell.getElement();
@@ -49,6 +52,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#getURI(String)}.
 	 */
+	@Test
 	public void test_getURI_has() throws Exception {
 		XmlObjectInfo shell = parse("<Shell xmlns:p='someURI'/>");
 		DocumentElement element = shell.getElement();
@@ -65,6 +69,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#getName(String)}.
 	 */
+	@Test
 	public void test_getName_no() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		DocumentElement element = shell.getElement();
@@ -76,6 +81,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#getName(String)}.
 	 */
+	@Test
 	public void test_getName_has() throws Exception {
 		XmlObjectInfo shell = parse("<Shell xmlns:myName='someURI'/>");
 		DocumentElement element = shell.getElement();
@@ -92,6 +98,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#ensureName(String, String)}.
 	 */
+	@Test
 	public void test_ensureName_existing() throws Exception {
 		XmlObjectInfo shell = parse("<Shell xmlns:nm='someURI'/>");
 		DocumentElement element = shell.getElement();
@@ -104,6 +111,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#ensureName(String, String)}.
 	 */
+	@Test
 	public void test_ensureName_new() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		DocumentElement element = shell.getElement();
@@ -116,6 +124,7 @@ public class NamespacesHelperTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link NamespacesHelper#ensureName(String, String)}.
 	 */
+	@Test
 	public void test_ensureName_newConflict() throws Exception {
 		XmlObjectInfo shell = parse("<Shell xmlns:nm1='existingURI'/>");
 		DocumentElement element = shell.getElement();

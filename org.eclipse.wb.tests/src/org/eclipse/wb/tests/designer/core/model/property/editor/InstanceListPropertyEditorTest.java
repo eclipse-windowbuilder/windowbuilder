@@ -16,6 +16,8 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.internal.core.model.property.editor.InstanceListPropertyEditor;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	 * Top level class, all fields are valid. Parameters also containing special code
 	 * <code>null</code>.
 	 */
+	@Test
 	public void test_configure_valid() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		InstanceListPropertyEditor editor = createEditor(InstanceListPropertyEditor.class, parameters);
@@ -53,6 +56,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Parameters sanity check
 	 */
+	@Test
 	public void test_configure_check() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		parameters.put("titles", Lists.newArrayList("STR", "INT"));
@@ -68,6 +72,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Parameter fail test.
 	 */
+	@Test
 	public void test_configure_parameters() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		// remove conditions from parameters
@@ -89,6 +94,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link InstanceListPropertyEditor#getValueSource(Object)}.
 	 */
+	@Test
 	public void test_getValueSource() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		InstanceListPropertyEditor editor = createEditor(InstanceListPropertyEditor.class, parameters);
@@ -98,6 +104,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link InstanceListPropertyEditor#getClipboardSource(Object)}.
 	 */
+	@Test
 	public void test_getClipboardSource() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		InstanceListPropertyEditor editor = createEditor(InstanceListPropertyEditor.class, parameters);
@@ -108,6 +115,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link InstanceListPropertyEditor#getText(Object)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		InstanceListPropertyEditor editor = createEditor(InstanceListPropertyEditor.class, parameters);

@@ -22,6 +22,8 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TableViewer}.
  *
@@ -42,6 +44,7 @@ public class TableViewerTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_properties() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -67,6 +70,7 @@ public class TableViewerTest extends RcpModelTest {
 	/**
 	 * Test for {@link CheckboxTableViewer#newCheckList(Composite, int)} support.
 	 */
+	@Test
 	public void test_CheckboxTableViewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -89,6 +93,7 @@ public class TableViewerTest extends RcpModelTest {
 	/**
 	 * http://www.eclipse.org/forums/index.php?t=rview&goto=717822#msg_717822
 	 */
+	@Test
 	public void test_GridLayout_andExposedViewer() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",

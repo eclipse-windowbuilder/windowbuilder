@@ -84,6 +84,8 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -96,6 +98,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ConverterInfo() throws Exception {
 		ConverterInfo converter =
 				new ConverterInfo("org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter");
@@ -115,6 +118,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.conversion.IConverter m_converter = new org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter();");
 	}
 
+	@Test
 	public void test_ValidatorInfo() throws Exception {
 		ValidatorInfo validator =
 				new ValidatorInfo("org.eclipse.core.internal.databinding.validation.StringToDateValidator");
@@ -134,6 +138,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.validation.IValidator validator = new org.eclipse.core.internal.databinding.validation.StringToDateValidator();");
 	}
 
+	@Test
 	public void test_UpdateListStrategyInfo_Null() throws Exception {
 		assertStrategy(
 				createListStrategy(
@@ -152,6 +157,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateListStrategy strategy = new org.eclipse.core.databinding.UpdateListStrategy();");
 	}
 
+	@Test
 	public void test_UpdateListStrategyInfo_DefaultConstructor() throws Exception {
 		assertStrategy(
 				createListStrategy(
@@ -170,6 +176,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateListStrategy strategy = new org.eclipse.core.databinding.UpdateListStrategy();");
 	}
 
+	@Test
 	public void test_UpdateListStrategyInfo_IntConstructor() throws Exception {
 		UpdateListStrategyInfo listStrategyInfo =
 				createListStrategy(
@@ -221,6 +228,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateListStrategy m_strategy = new org.eclipse.core.databinding.UpdateListStrategy(org.eclipse.core.databinding.UpdateListStrategy.POLICY_NEVER);");
 	}
 
+	@Test
 	public void test_UpdateListStrategyInfo_ExtendetClass() throws Exception {
 		assertStrategy(
 				createListStrategy(
@@ -239,6 +247,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateListStrategy _strategy = new com.company.project.Strategy();");
 	}
 
+	@Test
 	public void test_UpdateListStrategyInfo_Converter() throws Exception {
 		UpdateListStrategyInfo strategy =
 				createListStrategy(
@@ -268,6 +277,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter());");
 	}
 
+	@Test
 	public void test_UpdateSetStrategyInfo_Null() throws Exception {
 		assertStrategy(
 				createSetStrategy(
@@ -286,6 +296,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateSetStrategy strategy = new org.eclipse.core.databinding.UpdateSetStrategy();");
 	}
 
+	@Test
 	public void test_UpdateSetStrategyInfo_DefaultConstructor() throws Exception {
 		assertStrategy(
 				createSetStrategy(
@@ -304,6 +315,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateSetStrategy strategy = new org.eclipse.core.databinding.UpdateSetStrategy();");
 	}
 
+	@Test
 	public void test_UpdateSetStrategyInfo_IntConstructor() throws Exception {
 		UpdateSetStrategyInfo setStrategyInfo =
 				createSetStrategy(
@@ -355,6 +367,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateSetStrategy m_strategy = new org.eclipse.core.databinding.UpdateSetStrategy(org.eclipse.core.databinding.UpdateSetStrategy.POLICY_NEVER);");
 	}
 
+	@Test
 	public void test_UpdateSetStrategyInfo_ExtendetClass() throws Exception {
 		assertStrategy(
 				createSetStrategy(
@@ -373,6 +386,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateSetStrategy _strategy = new com.company.project.Strategy();");
 	}
 
+	@Test
 	public void test_UpdateSetStrategyInfo_Converter() throws Exception {
 		UpdateSetStrategyInfo strategy =
 				createSetStrategy(
@@ -402,6 +416,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter());");
 	}
 
+	@Test
 	public void test_UpdateValueStrategyInfo_Null() throws Exception {
 		assertStrategy(
 				createValueStrategy(
@@ -420,6 +435,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateValueStrategy strategy = new org.eclipse.core.databinding.UpdateValueStrategy();");
 	}
 
+	@Test
 	public void test_UpdateValueStrategyInfo_DefaultConstructor() throws Exception {
 		assertStrategy(
 				createValueStrategy(
@@ -438,6 +454,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateValueStrategy strategy = new org.eclipse.core.databinding.UpdateValueStrategy();");
 	}
 
+	@Test
 	public void test_UpdateValueStrategyInfo_IntConstructor() throws Exception {
 		UpdateValueStrategyInfo valueStrategyInfo =
 				createValueStrategy(
@@ -501,6 +518,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateValueStrategy m_strategy = new org.eclipse.core.databinding.UpdateValueStrategy(org.eclipse.core.databinding.UpdateValueStrategy.POLICY_NEVER);");
 	}
 
+	@Test
 	public void test_UpdateValueStrategyInfo_ExtendetClass() throws Exception {
 		assertStrategy(
 				createValueStrategy(
@@ -519,6 +537,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.UpdateValueStrategy _strategy = new com.company.project.Strategy();");
 	}
 
+	@Test
 	public void test_UpdateValueStrategyInfo_Converter_Validators() throws Exception {
 		UpdateValueStrategyInfo strategy =
 				createValueStrategy(
@@ -585,6 +604,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"strategy.setAfterGetValidator(validator);");
 	}
 
+	@Test
 	public void test_BeanObservebleInfo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -642,6 +662,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.PojoObservables.observeValue(m_bean, \"bytes\");");
 	}
 
+	@Test
 	public void test_CollectionObservableInfo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -711,6 +732,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.observable.set.WritableSet writableSet = new org.eclipse.core.databinding.observable.set.WritableSet(m_bean1, java.lang.String.class);");
 	}
 
+	@Test
 	public void test_BeanObservableInfo_observeDetail() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -827,6 +849,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.observable.set.IObservableSet beanAbcObserveDetailSet = org.eclipse.core.databinding.beans.BeansObservables.observeDetailSet(beanBytesObserveValue, \"abc\", int.class);");
 	}
 
+	@Test
 	public void test_DirectPropertyObservableInfo() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -884,6 +907,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		assertEquals("m_context.getValidationStatusProviders()", observable.getVariableIdentifier());
 	}
 
+	@Test
 	public void test_DirectObservableInfo() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -940,6 +964,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		assertEquals("m_value", observable.getVariableIdentifier());
 	}
 
+	@Test
 	public void test_SWTObservableInfo() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1157,6 +1182,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.observable.value.IObservableValue comboObserveSingleSelectionIndexObserveWidget = org.eclipse.jface.databinding.swt.SWTObservables.observeDelayedValue(100, org.eclipse.jface.databinding.swt.SWTObservables.observeSingleSelectionIndex(m_combo));");
 	}
 
+	@Test
 	public void test_ViewerObservableInfo() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1224,6 +1250,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"org.eclipse.core.databinding.observable.set.IObservableSet viewerObserveCheckedElements = org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(m_viewer, java.lang.String.class);");
 	}
 
+	@Test
 	public void test_DataBindingContextInfo() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1332,6 +1359,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		}
 	}
 
+	@Test
 	public void test_BindingInfo() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1476,6 +1504,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"context.bindSet(viewer0ObserveCheckedElements, viewer1ObserveCheckedElements, null, null);");
 	}
 
+	@Test
 	public void test_BindingInfo_setVariableIdentifier() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1626,6 +1655,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_ensureDBLibraries() throws Exception {
 		TestProject project = new TestProject("OtherProject");
 		try {
@@ -1672,6 +1702,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		}
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_ensureDBLibraries_ForPlugin() throws Exception {
 		TestProject project = new TestProject("OtherProject");
 		try {
@@ -1720,6 +1751,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		}
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_ensureEnclosingRealmOfMain_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1807,6 +1839,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_ensureEnclosingRealmOfMain_2() throws Exception {
 		CompositeInfo composite =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1827,6 +1860,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_getLastInfoDeclaration_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1861,6 +1895,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		assertSame(createContentsMethod, DataBindingsCodeUtils.getLastInfoDeclaration(null, shell));
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_getLastInfoDeclaration_2() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1891,6 +1926,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		assertSame(openMethod, DataBindingsCodeUtils.getLastInfoDeclaration(null, shell));
 	}
 
+	@Test
 	public void test_DataBindingsCodeUtils_getLastInfoDeclaration_3() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1917,6 +1953,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		assertSame(mainMethod, DataBindingsCodeUtils.getLastInfoDeclaration(null, shell));
 	}
 
+	@Test
 	public void test_ensureInvokeInitDataBindings_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -1970,6 +2007,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_ensureInvokeInitDataBindings_2() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2034,6 +2072,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_ensureInvokeInitDataBindings_3() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2144,6 +2183,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_ensureInvokeInitDataBindings_4() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2257,6 +2297,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_ensureInvokeInitDataBindings_5() throws Exception {
 		CompositeInfo composite =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2319,6 +2360,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_JavaInfoDeleteManager() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2445,6 +2487,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_totalCodeGeneration_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2627,6 +2670,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_totalCodeGeneration_2() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2797,6 +2841,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_totalCodeGeneration_3() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -2916,6 +2961,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_totalCodeGeneration_4() throws Exception {
 		CompositeInfo composite =
 				DatabindingTestUtils.parseTestSource(this, new String[]{

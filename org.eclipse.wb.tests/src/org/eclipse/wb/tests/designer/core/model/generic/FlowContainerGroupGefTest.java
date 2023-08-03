@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Tests for "flow container" support for "layout manager", created by
  * {@link ILayoutEditPolicyFactory}.
@@ -31,6 +33,7 @@ public class FlowContainerGroupGefTest extends FlowContainerAbstractGefTest {
 	/**
 	 * Test hierarchy of created TreeEditParts
 	 */
+	@Test
 	public void test_group_hierarchy() throws Exception {
 		prepareFlowPanel();
 		ContainerInfo mainPanel =
@@ -70,6 +73,7 @@ public class FlowContainerGroupGefTest extends FlowContainerAbstractGefTest {
 	/**
 	 * Test group object policies
 	 */
+	@Test
 	public void test_group_add() throws Exception {
 		prepareFlowPanel();
 		ContainerInfo mainPanel =

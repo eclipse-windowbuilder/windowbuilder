@@ -30,6 +30,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link FormLayoutInfo}.
  *
@@ -54,6 +57,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	 * There was problem that {@link FormLayoutInfo} tries to get preferences from {@link GlobalState}
 	 * which was empty at that time. We need alternative implementation.
 	 */
+	@Test
 	public void test_emptyGlobalState() throws Exception {
 		parseComposite(
 				"public class Test {",
@@ -69,6 +73,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	// Properties tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_attachWidgetSequientially() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -130,6 +135,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_attachmentPropertyExists() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -161,6 +167,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	// FormAttachment tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_attachmentToParent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -188,6 +195,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		assertNull(leftAttachment.getControl());
 	}
 
+	@Test
 	public void test_attachmentToComponent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -218,6 +226,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		assertSame(buttonInfo, leftAttachment2.getControl());
 	}
 
+	@Test
 	public void test_isAttached() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -245,6 +254,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 				IPositionConstants.LEFT));
 	}
 
+	@Test
 	public void test_isAttachedToComponent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -287,6 +297,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	// Layout managing tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_delete() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -324,6 +335,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteAttachment() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -359,6 +371,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteAttachmentAndAttach() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -402,6 +415,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_empty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -419,6 +433,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_changeFromGridEmpty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -435,6 +450,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_changeFromGridWithData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -465,6 +481,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_changeFromAbsolute() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -495,6 +512,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_changeToGridWithData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -524,6 +542,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	 * Test for {@link FormAttachmentInfo#getAlignment()}.
 	 * <p>
 	 */
+	@Test
 	public void test_FormAttachment_getAlignment_returnRealAlignmentForDefault() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -560,6 +579,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	/**
 	 * Test for {@link FormLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -628,7 +648,9 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	// Test for copy/paste.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
 						"public class Test extends Shell {",

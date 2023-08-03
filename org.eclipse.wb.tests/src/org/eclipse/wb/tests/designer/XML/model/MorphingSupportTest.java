@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ShellInfo;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -40,6 +42,7 @@ public class MorphingSupportTest extends AbstractCoreTest {
 	// Validate
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validate() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -93,6 +96,7 @@ public class MorphingSupportTest extends AbstractCoreTest {
 	// Morphing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_morph_removeProperties() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -153,6 +157,7 @@ public class MorphingSupportTest extends AbstractCoreTest {
 	/**
 	 * During morphing we move children from source to parent.
 	 */
+	@Test
 	public void test_morph_keepChildren() throws Exception {
 		prepareMyComponent(new String[]{}, new String[]{
 				"  <morphTargets>",

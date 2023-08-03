@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.junit.Test;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -38,6 +40,7 @@ public class OpenListenerEditPolicyTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_newHandler() throws Exception {
 		openContainer(
 				"// filler filler filler filler filler",
@@ -88,6 +91,7 @@ public class OpenListenerEditPolicyTest extends SwingGefTest {
 	 * <p>
 	 * http://www.eclipse.org/forums/index.php/t/217349/
 	 */
+	@Test
 	public void test_existingHandler() throws Exception {
 		openContainer(
 				"// filler filler filler filler filler",

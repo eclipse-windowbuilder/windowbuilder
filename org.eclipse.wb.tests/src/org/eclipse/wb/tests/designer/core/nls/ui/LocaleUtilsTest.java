@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.nls.ui.FlagImagesRepository;
 import org.eclipse.wb.internal.core.nls.ui.LocaleUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 import java.util.Locale;
 
 /**
@@ -28,10 +30,12 @@ public class LocaleUtilsTest extends DesignerTestCase {
 	// getImage
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getImage_default() throws Exception {
 		assertSame(FlagImagesRepository.getEmptyFlagImage(), LocaleUtils.getImage(LocaleInfo.DEFAULT));
 	}
 
+	@Test
 	public void test_getImage_fr() throws Exception {
 		Locale locale = Locale.FRENCH;
 		LocaleInfo localeInfo = new LocaleInfo(locale);
@@ -43,6 +47,7 @@ public class LocaleUtilsTest extends DesignerTestCase {
 	// sortByTitle
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_sortByTitle() throws Exception {
 		LocaleInfo locales[] =
 				new LocaleInfo[]{

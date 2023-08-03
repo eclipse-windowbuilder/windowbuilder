@@ -16,6 +16,8 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.internal.core.model.property.editor.ExpressionListPropertyEditor;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	 * Top level class, all fields are valid. Parameters also containing special code
 	 * <code>null</code>.
 	 */
+	@Test
 	public void test_configure_valid() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		ExpressionListPropertyEditor editor =
@@ -55,6 +58,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	/**
 	 * No titles test.
 	 */
+	@Test
 	public void test_configure_titles() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		parameters.remove("titles");
@@ -68,6 +72,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	 * Count fail test.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void test_configure_count() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		// remove first condition from conditions list
@@ -86,6 +91,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	/**
 	 * Parameter fail test.
 	 */
+	@Test
 	public void test_configure_parameters() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		// remove conditions from parameters
@@ -107,6 +113,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	/**
 	 * Test for {@link ExpressionListPropertyEditor#getValueSource(Object)}.
 	 */
+	@Test
 	public void test_getValueSource() throws Exception {
 		ExpressionListPropertyEditor editor =
 				createEditor(ExpressionListPropertyEditor.class, getEditorParameters());
@@ -117,6 +124,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	/**
 	 * Test for {@link ExpressionListPropertyEditor#getClipboardSource(Object)}.
 	 */
+	@Test
 	public void test_getClipboardSource() throws Exception {
 		ExpressionListPropertyEditor editor =
 				createEditor(ExpressionListPropertyEditor.class, getEditorParameters());
@@ -127,6 +135,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	/**
 	 * Test for {@link ExpressionListPropertyEditor#getText(Object)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		ExpressionListPropertyEditor editor =
 				createEditor(ExpressionListPropertyEditor.class, getEditorParameters());
@@ -138,6 +147,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 	/**
 	 * Test for MVEL imports.
 	 */
+	@Test
 	public void test_imports() throws Exception {
 		// prepare parameters
 		HashMap<String, Object> parameters = Maps.newHashMap();

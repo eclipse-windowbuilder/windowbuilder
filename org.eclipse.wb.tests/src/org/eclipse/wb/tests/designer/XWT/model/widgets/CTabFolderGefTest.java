@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 import org.eclipse.swt.custom.CTabItem;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CTabFolderInfo} in GEF.
  *
@@ -39,6 +41,7 @@ public class CTabFolderGefTest extends XwtGefTest {
 	/**
 	 * We should be able to select {@link CTabItem} using double click.
 	 */
+	@Test
 	public void test_canvas_selectItem() throws Exception {
 		CTabFolderInfo folder =
 				openEditor(

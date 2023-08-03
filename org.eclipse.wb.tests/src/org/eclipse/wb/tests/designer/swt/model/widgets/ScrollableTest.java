@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ScrollableInfo}.
  *
@@ -28,6 +30,7 @@ public class ScrollableTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getClientArea_Composite() throws Exception {
 		CompositeInfo composite =
 				parseComposite(

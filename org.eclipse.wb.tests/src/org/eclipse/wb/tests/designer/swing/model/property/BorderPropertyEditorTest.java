@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link BorderPropertyEditor}.
  *
@@ -31,6 +33,7 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_defaultBorder() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -45,6 +48,7 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 		assertEquals(null, getPropertyText(borderProperty));
 	}
 
+	@Test
 	public void test_getText_noBorder() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -59,6 +63,7 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 		assertEquals("(no border)", getPropertyText(borderProperty));
 	}
 
+	@Test
 	public void test_getText_EmptyBorder() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -73,6 +78,7 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 		assertEquals("EmptyBorder", getPropertyText(borderProperty));
 	}
 
+	@Test
 	public void test_getClipboardSource_EmptyBorder() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -123,6 +129,7 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 	 * If we can not copy/paste expression, because it contains references on variables or something
 	 * other, then ignore.
 	 */
+	@Test
 	public void test_getClipboardSource_hasNotConstants() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(

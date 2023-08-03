@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swt.support.PointSupport;
 
 import org.eclipse.draw2d.geometry.Point;
 
+import org.junit.Test;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -37,12 +39,14 @@ public class PointSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getLabelClass() throws Exception {
 		assertSame(
 				m_lastLoader.loadClass("org.eclipse.swt.graphics.Point"),
 				PointSupport.getPointClass());
 	}
 
+	@Test
 	public void test_newPoint() throws Exception {
 		Object point = PointSupport.newPoint(1, 2);
 		assertNotNull(point);
@@ -51,6 +55,7 @@ public class PointSupportTest extends AbstractSupportTest {
 		assertEquals(2, ReflectionUtils.getFieldInt(point, "y"));
 	}
 
+	@Test
 	public void test_getPoint() throws Exception {
 		Object point = createPoint(1, 2);
 		Point testPoint = PointSupport.getPoint(point);
@@ -59,6 +64,7 @@ public class PointSupportTest extends AbstractSupportTest {
 		assertEquals(2, testPoint.y);
 	}
 
+	@Test
 	public void test_getPointCopy() throws Exception {
 		Object point = createPoint(1, 2);
 		Object pointCopy = PointSupport.getPointCopy(point);
@@ -66,6 +72,7 @@ public class PointSupportTest extends AbstractSupportTest {
 		assertEquals(point, pointCopy);
 	}
 
+	@Test
 	public void test_toString() throws Exception {
 		Object point = createPoint(1, 2);
 		assertEquals("(1, 2)", PointSupport.toString(point));

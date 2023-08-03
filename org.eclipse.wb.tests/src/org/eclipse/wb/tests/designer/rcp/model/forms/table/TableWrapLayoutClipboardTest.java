@@ -16,6 +16,9 @@ import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link TableWrapLayoutInfo} and copy/paste.
  *
@@ -36,7 +39,9 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_simpleSingleControl() throws Exception {
+	@Ignore
+	@Test
+	public void test_simpleSingleControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",
@@ -97,7 +102,9 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 				"}");
 	}
 
-	public void DISABLE_test_grid2x2() throws Exception {
+	@Ignore
+	@Test
+	public void test_grid2x2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",

@@ -10,20 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.support;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for support utils.
  *
  * @author scheglov_ke
  */
-public class SupportTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.support");
-		suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ CoordinateUtilsTest.class })
+public class SupportTests {
 }

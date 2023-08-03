@@ -21,12 +21,14 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	/**
 	 * Test for default "description text" for {@link ComponentDescription}.
 	 */
+	@Test
 	public void test_defaultComponentDescription() throws Exception {
 		{
 			ComponentDescriptionKey key = new ComponentDescriptionKey(JButton.class);
@@ -67,6 +70,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * Test new {@link CreationDescription} with explicit name.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_newExplicitName() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -87,6 +91,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * Test new {@link CreationDescription} without explicit name, so name of class is used.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_newImplicitName() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -108,6 +113,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * {@link CreationDescription} specific values.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_fromComponentDescription() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -137,6 +143,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * {@link CreationDescription} specific values.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_specificIconDescription() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -161,6 +168,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * Test that when we set description, we normalize its whitespace.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_normalizeDescription() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -181,6 +189,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * Test for set/get source.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_source() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -209,6 +218,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * We should use canonical {@link Class} name.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_getSource_innerClass() throws Exception {
 		class MyInnerClass {
 		}
@@ -236,6 +246,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * Test for {@link CreationInvocationDescription}.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_invocations() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -270,6 +281,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 	 * Test for {@link CreationDescription} specific parameters.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test
 	public void test_specificParameters() throws Exception {
 		// prepare ComponentDescription
 		ComponentDescription component;
@@ -284,7 +296,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 		// put parameters
 		creation.addParameter("name_1", "value_1");
 		creation.addParameter("name_2", "value_2");
-		assertThat(creation.getParameters()).contains(
+		Assertions.assertThat(creation.getParameters()).contains(
 				entry("name_1", "value_1"),
 				entry("name_2", "value_2"));
 		// final verification

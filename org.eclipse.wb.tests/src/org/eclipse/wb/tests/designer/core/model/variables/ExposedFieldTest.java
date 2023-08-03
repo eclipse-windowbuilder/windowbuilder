@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.Statement;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ExposedFieldVariableSupport}.
  *
@@ -42,6 +44,7 @@ public class ExposedFieldTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_object() throws Exception {
 		m_javaProject.setOption(JavaCore.CODEASSIST_FIELD_PREFIXES, "m_");
 		setFileContentSrc(
@@ -113,6 +116,7 @@ public class ExposedFieldTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getChildTarget() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -145,6 +149,7 @@ public class ExposedFieldTest extends AbstractVariableTest {
 	/**
 	 * Test that we add new component after last {@link Statement} of "button".
 	 */
+	@Test
 	public void test_addButton() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

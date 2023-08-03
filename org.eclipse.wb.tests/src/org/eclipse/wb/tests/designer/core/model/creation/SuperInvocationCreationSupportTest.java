@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.model.creation.SuperInvocationCreationSuppor
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link SuperInvocationCreationSupport}.
  *
@@ -34,6 +36,7 @@ public class SuperInvocationCreationSupportTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_access() throws Exception {
 		prepareMyPanel();
 		parseContainer(
@@ -61,6 +64,7 @@ public class SuperInvocationCreationSupportTest extends SwingModelTest {
 		assertTrue(creationSupport.canReparent());
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		prepareMyPanel();
 		parseContainer(

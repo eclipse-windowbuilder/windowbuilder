@@ -9,7 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.jface.ApplicationWindowInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo;
@@ -22,7 +21,9 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test for {@link ApplicationWindowInfo}.
@@ -47,6 +48,7 @@ public class ApplicationWindowTest extends RcpModelTest {
 	/**
 	 * Just parsing for some {@link ApplicationWindow}.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.window.*;",
@@ -71,6 +73,7 @@ public class ApplicationWindowTest extends RcpModelTest {
 	/**
 	 * Parse {@link ApplicationWindow} without references on SWT classes.
 	 */
+	@Test
 	public void test_1() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) parseSource(
@@ -90,6 +93,7 @@ public class ApplicationWindowTest extends RcpModelTest {
 	/**
 	 * Method {@link Window#close()} is dangerous, it may cause lock up.
 	 */
+	@Test
 	public void test_ignoreMethod_close() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) parseSource(
@@ -121,7 +125,9 @@ public class ApplicationWindowTest extends RcpModelTest {
 	/**
 	 * Test for {@link IToolBarManager}.
 	 */
-	public void DISABLE_test_managers_ToolBarManager() throws Exception {
+	@Ignore
+	@Test
+	public void test_managers_ToolBarManager() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
 						"import org.eclipse.jface.action.*;",
@@ -151,14 +157,15 @@ public class ApplicationWindowTest extends RcpModelTest {
 				toolBarManager.getComponentObject().getClass().getName());
 		assertNotNull(toolBarManager.getImage());
 		assertNotNull(toolBarManager.getBounds());
-		assertThat(toolBarManager.getBounds().width).isGreaterThan(400);
-		assertThat(toolBarManager.getBounds().height).isGreaterThan(20);
+		Assertions.assertThat(toolBarManager.getBounds().width).isGreaterThan(400);
+		Assertions.assertThat(toolBarManager.getBounds().height).isGreaterThan(20);
 	}
 
 	/**
 	 * Dangling {@link MenuManager} should not cause exception. We should bind
 	 * {@link IContributionManager} only if it is returned.
 	 */
+	@Test
 	public void test_managers_ignoreDangling() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.action.*;",

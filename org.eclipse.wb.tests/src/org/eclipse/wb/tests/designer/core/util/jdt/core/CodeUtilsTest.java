@@ -45,10 +45,11 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -65,7 +66,8 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -86,17 +88,20 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// Class/package
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getShortClass() {
 		assertEquals("boolean", CodeUtils.getShortClass("boolean"));
 		assertEquals("List", CodeUtils.getShortClass("java.util.List"));
 		assertEquals("Sub", CodeUtils.getShortClass("test.MyPanel$Sub"));
 	}
 
+	@Test
 	public void test_getPackage() {
 		assertEquals("", CodeUtils.getPackage("SimpleName"));
 		assertEquals("java.util", CodeUtils.getPackage("java.util.List"));
 	}
 
+	@Test
 	public void test_isSamePackage() {
 		assertTrue(CodeUtils.isSamePackage("java.util.List", "java.util.Set"));
 		assertFalse(CodeUtils.isSamePackage("java.util.List", "java.lang.Object"));
@@ -107,6 +112,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// join
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_join_1() {
 		assertTrue(ArrayUtils.isEquals(new String[]{"aaa"}, CodeUtils.join(null, "aaa")));
 		assertTrue(ArrayUtils.isEquals(
@@ -114,6 +120,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 				CodeUtils.join(new String[]{"aaa", "bbb"}, "ccc")));
 	}
 
+	@Test
 	public void test_join_2() {
 		assertTrue(ArrayUtils.isEquals(
 				new String[]{"aaa", "bbb"},
@@ -126,12 +133,13 @@ public class CodeUtilsTest extends AbstractJavaTest {
 				CodeUtils.join(new String[]{"aaa", "bbb"}, new String[]{"ccc"})));
 	}
 
+	@Test
 	public void test_join_3() {
 		String[] a = {"a", "aa"};
 		String[] b = {"b", "bb"};
 		String[] c = {"c", "cc"};
 		String[] result = CodeUtils.join(a, b, c);
-		assertThat(result).isEqualTo(new String[]{"a", "aa", "b", "bb", "c", "cc"});
+		Assertions.assertThat(result).isEqualTo(new String[]{"a", "aa", "b", "bb", "c", "cc"});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -142,6 +150,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#getSource(String...)}.
 	 */
+	@Test
 	public void test_getSource() throws Exception {
 		assertEquals("aaa\nbbb\nccc", CodeUtils.getSource("aaa", "bbb", "ccc"));
 	}
@@ -154,6 +163,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#generateUniqueName(String, com.google.common.base.Predicate)}.
 	 */
+	@Test
 	public void test_generateUniqueName() throws Exception {
 		assertSame("base", CodeUtils.generateUniqueName("base", Predicates.<String>alwaysTrue()));
 		assertEquals("base_3", CodeUtils.generateUniqueName("base", new Predicate<String>() {
@@ -172,6 +182,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * {@link FieldDeclaration} is hidden, so no fields expected.
 	 */
+	@Test
 	public void test_clearHiddenCode_parsing() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -182,6 +193,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		assertEquals(0, typeDeclaration.getFields().length);
 	}
 
+	@Test
 	public void test_clearHiddenCode_block() throws Exception {
 		String[] lines_1 = new String[]{"000", "1//$hide>>$1", "222", "333", "4//$hide<<$4", "555"};
 		String[] lines_2 = new String[]{"000", "1//         ", "   ", "   ", "            ", "555"};
@@ -192,6 +204,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * It seems that after formatting "//$hide" tags may be converted into "// $hide". So, we should
 	 * ignore these spaces.
 	 */
+	@Test
 	public void test_clearHiddenCode_withSpace_line() throws Exception {
 		String[] lines_1 = new String[]{"000", "111// $hide$", "222"};
 		String[] lines_2 = new String[]{"000", "            ", "222"};
@@ -202,6 +215,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * It seems that after formatting "//$hide" tags may be converted into "// $hide". So, we should
 	 * ignore these spaces.
 	 */
+	@Test
 	public void test_clearHiddenCode_withSpace_block() throws Exception {
 		String[] lines_1 = new String[]{"000", "1// $hide>>$11", "222", "3// $hide<<$33", "444"};
 		String[] lines_2 = new String[]{"000", "1//           ", "   ", "              ", "444"};
@@ -211,6 +225,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * No "block hide begin" tag, should fail.
 	 */
+	@Test
 	public void test_clearHiddenCode_blockNoBegin() throws Exception {
 		String[] lines_1 = new String[]{"000", "222", "333", "//$hide<<$", "444"};
 		try {
@@ -223,6 +238,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * No "block hide end" tag, should fail.
 	 */
+	@Test
 	public void test_clearHiddenCode_blockNoEnd() throws Exception {
 		String[] lines_1 = new String[]{"000", "//$hide>>$", "222", "333", "444"};
 		try {
@@ -235,6 +251,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * No "block hide begin" after "block hide end" tag, should fail.
 	 */
+	@Test
 	public void test_clearHiddenCode_blockWrongSequence() throws Exception {
 		String[] lines_1 = new String[]{"000", "//$hide<<$", "222", "333", "//$hide>>$", "444"};
 		try {
@@ -244,6 +261,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		}
 	}
 
+	@Test
 	public void test_clearHiddenCode_line() throws Exception {
 		String[] lines_1 = new String[]{"000", "222 //$hide$", "333"};
 		String[] lines_2 = new String[]{"000", "            ", "333"};
@@ -270,6 +288,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// getProjectClassLoader
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getProjectClassLoader() throws Exception {
 		setFileContentSrc("test/Test.java", getSourceDQ("package test;", "public class Test {", "}"));
 		waitForAutoBuild();
@@ -288,20 +307,22 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * If {@link IJavaProject} does not exist, it does not have source containers.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_notJavaProject() throws Exception {
 		ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
 		List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-		assertThat(sourceContainers).isEmpty();
+		Assertions.assertThat(sourceContainers).isEmpty();
 	}
 
 	/**
 	 * Single project with "src" folder.
 	 */
+	@Test
 	public void test_getSourceContainers_1() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		// by default we create "src" source folder
 		List<IContainer> sourceContainers = CodeUtils.getSourceContainers(javaProject, true);
-		assertThat(sourceContainers).hasSize(1);
+		Assertions.assertThat(sourceContainers).hasSize(1);
 		assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 	}
 
@@ -309,6 +330,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * Single project without "src" folder, so project itself is source container.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_2() throws Exception {
 		// remove "src"
 		{
@@ -320,7 +342,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		m_testProject.addSourceFolder("/TestProject");
 		// assert that source container is project itself
 		List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-		assertThat(sourceContainers).hasSize(1);
+		Assertions.assertThat(sourceContainers).hasSize(1);
 		assertEquals("/TestProject", sourceContainers.get(0).getFullPath().toString());
 	}
 
@@ -328,6 +350,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * Test for adding source folder of required project.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_3() throws Exception {
 		// create new project "myProject"
 		TestProject myProject = new TestProject("myProject");
@@ -337,7 +360,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 			ProjectUtils.requireProject(m_javaProject, myJavaProject);
 			// assert that both "TestProject" and "myProject" source folders returned
 			List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-			assertThat(sourceContainers).hasSize(2);
+			Assertions.assertThat(sourceContainers).hasSize(2);
 			assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 			assertEquals("/myProject/src", sourceContainers.get(1).getFullPath().toString());
 		} finally {
@@ -350,6 +373,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * So, we test circular dependency problem.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_4() throws Exception {
 		// create new project "myProject"
 		TestProject myProject = new TestProject("myProject");
@@ -361,7 +385,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 			ProjectUtils.requireProject(myJavaProject, m_javaProject);
 			// still two source folders
 			List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-			assertThat(sourceContainers).hasSize(2);
+			Assertions.assertThat(sourceContainers).hasSize(2);
 			assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 			assertEquals("/myProject/src", sourceContainers.get(1).getFullPath().toString());
 		} finally {
@@ -370,12 +394,13 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_geSourceContainers_notExistingSourceFolder() throws Exception {
 		// add "src2"
 		m_testProject.addSourceFolder("/TestProject/src2");
 		// ...but "src2" does not exist, so it is not returned
 		List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-		assertThat(sourceContainers).hasSize(1);
+		Assertions.assertThat(sourceContainers).hasSize(1);
 		assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 	}
 
@@ -383,6 +408,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * Test for using plugin fragments.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_PDE() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null);
 		// create fragment
@@ -393,7 +419,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 			// check that we have containers for project itself and its fragment
 			List<IContainer> sourceContainers =
 					CodeUtils.getSourceContainers(m_testProject.getJavaProject(), true);
-			assertThat(sourceContainers).hasSize(2);
+			Assertions.assertThat(sourceContainers).hasSize(2);
 			assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 			assertEquals("/TestProject_ru/src", sourceContainers.get(1).getFullPath().toString());
 		} finally {
@@ -406,6 +432,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * project.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_PDE_noJavaNature() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_project, null);
 		// create fragment
@@ -416,7 +443,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 			waitForAutoBuild();
 			// fragment is not Java project, so we have container only for project itself
 			List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-			assertThat(sourceContainers).hasSize(1);
+			Assertions.assertThat(sourceContainers).hasSize(1);
 			assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 		} finally {
 			fragmentProject.dispose();
@@ -428,6 +455,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * {@link NullPointerException} too.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_getSourceContainers_PDE_oldNotOSGi() throws Exception {
 		setFileContent(
 				"plugin.xml",
@@ -439,7 +467,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		// without fragment
 		List<IContainer> sourceContainers =
 				CodeUtils.getSourceContainers(m_testProject.getJavaProject(), true);
-		assertThat(sourceContainers).hasSize(1);
+		Assertions.assertThat(sourceContainers).hasSize(1);
 		assertEquals("/TestProject/src", sourceContainers.get(0).getFullPath().toString());
 	}
 
@@ -451,6 +479,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Normal cases, {@link IJavaElement} is child of {@link IPackageFragmentRoot}.
 	 */
+	@Test
 	public void test_getPackageFragmentRoot_1() throws Exception {
 		IType type =
 				createModelType(
@@ -487,6 +516,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * {@link IJavaProject} as element, so first source folder should be used.
 	 */
+	@Test
 	public void test_getPackageFragmentRoot_2() throws Exception {
 		try {
 			IJavaProject javaProject = m_testProject.getJavaProject();
@@ -506,6 +536,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * {@link IJavaProject} as element, but no separate source folders, so {@link IJavaProject} itself
 	 * is source folder.
 	 */
+	@Test
 	public void test_getPackageFragmentRoot_3() throws Exception {
 		try {
 			IJavaProject javaProject = m_testProject.getJavaProject();
@@ -549,6 +580,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// findPrimaryType
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_findPrimaryType_ok() throws Exception {
 		ICompilationUnit compilationUnit =
 				createModelCompilationUnit(
@@ -565,6 +597,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		assertTrue(primaryType.getElementName().equals("Test"));
 	}
 
+	@Test
 	public void test_findPrimaryType_no() throws Exception {
 		ICompilationUnit compilationUnit =
 				createModelCompilationUnit(
@@ -588,6 +621,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#searchReferences(IType)}.
 	 */
+	@Test
 	public void test_searchReferences_IType_IField() throws Exception {
 		IType targetType =
 				createModelCompilationUnit(
@@ -611,7 +645,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 						"}"));
 		// search
 		List<IJavaElement> references = CodeUtils.searchReferences(targetType);
-		assertThat(references).hasSize(1);
+		Assertions.assertThat(references).hasSize(1);
 		// check IField
 		IField fieldElement = (IField) references.get(0);
 		assertEquals("myTarget", fieldElement.getElementName());
@@ -620,6 +654,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#searchReferences(IType)}.
 	 */
+	@Test
 	public void test_searchReferences_IType_IAnnotation() throws Exception {
 		IType targetType =
 				createModelCompilationUnit(
@@ -643,7 +678,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 						"}"));
 		// search
 		List<IJavaElement> references = CodeUtils.searchReferences(targetType);
-		assertThat(references).hasSize(1);
+		Assertions.assertThat(references).hasSize(1);
 		// check IField
 		IAnnotation annotation = (IAnnotation) references.get(0);
 		assertEquals("MyAnnotation", annotation.getElementName());
@@ -652,6 +687,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#searchReferences(IField)}.
 	 */
+	@Test
 	public void test_searchReferences_IField() throws Exception {
 		IField targetField =
 				createModelCompilationUnit(
@@ -679,7 +715,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 								"}")).getTypes()[0];
 		// search
 		List<IJavaElement> references = CodeUtils.searchReferences(targetField);
-		assertThat(references).hasSize(1);
+		Assertions.assertThat(references).hasSize(1);
 		// check IMethod
 		{
 			IMethod methodElement = (IMethod) references.get(0);
@@ -696,6 +732,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#getType(IJavaElement)}.
 	 */
+	@Test
 	public void test_getType() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		IType listType = javaProject.findType("java.util.List");
@@ -742,6 +779,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// getResolvedTypeName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getResolvedTypeName() throws Exception {
 		ICompilationUnit unit =
 				createModelCompilationUnit(
@@ -760,6 +798,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#getResolvedTypeName(IType, String)}.
 	 */
+	@Test
 	public void test_getResolvedTypeName_forTypeVariable_hasBounds() throws Exception {
 		IType type =
 				createModelType(
@@ -777,6 +816,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#getResolvedTypeName(IType, String)}.
 	 */
+	@Test
 	public void test_getResolvedTypeName_forTypeVariable_noBounds() throws Exception {
 		IType type =
 				createModelType(
@@ -792,6 +832,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// getMethodSignature
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getMethodSignature() throws Exception {
 		ICompilationUnit unit =
 				createModelCompilationUnit(
@@ -834,6 +875,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * <p>
 	 * Signature of {@link IMethod} with type parameters should use bounds in place of parameters.
 	 */
+	@Test
 	public void test_getMethodSignature_withGenerics() throws Exception {
 		IType type =
 				createModelType(
@@ -855,6 +897,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * <p>
 	 * Signature of {@link IMethod} with type parameters should use bounds in place of parameters.
 	 */
+	@Test
 	public void test_getMethodSignature_withGenerics_array() throws Exception {
 		IType type = m_javaProject.findType("javax.swing.JComboBox");
 		IMethod method = type.getMethod("JComboBox", new String[]{"[TE;"});
@@ -866,6 +909,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// findMethod
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_findMethod_withType() throws Exception {
 		IType aType =
 				createModelCompilationUnit(
@@ -912,6 +956,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#findMethod(IJavaProject, String, String)}.
 	 */
+	@Test
 	public void test_findMethod() throws Exception {
 		ICompilationUnit aUnit =
 				createModelCompilationUnit(
@@ -980,6 +1025,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 * We should be able to find {@link IMethod} with type parameters using signature with bounds
 	 * type.
 	 */
+	@Test
 	public void test_findMethod_withGenerics() throws Exception {
 		IType type =
 				createModelType(
@@ -1001,6 +1047,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#findMethod(IJavaProject, String, String)}.
 	 */
+	@Test
 	public void test_findMethod_noSuchType() throws Exception {
 		assertNull(CodeUtils.findMethod(m_testProject.getJavaProject(), "no.such.Type", "foo()"));
 	}
@@ -1008,6 +1055,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#findMethods(IType, String[])}.
 	 */
+	@Test
 	public void test_findMethods() throws Exception {
 		ICompilationUnit aUnit =
 				createModelCompilationUnit(
@@ -1032,6 +1080,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#findMethods(IType, List)}.
 	 */
+	@Test
 	public void test_findMethods_List() throws Exception {
 		ICompilationUnit aUnit =
 				createModelCompilationUnit(
@@ -1049,7 +1098,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		//
 		List<IMethod> methods =
 				CodeUtils.findMethods(aType, ImmutableList.of("foo()", "bar()", "baz()"));
-		assertThat(methods).hasSize(3);
+		Assertions.assertThat(methods).hasSize(3);
 		assertEquals("foo", methods.get(0).getElementName());
 		assertEquals("bar", methods.get(1).getElementName());
 		assertSame(null, methods.get(2));
@@ -1058,6 +1107,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#findMethodSingleType(IType, String)} for parameter with generic.
 	 */
+	@Test
 	public void test_findMethodWithGeneric() throws Exception {
 		ICompilationUnit aUnit =
 				createModelCompilationUnit(
@@ -1084,6 +1134,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#isSuccessorOf(IType, IType)}.
 	 */
+	@Test
 	public void test_isSuccessorOf_1() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		IType typeList = javaProject.findType("java.util.List");
@@ -1107,6 +1158,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link CodeUtils#isSuccessorOf(IType, String)}.
 	 */
+	@Test
 	public void test_isSuccessorOf_2() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		String typeList = "java.util.List";
@@ -1134,6 +1186,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	// findSuperMethod
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_findSuperMethod() throws Exception {
 		ICompilationUnit aUnit =
 				createModelCompilationUnit(
@@ -1180,6 +1233,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * {@link IField} that is declared directly in given {@link IType}.
 	 */
+	@Test
 	public void test_findField_1() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		setFileContentSrc(
@@ -1197,6 +1251,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * {@link IField} that is declared in super-class.
 	 */
+	@Test
 	public void test_findField_2() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		createModelType(
@@ -1226,6 +1281,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	/**
 	 * {@link IField}'s that are declared in interfaces.
 	 */
+	@Test
 	public void test_findField_3() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		createModelType(
@@ -1254,16 +1310,6 @@ public class CodeUtilsTest extends AbstractJavaTest {
 			assertEquals("fieldB", field.getElementName());
 			assertEquals("test.IB", field.getDeclaringType().getFullyQualifiedName());
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

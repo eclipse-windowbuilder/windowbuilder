@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.swing.model.component;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import java.util.Dictionary;
 
 import javax.swing.JSlider;
@@ -33,6 +35,7 @@ public class JSliderTest extends SwingModelTest {
 	 * right now we don't evaluate invocations of object. So, we should ignore this method invocation,
 	 * or at least don't crash.
 	 */
+	@Test
 	public void test_36471() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

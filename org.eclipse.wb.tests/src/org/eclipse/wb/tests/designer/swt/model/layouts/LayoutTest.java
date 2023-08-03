@@ -33,7 +33,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * @author lobas_av
@@ -53,6 +54,7 @@ public class LayoutTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse_setLayout_single() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -65,6 +67,7 @@ public class LayoutTest extends RcpModelTest {
 				"  {new: org.eclipse.swt.layout.RowLayout} {empty} {/setLayout(new RowLayout())/}");
 	}
 
+	@Test
 	public void test_parse_setLayout_double() throws Exception {
 		try {
 			parseComposite(
@@ -83,6 +86,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link LayoutInfo#isActive()}.
 	 */
+	@Test
 	public void test_isActive() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -108,6 +112,7 @@ public class LayoutTest extends RcpModelTest {
 		assertFalse(newLayout.isActive());
 	}
 
+	@Test
 	public void test_changeLayout() throws Exception {
 		CompositeInfo shellInfo =
 				parseComposite(
@@ -154,6 +159,7 @@ public class LayoutTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_visualInheritance_withOverride() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -195,6 +201,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link LayoutInfo#isManagedObject(ObjectInfo)}.
 	 */
+	@Test
 	public void test_isManagedObject_simpleFalse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -220,6 +227,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link LayoutInfo#isManagedObject(ObjectInfo)}.
 	 */
+	@Test
 	public void test_isManagedObject_simpleTrue() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -238,6 +246,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link LayoutInfo#isManagedObject(ObjectInfo)}.
 	 */
+	@Test
 	public void test_isManagedObject_falseBecauseNotActive() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -273,6 +282,7 @@ public class LayoutTest extends RcpModelTest {
 	 * <p>
 	 * However right now I think that it is more-less safe to show {@link RowLayout}.
 	 */
+	@Test
 	public void test_hasImplicitControls_RowLayout() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -310,6 +320,7 @@ public class LayoutTest extends RcpModelTest {
 	 * However right now I think that it is more-less safe to show {@link GridLayout}, at least until
 	 * we don't try to edit it visually.
 	 */
+	@Test
 	public void test_hasImplicitControls_GridLayout() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -346,6 +357,7 @@ public class LayoutTest extends RcpModelTest {
 	 * <p>
 	 * Here "getButton()" exposes child from this {@link Composite}, so it is managed.
 	 */
+	@Test
 	public void test_hasImplicitControls_directExposedChild() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -379,7 +391,7 @@ public class LayoutTest extends RcpModelTest {
 				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
-		assertThat(layout.getControls()).hasSize(1);
+		Assertions.assertThat(layout.getControls()).hasSize(1);
 		// refresh
 		composite.refresh();
 		assertNoErrors(composite);
@@ -393,6 +405,7 @@ public class LayoutTest extends RcpModelTest {
 	 * Here "getButton()" exposes child from inner {@link Composite}, so we don't consider it as
 	 * managed.
 	 */
+	@Test
 	public void test_hasImplicitControls_indirectExposedChild() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -430,7 +443,7 @@ public class LayoutTest extends RcpModelTest {
 				"  {method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
-		assertThat(layout.getControls()).isEmpty();
+		Assertions.assertThat(layout.getControls()).isEmpty();
 		// refresh
 		composite.refresh();
 		assertNoErrors(composite);
@@ -443,6 +456,7 @@ public class LayoutTest extends RcpModelTest {
 	 * <p>
 	 * Here "getViewer()" exposes child from this {@link Composite}, so it is managed.
 	 */
+	@Test
 	public void test_hasImplicitControls_directExposedChild_Viewer() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -477,7 +491,7 @@ public class LayoutTest extends RcpModelTest {
 				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
-		assertThat(layout.getControls()).hasSize(1);
+		Assertions.assertThat(layout.getControls()).hasSize(1);
 		// refresh
 		composite.refresh();
 		assertNoErrors(composite);
@@ -491,6 +505,7 @@ public class LayoutTest extends RcpModelTest {
 	 * Here "getViewer()" exposes child from inner {@link Composite}, so we don't consider it as
 	 * managed.
 	 */
+	@Test
 	public void test_hasImplicitControls_indirectExposedChild_Viewer() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -528,7 +543,7 @@ public class LayoutTest extends RcpModelTest {
 				"    {method: public org.eclipse.jface.viewers.TableViewer test.ImplicitComposite.getViewer()} {property} {}");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
-		assertThat(layout.getControls()).isEmpty();
+		Assertions.assertThat(layout.getControls()).isEmpty();
 		// refresh
 		composite.refresh();
 		assertNoErrors(composite);
@@ -543,6 +558,7 @@ public class LayoutTest extends RcpModelTest {
 	 * this {@link LayoutInfo}, see {@link LayoutInfo#getControls()}. Indirectly exposed children are
 	 * not included.
 	 */
+	@Test
 	public void test_indirectExposedChildren_andLocalLayoutData() throws Exception {
 		setFileContentSrc(
 				"test/ImplicitComposite.java",
@@ -621,6 +637,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Template "${defaultName}" means that name should be based on name of type.
 	 */
+	@Test
 	public void test_nameTemplate_useDefaultName() throws Exception {
 		check_nameTemplate(
 				org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT,
@@ -639,6 +656,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Generate name using "${layoutAcronym}_${compositeName}" template.
 	 */
+	@Test
 	public void test_nameTemplate_alternativeTemplate_1() throws Exception {
 		check_nameTemplate(
 				"${layoutAcronym}_${compositeName}",
@@ -657,6 +675,7 @@ public class LayoutTest extends RcpModelTest {
 	/**
 	 * Generate name using "${compositeName}${layoutClassName}" template.
 	 */
+	@Test
 	public void test_nameTemplate_alternativeTemplate_2() throws Exception {
 		check_nameTemplate(
 				"${compositeName}${layoutClassName}",

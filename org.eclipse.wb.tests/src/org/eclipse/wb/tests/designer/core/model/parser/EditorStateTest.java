@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 import java.util.Iterator;
@@ -39,6 +41,7 @@ public class EditorStateTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getEditor() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -52,6 +55,7 @@ public class EditorStateTest extends SwingModelTest {
 	/**
 	 * Test for {@link EditorState#isDisposed()}.
 	 */
+	@Test
 	public void test_isDisposed() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -73,6 +77,7 @@ public class EditorStateTest extends SwingModelTest {
 	 * load them using {@link ClassLoader} from {@link EditorState}, so they are short lived.
 	 */
 	@SuppressWarnings("rawtypes")
+	@Test
 	public void test_clearRegisteredEditors() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -151,6 +156,7 @@ public class EditorStateTest extends SwingModelTest {
 	 * We should remove cached {@link Class}-s to prevent memory leak and {@link ClassCastException}
 	 * 's.
 	 */
+	@Test
 	public void test_clearUIManager() throws Exception {
 		String key = "wbp.EditorStateTest";
 		setFileContentSrc(

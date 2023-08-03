@@ -58,6 +58,8 @@ import org.eclipse.ui.ide.IDE;
 import junit.framework.TestCase;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.After;
+import org.junit.Before;
 
 import java.util.List;
 
@@ -66,14 +68,15 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
-public class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
+public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		waitEventLoop(1);
 		System.setProperty(DesignerPalette.FLAG_NO_PALETTE, "true");
@@ -81,7 +84,8 @@ public class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		System.clearProperty(DesignerPalette.FLAG_NO_PALETTE);
 		waitEventLoop(0);
 		TestUtils.closeAllEditors();

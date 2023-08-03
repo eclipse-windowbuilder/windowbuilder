@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.junit.Test;
+
 import javax.swing.JMenu;
 
 /**
@@ -38,6 +40,7 @@ public class JMenuGefTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_drop_JMenuBar_onJFrame() throws Exception {
 		ContainerInfo frame =
 				openContainer(
@@ -62,6 +65,7 @@ public class JMenuGefTest extends SwingGefTest {
 		canvas.assertPrimarySelected(menuBar);
 	}
 
+	@Test
 	public void test_drop_JMenuBar_onJInternalFrame() throws Exception {
 		ContainerInfo frame =
 				openContainer(
@@ -89,6 +93,7 @@ public class JMenuGefTest extends SwingGefTest {
 	/**
 	 * Don't allow to move "item" of {@link JMenu} on its "popup".
 	 */
+	@Test
 	public void test_dontMoveMove_onItsItem() throws Exception {
 		openContainer(
 				"// filler filler filler filler filler",

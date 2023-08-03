@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.property.EmptyXmlProperty;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link EmptyXmlProperty}.
  *
@@ -34,6 +36,7 @@ public class EmptyXmlPropertyTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		XmlObjectInfo object = parse("<Shell/>");
 		EmptyXmlProperty property = new EmptyXmlProperty(object);

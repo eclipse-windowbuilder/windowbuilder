@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.nebula.widgets.ganttchart.GanttChart;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GanttChart} items models.
  *
@@ -39,6 +41,7 @@ public class GanttChartTest extends AbstractNebulaTest {
 	/**
 	 * General test {@link GanttGroupInfo} & {@link GanttGroupEditPart}
 	 */
+	@Test
 	public void test_General() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

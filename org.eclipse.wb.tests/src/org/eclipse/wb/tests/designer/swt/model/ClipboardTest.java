@@ -15,14 +15,20 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test for {@link JavaInfoMemento} and other clipboard related operations.
@@ -41,51 +47,75 @@ public class ClipboardTest extends RcpModelTest {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		ToolkitProvider.DESCRIPTION.getPreferences().setValue(IPreferenceConstants.P_USE_RESOURCE_MANAGER, false);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_properties_String() throws Exception {
 		check_propertiesPaste("setText(\"My button\")");
 	}
 
+	@Test
 	public void test_properties_boolean() throws Exception {
 		check_propertiesPaste("setEnabled(false)");
 	}
 
+	@Test
 	public void test_properties_Color_new() throws Exception {
 		check_propertiesPaste("setBackground(new Color(null, 1, 2, 3))");
 	}
 
+	@Test
 	public void test_properties_Color_system() throws Exception {
 		check_propertiesPaste("setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED))");
 	}
 
+	@Test
 	public void test_properties_Color_systemInt() throws Exception {
 		check_propertiesPaste(
 				"setBackground(Display.getCurrent().getSystemColor(3))",
 				"setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED))");
 	}
 
+	@Test
 	public void test_properties_Font_new() throws Exception {
 		check_propertiesPaste("setFont(new Font(null, \"Arial\", 12, SWT.BOLD))");
 	}
 
+	@Test
 	public void test_properties_Font_JFaceResources() throws Exception {
 		check_propertiesPaste("setFont(JFaceResources.getHeaderFont())");
 	}
 
+	@Test
 	public void test_properties_Image_null() throws Exception {
 		check_propertiesPaste("setImage(null)");
 	}
 
+	@Test
 	public void test_properties_Image_newFile() throws Exception {
 		check_propertiesPaste("setImage(new Image(null, \"c:/1.png\"))");
 	}
 
+	@Test
 	public void test_properties_Image_newClasspath() throws Exception {
 		check_propertiesPaste("setImage(new Image(null, Test.class.getResourceAsStream(\"/resources/1.png\")))");
 	}
 
+	@Test
 	public void test_properties_Image_newClasspath_otherClass() throws Exception {
 		check_propertiesPaste(
 				"setImage(new Image(null, test.Test.class.getResourceAsStream(\"/resources/1.png\")))",
@@ -165,6 +195,7 @@ public class ClipboardTest extends RcpModelTest {
 	/**
 	 * Test for live image, preferred size during paste.
 	 */
+	@Test
 	public void test_liveImageSize() throws Exception {
 		final CompositeInfo shell =
 				parseComposite(
@@ -224,6 +255,7 @@ public class ClipboardTest extends RcpModelTest {
 	/**
 	 * Test assertions in {@link JavaInfoMemento}.
 	 */
+	@Test
 	public void test_asserts() throws Exception {
 		final CompositeInfo shell =
 				parseComposite(
@@ -307,6 +339,7 @@ public class ClipboardTest extends RcpModelTest {
 		assertEditor(targetLines);
 	}
 
+	@Test
 	public void test_factoryStatic() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -346,7 +379,9 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
-	public void DISABLE_test_viewer_1() throws Exception {
+	@Ignore
+	@Test
+	public void test_viewer_1() throws Exception {
 		String[] sourceLines =
 				new String[]{
 						"class Test extends Shell {",
@@ -380,6 +415,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_exposedSubComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -426,7 +462,9 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
-	public void DISABLE_test_viewer_2() throws Exception {
+	@Ignore
+	@Test
+	public void test_viewer_2() throws Exception {
 		String[] sourceLines =
 				new String[]{
 						"class Test extends Shell {",
@@ -462,6 +500,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_Table() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -519,6 +558,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_layouts_AbsoluteLayout_implicit() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -546,6 +586,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_layouts_AbsoluteLayout_null() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -576,6 +617,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_layouts_AbsoluteLayout_withComponent() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -618,6 +660,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_layouts_FillLayout() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -669,6 +712,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_layouts_RowLayout() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -736,6 +780,7 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_layouts_GridLayout() throws Exception {
 		String[] sourceLines =
 				new String[]{

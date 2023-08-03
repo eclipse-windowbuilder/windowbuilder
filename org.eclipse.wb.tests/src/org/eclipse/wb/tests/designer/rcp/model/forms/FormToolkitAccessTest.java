@@ -32,7 +32,8 @@ import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link FormToolkitAccess}.
@@ -54,6 +55,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 	// FormToolkit_Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_invalid() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -70,6 +72,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_toolkitMethod_public() throws Exception {
 		setFileContentSrc(
 				"test/MyForm.java",
@@ -109,6 +112,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		assertToolkitNode(true, toolkitAccess, typeDeclaration, "isToolkit_3");
 	}
 
+	@Test
 	public void test_toolkitMethod_protected() throws Exception {
 		setFileContentSrc(
 				"test/MyForm.java",
@@ -136,6 +140,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		assertEquals("getProtectedToolkit()", toolkitAccess.getReferenceExpression());
 	}
 
+	@Test
 	public void test_toolkitField() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -162,6 +167,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		assertToolkitNode(true, toolkitAccess, typeDeclaration, "isToolkit_3");
 	}
 
+	@Test
 	public void test_toolkitLocal() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -191,6 +197,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_formMethod() throws Exception {
 		setFileContentSrc(
 				"test/MyForm.java",
@@ -226,6 +233,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		assertToolkitNode(true, toolkitAccess, typeDeclaration, "isToolkit_3");
 	}
 
+	@Test
 	public void test_formField() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -252,6 +260,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 		assertToolkitNode(true, toolkitAccess, typeDeclaration, "isToolkit_3");
 	}
 
+	@Test
 	public void test_formMethod_prefer_toolkitLocal() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -291,7 +300,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 				node = statement;
 			}
 		}
-		assertThat(toolkitAccess.isToolkit(node)).isEqualTo(expectedResult);
+		Assertions.assertThat(toolkitAccess.isToolkit(node)).isEqualTo(expectedResult);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -302,6 +311,7 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 	/**
 	 * Test for {@link FormToolkitCreationSupport} and {@link FormToolkitVariableSupport}.
 	 */
+	@Test
 	public void test_toolkitAccessSupports() throws Exception {
 		setFileContentSrc(
 				"test/MyShell.java",

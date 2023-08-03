@@ -28,7 +28,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		FieldLayoutPreferencePageInfo page =
 				parseJavaInfo(
@@ -113,10 +115,10 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 		// check bounds
 		page.refresh();
 		assertNoErrors(page);
-		assertThat(composite_1.getBounds().width).isEqualTo(200);
-		assertThat(composite_2.getBounds().width).isEqualTo(200);
-		assertThat(editor_1.getBounds().width).isGreaterThanOrEqualTo(90);
-		assertThat(editor_2.getBounds().width).isEqualTo(200);
+		Assertions.assertThat(composite_1.getBounds().width).isEqualTo(200);
+		Assertions.assertThat(composite_2.getBounds().width).isEqualTo(200);
+		Assertions.assertThat(editor_1.getBounds().width).isGreaterThanOrEqualTo(90);
+		Assertions.assertThat(editor_2.getBounds().width).isEqualTo(200);
 		// FieldEditor's are not visible on FieldLayoutPreferencePage (on design canvas)
 		{
 			boolean[] visible = new boolean[]{true};
@@ -128,6 +130,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 	/**
 	 * Test for {@link FieldLayoutPreferencePageInfo#schedule_CREATE(FieldEditorInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		FieldLayoutPreferencePageInfo page =
 				parseJavaInfo(
@@ -208,6 +211,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 	/**
 	 * Test for {@link FieldEditorInfo} copy/paste.
 	 */
+	@Test
 	public void test_copyPaste() throws Exception {
 		FieldLayoutPreferencePageInfo page =
 				parseJavaInfo(
@@ -287,6 +291,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 	 * "System" and "FieldEditors" categories should be visible and open, and all other - also
 	 * visible.
 	 */
+	@Test
 	public void test_paletteTweaks_1() throws Exception {
 		FieldLayoutPreferencePageInfo page =
 				parseJavaInfo(
@@ -306,7 +311,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 		// prepare categories
 		List<CategoryInfo> categories =
 				Lists.newArrayList(systemCategory, editorsCategory, otherCategory);
-		assertThat(categories).hasSize(3);
+		Assertions.assertThat(categories).hasSize(3);
 		{
 			// all visible
 			assertTrue(systemCategory.isVisible());
@@ -315,7 +320,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 		}
 		// update categories
 		page.getBroadcast(PaletteEventListener.class).categories(categories);
-		assertThat(categories).hasSize(3);
+		Assertions.assertThat(categories).hasSize(3);
 		{
 			// all visible
 			assertTrue(systemCategory.isVisible());

@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CopyPropertyTopSupport}.
  *
@@ -37,6 +39,7 @@ public class CopyPropertyTopTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_copyExisting() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -76,6 +79,7 @@ public class CopyPropertyTopTest extends SwingModelTest {
 		assertSame(property, button.getPropertyByTitle("MyButtonText"));
 	}
 
+	@Test
 	public void test_ignoreNotExisting() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",

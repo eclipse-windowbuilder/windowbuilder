@@ -25,9 +25,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -54,6 +53,7 @@ public class ToolBarTest extends XwtModelTest {
 	/**
 	 * Test for {@link ToolBarInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -77,6 +77,7 @@ public class ToolBarTest extends XwtModelTest {
 	/**
 	 * {@link ToolBar} with {@link ToolItem}'s.
 	 */
+	@Test
 	public void test_parseItems() throws Exception {
 		ToolBarInfo toolBar =
 				parse(
@@ -90,7 +91,7 @@ public class ToolBarTest extends XwtModelTest {
 		// prepare
 		ToolItemInfo item_1 = getObjectByName("item_1");
 		ToolItemInfo item_2 = getObjectByName("item_2");
-		assertThat(toolBar.getItems()).containsExactly(item_1, item_2);
+		Assertions.assertThat(toolBar.getItems()).containsExactly(item_1, item_2);
 		// text
 		assertEquals("000", ReflectionUtils.invokeMethod(item_1.getObject(), "getText()"));
 		assertEquals("111", ReflectionUtils.invokeMethod(item_2.getObject(), "getText()"));
@@ -99,10 +100,10 @@ public class ToolBarTest extends XwtModelTest {
 			// bounds
 			{
 				Rectangle modelBounds = item_1.getModelBounds();
-				assertThat(modelBounds.x).isEqualTo(0);
-				assertThat(modelBounds.y).isEqualTo(0);
-				assertThat(modelBounds.width).isGreaterThan(25).isLessThan(50);
-				assertThat(modelBounds.height).isGreaterThan(20).isLessThan(40);
+				Assertions.assertThat(modelBounds.x).isEqualTo(0);
+				Assertions.assertThat(modelBounds.y).isEqualTo(0);
+				Assertions.assertThat(modelBounds.width).isGreaterThan(25).isLessThan(50);
+				Assertions.assertThat(modelBounds.height).isGreaterThan(20).isLessThan(40);
 			}
 			// no Control
 			assertFalse(item_1.isSeparator());
@@ -113,10 +114,10 @@ public class ToolBarTest extends XwtModelTest {
 			// bounds
 			{
 				Rectangle modelBounds = item_2.getModelBounds();
-				assertThat(modelBounds.x).isGreaterThan(25);
-				assertThat(modelBounds.y).isEqualTo(0);
-				assertThat(modelBounds.width).isGreaterThan(25).isLessThan(50);
-				assertThat(modelBounds.height).isGreaterThan(20).isLessThan(40);
+				Assertions.assertThat(modelBounds.x).isGreaterThan(25);
+				Assertions.assertThat(modelBounds.y).isEqualTo(0);
+				Assertions.assertThat(modelBounds.width).isGreaterThan(25).isLessThan(50);
+				Assertions.assertThat(modelBounds.height).isGreaterThan(20).isLessThan(40);
 			}
 		}
 	}
@@ -124,6 +125,7 @@ public class ToolBarTest extends XwtModelTest {
 	/**
 	 * Test that presentation returns different icons for {@link ToolItem}s with different styles.
 	 */
+	@Test
 	public void test_ToolItem_presentation() throws Exception {
 		ToolBarInfo toolBar =
 				parse(
@@ -160,6 +162,7 @@ public class ToolBarTest extends XwtModelTest {
 	// Control
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Control_isEmpty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -205,6 +208,7 @@ public class ToolBarTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_Control_CREATE() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -233,6 +237,7 @@ public class ToolBarTest extends XwtModelTest {
 				"</ToolBar>");
 	}
 
+	@Test
 	public void test_Control_moveOut() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -277,6 +282,7 @@ public class ToolBarTest extends XwtModelTest {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ToolBarInfo toolBar = parse("<ToolBar/>");
 		refresh();

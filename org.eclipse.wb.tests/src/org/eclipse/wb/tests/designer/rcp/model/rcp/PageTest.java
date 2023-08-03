@@ -17,7 +17,9 @@ import org.eclipse.wb.internal.rcp.model.rcp.PageInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test for {@link PageInfo}.
@@ -42,7 +44,9 @@ public class PageTest extends RcpModelTest {
 	/**
 	 * Test for many elements of {@link PageInfo}.
 	 */
-	public void DISABLE_test_Page() throws Exception {
+	@Ignore
+	@Test
+	public void test_Page() throws Exception {
 		PageInfo page =
 				parseJavaInfo(
 						"import org.eclipse.jface.action.*;",
@@ -89,12 +93,12 @@ public class PageTest extends RcpModelTest {
 		page.refresh();
 		assertNoErrors(page);
 		// check bounds
-		assertThat(page.getBounds().width).isEqualTo(600);
-		assertThat(page.getBounds().height).isEqualTo(500);
-		assertThat(parentComposite.getBounds().width).isGreaterThan(300);
-		assertThat(parentComposite.getBounds().height).isGreaterThan(30);
-		assertThat(container.getBounds().width).isGreaterThan(300);
-		assertThat(container.getBounds().height).isGreaterThan(300);
+		Assertions.assertThat(page.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(page.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(300);
+		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(30);
+		Assertions.assertThat(container.getBounds().width).isGreaterThan(300);
+		Assertions.assertThat(container.getBounds().height).isGreaterThan(300);
 		// check IMenuPopupInfo for MenuManager
 		{
 			MenuManagerInfo manager = page.getChildren(MenuManagerInfo.class).get(0);
@@ -105,8 +109,8 @@ public class PageTest extends RcpModelTest {
 			assertSame(manager, popupObject.getToolkitModel());
 			// presentation
 			assertNull(popupObject.getImageDescriptor());
-			assertThat(popupObject.getBounds().width).isGreaterThan(10);
-			assertThat(popupObject.getBounds().height).isGreaterThan(10);
+			Assertions.assertThat(popupObject.getBounds().width).isGreaterThan(10);
+			Assertions.assertThat(popupObject.getBounds().height).isGreaterThan(10);
 			// menu
 			assertSame(MenuObjectInfoUtils.getMenuInfo(manager), popupObject.getMenu());
 			assertSame(popupObject.getMenu().getPolicy(), popupObject.getPolicy());
@@ -116,6 +120,7 @@ public class PageTest extends RcpModelTest {
 	/**
 	 * Test for <code>ContentOutlinePage</code>.
 	 */
+	@Test
 	public void test_ContentOutlinePage() throws Exception {
 		PageInfo page =
 				parseJavaInfo(

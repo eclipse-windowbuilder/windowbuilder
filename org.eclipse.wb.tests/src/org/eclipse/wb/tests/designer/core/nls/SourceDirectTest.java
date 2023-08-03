@@ -29,6 +29,8 @@ import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 
+import org.junit.Test;
+
 import java.util.List;
 
 import javax.swing.JButton;
@@ -45,6 +47,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_notDirectCases_1() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -57,6 +60,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		assertEquals(0, support.getSources().length);
 	}
 
+	@Test
 	public void test_notDirectCases_2() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo frame =
@@ -77,6 +81,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		assertEquals(0, support.getSources().length);
 	}
 
+	@Test
 	public void test_notDirectCases_3() throws Exception {
 		createASTCompilationUnit(
 				"test",
@@ -114,6 +119,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_parse() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -152,6 +158,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_parse_inConstructor() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("button.text=My JButton"));
 		waitForAutoBuild();
@@ -187,6 +194,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_possibleSources() throws Exception {
 		setFileContentSrc("test/not-a-properties.text", "");
 		setFileContentSrc(
@@ -217,6 +225,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		assertEquals("test.messages (Direct ResourceBundle usage)", editableSource.getLongTitle());
 	}
 
+	@Test
 	public void test_externalize() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("#Direct ResourceBundle"));
 		waitForAutoBuild();
@@ -259,6 +268,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_externalize_qualifiedTypeName() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("#Direct ResourceBundle"));
 		waitForAutoBuild();
@@ -308,6 +318,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_renameKey() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
@@ -342,6 +353,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_internalize() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
@@ -375,6 +387,7 @@ public class SourceDirectTest extends AbstractNlsTest {
 		}
 	}
 
+	@Test
 	public void test_create() throws Exception {
 		ContainerInfo frame =
 				parseContainer(

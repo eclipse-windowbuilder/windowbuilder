@@ -23,25 +23,20 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class LabelTest extends Draw2dFigureTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public LabelTest() {
-		super(Label.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Test
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_text() throws Exception {
 		// check text for new empty Label
 		assertEquals("", new Label().getText());
@@ -64,6 +59,7 @@ public class LabelTest extends Draw2dFigureTestCase {
 		assertEquals("", label.getText());
 	}
 
+	@Test
 	public void test_resetState() throws Exception {
 		TestLogger actualLogger = new TestLogger();
 		//
@@ -103,6 +99,7 @@ public class LabelTest extends Draw2dFigureTestCase {
 		actualLogger.assertEquals(expectedLogger);
 	}
 
+	@Test
 	public void test_getPreferredSize() throws Exception {
 		Label label = new Label();
 		assertTextSize(label);

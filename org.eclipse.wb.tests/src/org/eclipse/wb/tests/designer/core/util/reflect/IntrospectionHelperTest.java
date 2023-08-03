@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core.util.reflect;
 import org.eclipse.wb.internal.core.utils.reflect.IntrospectionHelper;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 import java.beans.BeanDescriptor;
 import java.beans.Customizer;
 import java.beans.SimpleBeanInfo;
@@ -42,6 +44,7 @@ public class IntrospectionHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link IntrospectionHelper#getBeanDescriptor()}.
 	 */
+	@Test
 	public void test_getBeanDescriptor_BeanA() throws Exception {
 		IntrospectionHelper helper = new IntrospectionHelper(BeanA.class);
 		BeanDescriptor beanDescriptor = helper.getBeanDescriptor();
@@ -54,6 +57,7 @@ public class IntrospectionHelperTest extends DesignerTestCase {
 	 * <p>
 	 * {@link BeanB} inherits customizer and attributes from {@link BeanA}.
 	 */
+	@Test
 	public void test_getBeanDescriptor_BeanB() throws Exception {
 		IntrospectionHelper helper = new IntrospectionHelper(BeanB.class);
 		BeanDescriptor beanDescriptor = helper.getBeanDescriptor();
@@ -66,6 +70,7 @@ public class IntrospectionHelperTest extends DesignerTestCase {
 	 * <p>
 	 * {@link BeanC} inherits customizer, but overrides attributes.
 	 */
+	@Test
 	public void test_getBeanDescriptor_BeanC() throws Exception {
 		IntrospectionHelper helper = new IntrospectionHelper(BeanC.class);
 		BeanDescriptor beanDescriptor = helper.getBeanDescriptor();

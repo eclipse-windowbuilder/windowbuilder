@@ -31,9 +31,9 @@ import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.ui.IPageLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.io.FilenameUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
@@ -63,6 +63,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#getProject()}.
 	 */
+	@Test
 	public void test_getProject() throws Exception {
 		assertSame(m_project, m_utils.getProject());
 	}
@@ -70,6 +71,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#hasPDENature(IProject)}.
 	 */
+	@Test
 	public void test_hasPDENature() throws Exception {
 		assertTrue(PdeUtils.hasPDENature(m_project));
 		// empty project
@@ -83,6 +85,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	// ID generation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_generateUniqueID() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -103,6 +106,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#getId(IPluginModelBase)}.
 	 */
+	@Test
 	public void test_getId_validPluginProject() throws Exception {
 		IPluginModelBase plugin = PluginRegistry.findModel(m_project);
 		assertNotNull(plugin);
@@ -112,6 +116,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#getId(IPluginModelBase)}.
 	 */
+	@Test
 	public void test_getId_pluginProjectWithoutManifest() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
@@ -136,16 +141,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_notPlugin() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
 		// getExtensionElements()
 		{
 			List<IPluginElement> elements = m_utils.getExtensionElements("org.eclipse.ui.views", "view");
-			assertThat(elements).isEmpty();
+			Assertions.assertThat(elements).isEmpty();
 		}
 	}
 
+	@Test
 	public void test_readOnly() throws Exception {
 		{
 			String manifest = getFileContent("META-INF/MANIFEST.MF");
@@ -162,7 +169,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 		// getExtensionElements()
 		{
 			List<IPluginElement> elements = m_utils.getExtensionElements("org.eclipse.ui.views", "view");
-			assertThat(elements).hasSize(2);
+			Assertions.assertThat(elements).hasSize(2);
 			assertId("id_1", elements.get(0));
 			assertId("id_2", elements.get(1));
 		}
@@ -193,6 +200,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for attribute value from <code>plugin.properties</code> file.
 	 */
+	@Test
 	public void test_localizedAttribute() throws Exception {
 		// update META-INF/MANIFEST.MF to use localization
 		{
@@ -231,6 +239,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#addPluginImport(String)}.
 	 */
+	@Test
 	public void test_addPluginImport() throws Exception {
 		// no org.eclipse.jdt.core.IType
 		assertFalse(ProjectUtils.hasType(m_javaProject, "org.eclipse.jdt.core.IType"));
@@ -244,7 +253,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 		// validate manifest
 		{
 			String manifest = getManifest();
-			assertThat(manifest).contains(",\n org.eclipse.jdt.core\n");
+			Assertions.assertThat(manifest).contains(",\n org.eclipse.jdt.core\n");
 		}
 	}
 
@@ -253,6 +262,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * <p>
 	 * Check that "\r\n" does not cause problems.
 	 */
+	@Test
 	public void test_addPluginImport_useRN() throws Exception {
 		// use "\r\n"
 		{
@@ -266,7 +276,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 		// validate
 		{
 			String manifest = getManifest();
-			assertThat(manifest).contains(" org.eclipse.jdt.core,\r\n org.eclipse.jdt.ui\r\n");
+			Assertions.assertThat(manifest).contains(" org.eclipse.jdt.core,\r\n org.eclipse.jdt.ui\r\n");
 		}
 	}
 
@@ -274,6 +284,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#addLibrary(String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addLibrary() throws Exception {
 		// prepare empty PDE project
 		do_projectDispose();
@@ -287,8 +298,8 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			m_utils.addLibrary(jarName);
 			// validate manifest
 			String manifest = getManifest();
-			assertThat(manifest).contains(jarName);
-			assertThat(manifest).contains("Bundle-ClassPath: .,\n " + jarName + "\n");
+			Assertions.assertThat(manifest).contains(jarName);
+			Assertions.assertThat(manifest).contains("Bundle-ClassPath: .,\n " + jarName + "\n");
 		} finally {
 			new File(jarPath).delete();
 		}
@@ -297,6 +308,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.
 	 */
+	@Test
 	public void test_setAttribute_existingAttribute() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -325,6 +337,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.
 	 */
+	@Test
 	public void test_setAttribute_newAttribute() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -332,18 +345,19 @@ public class PdeUtilsTest extends AbstractPdeTest {
 				"    <view id='id_1' name='name 1' class='C_1'/>",
 				"  </extension>",
 		"</plugin>"});
-		assertThat(getPluginXML()).doesNotContain("newAttr");
+		Assertions.assertThat(getPluginXML()).doesNotContain("newAttr");
 		// set new attribute
 		IPluginElement element =
 				m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_1");
 		m_utils.setAttribute(element, "newAttr", "New value");
 		// PDE formats plugin.xml very bad, so check using "contains"
-		assertThat(getPluginXML()).contains("newAttr=\"New value\"");
+		Assertions.assertThat(getPluginXML()).contains("newAttr=\"New value\"");
 	}
 
 	/**
 	 * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.
 	 */
+	@Test
 	public void test_setAttribute_removeAttribute() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -351,7 +365,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 				"    <view id='id_1' name='name 1' class='C_1'/>",
 				"  </extension>",
 		"</plugin>"});
-		assertThat(getPluginXML()).contains("name=");
+		Assertions.assertThat(getPluginXML()).contains("name=");
 		// remove existing attribute
 		IPluginElement element =
 				m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_1");
@@ -369,6 +383,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.<br>
 	 * Set value with special (for XML) characters.
 	 */
+	@Test
 	public void test_setAttribute_specialValue() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -376,7 +391,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 				"    <view id='id_1' name='name 1' class='C_1'/>",
 				"  </extension>",
 		"</plugin>"});
-		assertThat(getPluginXML()).contains("name=");
+		Assertions.assertThat(getPluginXML()).contains("name=");
 		// update existing attribute
 		{
 			IPluginElement element =
@@ -407,6 +422,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#createExtensionElement(String, String, Map)}.<br>
 	 * Adds new {@link IPluginElement} into existing {@link IPluginExtension}.
 	 */
+	@Test
 	public void test_createExtensionElement_1() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -446,6 +462,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#createExtensionElement(String, String, Map)}.<br>
 	 * Adds new {@link IPluginElement} without existing {@link IPluginExtension}.
 	 */
+	@Test
 	public void test_createExtensionElement_2() throws Exception {
 		createPluginXML(new String[]{"<plugin>", "</plugin>"});
 		// do create
@@ -481,6 +498,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#createExtensionElement(String, String, Map)}.<br>
 	 * No <code>plugin.xml</code> initially.
 	 */
+	@Test
 	public void test_createExtensionElement_3() throws Exception {
 		// initially no plugin.xml file
 		assertFalse(getFile("plugin.xml").exists());
@@ -521,6 +539,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * There was problem with adding extension and waiting for it. Solution - run "ModelModification"
 	 * in UI thread. However this test in reality does not reproduce it.
 	 */
+	@Test
 	public void test_createExtensionElement_notInUI() throws Exception {
 		createPluginXML(new String[]{"<plugin>", "</plugin>"});
 		// do create
@@ -569,6 +588,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#createViewCategoryElement(String, String)}.
 	 */
+	@Test
 	public void test_createViewCategoryElement() throws Exception {
 		createPluginXML(new String[]{"<plugin>", "</plugin>"});
 		// do create
@@ -601,6 +621,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#createViewElement(String, String, String)}.
 	 */
+	@Test
 	public void test_createViewElement() throws Exception {
 		createPluginXML(new String[]{"<plugin>", "</plugin>"});
 		// do create
@@ -631,6 +652,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#createEditorElement(String, String, String)}.
 	 */
+	@Test
 	public void test_createEditorElement() throws Exception {
 		createPluginXML(new String[]{"<plugin>", "</plugin>"});
 		// do create
@@ -653,6 +675,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#createPerspectiveElement(String, String, String)}.
 	 */
+	@Test
 	public void test_createPerspectiveElement() throws Exception {
 		createPluginXML(new String[]{"<plugin>", "</plugin>"});
 		// do create
@@ -680,6 +703,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#removeElement(IPluginElement)}.
 	 */
+	@Test
 	public void test_removeElement() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -713,6 +737,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getViewInfo(String)}.<br>
 	 * No view with such ID.
 	 */
+	@Test
 	public void test_getViewInfo_noView() throws Exception {
 		assertNull(PdeUtils.getViewInfo("no.such.view"));
 	}
@@ -721,6 +746,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getViewInfoDefault(String)}.<br>
 	 * No view with such ID.
 	 */
+	@Test
 	public void test_getViewInfoDefault() throws Exception {
 		String id = "no.such.view";
 		ViewInfo viewInfo = PdeUtils.getViewInfoDefault(id);
@@ -734,6 +760,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getViewInfo(String)}.<br>
 	 * From runtime plugin.
 	 */
+	@Test
 	public void test_getViewInfo_runtime() throws Exception {
 		String viewId = "org.eclipse.jdt.ui.PackageExplorer";
 		// get ViewInfo
@@ -757,6 +784,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getViewInfo(String)}.<br>
 	 * From workspace plugin.
 	 */
+	@Test
 	public void test_getViewInfo_workspace() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -785,6 +813,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#getViews()}.
 	 */
+	@Test
 	public void test_getViews() throws Exception {
 		List<ViewInfo> views = PdeUtils.getViews();
 		Map<String, ViewInfo> idToView = Maps.newTreeMap();
@@ -792,14 +821,14 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			idToView.put(viewInfo.getId(), viewInfo);
 		}
 		// analyze views
-		assertThat(views).isNotEmpty();
-		assertThat(views.size()).isGreaterThan(35);
+		Assertions.assertThat(views).isNotEmpty();
+		Assertions.assertThat(views.size()).isGreaterThan(35);
 		// check for some known views
 		Set<String> idSet = idToView.keySet();
-		assertThat(idSet).contains("org.eclipse.jdt.ui.PackageExplorer");
-		assertThat(idSet).contains(IPageLayout.ID_PROJECT_EXPLORER);
-		assertThat(idSet).contains(IPageLayout.ID_OUTLINE);
-		assertThat(idSet).contains(IPageLayout.ID_BOOKMARKS);
+		Assertions.assertThat(idSet).contains("org.eclipse.jdt.ui.PackageExplorer");
+		Assertions.assertThat(idSet).contains(IPageLayout.ID_PROJECT_EXPLORER);
+		Assertions.assertThat(idSet).contains(IPageLayout.ID_OUTLINE);
+		Assertions.assertThat(idSet).contains(IPageLayout.ID_BOOKMARKS);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -810,6 +839,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#getViewCategories()}.
 	 */
+	@Test
 	public void test_getViewCategories() throws Exception {
 		List<ViewCategoryInfo> categories = PdeUtils.getViewCategories();
 		Map<String, ViewCategoryInfo> idToCategory = Maps.newHashMap();
@@ -817,8 +847,8 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			idToCategory.put(category.getId(), category);
 		}
 		// analyze categories
-		assertThat(categories).isNotEmpty();
-		assertThat(categories.size()).isGreaterThan(8);
+		Assertions.assertThat(categories).isNotEmpty();
+		Assertions.assertThat(categories.size()).isGreaterThan(8);
 		// check "Other" category
 		{
 			ViewCategoryInfo category = idToCategory.get(null);
@@ -840,8 +870,8 @@ public class PdeUtilsTest extends AbstractPdeTest {
 				idToView.put(viewInfo.getId(), viewInfo);
 			}
 			// analyze views
-			assertThat(views).isNotEmpty();
-			assertThat(views.size()).isGreaterThan(5);
+			Assertions.assertThat(views).isNotEmpty();
+			Assertions.assertThat(views.size()).isGreaterThan(5);
 			// check for some known views
 			assertNotNull(idToView.get("org.eclipse.jdt.ui.PackageExplorer"));
 			assertNull(idToView.get(IPageLayout.ID_PROJECT_EXPLORER));
@@ -852,6 +882,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getViewCategories()}, using "Other"category for views without
 	 * category.
 	 */
+	@Test
 	public void test_getViewCategories_otherViews() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -878,6 +909,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getViewCategoryInfo(String)}.<br>
 	 * From workspace plugin.
 	 */
+	@Test
 	public void test_getViewCategoryInfo_workspace() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -908,6 +940,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getPerspectiveInfo(String)}.<br>
 	 * No perspective with such ID.
 	 */
+	@Test
 	public void test_getPerspectiveInfo_noPerspective() throws Exception {
 		assertNull(PdeUtils.getPerspectiveInfo("no.such.perspective"));
 	}
@@ -916,6 +949,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getPerspectiveInfoDefault(String)}.<br>
 	 * No perspective with such ID.
 	 */
+	@Test
 	public void test_getPerspectiveInfoDefault() throws Exception {
 		String id = "no.such.perspective";
 		PerspectiveInfo perspectiveInfo = PdeUtils.getPerspectiveInfoDefault(id);
@@ -929,6 +963,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	 * Test for {@link PdeUtils#getPerspectiveInfo(String)}.<br>
 	 * From runtime plugin.
 	 */
+	@Test
 	public void test_getPerspectiveInfo_runtime() throws Exception {
 		String id = "org.eclipse.jdt.ui.JavaPerspective";
 		// get PerspectiveInfo
@@ -953,6 +988,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	/**
 	 * Test for {@link PdeUtils#getPerspectives()}.
 	 */
+	@Test
 	public void test_getPerspectives() throws Exception {
 		List<PerspectiveInfo> perspectives = PdeUtils.getPerspectives();
 		Map<String, PerspectiveInfo> idToPerspective = Maps.newTreeMap();
@@ -960,12 +996,12 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			idToPerspective.put(perspectiveInfo.getId(), perspectiveInfo);
 		}
 		// analyze perspectives
-		assertThat(perspectives).isNotEmpty();
-		assertThat(perspectives.size()).isGreaterThan(5);
+		Assertions.assertThat(perspectives).isNotEmpty();
+		Assertions.assertThat(perspectives.size()).isGreaterThan(5);
 		// check for some known perspectives
 		Set<String> idSet = idToPerspective.keySet();
-		assertThat(idSet).contains("org.eclipse.ui.resourcePerspective");
-		assertThat(idSet).contains("org.eclipse.jdt.ui.JavaPerspective");
-		assertThat(idSet).contains("org.eclipse.pde.ui.PDEPerspective");
+		Assertions.assertThat(idSet).contains("org.eclipse.ui.resourcePerspective");
+		Assertions.assertThat(idSet).contains("org.eclipse.jdt.ui.JavaPerspective");
+		Assertions.assertThat(idSet).contains("org.eclipse.pde.ui.PDEPerspective");
 	}
 }

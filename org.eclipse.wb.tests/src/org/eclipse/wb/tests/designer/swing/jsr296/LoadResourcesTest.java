@@ -15,6 +15,10 @@ import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import javax.swing.JLabel;
 
 /**
@@ -29,7 +33,8 @@ public class LoadResourcesTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/jsr296");
 	}
@@ -39,7 +44,9 @@ public class LoadResourcesTest extends SwingModelTest {
 	// Exit zone :-) XXX
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_exit() throws Exception {
+	@Ignore
+	@Test
+	public void test_exit() throws Exception {
 		System.exit(0);
 	}
 
@@ -51,7 +58,9 @@ public class LoadResourcesTest extends SwingModelTest {
 	/**
 	 * Tests that <code>ResourceMap.injectComponents(Component)</code> is invoked.
 	 */
-	public void DISABLE_test_parse() throws Exception {
+	@Ignore
+	@Test
+	public void test_parse() throws Exception {
 		setFileContentSrc("test/resources/Test.properties", "label.text = TestLabel");
 		m_waitForAutoBuild = true;
 		JPanelInfo panel =
@@ -83,7 +92,9 @@ public class LoadResourcesTest extends SwingModelTest {
 	 * Tests that <code>ResourceMap.injectComponents(Component)</code> is terminate statement for
 	 * children.
 	 */
-	public void DISABLE_test_CREATE() throws Exception {
+	@Ignore
+	@Test
+	public void test_CREATE() throws Exception {
 		m_waitForAutoBuild = true;
 		JPanelInfo panel =
 				parseJavaInfo(

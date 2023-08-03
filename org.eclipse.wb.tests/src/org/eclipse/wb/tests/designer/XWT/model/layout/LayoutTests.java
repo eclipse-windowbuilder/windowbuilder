@@ -12,31 +12,30 @@ package org.eclipse.wb.tests.designer.XWT.model.layout;
 
 import org.eclipse.wb.internal.xwt.model.layout.LayoutInfo;
 import org.eclipse.wb.tests.designer.XWT.model.layout.grid.GridLayoutTests;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for XWT {@link LayoutInfo}.
  *
  * @author scheglov_ke
  */
-public class LayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.layout");
-		suite.addTest(createSingleSuite(LayoutTest.class));
-		suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
-		suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
-		suite.addTest(createSingleSuite(RowLayoutTest.class));
-		suite.addTest(createSingleSuite(RowLayoutGefTest.class));
-		suite.addTest(createSingleSuite(FillLayoutTest.class));
-		suite.addTest(createSingleSuite(FillLayoutGefTest.class));
-		suite.addTest(createSingleSuite(StackLayoutTest.class));
-		suite.addTest(createSingleSuite(StackLayoutGefTest.class));
-		suite.addTest(createSingleSuite(FormLayoutTest.class));
-		suite.addTest(createSingleSuite(FormLayoutGefTest.class));
-		suite.addTest(GridLayoutTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		LayoutTest.class,
+		AbsoluteLayoutTest.class,
+		AbsoluteLayoutGefTest.class,
+		RowLayoutTest.class,
+		RowLayoutGefTest.class,
+		FillLayoutTest.class,
+		FillLayoutGefTest.class,
+		StackLayoutTest.class,
+		StackLayoutGefTest.class,
+		FormLayoutTest.class,
+		FormLayoutGefTest.class,
+		GridLayoutTests.class
+})
+public class LayoutTests {
 }

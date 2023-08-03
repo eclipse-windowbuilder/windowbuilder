@@ -20,6 +20,9 @@ import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.After;
+import org.junit.Before;
+
 /**
  * Abstract super class for RCP tests.
  *
@@ -34,7 +37,8 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -50,7 +54,8 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		configureDefaultPreferences(RcpToolkitDescription.INSTANCE.getPreferences());
 		super.tearDown();
 	}

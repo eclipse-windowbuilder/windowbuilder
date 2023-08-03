@@ -25,7 +25,8 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -49,6 +50,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for installing.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -82,6 +84,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=363376
 	 */
+	@Test
 	public void test_dangling() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -101,6 +104,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * {@link JPopupMenu} is not managed.
 	 */
+	@Test
 	public void test_managedComponents_excludeJPopupMenu() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -127,12 +131,13 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		// only JButton is managed component
-		assertThat(layout.getComponents()).containsExactly(button);
+		Assertions.assertThat(layout.getComponents()).containsExactly(button);
 	}
 
 	/**
 	 * Exposed {@link ComponentInfo} is managed.
 	 */
+	@Test
 	public void test_managedComponents_includeExposedComponents() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -171,7 +176,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		ComponentInfo buttonA = getJavaInfoByName("getButtonA()");
 		ComponentInfo buttonB = getJavaInfoByName("getButtonB()");
 		// getButtonA() and getButtonB() are managed components
-		assertThat(layout.getComponents()).containsExactly(buttonA, buttonB);
+		Assertions.assertThat(layout.getComponents()).containsExactly(buttonA, buttonB);
 	}
 
 	/**
@@ -179,6 +184,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=366817
 	 */
+	@Test
 	public void test_convert() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -217,6 +223,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link CardLayoutInfo#command_CREATE(ComponentInfo, ComponentInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -262,6 +269,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 * <p>
 	 * Create {@link JPopupMenu}.
 	 */
+	@Test
 	public void test_CREATE_JPopupMenu() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -309,6 +317,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for reparenting, normal variable.
 	 */
+	@Test
 	public void test_MOVE_reorder() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -350,6 +359,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for reparenting, normal variable.
 	 */
+	@Test
 	public void test_MOVE_reparent_variable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -391,6 +401,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for reparenting, lazy variable.
 	 */
+	@Test
 	public void test_MOVE_reparent_lazy() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -450,6 +461,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	// Showing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_visibility_JPanel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -479,10 +491,11 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		// only "button_0" is in "graphical children"
 		{
 			List<ObjectInfo> children = panel.getPresentation().getChildrenGraphical();
-			assertThat(children).containsExactly(button_0);
+			Assertions.assertThat(children).containsExactly(button_0);
 		}
 	}
 
+	@Test
 	public void test_visibility_JFrame() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -512,6 +525,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		assertVisible(button_1, false);
 	}
 
+	@Test
 	public void test_show() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -559,6 +573,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		assertVisible(text, true);
 	}
 
+	@Test
 	public void test_selecting() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -609,6 +624,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test that association using {@link Container#add(String, Component)} also works.
 	 */
+	@Test
 	public void test_selecting_deprecatedAdd() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

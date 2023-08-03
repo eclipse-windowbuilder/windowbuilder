@@ -20,6 +20,9 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +36,8 @@ public class GathererTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
 
@@ -42,6 +46,7 @@ public class GathererTest extends AbstractJavaTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ListGatherer() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -69,6 +74,7 @@ public class GathererTest extends AbstractJavaTest {
 		resultSet.containsAll(resultList);
 	}
 
+	@Test
 	public void test_SetGatherer() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -97,6 +103,7 @@ public class GathererTest extends AbstractJavaTest {
 		resultList.containsAll(resultSet);
 	}
 
+	@Test
 	public void test_unique() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -119,6 +126,7 @@ public class GathererTest extends AbstractJavaTest {
 		assertEquals("aaa", stringLiteral.getLiteralValue());
 	}
 
+	@Test
 	public void test_VariableDeclaration() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -160,15 +168,5 @@ public class GathererTest extends AbstractJavaTest {
 		}
 		// not found
 		return false;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 }

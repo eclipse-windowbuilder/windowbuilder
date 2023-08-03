@@ -12,6 +12,8 @@ package org.eclipse.wb.tests.designer.swing.model.component;
 
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 
@@ -32,6 +34,7 @@ public class JTextFieldTest extends SwingModelTest {
 	 * <p>
 	 * Disabled by Kosta 20090512.
 	 */
+	@Test
 	public void test_exposedDocument() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",

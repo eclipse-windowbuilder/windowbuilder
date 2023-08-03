@@ -25,6 +25,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -38,20 +42,12 @@ public class GraphicalViewerTest extends GefTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public GraphicalViewerTest() {
-		super(GraphicalViewer.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// SetUp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_shell = new Shell();
@@ -68,8 +64,8 @@ public class GraphicalViewerTest extends GefTestCase {
 		m_viewer.setEditDomain(m_domain);
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		m_shell.dispose();
 	}
 
@@ -78,6 +74,7 @@ public class GraphicalViewerTest extends GefTestCase {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Selection() throws Exception {
 		TestEditPart part1 = new TestEditPart(m_viewer);
 		TestEditPart part2 = new TestEditPart(m_viewer);
@@ -179,6 +176,7 @@ public class GraphicalViewerTest extends GefTestCase {
 		assertTrue(m_viewer.getSelectedEditParts().isEmpty());
 	}
 
+	@Test
 	public void test_Invoke_SelectionListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		ISelectionChangedListener listener = new ISelectionChangedListener() {

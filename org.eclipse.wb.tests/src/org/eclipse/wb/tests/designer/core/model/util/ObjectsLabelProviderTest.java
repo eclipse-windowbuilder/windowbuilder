@@ -23,6 +23,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ObjectsLabelProvider}.
  *
@@ -45,6 +47,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 	/**
 	 * Test for default icon/text, no any decorators.
 	 */
+	@Test
 	public void test_default() throws Exception {
 		TestObjectInfo theObject = new MyObjectInfo();
 		// do checks
@@ -55,6 +58,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 	/**
 	 * Test for decorated icon/text.
 	 */
+	@Test
 	public void test_decorateImageText() throws Exception {
 		TestObjectInfo theObject = new MyObjectInfo();
 		theObject.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {

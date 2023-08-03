@@ -13,18 +13,20 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author lobas_av
  *
  */
-public class CommandsTest extends TestCase {
+public class CommandsTest extends Assert {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CompoundCommand() throws Exception {
 		CompoundCommand command = new CompoundCommand();
 		//

@@ -21,22 +21,27 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.After;
+import org.junit.Before;
+
 import java.awt.LayoutManager;
 
-public class AbstractLayoutTest extends SwingModelTest {
+public abstract class AbstractLayoutTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		configureForTest();
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		configureDefaults();
 		super.tearDown();
 	}

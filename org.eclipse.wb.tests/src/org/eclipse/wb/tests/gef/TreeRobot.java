@@ -35,8 +35,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
 import java.util.Collections;
@@ -121,7 +120,7 @@ public final class TreeRobot {
 	public TreeRobot startDrag(Object... models) {
 		expandAll();
 		// select EditPart's to drag
-		assertThat(models).isNotEmpty();
+		Assertions.assertThat(models).isNotEmpty();
 		select(models);
 		// drag using first EditPart
 		{
@@ -283,7 +282,7 @@ public final class TreeRobot {
 	////////////////////////////////////////////////////////////////////////////
 	public TreeEditPart getEditPart(Object model) {
 		TreeEditPart editPart = getEditPartNull(model);
-		assertThat(editPart).isNotNull();
+		Assertions.assertThat(editPart).isNotNull();
 		return editPart;
 	}
 
@@ -423,7 +422,7 @@ public final class TreeRobot {
 	 */
 	public TreeRobot assertSelectedEmpty() {
 		List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
-		assertThat(selectedEditParts).isEmpty();
+		Assertions.assertThat(selectedEditParts).isEmpty();
 		return this;
 	}
 
@@ -432,7 +431,7 @@ public final class TreeRobot {
 	 */
 	public TreeRobot assertPrimarySelected(Object object) {
 		TreeEditPart editPart = getEditPart(object);
-		assertThat(editPart.getSelected()).isEqualTo(EditPart.SELECTED_PRIMARY);
+		Assertions.assertThat(editPart.getSelected()).isEqualTo(EditPart.SELECTED_PRIMARY);
 		return this;
 	}
 
@@ -446,7 +445,7 @@ public final class TreeRobot {
 	 */
 	public void assertNotExpandedObjects(ObjectInfo... objects) {
 		Object[] expanded = getExpandedElements();
-		assertThat(expanded).doesNotContain((Object[]) objects);
+		Assertions.assertThat(expanded).doesNotContain((Object[]) objects);
 	}
 
 	/**
@@ -454,7 +453,7 @@ public final class TreeRobot {
 	 */
 	public void assertExpandedObjects(ObjectInfo... objects) {
 		Object[] expanded = getExpandedElements();
-		assertThat(expanded).containsOnly((Object[]) objects);
+		Assertions.assertThat(expanded).containsOnly((Object[]) objects);
 	}
 
 	/**
@@ -482,13 +481,13 @@ public final class TreeRobot {
 		// no selection
 		{
 			List<TreeItem> selectedItems = getFeedbackSelection();
-			assertThat(selectedItems).isEmpty();
+			Assertions.assertThat(selectedItems).isEmpty();
 		}
 		// no insert
 		{
 			Tree tree = (Tree) m_viewer.getControl();
 			Object item = tree.getData("_wbp_insertMarkItem");
-			assertThat(item).isNull();
+			Assertions.assertThat(item).isNull();
 		}
 		return this;
 	}
@@ -496,14 +495,14 @@ public final class TreeRobot {
 	public TreeRobot assertFeedback_on(Object object) {
 		TreeEditPart editPart = getEditPart(object);
 		List<TreeItem> selectedItems = getFeedbackSelection();
-		assertThat(selectedItems).containsOnly(editPart.getWidget());
+		Assertions.assertThat(selectedItems).containsOnly(editPart.getWidget());
 		return this;
 	}
 
 	public TreeRobot assertFeedback_notOn(Object object) {
 		TreeEditPart editPart = getEditPart(object);
 		List<TreeItem> selectedItems = getFeedbackSelection();
-		assertThat(selectedItems).doesNotContain(editPart.getWidget());
+		Assertions.assertThat(selectedItems).doesNotContain(editPart.getWidget());
 		return this;
 	}
 
@@ -532,10 +531,10 @@ public final class TreeRobot {
 		TreeEditPart editPart = getEditPart(object);
 		// item
 		Object item = tree.getData("_wbp_insertMarkItem");
-		assertThat(item).isSameAs(editPart.getWidget());
+		Assertions.assertThat(item).isSameAs(editPart.getWidget());
 		// before/after
 		Boolean location = (Boolean) tree.getData("_wbp_insertMarkLocation");
-		assertThat(location).isEqualTo(before);
+		Assertions.assertThat(location).isEqualTo(before);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -544,11 +543,11 @@ public final class TreeRobot {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void assertNullEditPart(Object object) {
-		assertThat(getEditPartNull(object)).isNull();
+		Assertions.assertThat(getEditPartNull(object)).isNull();
 	}
 
 	public void assertNotNullEditPart(Object object) {
-		assertThat(getEditPartNull(object)).isNotNull();
+		Assertions.assertThat(getEditPartNull(object)).isNotNull();
 	}
 
 	/**
@@ -556,7 +555,7 @@ public final class TreeRobot {
 	 */
 	public TreeRobot assertCommandNull() throws Exception {
 		final Command command = getCommand();
-		assertThat(command).describedAs(new Description() {
+		Assertions.assertThat(command).describedAs(new Description() {
 			@Override
 			public String value() {
 				return "Unexpected command " + command;
@@ -570,7 +569,7 @@ public final class TreeRobot {
 	 */
 	public TreeRobot assertCommandNotNull() throws Exception {
 		Command command = getCommand();
-		assertThat(command).describedAs("No command.").isNotNull();
+		Assertions.assertThat(command).describedAs("No command.").isNotNull();
 		return this;
 	}
 }

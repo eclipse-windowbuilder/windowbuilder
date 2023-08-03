@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.junit.Before;
 
 import java.util.List;
 
@@ -62,7 +63,8 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();

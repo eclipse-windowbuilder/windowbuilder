@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TestAction}.
  *
@@ -33,6 +35,7 @@ public class TestActionTest extends XwtGefTest {
 	/**
 	 * Test that {@link TestAction} shows {@link Shell} with valid bounds.
 	 */
+	@Test
 	public void test_run() throws Exception {
 		openEditor("<Shell text='My Shell'/>");
 		//

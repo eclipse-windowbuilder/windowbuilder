@@ -19,7 +19,8 @@ import org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorCreationSu
 import org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import javax.swing.JToolBar;
 
@@ -43,6 +44,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -63,6 +65,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 		assertEquals("bar.addSeparator();", m_lastEditor.getSource(association.getStatement()));
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -88,6 +91,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_add() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -124,6 +128,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 		assertEquals("bar.addSeparator()", association.getSource());
 	}
 
+	@Test
 	public void test_moveInner() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -165,6 +170,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 	 * We need special support for moving <code>getX()</code> lazy accessor method inside of parent
 	 * block.
 	 */
+	@Test
 	public void test_moveInner_lazy() throws Exception {
 		setFileContentSrc(
 				"test/MyBar.java",
@@ -230,7 +236,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_1 = bar.getChildrenComponents().get(0);
 		ComponentInfo button_2 = bar.getChildrenComponents().get(1);
-		assertThat(button_2.getAssociation()).isInstanceOf(InvocationVoidAssociation.class);
+		Assertions.assertThat(button_2.getAssociation()).isInstanceOf(InvocationVoidAssociation.class);
 		// move "button_2" before "button_1"
 		JavaInfoUtils.move(button_2, null, bar, button_1);
 		assertEditor(

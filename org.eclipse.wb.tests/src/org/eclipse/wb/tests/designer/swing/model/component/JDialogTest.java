@@ -16,7 +16,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -42,6 +43,7 @@ public class JDialogTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		JDialogInfo dialog =
 				(JDialogInfo) parseContainer(
@@ -60,15 +62,15 @@ public class JDialogTest extends SwingModelTest {
 		ComponentInfo contentPane = dialog.getChildrenComponents().get(0);
 		{
 			Rectangle bounds = dialog.getBounds();
-			assertThat(bounds.width).isEqualTo(450);
-			assertThat(bounds.height).isEqualTo(300);
+			Assertions.assertThat(bounds.width).isEqualTo(450);
+			Assertions.assertThat(bounds.height).isEqualTo(300);
 		}
 		{
 			Rectangle bounds = contentPane.getBounds();
-			assertThat(bounds.x).isGreaterThanOrEqualTo(0);
-			assertThat(bounds.y).isGreaterThanOrEqualTo(0);
-			assertThat(bounds.width).isGreaterThan(420);
-			assertThat(bounds.height).isGreaterThan(250);
+			Assertions.assertThat(bounds.x).isGreaterThanOrEqualTo(0);
+			Assertions.assertThat(bounds.y).isGreaterThanOrEqualTo(0);
+			Assertions.assertThat(bounds.width).isGreaterThan(420);
+			Assertions.assertThat(bounds.height).isGreaterThan(250);
 		}
 	}
 
@@ -81,6 +83,7 @@ public class JDialogTest extends SwingModelTest {
 	 * We don't support parsing <code>innstanceOfJDialog.add()</code>, because it adds components on
 	 * "contentPane", so we rewrite source (and AST) to use "canonical" pattern.
 	 */
+	@Test
 	public void test_parseWithout_getContentPane_this() throws Exception {
 		parseJavaInfo(
 				"public class Test extends JDialog {",
@@ -116,6 +119,7 @@ public class JDialogTest extends SwingModelTest {
 	 * We don't support parsing <code>innstanceOfJDialog.add()</code>, because it adds components on
 	 * "contentPane", so we rewrite source (and AST) to use "canonical" pattern.
 	 */
+	@Test
 	public void test_parseWithout_getContentPane_instance() throws Exception {
 		parseJavaInfo(
 				"public class Test {",
@@ -151,6 +155,7 @@ public class JDialogTest extends SwingModelTest {
 	 * We should sometimes rewrite code to use <code>getContentPane()</code>, but not in this case,
 	 * because here <code>setLayout()</code> has no parameters and is just local method.
 	 */
+	@Test
 	public void test_rewrite_setLayout_noCorrectSignature() throws Exception {
 		parseJavaInfo(
 				"public class Test extends JDialog {",
@@ -182,6 +187,7 @@ public class JDialogTest extends SwingModelTest {
 	 * this is really invocation for {@link JDialog}. However if inner {@link JPanel} uses
 	 * {@link JPanel#setLayout(java.awt.LayoutManager)}, then we should not change this code.
 	 */
+	@Test
 	public void test_rewrite_setLayout_ofInnerJPanel() throws Exception {
 		parseJavaInfo(
 				"public class Test extends JDialog {",

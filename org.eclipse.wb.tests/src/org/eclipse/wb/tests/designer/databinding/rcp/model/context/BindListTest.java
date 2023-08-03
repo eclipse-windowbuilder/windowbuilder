@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public class BindListTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_bindList() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -125,6 +128,7 @@ public class BindListTest extends AbstractBindingTest {
 				"POLICY_UPDATE|POLICY_UPDATE");
 	}
 
+	@Test
 	public void test_strategy_constructors_1() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_NEVER));",
@@ -132,6 +136,7 @@ public class BindListTest extends AbstractBindingTest {
 				"POLICY_NEVER|POLICY_NEVER");
 	}
 
+	@Test
 	public void test_strategy_constructors_2() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_ON_REQUEST));",
@@ -139,6 +144,7 @@ public class BindListTest extends AbstractBindingTest {
 				"POLICY_ON_REQUEST|POLICY_ON_REQUEST");
 	}
 
+	@Test
 	public void test_strategy_constructors_3() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_UPDATE));",
@@ -222,6 +228,7 @@ public class BindListTest extends AbstractBindingTest {
 				presentation);
 	}
 
+	@Test
 	public void test_strategy_variable() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -299,6 +306,7 @@ public class BindListTest extends AbstractBindingTest {
 				"POLICY_NEVER|POLICY_NEVER");
 	}
 
+	@Test
 	public void test_strategy_extendet() throws Exception {
 		createModelCompilationUnit("test", "TestStrategy.java", DatabindingTestUtils.getTestSource(
 				"public class TestStrategy extends UpdateListStrategy {",
@@ -380,6 +388,7 @@ public class BindListTest extends AbstractBindingTest {
 				"test.TestStrategy|test.TestStrategy");
 	}
 
+	@Test
 	public void test_strategy_converter_1() throws Exception {
 		strategy_converter(
 				"    strategy.setConverter(new TestConverter());",
@@ -387,6 +396,7 @@ public class BindListTest extends AbstractBindingTest {
 				"null|test.TestConverter|TestConverter");
 	}
 
+	@Test
 	public void test_strategy_converter_2() throws Exception {
 		strategy_converter(
 				"    TestConverter converter = new TestConverter();",

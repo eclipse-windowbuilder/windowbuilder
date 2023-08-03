@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.core.xml.editor.palette.command.ElementVisibility
 import org.eclipse.wb.internal.core.xml.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.PaletteInfo;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	// Add
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_add_last() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -72,6 +75,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_add_before() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -102,6 +106,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	/**
 	 * Check for special characters in text attributes.
 	 */
+	@Test
 	public void test_add_specialCharacters() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -134,6 +139,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	// Edit
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_edit() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -182,6 +188,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	 * When we do second "edit", first "edit" command can be removed.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void test_edit_twoTimes() throws Exception {
 		PaletteManager manager = loadManager();
 		List<Command> commands = (List<Command>) ReflectionUtils.getFieldObject(manager, "m_commands");
@@ -228,6 +235,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_move_before() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -262,6 +270,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_move_last() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -299,6 +308,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	/**
 	 * Don't move before self.
 	 */
+	@Test
 	public void test_move_noop() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -330,6 +340,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	/**
 	 * Update {@link CategoryMoveCommand} so that source {@link CategoryInfo} can not be found.
 	 */
+	@Test
 	public void test_move_noSource() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -375,6 +386,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	// Remove
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_remove() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -407,6 +419,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 	// Visibility
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_visibility() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette

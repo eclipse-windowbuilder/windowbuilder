@@ -50,38 +50,58 @@ import org.eclipse.ui.internal.ide.IDEInternalPreferences;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.texteditor.spelling.SpellingService;
 
-import junit.framework.TestCase;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Superclass for all Designer test cases.
  *
  * @author scheglov_ke
  */
-public class DesignerTestCase extends TestCase {
+public abstract class DesignerTestCase extends Assert {
 
 	private static boolean m_firstDesignerTest = true;
+	private final Logger logger = Logger.getLogger(getClass().getName());
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Logging
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Rule
+	public TestRule loggerRule = new TestRule() {
+		@Override
+		public Statement apply(Statement base, Description description) {
+			logger.info(description.getClassName() + ':' + description.getMethodName());
+			return base;
+		}
+
+	};
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// setUp/tearDown
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		configureFirstTime();
 	}
 
@@ -127,10 +147,9 @@ public class DesignerTestCase extends TestCase {
 		}
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		clearInstanceFields();
-		super.tearDown();
 	}
 
 	private void clearInstanceFields() throws Exception {
@@ -149,57 +168,6 @@ public class DesignerTestCase extends TestCase {
 		if (clazz != DesignerTestCase.class) {
 			clearInstanceFields(clazz.getSuperclass());
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Running
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void runBare() throws Throwable {
-		Method method = getClass().getMethod(getName());
-		runBare_before(method);
-		try {
-			super.runBare();
-		} finally {
-			runBare_after(method);
-		}
-	}
-
-	@Override
-	protected void runTest() throws Throwable {
-		Method method = getClass().getMethod(getName());
-		runTest_before(method);
-		try {
-			super.runTest();
-		} finally {
-			runTest_after(method);
-		}
-	}
-
-	/**
-	 * Notifies that given test {@link Method} will be run.
-	 */
-	protected void runBare_before(Method method) throws Throwable {
-	}
-
-	/**
-	 * Notifies that given test {@link Method} was run.
-	 */
-	protected void runBare_after(Method method) throws Throwable {
-	}
-
-	/**
-	 * Notifies that given test {@link Method} will be run.
-	 */
-	protected void runTest_before(Method method) throws Throwable {
-	}
-
-	/**
-	 * Notifies that given test {@link Method} was run.
-	 */
-	protected void runTest_after(Method method) throws Throwable {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -298,9 +266,9 @@ public class DesignerTestCase extends TestCase {
 	 */
 	public static void assertRGB(RGB rgb, int red, int green, int blue) {
 		String message = rgb.toString();
-		assertThat(rgb.red).describedAs(message).isEqualTo(red);
-		assertThat(rgb.green).describedAs(message).isEqualTo(green);
-		assertThat(rgb.blue).describedAs(message).isEqualTo(blue);
+		Assertions.assertThat(rgb.red).describedAs(message).isEqualTo(red);
+		Assertions.assertThat(rgb.green).describedAs(message).isEqualTo(green);
+		Assertions.assertThat(rgb.blue).describedAs(message).isEqualTo(blue);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

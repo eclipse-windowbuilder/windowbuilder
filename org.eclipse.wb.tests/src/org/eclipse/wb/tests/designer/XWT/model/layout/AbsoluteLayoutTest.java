@@ -29,7 +29,9 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 /**
  * Test for {@link AbsoluteLayoutInfo}.
@@ -46,7 +48,8 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		preferences.setValue(IPreferenceConstants.P_CREATION_FLOW, false);
 		preferences.setToDefault(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE);
@@ -66,6 +69,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noProperties() throws Exception {
 		CompositeInfo composite = parse("<Shell/>");
 		assertHierarchy(
@@ -74,9 +78,10 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 				"<Shell>",
 				"  implicit-layout: absolute");
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) composite.getLayout();
-		assertThat(layout.getProperties()).isEmpty();
+		Assertions.assertThat(layout.getProperties()).isEmpty();
 	}
 
+	@Test
 	public void test_onRemove() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -110,6 +115,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	// Explicit
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parseExplicit() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -132,7 +138,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		LayoutInfo layout = composite.getLayout();
 		// layout should be "null"
 		assertSame(null, composite.getComposite().getLayout());
-		assertThat(layout).isInstanceOf(AbsoluteLayoutInfo.class);
+		Assertions.assertThat(layout).isInstanceOf(AbsoluteLayoutInfo.class);
 		// check CreationSupport
 		{
 			CreationSupport creationSupport = layout.getCreationSupport();
@@ -154,6 +160,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	/**
 	 * Test for setting {@link AbsoluteLayoutInfo}.
 	 */
+	@Test
 	public void test_setExplicit() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -208,6 +215,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link AbsoluteLayoutInfo#commandCreate(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_commandCreate() throws Exception {
 		CompositeInfo composite = parse("<Shell/>");
 		refresh();
@@ -227,6 +235,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link AbsoluteLayoutInfo#commandMove(ControlInfo, ControlInfo)}.
 	 */
+	@Test
 	public void test_commandMove() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -256,6 +265,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link AbsoluteLayoutInfo#commandChangeBounds(ControlInfo, Point, Dimension)}.
 	 */
+	@Test
 	public void test_commandChangeBounds_creationFlow() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -282,6 +292,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	// commandChangeBounds()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_commandChangeBounds_hasBounds_setLS_removeLS() throws Exception {
 		String initial = " bounds='1, 2, 3, 4' location='1, 2' size='3, 4'";
 		Point newLocation = new Point(10, 20);
@@ -290,6 +301,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		check_commandChangeBounds(initial, newLocation, newSize, expected);
 	}
 
+	@Test
 	public void test_commandChangeBounds_hasBounds_setL() throws Exception {
 		String initial = " bounds='1, 2, 3, 4'";
 		Point newLocation = new Point(10, 20);
@@ -298,6 +310,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		check_commandChangeBounds(initial, newLocation, newSize, expected);
 	}
 
+	@Test
 	public void test_commandChangeBounds_noAttributes_setLS() throws Exception {
 		String initial = "";
 		Point newLocation = new Point(10, 20);
@@ -306,6 +319,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		check_commandChangeBounds(initial, newLocation, newSize, expected);
 	}
 
+	@Test
 	public void test_commandChangeBounds_noAttributes_setL() throws Exception {
 		String initial = "";
 		Point newLocation = new Point(10, 20);
@@ -314,6 +328,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		check_commandChangeBounds(initial, newLocation, newSize, expected);
 	}
 
+	@Test
 	public void test_commandChangeBounds_noAttributes_setS() throws Exception {
 		String initial = "";
 		Point newLocation = null;
@@ -322,6 +337,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		check_commandChangeBounds(initial, newLocation, newSize, expected);
 	}
 
+	@Test
 	public void test_commandChangeBounds_hasL_setS() throws Exception {
 		String initial = " location='1, 2'";
 		Point newLocation = null;
@@ -330,6 +346,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		check_commandChangeBounds(initial, newLocation, newSize, expected);
 	}
 
+	@Test
 	public void test_commandChangeBounds_hasS_setL() throws Exception {
 		String initial = " size='3, 4'";
 		Point newLocation = new Point(10, 20);
@@ -374,6 +391,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	/**
 	 * Modify not "text" or "image" property, no size change.
 	 */
+	@Test
 	public void test_autoSize_otherProperty() throws Exception {
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, true);
 		parse(
@@ -389,13 +407,14 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		waitEventLoop(1);
 		// check
 		Rectangle bounds = button.getModelBounds();
-		assertThat(bounds.width).isEqualTo(1);
-		assertThat(bounds.height).isEqualTo(2);
+		Assertions.assertThat(bounds.width).isEqualTo(1);
+		Assertions.assertThat(bounds.height).isEqualTo(2);
 	}
 
 	/**
 	 * Modify "text" property, so bigger size expected.
 	 */
+	@Test
 	public void test_autoSize_textProperty() throws Exception {
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, true);
 		parse(
@@ -411,13 +430,14 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		waitEventLoop(1);
 		// check
 		Rectangle bounds = button.getBounds();
-		assertThat(bounds.width).isGreaterThan(50);
-		assertThat(bounds.height).isGreaterThan(20);
+		Assertions.assertThat(bounds.width).isGreaterThan(50);
+		Assertions.assertThat(bounds.height).isGreaterThan(20);
 	}
 
 	/**
 	 * Modify "image" property, so bigger size expected.
 	 */
+	@Test
 	public void test_autoSize_imageProperty() throws Exception {
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, true);
 		parse(
@@ -433,14 +453,15 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		waitEventLoop(1);
 		// check
 		Rectangle bounds = button.getBounds();
-		assertThat(bounds.width).isGreaterThan(10);
-		assertThat(bounds.height).isGreaterThan(20);
+		Assertions.assertThat(bounds.width).isGreaterThan(10);
+		Assertions.assertThat(bounds.height).isGreaterThan(20);
 	}
 
 	/**
 	 * Modify "text" property, but {@link IPreferenceConstants#P_AUTOSIZE_ON_PROPERTY_CHANGE} is not
 	 * enabled, so no auto-size
 	 */
+	@Test
 	public void test_autoSize_textProperty_notEnabled() throws Exception {
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, false);
 		parse(
@@ -456,13 +477,14 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 		waitEventLoop(1);
 		// check
 		Rectangle bounds = button.getBounds();
-		assertThat(bounds.width).isEqualTo(1);
-		assertThat(bounds.height).isEqualTo(2);
+		Assertions.assertThat(bounds.width).isEqualTo(1);
+		Assertions.assertThat(bounds.height).isEqualTo(2);
 	}
 
 	/**
 	 * Test for <code>Autosize control</code> action.
 	 */
+	@Test
 	public void test_autoSizeAction() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -501,23 +523,28 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	private ControlInfo m_propertyBoundsControl;
 	private Property m_propertyBounds;
 
+	@Test
 	public void test_propertyBounds_get() throws Exception {
 		prepareBoundsProperty();
 		assertEquals("(1, 2, 3, 4)", getPropertyText(m_propertyBounds));
 	}
 
+	@Test
 	public void test_propertyBounds_setX() throws Exception {
 		check_propertyBoundsPart("x", 10, "(10, 2, 3, 4)");
 	}
 
+	@Test
 	public void test_propertyBounds_setY() throws Exception {
 		check_propertyBoundsPart("y", 20, "(1, 20, 3, 4)");
 	}
 
+	@Test
 	public void test_propertyBounds_setWidth() throws Exception {
 		check_propertyBoundsPart("width", 30, "(1, 2, 30, 4)");
 	}
 
+	@Test
 	public void test_propertyBounds_setHeight() throws Exception {
 		check_propertyBoundsPart("height", 40, "(1, 2, 3, 40)");
 	}
@@ -553,6 +580,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard() throws Exception {
 		final CompositeInfo shell =
 				parse(

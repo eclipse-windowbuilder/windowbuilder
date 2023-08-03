@@ -12,6 +12,9 @@ package org.eclipse.wb.tests.designer.core.eval.primities;
 
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 /**
  * @author scheglov_ke
  */
@@ -21,7 +24,8 @@ public class CharTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
 
@@ -30,10 +34,12 @@ public class CharTest extends AbstractEngineTest {
 	// int
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_char_value() throws Exception {
 		check_char("'a'", 'a');
 	}
 
+	@Test
 	public void test_char_cast_int() throws Exception {
 		check_char("(char)0x30", (char) 0x30);
 	}
@@ -46,15 +52,5 @@ public class CharTest extends AbstractEngineTest {
 	private void check_char(String expression, char expected) throws Exception {
 		Object actual = evaluateExpression(expression, "char");
 		assertEquals(new Character(expected), actual);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 }

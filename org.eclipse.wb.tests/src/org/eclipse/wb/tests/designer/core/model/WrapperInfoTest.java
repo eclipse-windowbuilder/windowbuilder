@@ -34,7 +34,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test for {@link WrapperMethodInfo}.
@@ -60,6 +62,7 @@ public class WrapperInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link WrapperMethodInfo#isWrapper(AstEditor, Class)}.
 	 */
+	@Test
 	public void test_isWrapper_forInterface() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -70,6 +73,7 @@ public class WrapperInfoTest extends SwingModelTest {
 		assertFalse(WrapperMethodInfo.isWrapper(m_lastEditor, java.util.List.class));
 	}
 
+	@Test
 	public void test_parse_noControl() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -96,12 +100,13 @@ public class WrapperInfoTest extends SwingModelTest {
 				wrappedComponent.getVariableSupport());
 		// ... with wrapper
 		WrapperMethodInfo wrapper = wrappedComponent.getChildren(WrapperMethodInfo.class).get(0);
-		assertThat(wrapper.getWrapper().getWrappedInfo()).isSameAs(wrappedComponent);
+		Assertions.assertThat(wrapper.getWrapper().getWrappedInfo()).isSameAs(wrappedComponent);
 	}
 
 	/**
 	 * If we delete wrapper, then wrapped component should be deleted.
 	 */
+	@Test
 	public void test_deleteWrapper() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -135,6 +140,7 @@ public class WrapperInfoTest extends SwingModelTest {
 	/**
 	 * We should be able to delete wrapped.
 	 */
+	@Test
 	public void test_deleteWrapped() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -164,6 +170,7 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_parse_aroundControl() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -176,12 +183,12 @@ public class WrapperInfoTest extends SwingModelTest {
 						"  }",
 						"}");
 		// container contains no wrappers in children
-		assertThat(container.getChildren(WrapperMethodInfo.class)).isEmpty();
+		Assertions.assertThat(container.getChildren(WrapperMethodInfo.class)).isEmpty();
 		// it contains JButton
 		ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
 		// ... with wrapper
 		WrapperMethodInfo wrapper = wrappedComponent.getChildren(WrapperMethodInfo.class).get(0);
-		assertThat(wrapper.getWrapper().getWrappedInfo()).isSameAs(wrappedComponent);
+		Assertions.assertThat(wrapper.getWrapper().getWrappedInfo()).isSameAs(wrappedComponent);
 		// hierarchy
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/add(panel)/}",
@@ -190,6 +197,7 @@ public class WrapperInfoTest extends SwingModelTest {
 				"    {new: test.TestWrapper} {local-unique: wrapper} {/new TestWrapper(panel)/}");
 	}
 
+	@Test
 	public void test_materialize() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -200,7 +208,7 @@ public class WrapperInfoTest extends SwingModelTest {
 						"  }",
 						"}");
 		// container contains no wrappers in children
-		assertThat(container.getChildren(WrapperMethodInfo.class)).isEmpty();
+		Assertions.assertThat(container.getChildren(WrapperMethodInfo.class)).isEmpty();
 		// it contains JButton
 		ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
 		// ... with wrapper
@@ -218,6 +226,7 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -266,6 +275,7 @@ public class WrapperInfoTest extends SwingModelTest {
 	/**
 	 * Viewers should use code generation settings.
 	 */
+	@Test
 	public void test_CREATE_useFieldVariable() throws Exception {
 		configureWrapperContents();
 		String[] lines =
@@ -292,6 +302,7 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_noControl() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -325,6 +336,7 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_withControl() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
@@ -360,7 +372,9 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		configureWrapperContents();
 		ContainerInfo container =
 				parseContainer(
@@ -426,6 +440,7 @@ public class WrapperInfoTest extends SwingModelTest {
 	 * "container.getViewer()" and iterate over "container" children, and see that child is wrapped
 	 * component, we should check also children of "child" if one of them is "viewer".
 	 */
+	@Test
 	public void test_exposed() throws Exception {
 		// Viewer
 		// Note, that it extends java.awt.Component to be exposable in Swing.

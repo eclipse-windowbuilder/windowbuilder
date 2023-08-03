@@ -10,30 +10,28 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.generic;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for generic simple/flow containers support.
  *
  * @author scheglov_ke
  */
-public class GenericTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.generic");
-		suite.addTest(createSingleSuite(ContainerObjectValidatorsTest.class));
-		suite.addTest(createSingleSuite(FlowContainerModelTest.class));
-		suite.addTest(createSingleSuite(FlowContainerGefTest.class));
-		suite.addTest(createSingleSuite(FlowContainerLayoutGefTest.class));
-		suite.addTest(createSingleSuite(FlowContainerGroupGefTest.class));
-		suite.addTest(createSingleSuite(SimpleContainerModelTest.class));
-		suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
-		suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
-		suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
-		suite.addTest(createSingleSuite(DblClickRunScriptEditPolicyTest.class));
-		suite.addTest(createSingleSuite(OpenListenerEditPolicyTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ContainerObjectValidatorsTest.class,
+		FlowContainerModelTest.class,
+		FlowContainerGefTest.class,
+		FlowContainerLayoutGefTest.class,
+		FlowContainerGroupGefTest.class,
+		SimpleContainerModelTest.class,
+		SimpleContainerGefTest.class,
+		SimpleContainerLayoutGefTest.class,
+		FlipBooleanPropertyGefTest.class,
+		DblClickRunScriptEditPolicyTest.class,
+		OpenListenerEditPolicyTest.class
+})
+public class GenericTests {
 }

@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ToolBarInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ToolBarInfo} in GEF.
  *
@@ -34,6 +36,7 @@ public class ToolBarGefTest extends XwtGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_item() throws Exception {
 		ToolBarInfo toolBar = openEditor("<ToolBar/>");
 		//
@@ -48,6 +51,7 @@ public class ToolBarGefTest extends XwtGefTest {
 				"</ToolBar>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_good() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -73,6 +77,7 @@ public class ToolBarGefTest extends XwtGefTest {
 				"</ToolBar>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_notSeparator() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -88,6 +93,7 @@ public class ToolBarGefTest extends XwtGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -111,6 +117,7 @@ public class ToolBarGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_item() throws Exception {
 		ToolBarInfo toolBar = openEditor("<ToolBar/>");
 		//
@@ -125,6 +132,7 @@ public class ToolBarGefTest extends XwtGefTest {
 				"</ToolBar>");
 	}
 
+	@Test
 	public void test_tree_CREATE_control_good() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -150,6 +158,7 @@ public class ToolBarGefTest extends XwtGefTest {
 				"</ToolBar>");
 	}
 
+	@Test
 	public void test_tree_CREATE_control_notSeparator() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -164,6 +173,7 @@ public class ToolBarGefTest extends XwtGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

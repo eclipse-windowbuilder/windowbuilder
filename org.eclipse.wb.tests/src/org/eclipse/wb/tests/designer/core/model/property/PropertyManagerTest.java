@@ -17,8 +17,12 @@ import org.eclipse.wb.internal.core.model.property.PropertyManager;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.swing.SwingToolkitDescription;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
+
+import org.junit.AfterClass;
+import org.junit.Test;
 
 /**
  * Test for {@link PropertyManager}.
@@ -44,6 +48,7 @@ public class PropertyManagerTest extends SwingModelTest {
 	 * Just {@link Property} does not know its {@link ToolkitDescription}, so nowhere to remember
 	 * category.
 	 */
+	@Test
 	public void test_unknownProperty() throws Exception {
 		Property property = new PropertyWithTitle("title");
 		property.setCategory(PropertyCategory.ADVANCED);
@@ -57,6 +62,7 @@ public class PropertyManagerTest extends SwingModelTest {
 	/**
 	 * {@link GenericProperty} can remember and return forced category.
 	 */
+	@Test
 	public void test_GenericProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -94,6 +100,7 @@ public class PropertyManagerTest extends SwingModelTest {
 	/**
 	 * Previous test specified that "background" property is "preferred".
 	 */
+	@Test
 	public void test_GenericProperty2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -112,9 +119,9 @@ public class PropertyManagerTest extends SwingModelTest {
 	// Test suite tear down
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
+	@AfterClass
+	public static void tearDownClass() throws Exception {
+		AbstractJavaProjectTest.tearDownClass();
 		PropertyManager.setCategory(SwingToolkitDescription.INSTANCE, "background", null);
-		super.test_tearDown();
 	}
 }

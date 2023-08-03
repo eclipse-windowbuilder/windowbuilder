@@ -22,6 +22,9 @@ import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
@@ -33,7 +36,8 @@ public class TreeDragToolTest extends TreeToolTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// set SelectionTool
 		m_domain.setActiveTool(new SelectionTool());
@@ -44,6 +48,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	// Special
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_DoubleClick() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -88,6 +93,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	// Test
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Drag_1() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -194,6 +200,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		}
 	}
 
+	@Test
 	public void test_Drag_2() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -246,6 +253,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		}
 	}
 
+	@Test
 	public void test_Drag_3() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//

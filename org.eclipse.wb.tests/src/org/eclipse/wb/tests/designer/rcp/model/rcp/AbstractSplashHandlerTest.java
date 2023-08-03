@@ -14,7 +14,8 @@ import org.eclipse.wb.internal.rcp.model.rcp.AbstractSplashHandlerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link AbstractSplashHandlerInfo}.
@@ -36,6 +37,7 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		AbstractSplashHandlerInfo splash =
 				parseJavaInfo(
@@ -63,6 +65,7 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
 	 *
 	 * @throws Exception
 	 */
+	@Test
 	public void test_topBoundsSupport() throws Exception {
 		AbstractSplashHandlerInfo splash =
 				parseJavaInfo(
@@ -78,14 +81,14 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
 		splash.refresh();
 		CompositeInfo container = getJavaInfoByName("container");
 		// check bounds
-		assertThat(splash.getBounds().width).isEqualTo(450);
-		assertThat(splash.getBounds().height).isEqualTo(300);
-		assertThat(container.getBounds().width).isGreaterThan(400);
-		assertThat(container.getBounds().height).isGreaterThan(230);
+		Assertions.assertThat(splash.getBounds().width).isEqualTo(450);
+		Assertions.assertThat(splash.getBounds().height).isEqualTo(300);
+		Assertions.assertThat(container.getBounds().width).isGreaterThan(400);
+		Assertions.assertThat(container.getBounds().height).isGreaterThan(230);
 		// set bounds
 		splash.getTopBoundsSupport().setSize(600, 500);
 		splash.refresh();
-		assertThat(splash.getBounds().width).isEqualTo(600);
-		assertThat(splash.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(splash.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(splash.getBounds().height).isEqualTo(500);
 	}
 }

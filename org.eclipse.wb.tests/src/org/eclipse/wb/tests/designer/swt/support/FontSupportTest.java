@@ -15,7 +15,8 @@ import org.eclipse.wb.internal.swt.support.FontSupport;
 
 import org.eclipse.swt.SWT;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link FontSupport}.
@@ -40,6 +41,7 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#getFontClass()}.
 	 */
+	@Test
 	public void test_getFontClass() throws Exception {
 		Class<?> fontClass = FontSupport.getFontClass();
 		assertEquals("org.eclipse.swt.graphics.Font", fontClass.getName());
@@ -48,6 +50,7 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#createFont(String, int, Object)}.
 	 */
+	@Test
 	public void test_createFont_etc() throws Exception {
 		Object font = FontSupport.createFont("Arial", 12, SWT.BOLD);
 		try {
@@ -65,6 +68,7 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#getCopy(Object)}.
 	 */
+	@Test
 	public void test_getCopy() throws Exception {
 		Object font = FontSupport.createFont("Arial", 12, SWT.BOLD);
 		Object fontCopy = FontSupport.getCopy(font);
@@ -81,6 +85,7 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#dispose(Object)}.
 	 */
+	@Test
 	public void test_dispose() throws Exception {
 		Object font = FontSupport.createFont("Arial", 12, SWT.BOLD);
 		// not disposed yet
@@ -96,10 +101,11 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#getFontFamilies()}.
 	 */
+	@Test
 	public void test_getFontFamilies() throws Exception {
 		String[] fontFamilies = FontSupport.getFontFamilies();
 		if (EnvironmentUtils.IS_WINDOWS) {
-			assertThat(fontFamilies).contains("Arial", "Courier", "Times New Roman");
+			Assertions.assertThat(fontFamilies).contains("Arial", "Courier", "Times New Roman");
 		}
 	}
 
@@ -111,6 +117,7 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#getFontStyleSource(Object)}.
 	 */
+	@Test
 	public void test_getStringFontStyle() throws Exception {
 		check_getFontStyleSource("org.eclipse.swt.SWT.NORMAL", SWT.NORMAL);
 		check_getFontStyleSource("org.eclipse.swt.SWT.BOLD", SWT.BOLD);
@@ -137,6 +144,7 @@ public class FontSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link FontSupport#getFontStyleText(Object)}.
 	 */
+	@Test
 	public void test_getStringFontText() throws Exception {
 		check_getFontStyleText("", SWT.NORMAL);
 		check_getFontStyleText("BOLD", SWT.BOLD);

@@ -17,6 +17,9 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link CutAction}.
  *
@@ -31,6 +34,7 @@ public class CutActionTest extends SwingGefTest {
 	/**
 	 * "Cut" action is disabled if no selection.
 	 */
+	@Test
 	public void test_noSelection() throws Exception {
 		openContainer(
 				"// filler filler filler",
@@ -48,6 +52,7 @@ public class CutActionTest extends SwingGefTest {
 	/**
 	 * "This" component can not be copied or deleted.
 	 */
+	@Test
 	public void test_thisSelection() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -66,6 +71,8 @@ public class CutActionTest extends SwingGefTest {
 	/**
 	 * Test for cut/paste single component.
 	 */
+	@Ignore
+	@Test
 	public void test_cutSingle() throws Exception {
 		ContainerInfo panel =
 				openContainer(

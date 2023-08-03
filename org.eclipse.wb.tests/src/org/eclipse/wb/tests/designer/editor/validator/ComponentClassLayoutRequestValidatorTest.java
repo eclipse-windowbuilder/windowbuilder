@@ -14,6 +14,8 @@ import org.eclipse.wb.core.gef.policy.validator.ComponentClassLayoutRequestValid
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test {@link ComponentClassLayoutRequestValidator}.
  *
@@ -34,6 +36,7 @@ public class ComponentClassLayoutRequestValidatorTest extends AbstractLayoutRequ
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

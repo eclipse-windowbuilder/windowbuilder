@@ -10,21 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.util;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * RCP utils tests.
  *
  * @author scheglov_ke
  */
-public class UtilTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.util");
-		suite.addTest(createSingleSuite(SurroundSupportTest.class));
-		suite.addTest(createSingleSuite(ActivatorImagesTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		SurroundSupportTest.class,
+		ActivatorImagesTest.class
+})
+public class UtilTests {
 }

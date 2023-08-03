@@ -29,6 +29,8 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ApplicationWindowInfo} in GEF.
  *
@@ -52,6 +54,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	/**
 	 * We can drop new "bar" on empty {@link Shell}.
 	 */
+	@Test
 	public void test_barCreate_Shell() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -91,6 +94,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	/**
 	 * We can not drop new "bar" on {@link Shell} in {@link ApplicationWindowInfo}.
 	 */
+	@Test
 	public void test_barCreate_ApplicationWindow() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) openJavaInfo(
@@ -135,6 +139,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 * {@link ApplicationWindow}. But this is not what user expects - it expects that
 	 * {@link ApplicationWindow} itself will be selected and ready for resize.
 	 */
+	@Test
 	public void test_clickOn_createContents_parent() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) openJavaInfo(
@@ -163,6 +168,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 * , because it is same {@link Shell} as used for control of {@link Window}. But this is not what
 	 * user expects - it expects that {@link Window} itself will be selected and ready for resize.
 	 */
+	@Test
 	public void test_clickOn_configureShell_newShell() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) openJavaInfo(
@@ -188,6 +194,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 * may become disposed. This should not cause exception.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_disposedImageOfAction() throws Exception {
 		ManagerUtils.ensure_ResourceManager(m_javaProject, RcpToolkitDescription.INSTANCE);
 		TestUtils.createImagePNG(m_testProject, "src/test/images/test.png", 16, 16);
@@ -222,6 +229,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 * may become disposed. This should not cause exception.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_usingDisposedImage_inComponentsTree() throws Exception {
 		ManagerUtils.ensure_ResourceManager(m_javaProject, RcpToolkitDescription.INSTANCE);
 		TestUtils.createImagePNG(m_testProject, "src/test/images/test.png", 16, 16);

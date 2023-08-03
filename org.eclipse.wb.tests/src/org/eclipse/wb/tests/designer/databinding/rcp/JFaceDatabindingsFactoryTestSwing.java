@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swing.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  */
@@ -33,6 +35,7 @@ public class JFaceDatabindingsFactoryTestSwing extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createProvider() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

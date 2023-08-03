@@ -17,6 +17,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.jface.wizard.Wizard;
 
+import org.junit.Test;
+
 /**
  * Test for {@link Wizard} support (rather not support).
  *
@@ -37,6 +39,7 @@ public class WizardTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parsingException() throws Exception {
 		try {
 			parseJavaInfo(

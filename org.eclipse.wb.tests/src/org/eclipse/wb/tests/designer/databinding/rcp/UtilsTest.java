@@ -24,6 +24,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -36,7 +39,8 @@ public class UtilsTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
 
@@ -45,6 +49,7 @@ public class UtilsTest extends AbstractJavaTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getNodeReference() throws Exception {
 		TypeDeclaration type =
 				createTypeDeclaration_Test(
@@ -122,6 +127,7 @@ public class UtilsTest extends AbstractJavaTest {
 		}
 	}
 
+	@Test
 	public void test_getMethodSignature() throws Exception {
 		TypeDeclaration type =
 				createTypeDeclaration_Test(
@@ -139,6 +145,7 @@ public class UtilsTest extends AbstractJavaTest {
 				CoreUtils.getMethodSignature((MethodInvocation) statement.getExpression()));
 	}
 
+	@Test
 	public void test_getCreationSignature() throws Exception {
 		TypeDeclaration type =
 				createTypeDeclaration_Test(
@@ -156,6 +163,7 @@ public class UtilsTest extends AbstractJavaTest {
 				CoreUtils.getCreationSignature((ClassInstanceCreation) statement.getExpression()));
 	}
 
+	@Test
 	public void test_getDefaultString() throws Exception {
 		assertEquals("default", CoreUtils.getDefaultString(null, null, "default"));
 		assertEquals("default", CoreUtils.getDefaultString(null, "prefix", "default"));
@@ -163,6 +171,7 @@ public class UtilsTest extends AbstractJavaTest {
 		assertEquals("|string|", CoreUtils.getDefaultString("string", "|", null));
 	}
 
+	@Test
 	public void test_joinStrings() throws Exception {
 		assertEquals("", CoreUtils.joinStrings(null));
 		assertEquals("", CoreUtils.joinStrings("delimeter"));
@@ -171,16 +180,19 @@ public class UtilsTest extends AbstractJavaTest {
 		assertEquals("1, 2, 3, 4", CoreUtils.joinStrings(", ", "1", "2", "3", "4", null));
 	}
 
+	@Test
 	public void test_loadClass() throws Exception {
 		assertSame(String.class, CoreUtils.loadClass(getClass().getClassLoader(), "java.lang.String"));
 		assertNull(CoreUtils.loadClass(getClass().getClassLoader(), "java.lang.Strong"));
 	}
 
+	@Test
 	public void test_isAssignableFrom1() throws Exception {
 		assertTrue(CoreUtils.isAssignableFrom(Object.class, String.class));
 		assertFalse(CoreUtils.isAssignableFrom(null, String.class));
 	}
 
+	@Test
 	public void test_isAssignableFrom2() throws Exception {
 		assertTrue(CoreUtils.isAssignableFrom(
 				getClass().getClassLoader(),
@@ -210,15 +222,5 @@ public class UtilsTest extends AbstractJavaTest {
 	static ClassInstanceCreation getClassInstanceCreation(List<?> statements, int index) {
 		ExpressionStatement statement = (ExpressionStatement) statements.get(index);
 		return (ClassInstanceCreation) statement.getExpression();
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 }

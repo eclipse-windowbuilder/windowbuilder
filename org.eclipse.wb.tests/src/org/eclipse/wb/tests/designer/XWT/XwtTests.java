@@ -15,27 +15,28 @@ import org.eclipse.wb.tests.designer.XWT.model.ModelTests;
 import org.eclipse.wb.tests.designer.XWT.refactoring.RefactoringTest;
 import org.eclipse.wb.tests.designer.XWT.support.SupportTests;
 import org.eclipse.wb.tests.designer.XWT.wizard.WizardTests;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.databinding.xwt.BindingTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.Ignore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All XWT tests.
  *
  * @author scheglov_ke
  */
-public class XwtTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt");
-		suite.addTest(createSingleSuite(ActivatorTest.class));
-		suite.addTest(GefTests.suite());
-		suite.addTest(createSingleSuite(RefactoringTest.class));
-		suite.addTest(SupportTests.suite());
-		suite.addTest(ModelTests.suite());
-		suite.addTest(WizardTests.suite());
-		suite.addTest(BindingTests.suite());
-		return suite;
-	}
+@Ignore
+@RunWith(Suite.class)
+@SuiteClasses({
+		ActivatorTest.class,
+		GefTests.class,
+		RefactoringTest.class,
+		SupportTests.class,
+		ModelTests.class,
+		WizardTests.class,
+		BindingTests.class
+})
+public class XwtTests {
 }

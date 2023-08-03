@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.core.xml.model.utils.ElementTarget;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link IntermediateAssociation}.
  *
@@ -40,11 +42,13 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString() throws Exception {
 		Association association = Associations.name("foo");
 		assertEquals("inter foo", association.toString());
 	}
 
+	@Test
 	public void test_toString_withAttributes() throws Exception {
 		Association association =
 				Associations.intermediate("foo", ImmutableMap.of("attrA", "a", "attrB", "b"));
@@ -59,6 +63,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#add(XmlObjectInfo, ElementTarget)}.
 	 */
+	@Test
 	public void test_add() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		// add
@@ -86,6 +91,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	 * <p>
 	 * Support for "{parentNS}" in name of tag.
 	 */
+	@Test
 	public void test_add_parentNS() throws Exception {
 		XmlObjectInfo container = parse("<z:Shell xmlns:z='http://www.eclipse.org/xwt/presentation'/>");
 		// add
@@ -111,6 +117,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#add(XmlObjectInfo, ElementTarget)}.
 	 */
+	@Test
 	public void test_add_attributes() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		// add
@@ -144,6 +151,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	 * <p>
 	 * Inner move in same container, child is already in "name" element, so we move it as is.
 	 */
+	@Test
 	public void test_move_inner_alreadyInName() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -187,6 +195,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#move(XmlObjectInfo, ElementTarget, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_reparent() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

@@ -25,7 +25,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TabItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link FontPropertyEditor}.
@@ -50,14 +51,16 @@ public class FontPropertyEditorTest extends XwtModelTest {
 	/**
 	 * Test for {@link FontSupport#getFontFamilies()}.
 	 */
+	@Test
 	public void test_FontSupport_getFontFamilies() throws Exception {
 		String[] families = FontSupport.getFontFamilies();
-		assertThat(families).contains("Segoe UI", "Arial");
+		Assertions.assertThat(families).contains("Segoe UI", "Arial");
 	}
 
 	/**
 	 * Test for {@link FontSupport#getFontStyleText(int)}.
 	 */
+	@Test
 	public void test_FontSupport_getFontStyleText() throws Exception {
 		assertEquals("", FontSupport.getFontStyleText(SWT.NORMAL));
 		assertEquals("BOLD", FontSupport.getFontStyleText(SWT.BOLD));
@@ -68,6 +71,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
 	/**
 	 * Test for {@link FontSupport#getFontStyleSource(int)}.
 	 */
+	@Test
 	public void test_FontSupport_getFontStyleSource() throws Exception {
 		assertEquals("", FontSupport.getFontStyleSource(SWT.NORMAL));
 		assertEquals("BOLD", FontSupport.getFontStyleSource(SWT.BOLD));
@@ -78,6 +82,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
 	/**
 	 * Test for {@link FontSupport#getFontPreview(Font)}.
 	 */
+	@Test
 	public void test_FontSupport_getFontPreview() throws Exception {
 		Font font = new Font(null, "Arial", 14, SWT.NONE);
 		try {
@@ -95,6 +100,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_notColorValue() throws Exception {
 		Property property = new EmptyProperty(FontPropertyEditor.INSTANCE);
 		// check state
@@ -102,6 +108,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
 		assertEquals(null, getPropertyText(property));
 	}
 
+	@Test
 	public void test_getText_defaultValue() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -117,6 +124,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
 		assertEquals("Segoe UI,9", getPropertyClipboardSource(property));
 	}
 
+	@Test
 	public void test_getText_withStyles() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -137,6 +145,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
 	// Dialog
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dialog() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -164,9 +173,9 @@ public class FontPropertyEditorTest extends XwtModelTest {
 				List styleList = listWidgets.get(1);
 				List sizeList = listWidgets.get(2);
 				// initial state
-				assertThat(familyList.getSelection()).containsOnly("Arial");
-				assertThat(styleList.getSelection()).containsOnly("BOLD");
-				assertThat(sizeList.getSelection()).containsOnly("14");
+				Assertions.assertThat(familyList.getSelection()).containsOnly("Arial");
+				Assertions.assertThat(styleList.getSelection()).containsOnly("BOLD");
+				Assertions.assertThat(sizeList.getSelection()).containsOnly("14");
 				// set new values
 				UiContext.setSelection(familyList, "Verdana");
 				UiContext.setSelection(styleList, "ITALIC");

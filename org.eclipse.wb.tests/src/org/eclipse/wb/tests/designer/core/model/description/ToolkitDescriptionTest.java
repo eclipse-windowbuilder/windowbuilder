@@ -24,7 +24,8 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Set;
@@ -38,6 +39,7 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ToolkitDescription}.
 	 */
+	@Test
 	public void test_ToolkitDescription() throws Exception {
 		ToolkitDescriptionJava toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
 		assertEquals(
@@ -51,13 +53,14 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
 		{
 			GenerationSettings generationSettings = toolkit.getGenerationSettings();
 			assertNotNull(generationSettings);
-			assertThat(generationSettings.getVariables()).isNotEmpty();
+			Assertions.assertThat(generationSettings.getVariables()).isNotEmpty();
 		}
 	}
 
 	/**
 	 * Test for {@link ComponentDescriptionHelper#getToolkitElements()}.
 	 */
+	@Test
 	public void test_getToolkitElements() throws Exception {
 		Set<String> toolkitIds = Sets.newHashSet();
 		{
@@ -74,6 +77,7 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ComponentDescriptionHelper#getToolkitElements(String)}.
 	 */
+	@Test
 	public void test_getToolkitElements_forSingleToolkit() throws Exception {
 		String toolkitId = org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID;
 		for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(toolkitId)) {
@@ -84,6 +88,7 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ComponentDescriptionHelper#getToolkit(String)}.
 	 */
+	@Test
 	public void test_getToolkit() throws Exception {
 		// check for existing toolkit
 		assertSame(
@@ -100,9 +105,10 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ComponentDescriptionHelper#getToolkits()}.
 	 */
+	@Test
 	public void test_getToolkits() throws Exception {
 		ToolkitDescription[] toolkits = DescriptionHelper.getToolkits();
-		assertThat(toolkits).contains(
+		Assertions.assertThat(toolkits).contains(
 				org.eclipse.wb.internal.core.ToolkitProvider.DESCRIPTION,
 				org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION,
 				org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);

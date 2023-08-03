@@ -20,7 +20,8 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableMod
 import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * We should ignore {@link TableModel} from inner class.
 	 */
+	@Test
 	public void test_evaluate_innerTableModel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -71,10 +73,11 @@ public class JTableTest extends SwingModelTest {
 		// validate model, we used "null", so JTable installed DefaultTableModel
 		{
 			TableModel model = tableObject.getModel();
-			assertThat(model).isInstanceOf(DefaultTableModel.class);
+			Assertions.assertThat(model).isInstanceOf(DefaultTableModel.class);
 		}
 	}
 
+	@Test
 	public void test_evaluate_valuesAndColumns() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -123,10 +126,11 @@ public class JTableTest extends SwingModelTest {
 		{
 			Property property = tableInfo.getPropertyByTitle("model");
 			assertEquals("3 columns, 2 rows", getPropertyText(property));
-			assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
+			Assertions.assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
 		}
 	}
 
+	@Test
 	public void test_evaluate_anonymous_noColumnClass() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -172,6 +176,7 @@ public class JTableTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_evaluate_anonymous_withColumnClass() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -231,6 +236,7 @@ public class JTableTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_evaluate_anonymous_withColumnEditable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -282,6 +288,7 @@ public class JTableTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_evaluate_getColumnModel_invocations() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -318,6 +325,7 @@ public class JTableTest extends SwingModelTest {
 	// Editor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_editor_getText_noModel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -334,10 +342,11 @@ public class JTableTest extends SwingModelTest {
 		{
 			Property property = tableInfo.getPropertyByTitle("model");
 			assertEquals(null, getPropertyText(property));
-			assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
+			Assertions.assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
 		}
 	}
 
+	@Test
 	public void test_editor_getText_someModel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -364,7 +373,7 @@ public class JTableTest extends SwingModelTest {
 		{
 			Property property = tableInfo.getPropertyByTitle("model");
 			assertEquals("3 columns, 2 rows", getPropertyText(property));
-			assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
+			Assertions.assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
 		}
 	}
 
@@ -376,6 +385,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Simple case. String values and column names.
 	 */
+	@Test
 	public void test_TableModelDescription_simple() throws Exception {
 		JTable table;
 		{
@@ -417,12 +427,13 @@ public class JTableTest extends SwingModelTest {
 								"  }",
 						")"}).trim(),
 				modelDescription.getModelSource());
-		assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
+		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
 
 	/**
 	 * Simple case. No column/values.
 	 */
+	@Test
 	public void test_TableModelDescription_noValues() throws Exception {
 		JTable table;
 		{
@@ -446,12 +457,13 @@ public class JTableTest extends SwingModelTest {
 								"  }",
 						")"}).trim(),
 				modelDescription.getModelSource());
-		assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
+		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
 
 	/**
 	 * Test various types of values.
 	 */
+	@Test
 	public void test_TableModelDescription_valueTypes() throws Exception {
 		JTable table;
 		{
@@ -492,12 +504,13 @@ public class JTableTest extends SwingModelTest {
 										"  }",
 						")"}).trim(),
 				modelDescription.getModelSource());
-		assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
+		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
 
 	/**
 	 * Test for properties of column in {@link TableColumnModel}.
 	 */
+	@Test
 	public void test_TableModelDescription_columnProperties() throws Exception {
 		JTable table;
 		{
@@ -570,7 +583,7 @@ public class JTableTest extends SwingModelTest {
 				modelDescription.getModelSource());
 		{
 			List<String> invocations = modelDescription.getColumnModelInvocations();
-			assertThat(invocations).isEqualTo(
+			Assertions.assertThat(invocations).isEqualTo(
 					ImmutableList.of(
 							"getColumnModel().getColumn(0).setResizable(false)",
 							"getColumnModel().getColumn(0).setPreferredWidth(100)",
@@ -582,6 +595,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for type of column in {@link TableColumnModel}.
 	 */
+	@Test
 	public void test_TableModelDescription_getColumnClass() throws Exception {
 		JTable table;
 		{
@@ -633,7 +647,7 @@ public class JTableTest extends SwingModelTest {
 				modelDescription.getModelSource());
 		{
 			List<String> invocations = modelDescription.getColumnModelInvocations();
-			assertThat(invocations).isEmpty();
+			Assertions.assertThat(invocations).isEmpty();
 		}
 	}
 
@@ -645,6 +659,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#insertColumn(int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_insertColumn() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -694,6 +709,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#removeColumn(int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_removeColumn() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -742,6 +758,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#setColumnCount(int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_setColumnCount() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -809,6 +826,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#moveColumn(int, int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_moveColumn() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -901,6 +919,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#setColumnType(int, Class)}.
 	 */
+	@Test
 	public void test_TableModelDescription_setColumnType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -951,7 +970,7 @@ public class JTableTest extends SwingModelTest {
 								"  }",
 						"}"}).trim(),
 				modelDescription.getModelSource());
-		assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
+		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -962,6 +981,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#insertRow(int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_insertRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1011,6 +1031,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#removeRow(int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_removeRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1060,6 +1081,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#setRowCount(int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_setRowCount() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1126,6 +1148,7 @@ public class JTableTest extends SwingModelTest {
 	/**
 	 * Test for {@link TableModelDescription#moveRow(int, int)}.
 	 */
+	@Test
 	public void test_TableModelDescription_moveRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

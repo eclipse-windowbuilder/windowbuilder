@@ -10,32 +10,32 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.core.model.property.accessor.AccessorsTests;
 import org.eclipse.wb.tests.designer.core.model.property.editor.PropertyEditorsTests;
 import org.eclipse.wb.tests.designer.core.model.property.table.PropertyTableTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class PropertiesTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property");
-		suite.addTest(createSingleSuite(StandardConvertersTest.class));
-		suite.addTest(createSingleSuite(PropertyCategoryTest.class));
-		suite.addTest(createSingleSuite(PropertyTest.class));
-		suite.addTest(createSingleSuite(PropertyManagerTest.class));
-		suite.addTest(createSingleSuite(EmptyPropertyTest.class));
-		suite.addTest(createSingleSuite(EventsPropertyTest.class));
-		suite.addTest(createSingleSuite(ComponentClassPropertyTest.class));
-		suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
-		suite.addTest(createSingleSuite(ExposePropertySupportTest.class));
-		suite.addTest(AccessorsTests.suite());
-		suite.addTest(PropertyEditorsTests.suite());
-		suite.addTest(PropertyTableTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		StandardConvertersTest.class,
+		PropertyCategoryProvidersTest.class,
+		PropertyCategoryTest.class,
+		PropertyTest.class,
+		PropertyManagerTest.class,
+		EmptyPropertyTest.class,
+		EventsPropertyTest.class,
+		ComponentClassPropertyTest.class,
+		TabOrderPropertyTest.class,
+		ExposePropertySupportTest.class,
+		AccessorsTests.class,
+		PropertyEditorsTests.class,
+		PropertyTableTests.class
+})
+public class PropertiesTests {
 }

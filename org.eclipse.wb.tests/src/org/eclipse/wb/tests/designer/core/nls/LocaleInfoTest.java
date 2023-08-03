@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core.nls;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 import java.util.Locale;
 
 /**
@@ -21,6 +23,7 @@ import java.util.Locale;
  * @author scheglov_ke
  */
 public class LocaleInfoTest extends DesignerTestCase {
+	@Test
 	public void test_default() throws Exception {
 		LocaleInfo locale = LocaleInfo.DEFAULT;
 		assertNull(locale.getLocale());
@@ -28,16 +31,19 @@ public class LocaleInfoTest extends DesignerTestCase {
 		assertEquals("(default)", locale.getTitle());
 	}
 
+	@Test
 	public void test_italian() throws Exception {
 		LocaleInfo locale = new LocaleInfo(Locale.ITALIAN);
 		assertSame(Locale.ITALIAN, locale.getLocale());
 		assertEquals("it", locale.getTitle());
 	}
 
+	@Test
 	public void test_toString() throws Exception {
 		assertEquals("it", new LocaleInfo(Locale.ITALIAN).toString());
 	}
 
+	@Test
 	public void test_equals() throws Exception {
 		LocaleInfo locale_it = new LocaleInfo(Locale.ITALIAN);
 		LocaleInfo locale_fr = new LocaleInfo(Locale.FRENCH);
@@ -47,11 +53,13 @@ public class LocaleInfoTest extends DesignerTestCase {
 		assertFalse(locale_it.equals(this));
 	}
 
+	@Test
 	public void test_hasCode() throws Exception {
 		assertEquals(0, LocaleInfo.DEFAULT.hashCode());
 		assertTrue(new LocaleInfo(Locale.ITALIAN).hashCode() != 0);
 	}
 
+	@Test
 	public void test_getParent() throws Exception {
 		LocaleInfo[] locales =
 				new LocaleInfo[]{new LocaleInfo(new Locale("fr", "FR")), new LocaleInfo(new Locale("ru"))};

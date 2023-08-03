@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.gef.AbstractLayoutPolicyTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CardLayoutInfo} in GEF.
  *
@@ -36,6 +38,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	// CREATE on canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_onCanvas_empty() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -59,6 +62,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_onCanvas_beforeExisting() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -93,6 +97,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_onCanvas_afterExisting() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -132,6 +137,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	// CREATE in tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_inTree_empty() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -157,6 +163,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_inTree_beforeExisting() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -188,6 +195,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_inTree_afterExisting() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -224,6 +232,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	// MOVE in tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_inTree() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -264,6 +273,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	// Navigation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_navigation_next() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -308,6 +318,7 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 		canvas.assertNullEditPart(button_3);
 	}
 
+	@Test
 	public void test_navigation_prev() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",

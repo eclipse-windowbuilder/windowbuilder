@@ -19,6 +19,9 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -32,7 +35,9 @@ public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_selectionActions() throws Exception {
+	@Ignore
+	@Test
+	public void test_selectionActions() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"class Test extends JPanel {",
@@ -99,6 +104,7 @@ public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest
 		assertFalse(findAction(actions, "Left").isChecked());
 	}
 
+	@Test
 	public void test_alignmentAction() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

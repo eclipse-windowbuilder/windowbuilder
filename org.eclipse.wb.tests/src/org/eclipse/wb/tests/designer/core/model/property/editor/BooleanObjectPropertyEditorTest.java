@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.swt.graphics.Point;
 
+import org.junit.Test;
+
 /**
  * Test for {@link BooleanPropertyEditor}.
  *
@@ -41,6 +43,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 	/**
 	 * Test for {@link BooleanObjectPropertyEditor#doubleClick(Property, Point)}.
 	 */
+	@Test
 	public void test_doubleClick() throws Exception {
 		prepareBooleanPanel();
 		ContainerInfo panel =
@@ -86,6 +89,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 	/**
 	 * Test for {@link BooleanObjectPropertyEditor#doubleClick(Property, Point)}.
 	 */
+	@Test
 	public void test_doubleClick_fromNull() throws Exception {
 		prepareBooleanPanel();
 		ContainerInfo panel =
@@ -119,6 +123,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 	/**
 	 * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
 	 */
+	@Test
 	public void test_activate_usingKeyboard() throws Exception {
 		prepareBooleanPanel();
 		ContainerInfo panel =
@@ -148,6 +153,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 	/**
 	 * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
 	 */
+	@Test
 	public void test_activate_clickOnCheckBox() throws Exception {
 		prepareBooleanPanel();
 		ContainerInfo panel =
@@ -177,6 +183,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 	/**
 	 * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
 	 */
+	@Test
 	public void test_activate_justClickToSelect() throws Exception {
 		prepareBooleanPanel();
 		ContainerInfo panel =

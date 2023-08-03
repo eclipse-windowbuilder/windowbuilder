@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.utils.AsyncMessagesSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link AsyncMessagesSupport}.
  *
@@ -40,6 +42,7 @@ public class AsyncMessagesSupportTest extends RcpModelTest {
 	 * If no <code>SWT.runAsyncMessages</code> flag, then we can not expect that async runnable will
 	 * be executed.
 	 */
+	@Test
 	public void test_hasAsync_noMessagesRequest() throws Exception {
 		prepareButtonWithAsync();
 		waitForAutoBuild();
@@ -61,6 +64,7 @@ public class AsyncMessagesSupportTest extends RcpModelTest {
 	/**
 	 * We have <code>SWT.runAsyncMessages</code> flag, so expect that async runnable is executed.
 	 */
+	@Test
 	public void test_hasAsync_hasMessagesRequest() throws Exception {
 		prepareButtonWithAsync();
 		setFileContentSrc(

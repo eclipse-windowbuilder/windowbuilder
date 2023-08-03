@@ -10,24 +10,23 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.widgets.menu;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
 import org.eclipse.swt.widgets.Menu;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link Menu}.
  *
  * @author scheglov_ke
  */
-public class MenuTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.widgets.menu");
-		suite.addTest(createSingleSuite(MenuItemTest.class));
-		suite.addTest(createSingleSuite(MenuTest.class));
-		suite.addTest(createSingleSuite(MenuGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		MenuItemTest.class,
+		MenuTest.class,
+		MenuGefTest.class
+})
+public class MenuTests {
 }

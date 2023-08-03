@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link FormLayoutInfoImplAutomatic}.
  *
@@ -37,6 +39,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 	// Alignment
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getAlignment_single_noConstraints() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -55,6 +58,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertEquals(PlacementInfo.LEADING, getImpl(shell).getAlignment(button, true).alignment);
 	}
 
+	@Test
 	public void test_getAlignment_single_left() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -74,6 +78,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertEquals(PlacementInfo.LEADING, getImpl(shell).getAlignment(button, true).alignment);
 	}
 
+	@Test
 	public void test_getAlignment_single_right() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -93,6 +98,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertEquals(PlacementInfo.TRAILING, getImpl(shell).getAlignment(button, true).alignment);
 	}
 
+	@Test
 	public void test_getAlignment_single_left_as_trailing() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -112,6 +118,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertEquals(PlacementInfo.TRAILING, getImpl(shell).getAlignment(button, true).alignment);
 	}
 
+	@Test
 	public void test_getAlignment_single_forBothSidesAttached_right() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -132,6 +139,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertEquals(PlacementInfo.TRAILING, getImpl(shell).getAlignment(button, true).alignment);
 	}
 
+	@Test
 	public void test_getAlignment_single_forBothSidesAttached_left() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -152,6 +160,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertEquals(PlacementInfo.LEADING, getImpl(shell).getAlignment(button, true).alignment);
 	}
 
+	@Test
 	public void test_getAlignment_single_forBothSidesAttached_left_and_right() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -172,6 +181,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertTrue(getImpl(shell).getAlignment(button, true).resizable);
 	}
 
+	@Test
 	public void test_getAlignment_single_forBothSidesAttached_left_and_right_numerators()
 			throws Exception {
 		CompositeInfo shell =
@@ -193,6 +203,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertTrue(getImpl(shell).getAlignment(button, true).resizable);
 	}
 
+	@Test
 	public void test_getAlignment_complex_forBothSidesAttached_left_and_right() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -221,6 +232,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertTrue(getImpl(shell).getAlignment(button, true).resizable);
 	}
 
+	@Test
 	public void test_getAlignment_complex_forBothSidesAttached_left_and_right_indirect()
 			throws Exception {
 		CompositeInfo shell =
@@ -253,6 +265,7 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 		assertTrue(getImpl(shell).getAlignment(button2, true).resizable);
 	}
 
+	@Test
 	public void test_getAlignment_complex_forBothSidesAttached_notResizeable_indirect()
 			throws Exception {
 		CompositeInfo shell =

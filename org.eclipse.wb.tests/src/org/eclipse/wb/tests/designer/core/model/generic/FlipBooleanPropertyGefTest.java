@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core.model.generic;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.junit.Test;
+
 /**
  * Tests for <code>double-click.flipBooleanProperty</code> support.
  *
@@ -33,6 +35,7 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_doFlip() throws Exception {
 		prepareMyPanel();
 		setFileContentSrc(
@@ -77,6 +80,7 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 	/**
 	 * If no specified property, then ignore.
 	 */
+	@Test
 	public void test_noSuchProperty() throws Exception {
 		prepareMyPanel();
 		setFileContentSrc(
@@ -107,6 +111,7 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 	/**
 	 * If specified property is not boolean, then ignore.
 	 */
+	@Test
 	public void test_notBooleanProperty() throws Exception {
 		prepareMyPanel();
 		setFileContentSrc(
@@ -134,6 +139,7 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_noFlipParameter() throws Exception {
 		prepareMyPanel();
 		waitForAutoBuild();

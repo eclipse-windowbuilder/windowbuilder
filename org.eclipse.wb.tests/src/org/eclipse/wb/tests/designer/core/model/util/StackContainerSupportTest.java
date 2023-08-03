@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -58,6 +60,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noChildren() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -71,6 +74,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 		assertSame(null, panel.m_activeComponent);
 	}
 
+	@Test
 	public void test_notifySelecting_null() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -88,6 +92,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link StackContainerSupport#setActive(JavaInfo)}.
 	 */
+	@Test
 	public void test_setActiveInfo() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -118,6 +123,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link StackContainerSupport#getNext()}.
 	 */
+	@Test
 	public void test_getNext() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -152,6 +158,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link StackContainerSupport#getPrev()}.
 	 */
+	@Test
 	public void test_getPrev() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -188,6 +195,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	// Selecting
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_notifySelecting_directChild() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -219,6 +227,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_notifySelecting_indirectChild() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -258,6 +267,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	/**
 	 * Not all children are "stack children", some of them may be not managed by "stack".
 	 */
+	@Test
 	public void test_notifySelecting_notStackChild() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -296,6 +306,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	// Delete
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteNotActive() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -321,6 +332,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 		assertSame(button_1, panel.m_activeComponent);
 	}
 
+	@Test
 	public void test_deleteActive_selectFirst() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -346,6 +358,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 		assertSame(button_0, panel.m_activeComponent);
 	}
 
+	@Test
 	public void test_deleteActive_noOther() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -374,6 +387,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	// Add/move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addChild_andActivate() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -393,6 +407,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 		assertSame(button, panel.m_activeComponent);
 	}
 
+	@Test
 	public void test_moveChild_inner() throws Exception {
 		CardPanel_Info panel =
 				parseJavaInfo(
@@ -429,6 +444,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_moveChild_fromOuter() throws Exception {
 		ContainerInfo panel =
 				parseJavaInfo(
@@ -475,6 +491,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_moveChild_toOuter() throws Exception {
 		ContainerInfo panel =
 				parseJavaInfo(

@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ComponentClassProperty}.
  *
@@ -33,6 +35,7 @@ public class ComponentClassPropertyTest extends SwingModelTest {
 	 * Explicit {@link AbsoluteLayoutInfo} has <code>null</code> class, so can not have "Class"
 	 * property.
 	 */
+	@Test
 	public void test_noForNullClass() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -44,6 +47,7 @@ public class ComponentClassPropertyTest extends SwingModelTest {
 		assertNull(panel.getLayout().getPropertyByTitle("Class"));
 	}
 
+	@Test
 	public void test_property() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

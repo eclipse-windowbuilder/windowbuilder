@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.core.xml.model.property.converter.ExpressionConve
 import org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter;
 import org.eclipse.wb.internal.core.xml.model.property.converter.StringConverter;
 
+import org.junit.Test;
+
 /**
  * Tests for standard {@link ExpressionConverter}'s.
  *
@@ -40,6 +42,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_boolean() throws Exception {
 		assertConverterEditor(boolean.class);
 		//
@@ -50,6 +53,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 		assertEquals("false", converter.toSource(object, false));
 	}
 
+	@Test
 	public void test_Boolean() throws Exception {
 		assertConverterEditor(Boolean.class);
 		//
@@ -60,6 +64,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 		assertEquals("false", converter.toSource(object, false));
 	}
 
+	@Test
 	public void test_int() throws Exception {
 		assertConverterEditor(int.class);
 		//
@@ -71,6 +76,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 		assertEquals("0", converter.toSource(object, 0));
 	}
 
+	@Test
 	public void test_Integer() throws Exception {
 		assertConverterEditor(Integer.class);
 		//
@@ -82,6 +88,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 		assertEquals("0", converter.toSource(object, 0));
 	}
 
+	@Test
 	public void test_double() throws Exception {
 		assertConverterEditor(double.class);
 		//
@@ -94,6 +101,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 		assertEquals("0", converter.toSource(object, 0.0));
 	}
 
+	@Test
 	public void test_String() throws Exception {
 		assertConverterEditor(String.class);
 		//
@@ -110,6 +118,7 @@ public class ExpressionConverterTest extends AbstractCoreTest {
 		A, B, C
 	}
 
+	@Test
 	public void test_Enum() throws Exception {
 		assertConverterEditor(MyEnum.class);
 		//

@@ -11,11 +11,11 @@
 package org.eclipse.wb.tests.designer.rcp.model.layout;
 
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.rcp.model.layout.form.FormLayoutTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP {@link LayoutInfo}'s.
@@ -23,15 +23,14 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  * @author mitin_aa
  */
-public class LayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.layout");
-		suite.addTest(createSingleSuite(ControlSelectionPropertyEditorTest.class));
-		suite.addTest(FormLayoutTests.suite());
-		suite.addTest(createSingleSuite(GridLayoutTest.class));
-		suite.addTest(createSingleSuite(StackLayoutTest.class));
-		suite.addTest(createSingleSuite(StackLayoutGefTest.class));
-		suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ControlSelectionPropertyEditorTest.class,
+		FormLayoutTests.class,
+		GridLayoutTest.class,
+		StackLayoutTest.class,
+		StackLayoutGefTest.class,
+		AbsoluteLayoutGefTest.class
+})
+public class LayoutTests {
 }

@@ -17,7 +17,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import javax.swing.JInternalFrame;
 
@@ -41,6 +42,7 @@ public class JInternalFrameTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_this() throws Exception {
 		JInternalFrameInfo frame =
 				parseJavaInfo(
@@ -59,18 +61,19 @@ public class JInternalFrameTest extends SwingModelTest {
 		ComponentInfo contentPane = frame.getChildrenComponents().get(0);
 		{
 			Rectangle bounds = frame.getBounds();
-			assertThat(bounds.width).isEqualTo(450);
-			assertThat(bounds.height).isEqualTo(300);
+			Assertions.assertThat(bounds.width).isEqualTo(450);
+			Assertions.assertThat(bounds.height).isEqualTo(300);
 		}
 		{
 			Rectangle bounds = contentPane.getBounds();
-			assertThat(bounds.x).isGreaterThanOrEqualTo(0);
-			assertThat(bounds.y).isGreaterThanOrEqualTo(0);
-			assertThat(bounds.width).isGreaterThan(420);
-			assertThat(bounds.height).isGreaterThan(250);
+			Assertions.assertThat(bounds.x).isGreaterThanOrEqualTo(0);
+			Assertions.assertThat(bounds.y).isGreaterThanOrEqualTo(0);
+			Assertions.assertThat(bounds.width).isGreaterThan(420);
+			Assertions.assertThat(bounds.height).isGreaterThan(250);
 		}
 	}
 
+	@Test
 	public void test_onJDesktopPane() throws Exception {
 		ContainerInfo panel =
 				parseJavaInfo(

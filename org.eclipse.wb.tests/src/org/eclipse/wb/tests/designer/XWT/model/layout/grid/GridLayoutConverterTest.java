@@ -21,6 +21,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link GridLayoutConverter}.
  *
@@ -44,6 +46,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * No controls.
 	 */
+	@Test
 	public void test_empty() throws Exception {
 		CompositeInfo shell = parse("<Shell/>");
 		setGridLayout(shell, new String[]{
@@ -59,6 +62,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * Control in single column, in normal order.
 	 */
+	@Test
 	public void test_singleColumn_normalOrder() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -80,6 +84,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * Control in single column, in reverse order.
 	 */
+	@Test
 	public void test_singleColumn_reverseOrder() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -101,6 +106,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * Control in two columns, no fillers.
 	 */
+	@Test
 	public void test_twoRows_noFillers() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -122,6 +128,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * Control in two columns/rows, on diagonal, with fillers.
 	 */
+	@Test
 	public void test_twoRows_withFillers() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -145,6 +152,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * Three controls, one spanned horizontally.
 	 */
+	@Test
 	public void test_spanHorizontal() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -175,6 +183,7 @@ public class GridLayoutConverterTest extends XwtModelTest {
 	/**
 	 * Three controls, one spanned vertically.
 	 */
+	@Test
 	public void test_spanVertical() throws Exception {
 		CompositeInfo shell =
 				parse(

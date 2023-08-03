@@ -10,22 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.jface;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for XWT JFace models.
  *
  * @author scheglov_ke
  */
-public class JFaceTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.jface");
-		suite.addTest(createSingleSuite(ViewerTest.class));
-		suite.addTest(createSingleSuite(TableViewerTest.class));
-		suite.addTest(createSingleSuite(TableViewerGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ViewerTest.class,
+		TableViewerTest.class,
+		TableViewerGefTest.class,
+})
+public class JFaceTests {
 }

@@ -24,7 +24,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link ImagePropertyEditor}.
@@ -46,6 +47,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_noValue() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		refresh();
@@ -56,6 +58,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 		assertEquals(null, getPropertyClipboardSource(property));
 	}
 
+	@Test
 	public void test_getText_hasValue() throws Exception {
 		XmlObjectInfo shell = parse("<Shell image='my.png'/>");
 		refresh();
@@ -71,6 +74,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 	// Dialog
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dialog_inClasspath() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		refresh();
@@ -91,6 +95,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_dialog_inSubPackage() throws Exception {
 		TestUtils.createImagePNG(m_testProject, "src/test/images/testImage.png", 16, 16);
 		// parse
@@ -113,6 +118,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_dialog_openWith_inSubPackage() throws Exception {
 		TestUtils.createImagePNG(m_testProject, "src/test/images/testImage.png", 16, 16);
 		// parse
@@ -133,7 +139,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 				{
 					TreeItem treeItem = context.getTreeItem("testImage.png");
 					assertNotNull(treeItem);
-					assertThat(treeItem.getParent().getSelection()).containsOnly(treeItem);
+					Assertions.assertThat(treeItem.getParent().getSelection()).containsOnly(treeItem);
 				}
 				// select "Default image"
 				{
@@ -148,6 +154,7 @@ public class ImagePropertyEditorTest extends XwtModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_dialog_inSourceFolder() throws Exception {
 		TestUtils.createImagePNG(m_testProject, "src/images/testImage.png", 16, 16);
 		// parse

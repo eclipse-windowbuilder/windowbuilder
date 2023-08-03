@@ -25,9 +25,11 @@ import org.eclipse.wb.internal.swing.model.property.editor.font.NullFontInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.font.UiManagerFontInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.Font;
 
@@ -45,7 +47,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 	}
@@ -67,6 +70,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for {@link NullFontInfo}.
 	 */
+	@Test
 	public void test_FontInfo_Null() throws Exception {
 		FontInfo fontInfo = new NullFontInfo();
 		assertSame(null, fontInfo.getFont());
@@ -77,14 +81,15 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for {@link ExplicitFontInfo}.
 	 */
+	@Test
 	public void test_FontInfo_Explicit() throws Exception {
 		// PLAIN
 		{
 			Font font = new Font("Arial", Font.PLAIN, 12);
 			ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
 			assertSame(font, fontInfo.getFont());
-			assertThat(fontInfo.getText()).matches("\\w+ 12");
-			assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.PLAIN, 12\\)");
+			Assertions.assertThat(fontInfo.getText()).matches("\\w+ 12");
+			Assertions.assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.PLAIN, 12\\)");
 			assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
 		}
 		// BOLD
@@ -92,8 +97,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
 			Font font = new Font("Arial", Font.BOLD, 12);
 			ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
 			assertSame(font, fontInfo.getFont());
-			assertThat(fontInfo.getText()).matches("\\w+ 12 Bold");
-			assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.BOLD, 12\\)");
+			Assertions.assertThat(fontInfo.getText()).matches("\\w+ 12 Bold");
+			Assertions.assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.BOLD, 12\\)");
 			assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
 		}
 		// ITALIC
@@ -101,8 +106,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
 			Font font = new Font("Arial", Font.ITALIC, 12);
 			ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
 			assertSame(font, fontInfo.getFont());
-			assertThat(fontInfo.getText()).matches("\\w+ 12 Italic");
-			assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.ITALIC, 12\\)");
+			Assertions.assertThat(fontInfo.getText()).matches("\\w+ 12 Italic");
+			Assertions.assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.ITALIC, 12\\)");
 			assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
 		}
 		// BOLD + ITALIC
@@ -110,8 +115,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
 			Font font = new Font("Arial", Font.BOLD | Font.ITALIC, 12);
 			ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
 			assertSame(font, fontInfo.getFont());
-			assertThat(fontInfo.getText()).matches("\\w+ 12 Bold Italic");
-			assertThat(fontInfo.getSource())
+			Assertions.assertThat(fontInfo.getText()).matches("\\w+ 12 Bold Italic");
+			Assertions.assertThat(fontInfo.getSource())
 			.matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.BOLD \\| java.awt.Font.ITALIC, 12\\)");
 			assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
 		}
@@ -120,13 +125,14 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for {@link UiManagerFontInfo}.
 	 */
+	@Test
 	public void test_FontInfo_UIManager() throws Exception {
 		Font font = new Font("Arial", Font.PLAIN, 12);
 		UiManagerFontInfo fontInfo = new UiManagerFontInfo("key", font);
 		assertSame(font, fontInfo.getFont());
 		assertEquals("key", fontInfo.getKey());
-		assertThat(fontInfo.getValueText()).matches("\\w+ 12");
-		assertThat(fontInfo.getText()).matches("key, \\w+ 12");
+		Assertions.assertThat(fontInfo.getValueText()).matches("\\w+ 12");
+		Assertions.assertThat(fontInfo.getText()).matches("key, \\w+ 12");
 		assertEquals("javax.swing.UIManager.getFont(\"key\")", fontInfo.getSource());
 		assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
 	}
@@ -134,6 +140,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for {@link DerivedFontInfo}.
 	 */
+	@Test
 	public void test_FontInfo_Derived() throws Exception {
 		Font baseFont = new Font("Arial", Font.BOLD, 12);
 		String baseFontSource = "button.getFont()";
@@ -515,12 +522,14 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	// FontInfo decoding from source
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_decodeFontInfo_null() throws Exception {
 		String text = null;
 		String source = "null";
 		assertFont(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_explicit() throws Exception {
 		String text = "Arial 15 Bold Italic";
 		String source = "new Font(\"Arial\", Font.BOLD | Font.ITALIC, 15)";
@@ -529,30 +538,35 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont(source, text, clipboard);
 	}
 
+	@Test
 	public void test_decodeFontInfo_UIManager() throws Exception {
 		String text = "Button.font, Dialog 12 Bold";
 		String source = "javax.swing.UIManager.getFont(\"Button.font\")";
 		assertFont(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_newSize() throws Exception {
 		String text = "20, Dialog 20 Bold";
 		String source = "button.getFont().deriveFont(20f)";
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_plusSize() throws Exception {
 		String text = "+5, Dialog 17 Bold";
 		String source = "button.getFont().deriveFont(button.getFont().getSize() + 5f)";
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_minusSize() throws Exception {
 		String text = "-5, Dialog 7 Bold";
 		String source = "button.getFont().deriveFont(button.getFont().getSize() - 5f)";
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_unknownSize() throws Exception {
 		String text = "15, Dialog 15 Bold";
 		String source = "button.getFont().deriveFont(5f + 10f)";
@@ -560,12 +574,14 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont(source, text, clipboardSource);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_plusBold() throws Exception {
 		String text = "+Bold, Dialog 12 Bold";
 		String source = "button.getFont().deriveFont(button.getFont().getStyle() | java.awt.Font.BOLD)";
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_plusItalic() throws Exception {
 		String text = "+Italic, Dialog 12 Bold Italic";
 		String source =
@@ -573,6 +589,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_plusBoldItalic() throws Exception {
 		String text = "+Bold +Italic, Dialog 12 Bold Italic";
 		String source =
@@ -580,6 +597,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_minusBold() throws Exception {
 		String text = "-Bold, Dialog 12";
 		String source =
@@ -587,6 +605,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_minusItalic() throws Exception {
 		String text = "-Italic, Dialog 12 Bold";
 		String source =
@@ -594,6 +613,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_minusBoldItalic() throws Exception {
 		String text = "-Bold -Italic, Dialog 12";
 		String source =
@@ -601,6 +621,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_minusBold_plusItalic() throws Exception {
 		String text = "-Bold +Italic, Dialog 12 Italic";
 		String source =
@@ -608,6 +629,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_plusBold_minusItalic() throws Exception {
 		String text = "+Bold -Italic, Dialog 12 Bold";
 		String source =
@@ -615,6 +637,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_minusBold_plusSize() throws Exception {
 		String text = "+5 -Bold, Dialog 17";
 		String source =
@@ -624,6 +647,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		assertFont2(source, text);
 	}
 
+	@Test
 	public void test_decodeFontInfo_derived_newFamily() throws Exception {
 		String text = "*Arial +5 -Bold, Arial 17";
 		String source =
@@ -676,19 +700,25 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	// Copy/paste
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_copyPaste_null() throws Exception {
+	@Ignore
+	@Test
+	public void test_copyPaste_null() throws Exception {
 		String originalSource = "null";
 		String expectedSource = originalSource;
 		check_copyPaste(originalSource, expectedSource);
 	}
 
-	public void DISABLE_test_copyPaste_explicit() throws Exception {
+	@Ignore
+	@Test
+	public void test_copyPaste_explicit() throws Exception {
 		String originalSource = "new Font(\"Arial\", Font.BOLD | Font.ITALIC, 15)";
 		String expectedSource = originalSource;
 		check_copyPaste(originalSource, expectedSource);
 	}
 
-	public void DISABLE_test_copyPaste_derived() throws Exception {
+	@Ignore
+	@Test
+	public void test_copyPaste_derived() throws Exception {
 		String originalSource = "myLabel.getFont().deriveFont(20f)";
 		String expectedSource = "label.getFont().deriveFont(20f)";
 		check_copyPaste(originalSource, expectedSource);

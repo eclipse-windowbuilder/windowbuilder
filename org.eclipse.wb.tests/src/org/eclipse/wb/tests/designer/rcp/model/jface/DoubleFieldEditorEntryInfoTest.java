@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.rcp.model.jface.FieldEditorPreferencePageInfo;
 import org.eclipse.wb.internal.rcp.palette.DoubleFieldEditorEntryInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DoubleFieldEditorEntryInfo}.
  *
@@ -38,6 +40,7 @@ public class DoubleFieldEditorEntryInfoTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		FieldEditorPreferencePageInfo page =
 				parseJavaInfo(

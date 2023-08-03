@@ -26,6 +26,8 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 
+import org.junit.Test;
+
 import javax.swing.JButton;
 
 /**
@@ -39,6 +41,7 @@ public class ClipboardTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_hasMemento() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -55,6 +58,7 @@ public class ClipboardTest extends SwingModelTest {
 		assertTrue(JavaInfoMemento.hasMemento(button));
 	}
 
+	@Test
 	public void test_getComponentClassName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -71,6 +75,7 @@ public class ClipboardTest extends SwingModelTest {
 		assertEquals("javax.swing.JButton", memento.getComponentClassName());
 	}
 
+	@Test
 	public void test_transfer() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -136,6 +141,7 @@ public class ClipboardTest extends SwingModelTest {
 	/**
 	 * Copy/paste one {@link JButton}.
 	 */
+	@Test
 	public void test_singleComponent() throws Exception {
 		String[] sourceLines =
 				new String[]{
@@ -176,6 +182,7 @@ public class ClipboardTest extends SwingModelTest {
 	/**
 	 * Copy/paste container with exposed sub-component.
 	 */
+	@Test
 	public void test_exposedSubComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -222,6 +229,7 @@ public class ClipboardTest extends SwingModelTest {
 		flow_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_factoryStatic() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -260,6 +268,7 @@ public class ClipboardTest extends SwingModelTest {
 		flow_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_factoryStatic_complex() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -298,6 +307,7 @@ public class ClipboardTest extends SwingModelTest {
 		flow_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_factoryInstance_single() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -338,6 +348,7 @@ public class ClipboardTest extends SwingModelTest {
 		flow_doCopy(sourceLines, targetLines);
 	}
 
+	@Test
 	public void test_factoryInstance_new() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",

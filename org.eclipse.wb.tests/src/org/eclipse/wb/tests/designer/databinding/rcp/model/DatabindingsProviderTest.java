@@ -52,6 +52,8 @@ import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoRelatedTe
 import org.eclipse.wb.tests.designer.core.model.util.MorphingSupportTest;
 import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -73,6 +75,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_common() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -131,6 +134,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertTrue(containers.get(1).isTargetStartType());
 	}
 
+	@Test
 	public void test_context_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -178,6 +182,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertNull(provider.getRootInfo().getContextInfo().getUserTryCatchBlock());
 	}
 
+	@Test
 	public void test_context_2() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -228,6 +233,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertNull(provider.getRootInfo().getContextInfo().getUserTryCatchBlock());
 	}
 
+	@Test
 	public void test_context_3() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -287,6 +293,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 	 * CASE-48323 Unable to remove a label from view in design tab. Tweaked
 	 * {@link FieldBeanBindableInfo#update(BeansObserveTypeContainer)} .
 	 */
+	@Test
 	public void test_updateBindables() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -357,6 +364,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				"}"), m_lastEditor);
 	}
 
+	@Test
 	public void test_synchronizedObserves() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -768,6 +776,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 	// Validate tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validate_reference() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -803,6 +812,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertFalse(provider.validate(shellObserve, properties.get(0), shellObserve, properties.get(0)));
 	}
 
+	@Test
 	public void test_validate_null() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -823,6 +833,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				false);
 	}
 
+	@Test
 	public void test_validate_InputCollection() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -991,6 +1002,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				listInputCollectionPropety));
 	}
 
+	@Test
 	public void test_validate_Input() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1177,6 +1189,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				otherViewerInputProperty));
 	}
 
+	@Test
 	public void test_validate_OnlyList() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1202,6 +1215,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				true);
 	}
 
+	@Test
 	public void test_validate_OnlySet() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1227,6 +1241,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				true);
 	}
 
+	@Test
 	public void test_validate_OnlyValue() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1239,6 +1254,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		validateType(shellObserve, shellForegroundProperty, false, false, true, true, true, true, true);
 	}
 
+	@Test
 	public void test_validate_List() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1250,6 +1266,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		validateType(beanObserve, beanValuesProperty_List, true, false, true, true, false, true, true);
 	}
 
+	@Test
 	public void test_validate_Set() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1261,6 +1278,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		validateType(beanObserve, beanBeanNamesProperty_Set, false, true, true, false, true, true, true);
 	}
 
+	@Test
 	public void test_validate_Any() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1272,6 +1290,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		validateType(beanObserve, beanValueProperty_Any, false, false, true, true, true, true, true);
 	}
 
+	@Test
 	public void test_validate_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1461,6 +1480,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 	// Create tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createBinding_OnlyList_OnlyList() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1491,6 +1511,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateListStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlyList_List() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1521,6 +1542,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateListStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_List_List() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1545,6 +1567,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateListStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlyList_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1592,6 +1615,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateListStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlySet_OnlySet() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1624,6 +1648,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateSetStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlySet_Set() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1654,6 +1679,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateSetStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Set_Set() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1679,6 +1705,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateSetStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlySet_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1726,6 +1753,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateSetStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlyValue_OnlyValue() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1752,6 +1780,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateValueStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlyValue_Any() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1783,6 +1812,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateValueStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Any_Any() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1808,6 +1838,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateValueStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_OnlyValue_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1852,6 +1883,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateValueStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_List_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1875,6 +1907,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				UpdateListStrategyInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Set_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1988,6 +2021,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertNotNull(binding1.getLabelProvider());
 	}
 
+	@Test
 	public void test_createBinding_Viewer_InputCollection() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2026,6 +2060,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				WritableSetBeanObservableInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Viewer_OnlyList() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2055,6 +2090,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				MultiSelectionObservableInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Viewer_OnlySet() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2084,6 +2120,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				CheckedElementsObservableInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Viewer_List() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2111,6 +2148,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				ListBeanObservableInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Viewer_Set() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2138,6 +2176,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				SetBeanObservableInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_Viewer_Detail() throws Exception {
 		createValidate();
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2165,6 +2204,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 				DetailListBeanObservableInfo.class);
 	}
 
+	@Test
 	public void test_createBinding_TreeViewer() throws Exception {
 		createValidate("TreeViewer");
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2227,6 +2267,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertNotNull(binding1.getLabelProvider());
 	}
 
+	@Test
 	public void test_property() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -2240,6 +2281,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		assertNotNull(property);
 	}
 
+	@Test
 	public void test_property_disabled() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",

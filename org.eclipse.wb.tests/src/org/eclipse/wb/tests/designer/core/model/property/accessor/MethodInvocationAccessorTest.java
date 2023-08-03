@@ -20,6 +20,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for {@link MethodInvocationAccessor}.
  *
@@ -32,7 +35,8 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// prepare MyPanel
 		setFileContentSrc(
@@ -63,6 +67,7 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_access() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -89,6 +94,7 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 * Test for {@link MethodInvocationAccessor#getExpression(JavaInfo)}.<br>
 	 * No existing invocation.
 	 */
+	@Test
 	public void test_getExpression_noInvocation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -108,6 +114,7 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 * Test for {@link MethodInvocationAccessor#getExpression(JavaInfo)}.<br>
 	 * Has existing invocation.
 	 */
+	@Test
 	public void test_getExpression_hasInvocation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -132,6 +139,7 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link MethodInvocationAccessor#setExpression(JavaInfo, String)}.
 	 */
+	@Test
 	public void test_setExpression_addNew() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -157,6 +165,7 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link MethodInvocationAccessor#setExpression(JavaInfo, String)}.
 	 */
+	@Test
 	public void test_setExpression_removeExisting() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -182,6 +191,7 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link MethodInvocationAccessor#setExpression(JavaInfo, String)}.
 	 */
+	@Test
 	public void test_setExpression_replaceExisting() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

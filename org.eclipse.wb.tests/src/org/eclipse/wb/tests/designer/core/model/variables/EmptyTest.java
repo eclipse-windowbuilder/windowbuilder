@@ -35,7 +35,8 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ParenthesizedExpression;
 import org.eclipse.jdt.core.dom.Statement;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Container;
 
@@ -59,6 +60,7 @@ public class EmptyTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_object() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -67,7 +69,7 @@ public class EmptyTest extends AbstractVariableTest {
 						"    add(new JButton('button'));",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(1);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(1);
 		//
 		JavaInfo button = panel.getChildrenComponents().get(0);
 		EmptyVariableSupport variableSupport = (EmptyVariableSupport) button.getVariableSupport();
@@ -86,6 +88,7 @@ public class EmptyTest extends AbstractVariableTest {
 		assertTrue(variableSupport.canConvertFieldToLocal());
 	}
 
+	@Test
 	public void test_setName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -113,6 +116,7 @@ public class EmptyTest extends AbstractVariableTest {
 				"  {new: javax.swing.JButton} {local-unique: abc} {/new JButton('button')/ /add(abc)/}");
 	}
 
+	@Test
 	public void test_getAccessExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -138,6 +142,7 @@ public class EmptyTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_toLocal() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -160,6 +165,7 @@ public class EmptyTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_toField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -187,6 +193,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * Test for {@link EmptyVariableSupport#materialize()}, in particular
 	 * {@link JavaEventListener#variable_emptyMaterializeBefore(EmptyVariableSupport)}.
 	 */
+	@Test
 	public void test_materialize_wasInStatement() throws Exception {
 		prepare_genericButton();
 		ContainerInfo panel =
@@ -225,6 +232,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * Test for {@link EmptyVariableSupport#materialize()}, when enclosing {@link ASTNode} is
 	 * {@link FieldDeclaration}, not statement.
 	 */
+	@Test
 	public void test_materialize_wasInField() throws Exception {
 		prepare_genericButton();
 		parseContainer(
@@ -265,6 +273,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * Test for {@link EmptyVariableSupport#materialize()}.<br>
 	 * Enclosing {@link ParenthesizedExpression} should be removed at the end.
 	 */
+	@Test
 	public void test_materialize_removeParenthesizedExpression() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -308,6 +317,7 @@ public class EmptyTest extends AbstractVariableTest {
 		assertInstanceOf(LocalUniqueVariableSupport.class, button.getVariableSupport());
 	}
 
+	@Test
 	public void test_target() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -338,6 +348,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * Test that {@link EmptyVariableSupport} implements method
 	 * {@link VariableSupport#ensureInstanceReadyAt(StatementTarget)}.
 	 */
+	@Test
 	public void test_ensureInstanceReadyAt() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -366,6 +377,7 @@ public class EmptyTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component with {@link EmptyVariableSupport}.
 	 */
+	@Test
 	public void test_add() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -404,6 +416,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * without any outer {@link Expression}, like {@link Container#add(java.awt.Component)}. So, we
 	 * should materialize such component "in place", without separate {@link Statement}.
 	 */
+	@Test
 	public void test_materialize_noOuterExpression() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -471,6 +484,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * without any outer {@link Expression}, like {@link Container#add(java.awt.Component)}.<br>
 	 * When we move such component, we don't need to materialize its variable.
 	 */
+	@Test
 	public void test_move_noOuterExpression() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -516,6 +530,7 @@ public class EmptyTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_returnInitializer_setProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -547,6 +562,7 @@ public class EmptyTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_returnInitializer_addChild() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -591,6 +607,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * <p>
 	 * Use {@link MethodOrderAfterCreation}.
 	 */
+	@Test
 	public void test_noOuterExpression_setProperty_afterCreation() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -643,6 +660,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * <p>
 	 * Use {@link MethodOrderAfterAssociation}.
 	 */
+	@Test
 	public void test_noOuterExpression_setProperty_afterAssociation() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -698,6 +716,7 @@ public class EmptyTest extends AbstractVariableTest {
 	 * using trick with <code>"implicit factory"</code>. We test that children of such component are
 	 * also moved.
 	 */
+	@Test
 	public void test_moveWithChildren() throws Exception {
 		setFileContentSrc(
 				"test/MyMenuItem.java",

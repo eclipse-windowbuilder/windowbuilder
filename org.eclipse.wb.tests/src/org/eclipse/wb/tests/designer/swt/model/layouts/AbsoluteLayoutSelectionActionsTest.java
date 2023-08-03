@@ -23,6 +23,9 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -45,6 +48,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	// Common
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_selectionActions() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -169,6 +173,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_left_edges_1a() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends Shell {",
@@ -190,6 +195,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_left_edges_1b() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends Shell {",
@@ -211,6 +217,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_left_edges_2a() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends Shell {",
@@ -236,6 +243,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_left_edges_2b() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends Shell {",
@@ -261,6 +269,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_right_edges_1a() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends Shell {",
@@ -282,6 +291,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_right_edges_1b() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends Shell {",
@@ -303,6 +313,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_right_edges_2a() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends Shell {",
@@ -328,6 +339,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_right_edges_2b() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends Shell {",
@@ -353,6 +365,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_horizontal_centers_1a() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends Shell {",
@@ -374,6 +387,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_horizontal_centers_1b() throws Exception {
 		check_align_horizontal(new String[]{
 				"class Test extends Shell {",
@@ -395,6 +409,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_horizontal_centers_2a() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends Shell {",
@@ -420,6 +435,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_horizontal_centers_2b() throws Exception {
 		check_align_horizontal2(new String[]{
 				"class Test extends Shell {",
@@ -492,6 +508,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_top_edges_1a() throws Exception {
 		check_align_vertical(new String[]{
 				"class Test extends Shell {",
@@ -513,6 +530,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_top_edges_1b() throws Exception {
 		check_align_vertical(new String[]{
 				"class Test extends Shell {",
@@ -534,6 +552,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_top_edges_2a() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends Shell {",
@@ -559,6 +578,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_top_edges_2b() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends Shell {",
@@ -584,6 +604,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_bottom_edges_1a() throws Exception {
 		// y2:100 + h2:80 - h1:40 = y1:140
 		check_align_vertical(new String[]{
@@ -606,6 +627,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_bottom_edges_1b() throws Exception {
 		// y2:100 + h2:80 - h1:40 = y1:140
 		check_align_vertical(new String[]{
@@ -628,6 +650,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_bottom_edges_2a() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends Shell {",
@@ -653,6 +676,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_bottom_edges_2b() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends Shell {",
@@ -678,6 +702,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_vertical_centers_1a() throws Exception {
 		// y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
 		check_align_vertical(new String[]{
@@ -700,6 +725,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * One parent selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_vertical_centers_1b() throws Exception {
 		// y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
 		check_align_vertical(new String[]{
@@ -722,6 +748,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Bottom-Up.
 	 */
+	@Test
 	public void test_align_vertical_centers_2a() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends Shell {",
@@ -747,6 +774,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Two parent's selection objects, order: Top-Down.
 	 */
+	@Test
 	public void test_align_vertical_centers_2b() throws Exception {
 		check_align_vertical2(new String[]{
 				"class Test extends Shell {",
@@ -816,6 +844,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	// Width/Height
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_align_replicate_width() throws Exception {
 		check_align(new String[]{
 				"class Test extends Shell {",
@@ -848,6 +877,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		"}"}, "Replicate width", true);
 	}
 
+	@Test
 	public void test_align_replicate_height() throws Exception {
 		check_align(new String[]{
 				"class Test extends Shell {",
@@ -888,6 +918,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Test for two object's without Ctrl pressed.
 	 */
+	@Test
 	public void test_align_space_equally_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -940,6 +971,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	/**
 	 * Test for three object's with Ctrl pressed.
 	 */
+	@Test
 	public void test_align_space_equally_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1010,7 +1042,9 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	// Center in window
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_align_center_in_window() throws Exception {
+	@Ignore
+	@Test
+	public void test_align_center_in_window() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",
@@ -1053,6 +1087,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	// Cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ScrolledComposite_onWayToRoot() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

@@ -17,6 +17,10 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -39,7 +43,8 @@ public class ResourceManagerTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		CompositeInfo shell =
 				parseComposite(
@@ -59,7 +64,8 @@ public class ResourceManagerTest extends RcpModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if (m_testProject != null && ManagerClass != null) {
 			ReflectionUtils.invokeMethod(ManagerClass, "dispose()");
 		}
@@ -86,6 +92,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getImageDescriptor() throws Exception {
 		// create image descriptor
 		Object imageDescriptor =
@@ -98,6 +105,7 @@ public class ResourceManagerTest extends RcpModelTest {
 		assertNotNull(imageDescriptor);
 	}
 
+	@Test
 	public void test_getImage_null() throws Exception {
 		Object imageDescriptor = null;
 		Object image =
@@ -108,6 +116,7 @@ public class ResourceManagerTest extends RcpModelTest {
 		assertNull(image);
 	}
 
+	@Test
 	public void test_getImage() throws Exception {
 		// create image descriptor
 		Object imageDescriptor =
@@ -148,6 +157,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	// Decorate Image
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_decorateImage_wrongCorner() throws Exception {
 		// check out of range corner values to left
 		try {
@@ -175,6 +185,7 @@ public class ResourceManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateImage() throws Exception {
 		// prepare default corner for decorateImage()
 		int corner = ReflectionUtils.getFieldInt(ManagerClass, "BOTTOM_RIGHT");
@@ -208,6 +219,7 @@ public class ResourceManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateImage2() throws Exception {
 		// prepare tested corner's
 		int corner = ReflectionUtils.getFieldInt(ManagerClass, "BOTTOM_RIGHT");
@@ -259,21 +271,25 @@ public class ResourceManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateImage_TOP_LEFT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(ManagerClass, "TOP_LEFT");
 		test_decorateImage(corner);
 	}
 
+	@Test
 	public void test_decorateImage_TOP_RIGHT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(ManagerClass, "TOP_RIGHT");
 		test_decorateImage(corner);
 	}
 
+	@Test
 	public void test_decorateImage_BOTTOM_LEFT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(ManagerClass, "BOTTOM_LEFT");
 		test_decorateImage(corner);
 	}
 
+	@Test
 	public void test_decorateImage_BOTTOM_RIGHT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(ManagerClass, "BOTTOM_RIGHT");
 		test_decorateImage(corner);
@@ -408,6 +424,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	// Plugin
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getPluginImage() throws Exception {
 		URL[] urls =
 				new URL[]{m_testProject.getProject().getFile("bin").getLocation().toFile().toURL()};
@@ -445,6 +462,7 @@ public class ResourceManagerTest extends RcpModelTest {
 		assertTrue((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
 	}
 
+	@Test
 	public void test_getPluginImageDescriptor() throws Exception {
 		URL[] urls =
 				new URL[]{m_testProject.getProject().getFile("bin").getLocation().toFile().toURL()};

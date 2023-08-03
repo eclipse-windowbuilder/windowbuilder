@@ -23,6 +23,9 @@ import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for {@link ExecutionFlowUtils2}.
  *
@@ -35,7 +38,8 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -56,6 +60,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	// getValue()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getValue_valueInDeclaration() throws Exception {
 		String expressionSource = "a =";
 		String expected = "1";
@@ -68,6 +73,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_useDeclaredVariable() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -80,6 +86,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_valueInAssignment() throws Exception {
 		String expressionSource = "b =";
 		String expected = "1";
@@ -98,6 +105,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	 * We don't see declaration of field, so we can not find it in any frame. However this should not
 	 * produce {@link NullPointerException}.
 	 */
+	@Test
 	public void test_getValue_assignInheritedField() throws Exception {
 		setFileContentSrc(
 				"test/Base.java",
@@ -123,6 +131,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_useAssignedValue() throws Exception {
 		String expressionSource = "b);";
 		String expected = "1";
@@ -137,6 +146,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_useAssignedValue_separateDeclaration() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -150,6 +160,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_useInInnerBlock() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -164,6 +175,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_assignInInnerBlock() throws Exception {
 		String expressionSource = "a);";
 		String expected = "2";
@@ -179,6 +191,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_followMethodInvocation() throws Exception {
 		String expressionSource = "p);";
 		String expected = "1";
@@ -194,6 +207,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_followConstructorInvocation() throws Exception {
 		String expressionSource = "p);";
 		String expected = "1";
@@ -211,6 +225,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * Right now we handle "varArgs" parameter as first argument.
 	 */
+	@Test
 	public void test_getValue_followMethodInvocation_varArgs_hasValues() throws Exception {
 		String expressionSource = "p);";
 		String expected = "1";
@@ -228,6 +243,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * We should correctly handle situation when "varArgs" is empty.
 	 */
+	@Test
 	public void test_getValue_followMethodInvocation_varArgs_noValues() throws Exception {
 		String expressionSource = "p);";
 		String expected = null;
@@ -242,6 +258,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_reTrack_afterFlowChange() throws Exception {
 		String expressionSource = "p);";
 		String expected = "1";
@@ -271,6 +288,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		}
 	}
 
+	@Test
 	public void test_getValue_useDeclaredField() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -283,6 +301,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_fieldAssign() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -299,6 +318,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * Assign using "this", access without it.
 	 */
+	@Test
 	public void test_getValue_fieldAssign_withThisQualifier_1() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -315,6 +335,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * Assign using "this", access using "this".
 	 */
+	@Test
 	public void test_getValue_fieldAssign_withThisQualifier_2() throws Exception {
 		String expressionSource = ".a);";
 		String expected = "1";
@@ -331,6 +352,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * Assign using "this", access using "this". Application pattern.
 	 */
+	@Test
 	public void test_getValue_fieldAssign_withThisQualifier_applicationPattern() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -350,6 +372,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * We should understand pattern <code>this.value = value</code>.
 	 */
+	@Test
 	public void test_getValue_fieldAssign_withThisQualifier_4() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -366,6 +389,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_fieldWithoutInitilizer() throws Exception {
 		String expressionSource = "a);";
 		String expected = "{p}{p}int a;";
@@ -378,6 +402,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_applicationPattern_withConstructor() throws Exception {
 		String expressionSource = "a.";
 		String expected = "Integer.valueOf(123)";
@@ -405,6 +430,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	 * <p>
 	 * In this case problem causes infinite recursive evaluation and "soft" failure.
 	 */
+	@Test
 	public void test_getValue_applicationPattern_separateDeclaration() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -422,6 +448,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_fieldAssign_visibleInOtherMethod() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -437,6 +464,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_fieldAssign_noOverrideInOtherMethod_1() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -455,6 +483,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_fieldAssign_noOverrideInOtherMethod_2() throws Exception {
 		String expressionSource = "a);";
 		String expected = "1";
@@ -473,6 +502,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_noMethodInvocation_parameterUse() throws Exception {
 		String expressionSource = "a);";
 		String expected = "{p}int a";
@@ -484,6 +514,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_usePermanentValue_local() throws Exception {
 		ExecutionFlowDescription executionFlow;
 		{
@@ -515,6 +546,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		assertSame(permanentValue, value);
 	}
 
+	@Test
 	public void test_getValue_usePermanentValue_parameter() throws Exception {
 		ExecutionFlowDescription executionFlow;
 		{
@@ -545,6 +577,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		assertSame(permanentValue, value);
 	}
 
+	@Test
 	public void test_getValue_useDeclaredVariable_inParenthesis() throws Exception {
 		String expressionSource = "(a)";
 		String expected = "1";
@@ -557,6 +590,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_useDeclaredVariable_casted() throws Exception {
 		String expressionSource = "(int) a";
 		String expected = "1";
@@ -569,6 +603,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_lazy() throws Exception {
 		String expressionSource = "{p}getButton());";
 		String expected = "new JButton()";
@@ -588,6 +623,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_returnFromMethod() throws Exception {
 		String expressionSource = "{p}getButton());";
 		String expected = "new JButton()";
@@ -603,6 +639,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 		"}"}, expressionSource, expected);
 	}
 
+	@Test
 	public void test_getValue_returnFromMethod_ignoreStatic() throws Exception {
 		String expressionSource = "{p}createButton());";
 		String expected = null;
@@ -622,6 +659,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	 * We need special support for {@link PostfixExpression}, we need to know value before it,
 	 * implemented as {@link ExecutionFlowUtils2#getValuePrev(ExecutionFlowDescription, Expression)}.
 	 */
+	@Test
 	public void test_PostfixExpression_getValue() throws Exception {
 		ExecutionFlowDescription executionFlow;
 		{
@@ -661,6 +699,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	 * When we visit {@link MethodDeclaration} with {@link ReturnStatement} without expression, this
 	 * caused {@link NullPointerException}.
 	 */
+	@Test
 	public void test_getValue_whenReturn_withoutExpression() throws Exception {
 		String expressionSource = "a =";
 		String expected = "1";
@@ -686,6 +725,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	 * Test for {@link ExecutionFlowUtils2#getPermanentValue0(Expression)} and
 	 * {@link ExecutionFlowUtils2#clearPermanentValue(Expression)}.
 	 */
+	@Test
 	public void test_getPermanentValue0_clearPermanentValue() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -709,6 +749,7 @@ public class ExecutionFlowUtils2Test extends AbstractEngineTest {
 	/**
 	 * Test for {@link ExecutionFlowUtils2#getValue0(Expression)}.
 	 */
+	@Test
 	public void test_getValue0() throws Exception {
 		createTypeDeclaration(
 				"test",

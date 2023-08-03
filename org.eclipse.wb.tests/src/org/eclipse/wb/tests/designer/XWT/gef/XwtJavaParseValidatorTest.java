@@ -23,6 +23,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ide.IDE;
 
+import org.junit.After;
+import org.junit.Test;
+
 /**
  * Test for {@link XwtJavaParseValidator}.
  *
@@ -35,7 +38,8 @@ public class XwtJavaParseValidatorTest extends XwtGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		DesignerPlugin.setDisplayExceptionOnConsole(true);
 		EnvironmentUtils.setTestingTime(true);
 		super.tearDown();
@@ -55,6 +59,7 @@ public class XwtJavaParseValidatorTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_showWarning() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);

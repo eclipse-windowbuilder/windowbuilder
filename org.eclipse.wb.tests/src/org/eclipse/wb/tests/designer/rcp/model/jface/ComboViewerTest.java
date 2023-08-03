@@ -16,6 +16,8 @@ import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Combo;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ComboViewer}.
  *
@@ -36,6 +38,7 @@ public class ComboViewerTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_usualConstructor_whenCombo() throws Exception {
 		parseComposite(
 				"public class Test extends Shell {",
@@ -57,6 +60,7 @@ public class ComboViewerTest extends RcpModelTest {
 	/**
 	 * Pass {@link Combo} instance into {@link ComboViewer} constructor.
 	 */
+	@Test
 	public void test_constructor_withCombo() throws Exception {
 		parseComposite(
 				"public class Test extends Shell {",
@@ -79,6 +83,7 @@ public class ComboViewerTest extends RcpModelTest {
 	/**
 	 * Pass {@link CCombo} instance into {@link ComboViewer} constructor.
 	 */
+	@Test
 	public void test_constructor_withCCombo() throws Exception {
 		parseComposite(
 				"public class Test extends Shell {",
@@ -103,6 +108,7 @@ public class ComboViewerTest extends RcpModelTest {
 	 * code. So, we need some special solution to decide whether use {@link ComboViewer#getCombo()} or
 	 * {@link ComboViewer#getCCombo()} method.
 	 */
+	@Test
 	public void test_useFactory_whenCCombo() throws Exception {
 		setFileContentSrc(
 				"test/Factory.java",

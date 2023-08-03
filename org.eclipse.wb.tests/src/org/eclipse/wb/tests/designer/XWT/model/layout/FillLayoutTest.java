@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.xwt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link FillLayoutInfo}.
  *
@@ -35,6 +37,7 @@ public class FillLayoutTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setLayout() throws Exception {
 		CompositeInfo shell = parse("<Shell/>");
 		FillLayoutInfo layout = createObject("org.eclipse.swt.layout.FillLayout");
@@ -56,6 +59,7 @@ public class FillLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link FillLayoutInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_default() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -74,6 +78,7 @@ public class FillLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link FillLayoutInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_true() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -92,6 +97,7 @@ public class FillLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link FillLayoutInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_false() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -112,6 +118,7 @@ public class FillLayoutTest extends XwtModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard_copyLayout() throws Exception {
 		CompositeInfo shell =
 				parse(

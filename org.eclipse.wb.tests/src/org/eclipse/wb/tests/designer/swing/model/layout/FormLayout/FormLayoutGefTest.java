@@ -24,7 +24,11 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.GridBagLayout;
 import java.util.List;
@@ -59,13 +63,15 @@ public class FormLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		AbstractLayoutTest.configureForTest();
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		AbstractLayoutTest.configureDefaults();
 		super.tearDown();
 	}
@@ -81,6 +87,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	// Set FormLayout
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setLayout_empty() throws Exception {
 		openPanel(
 				"// filler filler filler filler filler",
@@ -108,6 +115,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	 * columns/rows {@link LayoutEditPolicy} for exiting columns/rows from previous layout. We test
 	 * that they play safely now.
 	 */
+	@Test
 	public void test_setLayout_replaceGridBagLayout() throws Exception {
 		openPanel(
 				"// filler filler filler filler filler",
@@ -127,9 +135,9 @@ public class FormLayoutGefTest extends SwingGefTest {
 		canvas.moveTo(panel, 0.5, 0.5).click();
 		// no exceptions
 		String source = m_lastEditor.getSource();
-		assertThat(source).contains("new FormLayout(");
-		assertThat(source).contains("new ColumnSpec[] {");
-		assertThat(source).contains("new RowSpec[] {");
+		Assertions.assertThat(source).contains("new FormLayout(");
+		Assertions.assertThat(source).contains("new ColumnSpec[] {");
+		Assertions.assertThat(source).contains("new RowSpec[] {");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -137,6 +145,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_filled() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -156,6 +165,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_CREATE_empty() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -190,6 +200,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_virtual_2x2() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -219,6 +230,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_virtual_4x2() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -250,6 +262,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_virtual_2x4() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -281,6 +294,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendToColumn_2x4() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -325,6 +339,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendToRow_4x2() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -369,6 +384,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_beforeFirstRow() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -413,6 +429,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_beforeFirstColumn() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -457,6 +474,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertRow_endOfComponent_noGapNext() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -509,6 +527,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertRow_beginOfComponent_noGapPrev() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -561,6 +580,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertColumn_endOfComponent_noGapNext() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -613,6 +633,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertColumn_beginOfComponent_noGapPrev() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -668,6 +689,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	/**
 	 * There was problem in special case when there are columns, but no rows.
 	 */
+	@Test
 	public void test_CREATE_whenNoRows() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -703,6 +725,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	/**
 	 * There was problem in special case when there are rows, but no columns.
 	 */
+	@Test
 	public void test_CREATE_whenNoColumns() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -743,6 +766,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	/**
 	 * When {@link FormLayoutInfo} is inherited, we can not change its dimensions.
 	 */
+	@Test
 	public void test_CREATE_inherited_columnOperations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -793,6 +817,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	/**
 	 * When {@link FormLayoutInfo} is inherited, we can not change its dimensions.
 	 */
+	@Test
 	public void test_CREATE_inherited_rowOperations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -846,7 +871,9 @@ public class FormLayoutGefTest extends SwingGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_PASTE_virtual_4x2() throws Exception {
+	@Ignore
+	@Test
+	public void test_PASTE_virtual_4x2() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
 				"  public Test() {",
@@ -903,6 +930,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_virtual_4x2() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -943,6 +971,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_virtual_2x2() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -995,6 +1024,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	/**
 	 * When {@link FormLayoutInfo} is inherited, we can not change its dimensions.
 	 */
+	@Test
 	public void test_headerColumn_MOVE_inherited() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -1031,6 +1061,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 		}
 	}
 
+	@Test
 	public void test_headerColumn_MOVE_forward_targetGap() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1072,6 +1103,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_headerColumn_MOVE_forward_targetNotGap() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1107,6 +1139,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_headerColumn_MOVE_forward_targetBeforeGap() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1144,6 +1177,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_headerColumn_MOVE_forward_targetLast() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1187,6 +1221,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 	/**
 	 * When {@link FormLayoutInfo} is inherited, we can not change its dimensions.
 	 */
+	@Test
 	public void test_headerRow_MOVE_inherited() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -1223,6 +1258,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 		}
 	}
 
+	@Test
 	public void test_headerRow_MOVE_forward_targetGap() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1264,6 +1300,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_headerRow_MOVE_forward_targetNotGap() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1299,6 +1336,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_headerRow_MOVE_forward_targetBeforeGap() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",
@@ -1336,6 +1374,7 @@ public class FormLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_headerRow_MOVE_forward_targetLast() throws Exception {
 		openPanel(
 				"public class Test extends JPanel {",

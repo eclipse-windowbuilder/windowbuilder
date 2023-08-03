@@ -32,9 +32,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -62,6 +62,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_association() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -85,7 +86,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		//
 		{
 			List<JTabbedPaneTabInfo> tabs = tabbed.getTabs();
-			assertThat(tabs).hasSize(1);
+			Assertions.assertThat(tabs).hasSize(1);
 			JTabbedPaneTabInfo tab = tabs.get(0);
 			//
 			assertSame(tabbed, tab.getPane());
@@ -109,6 +110,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for using {@link JTabbedPane#insertTab(String, javax.swing.Icon, Component, String, int)}.
 	 */
+	@Test
 	public void test_association_insert() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -131,6 +133,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for {@link JTabbedPaneInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -157,6 +160,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * If we can not evaluate {@link Component} for some tab, we should ignore it.
 	 */
+	@Test
 	public void test_badTab() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -171,12 +175,13 @@ public class JTabbedPaneTest extends SwingModelTest {
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		assertNoErrors(panel);
 		// ask tabs
-		assertThat(tabbed.getTabs()).isEmpty();
+		Assertions.assertThat(tabbed.getTabs()).isEmpty();
 	}
 
 	/**
 	 * {@link JTabbedPane} can have more tabs that number of {@link ComponentInfo}s which we see.
 	 */
+	@Test
 	public void test_getTabs_noComponentModels() throws Exception {
 		setFileContentSrc(
 				"test/MyTabbedPane.java",
@@ -200,12 +205,13 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertNoErrors(panel);
 		// ask tabs
 		JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
-		assertThat(tabbed.getTabs()).isEmpty();
+		Assertions.assertThat(tabbed.getTabs()).isEmpty();
 	}
 
 	/**
 	 * Test for using {@link JTabbedPane#indexOfComponent(Component)} in "at" invocation.
 	 */
+	@Test
 	public void test_parse_indexOfComponent() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -231,6 +237,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 * {@link JTabbedPane#setModel(javax.swing.SingleSelectionModel)}. {@link JTabbedPane} can have
 	 * more tabs
 	 */
+	@Test
 	public void test_disable_setModel() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -257,6 +264,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 * Test for {@link JTabbedPaneInfo#getActiveComponent()}, for {@link JTabbedPane} without
 	 * components.
 	 */
+	@Test
 	public void test_getActiveComponent_null() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -271,18 +279,19 @@ public class JTabbedPaneTest extends SwingModelTest {
 		IObjectPresentation presentation = tabbed.getPresentation();
 		// active component
 		{
-			assertThat(tabbed.getTabs()).isEmpty();
+			Assertions.assertThat(tabbed.getTabs()).isEmpty();
 			assertNull(tabbed.getActiveComponent());
 		}
 		// empty presentation
 		{
-			assertThat(presentation.getChildrenGraphical()).isEmpty();
+			Assertions.assertThat(presentation.getChildrenGraphical()).isEmpty();
 		}
 	}
 
 	/**
 	 * Test for {@link JTabbedPaneInfo#getActiveComponent()}, for {@link JTabbedPane} with components.
 	 */
+	@Test
 	public void test_getActiveComponent_set() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -300,17 +309,17 @@ public class JTabbedPaneTest extends SwingModelTest {
 		ComponentInfo button_1 = tabbed.getChildrenComponents().get(0);
 		ComponentInfo button_2 = tabbed.getChildrenComponents().get(1);
 		// tabs
-		assertThat(tabbed.getTabs()).hasSize(2);
+		Assertions.assertThat(tabbed.getTabs()).hasSize(2);
 		// active component
 		{
 			assertSame(button_1, tabbed.getActiveComponent());
-			assertThat(presentation.getChildrenGraphical()).contains(button_1).doesNotContain(button_2);
+			Assertions.assertThat(presentation.getChildrenGraphical()).contains(button_1).doesNotContain(button_2);
 		}
 		// set new active
 		{
 			tabbed.setActiveComponent(button_2);
 			assertSame(button_2, tabbed.getActiveComponent());
-			assertThat(presentation.getChildrenGraphical()).contains(button_2).doesNotContain(button_1);
+			Assertions.assertThat(presentation.getChildrenGraphical()).contains(button_2).doesNotContain(button_1);
 		}
 	}
 
@@ -322,6 +331,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for sub-properties of "Tab" property.
 	 */
+	@Test
 	public void test_property_list() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -364,6 +374,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for sub-properties with {@link InvocationChildAssociationAccessor}.
 	 */
+	@Test
 	public void test_property_subAssociation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -398,6 +409,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for sub-properties with {@link JTabbedPane_AtAccessor}.
 	 */
+	@Test
 	public void test_property_subAt() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -441,6 +453,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for sub-properties with {@link JTabbedPane_AtAccessor}.
 	 */
+	@Test
 	public void test_property_subAtSet() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -485,6 +498,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 * This checks {@link GenericPropertyImpl#setExpression(String, Object)}, when we iterate over
 	 * {@link ExpressionAccessor}'s until some of them will able to set expression.
 	 */
+	@Test
 	public void test_property_subAtSetConflict() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -521,6 +535,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for sub-properties with {@link JTabbedPane_AtAccessor}.
 	 */
+	@Test
 	public void test_property_subAtRemove() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -576,6 +591,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -625,6 +641,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for CREATE with "set*At()".
 	 */
+	@Test
 	public void test_CREATE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -675,6 +692,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for CREATE via flow container".
 	 */
+	@Test
 	public void test_CREATE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -724,6 +742,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_DELETE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -762,6 +781,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_OUT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -815,6 +835,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -863,6 +884,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertSame(button_1, tabbed.getActiveComponent());
 	}
 
+	@Test
 	public void test_MOVE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -909,6 +931,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertSame(button_1, tabbed.getActiveComponent());
 	}
 
+	@Test
 	public void test_MOVE_atForward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -970,6 +993,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_atBackward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1031,6 +1055,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_atSeveral() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1081,6 +1106,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * We should not perform NOOP moves.
 	 */
+	@Test
 	public void test_MOVE_beforeAlreadyNext() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1115,6 +1141,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * We should not perform NOOP moves.
 	 */
+	@Test
 	public void test_MOVE_beforeItself() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1151,6 +1178,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD_beforeExisting() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1203,6 +1231,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertSame(button, tabbed.getActiveComponent());
 	}
 
+	@Test
 	public void test_ADD_first() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1239,6 +1268,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertSame(button, tabbed.getActiveComponent());
 	}
 
+	@Test
 	public void test_ADD_tree() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1302,6 +1332,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 	/**
 	 * Test for {@link ObjectEventListener#selecting(ObjectInfo, boolean[])}.
 	 */
+	@Test
 	public void test_selecting() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

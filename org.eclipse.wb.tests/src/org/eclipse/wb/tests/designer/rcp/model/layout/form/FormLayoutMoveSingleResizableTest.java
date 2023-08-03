@@ -23,6 +23,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link FormLayoutInfoImplAutomatic}.
  *
@@ -42,7 +45,9 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	 * Freely moving single resizable component with attachment into different target sides, attached
 	 * to component.
 	 */
-	public void DISABLE_test_move_to_leading_1_2component() throws Exception {
+	@Ignore
+	@Test
+	public void test_move_to_leading_1_2component() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
 				parseComposite(
@@ -106,6 +111,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	 * Freely moving single resizable component with attachment into reverse-different target sides,
 	 * attached to compoennt.
 	 */
+	@Test
 	public void test_move_to_leading_2_2component() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -170,7 +176,9 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	/**
 	 * Freely moving single resizable component with attachment into different target sides.
 	 */
-	public void DISABLE_test_move_to_leading_1() throws Exception {
+	@Ignore
+	@Test
+	public void test_move_to_leading_1() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
 				parseComposite(
@@ -213,7 +221,9 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	/**
 	 * Freely moving single resizable component with attachment into reverse-different target sides.
 	 */
-	public void DISABLE_test_move_to_leading_2() throws Exception {
+	@Ignore
+	@Test
+	public void test_move_to_leading_2() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
 				parseComposite(

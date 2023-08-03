@@ -30,6 +30,8 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Test;
+
 import javax.swing.JButton;
 
 /**
@@ -55,6 +57,7 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	/**
 	 * Test for {@link ObjectEventListener#select(java.util.List)}.
 	 */
+	@Test
 	public void test_ObjectEventListener_select_existingComponent() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -83,6 +86,7 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	/**
 	 * Test for {@link ObjectEventListener#select(java.util.List)}.
 	 */
+	@Test
 	public void test_ObjectEventListener_select_newComponent() throws Exception {
 		final ContainerInfo panel =
 				openContainer(
@@ -120,6 +124,7 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	 * source again and try to perform some other drag this state was not updated - instead it was
 	 * used to create {@link Command} and created weird effect during its execution.
 	 */
+	@Test
 	public void test_TreeDropListener_dragAfterException() throws Exception {
 		removeExceptionsListener();
 		openContainer(

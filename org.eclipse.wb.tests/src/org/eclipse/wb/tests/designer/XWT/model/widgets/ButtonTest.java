@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.StylePresentation;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ButtonInfo}.
  *
@@ -37,6 +39,7 @@ public class ButtonTest extends XwtModelTest {
 	/**
 	 * Test that {@link StylePresentation} returns different icons for menus with different styles.
 	 */
+	@Test
 	public void test_StylePresentation() throws Exception {
 		parse(
 				"<Shell>",

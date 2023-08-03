@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.core.model.util.predicate.SubclassPredicate;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link Predicate} implementations.
  *
@@ -33,6 +35,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link AlwaysPredicate}.
 	 */
+	@Test
 	public void test_AlwaysPredicate_true() throws Exception {
 		Predicate<Object> predicate = new AlwaysPredicate(true);
 		assertTrue(predicate.apply("yes"));
@@ -43,6 +46,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link AlwaysPredicate}.
 	 */
+	@Test
 	public void test_AlwaysPredicate_false() throws Exception {
 		Predicate<Object> predicate = new AlwaysPredicate(false);
 		assertFalse(predicate.apply("yes"));
@@ -53,6 +57,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link SubclassPredicate}.
 	 */
+	@Test
 	public void test_SubclassPredicate() throws Exception {
 		Predicate<Object> predicate = new SubclassPredicate(String.class);
 		assertTrue(predicate.apply("yes"));
@@ -63,6 +68,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentSubclassPredicate}.
 	 */
+	@Test
 	public void test_ComponentSubclassPredicate() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -86,6 +92,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link ExpressionPredicate}.
 	 */
+	@Test
 	public void test_ExpressionPredicate_alwaysTrue() throws Exception {
 		Predicate<Object> predicate = new ExpressionPredicate<Object>("true");
 		assertEquals("true", predicate.toString());
@@ -95,6 +102,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link ExpressionPredicate}.
 	 */
+	@Test
 	public void test_ExpressionPredicate_alwaysFalse() throws Exception {
 		Predicate<Object> predicate = new ExpressionPredicate<Object>("false");
 		assertFalse(predicate.apply(null));
@@ -103,6 +111,7 @@ public class PredicatesTest extends SwingModelTest {
 	/**
 	 * Test for {@link ExpressionPredicate}.
 	 */
+	@Test
 	public void test_ExpressionPredicate_checkLength() throws Exception {
 		Predicate<Object> predicate = new ExpressionPredicate<Object>("length() > 5");
 		assertFalse(predicate.apply("123"));

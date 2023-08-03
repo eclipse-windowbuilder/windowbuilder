@@ -16,7 +16,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.AbstractPositionInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 	/**
 	 * No any children {@link ControlInfo}'s, so for all positions <code>null</code>.
 	 */
+	@Test
 	public void test_childrenNo() throws Exception {
 		ExpandableCompositeInfo composite =
 				parse(
@@ -59,6 +61,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 	/**
 	 * Test for {@link ExpandableCompositeInfo#getControl(String)}.
 	 */
+	@Test
 	public void test_children() throws Exception {
 		ExpandableCompositeInfo composite =
 				parse(
@@ -82,6 +85,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 	/**
 	 * Each {@link ControlInfo} text is decorated with its position method.
 	 */
+	@Test
 	public void test_presentation_decorateText() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -100,6 +104,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 	 * Even when no "real" {@link ControlInfo} children, tree still has {@link AbstractPositionInfo}
 	 * placeholders.
 	 */
+	@Test
 	public void test_getChildrenTree_placeholders() throws Exception {
 		ExpandableCompositeInfo composite =
 				parse(
@@ -109,7 +114,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 						"<ExpandableComposite/>");
 		// no "real" Control's, but in "tree" we have position placeholder children
 		List<ObjectInfo> children = composite.getPresentation().getChildrenTree();
-		assertThat(children).hasSize(2);
+		Assertions.assertThat(children).hasSize(2);
 		assertEquals("textClient", ObjectInfo.getText(children.get(0)));
 		assertEquals("client", ObjectInfo.getText(children.get(1)));
 	}

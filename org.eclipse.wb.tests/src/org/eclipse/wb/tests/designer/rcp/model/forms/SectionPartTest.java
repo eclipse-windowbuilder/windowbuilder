@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.swt.graphics.Font;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link SectionPartInfo}.
@@ -40,6 +41,7 @@ public class SectionPartTest extends AbstractFormsTest {
 	// Design SectionPart
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_withFormToolkit() throws Exception {
 		SectionPartInfo part =
 				parseJavaInfo(
@@ -65,15 +67,16 @@ public class SectionPartTest extends AbstractFormsTest {
 		// refresh
 		part.refresh();
 		assertNoErrors(part);
-		assertThat(part.getBounds().width).isEqualTo(600);
-		assertThat(part.getBounds().height).isEqualTo(500);
-		assertThat(section.getBounds().width).isEqualTo(600);
-		assertThat(section.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(part.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(part.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(section.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(section.getBounds().height).isEqualTo(500);
 	}
 
 	/**
 	 * We should not be too strict and should allow additional parameters in constructor.
 	 */
+	@Test
 	public void test_additionalConstructorParameter() throws Exception {
 		SectionPartInfo part =
 				parseJavaInfo(
@@ -102,6 +105,7 @@ public class SectionPartTest extends AbstractFormsTest {
 	/**
 	 * Test for disposing {@link Font} of {@link SectionInfo} (should not happen).
 	 */
+	@Test
 	public void test_disposing() throws Exception {
 		SectionPartInfo part =
 				parseJavaInfo(
@@ -128,6 +132,7 @@ public class SectionPartTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_withFormPage() throws Exception {
 		parseJavaInfo(
 				"public class Test extends SectionPart {",
@@ -160,6 +165,7 @@ public class SectionPartTest extends AbstractFormsTest {
 	// Use SectionPart
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_useSectionPart() throws Exception {
 		setFileContentSrc(
 				"test/MySectionPart.java",
@@ -192,6 +198,7 @@ public class SectionPartTest extends AbstractFormsTest {
 		assertNoErrors(shell);
 	}
 
+	@Test
 	public void test_liveImage() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -206,6 +213,7 @@ public class SectionPartTest extends AbstractFormsTest {
 		assertNotNull(newSection.getImage());
 	}
 
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -231,6 +239,7 @@ public class SectionPartTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_withToolkit() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

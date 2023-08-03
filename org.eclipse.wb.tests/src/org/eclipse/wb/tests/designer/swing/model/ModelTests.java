@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.swing.model.bean.BeanTests;
 import org.eclipse.wb.tests.designer.swing.model.component.ComponentTests;
 import org.eclipse.wb.tests.designer.swing.model.layout.LayoutTests;
@@ -18,25 +17,25 @@ import org.eclipse.wb.tests.designer.swing.model.property.PropertiesTests;
 import org.eclipse.wb.tests.designer.swing.model.top.TopLevelTests;
 import org.eclipse.wb.tests.designer.swing.model.util.UtilTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for Swing objects models.
  *
  * @author scheglov_ke
  */
-public class ModelTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model");
-		suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
-		suite.addTest(LayoutTests.suite());
-		suite.addTest(ComponentTests.suite());
-		suite.addTest(BeanTests.suite());
-		suite.addTest(UtilTests.suite());
-		suite.addTest(PropertiesTests.suite());
-		suite.addTest(createSingleSuite(ClipboardTest.class));
-		suite.addTest(TopLevelTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		CoordinateUtilsTest.class,
+		LayoutTests.class,
+		ComponentTests.class,
+		BeanTests.class,
+		UtilTests.class,
+		PropertiesTests.class,
+		ClipboardTest.class,
+		TopLevelTests.class
+})
+public class ModelTests {
 }

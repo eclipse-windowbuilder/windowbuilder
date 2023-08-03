@@ -26,7 +26,10 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -46,14 +49,16 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// prepare test Shell
 		m_shell = new Shell();
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		if (m_shell != null) {
 			m_shell.dispose();
@@ -75,6 +80,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	// Configure
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_configure_noClass() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -95,6 +101,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_configure_noFields() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -119,6 +126,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Use single "parameter" with name "fields".
 	 */
+	@Test
 	public void test_configure_singleFieldsParameter() throws Exception {
 		prepareComponent_withField();
 		ComponentDescription description = getMyDescription();
@@ -136,6 +144,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Use single "parameter-list" with name "fields".
 	 */
+	@Test
 	public void test_configure_parameterList() throws Exception {
 		prepareComponent_withoutDefaultValue();
 		ComponentDescription description = getMyDescription();
@@ -158,6 +167,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Top level class, all fields are valid.
 	 */
+	@Test
 	public void test_configure_1() throws Exception {
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 		editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
@@ -172,6 +182,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Top level class, one field does not exist, should be skipped.
 	 */
+	@Test
 	public void test_configure_2() throws Exception {
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 		editor.configure(SwingConstants.class, new String[]{"LEFT", "noSuchField", "RIGHT"});
@@ -186,6 +197,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Top level class, all fields are valid. Specify title in field description.
 	 */
+	@Test
 	public void test_configure_3() throws Exception {
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 		editor.configure(SwingConstants.class, new String[]{"LEFT:asLeft", "RIGHT:asRight"});
@@ -200,6 +212,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Special <code>*remove</code> field.
 	 */
+	@Test
 	public void test_configure_4() throws Exception {
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 		editor.configure(SwingConstants.class, new String[]{"LEFT", "*remove", "RIGHT"});
@@ -235,7 +248,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 
 	private static void assertArrayField_equals(Object editor, String fieldName, Object[] expected) {
 		Object[] actual = (Object[]) ReflectionUtils.getFieldObject(editor, fieldName);
-		assertThat(actual).isEqualTo(expected);
+		Assertions.assertThat(actual).isEqualTo(expected);
 	}
 
 	private void prepareComponent_withField() throws Exception {
@@ -273,6 +286,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	// getClipboardSource()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getClipboardSource_noValue() throws Exception {
 		prepareComponent_withoutDefaultValue();
 		parse(
@@ -289,6 +303,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 		assertEquals(null, propertyEditor.getClipboardSource(property));
 	}
 
+	@Test
 	public void test_getClipboardSource_hasValue() throws Exception {
 		prepareComponent_withField();
 		ControlInfo shell =
@@ -313,6 +328,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link StaticFieldPropertyEditor#setValue(Property, Object)}.
 	 */
+	@Test
 	public void test_setValue_GenericProperty() throws Exception {
 		prepareComponent_withField();
 		ControlInfo shell =
@@ -339,6 +355,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_noValue() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -365,6 +382,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 		assertEquals(null, getPropertyText(property));
 	}
 
+	@Test
 	public void test_getText_hasValue() throws Exception {
 		prepareComponent_withField();
 		ControlInfo shell =
@@ -385,6 +403,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 	// Combo
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_comboMethods() throws Exception {
 		prepareComponent_withField();
 		ControlInfo shell =
@@ -401,7 +420,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 		// check items
 		{
 			List<String> items = getComboPropertyItems();
-			assertThat(items).containsExactly("LEFT", "CENTER", "RIGHT");
+			Assertions.assertThat(items).containsExactly("LEFT", "CENTER", "RIGHT");
 		}
 		// select current item
 		{
@@ -429,6 +448,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_comboMethods_removeValue() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -455,7 +475,7 @@ public class StaticFieldPropertyEditorTest extends AbstractCoreTest {
 		// check items
 		{
 			List<String> items = getComboPropertyItems();
-			assertThat(items).containsExactly("", "LEFT", "RIGHT");
+			Assertions.assertThat(items).containsExactly("", "LEFT", "RIGHT");
 		}
 		// set "*remove"
 		{

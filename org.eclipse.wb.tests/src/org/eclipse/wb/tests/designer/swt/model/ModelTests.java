@@ -10,30 +10,29 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.swt.model.jface.JFaceTests;
 import org.eclipse.wb.tests.designer.swt.model.layouts.LayoutTests;
 import org.eclipse.wb.tests.designer.swt.model.menu.MenuTests;
 import org.eclipse.wb.tests.designer.swt.model.property.PropertiesTests;
 import org.eclipse.wb.tests.designer.swt.model.widgets.WidgetTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * SWT model tests.
  *
  * @author sablin_aa
  */
-public class ModelTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swt.model");
-		suite.addTest(WidgetTests.suite());
-		suite.addTest(PropertiesTests.suite());
-		suite.addTest(LayoutTests.suite());
-		suite.addTest(JFaceTests.suite());
-		suite.addTest(MenuTests.suite());
-		suite.addTest(createSingleSuite(ClipboardTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		WidgetTests.class,
+		PropertiesTests.class,
+		LayoutTests.class,
+		JFaceTests.class,
+		MenuTests.class,
+		ClipboardTest.class
+})
+public class ModelTests {
 }

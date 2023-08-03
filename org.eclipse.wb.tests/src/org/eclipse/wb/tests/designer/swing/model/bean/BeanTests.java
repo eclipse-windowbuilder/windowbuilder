@@ -10,22 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for Swing beans.
  *
  * @author scheglov_ke
  */
-public class BeanTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.bean");
-		suite.addTest(createSingleSuite(ButtonGroupTest.class));
-		suite.addTest(createSingleSuite(ActionTest.class));
-		suite.addTest(createSingleSuite(ActionGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ButtonGroupTest.class,
+		ActionTest.class,
+		ActionGefTest.class
+})
+public class BeanTests {
 }

@@ -15,27 +15,22 @@ import org.eclipse.wb.draw2d.ICursorConstants;
 
 import org.eclipse.swt.widgets.Display;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+
+
 
 /**
  * @author lobas_av
  *
  */
-public abstract class Draw2dFigureTestCase extends TestCase
+public abstract class Draw2dFigureTestCase extends Assert
 implements
 IColorConstants,
 ICursorConstants {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public Draw2dFigureTestCase(Class<?> _class) {
-		super(_class.getName());
-	}
 
-	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// check create display for initialize figure's colors
 		Display.getDefault();
 	}

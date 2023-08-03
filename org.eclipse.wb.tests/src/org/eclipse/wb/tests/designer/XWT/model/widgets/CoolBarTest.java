@@ -24,9 +24,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link CoolBarInfo}.
@@ -51,6 +50,7 @@ public class CoolBarTest extends XwtModelTest {
 	/**
 	 * Test for {@link CoolBarInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -74,6 +74,7 @@ public class CoolBarTest extends XwtModelTest {
 	/**
 	 * {@link CoolBar} with {@link CoolItem}'s.
 	 */
+	@Test
 	public void test_items_withSize() throws Exception {
 		CoolBarInfo toolBar =
 				parse(
@@ -87,7 +88,7 @@ public class CoolBarTest extends XwtModelTest {
 		// prepare
 		CoolItemInfo item_1 = getObjectByName("item_1");
 		CoolItemInfo item_2 = getObjectByName("item_2");
-		assertThat(toolBar.getItems()).containsExactly(item_1, item_2);
+		Assertions.assertThat(toolBar.getItems()).containsExactly(item_1, item_2);
 		// item_1
 		{
 			// bounds
@@ -111,6 +112,7 @@ public class CoolBarTest extends XwtModelTest {
 	/**
 	 * {@link CoolBar} with {@link CoolItem}'s.
 	 */
+	@Test
 	public void test_items_noSize() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -139,6 +141,7 @@ public class CoolBarTest extends XwtModelTest {
 	// Control
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Control_isEmpty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -178,6 +181,7 @@ public class CoolBarTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_Control_CREATE() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -206,6 +210,7 @@ public class CoolBarTest extends XwtModelTest {
 				"</CoolBar>");
 	}
 
+	@Test
 	public void test_Control_moveOut() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -250,6 +255,7 @@ public class CoolBarTest extends XwtModelTest {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		CoolBarInfo coolBar = parse("<CoolBar/>");
 		refresh();

@@ -18,6 +18,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link ImagePropertyEditor}.
  *
@@ -29,6 +32,7 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_noIimage() throws Exception {
 		assertImagePropertyText(null, new String[]{
 				"public class Test extends JFrame {",
@@ -37,6 +41,7 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_getText_null() throws Exception {
 		assertImagePropertyText("(null)", new String[]{
 				"public class Test extends JFrame {",
@@ -46,6 +51,7 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_getText_fromFile() throws Exception {
 		IFile imageFile = TestUtils.createImagePNG(m_testProject, "1.png", 10, 10);
 		try {
@@ -61,7 +67,9 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 		}
 	}
 
-	public void DISABLE_test_getText_Class_getResource_1() throws Exception {
+	@Ignore
+	@Test
+	public void test_getText_Class_getResource_1() throws Exception {
 		assertImagePropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
 				new String[]{
@@ -72,7 +80,9 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
-	public void DISABLE_test_getText_Class_getResource_2() throws Exception {
+	@Ignore
+	@Test
+	public void test_getText_Class_getResource_2() throws Exception {
 		assertImagePropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
 				new String[]{
@@ -84,7 +94,9 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
-	public void DISABLE_test_getText_Class_getResource_3() throws Exception {
+	@Ignore
+	@Test
+	public void test_getText_Class_getResource_3() throws Exception {
 		assertImagePropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
 				new String[]{

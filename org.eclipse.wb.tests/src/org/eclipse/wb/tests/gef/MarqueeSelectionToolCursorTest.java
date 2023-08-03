@@ -15,19 +15,14 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public MarqueeSelectionToolCursorTest() {
-		super(MarqueeSelectionTool.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -35,7 +30,8 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_domain.setActiveTool(new MarqueeSelectionTool());
@@ -46,6 +42,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Move_Click_InvalidInput() throws Exception {
 		EditPart shellEditPart =
 				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, null, null);

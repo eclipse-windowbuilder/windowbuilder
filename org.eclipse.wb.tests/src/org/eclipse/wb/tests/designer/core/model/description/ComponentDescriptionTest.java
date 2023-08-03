@@ -25,7 +25,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link ComponentDescriptionHelper}, {@link ComponentDescription}, etc.
@@ -51,6 +52,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 	/**
 	 * Test {@link ComponentDescription} of empty object.
 	 */
+	@Test
 	public void test_getDescription_empty() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.wbp-component.xml",
@@ -95,6 +97,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 	// Tags
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_methodTag() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.wbp-component.xml",
@@ -127,6 +130,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 		assertNull(methodDescription.getTag("no-such-tag"));
 	}
 
+	@Test
 	public void test_parameterTag() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.wbp-component.xml",
@@ -168,6 +172,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 	// Evaluation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_methodEvaluation() throws Exception {
 		// MyButton
 		setFileContentSrc(
@@ -210,6 +215,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentDescription#hasTrueParameter(String)}.
 	 */
+	@Test
 	public void test_hasTrueParameter() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -234,9 +240,9 @@ public class ComponentDescriptionTest extends SwingModelTest {
 		//
 		ComponentDescription description =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyObject");
-		assertThat(description.hasTrueParameter("parameter_1")).isTrue();
-		assertThat(description.hasTrueParameter("parameter_2")).isFalse();
-		assertThat(description.hasTrueParameter("parameter_3")).isFalse();
+		Assertions.assertThat(description.hasTrueParameter("parameter_1")).isTrue();
+		Assertions.assertThat(description.hasTrueParameter("parameter_2")).isFalse();
+		Assertions.assertThat(description.hasTrueParameter("parameter_3")).isFalse();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -244,6 +250,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 	// Generics
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_genericConstructorDescription() throws Exception {
 		// MyPanel
 		setFileContentSrc(

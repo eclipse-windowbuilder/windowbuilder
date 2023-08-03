@@ -22,7 +22,8 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link MethodPropertyRule}.
@@ -44,6 +45,7 @@ public class MethodPropertyRuleTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_subPropertiesAndAccessors() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -89,6 +91,7 @@ public class MethodPropertyRuleTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_useNamesFromParameterDescription() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -125,6 +128,7 @@ public class MethodPropertyRuleTest extends SwingModelTest {
 		assertEquals("myArg_1", subProperties[1].getTitle());
 	}
 
+	@Test
 	public void test_noExtraTopLevelProperties() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -157,6 +161,7 @@ public class MethodPropertyRuleTest extends SwingModelTest {
 		assertNull(panel.getPropertyByTitle("html"));
 	}
 
+	@Test
 	public void test_registeredSubProperties() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -187,13 +192,13 @@ public class MethodPropertyRuleTest extends SwingModelTest {
 			String id = "setText(java.lang.String,boolean) 0";
 			GenericPropertyDescription property = description.getProperty(id);
 			assertNotNull(property);
-			assertThat(property.getEditor()).isSameAs(StringPropertyEditor.INSTANCE);
+			Assertions.assertThat(property.getEditor()).isSameAs(StringPropertyEditor.INSTANCE);
 		}
 		{
 			String id = "setText(java.lang.String,boolean) 1";
 			GenericPropertyDescription property = description.getProperty(id);
 			assertNotNull(property);
-			assertThat(property.getEditor()).isSameAs(BooleanPropertyEditor.INSTANCE);
+			Assertions.assertThat(property.getEditor()).isSameAs(BooleanPropertyEditor.INSTANCE);
 		}
 	}
 }

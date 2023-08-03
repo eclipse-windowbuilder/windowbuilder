@@ -37,7 +37,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -64,7 +66,8 @@ public class EditorLayoutTest extends XwtGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		{
 			IPreferenceStore preferences = DesignerPlugin.getPreferences();
@@ -81,6 +84,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Pages mode, "Source" first.
 	 */
+	@Test
 	public void test_pagesSource() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_SOURCE);
 		openEditor0("<Shell/>");
@@ -101,6 +105,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Pages mode, "Design" first.
 	 */
+	@Test
 	public void test_pagesDesign() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_DESIGN);
 		openEditor0("<Shell/>");
@@ -118,6 +123,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Split mode, horizontal, "Source" first.
 	 */
+	@Test
 	public void test_splitHorizontalSource() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_SOURCE);
 		openEditor0("<Shell/>");
@@ -154,6 +160,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Split mode, horizontal, "Design" first.
 	 */
+	@Test
 	public void test_splitHorizontalDesign() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_DESIGN);
 		openEditor0("<Shell/>");
@@ -179,6 +186,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Split mode, vertical, "Source" first.
 	 */
+	@Test
 	public void test_splitVerticalSource() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE);
 		openEditor0("<Shell/>");
@@ -192,6 +200,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Split mode, vertical, "Design" first.
 	 */
+	@Test
 	public void test_splitVerticalDesign() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
 		openEditor0("<Shell/>");
@@ -205,6 +214,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Split mode, vertical, "Source" first. Try to show different pages.
 	 */
+	@Test
 	public void test_splitVerticalSource_showPages() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE);
 		openEditor0("<Shell/>");
@@ -280,6 +290,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * Split mode, vertical, "Source" first.
 	 */
+	@Test
 	public void test_splitVerticalSource_customPage() throws Exception {
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE);
 		// create editor with custom page
@@ -351,6 +362,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * When "split" mode and "Design" is active, then changes cause immediate refresh.
 	 */
+	@Test
 	public void test_splitRefresh_whenDesignActive() throws Exception {
 		setSyncDelay(SYNC_DELAY);
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
@@ -374,6 +386,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * When "split" mode and "Source" is active, then changes cause refresh after some delay.
 	 */
+	@Test
 	public void test_splitRefresh_whenSourceActive() throws Exception {
 		setSyncDelay(SYNC_DELAY);
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
@@ -403,6 +416,7 @@ public class EditorLayoutTest extends XwtGefTest {
 	/**
 	 * When "split" and "refresh on save" options.
 	 */
+	@Test
 	public void test_splitRefresh_onSave() throws Exception {
 		setSyncDelay(0);
 		setEditorLayout(IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
@@ -477,12 +491,12 @@ public class EditorLayoutTest extends XwtGefTest {
 		Control designControl = m_designPage.getControl();
 		int sourceIndex = controls.indexOf(sourceControl);
 		int designIndex = controls.indexOf(designControl);
-		assertThat(sourceIndex).isPositive();
-		assertThat(designIndex).isPositive();
+		Assertions.assertThat(sourceIndex).isPositive();
+		Assertions.assertThat(designIndex).isPositive();
 		if (sourceFirst) {
-			assertThat(sourceIndex).isLessThan(designIndex);
+			Assertions.assertThat(sourceIndex).isLessThan(designIndex);
 		} else {
-			assertThat(designIndex).isLessThan(sourceIndex);
+			Assertions.assertThat(designIndex).isLessThan(sourceIndex);
 		}
 	}
 

@@ -26,7 +26,9 @@ import org.eclipse.swt.graphics.Image;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Tests for components from {@link DefaultComponentFactory}.
@@ -51,6 +53,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link DefaultComponentFactory#createLabel(String)}.
 	 */
+	@Test
 	public void test_createLabel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -71,7 +74,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		// CreationSupport
-		assertThat(component.getCreationSupport()).isInstanceOf(
+		Assertions.assertThat(component.getCreationSupport()).isInstanceOf(
 				DefaultComponentFactoryCreationSupport.class);
 		// permissions
 		assertTrue(JavaInfoUtils.canMove(component));
@@ -105,7 +108,9 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	 * Test for {@link DefaultComponentFactoryCreateLabelEntryInfo}.
 	 */
 	@DisposeProjectAfter
-	public void DISABLE_test_createLabel_tool() throws Exception {
+	@Ignore
+	@Test
+	public void test_createLabel_tool() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
 		m_useFormsImports = false;
@@ -136,8 +141,8 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 			Image image = newComponent.getImage();
 			assertNotNull(image);
 			org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
-			assertThat(bounds.width).isGreaterThan(50).isLessThan(100);
-			assertThat(bounds.height).isGreaterThan(10).isLessThan(20);
+			Assertions.assertThat(bounds.width).isGreaterThan(50).isLessThan(100);
+			Assertions.assertThat(bounds.height).isGreaterThan(10).isLessThan(20);
 			image.dispose();
 		}
 		// add object
@@ -163,6 +168,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link DefaultComponentFactory#createTitle(String)}.
 	 */
+	@Test
 	public void test_createTitle() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -182,7 +188,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		// CreationSupport
-		assertThat(component.getCreationSupport()).isInstanceOf(
+		Assertions.assertThat(component.getCreationSupport()).isInstanceOf(
 				DefaultComponentFactoryCreationSupport.class);
 		// "text" property
 		component.getPropertyByTitle("text").setValue("B");
@@ -198,6 +204,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_createTitle_tool() throws Exception {
 		do_projectDispose();
 		do_projectCreate();

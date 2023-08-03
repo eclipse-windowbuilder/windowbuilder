@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class LayoutDescriptionTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_get_Swing() throws Exception {
 		ToolkitDescription toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
 		List<LayoutDescription> layouts = LayoutDescriptionHelper.get(toolkit);

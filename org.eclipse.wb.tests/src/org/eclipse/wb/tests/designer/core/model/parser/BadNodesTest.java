@@ -23,7 +23,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class BadNodesTest extends SwingModelTest {
 	 * If Eclipse is run using earlier version of JVM than version of {@link IJavaProject}, we should
 	 * show warning about this.
 	 */
+	@Test
 	public void test_incompatibleVersionJVM() throws Exception {
 		EnvironmentUtils.setForcedJavaVersion(1.5f);
 		try {
@@ -72,6 +74,7 @@ public class BadNodesTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_emptyCompilationUnit() throws Exception {
 		try {
 			parseSource("test", "Test.java", "");
@@ -85,6 +88,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * Parsing should fail because "text" is unknown.
 	 */
+	@Test
 	public void test_badNodeCreation_unknownArgument() throws Exception {
 		try {
 			parseContainer(
@@ -105,6 +109,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * If we can not evaluate parameter, we should use default value.
 	 */
+	@Test
 	public void test_badNodeCreation_exceptionInConstructorArgument() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -134,20 +139,21 @@ public class BadNodesTest extends SwingModelTest {
 		// has logged refresh error
 		{
 			List<BadNodeInformation> badNodes = m_lastState.getBadRefreshNodes().nodes();
-			assertThat(badNodes).hasSize(1);
+			Assertions.assertThat(badNodes).hasSize(1);
 			BadNodeInformation badNode = badNodes.get(0);
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(badNode.getException());
-			assertThat(rootCause).isInstanceOf(IllegalStateException.class);
+			Assertions.assertThat(rootCause).isInstanceOf(IllegalStateException.class);
 		}
 		// refresh
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
-		assertThat(((JButton) button.getObject()).getText()).isEqualTo("<dynamic>");
+		Assertions.assertThat(((JButton) button.getObject()).getText()).isEqualTo("<dynamic>");
 	}
 
 	/**
 	 * Parsing is OK, because we specify value of parameter.
 	 */
+	@Test
 	public void test_forcedMethodParameter() throws Exception {
 		ContainerInfo panelInfo =
 				parseContainer(
@@ -176,6 +182,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * Parsing is OK, but there is bad node because "text" is unknown.
 	 */
+	@Test
 	public void test_badNodeInvocation() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -191,7 +198,7 @@ public class BadNodesTest extends SwingModelTest {
 				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText(text)/ /add(button)/}");
 		// check bad nodes
 		List<BadNodeInformation> badParseNodes = m_lastState.getBadParserNodes().nodes();
-		assertThat(badParseNodes).hasSize(1);
+		Assertions.assertThat(badParseNodes).hasSize(1);
 		{
 			BadNodeInformation badNodeInformation = badParseNodes.get(0);
 			assertEquals("button.setText(text);", m_lastEditor.getSource(badNodeInformation.getNode()));
@@ -206,6 +213,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * Hard error - syntax error. Parsing stops.
 	 */
+	@Test
 	public void test_error_syntax_1() throws Exception {
 		m_ignoreCompilationProblems = true;
 		ContainerInfo panel =
@@ -222,6 +230,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * Hard error - syntax error. Parsing stops.
 	 */
+	@Test
 	public void test_error_syntax_2() throws Exception {
 		m_ignoreCompilationProblems = true;
 		ContainerInfo panel =
@@ -241,6 +250,7 @@ public class BadNodesTest extends SwingModelTest {
 	 * Test for case when syntax is correct, but not existing class is used.<br>
 	 * No other components.
 	 */
+	@Test
 	public void test_error_noSuchClass_1() throws Exception {
 		// parsing is important
 		m_ignoreCompilationProblems = true;
@@ -261,6 +271,7 @@ public class BadNodesTest extends SwingModelTest {
 	 * Test for case when syntax is correct, but not existing class is used.<br>
 	 * Other component can be parsed.
 	 */
+	@Test
 	public void test_error_noSuchClass_2() throws Exception {
 		// parsing is important
 		m_ignoreCompilationProblems = true;
@@ -282,6 +293,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * Invalid method is invoked, it just ignore, other things are parsed and executed.
 	 */
+	@Test
 	public void test_error_noSuchMethod() throws Exception {
 		// parsing is important
 		m_ignoreCompilationProblems = true;
@@ -315,6 +327,7 @@ public class BadNodesTest extends SwingModelTest {
 	 * <p>
 	 * When we have compilation problem, this may cause typeBinding/variable exceptions.
 	 */
+	@Test
 	public void test_noSuchType_forVariable() throws Exception {
 		m_ignoreCompilationProblems = true;
 		ContainerInfo panel =
@@ -339,6 +352,7 @@ public class BadNodesTest extends SwingModelTest {
 	 * {@link MethodDeclaration} with compilation errors does not have {@link IMethodBinding}. We
 	 * ignore this.
 	 */
+	@Test
 	public void test_noMethodBinding_noInvocation() throws Exception {
 		m_ignoreCompilationProblems = true;
 		ContainerInfo panel =
@@ -364,6 +378,7 @@ public class BadNodesTest extends SwingModelTest {
 	 * ignore this. We don't enter this method because we can not find it, so not related nodes from
 	 * it.
 	 */
+	@Test
 	public void test_noMethodBinding_itIsInvoked() throws Exception {
 		m_ignoreCompilationProblems = true;
 		ContainerInfo panel =
@@ -388,6 +403,7 @@ public class BadNodesTest extends SwingModelTest {
 	/**
 	 * We should throw {@link DesignerException} with good information for user.
 	 */
+	@Test
 	public void test_doubleAssociationException() throws Exception {
 		m_ignoreCompilationProblems = true;
 		try {

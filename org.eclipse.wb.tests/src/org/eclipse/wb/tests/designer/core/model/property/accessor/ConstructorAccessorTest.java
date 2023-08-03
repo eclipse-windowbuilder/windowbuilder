@@ -24,6 +24,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ConstructorAccessor}.
  *
@@ -35,6 +37,7 @@ public class ConstructorAccessorTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -57,6 +60,7 @@ public class ConstructorAccessorTest extends SwingModelTest {
 	// setExpression
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setExpression_newValue() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -82,6 +86,7 @@ public class ConstructorAccessorTest extends SwingModelTest {
 	/**
 	 * Use <code>null</code> to clear value.
 	 */
+	@Test
 	public void test_setExpression_nullValue() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -107,6 +112,7 @@ public class ConstructorAccessorTest extends SwingModelTest {
 	/**
 	 * Use <code>null</code> to clear value.
 	 */
+	@Test
 	public void test_setExpression_nullValue_noDefault() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -131,6 +137,7 @@ public class ConstructorAccessorTest extends SwingModelTest {
 	/**
 	 * Test that {@link ConstructorAccessor} resolves deferred {@link JavaInfo} references.
 	 */
+	@Test
 	public void test_setExpression_replaceComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

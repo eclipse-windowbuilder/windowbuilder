@@ -37,9 +37,10 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -68,6 +69,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for "normal" Swing association using {@link Container#add(Component)} method.
 	 */
+	@Test
 	public void test_association_noConstraints() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -87,6 +89,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for "deprecated" Swing association using {@link Container#add(String, Component)} method.
 	 */
+	@Test
 	public void test_association_addDeprecated() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -111,6 +114,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for implicit {@link LayoutInfo}.
 	 */
+	@Test
 	public void test_implicitLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -130,6 +134,7 @@ public class ContainerTest extends SwingModelTest {
 	 * In AWT/Swing {@link AbstractComponentInfo#getClientAreaInsets()} is usually empty, see comment
 	 * for {@link ContainerInfo#getInsets()}.
 	 */
+	@Test
 	public void test_getInsets_getClientAreaInsets() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -170,6 +175,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for {@link ContainerInfo#shouldDrawDotsBorder()}.
 	 */
+	@Test
 	public void test_shouldDrawDotsBorder() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -208,6 +214,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for {@link ContainerInfo#setLayout(LayoutInfo)}.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -249,6 +256,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for {@link IPreferenceConstants#P_LAYOUT_OF_PARENT}, that enables layout inheritance.
 	 */
+	@Test
 	public void test_inheritParentLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -302,6 +310,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for {@link IPreferenceConstants#P_LAYOUT_OF_PARENT}, that enables layout inheritance.
 	 */
+	@Test
 	public void test_inheritParentLayout_null() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -355,6 +364,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for {@link IPreferenceConstants#P_LAYOUT_DEFAULT}, i.e. installation for default layout.
 	 */
+	@Test
 	public void test_setDefaultLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -413,7 +423,9 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		String[] lines1 =
 			{
 					"public class Test extends JPanel {",
@@ -469,6 +481,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * No "Set Layout" sub-menu if {@link ContainerInfo} has no layout.
 	 */
+	@Test
 	public void test_setLayoutMenu_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -491,6 +504,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test that {@link CompositeInfo} contributes "Set layout" sub-menu in context menu.
 	 */
+	@Test
 	public void test_setLayoutMenu_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -539,6 +553,7 @@ public class ContainerTest extends SwingModelTest {
 	 * Tests that {@link ContainerInfo} has item <code>"FormLayout"</code> and it works on clean
 	 * project, without added {@link FormLayout} jar.
 	 */
+	@Test
 	public void test_setLayoutMenu_2() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
@@ -583,8 +598,8 @@ public class ContainerTest extends SwingModelTest {
 			String text,
 			boolean enabled) {
 		IAction action = findChildAction(layoutManager, text);
-		assertThat(action).isNotNull();
-		assertThat(action.isEnabled()).isEqualTo(enabled);
+		Assertions.assertThat(action).isNotNull();
+		Assertions.assertThat(action.isEnabled()).isEqualTo(enabled);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -597,6 +612,7 @@ public class ContainerTest extends SwingModelTest {
 	 * <p>
 	 * No layout for placeholder.
 	 */
+	@Test
 	public void test_hasLayout_placeholder() throws Exception {
 		setFileContentSrc(
 				"test/MyContainer.java",
@@ -637,6 +653,7 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for {@link ContainerInfo#canSetLayout()}.
 	 */
+	@Test
 	public void test_canSetLayout_enabled() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -659,6 +676,7 @@ public class ContainerTest extends SwingModelTest {
 	 * If execution of {@link Container#setLayout(java.awt.LayoutManager)} is disabled, then we can
 	 * not set new layout.
 	 */
+	@Test
 	public void test_canSetLayout_disabled() throws Exception {
 		prepareMyPanel_disabledSetLayout();
 		ContainerInfo panel =

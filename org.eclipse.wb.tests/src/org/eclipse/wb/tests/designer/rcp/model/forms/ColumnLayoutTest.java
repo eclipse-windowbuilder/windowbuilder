@@ -23,7 +23,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_LayoutData_implicit() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -80,6 +82,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_LayoutData_explicit() throws Exception {
 		CompositeInfo shell =
 				parseJavaInfo(
@@ -98,6 +101,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 		assertInstanceOf(ConstructorCreationSupport.class, columnData.getCreationSupport());
 	}
 
+	@Test
 	public void test_copyPaste() throws Exception {
 		CompositeInfo shell =
 				parseJavaInfo(
@@ -154,6 +158,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_selectionActions_1() throws Exception {
 		CompositeInfo shell =
 				parseJavaInfo(
@@ -174,7 +179,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions(button);
 		// check actions
-		assertThat(actions).hasSize(5); // separator, 4 action's
+		Assertions.assertThat(actions).hasSize(5); // separator, 4 action's
 		assertNotNull(findAction(actions, "Left"));
 		assertNotNull(findAction(actions, "Center"));
 		assertNotNull(findAction(actions, "Right"));
@@ -208,6 +213,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	/**
 	 * No selection.
 	 */
+	@Test
 	public void test_selectionActions_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -220,12 +226,13 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions();
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
 	/**
 	 * Invalid selection.
 	 */
+	@Test
 	public void test_selectionActions_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -240,7 +247,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions(shell, button);
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -251,6 +258,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	/**
 	 * Conversion from {@link ColumnLayout} should keep horizontal alignment.
 	 */
+	@Test
 	public void test_convertFrom() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -286,6 +294,7 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	/**
 	 * Conversion to {@link ColumnLayout} should keep horizontal alignment.
 	 */
+	@Test
 	public void test_convertTo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

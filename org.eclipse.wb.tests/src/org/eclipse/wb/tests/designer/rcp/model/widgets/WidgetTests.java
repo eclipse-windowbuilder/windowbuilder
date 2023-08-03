@@ -10,47 +10,45 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP widgets models.
  *
  * @author scheglov_ke
  */
-public class WidgetTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.widgets");
-		suite.addTest(createSingleSuite(ControlTest.class));
-		suite.addTest(createSingleSuite(AsyncMessagesSupportTest.class));
-		suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
-		suite.addTest(createSingleSuite(LabelTest.class));
-		suite.addTest(createSingleSuite(TableTest.class));
-		suite.addTest(createSingleSuite(TableGefTest.class));
-		suite.addTest(createSingleSuite(TreeTest.class));
-		suite.addTest(createSingleSuite(TreeGefTest.class));
-		suite.addTest(createSingleSuite(ToolBarTest.class));
-		suite.addTest(createSingleSuite(ToolBarGefTest.class));
-		suite.addTest(createSingleSuite(CoolBarTest.class));
-		suite.addTest(createSingleSuite(CoolBarGefTest.class));
-		suite.addTest(createSingleSuite(ExpandBarTest.class));
-		suite.addTest(createSingleSuite(TabFolderTest.class));
-		suite.addTest(createSingleSuite(TabFolderGefTest.class));
-		suite.addTest(createSingleSuite(CTabFolderTest.class));
-		suite.addTest(createSingleSuite(ViewFormTest.class));
-		suite.addTest(createSingleSuite(ViewFormGefTest.class));
-		suite.addTest(createSingleSuite(CBannerTest.class));
-		suite.addTest(createSingleSuite(SashFormTest.class));
-		suite.addTest(createSingleSuite(ScrolledCompositeTest.class));
-		suite.addTest(createSingleSuite(DialogTest.class));
-		suite.addTest(createSingleSuite(SwtAwtTest.class));
-		suite.addTest(createSingleSuite(DragSourceTest.class));
-		suite.addTest(createSingleSuite(DropTargetTest.class));
-		suite.addTest(createSingleSuite(TrayItemTest.class));
-		suite.addTest(createSingleSuite(MorphingSupportTest.class));
-		suite.addTest(createSingleSuite(DialogTopBoundsSupportTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ControlTest.class,
+		AsyncMessagesSupportTest.class,
+		TabOrderPropertyTest.class,
+		LabelTest.class,
+		TableTest.class,
+		TableGefTest.class,
+		TreeTest.class,
+		TreeGefTest.class,
+		ToolBarTest.class,
+		ToolBarGefTest.class,
+		CoolBarTest.class,
+		CoolBarGefTest.class,
+		ExpandBarTest.class,
+		TabFolderTest.class,
+		TabFolderGefTest.class,
+		CTabFolderTest.class,
+		ViewFormTest.class,
+		ViewFormGefTest.class,
+		CBannerTest.class,
+		SashFormTest.class,
+		ScrolledCompositeTest.class,
+		DialogTest.class,
+		SwtAwtTest.class,
+		DragSourceTest.class,
+		DropTargetTest.class,
+		TrayItemTest.class,
+		MorphingSupportTest.class,
+		DialogTopBoundsSupportTest.class
+})
+public class WidgetTests {
 }

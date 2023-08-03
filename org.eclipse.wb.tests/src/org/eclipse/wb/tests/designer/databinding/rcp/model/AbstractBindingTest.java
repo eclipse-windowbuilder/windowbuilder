@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author lobas_av
  *
  */
-public class AbstractBindingTest extends RcpModelTest {
+public abstract class AbstractBindingTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle

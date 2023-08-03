@@ -28,6 +28,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link WidgetInfo}.
  *
@@ -50,6 +52,7 @@ public class WidgetTest extends RcpModelTest {
 	// Style
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getStyle() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -86,6 +89,7 @@ public class WidgetTest extends RcpModelTest {
 	 * Test that {@link Widget#setData(Object)} and {@link Widget#setData(String, Object)} are
 	 * described as executable.
 	 */
+	@Test
 	public void test_description_setData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -108,6 +112,7 @@ public class WidgetTest extends RcpModelTest {
 	// Exposed
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_exposedControls() throws Exception {
 		setFileContentSrc(
 				"test/ExposedComposite.java",
@@ -157,6 +162,7 @@ public class WidgetTest extends RcpModelTest {
 	/**
 	 * Test for bounds of exposed {@link Control} from deep hierarchy.
 	 */
+	@Test
 	public void test_exposedControl_bounds() throws Exception {
 		setFileContentSrc(
 				"test/ExposedComposite.java",
@@ -210,6 +216,7 @@ public class WidgetTest extends RcpModelTest {
 	 * Test that name of component is set in component using {@link Widget#setData(String, Object)}
 	 * with key "name".
 	 */
+	@Test
 	public void test_variableName_setData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -268,6 +275,7 @@ public class WidgetTest extends RcpModelTest {
 	 * Test that name of component is set in component using {@link Widget#setData(String, Object)}
 	 * with key "name", even when we just add new component.
 	 */
+	@Test
 	public void test_variableName_setData_onCreate() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

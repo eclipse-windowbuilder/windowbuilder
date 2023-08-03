@@ -51,20 +51,22 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
+import org.junit.After;
+import org.junit.Before;
 
 import java.util.List;
 
-public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
+public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		m_ignoreCompilationProblems = false;
 		m_waitForAutoBuild = false;
@@ -83,7 +85,8 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		disposeLastModel();
 		tearDown_afterLastModelDispose();
 		super.tearDown();
@@ -111,16 +114,6 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 			m_lastLoadingContext = null;
 		}
 		m_lastLoader = null;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -494,14 +487,14 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	public static void assertVisibleInTree(final ObjectInfo child, boolean expected) throws Exception {
 		List<ObjectInfo> children = child.getParent().getPresentation().getChildrenTree();
 		if (expected) {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should be in children: " + child;
 				}
 			}).contains(child);
 		} else {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should not be in children: " + child;
@@ -517,14 +510,14 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 			throws Exception {
 		List<ObjectInfo> children = child.getParent().getPresentation().getChildrenGraphical();
 		if (expected) {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should be in children: " + child;
 				}
 			}).contains(child);
 		} else {
-			assertThat(children).as(new Description() {
+			Assertions.assertThat(children).as(new Description() {
 				@Override
 				public String value() {
 					return "Should not be in children: " + child;

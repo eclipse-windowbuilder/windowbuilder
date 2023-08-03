@@ -16,6 +16,9 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.jdt.core.IPackageFragment;
 
+import org.junit.After;
+import org.junit.Before;
+
 /**
  * Tests for {@link XwtWizard}.
  *
@@ -30,13 +33,15 @@ public class XwtWizardTest extends XwtModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		m_packageFragment = m_testProject.getPackage("test");
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		{
 			waitEventLoop(0);
 			TestUtils.closeAllEditors();

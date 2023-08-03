@@ -25,7 +25,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -45,7 +47,8 @@ public class LookAndFeelTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		if (m_lastParseInfo != null) {
 			LafInfo undefinedLAF = UndefinedLafInfo.INSTANCE;
@@ -71,6 +74,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test for finding main() method in primary type of compilation unit.
 	 */
+	@Test
 	public void test_getMainMethod() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -85,6 +89,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test for finding main() method in primary type of compilation unit when no main() method.
 	 */
+	@Test
 	public void test_getSetLookAndFeel_no() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -100,6 +105,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test for finding UIManager.setLookAndFeel() when it has {@link String} argument.
 	 */
+	@Test
 	public void test_getSetLookAndFeel_String() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -119,6 +125,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test for finding UIManager.setLookAndFeel() when it has {@link LookAndFeel} argument.
 	 */
+	@Test
 	public void test_getSetLookAndFeel_LookAndFeel() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -138,6 +145,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test for adding UIManager.setLookAndFeel(String) when no setLookAndFeel method found.
 	 */
+	@Test
 	public void test_addSetLookAndFeel() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -170,6 +178,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * Test for modifying UIManager.setLookAndFeel() when this method with {@link String} argument
 	 * found.
 	 */
+	@Test
 	public void test_modifySetLookAndFeel_String() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -199,6 +208,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * Test for modifying UIManager.setLookAndFeel() when this method with {@link LookAndFeel}
 	 * argument found.
 	 */
+	@Test
 	public void test_modifySetLookAndFeel_LookAndFeel() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -228,6 +238,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * Test for adding UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()) when no
 	 * setLookAndFeel method invocation found and "&lt;system&gt;" look-and-feel selected.
 	 */
+	@Test
 	public void test_addSetSystemLookAndFeel() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -261,6 +272,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()) when "&lt;system&gt;"
 	 * look-and-feel selected.
 	 */
+	@Test
 	public void test_modifySetSystemLookAndFeel_String() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -291,6 +303,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()) when "&lt;system&gt;"
 	 * look-and-feel selected.
 	 */
+	@Test
 	public void test_modifySetSystemLookAndFeel_LookAndFeel() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -320,6 +333,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * Test for removing UIManager.setLookAndFeel() method invocation when "&lt;undefined&gt;"
 	 * look-and-feel selected and try statement body is not empty.
 	 */
+	@Test
 	public void test_removeSetSystemLookAndFeel_without_try() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -348,6 +362,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * Test for removing UIManager.setLookAndFeel() method invocation when "&lt;undefined&gt;"
 	 * look-and-feel selected and try statement body is empty.
 	 */
+	@Test
 	public void test_removeSetSystemLookAndFeel_with_try() throws Exception {
 		parseContainer(
 				"class Test {",
@@ -381,6 +396,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test fetching LAF list.
 	 */
+	@Test
 	public void test_getLAFList() throws Exception {
 		List<CategoryInfo> categoryList = LafSupport.getLAFCategoriesList();
 		assertNotNull(categoryList);
@@ -399,6 +415,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Tests 'condition' attribute for LaFs register.
 	 */
+	@Test
 	public void test_getLAFList_condition() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -430,6 +447,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test that &lt;system&gt; LAF set by default.
 	 */
+	@Test
 	public void test_get_selected_LAF_default() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -440,7 +458,7 @@ public class LookAndFeelTest extends SwingModelTest {
 						"}");
 		LafInfo selectedLAF = LafSupport.getSelectedLAF(panel);
 		if (EnvironmentUtils.IS_LINUX) {
-			assertThat(selectedLAF.getClassName()).isEqualTo("javax.swing.plaf.metal.MetalLookAndFeel");
+			Assertions.assertThat(selectedLAF.getClassName()).isEqualTo("javax.swing.plaf.metal.MetalLookAndFeel");
 		} else {
 			assertInstanceOf(SystemLafInfo.class, selectedLAF);
 		}
@@ -449,6 +467,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test changing default LAF to &lt;undefined&gt;.
 	 */
+	@Test
 	public void test_get_selected_changed() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -467,6 +486,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test changing default LAF to &lt;undefined&gt; and reparse.
 	 */
+	@Test
 	public void test_get_selected_changed_reparse() throws Exception {
 		String[] source =
 				new String[]{
@@ -487,6 +507,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Test changing Motif LAF installed in main to &lt;system&gt; and reparse.
 	 */
+	@Test
 	public void test_get_selected_changed_reparse_installed_in_main() throws Exception {
 		String[] source =
 				new String[]{
@@ -514,10 +535,11 @@ public class LookAndFeelTest extends SwingModelTest {
 	/**
 	 * Tests default LAF, it should be &lt;system&gt;
 	 */
+	@Test
 	public void test_get_defaultLAF() throws Exception {
 		LafInfo defaultLAF = LafSupport.getDefaultLAF();
 		if (EnvironmentUtils.IS_LINUX) {
-			assertThat(defaultLAF.getClassName()).isEqualTo("javax.swing.plaf.metal.MetalLookAndFeel");
+			Assertions.assertThat(defaultLAF.getClassName()).isEqualTo("javax.swing.plaf.metal.MetalLookAndFeel");
 		} else {
 			assertInstanceOf(SystemLafInfo.class, defaultLAF);
 		}

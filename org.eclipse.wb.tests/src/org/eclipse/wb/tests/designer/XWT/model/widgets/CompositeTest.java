@@ -22,6 +22,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CompositeInfo}.
  *
@@ -42,6 +44,7 @@ public class CompositeTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse_empty() throws Exception {
 		CompositeInfo composite = parse("<Composite/>");
 		composite.refresh();
@@ -79,6 +82,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * Test for {@link CompositeInfo#getClientAreaInsets2()}.
 	 */
+	@Test
 	public void test_getClientAreaInsets2_forComposite() throws Exception {
 		CompositeInfo composite = parse("<Composite/>");
 		composite.refresh();
@@ -92,6 +96,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * Test for {@link CompositeInfo#getClientAreaInsets2()}.
 	 */
+	@Test
 	public void test_getClientAreaInsets2_forGroup() throws Exception {
 		CompositeInfo composite = parse("<Group/>");
 		composite.refresh();
@@ -102,6 +107,7 @@ public class CompositeTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_parse_withButton() throws Exception {
 		CompositeInfo composite =
 				parse(
@@ -151,6 +157,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * Test that {@link CompositeInfo} contributes "Set layout" sub-menu in context menu.
 	 */
+	@Test
 	public void test_setLayoutMenu_absolute() throws Exception {
 		CompositeInfo container =
 				parse(
@@ -180,6 +187,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * Test that {@link CompositeInfo} contributes "Set layout" sub-menu in context menu.
 	 */
+	@Test
 	public void test_setLayoutMenu_normal() throws Exception {
 		CompositeInfo container = parse("<Composite/>");
 		container.refresh();
@@ -211,6 +219,7 @@ public class CompositeTest extends XwtModelTest {
 	 * We don't support "GroupLayout" in XWT, so "Set layout" sub-menu context menu should not have
 	 * it.
 	 */
+	@Test
 	public void test_setLayoutMenu_noGroupLayout() throws Exception {
 		CompositeInfo container = parse("<Composite/>");
 		// prepare "Set Layout" menu manager
@@ -234,6 +243,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * No "Set Layout" sub-menu if {@link Composite} has no layout.
 	 */
+	@Test
 	public void test_setLayoutMenu_2() throws Exception {
 		parse(
 				"<Composite>",
@@ -262,6 +272,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * Test for {@link CompositeInfo#shouldDrawDotsBorder()}.
 	 */
+	@Test
 	public void test_shouldDrawDotsBorder() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -288,6 +299,7 @@ public class CompositeTest extends XwtModelTest {
 	/**
 	 * Test for {@link CompositeInfo#shouldDrawDotsBorder()}.
 	 */
+	@Test
 	public void test_shouldDrawDotsBorder_noScript() throws Exception {
 		prepareMyComponent(new String[]{}, new String[]{
 				"// filler filler filler filler filler",
@@ -311,6 +323,7 @@ public class CompositeTest extends XwtModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard_copyLayout() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -351,6 +364,7 @@ public class CompositeTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_clipboard_implicitLayout() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",

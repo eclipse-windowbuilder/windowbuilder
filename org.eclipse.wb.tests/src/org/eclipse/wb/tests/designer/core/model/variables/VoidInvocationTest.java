@@ -26,9 +26,9 @@ import org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorInfo;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.NotImplementedException;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -55,6 +55,7 @@ public class VoidInvocationTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_object() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -116,6 +117,7 @@ public class VoidInvocationTest extends AbstractVariableTest {
 	 * {@link VoidInvocationCreationSupport} does not return value, so has only factory properties, no
 	 * method/field based ones.
 	 */
+	@Test
 	public void test_noProperties() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -130,11 +132,12 @@ public class VoidInvocationTest extends AbstractVariableTest {
 		JToolBarSeparatorInfo separator = (JToolBarSeparatorInfo) bar.getChildrenComponents().get(0);
 		//
 		Property[] properties = separator.getProperties();
-		assertThat(properties).hasSize(1);
+		Assertions.assertThat(properties).hasSize(1);
 		assertNotNull(PropertyUtils.getByPath(properties, "Factory"));
 		assertNotNull(PropertyUtils.getByPath(properties, "Factory/size"));
 	}
 
+	@Test
 	public void test_add() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -165,6 +168,7 @@ public class VoidInvocationTest extends AbstractVariableTest {
 		assertEquals("addSeparator()", separator.getVariableSupport().getTitle());
 	}
 
+	@Test
 	public void test_moveInner() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -206,6 +210,7 @@ public class VoidInvocationTest extends AbstractVariableTest {
 	/**
 	 * Good case - argument of <code>addItem()</code> is existing {@link JavaInfo}.
 	 */
+	@Test
 	public void test_parseComponent_hasComponent() throws Exception {
 		prepare_parseComponent();
 		String[] lines =
@@ -232,6 +237,7 @@ public class VoidInvocationTest extends AbstractVariableTest {
 	 * We specify that <code>addItem(Component)</code> requires {@link JavaInfo}, so if it is not
 	 * present (by any reason), we don't create "voidFactory" component.
 	 */
+	@Test
 	public void test_parseComponent_invalidComponent() throws Exception {
 		prepare_parseComponent();
 		String[] lines =

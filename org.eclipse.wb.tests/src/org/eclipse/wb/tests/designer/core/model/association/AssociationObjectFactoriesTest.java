@@ -16,7 +16,8 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link AssociationObjectFactories}.
@@ -41,6 +42,7 @@ public class AssociationObjectFactoriesTest extends SwingModelTest {
 	/**
 	 * Test for {@link AssociationObjectFactories#no()}.
 	 */
+	@Test
 	public void test_no() throws Exception {
 		AssociationObjectFactory factory = AssociationObjectFactories.no();
 		assertEquals("NO", factory.toString());
@@ -56,6 +58,7 @@ public class AssociationObjectFactoriesTest extends SwingModelTest {
 	/**
 	 * Test for {@link AssociationObjectFactories#invocationChild(String, boolean)}.
 	 */
+	@Test
 	public void test_invocationChild() throws Exception {
 		String source = "%parent%.add(%child%)";
 		// check factory
@@ -65,7 +68,7 @@ public class AssociationObjectFactoriesTest extends SwingModelTest {
 		{
 			AssociationObject associationObject = factory.create();
 			assertEquals(source, associationObject.toString());
-			assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+			Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
 			assertFalse(associationObject.isRequired());
 		}
 	}

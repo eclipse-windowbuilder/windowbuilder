@@ -28,7 +28,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -58,6 +60,7 @@ public class ComponentTest extends SwingModelTest {
 	/**
 	 * Bad implementations of {@link Container#removeAll()} may throw {@link NullPointerException}.
 	 */
+	@Test
 	public void test_clearSwingTree_removeAll_NPE() throws Exception {
 		setFileContentSrc(
 				"test/MyContainer.java",
@@ -83,7 +86,9 @@ public class ComponentTest extends SwingModelTest {
 	/**
 	 * We can not create {@link java.awt.Image} with zero size, so we should check this.
 	 */
-	public void DISABLE_test_zeroSize() throws Exception {
+	@Ignore
+	@Test
+	public void test_zeroSize() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends Frame {",
@@ -98,14 +103,15 @@ public class ComponentTest extends SwingModelTest {
 		assertEquals(new Rectangle(0, 0, 0, 0), panel.getBounds());
 		{
 			org.eclipse.swt.graphics.Rectangle imageBounds = panel.getImage().getBounds();
-			assertThat(imageBounds.width).isEqualTo(1);
-			assertThat(imageBounds.height).isEqualTo(1);
+			Assertions.assertThat(imageBounds.width).isEqualTo(1);
+			Assertions.assertThat(imageBounds.height).isEqualTo(1);
 		}
 	}
 
 	/**
 	 * We need special trick to render {@link JLabel} with HTML text.
 	 */
+	@Test
 	public void test_JLabel_withHTML() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -143,6 +149,7 @@ public class ComponentTest extends SwingModelTest {
 	/**
 	 * There was problem with SWT thread and time when exposed {@link ComponentInfo} is created.
 	 */
+	@Test
 	public void test_addPanel_withExposedChildren() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -200,6 +207,7 @@ public class ComponentTest extends SwingModelTest {
 	/**
 	 * Test that name of component is set in component using {@link Component#setName(String)}.
 	 */
+	@Test
 	public void test_variableName_setName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -261,6 +269,7 @@ public class ComponentTest extends SwingModelTest {
 	/**
 	 * Test that name of component is set in component using {@link Component#setName(String)}.
 	 */
+	@Test
 	public void test_variableName_setName_forLazy() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

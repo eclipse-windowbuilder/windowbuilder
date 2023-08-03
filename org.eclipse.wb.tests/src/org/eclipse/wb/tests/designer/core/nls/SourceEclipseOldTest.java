@@ -24,6 +24,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import javax.swing.JFrame;
 
@@ -42,7 +44,9 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	 * Use constructor without accessor, only to create {@link IEditableSource} using existing
 	 * *.properties.
 	 */
-	public void DISABLE_test_constructorWithoutAccessor() throws Exception {
+	@Ignore
+	@Test
+	public void test_constructorWithoutAccessor() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
 		//
@@ -103,6 +107,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	/**
 	 * Test for using '/' instead of '.' in qualified bundle name.
 	 */
+	@Test
 	public void test_slashBundleName() throws Exception {
 		NlsTestUtils.create_EclipseOld_Accessor(this, "test/messages", false);
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
@@ -129,6 +134,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	/**
 	 * Test for referencing Messages class using qualified name.
 	 */
+	@Test
 	public void test_qualifiedName() throws Exception {
 		NlsTestUtils.create_EclipseOld_Accessor(this, false);
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
@@ -155,6 +161,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	/**
 	 * Bad possible {@link EclipseSource} - no <code>BUNDLE_NAME</code> field.
 	 */
+	@Test
 	public void test_badPossible_1() throws Exception {
 		setFileContentSrc(
 				"test/Messages.java",
@@ -178,6 +185,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	/**
 	 * Bad possible {@link EclipseSource} - no <code>getString()</code> method.
 	 */
+	@Test
 	public void test_badPossible_2() throws Exception {
 		setFileContentSrc(
 				"test/Messages.java",
@@ -201,6 +209,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	/**
 	 * Not a {@link EclipseSource} - not a <code>getString()</code> method.
 	 */
+	@Test
 	public void test_badSource_1() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo frame =
@@ -220,6 +229,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	/**
 	 * Not a {@link EclipseSource} - locale <code>getString()</code> method.
 	 */
+	@Test
 	public void test_badSource_2() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo frame =
@@ -236,7 +246,9 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 		assertEquals(0, support.getSources().length);
 	}
 
-	public void DISABLE_test_addSource() throws Exception {
+	@Ignore
+	@Test
+	public void test_addSource() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
 						"public class Test extends JFrame {",

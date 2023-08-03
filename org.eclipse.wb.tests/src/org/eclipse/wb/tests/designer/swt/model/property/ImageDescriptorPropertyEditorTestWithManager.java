@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.io.FilenameUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 
@@ -35,7 +37,8 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
 				IPreferenceConstants.P_USE_RESOURCE_MANAGER,
@@ -59,6 +62,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	/**
 	 * No value for property.
 	 */
+	@Test
 	public void test_textSource_noValue() throws Exception {
 		Property property =
 				new GenericPropertyNoValue(null, null, ImageDescriptorPropertyEditor.INSTANCE);
@@ -69,6 +73,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	/**
 	 * "null" value for property.
 	 */
+	@Test
 	public void test_textSource_nullValue() throws Exception {
 		assert_getText_getClipboardSource_forSource("null", "(null)", "null");
 	}
@@ -77,6 +82,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	 * Test for {@link ImageDescriptor#createFromFile(Class, String)} with <code>null</code> as
 	 * location, so absolute path.
 	 */
+	@Test
 	public void test_textSource_absolutePath() throws Exception {
 		File file = createTempImage();
 		try {
@@ -95,6 +101,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	 * Test for {@link ImageDescriptor#createFromFile(Class, String)} with this {@link Class} as
 	 * location.
 	 */
+	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"ImageDescriptor.createFromFile(getClass(), \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
@@ -106,6 +113,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	 * Test for {@link ImageDescriptor#createFromFile(Class, String)} with some other {@link Class} as
 	 * location.
 	 */
+	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"ImageDescriptor.createFromFile(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
@@ -121,6 +129,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	/**
 	 * Test for <code>ResourceManager.getImageDescriptor(absolutePath)</code>.
 	 */
+	@Test
 	public void test_textSource_absolutePath2() throws Exception {
 		File file = createTempImage();
 		try {
@@ -137,6 +146,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	/**
 	 * Test for <code>ResourceManager.getImageDescriptor(Class, resourcePath)</code>.
 	 */
+	@Test
 	public void test_textSource_image_over_classpath2() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(getClass(), \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
@@ -148,6 +158,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	 * Test for <code>ResourceManager.getImageDescriptor(Class, resourcePath)</code>, some other
 	 * {@link Class} as location.
 	 */
+	@Test
 	public void test_textSource_image_over_classpath_OtherClass2() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",

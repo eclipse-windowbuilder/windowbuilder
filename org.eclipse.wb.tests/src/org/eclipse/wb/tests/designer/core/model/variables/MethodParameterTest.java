@@ -37,6 +37,8 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Test;
+
 import javax.swing.JButton;
 
 /**
@@ -62,6 +64,7 @@ public class MethodParameterTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link MethodParameterCreationSupport}.
 	 */
+	@Test
 	public void test_creationSupport() throws Exception {
 		ContainerInfo panel =
 				parsePanel(
@@ -90,6 +93,7 @@ public class MethodParameterTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link MethodParameterVariableSupport}.
 	 */
+	@Test
 	public void test_variableSupport() throws Exception {
 		ContainerInfo panel =
 				parsePanel(
@@ -190,6 +194,7 @@ public class MethodParameterTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link MethodParameterVariableSupport#isJavaInfo(ASTNode)}.
 	 */
+	@Test
 	public void test_variableSupport_isJavaInfo() throws Exception {
 		ContainerInfo panel =
 				parsePanel(
@@ -225,6 +230,7 @@ public class MethodParameterTest extends AbstractVariableTest {
 	 * <p>
 	 * Sometimes we want to get expression for target in other method, invoked from declaring one.
 	 */
+	@Test
 	public void test_variableSupport_getExpression_invokedMethod() throws Exception {
 		ContainerInfo panel =
 				parsePanel(
@@ -269,6 +275,7 @@ public class MethodParameterTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link MethodParameterVariableSupport#isValidStatementForChild(Statement)}.
 	 */
+	@Test
 	public void test_variableSupport_isValidStatementForChild() throws Exception {
 		ContainerInfo panel =
 				parsePanel(
@@ -303,6 +310,7 @@ public class MethodParameterTest extends AbstractVariableTest {
 	 * {@link SuperConstructorInvocation}, so it should be used as {@link StatementTarget} in
 	 * {@link MethodParameterVariableSupport#getStatementTarget()}.
 	 */
+	@Test
 	public void test_variableSupport_superConstructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

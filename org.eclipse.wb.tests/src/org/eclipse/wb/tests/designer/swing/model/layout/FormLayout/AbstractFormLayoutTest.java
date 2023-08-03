@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.Platform;
 
 import com.jgoodies.forms.layout.FormLayout;
 
+import org.junit.Before;
 import org.osgi.framework.Bundle;
 
 /**
@@ -26,7 +27,7 @@ import org.osgi.framework.Bundle;
  *
  * @author scheglov_ke
  */
-public class AbstractFormLayoutTest extends AbstractLayoutTest {
+public abstract class AbstractFormLayoutTest extends AbstractLayoutTest {
 	protected boolean m_useFormsImports = true;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -35,7 +36,8 @@ public class AbstractFormLayoutTest extends AbstractLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		LafSupport.applySelectedLAF(LafSupport.getDefaultLAF());
 	}

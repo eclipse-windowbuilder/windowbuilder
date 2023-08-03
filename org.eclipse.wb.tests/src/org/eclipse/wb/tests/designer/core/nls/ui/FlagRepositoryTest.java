@@ -16,6 +16,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
 
 import java.util.Locale;
 
@@ -30,6 +31,7 @@ public class FlagRepositoryTest extends DesignerTestCase {
 	// getSortedLocales
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_sortedLocales() throws Exception {
 		Locale[] sortedLocales = FlagImagesRepository.getSortedLocales();
 		assertTrue(sortedLocales.length >= 140);
@@ -50,6 +52,7 @@ public class FlagRepositoryTest extends DesignerTestCase {
 	// getEmptyFlagImage
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getEmptyFlagImage() throws Exception {
 		assertNotNull(FlagImagesRepository.getEmptyFlagImage());
 	}
@@ -59,34 +62,40 @@ public class FlagRepositoryTest extends DesignerTestCase {
 	// getFlagImage
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getFlagImage_noSuchLocale() throws Exception {
 		assertNull(FlagImagesRepository.getFlagImage(new Locale("noSuchLocale")));
 	}
 
+	@Test
 	public void test_getFlagImage_ru() throws Exception {
 		Image ruImage = FlagImagesRepository.getFlagImage(new Locale("ru"));
 		assertNotNull(ruImage);
 		assertSame(FlagImagesRepository.getFlagImage(new Locale("ru", "RU")), ruImage);
 	}
 
+	@Test
 	public void test_getFlagImage_en() throws Exception {
 		assertSame(
 				FlagImagesRepository.getFlagImage(new Locale("en", "US")),
 				FlagImagesRepository.getFlagImage(new Locale("en")));
 	}
 
+	@Test
 	public void test_getFlagImage_zh() throws Exception {
 		assertSame(
 				FlagImagesRepository.getFlagImage(new Locale("zh", "CN")),
 				FlagImagesRepository.getFlagImage(new Locale("zh")));
 	}
 
+	@Test
 	public void test_getFlagImage_ar() throws Exception {
 		assertSame(
 				FlagImagesRepository.getFlagImage(new Locale("ar", "AE")),
 				FlagImagesRepository.getFlagImage(new Locale("ar")));
 	}
 
+	@Test
 	public void test_getFlagImage_YU() throws Exception {
 		assertNotNull(FlagImagesRepository.getFlagImage(new Locale("se", "YU")));
 	}

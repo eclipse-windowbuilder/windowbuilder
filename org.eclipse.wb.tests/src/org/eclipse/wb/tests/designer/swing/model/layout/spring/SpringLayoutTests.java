@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.spring;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 import javax.swing.SpringLayout;
 
@@ -22,12 +21,11 @@ import javax.swing.SpringLayout;
  *
  * @author scheglov_ke
  */
-public class SpringLayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout.spring");
-		suite.addTest(createSingleSuite(SpringAttachmentTest.class));
-		suite.addTest(createSingleSuite(SpringLayoutTest.class));
-		suite.addTest(createSingleSuite(SpringLayoutGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		SpringAttachmentTest.class,
+		SpringLayoutTest.class,
+		SpringLayoutGefTest.class
+})
+public class SpringLayoutTests {
 }

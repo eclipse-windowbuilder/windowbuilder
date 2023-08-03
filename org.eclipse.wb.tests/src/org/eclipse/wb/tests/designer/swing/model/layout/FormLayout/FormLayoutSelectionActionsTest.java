@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -32,6 +34,7 @@ public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_selectionActions() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

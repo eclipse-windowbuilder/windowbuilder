@@ -16,7 +16,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.jface.action.IAction;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class GridLayoutSelectionActionsTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_emptySelection() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -52,9 +54,10 @@ public class GridLayoutSelectionActionsTest extends XwtModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions();
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -96,6 +99,7 @@ public class GridLayoutSelectionActionsTest extends XwtModelTest {
 		assertFalse(findAction(actions, "Horizontal grab").isChecked());
 	}
 
+	@Test
 	public void test_grabAction() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -138,6 +142,7 @@ public class GridLayoutSelectionActionsTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_alignmentAction() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

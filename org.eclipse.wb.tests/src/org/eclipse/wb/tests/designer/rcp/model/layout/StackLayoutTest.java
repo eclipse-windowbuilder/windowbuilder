@@ -23,7 +23,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.custom.StackLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class StackLayoutTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -66,6 +69,7 @@ public class StackLayoutTest extends RcpModelTest {
 				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}");
 	}
 
+	@Test
 	public void test_parseEmpty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -80,6 +84,7 @@ public class StackLayoutTest extends RcpModelTest {
 	/**
 	 * During setting {@link StackLayout} there is time when we don't have yet container.
 	 */
+	@Test
 	public void test_setLayout_wasGridLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -105,6 +110,7 @@ public class StackLayoutTest extends RcpModelTest {
 	/**
 	 * Only "topControl" should be visible on design canvas.
 	 */
+	@Test
 	public void test_visibilityGraphical() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -130,7 +136,7 @@ public class StackLayoutTest extends RcpModelTest {
 		// only "button_1" is in "graphical children"
 		{
 			List<ObjectInfo> children = shell.getPresentation().getChildrenGraphical();
-			assertThat(children).containsExactly(button_1);
+			Assertions.assertThat(children).containsExactly(button_1);
 		}
 	}
 
@@ -139,6 +145,7 @@ public class StackLayoutTest extends RcpModelTest {
 	// Flow container
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_flowContainer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -151,10 +158,11 @@ public class StackLayoutTest extends RcpModelTest {
 		// StackLayout is "flow container"
 		List<FlowContainer> canvasContainers = new FlowContainerFactory(layout, true).get();
 		List<FlowContainer> treeContainers = new FlowContainerFactory(layout, false).get();
-		assertThat(canvasContainers).isNotEmpty();
-		assertThat(treeContainers).isNotEmpty();
+		Assertions.assertThat(canvasContainers).isNotEmpty();
+		Assertions.assertThat(treeContainers).isNotEmpty();
 	}
 
+	@Test
 	public void test_flowContainer_CREATE_asFirst() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -179,6 +187,7 @@ public class StackLayoutTest extends RcpModelTest {
 		assertActiveControl(layout, button);
 	}
 
+	@Test
 	public void test_flowContainer_CREATE_andActivate() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -211,6 +220,7 @@ public class StackLayoutTest extends RcpModelTest {
 		assertActiveControl(layout, button);
 	}
 
+	@Test
 	public void test_flowContainer_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -245,6 +255,7 @@ public class StackLayoutTest extends RcpModelTest {
 		assertActiveControl(layout, button_2);
 	}
 
+	@Test
 	public void test_flowContainer_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -292,7 +303,9 @@ public class StackLayoutTest extends RcpModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",
@@ -356,6 +369,7 @@ public class StackLayoutTest extends RcpModelTest {
 	// activeControl
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_activeControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -392,6 +406,7 @@ public class StackLayoutTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_activeControl_whenDelete() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -432,6 +447,7 @@ public class StackLayoutTest extends RcpModelTest {
 	 * Test for {@link StackLayoutInfo#getPrevControl()}, {@link StackLayoutInfo#getNextControl()} and
 	 * {@link StackLayoutInfo#show(ControlInfo)}.
 	 */
+	@Test
 	public void test_activeControl_showPrevNext() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

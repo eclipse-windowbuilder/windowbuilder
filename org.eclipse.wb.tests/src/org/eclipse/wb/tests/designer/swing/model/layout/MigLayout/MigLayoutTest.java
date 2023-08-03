@@ -38,12 +38,12 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Display;
 
-import junit.framework.AssertionFailedError;
-
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -72,6 +72,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link Activator}.
 	 */
+	@Test
 	public void test_Activator() throws Exception {
 		assertNotNull(Activator.getDefault());
 	}
@@ -86,6 +87,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * project, without added {@link MigLayout} jar.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_setLayoutFromContextMenu() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
@@ -129,6 +131,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Dangling {@link MigLayoutInfo}, not connected to {@link ContainerInfo} causes problems.
 	 */
+	@Test
 	public void test_dangling() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -144,6 +147,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * If container is NVO, its layout was not performed. But we should handle this correctly.
 	 */
+	@Test
 	public void test_nonVisual() throws Exception {
 		parseContainer(
 				"import java.util.ArrayList;",
@@ -170,6 +174,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test that {@link MigLayoutInfo#writeDimensions()} not only updates
 	 * {@link ClassInstanceCreation}, but also {@link ConstructorCreationSupport}.
 	 */
+	@Test
 	public void test_writeDimensions_constructorProperties() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -200,6 +205,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for using {@link LC} for layout constraints.
 	 */
+	@Test
 	public void test_writeDimensions_LC() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -228,7 +234,9 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
-	public void DISABLE_test_IGridInfo() throws Exception {
+	@Ignore
+	@Test
+	public void test_IGridInfo() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel implements IConstants {",
@@ -249,7 +257,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		{
 			assertEquals(3, gridInfo.getColumnCount());
 			Interval[] columnIntervals = gridInfo.getColumnIntervals();
-			assertThat(columnIntervals).hasSize(3);
+			Assertions.assertThat(columnIntervals).hasSize(3);
 			assertEquals("Interval(7, 100)", columnIntervals[0].toString());
 			assertEquals("Interval(111, 150)", columnIntervals[1].toString());
 			assertEquals("Interval(265, 50)", columnIntervals[2].toString());
@@ -258,7 +266,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		{
 			assertEquals(2, gridInfo.getRowCount());
 			Interval[] rowIntervals = gridInfo.getRowIntervals();
-			assertThat(rowIntervals).hasSize(2);
+			Assertions.assertThat(rowIntervals).hasSize(2);
 			assertEquals("Interval(7, 40)", rowIntervals[0].toString());
 			assertEquals(
 					Expectations.get("Interval(51, 23)", new StrValue[]{
@@ -321,6 +329,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
+	@Test
 	public void test_IGridInfo_emptyColumnRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -339,9 +348,9 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 				assertEquals(1, gridInfo.getColumnCount());
 				// intervals
 				Interval[] columnIntervals = gridInfo.getColumnIntervals();
-				assertThat(columnIntervals).hasSize(1);
+				Assertions.assertThat(columnIntervals).hasSize(1);
 				// interval[0]
-				assertThat(columnIntervals[0].length()).isGreaterThan(18);
+				Assertions.assertThat(columnIntervals[0].length()).isGreaterThan(18);
 				assertFalse(columnIntervals[0].isEmpty());
 			}
 			// rows
@@ -349,9 +358,9 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 				assertEquals(1, gridInfo.getRowCount());
 				// intervals
 				Interval[] rowIntervals = gridInfo.getRowIntervals();
-				assertThat(rowIntervals).hasSize(1);
+				Assertions.assertThat(rowIntervals).hasSize(1);
 				// interval[0]
-				assertThat(rowIntervals[0].length()).isGreaterThan(18);
+				Assertions.assertThat(rowIntervals[0].length()).isGreaterThan(18);
 				assertFalse(rowIntervals[0].isEmpty());
 			}
 		}
@@ -360,6 +369,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * If component is invisible and excluded from layout, its cells are empty.
 	 */
+	@Test
 	public void test_IGridInfo_getCellsRectangle_empty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -381,6 +391,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
+	@Test
 	public void test_IGridInfo_withContainerInsets() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -417,6 +428,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * First component of spanned cell can specify span, so same cells should be returned for all
 	 * components in spanned cell(s).
 	 */
+	@Test
 	public void test_IGridInfo_withSpanSplit() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -442,6 +454,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// MigDimension_Info
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dimensions_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -457,14 +470,15 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		{
 			List<MigColumnInfo> columns = layout.getColumns();
-			assertThat(columns).hasSize(3);
+			Assertions.assertThat(columns).hasSize(3);
 		}
 		{
 			List<MigRowInfo> rows = layout.getRows();
-			assertThat(rows).hasSize(2);
+			Assertions.assertThat(rows).hasSize(2);
 		}
 	}
 
+	@Test
 	public void test_dimensions_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -477,17 +491,18 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		{
 			List<MigColumnInfo> columns = layout.getColumns();
-			assertThat(columns).hasSize(2);
+			Assertions.assertThat(columns).hasSize(2);
 		}
 		{
 			List<MigRowInfo> rows = layout.getRows();
-			assertThat(rows).hasSize(4);
+			Assertions.assertThat(rows).hasSize(4);
 		}
 	}
 
 	/**
 	 * Test for {@link MigDimensionInfo#getString()}.
 	 */
+	@Test
 	public void test_dimensions_getString() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -526,6 +541,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#setString(String)}.
 	 */
+	@Test
 	public void test_dimensions_setString() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -580,6 +596,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#getTooltip()}.
 	 */
+	@Test
 	public void test_dimensions_getTooltip() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -617,6 +634,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#hasGrow()} and {@link MigDimensionInfo#flipGrow()}.
 	 */
+	@Test
 	public void test_dimensions_isGrab() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -655,6 +673,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for grow weight/priority.
 	 */
+	@Test
 	public void test_dimensions_growWeightPriority() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -740,6 +759,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for shrink weight/priority.
 	 */
+	@Test
 	public void test_dimensions_shrinkWeightPriority() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -753,7 +773,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		MigColumnInfo column = layout.getColumns().get(0);
 		// no shrink
 		assertEquals(100, column.getShrinkPriority());
-		assertEquals(100f, column.getShrink());
+		assertEquals((Float) 100f, column.getShrink());
 		// weight := 150
 		{
 			column.setShrink(150f);
@@ -830,6 +850,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Default alignments, for single existing column and created implicitly by adding component.
 	 */
+	@Test
 	public void test_ColumnInfo_getAlignment_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -844,7 +865,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		//
 		List<MigColumnInfo> columns = layout.getColumns();
-		assertThat(columns).hasSize(2);
+		Assertions.assertThat(columns).hasSize(2);
 		// by default MigLayout has single column
 		{
 			MigColumnInfo column = columns.get(0);
@@ -859,30 +880,37 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_LEFT() throws Exception {
 		check_ColumnInfo_getAlignment("left", MigColumnInfo.Alignment.LEFT);
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_CENTER() throws Exception {
 		check_ColumnInfo_getAlignment("center", MigColumnInfo.Alignment.CENTER);
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_RIGHT() throws Exception {
 		check_ColumnInfo_getAlignment("right", MigColumnInfo.Alignment.RIGHT);
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_FILL() throws Exception {
 		check_ColumnInfo_getAlignment("fill", MigColumnInfo.Alignment.FILL);
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_LEADING() throws Exception {
 		check_ColumnInfo_getAlignment("leading", MigColumnInfo.Alignment.LEADING);
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_TRAILING() throws Exception {
 		check_ColumnInfo_getAlignment("trailing", MigColumnInfo.Alignment.TRAILING);
 	}
 
+	@Test
 	public void test_ColumnInfo_getAlignment_UNKNOWN() throws Exception {
 		check_ColumnInfo_getAlignment("align 30%", MigColumnInfo.Alignment.UNKNOWN);
 	}
@@ -911,30 +939,37 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// Column: setAlignment()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ColumnInfo_setAlignment_LEFT() throws Exception {
 		check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.LEFT, "'', '[left]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_CENTER() throws Exception {
 		check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.CENTER, "'', '[center]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_RIGHT() throws Exception {
 		check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.RIGHT, "'', '[right]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_FILL() throws Exception {
 		check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.FILL, "'', '[fill]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_LEADING() throws Exception {
 		check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.LEADING, "'', '[leading]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_TRAILING() throws Exception {
 		check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.TRAILING, "'', '[trailing]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_toDefault_1() throws Exception {
 		check_ColumnInfo_setAlignment(
 				"'', 'left', ''",
@@ -942,6 +977,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 				"'', '[]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_toDefault_2() throws Exception {
 		check_ColumnInfo_setAlignment(
 				"'', 'fill', ''",
@@ -949,6 +985,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 				"'', '[]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_withGrow_RIGHT() throws Exception {
 		check_ColumnInfo_setAlignment(
 				"'', '[grow]', ''",
@@ -956,6 +993,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 				"'', '[grow,right]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_withFill_RIGHT() throws Exception {
 		check_ColumnInfo_setAlignment(
 				"'', '[fill]', ''",
@@ -963,6 +1001,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 				"'', '[right]', '[]'");
 	}
 
+	@Test
 	public void test_ColumnInfo_setAlignment_UNKNOWN() throws Exception {
 		try {
 			check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.UNKNOWN, "not used");
@@ -1014,6 +1053,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Default alignments, for single existing row and created implicitly by adding component.
 	 */
+	@Test
 	public void test_RowInfo_getAlignment_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1028,7 +1068,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		//
 		List<MigRowInfo> rows = layout.getRows();
-		assertThat(rows).hasSize(2);
+		Assertions.assertThat(rows).hasSize(2);
 		// by default MigLayout has single row
 		{
 			MigRowInfo row = rows.get(0);
@@ -1043,26 +1083,32 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_RowInfo_getAlignment_TOP() throws Exception {
 		check_RowInfo_getAlignment("top", MigRowInfo.Alignment.TOP);
 	}
 
+	@Test
 	public void test_RowInfo_getAlignment_CENTER() throws Exception {
 		check_RowInfo_getAlignment("center", MigRowInfo.Alignment.CENTER);
 	}
 
+	@Test
 	public void test_RowInfo_getAlignment_BOTTOM() throws Exception {
 		check_RowInfo_getAlignment("bottom", MigRowInfo.Alignment.BOTTOM);
 	}
 
+	@Test
 	public void test_RowInfo_getAlignment_FILL() throws Exception {
 		check_RowInfo_getAlignment("fill", MigRowInfo.Alignment.FILL);
 	}
 
+	@Test
 	public void test_RowInfo_getAlignment_BASELINE() throws Exception {
 		check_RowInfo_getAlignment("baseline", MigRowInfo.Alignment.BASELINE);
 	}
 
+	@Test
 	public void test_RowInfo_getAlignment_UNKNOWN() throws Exception {
 		check_RowInfo_getAlignment("align 30%", MigRowInfo.Alignment.UNKNOWN);
 	}
@@ -1091,26 +1137,32 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// Row: setAlignment()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_RowInfo_setAlignment_TOP() throws Exception {
 		check_RowInfo_setAlignment(MigRowInfo.Alignment.TOP, "'', '[]', '[top]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_CENTER() throws Exception {
 		check_RowInfo_setAlignment(MigRowInfo.Alignment.CENTER, "'', '[]', '[center]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_BOTTOM() throws Exception {
 		check_RowInfo_setAlignment(MigRowInfo.Alignment.BOTTOM, "'', '[]', '[bottom]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_FILL() throws Exception {
 		check_RowInfo_setAlignment(MigRowInfo.Alignment.FILL, "'', '[]', '[fill]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_BASELINE() throws Exception {
 		check_RowInfo_setAlignment(MigRowInfo.Alignment.BASELINE, "'', '[]', '[baseline]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_UNKNOWN() throws Exception {
 		try {
 			check_RowInfo_setAlignment(MigRowInfo.Alignment.UNKNOWN, "not used");
@@ -1119,18 +1171,22 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_toDefault_1() throws Exception {
 		check_RowInfo_setAlignment("'', '', 'top'", MigRowInfo.Alignment.DEFAULT, "'', '[]', '[]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_toDefault_2() throws Exception {
 		check_RowInfo_setAlignment("'', '', 'fill'", MigRowInfo.Alignment.DEFAULT, "'', '[]', '[]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_withGrow_TOP() throws Exception {
 		check_RowInfo_setAlignment("'', '', 'grow'", MigRowInfo.Alignment.TOP, "'', '[]', '[grow,top]'");
 	}
 
+	@Test
 	public void test_RowInfo_setAlignment_withFill_TOP() throws Exception {
 		check_RowInfo_setAlignment("'', '', 'fill'", MigRowInfo.Alignment.TOP, "'', '[]', '[top]'");
 	}
@@ -1175,6 +1231,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// Dimension: get*Size() and set*Size()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dimensionSize_setCheck() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1284,7 +1341,9 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#toUnitString(int, String)}.
 	 */
-	public void DISABLE_test_dimensionSize_toUnitString() throws Exception {
+	@Ignore
+	@Test
+	public void test_dimensionSize_toUnitString() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel implements IConstants {",
@@ -1306,7 +1365,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			} else if (displayWidth == 1680) {
 				expected_sp = "5.95sp";
 			} else {
-				throw new AssertionFailedError("Unknown display width: " + displayWidth);
+				throw new AssertionError("Unknown display width: " + displayWidth);
 			}
 			assertEquals(expected_sp, column.toUnitString(100, "sp"));
 		}
@@ -1322,7 +1381,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			} else if (displayHeight == 1050) {
 				expected_sp = "9.52sp";
 			} else {
-				throw new AssertionFailedError("Unknown display width: " + displayHeight);
+				throw new AssertionError("Unknown display width: " + displayHeight);
 			}
 			assertEquals(expected_sp, row.toUnitString(100, "sp"));
 		}
@@ -1336,6 +1395,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Each column/row has component, so no change.
 	 */
+	@Test
 	public void test_normalizeSpanning_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1363,6 +1423,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Last column/row has no components, so delete them.
 	 */
+	@Test
 	public void test_normalizeSpanning_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1388,6 +1449,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * First column/row has no components, so delete them.
 	 */
+	@Test
 	public void test_normalizeSpanning_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1415,6 +1477,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// command_setCells
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setCells() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1448,6 +1511,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_existingCell() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1474,6 +1538,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		assertCellBounds(newButton, 0, 0, 1, 1);
 	}
 
+	@Test
 	public void test_CREATE_appendColumnRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1503,6 +1568,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Insert new column/row: move existing component.
 	 */
+	@Test
 	public void test_CREATE_insertColumnRow_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1534,6 +1600,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Insert new column/row: horizontally spanned component.
 	 */
+	@Test
 	public void test_CREATE_insertColumnRow_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1569,6 +1636,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Insert new column/row: vertically spanned component.
 	 */
+	@Test
 	public void test_CREATE_insertColumnRow_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1604,6 +1672,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Insert new column/row: don't touch docked components.
 	 */
+	@Test
 	public void test_CREATE_insertColumnRow_4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1643,6 +1712,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link MigLayoutInfo#command_MOVE(ComponentInfo, int, boolean, int, boolean)}.<br>
 	 * Just move single not spanned component.
 	 */
+	@Test
 	public void test_MOVE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1677,6 +1747,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link MigLayoutInfo#command_MOVE(ComponentInfo, int, boolean, int, boolean)}.<br>
 	 * Move spanned component - size set to 1x1.
 	 */
+	@Test
 	public void test_MOVE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1715,6 +1786,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link MigLayoutInfo#command_MOVE(ComponentInfo, int, boolean, int, boolean)}.<br>
 	 * Move should force <code>cell</code> tag.
 	 */
+	@Test
 	public void test_MOVE_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1773,6 +1845,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link MigLayoutInfo#command_MOVE(ComponentInfo, int, boolean, int, boolean)}.<br>
 	 * Move docked component, should remove dock.
 	 */
+	@Test
 	public void test_MOVE_4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1828,6 +1901,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link MigLayoutInfo#command_ADD(ComponentInfo, int, boolean, int, boolean)}.<br>
 	 * Move single component.
 	 */
+	@Test
 	public void test_ADD() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1875,6 +1949,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#getCellComponents(int, int)}.
 	 */
+	@Test
 	public void test_getCellComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1897,18 +1972,19 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		ComponentInfo button_4 = panel.getChildrenComponents().get(3);
 		ComponentInfo button_5 = panel.getChildrenComponents().get(4);
 		//
-		assertThat(layout.getCellComponents(0, 0)).isEqualTo(ImmutableList.of(button_1, button_2));
-		assertThat(layout.getCellComponents(1, 0)).isEqualTo(ImmutableList.of(button_3));
-		assertThat(layout.getCellComponents(1, 1)).isEqualTo(ImmutableList.of(button_4));
-		assertThat(layout.getCellComponents(0, 2)).isEqualTo(ImmutableList.of(button_5));
-		assertThat(layout.getCellComponents(1, 2)).isEqualTo(ImmutableList.of(button_5));
-		assertThat(layout.getCellComponents(2, 2)).isEmpty();
+		Assertions.assertThat(layout.getCellComponents(0, 0)).isEqualTo(ImmutableList.of(button_1, button_2));
+		Assertions.assertThat(layout.getCellComponents(1, 0)).isEqualTo(ImmutableList.of(button_3));
+		Assertions.assertThat(layout.getCellComponents(1, 1)).isEqualTo(ImmutableList.of(button_4));
+		Assertions.assertThat(layout.getCellComponents(0, 2)).isEqualTo(ImmutableList.of(button_5));
+		Assertions.assertThat(layout.getCellComponents(1, 2)).isEqualTo(ImmutableList.of(button_5));
+		Assertions.assertThat(layout.getCellComponents(2, 2)).isEmpty();
 	}
 
 	/**
 	 * Test for {@link CellConstraintsSupport#isHorizontalSplit()}. <br>
 	 * Explicit "flowx" for component.
 	 */
+	@Test
 	public void test_isHorizontalSplit_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1929,6 +2005,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link CellConstraintsSupport#isHorizontalSplit()}. <br>
 	 * Explicit "flowy" for component.
 	 */
+	@Test
 	public void test_isHorizontalSplit_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1949,6 +2026,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link CellConstraintsSupport#isHorizontalSplit()}. <br>
 	 * Implicit "flowx" from {@link LC}.
 	 */
+	@Test
 	public void test_isHorizontalSplit_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1969,6 +2047,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * Test for {@link CellConstraintsSupport#isHorizontalSplit()}.<br>
 	 * Explicit "flowy" from {@link LC}.
 	 */
+	@Test
 	public void test_isHorizontalSplit_4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1990,6 +2069,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * {@link MigLayoutInfo#command_splitCREATE(int, int, boolean, ComponentInfo, ComponentInfo)}.<br>
 	 * Explicit horizontal split.
 	 */
+	@Test
 	public void test_splitCREATE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2023,6 +2103,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * {@link MigLayoutInfo#command_splitCREATE(int, int, boolean, ComponentInfo, ComponentInfo)}.<br>
 	 * Explicit vertical split.
 	 */
+	@Test
 	public void test_splitCREATE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2055,6 +2136,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * {@link MigLayoutInfo#command_splitCREATE(int, int, boolean, ComponentInfo, ComponentInfo)}.<br>
 	 * Existing vertical split, so request for horizontal split is ignored.
 	 */
+	@Test
 	public void test_splitCREATE_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2089,6 +2171,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * {@link MigLayoutInfo#command_splitMOVE(int, int, boolean, ComponentInfo, ComponentInfo)}.<br>
 	 * Move inside same cell.
 	 */
+	@Test
 	public void test_splitMOVE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2132,6 +2215,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * {@link MigLayoutInfo#command_splitMOVE(int, int, boolean, ComponentInfo, ComponentInfo)}.<br>
 	 * Move from different cell.
 	 */
+	@Test
 	public void test_splitMOVE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2172,6 +2256,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for move first component in splitted cell to the different cell.
 	 */
+	@Test
 	public void test_splitMOVE_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2220,6 +2305,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * If delete first component, then flow direction specification should be moved to next component.
 	 */
+	@Test
 	public void test_splitDELETE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2264,6 +2350,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 * If delete first component, then flow direction specification should be moved to next component.<br>
 	 * Only one component left in splitted cell, so remove flow direction at all.
 	 */
+	@Test
 	public void test_splitDELETE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2301,6 +2388,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// Docking
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dock_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2335,6 +2423,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	// Gaps
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_gaps_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2402,6 +2491,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#insertColumn(int)}.
 	 */
+	@Test
 	public void test_column_INSERT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2431,6 +2521,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#deleteColumn(int)}.
 	 */
+	@Test
 	public void test_column_DELETE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2461,6 +2552,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#clearColumn(int)}.
 	 */
+	@Test
 	public void test_column_CLEAR() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2491,6 +2583,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#splitColumn(int)}.
 	 */
+	@Test
 	public void test_column_SPLIT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2538,6 +2631,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ....5
 	 * </pre>
 	 */
+	@Test
 	public void test_column_MOVE_backward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2589,6 +2683,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ....5
 	 * </pre>
 	 */
+	@Test
 	public void test_column_MOVE_forward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2638,6 +2733,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   .23
 	 * </pre>
 	 */
+	@Test
 	public void test_row_INSERT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2678,6 +2774,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   .23
 	 * </pre>
 	 */
+	@Test
 	public void test_row_DELETE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2720,6 +2817,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   .23
 	 * </pre>
 	 */
+	@Test
 	public void test_row_CLEAR() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2763,6 +2861,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ..3
 	 * </pre>
 	 */
+	@Test
 	public void test_row_SPLIT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2808,6 +2907,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ....5
 	 * </pre>
 	 */
+	@Test
 	public void test_row_MOVE_backward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2857,6 +2957,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ...45
 	 * </pre>
 	 */
+	@Test
 	public void test_row_MOVE_forward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2895,6 +2996,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#canChangeDimensions()}.
 	 */
+	@Test
 	public void test_canChangeDimensions_constructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2911,6 +3013,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigLayoutInfo#canChangeDimensions()}.
 	 */
+	@Test
 	public void test_canChangeDimensions_implicit() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -2945,6 +3048,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test {@link DimensionsProperty} for columns/rows.
 	 */
+	@Test
 	public void test_DimensionsProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2978,6 +3082,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for "Edit columns" and "Edit rows" actions.
 	 */
+	@Test
 	public void test_editColumnsRowsActions() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

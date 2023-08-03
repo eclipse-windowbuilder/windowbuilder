@@ -27,7 +27,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for basic parsing and {@link ControlInfo}.
@@ -54,6 +55,7 @@ public class ControlTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		ControlInfo shell =
 				parse(
@@ -138,13 +140,14 @@ public class ControlTest extends XwtModelTest {
 	/**
 	 * Test that {@link ControlInfo} has "Style" property.
 	 */
+	@Test
 	public void test_hasStyleProperty() throws Exception {
 		ControlInfo shell = parse("<Shell/>");
 		refresh();
 		// has "Style" property
 		Property property = shell.getPropertyByTitle("Style");
 		assertNotNull(property);
-		assertThat(property.getEditor()).isInstanceOf(StylePropertyEditor.class);
+		Assertions.assertThat(property.getEditor()).isInstanceOf(StylePropertyEditor.class);
 		assertEquals(true, property.getCategory().isSystem());
 		// no default value
 		assertEquals(0, property.getValue());
@@ -153,6 +156,7 @@ public class ControlTest extends XwtModelTest {
 	/**
 	 * Test that custom component can be rendered as "root".
 	 */
+	@Test
 	public void test_renderMyComponent() throws Exception {
 		prepareMyComponent("public int myValue = 123;");
 		ControlInfo model = parse("<t:MyComponent/>");
@@ -169,6 +173,7 @@ public class ControlTest extends XwtModelTest {
 	 * <p>
 	 * http://www.eclipse.org/forums/index.php?t=msg&th=167978&start=0&
 	 */
+	@Test
 	public void test_parse_nestedXWT() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -215,6 +220,7 @@ public class ControlTest extends XwtModelTest {
 	 * are no classpath, types, etc. But would be good to show good warning instead of just failure.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_parse_notJavaProject() throws Exception {
 		ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
 		// parse

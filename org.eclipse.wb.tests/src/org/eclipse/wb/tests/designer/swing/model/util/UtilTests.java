@@ -10,20 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.util;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Swing utils tests.
  *
  * @author scheglov_ke
  */
-public class UtilTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.util");
-		suite.addTest(createSingleSuite(SurroundSupportTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ SurroundSupportTest.class })
+public class UtilTests {
 }

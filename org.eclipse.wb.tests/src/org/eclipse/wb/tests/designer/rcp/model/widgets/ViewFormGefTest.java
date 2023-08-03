@@ -15,6 +15,9 @@ import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link ViewFormInfo}.
  *
@@ -35,6 +38,7 @@ public class ViewFormGefTest extends RcpGefTest {
 	// Canvas, CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_topLeft() throws Exception {
 		ViewFormInfo composite = prepare_canvas_CREATE();
 		// use canvas
@@ -52,6 +56,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_topCenter() throws Exception {
 		ViewFormInfo composite = prepare_canvas_CREATE();
 		// use canvas
@@ -69,6 +74,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_topRight() throws Exception {
 		ViewFormInfo composite = prepare_canvas_CREATE();
 		// use canvas
@@ -86,6 +92,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_content() throws Exception {
 		ViewFormInfo composite = prepare_canvas_CREATE();
 		// use canvas
@@ -103,6 +110,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_notControl() throws Exception {
 		ViewFormInfo composite = prepare_canvas_CREATE0();
 		// try to CREATE Menu
@@ -147,7 +155,9 @@ public class ViewFormGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_canvas_PASTE() throws Exception {
+	@Ignore
+	@Test
+	public void test_canvas_PASTE() throws Exception {
 		ViewFormInfo composite =
 				(ViewFormInfo) openJavaInfo(
 						"public class Test extends ViewForm {",
@@ -184,6 +194,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_MOVE() throws Exception {
 		ViewFormInfo composite =
 				(ViewFormInfo) openJavaInfo(
@@ -227,6 +238,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_ADD() throws Exception {
 		ViewFormInfo composite =
 				(ViewFormInfo) openJavaInfo(
@@ -278,6 +290,7 @@ public class ViewFormGefTest extends RcpGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_empty() throws Exception {
 		ViewFormInfo composite =
 				openJavaInfo(
@@ -304,6 +317,7 @@ public class ViewFormGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		ViewFormInfo composite =
 				openJavaInfo(

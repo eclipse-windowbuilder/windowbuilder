@@ -11,20 +11,17 @@
 package org.eclipse.wb.tests.designer.XML.palette.ui;
 
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link PaletteInfo}.
  *
  * @author scheglov_ke
  */
-public class PaletteUiTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.palette.ui");
-		suite.addTest(createSingleSuite(PaletteUiTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ PaletteUiTest.class })
+public class PaletteUiTests {
 }

@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Button;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ButtonInfo}.
  *
@@ -39,6 +41,7 @@ public class ButtonsTest extends RcpModelTest {
 	// Creation with different "creationId"
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addButton_1() throws Exception {
 		check_addButton(new String[]{
 				"class Test {",
@@ -61,6 +64,7 @@ public class ButtonsTest extends RcpModelTest {
 		"}"}, null);
 	}
 
+	@Test
 	public void test_addButton_2() throws Exception {
 		check_addButton(new String[]{
 				"class Test {",
@@ -82,6 +86,7 @@ public class ButtonsTest extends RcpModelTest {
 		"}"}, "no-such-creationId");
 	}
 
+	@Test
 	public void test_addCheckButton() throws Exception {
 		check_addButton(new String[]{
 				"class Test {",
@@ -104,6 +109,7 @@ public class ButtonsTest extends RcpModelTest {
 		"}"}, "check");
 	}
 
+	@Test
 	public void test_addRadioButton() throws Exception {
 		check_addButton(new String[]{
 				"class Test {",
@@ -149,6 +155,7 @@ public class ButtonsTest extends RcpModelTest {
 	 * Test that {@link ButtonStylePresentation} returns different icons for buttons with different
 	 * styles.
 	 */
+	@Test
 	public void test_ButtonStylePresentation() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -177,6 +184,7 @@ public class ButtonsTest extends RcpModelTest {
 	 * Test that {@link ButtonStylePresentation} returns same icons for different {@link Button}
 	 * instances, for same style.
 	 */
+	@Test
 	public void test_ButtonStylePresentation_cacheIcons() throws Exception {
 		parseComposite(
 				"public class Test extends Shell {",

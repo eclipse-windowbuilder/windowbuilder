@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TopBoundsSupport}.
  *
@@ -36,6 +38,7 @@ public class TopBoundsSupportTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		AbstractComponentInfo shell = parse("<Shell/>");
 		shell.refresh();

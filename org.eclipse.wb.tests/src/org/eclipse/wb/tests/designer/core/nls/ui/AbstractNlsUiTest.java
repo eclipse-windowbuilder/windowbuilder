@@ -17,12 +17,16 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.widgets.ToolItem;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+
 /**
  * Abstract test for NLS UI.
  *
  * @author scheglov_ke
  */
-public class AbstractNlsUiTest extends SwingGefTest {
+public abstract class AbstractNlsUiTest extends SwingGefTest {
 	protected ToolItem m_dialogItem;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -77,7 +81,8 @@ public class AbstractNlsUiTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -85,7 +90,8 @@ public class AbstractNlsUiTest extends SwingGefTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// process UI messages (without this we have exception from Java UI)
 		waitEventLoop(1);
 		//
@@ -100,12 +106,8 @@ public class AbstractNlsUiTest extends SwingGefTest {
 	// Project life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public final void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
-	}
-
-	@Override
-	public final void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 }

@@ -23,7 +23,10 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.part.ViewPart;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests for RCP wizards, such as {@link ViewPart}.
@@ -39,13 +42,15 @@ public class RcpWizardsTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		m_packageFragment = m_testProject.getPackage("test");
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		waitEventLoop(10);
 		super.tearDown();
 	}
@@ -65,20 +70,22 @@ public class RcpWizardsTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@DisposeProjectAfter
+	@Test
 	public void test_ViewPart_isPDE() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_project, null, null);
 		animate_ViewPart();
 		{
 			String pluginFile = getFileContent("plugin.xml");
-			assertThat(pluginFile).contains("org.eclipse.ui.views");
-			assertThat(pluginFile).contains("<view");
-			assertThat(pluginFile).contains("class=\"test.MyViewPart\"");
-			assertThat(pluginFile).contains("id=\"test.MyViewPart\"");
-			assertThat(pluginFile).contains("name=\"New ViewPart\"");
+			Assertions.assertThat(pluginFile).contains("org.eclipse.ui.views");
+			Assertions.assertThat(pluginFile).contains("<view");
+			Assertions.assertThat(pluginFile).contains("class=\"test.MyViewPart\"");
+			Assertions.assertThat(pluginFile).contains("id=\"test.MyViewPart\"");
+			Assertions.assertThat(pluginFile).contains("name=\"New ViewPart\"");
 		}
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_ViewPart_notPDE() throws Exception {
 		animate_ViewPart();
 		assertFileNotExists("plugin.xml");
@@ -106,20 +113,22 @@ public class RcpWizardsTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@DisposeProjectAfter
+	@Test
 	public void test_EditorPart_isPDE() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_project, null, null);
 		animate_EditorPart();
 		{
 			String pluginFile = getFileContent("plugin.xml");
-			assertThat(pluginFile).contains("org.eclipse.ui.editors");
-			assertThat(pluginFile).contains("<editor");
-			assertThat(pluginFile).contains("class=\"test.MyEditorPart\"");
-			assertThat(pluginFile).contains("id=\"test.MyEditorPart\"");
-			assertThat(pluginFile).contains("name=\"New EditorPart\"");
+			Assertions.assertThat(pluginFile).contains("org.eclipse.ui.editors");
+			Assertions.assertThat(pluginFile).contains("<editor");
+			Assertions.assertThat(pluginFile).contains("class=\"test.MyEditorPart\"");
+			Assertions.assertThat(pluginFile).contains("id=\"test.MyEditorPart\"");
+			Assertions.assertThat(pluginFile).contains("name=\"New EditorPart\"");
 		}
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_EditorPart_notPDE() throws Exception {
 		animate_EditorPart();
 		assertFileNotExists("plugin.xml");

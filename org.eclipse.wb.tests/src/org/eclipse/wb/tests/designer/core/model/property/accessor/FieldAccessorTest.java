@@ -25,6 +25,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jdt.core.dom.Assignment;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -50,6 +52,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link FieldAccessor}.
 	 */
+	@Test
 	public void test_fieldAccessor() throws Exception {
 		defineMyButton();
 		ContainerInfo panel =
@@ -116,6 +119,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Test for many {@link FieldAccessor} features.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		setFileContentSrc(
 				"test/MyComponent.java",
@@ -197,6 +201,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	 * Default value should be fetched after each creation. Note, that constructor parameter is not
 	 * bound to "text" property, we just get "text" property default value.
 	 */
+	@Test
 	public void test_defaultValue() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -239,6 +244,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	 * When component was replaced with placeholder, this should not cause subsequent exception during
 	 * getting default value. We should just ignore such exceptions.
 	 */
+	@Test
 	public void test_defaultValue_whenReplacedWithPlaceholder() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -274,6 +280,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Test for separate {@link Assignment} to field, not sequence.
 	 */
+	@Test
 	public void test_separateAssignment() throws Exception {
 		defineMyButton();
 		ContainerInfo panel =
@@ -315,6 +322,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link FieldAccessor} with sequence of assignments.
 	 */
+	@Test
 	public void test_sequence_parse() throws Exception {
 		defineMyButton();
 		ContainerInfo panel =
@@ -339,6 +347,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Set new value for last part of assignments sequence.
 	 */
+	@Test
 	public void test_sequence_modifyLast() throws Exception {
 		defineMyButton();
 		ContainerInfo panel =
@@ -371,6 +380,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Set new value for first part of assignments sequence.
 	 */
+	@Test
 	public void test_sequence_modifyFirst() throws Exception {
 		defineMyButton();
 		ContainerInfo panel =
@@ -431,6 +441,7 @@ public class FieldAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link IAccessibleExpressionAccessor}.
 	 */
+	@Test
 	public void test_IAccessibleExpressionAccessor() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

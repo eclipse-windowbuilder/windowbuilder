@@ -27,6 +27,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.graphics.Image;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Test for static factory and eSWT.
  *
@@ -39,7 +42,8 @@ public class StaticFactoryTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -75,6 +79,7 @@ public class StaticFactoryTest extends RcpModelTest {
 	// parse
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse_Button() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -91,6 +96,7 @@ public class StaticFactoryTest extends RcpModelTest {
 		assertEquals("StaticFactory.createButton(this, \"SF button\")", association.getSource());
 	}
 
+	@Test
 	public void test_parse_TableViewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -121,6 +127,7 @@ public class StaticFactoryTest extends RcpModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD_TableViewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -161,6 +168,7 @@ public class StaticFactoryTest extends RcpModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_Button() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -204,6 +212,7 @@ public class StaticFactoryTest extends RcpModelTest {
 				new StaticFactoryCreationSupport(description));
 	}
 
+	@Test
 	public void test_CREATE_TableViewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -249,6 +258,7 @@ public class StaticFactoryTest extends RcpModelTest {
 		assertSame(table.getAssociation().getStatement(), viewer.getAssociation().getStatement());
 	}
 
+	@Test
 	public void test_CREATE_liveImage() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

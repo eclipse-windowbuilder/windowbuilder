@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ViewFormInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -41,6 +43,7 @@ public class ViewFormTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_defaultProperties() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -56,6 +59,7 @@ public class ViewFormTest extends XwtModelTest {
 	/**
 	 * No any children {@link ControlInfo}'s, so for all positions <code>null</code>.
 	 */
+	@Test
 	public void test_childrenNo() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -73,6 +77,7 @@ public class ViewFormTest extends XwtModelTest {
 	/**
 	 * Test for {@link ViewFormInfo#getControl(String)}.
 	 */
+	@Test
 	public void test_children() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -95,6 +100,7 @@ public class ViewFormTest extends XwtModelTest {
 	/**
 	 * Each {@link ControlInfo} text is decorated with its position method.
 	 */
+	@Test
 	public void test_presentation_decorateText() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -112,6 +118,7 @@ public class ViewFormTest extends XwtModelTest {
 	 * Even when no "real" {@link ControlInfo} children, tree still has {@link AbstractPositionInfo}
 	 * placeholders.
 	 */
+	@Test
 	public void test_AbstractPositionInfo_getChildrenTree_placeholders() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -137,6 +144,7 @@ public class ViewFormTest extends XwtModelTest {
 	 * "Tree" children of {@link ViewFormInfo} should be sorted in same order as "set" methods array
 	 * passed to constructor.
 	 */
+	@Test
 	public void test_AbstractPositionInfo_getChildrenTree_sortChildren() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -178,6 +186,7 @@ public class ViewFormTest extends XwtModelTest {
 	/**
 	 * Test for {@link ViewFormInfo#command_CREATE(ControlInfo, String)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -203,6 +212,7 @@ public class ViewFormTest extends XwtModelTest {
 	 * <p>
 	 * "Move" into different position.
 	 */
+	@Test
 	public void test_MOVE_1() throws Exception {
 		ViewFormInfo viewForm =
 				parse(
@@ -236,6 +246,7 @@ public class ViewFormTest extends XwtModelTest {
 	 * <p>
 	 * Move into {@link ViewFormInfo}.
 	 */
+	@Test
 	public void test_MOVE_2() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -268,6 +279,7 @@ public class ViewFormTest extends XwtModelTest {
 	 * <p>
 	 * Move from {@link ViewFormInfo}.
 	 */
+	@Test
 	public void test_MOVE_3() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -302,6 +314,7 @@ public class ViewFormTest extends XwtModelTest {
 	 * After moving of {@link ControlInfo}'s into new position it should be places in same order, as
 	 * "position" properties.
 	 */
+	@Test
 	public void test_MOVE_4() throws Exception {
 		ViewFormInfo viewForm =
 				parse(

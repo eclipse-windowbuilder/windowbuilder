@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 /**
  * Tests for loading of {@link IDescriptionProcessor}'s.
  *
@@ -31,6 +33,7 @@ public class DescriptionProcessorTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ComponentDescriptionHelper#getDescriptionProcessors()}.
 	 */
+	@Test
 	public void test_getDescriptionProcessors() throws Exception {
 		// dynamic processor is not yet registered, so can not be found
 		assertNull(getMyProcessor());

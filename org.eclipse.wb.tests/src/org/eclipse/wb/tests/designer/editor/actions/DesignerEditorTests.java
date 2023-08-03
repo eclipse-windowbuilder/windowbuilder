@@ -10,23 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.editor.actions;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class DesignerEditorTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.editor.actions");
-		suite.addTest(createSingleSuite(ActionsTest.class));
-		suite.addTest(createSingleSuite(DeleteActionTest.class));
-		suite.addTest(createSingleSuite(CopyActionTest.class));
-		suite.addTest(createSingleSuite(CutActionTest.class));
-		suite.addTest(createSingleSuite(SwitchActionTest.class));
-		suite.addTest(createSingleSuite(RefreshActionTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ActionsTest.class,
+		DeleteActionTest.class,
+		CopyActionTest.class,
+		CutActionTest.class,
+		SwitchActionTest.class,
+		RefreshActionTest.class
+})
+public class DesignerEditorTests {
 }

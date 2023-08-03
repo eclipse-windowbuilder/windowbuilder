@@ -23,6 +23,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TableWrapLayout} and special parameters for grab/alignment.
  *
@@ -57,6 +59,7 @@ public class TabelWrapLayoutParametersTest extends XwtModelTest {
 	/**
 	 * {@link Text} widget is marked as required horizontal grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Text() throws Exception {
 		parse(
 				"<Shell>",
@@ -89,6 +92,7 @@ public class TabelWrapLayoutParametersTest extends XwtModelTest {
 	/**
 	 * Test that horizontal grab/fill {@link Text} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
 		parse(
 				"<Shell>",
@@ -122,6 +126,7 @@ public class TabelWrapLayoutParametersTest extends XwtModelTest {
 	/**
 	 * {@link Table} widget is marked as required horizontal/vertical grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Table() throws Exception {
 		parse(
 				"<Shell>",
@@ -155,6 +160,7 @@ public class TabelWrapLayoutParametersTest extends XwtModelTest {
 	 * {@link Label} widget is marked as "right" aligned and next widget is {@link Text}, so when add
 	 * {@link Label} before {@link Text}, use {@link TableWrapData#RIGHT} alignment.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
 		parse(
 				"<Shell>",
@@ -187,6 +193,7 @@ public class TabelWrapLayoutParametersTest extends XwtModelTest {
 	/**
 	 * Check that automatic "right alignment" feature for {@link Label} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
 		parse(
 				"<Shell>",
@@ -221,6 +228,7 @@ public class TabelWrapLayoutParametersTest extends XwtModelTest {
 	 * {@link Label} widget is marked as "right" aligned and next widget is {@link Text}, so when add
 	 * {@link Text} after {@link Label}, use {@link TableWrapData#RIGHT} alignment for {@link Label}.
 	 */
+	@Test
 	public void test_CREATE_TextAfterLabel() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

@@ -25,6 +25,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridDataInfo}.
  *
@@ -48,6 +50,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setHorizontalAlignment(int)}.
 	 */
+	@Test
 	public void test_setHorizontalAlignment() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -103,6 +106,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setVerticalAlignment(int)}.
 	 */
+	@Test
 	public void test_setVerticalAlignment() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -160,6 +164,7 @@ public class GridDataTest extends XwtModelTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getSmallAlignmentImage() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -204,6 +209,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Set invalid alignment and ask image.
 	 */
+	@Test
 	public void test_getSmallAlignmentImage_invalid() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -233,6 +239,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridDataInfo#getWidthHint()} and {@link GridDataInfo#setWidthHint(int)}.
 	 */
+	@Test
 	public void test_sizeHint_width() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -278,6 +285,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridDataInfo#getHeightHint()} and {@link GridDataInfo#setHeightHint(int)}.
 	 */
+	@Test
 	public void test_sizeHint_height() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -325,6 +333,7 @@ public class GridDataTest extends XwtModelTest {
 	// Grab
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_grabHorizontal() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -361,6 +370,7 @@ public class GridDataTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_grabVertical() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -397,6 +407,7 @@ public class GridDataTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_grab_usingProperty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -441,6 +452,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setHorizontalSpan(int)}.
 	 */
+	@Test
 	public void test_setHorizontalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -475,6 +487,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for using "horizontalSpan" property.
 	 */
+	@Test
 	public void test_setProperty_horizontalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -521,6 +534,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setVerticalSpan(int)}.
 	 */
+	@Test
 	public void test_setVerticalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -555,6 +569,7 @@ public class GridDataTest extends XwtModelTest {
 	/**
 	 * Test for using "verticalSpan" property.
 	 */
+	@Test
 	public void test_setProperty_verticalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -604,6 +619,7 @@ public class GridDataTest extends XwtModelTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu_horizontal() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -662,6 +678,7 @@ public class GridDataTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_vertical() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -717,6 +734,7 @@ public class GridDataTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_horizontalHint() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -755,6 +773,7 @@ public class GridDataTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_verticalHint() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -810,6 +829,7 @@ public class GridDataTest extends XwtModelTest {
 	 * {@link GridData#BEGINNING}, not {@link SWT#LEFT} as we would like. So, we need to check and fix
 	 * this.
 	 */
+	@Test
 	public void test_defaultValues() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -839,6 +859,7 @@ public class GridDataTest extends XwtModelTest {
 	// Modern alignment constants
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_modernHorizontalAlignment() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -867,6 +888,7 @@ public class GridDataTest extends XwtModelTest {
 		check_modernHorizontalAlignment(button, GridData.FILL, SWT.FILL, "FILL");
 	}
 
+	@Test
 	public void test_modernVerticalAlignment() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

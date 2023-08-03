@@ -28,6 +28,8 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -44,6 +46,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link MenuObjectInfoUtils#setSelectingObject(IMenuObjectInfo)}.
 	 */
+	@Test
 	public void test_setSelectingObject_menuObject() throws Exception {
 		IMenuObjectInfo object = mock(IMenuObjectInfo.class);
 		//
@@ -54,6 +57,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link MenuObjectInfoUtils#setSelectingObject(Object)}.
 	 */
+	@Test
 	public void test_setSelectingObject_pureObject() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
@@ -77,6 +81,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuItemInfo(Object)}.<br>
 	 * Object does not implement {@link IAdaptable}.
 	 */
+	@Test
 	public void test_getMenuObjectInfo_1() throws Exception {
 		Object object = mock(Object.class);
 		// validate
@@ -89,6 +94,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuItemInfo(Object)}.<br>
 	 * Object implements {@link IAdaptable} and returns {@link IMenuItemInfo}.
 	 */
+	@Test
 	public void test_getMenuObjectInfo_2() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
@@ -106,6 +112,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuItemInfo(Object)}.<br>
 	 * Object implements {@link IAdaptable} and returns {@link IMenuInfo}.
 	 */
+	@Test
 	public void test_getMenuObjectInfo_3() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		IMenuInfo menuInfo = mock(IMenuInfo.class);
@@ -128,6 +135,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuItemInfo(Object)}.<br>
 	 * Object does not implement {@link IAdaptable}.
 	 */
+	@Test
 	public void test_getMenuItemInfo_1() throws Exception {
 		Object object = mock(Object.class);
 		// validate
@@ -140,6 +148,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuItemInfo(Object)}.<br>
 	 * Object implements {@link IAdaptable} and returns {@link IMenuItemInfo}.
 	 */
+	@Test
 	public void test_getMenuItemInfo_2() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
@@ -164,6 +173,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuItemInfo(Object)}.<br>
 	 * External {@link IAdaptableFactory}.
 	 */
+	@Test
 	public void test_getMenuItemInfo_3() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		m_tmpItemInfo = mock(IMenuItemInfo.class);
@@ -207,6 +217,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuInfo(Object)}.<br>
 	 * Object does not implement {@link IAdaptable}.
 	 */
+	@Test
 	public void test_getMenuInfo_1() throws Exception {
 		Object object = mock(Object.class);
 		// validate
@@ -219,6 +230,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuInfo(Object)}.<br>
 	 * Object implements {@link IAdaptable} and returns {@link IMenuInfo}.
 	 */
+	@Test
 	public void test_getMenuInfo_2() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		IMenuInfo menuInfo = mock(IMenuInfo.class);
@@ -241,6 +253,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuPopupInfo(Object)}.<br>
 	 * Object does not implement {@link IAdaptable}.
 	 */
+	@Test
 	public void test_getMenuPopupInfo_1() throws Exception {
 		Object object = mock(Object.class);
 		// validate
@@ -253,6 +266,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getMenuPopupInfo(Object)}.<br>
 	 * Object implements {@link IAdaptable} and returns {@link IMenuPopupInfo}.
 	 */
+	@Test
 	public void test_getMenuPopupInfo_2() throws Exception {
 		IAdaptable object = mock(IAdaptable.class);
 		IMenuPopupInfo popupInfo = mock(IMenuPopupInfo.class);
@@ -275,6 +289,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getSubMenu(IMenuObjectInfo)}.<br>
 	 * Use on {@link IMenuInfo}, that can not have {@link IMenuInfo}.
 	 */
+	@Test
 	public void test_getSubMenu_1() throws Exception {
 		IMenuInfo menuInfo = mock(IMenuInfo.class);
 		// validate
@@ -287,6 +302,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getSubMenu(IMenuObjectInfo)}.<br>
 	 * Use on {@link IMenuPopupInfo}.
 	 */
+	@Test
 	public void test_getSubMenu_2() throws Exception {
 		IMenuPopupInfo popupInfo = mock(IMenuPopupInfo.class);
 		IMenuInfo menuInfo = mock(IMenuInfo.class);
@@ -304,6 +320,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#getSubMenu(IMenuObjectInfo)}.<br>
 	 * Use on {@link IMenuItemInfo}.
 	 */
+	@Test
 	public void test_getSubMenu_3() throws Exception {
 		IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
 		IMenuInfo menuInfo = mock(IMenuInfo.class);
@@ -326,6 +343,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#isParentChild(IMenuObjectInfo, IMenuObjectInfo)}.<br>
 	 * One or two <code>null</code> objects.
 	 */
+	@Test
 	public void test_isParentChild_null() throws Exception {
 		IMenuObjectInfo parent = mock(IMenuObjectInfo.class);
 		IMenuObjectInfo child = mock(IMenuObjectInfo.class);
@@ -356,6 +374,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#isParentChild(IMenuObjectInfo, IMenuObjectInfo)}.<br>
 	 * Two general {@link IMenuObjectInfo}'s.
 	 */
+	@Test
 	public void test_isParentChild_genericObjects() throws Exception {
 		IMenuObjectInfo parent = mock(IMenuObjectInfo.class);
 		IMenuObjectInfo child = mock(IMenuObjectInfo.class);
@@ -370,6 +389,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#isParentChild(IMenuObjectInfo, IMenuObjectInfo)}.<br>
 	 * Parent/child found.
 	 */
+	@Test
 	public void test_isParentChild_hit() throws Exception {
 		IMenuObjectInfo object = mock(IMenuObjectInfo.class);
 		// validate
@@ -382,6 +402,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#isParentChild(IMenuObjectInfo, IMenuObjectInfo)}.<br>
 	 * {@link IMenuPopupInfo} and its menu.
 	 */
+	@Test
 	public void test_isParentChild_popupWithMenu() throws Exception {
 		IMenuPopupInfo popup = mock(IMenuPopupInfo.class);
 		IMenuInfo menu = mock(IMenuInfo.class);
@@ -399,6 +420,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#isParentChild(IMenuObjectInfo, IMenuObjectInfo)}.<br>
 	 * {@link IMenuItemInfo} and its menu.
 	 */
+	@Test
 	public void test_isParentChild_itemWithMenu() throws Exception {
 		IMenuItemInfo item = mock(IMenuItemInfo.class);
 		IMenuInfo menu = mock(IMenuInfo.class);
@@ -416,6 +438,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 	 * Test for {@link MenuObjectInfoUtils#isParentChild(IMenuObjectInfo, IMenuObjectInfo)}.<br>
 	 * {@link IMenuInfo} and some of its {@link IMenuItemInfo}.
 	 */
+	@Test
 	public void test_isParentChild_menuWithItems() throws Exception {
 		IMenuInfo menu = mock(IMenuInfo.class);
 		IMenuItemInfo item_1 = mock(IMenuItemInfo.class);

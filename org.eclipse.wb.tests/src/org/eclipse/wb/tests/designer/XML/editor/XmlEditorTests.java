@@ -11,39 +11,38 @@
 package org.eclipse.wb.tests.designer.XML.editor;
 
 import org.eclipse.wb.internal.core.xml.editor.AbstractXmlEditor;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * {@link AbstractXmlEditor} and related tests.
  *
  * @author scheglov_ke
  */
-public class XmlEditorTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.editor");
+@RunWith(Suite.class)
+@SuiteClasses({
 		// editor
-		suite.addTest(createSingleSuite(AbstractXmlEditorTest.class));
-		suite.addTest(createSingleSuite(EditorLayoutTest.class));
-		suite.addTest(createSingleSuite(UndoManagerTest.class));
-		suite.addTest(createSingleSuite(XmlDesignPageTest.class));
-		suite.addTest(createSingleSuite(DesignContextMenuProviderTest.class));
-		suite.addTest(createSingleSuite(XmlPropertiesToolBarContributorTest.class));
-		suite.addTest(createSingleSuite(SelectSupportTest.class));
+		AbstractXmlEditorTest.class,
+		EditorLayoutTest.class,
+		UndoManagerTest.class,
+		XmlDesignPageTest.class,
+		DesignContextMenuProviderTest.class,
+		XmlPropertiesToolBarContributorTest.class,
+		SelectSupportTest.class,
 		// actions
-		suite.addTest(createSingleSuite(EditorRelatedActionTest.class));
-		suite.addTest(createSingleSuite(SwitchActionTest.class));
-		suite.addTest(createSingleSuite(SwitchPairEditorActionTest.class));
-		suite.addTest(createSingleSuite(RefreshActionTest.class));
-		suite.addTest(createSingleSuite(TestActionTest.class));
-		suite.addTest(createSingleSuite(DeleteActionTest.class));
-		suite.addTest(createSingleSuite(CopyActionTest.class));
-		suite.addTest(createSingleSuite(CutActionTest.class));
+		EditorRelatedActionTest.class,
+		SwitchActionTest.class,
+		SwitchPairEditorActionTest.class,
+		RefreshActionTest.class,
+		TestActionTest.class,
+		DeleteActionTest.class,
+		CopyActionTest.class,
+		CutActionTest.class,
 		// policies
-		suite.addTest(createSingleSuite(TopSelectionEditPolicyTest.class));
-		suite.addTest(createSingleSuite(DirectTextPropertyEditPolicyTest.class));
-		return suite;
-	}
+		TopSelectionEditPolicyTest.class,
+		DirectTextPropertyEditPolicyTest.class
+})
+public class XmlEditorTests {
 }

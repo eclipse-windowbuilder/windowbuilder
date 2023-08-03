@@ -14,12 +14,15 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.SelectionToolEntryInfo;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 /**
  * Test for {@link SelectionToolEntryInfo}.
  *
  * @author scheglov_ke
  */
 public class SelectionToolEntryInfoTest extends DesignerTestCase {
+	@Test
 	public void test() throws Exception {
 		SelectionToolEntryInfo entry = new SelectionToolEntryInfo();
 		assertEquals("Selection", entry.getName());

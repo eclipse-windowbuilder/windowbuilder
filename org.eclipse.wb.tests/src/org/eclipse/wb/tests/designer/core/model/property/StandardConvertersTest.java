@@ -41,6 +41,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.JavaCore;
 
+import org.junit.Test;
+
 import java.util.Locale;
 
 /**
@@ -63,26 +65,32 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Tests using property
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_property_boolean() throws Exception {
 		check_converter("boolean", Boolean.TRUE, "true");
 	}
 
+	@Test
 	public void test_property_short() throws Exception {
 		check_converter("short", new Short((short) 123), "(short) 123");
 	}
 
+	@Test
 	public void test_property_int() throws Exception {
 		check_converter("int", Integer.valueOf(123), "123");
 	}
 
+	@Test
 	public void test_property_float() throws Exception {
 		check_converter("float", new Float(123.4), "123.4f");
 	}
 
+	@Test
 	public void test_property_double() throws Exception {
 		check_converter("double", Double.valueOf(123.4), "123.4");
 	}
 
+	@Test
 	public void test_property_String() throws Exception {
 		check_converter("String", "abc", "\"abc\"");
 	}
@@ -126,6 +134,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Separate tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_BooleanConverter() throws Exception {
 		assertConverterEditor(boolean.class);
 		ExpressionConverter converter = BooleanConverter.INSTANCE;
@@ -133,12 +142,14 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("true", converter.toJavaSource(null, Boolean.TRUE));
 	}
 
+	@Test
 	public void test_CharacterConverter() throws Exception {
 		assertConverterEditor(char.class);
 		ExpressionConverter converter = CharacterConverter.INSTANCE;
 		assertEquals("'0'", converter.toJavaSource(null, new Character('0')));
 	}
 
+	@Test
 	public void test_ByteConverter() throws Exception {
 		assertConverterEditor(byte.class);
 		ExpressionConverter converter = ByteConverter.INSTANCE;
@@ -146,6 +157,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("(byte) -1", converter.toJavaSource(null, Byte.valueOf((byte) -1)));
 	}
 
+	@Test
 	public void test_ShortConverter() throws Exception {
 		assertConverterEditor(short.class);
 		ExpressionConverter converter = ShortConverter.INSTANCE;
@@ -153,6 +165,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("(short) -1", converter.toJavaSource(null, new Short((short) -1)));
 	}
 
+	@Test
 	public void test_IntegerConverter() throws Exception {
 		assertConverterEditor(int.class);
 		ExpressionConverter converter = IntegerConverter.INSTANCE;
@@ -160,6 +173,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("-1", converter.toJavaSource(null, Integer.valueOf(-1)));
 	}
 
+	@Test
 	public void test_LongConverter() throws Exception {
 		assertConverterEditor(long.class);
 		ExpressionConverter converter = LongConverter.INSTANCE;
@@ -167,6 +181,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("-1L", converter.toJavaSource(null, Long.valueOf(-1)));
 	}
 
+	@Test
 	public void test_FloatConverter() throws Exception {
 		assertConverterEditor(float.class);
 		ExpressionConverter converter = FloatConverter.INSTANCE;
@@ -176,6 +191,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("-1.2f", converter.toJavaSource(null, Float.valueOf(-1.2f)));
 	}
 
+	@Test
 	public void test_DoubleConverter() throws Exception {
 		assertConverterEditor(double.class);
 		ExpressionConverter converter = DoubleConverter.INSTANCE;
@@ -191,6 +207,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("1.0", converter.toJavaSource(null, (float) 1));
 	}
 
+	@Test
 	public void test_StringArrayConverter() throws Exception {
 		assertConverterEditor(String[].class);
 		ExpressionConverter converter = StringArrayConverter.INSTANCE;
@@ -202,6 +219,7 @@ public class StandardConvertersTest extends SwingModelTest {
 				converter.toJavaSource(null, new String[]{"a", "b"}));
 	}
 
+	@Test
 	public void test_BooleanArrayConverter() throws Exception {
 		assertNotNull(DescriptionPropertiesHelper.getConverterForType(boolean[].class));
 		ExpressionConverter converter = BooleanArrayConverter.INSTANCE;
@@ -213,6 +231,7 @@ public class StandardConvertersTest extends SwingModelTest {
 				converter.toJavaSource(null, new boolean[]{false, true}));
 	}
 
+	@Test
 	public void test_IntegerArrayConverter() throws Exception {
 		assertNotNull(DescriptionPropertiesHelper.getConverterForType(int[].class));
 		ExpressionConverter converter = IntegerArrayConverter.INSTANCE;
@@ -222,6 +241,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("new int[] {1, 2, 3}", converter.toJavaSource(null, new int[]{1, 2, 3}));
 	}
 
+	@Test
 	public void test_LocaleConverter() throws Exception {
 		assertConverterEditor(Locale.class);
 		//
@@ -246,6 +266,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Boolean as object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_BooleanObjectConverter_noJava() throws Exception {
 		assertConverterEditor(Boolean.class);
 		ExpressionConverter converter = BooleanObjectConverter.INSTANCE;
@@ -253,11 +274,13 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("Boolean.TRUE", converter.toJavaSource(null, true));
 	}
 
+	@Test
 	public void test_BooleanObjectConverter_null() throws Exception {
 		ExpressionConverter converter = BooleanObjectConverter.INSTANCE;
 		assertEquals("(Boolean) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_BooleanObjectConverter_forJava5() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -273,6 +296,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_BooleanObjectConverter_forJava4() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
 		ContainerInfo panel =
@@ -293,6 +317,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Byte as object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ByteObjectConverter_noJava() throws Exception {
 		assertConverterEditor(Byte.class);
 		ExpressionConverter converter = ByteObjectConverter.INSTANCE;
@@ -300,11 +325,13 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("Byte.valueOf((byte) -1)", converter.toJavaSource(null, Byte.valueOf((byte) -1)));
 	}
 
+	@Test
 	public void test_ByteObjectConverter_null() throws Exception {
 		ExpressionConverter converter = ByteObjectConverter.INSTANCE;
 		assertEquals("(Byte) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_ByteObjectConverter_forJava5() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -319,6 +346,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_ByteObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
 		ContainerInfo panel =
@@ -334,6 +362,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_ByteObjectConverter_forJava4() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
 		ContainerInfo panel =
@@ -353,11 +382,13 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Short as object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ShortObjectConverter_null() throws Exception {
 		ExpressionConverter converter = ShortObjectConverter.INSTANCE;
 		assertEquals("(Short) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_ShortObjectConverter_forJava5() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -377,6 +408,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Integer as object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_IntegerObjectConverter_noJava() throws Exception {
 		assertConverterEditor(Integer.class);
 		ExpressionConverter converter = IntegerObjectConverter.INSTANCE;
@@ -384,11 +416,13 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("Integer.valueOf(-1)", converter.toJavaSource(null, Integer.valueOf(-1)));
 	}
 
+	@Test
 	public void test_IntegerObjectConverter_null() throws Exception {
 		ExpressionConverter converter = IntegerObjectConverter.INSTANCE;
 		assertEquals("(Integer) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_IntegerObjectConverter_forJava5() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -407,6 +441,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Long as object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_LongObjectConverter_noJava() throws Exception {
 		assertConverterEditor(Long.class);
 		ExpressionConverter converter = LongObjectConverter.INSTANCE;
@@ -414,6 +449,7 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("Long.valueOf(-1L)", converter.toJavaSource(null, Long.valueOf(-1)));
 	}
 
+	@Test
 	public void test_LongObjectConverter_null() throws Exception {
 		ExpressionConverter converter = LongObjectConverter.INSTANCE;
 		assertEquals("(Long) null", converter.toJavaSource(null, null));
@@ -421,6 +457,7 @@ public class StandardConvertersTest extends SwingModelTest {
 
 
 	@DisposeProjectAfter
+	@Test
 	public void test_LongObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
 		ContainerInfo panel =
@@ -436,6 +473,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_LongObjectConverter_forJava4() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
 		ContainerInfo panel =
@@ -455,6 +493,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// Double as object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_DoubleObjectConverter_noJava() throws Exception {
 		assertConverterEditor(Double.class);
 		ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
@@ -464,11 +503,13 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("Double.valueOf(-2.3)", converter.toJavaSource(null, Double.valueOf(-2.3)));
 	}
 
+	@Test
 	public void test_DoubleObjectConverter_null() throws Exception {
 		ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
 		assertEquals("(Double) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_DoubleObjectConverter_forJava5() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -483,6 +524,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_DoubleObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
 		ContainerInfo panel =
@@ -498,6 +540,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_DoubleObjectConverter_forJava4() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
 		ContainerInfo panel =
@@ -517,6 +560,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	// String
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_StringConverter() throws Exception {
 		assertConverterEditor(String.class);
 		ExpressionConverter converter = StringConverter.INSTANCE;
@@ -533,6 +577,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	 * Sometimes source is in charset which can represent national symbols without encoding into "\\u"
 	 * form.
 	 */
+	@Test
 	public void test_StringConverter_hasFile_withCharset() throws Exception {
 		ExpressionConverter converter = StringConverter.INSTANCE;
 		ContainerInfo panel =

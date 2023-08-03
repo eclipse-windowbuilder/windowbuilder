@@ -7,6 +7,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
 
 /**
  * Test for {@link CopyPropertyTopSupport}.
@@ -28,6 +29,7 @@ public class CopyPropertyTopTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_copyExisting() throws Exception {
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY, new String[]{
 				"  <parameters>",
@@ -49,6 +51,7 @@ public class CopyPropertyTopTest extends AbstractCoreTest {
 		assertSame(property, component.getPropertyByTitle("MyEnabled"));
 	}
 
+	@Test
 	public void test_ignoreNoParameters() throws Exception {
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY, new String[]{
 				"  <parameters>",
@@ -61,6 +64,7 @@ public class CopyPropertyTopTest extends AbstractCoreTest {
 		assertNull(property);
 	}
 
+	@Test
 	public void test_ignoreNotExisting() throws Exception {
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY, new String[]{
 				"  <parameters>",

@@ -22,6 +22,10 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -46,7 +50,8 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -62,7 +67,8 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		for (Field field : getClass().getDeclaredFields()) {
 			field.set(this, null);
 		}
@@ -91,6 +97,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	// CREATE, absolute
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_absoluteNoSnap_topLeft() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).inY(50).move().click();
@@ -109,6 +116,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteNoSnap_bottomRight() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(250).inY(200).move().click();
@@ -127,6 +135,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_leftOffset() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(2).inY(50).move().click();
@@ -145,6 +154,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_leftZero() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).outX(-2).inY(50).move().click();
@@ -163,6 +173,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_rightOffset() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).rightSide().inX(-2).inY(50).move().click();
@@ -181,6 +192,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_rightZero() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).rightSide().outX(2).inY(50).move().click();
@@ -199,6 +211,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_topOffset() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).inY(2).move().click();
@@ -217,6 +230,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_topZero() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).outY(-2).move().click();
@@ -235,6 +249,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_bottomOffset() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).bottomSide().inY(-2).move().click();
@@ -253,6 +268,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_absoluteSnap_bottomZero() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).bottomSide().outY(2).move().click();
@@ -271,6 +287,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_ansoluteNoSnap_andResize_absoluteNoSnap() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).inY(50).move();
@@ -316,6 +333,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	// CREATE, anchor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_anchor_TL2TR() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(-1).inY(-1).move();
@@ -325,6 +343,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.WEST, box, 5, SpringLayout.EAST, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_TL2BL() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(-1).inY(-1).move();
@@ -334,6 +353,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.WEST, box, 0, SpringLayout.WEST, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_TL2BL_indent() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(-1).inY(-1).move();
@@ -343,6 +363,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.WEST, box, 10, SpringLayout.WEST, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_TL2BL_indent2() throws Exception {
 		prepare_CREATE_singlePanel();
 		// move right/below
@@ -356,6 +377,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.WEST, box, 10, SpringLayout.WEST, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_TR2TL() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(1).inY(-1).move();
@@ -365,6 +387,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.EAST, box, -5, SpringLayout.WEST, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_BL2BR() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(-1).inY(1).move();
@@ -374,6 +397,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.SOUTH, box, 0, SpringLayout.SOUTH, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_BL2TL() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(-1).inY(1).move();
@@ -383,6 +407,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.SOUTH, box, -5, SpringLayout.NORTH, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_BR2BL() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.mouseMode().target(panel).inX(1).inY(1).move();
@@ -392,6 +417,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.EAST, box, -5, SpringLayout.WEST, anchor);");
 	}
 
+	@Test
 	public void test_CREATE_anchor_BR2TR() throws Exception {
 		prepare_CREATE_singlePanel();
 		canvas.target(panel).inX(10).inY(10).move();
@@ -444,6 +470,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	// CREATE, with border
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_withBorder() throws Exception {
 		{
 			prepareBox();
@@ -492,6 +519,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_topLeft() throws Exception {
 		prepare_MOVE(
 				"public class Test extends JPanel {",
@@ -525,6 +553,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_topRight() throws Exception {
 		prepare_MOVE(
 				"public class Test extends JPanel {",
@@ -558,6 +587,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_bottomLeft() throws Exception {
 		prepare_MOVE(
 				"public class Test extends JPanel {",
@@ -602,6 +632,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	// MOVE and cycles
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_andCycles_A() throws Exception {
 		prepare_MOVE_andCycles();
 		canvas.beginMove(boxA);
@@ -630,6 +661,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_andCycles_B() throws Exception {
 		prepare_MOVE_andCycles();
 		canvas.beginMove(boxB);
@@ -693,6 +725,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	// Resize, single component, attached top-left
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_RESIZE_singleTL_absoluteLeft() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.WEST).dragOn(-50, 0).endDrag();
@@ -702,6 +735,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.EAST, box, 200, SpringLayout.WEST, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_snapLeftOffset() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.WEST);
@@ -712,6 +746,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.EAST, box, 200, SpringLayout.WEST, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_absoluteRight() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.EAST).dragOn(50, 0).endDrag();
@@ -721,6 +756,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.EAST, box, 250, SpringLayout.WEST, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_snapRightOffset() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.EAST);
@@ -731,6 +767,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.EAST, box, -10, SpringLayout.EAST, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_absoluteTop() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.NORTH).dragOn(0, -50).endDrag();
@@ -740,6 +777,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.SOUTH, box, 150, SpringLayout.NORTH, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_snapTopOffset() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.NORTH);
@@ -750,6 +788,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.SOUTH, box, 150, SpringLayout.NORTH, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_absoluteBottom() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, 50).endDrag();
@@ -759,6 +798,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 				"      layout.putConstraint(SpringLayout.SOUTH, box, 200, SpringLayout.NORTH, this);");
 	}
 
+	@Test
 	public void test_RESIZE_singleTL_snapBottomOffset() throws Exception {
 		prepare_RESIZE_singleTL();
 		canvas.beginResize(box, IPositionConstants.SOUTH);

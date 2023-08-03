@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Test;
+
 /**
  * Test for {@link RefreshAction}.
  *
@@ -27,6 +29,7 @@ public class RefreshActionTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_1() throws Exception {
 		JavaInfo currentRoot =
 				openContainer(

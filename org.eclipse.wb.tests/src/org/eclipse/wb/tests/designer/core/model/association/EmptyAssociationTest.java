@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Test;
 
 /**
  * Tests for {@link EmptyAssociation}.
@@ -37,6 +38,7 @@ public class EmptyAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

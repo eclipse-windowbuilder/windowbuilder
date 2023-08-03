@@ -24,6 +24,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
+import org.junit.Test;
+
 import java.util.List;
 
 import javax.swing.JButton;
@@ -54,6 +56,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	/**
 	 * Bad: two components on diagonal, and other component in same rectangle.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -84,6 +87,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	/**
 	 * Wrap {@link JTable} with {@link JScrollPane}.
 	 */
+	@Test
 	public void test_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -119,6 +123,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	/**
 	 * Good: two components in single row, no other components.
 	 */
+	@Test
 	public void test_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -164,6 +169,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	/**
 	 * Good: two components on diagonal, no other components.
 	 */
+	@Test
 	public void test_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -209,6 +215,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	/**
 	 * Good: three components, one spanned horizontally.
 	 */
+	@Test
 	public void test_4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

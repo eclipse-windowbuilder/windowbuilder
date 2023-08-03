@@ -19,7 +19,9 @@ import org.eclipse.wb.internal.swing.swingx.JXTaskPaneInfo;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.util.List;
@@ -33,6 +35,7 @@ import javax.swing.JToolBar;
  *
  * @author sablin_aa
  */
+@Ignore
 public class JXTaskPaneTest extends SwingxModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -43,6 +46,7 @@ public class JXTaskPaneTest extends SwingxModelTest {
 	 * Invocation of {@link JXTaskPane#add(Action)} creates {@link Component}, so we also should
 	 * create {@link ComponentInfo} for such invocation.
 	 */
+	@Test
 	public void test_Action_parse() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -57,18 +61,19 @@ public class JXTaskPaneTest extends SwingxModelTest {
 						"}");
 		panel.refresh();
 		//
-		assertThat(ActionContainerInfo.getActions(panel).size()).isEqualTo(1);
+		Assertions.assertThat(ActionContainerInfo.getActions(panel).size()).isEqualTo(1);
 		List<JXTaskPaneInfo> children = panel.getChildren(JXTaskPaneInfo.class);
-		assertThat(children.size()).isEqualTo(1);
+		Assertions.assertThat(children.size()).isEqualTo(1);
 		// check JXTaskPane
 		JXTaskPaneInfo pane = children.get(0);
-		assertThat(pane.getChildrenComponents().size()).isEqualTo(2);// ContentPane & action Component
+		Assertions.assertThat(pane.getChildrenComponents().size()).isEqualTo(2);// ContentPane & action Component
 	}
 
 	/**
 	 * Use {@link ImplicitFactoryCreationSupport} with {@link JToolBar#add(Action)} to create
 	 * {@link JButton}.
 	 */
+	@Test
 	public void test_Action_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

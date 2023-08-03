@@ -17,6 +17,9 @@ import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
@@ -27,20 +30,12 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public MarqueeSelectionToolTest() {
-		super(MarqueeSelectionTool.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// SetUp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_tool = new MarqueeSelectionTool();
@@ -54,6 +49,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Selection() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -278,6 +274,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Selection_isSelectable() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -330,6 +327,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Selection_InvalidInput() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//

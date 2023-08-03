@@ -20,6 +20,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 
+import org.junit.Test;
+
 /**
  * Test for {@link SelectSupport}.
  *
@@ -31,6 +33,7 @@ public class SelectSupportTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_all() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -102,6 +105,7 @@ public class SelectSupportTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_disposeHierarchy() throws Exception {
 		openEditor("<Shell/>");
 		// reparse

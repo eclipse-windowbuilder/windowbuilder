@@ -14,6 +14,8 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.CoolBarInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CoolBarInfo} in GEF.
  *
@@ -34,6 +36,7 @@ public class CoolBarGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_item() throws Exception {
 		CoolBarInfo coolBar =
 				openJavaInfo(
@@ -57,6 +60,7 @@ public class CoolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_good() throws Exception {
 		openJavaInfo(
 				"public class Test extends CoolBar {",
@@ -89,6 +93,7 @@ public class CoolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
 		openJavaInfo(
 				"public class Test extends CoolBar {",
@@ -116,6 +121,7 @@ public class CoolBarGefTest extends RcpGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_item() throws Exception {
 		CoolBarInfo coolBar =
 				openJavaInfo(
@@ -139,6 +145,7 @@ public class CoolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_control_good() throws Exception {
 		openJavaInfo(
 				"public class Test extends CoolBar {",
@@ -171,6 +178,7 @@ public class CoolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
 		openJavaInfo(
 				"public class Test extends CoolBar {",

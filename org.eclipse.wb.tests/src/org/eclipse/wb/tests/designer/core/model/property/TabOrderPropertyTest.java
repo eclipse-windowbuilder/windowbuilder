@@ -32,6 +32,8 @@ import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -45,6 +47,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_common() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -58,6 +61,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 		assertFalse(property.isModified());
 	}
 
+	@Test
 	public void test_tooltip() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -83,6 +87,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 				property));
 	}
 
+	@Test
 	public void test_noValue() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -120,6 +125,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 		assertEquals("", getPropertyText(property));
 	}
 
+	@Test
 	public void test_value() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

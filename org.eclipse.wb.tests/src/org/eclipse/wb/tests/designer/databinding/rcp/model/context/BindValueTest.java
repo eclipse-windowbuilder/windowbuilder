@@ -23,6 +23,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -35,6 +37,7 @@ public class BindValueTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_bindValue() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -113,6 +116,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"POLICY_UPDATE|POLICY_UPDATE");
 	}
 
+	@Test
 	public void test_bindValue_variable_1() throws Exception {
 		bindValue_variable(
 				"  //",
@@ -120,6 +124,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"binding");
 	}
 
+	@Test
 	public void test_bindValue_variable_2() throws Exception {
 		bindValue_variable(
 				"  Binding m_binding;",
@@ -179,6 +184,7 @@ public class BindValueTest extends AbstractBindingTest {
 		assertEquals(testString, binding.getVariableIdentifier());
 	}
 
+	@Test
 	public void test_strategy_constructors_1() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_NEVER));",
@@ -186,6 +192,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"POLICY_NEVER|POLICY_NEVER");
 	}
 
+	@Test
 	public void test_strategy_constructors_2() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_ON_REQUEST));",
@@ -193,6 +200,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"POLICY_ON_REQUEST|POLICY_ON_REQUEST");
 	}
 
+	@Test
 	public void test_strategy_constructors_3() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_CONVERT));",
@@ -200,6 +208,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"POLICY_CONVERT|POLICY_CONVERT");
 	}
 
+	@Test
 	public void test_strategy_constructors_4() throws Exception {
 		strategy_constructors(
 				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_UPDATE));",
@@ -269,6 +278,7 @@ public class BindValueTest extends AbstractBindingTest {
 				presentation);
 	}
 
+	@Test
 	public void test_strategy_variable() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -332,6 +342,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"POLICY_NEVER|POLICY_NEVER");
 	}
 
+	@Test
 	public void test_strategy_policy_variable() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -397,6 +408,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"POLICY_NEVER|POLICY_NEVER");
 	}
 
+	@Test
 	public void test_strategy_z_extendet() throws Exception {
 		createModelCompilationUnit("test", "TestStrategy.java", DatabindingTestUtils.getTestSource(
 				"public class TestStrategy extends UpdateValueStrategy {",
@@ -464,6 +476,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"test.TestStrategy|test.TestStrategy");
 	}
 
+	@Test
 	public void test_strategy_converter_1() throws Exception {
 		strategy_converter(
 				"    strategy.setConverter(new TestConverter());",
@@ -471,6 +484,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"null|test.TestConverter|TestConverter");
 	}
 
+	@Test
 	public void test_strategy_converter_2() throws Exception {
 		strategy_converter(
 				"    TestConverter converter = new TestConverter();",
@@ -556,6 +570,7 @@ public class BindValueTest extends AbstractBindingTest {
 				null);
 	}
 
+	@Test
 	public void test_strategy_AfterConvertValidator_1() throws Exception {
 		strategy_validator(
 				"    strategy.setAfterConvertValidator(new TestValidator());",
@@ -565,6 +580,7 @@ public class BindValueTest extends AbstractBindingTest {
 				null);
 	}
 
+	@Test
 	public void test_strategy_AfterConvertValidator_2() throws Exception {
 		strategy_validator(
 				"    TestValidator validator = new TestValidator();",
@@ -574,6 +590,7 @@ public class BindValueTest extends AbstractBindingTest {
 				null);
 	}
 
+	@Test
 	public void test_strategy_AfterGetValidator_1() throws Exception {
 		strategy_validator(
 				"    strategy.setAfterGetValidator(new TestValidator());",
@@ -583,6 +600,7 @@ public class BindValueTest extends AbstractBindingTest {
 				null);
 	}
 
+	@Test
 	public void test_strategy_AfterGetValidator_2() throws Exception {
 		strategy_validator(
 				"    TestValidator validator = new TestValidator();",
@@ -592,6 +610,7 @@ public class BindValueTest extends AbstractBindingTest {
 				null);
 	}
 
+	@Test
 	public void test_strategy_BeforeSetValidator_1() throws Exception {
 		strategy_validator(
 				"    strategy.setBeforeSetValidator(new TestValidator());",
@@ -601,6 +620,7 @@ public class BindValueTest extends AbstractBindingTest {
 				"null|test.TestValidator|TestValidator");
 	}
 
+	@Test
 	public void test_strategy_BeforeSetValidator_2() throws Exception {
 		strategy_validator(
 				"    TestValidator validator = new TestValidator();",

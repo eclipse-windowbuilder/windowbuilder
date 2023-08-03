@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.eclipse.jdt.core.IJavaProject;
 
+import org.junit.Test;
+
 /**
  * Test for {@link XmlProperty}.
  *
@@ -39,6 +41,7 @@ public class XmlPropertyTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_access() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		// create XMLProperty
@@ -57,6 +60,7 @@ public class XmlPropertyTest extends AbstractCoreTest {
 	/**
 	 * Test for constructor with {@link PropertyCategory}.
 	 */
+	@Test
 	public void test_constructorWithCategory() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		// create XMLProperty

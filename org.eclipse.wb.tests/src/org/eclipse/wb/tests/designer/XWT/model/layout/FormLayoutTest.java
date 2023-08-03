@@ -30,7 +30,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class FormLayoutTest extends XwtModelTest {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_attachmentPropertiesExist() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -78,10 +80,11 @@ public class FormLayoutTest extends XwtModelTest {
 		{
 			Property[] properties = layoutData.getProperties();
 			String[] propertyTitles = PropertyUtils.getTitles(properties);
-			assertThat(propertyTitles).contains("left", "right", "top", "bottom");
+			Assertions.assertThat(propertyTitles).contains("left", "right", "top", "bottom");
 		}
 	}
 
+	@Test
 	public void test_deleteAttachment_using_property() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -114,6 +117,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_FormData_width_height() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -144,6 +148,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_attachmentsExist() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -178,6 +183,7 @@ public class FormLayoutTest extends XwtModelTest {
 	// Control attachments
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_change_to_control_below() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -240,6 +246,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_change_to_control() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -300,6 +307,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_parse_control_attachment() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -329,13 +337,13 @@ public class FormLayoutTest extends XwtModelTest {
 		shell.refresh();
 		// tests
 		List<ControlInfo> childrenControls = shell.getChildrenControls();
-		assertThat(childrenControls).hasSize(2);
+		Assertions.assertThat(childrenControls).hasSize(2);
 		ControlInfo button1 = childrenControls.get(0);
 		ControlInfo button2 = childrenControls.get(1);
 		FormDataInfo layoutData = (FormDataInfo) LayoutInfo.getLayoutData(button2);
 		FormAttachmentInfo leftAttachment = layoutData.getAttachment(IPositionConstants.LEFT);
-		assertThat(leftAttachment).isNotNull();
-		assertThat(leftAttachment.getControl()).isSameAs(button1);
+		Assertions.assertThat(leftAttachment).isNotNull();
+		Assertions.assertThat(leftAttachment.getControl()).isSameAs(button1);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -343,6 +351,7 @@ public class FormLayoutTest extends XwtModelTest {
 	// Layout managing tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_delete() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -384,6 +393,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteAttachment() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -419,6 +429,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteSingleAttachment() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -465,6 +476,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteAttachmentAndAttach() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -512,6 +524,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_FormAttachment_use_three_properties() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -555,6 +568,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_setLayout() throws Exception {
 		CompositeInfo shell = parse("<Shell/>");
 		setFormLayout(
@@ -566,6 +580,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_changeFromGridEmpty() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -584,6 +599,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_changeFromGridWithData() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -625,6 +641,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_changeFromAbsolute() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -659,6 +676,7 @@ public class FormLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_changeToGridWithData() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -692,6 +710,7 @@ public class FormLayoutTest extends XwtModelTest {
 	// Test for copy/paste.
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard() throws Exception {
 		CompositeInfo composite =
 				parse(

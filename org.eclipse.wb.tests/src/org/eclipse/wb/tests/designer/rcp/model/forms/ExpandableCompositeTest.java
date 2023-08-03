@@ -15,12 +15,15 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ExpandableCompositeInfo}.
  *
  * @author scheglov_ke
  */
 public class ExpandableCompositeTest extends AbstractFormsTest {
+	@Test
 	public void test_properties() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -42,6 +45,7 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 	 * When drop using <code>setTextClient()</code>, just create happens, "expanded" property is not
 	 * changed.
 	 */
+	@Test
 	public void test_CREATE_setTextClient() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -75,6 +79,7 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 	 * When drop using <code>setClient()</code>, "expanded" property should be set to
 	 * <code>true</code>.
 	 */
+	@Test
 	public void test_CREATE_setClient() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -109,6 +114,7 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 	 * When drop using <code>setClient()</code>, "expanded" property should be set to
 	 * <code>true</code>.
 	 */
+	@Test
 	public void test_MOVE_setClient() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

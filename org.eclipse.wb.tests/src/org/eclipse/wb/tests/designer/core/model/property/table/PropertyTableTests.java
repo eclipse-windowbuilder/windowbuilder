@@ -11,22 +11,21 @@
 package org.eclipse.wb.tests.designer.core.model.property.table;
 
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link PropertyTable}.
  *
  * @author scheglov_ke
  */
-public class PropertyTableTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property.table");
-		suite.addTest(createSingleSuite(PropertyTableTest.class));
-		//suite.addTest(createSingleSuite(PropertyTableTooltipTest.class));
-		//suite.addTest(createSingleSuite(PropertyTableEditorsTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		PropertyTableTest.class,
+		PropertyTableTooltipTest.class,
+		PropertyTableEditorsTest.class
+})
+public class PropertyTableTests {
 }

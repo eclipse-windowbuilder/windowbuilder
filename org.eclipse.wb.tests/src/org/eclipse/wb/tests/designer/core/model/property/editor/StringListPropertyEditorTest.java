@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	 * Top level class, all fields are valid. Parameters also containing special code
 	 * <code>null</code>.
 	 */
+	@Test
 	public void test_configure_valid() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		StringListPropertyEditor editor = createEditor(StringListPropertyEditor.class, parameters);
@@ -59,6 +62,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	/**
 	 * Parameter fail test.
 	 */
+	@Test
 	public void test_configure_parameters() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		// remove conditions from parameters
@@ -80,6 +84,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	/**
 	 * Test for {@link StringListPropertyEditor#getValueSource(Object)}.
 	 */
+	@Test
 	public void test_getValueSource() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		StringListPropertyEditor editor = createEditor(StringListPropertyEditor.class, parameters);
@@ -89,6 +94,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	/**
 	 * Test for {@link StringListPropertyEditor#getClipboardSource(Object)}.
 	 */
+	@Test
 	public void test_getClipboardSource() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		StringListPropertyEditor editor = createEditor(StringListPropertyEditor.class, parameters);
@@ -99,6 +105,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	/**
 	 * Test for {@link StringListPropertyEditor#getText(Object)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		StringListPropertyEditor editor = createEditor(StringListPropertyEditor.class, parameters);
@@ -112,6 +119,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	/**
 	 * Test for ignore case parameter.
 	 */
+	@Test
 	public void test_ignoreCase() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		// ignore case mode
@@ -126,6 +134,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	 * Test that {@link StringListPropertyEditor} can work not only with {@link GenericProperty}, but
 	 * also with simple {@link Property}.
 	 */
+	@Test
 	public void test_setValue_simpleProperty() throws Exception {
 		StringListPropertyEditor propertyEditor = new StringListPropertyEditor();
 		propertyEditor.configure(new String[]{"A", "B", "C"});
@@ -145,6 +154,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	/**
 	 * Test for "defaultValue"
 	 */
+	@Test
 	public void test_defaultValue() throws Exception {
 		// create contents
 		setJavaContentSrc("test", "MyButton", new String[]{

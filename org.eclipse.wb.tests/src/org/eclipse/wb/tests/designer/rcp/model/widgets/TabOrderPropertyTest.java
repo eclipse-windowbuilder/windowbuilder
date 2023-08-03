@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swt.model.property.TabOrderProperty;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TabOrderProperty}, RCP variant.
  *
@@ -36,6 +38,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setValue() throws Exception {
 		// create shell
 		CompositeInfo composite =
@@ -73,6 +76,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_wrongCode() throws Exception {
 		m_ignoreCompilationProblems = true;
 		// create shell

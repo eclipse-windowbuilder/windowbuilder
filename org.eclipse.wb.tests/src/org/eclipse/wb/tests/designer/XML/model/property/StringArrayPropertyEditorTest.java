@@ -20,6 +20,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Test;
+
 /**
  * Test for {@link StringArrayPropertyEditor}.
  *
@@ -40,6 +42,7 @@ public class StringArrayPropertyEditorTest extends XwtModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_notValue() throws Exception {
 		Property property = new EmptyProperty(StringArrayPropertyEditor.INSTANCE);
 		// check state
@@ -47,6 +50,7 @@ public class StringArrayPropertyEditorTest extends XwtModelTest {
 		assertEquals("[]", getPropertyText(property));
 	}
 
+	@Test
 	public void test_getText_withItems() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -72,6 +76,7 @@ public class StringArrayPropertyEditorTest extends XwtModelTest {
 	// Dialog
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dialog() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

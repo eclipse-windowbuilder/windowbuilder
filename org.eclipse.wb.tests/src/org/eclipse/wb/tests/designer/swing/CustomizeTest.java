@@ -21,6 +21,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.Button;
 
+import org.junit.Test;
+
 /**
  * Support "Customize" tests.
  *
@@ -42,6 +44,7 @@ public class CustomizeTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noCustomizer() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -59,6 +62,7 @@ public class CustomizeTest extends SwingModelTest {
 		assertNull(action);
 	}
 
+	@Test
 	public void test_customizer() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -155,6 +159,7 @@ public class CustomizeTest extends SwingModelTest {
 	}
 
 	// XXX
+	@Test
 	public void test_customizer_chageProperties_OK() throws Exception {
 		prepare_customizer_changeProperties();
 		ContainerInfo panel =
@@ -205,6 +210,7 @@ public class CustomizeTest extends SwingModelTest {
 	 * Open customizer, change bean properties, but "Cancel" customizer. We check that after "Cancel"
 	 * properties have old values, as before customizing.
 	 */
+	@Test
 	public void test_customizer_chageProperties_Cancel() throws Exception {
 		prepare_customizer_changeProperties();
 		ContainerInfo panel =
@@ -338,6 +344,7 @@ public class CustomizeTest extends SwingModelTest {
 		waitForAutoBuild();
 	}
 
+	@Test
 	public void test_customizer_EXPLICIT_PROPERTY_CHANGE() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -467,6 +474,7 @@ public class CustomizeTest extends SwingModelTest {
 	 * <p>
 	 * 39897: Feature Request: Customizing JavaBean w/o BeanInfo
 	 */
+	@Test
 	public void test_useInheritedCustomizer() throws Exception {
 		setFileContentSrc(
 				"test/BeanA.java",

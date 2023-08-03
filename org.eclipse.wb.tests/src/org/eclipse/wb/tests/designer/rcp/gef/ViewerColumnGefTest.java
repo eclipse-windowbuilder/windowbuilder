@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Test;
+
 /**
  * Tests for changing layout and GEF.
  *
@@ -34,6 +36,7 @@ public class ViewerColumnGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dropOnTable() throws Exception {
 		CompositeInfo composite =
 				openComposite(
@@ -86,6 +89,7 @@ public class ViewerColumnGefTest extends RcpGefTest {
 		}
 	}
 
+	@Test
 	public void test_dropOnTableViewer() throws Exception {
 		CompositeInfo composite =
 				openComposite(

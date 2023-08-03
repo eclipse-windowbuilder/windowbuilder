@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.TreeInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TreeInfo} in GEF.
  *
@@ -34,6 +36,7 @@ public class TreeGefTest extends XwtGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_RESIZE_column() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

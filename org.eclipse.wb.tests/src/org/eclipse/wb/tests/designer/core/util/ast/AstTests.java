@@ -10,28 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.ast;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class AstTests extends DesignerSuiteTests {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Suite
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.ast");
-		suite.addTest(createSingleSuite(AstEditorTest.class));
-		suite.addTest(createSingleSuite(GathererTest.class));
-		suite.addTest(createSingleSuite(AstNodeUtilsTest.class));
-		suite.addTest(createSingleSuite(AstReflectionUtilsTest.class));
-		suite.addTest(createSingleSuite(BindingsTest.class));
-		suite.addTest(createSingleSuite(AstVisitorExTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		AstEditorTest.class,
+		GathererTest.class,
+		AstNodeUtilsTest.class,
+		AstReflectionUtilsTest.class,
+		BindingsTest.class,
+		AstVisitorExTest.class
+})
+public class AstTests {
 }

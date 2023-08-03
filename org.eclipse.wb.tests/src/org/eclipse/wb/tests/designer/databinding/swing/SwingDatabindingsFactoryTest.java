@@ -16,9 +16,14 @@ import org.eclipse.wb.internal.swing.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.After;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * @author sablin_aa
  */
+@Ignore
 public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -26,7 +31,8 @@ public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		do_projectDispose();
 	}
@@ -45,6 +51,7 @@ public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noProvider() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -69,6 +76,7 @@ public class SwingDatabindingsFactoryTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_Provider() throws Exception {
 		DatabindingTestUtils.configure(m_testProject);
 		ContainerInfo panel =

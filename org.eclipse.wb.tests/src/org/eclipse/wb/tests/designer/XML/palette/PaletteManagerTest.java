@@ -34,7 +34,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
@@ -62,6 +63,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Test that {@link PaletteManager} can load palette, including dynamically added extensions.
 	 */
+	@Test
 	public void test_dynamic() throws Exception {
 		XmlObjectInfo panel = parseEmptyPanel();
 		PaletteManager manager = new PaletteManager(panel, TOOLKIT_ID);
@@ -115,6 +117,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Test for {@link PaletteManager#getPalette()}.
 	 */
+	@Test
 	public void test_getPaletteCopy() throws Exception {
 		addPaletteExtension(new String[]{"<category id='category_1' name='category 1'/>"});
 		XmlObjectInfo panel = parseEmptyPanel();
@@ -137,6 +140,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Test for parsing "x-entry" element.
 	 */
+	@Test
 	public void test_parse_xEntry() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -155,6 +159,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Entry outside of category, has "category" attribute - OK.
 	 */
+	@Test
 	public void test_parse_outsideCategory() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'/>",
@@ -168,6 +173,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Entry outside of category, and no category - error.
 	 */
+	@Test
 	public void test_parse_outsideCategory_noCategory() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'/>",
@@ -188,6 +194,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_command_1() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -222,6 +229,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * This method is invoked after {@link #test_command_2()}, so we check here that commands are not
 	 * kept between tests (test methods).
 	 */
+	@Test
 	public void test_command_2() throws Exception {
 		PaletteManager manager = loadManager();
 		PaletteInfo palette = manager.getPalette();
@@ -232,6 +240,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * Sometimes users want to use standard palette for all developers of project. So, they want to
 	 * share palette commands. Best way to do this - save them into project and use CVS.
 	 */
+	@Test
 	public void test_commandsInProject() throws Exception {
 		String commandsFilePath = "wbp-meta/" + TOOLKIT_ID + ".wbp-palette-commands.xml";
 		setFileContent(commandsFilePath, "");
@@ -259,7 +268,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		// check that palette commands saved into project
 		{
 			String commands = getFileContent(commandsFilePath);
-			assertThat(commands).isNotEqualTo("<commands/>");
+			Assertions.assertThat(commands).isNotEqualTo("<commands/>");
 		}
 		// reload palette, but command was written, so palette still has new category
 		{
@@ -274,6 +283,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * We should apply command files from Jar files.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_applyCommandsFromJar() throws Exception {
 		// add JAR with commands
 		{
@@ -290,7 +300,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette();
 		// check categories
 		List<CategoryInfo> categories = palette.getCategories();
-		assertThat(categories).hasSize(1);
+		Assertions.assertThat(categories).hasSize(1);
 		{
 			CategoryInfo category = categories.get(0);
 			assertEquals("myID", category.getId());
@@ -307,6 +317,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Test for {@link PaletteManager#exportTo(String)}.
 	 */
+	@Test
 	public void test_exportTo() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -362,6 +373,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * Simple case, when order of contributions is good, i.e. we encounter category before its "next"
 	 * reference.
 	 */
+	@Test
 	public void test_categoryOrder_nextCategory() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'/>",
@@ -369,7 +381,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"<category id='category_3' name='category 3' next='category_2'/>"});
 		PaletteInfo palette = loadPalette();
 		List<CategoryInfo> categories = palette.getCategories();
-		assertThat(categories).hasSize(3);
+		Assertions.assertThat(categories).hasSize(3);
 		assertEquals("category_1", categories.get(0).getId());
 		assertEquals("category_3", categories.get(1).getId());
 		assertEquals("category_2", categories.get(2).getId());
@@ -381,6 +393,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * Complex case, when we first see category with "next" attribute and only then referenced
 	 * category.
 	 */
+	@Test
 	public void test_categoryOrder_nextCategory_2() throws Exception {
 		addPaletteExtension(
 				"palette_1",
@@ -391,7 +404,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		try {
 			PaletteInfo palette = loadPalette();
 			List<CategoryInfo> categories = palette.getCategories();
-			assertThat(categories).hasSize(3);
+			Assertions.assertThat(categories).hasSize(3);
 			assertEquals("category_1", categories.get(0).getId());
 			assertEquals("category_3", categories.get(1).getId());
 			assertEquals("category_2", categories.get(2).getId());
@@ -409,6 +422,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Parsing for custom palette from project: default values for {@link ComponentEntryInfo}.
 	 */
+	@Test
 	public void test_customPalette_project_1() throws Exception {
 		setFileContent(
 				"wbp-meta",
@@ -461,6 +475,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Parsing for custom palette from project: specific values for {@link ComponentEntryInfo}.
 	 */
+	@Test
 	public void test_customPalette_project_2() throws Exception {
 		setFileContent(
 				"wbp-meta",
@@ -488,6 +503,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Parsing for custom palette from project: specific "creation id", using it for generated "id".
 	 */
+	@Test
 	public void test_customPalette_project_3() throws Exception {
 		setFileContent(
 				"wbp-meta",
@@ -512,6 +528,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Parsing for custom palette from project: no component class, so exception.
 	 */
+	@Test
 	public void test_customPalette_project_4() throws Exception {
 		setFileContent(
 				"wbp-meta",
@@ -557,6 +574,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Parsing for custom palette from project: "component" outside of "category".
 	 */
+	@Test
 	public void test_customPalette_project_5() throws Exception {
 		setFileContent(
 				"wbp-meta",
@@ -580,6 +598,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * Parsing for custom palette from project: use also required projects.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_customPalette_project_6() throws Exception {
 		// create new project "myProject"
 		TestProject myTestProject;
@@ -628,6 +647,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * Parsing for custom palette from project: use "jar".
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_customPalette_project_7() throws Exception {
 		// add JAR with palette
 		{
@@ -667,6 +687,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	/**
 	 * Test for "next" attribute for "category" tag.
 	 */
+	@Test
 	public void test_customPalette_project_nextCategory() throws Exception {
 		addPaletteExtension("palette_1", new String[]{
 				"<category id='category_1' name='category_1'/>",
@@ -682,7 +703,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		try {
 			PaletteInfo palette = loadPalette();
 			List<CategoryInfo> categories = palette.getCategories();
-			assertThat(categories).hasSize(3);
+			Assertions.assertThat(categories).hasSize(3);
 			assertEquals("category_1", categories.get(0).getId());
 			assertEquals("fromProject", categories.get(1).getId());
 			assertEquals("category_2", categories.get(2).getId());
@@ -695,6 +716,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * We should ignore exceptions during parsing custom palettes, just log them as warnings.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_customPalette_project_whenOneFileMissing() throws Exception {
 		// create new project "myProject"
 		IJavaProject myJavaProject;
@@ -730,7 +752,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 			// load palette from "TestProject", so "myProject" also used
 			PaletteInfo palette = loadPalette();
 			// check categories: only ".2" category, because file with ".1" was deleted
-			assertThat(palette.getCategories()).hasSize(1);
+			Assertions.assertThat(palette.getCategories()).hasSize(1);
 			{
 				CategoryInfo category = palette.getCategories().get(0);
 				assertEquals("categoryId.2", category.getId());
@@ -738,9 +760,9 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 			// ... file with ".1" was deleted in FS, but Eclipse does not know about this, so warning
 			{
 				List<EditorWarning> warnings = m_lastContext.getWarnings();
-				assertThat(warnings).hasSize(1);
+				Assertions.assertThat(warnings).hasSize(1);
 				EditorWarning warning = warnings.get(0);
-				assertThat(warning.getMessage()).contains("myProject/wbp-meta/test.toolkit.wbp-palette.xml");
+				Assertions.assertThat(warning.getMessage()).contains("myProject/wbp-meta/test.toolkit.wbp-palette.xml");
 			}
 		} finally {
 			myTestProject.dispose();
@@ -751,6 +773,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	 * Parsing for custom palette from project: no description in {@link ComponentEntryInfo}, so
 	 * description from *.wbp-component.xml should be used.
 	 */
+	@Test
 	public void test_customPalette_project_descriptionFromProject() throws Exception {
 		prepareMyComponent(new String[]{}, new String[]{
 				"// filler filler filler filler filler",
@@ -788,6 +811,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	// Conditions support
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_componentCondition_true() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category' name='category'>",
@@ -800,9 +824,10 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		CategoryInfo category = palette.getCategory("category");
-		assertThat(category.getEntries()).hasSize(1);
+		Assertions.assertThat(category.getEntries()).hasSize(1);
 	}
 
+	@Test
 	public void test_componentCondition_false() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category' name='category'>",
@@ -815,9 +840,10 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		CategoryInfo category = palette.getCategory("category");
-		assertThat(category.getEntries()).isEmpty();
+		Assertions.assertThat(category.getEntries()).isEmpty();
 	}
 
+	@Test
 	public void test_componentCondition_notBoolean() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category' name='category'>",
@@ -830,12 +856,13 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		CategoryInfo category = palette.getCategory("category");
-		assertThat(category.getEntries()).isEmpty();
+		Assertions.assertThat(category.getEntries()).isEmpty();
 	}
 
 	/**
 	 * Some entries are useful only in specific context.
 	 */
+	@Test
 	public void test_componentCondition_useRootModel() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category' name='category'>",
@@ -849,9 +876,10 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		CategoryInfo category = palette.getCategory("category");
-		assertThat(category.getEntries()).hasSize(1);
+		Assertions.assertThat(category.getEntries()).hasSize(1);
 	}
 
+	@Test
 	public void test_componentCondition_invalid() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category' name='category'>",
@@ -864,7 +892,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		try {
 			PaletteInfo palette = loadPalette(panel);
 			CategoryInfo category = palette.getCategory("category");
-			assertThat(category.getEntries()).isEmpty();
+			Assertions.assertThat(category.getEntries()).isEmpty();
 		} finally {
 			DesignerPlugin.setDisplayExceptionOnConsole(true);
 		}
@@ -875,6 +903,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	// "condition" for "category"
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_categoryCondition_true() throws Exception {
 		addPaletteExtension(new String[]{"<category id='category' name='category' condition='true'/>"});
 		// parse
@@ -882,9 +911,10 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		// one category
-		assertThat(palette.getCategories()).hasSize(1);
+		Assertions.assertThat(palette.getCategories()).hasSize(1);
 	}
 
+	@Test
 	public void test_categoryCondition_false() throws Exception {
 		addPaletteExtension(new String[]{"<category id='category' name='category' condition='false'/>"});
 		// parse
@@ -892,7 +922,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		// no category
-		assertThat(palette.getCategories()).isEmpty();
+		Assertions.assertThat(palette.getCategories()).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -900,6 +930,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 	// "condition" for "palette"
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_paletteCondition_true() throws Exception {
 		addToolkitExtension(PALETTE_EXTENSION_ID, new String[]{
 				"<palette condition='true'>",
@@ -910,9 +941,10 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		// one category
-		assertThat(palette.getCategories()).hasSize(1);
+		Assertions.assertThat(palette.getCategories()).hasSize(1);
 	}
 
+	@Test
 	public void test_paletteCondition_false() throws Exception {
 		addToolkitExtension(PALETTE_EXTENSION_ID, new String[]{
 				"<palette condition='false'>",
@@ -923,6 +955,6 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
 		// no categories
-		assertThat(palette.getCategories()).isEmpty();
+		Assertions.assertThat(palette.getCategories()).isEmpty();
 	}
 }

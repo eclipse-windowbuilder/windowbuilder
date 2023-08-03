@@ -16,6 +16,9 @@ import org.eclipse.wb.internal.swt.model.property.editor.color.ColorPropertyEdit
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for {@link ColorPropertyEditor} without <code>SWTResourceManager</code>.
  *
@@ -28,7 +31,8 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
 				IPreferenceConstants.P_USE_RESOURCE_MANAGER,
@@ -52,6 +56,7 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	/**
 	 * No value for property.
 	 */
+	@Test
 	public void test_textSource_noValue() throws Exception {
 		GenericProperty property = new GenericPropertyNoValue(null, null, ColorPropertyEditor.INSTANCE);
 		assertNull(PropertyEditorTestUtils.getText(property));
@@ -61,6 +66,7 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	/**
 	 * System color using "id" - SWT field.
 	 */
+	@Test
 	public void test_textSource_systemConstant() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"Display.getCurrent().getSystemColor(SWT.COLOR_RED)",
@@ -71,6 +77,7 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	/**
 	 * System color using "id" - direct number.
 	 */
+	@Test
 	public void test_textSource_systemNumber() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"Display.getCurrent().getSystemColor(3)",
@@ -81,6 +88,7 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	/**
 	 * System color using "id" - bad id.
 	 */
+	@Test
 	public void test_textSource_systemBad() throws Exception {
 		try {
 			assert_getText_getClipboardSource_forSource(
@@ -94,6 +102,7 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	/**
 	 * Color creation using constructor with separate <code>int</code> values.
 	 */
+	@Test
 	public void test_getText_constructor_ints() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Color(null, 1, 2, 3)",
@@ -104,6 +113,7 @@ public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {
 	/**
 	 * Color creation using constructor with RGB argument.
 	 */
+	@Test
 	public void test_getText_constructor_RGB() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Color(null, new RGB(1, 2, 3))",

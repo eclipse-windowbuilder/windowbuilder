@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test {@link CompatibleLayoutRequestValidator}.
  *
@@ -39,6 +41,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_notJavaInfo() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -52,6 +55,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		assert_validateCMA(validator, true, parent, child);
 	}
 
+	@Test
 	public void test_noChecks() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -66,6 +70,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		assert_validateCMA(validator, true, panel, button);
 	}
 
+	@Test
 	public void test_childNotJavaInfo() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -79,6 +84,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		assert_validateCMA(validator, true, panel, child);
 	}
 
+	@Test
 	public void test_parentNotJavaInfo() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -92,6 +98,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		assert_validateCMA(validator, true, parent, child);
 	}
 
+	@Test
 	public void test_parentScript_alwaysTrue() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -108,6 +115,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		}
 	}
 
+	@Test
 	public void test_parentScript_alwaysFalse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -122,6 +130,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		assert_validateCMA(validator, false, panel, button);
 	}
 
+	@Test
 	public void test_parentScript_acceptOnlyJButton() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -146,6 +155,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		}
 	}
 
+	@Test
 	public void test_childScript_canBeDroppedOnlyOnJPanel() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -173,6 +183,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 		}
 	}
 
+	@Test
 	public void test_childWithJPanelConstructor() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -224,6 +235,7 @@ public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestV
 	// with ComponentDescription
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_paste_noChecks() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

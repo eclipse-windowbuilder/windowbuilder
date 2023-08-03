@@ -15,7 +15,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link InvocationChainCreationSupport}.
@@ -33,6 +34,7 @@ public class InvocationChainCreationSupportTest extends SwingModelTest {
 	 * "button_2" has no fully qualified class name, so return type of method should be used.<br>
 	 * "button_3" has no declaration, so should not be visible.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		setFileContentSrc(
 				"test/Wrapper.java",
@@ -110,7 +112,7 @@ public class InvocationChainCreationSupportTest extends SwingModelTest {
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
-		assertThat(button_1.getObject()).isNotNull();
-		assertThat(button_2.getObject()).isNotNull().isNotSameAs(button_1.getObject());
+		Assertions.assertThat(button_1.getObject()).isNotNull();
+		Assertions.assertThat(button_2.getObject()).isNotNull().isNotSameAs(button_1.getObject());
 	}
 }

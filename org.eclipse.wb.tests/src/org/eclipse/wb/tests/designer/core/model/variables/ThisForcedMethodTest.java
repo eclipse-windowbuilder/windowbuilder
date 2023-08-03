@@ -24,6 +24,10 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import javax.swing.JFrame;
 
 /**
@@ -40,13 +44,15 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		PREFERENCES.setValue(GenerationSettings.P_FORCED_METHOD, "init");
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		PREFERENCES.setToDefault(GenerationSettings.P_FORCED_METHOD);
 		super.tearDown();
 	}
@@ -68,6 +74,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * Not a "this" component as root.
 	 */
+	@Test
 	public void test_getTarget_bad_rootIsNotThis() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -94,6 +101,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * We also don't create new "forced" method, because there are related node outside of
 	 * constructor.
 	 */
+	@Test
 	public void test_getTarget_bad_notInitMethod() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -124,6 +132,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * Empty constructor, no any child or statement.
 	 */
+	@Test
 	public void test_getTarget_emptyConstructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -149,6 +158,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * Constructor, with related statements and "super" constructor invocation.
 	 */
+	@Test
 	public void test_getTarget_withSuper() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -176,6 +186,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * Constructor, with setLayout(), so {@link LayoutInfo} child.
 	 */
+	@Test
 	public void test_getTarget_withChild() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -207,6 +218,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * Constructor of {@link JFrame}, ask for target on "contentPane".
 	 */
+	@Test
 	public void test_getTarget_askForContentPane() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -238,6 +250,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * Case when {@link JFrame#setContentPane(java.awt.Container)} is used to replace standard content
 	 * pane with custom one.
 	 */
+	@Test
 	public void test_getTarget_askForContentPane_setContentPane() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -265,6 +278,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 		assertTarget(target, getMethod("init()").getBody(), null, false);
 	}
 
+	@Test
 	public void test_getTarget_existingFilled() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -284,6 +298,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 		assertTarget(target, getMethod("init()").getBody(), null, false);
 	}
 
+	@Test
 	public void test_getTarget_existingEmpty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -301,6 +316,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 		assertTarget(target, getMethod("init()").getBody(), null, false);
 	}
 
+	@Test
 	public void test_getTarget_existingEmpty_tryStatement() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -325,6 +341,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * Method invoked at the end of constructor has different name than "forced", so we don't use it.
 	 * We create new "forced" method.
 	 */
+	@Test
 	public void test_getTarget_existingEmpty_withDifferentName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -354,6 +371,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * When parent is "lazy", we should ignore "forced method".
 	 */
+	@Test
 	public void test_getTarget_lazy() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -385,6 +403,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * We should use "forced" target only for initially empty "this" container, but not when there is
 	 * already some inner container.
 	 */
+	@Test
 	public void test_getTarget_forInnerContainer() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -416,6 +435,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * {@link ThisVariableSupport#getStatementTarget()} also uses "forced" method.
 	 */
+	@Test
 	public void test_getStatementTarget_emptyConstructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -442,6 +462,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * {@link ThisVariableSupport#getStatementTarget()} also uses "forced" method, filled constructor.
 	 */
+	@Test
 	public void test_getStatementTarget_filledConstructor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -469,6 +490,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * {@link ThisVariableSupport#getStatementTarget()} also uses "forced" method, when it already
 	 * exists.
 	 */
+	@Test
 	public void test_getStatementTarget_existingForced() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -492,6 +514,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * {@link ThisVariableSupport#getStatementTarget()} also uses "forced" method, when it already
 	 * exists, and even if there is {@link SuperConstructorInvocation} in constructor.
 	 */
+	@Test
 	public void test_getStatementTarget_existingForced_withSuper() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -516,6 +539,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	 * {@link ThisVariableSupport#getStatementTarget()} also uses "forced" method, when it already
 	 * exists, and even if there are other statements.
 	 */
+	@Test
 	public void test_getStatementTarget_existingForced_otherStatements() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -540,6 +564,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * One of the components created in field.
 	 */
+	@Test
 	public void test_getStatementTarget_fieldInitializer() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -568,6 +593,7 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	/**
 	 * We should not move {@link Statement}'s which reference constructor parameters.
 	 */
+	@Test
 	public void test_getStatementTarget_constructorParameters() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

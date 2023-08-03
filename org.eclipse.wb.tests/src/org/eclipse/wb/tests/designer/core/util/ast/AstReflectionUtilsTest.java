@@ -23,7 +23,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -41,7 +43,8 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -65,6 +68,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link AstReflectionUtils#getClass(ClassLoader, ITypeBinding)}.
 	 */
+	@Test
 	public void test_getClass() throws Exception {
 		createTypeDeclaration_Test(
 				"// filler filler filler filler filler",
@@ -94,6 +98,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link AstReflectionUtils#updateForVarArgs(ClassLoader, IMethodBinding, Object[])}.
 	 */
+	@Test
 	public void test_updateForVarArgs_hasVarArgs() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -122,34 +127,35 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 			Object[] rawArguments = new Object[]{1, "a", "b", "c"};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a", "b", "c"}});
+			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a", "b", "c"}});
 		}
 		// use array
 		{
 			Object[] rawArguments = new Object[]{1, new String[]{"a", "b", "c"}};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a", "b", "c"}});
+			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a", "b", "c"}});
 		}
 		// single element
 		{
 			Object[] rawArguments = new Object[]{1, "a"};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a"}});
+			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a"}});
 		}
 		// no elements
 		{
 			Object[] rawArguments = new Object[]{1};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{}});
+			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{}});
 		}
 	}
 
 	/**
 	 * Test for {@link AstReflectionUtils#updateForVarArgs(ClassLoader, IMethodBinding, Object[])}.
 	 */
+	@Test
 	public void test_updateForVarArgs_noVarArgs() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -177,7 +183,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 		Object[] rawArguments = new Object[]{1, "str"};
 		Object[] updatedArguments =
 				AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-		assertThat(updatedArguments).isEqualTo(new Object[]{1, "str"});
+		Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, "str"});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -188,6 +194,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link AstReflectionUtils#getConstructor(Class, SuperConstructorInvocation)}
 	 */
+	@Test
 	public void test_getConstructor_SuperConstructorInvocation() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -231,6 +238,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link AstReflectionUtils#getConstructor(Class, ClassInstanceCreation)}
 	 */
+	@Test
 	public void test_getConstructor_ClassInstanceCreation() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -278,6 +286,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link AstReflectionUtils#getMethod(Class, MethodInvocation)}.
 	 */
+	@Test
 	public void test_getMethod_MethodInvocation() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

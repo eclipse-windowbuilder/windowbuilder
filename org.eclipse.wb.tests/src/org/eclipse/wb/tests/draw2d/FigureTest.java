@@ -32,6 +32,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
+import org.junit.Test;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -53,18 +55,10 @@ public class FigureTest extends Draw2dFigureTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public FigureTest() {
-		super(Figure.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Parent/Children tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_add_Figure() throws Exception {
 		Figure parentFigure = new Figure();
 		/*
@@ -120,6 +114,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		}
 	}
 
+	@Test
 	public void test_add_Figure_int() throws Exception {
 		Figure parentFigure = new Figure();
 		/*
@@ -201,6 +196,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		}
 	}
 
+	@Test
 	public void test_add_Figure_Rectangle() throws Exception {
 		Figure parentFigure = new Figure();
 		/*
@@ -269,6 +265,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(bounds, childFigure3.getBounds());
 	}
 
+	@Test
 	public void test_add_Figure_Rectangle_int() throws Exception {
 		Figure parentFigure = new Figure();
 		/*
@@ -363,6 +360,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(bounds, childFigure4.getBounds());
 	}
 
+	@Test
 	public void test_remove_Figure() throws Exception {
 		Figure parentFigure = new Figure();
 		/*
@@ -439,6 +437,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		}
 	}
 
+	@Test
 	public void test_removeAll() throws Exception {
 		Figure parentFigure = new Figure();
 		// check always work removeAll()
@@ -462,6 +461,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	// Bounds tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_get_set_Bounds() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -482,6 +482,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(1, 2, 3, 4), testFigure.getBounds());
 	}
 
+	@Test
 	public void test_getLocation() throws Exception {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, -11, 120, 57));
@@ -494,6 +495,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(10, -11, 120, 57), testFigure.getBounds());
 	}
 
+	@Test
 	public void test_getSize() throws Exception {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, -11, 120, 57));
@@ -506,6 +508,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(10, -11, 120, 57), testFigure.getBounds());
 	}
 
+	@Test
 	public void test_setLocation() throws Exception {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, -11, 120, 57));
@@ -524,6 +527,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(90, 40, 120, 57), testFigure.getBounds());
 	}
 
+	@Test
 	public void test_setSize() throws Exception {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, -11, 120, 57));
@@ -542,6 +546,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(10, -11, 60, 120), testFigure.getBounds());
 	}
 
+	@Test
 	public void test_getInsets() throws Exception {
 		Figure testFigure = new Figure();
 		assertEquals(new Insets(), testFigure.getInsets());
@@ -550,6 +555,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Insets(1, 2, 3, 4), testFigure.getInsets());
 	}
 
+	@Test
 	public void test_getClientArea() throws Exception {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, -11, 120, 57));
@@ -566,6 +572,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(10, -11, 120, 57), testFigure.getBounds());
 	}
 
+	@Test
 	public void test_intersects() throws Exception {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, -11, 120, 57));
@@ -574,6 +581,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertFalse(testFigure.intersects(new Rectangle(0, 0, 5, 100)));
 	}
 
+	@Test
 	public void test_containsPoint() {
 		Figure testFigure = new Figure();
 		testFigure.setBounds(new Rectangle(10, 11, 120, 130));
@@ -589,6 +597,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	// Property tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_init_properties() throws Exception {
 		Figure testFigure = new Figure();
 		// check initial state all properties for new empty figure
@@ -609,6 +618,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getData());
 	}
 
+	@Test
 	public void test_border() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -630,6 +640,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getBorder());
 	}
 
+	@Test
 	public void test_background() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -649,6 +660,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getBackground());
 	}
 
+	@Test
 	public void test_foreground() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -668,6 +680,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getForeground());
 	}
 
+	@Test
 	public void test_font() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -684,6 +697,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getFont());
 	}
 
+	@Test
 	public void test_cursor() throws Exception {
 		Figure testFigure = new Figure();
 		// check cursor for new Figure
@@ -702,6 +716,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getCursor());
 	}
 
+	@Test
 	public void test_opaque() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -717,6 +732,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertFalse(testFigure.isOpaque());
 	}
 
+	@Test
 	public void test_visible() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -732,6 +748,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertTrue(testFigure.isVisible());
 	}
 
+	@Test
 	public void test_tooltip() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -751,6 +768,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getToolTipText());
 	}
 
+	@Test
 	public void test_data() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -779,6 +797,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	// Visiting test
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_visit() throws Exception {
 		//
 		Figure testFigure1 = new Figure();
@@ -852,6 +871,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	// Event tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_add_remove_MouseListener() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -891,6 +911,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(0, list.size());
 	}
 
+	@Test
 	public void test_add_remove_MouseMoveListener() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -930,6 +951,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(0, list.size());
 	}
 
+	@Test
 	public void test_add_remove_FigureListener() throws Exception {
 		Figure testFigure = new Figure();
 		//
@@ -977,6 +999,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(0, list.size());
 	}
 
+	@Test
 	public void test_invoke_FigureListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//
@@ -1053,6 +1076,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		actualLogger.assertEquals(expectedLogger);
 	}
 
+	@Test
 	public void test_invoke_AncestorListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//

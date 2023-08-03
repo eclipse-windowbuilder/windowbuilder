@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Test;
+
 /**
  * Test {@link BorderOfChildLayoutRequestValidator}.
  *
@@ -43,6 +45,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_inside() throws Exception {
 		prepare_CREATE();
 		// begin creating JButton
@@ -67,6 +70,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_targetIsNotChildOfSelected_onBorder() throws Exception {
 		prepare_CREATE();
 		// begin creating JButton
@@ -91,6 +95,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_targetIsChildOfSelected_onBorder() throws Exception {
 		prepare_CREATE();
 		// begin creating JButton
@@ -120,6 +125,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 	 *
 	 * @throws Exception
 	 */
+	@Test
 	public void test_CREATE_targetMarkedAsTransparentOnBorders_noSelection_onBorder()
 			throws Exception {
 		prepare_CREATE();
@@ -166,6 +172,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_PASTE_inside() throws Exception {
 		prepare_PASTE();
 		// move on "panel": inner part, so not "transparent"
@@ -192,6 +199,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_PASTE_targetIsNotChildOfSelected_onBorder() throws Exception {
 		prepare_PASTE();
 		// move on border "panel": it is "transparent", because its parent is selected
@@ -218,6 +226,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_PASTE_targetIsChildOfSelected_onBorder() throws Exception {
 		prepare_PASTE();
 		// move on border "panel": it is "transparent", because its parent is selected
@@ -284,6 +293,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD_inside() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -324,6 +334,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_onBorder() throws Exception {
 		mainPanel =
 				openContainer(

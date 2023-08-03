@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.group;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 import javax.swing.GroupLayout;
 
@@ -22,11 +21,10 @@ import javax.swing.GroupLayout;
  *
  * @author mitin_aa
  */
-public class GroupLayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout.group");
-		suite.addTest(createSingleSuite(GroupLayoutTest.class));
-		suite.addTest(createSingleSuite(GroupLayoutGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		GroupLayoutTest.class,
+		GroupLayoutGefTest.class
+})
+public class GroupLayoutTests {
 }

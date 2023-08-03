@@ -12,6 +12,8 @@ package org.eclipse.wb.tests.designer.XML.palette;
 
 import org.eclipse.wb.internal.core.xml.editor.palette.model.IPaletteSite;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link IPaletteSite}.
  *
@@ -23,6 +25,7 @@ public class IPaletteSiteTest extends AbstractPaletteTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Empty() throws Exception {
 		IPaletteSite site = new IPaletteSite.Empty();
 		assertSame(null, site.getPalette());

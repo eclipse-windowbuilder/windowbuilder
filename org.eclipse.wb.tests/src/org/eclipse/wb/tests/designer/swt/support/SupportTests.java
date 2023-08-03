@@ -10,32 +10,30 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.support;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for support utils
  *
  * @author scheglov_ke
  */
-public class SupportTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swt.support");
-		suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
-		suite.addTest(createSingleSuite(ColorSupportTest.class));
-		suite.addTest(createSingleSuite(FontSupportTest.class));
-		suite.addTest(createSingleSuite(ImageSupportTest.class));
-		suite.addTest(createSingleSuite(DisplaySupportTest.class));
-		suite.addTest(createSingleSuite(FillLayoutSupportTest.class));
-		suite.addTest(createSingleSuite(RowLayoutSupportTest.class));
-		suite.addTest(createSingleSuite(ControlSupportTest.class));
-		suite.addTest(createSingleSuite(ContainerSupportTest.class));
-		suite.addTest(createSingleSuite(PointSupportTest.class));
-		suite.addTest(createSingleSuite(RectangleSupportTest.class));
-		suite.addTest(createSingleSuite(LabelSupportTest.class));
-		suite.addTest(createSingleSuite(TableSupportTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		CoordinateUtilsTest.class,
+		ColorSupportTest.class,
+		FontSupportTest.class,
+		ImageSupportTest.class,
+		DisplaySupportTest.class,
+		FillLayoutSupportTest.class,
+		RowLayoutSupportTest.class,
+		ControlSupportTest.class,
+		ContainerSupportTest.class,
+		PointSupportTest.class,
+		RectangleSupportTest.class,
+		LabelSupportTest.class,
+		TableSupportTest.class
+})
+public class SupportTests {
 }

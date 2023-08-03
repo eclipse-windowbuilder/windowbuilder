@@ -23,6 +23,9 @@ import org.eclipse.pde.core.plugin.IPluginElement;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
+
 import java.io.ByteArrayInputStream;
 
 /**
@@ -39,7 +42,8 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
 		setFileContentSrc(
@@ -61,7 +65,8 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		m_project = null;
 		m_utils = null;
 		do_projectDispose();

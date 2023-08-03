@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import java.util.Locale;
 
 /**
@@ -29,6 +31,7 @@ public class LocalePropertyEditorTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setText() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",

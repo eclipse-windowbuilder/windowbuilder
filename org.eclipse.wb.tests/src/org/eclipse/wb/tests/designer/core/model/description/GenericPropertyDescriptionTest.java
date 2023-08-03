@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link GenericPropertyDescription}.
  *
@@ -41,6 +43,7 @@ public class GenericPropertyDescriptionTest extends SwingModelTest {
 	/**
 	 * Test that {@link GenericPropertyDescription} has type of property, for setter.
 	 */
+	@Test
 	public void test_setter_getType() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -65,6 +68,7 @@ public class GenericPropertyDescriptionTest extends SwingModelTest {
 	/**
 	 * Test that {@link GenericPropertyDescription} has type of property, for field.
 	 */
+	@Test
 	public void test_field_getType() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -112,6 +116,7 @@ public class GenericPropertyDescriptionTest extends SwingModelTest {
 	 * <p>
 	 * http://javadude.com/articles/javabeanattributes.html
 	 */
+	@Test
 	public void test_JavaBean_preferred() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

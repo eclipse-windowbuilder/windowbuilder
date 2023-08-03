@@ -24,6 +24,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridLayoutInfo} and special parameters for grab/alignment.
  *
@@ -47,6 +49,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	/**
 	 * {@link Text} widget is marked as required horizontal grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Text() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -75,6 +78,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	/**
 	 * Test that horizontal grab/fill {@link Text} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -109,6 +113,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	/**
 	 * {@link Table} widget is marked as required horizontal/vertical grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Table() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -140,6 +145,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 * {@link Label} widget is marked as "right" aligned and next widget is {@link Text}, so when add
 	 * {@link Label} before {@link Text}, use {@link GridData#END} alignment.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -176,6 +182,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	/**
 	 * Check that automatic "right alignment" feature for {@link Label} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -219,6 +226,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 * {@link Label} widget is marked as "right" aligned and next widget is {@link Text}, so when add
 	 * {@link Text} after {@link Label}, use {@link GridData#END} alignment for {@link Label}.
 	 */
+	@Test
 	public void test_CREATE_Text_afterLabel() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -255,6 +263,7 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	/**
 	 * When we add {@link Text} after "filler" {@link Label}, we should not change its alignment.
 	 */
+	@Test
 	public void test_CREATE_Text_afterFiller() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

@@ -36,6 +36,8 @@ import org.eclipse.swt.widgets.Text;
 
 import net.miginfocom.layout.LC;
 
+import org.junit.Test;
+
 import java.awt.Container;
 import java.util.List;
 
@@ -59,6 +61,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// Bounds
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_newConstraints() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -86,6 +89,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		assertEquals(2, constraints.getWidth());
 	}
 
+	@Test
 	public void test_parseString_getBounds() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -101,6 +105,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		assertCellBounds(button, 1, 2, 3, 4);
 	}
 
+	@Test
 	public void test_parseCC_getBounds() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -119,6 +124,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * No <code>cell</code> tag in constraints, but still can access component bounds in cells.
 	 */
+	@Test
 	public void test_parseString_noCell() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -143,6 +149,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * Horizontal span without limit. It causes "cell width" = "30000 - x", but we need actual width.
 	 */
+	@Test
 	public void test_parseString_span() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -162,6 +169,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * If "hidemode 3" is used and component is invisible, we should set it some valid bounds.
 	 */
+	@Test
 	public void test_parse_hidemode3() throws Exception {
 		// we don't execute java.awt.Component.setVisible(), so use other method
 		setFileContentSrc(
@@ -198,6 +206,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * MigLayout 3.7.4 generates "hideMode", but uses "hidemode" for parsing.
 	 */
+	@Test
 	public void test_write_hidemode() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel implements IConstants {",
@@ -231,6 +240,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * {@link Container#add(java.awt.Component, Object)} used for association.
 	 */
+	@Test
 	public void test_setBounds_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -261,6 +271,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * {@link Container#add(java.awt.Component)} used for association.
 	 */
+	@Test
 	public void test_setBounds_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -291,6 +302,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link CellConstraintsSupport#updateX(int)}, etc.
 	 */
+	@Test
 	public void test_updateBounds() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -327,6 +339,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 * Test for {@link CellConstraintsSupport#getString()} and
 	 * {@link CellConstraintsSupport#setString(String)}.
 	 */
+	@Test
 	public void test_setString() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -382,6 +395,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// cleanUpSource()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_cleanUpSource_gapleft() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel implements IConstants {",
@@ -404,6 +418,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_cleanUpSource_gapright() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel implements IConstants {",
@@ -426,6 +441,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_cleanUpSource_gaptop() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel implements IConstants {",
@@ -448,6 +464,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_cleanUpSource_gapbottom() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel implements IConstants {",
@@ -484,6 +501,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// makeExplicitCell()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_makeExplicitCell_flow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -505,6 +523,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_makeExplicitCell_wrap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -528,6 +547,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_makeExplicitCell_newline() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -551,6 +571,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_makeExplicitCell_skip() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -574,6 +595,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_makeExplicitCell_wrap_skip() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -597,6 +619,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_makeExplicitCell_hasDock() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -620,6 +643,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_makeExplicitCell_split_span_wrap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -662,6 +686,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// Alignment
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_alignment_UNKNOWN() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -744,6 +769,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_setAlignment_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -790,30 +816,37 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// Alignment images: horizontal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_alignmentImageHorizontal_UNKNOWN() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.UNKNOWN, "default.gif");
 	}
 
+	@Test
 	public void test_alignmentImageHorizontal_LEFT() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.LEFT, "left.gif");
 	}
 
+	@Test
 	public void test_alignmentImageHorizontal_CENTER() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.CENTER, "center.gif");
 	}
 
+	@Test
 	public void test_alignmentImageHorizontal_RIGHT() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.RIGHT, "right.gif");
 	}
 
+	@Test
 	public void test_alignmentImageHorizontal_FILL() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.FILL, "fill.gif");
 	}
 
+	@Test
 	public void test_alignmentImageHorizontal_LEADING() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.LEADING, "leading.gif");
 	}
 
+	@Test
 	public void test_alignmentImageHorizontal_TRAILING() throws Exception {
 		check_alignmentImageHorizontal(MigColumnInfo.Alignment.TRAILING, "trailing.gif");
 	}
@@ -845,26 +878,32 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// Alignment images: vertical
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_alignmentImageVertical_UNKNOWN() throws Exception {
 		check_alignmentImageVertical(MigRowInfo.Alignment.UNKNOWN, "default.gif");
 	}
 
+	@Test
 	public void test_alignmentImageVertical_TOP() throws Exception {
 		check_alignmentImageVertical(MigRowInfo.Alignment.TOP, "top.gif");
 	}
 
+	@Test
 	public void test_alignmentImageVertical_CENTER() throws Exception {
 		check_alignmentImageVertical(MigRowInfo.Alignment.CENTER, "center.gif");
 	}
 
+	@Test
 	public void test_alignmentImageVertical_BOTTOM() throws Exception {
 		check_alignmentImageVertical(MigRowInfo.Alignment.BOTTOM, "bottom.gif");
 	}
 
+	@Test
 	public void test_alignmentImageVertical_FILL() throws Exception {
 		check_alignmentImageVertical(MigRowInfo.Alignment.FILL, "fill.gif");
 	}
 
+	@Test
 	public void test_alignmentImageVertical_BASELINE() throws Exception {
 		check_alignmentImageVertical(MigRowInfo.Alignment.BASELINE, "baseline.gif");
 	}
@@ -900,6 +939,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 * Assert that "Constraints..." action contributed to each {@link ComponentInfo} on
 	 * {@link MigLayoutInfo}.
 	 */
+	@Test
 	public void test_contextMenu_ConstraintsAction() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -983,22 +1023,27 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// Alignment context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_alignmentContentMenuHorizontal_LEFT() throws Exception {
 		check_contextMenu_alignmentHorizontal("Left", MigColumnInfo.Alignment.LEFT, "alignx left");
 	}
 
+	@Test
 	public void test_alignmentContentMenuHorizontal_CENTER() throws Exception {
 		check_contextMenu_alignmentHorizontal("Center", MigColumnInfo.Alignment.CENTER, "alignx center");
 	}
 
+	@Test
 	public void test_alignmentContentMenuHorizontal_RIGHT() throws Exception {
 		check_contextMenu_alignmentHorizontal("Right", MigColumnInfo.Alignment.RIGHT, "alignx right");
 	}
 
+	@Test
 	public void test_alignmentContentMenuHorizontal_FILL() throws Exception {
 		check_contextMenu_alignmentHorizontal("Fill", MigColumnInfo.Alignment.FILL, "growx");
 	}
 
+	@Test
 	public void test_alignmentContentMenuHorizontal_LEADING() throws Exception {
 		check_contextMenu_alignmentHorizontal(
 				"Leading",
@@ -1006,6 +1051,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"alignx leading");
 	}
 
+	@Test
 	public void test_alignmentContentMenuHorizontal_TRAILING() throws Exception {
 		check_contextMenu_alignmentHorizontal(
 				"Trailing",
@@ -1013,22 +1059,27 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				"alignx trailing");
 	}
 
+	@Test
 	public void test_alignmentContentMenuVertical_TOP() throws Exception {
 		check_contextMenu_alignmentVertical("Top", MigRowInfo.Alignment.TOP, "aligny top");
 	}
 
+	@Test
 	public void test_alignmentContentMenuVertical_CENTER() throws Exception {
 		check_contextMenu_alignmentVertical("Center", MigRowInfo.Alignment.CENTER, "aligny center");
 	}
 
+	@Test
 	public void test_alignmentContentMenuVertical_BOTTOM() throws Exception {
 		check_contextMenu_alignmentVertical("Bottom", MigRowInfo.Alignment.BOTTOM, "aligny bottom");
 	}
 
+	@Test
 	public void test_alignmentContentMenuVertical_FILL() throws Exception {
 		check_contextMenu_alignmentVertical("Fill", MigRowInfo.Alignment.FILL, "growy");
 	}
 
+	@Test
 	public void test_alignmentContentMenuVertical_BASELINE() throws Exception {
 		check_contextMenu_alignmentVertical(
 				"Baseline",
@@ -1104,6 +1155,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	// Docking
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dock_getDockSide() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1145,6 +1197,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_dock_setDockSide() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1190,6 +1243,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 * <p>
 	 * Explicit "flowx" for component.
 	 */
+	@Test
 	public void test_isHorizontalSplit_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1211,6 +1265,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 * <p>
 	 * Explicit "flowy" for component.
 	 */
+	@Test
 	public void test_isHorizontalSplit_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1232,6 +1287,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 * <p>
 	 * Implicit "flowx" from {@link LC}.
 	 */
+	@Test
 	public void test_isHorizontalSplit_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1253,6 +1309,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 * <p>
 	 * Explicit "flowy" from {@link LC}.
 	 */
+	@Test
 	public void test_isHorizontalSplit_4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1277,6 +1334,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link CellConstraintsSupport#setHorizontalSplit(Boolean)}.
 	 */
+	@Test
 	public void test_setHorizontalSplit_setExplicitTrue() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1305,6 +1363,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link CellConstraintsSupport#setHorizontalSplit(Boolean)}.
 	 */
+	@Test
 	public void test_setHorizontalSplit_setExplicitFalse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1333,6 +1392,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link CellConstraintsSupport#setHorizontalSplit(Boolean)}.
 	 */
+	@Test
 	public void test_setHorizontalSplit_removeExplicit() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

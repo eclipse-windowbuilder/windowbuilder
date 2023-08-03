@@ -19,25 +19,20 @@ import org.eclipse.wb.tests.gef.TestLogger;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class RootFigureTest extends Draw2dFigureTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public RootFigureTest() {
-		super(RootFigure.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// RootFigure tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getPreferredSize_setBounds() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//
@@ -98,6 +93,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		assertEquals(preferredSize, testRoot.getPreferredSize());
 	}
 
+	@Test
 	public void test_findTargetFigure() throws Exception {
 		Layer layer1 = new Layer("1");
 		Figure figure11 = new Figure() {
@@ -169,6 +165,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 	// Layer Test's
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addLayer_getLayer() throws Exception {
 		TestLogger actualLogger = new TestLogger();
 		//
@@ -216,6 +213,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		assertNull(testRoot.getLayer(null));
 	}
 
+	@Test
 	public void test_remove() throws Exception {
 		TestLogger actualLogger = new TestLogger();
 		//
@@ -266,6 +264,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		assertNull(testRoot.getLayer("feedback"));
 	}
 
+	@Test
 	public void test_removeAll() throws Exception {
 		TestLogger actualLogger = new TestLogger();
 		//

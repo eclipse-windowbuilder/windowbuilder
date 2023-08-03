@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
 import org.eclipse.swt.graphics.Point;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link PropertyEditor}'s in {@link PropertyTable}.
  *
@@ -33,6 +35,7 @@ public class PropertyTableEditorsTest extends AbstractPropertyTableTest {
 	/**
 	 * Click in empty space - no editor.
 	 */
+	@Test
 	public void test_1_noProperty() throws Exception {
 		Property property = new TestProperty("text", true, "New button", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
@@ -46,6 +49,7 @@ public class PropertyTableEditorsTest extends AbstractPropertyTableTest {
 	/**
 	 * Test {@link PropertyEditor} activate/deactivate using {@link StringPropertyEditor}.
 	 */
+	@Test
 	public void test_2_activateDeactivate() throws Exception {
 		PropertyEditor xEditor = StringPropertyEditor.INSTANCE;
 		PropertyEditor yEditor = StringPropertyEditor.INSTANCE;

@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core.model.property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link PropertyCategory}.
  *
@@ -24,6 +26,7 @@ public class PropertyCategoryTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_is() throws Exception {
 		assertTrue(PropertyCategory.PREFERRED.isPreferred());
 		assertTrue(PropertyCategory.ADVANCED.isAdvanced());
@@ -36,6 +39,7 @@ public class PropertyCategoryTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_system() throws Exception {
 		PropertyCategory category = PropertyCategory.system(10);
 		assertTrue(category.isSystem());
@@ -51,6 +55,7 @@ public class PropertyCategoryTest extends SwingModelTest {
 	// Object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString() throws Exception {
 		assertEquals("PREFERRED", PropertyCategory.PREFERRED.toString());
 		assertEquals("NORMAL", PropertyCategory.NORMAL.toString());
@@ -60,6 +65,7 @@ public class PropertyCategoryTest extends SwingModelTest {
 		assertEquals("SYSTEM:10", PropertyCategory.system(10).toString());
 	}
 
+	@Test
 	public void test_equals() throws Exception {
 		assertEquals(PropertyCategory.PREFERRED, PropertyCategory.PREFERRED);
 		assertEquals(PropertyCategory.ADVANCED, PropertyCategory.ADVANCED);
@@ -69,6 +75,7 @@ public class PropertyCategoryTest extends SwingModelTest {
 		assertFalse(PropertyCategory.PREFERRED.equals(this));
 	}
 
+	@Test
 	public void test_hashCode() throws Exception {
 		PropertyCategory category = PropertyCategory.PREFERRED;
 		assertEquals(category.getPriority(), category.hashCode());
@@ -82,6 +89,7 @@ public class PropertyCategoryTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyCategory#get(String, PropertyCategory)}.
 	 */
+	@Test
 	public void test_get() throws Exception {
 		assertSame(PropertyCategory.NORMAL, PropertyCategory.get("normal", null));
 		assertSame(PropertyCategory.PREFERRED, PropertyCategory.get("preferred", null));

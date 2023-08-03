@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.core.model.association.AssociationTests;
 import org.eclipse.wb.tests.designer.core.model.description.DescriptionTests;
 import org.eclipse.wb.tests.designer.core.model.generic.GenericTests;
@@ -23,36 +22,36 @@ import org.eclipse.wb.tests.designer.core.model.property.PropertiesTests;
 import org.eclipse.wb.tests.designer.core.model.util.UtilTests;
 import org.eclipse.wb.tests.designer.core.model.variables.VariablesTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class ModelTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model");
-		suite.addTest(createSingleSuite(ObjectInfoTest.class));
-		suite.addTest(createSingleSuite(DefaultObjectPresentationTest.class));
-		suite.addTest(createSingleSuite(ObjectReferenceInfoTest.class));
-		suite.addTest(createSingleSuite(ClassLoadingTest.class));
-		suite.addTest(DescriptionTests.suite());
-		suite.addTest(createSingleSuite(JavaInfoTest.class));
-		suite.addTest(createSingleSuite(DefaultJavaInfoPresentationTest.class));
-		suite.addTest(createSingleSuite(AbstractComponentTest.class));
-		suite.addTest(UtilTests.suite());
-		suite.addTest(AssociationTests.suite());
-		suite.addTest(createSingleSuite(AddTest.class));
-		suite.addTest(createSingleSuite(DeleteTest.class));
-		suite.addTest(PropertiesTests.suite());
-		suite.addTest(ParserTests.suite());
-		suite.addTest(VariablesTests.suite());
-		suite.addTest(GenericTests.suite());
-		suite.addTest(createSingleSuite(NonVisualBeansTest.class));
-		suite.addTest(createSingleSuite(NonVisualBeansGefTest.class));
-		suite.addTest(createSingleSuite(ArrayObjectTest.class));
-		suite.addTest(createSingleSuite(WrapperInfoTest.class));
-		suite.addTest(createSingleSuite(EllipsisObjectInfoTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ObjectInfoTest.class,
+		DefaultObjectPresentationTest.class,
+		ObjectReferenceInfoTest.class,
+		ClassLoadingTest.class,
+		DescriptionTests.class,
+		JavaInfoTest.class,
+		DefaultJavaInfoPresentationTest.class,
+		AbstractComponentTest.class,
+		UtilTests.class,
+		AssociationTests.class,
+		AddTest.class,
+		DeleteTest.class,
+		PropertiesTests.class,
+		ParserTests.class,
+		VariablesTests.class,
+		GenericTests.class,
+		NonVisualBeansTest.class,
+		NonVisualBeansGefTest.class,
+		ArrayObjectTest.class,
+		WrapperInfoTest.class,
+		EllipsisObjectInfoTest.class
+})
+public class ModelTests {
 }

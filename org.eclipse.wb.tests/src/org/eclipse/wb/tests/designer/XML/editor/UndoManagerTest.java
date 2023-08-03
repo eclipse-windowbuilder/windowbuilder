@@ -23,6 +23,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.Test;
+
 /**
  * Test for {@link UndoManager}.
  *
@@ -43,6 +45,7 @@ public class UndoManagerTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_emptyShell() throws Exception {
 		openEditor(
 				"<!-- filler filler filler filler filler -->",
@@ -69,6 +72,7 @@ public class UndoManagerTest extends XwtGefTest {
 		tree.assertPrimarySelected(m_lastObject);
 	}
 
+	@Test
 	public void test_reparseOnDocumentChange() throws Exception {
 		openEditor(
 				"<!-- filler filler filler filler filler -->",
@@ -96,6 +100,7 @@ public class UndoManagerTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_reparse_onUndo_onRedo() throws Exception {
 		openEditor("<Shell text='foo'/>");
 		// initial "text"
@@ -119,6 +124,7 @@ public class UndoManagerTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_noReparse_afterChangeOnDesign() throws Exception {
 		openEditor("<Shell text='foo'/>");
 		// set new "text"
@@ -140,6 +146,7 @@ public class UndoManagerTest extends XwtGefTest {
 	/**
 	 * Test that we restore selection after reparse.
 	 */
+	@Test
 	public void test_restoreSelection() throws Exception {
 		openEditor(
 				"<!-- filler filler filler filler filler -->",
@@ -180,6 +187,7 @@ public class UndoManagerTest extends XwtGefTest {
 	 * <li>"button" should be visible and selected.</li>
 	 * </ol>
 	 */
+	@Test
 	public void test_restoreSelection_afterDelete_thenUndo() throws Exception {
 		openEditor(
 				"<!-- filler filler filler filler filler -->",
@@ -214,6 +222,7 @@ public class UndoManagerTest extends XwtGefTest {
 	/**
 	 * Test that when we select component, its parent become expanded.
 	 */
+	@Test
 	public void test_expandOnSelection() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -244,6 +253,7 @@ public class UndoManagerTest extends XwtGefTest {
 	 * <p>
 	 * Here we have {@link Shell} with single {@link Button}, so {@link Shell} should be expanded.
 	 */
+	@Test
 	public void test_expandOnOpen_1() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -266,6 +276,7 @@ public class UndoManagerTest extends XwtGefTest {
 	 * Here we have {@link Shell} with {@link Composite}, with single {@link Button}, so {@link Shell}
 	 * and {@link Composite} should be expanded.
 	 */
+	@Test
 	public void test_expandOnOpen_2() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -292,6 +303,7 @@ public class UndoManagerTest extends XwtGefTest {
 	 * Here we have {@link Shell} with two {@link Composite}s, so only {@link Shell} should be
 	 * expanded.
 	 */
+	@Test
 	public void test_expandOnOpen_3() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -319,6 +331,7 @@ public class UndoManagerTest extends XwtGefTest {
 	/**
 	 * Test that after reparse expanded state it restored.
 	 */
+	@Test
 	public void test_restoreExpanded() throws Exception {
 		openEditor(
 				"<Shell text='Hello!'>",
@@ -372,6 +385,7 @@ public class UndoManagerTest extends XwtGefTest {
 	/**
 	 * Test for "dirty" flag management.
 	 */
+	@Test
 	public void test_isDirty_undo() throws Exception {
 		openEditor("<Shell text='foo'/>");
 		// initially not dirty
@@ -387,6 +401,7 @@ public class UndoManagerTest extends XwtGefTest {
 	/**
 	 * Test for "dirty" flag management.
 	 */
+	@Test
 	public void test_isDirty_save() throws Exception {
 		openEditor("<Shell text='foo'/>");
 		// initially not dirty

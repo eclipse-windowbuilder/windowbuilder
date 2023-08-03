@@ -49,7 +49,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -77,7 +79,9 @@ public class DialogTest extends RcpModelTest {
 	 * {@link Dialog} with {@link Dialog#createDialogArea(Composite)} method.<br>
 	 * Parameter "parent" in <code>createDialogArea()</code> should not have layout.
 	 */
-	public void DISABLE_test_0() throws Exception {
+	@Ignore
+	@Test
+	public void test_0() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
 						"import org.eclipse.jface.dialogs.*;",
@@ -137,8 +141,8 @@ public class DialogTest extends RcpModelTest {
 		{
 			assertTrue(dialogAreaSuper.hasLayout());
 			Rectangle bounds = dialogAreaSuper.getModelBounds();
-			assertThat(bounds.width).isEqualTo(dialogAreaParent.getModelBounds().width);
-			assertThat(bounds.height).isGreaterThan(200);
+			Assertions.assertThat(bounds.width).isEqualTo(dialogAreaParent.getModelBounds().width);
+			Assertions.assertThat(bounds.height).isGreaterThan(200);
 		}
 	}
 
@@ -146,6 +150,7 @@ public class DialogTest extends RcpModelTest {
 	 * {@link Dialog} with {@link Dialog#createDialogArea(Composite)} and
 	 * {@link Dialog#configureShell(Shell)} methods.
 	 */
+	@Test
 	public void test_1() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.dialogs.*;",
@@ -173,6 +178,7 @@ public class DialogTest extends RcpModelTest {
 	 * Test that even if "createButtonBar" is overridden, we still don't visit it, because this causes
 	 * bad hierarchy.
 	 */
+	@Test
 	public void test_createDialogArea_createButtonBar() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.dialogs.*;",
@@ -200,6 +206,7 @@ public class DialogTest extends RcpModelTest {
 	 * other reasons). But this is invalid value, so {@link WindowInfo} model should intercept it and
 	 * return some reasonable value.
 	 */
+	@Test
 	public void test_bad_getInitialSize() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -221,6 +228,7 @@ public class DialogTest extends RcpModelTest {
 	 * {@link Shell} as parent. This is not good, because during parsing we show
 	 * {@link ProgressMonitorDialog}, so we dispose it with {@link Dialog} instance.
 	 */
+	@Test
 	public void test_passNullParentShell() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -240,6 +248,7 @@ public class DialogTest extends RcpModelTest {
 	 * We should be able to set "null" layout for "container". This should not cause problems with
 	 * some dangling {@link GridDataInfo}.
 	 */
+	@Test
 	public void test_setAbsoluteLayout() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -273,6 +282,7 @@ public class DialogTest extends RcpModelTest {
 	 * all methods, not only for methods in execution flow. And, at least now, "rendering" support in
 	 * hard coded into each component, such as {@link DialogInfo}.
 	 */
+	@Test
 	public void test_withLocalStaticFactory() throws Exception {
 		m_waitForAutoBuild = true;
 		DialogInfo dialog =
@@ -318,7 +328,7 @@ public class DialogTest extends RcpModelTest {
 			CompositeInfo parent = dialog.getChildren(CompositeInfo.class).get(0);
 			CompositeInfo container = parent.getChildren(CompositeInfo.class).get(0);
 			Composite containerObject = (Composite) container.getObject();
-			assertThat(containerObject.getChildren()).hasSize(2);
+			Assertions.assertThat(containerObject.getChildren()).hasSize(2);
 		}
 	}
 
@@ -330,6 +340,7 @@ public class DialogTest extends RcpModelTest {
 	/**
 	 * When {@link Dialog} is active, it contributes {@link DialogButtonEntryInfo} to JFace palette.
 	 */
+	@Test
 	public void test_buttonBar_buttonOnPalette() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -355,6 +366,7 @@ public class DialogTest extends RcpModelTest {
 	 * Test for {@link DialogInfo#getButtonBar()}.<br>
 	 * No "button bar".
 	 */
+	@Test
 	public void test_buttonBar_getButtonBar_0() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -372,6 +384,7 @@ public class DialogTest extends RcpModelTest {
 	 * Test for {@link DialogInfo#getButtonBar()}.<br>
 	 * Has "button bar".
 	 */
+	@Test
 	public void test_buttonBar_getButtonBar_1() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -394,6 +407,7 @@ public class DialogTest extends RcpModelTest {
 	 * {@link Dialog} with {@link Dialog#createButtonsForButtonBar(Composite)} method.<br>
 	 * Move buttons on button bar.
 	 */
+	@Test
 	public void test_buttonBar_MOVE() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -447,6 +461,7 @@ public class DialogTest extends RcpModelTest {
 	/**
 	 * Create new button on button bar.
 	 */
+	@Test
 	public void test_buttonBar_CREATE() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -514,7 +529,7 @@ public class DialogTest extends RcpModelTest {
 		// ...and check properties
 		{
 			Property[] properties = newButton.getProperties();
-			assertThat(properties.length).isGreaterThan(10);
+			Assertions.assertThat(properties.length).isGreaterThan(10);
 		}
 	}
 
@@ -527,6 +542,7 @@ public class DialogTest extends RcpModelTest {
 	 * Test for "button" on "button bar".<br>
 	 * Test for "ID", "Text" and "Default" top level {@link Property}'s.
 	 */
+	@Test
 	public void test_buttonBarButton_0() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -555,6 +571,7 @@ public class DialogTest extends RcpModelTest {
 	 * Test for "button" on "button bar".<br>
 	 * Test for {@link DialogButtonIdPropertyEditor}.
 	 */
+	@Test
 	public void test_buttonBarButton_1() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -592,6 +609,7 @@ public class DialogTest extends RcpModelTest {
 	 * Test for {@link DialogButtonIdPropertyEditor#getCustomIDs(GenericProperty)}.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void test_getCustomIDs() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -616,7 +634,7 @@ public class DialogTest extends RcpModelTest {
 						"getCustomIDs",
 						GenericProperty.class,
 						dialog.getPropertyByTitle("blockOnOpen"));
-		assertThat(idList).hasSize(1);
+		Assertions.assertThat(idList).hasSize(1);
 		FieldDeclaration fieldDeclaration = idList.get(0);
 		assertEquals("GOOD", DomGenerics.fragments(fieldDeclaration).get(0).getName().getIdentifier());
 		{
@@ -638,6 +656,7 @@ public class DialogTest extends RcpModelTest {
 	/**
 	 * Test for problem that two {@link Button}-s created for single <code>createButton()</code>.
 	 */
+	@Test
 	public void test_buttonBarButton_noExtraButtonObjects() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -653,7 +672,7 @@ public class DialogTest extends RcpModelTest {
 		dialog.refresh();
 		CompositeInfo buttonBar = dialog.getButtonBar();
 		Composite buttonBarObject = (Composite) buttonBar.getObject();
-		assertThat(buttonBarObject.getChildren()).hasSize(1);
+		Assertions.assertThat(buttonBarObject.getChildren()).hasSize(1);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -661,6 +680,7 @@ public class DialogTest extends RcpModelTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu_remove_getInitialSize() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(
@@ -696,6 +716,7 @@ public class DialogTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_contextMenu_usePreferredSize() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(

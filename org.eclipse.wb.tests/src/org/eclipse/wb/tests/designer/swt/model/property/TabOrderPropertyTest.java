@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -42,6 +44,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_common() throws Exception {
 		// create shell
 		CompositeInfo composite =
@@ -66,6 +69,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 				property));
 	}
 
+	@Test
 	public void test_getValue_noValue() throws Exception {
 		// create shell
 		CompositeInfo composite =
@@ -105,6 +109,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		assertSame(combo, info.getOrderedInfos().get(1));
 	}
 
+	@Test
 	public void test_getValue() throws Exception {
 		// create shell
 		CompositeInfo composite =
@@ -145,6 +150,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		assertSame(button, info.getOrderedInfos().get(0));
 	}
 
+	@Test
 	public void test_setValue_UNKNOWN_VALUE() throws Exception {
 		test_setValue(new String[]{
 				"public class Test extends Composite {",
@@ -178,6 +184,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_setValue_noValue() throws Exception {
 		test_setValue(new String[]{
 				"public class Test extends Composite {",
@@ -223,6 +230,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		assertEditor(newSource);
 	}
 
+	@Test
 	public void test_setValue() throws Exception {
 		// create shell
 		CompositeInfo composite =
@@ -289,6 +297,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		// create shell
 		CompositeInfo composite =
@@ -372,6 +381,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_delete_2() throws Exception {
 		CompositeInfo composite =
 				parseComposite(

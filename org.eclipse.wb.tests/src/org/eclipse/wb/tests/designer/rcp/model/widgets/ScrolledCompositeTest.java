@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link ScrolledCompositeInfo}.
@@ -40,6 +41,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noContent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -57,6 +59,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 		assertTrue(composite.hasRequired_setContent());
 	}
 
+	@Test
 	public void test_withContent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -80,6 +83,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 		assertTrue(composite.hasRequired_setContent());
 	}
 
+	@Test
 	public void test_hasChildControl_withContent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -95,7 +99,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 						"}");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
-		assertThat(composite.getChildrenControls()).hasSize(1);
+		Assertions.assertThat(composite.getChildrenControls()).hasSize(1);
 		// no "setContent()"
 		assertNull(composite.getContent());
 		// no child Control, but no "setContent()", so BAD
@@ -110,6 +114,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	/**
 	 * Test for {@link ScrolledCompositeInfo#command_CREATE(ControlInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -144,6 +149,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	 * {@link ScrolledCompositeInfo}, it should be added <em>before</em> <code>setContent()</code> or
 	 * <code>setMinSize()</code> invocations.
 	 */
+	@Test
 	public void test_CREATE2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -188,6 +194,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	/**
 	 * Test for {@link ScrolledCompositeInfo#command_ADD(ControlInfo)}.
 	 */
+	@Test
 	public void test_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -224,6 +231,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	 * Test for moving {@link ControlInfo} from {@link ScrolledCompositeInfo#command_ADD(ControlInfo)}
 	 * .
 	 */
+	@Test
 	public void test_MOVE_out() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

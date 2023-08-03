@@ -27,6 +27,8 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.actions.ActionFactory;
 
+import org.junit.Test;
+
 /**
  * Test for {@link Action}'s from {@link ActionFactory}.
  *
@@ -50,6 +52,7 @@ public class ActionFactoryTest extends RcpModelTest {
 	/**
 	 * Test for using {@link ActionFactory#SAVE}.
 	 */
+	@Test
 	public void test_ActionFactory_1() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -87,6 +90,7 @@ public class ActionFactoryTest extends RcpModelTest {
 	/**
 	 * Test for {@link ActionFactoryCreationSupport}.
 	 */
+	@Test
 	public void test_ActionFactory_2() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -135,6 +139,7 @@ public class ActionFactoryTest extends RcpModelTest {
 	/**
 	 * Test for using {@link ActionFactory#QUIT}.
 	 */
+	@Test
 	public void test_ActionFactory_defaultIcon() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -172,6 +177,7 @@ public class ActionFactoryTest extends RcpModelTest {
 	/**
 	 * Test for adding new {@link ActionFactory#SAVE_ALL}.
 	 */
+	@Test
 	public void test_ActionFactory_CREATE() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(

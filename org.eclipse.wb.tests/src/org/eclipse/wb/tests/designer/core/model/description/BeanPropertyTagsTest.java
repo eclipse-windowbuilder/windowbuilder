@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link StandardBeanPropertyTagRule}, {@link StandardBeanPropertiesFlaggedRule}, its
  * subclasses and applications.
@@ -51,6 +53,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 * We can use tag "properties-/preferred/advanced/hidden" elements to change
 	 * {@link PropertyCategory} for multiple standard bean {@link Property}'s at once.
 	 */
+	@Test
 	public void test_propertyCategory() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -85,6 +88,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 * We can use tag "properties-normal" elements to change {@link PropertyCategory} from non-default
 	 * to normal.
 	 */
+	@Test
 	public void test_propertyCategory_normal() throws Exception {
 		setFileContentSrc(
 				"test/MyObject0.java",
@@ -120,6 +124,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	/**
 	 * We can use template with "*"-ended at tag "properties-xxx" elements.
 	 */
+	@Test
 	public void test_propertyCategory_template() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -151,6 +156,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	/**
 	 * Test for flagging field based properties.
 	 */
+	@Test
 	public void test_propertyFlags_forField() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -177,6 +183,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	/**
 	 * When two setters have same name, we need some way to specify exact method with parameter type.
 	 */
+	@Test
 	public void test_propertyFlags_specifyExactMethod() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -206,6 +213,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 * When field property name starts with name of some method based property, we should correctly
 	 * distinguish them.
 	 */
+	@Test
 	public void test_propertyFlags_methodFieldConflict_1() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -237,6 +245,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 * When field property name is same as name of some method based property, we should correctly
 	 * distinguish them.
 	 */
+	@Test
 	public void test_propertyFlags_methodFieldConflict_selectMethod() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -265,6 +274,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 * When field property name is same as name of some method based property, we should correctly
 	 * distinguish them.
 	 */
+	@Test
 	public void test_propertyFlags_methodFieldConflict_selectField() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -296,6 +306,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 *     <properties-noDefaultValue names="valueA valueB"/>
 	 * </pre>
 	 */
+	@Test
 	public void test_noDefaultValue() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -355,6 +366,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 *     <property-tag name="image" tag="isImage" value="true"/>
 	 * </pre>
 	 */
+	@Test
 	public void test_standardPropertyTag_simple() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -383,6 +395,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_standardPropertyTag_exactMethodSignature() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -423,6 +436,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 *     <property-tag name="hTML" tag="title" value="HTML"/>
 	 * </pre>
 	 */
+	@Test
 	public void test_setTitleForProperty() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",
@@ -458,6 +472,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 	 *     </property>
 	 * </pre>
 	 */
+	@Test
 	public void test_setTitleForProperty2() throws Exception {
 		setFileContentSrc(
 				"test/MyObject.java",

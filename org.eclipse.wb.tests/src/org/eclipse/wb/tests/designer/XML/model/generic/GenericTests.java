@@ -10,34 +10,31 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model.generic;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for generic simple/flow containers support.
  *
  * @author scheglov_ke
  */
-public class GenericTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.generic");
-		suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
-		suite.addTest(createSingleSuite(ContainerObjectValidatorsTest.class));
+@RunWith(Suite.class)
+@SuiteClasses({
+		FlipBooleanPropertyGefTest.class,
+		ContainerObjectValidatorsTest.class,
 		// flow container
-		suite.addTest(createSingleSuite(FlowContainerModelTest.class));
-		suite.addTest(createSingleSuite(FlowContainerGefTest.class));
-		suite.addTest(createSingleSuite(FlowContainerLayoutGefTest.class));
+		FlowContainerModelTest.class,
+		FlowContainerGefTest.class,
+		FlowContainerLayoutGefTest.class,
 		// simple container
-		suite.addTest(createSingleSuite(SimpleContainerModelTest.class));
-		suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
-		suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
+		SimpleContainerModelTest.class,
+		SimpleContainerGefTest.class,
+		SimpleContainerLayoutGefTest.class,
 		// properties
-		suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
-		suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
-		suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
-		// done
-		return suite;
-	}
+		CopyPropertyTopTest.class,
+		ModelMethodPropertyTest.class,
+		ModelMethodPropertyChildTest.class
+})
+public class GenericTests {
 }

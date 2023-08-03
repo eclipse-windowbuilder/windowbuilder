@@ -23,6 +23,10 @@ import com.jgoodies.forms.layout.ConstantSize.Unit;
 import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link FormSizeInfo}.
  *
@@ -35,7 +39,8 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		LafSupport.applySelectedLAF(LafSupport.getDefaultLAF());
 	}
@@ -57,7 +62,9 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo}.
 	 */
-	public void DISABLE_test_FormSizeConstantInfo() throws Exception {
+	@Ignore
+	@Test
+	public void test_FormSizeConstantInfo() throws Exception {
 		FormSizeConstantInfo size = new FormSizeConstantInfo(25, ConstantSize.PIXEL);
 		assertEquals(25.0, size.getValue(), 0.001);
 		assertEquals(25, size.getAsPixels());
@@ -113,6 +120,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo} conversion special cases.
 	 */
+	@Test
 	public void test_FormSizeConstantInfo_convertSpecial() throws Exception {
 		{
 			FormSizeConstantInfo size = new FormSizeConstantInfo(1.0, ConstantSize.CENTIMETER);
@@ -129,7 +137,9 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertFromPixels(int, Unit)}
 	 */
-	public void DISABLE_test_FormSizeConstantInfo_convertFromPixels() throws Exception {
+	@Ignore
+	@Test
+	public void test_FormSizeConstantInfo_convertFromPixels() throws Exception {
 		{
 			double expected = 50.0;
 			check_convertFromPixels(50, ConstantSize.PIXEL, expected);
@@ -185,7 +195,9 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertToPixels(double, Unit)}
 	 */
-	public void DISABLE_test_FormSizeConstantInfo_convertToPixels() throws Exception {
+	@Ignore
+	@Test
+	public void test_FormSizeConstantInfo_convertToPixels() throws Exception {
 		{
 			int expected = 10;
 			check_convertToPixels(10.0, ConstantSize.PIXEL, expected);
@@ -243,6 +255,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	// FormSizeInfo
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_FormSize_constant() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.constant("25px", true), true);
 		assertTrue(size.isString());
@@ -264,6 +277,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertSame(ConstantSize.PIXEL, constantSize.getUnit());
 	}
 
+	@Test
 	public void test_FormSize_constantSet() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.DEFAULT, true);
 		assertEquals("default", size.getSource());
@@ -275,6 +289,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertEquals("25px", size.getConstantSize().getSource(true, true));
 	}
 
+	@Test
 	public void test_FormSize_component_DEFAULT() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.DEFAULT, true);
 		assertTrue(size.isString());
@@ -289,6 +304,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertNull(size.getUpperSize());
 	}
 
+	@Test
 	public void test_FormSize_component_PREFERRED() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.PREFERRED, true);
 		assertTrue(size.isString());
@@ -303,6 +319,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertNull(size.getUpperSize());
 	}
 
+	@Test
 	public void test_FormSize_component_MINIMUM() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.MINIMUM, true);
 		assertTrue(size.isString());
@@ -317,6 +334,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertNull(size.getUpperSize());
 	}
 
+	@Test
 	public void test_FormSize_setComponentSize() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.DEFAULT, true);
 		size.setComponentSize(Sizes.MINIMUM);
@@ -324,6 +342,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertEquals("min", size.getSource());
 	}
 
+	@Test
 	public void test_FormSize_boundedLower() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(ColumnSpec.decode("max(4cm;default)").getSize(), true);
 		assertTrue(size.isString());
@@ -339,6 +358,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertSame(ConstantSize.CENTIMETER, lowerSize.getUnit());
 	}
 
+	@Test
 	public void test_FormSize_boundedUpper() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(ColumnSpec.decode("min(3cm;default)").getSize(), true);
 		assertTrue(size.isString());
@@ -357,6 +377,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertSame(ConstantSize.CENTIMETER, upperSize.getUnit());
 	}
 
+	@Test
 	public void test_FormSize_boundedLowerSet() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.DEFAULT, true);
 		assertTrue(size.isString());
@@ -374,6 +395,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertEquals("default", size.getSource());
 	}
 
+	@Test
 	public void test_FormSize_boundedUpperSet() throws Exception {
 		FormSizeInfo size = new FormSizeInfo(Sizes.DEFAULT, true);
 		assertTrue(size.isString());
@@ -391,6 +413,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		assertEquals("default", size.getSource());
 	}
 
+	@Test
 	public void test_FormSize_boundedLowerUpper() throws Exception {
 		Size expectedSize =
 				Sizes.bounded(Sizes.DEFAULT, Sizes.constant("3cm", true), Sizes.constant("40mm", true));
@@ -422,6 +445,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	// bounded source/display tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_bounded_getDisplayString() throws Exception {
 		check_bounded_getDisplayString(Sizes.DEFAULT, "DEFAULT", "default");
 		check_bounded_getDisplayString(Sizes.PREFERRED, "PREFERRED", "preferred");

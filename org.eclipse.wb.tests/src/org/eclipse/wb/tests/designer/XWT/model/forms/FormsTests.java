@@ -11,27 +11,26 @@
 package org.eclipse.wb.tests.designer.XWT.model.forms;
 
 import org.eclipse.wb.tests.designer.XWT.model.forms.table.TableWrapLayoutTests;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for Forms API support.
  *
  * @author scheglov_ke
  */
-public class FormsTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.forms");
-		suite.addTest(createSingleSuite(FormsTest.class));
-		suite.addTest(createSingleSuite(FormTest.class));
-		suite.addTest(createSingleSuite(FormGefTest.class));
-		suite.addTest(createSingleSuite(ScrolledFormTest.class));
-		suite.addTest(createSingleSuite(ExpandableCompositeTest.class));
-		suite.addTest(createSingleSuite(ExpandableCompositeGefTest.class));
-		suite.addTest(createSingleSuite(ColumnLayoutTest.class));
-		suite.addTest(TableWrapLayoutTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		FormsTest.class,
+		FormTest.class,
+		FormGefTest.class,
+		ScrolledFormTest.class,
+		ExpandableCompositeTest.class,
+		ExpandableCompositeGefTest.class,
+		ColumnLayoutTest.class,
+		TableWrapLayoutTests.class
+})
+public class FormsTests {
 }

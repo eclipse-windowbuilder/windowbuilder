@@ -24,6 +24,10 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.swt.graphics.Image;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Test {@link GridBagLayoutInfo} in GEF.
  *
@@ -45,13 +49,15 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		AbstractGridBagLayoutTest.configureForTest();
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		AbstractGridBagLayoutTest.configureDefaults();
 		super.tearDown();
 	}
@@ -66,6 +72,7 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	 * active, then headers may be will try to paint. But header needs information from model, which
 	 * is not active anymore.
 	 */
+	@Test
 	public void test_replaceWithOther_andPaintDuringThis() throws Exception {
 		mainPanel =
 				openContainer(
@@ -114,6 +121,7 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	/**
 	 * {@link JPopupMenuInfo} is not managed by {@link LayoutInfo}.
 	 */
+	@Test
 	public void test_JPopupMenu_select() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -140,6 +148,7 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	/**
 	 * Test for dropping {@link JPopupMenuInfo}.
 	 */
+	@Test
 	public void test_JPopupMenu_drop() throws Exception {
 		mainPanel =
 				openContainer(
@@ -181,6 +190,7 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	ContainerInfo panel_1;
 	ComponentInfo button;
 
+	@Test
 	public void test_CREATE_inTree_empty() throws Exception {
 		mainPanel =
 				openContainer(

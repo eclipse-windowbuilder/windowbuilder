@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
 
+import org.junit.Test;
+
 /**
  * Test for {@link IconPropertyEditor}.
  *
@@ -30,6 +32,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_noIcon() throws Exception {
 		assertIconPropertyText(null, new String[]{
 				"public class Test extends JPanel {",
@@ -40,6 +43,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_getText_null() throws Exception {
 		assertIconPropertyText("(null)", new String[]{
 				"public class Test extends JPanel {",
@@ -51,6 +55,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_getText_fromFile_1() throws Exception {
 		IFile imageFile = TestUtils.createImagePNG(m_testProject, "1.png", 10, 10);
 		try {
@@ -68,6 +73,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_getText_fromFile_2() throws Exception {
 		IFile imageFile = TestUtils.createImagePNG(m_testProject, "1.png", 10, 10);
 		try {
@@ -89,6 +95,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_getText_Class_getResource_1() throws Exception {
 		assertIconPropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
@@ -102,6 +109,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
+	@Test
 	public void test_getText_Class_getResource_2() throws Exception {
 		assertIconPropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
@@ -117,6 +125,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
+	@Test
 	public void test_getText_Class_getResource_3() throws Exception {
 		assertIconPropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
@@ -131,6 +140,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
+	@Test
 	public void test_getText_Class_getResource_4() throws Exception {
 		assertIconPropertyText(
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",

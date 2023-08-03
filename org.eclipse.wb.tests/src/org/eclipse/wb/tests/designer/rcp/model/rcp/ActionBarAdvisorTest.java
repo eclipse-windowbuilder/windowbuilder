@@ -28,9 +28,9 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.NotImplementedException;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link ActionBarAdvisorInfo}.
@@ -55,6 +55,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Basic test for {@link ActionBarAdvisorInfo}.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -87,8 +88,8 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 			advisor.refresh();
 			assertNoErrors(advisor);
 			// check bounds
-			assertThat(advisor.getBounds().width).isEqualTo(600);
-			assertThat(advisor.getBounds().height).isEqualTo(500);
+			Assertions.assertThat(advisor.getBounds().width).isEqualTo(600);
+			Assertions.assertThat(advisor.getBounds().height).isEqualTo(500);
 		}
 		// check Proxy implementations for IActionBarConfigurer
 		{
@@ -115,6 +116,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Test for {@link ActionBarAdvisor_TopBoundsSupport}.
 	 */
+	@Test
 	public void test_ActionBarAdvisor_TopBoundsSupport() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -128,15 +130,15 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 			advisor.refresh();
 			assertNoErrors(advisor);
 			// check bounds
-			assertThat(advisor.getBounds().width).isEqualTo(600);
-			assertThat(advisor.getBounds().height).isEqualTo(500);
+			Assertions.assertThat(advisor.getBounds().width).isEqualTo(600);
+			Assertions.assertThat(advisor.getBounds().height).isEqualTo(500);
 		}
 		// set new size
 		{
 			advisor.getTopBoundsSupport().setSize(450, 300);
 			advisor.refresh();
-			assertThat(advisor.getBounds().width).isEqualTo(450);
-			assertThat(advisor.getBounds().height).isEqualTo(300);
+			Assertions.assertThat(advisor.getBounds().width).isEqualTo(450);
+			Assertions.assertThat(advisor.getBounds().height).isEqualTo(300);
 		}
 	}
 
@@ -147,6 +149,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 * <code>createActions()</code>, however for {@link ActionBarAdvisor} we should add actions in
 	 * <code>makeActions(IWorkbenchWindow)</code>.
 	 */
+	@Test
 	public void test_addAction() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -196,6 +199,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Test for <code>window.getWorkbench().getSharedImages()</code>.
 	 */
+	@Test
 	public void test_getWorkbench_getSharedImages() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -220,6 +224,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Test for using {@link ToolBarContributionItem}.
 	 */
+	@Test
 	public void test_newToolBarContributionItem() throws Exception {
 		ActionBarAdvisorInfo advisor =
 				parseJavaInfo(
@@ -244,6 +249,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Test that we show {@link IWorkbenchWindowConfigurer} properties.
 	 */
+	@Test
 	public void test_WorkbenchWindowAdvisor_properties_allNames() throws Exception {
 		setFileContentSrc(
 				"test/ApplicationWorkbenchWindowAdvisor.java",
@@ -289,6 +295,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Use property "showStatusLine".
 	 */
+	@Test
 	public void test_WorkbenchWindowAdvisor_properties_showStatusLine() throws Exception {
 		setFileContentSrc(
 				"test/ApplicationWorkbenchWindowAdvisor.java",
@@ -347,6 +354,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * Use property "title".
 	 */
+	@Test
 	public void test_WorkbenchWindowAdvisor_properties_title() throws Exception {
 		setFileContentSrc(
 				"test/ApplicationWorkbenchWindowAdvisor.java",
@@ -449,6 +457,7 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	/**
 	 * No "preWindowOpen()", create new method.
 	 */
+	@Test
 	public void test_WorkbenchWindowAdvisor_properties_newMethod() throws Exception {
 		setFileContentSrc(
 				"test/ApplicationWorkbenchWindowAdvisor.java",

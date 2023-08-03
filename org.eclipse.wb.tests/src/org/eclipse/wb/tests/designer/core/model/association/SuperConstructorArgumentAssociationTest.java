@@ -17,6 +17,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link SuperConstructorArgumentAssociation}.
  *
@@ -28,6 +30,7 @@ public class SuperConstructorArgumentAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.XWT.model.widgets;
 import org.eclipse.wb.internal.xwt.model.widgets.DropTargetInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DropTargetInfo}.
  *
@@ -33,6 +35,7 @@ public class DropTargetTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		parse(
 				"<Shell xmlns:p1='clr-namespace:org.eclipse.swt.dnd'>",

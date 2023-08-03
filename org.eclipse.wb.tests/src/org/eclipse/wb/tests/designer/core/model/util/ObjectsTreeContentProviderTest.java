@@ -20,6 +20,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link ObjectsTreeContentProvider}.
@@ -27,6 +28,7 @@ import org.assertj.core.api.Assertions;
  * @author scheglov_ke
  */
 public class ObjectsTreeContentProviderTest extends DesignerTestCase {
+	@Test
 	public void test() throws Exception {
 		final TestObjectInfo parent = new TestObjectInfo("parent");
 		final TestObjectInfo child_1 = new TestObjectInfo("child_1");

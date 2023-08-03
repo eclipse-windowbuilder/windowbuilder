@@ -32,9 +32,9 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link LazyVariableSupport}.
@@ -59,6 +59,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Basic tests for {@link LazyVariableSupport}.
 	 */
+	@Test
 	public void test_basic() throws Exception {
 		ContainerInfo panel = parseLazyCode();
 		// prepare button
@@ -82,6 +83,7 @@ public class LazyTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getReferenceExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -126,6 +128,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test name in {@link LazyVariableSupport}.
 	 */
+	@Test
 	public void test_setName() throws Exception {
 		ContainerInfo panel = parseLazyCode();
 		// prepare button
@@ -155,6 +158,7 @@ public class LazyTest extends AbstractVariableTest {
 		assert_creation(panel);
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		ContainerInfo panel = parseLazyCode();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -191,6 +195,7 @@ public class LazyTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_parse_EmptyVariable_inLazy() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -213,6 +218,7 @@ public class LazyTest extends AbstractVariableTest {
 				"    {new: java.awt.BorderLayout} {empty} {/inner.setLayout(new BorderLayout())/}");
 	}
 
+	@Test
 	public void test_parse_withAbstractMethod() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -235,6 +241,7 @@ public class LazyTest extends AbstractVariableTest {
 	 * <p>
 	 * 40243: Parsing failure with VA Java created
 	 */
+	@Test
 	public void test_parse_notFirstCreate() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -256,6 +263,7 @@ public class LazyTest extends AbstractVariableTest {
 				"  {new: javax.swing.JButton} {lazy: button getButton()} {/new JButton()/ /button/ /add(getButton())/}");
 	}
 
+	@Test
 	public void test_parse_thisQualifier() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -283,6 +291,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * There was problem with "return;" statement, without expression.
 	 */
+	@Test
 	public void test_parse_methodWithEmptyReturn() throws Exception {
 		m_ignoreCompilationProblems = true;
 		parseContainer(
@@ -307,6 +316,7 @@ public class LazyTest extends AbstractVariableTest {
 	 * If "return field;" is bad, so no {@link IVariableBinding} this caused
 	 * {@link NullPointerException}.
 	 */
+	@Test
 	public void test_parse_badReturnName() throws Exception {
 		m_ignoreCompilationProblems = true;
 		parseContainer(
@@ -336,6 +346,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test for adding new component, with "private" method modifier.
 	 */
+	@Test
 	public void test_ADD_private() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -385,6 +396,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test for adding new component, with "public" method modifier.
 	 */
+	@Test
 	public void test_ADD_public() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -426,6 +438,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test for adding new component, with "private static" method modifier.
 	 */
+	@Test
 	public void test_ADD_static() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -468,6 +481,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * We should use canonical {@link Class} name.
 	 */
+	@Test
 	public void test_ADD_innerClass() throws Exception {
 		setFileContentSrc(
 				"test/Foo.java",
@@ -518,6 +532,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test for generating unique method name, when such method exists in superclass.
 	 */
+	@Test
 	public void test_ADD_conflictWithSuperClass() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -568,6 +583,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Support for generic components and type arguments.
 	 */
+	@Test
 	public void test_ADD_typeArguments() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -629,6 +645,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link LazyVariableSupport#ensureInstanceReadyAt(StatementTarget)}.
 	 */
+	@Test
 	public void test_moveTarget() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -668,6 +685,7 @@ public class LazyTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link LazyVariableSupport#isValidStatementForChild(Statement)}.
 	 */
+	@Test
 	public void test_isValidStatementForChild() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -699,6 +717,7 @@ public class LazyTest extends AbstractVariableTest {
 	// setType()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -743,6 +762,7 @@ public class LazyTest extends AbstractVariableTest {
 	// Special cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tryInIfStatement() throws Exception {
 		String[] lines =
 			{
@@ -773,6 +793,7 @@ public class LazyTest extends AbstractVariableTest {
 	 * to support not attached Swing actions. But when we delete "accessor", we should not return it
 	 * as start method.
 	 */
+	@Test
 	public void test_deleteAccessorFromStartMethods() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -801,13 +822,13 @@ public class LazyTest extends AbstractVariableTest {
 			accessor = variable.m_accessor;
 		}
 		// initially no accessor
-		assertThat(flowDescription.getStartMethods()).doesNotContain(accessor);
+		Assertions.assertThat(flowDescription.getStartMethods()).doesNotContain(accessor);
 		// add "accessor" into execution flow
 		flowDescription.addStartMethod(accessor);
-		assertThat(flowDescription.getStartMethods()).contains(accessor);
+		Assertions.assertThat(flowDescription.getStartMethods()).contains(accessor);
 		// delete "button"
 		button.delete();
-		assertThat(flowDescription.getStartMethods()).doesNotContain(accessor);
+		Assertions.assertThat(flowDescription.getStartMethods()).doesNotContain(accessor);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -815,6 +836,7 @@ public class LazyTest extends AbstractVariableTest {
 	// Implicit factory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_implicitFactory_0() throws Exception {
 		prepare_implicitFactory();
 		String[] lines =
@@ -903,6 +925,7 @@ public class LazyTest extends AbstractVariableTest {
 	// Conversion tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_convert() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -915,7 +938,7 @@ public class LazyTest extends AbstractVariableTest {
 						"}");
 		BorderLayoutInfo borderLayout = (BorderLayoutInfo) panel.getLayout();
 		//
-		assertThat(LazyVariableSupportUtils.canConvert(borderLayout)).isTrue();
+		Assertions.assertThat(LazyVariableSupportUtils.canConvert(borderLayout)).isTrue();
 		LazyVariableSupportUtils.convert(borderLayout);
 		// check
 		assertEditor(
@@ -941,6 +964,7 @@ public class LazyTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_convert_children() throws Exception {
 		ContainerInfo testPanel =
 				parseContainer(
@@ -958,9 +982,9 @@ public class LazyTest extends AbstractVariableTest {
 						"  }",
 						"}");
 		JPanelInfo panel = testPanel.getChildren(JPanelInfo.class).get(0);
-		assertThat(panel.getChildren(ComponentInfo.class).size()).isEqualTo(2);
+		Assertions.assertThat(panel.getChildren(ComponentInfo.class).size()).isEqualTo(2);
 		//
-		assertThat(LazyVariableSupportUtils.canConvert(panel)).isTrue();
+		Assertions.assertThat(LazyVariableSupportUtils.canConvert(panel)).isTrue();
 		LazyVariableSupportUtils.convert(panel);
 		// check
 		assertEditor(
