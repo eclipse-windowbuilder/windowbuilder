@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,13 +17,14 @@ import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObserve
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.properties.ObjectPropertyInfo;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
 import org.eclipse.wb.internal.swing.databinding.ui.providers.TypeImageProvider;
+
+import org.eclipse.jface.viewers.IDecoration;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +46,7 @@ public final class ObjectPropertyObserveInfo extends ObserveInfo implements IObs
 	////////////////////////////////////////////////////////////////////////////
 	public ObjectPropertyObserveInfo(IGenericType objectType) {
 		super(objectType, StringReferenceProvider.EMPTY);
-		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		setBindingDecoration(IDecoration.TOP_LEFT);
 		m_creationType =
 				java.util.List.class.isAssignableFrom(getObjectClass())
 				? ObserveCreationType.ListSelfProperty

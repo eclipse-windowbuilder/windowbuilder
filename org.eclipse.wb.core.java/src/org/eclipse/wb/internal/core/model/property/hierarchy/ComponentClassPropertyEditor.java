@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,12 +18,12 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.TextDisplayPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.IPropertyTooltipSite;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IFontProvider;
@@ -221,7 +221,7 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private class ComponentClassLabelProvider extends LabelProvider implements IFontProvider {
-		private final Tree m_tree;
+		private final Font m_treeFont;
 
 		////////////////////////////////////////////////////////////////////////////
 		//
@@ -229,7 +229,9 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public ComponentClassLabelProvider(final Tree tree) {
-			m_tree = tree;
+			m_treeFont = FontDescriptor.createFrom(tree.getFont())
+					.setStyle(SWT.BOLD)
+					.createFont(null);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -257,7 +259,7 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
 		public Font getFont(Object element) {
 			Class<?> clazz = (Class<?>) element;
 			if (clazz == m_componentClass) {
-				return SwtResourceManager.getBoldFont(m_tree.getFont());
+				return m_treeFont;
 			}
 			return null;
 		}

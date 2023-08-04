@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,8 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.ui.providers;
 
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
@@ -24,6 +23,12 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.ValueBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.AbstractViewerInputBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.IDelayValueProvider;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -35,11 +40,17 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.rcp.ui
  */
 public final class BindingLabelProvider extends LabelProvider implements ITableLabelProvider {
-	public static final Image BIND_VALUE_IMAGE = Activator.getImage("bindValue.png");
-	private static final Image BIND_LIST_IMAGE = Activator.getImage("bindList.png");
-	private static final Image BIND_SET_IMAGE = Activator.getImage("bindSet.png");
-	public static final Image CLOCK_DECORATION_IMAGE = Activator.getImage("clock.png");
-	public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();
+	public static final ImageDescriptor BIND_VALUE_IMAGE = Activator.getImageDescriptor("bindValue.png");
+	private static final ImageDescriptor BIND_LIST_IMAGE = Activator.getImageDescriptor("bindList.png");
+	private static final ImageDescriptor BIND_SET_IMAGE = Activator.getImageDescriptor("bindSet.png");
+	public static final ImageDescriptor CLOCK_DECORATION_IMAGE = Activator.getImageDescriptor("clock.png");
+	private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		m_resourceManager.dispose();
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -48,14 +59,15 @@ public final class BindingLabelProvider extends LabelProvider implements ITableL
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String getColumnText(final Object element, final int column) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				if (element instanceof BindingInfo) {
-					return getBindingColumnText((BindingInfo) element, column);
-				}
-				return getViewerBindingColumnText((AbstractViewerInputBindingInfo) element, column);
+		return getText(element, column);
+	}
+
+	public static String getText(final Object element, final int column) {
+		return ExecutionUtils.runObjectLog(() -> {
+			if (element instanceof BindingInfo) {
+				return getBindingColumnText((BindingInfo) element, column);
 			}
+			return getViewerBindingColumnText((AbstractViewerInputBindingInfo) element, column);
 		}, "<exception, see log>");
 	}
 
@@ -106,30 +118,32 @@ public final class BindingLabelProvider extends LabelProvider implements ITableL
 
 	@Override
 	public Image getColumnImage(Object element, int column) {
-		Image image = null;
 		if (column == 0) {
-			// binding
-			if (element instanceof ValueBindingInfo) {
-				image = BIND_VALUE_IMAGE;
-			} else if (element instanceof ListBindingInfo) {
-				image = BIND_LIST_IMAGE;
-			} else if (element instanceof SetBindingInfo) {
-				image = BIND_SET_IMAGE;
-			} else if (element instanceof AbstractViewerInputBindingInfo) {
-				image = TypeImageProvider.VIEWER_IMAGE;
-			} else {
-				return null;
-			}
-			// delay
-			if (isDelayBinding(element)) {
-				image =
-						SwtResourceManager.decorateImage(
-								image,
-								CLOCK_DECORATION_IMAGE,
-								SwtResourceManager.BOTTOM_RIGHT);
-			}
+			return m_resourceManager.createImageWithDefault(getIcon(element));
 		}
-		return image;
+		return null;
+	}
+
+	public static ImageDescriptor getIcon(Object element) {
+		ImageDescriptor imageDescriptor = null;
+		// binding
+		if (element instanceof ValueBindingInfo) {
+			imageDescriptor = BIND_VALUE_IMAGE;
+		} else if (element instanceof ListBindingInfo) {
+			imageDescriptor = BIND_LIST_IMAGE;
+		} else if (element instanceof SetBindingInfo) {
+			imageDescriptor = BIND_SET_IMAGE;
+		} else if (element instanceof AbstractViewerInputBindingInfo) {
+			imageDescriptor = new ImageImageDescriptor(TypeImageProvider.VIEWER_IMAGE);
+		} else {
+			return null;
+		}
+		// delay
+		if (isDelayBinding(element)) {
+			imageDescriptor = new DecorationOverlayIcon(imageDescriptor, CLOCK_DECORATION_IMAGE,
+					IDecoration.BOTTOM_RIGHT);
+		}
+		return imageDescriptor;
 	}
 
 	private static boolean isDelayBinding(Object element) {

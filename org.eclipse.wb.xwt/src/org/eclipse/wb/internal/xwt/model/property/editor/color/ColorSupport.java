@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.property.editor.color;
 
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 
 import org.eclipse.e4.xwt.XWTMaps;
 import org.eclipse.e4.xwt.utils.NamedColorsUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.ui.PlatformUI;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -47,7 +47,7 @@ public class ColorSupport {
 				Color color;
 				{
 					int id = XWTMaps.getColor(name);
-					color = SwtResourceManager.getColor(id);
+					color = PlatformUI.getWorkbench().getDisplay().getSystemColor(id);
 				}
 				// create ColorInfo
 				{

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -114,10 +113,10 @@ IHeadersProvider {
 	protected GridTarget m_target;
 	private final Figure m_targetFeedback = new SemiTransparentFigure(64);
 	private TextFeedback m_textFeedback;
-	private static final Color m_goodTargetFillColor = SwtResourceManager.getColor(0, 255, 0);
-	private static final Color m_goodTargetBorderColor = SwtResourceManager.getColor(192, 255, 192);
-	private static final Color m_badTargetFillColor = SwtResourceManager.getColor(255, 0, 0);
-	private static final Color m_badTargetBorderColor = SwtResourceManager.getColor(255, 192, 192);
+	private static final Color m_goodTargetFillColor = new Color(0, 255, 0);
+	private static final Color m_goodTargetBorderColor = new Color(192, 255, 192);
+	private static final Color m_badTargetFillColor = new Color(255, 0, 0);
+	private static final Color m_badTargetBorderColor = new Color(255, 192, 192);
 
 	@Override
 	protected final void showLayoutTargetFeedback(Request request) {

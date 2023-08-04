@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.core.controls.palette;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.JustifyLabel;
 import org.eclipse.wb.internal.draw2d.Label;
@@ -20,6 +19,8 @@ import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.FontDescriptor;
+import org.eclipse.swt.SWT;
 
 /**
  * Standard palette tooltip: bold header and multi line details.
@@ -52,7 +53,9 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 	protected Figure createTooltipFigure(Figure hostFigure) {
 		// header figure
 		Label headerFigure = new Label(m_header);
-		headerFigure.setFont(SwtResourceManager.getBoldFont(headerFigure.getFont()));
+		headerFigure.setFont(FontDescriptor.createFrom(headerFigure.getFont()) //
+				.setStyle(SWT.BOLD) //
+				.createFont(null));
 		// details figure
 		JustifyLabel detailsFigure = new JustifyLabel();
 		detailsFigure.setBorder(new MarginBorder(new Insets(0, 2, 2, 2)));

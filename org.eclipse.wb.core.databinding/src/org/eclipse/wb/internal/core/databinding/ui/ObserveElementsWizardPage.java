@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -96,7 +97,9 @@ public class ObserveElementsWizardPage extends WizardPage {
 		// create value bold label
 		Label valueLabel = new Label(titleComposite, SWT.NONE);
 		GridDataFactory.create(valueLabel).fillH().grabH();
-		UiUtils.setBoldFont(valueLabel);
+		valueLabel.setFont(FontDescriptor.createFrom(valueLabel.getFont()) //
+				.setStyle(SWT.BOLD) //
+				.createFont(null));
 		valueLabel.setText(ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
 			@Override
 			public String runObject() throws Exception {

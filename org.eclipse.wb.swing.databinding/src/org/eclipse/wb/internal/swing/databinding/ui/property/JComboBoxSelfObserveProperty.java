@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -57,6 +57,6 @@ public class JComboBoxSelfObserveProperty extends SingleObserveBindingProperty {
 			return "";
 		}
 		int column = binding.getTargetProperty() == m_observeProperty ? 2 : 1;
-		return BindingLabelProvider.INSTANCE.getColumnText(binding, column);
+		return BindingLabelProvider.getText(binding, column);
 	}
 }

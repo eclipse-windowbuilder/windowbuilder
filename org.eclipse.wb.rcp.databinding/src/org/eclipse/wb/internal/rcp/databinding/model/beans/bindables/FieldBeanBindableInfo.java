@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvid
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.AbstractBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.JavaInfoR
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jface.viewers.IDecoration;
 
 import java.beans.PropertyDescriptor;
 
@@ -58,7 +58,7 @@ public final class FieldBeanBindableInfo extends BeanBindableInfo {
 			IReferenceProvider referenceProvider,
 			JavaInfo javaInfo) throws Exception {
 		super(beanSupport, null, objectType, referenceProvider, javaInfo);
-		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+		setBindingDecoration(IDecoration.TOP_RIGHT);
 		m_hostJavaInfo = fragment == null ? javaInfo : null;
 		m_fragment = fragment;
 		m_children = Lists.newArrayList();
