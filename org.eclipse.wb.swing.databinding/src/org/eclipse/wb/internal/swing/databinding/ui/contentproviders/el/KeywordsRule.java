@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
 
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
-
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
@@ -49,7 +48,9 @@ public class KeywordsRule implements IRule {
 				new Token(new TextAttribute(configuration.getKeywordsColor(),
 						null,
 						SWT.NORMAL,
-						SwtResourceManager.getBoldFont(sourceViewer.getTextWidget().getFont())));
+						FontDescriptor.createFrom(sourceViewer.getTextWidget().getFont()) //
+								.setStyle(SWT.BOLD) //
+								.createFont(null)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

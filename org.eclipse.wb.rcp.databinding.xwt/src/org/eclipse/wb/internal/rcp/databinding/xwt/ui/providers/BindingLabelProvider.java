@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,18 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.ui.providers;
 
+import static org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.BIND_VALUE_IMAGE;
+import static org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.CLOCK_DECORATION_IMAGE;
+
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.BindingInfo;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -25,7 +32,7 @@ import org.eclipse.swt.graphics.Image;
  *
  */
 public class BindingLabelProvider extends LabelProvider implements ITableLabelProvider {
-	public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();
+	private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -34,48 +41,54 @@ public class BindingLabelProvider extends LabelProvider implements ITableLabelPr
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String getColumnText(final Object element, final int column) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				BindingInfo binding = (BindingInfo) element;
-				switch (column) {
-				case 1 :
-					// target
-					return binding.getTargetPresentationText();
-				case 2 :
-					// model
-					return binding.getModelPresentationText();
-				case 3 :
-					// mode
-					return BindingInfo.MODES[binding.getMode()];
-				default :
-					return null;
-				}
+		return getText(element, column);
+	}
+
+	public static String getText(final Object element, final int column) {
+		return ExecutionUtils.runObjectLog(() -> {
+			BindingInfo binding = (BindingInfo) element;
+			switch (column) {
+			case 1 :
+				// target
+				return binding.getTargetPresentationText();
+			case 2 :
+				// model
+				return binding.getModelPresentationText();
+			case 3 :
+				// mode
+				return BindingInfo.MODES[binding.getMode()];
+			default :
+				return null;
 			}
 		}, "<exception, see log>");
 	}
 
 	@Override
 	public Image getColumnImage(Object element, int column) {
-		Image image = null;
 		if (column == 0) {
-			// binding
-			image =
-					org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.BIND_VALUE_IMAGE;
-			// delay
-			if (isDelayBinding(element)) {
-				image =
-						SwtResourceManager.decorateImage(
-								image,
-								org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.CLOCK_DECORATION_IMAGE,
-								SwtResourceManager.BOTTOM_RIGHT);
-			}
+			return m_resourceManager.createImageWithDefault(getIcon(element));
 		}
-		return image;
+		return null;
+	}
+
+	public static ImageDescriptor getIcon(Object element) {
+		// binding
+		ImageDescriptor imageDescriptor = BIND_VALUE_IMAGE;
+		// delay
+		if (isDelayBinding(element)) {
+			imageDescriptor = new DecorationOverlayIcon(imageDescriptor, CLOCK_DECORATION_IMAGE, IDecoration.BOTTOM_RIGHT);
+		}
+		return imageDescriptor;
 	}
 
 	private static boolean isDelayBinding(Object element) {
 		// XXX
 		return false;
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		m_resourceManager.dispose();
 	}
 }

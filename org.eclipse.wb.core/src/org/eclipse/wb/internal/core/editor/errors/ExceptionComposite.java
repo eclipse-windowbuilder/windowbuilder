@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
@@ -73,7 +72,7 @@ public abstract class ExceptionComposite extends Composite {
 			{
 				Label label = new Label(titleComposite, SWT.NONE);
 				GridDataFactory.create(label).alignVM();
-				label.setImage(SwtResourceManager.getImage(SWT.ICON_ERROR));
+				label.setImage(parent.getDisplay().getSystemImage(SWT.ICON_ERROR));
 			}
 			{
 				Link label = new Link(titleComposite, SWT.WRAP | SWT.NO_FOCUS);

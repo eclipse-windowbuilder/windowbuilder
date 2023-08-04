@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.databinding.ui;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaElement;
@@ -31,7 +30,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -122,18 +120,6 @@ public final class UiUtils {
 		Assert.isLegal(weights.length == 2);
 		settings.put(key + ".x", weights[0]);
 		settings.put(key + ".y", weights[1]);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Label
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Sets to label bold version of it font.
-	 */
-	public static void setBoldFont(Label label) {
-		label.setFont(SwtResourceManager.getBoldFont(label.getFont()));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

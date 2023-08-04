@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,9 @@ import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
+
+import org.eclipse.jface.viewers.IDecoration;
 
 /**
  * Model for method based <code>Java Beans</code> objects.
@@ -45,7 +46,7 @@ public final class MethodBeanBindableInfo extends BeanBindableInfo {
 		super(beanSupport, parent, objectType, referenceProvider, createPresentation(
 				referenceProvider,
 				presentationReferenceProvider));
-		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+		setBindingDecoration(IDecoration.TOP_RIGHT);
 	}
 
 	private static IObservePresentation createPresentation(IReferenceProvider referenceProvider,

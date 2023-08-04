@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,11 +33,11 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
@@ -203,7 +203,7 @@ public abstract class AbstractLiveManager {
 		Image image = new Image(null, width, height);
 		GC gc = new GC(image);
 		try {
-			gc.setBackground(SwtResourceManager.getColor(255, 220, 220));
+			gc.setBackground(new Color(255, 220, 220));
 			gc.fillRectangle(0, 0, width, height);
 			String text = ModelMessages.AbstractLiveManager_errorMessage;
 			DrawUtils.drawTextWrap(gc, text, 0, 0, width, height);

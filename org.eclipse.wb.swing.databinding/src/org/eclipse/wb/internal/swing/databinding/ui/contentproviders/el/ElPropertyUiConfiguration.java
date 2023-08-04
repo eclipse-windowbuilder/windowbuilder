@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
 
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Configuration for {@link ElPropertyUiContentProvider}.
@@ -24,11 +23,11 @@ import org.eclipse.swt.graphics.Color;
 public class ElPropertyUiConfiguration {
 	private String m_title;
 	private int m_rows = 4;
-	private Color m_stringsColor = SwtResourceManager.getColor(42, 0, 255);
-	private Color m_keywordsColor = SwtResourceManager.getColor(127, 0, 85);
-	private Color m_numbersColor = SwtResourceManager.getColor(SWT.COLOR_BLACK);
-	private Color m_operatorsColor = SwtResourceManager.getColor(0, 57, 29);
-	private Color m_propertiesColor = SwtResourceManager.getColor(130, 0, 0);
+	private Color m_stringsColor = new Color(42, 0, 255);
+	private Color m_keywordsColor = new Color(127, 0, 85);
+	private Color m_numbersColor = PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_BLACK);
+	private Color m_operatorsColor = new Color(0, 57, 29);
+	private Color m_propertiesColor = new Color(130, 0, 0);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

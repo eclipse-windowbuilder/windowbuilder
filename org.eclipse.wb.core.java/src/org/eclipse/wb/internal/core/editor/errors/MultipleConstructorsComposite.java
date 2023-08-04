@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,13 +26,13 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -74,14 +74,14 @@ public final class MultipleConstructorsComposite extends Composite {
 			GridLayoutFactory.create(titleComposite).columns(2).margins(10);
 			{
 				Label label = new Label(titleComposite, SWT.NONE);
-				label.setImage(SwtResourceManager.getImage(SWT.ICON_INFORMATION));
+				label.setImage(parent.getDisplay().getSystemImage(SWT.ICON_INFORMATION));
 			}
 			{
 				m_titleLabel = new Label(titleComposite, SWT.NONE);
-				m_titleLabel.setFont(SwtResourceManager.getFont(
-						getFont().getFontData()[0].getName(),
-						14,
-						SWT.BOLD));
+				m_titleLabel.setFont(FontDescriptor.createFrom(getFont()) //
+						.setHeight(14) //
+						.setStyle(SWT.BOLD) //
+						.createFont(null));
 			}
 		}
 		// Browser

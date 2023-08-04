@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,10 +16,10 @@ import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
+import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -40,7 +40,7 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
 			IReferenceProvider referenceProvider,
 			IObservePresentation presentation) {
 		super(beanSupport, parent, objectType, referenceProvider, presentation);
-		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		setBindingDecoration(IDecoration.TOP_LEFT);
 	}
 
 	public PropertyBindableInfo(BeanSupport beanSupport,

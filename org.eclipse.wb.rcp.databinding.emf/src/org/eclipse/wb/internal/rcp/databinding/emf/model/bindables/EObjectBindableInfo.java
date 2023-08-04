@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenc
 import org.eclipse.wb.internal.core.databinding.parser.IModelResolver;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.EmfObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport.PropertyInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.direct.DirectFieldMod
 import org.eclipse.wb.internal.rcp.databinding.model.beans.direct.DirectObservableInfo;
 
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jface.viewers.IDecoration;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -54,7 +54,7 @@ public final class EObjectBindableInfo extends BindableInfo {
 			PropertiesSupport propertiesSupport,
 			IModelResolver resolver) throws Exception {
 		super(objectType, new FragmentReferenceProvider(fragment));
-		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+		setBindingDecoration(IDecoration.TOP_RIGHT);
 		m_fragment = fragment;
 		m_propertiesSupport = propertiesSupport;
 		m_presentation = new EObjectObservePresentation(this);
