@@ -106,7 +106,7 @@ public class TestProject {
 	////////////////////////////////////////////////////////////////////////////
 	private IPackageFragmentRoot createSourceFolder() throws CoreException {
 		IFolder folder = m_project.getFolder("src");
-		folder.create(false, true, null);
+		folder.create(true, true, null);
 		IPackageFragmentRoot root = m_javaProject.getPackageFragmentRoot(folder);
 		//
 		IClasspathEntry[] oldEntries = m_javaProject.getRawClasspath();
@@ -119,7 +119,7 @@ public class TestProject {
 
 	private IFolder createBinFolder() throws CoreException {
 		IFolder binFolder = m_project.getFolder("bin");
-		binFolder.create(false, true, null);
+		binFolder.create(true, true, null);
 		return binFolder;
 	}
 
@@ -317,14 +317,14 @@ public class TestProject {
 		IPackageFragmentRoot sourceFolder = getSourceFolder();
 		IPackageFragment packageFragment = sourceFolder.getPackageFragment(name);
 		if (packageFragment == null || !packageFragment.exists()) {
-			packageFragment = sourceFolder.createPackageFragment(name, false, null);
+			packageFragment = sourceFolder.createPackageFragment(name, true, null);
 		}
 		return packageFragment;
 	}
 
 	public ICompilationUnit createUnit(IPackageFragment pack, String cuName, String source)
 			throws JavaModelException {
-		return pack.createCompilationUnit(cuName, source, false, null);
+		return pack.createCompilationUnit(cuName, source, true, null);
 	}
 
 	/**
