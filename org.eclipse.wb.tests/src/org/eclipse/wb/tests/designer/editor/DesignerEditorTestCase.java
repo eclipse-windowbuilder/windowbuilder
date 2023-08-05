@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -86,18 +86,21 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		System.clearProperty(DesignerPalette.FLAG_NO_PALETTE);
-		waitEventLoop(0);
-		TestUtils.closeAllEditors();
-		waitEventLoop(0);
-		// check for exceptions
-		{
-			removeExceptionsListener();
-			assertNoLoggedExceptions();
+		try {
+			System.clearProperty(DesignerPalette.FLAG_NO_PALETTE);
+			waitEventLoop(0);
+			TestUtils.closeAllEditors();
+			waitEventLoop(0);
+			// check for exceptions
+			{
+				removeExceptionsListener();
+				assertNoLoggedExceptions();
+			}
+		} finally {
+			// continue
+			waitEventLoop(0);
+			super.tearDown();
 		}
-		// continue
-		waitEventLoop(0);
-		super.tearDown();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

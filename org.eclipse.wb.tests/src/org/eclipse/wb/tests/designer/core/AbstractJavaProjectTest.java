@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -148,7 +148,6 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 		if (m_testProject == null) {
 			m_testProject = new TestProject();
 			m_project = m_testProject.getProject();
-			m_project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			m_javaProject = m_testProject.getJavaProject();
 		}
 	}
