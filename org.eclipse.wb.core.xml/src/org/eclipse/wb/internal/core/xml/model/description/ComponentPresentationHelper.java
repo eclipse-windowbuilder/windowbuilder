@@ -36,7 +36,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -166,19 +165,14 @@ public final class ComponentPresentationHelper {
 		return image;
 	}
 
-	private static Image getComponentImage(Bundle bundle, String componentClassName, String creationId)
+	private static ImageDescriptor getComponentImage(Bundle bundle, String componentClassName, String creationId)
 			throws Exception {
 		String iconPath = "/wbp-meta/" + getImageName(componentClassName, creationId);
 		for (String ext : DescriptionHelper.ICON_EXTS) {
 			String iconName = iconPath + ext;
 			URL entry = bundle.getEntry(iconName);
 			if (entry != null) {
-				InputStream stream = entry.openStream();
-				try {
-					return new Image(null, stream);
-				} finally {
-					stream.close();
-				}
+				return ImageDescriptor.createFromURL(entry);
 			}
 		}
 		// not found
@@ -639,7 +633,7 @@ public final class ComponentPresentationHelper {
 			String desc = parseHelper.getDescription(creationId);
 			String name = parseHelper.getName(componentClassName, creationId);
 			String key = getKey(componentClassName, creationId);
-			Image icon = getComponentImage(bundle, componentClassName, creationId);
+			ImageDescriptor icon = getComponentImage(bundle, componentClassName, creationId);
 			if (icon == null) {
 				// no image -- no presentation ;)
 				return;
