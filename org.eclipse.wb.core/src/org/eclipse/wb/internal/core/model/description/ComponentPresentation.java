@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
-
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 
 import java.io.ByteArrayInputStream;
@@ -47,15 +44,6 @@ public final class ComponentPresentation {
 		m_name = name;
 		m_description = description;
 		m_iconBytes = iconBytes;
-	}
-
-	@Deprecated
-	public ComponentPresentation(String key,
-			String toolkitId,
-			String name,
-			String description,
-			Image icon) {
-		this(key, toolkitId, name, description, new ImageImageDescriptor(icon));
 	}
 
 	public ComponentPresentation(String key,
