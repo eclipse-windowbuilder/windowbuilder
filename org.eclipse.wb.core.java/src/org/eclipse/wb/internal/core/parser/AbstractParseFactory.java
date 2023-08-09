@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -80,7 +80,9 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.apache.commons.lang.StringUtils;
+import org.mvel2.MVEL;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import java.lang.reflect.Constructor;
 import java.net.URL;
@@ -766,6 +768,11 @@ public abstract class AbstractParseFactory implements IParseFactory {
 		parentClassLoader.add(
 				new BundleClassLoader("org.eclipse.wb.core.java"),
 				List.of("net.bytebuddy.", "org.eclipse.wb.internal.core.model.creation"));;
+				// add class loader for MVEL2 (issue 533)
+				// MVEL is internally using this class-loader to construct an
+				// instance of Accessor, even though it was executed from within
+				// a different class-loader.
+				parentClassLoader.add(FrameworkUtil.getBundle(MVEL.class));
 				// add class loaders for "classLoader-bundle" contributions
 				List<IConfigurationElement> toolkitElements =
 						DescriptionHelper.getToolkitElements(getToolkitId());
