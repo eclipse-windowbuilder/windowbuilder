@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,10 +15,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.wiring.BundleCapability;
+import org.osgi.framework.wiring.BundleWiring;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +50,23 @@ public class CompositeClassLoader extends ClassLoader {
 	 */
 	public List<ClassLoader> getClassLoaders() {
 		return m_classLoaders;
+	}
+
+	/**
+	 * Adds new {@link BundleClassLoader} into composition. The classloader is
+	 * created using the given {@link Bundle}. The namespace includes all of the
+	 * bundles exported packages.
+	 *
+	 * @param bundle An OSGi {@link Bundle}
+	 */
+	public void add(Bundle bundle) {
+		ClassLoader classLoader = new BundleClassLoader(bundle);
+		List<String> namespaces = new ArrayList<>();
+		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
+		for (BundleCapability bundleCapability : bundleWiring.getCapabilities("osgi.wiring.package")) {
+			namespaces.add((String) bundleCapability.getAttributes().get("osgi.wiring.package"));
+		}
+		add(classLoader, namespaces);
 	}
 
 	/**
