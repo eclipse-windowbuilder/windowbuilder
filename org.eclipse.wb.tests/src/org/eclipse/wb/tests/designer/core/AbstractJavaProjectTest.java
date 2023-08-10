@@ -114,20 +114,25 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 				@Override
 				public void evaluate() throws Throwable {
 					List<Throwable> errors = new ArrayList<>();
+					if (description.getAnnotation(DisposeProjectBefore.class) != null) {
+						waitEventLoop(10);
+						do_projectDispose();
+						waitEventLoop(10);
+					}
 					try {
-						if (description.getAnnotation(DisposeProjectBefore.class) != null) {
-							do_projectDispose();
-						}
 						base.evaluate();
+					} catch (Throwable t) {
+						errors.add(t);
+					} finally {
 						if (description.getAnnotation(DisposeProjectAfter.class) != null) {
-							waitEventLoop(0);
+							waitEventLoop(10);
 							do_projectDispose();
+							waitEventLoop(10);
 						}
 						if (description.getAnnotation(WaitForAutoBuildAfter.class) != null) {
 							waitForAutoBuild();
 						}
-					} catch (Throwable t) {
-						errors.add(t);
+
 					}
 					MultipleFailureException.assertEmpty(errors);
 				}
