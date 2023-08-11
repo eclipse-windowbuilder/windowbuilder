@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,9 @@ import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Rectangle;
 
 import org.assertj.core.api.Assertions;
@@ -68,14 +70,13 @@ public class ImageUtilsTest extends DesignerTestCase {
 	public void test_convertToSWT_BufferedImage() throws Exception {
 		java.awt.Image awtImage = new BufferedImage(10, 20, BufferedImage.TYPE_INT_ARGB);
 		// do convert
-		Image swtImage = ImageUtils.convertToSWT(awtImage);
+		ImageDescriptor swtImage = ImageUtils.convertToSWT(awtImage);
 		// has same size
 		{
-			Rectangle bounds = swtImage.getBounds();
-			assertEquals(10, bounds.width);
-			assertEquals(20, bounds.height);
+			ImageData imageData = swtImage.getImageData(100);
+			assertEquals(10, imageData.width);
+			assertEquals(20, imageData.height);
 		}
-		swtImage.dispose();
 	}
 
 	/**
@@ -90,13 +91,12 @@ public class ImageUtilsTest extends DesignerTestCase {
 			awtImage = tk.createImage(bytes);
 		}
 		// do convert
-		Image swtImage = ImageUtils.convertToSWT(awtImage);
+		ImageDescriptor swtImage = ImageUtils.convertToSWT(awtImage);
 		// has same size
 		{
-			Rectangle bounds = swtImage.getBounds();
-			assertEquals(10, bounds.width);
-			assertEquals(20, bounds.height);
+			ImageData imageData = swtImage.getImageData(100);
+			assertEquals(10, imageData.width);
+			assertEquals(20, imageData.height);
 		}
-		swtImage.dispose();
 	}
 }

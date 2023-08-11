@@ -15,10 +15,7 @@ import org.eclipse.wb.internal.core.model.description.IDescriptionProcessor;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
-
-import org.eclipse.swt.graphics.Image;
 
 import java.awt.Component;
 import java.beans.BeanInfo;
@@ -57,8 +54,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
 	private void configureIconFromBeanInfo() throws Exception {
 		java.awt.Image awtIcon = beanInfo.getIcon(BeanInfo.ICON_COLOR_16x16);
 		if (awtIcon != null) {
-			Image icon = ImageUtils.convertToSWT(awtIcon);
-			componentDescription.setIcon(new ImageImageDescriptor(icon));
+			componentDescription.setIcon(ImageUtils.convertToSWT(awtIcon));
 		}
 	}
 

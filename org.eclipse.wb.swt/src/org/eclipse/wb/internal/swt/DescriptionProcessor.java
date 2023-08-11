@@ -27,10 +27,8 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 
@@ -304,8 +302,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
 			if (beanInfo != null) {
 				java.awt.Image awtIcon = beanInfo.getIcon(BeanInfo.ICON_COLOR_16x16);
 				if (awtIcon != null) {
-					Image icon = ImageUtils.convertToSWT(awtIcon);
-					componentDescription.setIcon(new ImageImageDescriptor(icon));
+					componentDescription.setIcon(ImageUtils.convertToSWT(awtIcon));
 				}
 			}
 		}
