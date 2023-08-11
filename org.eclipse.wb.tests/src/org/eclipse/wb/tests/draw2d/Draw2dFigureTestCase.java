@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,10 +12,10 @@ package org.eclipse.wb.tests.draw2d;
 
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
+import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.swt.widgets.Display;
 
-import org.junit.Assert;
 import org.junit.Before;
 
 
@@ -24,7 +24,7 @@ import org.junit.Before;
  * @author lobas_av
  *
  */
-public abstract class Draw2dFigureTestCase extends Assert
+public abstract class Draw2dFigureTestCase extends DesignerTestCase
 implements
 IColorConstants,
 ICursorConstants {

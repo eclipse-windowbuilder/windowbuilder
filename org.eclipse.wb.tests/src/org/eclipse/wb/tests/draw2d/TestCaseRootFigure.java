@@ -26,7 +26,7 @@ public class TestCaseRootFigure extends RootFigure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public TestCaseRootFigure(TestLogger logger) {
-		super(null, null);
+		super(null);
 		m_logger = logger;
 	}
 
