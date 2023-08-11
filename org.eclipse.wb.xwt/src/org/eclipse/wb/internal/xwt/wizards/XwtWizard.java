@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,24 +85,15 @@ public abstract class XwtWizard extends RcpWizard {
 		IJavaProject javaProject = m_page.getJavaProject();
 		// PushingPixels
 		if (!ProjectUtils.hasType(javaProject, "org.pushingpixels.trident.Timeline")) {
-			String name = "org.pushingpixels.trident";
-			String jarName = copyJar(javaProject, name + "_1.2.0.v20100204-1500.jar");
-			String srcName = copyJar(javaProject, name + ".source_1.2.0.v20100204-1500.jar");
-			addLibrary(javaProject, jarName, srcName);
+			addPlugin(javaProject, "org.pushingpixels.trident.Timeline", "org.pushingpixels.trident");
 		}
 		// XWT itself
-		if (!ProjectUtils.hasType(javaProject, "org.eclipse.e4.xwt.XWT")) {
-			String name = "org.eclipse.e4.xwt";
-			String jarName = copyJar(javaProject, name + "_0.9.1.SNAPSHOT.jar");
-			String srcName = copyJar(javaProject, name + ".source_0.9.1.SNAPSHOT.jar");
-			addLibrary(javaProject, jarName, srcName);
+		if (!ProjectUtils.hasType(javaProject, "org.eclipse.xwt.XWT")) {
+			addPlugin(javaProject, "org.eclipse.xwt.XWT", "org.eclipse.xwt");
 		}
 		// XWTForms
-		if (!ProjectUtils.hasType(javaProject, "org.eclipse.e4.xwt.forms.XWTForms")) {
-			String name = "org.eclipse.e4.xwt.forms";
-			String jarName = copyJar(javaProject, name + "_0.9.1.SNAPSHOT.jar");
-			String srcName = copyJar(javaProject, name + ".source_0.9.1.SNAPSHOT.jar");
-			addLibrary(javaProject, jarName, srcName);
+		if (!ProjectUtils.hasType(javaProject, "org.eclipse.xwt.forms.XWTForms")) {
+			addPlugin(javaProject, "org.eclipse.xwt.forms.XWTForms", "org.eclipse.xwt.forms");
 		}
 		// bindings
 		addPlugin(javaProject, "org.eclipse.core.databinding.Binding", "org.eclipse.core.databinding");

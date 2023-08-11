@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,22 +36,22 @@ import org.eclipse.wb.internal.xwt.model.util.XwtTagResolver;
 import org.eclipse.core.filesystem.URIUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.e4.xwt.DefaultLoadingContext;
-import org.eclipse.e4.xwt.ILoadingContext;
-import org.eclipse.e4.xwt.IXWTLoader;
-import org.eclipse.e4.xwt.XWT;
-import org.eclipse.e4.xwt.XWTLoaderManager;
-import org.eclipse.e4.xwt.core.IElementLoaderFactory;
-import org.eclipse.e4.xwt.core.IRenderingContext;
-import org.eclipse.e4.xwt.core.IVisualElementLoader;
-import org.eclipse.e4.xwt.forms.XWTForms;
-import org.eclipse.e4.xwt.internal.core.Core;
-import org.eclipse.e4.xwt.internal.xml.Element;
-import org.eclipse.e4.xwt.javabean.ResourceLoader;
-import org.eclipse.e4.xwt.javabean.metadata.Metaclass;
-import org.eclipse.e4.xwt.metadata.IMetaclass;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.xwt.DefaultLoadingContext;
+import org.eclipse.xwt.ILoadingContext;
+import org.eclipse.xwt.IXWTLoader;
+import org.eclipse.xwt.XWT;
+import org.eclipse.xwt.XWTLoaderManager;
+import org.eclipse.xwt.core.IElementLoaderFactory;
+import org.eclipse.xwt.core.IRenderingContext;
+import org.eclipse.xwt.core.IVisualElementLoader;
+import org.eclipse.xwt.forms.XWTForms;
+import org.eclipse.xwt.internal.core.Core;
+import org.eclipse.xwt.internal.xml.Element;
+import org.eclipse.xwt.javabean.ResourceLoader;
+import org.eclipse.xwt.javabean.metadata.Metaclass;
+import org.eclipse.xwt.metadata.IMetaclass;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -265,20 +265,20 @@ public final class XwtParser {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final String[] FORMS_CLASSES = {
-			"org.eclipse.e4.xwt.forms.metaclass.FormMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.ButtonMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.CompositeMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.ExpandableCompositeMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.FormMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.FormTextMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.HyperlinkMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.ImageHyperlinkMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.LabelMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.ScrolledFormMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.ScrolledPageBookMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.SectionMetaclass",
-			"org.eclipse.e4.xwt.forms.metaclass.TableMetaclass",
-	"org.eclipse.e4.xwt.forms.metaclass.TextMetaclass"};
+			"org.eclipse.xwt.forms.metaclass.FormMetaclass",
+			"org.eclipse.xwt.forms.metaclass.ButtonMetaclass",
+			"org.eclipse.xwt.forms.metaclass.CompositeMetaclass",
+			"org.eclipse.xwt.forms.metaclass.ExpandableCompositeMetaclass",
+			"org.eclipse.xwt.forms.metaclass.FormMetaclass",
+			"org.eclipse.xwt.forms.metaclass.FormTextMetaclass",
+			"org.eclipse.xwt.forms.metaclass.HyperlinkMetaclass",
+			"org.eclipse.xwt.forms.metaclass.ImageHyperlinkMetaclass",
+			"org.eclipse.xwt.forms.metaclass.LabelMetaclass",
+			"org.eclipse.xwt.forms.metaclass.ScrolledFormMetaclass",
+			"org.eclipse.xwt.forms.metaclass.ScrolledPageBookMetaclass",
+			"org.eclipse.xwt.forms.metaclass.SectionMetaclass",
+			"org.eclipse.xwt.forms.metaclass.TableMetaclass",
+	"org.eclipse.xwt.forms.metaclass.TextMetaclass"};
 
 	/**
 	 * Configures XWT and options for Forms API support.
