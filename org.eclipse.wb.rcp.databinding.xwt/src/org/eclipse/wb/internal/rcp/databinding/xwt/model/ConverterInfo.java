@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -264,16 +264,16 @@ public class ConverterInfo {
 			DatabindingsProvider provider) throws Exception {
 		ChooseClassConfiguration configuration = new ChooseClassConfiguration();
 		configuration.setDialogFieldLabel(Messages.ConverterInfo_providerTitle);
-		configuration.setValueScope("org.eclipse.e4.xwt.IValueConverter");
+		configuration.setValueScope("org.eclipse.xwt.IValueConverter");
 		configuration.setClearValue("N/S");
-		configuration.setBaseClassName("org.eclipse.e4.xwt.IValueConverter");
+		configuration.setBaseClassName("org.eclipse.xwt.IValueConverter");
 		configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
 		configuration.setEmptyClassErrorMessage(Messages.ConverterInfo_errorMessage);
 		configuration.setErrorMessagePrefix(Messages.ConverterInfo_errorMessagePrefix);
 		//
 		if (!m_element) {
 			ClassLoader classLoader = provider.getXmlObjectRoot().getContext().getClassLoader();
-			Class<?> ConverterClass = classLoader.loadClass("org.eclipse.e4.xwt.IValueConverter");
+			Class<?> ConverterClass = classLoader.loadClass("org.eclipse.xwt.IValueConverter");
 			List<String> defaultValues = Lists.newArrayList();
 			BeansObserveTypeContainer beanContainer =
 					(BeansObserveTypeContainer) provider.getContainer(ObserveType.BEANS);

@@ -1,6 +1,6 @@
 import java.net.URL;
-import org.eclipse.e4.xwt.IConstants;
-import org.eclipse.e4.xwt.forms.XWTForms;
+import org.eclipse.xwt.IConstants;
+import org.eclipse.xwt.forms.XWTForms;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Shell;
 method
 	public static void main(String args[]) throws Exception {
 		URL url = %TypeName%.class.getResource(%TypeName%.class.getSimpleName() + IConstants.XWT_EXTENSION_SUFFIX);
-		Control control = XWTForms.load(url);
+		Control control = (Control) XWTForms.load(url);
 		Shell shell = control.getShell();
 		shell.layout();
 		centerInDisplay(shell);

@@ -12,11 +12,11 @@ package org.eclipse.wb.internal.xwt.model.property.editor.color;
 
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 
-import org.eclipse.e4.xwt.XWTMaps;
-import org.eclipse.e4.xwt.utils.NamedColorsUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xwt.XWTMaps;
+import org.eclipse.xwt.utils.NamedColorsUtil;
 
 import org.apache.commons.lang.StringUtils;
 

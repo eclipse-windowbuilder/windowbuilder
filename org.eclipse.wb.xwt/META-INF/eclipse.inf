@@ -1,5 +1,2 @@
 jarprocessor.exclude.pack=true
 jarprocessor.exclude.children.pack=true
-
-pack.excludes=lib/org.eclipse.e4.xwt_0.9.1.SNAPSHOT.jar,lib/org.eclipse.e4.xwt.forms_0.9.1.SNAPSHOT.jar,lib/org.eclipse.e4.xwt.forms.source_0.9.1.SNAPSHOT.jar,lib/org.eclipse.e4.xwt.source_0.9.1.SNAPSHOT.jar,lib/org.pushingpixels.trident_1.2.0.v20100204-1500.jar,lib/org.pushingpixels.trident.source_1.2.0.v20100204-1500.jar
-sign.excludes=lib/org.eclipse.e4.xwt_0.9.1.SNAPSHOT.jar,lib/org.eclipse.e4.xwt.forms_0.9.1.SNAPSHOT.jar,lib/org.eclipse.e4.xwt.forms.source_0.9.1.SNAPSHOT.jar,lib/org.eclipse.e4.xwt.source_0.9.1.SNAPSHOT.jar,lib/org.pushingpixels.trident_1.2.0.v20100204-1500.jar,lib/org.pushingpixels.trident.source_1.2.0.v20100204-1500.jar

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,22 +30,22 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 import org.eclipse.core.filesystem.URIUtil;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.e4.xwt.DefaultLoadingContext;
-import org.eclipse.e4.xwt.ILoadingContext;
-import org.eclipse.e4.xwt.IXWTLoader;
-import org.eclipse.e4.xwt.XWT;
-import org.eclipse.e4.xwt.XWTLoaderManager;
-import org.eclipse.e4.xwt.core.IElementLoaderFactory;
-import org.eclipse.e4.xwt.core.IRenderingContext;
-import org.eclipse.e4.xwt.core.IVisualElementLoader;
-import org.eclipse.e4.xwt.internal.core.Core;
-import org.eclipse.e4.xwt.internal.xml.Element;
-import org.eclipse.e4.xwt.javabean.ResourceLoader;
-import org.eclipse.e4.xwt.metadata.IMetaclass;
-import org.eclipse.e4.xwt.metadata.IProperty;
-import org.eclipse.e4.xwt.metadata.ISetPostAction;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.xwt.DefaultLoadingContext;
+import org.eclipse.xwt.ILoadingContext;
+import org.eclipse.xwt.IXWTLoader;
+import org.eclipse.xwt.XWT;
+import org.eclipse.xwt.XWTLoaderManager;
+import org.eclipse.xwt.core.IElementLoaderFactory;
+import org.eclipse.xwt.core.IRenderingContext;
+import org.eclipse.xwt.core.IVisualElementLoader;
+import org.eclipse.xwt.internal.core.Core;
+import org.eclipse.xwt.internal.xml.Element;
+import org.eclipse.xwt.javabean.ResourceLoader;
+import org.eclipse.xwt.metadata.IMetaclass;
+import org.eclipse.xwt.metadata.IProperty;
+import org.eclipse.xwt.metadata.ISetPostAction;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
