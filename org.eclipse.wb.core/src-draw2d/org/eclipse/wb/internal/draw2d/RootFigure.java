@@ -15,6 +15,9 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 
+import org.eclipse.draw2d.DeferredUpdateManager;
+import org.eclipse.draw2d.UpdateListener;
+import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -28,7 +31,11 @@ import java.util.Map;
  */
 public class RootFigure extends Figure implements IRootFigure {
 	private final FigureCanvas m_figureCanvas;
-	private final RefreshManager m_refreshManager;
+	/**
+	 * @deprecated No longer needed once we use the GEF lightweight-system.
+	 */
+	@Deprecated
+	private final UpdateManager m_updateManager;
 	private EventManager m_eventManager;
 	private Dimension m_preferredSize;
 	private Map<String, Layer> m_nameToLayer = new HashMap<>();
@@ -39,9 +46,24 @@ public class RootFigure extends Figure implements IRootFigure {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RootFigure(FigureCanvas figureCanvas, RefreshManager refreshManager) {
+	public RootFigure(FigureCanvas figureCanvas) {
 		m_figureCanvas = figureCanvas;
-		m_refreshManager = refreshManager;
+		m_updateManager = new DeferredUpdateManager();
+		m_updateManager.addUpdateListener(new UpdateListener() {
+			@Override
+			@SuppressWarnings("rawtypes")
+			public void notifyPainting(Rectangle damage, Map dirtyRegions) {
+				// Null check for JUnit tests. The root figure should ALWAYS belong to a canvas.
+				if (figureCanvas != null) {
+					m_figureCanvas.handleRefresh(damage.x, damage.y, damage.width, damage.height);
+				}
+			}
+
+			@Override
+			public void notifyValidating() {
+				// Nothing to do...
+			}
+		});
 		setOpaque(true);
 	}
 
@@ -75,6 +97,11 @@ public class RootFigure extends Figure implements IRootFigure {
 	@Override
 	public FigureCanvas getFigureCanvas() {
 		return m_figureCanvas;
+	}
+
+	@Override
+	public final UpdateManager getUpdateManager() {
+		return m_updateManager;
 	}
 
 	/**
@@ -133,7 +160,7 @@ public class RootFigure extends Figure implements IRootFigure {
 		if (reset) {
 			m_preferredSize = null;
 		}
-		m_refreshManager.refreshRequest(x, y, width, height);
+		m_updateManager.addDirtyRegion(this, x, y, width, height);
 	}
 
 	/**

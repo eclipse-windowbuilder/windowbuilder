@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,14 +12,16 @@ package org.eclipse.wb.tests.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.internal.draw2d.RefreshManager;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * @author lobas_av
@@ -36,16 +38,21 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 	public void test_getPreferredSize_setBounds() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//
-		RefreshManager refreshManager = new RefreshManager(null) {
-			@Override
-			public synchronized void refreshRequest(int x, int y, int width, int height) {
-				actualLogger.log("refreshRequest(" + x + ", " + y + ", " + width + ", " + height + ")");
-			}
-		};
-		//
 		TestLogger expectedLogger = new TestLogger();
 		//
-		RootFigure testRoot = new RootFigure(null, refreshManager);
+		RootFigure testRoot = new RootFigure(null);
+		testRoot.getUpdateManager().addUpdateListener(new UpdateListener() {
+			@Override
+			@SuppressWarnings("rawtypes")
+			public void notifyPainting(Rectangle damage, Map dirtyRegions) {
+				actualLogger.log("refreshRequest(" + damage.x + ", " + damage.y + ", " + damage.width + ", " + damage.height + ")");
+			}
+
+			@Override
+			public void notifyValidating() {
+				// Nothing to do
+			}
+		});
 		//
 		Layer layer0 = new Layer("Main");
 		Figure figure0 = new Figure();
@@ -77,6 +84,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		//
 		// check work repaint()
 		figure1.repaint();
+		waitEventLoop(10);
 		//
 		expectedLogger.log("refreshRequest(50, 70, 120, 90)");
 		actualLogger.assertEquals(expectedLogger);
@@ -85,6 +93,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		//
 		// check work resetState()
 		figure0.resetState();
+		waitEventLoop(10);
 		//
 		expectedLogger.log("refreshRequest(10, 10, 100, 200)");
 		actualLogger.assertEquals(expectedLogger);
@@ -134,7 +143,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		};
 		figure22.add(figure23, new Rectangle(15, 25, 19, 12));
 		//
-		RootFigure testRoot = new RootFigure(null, null) {
+		RootFigure testRoot = new RootFigure(null) {
 			@Override
 			protected void repaint(boolean reset, int x, int y, int width, int height) {
 			}
