@@ -31,7 +31,6 @@ import org.eclipse.wb.internal.swing.palette.ActionUseEntryInfo;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import java.io.IOException;
 import java.util.List;
@@ -92,14 +91,14 @@ public class ActionInfo extends JavaInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * The SWT {@link Image} created from {@link Action#SMALL_ICON}, may be <code>null</code>.
+	 * The SWT {@link ImageDescriptor} created from {@link Action#SMALL_ICON}, may be <code>null</code>.
 	 */
-	private Image m_smallIconImage;
+	private ImageDescriptor m_smallIconImage;
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
 		public ImageDescriptor getIcon() throws Exception {
 			if (m_smallIconImage != null) {
-				return ImageDescriptor.createFromImage(m_smallIconImage);
+				return m_smallIconImage;
 			}
 			return super.getIcon();
 		}
@@ -120,8 +119,6 @@ public class ActionInfo extends JavaInfo {
 			javax.swing.Icon smallIcon = (Icon) ((Action) getObject()).getValue(Action.SMALL_ICON);
 			if (smallIcon != null) {
 				m_smallIconImage = ImageUtils.convertToSWT(smallIcon);
-				// schedule SWT image for disposing
-				JavaInfoUtils.getState(this).addDisposableImage(m_smallIconImage);
 			}
 		}
 	}

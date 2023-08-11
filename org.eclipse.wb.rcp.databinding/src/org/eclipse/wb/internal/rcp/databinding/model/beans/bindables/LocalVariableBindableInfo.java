@@ -40,7 +40,7 @@ public class LocalVariableBindableInfo extends BeanBindableInfo {
 				new BeanBindablePresentation(objectType,
 						new FragmentReferenceProvider(fragment),
 						null,
-						Activator.getImage("localvariable_obj.gif")));
+						Activator.getImageDescriptor("localvariable_obj.gif")));
 		setBindingDecoration(IDecoration.TOP_RIGHT);
 		m_fragment = fragment;
 	}

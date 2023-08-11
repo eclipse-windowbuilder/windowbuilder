@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.ViewerObs
 import org.eclipse.wb.internal.rcp.databinding.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.ClassUtils;
 
@@ -58,7 +58,7 @@ import java.util.Set;
  * @coverage bindings.rcp.model.beans
  */
 public final class BeanSupport {
-	private final Map<Class<?>, Image> m_classToImage = Maps.newHashMap();
+	private final Map<Class<?>, ImageDescriptor> m_classToImage = Maps.newHashMap();
 	private final IModelResolver m_resolver;
 	private final Class<?> m_IObservable;
 	private final Class<?> m_IObservableValue;
@@ -411,15 +411,15 @@ public final class BeanSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return {@link Image} represented given bean class.
+	 * @return {@link ImageDescriptor} represented given bean class.
 	 */
-	public Image getBeanImage(Class<?> beanClass, ObjectInfo javaInfo) throws Exception {
+	public ImageDescriptor getBeanImage(Class<?> beanClass, ObjectInfo javaInfo) throws Exception {
 		// check java info
 		if (javaInfo != null) {
 			return null;
 		}
 		// prepare cached image
-		Image beanImage = m_classToImage.get(beanClass);
+		ImageDescriptor beanImage = m_classToImage.get(beanClass);
 		// check load image
 		if (beanImage == null) {
 			try {
@@ -428,15 +428,14 @@ public final class BeanSupport {
 				java.awt.Image awtBeanIcon = beanInfo.getIcon(BeanInfo.ICON_COLOR_16x16);
 				if (awtBeanIcon == null) {
 					// set default
-					beanImage = Activator.getImage("javabean.gif");
+					beanImage = Activator.getImageDescriptor("javabean.gif");
 				} else {
 					// convert to SWT image
-					// FIXME: memory leak
 					beanImage = ImageUtils.convertToSWT(awtBeanIcon);
 				}
 			} catch (Throwable e) {
 				// set default
-				beanImage = Activator.getImage("javabean.gif");
+				beanImage = Activator.getImageDescriptor("javabean.gif");
 			}
 			m_classToImage.put(beanClass, beanImage);
 		}

@@ -34,7 +34,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Utilities for {@link Image} operations.
+ * Utilities for {@link ImageDescriptor} operations.
  *
  * @author scheglov_ke
  * @coverage core.ui
@@ -68,14 +68,15 @@ public final class ImageUtils {
 	}
 
 	/**
-	 * @return the SWT {@link Image} for AWT one.
+	 * @return the SWT {@link ImageDescriptor} for AWT one.
 	 */
-	public static Image convertToSWT(final java.awt.Image awtImage) {
+	public static ImageDescriptor convertToSWT(final java.awt.Image awtImage) {
 		return ExecutionUtils.runObject(() -> {
 			BufferedImage bufferedImage = getBufferedImage(awtImage);
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			ImageIO.write(bufferedImage, "PNG", os);
-			return new Image(null, new ImageData(new ByteArrayInputStream(os.toByteArray())));
+			return ImageDescriptor.createFromImageDataProvider(
+					zoom -> zoom == 100 ? new ImageData(new ByteArrayInputStream(os.toByteArray())) : null);
 		});
 	}
 
@@ -142,9 +143,9 @@ public final class ImageUtils {
 	}
 
 	/**
-	 * @return the SWT {@link Image} for AWT icon.
+	 * @return the SWT {@link ImageDescriptor} for AWT icon.
 	 */
-	public static Image convertToSWT(javax.swing.Icon icon) {
+	public static ImageDescriptor convertToSWT(javax.swing.Icon icon) {
 		// prepare Swing image from Icon
 		BufferedImage awtImage;
 		{

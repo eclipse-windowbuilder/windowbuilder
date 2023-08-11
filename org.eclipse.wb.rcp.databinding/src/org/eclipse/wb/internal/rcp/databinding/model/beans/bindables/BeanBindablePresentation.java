@@ -14,10 +14,8 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.presentation.ObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.ClassUtils;
 
@@ -31,7 +29,7 @@ public final class BeanBindablePresentation extends ObservePresentation {
 	private Class<?> m_objectType;
 	private final IReferenceProvider m_presentation;
 	private ObjectInfo m_javaInfo;
-	private Image m_beanImage;
+	private ImageDescriptor m_beanImage;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -41,7 +39,7 @@ public final class BeanBindablePresentation extends ObservePresentation {
 	public BeanBindablePresentation(Class<?> objectType,
 			IReferenceProvider presentation,
 			ObjectInfo javaInfo,
-			Image beanImage) {
+			ImageDescriptor beanImage) {
 		m_objectType = objectType;
 		m_presentation = presentation;
 		m_javaInfo = javaInfo;
@@ -65,7 +63,7 @@ public final class BeanBindablePresentation extends ObservePresentation {
 		m_objectType = objectType;
 	}
 
-	public void setBeanImage(Image beanImage) {
+	public void setBeanImage(ImageDescriptor beanImage) {
 		m_beanImage = beanImage;
 	}
 
@@ -79,7 +77,7 @@ public final class BeanBindablePresentation extends ObservePresentation {
 		if (m_beanImage == null && m_javaInfo == null) {
 			return null;
 		}
-		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : new ImageImageDescriptor(m_beanImage);
+		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
