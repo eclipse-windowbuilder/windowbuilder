@@ -31,6 +31,7 @@ import java.util.Map;
  */
 public class RootFigure extends Figure implements IRootFigure {
 	private final FigureCanvas m_figureCanvas;
+	private final Rectangle m_dirtyRegion = new Rectangle();
 	/**
 	 * @deprecated No longer needed once we use the GEF lightweight-system.
 	 */
@@ -40,6 +41,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	private Dimension m_preferredSize;
 	private Map<String, Layer> m_nameToLayer = new HashMap<>();
 	private IPreferredSizeProvider m_preferredSizeProvider;
+	private boolean m_refreshWork;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -53,9 +55,13 @@ public class RootFigure extends Figure implements IRootFigure {
 			@Override
 			@SuppressWarnings("rawtypes")
 			public void notifyPainting(Rectangle damage, Map dirtyRegions) {
+				m_dirtyRegion.union(damage);
 				// Null check for JUnit tests. The root figure should ALWAYS belong to a canvas.
-				if (figureCanvas != null) {
-					m_figureCanvas.handleRefresh(damage.x, damage.y, damage.width, damage.height);
+				if (figureCanvas != null && !m_figureCanvas.isDisposed() && !m_refreshWork) {
+					m_refreshWork = true;
+					m_figureCanvas.handleRefresh(m_dirtyRegion.x, m_dirtyRegion.y, m_dirtyRegion.width, m_dirtyRegion.height);
+					m_dirtyRegion.setBounds(0, 0, 0, 0);
+					m_refreshWork = false;
 				}
 			}
 
