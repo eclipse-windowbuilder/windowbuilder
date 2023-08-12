@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,9 +14,10 @@ import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.events.IEditPolicyListener;
 import org.eclipse.wb.gef.core.requests.Request;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
 
-import java.util.List;
+import org.eclipse.draw2d.EventListenerList;
+
+import java.util.Iterator;
 
 /**
  * @author lobas_av
@@ -206,7 +207,7 @@ public abstract class EditPolicy {
 	// Events
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private EventTable m_eventTable;
+	private EventListenerList m_eventTable;
 
 	/**
 	 * Adds a listener to the {@link EditPolicy}.
@@ -231,35 +232,31 @@ public abstract class EditPolicy {
 	/**
 	 * Return all registers listeners for given class or <code>null</code>.
 	 */
-	public <L extends Object> List<L> getListeners(Class<L> listenerClass) {
+	public <L extends Object> Iterator<L> getListeners(Class<L> listenerClass) {
 		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
 	}
 
 	/**
 	 * Access to <code>{@link EventTable}</code> use lazy creation mechanism.
 	 */
-	protected EventTable getEnsureEventTable() {
+	protected EventListenerList getEnsureEventTable() {
 		if (m_eventTable == null) {
-			m_eventTable = new EventTable();
+			m_eventTable = new EventListenerList();
 		}
 		return m_eventTable;
 	}
 
 	private void fireActivate() {
-		List<IEditPolicyListener> listeners = getListeners(IEditPolicyListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPolicyListener listener : listeners) {
-				listener.activatePolicy(this);
-			}
+		Iterator<IEditPolicyListener> listeners = getListeners(IEditPolicyListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.activatePolicy(this));
 		}
 	}
 
 	private void fireDeactivate() {
-		List<IEditPolicyListener> listeners = getListeners(IEditPolicyListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPolicyListener listener : listeners) {
-				listener.deactivatePolicy(this);
-			}
+		Iterator<IEditPolicyListener> listeners = getListeners(IEditPolicyListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.deactivatePolicy(this));
 		}
 	}
 

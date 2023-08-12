@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,9 +17,9 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.events.IEditPartClickListener;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -46,7 +46,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	private final Map<Object, EditPart> m_modelToEditPart = new HashMap<>();
 	private MenuManager m_contextMenu;
 	private List<EditPart> m_selectionList = Lists.newArrayList();
-	private EventTable m_eventTable;
+	private EventListenerList m_eventTable;
 	/**
 	 * The EditPart which is being selected in selection process.
 	 */
@@ -208,12 +208,10 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	}
 
 	private void fireSelectionChanged() {
-		List<ISelectionChangedListener> listeners = getListeners(ISelectionChangedListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
+		Iterator<ISelectionChangedListener> listeners = getListeners(ISelectionChangedListener.class);
+		if (listeners != null) {
 			SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
-			for (ISelectionChangedListener listener : listeners) {
-				listener.selectionChanged(event);
-			}
+			listeners.forEachRemaining(listener -> listener.selectionChanged(event));
 		}
 	}
 
@@ -388,11 +386,9 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 
 	@Override
 	public void fireEditPartClick(EditPart editPart) {
-		List<IEditPartClickListener> listeners = getListeners(IEditPartClickListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPartClickListener listener : listeners) {
-				listener.clickNotify(editPart);
-			}
+		Iterator<IEditPartClickListener> listeners = getListeners(IEditPartClickListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.clickNotify(editPart));
 		}
 	}
 
@@ -402,11 +398,11 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Access to <code>{@link EventTable}</code> use lazy creation mechanism.
+	 * Access to <code>{@link EventListenerList}</code> use lazy creation mechanism.
 	 */
-	private EventTable getEnsureEventTable() {
+	private EventListenerList getEnsureEventTable() {
 		if (m_eventTable == null) {
-			m_eventTable = new EventTable();
+			m_eventTable = new EventListenerList();
 		}
 		return m_eventTable;
 	}
@@ -414,7 +410,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	/**
 	 * Return all registers listeners for given class or <code>null</code>.
 	 */
-	private <T extends Object> List<T> getListeners(Class<T> listenerClass) {
+	private <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,6 +64,9 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void activate() {
+		// Listeners must only be added once and might have been registered as part of
+		// an earlier call to refresh()
+		removeListeners();
 		super.activate();
 		addListeners();
 	}
@@ -104,7 +107,9 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 	}
 
 	private void removeListeners() {
-		if (isRootMenuEditPart()) {
+		// If m_selectionListener is null then all the other listeners are also null
+		// (see createListeners())
+		if (isRootMenuEditPart() && m_selectionListener != null) {
 			getViewer().removeSelectionChangedListener(m_selectionListener);
 			getViewer().getEditDomain().removeActiveToolListener(m_activeToolListener);
 			m_object.removeListener(m_objectListener);

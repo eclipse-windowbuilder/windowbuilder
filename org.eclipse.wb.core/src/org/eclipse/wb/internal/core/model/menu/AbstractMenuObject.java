@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,8 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
+
+import org.eclipse.draw2d.EventListenerList;
 
 /**
  * Abstract implementation of {@link IMenuObjectInfo}.
@@ -48,7 +49,7 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
 	// Listener
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final EventTable m_eventTable = new EventTable();
+	private final EventListenerList m_eventTable = new EventListenerList();
 
 	@Override
 	public final void addListener(IMenuObjectListener listener) {
@@ -64,7 +65,7 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
 	 * Notifies {@link IMenuObjectListener#refresh()}'s.
 	 */
 	protected final void fireRefreshListeners() {
-		for (IMenuObjectListener listener : m_eventTable.getListeners(IMenuObjectListener.class)) {
+		for (IMenuObjectListener listener : m_eventTable.getListenersIterable(IMenuObjectListener.class)) {
 			listener.refresh();
 		}
 	}
@@ -73,7 +74,7 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
 	 * Notifies {@link IMenuObjectListener#deleting(Object)}.
 	 */
 	protected final void fireDeleteListeners(Object toolkitModel) {
-		for (IMenuObjectListener listener : m_eventTable.getListeners(IMenuObjectListener.class)) {
+		for (IMenuObjectListener listener : m_eventTable.getListenersIterable(IMenuObjectListener.class)) {
 			listener.deleting(toolkitModel);
 		}
 	}

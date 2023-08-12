@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -195,11 +196,9 @@ IEditPartSelectionListener {
 	 * Notifies {@link ISelectionEditPolicyListener}s that {@link #showSelection()} was executed.
 	 */
 	private void fire_showSelection() {
-		List<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (ISelectionEditPolicyListener listener : listeners) {
-				listener.showSelection(this);
-			}
+		Iterator<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.showSelection(this));
 		}
 	}
 
@@ -207,11 +206,9 @@ IEditPartSelectionListener {
 	 * Notifies {@link ISelectionEditPolicyListener}s that {@link #hideSelection()} was executed.
 	 */
 	private void fire_hideSelection() {
-		List<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (ISelectionEditPolicyListener listener : listeners) {
-				listener.hideSelection(this);
-			}
+		Iterator<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.hideSelection(this));
 		}
 	}
 }

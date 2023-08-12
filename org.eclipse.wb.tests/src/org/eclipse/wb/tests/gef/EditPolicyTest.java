@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
+
+import com.google.common.collect.Lists;
 
 import org.eclipse.wb.gef.core.events.IEditPolicyListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -46,7 +48,7 @@ public class EditPolicyTest extends GefTestCase {
 		};
 		testPolicy.addEditPolicyListener(listener1);
 		// check add IEditPolicyListener
-		List<IEditPolicyListener> list = testPolicy.getListeners(IEditPolicyListener.class);
+		List<IEditPolicyListener> list = Lists.newArrayList(testPolicy.getListeners(IEditPolicyListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
@@ -62,20 +64,20 @@ public class EditPolicyTest extends GefTestCase {
 		};
 		testPolicy.addEditPolicyListener(listener2);
 		// again check add IEditPolicyListener
-		list = testPolicy.getListeners(IEditPolicyListener.class);
+		list = Lists.newArrayList(testPolicy.getListeners(IEditPolicyListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
 		assertSame(listener2, list.get(1));
 		// check remove IEditPolicyListener
 		testPolicy.removeEditPolicyListener(listener1);
-		list = testPolicy.getListeners(IEditPolicyListener.class);
+		list = Lists.newArrayList(testPolicy.getListeners(IEditPolicyListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		// again check remove IEditPolicyListener
 		testPolicy.removeEditPolicyListener(listener2);
-		list = testPolicy.getListeners(IEditPolicyListener.class);
+		list = Lists.newArrayList(testPolicy.getListeners(IEditPolicyListener.class));
 		assertNotNull(list);
 		assertTrue(list.isEmpty());
 	}
