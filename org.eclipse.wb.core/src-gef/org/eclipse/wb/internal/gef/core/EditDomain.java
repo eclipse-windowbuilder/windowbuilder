@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,8 @@ import org.eclipse.wb.gef.core.ICommandExceptionHandler;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
 
+import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 
@@ -102,7 +102,7 @@ public class EditDomain {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private IDefaultToolProvider m_defaultToolProvider;
-	private final EventTable m_eventTable = new EventTable();
+	private final EventListenerList m_eventTable = new EventListenerList();
 
 	/**
 	 * Sets the {@link IDefaultToolProvider}.
@@ -181,7 +181,7 @@ public class EditDomain {
 			m_activeTool.setDomain(this);
 			m_activeTool.activate();
 			// notify listeners
-			for (IActiveToolListener listener : m_eventTable.getListeners(IActiveToolListener.class)) {
+			for (IActiveToolListener listener : m_eventTable.getListenersIterable(IActiveToolListener.class)) {
 				listener.toolActivated(m_activeTool);
 			}
 			// handle auto reload tool and update cursor

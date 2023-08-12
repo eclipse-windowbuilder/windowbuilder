@@ -16,13 +16,10 @@ import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
 
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.MouseListener;
-import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -43,7 +40,6 @@ import java.util.List;
  * @coverage gef.draw2d
  */
 public class Figure extends org.eclipse.draw2d.Figure {
-	private EventTable m_eventTable;
 	private Figure m_parent;
 	private final Rectangle m_bounds = new Rectangle();
 	private List<Figure> m_children;
@@ -60,60 +56,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Events: mouse
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Registers the given listener as a {@link MouseListener} of this {@link Figure}.
-	 */
-	public void addMouseListener(MouseListener listener) {
-		getEnsureEventTable().addListener(MouseListener.class, listener);
-	}
-
-	/**
-	 * Unregisters the given listener, so that it will no longer receive notification of mouse events.
-	 */
-	public void removeMouseListener(MouseListener listener) {
-		getEnsureEventTable().removeListener(MouseListener.class, listener);
-	}
-
-	/**
-	 * Registers the given listener as a {@link MouseMotionListener} of this {@link Figure}.
-	 */
-	public void addMouseMotionListener(MouseMotionListener listener) {
-		getEnsureEventTable().addListener(MouseMotionListener.class, listener);
-	}
-
-	/**
-	 * Unregisters the given listener, so that it will no longer receive notification of mouse move
-	 * events.
-	 */
-	public void removeMouseMotionListener(MouseMotionListener listener) {
-		getEnsureEventTable().removeListener(MouseMotionListener.class, listener);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Events: figure
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Registers the given listener as a {@link IFigureListener} of this {@link Figure}.
-	 */
-	public void addFigureListener(FigureListener listener) {
-		getEnsureEventTable().addListener(FigureListener.class, listener);
-	}
-
-	/**
-	 * Unregisters the given listener, so that it will no longer receive notification of
-	 * {@link Figure} events.
-	 */
-	public void removeFigureListener(FigureListener listener) {
-		getEnsureEventTable().removeListener(FigureListener.class, listener);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Events support
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -121,17 +63,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Return all registers listeners for given class or <code>null</code>.
 	 */
 	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
-		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass).iterator();
-	}
-
-	/**
-	 * Access to <code>{@link EventTable}</code> use lazy creation mechanism.
-	 */
-	private EventTable getEnsureEventTable() {
-		if (m_eventTable == null) {
-			m_eventTable = new EventTable();
-		}
-		return m_eventTable;
+		return super.getListeners(listenerClass);
 	}
 
 	/**

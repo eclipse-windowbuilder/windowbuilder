@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -630,8 +630,8 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.addSelectionListener(listener1);
 		//
 		// check add IEditPartSelectionListener
-		List<IEditPartSelectionListener> list =
-				testEditPart.getListeners(IEditPartSelectionListener.class);
+		List<IEditPartSelectionListener> list = Lists
+				.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
@@ -644,7 +644,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.addSelectionListener(listener2);
 		//
 		// again check add IEditPartSelectionListener
-		list = testEditPart.getListeners(IEditPartSelectionListener.class);
+		list = Lists.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -653,7 +653,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.removeSelectionListener(listener1);
 		//
 		// check remove IEditPartSelectionListener
-		list = testEditPart.getListeners(IEditPartSelectionListener.class);
+		list = Lists.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
@@ -661,7 +661,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.removeSelectionListener(listener2);
 		//
 		// again check remove IEditPartSelectionListener
-		list = testEditPart.getListeners(IEditPartSelectionListener.class);
+		list = Lists.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -732,7 +732,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.addEditPartListener(listener1);
 		//
 		// check add IEditPartListener
-		List<IEditPartListener> list = testEditPart.getListeners(IEditPartListener.class);
+		List<IEditPartListener> list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
@@ -749,7 +749,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.addEditPartListener(listener2);
 		//
 		// again check add IEditPartListener
-		list = testEditPart.getListeners(IEditPartListener.class);
+		list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -758,7 +758,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.removeEditPartListener(listener1);
 		//
 		// check remove IEditPartListener
-		list = testEditPart.getListeners(IEditPartListener.class);
+		list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
@@ -766,7 +766,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.removeEditPartListener(listener2);
 		//
 		// again check remove IEditPartListener
-		list = testEditPart.getListeners(IEditPartListener.class);
+		list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,15 +20,16 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.tree.TreeEditPart;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.draw2d.EventListenerList;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -290,7 +291,7 @@ public abstract class EditPart {
 	// Events
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private EventTable m_eventTable;
+	private EventListenerList m_eventTable;
 
 	/**
 	 * Adds a listener to the {@link EditPart}.
@@ -329,44 +330,38 @@ public abstract class EditPart {
 	/**
 	 * Return all registers listeners for given class or <code>null</code>.
 	 */
-	public <T extends Object> List<T> getListeners(Class<T> listenerClass) {
+	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
 	}
 
 	/**
-	 * Access to <code>{@link EventTable}</code> use lazy creation mechanism.
+	 * Access to <code>{@link EventListenerList}</code> use lazy creation mechanism.
 	 */
-	private EventTable getEnsureEventTable() {
+	private EventListenerList getEnsureEventTable() {
 		if (m_eventTable == null) {
-			m_eventTable = new EventTable();
+			m_eventTable = new EventListenerList();
 		}
 		return m_eventTable;
 	}
 
 	private void fireChildAdded(EditPart child, int index) {
-		List<IEditPartListener> listeners = getListeners(IEditPartListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPartListener listener : listeners) {
-				listener.childAdded(child, index);
-			}
+		Iterator<IEditPartListener> listeners = getListeners(IEditPartListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.childAdded(child, index));
 		}
 	}
 
 	private void fireRemovingChild(EditPart child, int index) {
-		List<IEditPartListener> listeners = getListeners(IEditPartListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPartListener listener : listeners) {
-				listener.removingChild(child, index);
-			}
+		Iterator<IEditPartListener> listeners = getListeners(IEditPartListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.removingChild(child, index));
 		}
 	}
 
 	private void fireSelection() {
-		List<IEditPartSelectionListener> listeners = getListeners(IEditPartSelectionListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPartSelectionListener listener : listeners) {
-				listener.selectionChanged(this);
-			}
+		Iterator<IEditPartSelectionListener> listeners = getListeners(IEditPartSelectionListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.selectionChanged(this));
 		}
 	}
 

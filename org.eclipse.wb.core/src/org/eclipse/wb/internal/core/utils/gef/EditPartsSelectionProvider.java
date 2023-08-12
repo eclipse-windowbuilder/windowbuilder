@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,8 +14,8 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.internal.draw2d.events.EventTable;
 
+import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -34,7 +34,7 @@ import java.util.List;
  */
 public final class EditPartsSelectionProvider implements ISelectionProvider {
 	private final IEditPartViewer m_viewer;
-	private final EventTable m_eventTable = new EventTable();
+	private final EventListenerList m_eventTable = new EventListenerList();
 	private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
 		@Override
 		public void selectionChanged(SelectionChangedEvent event) {
@@ -87,16 +87,16 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
-		m_eventTable.addListener(ISelectionChangedListener.class, listener);
-		if (m_eventTable.getListeners(ISelectionChangedListener.class).size() == 1) {
+		if (!m_eventTable.getListeners(ISelectionChangedListener.class).hasNext()) {
 			m_viewer.addSelectionChangedListener(m_selectionListener);
 		}
+		m_eventTable.addListener(ISelectionChangedListener.class, listener);
 	}
 
 	@Override
 	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		m_eventTable.removeListener(ISelectionChangedListener.class, listener);
-		if (m_eventTable.getListeners(ISelectionChangedListener.class).isEmpty()) {
+		if (!m_eventTable.getListeners(ISelectionChangedListener.class).hasNext()) {
 			m_viewer.removeSelectionChangedListener(m_selectionListener);
 		}
 	}
@@ -112,7 +112,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
 			event = new SelectionChangedEvent(this, selection);
 		}
 		// notify subscribers
-		for (ISelectionChangedListener listener : m_eventTable.getListeners(ISelectionChangedListener.class)) {
+		for (ISelectionChangedListener listener : m_eventTable.getListenersIterable(ISelectionChangedListener.class)) {
 			listener.selectionChanged(event);
 		}
 	}

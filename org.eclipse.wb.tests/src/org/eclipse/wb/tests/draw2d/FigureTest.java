@@ -876,7 +876,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check init state of listener for new Figure
-		assertNull(testFigure.getListeners(MouseListener.class));
+		assertFalse(testFigure.getListeners(MouseListener.class).hasNext());
 		//
 		MouseListener listener1 = new MouseListener.Stub();
 		testFigure.addMouseListener(listener1);
@@ -916,7 +916,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check init state of listener for new Figure
-		assertNull(testFigure.getListeners(MouseMotionListener.class));
+		assertFalse(testFigure.getListeners(MouseMotionListener.class).hasNext());
 		//
 		MouseMotionListener listener1 = new MouseMotionListener.Stub();
 		//
@@ -956,7 +956,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check init state of listener for new Figure
-		assertNull(testFigure.getListeners(FigureListener.class));
+		assertFalse(testFigure.getListeners(FigureListener.class).hasNext());
 		//
 		FigureListener listener1 = new FigureListener() {
 			@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,7 @@ import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
-import java.util.List;
+import java.util.Iterator;
 
 /**
  * @author lobas_av
@@ -255,11 +255,9 @@ public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
 	 * Fires {@link IEditPartDecorationListener#decorate(EditPart)}.
 	 */
 	private void fire_decorateChild(EditPart child) {
-		List<IEditPartDecorationListener> listeners = getListeners(IEditPartDecorationListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPartDecorationListener listener : listeners) {
-				listener.decorate(child);
-			}
+		Iterator<IEditPartDecorationListener> listeners = getListeners(IEditPartDecorationListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.decorate(child));
 		}
 	}
 
@@ -267,11 +265,9 @@ public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
 	 * Fires {@link IEditPartDecorationListener#undecorate(EditPart)}.
 	 */
 	private void fire_undecorateChild(EditPart child) {
-		List<IEditPartDecorationListener> listeners = getListeners(IEditPartDecorationListener.class);
-		if (listeners != null && !listeners.isEmpty()) {
-			for (IEditPartDecorationListener listener : listeners) {
-				listener.undecorate(child);
-			}
+		Iterator<IEditPartDecorationListener> listeners = getListeners(IEditPartDecorationListener.class);
+		if (listeners != null) {
+			listeners.forEachRemaining(listener -> listener.undecorate(child));
 		}
 	}
 }
