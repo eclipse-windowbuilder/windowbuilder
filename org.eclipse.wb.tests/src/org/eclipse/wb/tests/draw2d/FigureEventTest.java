@@ -53,6 +53,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		m_sender = new EventSender(m_canvas);
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		m_shell.dispose();
@@ -120,49 +121,41 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		{
 			m_sender.moveTo(15, 15);
 			//
-			expectedLogger.log("mouseMove = MouseEvent{source=figure11 button=0 stateMask=0 x=5 y=5}");
+			expectedLogger.log("mouseMove = MouseEvent(5,5) to Figure: figure11");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// click over "figure11"
 		{
 			m_sender.click(20, 20, 3);
 			//
-			expectedLogger.log("mouseDown = MouseEvent{source=figure11 button=3 stateMask=0 x=10 y=10}");
-			expectedLogger.log("mouseUp = MouseEvent{source=figure11 button=3 stateMask="
-					+ SWT.BUTTON3
-					+ " x=10 y=10}");
+			expectedLogger.log("mouseDown = MouseEvent(10,10) to Figure: figure11");
+			expectedLogger.log("mouseUp = MouseEvent(10,10) to Figure: figure11");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// double click over "figure21"
 		{
 			m_sender.doubleClick(60, 60, 2);
 			//
-			expectedLogger.log("mouseDown = MouseEvent{source=figure21 button=2 stateMask=0 x=10 y=10}");
-			expectedLogger.log("mouseUp = MouseEvent{source=figure21 button=2 stateMask="
-					+ SWT.BUTTON2
-					+ " x=10 y=10}");
-			expectedLogger.log("mouseDown = MouseEvent{source=figure21 button=2 stateMask=0 x=10 y=10}");
-			expectedLogger.log("mouseDoubleClick = MouseEvent{source=figure21 button=2 stateMask=0 x=10 y=10}");
-			expectedLogger.log("mouseUp = MouseEvent{source=figure21 button=2 stateMask="
-					+ SWT.BUTTON2
-					+ " x=10 y=10}");
+			expectedLogger.log("mouseDown = MouseEvent(10,10) to Figure: figure21");
+			expectedLogger.log("mouseUp = MouseEvent(10,10) to Figure: figure21");
+			expectedLogger.log("mouseDown = MouseEvent(10,10) to Figure: figure21");
+			expectedLogger.log("mouseDoubleClick = MouseEvent(10,10) to Figure: figure21");
+			expectedLogger.log("mouseUp = MouseEvent(10,10) to Figure: figure21");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// move to "figure12"
 		{
 			m_sender.moveTo(420, 330);
 			//
-			expectedLogger.log("mouseMove = MouseEvent{source=figure12 button=0 stateMask=0 x=20 y=30}");
+			expectedLogger.log("mouseMove = MouseEvent(20,30) to Figure: figure12");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// click over "figure22"
 		{
 			m_sender.click(200, 300, 5);
 			//
-			expectedLogger.log("mouseDown = MouseEvent{source=figure22 button=5 stateMask=0 x=50 y=50}");
-			expectedLogger.log("mouseUp = MouseEvent{source=figure22 button=5 stateMask="
-					+ SWT.BUTTON5
-					+ " x=50 y=50}");
+			expectedLogger.log("mouseDown = MouseEvent(50,50) to Figure: figure22");
+			expectedLogger.log("mouseUp = MouseEvent(50,50) to Figure: figure22");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// move to point without figures

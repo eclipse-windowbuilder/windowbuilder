@@ -11,11 +11,11 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.events.MouseEvent;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.gef.core.CancelOperationError;
+import org.eclipse.wb.draw2d.FigureUtils;
 
-import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -23,13 +23,9 @@ import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Widget;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,8 +37,10 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	//
 	private final FigureCanvas m_canvas;
 	private final RootFigure m_root;
+	private MouseEvent m_currentEvent;
 	private Figure m_cursorFigure;
 	private Figure m_captureFigure;
+	private Figure m_targetFigure;
 	private Cursor m_cursor;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -56,12 +54,9 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 		// custom tooltip
 		new CustomTooltipManager(canvas, this);
 		// add listeners
-		Object listener = createListenerProxy(
-				this,
-				new Class[]{MouseListener.class, MouseMoveListener.class, MouseTrackListener.class});
-		m_canvas.addMouseListener((MouseListener) listener);
-		m_canvas.addMouseMoveListener((MouseMoveListener) listener);
-		m_canvas.addMouseTrackListener((MouseTrackListener) listener);
+		m_canvas.addMouseListener(this);
+		m_canvas.addMouseMoveListener(this);
+		m_canvas.addMouseTrackListener(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -106,10 +101,10 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 
 	private void setFigureUnderCursor(Figure figure, org.eclipse.swt.events.MouseEvent event) {
 		if (m_cursorFigure != figure) {
-			sendEvent(MOUSE_EXIT_INVOKER, MouseMotionListener.class, event);
+			sendEvent(() -> m_targetFigure.handleMouseExited(m_currentEvent), event);
 			//
 			m_cursorFigure = figure;
-			sendEvent(MOUSE_ENTER_INVOKER, MouseMotionListener.class, event);
+			sendEvent(() -> m_targetFigure.handleMouseEntered(m_currentEvent), event);
 			// finish
 			updateCursor();
 			updateFigureToolTipText();
@@ -147,13 +142,12 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	// Consume
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private boolean m_eventConsumed;
 
 	/**
 	 * Return whether this event has been consumed.
 	 */
 	protected boolean isEventConsumed() {
-		return m_eventConsumed;
+		return m_currentEvent != null && m_currentEvent.isConsumed();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -163,7 +157,8 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_DOUBLE_CLICK_INVOKER, org.eclipse.draw2d.MouseListener.class, event);
+		updateFigureUnderCursor(event);
+		sendEvent(() -> m_targetFigure.handleMouseDoubleClicked(m_currentEvent), event);
 	}
 
 	@Override
@@ -171,39 +166,40 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 		if (m_canvas.getToolTipText() != null) {
 			m_canvas.setToolTipText(null);
 		}
-		handleMouseEvent(MOUSE_DOWN_INVOKER, org.eclipse.draw2d.MouseListener.class, event);
+		updateFigureUnderCursor(event);
+		sendEvent(() -> m_targetFigure.handleMousePressed(m_currentEvent), event);
 	}
 
 	@Override
 	public void mouseUp(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_UP_INVOKER, org.eclipse.draw2d.MouseListener.class, event);
+		updateFigureUnderCursor(event);
+		sendEvent(() -> m_targetFigure.handleMouseReleased(m_currentEvent), event);
 	}
 
 	@Override
 	public void mouseMove(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_MOVE_INVOKER, MouseMotionListener.class, event);
-	}
-
-	private void handleMouseEvent(IListenerInvoker invoker,
-			Class<?> listenerClass,
-			org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
-		sendEvent(invoker, listenerClass, event);
+		sendEvent(() -> m_targetFigure.handleMouseMoved(m_currentEvent), event);
 	}
 
-	private <T extends Object> void sendEvent(IListenerInvoker invoker,
-			Class<T> listenerClass,
+	private <T extends Object> void sendEvent(Runnable delayEvent,
 			org.eclipse.swt.events.MouseEvent e) {
-		m_eventConsumed = false;
-		Figure figure = m_captureFigure == null ? m_cursorFigure : m_captureFigure;
+		m_currentEvent = null;
+		m_targetFigure = m_captureFigure == null ? m_cursorFigure : m_captureFigure;
 		//
-		if (figure != null) {
-			Iterator<T> listeners = figure.getListeners(listenerClass);
-			if (listeners != null && listeners.hasNext()) {
-				MouseEvent event = new MouseEvent(m_canvas, e, figure);
-				listeners.forEachRemaining(listener -> invoker.invokeListener(listener, event));
-				m_eventConsumed = event.isConsumed();
-			}
+		if (m_targetFigure != null) {
+			m_currentEvent = new MouseEvent(null, m_targetFigure, e);
+			//
+			Rectangle bounds = m_targetFigure.getBounds();
+			Point location = new Point(m_currentEvent.x - bounds.x, m_currentEvent.y - bounds.y);
+			location.x += m_canvas.getHorizontalScrollModel().getSelection();
+			location.y += m_canvas.getVerticalScrollModel().getSelection();
+			FigureUtils.translateAbsoluteToFigure(m_targetFigure, location);
+			//
+			m_currentEvent.x = location.x;
+			m_currentEvent.y = location.y;
+			//
+			delayEvent(e.widget, delayEvent);
 		}
 	}
 
@@ -214,114 +210,20 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void mouseEnter(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_ENTER_INVOKER, MouseMotionListener.class, event);
+		updateFigureUnderCursor(event);
+		sendEvent(() -> m_targetFigure.handleMouseEntered(m_currentEvent), event);
 	}
 
 	@Override
 	public void mouseExit(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_EXIT_INVOKER, MouseMotionListener.class, event);
+		updateFigureUnderCursor(event);
+		sendEvent(() -> m_targetFigure.handleMouseExited(m_currentEvent), event);
 	}
 
 	@Override
 	public void mouseHover(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_HOVER_INVOKER, MouseMotionListener.class, event);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Invoke
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Invoke <code>mouseDown()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_DOWN_INVOKER = (listener, event) -> {
-		org.eclipse.draw2d.MouseListener mouseListener = (org.eclipse.draw2d.MouseListener) listener;
-		mouseListener.mousePressed(event);
-	};
-	/**
-	 * Invoke <code>mouseUp()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_UP_INVOKER = (listener, event) -> {
-		org.eclipse.draw2d.MouseListener mouseListener = (org.eclipse.draw2d.MouseListener) listener;
-		mouseListener.mouseReleased(event);
-	};
-	/**
-	 * Invoke <code>mouseDoubleClick()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_DOUBLE_CLICK_INVOKER = (listener, event) -> {
-		org.eclipse.draw2d.MouseListener mouseListener = (org.eclipse.draw2d.MouseListener) listener;
-		mouseListener.mouseDoubleClicked(event);
-	};
-	/**
-	 * Invoke <code>mouseMove()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_MOVE_INVOKER = (listener, event) -> {
-		MouseMotionListener mouseListener = (MouseMotionListener) listener;
-		mouseListener.mouseMoved(event);
-	};
-	/**
-	 * Invoke <code>mouseEnter()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_ENTER_INVOKER = (listener, event) -> {
-		MouseMotionListener mouseListener = (MouseMotionListener) listener;
-		mouseListener.mouseEntered(event);
-	};
-	/**
-	 * Invoke <code>mouseExit()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_EXIT_INVOKER = (listener, event) -> {
-		MouseMotionListener mouseListener = (MouseMotionListener) listener;
-		mouseListener.mouseExited(event);
-	};
-	/**
-	 * Invoke <code>mouseHover()</code>.
-	 */
-	private static final IListenerInvoker MOUSE_HOVER_INVOKER = (listener, event) -> {
-		MouseMotionListener mouseListener = (MouseMotionListener) listener;
-		mouseListener.mouseHover(event);
-	};
-
-	private static interface IListenerInvoker {
-		/**
-		 * This method use to invoke any listeners.
-		 */
-		void invokeListener(Object listener, MouseEvent event);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Event listener helper
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the dynamic proxy implementation for given interfaces.
-	 */
-	public static final Object createListenerProxy(final Object owner, Class<?>[] interfaces) {
-		return Proxy.newProxyInstance(
-				owner.getClass().getClassLoader(),
-				interfaces,
-				new InvocationHandler() {
-					@Override
-					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-						// check for delay
-						if (delayEvent(this, proxy, method, args)) {
-							return null;
-						}
-						// process event now
-						try {
-							return method.invoke(owner, args);
-						} catch (InvocationTargetException e) {
-							if (e.getCause() instanceof CancelOperationError) {
-								// ignore
-							} else {
-								throw e;
-							}
-						}
-						// no return expected
-						return null;
-					}
-				});
+		updateFigureUnderCursor(event);
+		sendEvent(() -> m_targetFigure.handleMouseHover(m_currentEvent), event);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -346,34 +248,22 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	/**
 	 * If arguments contain {@link TypedEvent} and target {@link Control} is disabled, then puts this
 	 * event into {@link List} with key {@link #KEY_DELAYED_EVENTS}.
-	 *
-	 * @return <code>true</code> if event was delayed.
 	 */
-	private static boolean delayEvent(InvocationHandler handler,
-			Object proxy,
-			Method method,
-			Object args[]) {
-		if (args[0] instanceof TypedEvent) {
-			TypedEvent event = (TypedEvent) args[0];
-			if (event.widget instanceof Control) {
-				Control control = (Control) event.widget;
-				if (!control.isDisposed() && control.getData(FLAG_DELAY_EVENTS) != null) {
-					// prepare delay queue
-					@SuppressWarnings("unchecked")
-					List<DelayedEvent> eventQueue = (List<DelayedEvent>) control.getData(KEY_DELAYED_EVENTS);
-					if (eventQueue == null) {
-						eventQueue = new ArrayList<>();
-						control.setData(KEY_DELAYED_EVENTS, eventQueue);
-					}
-					// put event into queue
-					eventQueue.add(new DelayedEvent(handler, proxy, method, args));
-					// event was delayed
-					return true;
-				}
+	private static void delayEvent(Widget widget, Runnable delayEvent) {
+		if (widget.isDisposed() || widget.getData(FLAG_DELAY_EVENTS) == null) {
+			// execute immediately
+			delayEvent.run();
+		} else {
+			// prepare delay queue
+			@SuppressWarnings("unchecked")
+			List<Runnable> eventQueue = (List<Runnable>) widget.getData(KEY_DELAYED_EVENTS);
+			if (eventQueue == null) {
+				eventQueue = new ArrayList<>();
+				widget.setData(KEY_DELAYED_EVENTS, eventQueue);
 			}
+			// put event into queue
+			eventQueue.add(delayEvent);
 		}
-		// no delay
-		return false;
 	}
 
 	/**
@@ -382,50 +272,12 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	public static void runDelayedEvents(Control control) {
 		// prepare delay queue
 		@SuppressWarnings("unchecked")
-		List<DelayedEvent> eventQueue = (List<DelayedEvent>) control.getData(KEY_DELAYED_EVENTS);
+		List<Runnable> eventQueue = (List<Runnable>) control.getData(KEY_DELAYED_EVENTS);
 		control.setData(KEY_DELAYED_EVENTS, null);
 		// run all events
 		if (eventQueue != null) {
-			for (DelayedEvent event : eventQueue) {
+			for (Runnable event : eventQueue) {
 				event.run();
-			}
-		}
-	}
-
-	/**
-	 * Container for information about single event that was delayed because of disabled target.
-	 */
-	private static final class DelayedEvent {
-		private final InvocationHandler m_handler;
-		private final Object m_proxy;
-		private final Method m_method;
-		private final Object[] m_args;
-
-		////////////////////////////////////////////////////////////////////////////
-		//
-		// Constructor
-		//
-		////////////////////////////////////////////////////////////////////////////
-		DelayedEvent(InvocationHandler handler, Object proxy, Method method, Object[] args) {
-			m_handler = handler;
-			m_proxy = proxy;
-			m_method = method;
-			m_args = args;
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-		//
-		// Access
-		//
-		////////////////////////////////////////////////////////////////////////////
-		/**
-		 * Invokes same event listener as was used when target of this event was disabled.
-		 */
-		void run() {
-			try {
-				m_handler.invoke(m_proxy, m_method, m_args);
-			} catch (Throwable e) {
-				throw ReflectionUtils.propagate(e);
 			}
 		}
 	}
