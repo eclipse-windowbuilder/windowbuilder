@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -43,8 +43,7 @@ public class EditEventManager extends EventManager implements KeyListener {
 		m_domain = domain;
 		m_viewer = viewer;
 		// add listeners
-		Object listener = createListenerProxy(this, new Class[]{KeyListener.class});
-		canvas.addKeyListener((KeyListener) listener);
+		canvas.addKeyListener(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

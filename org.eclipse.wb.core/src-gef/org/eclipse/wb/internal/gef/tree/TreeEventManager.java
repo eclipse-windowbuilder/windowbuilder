@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,16 +53,10 @@ MouseTrackListener {
 		m_tree = tree;
 		m_viewer = viewer;
 		// add listeners
-		Object listener =
-				EventManager.createListenerProxy(this, new Class[]{
-						KeyListener.class,
-						MouseListener.class,
-						MouseMoveListener.class,
-						MouseTrackListener.class});
-		m_tree.addKeyListener((KeyListener) listener);
-		m_tree.addMouseListener((MouseListener) listener);
-		m_tree.addMouseMoveListener((MouseMoveListener) listener);
-		m_tree.addMouseTrackListener((MouseTrackListener) listener);
+		m_tree.addKeyListener(this);
+		m_tree.addMouseListener(this);
+		m_tree.addMouseMoveListener(this);
+		m_tree.addMouseTrackListener(this);
 		// add DND listeners
 		new DragSource(m_tree, DND.DROP_MOVE).setTransfer(new Transfer[]{TreeTransfer.INSTANCE});
 		m_dropListener = new TreeDropListener(m_viewer);
