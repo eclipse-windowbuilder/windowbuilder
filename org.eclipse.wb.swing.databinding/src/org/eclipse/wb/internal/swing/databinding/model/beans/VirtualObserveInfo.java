@@ -38,7 +38,7 @@ public final class VirtualObserveInfo extends BeanObserveInfo {
 		super(null, null, ClassGenericType.LIST_CLASS, StringReferenceProvider.EMPTY);
 		setBindingDecoration(IDecoration.TOP_LEFT);
 		m_presentation =
-				new SimpleObservePresentation("[Virtual]", "[Virtual]", Activator.getImage("virtual.png"));
+				new SimpleObservePresentation("[Virtual]", "[Virtual]", Activator.getImageDescriptor("virtual.png"));
 		setProperties(ImmutableList.<ObserveInfo>of(new ObjectPropertyObserveInfo(getObjectType())));
 	}
 

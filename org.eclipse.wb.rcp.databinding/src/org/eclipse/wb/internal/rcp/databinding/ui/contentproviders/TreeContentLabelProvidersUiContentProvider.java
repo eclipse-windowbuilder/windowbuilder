@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,9 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.Tree
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.TreeObservableLabelProviderInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -406,6 +409,8 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 	 * Tree label provider.
 	 */
 	private static class TreePropertiesLabelProvider extends LabelProvider {
+		private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
 		@Override
 		public String getText(Object element) {
 			if (element instanceof PropertiesGroup) {
@@ -420,11 +425,17 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 		@Override
 		public Image getImage(Object element) {
 			if (element instanceof PropertiesGroup) {
-				return TypeImageProvider.OBJECT_IMAGE;
+				return m_resourceManager.createImageWithDefault(TypeImageProvider.OBJECT_IMAGE);
 			}
 			//
 			TreePropertyWrapper wrapper = (TreePropertyWrapper) element;
-			return TypeImageProvider.getImage(wrapper.descriptor.getPropertyType());
+			return m_resourceManager.createImageWithDefault(TypeImageProvider.getImage(wrapper.descriptor.getPropertyType()));
+		}
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			m_resourceManager.dispose();
 		}
 	}
 	/**

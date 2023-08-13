@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -42,6 +43,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
@@ -522,8 +524,13 @@ final class ObserveElementsComposite extends SashForm {
 		// fill menu
 		for (PropertyFilter filter : filters) {
 			MenuItem item = new MenuItem(m_propertiesFilterMenu, SWT.RADIO);
+			ImageDescriptor imageDescriptor = filter.getImage();
+			if (imageDescriptor != null) {
+				Image image = imageDescriptor.createImage();
+				item.addDisposeListener(event -> image.dispose());
+				item.setImage(image);
+			}
 			item.setText(filter.getName());
-			item.setImage(filter.getImage());
 			item.setData(filter);
 			item.addSelectionListener(listener);
 		}

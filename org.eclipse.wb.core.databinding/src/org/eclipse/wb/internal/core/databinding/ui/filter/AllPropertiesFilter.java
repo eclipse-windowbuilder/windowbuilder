@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.databinding.ui.filter;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * This filter accept any property.
@@ -27,7 +27,7 @@ public final class AllPropertiesFilter extends PropertyFilter {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public AllPropertiesFilter(String name, Image image) {
+	public AllPropertiesFilter(String name, ImageDescriptor image) {
 		super(name, image);
 	}
 

@@ -41,7 +41,7 @@ public final class LocalVariableObserveInfo extends BeanObserveInfo {
 		setBindingDecoration(IDecoration.TOP_LEFT);
 		m_fragment = fragment;
 		m_presentation =
-				new SimpleObservePresentation(null, null, Activator.getImage("localvariable_obj.gif")) {
+				new SimpleObservePresentation(null, null, Activator.getImageDescriptor("localvariable_obj.gif")) {
 			@Override
 			public String getText() throws Exception {
 				return getReference() + " - " + getObjectType().getSimpleTypeName();

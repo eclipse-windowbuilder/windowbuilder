@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +39,7 @@ public final class ViewerObservablePropertyBindableInfo extends PropertyBindable
 	public ViewerObservablePropertyBindableInfo(BeanSupport beanSupport,
 			IObserveInfo parent,
 			String text,
-			Image image,
+			ImageDescriptor image,
 			Class<?> objectType,
 			String reference,
 			IObservableFactory factory,

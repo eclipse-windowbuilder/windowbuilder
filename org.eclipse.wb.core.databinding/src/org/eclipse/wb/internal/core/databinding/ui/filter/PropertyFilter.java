@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.databinding.ui.filter;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * Filter for {@link IObserveInfo} properties.
@@ -23,14 +23,14 @@ import org.eclipse.swt.graphics.Image;
  */
 public abstract class PropertyFilter {
 	private final String m_name;
-	private final Image m_image;
+	private final ImageDescriptor m_image;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public PropertyFilter(String name, Image image) {
+	public PropertyFilter(String name, ImageDescriptor image) {
 		m_name = name;
 		m_image = image;
 	}
@@ -50,7 +50,7 @@ public abstract class PropertyFilter {
 	/**
 	 * @return the image to display for user.
 	 */
-	public final Image getImage() {
+	public final ImageDescriptor getImage() {
 		return m_image;
 	}
 

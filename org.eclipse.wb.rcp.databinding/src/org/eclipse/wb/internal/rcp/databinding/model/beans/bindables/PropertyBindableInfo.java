@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceP
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * Abstract model for <code>Java Beans</code> object properties.
@@ -46,7 +46,7 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
 	public PropertyBindableInfo(BeanSupport beanSupport,
 			IObserveInfo parent,
 			String text,
-			Image image,
+			ImageDescriptor image,
 			Class<?> objectType,
 			IReferenceProvider referenceProvider) {
 		this(beanSupport, parent, objectType, referenceProvider, new SimpleObservePresentation(text,
@@ -56,7 +56,7 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
 	public PropertyBindableInfo(BeanSupport beanSupport,
 			IObserveInfo parent,
 			String text,
-			Image image,
+			ImageDescriptor image,
 			Class<?> objectType,
 			String reference) {
 		this(beanSupport, parent, text, image, objectType, new StringReferenceProvider(reference));

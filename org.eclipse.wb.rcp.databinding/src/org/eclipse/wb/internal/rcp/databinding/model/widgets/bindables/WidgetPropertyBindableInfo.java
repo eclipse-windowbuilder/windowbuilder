@@ -22,8 +22,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IDecoration;
-import org.eclipse.swt.graphics.Image;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +57,7 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
 	}
 
 	public WidgetPropertyBindableInfo(String text,
-			Image image,
+			ImageDescriptor image,
 			Class<?> objectType,
 			String reference,
 			IObservableFactory observableFactory,

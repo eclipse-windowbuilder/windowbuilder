@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.databinding.ui.providers;
 
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
@@ -134,7 +133,7 @@ public final class BindingLabelProvider extends LabelProvider implements ITableL
 		} else if (element instanceof SetBindingInfo) {
 			imageDescriptor = BIND_SET_IMAGE;
 		} else if (element instanceof AbstractViewerInputBindingInfo) {
-			imageDescriptor = new ImageImageDescriptor(TypeImageProvider.VIEWER_IMAGE);
+			imageDescriptor = TypeImageProvider.VIEWER_IMAGE;
 		} else {
 			return null;
 		}
