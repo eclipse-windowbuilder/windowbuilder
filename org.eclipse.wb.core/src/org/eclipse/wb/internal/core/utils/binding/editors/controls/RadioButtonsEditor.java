@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2020 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,10 +69,10 @@ public final class RadioButtonsEditor implements IDataEditor {
 		for (int i = 0; i < m_buttons.length; i++) {
 			Button button = m_buttons[i];
 			if (button.getSelection()) {
-				return new Integer(m_values[i]);
+				return Integer.valueOf(m_values[i]);
 			}
 		}
-		return new Integer(m_values[0]);
+		return Integer.valueOf(m_values[0]);
 	}
 
 	@Override

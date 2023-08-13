@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1188,7 +1188,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 					ReflectionUtils.getConstructorForArguments(
 							Foo_getConstructorForArguments.class,
 							"a",
-							new Integer(1));
+							Integer.valueOf(1));
 			assertNotNull(constructor);
 		}
 		// compatible arguments, but parameter type is primitive "int"
@@ -1196,7 +1196,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			Constructor<?> constructor =
 					ReflectionUtils.getConstructorForArguments(
 							Foo_getConstructorForArguments.class,
-							new Integer(1));
+							Integer.valueOf(1));
 			assertNotNull(constructor);
 		}
 	}

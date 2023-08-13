@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -200,7 +200,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 							"Tahoma",
 							null,
 							null,
-							new Integer(5),
+							Integer.valueOf(5),
 							null);
 			Font font = fontInfo.getFont();
 			assertEquals(Font.BOLD, font.getStyle());
@@ -224,7 +224,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 							null,
 							null,
 							null,
-							new Integer(20));
+							Integer.valueOf(20));
 			Font font = fontInfo.getFont();
 			assertEquals(Font.BOLD, font.getStyle());
 			assertEquals(20, font.getSize());
