@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ public final class PreferencesRepairer {
 	 * Sets the <code>boolean</code> value.
 	 */
 	public void setValue(String name, boolean value) {
-		save(name, new Boolean(m_preferences.getBoolean(name)));
+		save(name, Boolean.valueOf(m_preferences.getBoolean(name)));
 		m_preferences.setValue(name, value);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,8 +81,8 @@ public class DoubleFieldEditor extends StringFieldEditor {
 	private static String getMessage_invalidRange(double min, double max) {
 		String message = JFaceResources.format("IntegerFieldEditor.errorMessageRange", //$NON-NLS-1$
 			new Object[]{
-					new Double(min),
-					new Double(max)});
+					Double.valueOf(min),
+					Double.valueOf(max)});
 		return replaceInteger_withDouble(message);
 	}
 	private static String replaceInteger_withDouble(String message) {
@@ -140,7 +140,7 @@ public class DoubleFieldEditor extends StringFieldEditor {
 	protected void doStore() {
 		Text text = getTextControl();
 		if (text != null) {
-			Double i = new Double(text.getText());
+			Double i = Double.valueOf(text.getText());
 			getPreferenceStore().setValue(getPreferenceName(), i.doubleValue());
 		}
 	}
@@ -157,7 +157,7 @@ public class DoubleFieldEditor extends StringFieldEditor {
 	 *                if the <code>String</code> does not contain a parsable double
 	 */
 	public double getDoubleValue() throws NumberFormatException {
-		return new Double(getStringValue()).doubleValue();
+		return Double.valueOf(getStringValue()).doubleValue();
 	}
 	/**
 	 * Sets the tool tip text of the label and text control.

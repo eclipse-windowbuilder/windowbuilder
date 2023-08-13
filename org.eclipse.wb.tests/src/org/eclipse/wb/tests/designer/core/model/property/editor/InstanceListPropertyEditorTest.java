@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -108,8 +108,8 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
 	public void test_getClipboardSource() throws Exception {
 		Map<String, Object> parameters = getEditorParameters();
 		InstanceListPropertyEditor editor = createEditor(InstanceListPropertyEditor.class, parameters);
-		assert_getClipboardSource("new java.lang.Integer()", editor, new Integer(3));
-		assert_getClipboardSource(null, editor, new Boolean(true));
+		assert_getClipboardSource("new java.lang.Integer()", editor, Integer.valueOf(3));
+		assert_getClipboardSource(null, editor, Boolean.valueOf(true));
 	}
 
 	/**

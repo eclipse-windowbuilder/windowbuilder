@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -177,7 +177,7 @@ public class FieldAccessorTest extends SwingModelTest {
 				fieldAccessor = (FieldAccessor) accessors.get(0);
 			}
 			// do checks
-			assertEquals(new Double(2.0), fieldAccessor.getDefaultValue(myComponent));
+			assertEquals(Double.valueOf(2.0), fieldAccessor.getDefaultValue(myComponent));
 			assertEquals("field_2", getPropertyTooltipText(fieldAccessor, property));
 			assertNull(fieldAccessor.getAdapter(null));
 			// check IExposableExpressionAccessor

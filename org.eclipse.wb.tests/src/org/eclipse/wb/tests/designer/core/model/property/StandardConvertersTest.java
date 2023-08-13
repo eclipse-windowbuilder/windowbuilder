@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,7 +72,7 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_property_short() throws Exception {
-		check_converter("short", new Short((short) 123), "(short) 123");
+		check_converter("short", Short.valueOf((short) 123), "(short) 123");
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_property_float() throws Exception {
-		check_converter("float", new Float(123.4), "123.4f");
+		check_converter("float", Float.valueOf(123.4f), "123.4f");
 	}
 
 	@Test
@@ -146,7 +146,7 @@ public class StandardConvertersTest extends SwingModelTest {
 	public void test_CharacterConverter() throws Exception {
 		assertConverterEditor(char.class);
 		ExpressionConverter converter = CharacterConverter.INSTANCE;
-		assertEquals("'0'", converter.toJavaSource(null, new Character('0')));
+		assertEquals("'0'", converter.toJavaSource(null, Character.valueOf('0')));
 	}
 
 	@Test
@@ -161,8 +161,8 @@ public class StandardConvertersTest extends SwingModelTest {
 	public void test_ShortConverter() throws Exception {
 		assertConverterEditor(short.class);
 		ExpressionConverter converter = ShortConverter.INSTANCE;
-		assertEquals("(short) 1", converter.toJavaSource(null, new Short((short) 1)));
-		assertEquals("(short) -1", converter.toJavaSource(null, new Short((short) -1)));
+		assertEquals("(short) 1", converter.toJavaSource(null, Short.valueOf((short) 1)));
+		assertEquals("(short) -1", converter.toJavaSource(null, Short.valueOf((short) -1)));
 	}
 
 	@Test

@@ -221,7 +221,8 @@ public class RequestsTest extends Assert {
 
 			@Override
 			public Object getNewObject() {
-				return new Integer(7);
+				// Has to be larger than then integer cache from [-128, 127]
+				return Integer.valueOf(273);
 			}
 		};
 		CreateRequest request = new CreateRequest(factory);
@@ -241,7 +242,7 @@ public class RequestsTest extends Assert {
 		//
 		// check work factory
 		Object newObject = request.getNewObject();
-		assertEquals(7, newObject);
+		assertEquals(273, newObject);
 		assertSame(newObject, request.getNewObject());
 		assertNotSame(newObject, factory.getNewObject());
 		//

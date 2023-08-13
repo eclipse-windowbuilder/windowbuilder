@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1557,7 +1557,7 @@ public class MethodOrderTest extends SwingModelTest {
 		{
 			Property property = panel.getPropertyByTitle("property_2");
 			assertNotNull(property);
-			property.setValue(new Integer(7));
+			property.setValue(Integer.valueOf(7));
 			assertEditor(
 					"// filler filler filler",
 					"public class Test extends ContainerPanel {",
@@ -1569,7 +1569,7 @@ public class MethodOrderTest extends SwingModelTest {
 		{
 			Property property = panel.getPropertyByTitle("property_1");
 			assertNotNull(property);
-			property.setValue(new Integer(112));
+			property.setValue(Integer.valueOf(112));
 			assertEditor(
 					"// filler filler filler",
 					"public class Test extends ContainerPanel {",
@@ -1633,7 +1633,7 @@ public class MethodOrderTest extends SwingModelTest {
 		{
 			Property property = panel.getPropertyByTitle("property_2");
 			assertNotNull(property);
-			property.setValue(new Integer(7));
+			property.setValue(Integer.valueOf(7));
 			assertEditor(
 					"// filler filler filler",
 					"public class Test extends ContainerPanel {",
@@ -1651,7 +1651,7 @@ public class MethodOrderTest extends SwingModelTest {
 		{
 			Property property = panel.getPropertyByTitle("property_1");
 			assertNotNull(property);
-			property.setValue(new Integer(112));
+			property.setValue(Integer.valueOf(112));
 			assertEditor(
 					"// filler filler filler",
 					"public class Test extends ContainerPanel {",
@@ -1687,7 +1687,7 @@ public class MethodOrderTest extends SwingModelTest {
 		{
 			Property property = panel.getPropertyByTitle("property_2");
 			assertNotNull(property);
-			property.setValue(new Integer(7));
+			property.setValue(Integer.valueOf(7));
 			assertEditor(
 					"public class Test extends ContainerPanel {",
 					"  public Test() {",
@@ -1704,7 +1704,7 @@ public class MethodOrderTest extends SwingModelTest {
 		{
 			Property property = panel.getPropertyByTitle("property_1");
 			assertNotNull(property);
-			property.setValue(new Integer(112));
+			property.setValue(Integer.valueOf(112));
 			assertEditor(
 					"public class Test extends ContainerPanel {",
 					"  public Test() {",

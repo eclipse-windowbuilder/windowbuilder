@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -166,8 +166,8 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	public void test_get() throws Exception {
 		Object[] objects = {"0", 1, 2.2};
 		assertEquals("0", GenericsUtils.get(String.class, objects));
-		assertEquals(new Integer(1), GenericsUtils.get(Integer.class, objects));
-		assertEquals(new Double(2.2), GenericsUtils.get(Double.class, objects));
+		assertEquals(Integer.valueOf(1), GenericsUtils.get(Integer.class, objects));
+		assertEquals(Double.valueOf(2.2), GenericsUtils.get(Double.class, objects));
 		assertEquals(null, GenericsUtils.get(Float.class, objects));
 	}
 
@@ -178,8 +178,8 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	public void test_get_fromList() throws Exception {
 		List<?> objects = ImmutableList.<Object>of("0", 1, 2.2);
 		assertEquals("0", GenericsUtils.get(String.class, objects));
-		assertEquals(new Integer(1), GenericsUtils.get(Integer.class, objects));
-		assertEquals(new Double(2.2), GenericsUtils.get(Double.class, objects));
+		assertEquals(Integer.valueOf(1), GenericsUtils.get(Integer.class, objects));
+		assertEquals(Double.valueOf(2.2), GenericsUtils.get(Double.class, objects));
 		assertEquals(null, GenericsUtils.get(Float.class, objects));
 	}
 
