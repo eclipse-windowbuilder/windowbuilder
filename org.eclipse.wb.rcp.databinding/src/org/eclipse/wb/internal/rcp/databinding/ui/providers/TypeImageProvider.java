@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.ui.providers;
 
 import org.eclipse.wb.internal.rcp.databinding.Activator;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
@@ -19,26 +20,26 @@ import org.eclipse.swt.graphics.Image;
 import java.util.Collection;
 
 /**
- * Helper for association {@link Class} with {@link Image}.
+ * Helper for association {@link Class} with {@link ImageDescriptor}.
  *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
 public final class TypeImageProvider {
-	public static final Image OBJECT_IMAGE = Activator.getImage("types/Object2.png");
-	public static final Image VIEWER_IMAGE = Activator.getImage("types/viewer.png");
-	public static final Image VIEWER_COLLECTION_IMAGE =
-			Activator.getImage("types/viewer_collection.png");
-	public static final Image STRING_IMAGE = Activator.getImage("types/String2.png");
-	public static final Image BOOLEAN_IMAGE = Activator.getImage("types/Boolean4.png");
-	public static final Image NUMBER_IMAGE = Activator.getImage("types/Number2.png");
-	public static final Image IMAGE_IMAGE = Activator.getImage("types/Image2.png");
-	public static final Image COLOR_IMAGE = Activator.getImage("types/Color2.png");
-	public static final Image FONT_IMAGE = Activator.getImage("types/Font2.png");
-	public static final Image ARRAY_IMAGE = Activator.getImage("types/Array.png");
-	public static final Image COLLECTION_IMAGE = Activator.getImage("types/Collection.png");
-	public static final Image DIRECT_IMAGE = Activator.getImage("types/Direct.png");
-	public static final Image METHOD_IMAGE = Activator.getImage("method.png");
+	public static final ImageDescriptor OBJECT_IMAGE = Activator.getImageDescriptor("types/Object2.png");
+	public static final ImageDescriptor VIEWER_IMAGE = Activator.getImageDescriptor("types/viewer.png");
+	public static final ImageDescriptor VIEWER_COLLECTION_IMAGE =
+			Activator.getImageDescriptor("types/viewer_collection.png");
+	public static final ImageDescriptor STRING_IMAGE = Activator.getImageDescriptor("types/String2.png");
+	public static final ImageDescriptor BOOLEAN_IMAGE = Activator.getImageDescriptor("types/Boolean4.png");
+	public static final ImageDescriptor NUMBER_IMAGE = Activator.getImageDescriptor("types/Number2.png");
+	public static final ImageDescriptor IMAGE_IMAGE = Activator.getImageDescriptor("types/Image2.png");
+	public static final ImageDescriptor COLOR_IMAGE = Activator.getImageDescriptor("types/Color2.png");
+	public static final ImageDescriptor FONT_IMAGE = Activator.getImageDescriptor("types/Font2.png");
+	public static final ImageDescriptor ARRAY_IMAGE = Activator.getImageDescriptor("types/Array.png");
+	public static final ImageDescriptor COLLECTION_IMAGE = Activator.getImageDescriptor("types/Collection.png");
+	public static final ImageDescriptor DIRECT_IMAGE = Activator.getImageDescriptor("types/Direct.png");
+	public static final ImageDescriptor METHOD_IMAGE = Activator.getImageDescriptor("method.png");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -46,9 +47,9 @@ public final class TypeImageProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return {@link Image} association with given {@link Class}.
+	 * @return {@link ImageDescriptor} association with given {@link Class}.
 	 */
-	public static Image getImage(Class<?> type) {
+	public static ImageDescriptor getImage(Class<?> type) {
 		// unknown type accept as object
 		if (type == null) {
 			return OBJECT_IMAGE;

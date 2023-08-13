@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.databinding.model.presentation;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 /**
  *
@@ -21,18 +20,18 @@ import org.eclipse.swt.graphics.Image;
 public class SimpleObservePresentation extends ObservePresentation {
 	private final String m_text;
 	private final String m_textForBinding;
-	private final Image m_image;
+	private final ImageDescriptor m_image;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public SimpleObservePresentation(String text, Image image) {
+	public SimpleObservePresentation(String text, ImageDescriptor image) {
 		this(text, text, image);
 	}
 
-	public SimpleObservePresentation(String text, String textForBinding, Image image) {
+	public SimpleObservePresentation(String text, String textForBinding, ImageDescriptor image) {
 		m_text = text;
 		m_textForBinding = textForBinding;
 		m_image = image;
@@ -45,7 +44,7 @@ public class SimpleObservePresentation extends ObservePresentation {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected ImageDescriptor getInternalImage() throws Exception {
-		return m_image == null ? null : ImageDescriptor.createFromImage(m_image);
+		return m_image == null ? null : m_image;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

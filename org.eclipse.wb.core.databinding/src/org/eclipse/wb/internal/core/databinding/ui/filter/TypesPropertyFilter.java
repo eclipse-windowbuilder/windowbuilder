@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.ui.filter;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -30,7 +30,7 @@ public abstract class TypesPropertyFilter extends PropertyFilter {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public TypesPropertyFilter(String name, Image image, Class<?>... types) {
+	public TypesPropertyFilter(String name, ImageDescriptor image, Class<?>... types) {
 		super(name, image);
 		m_types = types;
 	}

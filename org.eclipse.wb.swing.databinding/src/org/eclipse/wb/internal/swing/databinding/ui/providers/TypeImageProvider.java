@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,28 +12,28 @@ package org.eclipse.wb.internal.swing.databinding.ui.providers;
 
 import org.eclipse.wb.internal.swing.databinding.Activator;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.Collection;
 
 /**
- * Helper for association {@link Class} with {@link Image}.
+ * Helper for association {@link Class} with {@link ImageDescriptor}.
  *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */
 public final class TypeImageProvider {
-	public static final Image OBJECT_IMAGE = Activator.getImage("types/Object.png");
-	public static final Image STRING_IMAGE = Activator.getImage("types/String.png");
-	public static final Image BOOLEAN_IMAGE = Activator.getImage("types/Boolean.png");
-	public static final Image NUMBER_IMAGE = Activator.getImage("types/Number.png");
-	public static final Image IMAGE_IMAGE = Activator.getImage("types/Image.png");
-	public static final Image COLOR_IMAGE = Activator.getImage("types/Color.png");
-	public static final Image FONT_IMAGE = Activator.getImage("types/Font.png");
-	public static final Image ARRAY_IMAGE = Activator.getImage("types/Array.png");
-	public static final Image COLLECTION_IMAGE = Activator.getImage("types/Collection.png");
-	public static final Image EL_PROPERTY_IMAGE = Activator.getImage("el_property2.gif");
-	public static final Image OBJECT_PROPERTY_IMAGE = Activator.getImage("SelfObject.png");
+	public static final ImageDescriptor OBJECT_IMAGE = Activator.getImageDescriptor("types/Object.png");
+	public static final ImageDescriptor STRING_IMAGE = Activator.getImageDescriptor("types/String.png");
+	public static final ImageDescriptor BOOLEAN_IMAGE = Activator.getImageDescriptor("types/Boolean.png");
+	public static final ImageDescriptor NUMBER_IMAGE = Activator.getImageDescriptor("types/Number.png");
+	public static final ImageDescriptor IMAGE_IMAGE = Activator.getImageDescriptor("types/Image.png");
+	public static final ImageDescriptor COLOR_IMAGE = Activator.getImageDescriptor("types/Color.png");
+	public static final ImageDescriptor FONT_IMAGE = Activator.getImageDescriptor("types/Font.png");
+	public static final ImageDescriptor ARRAY_IMAGE = Activator.getImageDescriptor("types/Array.png");
+	public static final ImageDescriptor COLLECTION_IMAGE = Activator.getImageDescriptor("types/Collection.png");
+	public static final ImageDescriptor EL_PROPERTY_IMAGE = Activator.getImageDescriptor("el_property2.gif");
+	public static final ImageDescriptor OBJECT_PROPERTY_IMAGE = Activator.getImageDescriptor("SelfObject.png");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -41,9 +41,9 @@ public final class TypeImageProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return {@link Image} association with given {@link Class}.
+	 * @return {@link ImageDescriptor} association with given {@link Class}.
 	 */
-	public static Image getImage(Class<?> type) {
+	public static ImageDescriptor getImage(Class<?> type) {
 		// unknown type accept as object
 		if (type == null) {
 			return OBJECT_IMAGE;

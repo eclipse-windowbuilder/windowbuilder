@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,8 +16,8 @@ import org.eclipse.wb.internal.swing.databinding.model.beans.BeanPropertyObserve
 import org.eclipse.wb.internal.swing.databinding.model.beans.ElPropertyObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.ObjectPropertyObserveInfo;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * Filter for {@link ObserveInfo} properties over {@link Class} type.
@@ -33,7 +33,7 @@ org.eclipse.wb.internal.core.databinding.ui.filter.TypesPropertyFilter {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public TypesPropertyFilter(String name, Image image, Class<?>... types) {
+	public TypesPropertyFilter(String name, ImageDescriptor image, Class<?>... types) {
 		super(name, image, types);
 	}
 
