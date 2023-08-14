@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2011 IBM Corporation and others.
+ * Copyright (c) 2000, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ import java.util.List;
  * independent of widget creation. DialogFields controls are: Label, List and Composite containing
  * buttons.
  */
-public class ListDialogField extends DialogField {
+public class ListDialogField<T> extends DialogField {
 	public static class ColumnsDescription {
 		private final ColumnLayoutData[] columns;
 		private final String[] headers;
@@ -86,7 +86,7 @@ public class ListDialogField extends DialogField {
 	protected Control fTableControl;
 	protected ILabelProvider fLabelProvider;
 	protected ListViewerAdapter fListViewerAdapter;
-	protected List fElements;
+	protected List<T> fElements;
 	protected ViewerComparator fViewerComparator;
 	protected String[] fButtonLabels;
 	private Button[] fButtonControls;
@@ -97,7 +97,7 @@ public class ListDialogField extends DialogField {
 	private Label fLastSeparator;
 	private Composite fButtonsControl;
 	private ISelection fSelectionWhenEnabled;
-	private final IListAdapter fListAdapter;
+	private final IListAdapter<T> fListAdapter;
 	private final Object fParentElement;
 	private ColumnsDescription fTableColumns;
 
@@ -112,13 +112,13 @@ public class ListDialogField extends DialogField {
 	 * @param lprovider
 	 *          The label provider to render the table entries
 	 */
-	public ListDialogField(IListAdapter adapter, String[] buttonLabels, ILabelProvider lprovider) {
+	public ListDialogField(IListAdapter<T> adapter, String[] buttonLabels, ILabelProvider lprovider) {
 		super();
 		fListAdapter = adapter;
 		fLabelProvider = lprovider;
 		fListViewerAdapter = new ListViewerAdapter();
 		fParentElement = this;
-		fElements = new ArrayList(10);
+		fElements = new ArrayList<>(10);
 		fButtonLabels = buttonLabels;
 		if (fButtonLabels != null) {
 			int nButtons = fButtonLabels.length;
@@ -513,8 +513,8 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Sets the elements shown in the list.
 	 */
-	public void setElements(Collection elements) {
-		fElements = new ArrayList(elements);
+	public void setElements(Collection<T> elements) {
+		fElements = new ArrayList<>(elements);
 		if (isOkToUse(fTableControl)) {
 			fTable.refresh();
 		}
@@ -525,8 +525,8 @@ public class ListDialogField extends DialogField {
 	 * Gets the elements shown in the list. The list returned is a copy, so it can be modified by the
 	 * user.
 	 */
-	public List getElements() {
-		return new ArrayList(fElements);
+	public List<T> getElements() {
+		return new ArrayList<>(fElements);
 	}
 
 	/**
@@ -546,12 +546,12 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Replaces an element.
 	 */
-	public void replaceElement(Object oldElement, Object newElement) throws IllegalArgumentException {
+	public void replaceElement(T oldElement, T newElement) throws IllegalArgumentException {
 		int idx = fElements.indexOf(oldElement);
 		if (idx != -1) {
 			fElements.set(idx, newElement);
 			if (isOkToUse(fTableControl)) {
-				List selected = getSelectedElements();
+				List<T> selected = getSelectedElements();
 				if (selected.remove(oldElement)) {
 					selected.add(newElement);
 				}
@@ -567,7 +567,7 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Notifies clients that the element has changed.
 	 */
-	public void elementChanged(Object element) throws IllegalArgumentException {
+	public void elementChanged(T element) throws IllegalArgumentException {
 		if (fElements.contains(element)) {
 			if (isOkToUse(fTableControl)) {
 				fTable.update(element, null);
@@ -581,14 +581,14 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Adds an element at the end of the list.
 	 */
-	public boolean addElement(Object element) {
+	public boolean addElement(T element) {
 		return addElement(element, fElements.size());
 	}
 
 	/**
 	 * Adds an element at a position.
 	 */
-	public boolean addElement(Object element, int index) {
+	public boolean addElement(T element, int index) {
 		if (fElements.contains(element)) {
 			return false;
 		}
@@ -604,13 +604,13 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Adds elements at the given index
 	 */
-	public boolean addElements(List elements, int index) {
+	public boolean addElements(List<T> elements, int index) {
 		int nElements = elements.size();
 		if (nElements > 0 && index >= 0 && index <= fElements.size()) {
 			// filter duplicated
-			ArrayList elementsToAdd = new ArrayList(nElements);
+			ArrayList<T> elementsToAdd = new ArrayList<>(nElements);
 			for (int i = 0; i < nElements; i++) {
-				Object elem = elements.get(i);
+				T elem = elements.get(i);
 				if (!fElements.contains(elem)) {
 					elementsToAdd.add(elem);
 				}
@@ -637,7 +637,7 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Adds elements at the end of the list.
 	 */
-	public boolean addElements(List elements) {
+	public boolean addElements(List<T> elements) {
 		return addElements(elements, fElements.size());
 	}
 
@@ -657,7 +657,7 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Removes an element from the list.
 	 */
-	public void removeElement(Object element) throws IllegalArgumentException {
+	public void removeElement(T element) throws IllegalArgumentException {
 		if (fElements.remove(element)) {
 			if (isOkToUse(fTableControl)) {
 				fTable.remove(element);
@@ -671,7 +671,7 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Removes elements from the list.
 	 */
-	public void removeElements(List elements) {
+	public void removeElements(List<T> elements) {
 		if (elements.size() > 0) {
 			fElements.removeAll(elements);
 			if (isOkToUse(fTableControl)) {
@@ -713,7 +713,7 @@ public class ListDialogField extends DialogField {
 		}
 	}
 
-	public void editElement(Object element) {
+	public void editElement(T element) {
 		if (isOkToUse(fTableControl)) {
 			fTable.refresh(element);
 			fTable.editElement(element, 0);
@@ -746,12 +746,12 @@ public class ListDialogField extends DialogField {
 	}
 
 	// ------- list maintenance
-	private List moveUp(List elements, List move) {
+	private List<T> moveUp(List<T> elements, List<T> move) {
 		int nElements = elements.size();
-		List res = new ArrayList(nElements);
-		Object floating = null;
+		List<T> res = new ArrayList<>(nElements);
+		T floating = null;
 		for (int i = 0; i < nElements; i++) {
-			Object curr = elements.get(i);
+			T curr = elements.get(i);
 			if (move.contains(curr)) {
 				res.add(curr);
 			} else {
@@ -767,22 +767,22 @@ public class ListDialogField extends DialogField {
 		return res;
 	}
 
-	private void moveUp(List toMoveUp) {
+	private void moveUp(List<T> toMoveUp) {
 		if (toMoveUp.size() > 0) {
 			setElements(moveUp(fElements, toMoveUp));
 			fTable.reveal(toMoveUp.get(0));
 		}
 	}
 
-	private void moveDown(List toMoveDown) {
+	private void moveDown(List<T> toMoveDown) {
 		if (toMoveDown.size() > 0) {
 			setElements(reverse(moveUp(reverse(fElements), toMoveDown)));
 			fTable.reveal(toMoveDown.get(toMoveDown.size() - 1));
 		}
 	}
 
-	private List reverse(List p) {
-		List reverse = new ArrayList(p.size());
+	private List<T> reverse(List<T> p) {
+		List<T> reverse = new ArrayList<>(p.size());
 		for (int i = p.size() - 1; i >= 0; i--) {
 			reverse.add(p.get(i));
 		}
@@ -829,12 +829,13 @@ public class ListDialogField extends DialogField {
 	/**
 	 * Returns the selected elements.
 	 */
-	public List getSelectedElements() {
-		List result = new ArrayList();
+	public List<T> getSelectedElements() {
+		List<T> result = new ArrayList<>();
 		if (isOkToUse(fTableControl)) {
 			ISelection selection = fTable.getSelection();
 			if (selection instanceof IStructuredSelection) {
-				Iterator iter = ((IStructuredSelection) selection).iterator();
+				@SuppressWarnings("unchecked")
+				Iterator<T> iter = ((IStructuredSelection) selection).iterator();
 				while (iter.hasNext()) {
 					result.add(iter.next());
 				}

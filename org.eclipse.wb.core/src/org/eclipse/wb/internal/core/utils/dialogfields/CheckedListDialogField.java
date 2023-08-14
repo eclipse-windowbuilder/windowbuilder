@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2011 IBM Corporation and others.
+ * Copyright (c) 2000, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,18 +31,18 @@ import java.util.List;
  * model is independent of widget creation. DialogFields controls are: Label, List and Composite
  * containing buttons.
  */
-public class CheckedListDialogField extends ListDialogField {
+public class CheckedListDialogField<T> extends ListDialogField<T> {
 	private int fCheckAllButtonIndex;
 	private int fUncheckAllButtonIndex;
-	private List fCheckedElements;
-	private final List fGrayedElements;
+	private List<T> fCheckedElements;
+	private final List<T> fGrayedElements;
 
-	public CheckedListDialogField(IListAdapter adapter,
+	public CheckedListDialogField(IListAdapter<T> adapter,
 			String[] customButtonLabels,
 			ILabelProvider lprovider) {
 		super(adapter, customButtonLabels, lprovider);
-		fCheckedElements = new ArrayList();
-		fGrayedElements = new ArrayList();
+		fCheckedElements = new ArrayList<>();
+		fGrayedElements = new ArrayList<>();
 		fCheckAllButtonIndex = -1;
 		fUncheckAllButtonIndex = -1;
 	}
@@ -127,17 +127,18 @@ public class CheckedListDialogField extends ListDialogField {
 	 *
 	 * @return the list of checked elements
 	 */
-	public List getCheckedElements() {
+	@SuppressWarnings("unchecked")
+	public List<T> getCheckedElements() {
 		if (isOkToUse(fTableControl)) {
 			// workaround for bug 53853
 			Object[] checked = ((CheckboxTableViewer) fTable).getCheckedElements();
-			ArrayList res = new ArrayList(checked.length);
+			ArrayList<T> res = new ArrayList<>(checked.length);
 			for (int i = 0; i < checked.length; i++) {
-				res.add(checked[i]);
+				res.add((T) checked[i]);
 			}
 			return res;
 		}
-		return new ArrayList(fCheckedElements);
+		return new ArrayList<>(fCheckedElements);
 	}
 
 	/**
@@ -156,14 +157,14 @@ public class CheckedListDialogField extends ListDialogField {
 	 *          the element to check
 	 * @return <code>true</code> if the given element is checked
 	 */
-	public boolean isChecked(Object obj) {
+	public boolean isChecked(T obj) {
 		if (isOkToUse(fTableControl)) {
 			return ((CheckboxTableViewer) fTable).getChecked(obj);
 		}
 		return fCheckedElements.contains(obj);
 	}
 
-	public boolean isGrayed(Object obj) {
+	public boolean isGrayed(T obj) {
 		if (isOkToUse(fTableControl)) {
 			return ((CheckboxTableViewer) fTable).getGrayed(obj);
 		}
@@ -176,8 +177,8 @@ public class CheckedListDialogField extends ListDialogField {
 	 * @param list
 	 *          the list of checked elements
 	 */
-	public void setCheckedElements(Collection list) {
-		fCheckedElements = new ArrayList(list);
+	public void setCheckedElements(Collection<T> list) {
+		fCheckedElements = new ArrayList<>(list);
 		if (isOkToUse(fTableControl)) {
 			((CheckboxTableViewer) fTable).setCheckedElements(list.toArray());
 		}
@@ -192,7 +193,7 @@ public class CheckedListDialogField extends ListDialogField {
 	 * @param state
 	 *          the checked state
 	 */
-	public void setChecked(Object object, boolean state) {
+	public void setChecked(T object, boolean state) {
 		setCheckedWithoutUpdate(object, state);
 		checkStateChanged();
 	}
@@ -205,7 +206,7 @@ public class CheckedListDialogField extends ListDialogField {
 	 * @param state
 	 *          the checked state
 	 */
-	public void setCheckedWithoutUpdate(Object object, boolean state) {
+	public void setCheckedWithoutUpdate(T object, boolean state) {
 		if (state) {
 			if (!fCheckedElements.contains(object)) {
 				fCheckedElements.add(object);
@@ -218,7 +219,7 @@ public class CheckedListDialogField extends ListDialogField {
 		}
 	}
 
-	public void setGrayedWithoutUpdate(Object object, boolean state) {
+	public void setGrayedWithoutUpdate(T object, boolean state) {
 		if (state) {
 			if (!fGrayedElements.contains(object)) {
 				fGrayedElements.add(object);
@@ -249,9 +250,10 @@ public class CheckedListDialogField extends ListDialogField {
 		checkStateChanged();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void doCheckStateChanged(CheckStateChangedEvent e) {
 		if (e.getChecked()) {
-			fCheckedElements.add(e.getElement());
+			fCheckedElements.add((T) e.getElement());
 		} else {
 			fCheckedElements.remove(e.getElement());
 		}
@@ -262,7 +264,7 @@ public class CheckedListDialogField extends ListDialogField {
 	 * @see org.eclipse.jdt.internal.ui.wizards.dialogfields.ListDialogField#replaceElement(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public void replaceElement(Object oldElement, Object newElement) throws IllegalArgumentException {
+	public void replaceElement(T oldElement, T newElement) throws IllegalArgumentException {
 		boolean wasChecked = isChecked(oldElement);
 		super.replaceElement(oldElement, newElement);
 		setChecked(newElement, wasChecked);

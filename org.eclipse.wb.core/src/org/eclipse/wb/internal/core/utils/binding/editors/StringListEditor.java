@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ import java.util.List;
  *
  */
 public class StringListEditor implements IDataEditor {
-	private final ListDialogField m_field;
+	private final ListDialogField<String> m_field;
 	private final String m_separator;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ public class StringListEditor implements IDataEditor {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public StringListEditor(ListDialogField field, String separator) {
+	public StringListEditor(ListDialogField<String> field, String separator) {
 		m_field = field;
 		m_separator = separator;
 	}
@@ -61,7 +61,7 @@ public class StringListEditor implements IDataEditor {
 	public void setValue(Object value) {
 		String stringValue = ObjectUtils.toString(value);
 		String[] values = StringUtils.split(stringValue, m_separator);
-		List elements = new ArrayList();
+		List<String> elements = new ArrayList<>();
 		CollectionUtils.addAll(elements, values);
 		m_field.setElements(elements);
 	}

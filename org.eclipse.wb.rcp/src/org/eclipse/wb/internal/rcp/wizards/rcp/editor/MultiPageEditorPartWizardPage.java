@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -100,7 +100,6 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<IType> getSelectedPages() {
 		return m_pagesField.getElements();
 	}
@@ -135,7 +134,7 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
 	// More GUI
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private ListDialogField m_pagesField;
+	private ListDialogField<IType> m_pagesField;
 
 	@Override
 	protected void createLocalControls(Composite parent, int columns) {
@@ -154,9 +153,9 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
 						WizardsMessages.MultiPageEditorPartWizardPage_removeButton,
 						WizardsMessages.MultiPageEditorPartWizardPage_upButton,
 						WizardsMessages.MultiPageEditorPartWizardPage_downButton};
-		IListAdapter adapter = new IListAdapter() {
+		IListAdapter<IType> adapter = new IListAdapter<>() {
 			@Override
-			public void customButtonPressed(ListDialogField field, int index) {
+			public void customButtonPressed(ListDialogField<IType> field, int index) {
 				if (index == 0) {
 					Shell shell = getShell();
 					IType page =
@@ -169,11 +168,11 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
 			}
 
 			@Override
-			public void doubleClicked(ListDialogField field) {
+			public void doubleClicked(ListDialogField<IType> field) {
 			}
 
 			@Override
-			public void selectionChanged(ListDialogField field) {
+			public void selectionChanged(ListDialogField<IType> field) {
 			}
 		};
 		LabelProvider labelProvider = new LabelProvider() {
@@ -182,7 +181,7 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
 				return ((IType) element).getFullyQualifiedName();
 			}
 		};
-		m_pagesField = new ListDialogField(adapter, buttonLabels, labelProvider);
+		m_pagesField = new ListDialogField<>(adapter, buttonLabels, labelProvider);
 		m_pagesField.setLabelText(WizardsMessages.MultiPageEditorPartWizardPage_pagesList);
 		m_pagesField.setTableColumns(new ListDialogField.ColumnsDescription(1, false));
 		m_pagesField.setRemoveButtonIndex(1);
