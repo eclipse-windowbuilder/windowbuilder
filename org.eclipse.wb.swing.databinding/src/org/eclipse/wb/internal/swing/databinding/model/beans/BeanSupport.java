@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.databinding.model.ObserveComparator;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.databinding.Activator;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
@@ -31,7 +32,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.GenericUtils;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.ClassUtils;
 
@@ -55,7 +56,7 @@ import java.util.Map;
  * @coverage bindings.swing.model.beans
  */
 public final class BeanSupport {
-	private final Map<Class<?>, Image> m_classToImage = Maps.newHashMap();
+	private final Map<Class<?>, ImageDescriptor> m_classToImage = Maps.newHashMap();
 	private boolean m_addELProperty = true;
 	private boolean m_addSelfProperty = true;
 
@@ -278,16 +279,16 @@ public final class BeanSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return {@link Image} represented given bean class.
+	 * @return {@link ImageDescriptor} represented given bean class.
 	 */
-	public Image getBeanImage(Class<?> beanClass, JavaInfo javaInfo, boolean useDefault)
+	public ImageDescriptor getBeanImage(Class<?> beanClass, JavaInfo javaInfo, boolean useDefault)
 			throws Exception {
 		// check java info
 		if (javaInfo != null) {
 			return null;
 		}
 		// prepare cached image
-		Image beanImage = m_classToImage.get(beanClass);
+		ImageDescriptor beanImage = m_classToImage.get(beanClass);
 		// check load image
 		if (beanImage == null) {
 			try {
@@ -296,15 +297,15 @@ public final class BeanSupport {
 				java.awt.Image awtBeanIcon = beanInfo.getIcon(BeanInfo.ICON_COLOR_16x16);
 				if (awtBeanIcon == null) {
 					// set default
-					beanImage = useDefault ? Activator.getImage("javabean.gif") : null;
+					beanImage = useDefault ? Activator.getImageDescriptor("javabean.gif") : null;
 				} else {
 					// convert to SWT image
 					// FIXME: memory leak
-					beanImage = SwingImageUtils.convertImage_AWT_to_SWT(awtBeanIcon);
+					beanImage = new ImageImageDescriptor(SwingImageUtils.convertImage_AWT_to_SWT(awtBeanIcon));
 				}
 			} catch (Throwable e) {
 				// set default
-				beanImage = useDefault ? Activator.getImage("javabean.gif") : null;
+				beanImage = useDefault ? Activator.getImageDescriptor("javabean.gif") : null;
 			}
 			m_classToImage.put(beanClass, beanImage);
 		}

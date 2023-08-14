@@ -12,10 +12,8 @@ package org.eclipse.wb.internal.swing.databinding.model.beans;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.presentation.ObservePresentation;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * Presentation for {@link FieldBeanObserveInfo}.
@@ -26,7 +24,7 @@ import org.eclipse.swt.graphics.Image;
 public final class FieldBeanObservePresentation extends ObservePresentation {
 	private final FieldBeanObserveInfo m_observe;
 	private final JavaInfo m_javaInfo;
-	private final Image m_beanImage;
+	private final ImageDescriptor m_beanImage;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -35,7 +33,7 @@ public final class FieldBeanObservePresentation extends ObservePresentation {
 	////////////////////////////////////////////////////////////////////////////
 	public FieldBeanObservePresentation(FieldBeanObserveInfo observe,
 			JavaInfo javaInfo,
-			Image beanImage) {
+			ImageDescriptor beanImage) {
 		m_observe = observe;
 		m_javaInfo = javaInfo;
 		m_beanImage = beanImage;
@@ -51,7 +49,7 @@ public final class FieldBeanObservePresentation extends ObservePresentation {
 		if (m_beanImage == null && m_javaInfo == null) {
 			return null;
 		}
-		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : new ImageImageDescriptor(m_beanImage);
+		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

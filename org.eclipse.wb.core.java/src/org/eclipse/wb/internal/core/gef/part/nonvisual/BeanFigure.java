@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.part.nonvisual;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.draw2d.Label;
 
 import org.eclipse.draw2d.Graphics;
@@ -39,10 +38,6 @@ public class BeanFigure extends Figure {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Deprecated
-	public BeanFigure(Image image) {
-		this(new ImageImageDescriptor(image));
-	}
 
 	public BeanFigure(ImageDescriptor imageDescriptor) {
 		final ImageData imageData = imageDescriptor.getImageData(100);

@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObserve
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
@@ -58,7 +57,7 @@ public class BeanPropertyObserveInfo extends BeanObserveInfo implements IObserve
 				java.util.List.class.isAssignableFrom(getObjectClass())
 				? ObserveCreationType.ListProperty
 						: ObserveCreationType.AnyProperty;
-		ImageDescriptor beenImage = new ImageImageDescriptor(beanSupport.getBeanImage(getObjectClass(), null, false));
+		ImageDescriptor beenImage = beanSupport.getBeanImage(getObjectClass(), null, false);
 		m_presentation =
 				new SimpleObservePresentation(text, text, beenImage == null
 				? TypeImageProvider.getImage(getObjectClass())
