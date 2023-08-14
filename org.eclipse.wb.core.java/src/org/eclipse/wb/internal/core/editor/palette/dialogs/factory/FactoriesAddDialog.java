@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,7 +85,7 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private StringButtonDialogField m_factoryClassField;
-	private CheckedListDialogField m_signaturesField;
+	private CheckedListDialogField<String> m_signaturesField;
 	private ComboDialogField m_categoryField;
 
 	@Override
@@ -115,17 +115,17 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
 		// method signatures
 		{
 			m_signaturesField =
-					new CheckedListDialogField(new IListAdapter() {
+					new CheckedListDialogField<>(new IListAdapter<String>() {
 						@Override
-						public void selectionChanged(ListDialogField field) {
+						public void selectionChanged(ListDialogField<String> field) {
 						}
 
 						@Override
-						public void doubleClicked(ListDialogField field) {
+						public void doubleClicked(ListDialogField<String> field) {
 						}
 
 						@Override
-						public void customButtonPressed(ListDialogField field, int index) {
+						public void customButtonPressed(ListDialogField<String> field, int index) {
 						}
 					}, new String[]{
 							Messages.FactoriesAddDialog_selectAllButton,

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ import java.util.Arrays;
  */
 public final class SwtTextEventsUiContentProvider extends DialogFieldUiContentProvider {
 	private final TextSwtObservableInfo m_observable;
-	private final CheckedListDialogField m_dialogField;
+	private final CheckedListDialogField<String> m_dialogField;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -46,7 +46,7 @@ public final class SwtTextEventsUiContentProvider extends DialogFieldUiContentPr
 	////////////////////////////////////////////////////////////////////////////
 	public SwtTextEventsUiContentProvider(TextSwtObservableInfo observable) {
 		m_observable = observable;
-		m_dialogField = new CheckedListDialogField(null, null, new LabelProvider()) {
+		m_dialogField = new CheckedListDialogField<>(null, null, new LabelProvider()) {
 			@Override
 			public int getNumberOfControls() {
 				return 2;
