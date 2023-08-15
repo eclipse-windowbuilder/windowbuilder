@@ -16,12 +16,14 @@ import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -892,6 +894,16 @@ public class AstNodeUtils {
 	public static String getMethodSignature(MethodInvocation methodInvocation) {
 		Assert.isNotNull(methodInvocation);
 		IMethodBinding methodBinding = getMethodBinding(methodInvocation);
+		if (methodBinding.getParameterTypes().length != methodInvocation.arguments().size()) {
+			// A call to e.g. add(java.awt.Component) gets wrongfully mapped to
+			// add(java.awt.Component, java.lang.Object), leading to errors when
+			// trying to access the second argument. See:
+			// https://github.com/eclipse-windowbuilder/windowbuilder/issues/533
+			DesignerPlugin.log(Status.error(
+					"The argument number of method invocation " + methodInvocation
+					+ " doesn't match the method binding " + methodBinding));
+			return NO_METHOD_BINDING_SIGNATURE;
+		}
 		return getMethodSignature(methodBinding);
 	}
 
