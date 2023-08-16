@@ -22,6 +22,7 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
@@ -92,12 +93,14 @@ public abstract class AbstractPopupFigure extends Figure {
 		graphics.drawRectangle(clientArea.getResized(-1, -1));
 		// draw image
 		{
-			Image image = getImage();
-			if (image != null) {
+			ImageDescriptor imageDescriptor = getImage();
+			if (imageDescriptor != null) {
+				Image image = imageDescriptor.createImage();
 				org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
 				int x = (clientArea.width - imageBounds.width) / 2;
 				int y = (clientArea.height - imageBounds.height) / 2;
 				graphics.drawImage(image, x, y);
+				image.dispose();
 			}
 		}
 	}
@@ -110,7 +113,7 @@ public abstract class AbstractPopupFigure extends Figure {
 	/**
 	 * @return the image to display.
 	 */
-	protected abstract Image getImage();
+	protected abstract ImageDescriptor getImage();
 
 	/**
 	 * Creates the actions on given {@link IMenuManager}.

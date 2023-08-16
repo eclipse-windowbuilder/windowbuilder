@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
@@ -88,7 +88,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 			String[] paths) throws Exception {
 		for (int i = 0; i < alignments.length; i++) {
 			int alignment = alignments[i];
-			Image expectedImage = TableWrapLayoutImages.getImage((horizontal ? "/h/" : "/v/") + paths[i]);
+			ImageDescriptor expectedImage = TableWrapLayoutImages.getImageDescriptor((horizontal ? "/h/" : "/v/") + paths[i]);
 			if (horizontal) {
 				layoutData.setHorizontalAlignment(alignment);
 			} else {

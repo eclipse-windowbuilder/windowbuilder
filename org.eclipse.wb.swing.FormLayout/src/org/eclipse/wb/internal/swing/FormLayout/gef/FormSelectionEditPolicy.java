@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
@@ -118,7 +118,7 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
 		if (horizontal) {
 			return new AbstractPopupFigure(viewer, 9, 5) {
 				@Override
-				protected Image getImage() {
+				protected ImageDescriptor getImage() {
 					return constraints.getSmallAlignmentImage(true);
 				}
 
@@ -130,7 +130,7 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
 		} else {
 			return new AbstractPopupFigure(viewer, 5, 9) {
 				@Override
-				protected Image getImage() {
+				protected ImageDescriptor getImage() {
 					return constraints.getSmallAlignmentImage(false);
 				}
 

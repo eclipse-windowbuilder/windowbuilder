@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,7 +32,6 @@ import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
@@ -51,12 +50,7 @@ ILayoutAssistantPage {
 	private final List<C> m_selection;
 	private final IFormLayoutInfo<C> m_layout;
 	private final PlacementsSupport m_placementsSupport;
-	private final IActionImageProvider m_imageProvider = new IActionImageProvider() {
-		@Override
-		public Image getActionImage(String imagePath) {
-			return FormLayoutInfoImplAutomatic.getImage(imagePath);
-		}
-	};
+	private final IActionImageProvider m_imageProvider = FormLayoutInfoImplAutomatic::getImage;
 
 	////////////////////////////////////////////////////////////////////////////
 	//

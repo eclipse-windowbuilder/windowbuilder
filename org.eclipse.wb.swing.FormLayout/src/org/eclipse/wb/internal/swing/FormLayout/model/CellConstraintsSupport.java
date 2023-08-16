@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -524,28 +525,28 @@ public final class CellConstraintsSupport {
 	/**
 	 * @return the small {@link Image} that represents horizontal/vertical alignment.
 	 */
-	public Image getSmallAlignmentImage(boolean horizontal) {
+	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
 		if (horizontal) {
 			if (alignH == CellConstraints.LEFT) {
-				return Activator.getImage("alignment/h/left.gif");
+				return Activator.getImageDescriptor("alignment/h/left.gif");
 			} else if (alignH == CellConstraints.CENTER) {
-				return Activator.getImage("alignment/h/center.gif");
+				return Activator.getImageDescriptor("alignment/h/center.gif");
 			} else if (alignH == CellConstraints.RIGHT) {
-				return Activator.getImage("alignment/h/right.gif");
+				return Activator.getImageDescriptor("alignment/h/right.gif");
 			} else if (alignH == CellConstraints.FILL) {
-				return Activator.getImage("alignment/h/fill.gif");
+				return Activator.getImageDescriptor("alignment/h/fill.gif");
 			} else {
 				return null;
 			}
 		} else {
 			if (alignV == CellConstraints.TOP) {
-				return Activator.getImage("alignment/v/top.gif");
+				return Activator.getImageDescriptor("alignment/v/top.gif");
 			} else if (alignV == CellConstraints.CENTER) {
-				return Activator.getImage("alignment/v/center.gif");
+				return Activator.getImageDescriptor("alignment/v/center.gif");
 			} else if (alignV == CellConstraints.BOTTOM) {
-				return Activator.getImage("alignment/v/bottom.gif");
+				return Activator.getImageDescriptor("alignment/v/bottom.gif");
 			} else if (alignV == CellConstraints.FILL) {
-				return Activator.getImage("alignment/v/fill.gif");
+				return Activator.getImageDescriptor("alignment/v/fill.gif");
 			} else {
 				return null;
 			}

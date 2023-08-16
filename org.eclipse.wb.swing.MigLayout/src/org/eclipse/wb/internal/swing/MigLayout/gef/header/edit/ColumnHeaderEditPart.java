@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,9 +97,10 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 				}
 				// draw alignment indicator
 				if (titleLeft - r.x > 3 + 7 + 3) {
-					Image image = m_column.getAlignment(true).getSmallImage();
+					Image image = m_column.getAlignment(true).getSmallImage().createImage();
 					int x = r.x + 2;
 					drawCentered(graphics, image, x);
+					image.dispose();
 				}
 				// draw grow indicator
 				if (m_column.hasGrow()) {

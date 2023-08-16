@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,8 +38,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -363,7 +363,7 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 		}
 
 		@Override
-		protected Image getImage() {
+		protected ImageDescriptor getImage() {
 			boolean isLeftAttached = isAttached(m_widget, IPositionConstants.LEFT);
 			boolean isRightAttached = isAttached(m_widget, IPositionConstants.RIGHT);
 			if (isLeftAttached && isRightAttached) {
@@ -392,7 +392,7 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 		}
 
 		@Override
-		protected Image getImage() {
+		protected ImageDescriptor getImage() {
 			boolean isTopAttached = isAttached(m_widget, IPositionConstants.TOP);
 			boolean isBottomAttached = isAttached(m_widget, IPositionConstants.BOTTOM);
 			if (isTopAttached && isBottomAttached) {
