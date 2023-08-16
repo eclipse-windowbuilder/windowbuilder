@@ -77,6 +77,7 @@ public final class DimensionResizeComposite extends Composite {
 				GridDataFactory.create(m_defaultWeightButton).spanH(2);
 				m_defaultWeightButton.setText(defaultWeightLabel);
 				m_defaultWeightButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						m_weightSpinner.setEnabled(false);
 						m_weightSpinner.setSelection(defaultWeight);
@@ -89,6 +90,7 @@ public final class DimensionResizeComposite extends Composite {
 				m_customWeightButton = new Button(weightComposite, SWT.RADIO);
 				m_customWeightButton.setText(customWeightLabel);
 				m_customWeightButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						m_weightSpinner.setEnabled(true);
 						m_weightSpinner.setSelection(customWeight);
@@ -100,6 +102,7 @@ public final class DimensionResizeComposite extends Composite {
 				GridDataFactory.create(m_weightSpinner).hintHC(10).grabH().fill();
 				m_weightSpinner.setRange(0, Integer.MAX_VALUE);
 				m_weightSpinner.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						toDimension();
 					}
@@ -117,6 +120,7 @@ public final class DimensionResizeComposite extends Composite {
 				GridDataFactory.create(m_defaultPriorityButton).spanH(2);
 				m_defaultPriorityButton.setText(ModelMessages.DimensionResizeComposite_defaultPriority);
 				m_defaultPriorityButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						m_prioritySpinner.setEnabled(false);
 						m_prioritySpinner.setSelection(100);
@@ -129,6 +133,7 @@ public final class DimensionResizeComposite extends Composite {
 				m_customPriorityButton = new Button(priorityComposite, SWT.RADIO);
 				m_customPriorityButton.setText(ModelMessages.DimensionResizeComposite_customPriority);
 				m_customPriorityButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						m_prioritySpinner.setEnabled(true);
 						m_prioritySpinner.setSelection(100);
@@ -140,6 +145,7 @@ public final class DimensionResizeComposite extends Composite {
 				GridDataFactory.create(m_prioritySpinner).hintHC(10).grabH().fill();
 				m_prioritySpinner.setRange(0, Integer.MAX_VALUE);
 				m_prioritySpinner.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						toDimension();
 					}

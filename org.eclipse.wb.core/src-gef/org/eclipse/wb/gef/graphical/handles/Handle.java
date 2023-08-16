@@ -86,6 +86,7 @@ public abstract class Handle extends Figure implements AncestorListener {
 	// Revalidate
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void revalidate() {
 		getLocator().relocate(this);
 	}

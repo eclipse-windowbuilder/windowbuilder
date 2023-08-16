@@ -91,6 +91,7 @@ public abstract class AbstractBorderComposite extends Composite {
 	 */
 	private void bindField(AbstractBorderField field) {
 		field.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				m_borderDialog.borderUpdated();
 			}

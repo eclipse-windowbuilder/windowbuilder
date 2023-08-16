@@ -82,6 +82,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 	private void addBroadcasts() {
 		// ensure LayoutData after parsing
 		addBroadcastListener(new ObjectInfoTreeComplete() {
+			@Override
 			public void invoke() throws Exception {
 				if (isActive()) {
 					ensureLayoutDatas();
@@ -89,6 +90,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 			}
 		});
 		addBroadcastListener(new ObjectInfoChildAddAfter() {
+			@Override
 			public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
 				if (getContext().isParsing()) {
 					return;
@@ -168,6 +170,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 
 	private void contributeLayoutProperty_toComposite() {
 		addBroadcastListener(new XmlObjectAddProperties() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
 				if (isActiveOnComposite(object)) {
 					addLayoutProperty(properties);
@@ -273,6 +276,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 		return null;
 	}
 
+	@Override
 	public ILayoutDataInfo getLayoutData2(IControlInfo control) {
 		return getLayoutData((ControlInfo) control);
 	}
@@ -391,6 +395,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 	/**
 	 * @return the {@link CompositeInfo} that contains this {@link LayoutInfo}.
 	 */
+	@Override
 	public final CompositeInfo getComposite() {
 		return (CompositeInfo) getParent();
 	}
@@ -400,6 +405,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 	 *         For example implicit {@link LayoutInfo}'s replaced by "real" {@link LayoutInfo} are
 	 *         inactive.
 	 */
+	@Override
 	public final boolean isActive() {
 		CompositeInfo composite = getComposite();
 		return isActiveOnComposite(composite);
@@ -412,6 +418,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 		return composite != null && composite.getChildren().contains(this);
 	}
 
+	@Override
 	public boolean isManagedObject(Object object) {
 		if (object instanceof ControlInfo
 				&& isActive()
@@ -435,6 +442,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 	/**
 	 * @return the {@link ControlInfo} that are managed by this {@link LayoutInfo}.
 	 */
+	@Override
 	public final List<ControlInfo> getControls() {
 		List<ControlInfo> controls = Lists.newArrayList();
 		for (ControlInfo control : getComposite().getChildrenControls()) {
@@ -528,6 +536,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 	////////////////////////////////////////////////////////////////////////////
 	private void contributeToClipboardCopy() {
 		addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				if (isActiveOnComposite(object)) {
 					clipboardCopy_addCompositeCommands(commands);

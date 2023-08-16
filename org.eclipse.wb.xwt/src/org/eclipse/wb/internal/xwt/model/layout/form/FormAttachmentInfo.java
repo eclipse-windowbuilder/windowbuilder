@@ -80,6 +80,7 @@ IFormAttachmentInfo<ControlInfo> {
 	protected void initialize() throws Exception {
 		super.initialize();
 		addBroadcastListener(new GenericPropertySetExpression() {
+			@Override
 			public void invoke(GenericPropertyImpl property,
 					String[] source,
 					Object[] value,
@@ -108,6 +109,7 @@ IFormAttachmentInfo<ControlInfo> {
 	// Side
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public FormSide getSide() {
 		return m_side;
 	}
@@ -200,38 +202,47 @@ IFormAttachmentInfo<ControlInfo> {
 		getPropertyByTitle(PROPERTY_TITLE_CONTROL).setValue(Property.UNKNOWN_VALUE);
 	}
 
+	@Override
 	public final void setNumerator(int numerator) {
 		m_numerator = numerator;
 	}
 
+	@Override
 	public final int getNumerator() {
 		return m_numerator;
 	}
 
+	@Override
 	public final void setDenominator(int denominator) {
 		m_denominator = denominator;
 	}
 
+	@Override
 	public final int getDenominator() {
 		return m_denominator;
 	}
 
+	@Override
 	public final void setOffset(int offset) {
 		m_offset = offset;
 	}
 
+	@Override
 	public final int getOffset() {
 		return m_offset;
 	}
 
+	@Override
 	public final void setControl(ControlInfo control) {
 		m_control = control;
 	}
 
+	@Override
 	public final ControlInfo getControl() {
 		return m_control;
 	}
 
+	@Override
 	public final void setAlignment(int alignment) {
 		if (alignment == 0 || alignment == SWT.DEFAULT) {
 			alignment = m_side.getOppositeSide().getFormSide();
@@ -242,22 +253,27 @@ IFormAttachmentInfo<ControlInfo> {
 		m_alignment = alignment;
 	}
 
+	@Override
 	public final int getAlignment() {
 		return m_alignment;
 	}
 
+	@Override
 	public boolean isVirtual() {
 		return getCreationSupport() instanceof VirtualFormAttachmentCreationSupport;
 	}
 
+	@Override
 	public boolean isParentTrailing() {
 		return !isVirtual() && getControl() == null && getDenominator() == getNumerator();
 	}
 
+	@Override
 	public boolean isParentLeading() {
 		return !isVirtual() && getControl() == null && getNumerator() == 0 && getDenominator() == 100;
 	}
 
+	@Override
 	public boolean isPercentaged() {
 		return getNumerator() > 0 && getNumerator() < 100;
 	}
@@ -267,6 +283,7 @@ IFormAttachmentInfo<ControlInfo> {
 	// Code generation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void write() throws Exception {
 		ControlInfo control = getControl();
 		DocumentElement element = getElement();
@@ -332,6 +349,7 @@ IFormAttachmentInfo<ControlInfo> {
 			return result[0] += "(none)";
 		}
 		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				ControlInfo control = getControl();
 				int offset = getOffset();

@@ -80,6 +80,7 @@ public class ComponentObserveInfo extends ObserveInfo {
 	// ObserveType
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public final ObserveType getType() {
 		return ObserveType.WIDGETS;
 	}
@@ -128,18 +129,22 @@ public class ComponentObserveInfo extends ObserveInfo {
 				m_children,
 				javaInfos,
 				new ISynchronizeProcessor<JavaInfo, ComponentObserveInfo>() {
+					@Override
 					public boolean handleObject(ComponentObserveInfo object) {
 						return true;
 					}
 
+					@Override
 					public JavaInfo getKeyObject(ComponentObserveInfo component) {
 						return component.m_javaInfo;
 					}
 
+					@Override
 					public boolean equals(JavaInfo key0, JavaInfo key1) {
 						return key0 == key1;
 					}
 
+					@Override
 					public ComponentObserveInfo findObject(Map<JavaInfo, ComponentObserveInfo> javaInfoToComponent,
 							JavaInfo javaInfo) throws Exception {
 						VariableSupport variableSupport = javaInfo.getVariableSupport();
@@ -153,10 +158,12 @@ public class ComponentObserveInfo extends ObserveInfo {
 						return null;
 					}
 
+					@Override
 					public ComponentObserveInfo createObject(JavaInfo javaInfo) throws Exception {
 						return new ComponentObserveInfo(m_beanSupport, ComponentObserveInfo.this, javaInfo);
 					}
 
+					@Override
 					public void update(ComponentObserveInfo component) throws Exception {
 						component.update();
 					}
@@ -187,10 +194,12 @@ public class ComponentObserveInfo extends ObserveInfo {
 	// Hierarchy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public final IObserveInfo getParent() {
 		return m_parent;
 	}
 
+	@Override
 	public final List<IObserveInfo> getChildren(ChildrenContext context) {
 		if (context == ChildrenContext.ChildrenForMasterTable) {
 			if (m_children == null) {
@@ -268,6 +277,7 @@ public class ComponentObserveInfo extends ObserveInfo {
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}

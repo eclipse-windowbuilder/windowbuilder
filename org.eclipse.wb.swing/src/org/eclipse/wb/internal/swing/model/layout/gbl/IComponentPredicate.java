@@ -34,6 +34,7 @@ public interface IComponentPredicate {
 	 * Implementation of {@link IComponentPredicate} that accepts all {@link ComponentInfo}'s.
 	 */
 	IComponentPredicate TRUE = new IComponentPredicate() {
+		@Override
 		public boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 				throws Exception {
 			return true;

@@ -89,6 +89,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	 */
 	private void useAccessorsForPropertyValues() {
 		addBroadcastListener(new GenericPropertyGetValue() {
+			@Override
 			public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
 				if (property.getObject() == GridDataInfo.this) {
 					String title = property.getTitle();
@@ -108,6 +109,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	 */
 	private void validateSpanPropertyValues() {
 		addBroadcastListener(new GenericPropertySetValue() {
+			@Override
 			public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
 					throws Exception {
 				if (m_internalLocationChange) {
@@ -258,18 +260,22 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	// Location
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public int getX() {
 		return x;
 	}
 
+	@Override
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	@Override
 	public int getY() {
 		return y;
 	}
 
+	@Override
 	public void setY(int y) {
 		this.y = y;
 	}
@@ -279,6 +285,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	// Span
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setHorizontalSpan(int width) throws Exception {
 		if (this.width != width) {
 			this.width = width;
@@ -291,6 +298,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 		}
 	}
 
+	@Override
 	public void setVerticalSpan(int height) throws Exception {
 		if (this.height != height) {
 			this.height = height;
@@ -308,19 +316,23 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	// Grab
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public boolean getHorizontalGrab() {
 		return horizontalGrab;
 	}
 
+	@Override
 	public void setHorizontalGrab(boolean grab) throws Exception {
 		horizontalGrab = grab;
 		getPropertyByTitle("grabExcessHorizontalSpace").setValue(grab ? Boolean.TRUE : Boolean.FALSE);
 	}
 
+	@Override
 	public boolean getVerticalGrab() {
 		return verticalGrab;
 	}
 
+	@Override
 	public void setVerticalGrab(boolean grab) throws Exception {
 		verticalGrab = grab;
 		getPropertyByTitle("grabExcessVerticalSpace").setValue(grab ? Boolean.TRUE : Boolean.FALSE);
@@ -331,10 +343,12 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	// Alignment
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public int getHorizontalAlignment() {
 		return horizontalAlignment;
 	}
 
+	@Override
 	public void setHorizontalAlignment(int alignment) throws Exception {
 		alignment = getModernHorizontalAlignment(alignment);
 		if (horizontalAlignment != alignment) {
@@ -347,10 +361,12 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 		}
 	}
 
+	@Override
 	public int getVerticalAlignment() {
 		return verticalAlignment;
 	}
 
+	@Override
 	public void setVerticalAlignment(int alignment) throws Exception {
 		alignment = getModernVerticalAlignment(alignment);
 		if (verticalAlignment != alignment) {
@@ -423,6 +439,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	/**
 	 * Sets the value of <code>widthHint</code> property.
 	 */
+	@Override
 	public void setWidthHint(int widthHint) throws Exception {
 		if (this.widthHint != widthHint) {
 			this.widthHint = widthHint;
@@ -433,6 +450,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	/**
 	 * Sets the value of <code>heightHint</code> property.
 	 */
+	@Override
 	public void setHeightHint(int heightHint) throws Exception {
 		if (this.heightHint != heightHint) {
 			this.heightHint = heightHint;
@@ -522,6 +540,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 		}
 	}
 
+	@Override
 	public void fillHorizontalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(this, "&Left", "left.gif", true, SWT.LEFT));
 		manager.add(new SetAlignmentAction(this, "&Center", "center.gif", true, SWT.CENTER));
@@ -529,6 +548,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 		manager.add(new SetAlignmentAction(this, "&Fill", "fill.gif", true, SWT.FILL));
 	}
 
+	@Override
 	public void fillVerticalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(this, "&Top", "top.gif", false, SWT.TOP));
 		manager.add(new SetAlignmentAction(this, "&Center", "center.gif", false, SWT.CENTER));

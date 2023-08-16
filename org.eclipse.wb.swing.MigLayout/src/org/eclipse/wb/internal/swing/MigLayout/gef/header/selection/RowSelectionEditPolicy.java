@@ -101,6 +101,7 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<M
 	private void setAlignment(final MigRowInfo.Alignment alignment) {
 		final MigLayoutInfo layout = getLayout();
 		ExecutionUtils.run(layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				getDimension().setAlignment(alignment);
 				layout.writeDimensions();

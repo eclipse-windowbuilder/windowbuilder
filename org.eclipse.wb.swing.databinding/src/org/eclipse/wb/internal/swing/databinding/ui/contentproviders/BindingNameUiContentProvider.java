@@ -52,10 +52,12 @@ public class BindingNameUiContentProvider extends DialogFieldUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		m_dialogField.setText(m_binding.getName());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		m_binding.setName(m_dialogField.getText());
 	}

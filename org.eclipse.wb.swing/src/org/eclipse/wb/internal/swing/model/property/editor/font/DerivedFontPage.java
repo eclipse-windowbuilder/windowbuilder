@@ -61,6 +61,7 @@ public final class DerivedFontPage extends AbstractFontPage {
 		GridLayoutFactory.create(this);
 		// update listener
 		Listener listener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				updateFont();
 			}

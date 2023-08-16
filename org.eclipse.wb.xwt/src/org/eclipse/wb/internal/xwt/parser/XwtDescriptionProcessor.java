@@ -52,6 +52,7 @@ public class XwtDescriptionProcessor implements IDescriptionProcessor {
 	// IDescriptionProcessor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(EditorContext context, ComponentDescription componentDescription)
 			throws Exception {
 		if (isXWT(context)) {

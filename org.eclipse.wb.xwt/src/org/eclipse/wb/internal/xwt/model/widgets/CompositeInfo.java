@@ -175,10 +175,12 @@ public class CompositeInfo extends ScrollableInfo implements ICompositeInfo {
 	/**
 	 * @return the {@link ControlInfo} children.
 	 */
+	@Override
 	public final List<ControlInfo> getChildrenControls() {
 		return getChildren(ControlInfo.class);
 	}
 
+	@Override
 	public Insets getClientAreaInsets2() {
 		return m_clientAreaInsets2;
 	}
@@ -263,6 +265,7 @@ public class CompositeInfo extends ScrollableInfo implements ICompositeInfo {
 	 */
 	private void createExplicitAbsoluteLayout() {
 		addBroadcastListener(new ObjectInfoTreeComplete() {
+			@Override
 			public void invoke() throws Exception {
 				if (getCreationSupport() instanceof ElementCreationSupport
 						&& getComposite().getLayout() == null
@@ -279,6 +282,7 @@ public class CompositeInfo extends ScrollableInfo implements ICompositeInfo {
 	 */
 	public void setLayout(final LayoutInfo newLayout) throws Exception {
 		ExecutionUtils.run(this, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				setLayoutEx(newLayout);
 			}
@@ -333,6 +337,7 @@ public class CompositeInfo extends ScrollableInfo implements ICompositeInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private void contributeToClipboardCopy() {
 		addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				if (object == CompositeInfo.this) {
 					clipboardCopy_addCommands(commands);

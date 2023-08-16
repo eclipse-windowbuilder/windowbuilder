@@ -179,11 +179,13 @@ IPreferenceConstants {
 				m_lafTree.setContentProvider(new LAFItemsContentProvider());
 				m_lafTree.setLabelProvider(new LAFItemsLabelProvider());
 				m_lafTree.addSelectionChangedListener(new ISelectionChangedListener() {
+					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
 						handleLAFSelectionChanged();
 					}
 				});
 				m_lafTree.addDoubleClickListener(new IDoubleClickListener() {
+					@Override
 					public void doubleClick(DoubleClickEvent event) {
 						handleSetDefaultLAF();
 					}
@@ -191,6 +193,7 @@ IPreferenceConstants {
 				m_lafTree.setInput(new Object[0]);
 				refreshViewer();
 				m_lafTree.addCheckStateListener(new ICheckStateListener() {
+					@Override
 					public void checkStateChanged(CheckStateChangedEvent event) {
 						handleChangeVisibility(event);
 					}
@@ -210,6 +213,7 @@ IPreferenceConstants {
 		}
 		// return back LAF
 		container.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				// cancel preview updating
 				cancelPreviewUpdate();
@@ -229,11 +233,13 @@ IPreferenceConstants {
 		GridLayoutFactory.create(buttonsComposite).noMargins();
 		//
 		createButton(buttonsComposite, Messages.LafPreferencePage_addButton, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				handleAddUserDefinedLAF();
 			}
 		});
 		createButton(buttonsComposite, Messages.LafPreferencePage_addCategoryButton, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				handleAddCategory();
 			}
@@ -242,6 +248,7 @@ IPreferenceConstants {
 		createButtonSeparator(buttonsComposite);
 		m_setDefaultButton =
 				createButton(buttonsComposite, Messages.LafPreferencePage_setDefaultButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						handleSetDefaultLAF();
 					}
@@ -249,12 +256,14 @@ IPreferenceConstants {
 		createButtonSeparator(buttonsComposite);
 		m_editButton =
 				createButton(buttonsComposite, Messages.LafPreferencePage_editButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						handleEdit();
 					}
 				});
 		m_deleteButton =
 				createButton(buttonsComposite, Messages.LafPreferencePage_removeButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						handleDelete();
 					}
@@ -263,12 +272,14 @@ IPreferenceConstants {
 		createButtonSeparator(buttonsComposite);
 		m_moveUpButton =
 				createButton(buttonsComposite, Messages.LafPreferencePage_upButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						handleMove(-1);
 					}
 				});
 		m_moveDownButton =
 				createButton(buttonsComposite, Messages.LafPreferencePage_downButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						handleMove(+2);
 					}
@@ -276,11 +287,13 @@ IPreferenceConstants {
 		//
 		createButtonSeparator(buttonsComposite);
 		createButton(buttonsComposite, Messages.LafPreferencePage_collapseAllButton, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				m_lafTree.collapseAll();
 			}
 		});
 		createButton(buttonsComposite, Messages.LafPreferencePage_expandAllButton, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				m_lafTree.expandAll();
 			}
@@ -313,6 +326,7 @@ IPreferenceConstants {
 	//	IWorkbenchPreferencePage
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 
@@ -462,6 +476,7 @@ IPreferenceConstants {
 					Messages.LafPreferencePage_deleteWarningMessage);
 			// filter out default LAF
 			selection = (List<Object>) CollectionUtils.select(selection, new Predicate() {
+				@Override
 				public boolean evaluate(Object object) {
 					return object != m_defaultLAF;
 				}
@@ -614,6 +629,7 @@ IPreferenceConstants {
 	 */
 	private void restoreLookAndFeel() {
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				UIManager.put("ClassLoader", m_currentLookAndFeel.getClass().getClassLoader());
 				UIManager.setLookAndFeel(m_currentLookAndFeel);
@@ -630,6 +646,7 @@ IPreferenceConstants {
 			@Override
 			public void run() {
 				DesignerPlugin.getStandardDisplay().syncExec(new Runnable() {
+					@Override
 					public void run() {
 						updatePreview0();
 					}
@@ -649,6 +666,7 @@ IPreferenceConstants {
 		m_updatingPreview = true;
 		try {
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					try {
 						m_previewGroup.getParent().setRedraw(false);
@@ -825,6 +843,7 @@ IPreferenceConstants {
 	private void configureDND() {
 		Transfer[] transfers = new Transfer[]{LookAndFeelTransfer.INSTANCE};
 		m_lafTree.addDragSupport(DND.DROP_MOVE, transfers, new DragSourceListener() {
+			@Override
 			public void dragStart(DragSourceEvent event) {
 				m_dragEntries = getSelectedEntries();
 				m_dragCategory = m_dragEntries.get(0) instanceof CategoryInfo;
@@ -836,9 +855,11 @@ IPreferenceConstants {
 				}
 			}
 
+			@Override
 			public void dragSetData(DragSourceEvent event) {
 			}
 
+			@Override
 			public void dragFinished(DragSourceEvent event) {
 			}
 		});
@@ -1033,6 +1054,7 @@ IPreferenceConstants {
 	 * @author mitin_aa
 	 */
 	private static class LAFItemsContentProvider implements ITreeContentProvider {
+		@Override
 		@SuppressWarnings("unchecked")
 		public Object[] getElements(Object inputElement) {
 			List<Object> resultList = Lists.newArrayList();
@@ -1045,6 +1067,7 @@ IPreferenceConstants {
 			}
 			// filter out SeparatorLAFInfo
 			resultList = (List<Object>) CollectionUtils.select(resultList, new Predicate() {
+				@Override
 				public boolean evaluate(Object object) {
 					return !(object instanceof SeparatorLafInfo);
 				}
@@ -1052,6 +1075,7 @@ IPreferenceConstants {
 			return resultList.toArray(new Object[resultList.size()]);
 		}
 
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof CategoryInfo) {
 				CategoryInfo category = (CategoryInfo) parentElement;
@@ -1062,6 +1086,7 @@ IPreferenceConstants {
 			return ArrayUtils.EMPTY_OBJECT_ARRAY;
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			if (element instanceof LafInfo) {
 				return ((LafInfo) element).getCategory();
@@ -1069,13 +1094,16 @@ IPreferenceConstants {
 			return null;
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			return getChildren(element).length != 0;
 		}
 
+		@Override
 		public void dispose() {
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 	}

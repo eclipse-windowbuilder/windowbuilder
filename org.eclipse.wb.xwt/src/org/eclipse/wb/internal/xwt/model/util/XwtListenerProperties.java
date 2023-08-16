@@ -38,6 +38,7 @@ public final class XwtListenerProperties {
 	////////////////////////////////////////////////////////////////////////////
 	public XwtListenerProperties(XmlObjectInfo rootObject) {
 		rootObject.addBroadcastListener(new XmlObjectEventListeners() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<AbstractListenerProperty> properties)
 					throws Exception {
 				addListeners(object, properties);

@@ -155,6 +155,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	// Bindings
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void configureBindingViewer(IDialogSettings settings, TableViewer viewer) {
 		// prepare table
 		Table table = viewer.getTable();
@@ -179,10 +180,12 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		viewer.setLabelProvider(new BindingLabelProvider());
 	}
 
+	@Override
 	public List<IBindingInfo> getBindings() {
 		return CoreUtils.cast(m_rootInfo.getBindings());
 	}
 
+	@Override
 	public String getBindingPresentationText(IBindingInfo ibinding) throws Exception {
 		BindingInfo binding = (BindingInfo) ibinding;
 		return "Binding["
@@ -192,6 +195,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		+ "]";
 	}
 
+	@Override
 	public void gotoDefinition(IBindingInfo ibinding) {
 		try {
 			// calculate variable
@@ -216,14 +220,17 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	// Types
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public List<ObserveType> getTypes() {
 		return m_types;
 	}
 
+	@Override
 	public ObserveType getTargetStartType() {
 		return m_targetStartType;
 	}
 
+	@Override
 	public ObserveType getModelStartType() {
 		return m_modelStartType;
 	}
@@ -233,10 +240,12 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	// Observes
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IBaseLabelProvider createPropertiesViewerLabelProvider(TreeViewer viewer) {
 		return new ObserveDecoratingLabelProvider(viewer);
 	}
 
+	@Override
 	public List<PropertyFilter> getObservePropertyFilters() {
 		if (m_filters == null) {
 			m_filters = Lists.newArrayList();
@@ -282,11 +291,13 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		return m_filters;
 	}
 
+	@Override
 	public List<IObserveInfo> getObserves(ObserveType type) {
 		ObserveTypeContainer container = m_typeToContainer.get(type);
 		return container == null ? Collections.<IObserveInfo>emptyList() : container.getObservables();
 	}
 
+	@Override
 	public void synchronizeObserves() throws Exception {
 		// prepare editor
 		AstEditor editor = m_javaInfoRoot.getEditor();
@@ -303,6 +314,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		}
 	}
 
+	@Override
 	public void fillExternalBindingActions(ToolBar toolBar, Menu contextMenu) {
 	}
 
@@ -311,6 +323,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	// Editing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
 			throws Exception {
 		List<IUiContentProvider> providers = Lists.newArrayList();
@@ -319,6 +332,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		return providers;
 	}
 
+	@Override
 	public boolean validate(IObserveInfo target,
 			IObserveInfo targetProperty,
 			IObserveInfo model,
@@ -384,6 +398,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 				|| creationType == ObserveCreationType.JTableBinding || creationType == ObserveCreationType.JComboBoxBinding);
 	}
 
+	@Override
 	public IBindingInfo createBinding(IObserveInfo target,
 			IObserveInfo targetProperty,
 			IObserveInfo model,
@@ -517,11 +532,13 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		return astProperty;
 	}
 
+	@Override
 	public void addBinding(final IBindingInfo ibinding) {
 		// add
 		getBindings().add(ibinding);
 		// post process
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				BindingInfo binding = (BindingInfo) ibinding;
 				binding.create(m_rootInfo.getBindings());
@@ -531,9 +548,11 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		saveEdit();
 	}
 
+	@Override
 	public void editBinding(final IBindingInfo ibinding) {
 		// edit
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				BindingInfo binding = (BindingInfo) ibinding;
 				binding.edit(m_rootInfo.getBindings());
@@ -543,9 +562,11 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		saveEdit();
 	}
 
+	@Override
 	public void deleteBinding(final IBindingInfo ibinding) {
 		// delete
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				BindingInfo binding = (BindingInfo) ibinding;
 				if (binding.delete(m_rootInfo.getBindings())) {
@@ -558,9 +579,11 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		saveEdit();
 	}
 
+	@Override
 	public void deleteAllBindings() {
 		// delete all
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				for (BindingInfo binding : m_rootInfo.getBindings()) {
 					binding.postDelete();
@@ -572,12 +595,14 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		saveEdit();
 	}
 
+	@Override
 	public void deleteBindings(JavaInfo javaInfo) throws Exception {
 		if (m_javaInfoDeleteManager != null) {
 			m_javaInfoDeleteManager.deleteJavaInfo(javaInfo);
 		}
 	}
 
+	@Override
 	public boolean canMoveBinding(IBindingInfo binding, int targetIndex, boolean upDown) {
 		// don't move detail binding
 		if (binding instanceof DetailBindingInfo) {
@@ -595,6 +620,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		return true;
 	}
 
+	@Override
 	public void moveBinding(IBindingInfo binding, int sourceIndex, int targetIndex, boolean upDown) {
 		// configure target index
 		if (upDown) {
@@ -666,16 +692,20 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		return targetIndex;
 	}
 
+	@Override
 	public void setBindingPage(Object bindingPage) {
 		m_bindingPage = (BindingDesignPage) bindingPage;
 	}
 
+	@Override
 	public void refreshDesigner() {
 	}
 
+	@Override
 	public void saveEdit() {
 		final boolean[] reparse = new boolean[1];
 		ExecutionUtils.run(m_javaInfoRoot, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				try {
 					m_rootInfo.preCommit();
@@ -692,6 +722,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		// check synchronize
 		if (!reparse[0]) {
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					synchronizeObserves();
 				}

@@ -120,6 +120,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 	// This listener helps ensure that Swing popup menus are properly dismissed when
 	// a menu item off the SWT main menu bar is shown.
 	private final Listener menuListener = new Listener() {
+		@Override
 		public void handleEvent(Event event) {
 			assert awtHandler != null;
 			awtHandler.postHidePopups();
@@ -163,6 +164,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 		setLayout(new FillLayout());
 		// set listeners
 		addListener(SWT.Dispose, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				dispose_AWT();
 			}
@@ -207,6 +209,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 		try {
 			final java.awt.Dimension prefSize[] = new java.awt.Dimension[1];
 			SwingImageUtils.runInDispatchThread(new Runnable() {
+				@Override
 				public void run() {
 					prefSize[0] = awtContext.swingComponent.getPreferredSize();
 				}
@@ -330,6 +333,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 			// thread even if it was not done here, but it uses invokeAndWait() which is
 			// prone to deadlock (and not necessary for this case).
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					oldFrame.dispose();
 				}
@@ -365,6 +369,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 		// especially necessary to avoid an AWT leak bug (6411042).
 		final AwtContext currentContext = awtContext;
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				RootPaneContainer container = addRootPaneContainer(currentContext.getFrame());
 				JComponent swingComponent = createSwingComponent();

@@ -62,6 +62,7 @@ public final class ElPropertyObserveInfo extends ObserveInfo implements IObserve
 	// ObserveType
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ObserveType getType() {
 		return null;
 	}
@@ -84,10 +85,12 @@ public final class ElPropertyObserveInfo extends ObserveInfo implements IObserve
 	// Hierarchy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObserveInfo getParent() {
 		return m_parent;
 	}
 
+	@Override
 	public List<IObserveInfo> getChildren(ChildrenContext context) {
 		return Collections.emptyList();
 	}
@@ -97,10 +100,12 @@ public final class ElPropertyObserveInfo extends ObserveInfo implements IObserve
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}
 
+	@Override
 	public IObserveDecorator getDecorator() {
 		return IObserveDecorator.BOLD;
 	}

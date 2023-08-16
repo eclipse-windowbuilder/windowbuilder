@@ -181,6 +181,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 					m_keyStrokeText = new Text(area, SWT.BORDER | SWT.READ_ONLY);
 					GridDataFactory.create(m_keyStrokeText).grabH().fillH();
 					m_keyStrokeText.addListener(SWT.KeyDown, new Listener() {
+						@Override
 						public void handleEvent(Event event) {
 							int unmodifiedAccelerator = SWTKeySupport.convertEventToUnmodifiedAccelerator(event);
 							int keyCode = unmodifiedAccelerator & 0xFFFF;
@@ -237,6 +238,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 					}
 					// add listener
 					m_keyCodeList.addListener(SWT.Selection, new Listener() {
+						@Override
 						public void handleEvent(Event event) {
 							int modifiers = m_keyStroke.getModifiers();
 							boolean onKeyRelease = m_keyStroke.isOnKeyRelease();
@@ -267,6 +269,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 			m_modifierToButton.put(modifier, button);
 			// add listener
 			button.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					int modifiers = m_keyStroke.getModifiers();
 					int keyCode = m_keyStroke.getKeyCode();

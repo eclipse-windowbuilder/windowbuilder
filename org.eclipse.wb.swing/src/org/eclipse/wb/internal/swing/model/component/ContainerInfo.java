@@ -115,6 +115,7 @@ public class ContainerInfo extends ComponentInfo {
 	protected void initialize() throws Exception {
 		super.initialize();
 		addBroadcastListener(new ObjectInfoTreeComplete() {
+			@Override
 			public void invoke() throws Exception {
 				initialize_createAbsoluteLayout();
 			}
@@ -476,6 +477,7 @@ public class ContainerInfo extends ComponentInfo {
 				}
 				// we are in process of refresh(), set inherited layout later
 				ExecutionUtils.runLater(this, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						setLayout(thisLayout);
 					}
@@ -496,6 +498,7 @@ public class ContainerInfo extends ComponentInfo {
 						new ConstructorCreationSupport());
 				// we are in process of refresh(), set inherited layout later
 				ExecutionUtils.runLater(this, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						setLayout(thisLayout);
 					}

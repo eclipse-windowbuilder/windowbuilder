@@ -114,6 +114,7 @@ public final class CellEditDialog extends ResizableDialog {
 	 */
 	private void commitChanges() {
 		ExecutionUtils.run(m_layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				m_cell.write();
 			}
@@ -125,6 +126,7 @@ public final class CellEditDialog extends ResizableDialog {
 	 */
 	private void rollbackChanges() {
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				m_cell.setString(m_cellString);
 			}
@@ -150,6 +152,7 @@ public final class CellEditDialog extends ResizableDialog {
 				m_specificationComposite = new CellSpecificationComposite(composite);
 				GridDataFactory.create(m_specificationComposite).spanH(3).indentHC(3).hintHC(30);
 				m_specificationComposite.addListener(SWT.Modify, new Listener() {
+					@Override
 					public void handleEvent(Event e) {
 						updateButtons(e.doit);
 						showCell();

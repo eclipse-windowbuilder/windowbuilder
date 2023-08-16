@@ -60,6 +60,7 @@ public final class XwtEditorContext extends EditorContext {
 			throws Exception {
 		super.addParentClassLoaders(parentClassLoader);
 		AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
+			@Override
 			public Object run() throws Exception {
 				addParentClassLoaders_impl(parentClassLoader);
 				return null;
@@ -82,6 +83,7 @@ public final class XwtEditorContext extends EditorContext {
 	}
 
 	private final ILiveEditorContext m_liveEditorContext = new ILiveEditorContext() {
+		@Override
 		public XmlObjectInfo parse(String[] sourceLines) throws Exception {
 			XmlObjectInfo root;
 			{
@@ -94,6 +96,7 @@ public final class XwtEditorContext extends EditorContext {
 			return root;
 		}
 
+		@Override
 		public void dispose() throws Exception {
 		}
 	};

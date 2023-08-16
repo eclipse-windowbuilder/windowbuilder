@@ -91,10 +91,12 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 	// Complete
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setCompleteListener(ICompleteListener listener) {
 		this.listener = listener;
 	}
 
+	@Override
 	public String getErrorMessage() {
 		return errorMessage;
 	}
@@ -114,10 +116,12 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 	// GUI
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public int getNumberOfControls() {
 		return 2;
 	}
 
+	@Override
 	public void createContent(Composite parent, int columns) {
 		// create properties title
 		propertiesLabel = new Label(parent, SWT.NONE);
@@ -131,6 +135,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 		treeViewer.setContentProvider(new PropertyAdapterContentProvider());
 		treeViewer.setLabelProvider(new PropertyAdapterLabelProvider(treeViewer));
 		treeViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				if (event.getChecked()) {
 					treeViewer.setCheckedElements(new Object[]{event.getElement()});
@@ -144,6 +149,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 		configuration.setTitle(Messages.ColumnBindingUiContentProvider_elExpression);
 		elPropertyUIContentProvider = new ElPropertyUiContentProvider(configuration, null);
 		elPropertyUIContentProvider.setCompleteListener(new ICompleteListener() {
+			@Override
 			public void calculateFinish() {
 				ColumnBindingUiContentProvider.this.calculateFinish();
 			}
@@ -151,6 +157,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 		elPropertyUIContentProvider.createContent(parent, columns);
 		//
 		treeViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				handleELProperty();
 			}
@@ -214,6 +221,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		IGenericType objectType = binding.getJTableBinding().getInputElementType();
 		setObjectType(objectType);
@@ -226,6 +234,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 		calculateFinish();
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		if (elProperty) {
 			elPropertyUIContentProvider.saveToObject();
@@ -426,25 +435,31 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 		}
 	}
 	private static class PropertyAdapterContentProvider implements ITreeContentProvider {
+		@Override
 		public Object[] getElements(Object input) {
 			return ((List<?>) input).toArray();
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			return getAdapter(element).getParent();
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			return !getAdapter(element).getChildren().isEmpty();
 		}
 
+		@Override
 		public Object[] getChildren(Object element) {
 			return getAdapter(element).getChildren().toArray();
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+		@Override
 		public void dispose() {
 		}
 	}
@@ -496,14 +511,17 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 		// Decoration
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Color getForeground(Object element) {
 			return m_labelProvider.getForeground(getAdapterProperty(element));
 		}
 
+		@Override
 		public Color getBackground(Object element) {
 			return m_labelProvider.getBackground(getAdapterProperty(element));
 		}
 
+		@Override
 		public Font getFont(Object element) {
 			return m_labelProvider.getFont(getAdapterProperty(element));
 		}
@@ -525,6 +543,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 			super(beanSupport, parent, objectType, referenceProvider);
 		}
 
+		@Override
 		public IObservePresentation getPresentation() {
 			return null;
 		}

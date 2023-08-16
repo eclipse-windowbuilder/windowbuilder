@@ -77,6 +77,7 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		List<IUiContentProvider> providers = Lists.newArrayList();
 		for (ColumnBindingInfo binding : m_binding.getColumns()) {

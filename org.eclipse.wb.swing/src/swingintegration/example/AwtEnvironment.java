@@ -116,6 +116,7 @@ public final class AwtEnvironment {
 		 */
 		try {
 			EventQueue.invokeAndWait(new Runnable() {
+				@Override
 				public void run() {
 					setSystemLookAndFeel();
 				}
@@ -172,12 +173,14 @@ public final class AwtEnvironment {
 		}
 		// Switch to the AWT thread...
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					// do swing work...
 					runnable.run();
 				} finally {
 					display.asyncExec(new Runnable() {
+						@Override
 						public void run() {
 							// Unblock SWT
 							SwtInputBlocker.unblock();

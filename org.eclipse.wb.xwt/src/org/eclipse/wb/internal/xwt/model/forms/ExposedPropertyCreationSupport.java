@@ -59,6 +59,7 @@ IImplicitCreationSupport {
 		}
 		// get object
 		host.addBroadcastListener(new XmlObjectSetObjectAfter() {
+			@Override
 			public void invoke(XmlObjectInfo target, Object o) throws Exception {
 				if (target == m_host) {
 					Object object = m_method.invoke(o);
@@ -111,6 +112,7 @@ IImplicitCreationSupport {
 	public DocumentElement getElement() {
 		if (m_element == null) {
 			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					DocumentElement viewerElement = m_host.getCreationSupport().getElement();
 					// create "control" element

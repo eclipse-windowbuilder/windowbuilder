@@ -77,6 +77,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 								stream,
 								SwingDatabindingProvider.class.getClassLoader(),
 								new IImageLoader() {
+									@Override
 									public Image getImage(String name) {
 										return Activator.getImage(name);
 									}
@@ -104,10 +105,12 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 	// SuperClass
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String[] getSuperClasses() {
 		return new String[]{"javax.swing.JPanel", "javax.swing.JDialog", "javax.swing.JFrame"};
 	}
 
+	@Override
 	public String getInitialSuperClass() {
 		return "javax.swing.JPanel";
 	}
@@ -117,6 +120,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 	// GUI
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void configure(ChooseClassAndPropertiesConfiguration configuration) {
 		configuration.setPropertiesLabelProvider(new ObservePropertyAdapterLabelProvider());
 		configuration.setValueScope("beans");
@@ -145,10 +149,12 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 	// Finish
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public InputStream getTemplateFile(String superClassName) {
 		return Activator.getFile("templates/" + ClassUtils.getShortClassName(superClassName) + ".jvt");
 	}
 
+	@Override
 	public String performSubstitutions(String code, ImportsManager imports) throws Exception {
 		// calculate states
 		boolean blockMode = useBlockMode();
@@ -194,6 +200,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 		// prepare properties
 		final List<PropertyAdapter> properties = Lists.newArrayList();
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
 				CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
 			}

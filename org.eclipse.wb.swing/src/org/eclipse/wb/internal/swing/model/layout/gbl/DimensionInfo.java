@@ -144,8 +144,10 @@ public abstract class DimensionInfo {
 	 */
 	protected final void visit(final IComponentVisitor visitor) {
 		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				m_layout.visitComponents(visitor, new IComponentPredicate() {
+					@Override
 					public boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 							throws Exception {
 						return isDimensionComponent(constraints);

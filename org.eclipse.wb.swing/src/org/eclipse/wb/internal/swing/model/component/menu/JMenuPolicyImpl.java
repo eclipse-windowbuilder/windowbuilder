@@ -60,13 +60,16 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 	// Validation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public boolean validateCreate(Object newObject) {
 		return isValidObjectType(newObject);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public boolean validatePaste(final Object mementoObject) {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
 			public Boolean runObject() throws Exception {
 				List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) mementoObject;
 				for (JavaInfoMemento memento : mementos) {
@@ -80,6 +83,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 		}, false);
 	}
 
+	@Override
 	public boolean validateMove(Object object) {
 		if (isValidObjectType(object)) {
 			ComponentInfo component = (ComponentInfo) object;
@@ -94,6 +98,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 	// Operations
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void commandCreate(Object newObject, Object nextObject) throws Exception {
 		// prepare ComponentInfo to add and its Association
 		ComponentInfo newComponent;
@@ -141,6 +146,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 		MenuUtils.setSelectingItem(newComponent);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<?> commandPaste(Object mementoObject, final Object nextObject) throws Exception {
 		List<ComponentInfo> pastedObjects = Lists.newArrayList();
@@ -154,6 +160,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 		return pastedObjects;
 	}
 
+	@Override
 	public void commandMove(Object object, Object nextObject) throws Exception {
 		ComponentInfo component = (ComponentInfo) object;
 		ComponentInfo nextComponent = (ComponentInfo) nextObject;

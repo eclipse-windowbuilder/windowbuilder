@@ -33,6 +33,7 @@ public final class LafRootProcessor implements IRootProcessor {
 	// IRootProcessor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
 		if (root instanceof ComponentInfo) {
 			final ComponentInfo rootComponent = (ComponentInfo) root;
@@ -82,6 +83,7 @@ public final class LafRootProcessor implements IRootProcessor {
 						}
 					});
 					rootComponent.addBroadcastListener(new EditorActivatedListener() {
+						@Override
 						public void invoke(EditorActivatedRequest request) throws Exception {
 							if (lafItem != null) {
 								lafItem.update();

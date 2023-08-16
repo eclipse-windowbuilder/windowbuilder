@@ -77,6 +77,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 	private void addClipboardSupport() {
 		addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				if (object == m_this) {
 					for (MenuItemInfo item : getItems()) {
@@ -220,6 +221,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	private final IMenuPopupInfo m_popupImpl = new MenuPopupImpl();
 	private final IMenuInfo m_menuImpl = new MenuImpl();
 
+	@Override
 	public <T> T getAdapter(Class<T> adapter) {
 		if (adapter.isAssignableFrom(IMenuInfo.class)) {
 			return adapter.cast(m_menuImpl);
@@ -261,6 +263,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return m_this;
 		}
@@ -270,10 +273,12 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			ImageData imageData = getImageDescriptor().getImageData(100);
 			return new Rectangle(0, 0, imageData.width, imageData.height);
@@ -284,6 +289,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// IMenuPopupInfo
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuInfo getMenu() {
 			return m_menuImpl;
 		}
@@ -293,6 +299,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return IMenuPolicy.NOOP;
 		}
@@ -313,6 +320,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return isPopup() ? this : m_this;
 		}
@@ -322,10 +330,12 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return Optional.ofNullable(m_this.getImage()).map(ImageDescriptor::createFromImage).orElse(null);
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return m_this.getBounds();
 		}
@@ -335,10 +345,12 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Access
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public boolean isHorizontal() {
 			return isBar();
 		}
 
+		@Override
 		public List<IMenuItemInfo> getItems() {
 			List<IMenuItemInfo> items = Lists.newArrayList();
 			for (MenuItemInfo item : m_this.getItems()) {
@@ -352,6 +364,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return this;
 		}
@@ -361,13 +374,16 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Validation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public boolean validateCreate(Object newObject) {
 			return newObject instanceof MenuItemInfo;
 		}
 
+		@Override
 		@SuppressWarnings("unchecked")
 		public boolean validatePaste(final Object mementoObject) {
 			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+				@Override
 				public Boolean runObject() throws Exception {
 					List<XmlObjectMemento> mementos = (List<XmlObjectMemento>) mementoObject;
 					for (XmlObjectMemento memento : mementos) {
@@ -381,6 +397,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 			}, false);
 		}
 
+		@Override
 		public boolean validateMove(Object object) {
 			if (object instanceof MenuItemInfo) {
 				MenuItemInfo item = (MenuItemInfo) object;
@@ -395,6 +412,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		// Operations
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public void commandCreate(Object newObject, Object nextObject) throws Exception {
 			MenuItemInfo newItem = (MenuItemInfo) newObject;
 			MenuItemInfo nextItem = (MenuItemInfo) nextObject;
@@ -403,6 +421,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 			MenuObjectInfoUtils.setSelectingObject(newItem);
 		}
 
+		@Override
 		@SuppressWarnings("unchecked")
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
 			List<MenuItemInfo> pastedObjects = Lists.newArrayList();
@@ -416,6 +435,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 			return pastedObjects;
 		}
 
+		@Override
 		public void commandMove(Object object, Object nextObject) throws Exception {
 			MenuItemInfo item = (MenuItemInfo) object;
 			MenuItemInfo nextItem = (MenuItemInfo) nextObject;

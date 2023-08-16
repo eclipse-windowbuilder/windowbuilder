@@ -107,6 +107,7 @@ public class MenuPopupDropLayoutEditPolicy extends LayoutEditPolicy {
 				request,
 				JPopupMenuInfo.class,
 				new IPasteProcessor<JPopupMenuInfo>() {
+					@Override
 					public void process(JPopupMenuInfo popup) throws Exception {
 						popup.command_CREATE(m_component);
 					}
@@ -138,12 +139,15 @@ public class MenuPopupDropLayoutEditPolicy extends LayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
+		@Override
 		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
 			return request.getNewObject() instanceof JPopupMenuInfo;
 		}
 
+		@Override
 		public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
 			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+				@Override
 				public Boolean runObject() throws Exception {
 					// check that memento contains JPopupMenu_Info
 					@SuppressWarnings("unchecked")
@@ -161,11 +165,13 @@ public class MenuPopupDropLayoutEditPolicy extends LayoutEditPolicy {
 			}, false);
 		}
 
+		@Override
 		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
 			return request.getEditParts().size() == 1
 					&& request.getEditParts().get(0).getModel() instanceof JPopupMenuInfo;
 		}
 
+		@Override
 		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
 			if (request.getEditParts().size() == 1) {
 				Object object = request.getEditParts().get(0).getModel();

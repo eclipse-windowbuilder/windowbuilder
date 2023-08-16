@@ -59,6 +59,7 @@ public class ScrollableInfo extends ControlInfo implements IScrollableInfo {
 	/**
 	 * @return the {@link Rectangle}, same as {@link Scrollable#getClientArea()}.
 	 */
+	@Override
 	public final Rectangle getClientArea() {
 		return m_clientArea;
 	}

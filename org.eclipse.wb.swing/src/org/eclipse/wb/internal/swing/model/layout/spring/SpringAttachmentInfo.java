@@ -539,6 +539,7 @@ public final class SpringAttachmentInfo {
 			return "<none>";
 		} else {
 			return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
+				@Override
 				public String runObject() throws Exception {
 					return "("
 							+ getOffset()

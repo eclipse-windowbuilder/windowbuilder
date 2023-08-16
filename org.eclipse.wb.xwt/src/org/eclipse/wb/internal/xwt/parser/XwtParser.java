@@ -93,6 +93,7 @@ public final class XwtParser {
 	////////////////////////////////////////////////////////////////////////////
 	public XmlObjectInfo parse() throws Exception {
 		return ExecutionUtils.runDesignTime(new RunnableObjectEx<XmlObjectInfo>() {
+			@Override
 			public XmlObjectInfo runObject() throws Exception {
 				return parse0();
 			}
@@ -105,6 +106,7 @@ public final class XwtParser {
 		fillMap_pathToElement();
 		// notifications from model
 		m_context.getBroadcastSupport().addListener(null, new XwtParserBindToElement() {
+			@Override
 			public void invoke(XmlObjectInfo object, DocumentElement element) {
 				String path = getPath(element);
 				m_pathToModelMap.put(path, object);
@@ -114,6 +116,7 @@ public final class XwtParser {
 		Core profile = new Core(new IElementLoaderFactory() {
 			private int m_level;
 
+			@Override
 			public IVisualElementLoader createElementLoader(IRenderingContext context, IXWTLoader loader) {
 				return new ResourceLoader(context, loader) {
 					@Override
@@ -122,6 +125,7 @@ public final class XwtParser {
 							return;
 						}
 						ExecutionUtils.runRethrow(new RunnableEx() {
+							@Override
 							public void run() throws Exception {
 								postCreationEx(element, targetObject);
 							}

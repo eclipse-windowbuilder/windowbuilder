@@ -108,10 +108,12 @@ public class ColumnBindingInfo extends BindingInfo implements IEditableProvider 
 		return m_columnType == null ? ClassGenericType.OBJECT_CLASS : m_columnType;
 	}
 
+	@Override
 	public boolean isEditable() {
 		return m_editable;
 	}
 
+	@Override
 	public void setEditable(boolean editable) {
 		m_editable = editable;
 	}
@@ -351,6 +353,7 @@ public class ColumnBindingInfo extends BindingInfo implements IEditableProvider 
 	// IASTObjectInfo2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setVariableIdentifier(JavaInfo javaInfoRoot, String variable, boolean field) {
 		boolean useGenerics = CoreUtils.useGenerics(javaInfoRoot.getEditor().getJavaProject());
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(useGenerics);

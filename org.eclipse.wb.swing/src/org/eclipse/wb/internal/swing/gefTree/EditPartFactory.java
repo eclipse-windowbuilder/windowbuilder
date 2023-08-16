@@ -29,6 +29,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	// IEditPartFactory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
 		// components
 		if (model instanceof ContainerInfo) {

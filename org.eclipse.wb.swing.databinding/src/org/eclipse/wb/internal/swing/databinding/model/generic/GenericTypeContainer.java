@@ -49,10 +49,12 @@ public final class GenericTypeContainer implements IGenericType {
 	// IGenericType
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public Class<?> getRawType() {
 		return m_rawType;
 	}
 
+	@Override
 	public String getFullTypeName() {
 		if (m_fullName == null) {
 			// prepare class name
@@ -86,14 +88,17 @@ public final class GenericTypeContainer implements IGenericType {
 		return m_fullName;
 	}
 
+	@Override
 	public String getSimpleTypeName() {
 		return m_simpleName;
 	}
 
+	@Override
 	public List<IGenericType> getSubTypes() {
 		return m_subTypes;
 	}
 
+	@Override
 	public IGenericType getSubType(int index) {
 		if (index >= m_subTypes.size()) {
 			return ClassGenericType.OBJECT_CLASS;
@@ -101,6 +106,7 @@ public final class GenericTypeContainer implements IGenericType {
 		return m_subTypes.get(index);
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return m_subTypes.isEmpty();
 	}

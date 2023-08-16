@@ -40,6 +40,7 @@ public final class TableColumnInfo extends ItemInfo implements ITableColumnInfo 
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setWidth(int width) throws Exception {
 		getPropertyByTitle("width").setValue(width);
 	}

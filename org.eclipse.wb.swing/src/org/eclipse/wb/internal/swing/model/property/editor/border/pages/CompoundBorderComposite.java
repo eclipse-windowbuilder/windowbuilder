@@ -59,8 +59,10 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 			GridDataFactory.create(swapButton).grabH().alignHR().hintHC(10);
 			swapButton.setText(ModelMessages.CompoundBorderComposite_swap);
 			swapButton.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event e) {
 					ExecutionUtils.runLog(new RunnableEx() {
+						@Override
 						public void run() throws Exception {
 							Border outsideBorder = m_outsideField.getBorder();
 							m_outsideField.setBorder(m_insideField.getBorder());

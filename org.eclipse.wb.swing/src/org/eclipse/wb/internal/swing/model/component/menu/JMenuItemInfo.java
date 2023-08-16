@@ -50,6 +50,7 @@ public class JMenuItemInfo extends ContainerInfo implements IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 	private final IMenuItemInfo m_itemImpl = new MenuItemImpl();
 
+	@Override
 	public <T> T getAdapter(Class<T> adapter) {
 		if (adapter.isAssignableFrom(IMenuItemInfo.class)) {
 			return adapter.cast(m_itemImpl);
@@ -98,6 +99,7 @@ public class JMenuItemInfo extends ContainerInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return JMenuItemInfo.this;
 		}
@@ -107,10 +109,12 @@ public class JMenuItemInfo extends ContainerInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return null;
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return JMenuItemInfo.this.getBounds();
 		}
@@ -120,6 +124,7 @@ public class JMenuItemInfo extends ContainerInfo implements IAdaptable {
 		// IMenuItemInfo
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuInfo getMenu() {
 			return null;
 		}
@@ -129,6 +134,7 @@ public class JMenuItemInfo extends ContainerInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return IMenuPolicy.NOOP;
 		}

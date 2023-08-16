@@ -85,6 +85,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 			final Class<?> propertyType = property.getType();
 			// providers
 			ISelectionStatusValidator validator = new ISelectionStatusValidator() {
+				@Override
 				public IStatus validate(Object[] selection) {
 					if (selection.length == 1) {
 						if (isValidComponent(propertyType, selection[0])) {
@@ -127,6 +128,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 	private ITreeContentProvider createContentProvider(final Class<?> propertyType) {
 		final ITreeContentProvider[] contentProvider = new ITreeContentProvider[1];
 		contentProvider[0] = new ObjectsTreeContentProvider(new Predicate<ObjectInfo>() {
+			@Override
 			public boolean apply(ObjectInfo t) {
 				return isValidComponent(propertyType, t) || hasValidComponents(t);
 			}
@@ -153,6 +155,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 	public void setComponent(final GenericProperty property, final XmlObjectInfo component)
 			throws Exception {
 		ExecutionUtils.run(property.getObject(), new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				setComponent0(property, component);
 			}

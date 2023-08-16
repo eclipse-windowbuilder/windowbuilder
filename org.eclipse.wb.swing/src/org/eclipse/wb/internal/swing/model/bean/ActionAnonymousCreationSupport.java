@@ -98,6 +98,7 @@ public final class ActionAnonymousCreationSupport extends ActionAbstractCreation
 	// IActionSupport
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ConstructorDescription getConstructorDescription() {
 		IMethodBinding binding = AstNodeUtils.getCreationBinding(m_creation);
 		return m_typeDescription.getConstructor(binding);

@@ -159,6 +159,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 	private final IMenuInfo m_menuImpl = new MenuImpl();
 	private final IMenuPolicy m_menuPolicyImpl = new JMenuPolicyImpl(this);
 
+	@Override
 	public <T> T getAdapter(Class<T> adapter) {
 		if (adapter.isAssignableFrom(IMenuPopupInfo.class)) {
 			return adapter.cast(m_popupImpl);
@@ -227,6 +228,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return JPopupMenuInfo.this;
 		}
@@ -236,10 +238,12 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			ImageData imageData = getImageDescriptor().getImageData(100);
 			return new Rectangle(0, 0, imageData.width, imageData.height);
@@ -250,6 +254,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// IMenuPopupInfo
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuInfo getMenu() {
 			return m_menuImpl;
 		}
@@ -259,6 +264,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return IMenuPolicy.NOOP;
 		}
@@ -279,6 +285,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return this;
 		}
@@ -288,6 +295,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			if (m_visualData == null || m_visualData.m_menuImage == null) {
 				return null;
@@ -295,6 +303,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 			return ImageDescriptor.createFromImage(m_visualData.m_menuImage);
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return m_visualData.m_menuBounds;
 		}
@@ -304,10 +313,12 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Access
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public boolean isHorizontal() {
 			return false;
 		}
 
+		@Override
 		public List<IMenuItemInfo> getItems() {
 			return MenuUtils.getItems(JPopupMenuInfo.this);
 		}
@@ -317,6 +328,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return m_menuPolicyImpl;
 		}

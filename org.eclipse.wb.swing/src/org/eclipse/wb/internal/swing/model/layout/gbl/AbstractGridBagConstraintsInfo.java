@@ -106,6 +106,7 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
 	 */
 	private void whenSetLocation_expandGrid() {
 		addBroadcastListener(new GenericPropertySetValue() {
+			@Override
 			public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
 					throws Exception {
 				if (!m_internalLocationChange

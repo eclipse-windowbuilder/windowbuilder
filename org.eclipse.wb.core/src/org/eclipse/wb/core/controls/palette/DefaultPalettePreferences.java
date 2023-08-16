@@ -40,6 +40,7 @@ public final class DefaultPalettePreferences implements IPalettePreferences {
 		return 1;
 	}
 
+	@Override
 	public int getLayoutType() {
 		return 0;
 	}

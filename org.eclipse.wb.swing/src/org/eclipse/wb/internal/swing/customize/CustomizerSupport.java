@@ -36,6 +36,7 @@ public final class CustomizerSupport implements IJavaInfoInitializationParticipa
 	// IJavaInfoInitializationParticipator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(final JavaInfo javaInfo) throws Exception {
 		final Class<Customizer> customizerClass = getCustomizerClass(javaInfo);
 		if (customizerClass != null) {

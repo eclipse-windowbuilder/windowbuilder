@@ -69,6 +69,7 @@ IClipboardSourceProvider {
 	// IClipboardSourceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getClipboardSource(GenericProperty property) throws Exception {
 		return property.getExpression();
 	}

@@ -46,6 +46,7 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 	// IJavaInfoInitializationParticipator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(final JavaInfo javaInfo) throws Exception {
 		if (javaInfo.getDescription().getToolkit() == ToolkitProvider.DESCRIPTION) {
 			javaInfo.addBroadcastListener(new ObjectEventListener() {
@@ -104,6 +105,7 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
 		RunnableEx runnable = new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				for (ObjectInfo object : objects) {
 					ComponentInfo button = (ComponentInfo) object;
@@ -130,6 +132,7 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
 		RunnableEx runnable = new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				ActionInfo action = ActionInfo.createInner(root.getEditor());
 				for (ObjectInfo object : objects) {
@@ -161,6 +164,7 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			ImageDescriptor image = actionInfo.getPresentation().getIcon();
 			// add action
 			RunnableEx runnable = new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					for (ObjectInfo object : objects) {
 						ComponentInfo button = (ComponentInfo) object;

@@ -40,6 +40,7 @@ public final class XwtStyleClassResolver implements IStyleClassResolver {
 	// IStyleClassResolver
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String resolve(Property property, String className) {
 		if (className.equals("org.eclipse.swt.SWT")) {
 			return "";

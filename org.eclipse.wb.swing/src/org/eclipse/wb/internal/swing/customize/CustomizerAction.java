@@ -70,8 +70,10 @@ class CustomizerAction extends Action {
 	////////////////////////////////////////////////////////////////////////////
 	private void performCustomize() {
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				ExecutionUtils.runDesignTime(new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						performCustomize0();
 					}
@@ -88,6 +90,7 @@ class CustomizerAction extends Action {
 		PropertyChangeListener propertyChangeListener = null;
 		if (explicit) {
 			propertyChangeListener = new PropertyChangeListener() {
+				@Override
 				public void propertyChange(PropertyChangeEvent event) {
 					javaInfoState.changedProperties.add(event.getPropertyName());
 					javaInfoState.changedPropertyValues.put(event.getPropertyName(), event.getNewValue());
@@ -113,6 +116,7 @@ class CustomizerAction extends Action {
 				if (explicit) {
 					// update changed properties
 					runnable = new RunnableEx() {
+						@Override
 						public void run() throws Exception {
 							int size = javaInfoState.properties.size();
 							for (int i = 0; i < size; i++) {
@@ -130,6 +134,7 @@ class CustomizerAction extends Action {
 				} else {
 					// update all properties
 					runnable = new RunnableEx() {
+						@Override
 						public void run() throws Exception {
 							int size = javaInfoState.properties.size();
 							for (int i = 0; i < size; i++) {
@@ -148,6 +153,7 @@ class CustomizerAction extends Action {
 			// rollback property changes
 			if (dialogResult == Window.CANCEL) {
 				ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						int size = javaInfoState.properties.size();
 						for (int i = 0; i < size; i++) {

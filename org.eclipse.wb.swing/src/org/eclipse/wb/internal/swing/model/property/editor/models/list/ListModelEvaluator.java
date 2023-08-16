@@ -44,6 +44,7 @@ public final class ListModelEvaluator implements IExpressionEvaluator {
 	// IExpressionEvaluator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public Object evaluate(EvaluationContext context,
 			Expression expression,
 			ITypeBinding typeBinding,
@@ -68,10 +69,12 @@ public final class ListModelEvaluator implements IExpressionEvaluator {
 								return new AbstractListModel() {
 									private static final long serialVersionUID = 0L;
 
+									@Override
 									public int getSize() {
 										return values.length;
 									}
 
+									@Override
 									public Object getElementAt(int index) {
 										return values[index];
 									}

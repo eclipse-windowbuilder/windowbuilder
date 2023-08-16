@@ -63,6 +63,7 @@ abstract class StrutDirectEditPolicy extends DirectTextEditPolicy {
 		}
 		// set source
 		ExecutionUtils.run(m_strut, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				BoxSupport.setStrutSize(m_strut, source);
 			}

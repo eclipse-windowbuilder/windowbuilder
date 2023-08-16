@@ -59,6 +59,7 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 		}
 		// selection listener
 		m_bordersList.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event e) {
 				m_borderDialog.borderUpdated();
 			}
@@ -82,6 +83,7 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 						m_bordersList.select(i);
 						// when setBorder() invoked, our page may not have size yet, so wait for finishing
 						DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
+							@Override
 							public void run() {
 								m_bordersList.showSelection();
 							}

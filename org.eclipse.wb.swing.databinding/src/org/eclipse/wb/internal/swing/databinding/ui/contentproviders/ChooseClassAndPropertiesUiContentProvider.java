@@ -94,6 +94,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 			configuration.setTitle(Messages.ChooseClassAndPropertiesUiContentProvider_title);
 			m_elPropertyUIContentProvider = new ElPropertyUiContentProvider(configuration, null);
 			m_elPropertyUIContentProvider.setCompleteListener(new ICompleteListener() {
+				@Override
 				public void calculateFinish() {
 					calculateSubFinish();
 				}
@@ -101,6 +102,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 			m_elPropertyUIContentProvider.createContent(parent, columns);
 			//
 			m_treeViewer.addCheckStateListener(new ICheckStateListener() {
+				@Override
 				public void checkStateChanged(CheckStateChangedEvent event) {
 					handleELProperty();
 				}
@@ -383,25 +385,31 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 		}
 	}
 	private static class PropertyAdapterContentProvider implements ITreeContentProvider {
+		@Override
 		public Object[] getElements(Object input) {
 			return ((List<?>) input).toArray();
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			return getAdapter(element).getParent();
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			return !getAdapter(element).getChildren().isEmpty();
 		}
 
+		@Override
 		public Object[] getChildren(Object element) {
 			return getAdapter(element).getChildren().toArray();
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+		@Override
 		public void dispose() {
 		}
 	}
@@ -453,14 +461,17 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 		// Decoration
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Color getForeground(Object element) {
 			return m_labelProvider.getForeground(getAdapterProperty(element));
 		}
 
+		@Override
 		public Color getBackground(Object element) {
 			return m_labelProvider.getBackground(getAdapterProperty(element));
 		}
 
+		@Override
 		public Font getFont(Object element) {
 			return m_labelProvider.getFont(getAdapterProperty(element));
 		}
@@ -482,6 +493,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 			super(beanSupport, parent, objectType, referenceProvider);
 		}
 
+		@Override
 		public IObservePresentation getPresentation() {
 			return null;
 		}

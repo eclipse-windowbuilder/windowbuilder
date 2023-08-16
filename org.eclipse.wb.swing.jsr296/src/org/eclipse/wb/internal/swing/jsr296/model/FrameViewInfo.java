@@ -58,6 +58,7 @@ public class FrameViewInfo extends AbstractComponentInfo implements IThisMethodP
 	// IThisMethodParameterEvaluator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public Object evaluateParameter(EvaluationContext context,
 			MethodDeclaration methodDeclaration,
 			String methodSignature,
@@ -153,6 +154,7 @@ public class FrameViewInfo extends AbstractComponentInfo implements IThisMethodP
 	@Override
 	protected void refresh_fetch() throws Exception {
 		ComponentInfo.refresh_fetch(this, m_frame, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				FrameViewInfo.super.refresh_fetch();
 			}

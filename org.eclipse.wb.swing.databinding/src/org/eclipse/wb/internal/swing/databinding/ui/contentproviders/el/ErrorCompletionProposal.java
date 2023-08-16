@@ -41,25 +41,31 @@ public final class ErrorCompletionProposal implements ICompletionProposal {
 	// ICompletionProposal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void apply(IDocument document) {
 	}
 
+	@Override
 	public String getDisplayString() {
 		return m_message;
 	}
 
+	@Override
 	public Image getImage() {
 		return Activator.getImage("errors.gif");
 	}
 
+	@Override
 	public Point getSelection(IDocument document) {
 		return null;
 	}
 
+	@Override
 	public String getAdditionalProposalInfo() {
 		return null;
 	}
 
+	@Override
 	public IContextInformation getContextInformation() {
 		return null;
 	}

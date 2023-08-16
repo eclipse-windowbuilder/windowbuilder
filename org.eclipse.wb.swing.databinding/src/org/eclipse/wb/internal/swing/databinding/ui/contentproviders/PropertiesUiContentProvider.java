@@ -53,10 +53,12 @@ public class PropertiesUiContentProvider extends DialogFieldUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		m_dialogField.selectItem(m_property.getPath());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		m_property.setPath(m_dialogField.getText());
 	}

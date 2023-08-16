@@ -329,6 +329,7 @@ public final class LafSupport {
 	public static void applySelectedLAF(final LafInfo lafInfo) {
 		try {
 			SwingUtils.runLaterAndWait(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					LookAndFeel lookAndFeelInstance = lafInfo.getLookAndFeelInstance();
 					UIManager.put("ClassLoader", lookAndFeelInstance.getClass().getClassLoader());

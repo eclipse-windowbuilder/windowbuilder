@@ -107,10 +107,12 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 		return Lists.newArrayList(components);
 	}
 
+	@Override
 	public int getBaseline(IAbstractComponentInfo component) {
 		return BaselineSupportHelper.getBaseline(((ComponentInfo) component).getComponent());
 	}
 
+	@Override
 	public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
 		ComponentInfo componentInfo = (ComponentInfo) component;
 		return componentInfo.getPreferredSize();
@@ -151,6 +153,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 		}
 	}
 
+	@Override
 	public Dimension getContainerSize() {
 		// TODO: insets?
 		return m_layout.getContainer().getModelBounds().getSize();

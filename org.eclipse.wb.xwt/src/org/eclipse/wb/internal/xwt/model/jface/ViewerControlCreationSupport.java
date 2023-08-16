@@ -49,6 +49,7 @@ IImplicitCreationSupport {
 		m_method = method;
 		m_property = property;
 		viewer.addBroadcastListener(new XmlObjectSetObjectAfter() {
+			@Override
 			public void invoke(XmlObjectInfo target, Object o) throws Exception {
 				if (target == m_viewer) {
 					Object object = m_method.invoke(o);
@@ -99,6 +100,7 @@ IImplicitCreationSupport {
 	public DocumentElement getElement() {
 		if (m_element == null) {
 			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					DocumentElement viewerElement = m_viewer.getCreationSupport().getElement();
 					// create "control" element

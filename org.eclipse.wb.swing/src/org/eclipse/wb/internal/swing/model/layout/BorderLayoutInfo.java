@@ -65,6 +65,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
 	protected void initialize() throws Exception {
 		super.initialize();
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (isManagedObject(javaInfo)) {
 					ComponentInfo component = (ComponentInfo) javaInfo;
@@ -240,6 +241,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
 		@Override
 		public void setValue(final Object value) throws Exception {
 			ExecutionUtils.run(m_component, new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					for (int i = 0; i < CONSTRAINTS_TITLES.length; i++) {
 						String constraintsTitle = CONSTRAINTS_TITLES[i];

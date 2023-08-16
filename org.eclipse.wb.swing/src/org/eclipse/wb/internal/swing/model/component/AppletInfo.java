@@ -45,6 +45,7 @@ public final class AppletInfo extends ContainerInfo implements IJavaInfoRenderin
 	// IJavaInfoRendering
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void render() throws Exception {
 		Object applet = getObject();
 		ReflectionUtils.invokeMethod(applet, "init()");

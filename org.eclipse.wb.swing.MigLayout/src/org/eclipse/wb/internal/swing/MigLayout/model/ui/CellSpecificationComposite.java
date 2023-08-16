@@ -34,6 +34,7 @@ public final class CellSpecificationComposite extends Composite {
 	private final ErrorMessageTextField m_field;
 	private final Text m_textWidget;
 	private final Listener m_listener = new Listener() {
+		@Override
 		public void handleEvent(Event e) {
 			String s = m_textWidget.getText();
 			toCell(s);

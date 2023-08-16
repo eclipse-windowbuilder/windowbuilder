@@ -73,6 +73,7 @@ public class ViewerCreationSupport extends CreationSupport implements ILiveCreat
 	// ILiveCreationSupport
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public CreationSupport getLiveComponentCreation() {
 		return ((ILiveCreationSupport) m_viewer.getCreationSupport()).getLiveComponentCreation();
 	}

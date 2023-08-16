@@ -41,11 +41,13 @@ public class ConverterUiContentProvider extends ChooseClassUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		ConverterInfo converter = m_binding.getConverter();
 		setClassName(converter == null ? "N/S" : converter.getFullClassName());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		String className = getClassName();
 		// check set or clear value

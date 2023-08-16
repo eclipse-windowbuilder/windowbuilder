@@ -130,12 +130,15 @@ public final class AddCustomLookAndFeelDialog extends AbstractCustomLookAndFeelD
 		}
 		// configure LAF class table viewer
 		m_classTable.setContentProvider(new IStructuredContentProvider() {
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
 
+			@Override
 			public void dispose() {
 			}
 
+			@Override
 			public Object[] getElements(Object inputElement) {
 				return scanJarFile(m_progressMonitorPart, (String) inputElement);
 			}

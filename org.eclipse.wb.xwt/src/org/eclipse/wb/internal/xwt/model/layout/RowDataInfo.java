@@ -40,10 +40,12 @@ public final class RowDataInfo extends LayoutDataInfo implements IRowDataInfo {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setWidth(int width) throws Exception {
 		getPropertyByTitle("width").setValue(width);
 	}
 
+	@Override
 	public void setHeight(int height) throws Exception {
 		getPropertyByTitle("height").setValue(height);
 	}

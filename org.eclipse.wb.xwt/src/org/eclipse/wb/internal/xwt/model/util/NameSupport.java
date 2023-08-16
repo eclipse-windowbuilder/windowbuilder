@@ -54,6 +54,7 @@ public final class NameSupport {
 	 */
 	public static void decoratePresentationWithName(XmlObjectInfo root) {
 		root.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+			@Override
 			public void invoke(ObjectInfo object, String[] text) throws Exception {
 				if (object instanceof XmlObjectInfo) {
 					XmlObjectInfo xObject = (XmlObjectInfo) object;
@@ -113,6 +114,7 @@ public final class NameSupport {
 		String baseName = getBaseName(object);
 		final Set<String> existingNames = getExistingNames(object);
 		String uniqueName = CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
+			@Override
 			public boolean apply(String name) {
 				return !existingNames.contains(name);
 			}

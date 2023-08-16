@@ -353,6 +353,7 @@ AbstractHeaderSelectionEditPolicy {
 	 * Implementation of {@link ILocator} to place handle directly on header.
 	 */
 	private class HeaderMoveHandleLocator implements ILocator {
+		@Override
 		public void relocate(Figure target) {
 			Figure reference = getHostFigure();
 			Rectangle bounds = reference.getBounds().getCopy();
@@ -372,6 +373,7 @@ AbstractHeaderSelectionEditPolicy {
 	private void flipGrow() {
 		final MigLayoutInfo layout = getLayout();
 		ExecutionUtils.run(layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				getDimension().flipGrow();
 				layout.writeDimensions();

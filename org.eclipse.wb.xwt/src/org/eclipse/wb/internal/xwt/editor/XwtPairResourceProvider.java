@@ -48,8 +48,10 @@ public final class XwtPairResourceProvider implements IPairResourceProvider {
 	// IPairResourceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IFile getPair(final IFile file) {
 		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<IFile>() {
+			@Override
 			public IFile runObject() throws Exception {
 				if (file.getFileExtension().equalsIgnoreCase("XWT")) {
 					return getJavaFile(file);

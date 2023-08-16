@@ -54,6 +54,7 @@ IColumnLayoutInfo<ControlInfo> {
 	// Components/constraints
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IColumnLayoutDataInfo getColumnData2(ControlInfo control) {
 		return getColumnData(control);
 	}

@@ -193,6 +193,7 @@ IPreferenceConstants {
 	//	IWorkbenchPreferencePage
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 }

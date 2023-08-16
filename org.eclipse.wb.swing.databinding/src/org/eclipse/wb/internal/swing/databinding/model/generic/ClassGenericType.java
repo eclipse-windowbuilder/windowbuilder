@@ -53,26 +53,32 @@ public final class ClassGenericType implements IGenericType {
 	// IGenericType
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public Class<?> getRawType() {
 		return m_rawType;
 	}
 
+	@Override
 	public String getFullTypeName() {
 		return m_fullName;
 	}
 
+	@Override
 	public String getSimpleTypeName() {
 		return m_simpleName;
 	}
 
+	@Override
 	public List<IGenericType> getSubTypes() {
 		return Collections.emptyList();
 	}
 
+	@Override
 	public IGenericType getSubType(int index) {
 		return OBJECT_CLASS;
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return true;
 	}

@@ -52,6 +52,7 @@ public class PluginLafInfo extends AbstractCustomLafInfo {
 		String initializerValue = element.getAttribute("initializer");
 		if (initializerValue != null) {
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					m_initializer =
 							(ILookAndFeelInitializer) element.createExecutableExtension("initializer");

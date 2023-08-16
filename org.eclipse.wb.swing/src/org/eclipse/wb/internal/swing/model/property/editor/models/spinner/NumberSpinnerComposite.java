@@ -95,6 +95,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	 * {@link Listener} that performs validation of host {@link SpinnerModelDialog}.
 	 */
 	private final Listener m_validateListener = new Listener() {
+		@Override
 		public void handleEvent(Event event) {
 			m_modelDialog.validateAll();
 		}
@@ -124,6 +125,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	 */
 	private static void trackCheckSpinner(final Button check, final CSpinner spinner) {
 		check.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				spinner.setEnabled(check.getSelection());
 			}

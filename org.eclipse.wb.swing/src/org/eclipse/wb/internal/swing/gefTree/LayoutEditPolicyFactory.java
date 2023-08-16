@@ -36,6 +36,7 @@ public class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
 	// ILayoutEditPolicyFactory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
 		if (model instanceof GenericFlowLayoutInfo) {
 			return new GenericFlowLayoutEditPolicy((GenericFlowLayoutInfo) model);

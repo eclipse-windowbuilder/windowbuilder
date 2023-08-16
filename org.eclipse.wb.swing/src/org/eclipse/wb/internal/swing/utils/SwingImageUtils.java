@@ -73,6 +73,7 @@ public class SwingImageUtils {
 	 */
 	public static Image createComponentShot(final Component component) throws Exception {
 		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Image>() {
+			@Override
 			public Image runObject() throws Exception {
 				return convertImage_AWT_to_SWT(createComponentShotAWT(component));
 			}
@@ -106,6 +107,7 @@ public class SwingImageUtils {
 			// to prevent deadlocks between main thread and AWT event queue.
 			// See also SwingUtils.invokeLaterAndWait().
 			runInDispatchThread(new Runnable() {
+				@Override
 				public void run() {
 					component.printAll(componentImage.getGraphics());
 				}
@@ -201,6 +203,7 @@ public class SwingImageUtils {
 
 	private static Insets getWindowInsets(final Window window) throws Exception {
 		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Insets>() {
+			@Override
 			public Insets runObject() throws Exception {
 				return window.getInsets();
 			}
@@ -210,6 +213,7 @@ public class SwingImageUtils {
 	private static String getWindowTitle(final Window window) {
 		try {
 			return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<String>() {
+				@Override
 				public String runObject() throws Exception {
 					String title = (String) ReflectionUtils.invokeMethod(window, "getTitle()");
 					return title != null ? title : "";
@@ -311,6 +315,7 @@ public class SwingImageUtils {
 	 */
 	public static void disposeWindow(final Window window) throws Exception {
 		SwingUtils.runLaterAndWait(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				// restore focusable state
 				Boolean focusable = m_fosucableStates.get(window);
@@ -334,6 +339,7 @@ public class SwingImageUtils {
 	static void setVisible(final Component component, final boolean visible) throws Exception {
 		// set "visible" property in AWT Queue
 		SwingUtils.runLaterAndWait(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				component.setVisible(visible);
 				if (!visible) {
@@ -527,6 +533,7 @@ public class SwingImageUtils {
 	 */
 	public static Image convertImage_AWT_to_SWT(final java.awt.Image image) throws Exception {
 		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Image>() {
+			@Override
 			public Image runObject() throws Exception {
 				BufferedImage bufferedImage = (BufferedImage) image;
 				int imageWidth = bufferedImage.getWidth();
@@ -590,16 +597,20 @@ public class SwingImageUtils {
 		// ImageConsumer
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public final void imageComplete(int status) {
 			m_image.getSource().removeConsumer(this);
 		}
 
+		@Override
 		public final void setHints(int hintflags) {
 		}
 
+		@Override
 		public final void setDimensions(int width, int height) {
 		}
 
+		@Override
 		public final void setPixels(int x,
 				int y,
 				int w,
@@ -611,6 +622,7 @@ public class SwingImageUtils {
 			SWT.error(SWT.ERROR_NOT_IMPLEMENTED);
 		}
 
+		@Override
 		public final void setPixels(int x,
 				int y,
 				int w,
@@ -684,9 +696,11 @@ public class SwingImageUtils {
 			SWT.error(SWT.ERROR_UNSUPPORTED_DEPTH);
 		}
 
+		@Override
 		public final void setColorModel(ColorModel model) {
 		}
 
+		@Override
 		public final void setProperties(Hashtable<?, ?> props) {
 		}
 	}

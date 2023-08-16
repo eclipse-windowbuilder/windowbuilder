@@ -57,10 +57,12 @@ public final class FieldBeanObservePresentation extends ObservePresentation {
 	// IObservePresentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getText() throws Exception {
 		return m_observe.getReference() + " - " + m_observe.getObjectType().getSimpleTypeName();
 	}
 
+	@Override
 	public String getTextForBinding() throws Exception {
 		return m_observe.getReference();
 	}

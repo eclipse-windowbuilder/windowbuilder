@@ -30,6 +30,7 @@ public final class XwtStaticFieldSupport {
 	////////////////////////////////////////////////////////////////////////////
 	public XwtStaticFieldSupport(XmlObjectInfo rootObject) {
 		rootObject.addBroadcastListener(new StaticFieldPropertyEditorGetExpression() {
+			@Override
 			public void invoke(Class<?> clazz, String field, String[] expression) throws Exception {
 				if (clazz == SWT.class) {
 					expression[0] = field;

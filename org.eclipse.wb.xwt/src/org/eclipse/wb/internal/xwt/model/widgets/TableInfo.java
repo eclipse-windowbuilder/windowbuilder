@@ -54,6 +54,7 @@ public final class TableInfo extends CompositeInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private void contributeToClipboardCopy() {
 		addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				if (object == TableInfo.this) {
 					for (TableColumnInfo column : getColumns()) {

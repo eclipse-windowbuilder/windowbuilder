@@ -103,24 +103,29 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 				m_observes,
 				CoreUtils.getFieldFragments(rootNode),
 				new ISynchronizeProcessor<VariableDeclarationFragment, IObserveInfo>() {
+					@Override
 					public boolean handleObject(IObserveInfo object) {
 						return object instanceof FieldBeanObserveInfo;
 					}
 
+					@Override
 					public VariableDeclarationFragment getKeyObject(IObserveInfo observe) {
 						FieldBeanObserveInfo beanObserve = (FieldBeanObserveInfo) observe;
 						return beanObserve.getFragment();
 					}
 
+					@Override
 					public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
 						return key0 == key1;
 					}
 
+					@Override
 					public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
 							VariableDeclarationFragment key) throws Exception {
 						return null;
 					}
 
+					@Override
 					public IObserveInfo createObject(VariableDeclarationFragment fragment) throws Exception {
 						Type type = CoreUtils.getType(fragment, true);
 						//
@@ -143,6 +148,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 						return null;
 					}
 
+					@Override
 					public void update(IObserveInfo object) throws Exception {
 					}
 				});
@@ -161,25 +167,30 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 				m_observes.subList(localVariableIndex, observableSize),
 				CoreUtils.getLocalFragments(rootNode, DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME),
 				new ISynchronizeProcessor<VariableDeclarationFragment, IObserveInfo>() {
+					@Override
 					public boolean handleObject(IObserveInfo object) {
 						return true;
 					}
 
+					@Override
 					public VariableDeclarationFragment getKeyObject(IObserveInfo observe) {
 						LocalVariableObserveInfo beanObserve = (LocalVariableObserveInfo) observe;
 						return beanObserve.getFragment();
 					}
 
+					@Override
 					public boolean equals(VariableDeclarationFragment fragment0,
 							VariableDeclarationFragment fragment1) {
 						return fragment0.getName().getIdentifier().equals(fragment1.getName().getIdentifier());
 					}
 
+					@Override
 					public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
 							VariableDeclarationFragment key) throws Exception {
 						return null;
 					}
 
+					@Override
 					public IObserveInfo createObject(VariableDeclarationFragment fragment) throws Exception {
 						try {
 							ITypeBinding binding = CoreUtils.getType(fragment, true);
@@ -194,6 +205,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 						}
 					}
 
+					@Override
 					public void update(IObserveInfo object) throws Exception {
 					}
 				});
@@ -263,6 +275,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 		}
 	}
 
+	@Override
 	public AstObjectInfo parseExpression(AstEditor editor,
 			String signature,
 			ClassInstanceCreation creation,
@@ -272,6 +285,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 		return null;
 	}
 
+	@Override
 	public AstObjectInfo parseExpression(AstEditor editor,
 			String signature,
 			MethodInvocation invocation,

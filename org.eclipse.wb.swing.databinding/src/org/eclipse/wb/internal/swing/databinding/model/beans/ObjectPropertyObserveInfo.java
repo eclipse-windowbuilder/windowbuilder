@@ -70,6 +70,7 @@ public final class ObjectPropertyObserveInfo extends ObserveInfo implements IObs
 	// ObserveType
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ObserveType getType() {
 		return null;
 	}
@@ -89,10 +90,12 @@ public final class ObjectPropertyObserveInfo extends ObserveInfo implements IObs
 	// Hierarchy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObserveInfo getParent() {
 		return null;
 	}
 
+	@Override
 	public List<IObserveInfo> getChildren(ChildrenContext context) {
 		return Collections.emptyList();
 	}
@@ -102,10 +105,12 @@ public final class ObjectPropertyObserveInfo extends ObserveInfo implements IObs
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}
 
+	@Override
 	public IObserveDecorator getDecorator() {
 		return IObserveDecorator.BOLD;
 	}

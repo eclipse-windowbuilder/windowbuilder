@@ -82,6 +82,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 			palette.setInput(m_editPartViewer, m_rootJavaInfo, IPreferenceConstants.TOOLKIT_ID);
 			// make all Control's non-focusable, to avoid Shell activation on click
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					makeNoFocus(shell);
 				}
@@ -144,6 +145,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 		final Display display = shell.getDisplay();
 		// close Shell on...
 		final Listener shellClose_filter = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				if (event.type == SWT.KeyDown) {
 					// ...ESC press
@@ -160,6 +162,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 					// ..."main" Shell deactivation
 					if (event.widget instanceof Shell) {
 						display.asyncExec(new Runnable() {
+							@Override
 							public void run() {
 								if (!UiUtils.isChildOf(shellMain, display.getActiveShell())) {
 									shell.dispose();
@@ -176,17 +179,20 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 		// close Shell: on Tool selection (in popup palette)
 		final EditDomain editDomain = m_editPartViewer.getEditDomain();
 		final IActiveToolListener toolListener = new IActiveToolListener() {
+			@Override
 			public void toolActivated(Tool tool) {
 				shell.dispose();
 			}
 		};
 		display.asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				editDomain.addActiveToolListener(toolListener);
 			}
 		});
 		// remove "shellClose_filter" on Shell dispose
 		Listener listener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				if (event.type == SWT.Dispose) {
 					display.removeFilter(SWT.KeyDown, shellClose_filter);

@@ -95,10 +95,12 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public boolean isEditable() {
 		return m_editable;
 	}
 
+	@Override
 	public void setEditable(boolean editable) {
 		m_editable = editable;
 	}

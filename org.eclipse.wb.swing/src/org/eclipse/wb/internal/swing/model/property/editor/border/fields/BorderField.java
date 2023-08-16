@@ -67,6 +67,7 @@ public final class BorderField extends AbstractBorderField {
 			GridDataFactory.create(button).hintHC(10);
 			button.setText(buttonText);
 			button.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event e) {
 					BorderDialog borderDialog = new BorderDialog(getShell(), m_editor);
 					borderDialog.setBorderModified(m_border != null);

@@ -73,6 +73,7 @@ class RecursiveContainerListener implements ContainerListener {
 		handleRemove(source, child);
 	}
 
+	@Override
 	public void componentAdded(ContainerEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
@@ -80,6 +81,7 @@ class RecursiveContainerListener implements ContainerListener {
 		handleAllAdds(source, e.getChild());
 	}
 
+	@Override
 	public void componentRemoved(ContainerEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread

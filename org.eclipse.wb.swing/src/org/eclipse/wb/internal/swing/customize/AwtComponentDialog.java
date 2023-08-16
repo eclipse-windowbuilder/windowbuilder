@@ -130,12 +130,14 @@ public final class AwtComponentDialog extends ResizableDialog {
 	private static void dispose(final Frame frame) {
 		// schedule dispose
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				frame.dispose();
 			}
 		});
 		// run SWT event loop to wait for scheduled AWT operation
 		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				for (int i = 0; i < 1000; i++) {
 					while (Display.getCurrent().readAndDispatch()) {

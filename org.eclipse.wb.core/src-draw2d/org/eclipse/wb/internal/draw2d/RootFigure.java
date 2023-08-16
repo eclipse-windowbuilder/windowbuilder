@@ -113,6 +113,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	/**
 	 * Returns the desirable size for this container figure.
 	 */
+	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		// check preferred size
 		if (m_preferredSize == null) {

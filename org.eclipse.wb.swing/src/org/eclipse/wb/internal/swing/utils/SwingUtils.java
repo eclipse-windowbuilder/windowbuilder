@@ -72,6 +72,7 @@ public final class SwingUtils {
 		final AtomicBoolean done = new AtomicBoolean();
 		final Throwable ex[] = new Throwable[1];
 		invokeLaterAndWait(done, new Runnable() {
+			@Override
 			public void run() {
 				try {
 					runnableEx.run();
@@ -95,6 +96,7 @@ public final class SwingUtils {
 		}
 		final AtomicBoolean done = new AtomicBoolean();
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				done.set(true);
 			}
@@ -115,6 +117,7 @@ public final class SwingUtils {
 		final Throwable ex[] = new Throwable[1];
 		final Object[] result = new Object[1];
 		invokeLaterAndWait(done, new Runnable() {
+			@Override
 			public void run() {
 				try {
 					result[0] = runnableEx.runObject();
@@ -194,6 +197,7 @@ public final class SwingUtils {
 	 * {@link SWT#MouseUp}.
 	 */
 	private static final Listener m_disableEventFilter = new Listener() {
+		@Override
 		public void handleEvent(Event event) {
 			event.type = SWT.None;
 		}
@@ -254,6 +258,7 @@ public final class SwingUtils {
 	 */
 	public static void clearSwingTree(final Container container) throws Exception {
 		runLaterAndWait(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				if (container != null) {
 					// even if this container can not be effectively cleared, we will clear children,
@@ -265,6 +270,7 @@ public final class SwingUtils {
 					}
 					// remove all children Component's
 					ExecutionUtils.runIgnore(new RunnableEx() {
+						@Override
 						public void run() throws Exception {
 							container.removeAll();
 						}
@@ -274,6 +280,7 @@ public final class SwingUtils {
 					// remove layout manager: under JVM < 1.5 JFrame.setLayout() throws exception that
 					// JFrame.getContentPane().setLayout() should be used, so do this safely
 					ExecutionUtils.runIgnore(new RunnableEx() {
+						@Override
 						public void run() throws Exception {
 							container.setLayout(null);
 						}
@@ -294,6 +301,7 @@ public final class SwingUtils {
 	public static Point getScreenLocation(final Component component) throws Exception {
 		try {
 			return runObjectLaterAndWait(new RunnableObjectEx<Point>() {
+				@Override
 				public Point runObject() throws Exception {
 					return component.getLocationOnScreen();
 				}

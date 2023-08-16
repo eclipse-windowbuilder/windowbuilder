@@ -338,6 +338,7 @@ public final class PaletteComposite extends Composite {
 		/**
 		 * Lays out {@link CategoryFigure}'s of palette.
 		 */
+		@Override
 		protected void layout() {
 			int width = m_figureCanvas.getClientArea().width;
 			width -= getInsets().getWidth();

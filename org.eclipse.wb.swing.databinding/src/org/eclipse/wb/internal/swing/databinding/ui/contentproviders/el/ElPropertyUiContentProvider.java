@@ -76,10 +76,12 @@ IBeanPropertiesSupport {
 	// Complete
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setCompleteListener(ICompleteListener listener) {
 		m_listener = listener;
 	}
 
+	@Override
 	public String getErrorMessage() {
 		return m_errorMessage;
 	}
@@ -96,10 +98,12 @@ IBeanPropertiesSupport {
 	// GUI
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public int getNumberOfControls() {
 		return 2;
 	}
 
+	@Override
 	public void createContent(Composite parent, int columns) {
 		m_titleLabel = new Label(parent, SWT.NONE);
 		GridDataFactory.create(m_titleLabel).alignHF();

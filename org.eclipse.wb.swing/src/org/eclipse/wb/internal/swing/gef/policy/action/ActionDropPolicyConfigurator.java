@@ -25,6 +25,7 @@ import javax.swing.AbstractButton;
  * @coverage swing.gef.policy
  */
 public final class ActionDropPolicyConfigurator implements IEditPartConfigurator {
+	@Override
 	public void configure(EditPart context, EditPart editPart) {
 		// drop ActionInfo on javax.swing.AbstractButton
 		if (editPart.getModel() instanceof ComponentInfo) {

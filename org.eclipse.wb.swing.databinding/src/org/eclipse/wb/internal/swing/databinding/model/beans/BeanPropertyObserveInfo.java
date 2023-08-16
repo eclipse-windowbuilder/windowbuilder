@@ -114,10 +114,12 @@ public class BeanPropertyObserveInfo extends BeanObserveInfo implements IObserve
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}
 
+	@Override
 	public final IObserveDecorator getDecorator() {
 		return m_decorator;
 	}

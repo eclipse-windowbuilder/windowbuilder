@@ -708,6 +708,7 @@ public final class CellConstraintsSupport {
 
 		private void doSetValue(final Object value) {
 			ExecutionUtils.run(m_layout, new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					ReflectionUtils.invokeMethod(m_this, m_setterSignature, value);
 					write();

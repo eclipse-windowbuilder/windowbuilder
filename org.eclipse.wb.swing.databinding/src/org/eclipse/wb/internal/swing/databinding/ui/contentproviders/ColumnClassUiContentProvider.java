@@ -41,11 +41,13 @@ public class ColumnClassUiContentProvider extends ChooseClassUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		IGenericType columnType = m_binding.getColumnType();
 		setClassName(columnType == null ? "N/S" : columnType.getFullTypeName());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		String className = getClassName();
 		// check set or clear value

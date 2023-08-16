@@ -50,6 +50,7 @@ public final class CompletionProposal implements ICompletionProposal {
 	// ICompletionProposal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void apply(IDocument document) {
 		try {
 			document.replace(m_offset, 0, m_data);
@@ -58,22 +59,27 @@ public final class CompletionProposal implements ICompletionProposal {
 		}
 	}
 
+	@Override
 	public String getDisplayString() {
 		return m_displayText;
 	}
 
+	@Override
 	public Image getImage() {
 		return m_image;
 	}
 
+	@Override
 	public Point getSelection(IDocument document) {
 		return m_selection;
 	}
 
+	@Override
 	public String getAdditionalProposalInfo() {
 		return null;
 	}
 
+	@Override
 	public IContextInformation getContextInformation() {
 		return null;
 	}

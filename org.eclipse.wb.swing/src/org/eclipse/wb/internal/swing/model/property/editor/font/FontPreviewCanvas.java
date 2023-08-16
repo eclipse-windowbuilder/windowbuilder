@@ -47,6 +47,7 @@ public final class FontPreviewCanvas extends Canvas {
 	public FontPreviewCanvas(Composite parent, int style) {
 		super(parent, style);
 		addListener(SWT.Paint, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				onPaint(event.gc);
 			}
@@ -71,6 +72,7 @@ public final class FontPreviewCanvas extends Canvas {
 	private void onPaint(final GC gc) {
 		if (m_fontInfo != null) {
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					// prepare label
 					JLabel label;

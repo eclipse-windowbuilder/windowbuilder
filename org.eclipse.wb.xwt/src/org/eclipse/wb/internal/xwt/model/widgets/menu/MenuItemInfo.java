@@ -98,6 +98,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 
 	private void addClipboardSupport() {
 		addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				if (object == m_this) {
 					MenuInfo menu = getSubMenu();
@@ -186,6 +187,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final Object m_stylePropertyListener = new GenericPropertySetExpression() {
+		@Override
 		public void invoke(GenericPropertyImpl property,
 				String[] expression,
 				Object[] value,
@@ -203,6 +205,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 				}
 				// OK, we have something to change
 				ExecutionUtils.run(m_this, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						// add/remove subMenu
 						if (becomesCascade) {
@@ -234,6 +237,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 			}
 		});
 		addBroadcastListener(new ObjectInfoChildAddBefore() {
+			@Override
 			public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
 					throws Exception {
 				if (GlobalState.isParsing()) {
@@ -267,6 +271,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 	private final IMenuItemInfo m_itemImpl = new MenuItemImpl();
 
+	@Override
 	public <T> T getAdapter(Class<T> adapter) {
 		if (adapter.isAssignableFrom(IMenuItemInfo.class)) {
 			return adapter.cast(m_itemImpl);
@@ -299,6 +304,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return m_this;
 		}
@@ -308,10 +314,12 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return Optional.ofNullable(m_this.getImage()).map(ImageDescriptor::createFromImage).orElse(null);
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return m_this.getBounds();
 		}
@@ -321,6 +329,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 		// IMenuItemInfo
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuInfo getMenu() {
 			MenuInfo subMenu = getSubMenu();
 			return MenuObjectInfoUtils.getMenuInfo(subMenu);
@@ -331,6 +340,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return this;
 		}
@@ -340,16 +350,19 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 		// Validation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public boolean validateCreate(Object object) {
 			// nothing can be dropped on MenuItem
 			return false;
 		}
 
+		@Override
 		public boolean validatePaste(Object mementoObject) {
 			// nothing can be dropped on MenuItem
 			return false;
 		}
 
+		@Override
 		public boolean validateMove(Object object) {
 			if (object instanceof MenuInfo) {
 				MenuInfo menuInfo = (MenuInfo) object;
@@ -368,13 +381,16 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 		// Operations
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public void commandCreate(Object object, Object nextObject) throws Exception {
 		}
 
+		@Override
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
 			return ImmutableList.of();
 		}
 
+		@Override
 		public void commandMove(Object object, Object nextObject) throws Exception {
 			MenuInfo menuInfo = (MenuInfo) object;
 			menuInfo.commandMove(m_this);

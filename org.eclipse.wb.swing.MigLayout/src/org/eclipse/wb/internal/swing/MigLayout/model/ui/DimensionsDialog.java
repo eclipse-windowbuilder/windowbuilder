@@ -141,11 +141,13 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 		m_viewer.setInput(m_dimensions2);
 		// add listeners
 		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				updateButtons();
 			}
 		});
 		m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				editSelectedDimension();
 			}
@@ -184,26 +186,31 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 		GridLayoutFactory.create(composite).marginsV(0);
 		//
 		createButton(composite, ModelMessages.DimensionsDialog_insertButton, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				addNewDimension(0);
 			}
 		});
 		createButton(composite, ModelMessages.DimensionsDialog_appendButton, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				addNewDimension(1);
 			}
 		});
 		m_editButton =
 				createButton(composite, ModelMessages.DimensionsDialog_editButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						editSelectedDimension();
 					}
 				});
 		m_removeButton =
 				createButton(composite, ModelMessages.DimensionsDialog_removeButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						final AtomicInteger lastIndex = new AtomicInteger();
 						applyChanges(new RunnableEx() {
+							@Override
 							public void run() throws Exception {
 								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
 								for (T dimension : selectedDimensions) {
@@ -224,8 +231,10 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 		new Label(composite, SWT.NONE);
 		m_moveUpButton =
 				createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						applyChanges(new RunnableEx() {
+							@Override
 							public void run() throws Exception {
 								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
 								moveDimensionsUp(selectedDimensions);
@@ -236,8 +245,10 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 				});
 		m_moveDownButton =
 				createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						applyChanges(new RunnableEx() {
+							@Override
 							public void run() throws Exception {
 								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
 								moveDimensionsDown(selectedDimensions);
@@ -295,6 +306,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 		// add new dimension
 		final int index = addNewDimension_getIndex(indexOffset);
 		applyChanges(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				createNewDimension(index);
 			}
@@ -320,6 +332,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 		T dimension = GenericsUtils.<T>first(m_viewer.getSelection());
 		editSelectedDimension(dimension);
 		applyChanges(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 			}
 		});
@@ -330,6 +343,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 	 */
 	private void applyChanges(final RunnableEx runnable) {
 		ExecutionUtils.run(m_layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				runnable.run();
 				m_layout.writeDimensions();
@@ -388,6 +402,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 	 * {@link ITableLabelProvider} for {@link MigDimensionInfo}.
 	 */
 	private class DimensionsLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			MigDimensionInfo dimension = (MigDimensionInfo) element;
 			if (columnIndex == 0) {
@@ -399,6 +414,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 			return element.toString();
 		}
 
+		@Override
 		public Image getColumnImage(Object element, int columnIndex) {
 			return null;
 		}

@@ -41,11 +41,13 @@ public class ValidatorUiContentProvider extends ChooseClassUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		ValidatorInfo validator = m_binding.getValidator();
 		setClassName(validator == null ? "N/S" : validator.getFullClassName());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		String className = getClassName();
 		// check set or clear value

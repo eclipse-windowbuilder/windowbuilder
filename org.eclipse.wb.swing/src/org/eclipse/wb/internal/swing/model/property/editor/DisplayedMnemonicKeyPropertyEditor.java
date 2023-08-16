@@ -49,6 +49,7 @@ public final class DisplayedMnemonicKeyPropertyEditor extends StaticFieldPropert
 		}
 		// do configure
 		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				configure(KeyEvent.class, fieldNames.toArray(new String[fieldNames.size()]));
 			}

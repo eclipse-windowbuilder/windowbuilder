@@ -136,6 +136,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 				@Override
 				public void windowClosing(WindowEvent e) {
 					mainShell.getDisplay().asyncExec(new Runnable() {
+						@Override
 						public void run() {
 							mainShell.setEnabled(true);
 							mainShell.forceActive();
@@ -144,6 +145,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 				}
 			});
 			SwingUtils.runLaterAndWait(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					window.setFocusableWindowState(true);
 					window.setVisible(true);
@@ -166,6 +168,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 	private static Window prepareWindow(final Component component, final Rectangle clientArea)
 			throws Exception {
 		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Window>() {
+			@Override
 			public Window runObject() throws Exception {
 				final Window window;
 				if (component instanceof Window) {

@@ -51,6 +51,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 	// IJavaInfoInitializationParticipator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(final JavaInfo javaInfo) throws Exception {
 		if (javaInfo.getDescription().getToolkit() == ToolkitProvider.DESCRIPTION) {
 			javaInfo.addBroadcastListener(new ObjectEventListener() {
@@ -110,6 +111,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
 		RunnableEx runnable = new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				for (ObjectInfo button : objects) {
 					ButtonGroupInfo.clearButton((ComponentInfo) button);
@@ -135,6 +137,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
 		RunnableEx runnable = new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.add(root, "javax.swing.ButtonGroup");
 				for (ObjectInfo button : objects) {
@@ -161,6 +164,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
 		RunnableEx runnable = new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				String className;
 				{
@@ -208,6 +212,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			ImageDescriptor icon = buttonGroup.getDescription().getIcon();
 			// add action
 			RunnableEx runnable = new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					for (ObjectInfo button : objects) {
 						buttonGroup.addButton((ComponentInfo) button);

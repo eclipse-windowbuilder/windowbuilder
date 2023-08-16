@@ -59,11 +59,13 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
 		ICreationFactory factory = new ICreationFactory() {
 			private AbsoluteLayoutInfo m_layout;
 
+			@Override
 			public void activate() throws Exception {
 				m_layout = AbsoluteLayoutInfo.createExplicit(m_rootJavaInfo.getEditor());
 				m_layout.setObject(null); // force initialize
 			}
 
+			@Override
 			public Object getNewObject() {
 				return m_layout;
 			}

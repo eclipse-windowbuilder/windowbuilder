@@ -57,6 +57,7 @@ public final class VirtualObserveInfo extends BeanObserveInfo {
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}

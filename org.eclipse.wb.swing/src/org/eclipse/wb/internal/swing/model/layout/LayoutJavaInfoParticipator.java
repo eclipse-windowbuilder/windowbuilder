@@ -47,6 +47,7 @@ public final class LayoutJavaInfoParticipator implements IJavaInfoInitialization
 	// IJavaInfoInitializationParticipator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(JavaInfo javaInfo) throws Exception {
 		if (javaInfo instanceof LayoutInfo) {
 			final LayoutInfo layout = (LayoutInfo) javaInfo;
@@ -57,6 +58,7 @@ public final class LayoutJavaInfoParticipator implements IJavaInfoInitialization
 			} else {
 				// ...or later, when Layout will be bound to its container
 				layout.addBroadcastListener(new ObjectInfoChildAddAfter() {
+					@Override
 					public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
 						if (child == layout) {
 							layout.removeBroadcastListener(this);
@@ -79,6 +81,7 @@ public final class LayoutJavaInfoParticipator implements IJavaInfoInitialization
 	private void performBindings(LayoutInfo layout) throws Exception {
 		// bind SurroundSupport
 		run(layout, new IBindingProcessor() {
+			@Override
 			public boolean run(LayoutInfo layout,
 					ClassLoader classLoader,
 					Class<?> layoutClass,
@@ -123,6 +126,7 @@ public final class LayoutJavaInfoParticipator implements IJavaInfoInitialization
 			// bind safely
 			final Class<?> finalLayoutClass = layoutClass;
 			boolean success = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+				@Override
 				public Boolean runObject() throws Exception {
 					return processor.run(layout, classLoader, finalLayoutClass, layoutName);
 				}

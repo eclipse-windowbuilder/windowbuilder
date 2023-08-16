@@ -66,6 +66,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	// IEditPartFactory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
 		for (IEditPartFactory factory : FACTORIES) {
 			EditPart editPart = factory.createEditPart(null, model);
@@ -82,6 +83,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final IEditPartFactory MENU_FACTORY = new IEditPartFactory() {
+		@Override
 		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof JMenuBarInfo) {
 				JMenuBarInfo menu = (JMenuBarInfo) model;
@@ -111,6 +113,7 @@ public final class EditPartFactory implements IEditPartFactory {
 		}
 	};
 	private static final IEditPartFactory SPECIAL_FACTORY = new IEditPartFactory() {
+		@Override
 		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof JSplitPaneInfo) {
 				return new JSplitPaneEditPart((JSplitPaneInfo) model);
@@ -128,6 +131,7 @@ public final class EditPartFactory implements IEditPartFactory {
 		}
 	};
 	private static final IEditPartFactory BOX_FACTORY = new IEditPartFactory() {
+		@Override
 		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof ComponentInfo) {
 				ComponentInfo component = (ComponentInfo) model;
@@ -174,6 +178,7 @@ public final class EditPartFactory implements IEditPartFactory {
 			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.model.component"),
 					ImmutableList.of("org.eclipse.wb.internal.swing.gef.part"));
 	private static final IEditPartFactory GENERIC_FACTORY = new IEditPartFactory() {
+		@Override
 		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof ContainerInfo) {
 				return new ContainerEditPart((ContainerInfo) model);
