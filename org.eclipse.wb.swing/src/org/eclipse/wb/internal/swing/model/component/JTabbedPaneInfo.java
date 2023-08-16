@@ -196,10 +196,12 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 		// add listeners
 		final JTabbedPaneInfo pane = this;
 		addBroadcastListener(new ObjectInfoChildAddAfter() {
+			@Override
 			public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
 				if (child instanceof ComponentInfo && parent == pane) {
 					final int newIndex = pane.getChildrenComponents().indexOf(child);
 					processAtInvocations(new AtInvocationProcessor() {
+						@Override
 						public void process(AstEditor editor, MethodInvocation invocation, int index)
 								throws Exception {
 							if (index >= newIndex) {
@@ -241,6 +243,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 			}
 		});
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (javaInfo instanceof ComponentInfo && javaInfo.getParent() == pane) {
 					ComponentInfo component = (ComponentInfo) javaInfo;
@@ -390,6 +393,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 		{
 			final int componentIndex = getChildrenComponents().indexOf(component);
 			processAtInvocations(new AtInvocationProcessor() {
+				@Override
 				public void process(AstEditor editor, MethodInvocation invocation, int index)
 						throws Exception {
 					if (index == componentIndex) {
@@ -422,6 +426,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 			final int oldIndex2 = getComponentIndexForObject(oldIndex);
 			final int newIndex2 = getComponentIndexForObject(newIndex);
 			processAtInvocations(new AtInvocationProcessor() {
+				@Override
 				public void process(AstEditor editor, MethodInvocation invocation, int index)
 						throws Exception {
 					if (index >= newIndex2 && index < oldIndex2) {
@@ -441,6 +446,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 			final int oldIndex2 = getComponentIndexForObject(oldIndex);
 			final int newIndex2 = getComponentIndexForObject(newIndex);
 			processAtInvocations(new AtInvocationProcessor() {
+				@Override
 				public void process(AstEditor editor, MethodInvocation invocation, int index)
 						throws Exception {
 					if (index > oldIndex2 && index <= newIndex2) {

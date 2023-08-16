@@ -86,12 +86,14 @@ public final class XwtRenderer {
 		m_context = m_rootModel.getContext();
 		// object -> model
 		m_broadcast_setObjectAfter = new XmlObjectSetObjectAfter() {
+			@Override
 			public void invoke(XmlObjectInfo target, Object o) throws Exception {
 				m_objectToModelMap.put(o, target);
 			}
 		};
 		// hook for properties
 		m_setPostAction = new ISetPostAction() {
+			@Override
 			public void action(Object target, IProperty property, Object value) {
 				XmlObjectInfo xmlObject = m_objectToModelMap.get(target);
 				if (xmlObject != null) {
@@ -136,6 +138,7 @@ public final class XwtRenderer {
 							getClass().getClassLoader(),
 							new Class<?>[]{IXWTLoader.class},
 							new InvocationHandler() {
+								@Override
 								public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 									Object result = method.invoke(loader0, args);
 									String methodSignature = ReflectionUtils.getMethodSignature(method);
@@ -168,6 +171,7 @@ public final class XwtRenderer {
 		Core profile = new Core(new IElementLoaderFactory() {
 			private int m_level;
 
+			@Override
 			public IVisualElementLoader createElementLoader(IRenderingContext context, IXWTLoader loader) {
 				return new ResourceLoader(context, loader) {
 					@Override
@@ -189,6 +193,7 @@ public final class XwtRenderer {
 							return;
 						}
 						ExecutionUtils.runRethrow(new RunnableEx() {
+							@Override
 							public void run() throws Exception {
 								postCreationEx(element, targetObject);
 							}

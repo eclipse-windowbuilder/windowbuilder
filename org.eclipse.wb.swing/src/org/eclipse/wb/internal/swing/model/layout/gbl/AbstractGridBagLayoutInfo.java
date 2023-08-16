@@ -94,6 +94,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 		super.initialize();
 		// add listeners
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (isManagedObject(javaInfo)) {
 					ComponentInfo component = (ComponentInfo) javaInfo;
@@ -110,6 +111,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 					List<ObjectInfo> objects) {
 				List<AbstractGridBagConstraintsInfo> constraints =
 						Lists.transform(objects, new Function<ObjectInfo, AbstractGridBagConstraintsInfo>() {
+							@Override
 							public AbstractGridBagConstraintsInfo apply(ObjectInfo from) {
 								return getConstraints((ComponentInfo) from);
 							}
@@ -249,6 +251,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// prepare columns/rows with components
 			beforeRefreshFilled();
 			visitComponents(new IComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 						throws Exception {
 					if (constraints.width == 1) {
@@ -473,6 +476,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	void prepareCell(int column, boolean insertColumn, int row, boolean insertRow) throws Exception {
 		// as first step: materialize locations
 		visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				constraints.materializeLocation();
@@ -496,6 +500,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 		}
 		// perform changes
 		visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				if (constraints.x + constraints.width < m_columns.size()) {
@@ -562,24 +567,29 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			return;
 		}
 		GridAlignmentHelper.doAutomaticAlignment(component, new IAlignmentProcessor<ComponentInfo>() {
+			@Override
 			public boolean grabEnabled() {
 				return getDescription().getToolkit().getPreferences().getBoolean(P_ENABLE_GRAB);
 			}
 
+			@Override
 			public boolean rightEnabled() {
 				return getDescription().getToolkit().getPreferences().getBoolean(P_ENABLE_RIGHT_ALIGNMENT);
 			}
 
+			@Override
 			public ComponentInfo getComponentAtLeft(ComponentInfo component) {
 				AbstractGridBagConstraintsInfo constraints = getConstraints(component);
 				return getComponentAt(constraints.x - 1, constraints.y);
 			}
 
+			@Override
 			public ComponentInfo getComponentAtRight(ComponentInfo component) {
 				AbstractGridBagConstraintsInfo constraints = getConstraints(component);
 				return getComponentAt(constraints.x + 1, constraints.y);
 			}
 
+			@Override
 			public void setGrabFill(ComponentInfo component, boolean horizontal) throws Exception {
 				AbstractGridBagConstraintsInfo constraints = getConstraints(component);
 				if (horizontal) {
@@ -591,6 +601,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 				}
 			}
 
+			@Override
 			public void setRightAlignment(ComponentInfo component) throws Exception {
 				AbstractGridBagConstraintsInfo constraints = getConstraints(component);
 				constraints.setHorizontalAlignment(ColumnInfo.Alignment.RIGHT);
@@ -692,6 +703,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
 			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					createGridInfo();
 				}
@@ -708,6 +720,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 		final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
 		final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
 		visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				Rectangle cells =
@@ -739,6 +752,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 				final int[] bottomGaps = new int[rowIntervals.length];
 				// deduce gaps from insets
 				visitComponents(new IComponentVisitor() {
+					@Override
 					public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 							throws Exception {
 						updateGaps(leftGaps, constraints.x, constraints.insets.left);
@@ -787,10 +801,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Dimensions
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public int getColumnCount() {
 				return m_columnIntervals.length;
 			}
 
+			@Override
 			public int getRowCount() {
 				return m_rowIntervals.length;
 			}
@@ -800,10 +816,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Intervals
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Interval[] getColumnIntervals() {
 				return m_columnIntervals;
 			}
 
+			@Override
 			public Interval[] getRowIntervals() {
 				return m_rowIntervals;
 			}
@@ -813,11 +831,13 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Cells
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Rectangle getComponentCells(IAbstractComponentInfo component) {
 				Assert.instanceOf(ComponentInfo.class, component);
 				return componentToCells.get(component);
 			}
 
+			@Override
 			public Rectangle getCellsRectangle(Rectangle cells) {
 				int x = m_columnIntervals[cells.x].begin();
 				int y = m_rowIntervals[cells.y].begin();
@@ -831,10 +851,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Feedback
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean isRTL() {
 				return false;
 			}
 
+			@Override
 			public Insets getInsets() {
 				return getContainer().getInsets();
 			}
@@ -844,14 +866,17 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Virtual columns
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualColumns() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualColumnSize() {
 				return EMPTY_DIM;
 			}
 
+			@Override
 			public int getVirtualColumnGap() {
 				return EMPTY_GAP;
 			}
@@ -861,14 +886,17 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Virtual rows
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualRows() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualRowSize() {
 				return EMPTY_DIM;
 			}
 
+			@Override
 			public int getVirtualRowGap() {
 				return EMPTY_GAP;
 			}
@@ -878,6 +906,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			// Checks
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public ComponentInfo getOccupied(int column, int row) {
 				return occupiedCells.get(new Point(column, row));
 			}

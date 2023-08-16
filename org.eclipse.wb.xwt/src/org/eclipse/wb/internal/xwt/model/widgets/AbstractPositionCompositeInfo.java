@@ -73,6 +73,7 @@ public abstract class AbstractPositionCompositeInfo extends CompositeInfo {
 		super.initialize();
 		// listener that adds prefix with name of position
 		addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+			@Override
 			public void invoke(ObjectInfo object, String[] text) throws Exception {
 				if (object instanceof ControlInfo
 						&& object.getParent() == AbstractPositionCompositeInfo.this) {

@@ -95,6 +95,7 @@ public final class ExplicitFontPage extends AbstractFontPage {
 				}
 				// add listener
 				m_familyList.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						int index = m_familyList.getSelectionIndex();
 						String family = m_families[index];
@@ -113,6 +114,7 @@ public final class ExplicitFontPage extends AbstractFontPage {
 				}
 				// add listener
 				m_styleList.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						int index = m_styleList.getSelectionIndex();
 						String fontStyle = m_styleTitles[index];
@@ -130,6 +132,7 @@ public final class ExplicitFontPage extends AbstractFontPage {
 				}
 				// add listener
 				m_sizeList.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						String size = m_sizeList.getSelection()[0];
 						m_sizeText.setText(size);

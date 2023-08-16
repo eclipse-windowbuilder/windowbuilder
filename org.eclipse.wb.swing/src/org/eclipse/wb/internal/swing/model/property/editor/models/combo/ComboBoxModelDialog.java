@@ -113,11 +113,13 @@ public class ComboBoxModelDialog extends ResizableDialog {
 			enumButton = new Button(area, SWT.NONE);
 			enumButton.setText(ModelMessages.ComboBoxModelDialog_enumBrowse);
 			enumButton.addSelectionListener(new SelectionListener() {
+				@Override
 				public void widgetSelected(SelectionEvent event) {
 					setEnumSelected(true);
 					selectEnumType();
 				}
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 				}
 			});
@@ -266,6 +268,7 @@ public class ComboBoxModelDialog extends ResizableDialog {
 	 */
 	public String[] getItems() {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
+			@Override
 			public String[] runObject() throws Exception {
 				List<String> strings = Lists.newArrayList();
 				String stringItems =

@@ -40,6 +40,7 @@ public final class IntegerField extends AbstractBorderField {
 			m_spinner = new CSpinner(this, SWT.BORDER);
 			GridDataFactory.create(m_spinner).hintHC(15);
 			m_spinner.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					notifyListeners(SWT.Selection, event);
 				}

@@ -55,6 +55,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		super(editor, description, creationSupport);
 		// add listeners
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (isManagedObject(javaInfo)) {
 					properties.add(getConstraintsProperty((ComponentInfo) javaInfo));
@@ -80,11 +81,13 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	// Layout manipulation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void detach(IAbstractComponentInfo widget, int side) throws Exception {
 		SpringAttachmentInfo attachment = getAttachment(widget, side);
 		attachment.delete();
 	}
 
+	@Override
 	public void attachAbsolute(IAbstractComponentInfo widget, int side, int distance)
 			throws Exception {
 		SpringAttachmentInfo attachment = getAttachment(widget, side);
@@ -94,6 +97,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		attachment.write();
 	}
 
+	@Override
 	public void adjustAttachmentOffset(IAbstractComponentInfo widget, int side, int delta)
 			throws Exception {
 		SpringAttachmentInfo attachment = getAttachment(widget, side);
@@ -103,6 +107,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		attachment.write();
 	}
 
+	@Override
 	public void attachWidgetSequientially(IAbstractComponentInfo widget,
 			IAbstractComponentInfo attachToWidget,
 			int side,
@@ -114,6 +119,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		attachment.write();
 	}
 
+	@Override
 	public void attachWidgetParallelly(IAbstractComponentInfo widget,
 			IAbstractComponentInfo attachToWidget,
 			int side,
@@ -125,6 +131,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		attachment.write();
 	}
 
+	@Override
 	public void attachWidgetBaseline(IAbstractComponentInfo widget,
 			IAbstractComponentInfo attachedToWidget) throws Exception {
 		SpringAttachmentInfo attachment = getAttachmentTop((ComponentInfo) widget.getUnderlyingModel());
@@ -158,6 +165,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setExplicitSize(IAbstractComponentInfo widget,
 			int attachedSide,
 			int draggingSide,
@@ -260,12 +268,14 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		return null;
 	}
 
+	@Override
 	public ComponentInfo getAttachedToWidget(IAbstractComponentInfo widget, int side) {
 		SpringAttachmentInfo attachment = getAttachment(widget, side);
 		ComponentInfo anchorComponent = attachment.getAnchorComponent();
 		return anchorComponent != getContainer() ? anchorComponent : null;
 	}
 
+	@Override
 	public boolean isAttached(IAbstractComponentInfo widget, int side) throws Exception {
 		return !getAttachment(widget, side).isVirtual();
 	}
@@ -279,6 +289,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	// Layout-defined actions
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void performAction(int actionId) {
 	}
 

@@ -144,6 +144,7 @@ public final class BorderDialog extends ResizableDialog {
 				m_typeCombo = new Combo(typeGroup, SWT.READ_ONLY);
 				GridDataFactory.create(m_typeCombo).grab().fill();
 				m_typeCombo.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						int index = m_typeCombo.getSelectionIndex();
 						m_pagesLayout.topControl = m_pages.get(index);
@@ -209,6 +210,7 @@ public final class BorderDialog extends ResizableDialog {
 		{
 			m_pagesLayout.topControl = m_pages.get(0);
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					for (AbstractBorderComposite page : m_pages) {
 						boolean understands = page.setBorder(m_border);
@@ -269,6 +271,7 @@ public final class BorderDialog extends ResizableDialog {
 	 */
 	private String getCurrentBorderSource() {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+			@Override
 			public String runObject() throws Exception {
 				int index = m_typeCombo.getSelectionIndex();
 				return m_pages.get(index).getSource();
@@ -282,6 +285,7 @@ public final class BorderDialog extends ResizableDialog {
 	 */
 	public void borderUpdated() {
 		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				borderUpdatedEx();
 			}

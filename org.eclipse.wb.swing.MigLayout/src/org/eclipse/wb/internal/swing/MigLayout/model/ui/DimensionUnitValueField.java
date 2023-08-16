@@ -44,6 +44,7 @@ public final class DimensionUnitValueField {
 	// listener
 	private boolean m_updatingDimension;
 	private final Listener m_modifyListener = new Listener() {
+		@Override
 		public void handleEvent(Event e) {
 			toDimension(m_textWidget.getText());
 		}
@@ -64,6 +65,7 @@ public final class DimensionUnitValueField {
 			m_checkButton = new Button(parent, SWT.CHECK);
 			m_checkButton.setText(labelText);
 			m_checkButton.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					if (m_checkButton.getSelection()) {
 						m_textWidget.setEnabled(true);

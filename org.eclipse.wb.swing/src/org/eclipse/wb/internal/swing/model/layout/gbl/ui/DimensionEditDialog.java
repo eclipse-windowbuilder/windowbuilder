@@ -158,6 +158,7 @@ ResizableDialog {
 	 */
 	private void applyChanges() throws Exception {
 		ExecutionUtils.run(m_layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				setAlignment(m_dimension, m_currentAlignment);
 				m_dimension.setSize(m_currentSize);
@@ -171,6 +172,7 @@ ResizableDialog {
 	 */
 	private void setEditDimension(final T dimension) {
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				// apply changes
 				if (m_dimension != null) {
@@ -231,6 +233,7 @@ ResizableDialog {
 						? AbstractGridBagLayoutInfo.getImage("navigation/left.gif")
 								: AbstractGridBagLayoutInfo.getImage("navigation/up.gif"));
 				m_prevButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						setEditDimension(m_dimensions.get(m_currentIndex - 1));
 						showDimension();
@@ -247,6 +250,7 @@ ResizableDialog {
 						? AbstractGridBagLayoutInfo.getImage("navigation/right.gif")
 								: AbstractGridBagLayoutInfo.getImage("navigation/down.gif"));
 				m_nextButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						setEditDimension(m_dimensions.get(m_currentIndex + 1));
 						showDimension();
@@ -275,6 +279,7 @@ ResizableDialog {
 			// add listener
 			m_alignmentButtons.add(button);
 			button.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					m_currentAlignment = description.getAlignment();
 				}
@@ -303,6 +308,7 @@ ResizableDialog {
 				m_sizeSpinner.setMinimum(0);
 				m_sizeSpinner.setMaximum(Integer.MAX_VALUE);
 				m_sizeSpinner.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						m_currentSize = m_sizeSpinner.getSelection();
 					}
@@ -325,6 +331,7 @@ ResizableDialog {
 			GridDataFactory.create(m_noGrowButton).spanH(2);
 			m_noGrowButton.setText("&none");
 			m_noGrowButton.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					m_currentWeight = 0.0;
 					showDimension();
@@ -337,6 +344,7 @@ ResizableDialog {
 			GridDataFactory.create(m_growButton).hintHC(10);
 			m_growButton.setText("&grow");
 			m_growButton.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					m_currentWeight = 1.0;
 					showDimension();
@@ -346,6 +354,7 @@ ResizableDialog {
 			m_growSpinner = new CSpinner(composite, SWT.BORDER);
 			GridDataFactory.create(m_growSpinner).hintHC(15);
 			m_growSpinner.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					m_currentWeight = m_growSpinner.getSelection();
 					showDimension();

@@ -92,6 +92,7 @@ public final class BorderPreviewCanvas extends EmbeddedSwingComposite2 {
 	 */
 	public void setBorder(final Border border) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					if (border != null) {

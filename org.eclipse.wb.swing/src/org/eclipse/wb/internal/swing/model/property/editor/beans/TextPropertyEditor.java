@@ -85,6 +85,7 @@ IClipboardSourceProvider {
 	// IValueSourcePropertyEditor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getValueSource(Object value) throws Exception {
 		return m_editorWrapper.getSource(value);
 	}
@@ -94,6 +95,7 @@ IClipboardSourceProvider {
 	// IClipboardSourceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getClipboardSource(GenericProperty property) throws Exception {
 		return m_editorWrapper.getSource(property.getValue());
 	}

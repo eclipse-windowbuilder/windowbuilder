@@ -118,6 +118,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 	public final void delete(final int index) throws Exception {
 		// delete components, update constraints
 		m_layout.visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				int location = getLocation(constraints);
@@ -147,6 +148,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 	 */
 	public final void clear(final int index) throws Exception {
 		m_layout.visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				if (getLocation(constraints) == index) {
@@ -173,6 +175,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 		}
 		// span components
 		m_layout.visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				int location = getLocation(constraints);
@@ -203,6 +206,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 		}
 		// move components
 		m_layout.visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				if (getLocation(constraints) == sourceIndex) {
@@ -225,6 +229,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 		// prepare filled dimensions
 		final boolean[] filledDimensions = new boolean[dimensions.size()];
 		m_layout.visitComponents(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				int location = getLocation(constraints);
@@ -292,6 +297,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 		// move components
 		if (insert) {
 			m_layout.visitComponents(new IComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 						throws Exception {
 					int location = getLocation(constraints);

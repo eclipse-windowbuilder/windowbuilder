@@ -73,6 +73,7 @@ public final class ResizeHintFigure extends Figure {
 	/**
 	 * @return the desirable size for this {@link ResizeHintFigure}.
 	 */
+	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		GC gc = new GC(HIDDEN_SHELL);
 		try {

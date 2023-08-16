@@ -62,6 +62,7 @@ public class SashFormInfo extends CompositeInfo implements ISashFormInfo<Control
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public boolean isHorizontal() {
 		return ControlSupport.hasStyle(getControl(), SWT.HORIZONTAL);
 	}
@@ -71,12 +72,14 @@ public class SashFormInfo extends CompositeInfo implements ISashFormInfo<Control
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void command_CREATE(ControlInfo control, ControlInfo nextControl) throws Exception {
 		ensureWeights();
 		XmlObjectUtils.add(control, Associations.direct(), this, nextControl);
 		addWeight(control);
 	}
 
+	@Override
 	public void command_MOVE(ControlInfo control, ControlInfo nextControl) throws Exception {
 		ensureWeights();
 		int oldIndex = getChildrenControls().indexOf(control);
@@ -89,6 +92,7 @@ public class SashFormInfo extends CompositeInfo implements ISashFormInfo<Control
 		}
 	}
 
+	@Override
 	public void command_RESIZE(ControlInfo control, int size) throws Exception {
 		ensureWeights();
 		List<ControlInfo> children = getChildrenControls();

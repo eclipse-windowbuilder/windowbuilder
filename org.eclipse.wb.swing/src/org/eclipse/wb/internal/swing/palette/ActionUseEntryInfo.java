@@ -79,9 +79,11 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
 	static Tool createActionTool(final ActionInfo action) {
 		// prepare factory
 		ICreationFactory factory = new ICreationFactory() {
+			@Override
 			public void activate() throws Exception {
 			}
 
+			@Override
 			public Object getNewObject() {
 				return action;
 			}

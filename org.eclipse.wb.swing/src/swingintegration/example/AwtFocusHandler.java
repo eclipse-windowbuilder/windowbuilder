@@ -96,6 +96,7 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
 	}
 
 	// ..................... Listener implementations
+	@Override
 	public void focusGained(FocusEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
@@ -103,30 +104,35 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
 		currentComponent = e.getComponent();
 	}
 
+	@Override
 	public void focusLost(FocusEvent e) {
 		// System.out.println("component focus lost (awt). opposite = " + e.getOppositeComponent());
 		// Intentionally leaving currentComponent set. When window focus is lost,
 		// it will be needed.
 	}
 
+	@Override
 	public void componentAdded(ContainerEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		e.getChild().addFocusListener(this);
 	}
 
+	@Override
 	public void componentRemoved(ContainerEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		e.getChild().removeFocusListener(this);
 	}
 
+	@Override
 	public void windowGainedFocus(WindowEvent e) {
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		// System.out.println("WindowFocusListener.windowGainedFocus");
 		awtHasFocus = true;
 	}
 
+	@Override
 	public void windowLostFocus(WindowEvent e) {
 		assert e != null;
 		assert swtHandler != null;
@@ -221,6 +227,7 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
 
 	void postHidePopups() {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				hidePopups();
 			}

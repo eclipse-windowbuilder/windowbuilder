@@ -172,6 +172,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return JMenuInfo.this;
 		}
@@ -181,10 +182,12 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return null;
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return JMenuInfo.this.getBounds();
 		}
@@ -194,6 +197,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// IMenuItemInfo
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuInfo getMenu() {
 			return m_menuImpl;
 		}
@@ -203,6 +207,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return m_menuPolicyImpl;
 		}
@@ -223,6 +228,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return this;
 		}
@@ -232,6 +238,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			if (m_visualData == null || m_visualData.m_menuImage == null) {
 				return null;
@@ -239,6 +246,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 			return ImageDescriptor.createFromImage(m_visualData.m_menuImage);
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return m_visualData.m_menuBounds;
 		}
@@ -248,10 +256,12 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Access
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public boolean isHorizontal() {
 			return false;
 		}
 
+		@Override
 		public List<IMenuItemInfo> getItems() {
 			return MenuUtils.getItems(JMenuInfo.this);
 		}
@@ -261,6 +271,7 @@ public final class JMenuInfo extends JMenuItemInfo {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return m_menuPolicyImpl;
 		}

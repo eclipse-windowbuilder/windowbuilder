@@ -245,6 +245,7 @@ IConfigurablePropertyObject {
 	// IConfigurablePropertyObject
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void configure(EditorContext context, Map<String, Object> parameters) throws Exception {
 		// base class name
 		{

@@ -79,6 +79,7 @@ public final class UiManagerFontPage extends AbstractFontPage {
 			}
 			// add listeners
 			m_fontTable.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					int selectionIndex = m_fontTable.getSelectionIndex();
 					FontInfo fontInfo = m_fonts.get(selectionIndex);
@@ -86,6 +87,7 @@ public final class UiManagerFontPage extends AbstractFontPage {
 				}
 			});
 			m_fontTable.addListener(SWT.MouseDoubleClick, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					m_fontDialog.closeOk();
 				}

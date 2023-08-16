@@ -43,6 +43,7 @@ public final class UndefineObserveInfo extends ObserveInfo {
 	// Type
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ObserveType getType() {
 		return null;
 	}
@@ -57,10 +58,12 @@ public final class UndefineObserveInfo extends ObserveInfo {
 	// Hierarchy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObserveInfo getParent() {
 		return null;
 	}
 
+	@Override
 	public List<IObserveInfo> getChildren(ChildrenContext context) {
 		return Collections.emptyList();
 	}
@@ -70,6 +73,7 @@ public final class UndefineObserveInfo extends ObserveInfo {
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}

@@ -36,6 +36,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
 	// IDescriptionProcessor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(AstEditor editor, ComponentDescription componentDescription) throws Exception {
 		this.componentDescription = componentDescription;
 		beanInfo = componentDescription.getBeanInfo();

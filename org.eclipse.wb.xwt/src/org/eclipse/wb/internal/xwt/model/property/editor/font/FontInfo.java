@@ -43,6 +43,7 @@ public final class FontInfo {
 	////////////////////////////////////////////////////////////////////////////
 	public void dispose() {
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				if (m_doDispose) {
 					ReflectionUtils.invokeMethod(m_font, "dispose()");

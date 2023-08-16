@@ -118,6 +118,7 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 	 * {@link Listener} that performs validation of host {@link SpinnerModelDialog}.
 	 */
 	private final Listener m_validateListener = new Listener() {
+		@Override
 		public void handleEvent(Event event) {
 			m_modelDialog.validateAll();
 		}
@@ -147,6 +148,7 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 	 */
 	private void trackCheckField(final Button check, final CDateTime field) {
 		check.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				if (check.getSelection()) {
 					field.setEnabled(true);

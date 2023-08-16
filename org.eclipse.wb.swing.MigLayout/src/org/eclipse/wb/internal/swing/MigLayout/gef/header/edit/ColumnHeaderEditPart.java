@@ -152,6 +152,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 	// IHeaderMenuProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void buildContextMenu(IMenuManager manager) {
 		if (!m_layout.canChangeDimensions()) {
 			return;

@@ -37,6 +37,7 @@ public class XwtJavaParseValidator implements IParseValidator {
 	// IParseValidator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void validate(AstEditor editor) throws Exception {
 		if (editor.getSource().contains("XWT.load")) {
 			throw new DesignerException(IExceptionConstants.DONT_OPEN_JAVA,

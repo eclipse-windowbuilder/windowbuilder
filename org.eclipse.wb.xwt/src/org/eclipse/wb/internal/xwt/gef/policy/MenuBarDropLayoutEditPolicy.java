@@ -104,6 +104,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 				bounds.y += clientAreaInsets.top;
 			}
 			ExecutionUtils.runIgnore(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					bounds.height = ToolkitSupport.getDefaultMenuBarHeight();
 				}

@@ -51,6 +51,7 @@ public abstract class BeanObserveInfo extends ObserveInfo {
 	// Type
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ObserveType getType() {
 		return ObserveType.BEANS;
 	}
@@ -65,10 +66,12 @@ public abstract class BeanObserveInfo extends ObserveInfo {
 	// Hierarchy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public final IObserveInfo getParent() {
 		return m_parent;
 	}
 
+	@Override
 	public final List<IObserveInfo> getChildren(ChildrenContext context) {
 		if (context == ChildrenContext.ChildrenForPropertiesTable) {
 			if (m_properties == null) {

@@ -206,6 +206,7 @@ public final class MigSelectionEditPolicy extends AbstractGridSelectionEditPolic
 	 */
 	private void setAlignment(final MigColumnInfo.Alignment alignment) {
 		ExecutionUtils.run(m_layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(m_component);
 				constraints.setHorizontalAlignment(alignment);
@@ -219,6 +220,7 @@ public final class MigSelectionEditPolicy extends AbstractGridSelectionEditPolic
 	 */
 	private void setAlignment(final MigRowInfo.Alignment alignment) {
 		ExecutionUtils.run(m_layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(m_component);
 				constraints.setVerticalAlignment(alignment);

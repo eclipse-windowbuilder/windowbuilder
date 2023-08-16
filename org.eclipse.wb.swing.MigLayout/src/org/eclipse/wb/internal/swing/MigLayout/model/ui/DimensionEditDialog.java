@@ -174,6 +174,7 @@ ResizableDialog {
 	 */
 	private void applyChanges() throws Exception {
 		ExecutionUtils.run(m_layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				m_layout.writeDimensions();
 			}
@@ -185,6 +186,7 @@ ResizableDialog {
 	 */
 	private void setEditDimension(final T dimension) {
 		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				// apply changes
 				if (m_dimension != null) {
@@ -245,6 +247,7 @@ ResizableDialog {
 						? Activator.getImage("navigation/left.gif")
 								: Activator.getImage("navigation/up.gif"));
 				m_prevButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						setEditDimension(m_dimensions.get(m_currentIndex - 1));
 						showDimension();
@@ -261,6 +264,7 @@ ResizableDialog {
 						? Activator.getImage("navigation/right.gif")
 								: Activator.getImage("navigation/down.gif"));
 				m_nextButton.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						setEditDimension(m_dimensions.get(m_currentIndex + 1));
 						showDimension();
@@ -275,6 +279,7 @@ ResizableDialog {
 				m_specificationComposite = new DimensionSpecificationComposite(composite);
 				GridDataFactory.create(m_specificationComposite).spanH(3).grabH().fillH().indentHC(3);
 				m_specificationComposite.addListener(SWT.Modify, new Listener() {
+					@Override
 					public void handleEvent(Event e) {
 						updateButtons(e.doit);
 						showDimension();
@@ -303,6 +308,7 @@ ResizableDialog {
 			// add listener
 			m_alignmentButtons.add(button);
 			button.addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event event) {
 					setAlignment(m_dimension, description.getAlignment());
 					showDimension();
@@ -322,6 +328,7 @@ ResizableDialog {
 		// minimum
 		{
 			Listener listener = new Listener() {
+				@Override
 				public void handleEvent(Event e) {
 					updateButtons(e.doit);
 					showDimension();
@@ -350,6 +357,7 @@ ResizableDialog {
 	 */
 	private void createResizeComposites(Composite parent) {
 		Listener listener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				showDimension();
 			}

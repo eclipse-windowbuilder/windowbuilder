@@ -37,6 +37,7 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
 	// ILayoutEditPolicyFactory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
 		if (model instanceof GridLayoutInfo) {
 			return new GridLayoutEditPolicy<ControlInfo>((GridLayoutInfo) model);

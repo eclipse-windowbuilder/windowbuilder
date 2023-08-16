@@ -48,6 +48,7 @@ public class ViewerInfo extends XmlObjectInfo implements IWrapperInfo {
 		StylePropertyEditor.addStyleProperty(this);
 		if (GlobalState.isParsing()) {
 			addBroadcastListener(new ObjectInfoChildAddAfter() {
+				@Override
 				public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
 					if (child == ViewerInfo.this) {
 						removeBroadcastListener(this);
@@ -77,6 +78,7 @@ public class ViewerInfo extends XmlObjectInfo implements IWrapperInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private ControlInfo m_wrappedControl;
 
+	@Override
 	public ControlInfo getWrapped() throws Exception {
 		if (m_wrappedControl == null) {
 			Method method = getWrapperMethod();

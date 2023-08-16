@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Text;
 public final class TextField extends AbstractBorderField {
 	private final Text m_text;
 	private final Listener m_modifyListener = new Listener() {
+		@Override
 		public void handleEvent(Event event) {
 			notifyListeners(SWT.Selection, event);
 		}

@@ -67,6 +67,7 @@ IValueSourcePropertyEditor {
 	// IValueSourcePropertyEditor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getValueSource(Object value) throws Exception {
 		return m_editorWrapper.getSource(value);
 	}

@@ -108,6 +108,7 @@ public class GridBagLayoutConverter {
 			final Set<Integer> filledColumns = Sets.newHashSet();
 			final Set<Integer> filledRows = Sets.newHashSet();
 			layout.visitComponents(new IComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 						throws Exception {
 					filledColumns.add(constraints.x);

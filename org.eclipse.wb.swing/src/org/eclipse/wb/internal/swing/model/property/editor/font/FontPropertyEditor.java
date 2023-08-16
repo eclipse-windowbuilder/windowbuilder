@@ -73,6 +73,7 @@ IClipboardSourceProvider {
 	// IClipboardSourceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getClipboardSource(GenericProperty property) throws Exception {
 		FontInfo fontInfo = getFontInfo(property);
 		if (fontInfo != null) {

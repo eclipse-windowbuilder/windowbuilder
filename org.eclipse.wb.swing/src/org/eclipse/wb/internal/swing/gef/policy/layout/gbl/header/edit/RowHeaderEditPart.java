@@ -162,6 +162,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 	// IHeaderMenuProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void buildContextMenu(IMenuManager manager) {
 		// operations
 		{

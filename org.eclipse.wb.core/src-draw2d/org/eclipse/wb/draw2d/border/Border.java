@@ -48,14 +48,17 @@ public abstract class Border implements org.eclipse.draw2d.Border {
 	/**
 	 * Get border insets.
 	 */
+	@Override
 	public Insets getInsets(IFigure figure) {
 		return m_insets;
 	}
 
+	@Override
 	public Dimension getPreferredSize(IFigure figure) {
 		return figure.getPreferredSize();
 	}
 
+	@Override
 	public boolean isOpaque() {
 		return false;
 	}
@@ -63,6 +66,7 @@ public abstract class Border implements org.eclipse.draw2d.Border {
 	/**
 	 * Paint border for <code>owner</code> {@link Figure}.
 	 */
+	@Override
 	public final void paint(IFigure owner, Graphics graphics, Insets insets) {
 		Rectangle bounds = owner.getBounds();
 		paint(bounds.width, bounds.height, graphics);

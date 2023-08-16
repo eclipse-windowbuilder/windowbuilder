@@ -219,6 +219,7 @@ public final class DetailBindingInfo extends BindingInfo {
 	// IASTObjectInfo2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setVariableIdentifier(JavaInfo javaInfoRoot, String variable, boolean field) {
 		boolean useGenerics = CoreUtils.useGenerics(javaInfoRoot.getEditor().getJavaProject());
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(useGenerics);

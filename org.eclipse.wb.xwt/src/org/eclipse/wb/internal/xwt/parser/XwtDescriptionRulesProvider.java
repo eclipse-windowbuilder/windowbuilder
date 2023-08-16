@@ -48,6 +48,7 @@ public class XwtDescriptionRulesProvider implements IDescriptionRulesProvider {
 	// IDescriptionRulesProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void addRules(Digester digester, EditorContext context, Class<?> componentClass) {
 		if (Widget.class.isAssignableFrom(componentClass)
 				|| Viewer.class.isAssignableFrom(componentClass)) {

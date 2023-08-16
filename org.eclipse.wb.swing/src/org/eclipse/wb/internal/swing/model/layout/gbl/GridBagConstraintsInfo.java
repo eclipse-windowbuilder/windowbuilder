@@ -168,6 +168,7 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 			// some fields not exists in Java6, so return Integer.MIN_VALUE as anchor.
 			super(alignmentString, fill, anchor);
 			anchorValue = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Integer>() {
+				@Override
 				public Integer runObject() throws Exception {
 					return ReflectionUtils.getFieldInt(GridBagConstraints.class, anchor);
 				}

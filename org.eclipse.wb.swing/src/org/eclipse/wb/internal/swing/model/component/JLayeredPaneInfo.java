@@ -72,6 +72,7 @@ public class JLayeredPaneInfo extends ContainerInfo {
 		public List<ObjectInfo> getChildrenGraphical() throws Exception {
 			List<ObjectInfo> children = super.getChildrenGraphical();
 			Collections.sort(children, new Comparator<ObjectInfo>() {
+				@Override
 				public int compare(ObjectInfo o1, ObjectInfo o2) {
 					return getLayer(o2) - getLayer(o1);
 				}
@@ -111,6 +112,7 @@ public class JLayeredPaneInfo extends ContainerInfo {
 	 */
 	private void contributeProperties() {
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (javaInfo instanceof ComponentInfo && javaInfo.getParent() == m_this) {
 					ComponentInfo component = (ComponentInfo) javaInfo;
@@ -172,6 +174,7 @@ public class JLayeredPaneInfo extends ContainerInfo {
 		@Override
 		public void setValue(final Object value) throws Exception {
 			ExecutionUtils.run(m_component, new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					setValueEx(value);
 				}

@@ -51,10 +51,12 @@ public class EditableUiContentProvider extends DialogFieldUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		m_dialogField.setSelection(m_provider.isEditable());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		m_provider.setEditable(m_dialogField.getSelection());
 	}

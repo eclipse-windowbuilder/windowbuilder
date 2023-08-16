@@ -97,6 +97,7 @@ public class ViewerEditPart extends GraphicalEditPart {
 	@Override
 	protected void refreshVisuals() {
 		Display.getCurrent().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				Rectangle bounds = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
 				getFigure().setBounds(bounds);
@@ -142,6 +143,7 @@ public class ViewerEditPart extends GraphicalEditPart {
 	@Override
 	protected List<?> getModelChildren() {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+			@Override
 			public List<?> runObject() throws Exception {
 				return m_viewer.getPresentation().getChildrenGraphical();
 			}

@@ -28,6 +28,7 @@ import javax.swing.JInternalFrame;
  * @coverage swing.gef.policy
  */
 public final class MenuDropPolicyConfigurator implements IEditPartConfigurator {
+	@Override
 	public void configure(EditPart context, EditPart editPart) {
 		// drop JMenuBar on JFrame, JDialog and JApply
 		if (editPart.getModel() instanceof ContainerInfo) {

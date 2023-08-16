@@ -55,6 +55,7 @@ public final class RadioField extends AbstractBorderField {
 			m_buttons[i] = new Button(this, SWT.RADIO);
 			m_buttons[i].setText(titles[i]);
 			m_buttons[i].addListener(SWT.Selection, new Listener() {
+				@Override
 				public void handleEvent(Event e) {
 					m_source = m_clazz.getName() + "." + m_fields[index];
 					notifyListeners(SWT.Selection, new Event());

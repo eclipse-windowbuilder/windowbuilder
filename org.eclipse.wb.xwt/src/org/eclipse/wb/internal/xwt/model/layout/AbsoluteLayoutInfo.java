@@ -95,6 +95,7 @@ IAbsoluteLayoutInfo<ControlInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	private void addSupport_autoSize() {
 		addBroadcastListener(new GenericPropertySetExpression() {
+			@Override
 			public void invoke(GenericPropertyImpl property,
 					String[] expression,
 					Object[] value,
@@ -114,6 +115,7 @@ IAbsoluteLayoutInfo<ControlInfo> {
 							// schedule auto-size
 							final ControlInfo control = getControl(property.getObject());
 							ExecutionUtils.runLater(control, new RunnableEx() {
+								@Override
 								public void run() throws Exception {
 									commandChangeBounds(control, null, control.getPreferredSize());
 								}
@@ -127,6 +129,7 @@ IAbsoluteLayoutInfo<ControlInfo> {
 
 	private void addSupport_propertyBounds() {
 		addBroadcastListener(new XmlObjectAddProperties() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
 				if (isManagedObject(object)) {
 					ControlInfo control = getControl(object);
@@ -274,14 +277,17 @@ IAbsoluteLayoutInfo<ControlInfo> {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void commandCreate(ControlInfo control, ControlInfo nextControl) throws Exception {
 		command_CREATE(control, nextControl);
 	}
 
+	@Override
 	public void commandMove(ControlInfo control, ControlInfo nextControl) throws Exception {
 		command_MOVE(control, nextControl);
 	}
 
+	@Override
 	public void commandChangeBounds(ControlInfo control, Point location, Dimension size)
 			throws Exception {
 		commandChangeBounds0(control, location, size);

@@ -103,6 +103,7 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
 		return new AbstractAction() {
 			private static final long serialVersionUID = 0L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				String message = "Action \"" + m_javaInfo.getVariableSupport().getName() + "\" performed.";
 				JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -193,6 +194,7 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
 		return m_superInvocation;
 	}
 
+	@Override
 	public ConstructorDescription getConstructorDescription() {
 		if (m_superInvocation != null) {
 			IMethodBinding binding = AstNodeUtils.getSuperBinding(m_superInvocation);

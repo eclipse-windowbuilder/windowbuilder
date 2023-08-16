@@ -60,6 +60,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		// SWT here when it goes away.
 		if (modalDialogs.remove(awtDialog)) {
 			display.asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					SwtInputBlocker.unblock();
 				}
@@ -77,6 +78,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		modalDialogs.add(awtDialog);
 		awtDialog.addComponentListener(this);
 		display.asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				SwtInputBlocker.block();
 			}
@@ -87,6 +89,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		// TODO: this does not always bring the dialog to the top
 		// under some Linux desktops/window managers (e.g. metacity under GNOME).
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				assert modalDialogs != null;
 				int size = modalDialogs.size();
@@ -147,6 +150,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 			// this event handler. The Swing dialog does not close
 			// properly and its modality remains in effect.
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					// Remove dialog and component listener
 					handleRemovedDialog(dialog, true);
@@ -155,6 +159,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		}
 	}
 
+	@Override
 	public void eventDispatched(AWTEvent event) {
 		assert event != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
@@ -173,6 +178,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		}
 	}
 
+	@Override
 	public void componentHidden(ComponentEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
@@ -183,6 +189,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		}
 	}
 
+	@Override
 	public void componentShown(ComponentEvent e) {
 		assert e != null;
 		assert EventQueue.isDispatchThread(); // On AWT event thread
@@ -192,9 +199,11 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		}
 	}
 
+	@Override
 	public void componentResized(ComponentEvent e) {
 	}
 
+	@Override
 	public void componentMoved(ComponentEvent e) {
 	}
 }

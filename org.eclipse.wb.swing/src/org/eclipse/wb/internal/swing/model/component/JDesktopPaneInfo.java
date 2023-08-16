@@ -43,6 +43,7 @@ public final class JDesktopPaneInfo extends JLayeredPaneInfo {
 		// The workaround is to set layout to null.
 		if (EnvironmentUtils.IS_MAC) {
 			addBroadcastListener(new JavaInfosetObjectBefore() {
+				@Override
 				public void invoke(JavaInfo target, Object[] objectRef) throws Exception {
 					if (target == JDesktopPaneInfo.this) {
 						JDesktopPane pane = (JDesktopPane) objectRef[0];

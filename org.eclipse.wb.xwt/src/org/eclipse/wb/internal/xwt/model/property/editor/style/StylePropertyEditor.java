@@ -186,6 +186,7 @@ IComplexPropertyEditor {
 	// IConfigurablePropertyObject
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void configure(EditorContext context, Map<String, Object> parameters) throws Exception {
 		// prepare class
 		m_className = (String) parameters.get("class");
@@ -336,6 +337,7 @@ IComplexPropertyEditor {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public Property[] getProperties(Property mainProperty) throws Exception {
 		GenericProperty genericProperty = (GenericProperty) mainProperty;
 		XmlObjectInfo xmlObject = genericProperty.getObject();
@@ -403,6 +405,7 @@ IComplexPropertyEditor {
 			private boolean m_propertyReady;
 			private Property m_property;
 
+			@Override
 			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
 				if (object == widget) {
 					addStyleProperty(object, properties);
@@ -446,6 +449,7 @@ IComplexPropertyEditor {
 	 */
 	private static void addClipboardSupport(final XmlObjectInfo widget) {
 		widget.addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				if (object == widget) {
 					Property property = object.getPropertyByTitle("Style");

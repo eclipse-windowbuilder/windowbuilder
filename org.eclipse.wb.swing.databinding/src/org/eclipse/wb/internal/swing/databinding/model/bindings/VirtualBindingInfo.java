@@ -137,6 +137,7 @@ public final class VirtualBindingInfo extends BindingInfo {
 	// IASTObjectInfo2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setVariableIdentifier(JavaInfo javaInfoRoot, String variable, boolean field) {
 	}
 

@@ -39,6 +39,7 @@ public final class OperatorsRule implements IRule {
 	// IRule
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IToken evaluate(ICharacterScanner scanner) {
 		CharacterScannerWrapper wrapper = new CharacterScannerWrapper(scanner);
 		switch (wrapper.read()) {

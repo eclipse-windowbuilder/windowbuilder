@@ -125,6 +125,7 @@ public class LayoutInfo extends JavaInfo {
 			}
 		});
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (isActiveOnContainer(javaInfo)) {
 					event_addLayoutProperties(properties);

@@ -55,6 +55,7 @@ public final class ComboField extends AbstractBorderField {
 		m_combo.setItems(titles);
 		m_combo.setVisibleItemCount(titles.length);
 		m_combo.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event e) {
 				int index = m_combo.getSelectionIndex();
 				m_source = m_clazz.getName() + "." + m_fields[index];

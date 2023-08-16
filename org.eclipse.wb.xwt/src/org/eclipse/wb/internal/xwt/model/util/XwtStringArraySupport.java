@@ -32,6 +32,7 @@ public final class XwtStringArraySupport {
 	////////////////////////////////////////////////////////////////////////////
 	public XwtStringArraySupport(XmlObjectInfo rootObject) {
 		rootObject.addBroadcastListener(new GenericPropertySetValue() {
+			@Override
 			public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
 					throws Exception {
 				GenericPropertyDescription description = property.getDescription();

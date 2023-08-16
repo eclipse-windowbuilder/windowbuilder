@@ -34,6 +34,7 @@ public final class DesignPageFactory implements IEditorPageFactory {
 	// IDesignPageFactory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void createPages(IDesignerEditor editor, List<IEditorPage> pages) {
 		if (isSwingDB(editor.getCompilationUnit())) {
 			BindingDesignPage.addPage(pages);

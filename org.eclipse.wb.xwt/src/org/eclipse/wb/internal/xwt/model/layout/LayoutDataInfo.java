@@ -75,6 +75,7 @@ public class LayoutDataInfo extends XmlObjectInfo implements ILayoutDataInfo {
 	 */
 	private void contributeLayoutDataProperty_toControl() {
 		addBroadcastListener(new XmlObjectAddProperties() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
 				if (isActiveForControl(object)) {
 					addLayoutDataProperty(properties);

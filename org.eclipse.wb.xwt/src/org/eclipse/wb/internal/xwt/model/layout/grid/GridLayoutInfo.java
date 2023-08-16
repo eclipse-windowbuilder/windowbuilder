@@ -119,6 +119,7 @@ IGridLayoutInfo<ControlInfo> {
 		super.initialize();
 		// add listeners
 		addBroadcastListener(new ObjectInfoChildTree() {
+			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
 				if (object instanceof ControlInfo) {
 					visible[0] &= !isFiller((ControlInfo) object);
@@ -126,6 +127,7 @@ IGridLayoutInfo<ControlInfo> {
 			}
 		});
 		addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
 				if (object instanceof ControlInfo) {
 					visible[0] &= !isFiller((ControlInfo) object);
@@ -322,6 +324,7 @@ IGridLayoutInfo<ControlInfo> {
 		super.onControlRemoveAfter(control);
 	}
 
+	@Override
 	public IGridDataInfo getGridData2(ControlInfo control) {
 		return getGridData(control);
 	}
@@ -399,6 +402,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_deleteColumn(int column, boolean deleteEmptyRows) throws Exception {
 		int columnCount = getControlsGridSize().width;
 		// update GridData, delete controls
@@ -428,6 +432,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_deleteRow(int row, boolean deleteEmptyColumn) throws Exception {
 		// update GridData, delete controls
 		m_replaceWithFillers = false;
@@ -452,6 +457,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_MOVE_COLUMN(int fromIndex, int toIndex) throws Exception {
 		fixGrid();
 		// move column in columns list
@@ -487,6 +493,7 @@ IGridLayoutInfo<ControlInfo> {
 		deleteEmptyColumnsRows(null);
 	}
 
+	@Override
 	public void command_MOVE_ROW(int fromIndex, int toIndex) throws Exception {
 		fixGrid();
 		// move row in rows list
@@ -522,8 +529,10 @@ IGridLayoutInfo<ControlInfo> {
 		deleteEmptyColumnsRows(null);
 	}
 
+	@Override
 	public void command_normalizeSpanning() throws Exception {
 		ExecutionUtils.run(this, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				command_normalizeSpanning0();
 			}
@@ -574,6 +583,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public List<GridColumnInfo<ControlInfo>> getColumns() {
 		Dimension size = getControlsGridSize();
 		if (m_columns.size() != size.width) {
@@ -587,6 +597,7 @@ IGridLayoutInfo<ControlInfo> {
 		return m_columns;
 	}
 
+	@Override
 	public List<GridRowInfo<ControlInfo>> getRows() {
 		Dimension size = getControlsGridSize();
 		if (m_rows.size() != size.height) {
@@ -600,6 +611,7 @@ IGridLayoutInfo<ControlInfo> {
 		return m_rows;
 	}
 
+	@Override
 	public boolean canChangeDimensions() {
 		if (getCreationSupport() instanceof ElementCreationSupport) {
 			return true;
@@ -610,6 +622,7 @@ IGridLayoutInfo<ControlInfo> {
 		return false;
 	}
 
+	@Override
 	public boolean isExplicitRow(int row) {
 		return row >= getImplicitGridSize().height;
 	}
@@ -619,6 +632,7 @@ IGridLayoutInfo<ControlInfo> {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void command_CREATE(ControlInfo newControl,
 			int column,
 			boolean insertColumn,
@@ -637,6 +651,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_MOVE(ControlInfo control,
 			int column,
 			boolean insertColumn,
@@ -652,6 +667,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_ADD(ControlInfo control,
 			int column,
 			boolean insertColumn,
@@ -751,6 +767,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_setCells(ControlInfo control, Rectangle cells, boolean forMove)
 			throws Exception {
 		GridDataInfo gridData = getGridData(control);
@@ -813,6 +830,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public void command_setSizeHint(ControlInfo control, boolean horizontal, Dimension size)
 			throws Exception {
 		startEdit();
@@ -915,6 +933,7 @@ IGridLayoutInfo<ControlInfo> {
 	 * not strongly required by layout itself for final cells. We do this to avoid checks for
 	 * <code>null</code> in many places.
 	 */
+	@Override
 	public void fixGrid() throws Exception {
 		ControlInfo[][] grid = getControlsGrid();
 		for (int row = 0; row < grid.length; row++) {
@@ -988,24 +1007,29 @@ IGridLayoutInfo<ControlInfo> {
 	private void doAutomaticAlignment(ControlInfo control) throws Exception {
 		final IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
 		GridAlignmentHelper.doAutomaticAlignment(control, new IAlignmentProcessor<ControlInfo>() {
+			@Override
 			public boolean grabEnabled() {
 				return preferences.getBoolean(P_ENABLE_GRAB);
 			}
 
+			@Override
 			public boolean rightEnabled() {
 				return preferences.getBoolean(P_ENABLE_RIGHT_ALIGNMENT);
 			}
 
+			@Override
 			public ControlInfo getComponentAtLeft(ControlInfo component) {
 				GridDataInfo gridData = getGridData(component);
 				return getControlAt(gridData.x - 1, gridData.y);
 			}
 
+			@Override
 			public ControlInfo getComponentAtRight(ControlInfo component) {
 				GridDataInfo gridData = getGridData(component);
 				return getControlAt(gridData.x + 1, gridData.y);
 			}
 
+			@Override
 			public void setGrabFill(ControlInfo component, boolean horizontal) throws Exception {
 				GridDataInfo gridData = getGridData(component);
 				if (horizontal) {
@@ -1017,6 +1041,7 @@ IGridLayoutInfo<ControlInfo> {
 				}
 			}
 
+			@Override
 			public void setRightAlignment(ControlInfo component) throws Exception {
 				GridDataInfo gridData = getGridData(component);
 				gridData.setHorizontalAlignment(SWT.RIGHT);
@@ -1052,9 +1077,11 @@ IGridLayoutInfo<ControlInfo> {
 	private int[] m_columnWidths;
 	private int[] m_rowHeights;
 
+	@Override
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
 			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					createGridInfo();
 				}
@@ -1116,10 +1143,12 @@ IGridLayoutInfo<ControlInfo> {
 			// Dimensions
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public int getColumnCount() {
 				return columnIntervals.length;
 			}
 
+			@Override
 			public int getRowCount() {
 				return rowIntervals.length;
 			}
@@ -1129,10 +1158,12 @@ IGridLayoutInfo<ControlInfo> {
 			// Intervals
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Interval[] getColumnIntervals() {
 				return columnIntervals;
 			}
 
+			@Override
 			public Interval[] getRowIntervals() {
 				return rowIntervals;
 			}
@@ -1142,11 +1173,13 @@ IGridLayoutInfo<ControlInfo> {
 			// Cells
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Rectangle getComponentCells(IAbstractComponentInfo component) {
 				Assert.instanceOf(ControlInfo.class, component);
 				return componentToCells.get(component);
 			}
 
+			@Override
 			public Rectangle getCellsRectangle(Rectangle cells) {
 				int x = columnIntervals[cells.x].begin();
 				int y = rowIntervals[cells.y].begin();
@@ -1160,10 +1193,12 @@ IGridLayoutInfo<ControlInfo> {
 			// Feedback
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean isRTL() {
 				return getComposite().isRTL();
 			}
 
+			@Override
 			public Insets getInsets() {
 				return getComposite().getClientAreaInsets2();
 			}
@@ -1173,14 +1208,17 @@ IGridLayoutInfo<ControlInfo> {
 			// Virtual columns
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualColumns() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualColumnSize() {
 				return VIRTUAL_SIZE;
 			}
 
+			@Override
 			public int getVirtualColumnGap() {
 				return VIRTUAL_GAP;
 			}
@@ -1190,14 +1228,17 @@ IGridLayoutInfo<ControlInfo> {
 			// Virtual columns
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualRows() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualRowSize() {
 				return VIRTUAL_SIZE;
 			}
 
+			@Override
 			public int getVirtualRowGap() {
 				return VIRTUAL_GAP;
 			}
@@ -1207,6 +1248,7 @@ IGridLayoutInfo<ControlInfo> {
 			// Checks
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public IAbstractComponentInfo getOccupied(int column, int row) {
 				return occupiedCells.get(new Point(column, row));
 			}
@@ -1239,6 +1281,7 @@ IGridLayoutInfo<ControlInfo> {
 		}
 	}
 
+	@Override
 	public boolean isFiller(ControlInfo control) {
 		return control != null
 				&& isLabel(control)

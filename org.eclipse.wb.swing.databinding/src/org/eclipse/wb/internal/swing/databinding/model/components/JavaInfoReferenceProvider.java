@@ -56,6 +56,7 @@ public final class JavaInfoReferenceProvider implements IReferenceProvider {
 	// IReferenceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getReference() throws Exception {
 		return getReference(m_javaInfo);
 	}

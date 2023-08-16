@@ -103,6 +103,7 @@ public final class ColumnSelectionEditPolicy extends DimensionSelectionEditPolic
 	private void setAlignment(final MigColumnInfo.Alignment alignment) {
 		final MigLayoutInfo layout = getLayout();
 		ExecutionUtils.run(layout, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				getDimension().setAlignment(alignment);
 				layout.writeDimensions();

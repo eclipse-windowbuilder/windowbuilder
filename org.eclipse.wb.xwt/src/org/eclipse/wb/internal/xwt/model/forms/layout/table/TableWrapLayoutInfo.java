@@ -121,6 +121,7 @@ IPreferenceConstants {
 		super.initialize();
 		// add listeners
 		addBroadcastListener(new ObjectInfoChildTree() {
+			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
 				if (object instanceof ControlInfo) {
 					visible[0] &= !isFiller((ControlInfo) object);
@@ -128,6 +129,7 @@ IPreferenceConstants {
 			}
 		});
 		addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
 				if (object instanceof ControlInfo) {
 					visible[0] &= !isFiller((ControlInfo) object);
@@ -294,6 +296,7 @@ IPreferenceConstants {
 		super.onControlRemoveAfter(control);
 	}
 
+	@Override
 	public ITableWrapDataInfo getTableWrapData2(ControlInfo control) {
 		return getTableWrapData(control);
 	}
@@ -303,6 +306,7 @@ IPreferenceConstants {
 	 */
 	public TableWrapDataInfo getTableWrapData(final ControlInfo control) {
 		return ExecutionUtils.runObject(new RunnableObjectEx<TableWrapDataInfo>() {
+			@Override
 			public TableWrapDataInfo runObject() throws Exception {
 				TableWrapDataInfo layoutData = (TableWrapDataInfo) getLayoutData(control);
 				layoutData.initialize(TableWrapLayoutInfo.this, control);
@@ -376,6 +380,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_deleteColumn(int column, boolean deleteEmptyRows) throws Exception {
 		int columnCount = getControlsGridSize().width;
 		// update TableWrapData, delete controls
@@ -405,6 +410,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_deleteRow(int row, boolean deleteEmptyColumn) throws Exception {
 		// update TableWrapData, delete controls
 		m_replaceWithFillers = false;
@@ -429,6 +435,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_MOVE_COLUMN(int fromIndex, int toIndex) throws Exception {
 		fixGrid();
 		// move column in columns list
@@ -463,6 +470,7 @@ IPreferenceConstants {
 		deleteEmptyColumnsRows(null);
 	}
 
+	@Override
 	public void command_MOVE_ROW(int fromIndex, int toIndex) throws Exception {
 		fixGrid();
 		// move row in rows list
@@ -502,6 +510,7 @@ IPreferenceConstants {
 	private final List<TableWrapColumnInfo<ControlInfo>> m_columns = Lists.newArrayList();
 	private final List<TableWrapRowInfo<ControlInfo>> m_rows = Lists.newArrayList();
 
+	@Override
 	public List<TableWrapColumnInfo<ControlInfo>> getColumns() {
 		Dimension size = getControlsGridSize();
 		if (m_columns.size() != size.width) {
@@ -513,6 +522,7 @@ IPreferenceConstants {
 		return m_columns;
 	}
 
+	@Override
 	public List<TableWrapRowInfo<ControlInfo>> getRows() {
 		Dimension size = getControlsGridSize();
 		if (m_rows.size() != size.height) {
@@ -529,6 +539,7 @@ IPreferenceConstants {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void command_CREATE(ControlInfo newControl,
 			int column,
 			boolean insertColumn,
@@ -547,6 +558,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_MOVE(ControlInfo control,
 			int column,
 			boolean insertColumn,
@@ -562,6 +574,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_ADD(ControlInfo control,
 			int column,
 			boolean insertColumn,
@@ -662,6 +675,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_setCells(ControlInfo control, Rectangle cells, boolean forMove)
 			throws Exception {
 		TableWrapDataInfo layoutData = getTableWrapData(control);
@@ -724,6 +738,7 @@ IPreferenceConstants {
 		}
 	}
 
+	@Override
 	public void command_setHeightHint(ControlInfo control, int size) throws Exception {
 		startEdit();
 		try {
@@ -786,6 +801,7 @@ IPreferenceConstants {
 		return grid;
 	}
 
+	@Override
 	public void fixGrid() throws Exception {
 		ControlInfo[][] grid = getControlsGrid();
 		for (int row = 0; row < grid.length; row++) {
@@ -846,24 +862,29 @@ IPreferenceConstants {
 	private void doAutomaticAlignment(ControlInfo control) throws Exception {
 		final IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
 		GridAlignmentHelper.doAutomaticAlignment(control, new IAlignmentProcessor<ControlInfo>() {
+			@Override
 			public boolean grabEnabled() {
 				return preferences.getBoolean(P_ENABLE_GRAB);
 			}
 
+			@Override
 			public boolean rightEnabled() {
 				return preferences.getBoolean(P_ENABLE_RIGHT_ALIGNMENT);
 			}
 
+			@Override
 			public ControlInfo getComponentAtLeft(ControlInfo component) {
 				TableWrapDataInfo layoutData = getTableWrapData(component);
 				return getControlAt(layoutData.x - 1, layoutData.y);
 			}
 
+			@Override
 			public ControlInfo getComponentAtRight(ControlInfo component) {
 				TableWrapDataInfo layoutData = getTableWrapData(component);
 				return getControlAt(layoutData.x + 1, layoutData.y);
 			}
 
+			@Override
 			public void setGrabFill(ControlInfo component, boolean horizontal) throws Exception {
 				TableWrapDataInfo layoutData = getTableWrapData(component);
 				if (horizontal) {
@@ -875,6 +896,7 @@ IPreferenceConstants {
 				}
 			}
 
+			@Override
 			public void setRightAlignment(ControlInfo component) throws Exception {
 				TableWrapDataInfo layoutData = getTableWrapData(component);
 				layoutData.setHorizontalAlignment(TableWrapData.RIGHT);
@@ -907,9 +929,11 @@ IPreferenceConstants {
 	private int[] m_columnWidths;
 	private int[] m_rowHeights;
 
+	@Override
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
 			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					createGridInfo();
 				}
@@ -971,10 +995,12 @@ IPreferenceConstants {
 			// Dimensions
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public int getColumnCount() {
 				return columnIntervals.length;
 			}
 
+			@Override
 			public int getRowCount() {
 				return rowIntervals.length;
 			}
@@ -984,10 +1010,12 @@ IPreferenceConstants {
 			// Intervals
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Interval[] getColumnIntervals() {
 				return columnIntervals;
 			}
 
+			@Override
 			public Interval[] getRowIntervals() {
 				return rowIntervals;
 			}
@@ -997,11 +1025,13 @@ IPreferenceConstants {
 			// Cells
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Rectangle getComponentCells(IAbstractComponentInfo component) {
 				Assert.instanceOf(ControlInfo.class, component);
 				return componentToCells.get(component);
 			}
 
+			@Override
 			public Rectangle getCellsRectangle(Rectangle cells) {
 				int x = columnIntervals[cells.x].begin();
 				int y = rowIntervals[cells.y].begin();
@@ -1015,10 +1045,12 @@ IPreferenceConstants {
 			// Feedback
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean isRTL() {
 				return false;
 			}
 
+			@Override
 			public Insets getInsets() {
 				return new Insets();
 			}
@@ -1028,14 +1060,17 @@ IPreferenceConstants {
 			// Virtual columns
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualColumns() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualColumnSize() {
 				return 25;
 			}
 
+			@Override
 			public int getVirtualColumnGap() {
 				return 5;
 			}
@@ -1045,14 +1080,17 @@ IPreferenceConstants {
 			// Virtual rows
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualRows() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualRowSize() {
 				return 25;
 			}
 
+			@Override
 			public int getVirtualRowGap() {
 				return 5;
 			}
@@ -1062,6 +1100,7 @@ IPreferenceConstants {
 			// Checks
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public IAbstractComponentInfo getOccupied(int column, int row) {
 				return occupiedCells.get(new Point(column, row));
 			}
@@ -1084,6 +1123,7 @@ IPreferenceConstants {
 		return intervals;
 	}
 
+	@Override
 	public boolean isFiller(ControlInfo control) {
 		return isLabel(control)
 				&& control.getCreationSupport().getElement().getDocumentAttributes().isEmpty();

@@ -37,6 +37,7 @@ public final class XwtTagResolver extends NamespacesHelper {
 		super(rootObject.getCreationSupport().getElement());
 		m_context = rootObject.getContext();
 		rootObject.addBroadcastListener(new XmlObjectResolveTag() {
+			@Override
 			public void invoke(XmlObjectInfo object, Class<?> clazz, String[] namespace, String[] tag)
 					throws Exception {
 				invoke0(object, clazz, namespace, tag);

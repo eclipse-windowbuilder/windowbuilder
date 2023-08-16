@@ -83,6 +83,7 @@ IClipboardSourceProvider {
 	// IClipboardSourceProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public String getClipboardSource(GenericProperty property) throws Exception {
 		Expression expression = property.getExpression();
 		if (expression != null) {
@@ -91,6 +92,7 @@ IClipboardSourceProvider {
 			// Replace each reference on variable with "bad" mark.
 			AstEditor editor = property.getJavaInfo().getEditor();
 			String source = editor.getExternalSource(expression, new Function<ASTNode, String>() {
+				@Override
 				public String apply(ASTNode input) {
 					IVariableBinding variableBinding = AstNodeUtils.getVariableBinding(input);
 					if (variableBinding != null && !variableBinding.isField()) {
@@ -141,6 +143,7 @@ IClipboardSourceProvider {
 	// INlsPropertyContributor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void contributeNlsProperties(Property _property, List<Property> properties)
 			throws Exception {
 		GenericProperty property = (GenericProperty) _property;
@@ -152,6 +155,7 @@ IClipboardSourceProvider {
 				if (AstNodeUtils.isSuccessorOf(argument, "java.lang.String")) {
 					properties.add(new GenericProperty(javaInfo, property.getTitle() + "Title",
 							StringPropertyEditor.INSTANCE) {
+						@Override
 						public Class<?> getType() {
 							return String.class;
 						}
@@ -174,6 +178,7 @@ IClipboardSourceProvider {
 						@Override
 						public void setExpression(final String source, Object value) throws Exception {
 							ExecutionUtils.run(javaInfo, new RunnableEx() {
+								@Override
 								public void run() throws Exception {
 									javaInfo.getEditor().replaceExpression(argument, source);
 								}

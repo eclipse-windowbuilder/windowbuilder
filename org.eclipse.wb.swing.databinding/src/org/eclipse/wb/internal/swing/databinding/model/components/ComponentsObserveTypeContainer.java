@@ -85,6 +85,7 @@ public final class ComponentsObserveTypeContainer extends ObserveTypeContainer {
 		m_observes.add(new ComponentObserveInfo(new BeanSupport(), root));
 	}
 
+	@Override
 	public AstObjectInfo parseExpression(AstEditor editor,
 			String signature,
 			ClassInstanceCreation creation,
@@ -94,6 +95,7 @@ public final class ComponentsObserveTypeContainer extends ObserveTypeContainer {
 		return null;
 	}
 
+	@Override
 	public AstObjectInfo parseExpression(AstEditor editor,
 			String signature,
 			MethodInvocation invocation,

@@ -82,6 +82,7 @@ LafSupport.ILookAndFeelsChangeListener {
 		m_toolItem.setToolTipText(ModelMessages.LafSelectionItem_select);
 		// setup drop-down menu
 		m_toolItem.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				createMenu(parent);
 				// prepare location
@@ -171,6 +172,7 @@ LafSupport.ILookAndFeelsChangeListener {
 		// sort recently used by usage count
 		List<LafInfo> resultList = LafSupport.getMRULAFList();
 		Collections.sort(resultList, new Comparator<LafInfo>() {
+			@Override
 			public int compare(LafInfo o1, LafInfo o2) {
 				return o2.getUsageCount() - o1.getUsageCount();
 			}
@@ -250,6 +252,7 @@ LafSupport.ILookAndFeelsChangeListener {
 	// LAFSupport.ILookAndFeelsChangeListener
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void lookAndFeelsListChanged() {
 		LafInfo selectedLAF = LafSupport.getSelectedLAF(m_componentInfo);
 		m_toolItem.setText(selectedLAF.getName());

@@ -87,6 +87,7 @@ public final class TableModelPropertyEditor extends TextDialogPropertyEditor {
 			final TableModelDescription model) throws Exception {
 		final ComponentInfo table = (ComponentInfo) genericProperty.getJavaInfo();
 		ExecutionUtils.run(table, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				setModelEx(table, genericProperty, model);
 			}

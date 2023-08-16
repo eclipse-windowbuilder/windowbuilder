@@ -33,6 +33,7 @@ public interface ILookAndFeelInitializer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	final ILookAndFeelInitializer DEFAULT = new ILookAndFeelInitializer() {
+		@Override
 		public void initialize() throws Exception {
 			// do nothing
 		}

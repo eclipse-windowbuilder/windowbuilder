@@ -111,12 +111,15 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 			m_categoriesCombo = new ComboViewer(parent, SWT.READ_ONLY);
 			GridDataFactory.create(m_categoriesCombo.getControl()).grabH().fillH();
 			m_categoriesCombo.setContentProvider(new IStructuredContentProvider() {
+				@Override
 				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				}
 
+				@Override
 				public void dispose() {
 				}
 
+				@Override
 				public Object[] getElements(Object inputElement) {
 					return LafSupport.getLAFCategoriesList().toArray();
 				}
@@ -317,6 +320,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 			return m_menu;
 		}
 
+		@Override
 		public void changeControlPressed(DialogField field) {
 			getPopupMenu();
 			// prepare location

@@ -49,6 +49,7 @@ public final class ColumnInfo extends DimensionInfo {
 	public Alignment getAlignment() {
 		final EnumSet<Alignment> alignments = EnumSet.noneOf(Alignment.class);
 		visit(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				alignments.add(constraints.getHorizontalAlignment());
@@ -62,6 +63,7 @@ public final class ColumnInfo extends DimensionInfo {
 	 */
 	public void setAlignment(final ColumnInfo.Alignment alignment) throws Exception {
 		visit(new IComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
 					throws Exception {
 				constraints.setHorizontalAlignment(alignment);

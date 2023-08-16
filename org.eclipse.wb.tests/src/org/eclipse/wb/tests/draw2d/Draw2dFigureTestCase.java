@@ -29,6 +29,7 @@ implements
 IColorConstants,
 ICursorConstants {
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		// check create display for initialize figure's colors

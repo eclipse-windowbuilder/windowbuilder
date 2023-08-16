@@ -41,6 +41,7 @@ public final class ElementTypeUiContentProvider extends ChooseClassUiContentProv
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		IGenericType elementType = m_binding.getElementType();
 		if (elementType == null) {
@@ -50,6 +51,7 @@ public final class ElementTypeUiContentProvider extends ChooseClassUiContentProv
 		}
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		m_binding.setElementType(new ClassGenericType(getChoosenClass(), null, null));
 	}

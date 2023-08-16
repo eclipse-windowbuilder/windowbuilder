@@ -35,6 +35,7 @@ public final class NamePropertySupport {
 	////////////////////////////////////////////////////////////////////////////
 	public NamePropertySupport(XmlObjectInfo rootObject) {
 		rootObject.addBroadcastListener(new XmlObjectAddProperties() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
 				if (object instanceof WidgetInfo || object instanceof ViewerInfo) {
 					Property property = getNameProperty(object);

@@ -62,6 +62,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Return all registers listeners for given class or <code>null</code>.
 	 */
+	@Override
 	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return super.getListeners(listenerClass);
 	}
@@ -70,6 +71,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Notifies any {@link IFigureListener IFigureListeners} listening to this {@link Figure} that it
 	 * has moved.
 	 */
+	@Override
 	protected void fireMoved() {
 		Iterator<FigureListener> listeners = getListeners(FigureListener.class);
 		if (listeners != null) {
@@ -80,6 +82,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Called after the receiver's parent has been set and it has been added to its parent.
 	 */
+	@Override
 	public void addNotify() {
 		for (Figure childFigure : getChildren()) {
 			childFigure.addNotify();
@@ -89,6 +92,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Called prior to this figure's removal from its parent.
 	 */
+	@Override
 	public void removeNotify() {
 		for (Figure childFigure : getChildren()) {
 			childFigure.removeNotify();
@@ -192,6 +196,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * @return the {@link List} of children {@link Figure}'s.
 	 */
+	@Override
 	public List<Figure> getChildren() {
 		return m_children == null ? Collections.<Figure>emptyList() : m_children;
 	}
@@ -219,6 +224,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Removes all children from this Figure.
 	 */
+	@Override
 	public void removeAll() {
 		// remove all children
 		for (Figure childFigure : getChildren()) {
@@ -245,6 +251,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Returns the Figure that is the current parent of this Figure or <code>null</code> if there is
 	 * no parent.
 	 */
+	@Override
 	public Figure getParent() {
 		return m_parent;
 	}
@@ -338,6 +345,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Repaints this Figure.
 	 */
+	@Override
 	public final void repaint() {
 		if (isVisible()) {
 			Rectangle bounds = getBounds();
@@ -365,6 +373,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 *
 	 * @noreference @nooverride
 	 */
+	@Override
 	public final void paint(Graphics graphics) {
 		// set figure state
 		if (m_background != null) {
@@ -390,6 +399,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		}
 	}
 
+	@Override
 	protected void paintFigure(Graphics graphics) {
 		// fill all figure before any painting clientArea, clilds, and border.
 		if (m_opaque) {
@@ -403,6 +413,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		graphics.restoreState();
 	}
 
+	@Override
 	protected void paintChildren(Graphics graphics) {
 		List<Figure> children = getChildren();
 		if (children.isEmpty()) {
@@ -430,12 +441,14 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Paints this Figure's primary representation.
 	 */
+	@Override
 	protected void paintClientArea(Graphics graphics) {
 	}
 
 	/**
 	 * Paints the border associated with this Figure, if one exists.
 	 */
+	@Override
 	protected void paintBorder(Graphics graphics) {
 		if (m_border != null) {
 			m_border.paint(this, graphics, NO_INSETS);
@@ -452,6 +465,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Returns the smallest rectangle completely enclosing the figure. Returns Reactangle by
 	 * reference. DO NOT Modify returned value.
 	 */
+	@Override
 	public Rectangle getBounds() {
 		return m_bounds;
 	}
@@ -468,6 +482,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Sets the location of this Figure.
 	 */
+	@Override
 	public void setLocation(Point location) {
 		setLocation(location.x, location.y);
 	}
@@ -475,6 +490,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Sets this Figure's size.
 	 */
+	@Override
 	public void setSize(int width, int height) {
 		if (m_bounds.width != width || m_bounds.height != height) {
 			setBounds(new Rectangle(getBounds()).setSize(width, height));
@@ -484,6 +500,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Sets the bounds of this Figure to the Rectangle <i>rect</i>.
 	 */
+	@Override
 	public void setBounds(Rectangle bounds) {
 		if (!m_bounds.equals(bounds)) {
 			// calc repaint rectangle
@@ -501,6 +518,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Returns the border's Insets if the border is set. Otherwise returns NO_INSETS, an instance of
 	 * Insets with all 0s. Returns Insets by reference. DO NOT Modify returned value.
 	 */
+	@Override
 	public Insets getInsets() {
 		if (m_border == null) {
 			return IFigure.NO_INSETS;
@@ -512,6 +530,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Copies the client area into the specified {@link Rectangle}, and returns that rectangle for
 	 * convenience.
 	 */
+	@Override
 	public Rectangle getClientArea(Rectangle rectangle) {
 		rectangle.setBounds(getBounds());
 		rectangle.crop(getInsets());
@@ -523,6 +542,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Returns <code>true</code> if this Figure's bounds intersect with the given Rectangle. Figure is
 	 * asked so that non-rectangular Figures can reduce the frequency of paints.
 	 */
+	@Override
 	public boolean intersects(Rectangle rectangle) {
 		return getBounds().intersects(rectangle);
 	}
@@ -531,6 +551,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Returns <code>true</code> if the point <code>(x, y)</code> is contained within this
 	 * {@link Figure}'s bounds.
 	 */
+	@Override
 	public boolean containsPoint(int x, int y) {
 		return getBounds().contains(x, y);
 	}
@@ -557,6 +578,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Returns the current border by reference.
 	 */
+	@Override
 	public Border getBorder() {
 		return m_border;
 	}
@@ -608,6 +630,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Returns the current Font by reference.
 	 */
+	@Override
 	public Font getFont() {
 		return m_font;
 	}
@@ -615,6 +638,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Sets the font.
 	 */
+	@Override
 	public void setFont(Font font) {
 		if (m_font != font) {
 			m_font = font;
@@ -625,6 +649,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * @return The Cursor used when the mouse is over this Figure
 	 */
+	@Override
 	public Cursor getCursor() {
 		return m_cursor;
 	}
@@ -632,6 +657,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Sets the cursor.
 	 */
+	@Override
 	public void setCursor(Cursor cursor) {
 		if (m_cursor != cursor) {
 			m_cursor = cursor;
@@ -642,6 +668,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Returns <code>true</code> if this Figure is opaque.
 	 */
+	@Override
 	public boolean isOpaque() {
 		return m_opaque;
 	}
@@ -650,6 +677,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Sets this Figure to be opaque if <i>opaque</i> is <code>true</code> and transparent if
 	 * <i>opaque</i> is <code>false</code>.
 	 */
+	@Override
 	public void setOpaque(boolean opaque) {
 		if (m_opaque != opaque) {
 			m_opaque = opaque;
@@ -660,6 +688,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * @return <code>true</code> if the figure's visibility flag is set
 	 */
+	@Override
 	public boolean isVisible() {
 		return m_visible;
 	}
@@ -667,6 +696,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Sets this Figure's visibility.
 	 */
+	@Override
 	public void setVisible(boolean visible) {
 		if (m_visible != visible) {
 			resetState();

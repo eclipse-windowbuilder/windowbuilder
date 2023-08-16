@@ -88,6 +88,7 @@ public final class ResizeHintFigure extends Figure {
 	/**
 	 * @return the desirable size for this {@link ResizeHintFigure}.
 	 */
+	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		Font font = getFont();
 		int width = 0;

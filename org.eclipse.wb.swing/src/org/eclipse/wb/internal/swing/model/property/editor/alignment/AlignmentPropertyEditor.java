@@ -96,6 +96,7 @@ abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
 				int height) {
 			int presentationWidth = super.show(propertyTable, property, x, y, width, height);
 			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					selectButtonByValue(propertyTable, property);
 				}

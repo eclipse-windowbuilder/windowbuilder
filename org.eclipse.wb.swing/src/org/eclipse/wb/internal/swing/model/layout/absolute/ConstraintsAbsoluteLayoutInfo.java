@@ -67,6 +67,7 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
 	 */
 	public static ConstraintsAbsoluteLayoutDataInfo getConstraints(final ComponentInfo component) {
 		return ExecutionUtils.runObject(new RunnableObjectEx<ConstraintsAbsoluteLayoutDataInfo>() {
+			@Override
 			public ConstraintsAbsoluteLayoutDataInfo runObject() throws Exception {
 				// prepare constraints
 				ConstraintsAbsoluteLayoutDataInfo constraints;

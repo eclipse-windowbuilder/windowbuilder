@@ -108,6 +108,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		refresh_fetch(this, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				ControlInfo.super.refresh_fetch();
 			}

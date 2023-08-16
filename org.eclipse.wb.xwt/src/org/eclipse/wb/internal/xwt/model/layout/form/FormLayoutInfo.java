@@ -175,10 +175,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void commandMove(ControlInfo control, ControlInfo nextControl) throws Exception {
 		command_MOVE(control, nextControl);
 	}
 
+	@Override
 	public void commandCreate(ControlInfo control, ControlInfo nextControl) throws Exception {
 		command_CREATE(control, nextControl);
 	}
@@ -272,6 +274,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 		preferences.addPropertyChangeListener();
 	}
 
+	@Override
 	public void setAttachmentOffset(ControlInfo control, int side, int offset) throws Exception {
 		FormDataInfo dataInfo = (FormDataInfo) getLayoutData(control);
 		FormAttachmentInfo attachment = dataInfo.getAttachment(side);
@@ -286,6 +289,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public FormLayoutInfoImpl<ControlInfo> getImpl() {
 		return impl;
 	}
@@ -306,6 +310,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	/**
 	 * @return the size of the container excluding and client area insets.
 	 */
+	@Override
 	public final Dimension getContainerSize() {
 		AbstractComponentInfo composite = getComposite();
 		Rectangle compositeBounds = composite.getModelBounds().getCopy();
@@ -322,6 +327,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	 * Anchors control at current place to parent with given sides. If side omitted and if relative,
 	 * then anchors the missing side to percent, otherwise deletes attachment.
 	 */
+	@Override
 	public void setQuickAnchors(ControlInfo widget, int sides, boolean relative) throws Exception {
 		setQuickAnchor(
 				widget,
@@ -357,6 +363,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 		}
 	}
 
+	@Override
 	public void anchorToParent(ControlInfo control, int controlSide, int parentSide) throws Exception {
 		FormAttachmentInfo attachment = getAttachment(control, controlSide);
 		attachment.setControl(null);
@@ -389,6 +396,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 		attachment.write();
 	}
 
+	@Override
 	public void anchorToParentAsPercent(ControlInfo control, int controlSide) throws Exception {
 		FormAttachmentInfo attachment = getAttachment(control, controlSide);
 		attachment.setControl(null);
@@ -413,6 +421,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	// Preferences
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public FormLayoutPreferences<ControlInfo> getPreferences() {
 		return preferences;
 	}
@@ -422,6 +431,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	// Misc
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IResource getUnderlyingResource() throws Exception {
 		return getContext().getFile();
 	}

@@ -67,6 +67,7 @@ public class AbstractActionInfo extends ActionInfo {
 		super(editor, description, creationSupport);
 		// add "putValue()" properties
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (javaInfo == AbstractActionInfo.this) {
 					addProperties(properties);
@@ -213,6 +214,7 @@ public class AbstractActionInfo extends ActionInfo {
 							final Expression oldExpression = getExpression(javaInfo);
 							if (!editor.getSource(oldExpression).equals(source)) {
 								ExecutionUtils.run(javaInfo, new RunnableEx() {
+									@Override
 									public void run() throws Exception {
 										editor.replaceExpression(oldExpression, newSource);
 									}

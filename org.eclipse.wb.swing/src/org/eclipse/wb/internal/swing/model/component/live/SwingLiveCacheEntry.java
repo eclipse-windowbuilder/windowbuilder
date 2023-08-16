@@ -32,6 +32,7 @@ public final class SwingLiveCacheEntry implements ILiveCacheEntry {
 	// IDisposable
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void dispose() {
 		if (m_image != null && !m_image.isDisposed()) {
 			m_image.dispose();

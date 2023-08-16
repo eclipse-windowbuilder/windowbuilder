@@ -186,6 +186,7 @@ public final class TableModelDialog extends ResizableDialog {
 			m_columnCountSpinner = new CSpinner(container, SWT.BORDER);
 			GridDataFactory.create(m_columnCountSpinner).grabH().fillH().hintHC(5);
 			addJTableOperationSelectionListener(m_columnCountSpinner, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.setColumnCount(m_columnCountSpinner.getSelection());
 				}
@@ -197,10 +198,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_insertColumnButton).spanH(2).hintHC(13).alignHC();
 			m_insertColumnButton.setText(ModelMessages.TableModelDialog_columnInsertButton);
 			addJTableOperationSelectionListener(m_insertColumnButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.insertColumn(getInsertColumnIndex(column));
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					setTableSelection(row, getInsertColumnIndex(column));
 				}
@@ -212,10 +215,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_deleteColumnButton).spanH(2).hintHC(13).alignHC();
 			m_deleteColumnButton.setText(ModelMessages.TableModelDialog_columnDeleteButton);
 			addJTableOperationSelectionListener(m_deleteColumnButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.removeColumn(column);
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					if (column < m_table.getColumnCount()) {
 						setTableSelection(row, column);
@@ -231,10 +236,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_moveColumnLeftButton).spanH(2).hintHC(13).alignHC();
 			m_moveColumnLeftButton.setText(ModelMessages.TableModelDialog_columnMoveLeftButton);
 			addJTableOperationSelectionListener(m_moveColumnLeftButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.moveColumn(column, column - 1);
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					setTableSelection(row, column - 1);
 				}
@@ -246,10 +253,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_moveColumnRightButton).spanH(2).hintHC(13).alignHC();
 			m_moveColumnRightButton.setText(ModelMessages.TableModelDialog_columnMoveRightButton);
 			addJTableOperationSelectionListener(m_moveColumnRightButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.moveColumn(column, column + 1);
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					setTableSelection(row, column + 1);
 				}
@@ -269,6 +278,7 @@ public final class TableModelDialog extends ResizableDialog {
 			m_rowCountSpinner = new CSpinner(container, SWT.BORDER);
 			GridDataFactory.create(m_rowCountSpinner).grabH().fillH().hintHC(5);
 			addJTableOperationSelectionListener(m_rowCountSpinner, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.setRowCount(m_rowCountSpinner.getSelection());
 				}
@@ -280,10 +290,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_insertRowButton).spanH(2).hintHC(13).alignHC();
 			m_insertRowButton.setText(ModelMessages.TableModelDialog_rowInsertButton);
 			addJTableOperationSelectionListener(m_insertRowButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.insertRow(getInsertRowIndex(row));
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					setTableSelection(getInsertRowIndex(row), column);
 				}
@@ -295,10 +307,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_deleteRowButton).spanH(2).hintHC(13).alignHC();
 			m_deleteRowButton.setText(ModelMessages.TableModelDialog_rowDeleteButton);
 			addJTableOperationSelectionListener(m_deleteRowButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.removeRow(row);
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					if (row < m_table.getRowCount()) {
 						setTableSelection(row, column);
@@ -314,10 +328,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_moveRowUpButton).spanH(2).hintHC(13).alignHC();
 			m_moveRowUpButton.setText(ModelMessages.TableModelDialog_rowMoveUpButton);
 			addJTableOperationSelectionListener(m_moveRowUpButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.moveRow(row, row - 1);
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					setTableSelection(row - 1, column);
 				}
@@ -329,10 +345,12 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_moveRowDownButton).spanH(2).hintHC(13).alignHC();
 			m_moveRowDownButton.setText(ModelMessages.TableModelDialog_rowMoveDownButton);
 			addJTableOperationSelectionListener(m_moveRowDownButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.moveRow(row, row + 1);
 				}
 			}, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					setTableSelection(row + 1, column);
 				}
@@ -363,6 +381,7 @@ public final class TableModelDialog extends ResizableDialog {
 			m_columnPropertyTitle = new Text(container, SWT.BORDER);
 			GridDataFactory.create(m_columnPropertyTitle).spanH(2).hintHC(40).fillH();
 			addJTableOperationListener(m_columnPropertyTitle, SWT.Modify, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_name = m_columnPropertyTitle.getText();
 				}
@@ -375,6 +394,7 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_columnPropertyPrefWidth).hintHC(15);
 			m_columnPropertyPrefWidth.setRange(0, Integer.MAX_VALUE);
 			addJTableOperationSelectionListener(m_columnPropertyPrefWidth, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_preferredWidth = m_columnPropertyPrefWidth.getSelection();
 				}
@@ -383,6 +403,7 @@ public final class TableModelDialog extends ResizableDialog {
 		{
 			ToolItem clearButton = createClearSpinnerButton(container);
 			addJTableOperationSelectionListener(clearButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_preferredWidth =
 							TableColumnDescription.DEFAULT_PREFERRED_WIDTH;
@@ -401,6 +422,7 @@ public final class TableModelDialog extends ResizableDialog {
 			m_columnPropertyType.setVisibleItemCount(COLUMN_TYPES.size());
 			// listener
 			addJTableOperationSelectionListener(m_columnPropertyType, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					String typeTitle = m_columnPropertyType.getText();
 					Class<?> type = COLUMN_TYPES.get(typeTitle);
@@ -433,6 +455,7 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_columnPropertyMinWidth).hintHC(15);
 			m_columnPropertyMinWidth.setRange(0, Integer.MAX_VALUE);
 			addJTableOperationSelectionListener(m_columnPropertyMinWidth, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_minWidth = m_columnPropertyMinWidth.getSelection();
 				}
@@ -441,6 +464,7 @@ public final class TableModelDialog extends ResizableDialog {
 		{
 			ToolItem clearButton = createClearSpinnerButton(container);
 			addJTableOperationSelectionListener(clearButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_minWidth = TableColumnDescription.DEFAULT_MIN_WIDTH;
 				}
@@ -455,6 +479,7 @@ public final class TableModelDialog extends ResizableDialog {
 				m_columnPropertyEditable = new Button(booleanContainer, SWT.CHECK);
 				m_columnPropertyEditable.setText(ModelMessages.TableModelDialog_columnPropertiesEditable);
 				addJTableOperationSelectionListener(m_columnPropertyEditable, new TableOperationRunnable() {
+					@Override
 					public void run(int row, int column) {
 						m_model.getColumn(column).m_editable = m_columnPropertyEditable.getSelection();
 					}
@@ -466,6 +491,7 @@ public final class TableModelDialog extends ResizableDialog {
 				addJTableOperationSelectionListener(
 						m_columnPropertyResizable,
 						new TableOperationRunnable() {
+							@Override
 							public void run(int row, int column) {
 								m_model.getColumn(column).m_resizable = m_columnPropertyResizable.getSelection();
 							}
@@ -479,6 +505,7 @@ public final class TableModelDialog extends ResizableDialog {
 			GridDataFactory.create(m_columnPropertyMaxWidth).hintHC(15);
 			m_columnPropertyMaxWidth.setRange(0, Integer.MAX_VALUE);
 			addJTableOperationSelectionListener(m_columnPropertyMaxWidth, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_maxWidth = m_columnPropertyMaxWidth.getSelection();
 				}
@@ -487,6 +514,7 @@ public final class TableModelDialog extends ResizableDialog {
 		{
 			ToolItem clearButton = createClearSpinnerButton(container);
 			addJTableOperationSelectionListener(clearButton, new TableOperationRunnable() {
+				@Override
 				public void run(int row, int column) {
 					m_model.getColumn(column).m_maxWidth = TableColumnDescription.DEFAULT_MAX_WIDTH;
 				}
@@ -534,6 +562,7 @@ public final class TableModelDialog extends ResizableDialog {
 		m_tableSelectedRow = -1;
 		m_tableSelectedColumn = -1;
 		ListSelectionListener listener = new ListSelectionListener() {
+			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (m_processTableSelectionEvent) {
 					m_tableSelectedColumn = m_table.getSelectedColumn();
@@ -547,6 +576,7 @@ public final class TableModelDialog extends ResizableDialog {
 		updateControls();
 		// XXX
 		final PropertyChangeListener columnWidthListener = new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (m_processTableSelectionEvent) {
 					TableColumn column = (TableColumn) evt.getSource();
@@ -557,21 +587,26 @@ public final class TableModelDialog extends ResizableDialog {
 			}
 		};
 		m_table.getColumnModel().addColumnModelListener(new TableColumnModelListener() {
+			@Override
 			public void columnAdded(TableColumnModelEvent e) {
 				TableColumnModel columnModel = (TableColumnModel) e.getSource();
 				int columnIndex = e.getToIndex();
 				columnModel.getColumn(columnIndex).addPropertyChangeListener(columnWidthListener);
 			}
 
+			@Override
 			public void columnSelectionChanged(ListSelectionEvent e) {
 			}
 
+			@Override
 			public void columnRemoved(TableColumnModelEvent e) {
 			}
 
+			@Override
 			public void columnMoved(TableColumnModelEvent e) {
 			}
 
+			@Override
 			public void columnMarginChanged(ChangeEvent e) {
 			}
 		});
@@ -588,6 +623,7 @@ public final class TableModelDialog extends ResizableDialog {
 	////////////////////////////////////////////////////////////////////////////
 	private void updateControls() {
 		Display.getDefault().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				updateControlsInDisplay();
 			}
@@ -632,6 +668,7 @@ public final class TableModelDialog extends ResizableDialog {
 	}
 
 	private final TableOperationRunnable DEFAULT_TABLE_UPDATE = new TableOperationRunnable() {
+		@Override
 		public void run(int row, int column) {
 			setTableSelection(row, column);
 			updateControls();
@@ -660,12 +697,14 @@ public final class TableModelDialog extends ResizableDialog {
 			final TableOperationRunnable operation,
 			final TableOperationRunnable tableUpdateRunnable) {
 		eventTarget.addListener(eventType, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				final int row = m_table.getSelectedRow();
 				final int column = m_table.getSelectedColumn();
 				operation.run(row, column);
 				// update JTable and controls
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						updateTableModel();
 						tableUpdateRunnable.run(row, column);

@@ -56,6 +56,7 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 		shell.addControlListener(controlAdapter);
 		// Cleanup listeners on dispose
 		composite.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				shell.removeControlListener(controlAdapter);
 			}
@@ -75,6 +76,7 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 		// Tab from the containing SWT component while
 		// running on the SWT thread
 		Runnable r = new Runnable() {
+			@Override
 			public void run() {
 				composite.traverse(traversal);
 			}
@@ -100,21 +102,25 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 	//        return result[0];
 	//    }
 	// ..................... Listener implementations
+	@Override
 	public void focusGained(FocusEvent e) {
 		assert awtHandler != null;
 		assert Display.getCurrent() != null; // On SWT event thread
 		// System.out.println("Gained: " + e.toString() + " (" + e.widget.getClass().getName() + ")");
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				awtHandler.gainFocus();
 			}
 		});
 	}
 
+	@Override
 	public void focusLost(FocusEvent e) {
 		// System.out.println("Lost: " + e.toString() + " (" + e.widget.getClass().getName() + ")");
 	}
 
+	@Override
 	public void keyPressed(KeyEvent e) {
 		assert Display.getCurrent() != null; // On SWT event thread
 		// If the embedded swing root pane has no components to receive focus,
@@ -134,6 +140,7 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 		}
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
 	}
 }

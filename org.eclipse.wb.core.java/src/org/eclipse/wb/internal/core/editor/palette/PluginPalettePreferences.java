@@ -113,6 +113,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 		return m_store.getInt(m_minColumnsKey);
 	}
 
+	@Override
 	public int getLayoutType() {
 		return m_store.getInt(m_layoutsKey);
 	}

@@ -56,6 +56,7 @@ public final class BooleanField extends AbstractBorderField {
 		Button button = new Button(this, SWT.RADIO);
 		button.setText(title);
 		button.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event e) {
 				m_source = source;
 				notifyListeners(SWT.Selection, new Event());

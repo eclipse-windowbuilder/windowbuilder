@@ -65,6 +65,7 @@ IImplicitCreationSupport {
 		super.setObject(object);
 		m_object.setObject(m_dataObject);
 		m_control.addBroadcastListener(new XmlObjectSetObjectAfter() {
+			@Override
 			public void invoke(XmlObjectInfo target, Object object) throws Exception {
 				// check, may be this creation support is not active
 				if (m_object.getCreationSupport() != VirtualLayoutDataCreationSupport.this) {
@@ -87,6 +88,7 @@ IImplicitCreationSupport {
 	@Override
 	public DocumentElement getElement() {
 		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				materialize();
 			}

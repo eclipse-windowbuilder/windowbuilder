@@ -68,6 +68,7 @@ public final class LocalVariableObserveInfo extends BeanObserveInfo {
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}

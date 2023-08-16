@@ -83,6 +83,7 @@ public abstract class AbstractAbsoluteLayoutInfo extends LayoutInfo {
 			}
 		});
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (javaInfo instanceof ComponentInfo && javaInfo.getParent() == getContainer()) {
 					ComponentInfo component = (ComponentInfo) javaInfo;

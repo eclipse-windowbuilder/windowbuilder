@@ -97,6 +97,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 		super(editor, description, creationSupport);
 		// force UnitValue initialization in "design time", to be able to get strings for alignments
 		ExecutionUtils.runDesignTime(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				IDEUtil.LEFT.toString();
 			}
@@ -127,6 +128,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
 	private void initializeMigLayoutGridAfterParse() {
 		addBroadcastListener(new ObjectInfoTreeComplete() {
+			@Override
 			public void invoke() throws Exception {
 				removeBroadcastListener(this);
 				if (isActive()) {
@@ -153,6 +155,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
 	private void addConstraintsProperty() {
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (isManagedObject(javaInfo)) {
 					ComponentInfo component = (ComponentInfo) javaInfo;
@@ -358,6 +361,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			final boolean[] filledColumns = new boolean[m_columns.size()];
 			final boolean[] filledRows = new boolean[m_rows.size()];
 			visitGridComponents(new MigComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
 					filledColumns[constraints.getX()] = true;
 					filledRows[constraints.getY()] = true;
@@ -520,6 +524,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 */
 	public void clearColumn(final int index) throws Exception {
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
 				if (cell.getX() == index) {
 					component.delete();
@@ -545,6 +550,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 		}
 		// update constraints
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
 				if (cell.getX() > index) {
 					cell.updateX(1);
@@ -566,6 +572,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			m_columns.add(targetIndex - 1, column);
 			// change constraints
 			visitGridComponents(new MigComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
 					int x = constraints.getX();
 					int w = constraints.getWidth();
@@ -594,6 +601,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			m_columns.add(targetIndex, column);
 			// change constraints
 			visitGridComponents(new MigComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
 					int x = constraints.getX();
 					int w = constraints.getWidth();
@@ -650,6 +658,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 */
 	public void clearRow(final int index) throws Exception {
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
 				if (cell.getY() == index) {
 					component.delete();
@@ -674,6 +683,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 		}
 		// update constraints
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
 				if (cell.getY() > index) {
 					cell.updateY(1);
@@ -695,6 +705,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			m_rows.add(targetIndex - 1, row);
 			// change constraints
 			visitGridComponents(new MigComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
 					int y = constraints.getY();
 					int h = constraints.getHeight();
@@ -723,6 +734,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			m_rows.add(targetIndex, row);
 			// change constraints
 			visitGridComponents(new MigComponentVisitor() {
+				@Override
 				public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
 					int y = constraints.getY();
 					int h = constraints.getHeight();
@@ -924,6 +936,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			final int row,
 			final boolean insertRow) throws Exception {
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
 				if (insertColumn) {
 					if (cell.getX() >= column) {
@@ -952,6 +965,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			final int row,
 			final boolean deleteRow) throws Exception {
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
 				if (deleteColumn) {
 					if (cell.getX() == column) {
@@ -997,6 +1011,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	public List<ComponentInfo> getCellComponents(final int column, final int row) {
 		final List<ComponentInfo> components = Lists.newArrayList();
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport constraints)
 					throws Exception {
 				int x = constraints.getX();
@@ -1117,8 +1132,10 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 */
 	private void visitGridComponents(final MigComponentVisitor visitor) {
 		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				visitAllComponents(new MigComponentVisitor() {
+					@Override
 					public void visit(ComponentInfo component, CellConstraintsSupport constraints)
 							throws Exception {
 						if (constraints.getDockSide() == null) {
@@ -1152,24 +1169,29 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	private void doAutomaticAlignment(ComponentInfo component) throws Exception {
 		final IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 		GridAlignmentHelper.doAutomaticAlignment(component, new IAlignmentProcessor<ComponentInfo>() {
+			@Override
 			public boolean grabEnabled() {
 				return preferences.getBoolean(P_ENABLE_GRAB);
 			}
 
+			@Override
 			public boolean rightEnabled() {
 				return preferences.getBoolean(P_ENABLE_RIGHT_ALIGNMENT);
 			}
 
+			@Override
 			public ComponentInfo getComponentAtLeft(ComponentInfo component) {
 				CellConstraintsSupport constraints = getConstraints(component);
 				return getComponentAt(constraints.getX() - 1, constraints.getY());
 			}
 
+			@Override
 			public ComponentInfo getComponentAtRight(ComponentInfo component) {
 				CellConstraintsSupport constraints = getConstraints(component);
 				return getComponentAt(constraints.getX() + 1, constraints.getY());
 			}
 
+			@Override
 			public void setGrabFill(ComponentInfo component, boolean horizontal) throws Exception {
 				CellConstraintsSupport constraints = getConstraints(component);
 				if (horizontal) {
@@ -1183,6 +1205,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 				constraints.write();
 			}
 
+			@Override
 			public void setRightAlignment(ComponentInfo component) throws Exception {
 				CellConstraintsSupport constraints = getConstraints(component);
 				constraints.setHorizontalAlignment(MigColumnInfo.Alignment.TRAILING);
@@ -1278,6 +1301,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
 			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
 				public void run() throws Exception {
 					createGridInfo();
 				}
@@ -1306,6 +1330,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 		final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
 		final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
 		visitGridComponents(new MigComponentVisitor() {
+			@Override
 			public void visit(ComponentInfo component, CellConstraintsSupport support) throws Exception {
 				Rectangle cells =
 						new Rectangle(support.getX(), support.getY(), support.getWidth(), support.getHeight());
@@ -1326,10 +1351,12 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Dimensions
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public int getColumnCount() {
 				return columnIntervals.length;
 			}
 
+			@Override
 			public int getRowCount() {
 				return rowIntervals.length;
 			}
@@ -1339,10 +1366,12 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Intervals
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Interval[] getColumnIntervals() {
 				return columnIntervals;
 			}
 
+			@Override
 			public Interval[] getRowIntervals() {
 				return rowIntervals;
 			}
@@ -1352,6 +1381,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Cells
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public Rectangle getComponentCells(IAbstractComponentInfo component) {
 				Assert.instanceOf(ComponentInfo.class, component);
 				// component in splitted cell
@@ -1365,6 +1395,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 				return componentToCells.get(component);
 			}
 
+			@Override
 			public Rectangle getCellsRectangle(Rectangle cells) {
 				if (cells == null) {
 					return new Rectangle(0, 0, 0, 0);
@@ -1385,10 +1416,12 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Feedback
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean isRTL() {
 				return false;
 			}
 
+			@Override
 			public Insets getInsets() {
 				return insets;
 			}
@@ -1398,14 +1431,17 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Virtual columns
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualColumns() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualColumnSize() {
 				return m_defaultColumnSize;
 			}
 
+			@Override
 			public int getVirtualColumnGap() {
 				return m_gapColumnSize;
 			}
@@ -1415,14 +1451,17 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Virtual rows
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public boolean hasVirtualRows() {
 				return true;
 			}
 
+			@Override
 			public int getVirtualRowSize() {
 				return m_defaultRowSize;
 			}
 
+			@Override
 			public int getVirtualRowGap() {
 				return m_gapRowSize;
 			}
@@ -1432,6 +1471,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			// Checks
 			//
 			////////////////////////////////////////////////////////////////////////////
+			@Override
 			public IAbstractComponentInfo getOccupied(int column, int row) {
 				return occupiedCells.get(new Point(column, row));
 			}

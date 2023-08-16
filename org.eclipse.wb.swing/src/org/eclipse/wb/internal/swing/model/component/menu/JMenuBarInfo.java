@@ -140,6 +140,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 	private final IMenuInfo m_menuImpl = new MenuImpl();
 	private final IMenuPolicy m_menuPolicyImpl = new JMenuPolicyImpl(this);
 
+	@Override
 	public <T> T getAdapter(Class<T> adapter) {
 		if (adapter.isAssignableFrom(IMenuInfo.class)) {
 			return adapter.cast(m_menuImpl);
@@ -178,6 +179,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 		// Model
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public Object getModel() {
 			return JMenuBarInfo.this;
 		}
@@ -187,6 +189,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 		// Presentation
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			if (m_visualData == null || m_visualData.m_menuImage == null) {
 				return null;
@@ -194,6 +197,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 			return ImageDescriptor.createFromImage(m_visualData.m_menuImage);
 		}
 
+		@Override
 		public Rectangle getBounds() {
 			return m_visualData.m_menuBounds;
 		}
@@ -203,10 +207,12 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 		// Access
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public boolean isHorizontal() {
 			return true;
 		}
 
+		@Override
 		public List<IMenuItemInfo> getItems() {
 			return MenuUtils.getItems(JMenuBarInfo.this);
 		}
@@ -216,6 +222,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 		// Policy
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Override
 		public IMenuPolicy getPolicy() {
 			return m_menuPolicyImpl;
 		}

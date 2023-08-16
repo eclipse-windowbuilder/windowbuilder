@@ -95,11 +95,13 @@ public final class TreeModelDialog extends ResizableDialog {
 			m_textWidget.setText(m_text);
 			// listener
 			m_textWidget.addModifyListener(new ModifyListener() {
+				@Override
 				public void modifyText(ModifyEvent e) {
 					refreshTree();
 				}
 			});
 			m_textWidget.addTraverseListener(new TraverseListener() {
+				@Override
 				public void keyTraversed(TraverseEvent e) {
 					if (e.detail == SWT.TRAVERSE_TAB_NEXT) {
 						e.doit = false;

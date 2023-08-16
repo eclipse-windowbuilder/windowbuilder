@@ -65,6 +65,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 
 	public static GridBagConstraintsInfo getConstraintsFor(final ComponentInfo component) {
 		return ExecutionUtils.runObject(new RunnableObjectEx<GridBagConstraintsInfo>() {
+			@Override
 			public GridBagConstraintsInfo runObject() throws Exception {
 				// prepare constraints
 				GridBagConstraintsInfo constraints;

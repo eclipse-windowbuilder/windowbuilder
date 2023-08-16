@@ -42,6 +42,7 @@ public final class DetailBindingUiContentProvider extends ChooseClassAndProperti
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		String elementClassName = m_binding.getJListBinding().getInputElementType().getFullTypeName();
 		setClassNameAndProperty(

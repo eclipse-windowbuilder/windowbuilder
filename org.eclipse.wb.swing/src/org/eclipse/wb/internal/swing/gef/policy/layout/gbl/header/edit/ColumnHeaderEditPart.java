@@ -157,6 +157,7 @@ public final class ColumnHeaderEditPart extends DimensionHeaderEditPart<ColumnIn
 	// IHeaderMenuProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void buildContextMenu(IMenuManager manager) {
 		// operations
 		{

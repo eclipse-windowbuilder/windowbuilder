@@ -29,6 +29,7 @@ public final class SwingDatabindingFactory implements IDatabindingFactory {
 	// IDatabindingFactory
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IDatabindingsProvider createProvider(JavaInfo javaInfoRoot) throws Exception {
 		if (isSwingObject(javaInfoRoot)) {
 			DatabindingsProvider provider = new DatabindingsProvider(javaInfoRoot);
@@ -39,6 +40,7 @@ public final class SwingDatabindingFactory implements IDatabindingFactory {
 		return null;
 	}
 
+	@Override
 	public AbstractUIPlugin getPlugin() {
 		return Activator.getDefault();
 	}

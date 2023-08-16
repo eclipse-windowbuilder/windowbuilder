@@ -73,15 +73,18 @@ AbsoluteBasedLayoutEditPolicy<ComponentInfo> {
 		return components;
 	}
 
+	@Override
 	public int getBaseline(IAbstractComponentInfo component) {
 		return BaselineSupportHelper.getBaseline(component.getObject());
 	}
 
+	@Override
 	public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
 		ComponentInfo componentInfo = (ComponentInfo) component;
 		return componentInfo.getPreferredSize();
 	}
 
+	@Override
 	public Dimension getContainerSize() {
 		IAbstractComponentInfo composite = m_layout.getContainer();
 		Rectangle compositeBounds = composite.getModelBounds().getCopy();

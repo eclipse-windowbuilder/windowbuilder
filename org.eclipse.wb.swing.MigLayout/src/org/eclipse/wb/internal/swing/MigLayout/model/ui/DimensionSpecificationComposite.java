@@ -31,6 +31,7 @@ public final class DimensionSpecificationComposite extends Composite {
 	private final Text m_textWidget;
 	private boolean m_updatingDimension;
 	private final Listener m_listener = new Listener() {
+		@Override
 		public void handleEvent(Event e) {
 			String s = m_textWidget.getText();
 			toDimension(s);

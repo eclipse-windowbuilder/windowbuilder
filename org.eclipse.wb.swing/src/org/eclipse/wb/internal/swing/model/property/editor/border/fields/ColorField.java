@@ -60,6 +60,7 @@ public final class ColorField extends AbstractBorderField {
 				selectItem.setImage(Activator.getImage("borderEditor/selectColor.gif"));
 				selectItem.setToolTipText(ModelMessages.ColorField_select);
 				selectItem.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						ColorInfo newColorInfo = ColorPropertyEditor.external_editColor(m_colorInfo);
 						getShell().setActive();
@@ -74,6 +75,7 @@ public final class ColorField extends AbstractBorderField {
 				defaultItem.setImage(Activator.getImage("borderEditor/clear.gif"));
 				defaultItem.setToolTipText(ModelMessages.ColorField_reset);
 				defaultItem.addListener(SWT.Selection, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						onColorSelected(null);
 					}

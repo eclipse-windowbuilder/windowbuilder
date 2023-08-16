@@ -41,6 +41,7 @@ implements
 IImplicitCreationSupport {
 	private final ContainerInfo m_container;
 	private final Object m_objectListener1 = new ObjectInfoChildAddBefore() {
+		@Override
 		public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
 				throws Exception {
 			if (isAddNewLayout(parent, child) && parent.getChildren().contains(m_javaInfo)) {
@@ -61,6 +62,7 @@ IImplicitCreationSupport {
 		}
 	};
 	private final Object m_javaListener = new JavaInfoSetObjectAfter() {
+		@Override
 		public void invoke(JavaInfo target, Object o) throws Exception {
 			if (target == m_container) {
 				if (m_javaInfo.getObject() == null) {
@@ -191,6 +193,7 @@ IImplicitCreationSupport {
 	// IClipboardImplicitCreationSupport
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IClipboardImplicitCreationSupport getImplicitClipboard() {
 		return null;
 	}

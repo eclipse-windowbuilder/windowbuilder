@@ -59,6 +59,7 @@ public final class ContentAssistProcessor implements IContentAssistProcessor {
 	// IContentAssistProcessor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
 		try {
 			if (m_propertiesSupport.getTopLevelBean() == null) {
@@ -163,22 +164,27 @@ public final class ContentAssistProcessor implements IContentAssistProcessor {
 		return proposals;
 	}
 
+	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
 		return m_topLevel ? TOP_LEVEL_AUTO_ACTIVATION_CHARACTERS : AUTO_ACTIVATION_CHARACTERS;
 	}
 
+	@Override
 	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
 		return null;
 	}
 
+	@Override
 	public char[] getContextInformationAutoActivationCharacters() {
 		return null;
 	}
 
+	@Override
 	public String getErrorMessage() {
 		return null;
 	}
 
+	@Override
 	public IContextInformationValidator getContextInformationValidator() {
 		return null;
 	}

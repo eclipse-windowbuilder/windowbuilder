@@ -70,15 +70,18 @@ org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el.ElPropertyUiCon
 	public void createContent(Composite parent, int columns) {
 		super.createContent(parent, columns);
 		m_sourceViewer.getDocument().addDocumentListener(new IDocumentListener() {
+			@Override
 			public void documentChanged(DocumentEvent event) {
 				calculateFinish();
 			}
 
+			@Override
 			public void documentAboutToBeChanged(DocumentEvent event) {
 			}
 		});
 	}
 
+	@Override
 	public Class<?> getTopLevelBean() throws Exception {
 		if (m_property == null) {
 			return null;
@@ -103,10 +106,12 @@ org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el.ElPropertyUiCon
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		setText(m_property.getExpression());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		m_property.setExpression(getText());
 	}

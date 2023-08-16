@@ -52,6 +52,7 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
 				GridDataFactory.create(m_textWidget).spanH(2).grab().fill().hintC(50, 8);
 				// update preview on modify
 				m_textWidget.addListener(SWT.Modify, new Listener() {
+					@Override
 					public void handleEvent(Event event) {
 						m_modelDialog.validateAll();
 					}

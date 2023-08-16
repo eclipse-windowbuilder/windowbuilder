@@ -31,14 +31,17 @@ public final class DefaultLayoutStyleSupport implements ILayoutStyleSupport {
 	// ILayoutStyleSupport
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setLayoutStyle(LookAndFeel laf) {
 		// do nothing
 	}
 
+	@Override
 	public int getContainerGap(JComponent component, int position, Container parent) {
 		return DEFAULT_CONTAINER_GAP;
 	}
 
+	@Override
 	public int getPreferredGap(JComponent component1,
 			JComponent component2,
 			int componentPlacement,

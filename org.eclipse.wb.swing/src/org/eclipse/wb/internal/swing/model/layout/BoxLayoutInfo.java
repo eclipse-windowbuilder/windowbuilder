@@ -75,6 +75,7 @@ public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
 		super.initialize();
 		// add "Alignment" property for children JComponent's
 		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
 				if (javaInfo instanceof ComponentInfo
 						&& javaInfo.getParent() == getContainer()

@@ -106,10 +106,12 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 	// Target
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public final IObserveInfo getTarget() {
 		return m_target;
 	}
 
+	@Override
 	public final IObserveInfo getTargetProperty() {
 		return m_targetProperty;
 	}
@@ -127,10 +129,12 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 	// Model
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public final IObserveInfo getModel() {
 		return m_model;
 	}
 
+	@Override
 	public final IObserveInfo getModelProperty() {
 		return m_modelProperty;
 	}
@@ -256,10 +260,12 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 	// IASTObjectInfo2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public final boolean isField() {
 		return m_field;
 	}
 
+	@Override
 	public final void setField() {
 		m_field = true;
 	}
@@ -278,6 +284,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 			//
 			if (!oldFieldState && newFieldState) {
 				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						BodyDeclarationTarget fieldTarget = new BodyDeclarationTarget(rootNode, null, true);
 						javaInfoRoot.getEditor().addFieldDeclaration(
@@ -287,6 +294,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 				});
 			} else if (oldFieldState && !newFieldState) {
 				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						for (FieldDeclaration field : rootNode.getFields()) {
 							VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
@@ -300,6 +308,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 				});
 			} else if (oldFieldState && newFieldState) {
 				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+					@Override
 					public void run() throws Exception {
 						for (FieldDeclaration field : rootNode.getFields()) {
 							VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);

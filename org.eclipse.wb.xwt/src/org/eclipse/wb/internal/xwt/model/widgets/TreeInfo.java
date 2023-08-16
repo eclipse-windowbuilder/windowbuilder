@@ -52,6 +52,7 @@ public class TreeInfo extends CompositeInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private void contributeToClipboardCopy() {
 		addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
 			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
 				// copy TreeColumn's
 				if (object == TreeInfo.this) {

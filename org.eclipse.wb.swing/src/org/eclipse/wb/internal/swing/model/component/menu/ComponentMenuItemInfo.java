@@ -45,6 +45,7 @@ public class ComponentMenuItemInfo extends AbstractMenuObject implements IMenuIt
 	// Model
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public Object getModel() {
 		return m_component;
 	}
@@ -54,10 +55,12 @@ public class ComponentMenuItemInfo extends AbstractMenuObject implements IMenuIt
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ImageDescriptor getImageDescriptor() {
 		return Optional.ofNullable(m_component.getImage()).map(ImageDescriptor::createFromImage).orElse(null);
 	}
 
+	@Override
 	public Rectangle getBounds() {
 		return m_component.getBounds();
 	}
@@ -67,6 +70,7 @@ public class ComponentMenuItemInfo extends AbstractMenuObject implements IMenuIt
 	// IMenuItemInfo
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IMenuInfo getMenu() {
 		return null;
 	}
@@ -76,6 +80,7 @@ public class ComponentMenuItemInfo extends AbstractMenuObject implements IMenuIt
 	// Policy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IMenuPolicy getPolicy() {
 		return IMenuPolicy.NOOP;
 	}

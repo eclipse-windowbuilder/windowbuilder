@@ -39,6 +39,7 @@ public final class NumbersRule implements IRule {
 	// IRule
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IToken evaluate(ICharacterScanner scanner) {
 		if (Character.isDigit(scanner.read())) {
 			while (Character.isDigit(scanner.read())) {

@@ -138,6 +138,7 @@ public class ComponentInfo extends AbstractComponentInfo {
 	protected void refresh_fetch() throws Exception {
 		Component component = getComponent();
 		refresh_fetch(this, component, new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				ComponentInfo.super.refresh_fetch();
 			}

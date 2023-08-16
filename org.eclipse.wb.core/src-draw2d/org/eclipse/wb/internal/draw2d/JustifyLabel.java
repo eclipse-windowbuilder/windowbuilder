@@ -58,6 +58,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Returns the desirable size for this label's text.
 	 */
+	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		return m_preferredSize;
 	}

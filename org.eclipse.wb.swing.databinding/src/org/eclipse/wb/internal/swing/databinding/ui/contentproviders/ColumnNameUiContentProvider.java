@@ -52,10 +52,12 @@ public class ColumnNameUiContentProvider extends DialogFieldUiContentProvider {
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		m_dialogField.setText(m_binding.getColumnName());
 	}
 
+	@Override
 	public void saveToObject() throws Exception {
 		m_binding.setColumnName(m_dialogField.getText());
 	}

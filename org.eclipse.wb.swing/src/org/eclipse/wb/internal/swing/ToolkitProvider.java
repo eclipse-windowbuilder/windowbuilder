@@ -31,6 +31,7 @@ public final class ToolkitProvider implements IToolkitProvider {
 	// IToolkitProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public ToolkitDescription getDescription() {
 		return DESCRIPTION;
 	}

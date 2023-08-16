@@ -151,6 +151,7 @@ public class AutoBindingInfo extends BindingInfo {
 	// IASTObjectInfo2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void setVariableIdentifier(JavaInfo javaInfoRoot, String variable, boolean field) {
 		String type = "org.jdesktop.beansbinding.AutoBinding";
 		if (CoreUtils.useGenerics(javaInfoRoot.getEditor().getJavaProject())) {

@@ -97,6 +97,7 @@ IImplicitCreationSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final Object m_objectListener1 = new ObjectInfoChildAddBefore() {
+		@Override
 		public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
 				throws Exception {
 			if (isAddLayout(parent, child) && parent.getChildren().contains(m_object)) {
@@ -116,6 +117,7 @@ IImplicitCreationSupport {
 		}
 	};
 	private final Object m_objectListener3 = new XmlObjectSetObjectAfter() {
+		@Override
 		public void invoke(XmlObjectInfo target, Object o) throws Exception {
 			if (target == m_composite) {
 				Layout layout = m_composite.getComposite().getLayout();

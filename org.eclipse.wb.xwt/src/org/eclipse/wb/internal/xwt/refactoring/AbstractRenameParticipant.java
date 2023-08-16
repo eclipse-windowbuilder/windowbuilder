@@ -63,6 +63,7 @@ public abstract class AbstractRenameParticipant extends RenameParticipant {
 	@Override
 	public final Change createChange(final IProgressMonitor pm) {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Change>() {
+			@Override
 			public Change runObject() throws Exception {
 				return createChangeEx(pm);
 			}

@@ -51,6 +51,7 @@ public final class Jsr296RootProcessor implements IRootProcessor {
 	// IRootProcessor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
 		// evaluation <code>ResourceMap.injectComponents(Component)</code>
 		root.addBroadcastListener(new EvaluationEventListener() {

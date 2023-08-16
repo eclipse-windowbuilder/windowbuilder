@@ -61,6 +61,7 @@ public final class FieldBeanObserveInfo extends BeanObserveInfo {
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public IObservePresentation getPresentation() {
 		return m_presentation;
 	}

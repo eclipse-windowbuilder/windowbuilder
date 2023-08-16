@@ -81,6 +81,7 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
 	// Update
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void updateFromObject() throws Exception {
 		List<IUiContentProvider> providers = Lists.newArrayList();
 		providers.add(new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),

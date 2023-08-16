@@ -52,6 +52,7 @@ public class SwtAwtFrameInfo extends ContainerInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		SwingUtils.runLaterAndWait(new RunnableEx() {
+			@Override
 			public void run() throws Exception {
 				runRefreshFetch();
 			}
