@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,6 +36,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.List;
@@ -117,7 +118,7 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 		if (horizontal) {
 			return new AbstractPopupFigure(viewer, 9, 5) {
 				@Override
-				protected Image getImage() {
+				protected ImageDescriptor getImage() {
 					switch (constraints.getHorizontalAlignment()) {
 					case LEFT :
 						return getImage2("h/alignment/left.gif");
@@ -139,7 +140,7 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 		} else {
 			return new AbstractPopupFigure(viewer, 5, 9) {
 				@Override
-				protected Image getImage() {
+				protected ImageDescriptor getImage() {
 					switch (constraints.getVerticalAlignment()) {
 					case TOP :
 						return getImage2("v/alignment/top.gif");
@@ -173,10 +174,10 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the {@link Image} for {@link AbstractGridBagLayoutInfo}.
+	 * @return the {@link ImageDescriptor} for {@link AbstractGridBagLayoutInfo}.
 	 */
-	protected final Image getImage2(String name) {
-		return AbstractGridBagLayoutInfo.getImage("headers/" + name);
+	protected final ImageDescriptor getImage2(String name) {
+		return AbstractGridBagLayoutInfo.getImageDescriptor("headers/" + name);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

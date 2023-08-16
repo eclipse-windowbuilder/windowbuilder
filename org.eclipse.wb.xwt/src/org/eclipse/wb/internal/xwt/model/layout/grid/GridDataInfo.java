@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,8 +37,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 
 import java.util.List;
@@ -454,30 +454,31 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public Image getSmallAlignmentImage(boolean horizontal) {
+	@Override
+	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
 		if (horizontal) {
 			switch (horizontalAlignment) {
 			case SWT.LEFT :
-				return GridImages.getImage("h/left.gif");
+				return GridImages.getImageDescriptor("h/left.gif");
 			case SWT.CENTER :
-				return GridImages.getImage("h/center.gif");
+				return GridImages.getImageDescriptor("h/center.gif");
 			case SWT.RIGHT :
-				return GridImages.getImage("h/right.gif");
+				return GridImages.getImageDescriptor("h/right.gif");
 			case SWT.FILL :
-				return GridImages.getImage("h/fill.gif");
+				return GridImages.getImageDescriptor("h/fill.gif");
 			default :
 				return null;
 			}
 		} else {
 			switch (verticalAlignment) {
 			case SWT.TOP :
-				return GridImages.getImage("v/top.gif");
+				return GridImages.getImageDescriptor("v/top.gif");
 			case SWT.CENTER :
-				return GridImages.getImage("v/center.gif");
+				return GridImages.getImageDescriptor("v/center.gif");
 			case SWT.BOTTOM :
-				return GridImages.getImage("v/bottom.gif");
+				return GridImages.getImageDescriptor("v/bottom.gif");
 			case SWT.FILL :
-				return GridImages.getImage("v/fill.gif");
+				return GridImages.getImageDescriptor("v/fill.gif");
 			default :
 				return null;
 			}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
@@ -23,7 +22,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Support for actions changing the alignment of the control.
@@ -223,16 +222,11 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 		}
 	}
 
-	public Image getImageHorizontal(final C control, final int side) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-			@Override
-			public Image runObject() throws Exception {
-				return getImageHorizontal0(control, side);
-			}
-		}, null);
+	public ImageDescriptor getImageHorizontal(final C control, final int side) {
+		return ExecutionUtils.runObjectLog(() -> getImageHorizontal0(control, side), null);
 	}
 
-	private Image getImageHorizontal0(C control, int side) throws Exception {
+	private ImageDescriptor getImageHorizontal0(C control, int side) throws Exception {
 		IFormAttachmentInfo<C> attachment = m_layoutImpl.getAttachment(control, side);
 		String imageName = side == IPositionConstants.LEFT ? "left_" : "right_";
 		if (attachment == null) {
@@ -250,19 +244,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 		} else {
 			imageName = "left_percent";
 		}
-		return Activator.getImage(IMAGE_PREFIX + "/h/" + imageName + ".png");
+		return Activator.getImageDescriptor(IMAGE_PREFIX + "/h/" + imageName + ".png");
 	}
 
-	public Image getImageVertical(final C control, final int side) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-			@Override
-			public Image runObject() throws Exception {
-				return getImageVertical0(control, side);
-			}
-		}, null);
+	public ImageDescriptor getImageVertical(final C control, final int side) {
+		return ExecutionUtils.runObjectLog(() -> getImageVertical0(control, side), null);
 	}
 
-	private Image getImageVertical0(C control, int side) throws Exception {
+	private ImageDescriptor getImageVertical0(C control, int side) throws Exception {
 		IFormAttachmentInfo<C> attachment = m_layoutImpl.getAttachment(control, side);
 		String imageName = side == IPositionConstants.TOP ? "top_" : "bottom_";
 		if (attachment == null) {
@@ -280,6 +269,6 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 		} else {
 			imageName = "top_percent";
 		}
-		return Activator.getImage(IMAGE_PREFIX + "/v/" + imageName + ".png");
+		return Activator.getImageDescriptor(IMAGE_PREFIX + "/v/" + imageName + ".png");
 	}
 }

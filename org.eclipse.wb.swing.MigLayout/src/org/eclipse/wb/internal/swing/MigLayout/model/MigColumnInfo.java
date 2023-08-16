@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.ConstraintParser;
@@ -41,10 +40,10 @@ public final class MigColumnInfo extends MigDimensionInfo {
 		/**
 		 * @return the small image (5x9) to display current alignment to user.
 		 */
-		public Image getSmallImage() {
+		public ImageDescriptor getSmallImage() {
 			String pattern = "alignment/h/small/{0}.gif";
 			String path = MessageFormat.format(pattern, name().toLowerCase());
-			return Activator.getImage(path);
+			return Activator.getImageDescriptor(path);
 		}
 
 		/**

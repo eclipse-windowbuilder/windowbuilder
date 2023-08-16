@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.model.layout.absolute.IImageProvider;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.layout.group.Messages;
 
 import org.eclipse.jface.action.IContributionManager;
@@ -261,8 +260,7 @@ public final class AnchorsSupport implements LayoutConstants {
 				int alignment) {
 			super(component,
 					text,
-					new ImageImageDescriptor(
-							getImageProvider().getImage("info/layout/groupLayout/" + imageName)),
+					getImageProvider().getImage("info/layout/groupLayout/" + imageName),
 					AS_CHECK_BOX);
 			m_isHorizontal = isHorizontal;
 			m_component = component;
@@ -293,8 +291,7 @@ public final class AnchorsSupport implements LayoutConstants {
 				boolean isHorizontal) {
 			super(component,
 					Messages.AnchorsSupport_autoResizable,
-					new ImageImageDescriptor(
-							getImageProvider().getImage("info/layout/groupLayout/" + imageName)),
+					getImageProvider().getImage("info/layout/groupLayout/" + imageName),
 					AS_CHECK_BOX);
 			m_component = component;
 			m_isHorizontal = isHorizontal;
@@ -325,8 +322,7 @@ public final class AnchorsSupport implements LayoutConstants {
 					isHorizontal
 					? Messages.AnchorsSupport_resizableHorizontal
 							: Messages.AnchorsSupport_resizableVertical,
-							new ImageImageDescriptor(
-									getImageProvider().getImage("info/layout/groupLayout/" + imageName)),
+							getImageProvider().getImage("info/layout/groupLayout/" + imageName),
 							AS_CHECK_BOX);
 			m_component = component;
 			m_isHorizontal = isHorizontal;

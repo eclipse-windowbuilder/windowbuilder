@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,9 +97,10 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 				}
 				// draw alignment indicator
 				if (titleTop - r.y > 3 + 7 + 3) {
-					Image image = m_row.getAlignment(true).getSmallImage();
+					Image image = m_row.getAlignment(true).getSmallImage().createImage();
 					int y = r.y + 2;
 					drawCentered(graphics, image, y);
+					image.dispose();
 				}
 				// draw grow indicator
 				if (m_dimension.hasGrow()) {

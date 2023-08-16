@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 import org.netbeans.modules.form.layoutdesign.LayoutDesigner;
@@ -412,7 +412,7 @@ LayoutConstants {
 		}
 
 		@Override
-		protected Image getImage() {
+		protected ImageDescriptor getImage() {
 			int anchors = m_anchorsSupport.getCurrentAnchors(m_component, true);
 			IImageProvider imageProvider = getImageProvider();
 			switch (anchors) {
@@ -441,7 +441,7 @@ LayoutConstants {
 		}
 
 		@Override
-		protected Image getImage() {
+		protected ImageDescriptor getImage() {
 			int anchors = m_anchorsSupport.getCurrentAnchors(m_component, false);
 			IImageProvider imageProvider = getImageProvider();
 			switch (anchors) {

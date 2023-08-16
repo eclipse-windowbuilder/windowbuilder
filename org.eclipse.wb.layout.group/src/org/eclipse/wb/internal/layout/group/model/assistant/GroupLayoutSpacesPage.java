@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -139,8 +140,11 @@ LayoutConstants {
 	private Control createClearButton(Composite parent, SelectionListener selectionListener) {
 		ToolBar toolBar = new ToolBar(parent, SWT.FLAT | SWT.RIGHT);
 		ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
-		toolItem.setImage(m_layout.getAdapter(IImageProvider.class).getImage(
-				"info/layout/groupLayout/clear.gif"));
+		Image image = m_layout.getAdapter(IImageProvider.class) //
+				.getImage("info/layout/groupLayout/clear.gif") //
+				.createImage();
+		toolItem.addDisposeListener(event -> image.dispose());
+		toolItem.setImage(image);
 		toolItem.setToolTipText(Messages.GroupLayoutSpacesPage_setDefaultSize);
 		toolItem.addSelectionListener(selectionListener);
 		return toolBar;

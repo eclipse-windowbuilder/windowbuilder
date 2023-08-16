@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.IObjectInfo;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.layout.GridData;
 
 /**
@@ -135,9 +135,10 @@ public interface IGridDataInfo extends IObjectInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the small {@link Image} that represents horizontal/vertical alignment.
+	 * @return the small {@link ImageDescriptor} that represents horizontal/vertical
+	 *         alignment.
 	 */
-	Image getSmallAlignmentImage(boolean horizontal);
+	ImageDescriptor getSmallAlignmentImage(boolean horizontal);
 
 	/**
 	 * Adds the horizontal alignment {@link Action}'s.

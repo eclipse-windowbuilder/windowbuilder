@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import java.util.List;
@@ -445,30 +445,30 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getSmallAlignmentImage(boolean horizontal) {
+	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
 		if (horizontal) {
 			switch (horizontalAlignment) {
 			case TableWrapData.LEFT :
-				return TableWrapLayoutImages.getImage("h/left.gif");
+				return TableWrapLayoutImages.getImageDescriptor("h/left.gif");
 			case TableWrapData.CENTER :
-				return TableWrapLayoutImages.getImage("h/center.gif");
+				return TableWrapLayoutImages.getImageDescriptor("h/center.gif");
 			case TableWrapData.RIGHT :
-				return TableWrapLayoutImages.getImage("h/right.gif");
+				return TableWrapLayoutImages.getImageDescriptor("h/right.gif");
 			default :
 				Assert.isTrue(horizontalAlignment == TableWrapData.FILL);
-				return TableWrapLayoutImages.getImage("h/fill.gif");
+				return TableWrapLayoutImages.getImageDescriptor("h/fill.gif");
 			}
 		} else {
 			switch (verticalAlignment) {
 			case TableWrapData.TOP :
-				return TableWrapLayoutImages.getImage("v/top.gif");
+				return TableWrapLayoutImages.getImageDescriptor("v/top.gif");
 			case TableWrapData.MIDDLE :
-				return TableWrapLayoutImages.getImage("v/middle.gif");
+				return TableWrapLayoutImages.getImageDescriptor("v/middle.gif");
 			case TableWrapData.BOTTOM :
-				return TableWrapLayoutImages.getImage("v/bottom.gif");
+				return TableWrapLayoutImages.getImageDescriptor("v/bottom.gif");
 			default :
 				Assert.isTrue(verticalAlignment == TableWrapData.FILL);
-				return TableWrapLayoutImages.getImage("v/fill.gif");
+				return TableWrapLayoutImages.getImageDescriptor("v/fill.gif");
 			}
 		}
 	}
