@@ -52,7 +52,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 		ObjectInfo widgetModel = widget.getUnderlyingModel();
 		if (side == IPositionConstants.LEFT) {
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/left_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -60,7 +60,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/right_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -68,7 +68,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToLeftAsPercent, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToLeftAsPercent, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/left_percent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -77,14 +77,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToRightOfControl,
-					Activator.getImage(IMAGE_PREFIX + "h/menu/left_control.png")) {
+					Activator.getImageDescriptor(IMAGE_PREFIX + "h/menu/left_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
 					m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.RIGHT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/left_free.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -93,7 +93,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 			});
 		} else if (side == IPositionConstants.RIGHT) {
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/right_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -101,7 +101,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/left_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -109,7 +109,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToLeftAsPercent, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToLeftAsPercent, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/left_percent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -117,7 +117,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToLeftOfControl, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToLeftOfControl, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/right_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -125,7 +125,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/right_free.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -139,7 +139,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 		ObjectInfo widgetModel = widget.getUnderlyingModel();
 		if (side == IPositionConstants.TOP) {
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/top_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -148,14 +148,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToBottomAsOffset,
-					Activator.getImage(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
+					Activator.getImageDescriptor(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
 					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.BOTTOM);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToTopAsPercent, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToTopAsPercent, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/top_percent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -164,14 +164,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToBottomOfControl,
-					Activator.getImage(IMAGE_PREFIX + "v/menu/top_control.png")) {
+					Activator.getImageDescriptor(IMAGE_PREFIX + "v/menu/top_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
 					m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.BOTTOM);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/top_free.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -181,14 +181,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 		} else if (side == IPositionConstants.BOTTOM) {
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToBottomAsOffset,
-					Activator.getImage(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
+					Activator.getImageDescriptor(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
 					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.BOTTOM);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/top_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -196,7 +196,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToTopAsPercent, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToTopAsPercent, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/top_percent.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -204,7 +204,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_attachToTopOfControl, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_attachToTopOfControl, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/bottom_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
@@ -212,7 +212,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
-					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+					ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/bottom_free.png")) {
 				@Override
 				protected void runEx() throws Exception {

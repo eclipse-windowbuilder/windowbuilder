@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -120,7 +120,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 		{
 			IAction action =
 					new ObjectInfoAction(control, "Autosize control",
-							Activator.getImage("info/layout/FormLayout/fit_to_size.png")) {
+							Activator.getImageDescriptor("info/layout/FormLayout/fit_to_size.png")) {
 				@Override
 				protected void runEx() throws Exception {
 					doAutoSize(control);

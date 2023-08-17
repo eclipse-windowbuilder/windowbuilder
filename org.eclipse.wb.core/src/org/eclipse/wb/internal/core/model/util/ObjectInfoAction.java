@@ -13,11 +13,9 @@ package org.eclipse.wb.internal.core.model.util;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * Abstract JFace {@link Action} for {@link ObjectInfo}.
@@ -45,10 +43,6 @@ public abstract class ObjectInfoAction extends Action {
 		this(object, text, image, AS_PUSH_BUTTON);
 	}
 
-	public ObjectInfoAction(ObjectInfo object, String text, Image image) {
-		this(object, text, new ImageImageDescriptor(image), AS_PUSH_BUTTON);
-	}
-
 	public ObjectInfoAction(ObjectInfo object, String text, int style) {
 		this(object, text, null, style);
 	}
@@ -57,21 +51,6 @@ public abstract class ObjectInfoAction extends Action {
 		super(text, style);
 		setImageDescriptor(image);
 		m_object = object;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Access
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Sets {@link #setImageDescriptor(ImageDescriptor)} using given {@link Image} icon.
-	 *
-	 * @deprecated Use {@link #setImageDescriptor(ImageDescriptor)} instead.
-	 */
-	@Deprecated
-	public void setIcon(Image icon) {
-		setImageDescriptor(new ImageImageDescriptor(icon));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
