@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.databinding.model.ObserveComparator;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.databinding.Activator;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
@@ -301,8 +300,7 @@ public final class BeanSupport {
 					beanImage = useDefault ? Activator.getImageDescriptor("javabean.gif") : null;
 				} else {
 					// convert to SWT image
-					// FIXME: memory leak
-					beanImage = new ImageImageDescriptor(SwingImageUtils.convertImage_AWT_to_SWT(awtBeanIcon));
+					beanImage = SwingImageUtils.convertImage_AWT_to_SWT(awtBeanIcon);
 				}
 			} catch (Throwable e) {
 				// set default
