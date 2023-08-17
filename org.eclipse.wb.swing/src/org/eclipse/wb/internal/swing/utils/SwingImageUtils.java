@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -69,15 +70,10 @@ public class SwingImageUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the {@link Image} of given {@link Component}.
+	 * @return the {@link ImageDescriptor} of given {@link Component}.
 	 */
-	public static Image createComponentShot(final Component component) throws Exception {
-		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Image>() {
-			@Override
-			public Image runObject() throws Exception {
-				return convertImage_AWT_to_SWT(createComponentShotAWT(component));
-			}
-		});
+	public static ImageDescriptor createComponentShot(final Component component) throws Exception {
+		return SwingUtils.runObjectLaterAndWait(() -> convertImage_AWT_to_SWT(createComponentShotAWT(component)));
 	}
 
 	/**
@@ -450,7 +446,7 @@ public class SwingImageUtils {
 				frame.pack();
 				prepareForPrinting(frame);
 				try {
-					menuData.m_menuImage = createComponentShot(menuObject);
+					menuData.m_menuImage = createComponentShot(menuObject).createImage();
 				} finally {
 					setVisible(frame, false);
 					frame.dispose();
@@ -496,7 +492,7 @@ public class SwingImageUtils {
 					popupMenuParent.doLayout();
 				}
 				popupMenu.doLayout();
-				menuData.m_menuImage = createComponentShot(popupMenu);
+				menuData.m_menuImage = createComponentShot(popupMenu).createImage();
 			} finally {
 				setVisible(popupMenu, false);
 				if (parent != null) {
@@ -531,10 +527,10 @@ public class SwingImageUtils {
 	/**
 	 * Converts AWT image into SWT one. Yours, C.O. ;-)
 	 */
-	public static Image convertImage_AWT_to_SWT(final java.awt.Image image) throws Exception {
-		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Image>() {
+	public static ImageDescriptor convertImage_AWT_to_SWT(final java.awt.Image image) throws Exception {
+		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<ImageDescriptor>() {
 			@Override
-			public Image runObject() throws Exception {
+			public ImageDescriptor runObject() throws Exception {
 				BufferedImage bufferedImage = (BufferedImage) image;
 				int imageWidth = bufferedImage.getWidth();
 				int imageHeight = bufferedImage.getHeight();
@@ -543,10 +539,10 @@ public class SwingImageUtils {
 				try {
 					ImageProducer source = image.getSource();
 					source.startProduction(new AwtToSwtImageConverter(bufferedImage, swtImageData));
-					return new Image(null, swtImageData);
+					return ImageDescriptor.createFromImageDataProvider(zoom -> zoom == 100 ? swtImageData : null);
 				} catch (Throwable e) {
 					// fallback to ImageIO.
-					return ImageUtils.convertToSWT(image).createImage();
+					return ImageUtils.convertToSWT(image);
 				} finally {
 					swtImage.dispose();
 				}

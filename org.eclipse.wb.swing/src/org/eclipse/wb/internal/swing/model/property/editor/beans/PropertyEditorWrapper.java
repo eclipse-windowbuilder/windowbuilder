@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
@@ -136,7 +137,7 @@ public final class PropertyEditorWrapper {
 		m_propertyEditor.setValue(property.getValue());
 		// paint
 		if (m_propertyEditor.isPaintable()) {
-			Image image = paintValue(gc, width, height);
+			Image image = paintValue(gc, width, height).createImage();
 			gc.drawImage(image, x, y);
 			image.dispose();
 			return;
@@ -150,7 +151,7 @@ public final class PropertyEditorWrapper {
 		}
 	}
 
-	private Image paintValue(GC gc, int width, int height) throws Exception {
+	private ImageDescriptor paintValue(GC gc, int width, int height) throws Exception {
 		// create AWT graphics
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics2D = (Graphics2D) image.getGraphics();
