@@ -309,9 +309,9 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static Map<ClassLoader, Set<String>> m_contextHasClasses =
-			new WeakHashMap<ClassLoader, Set<String>>();
+			new WeakHashMap<>();
 	private static Map<ClassLoader, Set<String>> m_contextNoClasses =
-			new WeakHashMap<ClassLoader, Set<String>>();
+			new WeakHashMap<>();
 
 	/**
 	 * @return <code>true</code> if {@link #m_className} most probably exists in {@link ClassLoader}.

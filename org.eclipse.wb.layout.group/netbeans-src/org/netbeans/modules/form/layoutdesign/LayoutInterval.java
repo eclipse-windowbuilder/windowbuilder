@@ -92,7 +92,7 @@ public final class LayoutInterval implements LayoutConstants {
 		minSize = NOT_EXPLICITLY_DEFINED;
 		prefSize = NOT_EXPLICITLY_DEFINED;
 		if (type == SEQUENTIAL || type == PARALLEL) {
-			subIntervals = new ArrayList<LayoutInterval>();
+			subIntervals = new ArrayList<>();
 			maxSize = NOT_EXPLICITLY_DEFINED; // group can resize by default
 		} else {
 			assert type == SINGLE;
@@ -574,7 +574,7 @@ public final class LayoutInterval implements LayoutConstants {
 	 *         the end.
 	 */
 	private static List<LayoutInterval> parentsOfInterval(LayoutInterval interval) {
-		List<LayoutInterval> parents = new LinkedList<LayoutInterval>();
+		List<LayoutInterval> parents = new LinkedList<>();
 		while (interval != null) {
 			parents.add(0, interval);
 			interval = interval.getParent();

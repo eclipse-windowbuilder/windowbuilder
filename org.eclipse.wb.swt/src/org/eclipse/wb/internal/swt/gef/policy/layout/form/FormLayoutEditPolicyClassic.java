@@ -121,7 +121,7 @@ implements IHeadersProvider {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (layout.getControls().contains(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicyClassic<C>(layout));
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicyClassic<>(layout));
 		}
 	}
 
@@ -1585,7 +1585,7 @@ implements IHeadersProvider {
 
 	@Override
 	public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
-		return new FormHeaderEditPart<C>(layout, model, isHorizontal, getHostFigure());
+		return new FormHeaderEditPart<>(layout, model, isHorizontal, getHostFigure());
 	}
 
 	@Override
@@ -1596,7 +1596,7 @@ implements IHeadersProvider {
 
 	@Override
 	public LayoutEditPolicy getContainerLayoutPolicy(boolean isHorizontal) {
-		FormHeaderLayoutEditPolicy<C> headersPolicy = new FormHeaderLayoutEditPolicy<C>(layout, this, isHorizontal);
+		FormHeaderLayoutEditPolicy<C> headersPolicy = new FormHeaderLayoutEditPolicy<>(layout, this, isHorizontal);
 		if (isHorizontal) {
 			headersPolicyHorizontal = headersPolicy;
 		} else {

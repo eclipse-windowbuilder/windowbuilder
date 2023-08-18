@@ -377,7 +377,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		m_feedbacksDrawer.removeFeedbacks();
 		@SuppressWarnings("unchecked")
 		List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-		List<AbstractComponentInfo> pastedModels = new ArrayList<AbstractComponentInfo>(mementos.size());
+		List<AbstractComponentInfo> pastedModels = new ArrayList<>(mementos.size());
 		// prepare
 		request.setObjects(pastedModels);
 		Point location = request.getLocation().getCopy();

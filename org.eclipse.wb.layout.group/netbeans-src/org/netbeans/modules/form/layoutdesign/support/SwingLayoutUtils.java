@@ -56,7 +56,7 @@ public class SwingLayoutUtils {
 	 * Contains class names of non-resizable components e.g. components that are non-resizable unless
 	 * one (or more) of minimumSize, preferredSize or maximumSize properties is changed.
 	 */
-	private static Set<String> nonResizableComponents = new HashSet<String>();
+	private static Set<String> nonResizableComponents = new HashSet<>();
 	static {
 		nonResizableComponents.addAll(
 				Arrays.asList(
@@ -73,7 +73,7 @@ public class SwingLayoutUtils {
 	 * Contains class names of resizable components e.g. components that are resizable unless one (or
 	 * more) of minimumSize, preferredSize or maximumSize properties is changed.
 	 */
-	private static Set<String> resizableComponents = new HashSet<String>();
+	private static Set<String> resizableComponents = new HashSet<>();
 	static {
 		resizableComponents.addAll(
 				Arrays.asList(
@@ -117,7 +117,7 @@ public class SwingLayoutUtils {
 
 	public static Map<Integer, List<String>> createLinkSizeGroups(LayoutComponent layoutComponent,
 			int dimension) {
-		Map<Integer, List<String>> linkSizeGroup = new HashMap<Integer, List<String>>();
+		Map<Integer, List<String>> linkSizeGroup = new HashMap<>();
 		if (layoutComponent.isLayoutContainer()) {
 			for (LayoutComponent lc : layoutComponent.getSubcomponents()) {
 				if (lc != null) {
@@ -126,7 +126,7 @@ public class SwingLayoutUtils {
 						Integer id = Integer.valueOf(lc.getLinkSizeId(dimension));
 						List<String> l = linkSizeGroup.get(id);
 						if (l == null) {
-							l = new ArrayList<String>();
+							l = new ArrayList<>();
 							l.add(cid);
 							linkSizeGroup.put(id, l);
 						} else {

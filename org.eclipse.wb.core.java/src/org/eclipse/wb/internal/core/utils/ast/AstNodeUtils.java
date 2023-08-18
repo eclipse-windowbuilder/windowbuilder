@@ -103,7 +103,7 @@ public class AstNodeUtils {
 	 * A comparator that can be used to sort {@link ASTNode}'s by their start position, with the
 	 * left-most nodes sorting to the front of the list.
 	 */
-	public static final Comparator<ASTNode> SORT_BY_POSITION = new Comparator<ASTNode>() {
+	public static final Comparator<ASTNode> SORT_BY_POSITION = new Comparator<>() {
 		@Override
 		public int compare(ASTNode o1, ASTNode o2) {
 			return o1.getStartPosition() - o2.getStartPosition();
@@ -113,7 +113,7 @@ public class AstNodeUtils {
 	 * A comparator that can be used to sort {@link ASTNode}'s by their start position, with the
 	 * left-most nodes sorting to the back of the list.
 	 */
-	public static final Comparator<ASTNode> SORT_BY_REVERSE_POSITION = new Comparator<ASTNode>() {
+	public static final Comparator<ASTNode> SORT_BY_REVERSE_POSITION = new Comparator<>() {
 		@Override
 		public int compare(ASTNode o1, ASTNode o2) {
 			return o2.getStartPosition() - o1.getStartPosition();
@@ -704,7 +704,7 @@ public class AstNodeUtils {
 	}
 
 	private static final Map<ITypeBinding, Map<String, Boolean>> m_isSuccessorOf =
-			new WeakHashMap<ITypeBinding, Map<String, Boolean>>();
+			new WeakHashMap<>();
 
 	/**
 	 * Checks if given {@link ITypeBinding} is extends class or implements interface with given name.
@@ -856,7 +856,7 @@ public class AstNodeUtils {
 	 */
 	public static TypeDeclaration getTypeDeclaration(ClassInstanceCreation creation) {
 		final String typeName = getFullyQualifiedName(getTypeBinding(creation), false);
-		ListGatherer<TypeDeclaration> gatherer = new ListGatherer<TypeDeclaration>() {
+		ListGatherer<TypeDeclaration> gatherer = new ListGatherer<>() {
 			@Override
 			public boolean visit(TypeDeclaration node) {
 				if (getFullyQualifiedName(node, false).equals(typeName)) {
@@ -2193,7 +2193,7 @@ public class AstNodeUtils {
 	 */
 	public static List<VariableDeclaration> getVariableDeclarationsAll(ASTNode root) {
 		// prepare gatherer
-		ListGatherer<VariableDeclaration> gatherer = new ListGatherer<VariableDeclaration>() {
+		ListGatherer<VariableDeclaration> gatherer = new ListGatherer<>() {
 			@Override
 			public void postVisit(ASTNode node) {
 				if (node instanceof VariableDeclaration) {
@@ -2222,7 +2222,7 @@ public class AstNodeUtils {
 	public static List<VariableDeclaration> getVariableDeclarationsAfter(ASTNode root, int position) {
 		ASTNode targetNode = getEnclosingNode(root, position);
 		// prepare gatherer
-		ListGatherer<VariableDeclaration> gatherer = new ListGatherer<VariableDeclaration>() {
+		ListGatherer<VariableDeclaration> gatherer = new ListGatherer<>() {
 			@Override
 			public void postVisit(ASTNode node) {
 				if (node instanceof VariableDeclaration) {

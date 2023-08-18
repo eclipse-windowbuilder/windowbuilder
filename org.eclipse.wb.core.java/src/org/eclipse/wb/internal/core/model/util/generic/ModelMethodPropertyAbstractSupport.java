@@ -225,7 +225,7 @@ abstract class ModelMethodPropertyAbstractSupport {
 			//
 			////////////////////////////////////////////////////////////////////////////
 			private final Map<ObjectInfo, Property> m_properties =
-					new WeakHashMap<ObjectInfo, Property>();
+					new WeakHashMap<>();
 
 			private Property createProperty(ObjectInfo target) throws Exception {
 				Property property = m_properties.get(target);

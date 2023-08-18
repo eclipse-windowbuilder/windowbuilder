@@ -87,7 +87,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
 	 *         <code>false</code> otherwise.
 	 */
 	private static boolean isContainsResources(IContainer container) throws Exception {
-		List<IContainer> subContainers = new ArrayList<IContainer>();
+		List<IContainer> subContainers = new ArrayList<>();
 		// handle only file resources
 		for (IResource resource : container.members()) {
 			if (resource instanceof IContainer) {

@@ -116,7 +116,7 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 		Object model = child.getModel();
 		if (m_layout.isManagedObject(model)) {
 			C control = toControl(model);
-			EditPolicy selectionPolicy = new GridSelectionEditPolicy<C>(m_layout, control);
+			EditPolicy selectionPolicy = new GridSelectionEditPolicy<>(m_layout, control);
 			child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
 		}
 	}
@@ -467,9 +467,9 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 	@Override
 	public LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal) {
 		if (horizontal) {
-			return new ColumnsLayoutEditPolicy<C>(this, m_layout);
+			return new ColumnsLayoutEditPolicy<>(this, m_layout);
 		} else {
-			return new RowsLayoutEditPolicy<C>(this, m_layout);
+			return new RowsLayoutEditPolicy<>(this, m_layout);
 		}
 	}
 
@@ -482,9 +482,9 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 	@SuppressWarnings("unchecked")
 	public EditPart createHeaderEditPart(boolean horizontal, Object model) {
 		if (horizontal) {
-			return new ColumnHeaderEditPart<C>(m_layout, (GridColumnInfo<C>) model, getHostFigure());
+			return new ColumnHeaderEditPart<>(m_layout, (GridColumnInfo<C>) model, getHostFigure());
 		} else {
-			return new RowHeaderEditPart<C>(m_layout, (GridRowInfo<C>) model, getHostFigure());
+			return new RowHeaderEditPart<>(m_layout, (GridRowInfo<C>) model, getHostFigure());
 		}
 	}
 

@@ -170,7 +170,7 @@ public final class MetaDataModificationHandler implements BuilderHandler {
 	private static SortedSet<IFile> getMetaDataFiles(IProject project) throws CoreException {
 		IFolder metaDataFolder = project.getFolder("wbp-meta");
 		metaDataFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
-		final SortedSet<IFile> files = new TreeSet<IFile>(new Comparator<IFile>() {
+		final SortedSet<IFile> files = new TreeSet<>(new Comparator<IFile>() {
 			@Override
 			public int compare(IFile o1, IFile o2) {
 				String location1 = getLocation(o1);

@@ -87,7 +87,7 @@ IGridLayoutInfo<ControlInfo> {
 			CreationSupport creationSupport) throws Exception {
 		super(context, description, creationSupport);
 		new GridLayoutAssistant(this);
-		new SelectionActionsSupport<ControlInfo>(this);
+		new SelectionActionsSupport<>(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -589,7 +589,7 @@ IGridLayoutInfo<ControlInfo> {
 		if (m_columns.size() != size.width) {
 			m_columns.clear();
 			for (int i = 0; i < size.width; i++) {
-				GridColumnInfo<ControlInfo> column = new GridColumnInfo<ControlInfo>(this);
+				GridColumnInfo<ControlInfo> column = new GridColumnInfo<>(this);
 				column.setIndex(i);
 				m_columns.add(column);
 			}
@@ -603,7 +603,7 @@ IGridLayoutInfo<ControlInfo> {
 		if (m_rows.size() != size.height) {
 			m_rows.clear();
 			for (int i = 0; i < size.height; i++) {
-				GridRowInfo<ControlInfo> row = new GridRowInfo<ControlInfo>(this);
+				GridRowInfo<ControlInfo> row = new GridRowInfo<>(this);
 				row.setIndex(i);
 				m_rows.add(row);
 			}

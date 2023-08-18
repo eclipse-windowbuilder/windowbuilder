@@ -630,7 +630,7 @@ public final class CellConstraintsSupport {
 	}
 
 	private Property getHorizontalAlignmentProperty() throws Exception {
-		return new AlignmentCellProperty<MigColumnInfo.Alignment>("h alignment",
+		return new AlignmentCellProperty<>("h alignment",
 				"getHorizontalAlignment()",
 				"setHorizontalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo.Alignment)",
 				MigColumnInfo.ALIGNMENTS_TO_SET,
@@ -638,7 +638,7 @@ public final class CellConstraintsSupport {
 	}
 
 	private Property getVerticalAlignmentProperty() throws Exception {
-		return new AlignmentCellProperty<MigRowInfo.Alignment>("v alignment",
+		return new AlignmentCellProperty<>("v alignment",
 				"getVerticalAlignment()",
 				"setVerticalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment)",
 				MigRowInfo.ALIGNMENTS_TO_SET,

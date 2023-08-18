@@ -139,7 +139,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 		StringListPropertyEditor propertyEditor = new StringListPropertyEditor();
 		propertyEditor.configure(new String[]{"A", "B", "C"});
 		// prepare property
-		final AtomicReference<Object> valueSet = new AtomicReference<Object>();
+		final AtomicReference<Object> valueSet = new AtomicReference<>();
 		Property property = new PropertyWithTitle(propertyEditor, "test") {
 			@Override
 			public void setValue(Object value) throws Exception {

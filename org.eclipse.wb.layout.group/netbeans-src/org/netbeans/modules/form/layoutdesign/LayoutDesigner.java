@@ -68,7 +68,7 @@ public class LayoutDesigner implements LayoutConstants {
 	public boolean updateCurrentState() {
 		Object changeMark = layoutModel.getChangeMark();
 		boolean changeRequired = imposeSize || optimizeStructure;
-		Set<LayoutComponent> updatedContainers = changeRequired ? new HashSet<LayoutComponent>() : null;
+		Set<LayoutComponent> updatedContainers = changeRequired ? new HashSet<>() : null;
 		try {
 			if (changeRequired) {
 				modelListener.deactivate(); // some changes may happen...
@@ -333,7 +333,7 @@ public class LayoutDesigner implements LayoutConstants {
 			assert layerIndex >= 0;
 			if (layerIndex >= commonLayer) {
 				if (commonLayer < 0) {
-					draggable = new ArrayList<String>(componentIds.size());
+					draggable = new ArrayList<>(componentIds.size());
 				} else if (layerIndex > commonLayer) {
 					draggable.clear();
 				}
@@ -542,7 +542,7 @@ public class LayoutDesigner implements LayoutConstants {
 							int dy = movingSpace.positions[HORIZONTAL][LEADING];
 							LayoutRegion[] movingBounds = dragger.getMovingBounds();
 							Map<LayoutComponent, Rectangle> compToRect =
-									new HashMap<LayoutComponent, Rectangle>();
+									new HashMap<>();
 							for (int i = 0; i < components.length; i++) {
 								Rectangle r = movingBounds[i].toRectangle(new Rectangle());
 								r.x -= dx;
@@ -553,7 +553,7 @@ public class LayoutDesigner implements LayoutConstants {
 						} else { // moving multiple existing components (already in layout, no resizing)
 							LayoutInterval[] commonParents = new LayoutInterval[DIM_COUNT];
 							Map<LayoutComponent, LayoutComponent> compMap =
-									new HashMap<LayoutComponent, LayoutComponent>();
+									new HashMap<>();
 							LayoutRegion origSpace = new LayoutRegion();
 							for (LayoutComponent comp : components) {
 								for (int dim = 0; dim < DIM_COUNT; dim++) {
@@ -775,7 +775,7 @@ public class LayoutDesigner implements LayoutConstants {
 			List<Object> temp) {
 		boolean processTemp = temp == null;
 		if (temp == null) {
-			temp = new LinkedList<Object>();
+			temp = new LinkedList<>();
 		}
 		if (interval.isGroup()) {
 			boolean parallel = interval.isParallel();
@@ -1116,7 +1116,7 @@ public class LayoutDesigner implements LayoutConstants {
 			Integer linkIdV = Integer.valueOf(component.getLinkSizeId(VERTICAL));
 			List<String> lH = linkGroupsH.get(linkIdH);
 			List<String> lV = linkGroupsV.get(linkIdV);
-			Set<String> merged = new HashSet<String>();
+			Set<String> merged = new HashSet<>();
 			for (int i = 0; i < lH.size(); i++) {
 				merged.add(lH.get(i));
 			}
@@ -1397,7 +1397,7 @@ public class LayoutDesigner implements LayoutConstants {
 		} else { // copying part of the layout
 			// collect the components, create new if needed, compute bounds, ...
 			Map<LayoutComponent, LayoutComponent> sourceToTargetComp =
-					new HashMap<LayoutComponent, LayoutComponent>();
+					new HashMap<>();
 			LayoutComponent[] sourceComponents = new LayoutComponent[sourceToTargetId.size()];
 			LayoutComponent[] targetComponents = new LayoutComponent[sourceToTargetId.size()];
 			Rectangle[] bounds = new Rectangle[sourceToTargetId.size()];
@@ -1495,7 +1495,7 @@ public class LayoutDesigner implements LayoutConstants {
 		if (targetContainer.getSubComponentCount() > 0) {
 			relative = true;
 		}
-		Map<LayoutComponent, Rectangle> compToBounds = new HashMap<LayoutComponent, Rectangle>();
+		Map<LayoutComponent, Rectangle> compToBounds = new HashMap<>();
 		LayoutComponent[] components = new LayoutComponent[idToBounds.size()];
 		int minX = Integer.MAX_VALUE;
 		int minY = Integer.MAX_VALUE;
@@ -1564,7 +1564,7 @@ public class LayoutDesigner implements LayoutConstants {
 		LayoutComponent[] sourceComps = new LayoutComponent[sourceIds.length];
 		LayoutInterval[][] sourceIntervals = new LayoutInterval[DIM_COUNT][sourceIds.length];
 		LayoutComponent[] targetComps = new LayoutComponent[targetIds.length];
-		Map<LayoutComponent, LayoutComponent> compMap = new HashMap<LayoutComponent, LayoutComponent>();
+		Map<LayoutComponent, LayoutComponent> compMap = new HashMap<>();
 		LayoutComponent container = null;
 		for (int i = 0; i < sourceComps.length; i++) {
 			LayoutComponent sourceLC = layoutModel.getLayoutComponent(sourceIds[i]);
@@ -1620,7 +1620,7 @@ public class LayoutDesigner implements LayoutConstants {
 			int dimension,
 			int direction) {
 		// determine roots to duplicate, eliminate subcontained
-		Set<LayoutInterval> dupRoots = new HashSet<LayoutInterval>();
+		Set<LayoutInterval> dupRoots = new HashSet<>();
 		for (LayoutInterval li : intervals) {
 			// check if not under already determined root
 			LayoutInterval parent = li.getParent();
@@ -1779,7 +1779,7 @@ public class LayoutDesigner implements LayoutConstants {
 	private void duplicateInParallel(LayoutInterval[] intervals,
 			Map<LayoutComponent, LayoutComponent> componentMap,
 			int dimension) {
-		Map<LayoutInterval, LayoutInterval> intMap = new HashMap<LayoutInterval, LayoutInterval>();
+		Map<LayoutInterval, LayoutInterval> intMap = new HashMap<>();
 		for (LayoutInterval li : intervals) {
 			intMap.put(li, componentMap.get(li.getComponent()).getLayoutInterval(dimension));
 		}
@@ -1879,7 +1879,7 @@ public class LayoutDesigner implements LayoutConstants {
 		//        LayoutComponent[][] borderComps = new LayoutComponent[DIM_COUNT][2];
 		LayoutInterval[] commonParents = new LayoutInterval[DIM_COUNT];
 		boolean[] resizing = new boolean[DIM_COUNT];
-		Map<LayoutComponent, LayoutComponent> compMap = new HashMap<LayoutComponent, LayoutComponent>();
+		Map<LayoutComponent, LayoutComponent> compMap = new HashMap<>();
 		LayoutRegion overallSpace = new LayoutRegion();
 		int i = 0;
 		for (String id : compIds) {
@@ -2611,7 +2611,7 @@ public class LayoutDesigner implements LayoutConstants {
 			} else if (par.isSequential()) {
 				// Change resizability of gaps
 				boolean parentSeq = parent == par;
-				List<LayoutInterval> resizableList = new LinkedList<LayoutInterval>();
+				List<LayoutInterval> resizableList = new LinkedList<>();
 				int alignment = parentSeq ? LayoutInterval.getEffectiveAlignment(interval) : 0;
 				LayoutInterval leadingGap = null;
 				LayoutInterval trailingGap = null;
@@ -2917,7 +2917,7 @@ public class LayoutDesigner implements LayoutConstants {
 	void takeOutInterval(LayoutInterval interval, LayoutInterval boundary) {
 		LayoutInterval parent = interval.getParent();
 		int index = parent.indexOf(interval);
-		List<LayoutInterval> toRemove = new LinkedList<LayoutInterval>();
+		List<LayoutInterval> toRemove = new LinkedList<>();
 		toRemove.add(interval);
 		if (parent.isSequential()) {
 			// Remove leading gap
@@ -4015,7 +4015,7 @@ index = -1;
 										LEADING);
 								if (dist >= 0) {
 									if (seqListL == null) {
-										seqListL = new ArrayList<LayoutInterval>();
+										seqListL = new ArrayList<>();
 									}
 									seqListL.add(li);
 									if (dist < minDistL) {
@@ -4029,7 +4029,7 @@ index = -1;
 											TRAILING,
 											LEADING);
 									if (seqListT == null) {
-										seqListT = new ArrayList<LayoutInterval>();
+										seqListT = new ArrayList<>();
 									}
 									seqListT.add(li);
 									if (dist < minDistT) {
@@ -4157,12 +4157,12 @@ index = -1;
 	// test generation support
 	static final String TEST_SWITCH = "netbeans.form.layout_test"; // NOI18N
 	/* stores test code lines */
-	public List<String> testCode = new ArrayList<String>();
+	public List<String> testCode = new ArrayList<>();
 	// these below are used for removing unwanted move entries, otherwise the code can exceed 10000 lines in a few seconds of form editor work ;O)
-	private final List<String> testCode0 = new ArrayList<String>();
-	private final List<String> beforeMove = new ArrayList<String>();
-	private final List<String> move1 = new ArrayList<String>();
-	private final List<String> move2 = new ArrayList<String>();
+	private final List<String> testCode0 = new ArrayList<>();
+	private final List<String> beforeMove = new ArrayList<>();
+	private final List<String> move1 = new ArrayList<>();
+	private final List<String> move2 = new ArrayList<>();
 	private final boolean isMoving = false;
 	private int modelCounter = -1;
 	private final Point lastMovePoint = new Point(0, 0);

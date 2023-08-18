@@ -141,7 +141,7 @@ public abstract class ExtensionPropertyHelper {
 			Object defaultValue) {
 		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_javaInfo);
 		String className = AstNodeUtils.getFullyQualifiedName(typeDeclaration, true);
-		return new ExtensionElementProperty<T>(m_refreshListener,
+		return new ExtensionElementProperty<>(m_refreshListener,
 				editor,
 				attributeName,
 				m_project,

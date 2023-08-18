@@ -762,9 +762,9 @@ IPreferenceConstants {
 						rootPane.getContentPane().add(btnPushButton, gbc);
 					}
 					{
-						JComboBox<String> comboBox = new JComboBox<String>();
+						JComboBox<String> comboBox = new JComboBox<>();
 						comboBox.setModel(
-								new DefaultComboBoxModel<String>(new String[]{
+								new DefaultComboBoxModel<>(new String[]{
 										Messages.LafPreferencePage_previewCombo,
 										"ComboBox Item 1",
 								"ComboBox Item 2"}));

@@ -46,7 +46,7 @@ IColumnLayoutInfo<ControlInfo> {
 			CreationSupport creationSupport) throws Exception {
 		super(context, description, creationSupport);
 		new ColumnLayoutAssistant(this);
-		new ColumnLayoutSelectionActionsSupport<ControlInfo>(this);
+		new ColumnLayoutSelectionActionsSupport<>(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

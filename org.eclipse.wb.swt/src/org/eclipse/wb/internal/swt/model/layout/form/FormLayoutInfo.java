@@ -68,12 +68,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
-		preferences = new FormLayoutPreferences<ControlInfo>(this, description.getToolkit());
+		preferences = new FormLayoutPreferences<>(this, description.getToolkit());
 		addBroadcastListeners();
 		impl =
 				getPreferences().useClassic()
-				? new FormLayoutInfoImplClassic<ControlInfo>(this)
-						: new FormLayoutInfoImplAutomatic<ControlInfo>(this);
+				? new FormLayoutInfoImplClassic<>(this)
+						: new FormLayoutInfoImplAutomatic<>(this);
 	}
 
 	private void addBroadcastListeners() {
@@ -135,7 +135,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 			IMenuManager predefinedMenuManager =
 					new MenuManager(ModelMessages.FormLayoutInfo_quickConstraints);
 			manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, predefinedMenuManager);
-			new PredefinedAnchorsActions<ControlInfo>(this).contributeActions(
+			new PredefinedAnchorsActions<>(this).contributeActions(
 					control,
 					predefinedMenuManager);
 		}

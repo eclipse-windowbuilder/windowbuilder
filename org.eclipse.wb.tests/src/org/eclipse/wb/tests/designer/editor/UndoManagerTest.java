@@ -550,7 +550,7 @@ public class UndoManagerTest extends SwingGefTest {
 		TypeDeclaration typeDeclaration = (TypeDeclaration) m_lastEditor.getAstUnit().types().get(0);
 		m_lastEditor.addMethodDeclaration(
 				"void foo()",
-				new ArrayList<String>(),
+				new ArrayList<>(),
 				new BodyDeclarationTarget(typeDeclaration, false));
 		// do commit changes
 		new UiContext().executeAndCheck(new UIRunnable() {

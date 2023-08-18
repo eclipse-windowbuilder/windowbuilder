@@ -560,7 +560,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 	public static class CardPanel_Info extends ContainerInfo {
 		ComponentInfo m_activeComponent;
 		private final StackContainerSupport<ComponentInfo> m_stackContainer =
-				new StackContainerSupport<ComponentInfo>(this) {
+				new StackContainerSupport<>(this) {
 			@Override
 			protected List<ComponentInfo> getChildren() {
 				List<ComponentInfo> stackComponents = Lists.newArrayList();

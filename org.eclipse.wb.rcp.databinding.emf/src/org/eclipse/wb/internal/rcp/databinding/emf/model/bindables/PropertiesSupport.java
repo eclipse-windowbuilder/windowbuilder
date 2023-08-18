@@ -307,7 +307,7 @@ public class PropertiesSupport {
 		if (packageAnyType == null) {
 			return null;
 		}
-		Set<String> allClasses = new HashSet<String>();
+		Set<String> allClasses = new HashSet<>();
 		IPackageFragment packageFragment = packageAnyType.getPackageFragment();
 		// collect all class names
 		{

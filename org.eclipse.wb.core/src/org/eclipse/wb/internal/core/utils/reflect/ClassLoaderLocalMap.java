@@ -34,7 +34,7 @@ import java.util.WeakHashMap;
 public class ClassLoaderLocalMap implements Opcodes {
 	private static final String NAME = "GEN$$ClassLoaderProperties";
 	private static final Map<Object, Object> globalMap =
-			Collections.synchronizedMap(new WeakHashMap<Object, Object>());
+			Collections.synchronizedMap(new WeakHashMap<>());
 	private static Method defineMethod;
 	private static Method findLoadedClass;
 	static {

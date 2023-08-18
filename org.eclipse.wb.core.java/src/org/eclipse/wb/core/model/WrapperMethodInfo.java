@@ -143,7 +143,7 @@ public class WrapperMethodInfo extends JavaInfo implements IWrapperInfo {
 	// Check for wrapper
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final ClassMap<Boolean> m_hasSpecialDescription = new ClassMap<Boolean>();
+	private static final ClassMap<Boolean> m_hasSpecialDescription = new ClassMap<>();
 
 	/**
 	 * @return <code>true</code> if given class is the wrapper class.

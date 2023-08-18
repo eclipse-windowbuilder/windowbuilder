@@ -70,7 +70,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	protected static final String NLS_EXPRESSION_INFO = "NLS_EXPRESSION_INFO";
-	private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
+	private final HashMap<String, String> m_keyToValue = new HashMap<>();
 	/**
 	 * Usual key generator for *.properties files based sources.
 	 */

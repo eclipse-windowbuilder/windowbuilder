@@ -54,7 +54,7 @@ public final class MenuFeedbackTester {
 			FigureUtils.translateFigureToAbsolute(part.getFigure(), partBounds);
 		}
 		// return predicate
-		return new Predicate<Figure>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Figure feedback) {
 				return partBounds.equals(feedback.getBounds());

@@ -40,17 +40,17 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
 	@Override
 	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
 		if (model instanceof AbsoluteLayoutInfo) {
-			return new AbsoluteLayoutEditPolicy<ControlInfo>((AbsoluteLayoutInfo) model);
+			return new AbsoluteLayoutEditPolicy<>((AbsoluteLayoutInfo) model);
 		}
 		if (model instanceof GridLayoutInfo) {
-			return new GridLayoutEditPolicy<ControlInfo>((GridLayoutInfo) model);
+			return new GridLayoutEditPolicy<>((GridLayoutInfo) model);
 		}
 		if (model instanceof FormLayoutInfo) {
 			FormLayoutInfo formLayoutInfo = (FormLayoutInfo) model;
 			if (formLayoutInfo.getImpl() instanceof FormLayoutInfoImplAutomatic) {
-				return new FormLayoutEditPolicy<ControlInfo>(formLayoutInfo);
+				return new FormLayoutEditPolicy<>(formLayoutInfo);
 			} else {
-				return new FormLayoutEditPolicyClassic<ControlInfo>(formLayoutInfo);
+				return new FormLayoutEditPolicyClassic<>(formLayoutInfo);
 			}
 		}
 		return null;

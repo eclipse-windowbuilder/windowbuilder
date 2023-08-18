@@ -44,7 +44,7 @@ import java.util.List;
  * @coverage rcp.wizards.ui
  */
 public final class PreferencePageWizardPage extends RcpWizardPage {
-	private final List<Button> m_buttons = new ArrayList<Button>();
+	private final List<Button> m_buttons = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -114,7 +114,7 @@ public final class PreferencePageWizardPage extends RcpWizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (rcpInterfaceButton.getSelection()) {
-					List<String> interfaces = new ArrayList<String>();
+					List<String> interfaces = new ArrayList<>();
 					interfaces.add("org.eclipse.ui.IWorkbenchPreferencePage");
 					setSuperInterfaces(interfaces, false);
 				} else {

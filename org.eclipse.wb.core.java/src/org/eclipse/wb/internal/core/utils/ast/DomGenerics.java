@@ -289,7 +289,7 @@ public class DomGenerics {
 	}
 
 	public static List<Expression> allOperands(InfixExpression infixExpression) {
-		List<Expression> operands = new ArrayList<Expression>();
+		List<Expression> operands = new ArrayList<>();
 		operands.add(infixExpression.getLeftOperand());
 		operands.add(infixExpression.getRightOperand());
 		operands.addAll(extendedOperands(infixExpression));

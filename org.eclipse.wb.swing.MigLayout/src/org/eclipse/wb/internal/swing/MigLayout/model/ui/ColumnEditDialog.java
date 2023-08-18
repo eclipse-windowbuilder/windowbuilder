@@ -30,19 +30,19 @@ import java.util.List;
 public final class ColumnEditDialog extends DimensionEditDialog<MigColumnInfo, Alignment> {
 	private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
 	static {
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.DEFAULT,
 				ModelMessages.ColumnEditDialog_alignmentDefault));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEFT,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.LEFT,
 				ModelMessages.ColumnEditDialog_alignmentLeft));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.CENTER,
 				ModelMessages.ColumnEditDialog_alignmentCenter));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.RIGHT,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.RIGHT,
 				ModelMessages.ColumnEditDialog_alignmentRight));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.FILL,
 				ModelMessages.ColumnEditDialog_alignmentFill));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEADING,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.LEADING,
 				ModelMessages.ColumnEditDialog_alignmentLeading));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TRAILING,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.TRAILING,
 				ModelMessages.ColumnEditDialog_alignmentTrailing));
 	}
 

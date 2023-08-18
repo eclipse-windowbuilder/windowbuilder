@@ -77,7 +77,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
 		m_viewerBindableProperty = viewerBindableProperty;
 		//
 		m_isColumnViewer = isColumnViewer(m_viewerBindable);
-		m_editingSupports = m_isColumnViewer ? new ArrayList<EditingSupportInfo>() : null;
+		m_editingSupports = m_isColumnViewer ? new ArrayList<>() : null;
 	}
 
 	private static final boolean isColumnViewer(WidgetBindableInfo bindableWidget) throws Exception {

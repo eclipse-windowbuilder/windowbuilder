@@ -159,35 +159,35 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 		}
 		// operations
 		{
-			manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_insertRow) {
 				@Override
 				protected void run(MigRowInfo dimension, int index) throws Exception {
 					m_layout.insertRow(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_appendRow) {
 				@Override
 				protected void run(MigRowInfo dimension, int index) throws Exception {
 					m_layout.insertRow(index + 1);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_deleteRow) {
 				@Override
 				protected void run(MigRowInfo dimension, int index) throws Exception {
 					m_layout.deleteRow(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_clearRow) {
 				@Override
 				protected void run(MigRowInfo dimension, int index) throws Exception {
 					m_layout.clearRow(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_splitRow) {
 				@Override
 				protected void run(MigRowInfo dimension, int index) throws Exception {
@@ -208,17 +208,17 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 		// grow
 		{
 			manager.add(new Separator());
-			manager.add(new SetGrowAction<MigRowInfo>(this,
+			manager.add(new SetGrowAction<>(this,
 					GefMessages.RowHeaderEditPart_grow,
 					Activator.getImageDescriptor(GROW_MENU_PATH)));
 		}
 		// size
 		{
 			manager.add(new Separator());
-			manager.add(new SetSizeAction<MigRowInfo>(this,
+			manager.add(new SetSizeAction<>(this,
 					GefMessages.RowHeaderEditPart_defaultSize,
 					null));
-			manager.add(new SetSizeAction<MigRowInfo>(this, PREF_TITLE, PREF_CODE));
+			manager.add(new SetSizeAction<>(this, PREF_TITLE, PREF_CODE));
 		}
 		// properties
 		{

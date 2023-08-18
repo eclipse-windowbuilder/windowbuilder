@@ -159,35 +159,35 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 		}
 		// operations
 		{
-			manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.ColumnHeaderEditPart_insertColumn) {
 				@Override
 				protected void run(MigColumnInfo dimension, int index) throws Exception {
 					m_layout.insertColumn(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.ColumnHeaderEditPart_appendColumn) {
 				@Override
 				protected void run(MigColumnInfo dimension, int index) throws Exception {
 					m_layout.insertColumn(index + 1);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.ColumnHeaderEditPart_deleteColumn) {
 				@Override
 				protected void run(MigColumnInfo dimension, int index) throws Exception {
 					m_layout.deleteColumn(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.ColumnHeaderEditPart_clearColumn) {
 				@Override
 				protected void run(MigColumnInfo dimension, int index) throws Exception {
 					m_layout.clearColumn(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.ColumnHeaderEditPart_splitColumn) {
 				@Override
 				protected void run(MigColumnInfo dimension, int index) throws Exception {
@@ -209,17 +209,17 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 		// grow
 		{
 			manager.add(new Separator());
-			manager.add(new SetGrowAction<MigColumnInfo>(this,
+			manager.add(new SetGrowAction<>(this,
 					GefMessages.ColumnHeaderEditPart_grow,
 					Activator.getImageDescriptor(GROW_MENU_PATH)));
 		}
 		// size
 		{
 			manager.add(new Separator());
-			manager.add(new SetSizeAction<MigColumnInfo>(this,
+			manager.add(new SetSizeAction<>(this,
 					GefMessages.ColumnHeaderEditPart_defaultSize,
 					null));
-			manager.add(new SetSizeAction<MigColumnInfo>(this, PREF_TITLE, PREF_CODE));
+			manager.add(new SetSizeAction<>(this, PREF_TITLE, PREF_CODE));
 		}
 		// properties
 		{

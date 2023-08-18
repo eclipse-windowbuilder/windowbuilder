@@ -272,7 +272,7 @@ public class SwingImageUtils {
 	/**
 	 * Keep weak references to Window for save/restore it's focusable state.
 	 */
-	private static Map<Window, Boolean> m_fosucableStates = new WeakHashMap<Window, Boolean>();
+	private static Map<Window, Boolean> m_fosucableStates = new WeakHashMap<>();
 
 	/**
 	 * Prepares {@link Component} for printing.

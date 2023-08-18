@@ -81,7 +81,7 @@ public final class PerspectiveWizardPage extends RcpPartWizardPage {
 	@Override
 	protected void initTypePage(IJavaElement elem) {
 		super.initTypePage(elem);
-		List<String> interfaces = new ArrayList<String>();
+		List<String> interfaces = new ArrayList<>();
 		interfaces.add("org.eclipse.ui.IPerspectiveFactory");
 		setSuperInterfaces(interfaces, false);
 	}

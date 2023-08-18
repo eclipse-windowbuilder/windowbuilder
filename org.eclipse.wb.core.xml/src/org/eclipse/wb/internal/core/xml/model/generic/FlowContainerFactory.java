@@ -178,7 +178,7 @@ public final class FlowContainerFactory {
 		if (horizontalString == null) {
 			return Predicates.alwaysTrue();
 		}
-		return new ExpressionPredicate<Object>(horizontalString);
+		return new ExpressionPredicate<>(horizontalString);
 	}
 
 	private Predicate<Object> getRtlPredicate(String prefix, boolean def) {
@@ -186,7 +186,7 @@ public final class FlowContainerFactory {
 		if (rtlString == null) {
 			return Predicates.alwaysFalse();
 		}
-		return new ExpressionPredicate<Object>(rtlString);
+		return new ExpressionPredicate<>(rtlString);
 	}
 
 	private Association getAssociation(String prefix) {

@@ -141,7 +141,7 @@ ILayoutAssistantPage {
 
 	private void fillAlignmentActions(final IContributionManager manager) {
 		ArrayList<Object> actions = Lists.newArrayList();
-		new FormLayoutEditPolicy.FormLayoutAlignmentActionsSupport<C>(m_layout, m_placementsSupport).addAlignmentActions(
+		new FormLayoutEditPolicy.FormLayoutAlignmentActionsSupport<>(m_layout, m_placementsSupport).addAlignmentActions(
 				GenericsUtils.<ObjectInfo>cast(m_selection),
 				actions);
 		for (Object action : actions) {

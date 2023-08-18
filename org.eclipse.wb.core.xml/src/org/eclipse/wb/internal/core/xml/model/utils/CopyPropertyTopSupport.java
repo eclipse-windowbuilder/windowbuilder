@@ -51,7 +51,7 @@ public final class CopyPropertyTopSupport extends CopyPropertyTopAbstractSupport
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Predicate<XmlObjectInfo> createTargetPredicate(final XmlObjectInfo object) {
-		return new Predicate<XmlObjectInfo>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(XmlObjectInfo t) {
 				return t == object;

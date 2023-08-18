@@ -94,7 +94,7 @@ SelectionEditPolicy {
 		this.layoutInfo = info;
 		this.layoutModel = info.getUnderlyingModel();
 		this.layoutImpl = (FormLayoutInfoImplClassic<C>) layoutInfo.getImpl();
-		this.anchorFigures = new AnchorFiguresClassic<C>(this, layoutImpl);
+		this.anchorFigures = new AnchorFiguresClassic<>(this, layoutImpl);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

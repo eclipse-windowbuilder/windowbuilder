@@ -462,7 +462,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	 * @return the potential root {@link JavaInfo}'s, sorted by the hierarchy size.
 	 */
 	private List<JavaInfo> getRootComponents() throws Exception {
-		List<JavaInfo> rootComponents = new LinkedList<JavaInfo>(m_components);
+		List<JavaInfo> rootComponents = new LinkedList<>(m_components);
 		// remove all components that: have parent, or can not be root
 		for (Iterator<JavaInfo> I = rootComponents.iterator(); I.hasNext();) {
 			JavaInfo javaInfo = I.next();

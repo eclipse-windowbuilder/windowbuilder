@@ -154,14 +154,14 @@ public final class BundleInfo {
 	 * @return the copy of map key -> value.
 	 */
 	public Map<String, String> getMap() throws Exception {
-		return new HashMap<String, String>(getProperties());
+		return new HashMap<>(getProperties());
 	}
 
 	/**
 	 * Set map key -> value.
 	 */
 	public void setMap(Map<String, String> map) {
-		m_properties = new HashMap<String, String>(map);
+		m_properties = new HashMap<>(map);
 	}
 
 	/**

@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public final class WbBuilder extends IncrementalProjectBuilder {
 	public static final String ID = "org.eclipse.wb.dev.wbBuilder";
-	private final List<BuilderHandler> m_handlers = new ArrayList<BuilderHandler>();
+	private final List<BuilderHandler> m_handlers = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

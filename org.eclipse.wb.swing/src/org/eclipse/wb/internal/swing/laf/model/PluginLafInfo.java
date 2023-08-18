@@ -73,7 +73,7 @@ public class PluginLafInfo extends AbstractCustomLafInfo {
 		if (m_instanceReference == null || m_instanceReference.get() == null) {
 			m_initializer.initialize();
 			Class<?> lafClass = m_extensionBundle.loadClass(getClassName());
-			m_instanceReference = new SoftReference<LookAndFeel>((LookAndFeel) lafClass.newInstance());
+			m_instanceReference = new SoftReference<>((LookAndFeel) lafClass.newInstance());
 		}
 		return m_instanceReference.get();
 	}

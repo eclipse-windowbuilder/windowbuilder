@@ -38,7 +38,7 @@ import java.util.List;
  */
 public final class CardLayoutInfo extends LayoutInfo {
 	private final StackContainerSupport<ComponentInfo> m_stackContainer =
-			new StackContainerSupport<ComponentInfo>(this) {
+			new StackContainerSupport<>(this) {
 		@Override
 		protected boolean isActive() {
 			return CardLayoutInfo.this.isActive();

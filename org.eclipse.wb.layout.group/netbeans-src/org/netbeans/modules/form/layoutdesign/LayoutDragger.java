@@ -1587,7 +1587,7 @@ class LayoutDragger implements LayoutConstants {
 		List fixedComps = LayoutUtils.edgeSubComponents(interval, oppAlignment);
 		List sources = alignment == LEADING ? fixedComps : movingComps;
 		List targets = alignment == LEADING ? movingComps : fixedComps;
-		Map<String, LayoutRegion> map = new HashMap<String, LayoutRegion>();
+		Map<String, LayoutRegion> map = new HashMap<>();
 		for (int i = 0; i < movingComponents.length; i++) {
 			map.put(movingComponents[i].getId(), movingBounds[i]);
 		}

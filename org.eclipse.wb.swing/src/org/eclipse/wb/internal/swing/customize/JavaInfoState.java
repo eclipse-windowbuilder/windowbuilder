@@ -33,12 +33,12 @@ import java.util.TreeSet;
  */
 public final class JavaInfoState {
 	public final Object object;
-	public final List<Property> properties = new ArrayList<Property>();
-	public final List<Object> oldValues = new ArrayList<Object>();
-	public final List<Method> getters = new ArrayList<Method>();
-	public final List<Method> setters = new ArrayList<Method>();
-	public final Set<String> changedProperties = new TreeSet<String>();
-	public final Map<String, Object> changedPropertyValues = new TreeMap<String, Object>();
+	public final List<Property> properties = new ArrayList<>();
+	public final List<Object> oldValues = new ArrayList<>();
+	public final List<Method> getters = new ArrayList<>();
+	public final List<Method> setters = new ArrayList<>();
+	public final Set<String> changedProperties = new TreeSet<>();
+	public final Map<String, Object> changedPropertyValues = new TreeMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -88,7 +88,7 @@ public final class JavaInfoState {
 	 * Prepare table of pair's [title, property].
 	 */
 	private static Map<String, Property> preparePropertiesByTitle(JavaInfo javaInfo) throws Exception {
-		Map<String, Property> properties = new HashMap<String, Property>();
+		Map<String, Property> properties = new HashMap<>();
 		for (Property property : javaInfo.getProperties()) {
 			properties.put(property.getTitle(), property);
 		}

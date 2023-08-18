@@ -357,9 +357,9 @@ public class LayoutUtils implements LayoutConstants {
 	 */
 	static List<LayoutInterval> edgeSubComponents(LayoutInterval root, int edge) {
 		List<LayoutInterval> components = null;
-		List<LayoutInterval> candidates = new LinkedList<LayoutInterval>();
+		List<LayoutInterval> candidates = new LinkedList<>();
 		if (root != null) {
-			components = new LinkedList<LayoutInterval>();
+			components = new LinkedList<>();
 			candidates.add(root);
 		}
 		while (!candidates.isEmpty()) {
@@ -465,7 +465,7 @@ public class LayoutUtils implements LayoutConstants {
 							fromIndex,
 							toIndex);
 			if (int2list == null && it1.hasNext()) {
-				int2list = new LinkedList<LayoutInterval>();
+				int2list = new LinkedList<>();
 				addList = int2list;
 			}
 			while (it2.hasNext()) {

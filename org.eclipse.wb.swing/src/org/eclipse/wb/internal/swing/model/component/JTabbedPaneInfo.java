@@ -65,7 +65,7 @@ import javax.swing.SwingConstants;
  */
 public final class JTabbedPaneInfo extends ContainerInfo {
 	private final StackContainerSupport<ComponentInfo> m_stackContainer =
-			new StackContainerSupport<ComponentInfo>(this) {
+			new StackContainerSupport<>(this) {
 		@Override
 		protected List<ComponentInfo> getChildren() {
 			return getChildrenComponents();

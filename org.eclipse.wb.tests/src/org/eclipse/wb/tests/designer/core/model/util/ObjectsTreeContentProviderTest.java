@@ -36,7 +36,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
 		parent.addChild(child_1);
 		parent.addChild(child_2);
 		// prepare ITreeContentProvider
-		Predicate<ObjectInfo> predicate = new Predicate<ObjectInfo>() {
+		Predicate<ObjectInfo> predicate = new Predicate<>() {
 			@Override
 			public boolean apply(ObjectInfo t) {
 				return t != child_2;

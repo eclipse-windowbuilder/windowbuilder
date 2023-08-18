@@ -246,6 +246,6 @@ public final class Expectations {
 
 	public static <V> State<V> get(V def) {
 		Map<String, V> map = Maps.newHashMap();
-		return new State<V>(def, map);
+		return new State<>(def, map);
 	}
 }

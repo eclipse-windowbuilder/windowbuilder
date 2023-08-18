@@ -83,7 +83,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
 		if (results instanceof List<?>) {
 			return (List<T>) results;
 		}
-		return new ArrayList<T>(results);
+		return new ArrayList<>(results);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
 		if (results instanceof Set<?>) {
 			return (Set<T>) results;
 		}
-		return new HashSet<T>(results);
+		return new HashSet<>(results);
 	}
 
 	/**

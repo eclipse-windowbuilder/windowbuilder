@@ -338,7 +338,7 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
 						new BodyDeclarationTarget(constructor, false));
 		// move all statements from constructor into "forced" method
 		{
-			List<Statement> statements = new ArrayList<Statement>(DomGenerics.statements(constructor));
+			List<Statement> statements = new ArrayList<>(DomGenerics.statements(constructor));
 			for (Statement statement : statements) {
 				// ignore "super" constructor
 				if (statement instanceof SuperConstructorInvocation) {

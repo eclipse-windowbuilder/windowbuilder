@@ -164,7 +164,7 @@ GraphicalEditPart implements IHeaderMenuProvider {
 	protected final void addTemplateActions(IMenuManager manager, FormDimensionTemplate[] templates) {
 		for (int i = 0; i < templates.length; i++) {
 			FormDimensionTemplate template = templates[i];
-			manager.add(new SetTemplateAction<T>(this, template));
+			manager.add(new SetTemplateAction<>(this, template));
 		}
 	}
 

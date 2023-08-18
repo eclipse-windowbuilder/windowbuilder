@@ -129,7 +129,7 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
 		}
 		// add "morph" actions
 		MorphingSupport<XmlObjectInfo> morphingSupport =
-				new MorphingSupport<XmlObjectInfo>(toolkitClassName, component) {
+				new MorphingSupport<>(toolkitClassName, component) {
 		};
 		contribute(morphingSupport, manager);
 	}
@@ -227,7 +227,7 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
 			XmlObjectInfo component,
 			MorphingTargetDescription target) throws Exception {
 		MorphingSupport<XmlObjectInfo> morphingSupport =
-				new MorphingSupport<XmlObjectInfo>(toolkitClassName, component) {
+				new MorphingSupport<>(toolkitClassName, component) {
 		};
 		return morphingSupport.validate(target);
 	}
@@ -236,7 +236,7 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
 			XmlObjectInfo component,
 			MorphingTargetDescription target) throws Exception {
 		MorphingSupport<XmlObjectInfo> morphingSupport =
-				new MorphingSupport<XmlObjectInfo>(toolkitClassName, component) {
+				new MorphingSupport<>(toolkitClassName, component) {
 		};
 		morphingSupport.morph(target);
 	}

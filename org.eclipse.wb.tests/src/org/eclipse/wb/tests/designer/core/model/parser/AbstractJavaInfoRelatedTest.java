@@ -230,7 +230,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 	 * @return the {@link JavaInfo} which has variable with given name.
 	 */
 	public static <T extends JavaInfo> T getJavaInfoByName(final String name) throws Exception {
-		final AtomicReference<T> result = new AtomicReference<T>();
+		final AtomicReference<T> result = new AtomicReference<>();
 		EditorState.getActiveJavaInfo().accept0(new ObjectInfoVisitor() {
 			@Override
 			@SuppressWarnings("unchecked")

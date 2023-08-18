@@ -151,7 +151,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
 		}
 		// add "morph" actions
 		MorphingSupport<JavaInfo> morphingSupport =
-				new MorphingSupport<JavaInfo>(toolkitClassName, component) {
+				new MorphingSupport<>(toolkitClassName, component) {
 		};
 		contribute(morphingSupport, manager);
 	}
@@ -355,7 +355,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
 			JavaInfo component,
 			MorphingTargetDescription target) throws Exception {
 		MorphingSupport<JavaInfo> morphingSupport =
-				new MorphingSupport<JavaInfo>(toolkitClassName, component) {
+				new MorphingSupport<>(toolkitClassName, component) {
 		};
 		return morphingSupport.validate(target);
 	}
@@ -364,7 +364,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
 			JavaInfo component,
 			MorphingTargetDescription target) throws Exception {
 		MorphingSupport<JavaInfo> morphingSupport =
-				new MorphingSupport<JavaInfo>(toolkitClassName, component) {
+				new MorphingSupport<>(toolkitClassName, component) {
 		};
 		morphingSupport.morph(target);
 	}

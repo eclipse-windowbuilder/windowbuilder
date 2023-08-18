@@ -29,7 +29,7 @@ public final class ClassMap<V> {
 	 * Creates new instance of {@link ClassMap}.
 	 */
 	public static <V> ClassMap<V> create() {
-		return new ClassMap<V>();
+		return new ClassMap<>();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

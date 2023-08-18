@@ -75,7 +75,7 @@ AbstractHeaderLayoutEditPolicy {
 	protected void decorateChild(EditPart child) {
 		child.installEditPolicy(
 				EditPolicy.SELECTION_ROLE,
-				new ColumnSelectionEditPolicy<C>(m_mainPolicy));
+				new ColumnSelectionEditPolicy<>(m_mainPolicy));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

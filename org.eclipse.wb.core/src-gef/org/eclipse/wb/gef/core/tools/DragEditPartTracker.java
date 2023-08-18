@@ -113,7 +113,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	@Override
 	protected Collection<EditPart> getExclusionSet() {
 		if (m_exclusionSet == null) {
-			m_exclusionSet = new ArrayList<EditPart>(getOperationSet());
+			m_exclusionSet = new ArrayList<>(getOperationSet());
 		}
 		return m_exclusionSet;
 	}

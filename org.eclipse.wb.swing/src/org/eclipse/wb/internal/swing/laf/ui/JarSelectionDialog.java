@@ -118,7 +118,7 @@ public final class JarSelectionDialog extends ElementTreeSelectionDialog {
 
 		//
 		public JarFileFilter() {
-			fPaths = new HashSet<IPath>();
+			fPaths = new HashSet<>();
 		}
 
 		@Override

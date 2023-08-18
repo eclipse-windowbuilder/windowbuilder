@@ -59,7 +59,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 	////////////////////////////////////////////////////////////////////////////
 	public FormLayoutInfoImplClassic(IFormLayoutInfo<C> layout_) {
 		this.layout = layout_;
-		this.anchorActions = new AnchorActionsClassic<C>(this);
+		this.anchorActions = new AnchorActionsClassic<>(this);
 		this.alignmentActions = new AlignmentsSupport();
 		this.layout.addBroadcastListener(new ObjectEventListener() {
 			@Override
@@ -82,7 +82,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 					ArrayList<Object> actions = Lists.newArrayList();
 					alignmentActions.addAlignmentActions(objects, actions);
 					LayoutAssistantPageClassic<C> page =
-							new LayoutAssistantPageClassic<C>(layout, folder, objects, actions);
+							new LayoutAssistantPageClassic<>(layout, folder, objects, actions);
 					TabFactory.item(folder).text("FormLayout").control(page);
 					pages.add(page);
 				}
@@ -468,7 +468,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 	public void anchor_bindToControl(C control, int controlSide, int targetSide) throws Exception {
 		IFormAttachmentInfo<C> attachment = getAttachment0(control, controlSide);
 		WidgetSelectDialog<C> dialog =
-				new WidgetSelectDialog<C>(DesignerPlugin.getShell(),
+				new WidgetSelectDialog<>(DesignerPlugin.getShell(),
 						getAlignControlInfos(control, controlSide),
 						ModelMessages.FormLayoutInfoImplClassic_widgetSelect_dialogTitle,
 						ModelMessages.FormLayoutInfoImplClassic_widgetSelect_listTitle,

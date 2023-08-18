@@ -217,9 +217,9 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static class ClassPathDetector implements IResourceProxyVisitor {
-		private final Map<IPath, List<IPath>> fSourceFolders = new HashMap<IPath, List<IPath>>();
-		private final List<IFile> fClassFiles = new ArrayList<IFile>();
-		private final Set<IPath> fJARFiles = new HashSet<IPath>();
+		private final Map<IPath, List<IPath>> fSourceFolders = new HashMap<>();
+		private final List<IFile> fClassFiles = new ArrayList<>();
+		private final Set<IPath> fJARFiles = new HashSet<>();
 		private final IProject fProject;
 		private IPath fResultOutputFolder;
 		private IClasspathEntry[] fResultClasspath;
@@ -256,7 +256,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 		 * Method detectClasspath.
 		 */
 		private void detectClasspath() {
-			List<IClasspathEntry> cpEntries = new ArrayList<IClasspathEntry>();
+			List<IClasspathEntry> cpEntries = new ArrayList<>();
 			detectSourceFolders(cpEntries);
 			IPath outputLocation = detectOutputFolder(cpEntries);
 			detectLibraries(cpEntries, outputLocation);
@@ -288,7 +288,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 		}
 
 		private IPath detectOutputFolder(List<IClasspathEntry> entries) {
-			Set<IPath> classFolders = new HashSet<IPath>();
+			Set<IPath> classFolders = new HashSet<>();
 			for (Iterator<IFile> iter = fClassFiles.iterator(); iter.hasNext();) {
 				IFile file = iter.next();
 				IPath location = file.getLocation();
@@ -365,7 +365,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 			Set<IPath> sourceFolderSet = fSourceFolders.keySet();
 			for (Iterator<IPath> iter = sourceFolderSet.iterator(); iter.hasNext();) {
 				IPath path = iter.next();
-				List<IPath> excluded = new ArrayList<IPath>();
+				List<IPath> excluded = new ArrayList<>();
 				for (Iterator<IPath> inner = sourceFolderSet.iterator(); inner.hasNext();) {
 					IPath other = inner.next();
 					if (!path.equals(other) && path.isPrefixOf(other)) {
@@ -412,7 +412,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 		private void addToMap(Map<IPath, List<IPath>> map, IPath folderPath, IPath relPath) {
 			List<IPath> list = map.get(folderPath);
 			if (list == null) {
-				list = new ArrayList<IPath>(50);
+				list = new ArrayList<>(50);
 				map.put(folderPath, list);
 			}
 			list.add(relPath);

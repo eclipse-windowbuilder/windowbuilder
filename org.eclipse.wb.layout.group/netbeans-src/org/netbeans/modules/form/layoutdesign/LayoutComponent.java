@@ -107,7 +107,7 @@ public final class LayoutComponent implements LayoutConstants {
 	}
 
 	private void createRoots() {
-		layoutRoots = new LinkedList<LayoutInterval[]>();
+		layoutRoots = new LinkedList<>();
 		addNewLayoutRoots();
 	}
 
@@ -159,7 +159,7 @@ public final class LayoutComponent implements LayoutConstants {
 	}
 
 	private static List<LayoutComponent> parentsOfComponent(LayoutComponent comp) {
-		List<LayoutComponent> parents = new LinkedList<LayoutComponent>();
+		List<LayoutComponent> parents = new LinkedList<>();
 		while (comp != null) {
 			parents.add(0, comp);
 			comp = comp.getParent();
@@ -217,7 +217,7 @@ public final class LayoutComponent implements LayoutConstants {
 	int addComponent(LayoutComponent comp, int index) {
 		assert isLayoutContainer();
 		if (subComponents == null) {
-			subComponents = new LinkedList<LayoutComponent>();
+			subComponents = new LinkedList<>();
 		}
 		if (index < 0) {
 			index = subComponents.size();

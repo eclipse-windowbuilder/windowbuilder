@@ -164,26 +164,26 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 	public void buildContextMenu(IMenuManager manager) {
 		// grab
 		{
-			manager.add(new SetGrabAction<C>(this,
+			manager.add(new SetGrabAction<>(this,
 					GefMessages.RowHeaderEditPart_grabExcessSpace,
 					GridImages.getImageDescriptor("v/menu/grow.gif")));
 		}
 		// alignment
 		{
 			manager.add(new Separator());
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_top,
 					GridImages.getImageDescriptor("v/menu/top.gif"),
 					SWT.TOP));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_center,
 					GridImages.getImageDescriptor("v/menu/center.gif"),
 					SWT.CENTER));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_bottom,
 					GridImages.getImageDescriptor("v/menu/bottom.gif"),
 					SWT.BOTTOM));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_fill,
 					GridImages.getImageDescriptor("h/menu/fill.gif"),
 					SWT.FILL));
@@ -191,7 +191,7 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 		// operations
 		{
 			manager.add(new Separator());
-			manager.add(new DimensionHeaderAction<C>(this, GefMessages.RowHeaderEditPart_delete,
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_delete,
 					GridImages.getImageDescriptor("v/menu/delete.gif")) {
 				@Override
 				protected void run(GridDimensionInfo<C> dimension) throws Exception {

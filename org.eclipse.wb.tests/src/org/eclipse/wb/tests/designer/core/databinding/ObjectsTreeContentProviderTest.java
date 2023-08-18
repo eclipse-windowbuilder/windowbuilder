@@ -40,7 +40,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
 		//
 		Assertions.assertThat(provider.getElements(new Object[]{testObject})).containsOnly(testObject);
 		//
-		List<TestObjectInfo> input = new ArrayList<TestObjectInfo>();
+		List<TestObjectInfo> input = new ArrayList<>();
 		input.add(testObject);
 		Assertions.assertThat(provider.getElements(input)).containsOnly(testObject);
 		//

@@ -1981,7 +1981,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 						"}");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		//
-		final AtomicReference<String> broSpec = new AtomicReference<String>();
+		final AtomicReference<String> broSpec = new AtomicReference<>();
 		panel.addBroadcastListener(new JavaInfoEventOpen() {
 			@Override
 			public void invoke(JavaInfo javaInfo, String spec) throws Exception {

@@ -91,7 +91,7 @@ public final class FormToolkitAccess {
 	private FormToolkitAccess(TypeDeclaration typeDeclaration) {
 		// try to find FormToolkit in local variable declaration
 		{
-			ListGatherer<SimpleName> listGatherer = new ListGatherer<SimpleName>() {
+			ListGatherer<SimpleName> listGatherer = new ListGatherer<>() {
 				@Override
 				public void postVisit(ASTNode node) {
 					if (node instanceof SimpleName

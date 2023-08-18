@@ -166,26 +166,26 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 	public void buildContextMenu(IMenuManager manager) {
 		// grab
 		{
-			manager.add(new SetGrabAction<C>(this,
+			manager.add(new SetGrabAction<>(this,
 					GefMessages.RowHeaderEditPart_actionGrab,
 					TableWrapLayoutImages.getImageDescriptor("v/menu/grow.gif")));
 		}
 		// alignment
 		{
 			manager.add(new Separator());
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_alignmentTop,
 					TableWrapLayoutImages.getImageDescriptor("v/menu/top.gif"),
 					TableWrapData.TOP));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_alignmentCenter,
 					TableWrapLayoutImages.getImageDescriptor("v/menu/middle.gif"),
 					TableWrapData.MIDDLE));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_alignmentBottom,
 					TableWrapLayoutImages.getImageDescriptor("v/menu/bottom.gif"),
 					TableWrapData.BOTTOM));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_alignmentFill,
 					TableWrapLayoutImages.getImageDescriptor("v/menu/fill.gif"),
 					TableWrapData.FILL));
@@ -193,7 +193,7 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 		// operations
 		{
 			manager.add(new Separator());
-			manager.add(new DimensionHeaderAction<C>(this, GefMessages.RowHeaderEditPart_actionDelete,
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_actionDelete,
 					TableWrapLayoutImages.getImageDescriptor("v/menu/delete.gif")) {
 				@Override
 				protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {

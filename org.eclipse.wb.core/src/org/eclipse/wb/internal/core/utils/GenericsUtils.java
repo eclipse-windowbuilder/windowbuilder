@@ -60,10 +60,10 @@ public final class GenericsUtils {
 	 */
 	public static <T> Iterable<T> iterable(ISelection selection) {
 		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-		return new Iterable<T>() {
+		return new Iterable<>() {
 			@Override
 			public Iterator<T> iterator() {
-				return new Iterator<T>() {
+				return new Iterator<>() {
 					Iterator<?> iterator = structuredSelection.iterator();
 
 					@Override

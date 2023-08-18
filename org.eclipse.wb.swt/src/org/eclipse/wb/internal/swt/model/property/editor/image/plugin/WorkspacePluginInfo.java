@@ -127,7 +127,7 @@ public final class WorkspacePluginInfo {
 				String requireBundle = manifest.get("Require-Bundle");
 				if (!StringUtils.isEmpty(requireBundle)) {
 					String[] requireBundles = StringUtils.split(requireBundle.trim(), ",");
-					List<String> result = new ArrayList<String>();
+					List<String> result = new ArrayList<>();
 					for (String bundle : requireBundles) {
 						if (!StringUtils.isEmpty(bundle)) {
 							result.add(bundle);
@@ -146,7 +146,7 @@ public final class WorkspacePluginInfo {
 				if ("plugin".equalsIgnoreCase(pluginNode.getTag())) {
 					for (DocumentElement child : pluginNode.getChildren()) {
 						if ("requires".equalsIgnoreCase(child.getTag())) {
-							List<String> result = new ArrayList<String>();
+							List<String> result = new ArrayList<>();
 							for (DocumentElement importNode : child.getChildren()) {
 								if ("import".equalsIgnoreCase(importNode.getTag())) {
 									String bundle = importNode.getAttribute("plugin");

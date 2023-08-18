@@ -162,7 +162,7 @@ public final class ContainerObjectValidators {
 	}
 
 	public static Predicate<Object> forContainerExpression(final String expression) {
-		return new Predicate<Object>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Object container) {
 				ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();

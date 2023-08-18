@@ -94,7 +94,7 @@ public class PredicatesTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_ExpressionPredicate_alwaysTrue() throws Exception {
-		Predicate<Object> predicate = new ExpressionPredicate<Object>("true");
+		Predicate<Object> predicate = new ExpressionPredicate<>("true");
 		assertEquals("true", predicate.toString());
 		assertTrue(predicate.apply(null));
 	}
@@ -104,7 +104,7 @@ public class PredicatesTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_ExpressionPredicate_alwaysFalse() throws Exception {
-		Predicate<Object> predicate = new ExpressionPredicate<Object>("false");
+		Predicate<Object> predicate = new ExpressionPredicate<>("false");
 		assertFalse(predicate.apply(null));
 	}
 
@@ -113,7 +113,7 @@ public class PredicatesTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_ExpressionPredicate_checkLength() throws Exception {
-		Predicate<Object> predicate = new ExpressionPredicate<Object>("length() > 5");
+		Predicate<Object> predicate = new ExpressionPredicate<>("length() > 5");
 		assertFalse(predicate.apply("123"));
 		assertTrue(predicate.apply("123456"));
 	}

@@ -55,41 +55,41 @@ public class PredefinedAnchorsActions<C extends IControlInfo> {
 	}
 
 	public void contributeActions(List<C> selection, IContributionManager manager) {
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topLeft,
 				"top_left.gif",
 				IPositionConstants.LEFT | IPositionConstants.TOP));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topRight,
 				"top_right.gif",
 				IPositionConstants.TOP | IPositionConstants.RIGHT));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomLeft,
 				"bottom_left.gif",
 				IPositionConstants.LEFT | IPositionConstants.BOTTOM));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomRight,
 				"bottom_right.gif",
 				IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
 		manager.add(new Separator());
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_leftRightTop,
 				"top_left_right.gif",
 				IPositionConstants.LEFT | IPositionConstants.TOP | IPositionConstants.RIGHT));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_leftRightBottom,
 				"bottom_left_right.gif",
 				IPositionConstants.LEFT | IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomLeft,
 				"top_bottom_left.gif",
 				IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.BOTTOM));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomRight,
 				"top_bottom_right.gif",
 				IPositionConstants.BOTTOM | IPositionConstants.RIGHT | IPositionConstants.TOP));
 		manager.add(new Separator());
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_TopBottomLeftRight,
 				"top_bottom_left_right.gif",
 				IPositionConstants.BOTTOM
@@ -97,43 +97,43 @@ public class PredefinedAnchorsActions<C extends IControlInfo> {
 				| IPositionConstants.TOP
 				| IPositionConstants.LEFT));
 		manager.add(new Separator());
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topLeftRelative,
 				"top_left_relative.gif",
 				IPositionConstants.TOP | IPositionConstants.LEFT,
 				true));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topRightRelative,
 				"top_right_relative.gif",
 				IPositionConstants.TOP | IPositionConstants.RIGHT,
 				true));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomLeftRelative,
 				"bottom_left_relative.gif",
 				IPositionConstants.LEFT | IPositionConstants.BOTTOM,
 				true));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomRightRelative,
 				"bottom_right_relative.gif",
 				IPositionConstants.BOTTOM | IPositionConstants.RIGHT,
 				true));
 		manager.add(new Separator());
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topLeftRightRelative,
 				"top_left_right_relative.gif",
 				IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.RIGHT,
 				true));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomLeftRightRelative,
 				"bottom_left_right_relative.gif",
 				IPositionConstants.BOTTOM | IPositionConstants.LEFT | IPositionConstants.RIGHT,
 				true));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomRightRelative,
 				"top_bottom_right_relative.gif",
 				IPositionConstants.BOTTOM | IPositionConstants.TOP | IPositionConstants.RIGHT,
 				true));
-		manager.add(new SetCornerAnchorsAction<C>(selection,
+		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomLeftRelative,
 				"top_bottom_left_relative.gif",
 				IPositionConstants.BOTTOM | IPositionConstants.TOP | IPositionConstants.LEFT,

@@ -198,7 +198,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	 * @return the {@link List} of possible {@link IEditableSource}'s.
 	 */
 	private List<IEditableSource> getPossibleEditableSources() {
-		return new ArrayList<IEditableSource>(m_possibleEditableSourceToSource.keySet());
+		return new ArrayList<>(m_possibleEditableSourceToSource.keySet());
 	}
 
 	/**
@@ -340,7 +340,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public List<JavaInfo> getComponents() {
-		return new ArrayList<JavaInfo>(m_componentToPropertyList.keySet());
+		return new ArrayList<>(m_componentToPropertyList.keySet());
 	}
 
 	@Override
