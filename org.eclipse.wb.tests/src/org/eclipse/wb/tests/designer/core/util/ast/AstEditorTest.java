@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.ast;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -93,6 +92,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Tests for {@link AstEditor}.
@@ -1289,14 +1289,11 @@ public class AstEditorTest extends AbstractJavaTest {
 		assertEquals("new java.util.ArrayList(test.Constants.SIZE)", getExternalSource(fields[2], null));
 		assertEquals(
 				"new java.util.ArrayList(sizeParameter)",
-				getExternalSource(fields[2], new Function<ASTNode, String>() {
-					@Override
-					public String apply(ASTNode from) {
-						if (m_lastEditor.getSource(from).equals("Constants.SIZE")) {
-							return "sizeParameter";
-						}
-						return null;
+				getExternalSource(fields[2], from -> {
+					if (m_lastEditor.getSource(from).equals("Constants.SIZE")) {
+						return "sizeParameter";
 					}
+					return null;
 				}));
 		assertEquals("java.util.Collections.emptyList()", getExternalSource(fields[3], null));
 		assertEquals("java.util.List.class", getExternalSource(fields[4], null));

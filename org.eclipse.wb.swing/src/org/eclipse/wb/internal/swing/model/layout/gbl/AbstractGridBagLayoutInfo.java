@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import com.google.common.base.Function;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
@@ -110,12 +109,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			protected AbstractAssistantPage createConstraintsPage(Composite parent,
 					List<ObjectInfo> objects) {
 				List<AbstractGridBagConstraintsInfo> constraints =
-						Lists.transform(objects, new Function<ObjectInfo, AbstractGridBagConstraintsInfo>() {
-							@Override
-							public AbstractGridBagConstraintsInfo apply(ObjectInfo from) {
-								return getConstraints((ComponentInfo) from);
-							}
-						});
+						Lists.transform(objects, from -> getConstraints((ComponentInfo) from));
 				return new GridBagConstraintsAssistantPage(parent, constraints);
 			}
 		};

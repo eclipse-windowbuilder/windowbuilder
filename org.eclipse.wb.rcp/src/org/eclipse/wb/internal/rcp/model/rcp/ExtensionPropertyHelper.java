@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
-
-import com.google.common.base.Function;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
@@ -28,6 +26,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Helper for creating property with name "Extension" for attributes in <code>plugin.xml</code>
