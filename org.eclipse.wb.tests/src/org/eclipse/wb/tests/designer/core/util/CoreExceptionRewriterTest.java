@@ -71,8 +71,7 @@ public class CoreExceptionRewriterTest extends DesignerTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	private static boolean isIncompleteProductException(Throwable e) {
 		Throwable rewritten = CoreExceptionRewriter.INSTANCE.rewrite(e);
-		if (rewritten instanceof DesignerException) {
-			DesignerException designerException = (DesignerException) rewritten;
+		if (rewritten instanceof DesignerException designerException) {
 			return designerException.getCode() == ICoreExceptionConstants.INCOMPLETE_PRODUCT;
 		}
 		return false;

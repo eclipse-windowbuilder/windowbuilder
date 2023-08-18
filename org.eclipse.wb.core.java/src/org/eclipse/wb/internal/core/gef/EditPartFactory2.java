@@ -49,13 +49,11 @@ public final class EditPartFactory2 implements IEditPartFactory {
 			return null;
 		}
 		// designer root
-		if (model instanceof DesignRootObject) {
-			DesignRootObject designRootObject = (DesignRootObject) model;
+		if (model instanceof DesignRootObject designRootObject) {
 			return new DesignRootEditPart(designRootObject);
 		}
 		// child array
-		if (model instanceof AbstractArrayObjectInfo) {
-			AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+		if (model instanceof AbstractArrayObjectInfo arrayInfo) {
 			ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
 			EditPartFactory.configureEditPart(context, editPart);
 			return editPart;

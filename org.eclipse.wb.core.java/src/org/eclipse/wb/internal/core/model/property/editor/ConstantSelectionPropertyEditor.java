@@ -296,8 +296,7 @@ IConfigurablePropertyObject {
 	 */
 	public static IField getField(IJavaProject javaProject, Expression expression) throws Exception {
 		// QualifiedName: contains all required information
-		if (expression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) expression;
+		if (expression instanceof QualifiedName qualifiedName) {
 			// prepare "typeName"
 			Name qualifier = qualifiedName.getQualifier();
 			String typeName = AstNodeUtils.getFullyQualifiedName(qualifier, true);
@@ -306,8 +305,7 @@ IConfigurablePropertyObject {
 			return CodeUtils.findField(javaProject, typeName, fieldName);
 		}
 		// SimpleName: may be name of field
-		if (expression instanceof SimpleName) {
-			SimpleName simpleName = (SimpleName) expression;
+		if (expression instanceof SimpleName simpleName) {
 			IVariableBinding binding = AstNodeUtils.getVariableBinding(simpleName);
 			if (binding != null) {
 				ITypeBinding declaringClass = binding.getDeclaringClass();

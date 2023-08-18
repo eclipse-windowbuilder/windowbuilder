@@ -260,8 +260,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static PropertiesSupport getPropertiesSupport(ObservableInfo observable) {
-		if (observable instanceof DetailEmfObservableInfo) {
-			DetailEmfObservableInfo detailObservable = (DetailEmfObservableInfo) observable;
+		if (observable instanceof DetailEmfObservableInfo detailObservable) {
 			return detailObservable.getPropertiesSupport();
 		}
 		EObjectBindableInfo eObject = (EObjectBindableInfo) observable.getBindableObject();
@@ -324,8 +323,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
 	public boolean moveBean(IObserveInfo observe,
 			AstEditor controllerEditor,
 			TypeDeclaration controllerRootNode) throws Exception {
-		if (observe instanceof EObjectBindableInfo) {
-			EObjectBindableInfo eObject = (EObjectBindableInfo) observe;
+		if (observe instanceof EObjectBindableInfo eObject) {
 			VariableDeclarationFragment fragment = eObject.getFragment();
 			FieldDeclaration fieldDeclaration = AstNodeUtils.getEnclosingFieldDeclaration(fragment);
 			String modifier =

@@ -126,13 +126,11 @@ public class RefactoringUtils {
 	 * {@link TextFileChange}'s (from main refactoring).
 	 */
 	public static void mergeTextChange(RefactoringParticipant participant, Change change) {
-		if (change instanceof CompositeChange) {
-			CompositeChange compositeChange = (CompositeChange) change;
+		if (change instanceof CompositeChange compositeChange) {
 			for (Change changeChild : compositeChange.getChildren()) {
 				mergeTextChange(participant, changeChild);
 			}
-		} else if (change instanceof TextFileChange) {
-			TextFileChange textFileChange = (TextFileChange) change;
+		} else if (change instanceof TextFileChange textFileChange) {
 			// if we have existing change for this file, merge text edits
 			TextChange existingChange = participant.getTextChange(textFileChange.getFile());
 			if (existingChange != null) {
@@ -166,8 +164,7 @@ public class RefactoringUtils {
 	 * other edits, but individual edits - not.
 	 */
 	private static void mergeTextEdit(TextChange targetTextChange, TextEdit textEdit) {
-		if (textEdit instanceof MultiTextEdit) {
-			MultiTextEdit multiTextEdit = (MultiTextEdit) textEdit;
+		if (textEdit instanceof MultiTextEdit multiTextEdit) {
 			for (TextEdit child : multiTextEdit.getChildren()) {
 				mergeTextEdit(targetTextChange, child);
 			}
@@ -209,13 +206,11 @@ public class RefactoringUtils {
 	 * Adds entries for {@link TextFileChange}-s in given composite {@link Change}.
 	 */
 	private static void addTextFileChanges(Map<IFile, TextFileChange> textFileChanges, Change change) {
-		if (change instanceof CompositeChange) {
-			CompositeChange compositeChange = (CompositeChange) change;
+		if (change instanceof CompositeChange compositeChange) {
 			for (Change child : compositeChange.getChildren()) {
 				addTextFileChanges(textFileChanges, child);
 			}
-		} else if (change instanceof TextFileChange) {
-			TextFileChange textFileChange = (TextFileChange) change;
+		} else if (change instanceof TextFileChange textFileChange) {
 			textFileChanges.put(textFileChange.getFile(), textFileChange);
 		}
 	}

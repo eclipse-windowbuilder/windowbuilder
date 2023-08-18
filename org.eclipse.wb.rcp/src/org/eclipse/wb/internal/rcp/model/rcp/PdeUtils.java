@@ -265,8 +265,7 @@ public final class PdeUtils {
 		Set<String> idSet = Sets.newTreeSet();
 		for (IPluginExtension extension : getExtensions(getModel())) {
 			for (IPluginObject pluginObject : extension.getChildren()) {
-				if (pluginObject instanceof IPluginElement) {
-					IPluginElement element = (IPluginElement) pluginObject;
+				if (pluginObject instanceof IPluginElement element) {
 					String id = getAttribute(element, "id");
 					if (id != null) {
 						idSet.add(id);
@@ -469,8 +468,7 @@ public final class PdeUtils {
 		List<IPluginElement> elements = Lists.newArrayList();
 		for (IPluginExtension extension : getExtensions(pluginModel, pointId)) {
 			for (IPluginObject pluginObject : extension.getChildren()) {
-				if (pluginObject instanceof IPluginElement) {
-					IPluginElement element = (IPluginElement) pluginObject;
+				if (pluginObject instanceof IPluginElement element) {
 					if (element.getName().equals(elementName)) {
 						elements.add(element);
 					}

@@ -57,8 +57,7 @@ public final class LineBorderComposite extends AbstractBorderComposite {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof LineBorder) {
-			LineBorder ourBorder = (LineBorder) border;
+		if (border instanceof LineBorder ourBorder) {
 			m_colorField.setValue(ourBorder.getLineColor());
 			m_thicknessField.setValue(ourBorder.getThickness());
 			m_typeField.setValue(ourBorder.getRoundedCorners());

@@ -88,8 +88,7 @@ public final class BorderTransparentLayoutRequestValidator implements ILayoutReq
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private boolean isInnerPartOfHost(EditPart host, IDropRequest request) {
-		if (host instanceof GraphicalEditPart) {
-			GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
+		if (host instanceof GraphicalEditPart graphicalHost) {
 			Figure hostFigure = graphicalHost.getFigure();
 			// prepare location in host
 			Point location;

@@ -45,8 +45,7 @@ public final class PointPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Point) {
-			Point point = (Point) value;
+		if (value instanceof Point point) {
 			return "(" + point.x + ", " + point.y + ")";
 		}
 		// unknown value

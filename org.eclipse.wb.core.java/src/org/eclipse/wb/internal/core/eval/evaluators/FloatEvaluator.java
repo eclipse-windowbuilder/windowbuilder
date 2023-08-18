@@ -46,8 +46,7 @@ public final class FloatEvaluator implements IExpressionEvaluator {
 		// float expression
 		if ("float".equals(typeQualifiedName)) {
 			// single number literal
-			if (expression instanceof NumberLiteral) {
-				NumberLiteral numberLiteral = (NumberLiteral) expression;
+			if (expression instanceof NumberLiteral numberLiteral) {
 				String token = numberLiteral.getToken();
 				// remove trailing 'F'/'f'
 				token = StringUtils.stripEnd(token, "Ff");
@@ -55,8 +54,7 @@ public final class FloatEvaluator implements IExpressionEvaluator {
 				return Float.valueOf(token);
 			}
 			// prefix expression (+, -)
-			if (expression instanceof PrefixExpression) {
-				PrefixExpression prefixExpression = (PrefixExpression) expression;
+			if (expression instanceof PrefixExpression prefixExpression) {
 				PrefixExpression.Operator operator = prefixExpression.getOperator();
 				//
 				Expression operand = prefixExpression.getOperand();
@@ -71,8 +69,7 @@ public final class FloatEvaluator implements IExpressionEvaluator {
 				}
 			}
 			// infix expression (+, -, *, /, %)
-			if (expression instanceof InfixExpression) {
-				InfixExpression infixExpression = (InfixExpression) expression;
+			if (expression instanceof InfixExpression infixExpression) {
 				// prepare operands
 				float operands[];
 				{
@@ -124,8 +121,7 @@ public final class FloatEvaluator implements IExpressionEvaluator {
 			throws Exception {
 		Object value = AstEvaluationEngine.evaluate(context, expression);
 		// Character
-		if (value instanceof Character) {
-			Character character = (Character) value;
+		if (value instanceof Character character) {
 			return character.charValue();
 		}
 		// Number

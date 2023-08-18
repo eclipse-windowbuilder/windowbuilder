@@ -193,8 +193,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 					IContextMenuConstants.GROUP_TOP,
 					new EditDimensionsAction(ModelMessages.FormLayoutInfo_editRows, false));
 		}
-		if (object instanceof ComponentInfo && object.getParent() == getContainer()) {
-			ComponentInfo component = (ComponentInfo) object;
+		if (object instanceof ComponentInfo component && object.getParent() == getContainer()) {
 			CellConstraintsSupport support = getConstraints(component);
 			support.addContextMenu(manager);
 		}
@@ -464,8 +463,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	 *         if it does not belong to any group.
 	 */
 	public int getDimensionGroupIndex(FormDimensionInfo dimension) {
-		if (dimension instanceof FormColumnInfo) {
-			FormColumnInfo column = (FormColumnInfo) dimension;
+		if (dimension instanceof FormColumnInfo column) {
 			return m_columnGroups.indexOf(getColumnGroup(column));
 		} else {
 			FormRowInfo row = (FormRowInfo) dimension;

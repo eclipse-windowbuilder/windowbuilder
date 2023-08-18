@@ -98,14 +98,11 @@ ChooseClassAndTreePropertiesUiContentProvider {
 	public static void setElementTypeToInput(AbstractViewerInputBindingInfo viewerBinding,
 			Class<?> choosenClass) {
 		ObservableInfo observable = viewerBinding.getInputObservable();
-		if (observable instanceof DetailBeanObservableInfo) {
-			DetailBeanObservableInfo inputObservable = (DetailBeanObservableInfo) observable;
+		if (observable instanceof DetailBeanObservableInfo inputObservable) {
 			inputObservable.setDetailPropertyType(choosenClass);
-		} else if (observable instanceof CheckedElementsObservableInfo) {
-			CheckedElementsObservableInfo inputObservable = (CheckedElementsObservableInfo) observable;
+		} else if (observable instanceof CheckedElementsObservableInfo inputObservable) {
 			inputObservable.setElementType(choosenClass);
-		} else if (observable instanceof CollectionObservableInfo) {
-			CollectionObservableInfo inputObservable = (CollectionObservableInfo) observable;
+		} else if (observable instanceof CollectionObservableInfo inputObservable) {
 			inputObservable.setElementType(choosenClass);
 		}
 	}

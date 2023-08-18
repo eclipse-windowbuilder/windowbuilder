@@ -83,8 +83,7 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof ViewDropRequest) {
-			final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
+		if (request instanceof final ViewDropRequest viewDrop_Request) {
 			final ViewInfo viewInfo = viewDrop_Request.getView();
 			final FastViewInfo reference = (FastViewInfo) referenceObject;
 			return new EditCommand(m_page) {

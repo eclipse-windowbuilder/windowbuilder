@@ -303,8 +303,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	@Override
 	public void showSourceFeedback(Request request) {
 		try {
-			if (request instanceof ChangeBoundsRequest) {
-				ChangeBoundsRequest cbRequest = (ChangeBoundsRequest) request;
+			if (request instanceof ChangeBoundsRequest cbRequest) {
 				if (REQ_RESIZE_SIZE.equals(request.getType())) {
 					showSizeFeedback(cbRequest);
 				}

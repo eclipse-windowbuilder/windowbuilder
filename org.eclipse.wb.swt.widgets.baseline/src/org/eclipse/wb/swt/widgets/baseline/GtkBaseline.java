@@ -57,8 +57,7 @@ final class GtkBaseline extends Baseline {
 				return NO_BASELINE;
 			}
 			// fetch baseline
-			if (control instanceof org.eclipse.swt.widgets.Link) {
-				org.eclipse.swt.widgets.Link linkControl = (org.eclipse.swt.widgets.Link) control;
+			if (control instanceof org.eclipse.swt.widgets.Link linkControl) {
 				Field layoutField = org.eclipse.swt.widgets.Link.class.getDeclaredField("layout");
 				layoutField.setAccessible(true);
 				org.eclipse.swt.graphics.TextLayout textLayout =

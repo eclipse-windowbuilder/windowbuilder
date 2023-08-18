@@ -34,8 +34,7 @@ public abstract class AbstractElementInfo {
 		if (obj == this) {
 			return true;
 		}
-		if (obj instanceof AbstractElementInfo) {
-			AbstractElementInfo element = (AbstractElementInfo) obj;
+		if (obj instanceof AbstractElementInfo element) {
 			return m_id.equals(element.m_id);
 		}
 		return false;

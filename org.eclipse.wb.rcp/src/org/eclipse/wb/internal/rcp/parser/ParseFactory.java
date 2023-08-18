@@ -299,8 +299,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 			}
 		}
 		// support for org.eclipse.ui.IPerspectiveFactory
-		if (expressionInfo instanceof PageLayoutInfo) {
-			PageLayoutInfo pageLayout = (PageLayoutInfo) expressionInfo;
+		if (expressionInfo instanceof PageLayoutInfo pageLayout) {
 			String signature = AstNodeUtils.getMethodSignature(methodBinding);
 			if (signature.equals("addView(java.lang.String,int,float,java.lang.String)")
 					|| signature.equals("addPlaceholder(java.lang.String,int,float,java.lang.String)")
@@ -325,8 +324,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 						invocation);
 			}
 			return null;
-		} else if (expressionInfo instanceof PageLayoutCreateFolderInfo) {
-			PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) expressionInfo;
+		} else if (expressionInfo instanceof PageLayoutCreateFolderInfo folder) {
 			String signature = AstNodeUtils.getMethodSignature(methodBinding);
 			if (signature.equals("addView(java.lang.String)")
 					|| signature.equals("addPlaceholder(java.lang.String)")) {
@@ -423,8 +421,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 		typeDeclaration.accept(new ASTVisitor() {
 			@Override
 			public void postVisit(ASTNode node) {
-				if (!isSwt[0] && node instanceof Expression) {
-					Expression expression = (Expression) node;
+				if (!isSwt[0] && node instanceof Expression expression) {
 					ITypeBinding expressionBinding = AstNodeUtils.getTypeBinding(expression);
 					if (AstNodeUtils.isSuccessorOf(expressionBinding, "org.eclipse.swt.widgets.Widget")) {
 						isSwt[0] = true;

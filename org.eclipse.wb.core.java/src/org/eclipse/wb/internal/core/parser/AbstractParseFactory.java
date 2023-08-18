@@ -113,8 +113,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 	@Override
 	public JavaInfo create(AstEditor editor, Expression expression) throws Exception {
 		// (Type) super.someMethodInvocation()
-		if (expression instanceof CastExpression) {
-			CastExpression castExpression = (CastExpression) expression;
+		if (expression instanceof CastExpression castExpression) {
 			if (castExpression.getExpression() instanceof SuperMethodInvocation) {
 				// prepare component Class
 				Class<?> componentClass;
@@ -130,9 +129,8 @@ public abstract class AbstractParseFactory implements IParseFactory {
 			}
 		}
 		// super.someMethodInvocation()
-		if (expression instanceof SuperMethodInvocation
+		if (expression instanceof SuperMethodInvocation invocation
 				&& expression.getLocationInParent() != CastExpression.EXPRESSION_PROPERTY) {
-			SuperMethodInvocation invocation = (SuperMethodInvocation) expression;
 			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(invocation);
 			if (isToolkitObject(editor, typeBinding)) {
 				// prepare component Class
@@ -322,8 +320,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 			}
 		}
 		// check for "instance factory" component creation
-		if (expressionInfo instanceof InstanceFactoryInfo) {
-			InstanceFactoryInfo factoryInfo = (InstanceFactoryInfo) expressionInfo;
+		if (expressionInfo instanceof InstanceFactoryInfo factoryInfo) {
 			FactoryMethodDescription description = getFactory(editor, methodBinding, false);
 			if (description != null) {
 				JavaInfo javaInfo =
@@ -820,8 +817,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 		// add project class loader
 		compositeClassLoader.add(mainClassLoader, null);
 		// add processors for "classPath-byteCode-processor"
-		if (mainClassLoader instanceof ProjectClassLoader) {
-			ProjectClassLoader projectClassLoader = (ProjectClassLoader) mainClassLoader;
+		if (mainClassLoader instanceof ProjectClassLoader projectClassLoader) {
 			for (IConfigurationElement toolkitElement : toolkitElements) {
 				IConfigurationElement[] contributorElements =
 						toolkitElement.getChildren("classPath-byteCode-processor");

@@ -110,11 +110,9 @@ public abstract class AbstractBindingsProperty extends AbstractProperty {
 		menu.add(new Separator());
 		// fill properties
 		for (Property property : getProperties()) {
-			if (property instanceof AbstractObserveProperty) {
-				AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
+			if (property instanceof AbstractObserveProperty observeProperty) {
 				menu.add(new ObserveAction(m_context.objectInfo, observeProperty));
-			} else if (property instanceof SingleObserveBindingProperty) {
-				SingleObserveBindingProperty observeProperty = (SingleObserveBindingProperty) property;
+			} else if (property instanceof SingleObserveBindingProperty observeProperty) {
 				menu.add(new SingleObserveBindingAction(m_context.objectInfo, observeProperty));
 			}
 		}

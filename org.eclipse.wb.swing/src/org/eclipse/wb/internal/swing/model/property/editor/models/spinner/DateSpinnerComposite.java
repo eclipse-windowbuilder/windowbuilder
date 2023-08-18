@@ -198,8 +198,7 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 
 	@Override
 	public boolean setModel(SpinnerModel model) {
-		if (model instanceof SpinnerDateModel) {
-			SpinnerDateModel dateModel = (SpinnerDateModel) model;
+		if (model instanceof SpinnerDateModel dateModel) {
 			// values
 			setValue(m_valueField, dateModel.getValue());
 			setValue(m_minField, dateModel.getStart());

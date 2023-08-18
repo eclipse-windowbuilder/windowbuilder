@@ -37,8 +37,7 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public <T> T getAdapter(Object object, Class<T> adapter) {
-		if (adapter.isAssignableFrom(IMenuItemInfo.class) && object instanceof ContributionItemInfo) {
-			ContributionItemInfo item = (ContributionItemInfo) object;
+		if (adapter.isAssignableFrom(IMenuItemInfo.class) && object instanceof ContributionItemInfo item) {
 			IMenuItemInfo itemObject = (IMenuItemInfo) item.getArbitraryValue(KEY_MENU_ITEM_OBJECT);
 			if (itemObject == null) {
 				itemObject = new ContributionItemImpl(item);

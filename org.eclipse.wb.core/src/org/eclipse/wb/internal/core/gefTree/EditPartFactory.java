@@ -62,8 +62,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	}
 	private EditPart createEditPartPure(EditPart context, Object model) {
 		// menu
-		if (model instanceof ObjectInfo) {
-			ObjectInfo objectInfo = (ObjectInfo) model;
+		if (model instanceof ObjectInfo objectInfo) {
 			{
 				IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(model);
 				if (menuObject != null) {

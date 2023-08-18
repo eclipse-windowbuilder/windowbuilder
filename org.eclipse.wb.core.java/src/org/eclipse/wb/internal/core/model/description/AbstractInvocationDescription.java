@@ -51,8 +51,7 @@ public abstract class AbstractInvocationDescription extends AbstractDescription 
 		if (obj == this) {
 			return true;
 		}
-		if (obj instanceof AbstractInvocationDescription) {
-			AbstractInvocationDescription description = (AbstractInvocationDescription) obj;
+		if (obj instanceof AbstractInvocationDescription description) {
 			return m_signature.equals(description.m_signature);
 		}
 		return false;

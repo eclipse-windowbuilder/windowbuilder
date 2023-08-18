@@ -47,8 +47,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
 		// special Composite's
-		if (model instanceof CompositeInfo) {
-			CompositeInfo composite = (CompositeInfo) model;
+		if (model instanceof CompositeInfo composite) {
 			// Form.getHead()
 			if (composite.getParent() instanceof FormInfo) {
 				FormInfo form = (FormInfo) composite.getParent();
@@ -63,8 +62,7 @@ public final class EditPartFactory implements IEditPartFactory {
 		}
 		// MenuManagerInfo
 		{
-			if (model instanceof MenuManagerInfo) {
-				MenuManagerInfo menuManager = (MenuManagerInfo) model;
+			if (model instanceof MenuManagerInfo menuManager) {
 				if (menuManager.getParent() instanceof MenuManagerInfo) {
 					IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(menuManager);
 					return MenuEditPartFactory.createMenuItem(menuManager, itemObject);
@@ -72,12 +70,10 @@ public final class EditPartFactory implements IEditPartFactory {
 					return createMenuEditPart(menuManager, MenuObjectInfoUtils.getMenuInfo(model));
 				}
 			}
-			if (model instanceof IMenuInfo) {
-				IMenuInfo menu = (IMenuInfo) model;
+			if (model instanceof IMenuInfo menu) {
 				return createMenuEditPart(model, menu);
 			}
-			if (model instanceof AbstractComponentInfo) {
-				AbstractComponentInfo item = (AbstractComponentInfo) model;
+			if (model instanceof AbstractComponentInfo item) {
 				if (((AbstractComponentInfo) model).getParent() instanceof MenuManagerInfo) {
 					IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
 					return MenuEditPartFactory.createMenuItem(item, itemObject);

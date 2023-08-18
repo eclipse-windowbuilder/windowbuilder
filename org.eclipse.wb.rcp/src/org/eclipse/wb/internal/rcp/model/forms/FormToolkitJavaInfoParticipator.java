@@ -62,11 +62,10 @@ public final class FormToolkitJavaInfoParticipator implements IJavaInfoInitializ
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void process(JavaInfo javaInfo) throws Exception {
-		if (javaInfo instanceof InstanceFactoryInfo
+		if (javaInfo instanceof final InstanceFactoryInfo toolkit
 				&& ReflectionUtils.isSuccessorOf(
 						javaInfo.getDescription().getComponentClass(),
 						"org.eclipse.ui.forms.widgets.FormToolkit")) {
-			final InstanceFactoryInfo toolkit = (InstanceFactoryInfo) javaInfo;
 			toolkit.addBroadcastListener(new JavaEventListener() {
 				@Override
 				public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
@@ -152,8 +151,7 @@ public final class FormToolkitJavaInfoParticipator implements IJavaInfoInitializ
 	private void contribute_FormToolkit_decorateFormHeading(IMenuManager manager,
 			InstanceFactoryInfo toolkit,
 			ObjectInfo object) {
-		if (object instanceof FormInfo) {
-			FormInfo form = (FormInfo) object;
+		if (object instanceof FormInfo form) {
 			manager.appendToGroup(
 					IContextMenuConstants.GROUP_ADDITIONAL,
 					new DecorateFormHeading_Action(toolkit, form));

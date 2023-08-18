@@ -65,8 +65,7 @@ IDelayValueProvider {
 	}
 
 	private static final boolean isViewer(BindableInfo bindableObject) throws Exception {
-		if (bindableObject instanceof WidgetBindableInfo) {
-			WidgetBindableInfo bindableWidget = (WidgetBindableInfo) bindableObject;
+		if (bindableObject instanceof WidgetBindableInfo bindableWidget) {
 			return bindableWidget.getClassLoader().loadClass("org.eclipse.jface.viewers.Viewer").isAssignableFrom(
 					bindableWidget.getObjectType());
 		}

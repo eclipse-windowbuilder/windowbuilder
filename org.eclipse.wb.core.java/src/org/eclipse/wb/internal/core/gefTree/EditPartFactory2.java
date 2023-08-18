@@ -49,13 +49,11 @@ public final class EditPartFactory2 implements IEditPartFactory {
 			return null;
 		}
 		// flow container group
-		if (model instanceof FlowContainerGroupInfo) {
-			FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
+		if (model instanceof FlowContainerGroupInfo groupInfo) {
 			return new FlowContainerGroupEditPart(groupInfo);
 		}
 		// child array
-		if (model instanceof AbstractArrayObjectInfo) {
-			AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+		if (model instanceof AbstractArrayObjectInfo arrayInfo) {
 			return new ArrayObjectEditPart(arrayInfo);
 		}
 		// use default EditPart for JavaInfo and ObjectInfo
@@ -91,13 +89,11 @@ public final class EditPartFactory2 implements IEditPartFactory {
 		//      }
 		//    }
 		// flow container group
-		if (model instanceof FlowContainerGroupInfo) {
-			FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
+		if (model instanceof FlowContainerGroupInfo groupInfo) {
 			return new FlowContainerGroupEditPart(groupInfo);
 		}
 		// child array
-		if (model instanceof AbstractArrayObjectInfo) {
-			AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+		if (model instanceof AbstractArrayObjectInfo arrayInfo) {
 			return new ArrayObjectEditPart(arrayInfo);
 		}
 		// use default EditPart for JavaInfo and ObjectInfo

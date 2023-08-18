@@ -63,8 +63,7 @@ IClipboardSourceProvider {
 		Object value = property.getValue();
 		if (value != Property.UNKNOWN_VALUE) {
 			Expression expression = ((GenericProperty) property).getExpression();
-			if (expression instanceof MethodInvocation) {
-				MethodInvocation invocation = (MethodInvocation) expression;
+			if (expression instanceof MethodInvocation invocation) {
 				// JFaceResource.getXXXFont()
 				if (isJFaceValue(invocation)) {
 					return invocation.getName().getIdentifier() + "()";
@@ -144,8 +143,7 @@ IClipboardSourceProvider {
 		{
 			Expression expression = property.getExpression();
 			// JFaceResource.getXXXFont()
-			if (expression instanceof MethodInvocation) {
-				MethodInvocation invocation = (MethodInvocation) expression;
+			if (expression instanceof MethodInvocation invocation) {
 				String identifier = invocation.getName().getIdentifier();
 				if (identifier.startsWith("get")
 						&& identifier.endsWith("Font")
@@ -300,8 +298,7 @@ IClipboardSourceProvider {
 		GenericProperty genericProperty = (GenericProperty) property;
 		Expression expression = genericProperty.getExpression();
 		//
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			String signature = AstNodeUtils.getMethodSignature(invocation);
 			if (isFontRegistryInvocation(invocation)) {
 				Object keyArgument = invocation.arguments().get(0);

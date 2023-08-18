@@ -77,8 +77,7 @@ IClipboardSourceProvider {
 				return "(null)";
 			}
 			// new Image(...)
-			if (expression instanceof ClassInstanceCreation) {
-				ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+			if (expression instanceof ClassInstanceCreation creation) {
 				ITypeBinding creationBinding = AstNodeUtils.getTypeBinding(creation);
 				if (AstNodeUtils.getFullyQualifiedName(creationBinding, false).equals(
 						"org.eclipse.swt.graphics.Image")) {

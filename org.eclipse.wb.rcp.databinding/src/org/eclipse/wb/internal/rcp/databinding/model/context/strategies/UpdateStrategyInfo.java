@@ -129,8 +129,7 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
 						new Throwable());
 			} else {
 				IModelSupport modelSupport = resolver.getModelSupport(invocation.getExpression());
-				if (modelSupport instanceof StrategyModelSupport) {
-					StrategyModelSupport strategyModelSupport = (StrategyModelSupport) modelSupport;
+				if (modelSupport instanceof StrategyModelSupport strategyModelSupport) {
 					strategyModelSupport.addInvocation(invocation);
 				}
 			}

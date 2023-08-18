@@ -162,8 +162,7 @@ public final class FieldEditorSubComponentVariableSupport extends AbstractNoName
 						+ astEditor.getSource(parentExpression)
 						+ ";", new StatementTarget(editorCreationStatement, true));
 				astEditor.replaceExpression(parentExpression, parentName);
-			} else if (parentExpression instanceof SimpleName) {
-				SimpleName parentSimpleName = (SimpleName) parentExpression;
+			} else if (parentExpression instanceof SimpleName parentSimpleName) {
 				parentName = parentSimpleName.getIdentifier();
 			}
 		}

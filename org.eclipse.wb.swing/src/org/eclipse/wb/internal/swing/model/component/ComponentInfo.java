@@ -164,8 +164,7 @@ public class ComponentInfo extends AbstractComponentInfo {
 				if (model.getParent() instanceof AbstractComponentInfo) {
 					AbstractComponentInfo parentModel = (AbstractComponentInfo) model.getParent();
 					Object parentObject = parentModel.getComponentObject();
-					if (parentObject instanceof Component) {
-						Component parentComponent = (Component) parentObject;
+					if (parentObject instanceof Component parentComponent) {
 						java.awt.Point p_component = SwingUtils.getScreenLocation(component);
 						java.awt.Point p_parent = SwingUtils.getScreenLocation(parentComponent);
 						bounds.x = p_component.x - p_parent.x;

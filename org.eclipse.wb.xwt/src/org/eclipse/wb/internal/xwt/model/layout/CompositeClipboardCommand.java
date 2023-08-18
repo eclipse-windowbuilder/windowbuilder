@@ -30,8 +30,7 @@ public abstract class CompositeClipboardCommand extends ClipboardCommand {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public final void execute(XmlObjectInfo object) throws Exception {
-		if (object instanceof CompositeInfo) {
-			CompositeInfo composite = (CompositeInfo) object;
+		if (object instanceof CompositeInfo composite) {
 			execute(composite);
 		}
 	}

@@ -71,12 +71,10 @@ public final class ActionExpressionAccessor extends ExpressionAccessor {
 		for (Block block : m_actionInfo.getInitializationBlocks()) {
 			for (Statement statement : DomGenerics.statements(block)) {
 				Expression expression = null;
-				if (statement instanceof SuperConstructorInvocation) {
-					SuperConstructorInvocation invocation = (SuperConstructorInvocation) statement;
+				if (statement instanceof SuperConstructorInvocation invocation) {
 					expression = getExpression_SuperConstructorInvocation(invocation);
 				}
-				if (statement instanceof ExpressionStatement) {
-					ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+				if (statement instanceof ExpressionStatement expressionStatement) {
 					expression = getExpression_ExpressionStatement(expressionStatement);
 				}
 				// check for result

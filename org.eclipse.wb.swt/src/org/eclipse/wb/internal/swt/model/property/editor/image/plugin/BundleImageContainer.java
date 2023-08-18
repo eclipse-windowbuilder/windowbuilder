@@ -177,13 +177,11 @@ public class BundleImageContainer extends ImageContainer implements IHasChildren
 	protected final boolean findResource(List<Object> paths, String imagePath) {
 		paths.add(this);
 		for (IImageElement element : elements()) {
-			if (element instanceof BundleImageContainer) {
-				BundleImageContainer container = (BundleImageContainer) element;
+			if (element instanceof BundleImageContainer container) {
 				if (container.findResource(paths, imagePath)) {
 					return true;
 				}
-			} else if (element instanceof BundleImageResource) {
-				BundleImageResource resource = (BundleImageResource) element;
+			} else if (element instanceof BundleImageResource resource) {
 				if (resource.getPath().equals(imagePath)) {
 					paths.add(resource);
 					return true;

@@ -62,8 +62,7 @@ public final class LocaleInfo implements Comparable<LocaleInfo> {
 		if (obj == this) {
 			return true;
 		}
-		if (obj instanceof LocaleInfo) {
-			LocaleInfo localeInfo = (LocaleInfo) obj;
+		if (obj instanceof LocaleInfo localeInfo) {
 			if (isDefault()) {
 				return localeInfo.isDefault();
 			}

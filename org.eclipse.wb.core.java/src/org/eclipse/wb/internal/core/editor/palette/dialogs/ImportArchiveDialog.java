@@ -804,8 +804,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 		@Override
 		public boolean select(Viewer viewer, Object parent, Object element) {
 			// filter files
-			if (element instanceof IFile) {
-				IFile file = (IFile) element;
+			if (element instanceof IFile file) {
 				return "jar".equals(file.getProjectRelativePath().getFileExtension());
 			}
 			// filter containers

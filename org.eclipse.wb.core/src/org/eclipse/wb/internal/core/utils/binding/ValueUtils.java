@@ -37,8 +37,7 @@ public final class ValueUtils {
 	 */
 	public static boolean objectToBoolean(Object value) {
 		// extract from Boolean
-		if (value instanceof Boolean) {
-			Boolean booleanObject = (Boolean) value;
+		if (value instanceof Boolean booleanObject) {
 			return booleanObject.booleanValue();
 		}
 		// extract from Object
@@ -60,9 +59,7 @@ public final class ValueUtils {
 			return (boolean[]) value;
 		}
 		// check list of boolean's or String's
-		if (value instanceof List) {
-			// prepare list
-			List listValues = (List) value;
+		if (value instanceof List listValues) {
 			// check empty list
 			if (listValues.isEmpty()) {
 				return null;

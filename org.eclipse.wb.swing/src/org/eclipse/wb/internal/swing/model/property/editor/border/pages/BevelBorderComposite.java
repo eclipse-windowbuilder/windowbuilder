@@ -64,8 +64,7 @@ public final class BevelBorderComposite extends AbstractBorderComposite {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof BevelBorder) {
-			BevelBorder ourBorder = (BevelBorder) border;
+		if (border instanceof BevelBorder ourBorder) {
 			m_typeField.setValue(ourBorder.getBevelType());
 			m_highlightOuterField.setValue(ourBorder.getHighlightOuterColor());
 			m_highlightInnerField.setValue(ourBorder.getHighlightInnerColor());

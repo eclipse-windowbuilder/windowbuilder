@@ -58,8 +58,7 @@ public final class RemoveLocaleCommand extends AbstractCommand {
 		for (int index = m_commands.size() - 1; index >= 0; index--) {
 			AbstractCommand oldCommand = m_commands.get(index);
 			// "set values" found
-			if (oldCommand instanceof SetValuesCommand) {
-				SetValuesCommand oldSetValuesCommand = (SetValuesCommand) oldCommand;
+			if (oldCommand instanceof SetValuesCommand oldSetValuesCommand) {
 				// if same locale, remove it
 				if (oldSetValuesCommand.getLocale().equals(locale)) {
 					m_commands.remove(index);
@@ -68,8 +67,7 @@ public final class RemoveLocaleCommand extends AbstractCommand {
 				continue;
 			}
 			// "add locale" found
-			if (oldCommand instanceof AddLocaleCommand) {
-				AddLocaleCommand oldAddLocaleCommand = (AddLocaleCommand) oldCommand;
+			if (oldCommand instanceof AddLocaleCommand oldAddLocaleCommand) {
 				// if same locale, remove it
 				if (oldAddLocaleCommand.getLocale().equals(locale)) {
 					m_commands.remove(index);

@@ -643,8 +643,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 			IBindingInfo target = bindings.get(targetIndex);
 			boolean up = sourceIndex > targetIndex;
 			// configure target index
-			if (target instanceof ColumnBindingInfo) {
-				ColumnBindingInfo column = (ColumnBindingInfo) target;
+			if (target instanceof ColumnBindingInfo column) {
 				// calculate column index
 				if (up) {
 					targetIndex = bindings.indexOf(column.getJTableBinding());
@@ -653,9 +652,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 					targetIndex += column.getJTableBinding().getColumns().size();
 					//
 					target = bindings.get(targetIndex);
-					if (target instanceof JTableBindingInfo) {
-						// skip all columns
-						JTableBindingInfo tableBinding = (JTableBindingInfo) target;
+					if (target instanceof JTableBindingInfo tableBinding) {
 						targetIndex += tableBinding.getColumns().size();
 					} else if (target instanceof JListBindingInfo) {
 						// skip detail binding
@@ -671,18 +668,14 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 					targetIndex++;
 					//
 					target = bindings.get(targetIndex);
-					if (target instanceof JTableBindingInfo) {
-						// skip all columns
-						JTableBindingInfo tableBinding = (JTableBindingInfo) target;
+					if (target instanceof JTableBindingInfo tableBinding) {
 						targetIndex += tableBinding.getColumns().size();
 					} else if (target instanceof JListBindingInfo) {
 						// skip detail binding
 						targetIndex++;
 					}
 				}
-			} else if (target instanceof JTableBindingInfo && !up) {
-				// skip all columns
-				JTableBindingInfo tableBinding = (JTableBindingInfo) target;
+			} else if (target instanceof JTableBindingInfo tableBinding && !up) {
 				targetIndex += tableBinding.getColumns().size();
 			} else if (target instanceof JListBindingInfo && !up) {
 				// skip detail binding

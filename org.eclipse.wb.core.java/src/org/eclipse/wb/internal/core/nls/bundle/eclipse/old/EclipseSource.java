@@ -140,8 +140,7 @@ public final class EclipseSource extends AbstractBundleSource {
 			String accessorClassName,
 			List<AbstractSource> sources) throws Exception {
 		for (AbstractSource abstractSource : sources) {
-			if (abstractSource instanceof EclipseSource) {
-				EclipseSource source = (EclipseSource) abstractSource;
+			if (abstractSource instanceof EclipseSource source) {
 				if (source.m_accessorClassName.equals(accessorClassName)) {
 					return source;
 				}
@@ -157,9 +156,7 @@ public final class EclipseSource extends AbstractBundleSource {
 	 */
 	private static ExpressionInfo getExpressionInfo(JavaInfo component, Expression expression)
 			throws Exception {
-		if (expression instanceof MethodInvocation) {
-			// check for getString(key)
-			MethodInvocation getString_invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation getString_invocation) {
 			int argumentCount = getString_invocation.arguments().size();
 			{
 				boolean is_getString =

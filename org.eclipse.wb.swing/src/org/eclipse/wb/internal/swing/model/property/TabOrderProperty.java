@@ -63,14 +63,12 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 		MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
 		if (invocation != null) {
 			Object traversalPolicy = invocation.arguments().get(0);
-			if (traversalPolicy instanceof ClassInstanceCreation) {
-				ClassInstanceCreation traversalPolicyCreation = (ClassInstanceCreation) traversalPolicy;
+			if (traversalPolicy instanceof ClassInstanceCreation traversalPolicyCreation) {
 				if (FOCUS_TRAVERSAL_CLASS.equals(AstNodeUtils.getFullyQualifiedName(
 						traversalPolicyCreation,
 						false))) {
 					Object focusTraversalOnArray = traversalPolicyCreation.arguments().get(0);
-					if (focusTraversalOnArray instanceof ArrayCreation) {
-						ArrayCreation creation = (ArrayCreation) focusTraversalOnArray;
+					if (focusTraversalOnArray instanceof ArrayCreation creation) {
 						return creation.getInitializer();
 					}
 				}

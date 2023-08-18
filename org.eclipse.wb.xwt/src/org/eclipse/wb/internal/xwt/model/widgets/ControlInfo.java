@@ -174,8 +174,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 				component.setBounds(bounds);
 			}
 			// prepare insets
-			if (control instanceof Composite) {
-				Composite composite = (Composite) control;
+			if (control instanceof Composite composite) {
 				component.setClientAreaInsets(CoordinateUtils.getClientAreaInsets(composite));
 			}
 			// continue, process children
@@ -215,8 +214,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof AbstractComponentInfo) {
-					AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
+				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
 					if (componentObject instanceof Control) {
 						ToolkitSupport.markAsNeededImage((Control) componentObject);
@@ -230,8 +228,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof AbstractComponentInfo) {
-					AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
+				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
 					if (componentObject instanceof Control) {
 						Image image = ToolkitSupport.getShotImage((Control) componentObject);

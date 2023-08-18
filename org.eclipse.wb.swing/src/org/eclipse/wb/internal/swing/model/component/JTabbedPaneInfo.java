@@ -245,8 +245,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 		addBroadcastListener(new JavaInfoAddProperties() {
 			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-				if (javaInfo instanceof ComponentInfo && javaInfo.getParent() == pane) {
-					ComponentInfo component = (ComponentInfo) javaInfo;
+				if (javaInfo instanceof ComponentInfo component && javaInfo.getParent() == pane) {
 					// prepare complex "Tab" property
 					ComplexProperty complexProperty = (ComplexProperty) component.getArbitraryValue(pane);
 					if (complexProperty == null) {

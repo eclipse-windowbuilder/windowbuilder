@@ -45,8 +45,7 @@ public final class IntegerArrayPropertyEditor extends AbstractTextPropertyEditor
 	@Override
 	public String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof int[]) {
-			int[] array = (int[]) value;
+		if (value instanceof int[] array) {
 			return StringUtils.join(ArrayUtils.toObject(array), ' ');
 		}
 		return null;

@@ -222,8 +222,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 		}
 		final NlsSupport support = NlsSupport.get(m_javaInfo);
 		// check if key name is used
-		if (value instanceof String) {
-			String stringValue = (String) value;
+		if (value instanceof String stringValue) {
 			String keyPrefix =
 					m_javaInfo.getDescription().getToolkit().getPreferences().getString(
 							IPreferenceConstants.P_NLS_KEY_AS_VALUE_PREFIX);
@@ -489,8 +488,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 		String source;
 		if (validatedValue == UNKNOWN_VALUE) {
 			source = null;
-		} else if (m_editor instanceof IValueSourcePropertyEditor) {
-			IValueSourcePropertyEditor sourceEditor = (IValueSourcePropertyEditor) m_editor;
+		} else if (m_editor instanceof IValueSourcePropertyEditor sourceEditor) {
 			source = sourceEditor.getValueSource(validatedValue);
 		} else {
 			Assert.isNotNull(m_converter);

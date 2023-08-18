@@ -60,11 +60,9 @@ public class AstModelSupport implements IModelSupport {
 			// prepare parent
 			ASTNode parent = expression.getParent();
 			// handle variables and assignments
-			if (parent instanceof VariableDeclarationFragment) {
-				VariableDeclarationFragment fragment = (VariableDeclarationFragment) parent;
+			if (parent instanceof VariableDeclarationFragment fragment) {
 				m_nameReference = fragment.getName().getIdentifier();
-			} else if (parent instanceof Assignment) {
-				Assignment assignment = (Assignment) parent;
+			} else if (parent instanceof Assignment assignment) {
 				m_nameReference = CoreUtils.getNodeReference(assignment.getLeftHandSide());
 				//
 				if (m_nameReference != null && m_model instanceof IASTObjectInfo2) {

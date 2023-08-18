@@ -180,8 +180,7 @@ public final class SwingScreenshotMaker {
 		m_root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof AbstractComponentInfo) {
-					AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
+				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
 					Image image = convertedImages.get(componentObject);
 					componentInfo.setImage(image);
@@ -194,16 +193,14 @@ public final class SwingScreenshotMaker {
 	 * Fix for {@link JLabel} with "html" as text.
 	 */
 	private static void fixJLabelWithHTML(Component component) throws Exception {
-		if (component instanceof JLabel) {
-			JLabel label = (JLabel) component;
+		if (component instanceof JLabel label) {
 			String text = label.getText();
 			if (StringUtils.containsIgnoreCase(text, "<html>")) {
 				SwingImageUtils.createComponentShotAWT(component);
 			}
 		}
 		// process children
-		if (component instanceof Container) {
-			Container container = (Container) component;
+		if (component instanceof Container container) {
 			for (Component childComponent : container.getComponents()) {
 				fixJLabelWithHTML(childComponent);
 			}

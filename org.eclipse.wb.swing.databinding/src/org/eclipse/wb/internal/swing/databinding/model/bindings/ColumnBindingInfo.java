@@ -242,8 +242,7 @@ public class ColumnBindingInfo extends BindingInfo implements IEditableProvider 
 		}
 		// JTableBinding.ColumnBinding.setColumnClass(Class)
 		if (SET_COLUMN_CLASS.equals(signature)) {
-			if (arguments[0] instanceof TypeLiteral) {
-				TypeLiteral typeLiteral = (TypeLiteral) arguments[0];
+			if (arguments[0] instanceof TypeLiteral typeLiteral) {
 				ITypeBinding binding = AstNodeUtils.getTypeBinding(typeLiteral.getType());
 				if (binding != null) {
 					m_columnType = GenericUtils.getObjectType(editor, binding);

@@ -267,8 +267,7 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
 			}
 		}
 		// check last statement
-		if (statement instanceof ExpressionStatement) {
-			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+		if (statement instanceof ExpressionStatement expressionStatement) {
 			if (expressionStatement.getExpression() instanceof MethodInvocation) {
 				MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
 				if (invocation.getName().getIdentifier().equals(forcedMethodName)) {
@@ -313,8 +312,7 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
 			root.accept(new ObjectInfoVisitor() {
 				@Override
 				public void endVisit(ObjectInfo objectInfo) throws Exception {
-					if (objectInfo instanceof JavaInfo) {
-						JavaInfo javaInfo = (JavaInfo) objectInfo;
+					if (objectInfo instanceof JavaInfo javaInfo) {
 						for (ASTNode node : javaInfo.getRelatedNodes()) {
 							MethodDeclaration method = AstNodeUtils.getEnclosingMethod(node);
 							if (method != null) {

@@ -89,8 +89,7 @@ public class DialogInfo extends WindowInfo {
 		accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (buttonBar[0] == null && objectInfo instanceof CompositeInfo) {
-					CompositeInfo composite = (CompositeInfo) objectInfo;
+				if (buttonBar[0] == null && objectInfo instanceof CompositeInfo composite) {
 					if (isButtonBar(composite)) {
 						buttonBar[0] = composite;
 					}

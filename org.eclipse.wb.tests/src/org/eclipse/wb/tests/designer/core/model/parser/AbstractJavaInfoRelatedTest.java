@@ -238,8 +238,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 				if (result.get() != null) {
 					return;
 				}
-				if (objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				if (objectInfo instanceof JavaInfo javaInfo) {
 					if (isRequestedJavaInfo(javaInfo)) {
 						result.set((T) javaInfo);
 					}

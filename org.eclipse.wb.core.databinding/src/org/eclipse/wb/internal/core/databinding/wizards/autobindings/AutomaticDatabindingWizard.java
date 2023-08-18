@@ -61,12 +61,10 @@ public abstract class AutomaticDatabindingWizard extends AbstractDesignWizard {
 			// prepare selection object
 			Object object = selection.getFirstElement();
 			// check java selection
-			if (object instanceof IJavaElement) {
-				IJavaElement element = (IJavaElement) object;
+			if (object instanceof IJavaElement element) {
 				// find compilation unit
 				while (element != null) {
-					if (element instanceof ICompilationUnit) {
-						ICompilationUnit compilationUnit = (ICompilationUnit) element;
+					if (element instanceof ICompilationUnit compilationUnit) {
 						IType[] types = compilationUnit.getTypes();
 						// find main type
 						if (!ArrayUtils.isEmpty(types)) {

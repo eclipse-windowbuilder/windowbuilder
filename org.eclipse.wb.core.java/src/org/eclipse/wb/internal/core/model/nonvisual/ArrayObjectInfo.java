@@ -89,9 +89,7 @@ public final class ArrayObjectInfo extends AbstractArrayObjectInfo {
 			int oldIndex,
 			int newIndex) throws Exception {
 		Expression element;
-		if (oldAbstractArrayInfo instanceof ArrayObjectInfo) {
-			// moving item between two arrays
-			ArrayObjectInfo oldArrayInfo = (ArrayObjectInfo) oldAbstractArrayInfo;
+		if (oldAbstractArrayInfo instanceof ArrayObjectInfo oldArrayInfo) {
 			ArrayInitializer oldArray = oldArrayInfo.m_creation.getInitializer();
 			ArrayInitializer newArray = m_creation.getInitializer();
 			if (oldArray.equals(newArray)) {

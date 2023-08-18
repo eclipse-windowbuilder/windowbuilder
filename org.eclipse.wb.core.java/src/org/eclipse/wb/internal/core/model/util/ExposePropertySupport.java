@@ -70,8 +70,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void contributeMenu(IMenuManager manager, Property property) throws Exception {
-		if (property instanceof GenericPropertyImpl) {
-			GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+		if (property instanceof GenericPropertyImpl genericProperty) {
 			IExposableExpressionAccessor accessor =
 					AccessorUtils.getExposableExpressionAccessor(property);
 			if (accessor != null) {

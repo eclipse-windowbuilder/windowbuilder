@@ -201,8 +201,7 @@ public final class DataBindingsRootInfo implements ISubParser {
 
 	private boolean ensureDesignerResources() {
 		for (AbstractBindingInfo binding : m_contextInfo.getBindings()) {
-			if (binding instanceof TreeViewerInputBindingInfo) {
-				TreeViewerInputBindingInfo treeBinding = (TreeViewerInputBindingInfo) binding;
+			if (binding instanceof TreeViewerInputBindingInfo treeBinding) {
 				if (treeBinding.isDesignerMode()) {
 					return true;
 				}

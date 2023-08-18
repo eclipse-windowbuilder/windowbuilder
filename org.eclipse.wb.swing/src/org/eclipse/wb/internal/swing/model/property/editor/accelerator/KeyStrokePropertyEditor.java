@@ -97,8 +97,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 		// set initial KeyStroke
 		{
 			Object value = property.getValue();
-			if (value instanceof KeyStroke) {
-				KeyStroke keyStroke = (KeyStroke) value;
+			if (value instanceof KeyStroke keyStroke) {
 				int modifiers = keyStroke.getModifiers();
 				int keyCode = keyStroke.getKeyCode();
 				boolean onKeyRelease = keyStroke.isOnKeyRelease();

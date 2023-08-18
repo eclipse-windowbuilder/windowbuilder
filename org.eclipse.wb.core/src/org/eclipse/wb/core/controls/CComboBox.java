@@ -641,15 +641,13 @@ public class CComboBox extends Composite {
 		event.widget = tEvent.widget;
 		event.time = tEvent.time;
 		event.data = tEvent.data;
-		if (tEvent instanceof KeyEvent) {
-			KeyEvent kEvent = (KeyEvent) tEvent;
+		if (tEvent instanceof KeyEvent kEvent) {
 			event.character = kEvent.character;
 			event.keyCode = kEvent.keyCode;
 			event.stateMask = kEvent.stateMask;
 			event.doit = kEvent.doit;
 		}
-		if (tEvent instanceof SelectionEvent) {
-			SelectionEvent sEvent = (SelectionEvent) tEvent;
+		if (tEvent instanceof SelectionEvent sEvent) {
 			event.item = sEvent.item;
 			event.x = sEvent.x;
 			event.y = sEvent.y;

@@ -107,8 +107,7 @@ IClipboardSourceProvider {
 
 	@Override
 	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			String expression = getExpression(index);
 			Object evaluatedExpression = evaluateExpression(genericProperty, expression);
 			// apply expression

@@ -76,8 +76,7 @@ public final class GenericPropertyComposite extends GenericProperty {
 			return true;
 		}
 		//
-		if (obj instanceof GenericPropertyComposite) {
-			GenericPropertyComposite property = (GenericPropertyComposite) obj;
+		if (obj instanceof GenericPropertyComposite property) {
 			return ArrayUtils.isEquals(m_properties, property.m_properties);
 		}
 		//

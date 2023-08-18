@@ -58,8 +58,7 @@ public class GenericTypeResolver {
 				return result;
 			}
 		}
-		if (typeToResolve instanceof ParameterizedType) {
-			ParameterizedType parameterizedType = (ParameterizedType) typeToResolve;
+		if (typeToResolve instanceof ParameterizedType parameterizedType) {
 			StringBuilder buffer = new StringBuilder();
 			buffer.append(((Class<?>) parameterizedType.getRawType()).getName());
 			{
@@ -77,8 +76,7 @@ public class GenericTypeResolver {
 			}
 			return buffer.toString();
 		}
-		if (typeToResolve instanceof WildcardType) {
-			WildcardType wildcardType = (WildcardType) typeToResolve;
+		if (typeToResolve instanceof WildcardType wildcardType) {
 			Type[] upperBounds = wildcardType.getUpperBounds();
 			if (upperBounds.length == 1) {
 				return GenericsUtils.getTypeName(this, upperBounds[0]);
@@ -126,8 +124,7 @@ public class GenericTypeResolver {
 		for (Type superType : superTypes) {
 			Class<?> superClass;
 			Type superArguments[];
-			if (superType instanceof ParameterizedType) {
-				ParameterizedType parameterizedSuperType = (ParameterizedType) superType;
+			if (superType instanceof ParameterizedType parameterizedSuperType) {
 				superClass = (Class<?>) parameterizedSuperType.getRawType();
 				superArguments = parameterizedSuperType.getActualTypeArguments();
 				for (int i = 0; i < superArguments.length; i++) {
@@ -213,8 +210,7 @@ public class GenericTypeResolver {
 
 	private static Map<String, Type> getTypeArguments(Type type) {
 		Map<String, Type> typeArguments = Maps.newTreeMap();
-		if (type instanceof ParameterizedType) {
-			ParameterizedType parameterized = (ParameterizedType) type;
+		if (type instanceof ParameterizedType parameterized) {
 			Type[] actualTypeArguments = parameterized.getActualTypeArguments();
 			Class<?> raw = (Class<?>) parameterized.getRawType();
 			TypeVariable<?>[] typeParameters = raw.getTypeParameters();

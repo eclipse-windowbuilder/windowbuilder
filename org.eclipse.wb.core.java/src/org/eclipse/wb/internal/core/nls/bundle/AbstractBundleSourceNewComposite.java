@@ -126,8 +126,7 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
 					 * Check that given object if IFile with ".properties" extension.
 					 */
 					private boolean isPropertyFile(Object o) {
-						if (o instanceof IFile) {
-							IFile file = (IFile) o;
+						if (o instanceof IFile file) {
 							return ".properties".equals('.' + file.getFileExtension());
 						}
 						return false;

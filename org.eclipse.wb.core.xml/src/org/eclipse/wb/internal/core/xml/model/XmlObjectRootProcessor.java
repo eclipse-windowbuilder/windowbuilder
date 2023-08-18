@@ -56,8 +56,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
 		root.addBroadcastListener(new ObjectInfoChildTree() {
 			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-				if (object instanceof XmlObjectInfo) {
-					XmlObjectInfo xObject = (XmlObjectInfo) object;
+				if (object instanceof XmlObjectInfo xObject) {
 					String visibilityTreeString = XmlObjectUtils.getParameter(xObject, "visible.inTree");
 					if (visibilityTreeString != null) {
 						visible[0] = Boolean.parseBoolean(visibilityTreeString);
@@ -73,8 +72,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
 		root.addBroadcastListener(new ObjectInfoChildGraphical() {
 			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-				if (object instanceof XmlObjectInfo) {
-					XmlObjectInfo xObject = (XmlObjectInfo) object;
+				if (object instanceof XmlObjectInfo xObject) {
 					String visibilityGraphString =
 							XmlObjectUtils.getParameter(xObject, "visible.inGraphical");
 					if (visibilityGraphString != null) {
@@ -92,8 +90,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
 		root.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
 			@Override
 			public void invoke(ObjectInfo object, String[] text) throws Exception {
-				if (object instanceof XmlObjectInfo) {
-					XmlObjectInfo xObject = (XmlObjectInfo) object;
+				if (object instanceof XmlObjectInfo xObject) {
 					IPreferenceStore preferences = xObject.getDescription().getToolkit().getPreferences();
 					if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_TEXT_SUFFIX)) {
 						broadcast_presentation_decorateText(xObject, text);
@@ -109,8 +106,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
 	private static void broadcast_presentation_decorateText(XmlObjectInfo object, String[] text)
 			throws Exception {
 		for (Property property : object.getProperties()) {
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				if (genericProperty.hasTrueTag("isText")
 						&& genericProperty.getObject() == object
 						&& genericProperty.isModified()) {

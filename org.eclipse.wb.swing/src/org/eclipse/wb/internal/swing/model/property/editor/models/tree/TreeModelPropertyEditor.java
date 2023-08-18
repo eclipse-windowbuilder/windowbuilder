@@ -58,8 +58,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof TreeModel) {
-			TreeModel model = (TreeModel) value;
+		if (value instanceof TreeModel model) {
 			TreeNode rootNode = (TreeNode) model.getRoot();
 			//
 			StringBuffer buffer = new StringBuffer();
@@ -94,8 +93,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 	}
 
 	private void setItems(Property property, int maxLevel, ItemInformation rootItem) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			JavaInfo javaInfo = genericProperty.getJavaInfo();
 			// prepare lines
 			List<String> lines = Lists.newArrayList();
@@ -198,8 +196,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 		}
 		// append current node
 		buffer.append(prefix);
-		if (node instanceof DefaultMutableTreeNode) {
-			DefaultMutableTreeNode mutableTreeNode = (DefaultMutableTreeNode) node;
+		if (node instanceof DefaultMutableTreeNode mutableTreeNode) {
 			buffer.append(mutableTreeNode.getUserObject());
 		}
 		// append children
@@ -215,8 +212,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 	 */
 	private String getTooltip(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof TreeModel) {
-			TreeModel model = (TreeModel) value;
+		if (value instanceof TreeModel model) {
 			TreeNode rootNode = (TreeNode) model.getRoot();
 			//
 			StringBuffer buffer = new StringBuffer();
@@ -237,8 +233,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 		}
 		// append current node
 		buffer.append(prefix);
-		if (node instanceof DefaultMutableTreeNode) {
-			DefaultMutableTreeNode mutableTreeNode = (DefaultMutableTreeNode) node;
+		if (node instanceof DefaultMutableTreeNode mutableTreeNode) {
 			buffer.append(mutableTreeNode.getUserObject());
 		}
 		// append children

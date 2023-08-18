@@ -58,8 +58,7 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof EtchedBorder) {
-			EtchedBorder ourBorder = (EtchedBorder) border;
+		if (border instanceof EtchedBorder ourBorder) {
 			m_typeField.setValue(ourBorder.getEtchType());
 			m_highlightField.setValue(ourBorder.getHighlightColor());
 			m_shadowField.setValue(ourBorder.getShadowColor());

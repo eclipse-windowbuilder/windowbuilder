@@ -228,8 +228,7 @@ public final class LazyVariableSupportUtils {
 		if (!(node instanceof Expression)) {
 			return true;
 		}
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			if (!canMoveInvocation(target, javaInfo, invocation)) {
 				return false;
 			}
@@ -428,13 +427,11 @@ public final class LazyVariableSupportUtils {
 			Expression variable,
 			Statement thenStatement) {
 		// try {}
-		if (thenStatement instanceof TryStatement) {
-			TryStatement tryStatement = (TryStatement) thenStatement;
+		if (thenStatement instanceof TryStatement tryStatement) {
 			return getInformation(method, tryStatement.getBody(), variable);
 		}
 		// variable = new Component();
-		if (thenStatement instanceof ExpressionStatement) {
-			ExpressionStatement expressionStatement = (ExpressionStatement) thenStatement;
+		if (thenStatement instanceof ExpressionStatement expressionStatement) {
 			if (expressionStatement.getExpression() instanceof Assignment) {
 				Assignment assignment = (Assignment) expressionStatement.getExpression();
 				Expression assignmentVariable = assignment.getLeftHandSide();

@@ -75,8 +75,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
 			gc.dispose();
 			control.setData(WBP_IMAGE, image);
 			// process children if any
-			if (control instanceof Composite && !(control instanceof Browser)) {
-				Composite composite = (Composite) control;
+			if (control instanceof Composite composite && !(control instanceof Browser)) {
 				Control[] children = composite.getChildren();
 				for (int i = 0; i < children.length; i++) {
 					Control child = children[children.length - 1 - i];

@@ -174,8 +174,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 				return getColorFieldName(idExpression);
 			}
 			// ColorRegistry.get(String key)
-			if (expression instanceof MethodInvocation) {
-				MethodInvocation invocation = (MethodInvocation) expression;
+			if (expression instanceof MethodInvocation invocation) {
 				if (AstNodeUtils.getMethodSignature(invocation).equals("get(java.lang.String)")
 						&& AstNodeUtils.isSuccessorOf(
 								AstNodeUtils.getTypeBinding(invocation.getExpression()),

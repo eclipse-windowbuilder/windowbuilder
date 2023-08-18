@@ -62,8 +62,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
 			List<IImageElement> resources = Lists.newArrayList();
 			try {
 				for (IResource resource : m_container.members()) {
-					if (resource instanceof IContainer) {
-						IContainer container = (IContainer) resource;
+					if (resource instanceof IContainer container) {
 						// add not empty container
 						if (isContainsResources(container)) {
 							resources.add(new FileImageContainer(container, m_symbolicName));
@@ -165,8 +164,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
 	protected final boolean findResource(List<Object> paths, String imagePath) {
 		paths.add(this);
 		for (IImageElement element : elements()) {
-			if (element instanceof FileImageContainer) {
-				FileImageContainer container = (FileImageContainer) element;
+			if (element instanceof FileImageContainer container) {
 				if (container.findResource(paths, imagePath)) {
 					return true;
 				}

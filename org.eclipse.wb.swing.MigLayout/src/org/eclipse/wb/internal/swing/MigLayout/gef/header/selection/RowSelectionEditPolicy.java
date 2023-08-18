@@ -73,8 +73,7 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<M
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (request instanceof KeyRequest keyRequest) {
 			if (keyRequest.isPressed()) {
 				char c = keyRequest.getCharacter();
 				// vertical

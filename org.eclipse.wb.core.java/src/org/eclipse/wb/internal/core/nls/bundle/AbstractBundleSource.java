@@ -132,9 +132,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 				throw new IllegalStateException("At least one bundle file expected for: " + m_bundleName);
 			}
 			IContainer folder = bundleFiles[0].getParent();
-			if (folder instanceof IProject) {
-				// Activator messages located in the project root
-				IProject project = (IProject) folder;
+			if (folder instanceof IProject project) {
 				m_bundlesFolder = project.getFolder("src");
 			} else {
 				// default: messages inside the src folder
@@ -304,8 +302,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 		editor.getAstUnit().accept(new ASTVisitor() {
 			@Override
 			public void postVisit(ASTNode node) {
-				if (node instanceof Expression) {
-					Expression expression = (Expression) node;
+				if (node instanceof Expression expression) {
 					// check that we have expression information with this source
 					BasicExpressionInfo expressionInfo = getBasicExpressionInfo(expression);
 					if (expressionInfo == null) {
@@ -416,8 +413,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 		editor.getAstUnit().accept(new AstVisitorEx() {
 			@Override
 			public void postVisitEx(ASTNode node) throws Exception {
-				if (node instanceof Expression) {
-					Expression expression = (Expression) node;
+				if (node instanceof Expression expression) {
 					// check that we have expression information
 					BasicExpressionInfo expressionInfo = getBasicExpressionInfo(expression);
 					if (expressionInfo == null) {
@@ -513,8 +509,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 	protected static void createPropertyBundleFile(IPackageFragment targetPackage,
 			String propertyFileName,
 			String charset) throws Exception {
-		if (targetPackage instanceof IProject) {
-			IProject project = (IProject) targetPackage;
+		if (targetPackage instanceof IProject project) {
 			project.getFile(propertyFileName);
 		}
 		IFolder folder = (IFolder) targetPackage.getUnderlyingResource();

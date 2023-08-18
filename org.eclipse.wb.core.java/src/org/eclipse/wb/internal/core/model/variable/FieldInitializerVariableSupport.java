@@ -145,8 +145,7 @@ public final class FieldInitializerVariableSupport extends FieldVariableSupport 
 				new ExecutionFlowFrameVisitor() {
 					@Override
 					public boolean enterFrame(ASTNode node) {
-						if (node instanceof MethodDeclaration) {
-							MethodDeclaration methodDeclaration = (MethodDeclaration) node;
+						if (node instanceof MethodDeclaration methodDeclaration) {
 							if (staticField || !Modifier.isStatic(methodDeclaration.getModifiers())) {
 								targetMethod[0] = methodDeclaration;
 							}

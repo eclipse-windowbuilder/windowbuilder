@@ -143,8 +143,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
 	 */
 	private String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof java.awt.Color) {
-			java.awt.Color color = (java.awt.Color) value;
+		if (value instanceof java.awt.Color color) {
 			Expression expression = ((GenericProperty) property).getExpression();
 			// UIManager.getColor(key)
 			{
@@ -154,8 +153,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
 				}
 			}
 			// Color.xxx or SystemColor.xxx
-			if (expression instanceof QualifiedName) {
-				QualifiedName qualifiedName = (QualifiedName) expression;
+			if (expression instanceof QualifiedName qualifiedName) {
 				String qualifier = AstNodeUtils.getFullyQualifiedName(qualifiedName.getQualifier(), false);
 				String fieldName = qualifiedName.getName().getIdentifier();
 				// Color.xxx
@@ -178,8 +176,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
 	 * @return the key for {@link UIManager#getColor(Object)} invocation.
 	 */
 	private static String getKey_UIManager_getColor(Expression expression) {
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			if (AstNodeUtils.getMethodSignature(invocation).equals("getColor(java.lang.Object)")
 					&& AstNodeUtils.getFullyQualifiedName(invocation.getExpression(), false).equals(
 							"javax.swing.UIManager")
@@ -219,8 +216,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
 		// set initial color
 		{
 			Object value = property.getValue();
-			if (value instanceof java.awt.Color) {
-				java.awt.Color awtColor = (java.awt.Color) value;
+			if (value instanceof java.awt.Color awtColor) {
 				m_colorDialog.setColorInfo(
 						new ColorInfo(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue()));
 			}

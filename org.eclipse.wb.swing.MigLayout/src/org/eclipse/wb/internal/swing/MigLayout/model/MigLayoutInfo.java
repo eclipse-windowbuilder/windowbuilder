@@ -246,8 +246,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 					IContextMenuConstants.GROUP_TOP,
 					new EditDimensionsAction(ModelMessages.MigLayoutInfo_editRows, false));
 		}
-		if (object instanceof ComponentInfo && object.getParent() == getContainer()) {
-			ComponentInfo component = (ComponentInfo) object;
+		if (object instanceof ComponentInfo component && object.getParent() == getContainer()) {
 			CellConstraintsSupport support = getConstraints(component);
 			support.addContextMenu(manager);
 		}

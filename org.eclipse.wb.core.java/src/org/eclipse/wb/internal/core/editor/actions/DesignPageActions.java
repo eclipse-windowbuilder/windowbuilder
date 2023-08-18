@@ -125,8 +125,7 @@ public final class DesignPageActions {
 		try {
 			for (Field field : getClass().getDeclaredFields()) {
 				Object fieldObject = field.get(this);
-				if (fieldObject instanceof IAction) {
-					IAction action = (IAction) fieldObject;
+				if (fieldObject instanceof IAction action) {
 					if (actionID.equals(action.getId())) {
 						return action;
 					}

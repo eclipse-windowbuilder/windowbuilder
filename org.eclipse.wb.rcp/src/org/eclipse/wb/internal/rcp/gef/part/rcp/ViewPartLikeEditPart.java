@@ -42,8 +42,7 @@ public final class ViewPartLikeEditPart extends WorkbenchPartLikeEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected EditPart createEditPart(Object model) {
-		if (model instanceof MenuManagerInfo) {
-			MenuManagerInfo manager = (MenuManagerInfo) model;
+		if (model instanceof MenuManagerInfo manager) {
 			EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_part.getMenuImpl(manager));
 			EditPartFactory.configureEditPart(this, editPart);
 			return editPart;

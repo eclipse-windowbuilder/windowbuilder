@@ -41,15 +41,13 @@ public final class StringEvaluator implements IExpressionEvaluator {
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
 		// string literal
-		if (expression instanceof StringLiteral) {
-			StringLiteral stringLiteral = (StringLiteral) expression;
+		if (expression instanceof StringLiteral stringLiteral) {
 			return stringLiteral.getLiteralValue();
 		}
 		// integer expression
 		if ("java.lang.String".equals(typeQualifiedName)) {
 			// infix expression (+)
-			if (expression instanceof InfixExpression) {
-				InfixExpression infixExpression = (InfixExpression) expression;
+			if (expression instanceof InfixExpression infixExpression) {
 				// only "+" is possible infix operator for string's
 				Assert.isTrue(infixExpression.getOperator() == InfixExpression.Operator.PLUS);
 				// prepare operands

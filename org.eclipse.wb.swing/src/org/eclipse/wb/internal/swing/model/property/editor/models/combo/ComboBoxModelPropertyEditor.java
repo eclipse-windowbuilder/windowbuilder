@@ -62,8 +62,7 @@ public final class ComboBoxModelPropertyEditor extends TextDialogPropertyEditor 
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected String getText(Property property) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			ITypeBinding enumTypeBinding = extractEnumTypeBinding(genericProperty.getExpression());
 			if (enumTypeBinding != null) {
 				return enumTypeBinding.getName();
@@ -80,8 +79,7 @@ public final class ComboBoxModelPropertyEditor extends TextDialogPropertyEditor 
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void openDialog(Property property) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			ComboBoxModelDialog dialog =
 					new ComboBoxModelDialog(DesignerPlugin.getShell(),
 							Activator.getDefault(),
@@ -138,13 +136,11 @@ public final class ComboBoxModelPropertyEditor extends TextDialogPropertyEditor 
 		if (expression != null) {
 			expression = AstNodeUtils.getActualVariableExpression(expression);
 			if (AstNodeUtils.isSuccessorOf(expression, DefaultComboBoxModel.class)) {
-				if (expression instanceof ClassInstanceCreation) {
-					ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+				if (expression instanceof ClassInstanceCreation creation) {
 					if ("<init>(java.lang.Object[])".equals(AstNodeUtils.getCreationSignature(creation))) {
 						Expression argumentExpression =
 								AstNodeUtils.getActualVariableExpression(DomGenerics.arguments(creation).get(0));
-						if (argumentExpression instanceof MethodInvocation) {
-							MethodInvocation argumentInvocation = (MethodInvocation) argumentExpression;
+						if (argumentExpression instanceof MethodInvocation argumentInvocation) {
 							IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(argumentInvocation);
 							ITypeBinding methodDeclaringClassBinding = methodBinding.getDeclaringClass();
 							if (methodDeclaringClassBinding.isEnum()

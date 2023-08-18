@@ -112,8 +112,7 @@ public class WindowTopBoundsSupport extends TopBoundsSupport {
 		if (method != null) {
 			List<Statement> statements = DomGenerics.statements(method.getBody());
 			Statement lastStatement = statements.get(statements.size() - 1);
-			if (lastStatement instanceof ReturnStatement) {
-				ReturnStatement returnStatement = (ReturnStatement) lastStatement;
+			if (lastStatement instanceof ReturnStatement returnStatement) {
 				if (returnStatement.getExpression() instanceof ClassInstanceCreation) {
 					return (ClassInstanceCreation) returnStatement.getExpression();
 				}

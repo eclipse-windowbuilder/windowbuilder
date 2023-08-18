@@ -376,8 +376,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	public void refreshDesigner() {
 		IEditorPart editor =
 				DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		if (editor instanceof AbstractXmlEditor) {
-			AbstractXmlEditor xmlEditor = (AbstractXmlEditor) editor;
+		if (editor instanceof AbstractXmlEditor xmlEditor) {
 			xmlEditor.getDesignPage().refreshGEF();
 		}
 	}

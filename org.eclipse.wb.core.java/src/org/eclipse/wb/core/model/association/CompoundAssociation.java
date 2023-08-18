@@ -47,8 +47,7 @@ public final class CompoundAssociation extends Association {
 	public CompoundAssociation(Association... associations) {
 		for (Association association : associations) {
 			Assert.isNotNull(association);
-			if (association instanceof CompoundAssociation) {
-				CompoundAssociation compoundAssociation = (CompoundAssociation) association;
+			if (association instanceof CompoundAssociation compoundAssociation) {
 				m_associations.addAll(compoundAssociation.m_associations);
 			} else {
 				m_associations.add(association);

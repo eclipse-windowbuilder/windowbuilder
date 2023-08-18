@@ -97,8 +97,7 @@ public final class SwtAwtJavaInfoParticipator implements IJavaInfoInitialization
 				Point location = component.getBounds().getLocation();
 				ObjectInfo parent = component.getParent();
 				for (; parent != null; parent = parent.getParent()) {
-					if (parent instanceof AbstractComponentInfo) {
-						AbstractComponentInfo parentComponent = (AbstractComponentInfo) parent;
+					if (parent instanceof AbstractComponentInfo parentComponent) {
 						Image parentImage = parentComponent.getImage();
 						if (parentImage != null) {
 							GC gc = new GC(parentImage);

@@ -45,8 +45,7 @@ public final class InsetsPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Insets) {
-			Insets insets = (Insets) value;
+		if (value instanceof Insets insets) {
 			return "("
 			+ insets.top
 			+ ", "
@@ -72,8 +71,7 @@ public final class InsetsPropertyEditor extends TextDialogPropertyEditor {
 		Insets insets;
 		{
 			Object value = property.getValue();
-			if (value instanceof Insets) {
-				Insets insetsValue = (Insets) value;
+			if (value instanceof Insets insetsValue) {
 				insets =
 						new Insets(insetsValue.top, insetsValue.left, insetsValue.bottom, insetsValue.right);
 			} else {

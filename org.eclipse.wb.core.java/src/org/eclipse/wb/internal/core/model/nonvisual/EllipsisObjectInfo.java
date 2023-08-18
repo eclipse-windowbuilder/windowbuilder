@@ -94,8 +94,7 @@ public final class EllipsisObjectInfo extends AbstractArrayObjectInfo {
 			int oldIndex,
 			int newIndex) throws Exception {
 		Expression element;
-		if (oldAbstractArrayInfo instanceof EllipsisObjectInfo) {
-			EllipsisObjectInfo oldEllipsisInfo = (EllipsisObjectInfo) oldAbstractArrayInfo;
+		if (oldAbstractArrayInfo instanceof EllipsisObjectInfo oldEllipsisInfo) {
 			MethodInvocation oldInvocation = oldEllipsisInfo.getInvocation();
 			if (oldInvocation.equals(m_invocation)) {
 				// move in same array

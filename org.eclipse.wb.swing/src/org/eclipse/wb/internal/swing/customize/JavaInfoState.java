@@ -65,8 +65,7 @@ public final class JavaInfoState {
 			Method getter = null;
 			Method setter = null;
 			for (ExpressionAccessor accessor : description.getAccessorsList()) {
-				if (accessor instanceof SetterAccessor) {
-					SetterAccessor setAccessor = (SetterAccessor) accessor;
+				if (accessor instanceof SetterAccessor setAccessor) {
 					getter = setAccessor.getGetter();
 					setter = setAccessor.getSetter();
 					break;

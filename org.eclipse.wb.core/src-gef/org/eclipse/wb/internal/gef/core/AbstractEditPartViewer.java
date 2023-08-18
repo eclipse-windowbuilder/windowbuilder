@@ -201,8 +201,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void setSelection(ISelection selection) {
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+		if (selection instanceof IStructuredSelection structuredSelection) {
 			setSelection(structuredSelection.toList());
 		}
 	}

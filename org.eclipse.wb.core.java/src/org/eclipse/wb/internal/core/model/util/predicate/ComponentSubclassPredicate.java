@@ -51,8 +51,7 @@ public final class ComponentSubclassPredicate implements Predicate<Object> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean apply(Object t) {
-		if (t instanceof JavaInfo) {
-			JavaInfo javaInfo = (JavaInfo) t;
+		if (t instanceof JavaInfo javaInfo) {
 			Class<?> componentClass = javaInfo.getDescription().getComponentClass();
 			return ReflectionUtils.isSuccessorOf(componentClass, m_superClass);
 		}

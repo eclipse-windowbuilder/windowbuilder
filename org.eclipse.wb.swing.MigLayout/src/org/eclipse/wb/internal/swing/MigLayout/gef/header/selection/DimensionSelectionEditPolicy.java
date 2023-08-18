@@ -299,8 +299,7 @@ AbstractHeaderSelectionEditPolicy {
 
 	@Override
 	public void performRequest(Request request) {
-		if (request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (request instanceof KeyRequest keyRequest) {
 			// special key for resize feedback
 			if (m_feedback != null) {
 				char c = keyRequest.getCharacter();

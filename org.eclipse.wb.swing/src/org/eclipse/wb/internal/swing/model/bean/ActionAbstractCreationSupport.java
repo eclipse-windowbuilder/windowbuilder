@@ -190,8 +190,7 @@ IActionSupport {
 	protected void create_evaluateStatement(EvaluationContext context,
 			AbstractAction action,
 			Statement statement) throws Exception {
-		if (statement instanceof ExpressionStatement) {
-			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+		if (statement instanceof ExpressionStatement expressionStatement) {
 			updateAction_ExpressionStatement(context, action, expressionStatement);
 		}
 	}

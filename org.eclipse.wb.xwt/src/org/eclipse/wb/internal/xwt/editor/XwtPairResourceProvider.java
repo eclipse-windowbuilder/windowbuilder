@@ -136,8 +136,7 @@ public final class XwtPairResourceProvider implements IPairResourceProvider {
 			IFolder folder = (IFolder) javaFile.getParent();
 			IPackageFragment packageFragment = (IPackageFragment) JavaCore.create(folder);
 			for (Object object : packageFragment.getNonJavaResources()) {
-				if (object instanceof IFile) {
-					IFile xwtFile = (IFile) object;
+				if (object instanceof IFile xwtFile) {
 					IFile sameJavaFile = getJavaFile(xwtFile);
 					if (javaFile.equals(sameJavaFile)) {
 						return xwtFile;

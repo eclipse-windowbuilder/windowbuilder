@@ -605,14 +605,11 @@ public class DesignerPalette {
 			AbstractPaletteElementDialog dialog = null;
 			// prepare editing dialog
 			AstEditor editor = m_rootJavaInfo.getEditor();
-			if (targetEntry instanceof ComponentEntryInfo) {
-				ComponentEntryInfo entryInfo = (ComponentEntryInfo) targetEntry;
+			if (targetEntry instanceof ComponentEntryInfo entryInfo) {
 				dialog = new ComponentEditDialog(getShell(), editor, entryInfo);
-			} else if (targetEntry instanceof StaticFactoryEntryInfo) {
-				StaticFactoryEntryInfo entryInfo = (StaticFactoryEntryInfo) targetEntry;
+			} else if (targetEntry instanceof StaticFactoryEntryInfo entryInfo) {
 				dialog = new FactoryEditDialog(getShell(), editor, true, entryInfo);
-			} else if (targetEntry instanceof InstanceFactoryEntryInfo) {
-				InstanceFactoryEntryInfo entryInfo = (InstanceFactoryEntryInfo) targetEntry;
+			} else if (targetEntry instanceof InstanceFactoryEntryInfo entryInfo) {
 				dialog = new FactoryEditDialog(getShell(), editor, false, entryInfo);
 			}
 			// execute dialog

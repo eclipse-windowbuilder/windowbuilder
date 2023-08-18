@@ -178,8 +178,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static IProject getProjectOverActivator(Expression activatorAccessNode) throws Exception {
-		if (activatorAccessNode instanceof MethodInvocation) {
-			MethodInvocation pluginAccessInvocation = (MethodInvocation) activatorAccessNode;
+		if (activatorAccessNode instanceof MethodInvocation pluginAccessInvocation) {
 			String activatorClass =
 					AstNodeUtils.getFullyQualifiedName(pluginAccessInvocation.getExpression(), false);
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();

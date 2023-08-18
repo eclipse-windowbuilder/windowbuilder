@@ -90,14 +90,12 @@ class TableLayoutComposite extends Composite {
 		int size = columns.size();
 		for (int i = 0; i < size; ++i) {
 			ColumnLayoutData layoutData = columns.get(i);
-			if (layoutData instanceof ColumnPixelData) {
-				ColumnPixelData col = (ColumnPixelData) layoutData;
+			if (layoutData instanceof ColumnPixelData col) {
 				width += col.width;
 				if (col.addTrim) {
 					width += COLUMN_TRIM;
 				}
-			} else if (layoutData instanceof ColumnWeightData) {
-				ColumnWeightData col = (ColumnWeightData) layoutData;
+			} else if (layoutData instanceof ColumnWeightData col) {
 				width += col.minimumWidth;
 			} else {
 				Assert.isTrue(false, "Unknown column layout data");
@@ -124,16 +122,14 @@ class TableLayoutComposite extends Composite {
 		// first calculate space occupied by fixed columns
 		for (int i = 0; i < size; i++) {
 			ColumnLayoutData col = columns.get(i);
-			if (col instanceof ColumnPixelData) {
-				ColumnPixelData cpd = (ColumnPixelData) col;
+			if (col instanceof ColumnPixelData cpd) {
 				int pixels = cpd.width;
 				if (cpd.addTrim) {
 					pixels += COLUMN_TRIM;
 				}
 				widths[i] = pixels;
 				fixedWidth += pixels;
-			} else if (col instanceof ColumnWeightData) {
-				ColumnWeightData cw = (ColumnWeightData) col;
+			} else if (col instanceof ColumnWeightData cw) {
 				numberOfWeightColumns++;
 				int weight = cw.weight;
 				totalWeight += weight;
@@ -148,8 +144,7 @@ class TableLayoutComposite extends Composite {
 			int totalDistributed = 0;
 			for (int i = 0; i < size; ++i) {
 				ColumnLayoutData col = columns.get(i);
-				if (col instanceof ColumnWeightData) {
-					ColumnWeightData cw = (ColumnWeightData) col;
+				if (col instanceof ColumnWeightData cw) {
 					int weight = cw.weight;
 					int pixels = totalWeight == 0 ? 0 : weight * rest / totalWeight;
 					if (pixels < cw.minimumWidth) {

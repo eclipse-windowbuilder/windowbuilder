@@ -277,12 +277,10 @@ public abstract class PolicyUtils {
 	public static void modelToFeedback_rightToLeft(Translatable t, IAbstractComponentInfo container) {
 		if (container.isRTL()) {
 			int containerWidth = container.getBounds().width;
-			if (t instanceof Point) {
-				Point point = (Point) t;
+			if (t instanceof Point point) {
 				point.x = containerWidth - point.x;
 			}
-			if (t instanceof Rectangle) {
-				Rectangle rectangle = (Rectangle) t;
+			if (t instanceof Rectangle rectangle) {
 				rectangle.x = containerWidth - rectangle.x - rectangle.width;
 			}
 		}
@@ -291,12 +289,10 @@ public abstract class PolicyUtils {
 	private static void absoluteToModel_rightToLeft(Translatable t, IAbstractComponentInfo container) {
 		if (container.isRTL()) {
 			int containerWidth = container.getBounds().width;
-			if (t instanceof Point) {
-				Point point = (Point) t;
+			if (t instanceof Point point) {
 				point.x = containerWidth - point.x;
 			}
-			if (t instanceof Rectangle) {
-				Rectangle rectangle = (Rectangle) t;
+			if (t instanceof Rectangle rectangle) {
 				rectangle.x = containerWidth - rectangle.x - rectangle.width;
 			}
 		}

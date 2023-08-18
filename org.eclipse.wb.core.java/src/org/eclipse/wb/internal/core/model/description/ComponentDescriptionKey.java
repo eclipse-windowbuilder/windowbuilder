@@ -67,8 +67,7 @@ public final class ComponentDescriptionKey {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof ComponentDescriptionKey) {
-			ComponentDescriptionKey key = (ComponentDescriptionKey) obj;
+		if (obj instanceof ComponentDescriptionKey key) {
 			return m_componentClass == key.m_componentClass
 					&& ObjectUtils.equals(m_host, key.m_host)
 					&& ObjectUtils.equals(m_suffix, key.m_suffix);

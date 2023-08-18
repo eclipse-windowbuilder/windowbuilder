@@ -168,8 +168,7 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart {
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (request instanceof DragPermissionRequest) {
-			DragPermissionRequest permissionRequest = (DragPermissionRequest) request;
+		if (request instanceof DragPermissionRequest permissionRequest) {
 			permissionRequest.setMove(JavaInfoUtils.canMove(m_component));
 			permissionRequest.setReparent(JavaInfoUtils.canReparent(m_component));
 		}

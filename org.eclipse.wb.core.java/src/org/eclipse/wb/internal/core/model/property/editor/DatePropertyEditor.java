@@ -102,8 +102,7 @@ IConfigurablePropertyObject {
 		}
 		if (value instanceof Date) {
 			Map<String, Object> variables = Maps.newTreeMap();
-			if (property instanceof GenericProperty) {
-				GenericProperty genericProperty = (GenericProperty) property;
+			if (property instanceof GenericProperty genericProperty) {
 				variables.put("control", genericProperty.getJavaInfo().getObject());
 			}
 			variables.put("value", value);
@@ -134,8 +133,7 @@ IConfigurablePropertyObject {
 			try {
 				Map<String, Object> variables = Maps.newTreeMap();
 				variables.put("value", valueText);
-				if (property instanceof GenericProperty) {
-					GenericProperty genericProperty = (GenericProperty) property;
+				if (property instanceof GenericProperty genericProperty) {
 					variables.put("control", genericProperty.getJavaInfo().getObject());
 				}
 				value = evaluate(m_toDateScript, variables);

@@ -217,8 +217,7 @@ public abstract class JavaInfoEvaluationHelper {
 				}
 
 				private boolean isChainedInvocation(Expression expression) {
-					if (expression instanceof MethodInvocation) {
-						MethodInvocation invocation = (MethodInvocation) expression;
+					if (expression instanceof MethodInvocation invocation) {
 						JavaInfo javaInfo = getJavaInfoRepresentedBy(invocation.getExpression());
 						if (javaInfo != null) {
 							String signature = AstNodeUtils.getMethodSignature(invocation);
@@ -274,12 +273,10 @@ public abstract class JavaInfoEvaluationHelper {
 					}
 				}
 				// check for Assignment
-				if (expression instanceof Assignment) {
-					Assignment assignment = (Assignment) expression;
+				if (expression instanceof Assignment assignment) {
 					Expression leftHandExpression = assignment.getLeftHandSide();
 					// check for: javaInfo.fieldName = someExpression
-					if (leftHandExpression instanceof QualifiedName) {
-						QualifiedName leftQualifiedName = (QualifiedName) leftHandExpression;
+					if (leftHandExpression instanceof QualifiedName leftQualifiedName) {
 						Name leftQualifier = leftQualifiedName.getQualifier();
 						JavaInfo javaInfo = getJavaInfoRepresentedBy(leftQualifier);
 						if (javaInfo != null) {
@@ -405,8 +402,7 @@ public abstract class JavaInfoEvaluationHelper {
 		// check for JavaInfo evaluator
 		{
 			JavaInfo thisJavaInfo = getThisJavaInfo();
-			if (thisJavaInfo instanceof IThisMethodParameterEvaluator) {
-				IThisMethodParameterEvaluator evaluator = (IThisMethodParameterEvaluator) thisJavaInfo;
+			if (thisJavaInfo instanceof IThisMethodParameterEvaluator evaluator) {
 				Object value = evaluator.evaluateParameter(m_context, method, signature, parameter, index);
 				if (value != AstEvaluationEngine.UNKNOWN) {
 					return value;
@@ -505,8 +501,7 @@ public abstract class JavaInfoEvaluationHelper {
 				}
 			}
 			// check for ReturnStatement
-			if (node instanceof ReturnStatement) {
-				ReturnStatement returnStatement = (ReturnStatement) node;
+			if (node instanceof ReturnStatement returnStatement) {
 				if (shouldEvaluateReturnStatement(returnStatement)) {
 					Expression expression = returnStatement.getExpression();
 					Object object = evaluateExpression(expression);
@@ -514,12 +509,10 @@ public abstract class JavaInfoEvaluationHelper {
 				}
 			}
 			// check for ExpressionStatement
-			if (node instanceof ExpressionStatement) {
-				ExpressionStatement expressionStatement = (ExpressionStatement) node;
+			if (node instanceof ExpressionStatement expressionStatement) {
 				Expression expression = expressionStatement.getExpression();
 				// check for MethodInvocation
-				if (expression instanceof MethodInvocation) {
-					MethodInvocation invocation = (MethodInvocation) expression;
+				if (expression instanceof MethodInvocation invocation) {
 					// if "expression" of this invocation is JavaInfo
 					{
 						JavaInfo javaInfo = getJavaInfoRepresentedBy(invocation.getExpression());
@@ -547,8 +540,7 @@ public abstract class JavaInfoEvaluationHelper {
 					}
 				}
 				// check for SuperMethodInvocation
-				if (expression instanceof SuperMethodInvocation) {
-					SuperMethodInvocation invocation = (SuperMethodInvocation) expression;
+				if (expression instanceof SuperMethodInvocation invocation) {
 					evaluateExpression(invocation);
 				}
 				// check for Assignment
@@ -562,8 +554,7 @@ public abstract class JavaInfoEvaluationHelper {
 	}
 
 	private static boolean isPossibleJavaInfoCreationExpression(ASTNode node) {
-		if (node instanceof CastExpression) {
-			CastExpression castExpression = (CastExpression) node;
+		if (node instanceof CastExpression castExpression) {
 			return isPossibleJavaInfoCreationExpression(castExpression.getExpression());
 		}
 		return node instanceof ClassInstanceCreation

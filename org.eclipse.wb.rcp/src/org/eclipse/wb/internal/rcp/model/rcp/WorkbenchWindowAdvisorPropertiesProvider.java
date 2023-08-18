@@ -205,8 +205,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
 			if (createActionBarAdvisor != null) {
 				List<Statement> statements = DomGenerics.statements(createActionBarAdvisor.getBody());
 				for (Statement statement : statements) {
-					if (statement instanceof ReturnStatement) {
-						ReturnStatement returnStatement = (ReturnStatement) statement;
+					if (statement instanceof ReturnStatement returnStatement) {
 						if (returnStatement.getExpression() instanceof ClassInstanceCreation) {
 							ClassInstanceCreation creation =
 									(ClassInstanceCreation) returnStatement.getExpression();

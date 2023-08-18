@@ -378,8 +378,7 @@ public class TestProject {
 			m_project.accept(new IResourceVisitor() {
 				@Override
 				public boolean visit(IResource resource) throws CoreException {
-					if (resource instanceof IFile) {
-						IFile file = (IFile) resource;
+					if (resource instanceof IFile file) {
 						ResourceAttributes resourceAttributes = file.getResourceAttributes();
 						if (resourceAttributes != null) {
 							resourceAttributes.setReadOnly(false);

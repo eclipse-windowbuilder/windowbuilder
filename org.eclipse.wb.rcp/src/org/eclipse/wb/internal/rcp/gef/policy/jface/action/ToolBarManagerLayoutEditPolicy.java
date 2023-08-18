@@ -83,8 +83,7 @@ ObjectFlowLayoutEditPolicy<ContributionItemInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof ActionDropRequest) {
-			final ActionDropRequest actionRequest = (ActionDropRequest) request;
+		if (request instanceof final ActionDropRequest actionRequest) {
 			final ContributionItemInfo reference = (ContributionItemInfo) referenceObject;
 			return new EditCommand(m_manager) {
 				@Override

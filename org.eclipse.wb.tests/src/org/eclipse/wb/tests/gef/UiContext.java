@@ -212,8 +212,7 @@ public class UiContext {
 		visit(start, new IWidgetsVisitor() {
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof Button) {
-					Button button = (Button) widget;
+				if (widget instanceof Button button) {
 					if (predicate.apply(button.getText()) || predicate.apply(button.getToolTipText())) {
 						result[0] = button;
 					}
@@ -231,8 +230,7 @@ public class UiContext {
 		visit(getShell(), new IWidgetsVisitor() {
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof ToolItem) {
-					ToolItem item = (ToolItem) widget;
+				if (widget instanceof ToolItem item) {
 					if (text.equals(item.getText()) || text.equals(item.getToolTipText())) {
 						result[0] = item;
 					}
@@ -250,8 +248,7 @@ public class UiContext {
 		visit(getShell(), new IWidgetsVisitor() {
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof TreeItem) {
-					TreeItem item = (TreeItem) widget;
+				if (widget instanceof TreeItem item) {
 					if (text.equals(item.getText())) {
 						result[0] = item;
 					}
@@ -269,8 +266,7 @@ public class UiContext {
 		visit(getShell(), new IWidgetsVisitor() {
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof TabItem) {
-					TabItem item = (TabItem) widget;
+				if (widget instanceof TabItem item) {
 					if (text.equals(item.getText())) {
 						result[0] = item;
 					}
@@ -290,8 +286,7 @@ public class UiContext {
 
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof Label) {
-					Label label = (Label) widget;
+				if (widget instanceof Label label) {
 					m_labelFound = isSameText(label.getText(), labelText);
 				}
 				if (widget instanceof Text && m_labelFound) {
@@ -310,8 +305,7 @@ public class UiContext {
 		visit(getShell(), new IWidgetsVisitor() {
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof Text) {
-					Text text = (Text) widget;
+				if (widget instanceof Text text) {
 					if (text.getText().equals(textText)) {
 						result[0] = (Text) widget;
 					}
@@ -371,8 +365,7 @@ public class UiContext {
 			Control[] children = button.getParent().getChildren();
 			for (int i = 0; i < children.length; i++) {
 				Control child = children[i];
-				if (child instanceof Button && (child.getStyle() & SWT.RADIO) != 0) {
-					Button childButton = (Button) child;
+				if (child instanceof Button childButton && (child.getStyle() & SWT.RADIO) != 0) {
 					if (childButton != button) {
 						selectButton(childButton, false);
 					}
@@ -523,8 +516,7 @@ public class UiContext {
 		visit(menu, new IWidgetsVisitor() {
 			@Override
 			public void endVisit(Widget widget) {
-				if (widget instanceof MenuItem) {
-					MenuItem item = (MenuItem) widget;
+				if (widget instanceof MenuItem item) {
 					if (isSameText(item.getText(), text)) {
 						result[0] = item;
 					}
@@ -591,8 +583,7 @@ public class UiContext {
 	 */
 	public static void visit(Widget widget, IWidgetsVisitor visitor) {
 		// ignore invisible Control's
-		if (widget instanceof Control) {
-			Control control = (Control) widget;
+		if (widget instanceof Control control) {
 			if (control.getParent() != null
 					&& control.getParent().getLayout() instanceof StackLayout
 					&& !control.isVisible()) {
@@ -602,8 +593,7 @@ public class UiContext {
 		// visit
 		if (visitor.visit(widget)) {
 			// Composite
-			if (widget instanceof Composite) {
-				Composite composite = (Composite) widget;
+			if (widget instanceof Composite composite) {
 				Control[] children = composite.getChildren();
 				for (int i = 0; i < children.length; i++) {
 					Control child = children[i];
@@ -611,49 +601,42 @@ public class UiContext {
 				}
 			}
 			// ToolBar
-			if (widget instanceof ToolBar) {
-				ToolBar toolBar = (ToolBar) widget;
+			if (widget instanceof ToolBar toolBar) {
 				for (ToolItem toolItem : toolBar.getItems()) {
 					visit(toolItem, visitor);
 				}
 			}
 			// TabFolder
-			if (widget instanceof TabFolder) {
-				TabFolder tabFolder = (TabFolder) widget;
+			if (widget instanceof TabFolder tabFolder) {
 				for (TabItem tabItem : tabFolder.getItems()) {
 					visit(tabItem, visitor);
 				}
 			}
 			// TabItem
-			if (widget instanceof TabItem) {
-				TabItem tabItem = (TabItem) widget;
+			if (widget instanceof TabItem tabItem) {
 				Control control = tabItem.getControl();
 				if (control != null) {
 					visit(control, visitor);
 				}
 			}
 			// Tree
-			if (widget instanceof Tree) {
-				Tree tree = (Tree) widget;
+			if (widget instanceof Tree tree) {
 				for (TreeItem treeItem : tree.getItems()) {
 					visit(treeItem, visitor);
 				}
 			}
-			if (widget instanceof TreeItem) {
-				TreeItem parent = (TreeItem) widget;
+			if (widget instanceof TreeItem parent) {
 				for (TreeItem treeItem : parent.getItems()) {
 					visit(treeItem, visitor);
 				}
 			}
 			// Menu
-			if (widget instanceof Menu) {
-				Menu menu = (Menu) widget;
+			if (widget instanceof Menu menu) {
 				for (MenuItem menuItem : menu.getItems()) {
 					visit(menuItem, visitor);
 				}
 			}
-			if (widget instanceof MenuItem) {
-				MenuItem menuItem = (MenuItem) widget;
+			if (widget instanceof MenuItem menuItem) {
 				visit(menuItem.getMenu(), visitor);
 			}
 			// end
@@ -697,8 +680,7 @@ public class UiContext {
 		checkThread.join();
 		// check for exception
 		if (checkException[0] != null) {
-			if (checkException[0] instanceof AssertionFailedError) {
-				AssertionFailedError error = (AssertionFailedError) checkException[0];
+			if (checkException[0] instanceof AssertionFailedError error) {
 				throw error;
 			}
 			throw new NestableException("Exception during running 'check' UIRunnable.", checkException[0]);

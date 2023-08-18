@@ -70,8 +70,7 @@ public final class DirectSource extends AbstractPureBundleSource {
 		Object[] nonJavaResources = pkg.getNonJavaResources();
 		for (int i = 0; i < nonJavaResources.length; i++) {
 			Object o = nonJavaResources[i];
-			if (o instanceof IFile) {
-				IFile file = (IFile) o;
+			if (o instanceof IFile file) {
 				String fileName = file.getName();
 				// we need .properties files
 				if (!fileName.endsWith(".properties")) {
@@ -133,8 +132,7 @@ public final class DirectSource extends AbstractPureBundleSource {
 			String bundleName,
 			List<AbstractSource> sources) throws Exception {
 		for (AbstractSource abstractSource : sources) {
-			if (abstractSource instanceof DirectSource) {
-				DirectSource source = (DirectSource) abstractSource;
+			if (abstractSource instanceof DirectSource source) {
 				if (source.m_bundleName.equals(bundleName)) {
 					return source;
 				}
@@ -148,9 +146,7 @@ public final class DirectSource extends AbstractPureBundleSource {
 	 * bundle name, key and optional default value.
 	 */
 	private static ExpressionInfo getExpressionInfo(JavaInfo component, Expression expression) {
-		if (expression instanceof MethodInvocation) {
-			// check for getString(key)
-			MethodInvocation getString_invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation getString_invocation) {
 			{
 				boolean is_getString =
 						getString_invocation.getName().getIdentifier().equals("getString")

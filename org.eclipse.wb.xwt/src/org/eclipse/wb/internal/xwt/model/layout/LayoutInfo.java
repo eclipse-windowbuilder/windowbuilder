@@ -162,8 +162,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 
 	private void handle_maybe_removeControl_after(ObjectInfo parent, ObjectInfo child)
 			throws Exception {
-		if (isActiveOnComposite(parent) && child instanceof ControlInfo) {
-			ControlInfo control = (ControlInfo) child;
+		if (isActiveOnComposite(parent) && child instanceof ControlInfo control) {
 			onControlRemoveAfter(control);
 		}
 	}
@@ -420,10 +419,9 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 
 	@Override
 	public boolean isManagedObject(Object object) {
-		if (object instanceof ControlInfo
+		if (object instanceof ControlInfo control
 				&& isActive()
 				&& getComposite().getChildren().contains(object)) {
-			ControlInfo control = (ControlInfo) object;
 			if (control.isDeleted()) {
 				return false;
 			}

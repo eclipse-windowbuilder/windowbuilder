@@ -94,9 +94,7 @@ public final class ClasspathImageRoot implements IImageRoot {
 
 	@Override
 	public Object[] getSelectionPath(Object data) {
-		if (data instanceof String) {
-			// prepare path
-			String path = (String) data;
+		if (data instanceof String path) {
 			if (!path.startsWith("/")) {
 				return null;
 			}

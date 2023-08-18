@@ -514,8 +514,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
 	}
 
 	private void addEMFPackage(Expression expression) throws Exception {
-		if (expression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) expression;
+		if (expression instanceof QualifiedName qualifiedName) {
 			String literalsClass =
 					AstNodeUtils.getTypeBinding(qualifiedName.getQualifier()).getQualifiedName();
 			m_propertiesSupport.addPackage(literalsClass);
@@ -686,8 +685,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
 			// CASE-385522 do not add dependences if no bindings exists
 			int bindingsCount = 0;
 			for (IObserveInfo observeInfo : getObservables()) {
-				if (observeInfo instanceof BindableInfo) {
-					BindableInfo bindableInfo = (BindableInfo) observeInfo;
+				if (observeInfo instanceof BindableInfo bindableInfo) {
 					bindingsCount += bindableInfo.getBindings().size();
 				}
 			}

@@ -365,8 +365,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 				return true;
 			}
 			// compare with other adapter
-			if (object instanceof ObservePropertyAdapter) {
-				ObservePropertyAdapter adapter = (ObservePropertyAdapter) object;
+			if (object instanceof ObservePropertyAdapter adapter) {
 				if (m_parent == null && adapter.m_parent == null) {
 				} else if (m_parent != null
 						&& adapter.m_parent == null

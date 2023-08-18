@@ -111,8 +111,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		}
 		control.setData(WBP_IMAGE, null);
 		// traverse children
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			for (Control child : composite.getChildren()) {
 				registerControl(child);
 			}

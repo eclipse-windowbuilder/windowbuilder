@@ -94,9 +94,8 @@ public final class FormToolkitAccess {
 			ListGatherer<SimpleName> listGatherer = new ListGatherer<>() {
 				@Override
 				public void postVisit(ASTNode node) {
-					if (node instanceof SimpleName
+					if (node instanceof SimpleName variable
 							&& node.getLocationInParent() == VariableDeclarationFragment.NAME_PROPERTY) {
-						SimpleName variable = (SimpleName) node;
 						if (AstNodeUtils.isSuccessorOf(
 								variable.resolveTypeBinding(),
 								"org.eclipse.ui.forms.widgets.FormToolkit")) {
@@ -206,8 +205,7 @@ public final class FormToolkitAccess {
 	 *         .
 	 */
 	public boolean isToolkit(ASTNode node) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			if (invocation.arguments().isEmpty()) {
 				// getMyToolkit()
 				if (m_toolkitMethodName != null
@@ -236,8 +234,7 @@ public final class FormToolkitAccess {
 			}
 		}
 		// m_myToolkit
-		if (node instanceof SimpleName) {
-			SimpleName simpleName = (SimpleName) node;
+		if (node instanceof SimpleName simpleName) {
 			if (m_toolkitFieldName != null && simpleName.getIdentifier().equals(m_toolkitFieldName)) {
 				return true;
 			}

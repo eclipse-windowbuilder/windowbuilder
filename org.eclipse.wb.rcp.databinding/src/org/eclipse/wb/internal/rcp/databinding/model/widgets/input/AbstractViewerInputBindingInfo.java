@@ -124,8 +124,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
 		// calculate element type
 		Class<?> elementType = null;
 		//
-		if (m_inputObservable instanceof DetailBeanObservableInfo) {
-			DetailBeanObservableInfo inputObservable = (DetailBeanObservableInfo) m_inputObservable;
+		if (m_inputObservable instanceof DetailBeanObservableInfo inputObservable) {
 			elementType = inputObservable.getDetailPropertyType();
 		} else if (m_inputObservable instanceof ViewerObservableInfo) {
 			elementType = getViewerInutElementType(m_inputObservable, provider);
@@ -152,17 +151,13 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
 	 * @return {@link Class} of element into viewer input.
 	 */
 	public Class<?> getElementType() {
-		if (m_inputObservable instanceof DetailBeanObservableInfo) {
-			DetailBeanObservableInfo inputObservable = (DetailBeanObservableInfo) m_inputObservable;
+		if (m_inputObservable instanceof DetailBeanObservableInfo inputObservable) {
 			return inputObservable.getDetailPropertyType();
 		}
-		if (m_inputObservable instanceof CheckedElementsObservableInfo) {
-			CheckedElementsObservableInfo inputObservable =
-					(CheckedElementsObservableInfo) m_inputObservable;
+		if (m_inputObservable instanceof CheckedElementsObservableInfo inputObservable) {
 			return inputObservable.getElementType();
 		}
-		if (m_inputObservable instanceof CollectionObservableInfo) {
-			CollectionObservableInfo inputObservable = (CollectionObservableInfo) m_inputObservable;
+		if (m_inputObservable instanceof CollectionObservableInfo inputObservable) {
 			return inputObservable.getElementType();
 		}
 		return null;
@@ -235,9 +230,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
 				VirtualEditingSupportInfo.IElementTypeProvider elementTypeProvider = null;
 				for (IUiContentProvider contentProvider : providers) {
 					// wrap Viewer editor
-					if (contentProvider instanceof InputElementUiContentProvider) {
-						final InputElementUiContentProvider inputElementContentProvider =
-								(InputElementUiContentProvider) contentProvider;
+					if (contentProvider instanceof final InputElementUiContentProvider inputElementContentProvider) {
 						elementTypeProvider = new VirtualEditingSupportInfo.IElementTypeProvider() {
 							@Override
 							public Class<?> getElementType() throws Exception {
@@ -247,9 +240,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
 						break;
 					}
 					// wrap TreeViewer editor
-					if (contentProvider instanceof TreeInputElementUiContentProvider) {
-						final TreeInputElementUiContentProvider inputElementContentProvider =
-								(TreeInputElementUiContentProvider) contentProvider;
+					if (contentProvider instanceof final TreeInputElementUiContentProvider inputElementContentProvider) {
 						elementTypeProvider = new VirtualEditingSupportInfo.IElementTypeProvider() {
 							@Override
 							public Class<?> getElementType() throws Exception {

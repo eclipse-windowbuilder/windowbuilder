@@ -269,15 +269,13 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public boolean select(Viewer viewer, Object parent, Object element) {
-			if (element instanceof CategoryInfo) {
-				CategoryInfo category = (CategoryInfo) element;
+			if (element instanceof CategoryInfo category) {
 				for (EntryInfo entry : category.getEntries()) {
 					if (select(viewer, category, entry)) {
 						return true;
 					}
 				}
-			} else if (element instanceof EntryInfo) {
-				EntryInfo entry = (EntryInfo) element;
+			} else if (element instanceof EntryInfo entry) {
 				return m_pattern.matches(entry.getName());
 			}
 			return false;
@@ -568,8 +566,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 				if (element instanceof CategoryInfo) {
 					upEnabled &= categories.indexOf(element) != 0;
 					downEnabled &= categories.indexOf(element) != categories.size() - 1;
-				} else if (element instanceof EntryInfo) {
-					EntryInfo entry = (EntryInfo) element;
+				} else if (element instanceof EntryInfo entry) {
 					List<EntryInfo> entries = entry.getCategory().getEntries();
 					upEnabled &= entries.indexOf(entry) != 0;
 					downEnabled &= entries.indexOf(entry) != entries.size() - 1;
@@ -709,8 +706,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		CategoryInfo nextCategory = null;
 		if (selection instanceof CategoryInfo) {
 			nextCategory = (CategoryInfo) selection;
-		} else if (selection instanceof EntryInfo) {
-			EntryInfo entry = (EntryInfo) selection;
+		} else if (selection instanceof EntryInfo entry) {
 			nextCategory = entry.getCategory();
 		}
 		// open dialog
@@ -729,8 +725,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 	 */
 	private void onEdit() {
 		Object element = getSelectedElements().get(0);
-		if (element instanceof CategoryInfo) {
-			CategoryInfo category = (CategoryInfo) element;
+		if (element instanceof CategoryInfo category) {
 			CategoryEditDialog dialog = new CategoryEditDialog(getShell(), category);
 			if (dialog.open() == Window.OK) {
 				commands_add(dialog.getCommand());
@@ -739,14 +734,11 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		} else if (element instanceof ToolEntryInfo) {
 			AbstractPaletteElementDialog dialog = null;
 			// prepare editing dialog
-			if (element instanceof ComponentEntryInfo) {
-				ComponentEntryInfo entryInfo = (ComponentEntryInfo) element;
+			if (element instanceof ComponentEntryInfo entryInfo) {
 				dialog = new ComponentEditDialog(getShell(), m_editor, entryInfo);
-			} else if (element instanceof StaticFactoryEntryInfo) {
-				StaticFactoryEntryInfo entryInfo = (StaticFactoryEntryInfo) element;
+			} else if (element instanceof StaticFactoryEntryInfo entryInfo) {
 				dialog = new FactoryEditDialog(getShell(), m_editor, true, entryInfo);
-			} else if (element instanceof InstanceFactoryEntryInfo) {
-				InstanceFactoryEntryInfo entryInfo = (InstanceFactoryEntryInfo) element;
+			} else if (element instanceof InstanceFactoryEntryInfo entryInfo) {
 				dialog = new FactoryEditDialog(getShell(), m_editor, false, entryInfo);
 			}
 			// execute dialog
@@ -784,16 +776,14 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		m_viewer.getTree().setRedraw(false);
 		try {
 			for (Object element : getSelectedElements()) {
-				if (element instanceof CategoryInfo) {
-					CategoryInfo category = (CategoryInfo) element;
+				if (element instanceof CategoryInfo category) {
 					List<CategoryInfo> categories = m_palette.getCategories();
 					int index = categories.indexOf(element);
 					int targetIndex = index + delta;
 					CategoryInfo nextCategory =
 							targetIndex < categories.size() ? (CategoryInfo) categories.get(targetIndex) : null;
 					commands_add(new CategoryMoveCommand(category, nextCategory));
-				} else if (element instanceof EntryInfo) {
-					EntryInfo entry = (EntryInfo) element;
+				} else if (element instanceof EntryInfo entry) {
 					CategoryInfo category = entry.getCategory();
 					List<EntryInfo> entries = category.getEntries();
 					int index = entries.indexOf(entry);
@@ -844,8 +834,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		ViewerDropAdapter dropAdapter = new ViewerDropAdapter(m_viewer) {
 			@Override
 			protected int determineLocation(DropTargetEvent event) {
-				if (event.item instanceof Item) {
-					Item item = (Item) event.item;
+				if (event.item instanceof Item item) {
 					Point coordinates = m_viewer.getControl().toControl(event.x, event.y);
 					Rectangle bounds = getBounds(item);
 					// when drag entry, relation with category can be only ON

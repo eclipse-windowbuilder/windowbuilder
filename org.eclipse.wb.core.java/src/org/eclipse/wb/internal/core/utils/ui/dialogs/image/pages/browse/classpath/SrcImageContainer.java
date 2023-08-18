@@ -44,8 +44,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
 		{
 			IJavaElement[] children = m_packageFragmentRoot.getChildren();
 			for (IJavaElement child : children) {
-				if (child instanceof IPackageFragment) {
-					IPackageFragment packageFragment = (IPackageFragment) child;
+				if (child instanceof IPackageFragment packageFragment) {
 					SrcPackageImageContainer container =
 							new SrcPackageImageContainer(id, packageFragmentRoot, packageFragment);
 					if (!container.isEmpty()) {

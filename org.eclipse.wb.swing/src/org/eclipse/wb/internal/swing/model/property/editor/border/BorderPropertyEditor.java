@@ -126,8 +126,7 @@ IClipboardSourceProvider {
 		// set initial value
 		{
 			Object value = property.getValue();
-			if (value instanceof Border) {
-				Border border = (Border) value;
+			if (value instanceof Border border) {
 				borderDialog.setBorder(border);
 			}
 		}
@@ -164,8 +163,7 @@ IClipboardSourceProvider {
 						public void setValue(Object value) throws Exception {
 							if (value == UNKNOWN_VALUE) {
 								setExpression(null, value);
-							} else if (value instanceof String) {
-								String s = (String) value;
+							} else if (value instanceof String s) {
 								setExpression(StringConverter.INSTANCE.toJavaSource(javaInfo, s), s);
 							}
 						}

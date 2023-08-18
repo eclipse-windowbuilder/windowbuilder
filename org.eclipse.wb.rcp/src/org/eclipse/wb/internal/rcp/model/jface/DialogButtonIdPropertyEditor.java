@@ -127,8 +127,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 	 *         .
 	 */
 	private static boolean isDialogConstantsQualifiedName(Expression expression) {
-		if (expression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) expression;
+		if (expression instanceof QualifiedName qualifiedName) {
 			return AstNodeUtils.getFullyQualifiedName(qualifiedName.getQualifier(), false).equals(
 					"org.eclipse.jface.dialogs.IDialogConstants");
 		}
@@ -353,8 +352,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 		protected void okPressed() {
 			IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
 			Object o = selection.getFirstElement();
-			if (o instanceof FieldDeclaration) {
-				FieldDeclaration fieldDeclaration = (FieldDeclaration) o;
+			if (o instanceof FieldDeclaration fieldDeclaration) {
 				m_sourceCode = DomGenerics.fragments(fieldDeclaration).get(0).getName().getIdentifier();
 			} else if (o instanceof String) {
 				m_sourceCode = "org.eclipse.jface.dialogs.IDialogConstants." + (String) o;
@@ -442,8 +440,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 		private class IdLabelProvider extends LabelProvider implements ITableLabelProvider {
 			@Override
 			public String getColumnText(Object element, int columnIndex) {
-				if (element instanceof FieldDeclaration) {
-					FieldDeclaration fieldDeclaration = (FieldDeclaration) element;
+				if (element instanceof FieldDeclaration fieldDeclaration) {
 					return (String) fieldDeclaration.getProperty(BUTTON_NAME_PROPERTY);
 				}
 				return element.toString();

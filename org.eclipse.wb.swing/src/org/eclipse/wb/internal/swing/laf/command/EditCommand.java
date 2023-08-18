@@ -76,8 +76,7 @@ public class EditCommand extends EditNameCommand {
 		// remove other edit commands for this
 		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
 			Command command = I.next();
-			if (command instanceof EditCommand) {
-				EditCommand editCommand = (EditCommand) command;
+			if (command instanceof EditCommand editCommand) {
 				if (editCommand.m_id.equals(m_id)) {
 					I.remove();
 				}

@@ -45,8 +45,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		if (request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (request instanceof KeyRequest keyRequest) {
 			// check input
 			switch (keyRequest.getKeyCode()) {
 			case SWT.ARROW_UP :

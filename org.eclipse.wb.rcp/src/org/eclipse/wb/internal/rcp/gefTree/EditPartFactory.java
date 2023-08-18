@@ -38,8 +38,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
 		// special Composite's
-		if (model instanceof CompositeInfo) {
-			CompositeInfo composite = (CompositeInfo) model;
+		if (model instanceof CompositeInfo composite) {
 			// Form.getHead()
 			if (composite.getParent() instanceof FormInfo) {
 				FormInfo form = (FormInfo) composite.getParent();

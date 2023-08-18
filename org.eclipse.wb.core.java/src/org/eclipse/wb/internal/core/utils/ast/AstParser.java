@@ -210,8 +210,7 @@ public final class AstParser {
 	public Type parseType(int position, Type sourceType) throws Exception {
 		// prepare new type
 		Type newType;
-		if (sourceType instanceof PrimitiveType) {
-			PrimitiveType primitiveSourceType = (PrimitiveType) sourceType;
+		if (sourceType instanceof PrimitiveType primitiveSourceType) {
 			newType = getAst().newPrimitiveType(primitiveSourceType.getPrimitiveTypeCode());
 			newType.setSourceRange(position, newType.toString().length());
 		} else {
@@ -608,11 +607,9 @@ public final class AstParser {
 		for (VariableDeclaration declaration : declarations) {
 			// prepare type of variable
 			Type type = null;
-			if (declaration instanceof SingleVariableDeclaration) {
-				SingleVariableDeclaration parameter = (SingleVariableDeclaration) declaration;
+			if (declaration instanceof SingleVariableDeclaration parameter) {
 				type = parameter.getType();
-			} else if (declaration instanceof VariableDeclarationFragment) {
-				VariableDeclarationFragment fragment = (VariableDeclarationFragment) declaration;
+			} else if (declaration instanceof VariableDeclarationFragment fragment) {
 				if (fragment.getParent() instanceof FieldDeclaration) {
 					// we add all fields into TypeDeclaration
 					continue;
@@ -840,8 +837,7 @@ public final class AstParser {
 			source.accept(new ASTVisitor() {
 				@Override
 				public void postVisit(ASTNode node) {
-					if (node instanceof SimpleName) {
-						SimpleName simpleName = (SimpleName) node;
+					if (node instanceof SimpleName simpleName) {
 						IBinding binding = simpleName.resolveBinding();
 						if (binding instanceof IVariableBinding) {
 							saveBinding(binding);
@@ -849,62 +845,51 @@ public final class AstParser {
 							saveBinding(null);
 						}
 					}
-					if (node instanceof VariableDeclaration) {
-						VariableDeclaration variableDeclaration = (VariableDeclaration) node;
+					if (node instanceof VariableDeclaration variableDeclaration) {
 						IVariableBinding binding = variableDeclaration.resolveBinding();
 						saveBinding(binding);
 					}
-					if (node instanceof FieldAccess) {
-						FieldAccess fieldAccess = (FieldAccess) node;
+					if (node instanceof FieldAccess fieldAccess) {
 						saveBinding(fieldAccess.resolveFieldBinding());
 					}
 					// ITypeBinding
 					{
-						if (node instanceof Expression) {
-							Expression expression = (Expression) node;
+						if (node instanceof Expression expression) {
 							ITypeBinding binding = expression.resolveTypeBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof Type) {
-							Type type = (Type) node;
+						if (node instanceof Type type) {
 							ITypeBinding binding = type.resolveBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof TypeDeclaration) {
-							TypeDeclaration typeDeclaration = (TypeDeclaration) node;
+						if (node instanceof TypeDeclaration typeDeclaration) {
 							ITypeBinding binding = typeDeclaration.resolveBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof AnonymousClassDeclaration) {
-							AnonymousClassDeclaration anonymousClass = (AnonymousClassDeclaration) node;
+						if (node instanceof AnonymousClassDeclaration anonymousClass) {
 							ITypeBinding binding = anonymousClass.resolveBinding();
 							saveBinding(binding);
 						}
 					}
 					// IMethodBinding
 					{
-						if (node instanceof MethodDeclaration) {
-							MethodDeclaration method = (MethodDeclaration) node;
+						if (node instanceof MethodDeclaration method) {
 							IMethodBinding binding = method.resolveBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof MethodInvocation) {
-							MethodInvocation invocation = (MethodInvocation) node;
+						if (node instanceof MethodInvocation invocation) {
 							IMethodBinding binding = invocation.resolveMethodBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof SuperConstructorInvocation) {
-							SuperConstructorInvocation invocation = (SuperConstructorInvocation) node;
+						if (node instanceof SuperConstructorInvocation invocation) {
 							IMethodBinding binding = invocation.resolveConstructorBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof SuperMethodInvocation) {
-							SuperMethodInvocation invocation = (SuperMethodInvocation) node;
+						if (node instanceof SuperMethodInvocation invocation) {
 							IMethodBinding binding = invocation.resolveMethodBinding();
 							saveBinding(binding);
 						}
-						if (node instanceof ClassInstanceCreation) {
-							ClassInstanceCreation creation = (ClassInstanceCreation) node;
+						if (node instanceof ClassInstanceCreation creation) {
 							IMethodBinding binding = creation.resolveConstructorBinding();
 							saveBinding(binding);
 						}

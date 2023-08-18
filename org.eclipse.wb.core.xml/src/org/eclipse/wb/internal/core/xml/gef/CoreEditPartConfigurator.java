@@ -38,8 +38,7 @@ public final class CoreEditPartConfigurator implements IEditPartConfigurator {
 			configure_onDoubleClick_runScript(editPart, component);
 		}
 		// direct edit
-		if (model instanceof AbstractComponentInfo) {
-			AbstractComponentInfo item = (AbstractComponentInfo) model;
+		if (model instanceof AbstractComponentInfo item) {
 			DirectTextPropertyEditPolicy.install(editPart, item);
 		}
 	}

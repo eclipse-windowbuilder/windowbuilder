@@ -52,8 +52,7 @@ public final class EditPartFactory implements IEditPartFactory {
 		//      return new DesignRootEditPart(designRootObject);
 		//    }
 		// menu
-		if (model instanceof MenuReference) {
-			MenuReference reference = (MenuReference) model;
+		if (model instanceof MenuReference reference) {
 			MenuEditPart editPart = new MenuEditPart(reference, reference.getMenu());
 			configureEditPart(context, editPart);
 			return editPart;

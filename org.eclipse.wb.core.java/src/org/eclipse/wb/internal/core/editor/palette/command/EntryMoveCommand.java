@@ -98,8 +98,7 @@ public final class EntryMoveCommand extends Command {
 		ListIterator<Command> I = commands.listIterator(commands.size());
 		while (I.hasPrevious()) {
 			Command command = I.previous();
-			if (command instanceof EntryMoveCommand) {
-				EntryMoveCommand moveCommand = (EntryMoveCommand) command;
+			if (command instanceof EntryMoveCommand moveCommand) {
 				if (m_id.equals(moveCommand.m_id)) {
 					// remove moves of source entry
 					I.remove();

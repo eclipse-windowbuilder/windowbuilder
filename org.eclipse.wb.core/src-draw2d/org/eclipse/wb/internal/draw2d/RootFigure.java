@@ -124,8 +124,7 @@ public class RootFigure extends Figure implements IRootFigure {
 				// figure's loop
 				for (Figure figure : layer.getChildren()) {
 					if (figure.isVisible()) {
-						if (figure instanceof IPreferredSizeProvider) {
-							IPreferredSizeProvider provider = (IPreferredSizeProvider) figure;
+						if (figure instanceof IPreferredSizeProvider provider) {
 							Dimension figurePreferredSize = provider.getPreferredSize(null);
 							preferred.union(0, 0, figurePreferredSize.width, figurePreferredSize.height);
 						} else {

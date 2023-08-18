@@ -123,8 +123,7 @@ public abstract class OSSupport {
 	 *          the {@link Control} to layout if required and is {@link Composite}.
 	 */
 	private static void doLayout(Control control) {
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			// layout children
 			for (Control child : composite.getChildren()) {
 				doLayout(child);
@@ -177,8 +176,7 @@ public abstract class OSSupport {
 			control.setRedraw(false);
 		}
 		// fix children
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			for (Control child : composite.getChildren()) {
 				fixZeroSizes_begin(child);
 			}
@@ -197,8 +195,7 @@ public abstract class OSSupport {
 			control.setRedraw(true);
 		}
 		// fix children
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			for (Control child : composite.getChildren()) {
 				fixZeroSizes_end(child);
 			}

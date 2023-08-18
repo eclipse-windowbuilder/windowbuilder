@@ -47,10 +47,9 @@ public final class Version {
 		if (object == this) {
 			return true;
 		}
-		if (!(object instanceof Version)) {
+		if (!(object instanceof Version other)) {
 			return false;
 		}
-		Version other = (Version) object;
 		return m_major == other.m_major && m_minor == other.m_minor && m_micro == other.m_micro;
 	}
 

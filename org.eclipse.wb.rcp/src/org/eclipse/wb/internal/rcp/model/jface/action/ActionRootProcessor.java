@@ -79,8 +79,7 @@ public final class ActionRootProcessor implements IRootProcessor {
 			throws Exception {
 		// bind {@link Action_Info}'s into hierarchy.
 		for (JavaInfo javaInfo : components) {
-			if (javaInfo instanceof ActionInfo) {
-				ActionInfo actionInfo = (ActionInfo) javaInfo;
+			if (javaInfo instanceof ActionInfo actionInfo) {
 				actionInfo.setAssociation(new EmptyAssociation());
 				ActionContainerInfo.get(root).addChild(actionInfo);
 			}

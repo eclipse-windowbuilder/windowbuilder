@@ -110,8 +110,7 @@ public final class ListModelPropertyEditor extends TextDialogPropertyEditor {
 	 * Sets the items for given {@link ListModel} {@link Property}.
 	 */
 	public static void setItems(Property property, String[] items) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			JavaInfo javaInfo = genericProperty.getJavaInfo();
 			// prepare source lines
 			String[] lines =

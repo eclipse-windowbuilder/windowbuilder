@@ -83,8 +83,7 @@ public final class CollapsibleButtonsLayoutEditPolicy extends AbstractFlowLayout
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof CollapsibleButtonDropRequest) {
-			final CollapsibleButtonDropRequest buttonRequest = (CollapsibleButtonDropRequest) request;
+		if (request instanceof final CollapsibleButtonDropRequest buttonRequest) {
 			final ControlInfo reference = (ControlInfo) referenceObject;
 			return new EditCommand(m_collButtons) {
 				@Override

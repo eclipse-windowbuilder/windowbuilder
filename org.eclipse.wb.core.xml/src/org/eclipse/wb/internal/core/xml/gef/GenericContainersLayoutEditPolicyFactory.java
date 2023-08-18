@@ -37,8 +37,7 @@ public final class GenericContainersLayoutEditPolicyFactory implements ILayoutEd
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-		if (model instanceof XmlObjectInfo) {
-			XmlObjectInfo layout = (XmlObjectInfo) model;
+		if (model instanceof XmlObjectInfo layout) {
 			// simple containers
 			{
 				List<SimpleContainer> containers = new SimpleContainerFactory(layout, true).get();

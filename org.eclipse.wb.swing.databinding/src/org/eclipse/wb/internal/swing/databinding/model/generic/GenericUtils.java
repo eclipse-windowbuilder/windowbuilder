@@ -204,8 +204,7 @@ public class GenericUtils {
 		if (type instanceof Class<?>) {
 			return new ClassGenericType((Class<?>) type, null, null);
 		}
-		if (type instanceof WildcardType) {
-			WildcardType wildcardType = (WildcardType) type;
+		if (type instanceof WildcardType wildcardType) {
 			if (ArrayUtils.isEmpty(wildcardType.getUpperBounds())
 					&& ArrayUtils.isEmpty(wildcardType.getLowerBounds())) {
 				return ClassGenericType.WILDCARD;
@@ -224,12 +223,10 @@ public class GenericUtils {
 	}
 
 	private static String resolveTypeName(Type type) {
-		if (type instanceof Class<?>) {
-			Class<?> rawType = (Class<?>) type;
+		if (type instanceof Class<?> rawType) {
 			return convertPrimitiveType(ReflectionUtils.getFullyQualifiedName(rawType, false));
 		}
-		if (type instanceof ParameterizedType) {
-			ParameterizedType parameterizedType = (ParameterizedType) type;
+		if (type instanceof ParameterizedType parameterizedType) {
 			Class<?> rawType = (Class<?>) parameterizedType.getRawType();
 			StringBuffer fullName = new StringBuffer();
 			fullName.append(CoreUtils.getClassName(rawType));
@@ -260,8 +257,7 @@ public class GenericUtils {
 			fullName.insert(0, resolveTypeName(elementType));
 			return fullName.toString();
 		}
-		if (type instanceof WildcardType) {
-			WildcardType wildcardType = (WildcardType) type;
+		if (type instanceof WildcardType wildcardType) {
 			Type[] upperBounds = wildcardType.getUpperBounds();
 			Type[] lowerBounds = wildcardType.getLowerBounds();
 			if (!ArrayUtils.isEmpty(upperBounds)) {

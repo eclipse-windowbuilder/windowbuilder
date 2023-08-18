@@ -36,8 +36,7 @@ public final class EnumConverter extends ExpressionConverter {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String toSource(XmlObjectInfo object, Object value) throws Exception {
-		if (value instanceof Enum<?>) {
-			Enum<?> enumValue = (Enum<?>) value;
+		if (value instanceof Enum<?> enumValue) {
 			return enumValue.name();
 		}
 		return null;

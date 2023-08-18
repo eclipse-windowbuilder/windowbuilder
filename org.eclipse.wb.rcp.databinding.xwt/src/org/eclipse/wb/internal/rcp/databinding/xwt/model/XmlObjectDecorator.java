@@ -45,8 +45,7 @@ public class XmlObjectDecorator extends JavaInfoDecorator {
 	@Override
 	protected boolean equals(ObjectInfo object, String objectReference, IObserveInfo iobserve)
 			throws Exception {
-		if (iobserve instanceof WidgetBindableInfo) {
-			WidgetBindableInfo widget = (WidgetBindableInfo) iobserve;
+		if (iobserve instanceof WidgetBindableInfo widget) {
 			return object == widget.getXMLObjectInfo();
 		}
 		return false;

@@ -94,8 +94,7 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 
 	@Override
 	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof TitledBorder) {
-			TitledBorder ourBorder = (TitledBorder) border;
+		if (border instanceof TitledBorder ourBorder) {
 			m_titleField.setValue(ourBorder.getTitle());
 			m_titleJustificationField.setValue(ourBorder.getTitleJustification());
 			m_titlePositionField.setValue(ourBorder.getTitlePosition());

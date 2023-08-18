@@ -223,8 +223,7 @@ AbstractHeaderSelectionEditPolicy {
 
 	@Override
 	public void performRequest(Request request) {
-		if (m_feedback != null && request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (m_feedback != null && request instanceof KeyRequest keyRequest) {
 			if (keyRequest.getKeyCode() == SWT.CTRL) {
 				m_feedback.setShowSizeHint(!keyRequest.isPressed());
 				updateFeedbackText(request);

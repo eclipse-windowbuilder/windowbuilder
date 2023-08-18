@@ -114,8 +114,7 @@ public class JLayeredPaneInfo extends ContainerInfo {
 		addBroadcastListener(new JavaInfoAddProperties() {
 			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-				if (javaInfo instanceof ComponentInfo && javaInfo.getParent() == m_this) {
-					ComponentInfo component = (ComponentInfo) javaInfo;
+				if (javaInfo instanceof ComponentInfo component && javaInfo.getParent() == m_this) {
 					properties.addAll(getContributedProperties(component));
 				}
 			}

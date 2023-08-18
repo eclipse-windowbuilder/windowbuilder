@@ -104,8 +104,7 @@ IImplicitCreationSupport {
 
 	@Override
 	public boolean isJavaInfo(ASTNode node) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			return invocation.arguments().size() == 1
 					&& invocation.getName().getIdentifier().equals(m_getMethod.getName())
 					&& m_fieldEditor.isRepresentedBy(invocation.getExpression());

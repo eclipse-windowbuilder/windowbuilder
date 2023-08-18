@@ -255,8 +255,7 @@ public class CodeUtils {
 		SearchRequestor requestor = new SearchRequestor() {
 			@Override
 			public void acceptSearchMatch(SearchMatch match) {
-				if (match instanceof ReferenceMatch) {
-					ReferenceMatch refMatch = (ReferenceMatch) match;
+				if (match instanceof ReferenceMatch refMatch) {
 					IJavaElement matchElement = (IJavaElement) refMatch.getElement();
 					{
 						IJavaElement localElement = refMatch.getLocalElement();

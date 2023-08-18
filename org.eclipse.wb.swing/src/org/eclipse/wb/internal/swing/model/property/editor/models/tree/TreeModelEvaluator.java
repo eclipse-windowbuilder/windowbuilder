@@ -101,8 +101,7 @@ public final class TreeModelEvaluator implements IExpressionEvaluator {
 						DefaultMutableTreeNode node = null;
 						{
 							Object argument = invocation.arguments().get(0);
-							if (argument instanceof SimpleName) {
-								SimpleName variable = (SimpleName) argument;
+							if (argument instanceof SimpleName variable) {
 								node = nameToNode.get(variable.getIdentifier());
 							} else if (argument instanceof ClassInstanceCreation) {
 								node = m_lastNode;
@@ -142,8 +141,7 @@ public final class TreeModelEvaluator implements IExpressionEvaluator {
 	 *         or <code>null</code> if no such model can be found.
 	 */
 	private static AnonymousClassDeclaration findRootNodeDeclaration(Expression expression) {
-		if (expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation modelCreation = (ClassInstanceCreation) expression;
+		if (expression instanceof ClassInstanceCreation modelCreation) {
 			ITypeBinding modelBinding = AstNodeUtils.getTypeBinding(modelCreation);
 			if (AstNodeUtils.isSuccessorOf(modelBinding, DefaultTreeModel.class)
 					&& modelCreation.arguments().size() == 1

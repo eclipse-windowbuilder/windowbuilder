@@ -161,8 +161,7 @@ public class CopyAction extends Action {
 		List<XmlObjectInfo> objects = Lists.newArrayList();
 		for (EditPart editPart : editParts) {
 			Object model = editPart.getModel();
-			if (model instanceof XmlObjectInfo) {
-				XmlObjectInfo object = (XmlObjectInfo) model;
+			if (model instanceof XmlObjectInfo object) {
 				objects.add(object);
 			}
 		}

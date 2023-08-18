@@ -83,8 +83,7 @@ public final class DesignerExceptionUtils {
 		// prepare HTML text
 		if (rootException != null) {
 			// for DesignerException get description
-			if (rootException instanceof DesignerException) {
-				DesignerException designerException = (DesignerException) rootException;
+			if (rootException instanceof DesignerException designerException) {
 				String description = getErrorEntry(designerException).getDescription();
 				html += StringEscapeUtils.escapeHtml(description);
 			}
@@ -278,8 +277,7 @@ public final class DesignerExceptionUtils {
 
 	public static boolean isWarning(Throwable throwable) {
 		Throwable rootException = getDesignerCause(throwable);
-		if (rootException instanceof DesignerException) {
-			DesignerException designerException = (DesignerException) rootException;
+		if (rootException instanceof DesignerException designerException) {
 			int code = designerException.getCode();
 			ErrorEntryInfo entry = getErrorEntry0(code);
 			return entry != null && entry.isWarning();
@@ -337,8 +335,7 @@ public final class DesignerExceptionUtils {
 	 */
 	public static ErrorEntryInfo getErrorEntry(Throwable throwable) {
 		Throwable rootException = getDesignerCause(throwable);
-		if (rootException instanceof DesignerException) {
-			DesignerException designerException = (DesignerException) rootException;
+		if (rootException instanceof DesignerException designerException) {
 			int code = designerException.getCode();
 			String[] parameters = designerException.getParameters();
 			return getErrorEntry(code, parameters);

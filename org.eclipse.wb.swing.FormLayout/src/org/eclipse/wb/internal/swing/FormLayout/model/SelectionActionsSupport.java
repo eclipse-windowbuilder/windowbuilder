@@ -57,11 +57,9 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		List<CellConstraintsSupport> constraints = Lists.newArrayList();
 		for (ObjectInfo object : objects) {
 			// check object
-			if (!(object instanceof ComponentInfo) || object.getParent() != m_layout.getContainer()) {
+			if (!(object instanceof ComponentInfo component) || object.getParent() != m_layout.getContainer()) {
 				return;
 			}
-			// add data info
-			ComponentInfo component = (ComponentInfo) object;
 			constraints.add(FormLayoutInfo.getConstraints(component));
 		}
 		// create horizontal actions

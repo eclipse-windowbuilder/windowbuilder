@@ -186,8 +186,7 @@ public final class SynchronizeManager {
 			boolean[] visible = new boolean[]{childObjectInfo.getPresentation().isVisible()};
 			objectInfo.getBroadcast(ObjectInfoChildTree.class).invoke(childObjectInfo, visible);
 			if (visible[0]) {
-				if (childObjectInfo instanceof CollectorObjectInfo) {
-					CollectorObjectInfo collectorObjectInfo = (CollectorObjectInfo) childObjectInfo;
+				if (childObjectInfo instanceof CollectorObjectInfo collectorObjectInfo) {
 					for (ObjectInfo itemObjectInfo : collectorObjectInfo.getItems()) {
 						if (clazz.isAssignableFrom(itemObjectInfo.getClass())) {
 							childrenInfos.add((T) itemObjectInfo);

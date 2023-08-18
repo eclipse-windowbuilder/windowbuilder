@@ -51,8 +51,7 @@ public abstract class BadNodesErrorPage implements IErrorPage {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public final void setRoot(ObjectInfo rootObject) {
-		if (rootObject instanceof JavaInfo) {
-			JavaInfo javaInfo = (JavaInfo) rootObject;
+		if (rootObject instanceof JavaInfo javaInfo) {
 			m_editor = javaInfo.getEditor();
 			EditorState editorState = EditorState.get(m_editor);
 			m_collection = getCollection(editorState);

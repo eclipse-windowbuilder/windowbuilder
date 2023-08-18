@@ -45,8 +45,7 @@ public final class RectanglePropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Rectangle) {
-			Rectangle rectangle = (Rectangle) value;
+		if (value instanceof Rectangle rectangle) {
 			return "("
 			+ rectangle.x
 			+ ", "

@@ -148,8 +148,7 @@ public final class ActivatorSource extends AbstractPureBundleSource {
 			String bundleName,
 			List<AbstractSource> sources) throws Exception {
 		for (AbstractSource abstractSource : sources) {
-			if (abstractSource instanceof ActivatorSource) {
-				ActivatorSource source = (ActivatorSource) abstractSource;
+			if (abstractSource instanceof ActivatorSource source) {
 				if (source.m_bundleName.equals(bundleName)) {
 					return source;
 				}

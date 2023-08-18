@@ -103,8 +103,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 		// prepare ComponentInfo to add and its Association
 		ComponentInfo newComponent;
 		AssociationObject association;
-		if (newObject instanceof ActionInfo) {
-			ActionInfo action = (ActionInfo) newObject;
+		if (newObject instanceof ActionInfo action) {
 			// ensure that ActionInfo is already added
 			if (action.getParent() == null) {
 				ActionContainerInfo.add(m_menu.getRootJava(), action);

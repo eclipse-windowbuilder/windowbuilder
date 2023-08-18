@@ -86,8 +86,7 @@ public final class DialogButtonBarLayoutEditPolicy extends AbstractFlowLayoutEdi
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof DialogButtonDropRequest) {
-			final DialogButtonDropRequest buttonRequest = (DialogButtonDropRequest) request;
+		if (request instanceof final DialogButtonDropRequest buttonRequest) {
 			final ControlInfo reference = (ControlInfo) referenceObject;
 			return new EditCommand(m_composite) {
 				@Override

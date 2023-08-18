@@ -122,8 +122,7 @@ public class DomGenerics {
 	public static List<Initializer> initializers(TypeDeclaration typeDeclaration, boolean aStatic) {
 		List<Initializer> initializers = Lists.newArrayList();
 		for (BodyDeclaration bodyDeclaration : bodyDeclarations(typeDeclaration)) {
-			if (bodyDeclaration instanceof Initializer) {
-				Initializer initializer = (Initializer) bodyDeclaration;
+			if (bodyDeclaration instanceof Initializer initializer) {
 				boolean isStatic = java.lang.reflect.Modifier.isStatic(initializer.getModifiers());
 				if (aStatic && isStatic || !aStatic && !isStatic) {
 					initializers.add(initializer);

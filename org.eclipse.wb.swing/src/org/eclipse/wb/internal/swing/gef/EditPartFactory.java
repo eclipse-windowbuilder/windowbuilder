@@ -85,27 +85,22 @@ public final class EditPartFactory implements IEditPartFactory {
 	private static final IEditPartFactory MENU_FACTORY = new IEditPartFactory() {
 		@Override
 		public EditPart createEditPart(EditPart context, Object model) {
-			if (model instanceof JMenuBarInfo) {
-				JMenuBarInfo menu = (JMenuBarInfo) model;
+			if (model instanceof JMenuBarInfo menu) {
 				IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menu);
 				return MenuEditPartFactory.createMenu(model, menuObject);
 			}
-			if (model instanceof JPopupMenuInfo) {
-				JPopupMenuInfo popup = (JPopupMenuInfo) model;
+			if (model instanceof JPopupMenuInfo popup) {
 				IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(popup);
 				return MenuEditPartFactory.createPopupMenu(popup, popupObject);
 			}
-			if (model instanceof IMenuInfo) {
-				IMenuInfo menu = (IMenuInfo) model;
+			if (model instanceof IMenuInfo menu) {
 				return MenuEditPartFactory.createMenu(model, menu);
 			}
-			if (model instanceof JMenuInfo) {
-				JMenuInfo menu = (JMenuInfo) model;
+			if (model instanceof JMenuInfo menu) {
 				IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(menu);
 				return MenuEditPartFactory.createMenuItem(menu, itemObject);
 			}
-			if (model instanceof JMenuItemInfo) {
-				JMenuItemInfo item = (JMenuItemInfo) model;
+			if (model instanceof JMenuItemInfo item) {
 				IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
 				return MenuEditPartFactory.createMenuItem(item, itemObject);
 			}
@@ -133,8 +128,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	private static final IEditPartFactory BOX_FACTORY = new IEditPartFactory() {
 		@Override
 		public EditPart createEditPart(EditPart context, Object model) {
-			if (model instanceof ComponentInfo) {
-				ComponentInfo component = (ComponentInfo) model;
+			if (model instanceof ComponentInfo component) {
 				if (component.getCreationSupport() instanceof StaticFactoryCreationSupport) {
 					StaticFactoryCreationSupport factoryCreationSupport =
 							(StaticFactoryCreationSupport) component.getCreationSupport();

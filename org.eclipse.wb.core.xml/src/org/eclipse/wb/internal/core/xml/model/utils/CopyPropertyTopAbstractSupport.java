@@ -158,8 +158,7 @@ public abstract class CopyPropertyTopAbstractSupport {
 		}
 
 		private Property createCopy(Property source) {
-			if (source instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) source;
+			if (source instanceof GenericPropertyImpl genericProperty) {
 				Property copy = new GenericPropertyImpl(genericProperty, m_copyTitle);
 				copy.setCategory(m_category);
 				return copy;

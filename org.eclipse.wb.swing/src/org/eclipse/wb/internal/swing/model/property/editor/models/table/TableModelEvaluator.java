@@ -66,8 +66,7 @@ public final class TableModelEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+		if (expression instanceof ClassInstanceCreation creation) {
 			if (isAnonymous_DefaultTableModel(creation)) {
 				List<Expression> arguments = DomGenerics.arguments(creation);
 				Object[][] values = (Object[][]) AstEvaluationEngine.evaluate(context, arguments.get(0));

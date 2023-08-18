@@ -221,8 +221,7 @@ public final class BindingElementsComposite extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 				IEditorPart editor =
 						DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-				if (editor instanceof IDesignerEditor) {
-					IDesignerEditor designerEditor = (IDesignerEditor) editor;
+				if (editor instanceof IDesignerEditor designerEditor) {
 					IDesignPage designPage = designerEditor.getMultiMode().getDesignPage();
 					designPage.refreshGEF();
 				} else if (m_databindingsProvider != null) {

@@ -151,8 +151,7 @@ public class LayoutAssistantWindow extends Window {
 				{
 					ObjectInfo parent = null;
 					for (Object object : selectedObjects) {
-						if (object instanceof ObjectInfo) {
-							ObjectInfo component = (ObjectInfo) object;
+						if (object instanceof ObjectInfo component) {
 							m_selectedComponents.add(component);
 							if (parent == null) {
 								parent = component.getParent();

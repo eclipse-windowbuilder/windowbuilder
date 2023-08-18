@@ -362,8 +362,7 @@ public final class DataBindingsCodeUtils {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public boolean visit(ObjectInfo objectInfo) throws Exception {
-			if (objectInfo instanceof WidgetInfo) {
-				WidgetInfo widgetInfo = (WidgetInfo) objectInfo;
+			if (objectInfo instanceof WidgetInfo widgetInfo) {
 				if (JavaInfoUtils.getMethodDeclaration(widgetInfo) != m_initDataBindings) {
 					m_lastInfo = widgetInfo;
 				}

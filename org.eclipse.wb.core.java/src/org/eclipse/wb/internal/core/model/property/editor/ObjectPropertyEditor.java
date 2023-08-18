@@ -155,8 +155,7 @@ IComplexPropertyEditor {
 	}
 
 	private boolean isValidComponent(Class<?> propertyType, Object element) {
-		if (element instanceof JavaInfo) {
-			JavaInfo component = (JavaInfo) element;
+		if (element instanceof JavaInfo component) {
 			Class<?> componentClass = component.getDescription().getComponentClass();
 			return componentClass != null && propertyType.isAssignableFrom(componentClass);
 		}
@@ -193,9 +192,7 @@ IComplexPropertyEditor {
 			if (setter != null) {
 				StatementTarget target = null;
 				// try get special target
-				if (thisComponent instanceof IObjectPropertyProcessor) {
-					IObjectPropertyProcessor objectPropertyProcessor =
-							(IObjectPropertyProcessor) thisComponent;
+				if (thisComponent instanceof IObjectPropertyProcessor objectPropertyProcessor) {
 					target = objectPropertyProcessor.getObjectPropertyStatementTarget(property, component);
 				}
 				// if no special, use default
@@ -224,8 +221,7 @@ IComplexPropertyEditor {
 	 *         on known setter.
 	 */
 	private static Method getSetter(Property property) throws Exception {
-		if (property instanceof GenericPropertyImpl) {
-			GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+		if (property instanceof GenericPropertyImpl genericProperty) {
 			List<ExpressionAccessor> accessors = genericProperty.getAccessors();
 			for (ExpressionAccessor accessor : accessors) {
 				if (accessor instanceof SetterAccessor) {

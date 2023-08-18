@@ -157,8 +157,7 @@ public final class PropertyCategory {
 		if (obj == this) {
 			return true;
 		}
-		if (obj instanceof PropertyCategory) {
-			PropertyCategory category = (PropertyCategory) obj;
+		if (obj instanceof PropertyCategory category) {
 			return m_priority == category.m_priority;
 		}
 		// unknown class

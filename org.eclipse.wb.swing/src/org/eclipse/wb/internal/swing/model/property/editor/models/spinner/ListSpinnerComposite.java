@@ -74,8 +74,7 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
 
 	@Override
 	public boolean setModel(SpinnerModel model) {
-		if (model instanceof SpinnerListModel) {
-			SpinnerListModel listModel = (SpinnerListModel) model;
+		if (model instanceof SpinnerListModel listModel) {
 			String text = StringUtils.join(listModel.getList().iterator(), "\n");
 			m_textWidget.setText(text);
 			// OK, this is our model

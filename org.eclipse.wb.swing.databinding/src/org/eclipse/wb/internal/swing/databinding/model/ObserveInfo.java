@@ -138,9 +138,7 @@ public abstract class ObserveInfo implements IObserveInfo {
 	private void updateBindingDecoration() throws Exception {
 		if (m_bindingDecorationCorner != 0) {
 			IObservePresentation presentation = getPresentation();
-			if (presentation instanceof IObservePresentationDecorator) {
-				IObservePresentationDecorator presentationDecorator =
-						(IObservePresentationDecorator) presentation;
+			if (presentation instanceof IObservePresentationDecorator presentationDecorator) {
 				presentationDecorator.setBindingDecorator(CollectionUtils.isEmpty(m_bindings)
 						? 0
 								: m_bindingDecorationCorner);

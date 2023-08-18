@@ -36,8 +36,7 @@ public final class CastEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof CastExpression) {
-			CastExpression castExpression = (CastExpression) expression;
+		if (expression instanceof CastExpression castExpression) {
 			// prepare value to cast
 			Object value = AstEvaluationEngine.evaluate(context, castExpression.getExpression());
 			// do cast for primities

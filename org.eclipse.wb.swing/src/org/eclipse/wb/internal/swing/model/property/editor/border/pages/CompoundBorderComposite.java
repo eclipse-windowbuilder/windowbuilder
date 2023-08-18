@@ -89,8 +89,7 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 
 	@Override
 	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof CompoundBorder) {
-			CompoundBorder ourBorder = (CompoundBorder) border;
+		if (border instanceof CompoundBorder ourBorder) {
 			m_outsideField.setBorder(ourBorder.getOutsideBorder());
 			m_insideField.setBorder(ourBorder.getInsideBorder());
 			// OK, this is our Border

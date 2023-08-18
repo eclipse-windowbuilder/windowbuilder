@@ -483,8 +483,7 @@ public class ReflectionUtils {
 	public static String getFullyQualifiedName(Type type, boolean runtime) {
 		Assert.isNotNull(type);
 		// Class
-		if (type instanceof Class<?>) {
-			Class<?> clazz = (Class<?>) type;
+		if (type instanceof Class<?> clazz) {
 			// array
 			if (clazz.isArray()) {
 				return getFullyQualifiedName(clazz.getComponentType(), runtime) + "[]";
@@ -497,13 +496,11 @@ public class ReflectionUtils {
 			return name;
 		}
 		// GenericArrayType
-		if (type instanceof GenericArrayType) {
-			GenericArrayType genericArrayType = (GenericArrayType) type;
+		if (type instanceof GenericArrayType genericArrayType) {
 			return getFullyQualifiedName(genericArrayType.getGenericComponentType(), runtime) + "[]";
 		}
 		// ParameterizedType
-		if (type instanceof ParameterizedType) {
-			ParameterizedType parameterizedType = (ParameterizedType) type;
+		if (type instanceof ParameterizedType parameterizedType) {
 			Type rawType = parameterizedType.getRawType();
 			// raw type
 			StringBuilder sb = new StringBuilder();
@@ -523,8 +520,7 @@ public class ReflectionUtils {
 			return sb.toString();
 		}
 		// WildcardType
-		if (type instanceof WildcardType) {
-			WildcardType wildcardType = (WildcardType) type;
+		if (type instanceof WildcardType wildcardType) {
 			return "? extends " + getFullyQualifiedName(wildcardType.getUpperBounds()[0], runtime);
 		}
 		// TypeVariable

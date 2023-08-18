@@ -35,8 +35,7 @@ public final class LafRootProcessor implements IRootProcessor {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
-		if (root instanceof ComponentInfo) {
-			final ComponentInfo rootComponent = (ComponentInfo) root;
+		if (root instanceof final ComponentInfo rootComponent) {
 			// TODO
 			/*rootComponent.addBroadcastListener(new BroadcastGroup() {
         LafSelectionItem lafItem;

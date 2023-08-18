@@ -126,8 +126,7 @@ public final class XmlObjectUtils {
 		for (Entry<Object, Object> arbitrary : object.getArbitraries().entrySet()) {
 			Object key = arbitrary.getKey();
 			Object value = arbitrary.getValue();
-			if (key instanceof String && value instanceof String) {
-				String stringKey = (String) key;
+			if (key instanceof String stringKey && value instanceof String) {
 				if (stringKey.startsWith(KEY_PARAMETER_PREFIX)) {
 					parameters.put(stringKey.substring(KEY_PARAMETER_PREFIX.length()), (String) value);
 				}
@@ -194,8 +193,7 @@ public final class XmlObjectUtils {
 	 *         wrapping.
 	 */
 	public static XmlObjectInfo getWrapped(XmlObjectInfo original) throws Exception {
-		if (original instanceof IWrapperInfo) {
-			IWrapperInfo wrapperInfo = (IWrapperInfo) original;
+		if (original instanceof IWrapperInfo wrapperInfo) {
 			return wrapperInfo.getWrapped();
 		}
 		return original;

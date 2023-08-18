@@ -46,8 +46,7 @@ public final class FieldEditorDropRequestProcessor extends RequestProcessor {
 	@Override
 	public Request process(EditPart editPart, Request request) throws Exception {
 		FieldLayoutPreferencePageInfo page = getFieldLayoutPreferencePage(editPart);
-		if (page != null && request instanceof CreateRequest) {
-			CreateRequest editorCreateRequest = (CreateRequest) request;
+		if (page != null && request instanceof CreateRequest editorCreateRequest) {
 			if (editorCreateRequest.getNewObject() instanceof FieldEditorInfo) {
 				final FieldEditorInfo editor = (FieldEditorInfo) editorCreateRequest.getNewObject();
 				final CompositeInfo composite = page.schedule_CREATE(editor);

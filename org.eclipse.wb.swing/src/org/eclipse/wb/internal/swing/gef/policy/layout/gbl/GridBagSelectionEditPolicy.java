@@ -209,8 +209,7 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		if (request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (request instanceof KeyRequest keyRequest) {
 			if (keyRequest.isPressed()) {
 				char c = keyRequest.getCharacter();
 				// grab/fill both

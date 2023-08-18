@@ -158,8 +158,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 	public FormAttachmentInfo getAttachment(int sideInt) throws Exception {
 		FormSide side = FormSide.get(sideInt);
 		for (ObjectInfo child : getChildren()) {
-			if (child instanceof FormAttachmentInfo) {
-				FormAttachmentInfo attachment = (FormAttachmentInfo) child;
+			if (child instanceof FormAttachmentInfo attachment) {
 				if (attachment.getSide() == side) {
 					return attachment;
 				}

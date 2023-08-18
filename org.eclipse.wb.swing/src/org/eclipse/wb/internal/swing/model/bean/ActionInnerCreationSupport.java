@@ -115,8 +115,7 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
 	protected void create_evaluateStatement(EvaluationContext context,
 			AbstractAction action,
 			Statement statement) throws Exception {
-		if (statement instanceof SuperConstructorInvocation) {
-			SuperConstructorInvocation invocation = (SuperConstructorInvocation) statement;
+		if (statement instanceof SuperConstructorInvocation invocation) {
 			updateAction_SuperConstructorInvocation(context, action, invocation);
 		} else {
 			super.create_evaluateStatement(context, action, statement);

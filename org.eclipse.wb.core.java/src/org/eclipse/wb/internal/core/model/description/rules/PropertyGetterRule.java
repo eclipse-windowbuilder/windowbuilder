@@ -41,8 +41,7 @@ public final class PropertyGetterRule extends Rule {
 		String getterName = attributes.getValue("name");
 		Method getter = ReflectionUtils.getMethod(componentDescription.getComponentClass(), getterName);
 		for (ExpressionAccessor accessor : propertyDescription.getAccessorsList()) {
-			if (accessor instanceof SetterAccessor) {
-				SetterAccessor setterAccessor = (SetterAccessor) accessor;
+			if (accessor instanceof SetterAccessor setterAccessor) {
 				setterAccessor.setGetter(getter);
 			}
 		}

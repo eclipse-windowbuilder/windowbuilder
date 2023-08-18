@@ -88,8 +88,7 @@ public class EditCustomLookAndFeelDialog extends AbstractCustomLookAndFeelDialog
 		{
 			createJarUI(container);
 			m_jarField.setEnabled(m_lafInfo instanceof UserDefinedLafInfo);
-			if (m_lafInfo instanceof UserDefinedLafInfo) {
-				UserDefinedLafInfo userDefinedLAFInfo = (UserDefinedLafInfo) m_lafInfo;
+			if (m_lafInfo instanceof UserDefinedLafInfo userDefinedLAFInfo) {
 				m_jarField.setText(userDefinedLAFInfo.getJarFile());
 			}
 		}
@@ -117,8 +116,7 @@ public class EditCustomLookAndFeelDialog extends AbstractCustomLookAndFeelDialog
 			createProgressUI(container);
 		}
 		// configure viewer
-		if (m_lafInfo instanceof UserDefinedLafInfo) {
-			UserDefinedLafInfo userDefinedLAFInfo = (UserDefinedLafInfo) m_lafInfo;
+		if (m_lafInfo instanceof UserDefinedLafInfo userDefinedLAFInfo) {
 			Object[] scannedLAFs = scanJarFile(m_progressMonitorPart, userDefinedLAFInfo.getJarFile());
 			m_classNameViewer.setInput(scannedLAFs);
 			// set selection by searching for class name (this LAFInfo instances is *not* the same as m_lafInfo)

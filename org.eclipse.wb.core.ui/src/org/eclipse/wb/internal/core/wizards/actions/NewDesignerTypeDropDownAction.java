@@ -219,8 +219,7 @@ IActionDelegate2 {
 	public void runWithEvent(IAction action, Event event) {
 		// this action is represented as ToolItem
 		Widget widget = event.widget;
-		if (widget instanceof ToolItem) {
-			ToolItem toolItem = (ToolItem) widget;
+		if (widget instanceof ToolItem toolItem) {
 			Listener[] listeners = toolItem.getListeners(SWT.Selection);
 			if (listeners.length > 0) {
 				Listener listener = listeners[0];

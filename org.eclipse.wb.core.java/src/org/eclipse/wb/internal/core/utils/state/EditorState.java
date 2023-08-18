@@ -292,8 +292,7 @@ public final class EditorState {
 			return true;
 		}
 		// check parts of CompositeClassLoader
-		if (loader instanceof CompositeClassLoader) {
-			CompositeClassLoader compositeClassLoader = (CompositeClassLoader) loader;
+		if (loader instanceof CompositeClassLoader compositeClassLoader) {
 			for (Iterator<?> I = compositeClassLoader.getClassLoaders().iterator(); I.hasNext();) {
 				ClassLoader classLoader = (ClassLoader) I.next();
 				if (isLoadedFrom(clazz, classLoader)) {

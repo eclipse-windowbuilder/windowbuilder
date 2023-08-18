@@ -41,8 +41,7 @@ public final class InstanceFactoryRootProcessor implements IRootProcessor {
 	@Override
 	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
 		for (JavaInfo javaInfo : components) {
-			if (javaInfo instanceof InstanceFactoryInfo) {
-				InstanceFactoryInfo instanceFactoryInfo = (InstanceFactoryInfo) javaInfo;
+			if (javaInfo instanceof InstanceFactoryInfo instanceFactoryInfo) {
 				InstanceFactoryContainerInfo containerInfo = InstanceFactoryContainerInfo.get(root);
 				containerInfo.addChild(instanceFactoryInfo);
 				instanceFactoryInfo.setAssociation(new EmptyAssociation());

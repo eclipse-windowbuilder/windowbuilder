@@ -74,8 +74,7 @@ public final class NewProjectPalettePage extends WizardPage {
 		{
 			IJavaElement javaElement = null;
 			Object selectedElement = selection.getFirstElement();
-			if (selectedElement instanceof IAdaptable) {
-				IAdaptable adaptable = (IAdaptable) selectedElement;
+			if (selectedElement instanceof IAdaptable adaptable) {
 				javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
 				if (javaElement == null) {
 					IResource resource = (IResource) adaptable.getAdapter(IResource.class);

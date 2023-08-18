@@ -92,8 +92,7 @@ public class BindingsProperty extends AbstractBindingsProperty {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected boolean checkEquals(IObserveInfo observe) throws Exception {
-		if (observe instanceof WidgetBindableInfo) {
-			WidgetBindableInfo bindable = (WidgetBindableInfo) observe;
+		if (observe instanceof WidgetBindableInfo bindable) {
 			if (m_context.objectInfo == bindable.getJavaInfo()) {
 				return true;
 			}

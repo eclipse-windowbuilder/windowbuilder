@@ -197,8 +197,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 			{
 				String source = getEditor().getSource(sourceNode);
 				// if anonymous class creation, cut body
-				if (sourceNode instanceof ClassInstanceCreation) {
-					ClassInstanceCreation creation = (ClassInstanceCreation) sourceNode;
+				if (sourceNode instanceof ClassInstanceCreation creation) {
 					if (creation.getAnonymousClassDeclaration() != null) {
 						source = StringUtils.substringBefore(source, "{").trim();
 					}
@@ -566,8 +565,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 		// remove GenericPropertyImpl's without accessors
 		for (Iterator<Property> I = properties.iterator(); I.hasNext();) {
 			Property property = I.next();
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				if (genericProperty.getAccessors().isEmpty()) {
 					I.remove();
 				}
@@ -1176,8 +1174,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 					}
 				});
 				// MethodDeclaration
-				if (node instanceof MethodDeclaration) {
-					MethodDeclaration methodDeclaration = (MethodDeclaration) node;
+				if (node instanceof MethodDeclaration methodDeclaration) {
 					// don't visit local factory methods
 					if (FactoryDescriptionHelper.isFactoryMethod(methodDeclaration)) {
 						return false;
@@ -1310,8 +1307,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 		accept(new ObjectInfoVisitor() {
 			@Override
 			public boolean visit(ObjectInfo objectInfo) throws Exception {
-				if (result[0] == null && objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				if (result[0] == null && objectInfo instanceof JavaInfo javaInfo) {
 					if (javaInfo.getObject() == o) {
 						result[0] = javaInfo;
 					}

@@ -155,8 +155,7 @@ IWorkbenchWindowActionDelegate {
 				IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
 				if (activeEditor != null) {
 					IEditorInput editorInput = activeEditor.getEditorInput();
-					if (editorInput instanceof IFileEditorInput) {
-						IFileEditorInput fileEditorInput = (IFileEditorInput) editorInput;
+					if (editorInput instanceof IFileEditorInput fileEditorInput) {
 						return new StructuredSelection(fileEditorInput.getFile());
 					}
 				}

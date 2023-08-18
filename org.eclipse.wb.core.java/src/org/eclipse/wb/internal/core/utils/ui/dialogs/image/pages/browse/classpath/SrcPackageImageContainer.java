@@ -49,8 +49,7 @@ final class SrcPackageImageContainer implements IImageContainer {
 		{
 			Object[] nonJavaResources = m_packageFragment.getNonJavaResources();
 			for (Object nonJavaResource : nonJavaResources) {
-				if (nonJavaResource instanceof IFile) {
-					IFile resource = (IFile) nonJavaResource;
+				if (nonJavaResource instanceof IFile resource) {
 					String extension = resource.getLocation().getFileExtension();
 					if (AbstractBrowseImagePage.isImageExtension(extension)) {
 						SrcImageResource imageResource =

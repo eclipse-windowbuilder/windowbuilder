@@ -58,8 +58,7 @@ IClipboardSourceProvider {
 	 * Accepts value as {@link Object} and sets corresponding value as static field.
 	 */
 	public void setValue(Property property, Object value) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			String source = getValueSource(value);
 			genericProperty.setExpression(source, value);
 		} else {
@@ -143,8 +142,7 @@ IClipboardSourceProvider {
 	@Override
 	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
 		Object value = m_values[index];
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			String source = getValueSource(value);
 			genericProperty.setExpression(source, value);
 		} else {

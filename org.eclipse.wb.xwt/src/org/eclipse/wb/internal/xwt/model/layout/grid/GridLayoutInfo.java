@@ -146,8 +146,7 @@ IGridLayoutInfo<ControlInfo> {
 		if (!super.isManagedObject(object)) {
 			return false;
 		}
-		if (object instanceof ControlInfo) {
-			ControlInfo control = (ControlInfo) object;
+		if (object instanceof ControlInfo control) {
 			{
 				GridDataInfo gridData = getGridData(control);
 				if (gridData != null && gridData.getExclude()) {

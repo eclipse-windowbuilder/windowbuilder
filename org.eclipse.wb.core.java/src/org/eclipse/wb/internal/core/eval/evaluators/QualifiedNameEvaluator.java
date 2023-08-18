@@ -42,8 +42,7 @@ public final class QualifiedNameEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) expression;
+		if (expression instanceof QualifiedName qualifiedName) {
 			Name qualifier = qualifiedName.getQualifier();
 			String fieldName = qualifiedName.getName().getIdentifier();
 			// check for: array[].length
