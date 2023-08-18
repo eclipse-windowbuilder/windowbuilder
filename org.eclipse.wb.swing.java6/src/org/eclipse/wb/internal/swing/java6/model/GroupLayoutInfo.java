@@ -162,7 +162,7 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
 	// Misc
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static ImageDescriptor getImage(String imageName) {
+	public static ImageDescriptor getImageDescriptor(String imageName) {
 		return Activator.getImageDescriptor("info/layout/groupLayout/" + imageName);
 	}
 

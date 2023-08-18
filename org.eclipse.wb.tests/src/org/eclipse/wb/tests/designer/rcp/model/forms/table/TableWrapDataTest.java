@@ -94,7 +94,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 			} else {
 				layoutData.setVerticalAlignment(alignment);
 			}
-			assertSame(expectedImage, layoutData.getSmallAlignmentImage(horizontal));
+			assertSame(expectedImage, layoutData.getSmallAlignmentImageDescriptor(horizontal));
 		}
 	}
 

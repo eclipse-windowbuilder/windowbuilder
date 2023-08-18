@@ -412,18 +412,18 @@ LayoutConstants {
 		}
 
 		@Override
-		protected ImageDescriptor getImage() {
+		protected ImageDescriptor getImageDescriptor() {
 			int anchors = m_anchorsSupport.getCurrentAnchors(m_component, true);
 			IImageProvider imageProvider = getImageProvider();
 			switch (anchors) {
 			case AnchorsSupport.RESIZABLE :
-				return imageProvider.getImage("info/layout/groupLayout/h/both.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/both.gif");
 			case LEADING :
-				return imageProvider.getImage("info/layout/groupLayout/h/left.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/left.gif");
 			case TRAILING :
-				return imageProvider.getImage("info/layout/groupLayout/h/right.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/right.gif");
 			default :
-				return imageProvider.getImage("info/layout/groupLayout/h/default.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/default.gif");
 			}
 		}
 
@@ -441,18 +441,18 @@ LayoutConstants {
 		}
 
 		@Override
-		protected ImageDescriptor getImage() {
+		protected ImageDescriptor getImageDescriptor() {
 			int anchors = m_anchorsSupport.getCurrentAnchors(m_component, false);
 			IImageProvider imageProvider = getImageProvider();
 			switch (anchors) {
 			case AnchorsSupport.RESIZABLE :
-				return imageProvider.getImage("info/layout/groupLayout/v/both.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/both.gif");
 			case LEADING :
-				return imageProvider.getImage("info/layout/groupLayout/v/top.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/top.gif");
 			case TRAILING :
-				return imageProvider.getImage("info/layout/groupLayout/v/bottom.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/bottom.gif");
 			default :
-				return imageProvider.getImage("info/layout/groupLayout/v/default.gif");
+				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/default.gif");
 			}
 		}
 

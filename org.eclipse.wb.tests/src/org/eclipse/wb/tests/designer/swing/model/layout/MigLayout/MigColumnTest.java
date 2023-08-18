@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,8 +48,8 @@ public class MigColumnTest extends AbstractMigLayoutTest {
 	}
 
 	private static void checkAlignment(MigColumnInfo.Alignment alignment, String expectedText) {
-		assertNotNull(alignment.getSmallImage());
-		assertNotNull(alignment.getMenuImage());
+		assertNotNull(alignment.getSmallImageDescriptor());
+		assertNotNull(alignment.getMenuImageDescriptor());
 		assertEquals(expectedText, alignment.getText());
 	}
 

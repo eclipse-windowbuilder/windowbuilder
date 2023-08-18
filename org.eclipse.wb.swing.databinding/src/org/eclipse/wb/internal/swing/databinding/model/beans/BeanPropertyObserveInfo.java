@@ -57,10 +57,10 @@ public class BeanPropertyObserveInfo extends BeanObserveInfo implements IObserve
 				java.util.List.class.isAssignableFrom(getObjectClass())
 				? ObserveCreationType.ListProperty
 						: ObserveCreationType.AnyProperty;
-		ImageDescriptor beenImage = beanSupport.getBeanImage(getObjectClass(), null, false);
+		ImageDescriptor beenImage = beanSupport.getBeanImageDescriptor(getObjectClass(), null, false);
 		m_presentation =
 				new SimpleObservePresentation(text, text, beenImage == null
-				? TypeImageProvider.getImage(getObjectClass())
+				? TypeImageProvider.getImageDescriptor(getObjectClass())
 						: beenImage);
 		m_decorator = decorator;
 	}

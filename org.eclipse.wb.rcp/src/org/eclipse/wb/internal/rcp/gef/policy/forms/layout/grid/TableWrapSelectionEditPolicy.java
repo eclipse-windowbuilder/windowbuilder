@@ -121,8 +121,8 @@ AbstractGridSelectionEditPolicy {
 			if (horizontal) {
 				return new AbstractPopupFigure(viewer, 9, 5) {
 					@Override
-					protected ImageDescriptor getImage() {
-						return layoutData.getSmallAlignmentImage(true);
+					protected ImageDescriptor getImageDescriptor() {
+						return layoutData.getSmallAlignmentImageDescriptor(true);
 					}
 
 					@Override
@@ -133,8 +133,8 @@ AbstractGridSelectionEditPolicy {
 			} else {
 				return new AbstractPopupFigure(viewer, 5, 9) {
 					@Override
-					protected ImageDescriptor getImage() {
-						return layoutData.getSmallAlignmentImage(false);
+					protected ImageDescriptor getImageDescriptor() {
+						return layoutData.getSmallAlignmentImageDescriptor(false);
 					}
 
 					@Override

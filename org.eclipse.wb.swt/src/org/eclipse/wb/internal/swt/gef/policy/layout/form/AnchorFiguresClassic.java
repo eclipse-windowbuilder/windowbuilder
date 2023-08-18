@@ -217,7 +217,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 		}
 
 		@Override
-		protected ImageDescriptor getImage() {
+		protected ImageDescriptor getImageDescriptor() {
 			return m_layoutImpl.getAnchorActions().getImageHorizontal(m_widget, m_side);
 		}
 
@@ -237,7 +237,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 		}
 
 		@Override
-		protected ImageDescriptor getImage() {
+		protected ImageDescriptor getImageDescriptor() {
 			try {
 				return m_layoutImpl.getAnchorActions().getImageVertical(m_widget, m_side);
 			} catch (Throwable e) {

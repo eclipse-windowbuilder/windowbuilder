@@ -67,7 +67,7 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
 			String text,
 			Class<?> objectType,
 			String reference) {
-		this(beanSupport, parent, text, TypeImageProvider.getImage(objectType), objectType, reference);
+		this(beanSupport, parent, text, TypeImageProvider.getImageDescriptor(objectType), objectType, reference);
 	}
 
 	public PropertyBindableInfo(BeanSupport beanSupport,
@@ -78,7 +78,7 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
 		this(beanSupport,
 				parent,
 				text,
-				TypeImageProvider.getImage(objectType),
+				TypeImageProvider.getImageDescriptor(objectType),
 				objectType,
 				referenceProvider);
 	}

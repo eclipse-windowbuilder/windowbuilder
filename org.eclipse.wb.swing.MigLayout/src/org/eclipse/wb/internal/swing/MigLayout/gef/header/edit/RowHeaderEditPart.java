@@ -97,7 +97,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 				}
 				// draw alignment indicator
 				if (titleTop - r.y > 3 + 7 + 3) {
-					Image image = m_row.getAlignment(true).getSmallImage().createImage();
+					Image image = m_row.getAlignment(true).getSmallImageDescriptor().createImage();
 					int y = r.y + 2;
 					drawCentered(graphics, image, y);
 					image.dispose();

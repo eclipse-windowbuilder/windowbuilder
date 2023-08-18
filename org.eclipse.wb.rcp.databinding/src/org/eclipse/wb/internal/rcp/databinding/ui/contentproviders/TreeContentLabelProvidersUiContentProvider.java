@@ -429,7 +429,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 			}
 			//
 			TreePropertyWrapper wrapper = (TreePropertyWrapper) element;
-			return m_resourceManager.createImageWithDefault(TypeImageProvider.getImage(wrapper.descriptor.getPropertyType()));
+			return m_resourceManager.createImageWithDefault(TypeImageProvider.getImageDescriptor(wrapper.descriptor.getPropertyType()));
 		}
 
 		@Override

@@ -93,7 +93,7 @@ public abstract class AbstractPopupFigure extends Figure {
 		graphics.drawRectangle(clientArea.getResized(-1, -1));
 		// draw image
 		{
-			ImageDescriptor imageDescriptor = getImage();
+			ImageDescriptor imageDescriptor = getImageDescriptor();
 			if (imageDescriptor != null) {
 				Image image = imageDescriptor.createImage();
 				org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
@@ -113,7 +113,7 @@ public abstract class AbstractPopupFigure extends Figure {
 	/**
 	 * @return the image to display.
 	 */
-	protected abstract ImageDescriptor getImage();
+	protected abstract ImageDescriptor getImageDescriptor();
 
 	/**
 	 * Creates the actions on given {@link IMenuManager}.

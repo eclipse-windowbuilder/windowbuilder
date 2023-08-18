@@ -363,15 +363,15 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 		}
 
 		@Override
-		protected ImageDescriptor getImage() {
+		protected ImageDescriptor getImageDescriptor() {
 			boolean isLeftAttached = isAttached(m_widget, IPositionConstants.LEFT);
 			boolean isRightAttached = isAttached(m_widget, IPositionConstants.RIGHT);
 			if (isLeftAttached && isRightAttached) {
-				return getActionImage("h/both.gif");
+				return getActionImageDescriptor("h/both.gif");
 			} else if (isRightAttached) {
-				return getActionImage("h/right.gif");
+				return getActionImageDescriptor("h/right.gif");
 			} else {
-				return getActionImage("h/left.gif");
+				return getActionImageDescriptor("h/left.gif");
 			}
 		}
 
@@ -392,15 +392,15 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 		}
 
 		@Override
-		protected ImageDescriptor getImage() {
+		protected ImageDescriptor getImageDescriptor() {
 			boolean isTopAttached = isAttached(m_widget, IPositionConstants.TOP);
 			boolean isBottomAttached = isAttached(m_widget, IPositionConstants.BOTTOM);
 			if (isTopAttached && isBottomAttached) {
-				return getActionImage("v/both.gif");
+				return getActionImageDescriptor("v/both.gif");
 			} else if (isBottomAttached) {
-				return getActionImage("v/bottom.gif");
+				return getActionImageDescriptor("v/bottom.gif");
 			} else {
-				return getActionImage("v/top.gif");
+				return getActionImageDescriptor("v/top.gif");
 			}
 		}
 

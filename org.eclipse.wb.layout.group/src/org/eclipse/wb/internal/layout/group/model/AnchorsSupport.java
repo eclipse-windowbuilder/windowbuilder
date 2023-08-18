@@ -260,7 +260,7 @@ public final class AnchorsSupport implements LayoutConstants {
 				int alignment) {
 			super(component,
 					text,
-					getImageProvider().getImage("info/layout/groupLayout/" + imageName),
+					getImageProvider().getImageDescriptor("info/layout/groupLayout/" + imageName),
 					AS_CHECK_BOX);
 			m_isHorizontal = isHorizontal;
 			m_component = component;
@@ -291,7 +291,7 @@ public final class AnchorsSupport implements LayoutConstants {
 				boolean isHorizontal) {
 			super(component,
 					Messages.AnchorsSupport_autoResizable,
-					getImageProvider().getImage("info/layout/groupLayout/" + imageName),
+					getImageProvider().getImageDescriptor("info/layout/groupLayout/" + imageName),
 					AS_CHECK_BOX);
 			m_component = component;
 			m_isHorizontal = isHorizontal;
@@ -322,7 +322,7 @@ public final class AnchorsSupport implements LayoutConstants {
 					isHorizontal
 					? Messages.AnchorsSupport_resizableHorizontal
 							: Messages.AnchorsSupport_resizableVertical,
-							getImageProvider().getImage("info/layout/groupLayout/" + imageName),
+							getImageProvider().getImageDescriptor("info/layout/groupLayout/" + imageName),
 							AS_CHECK_BOX);
 			m_component = component;
 			m_isHorizontal = isHorizontal;

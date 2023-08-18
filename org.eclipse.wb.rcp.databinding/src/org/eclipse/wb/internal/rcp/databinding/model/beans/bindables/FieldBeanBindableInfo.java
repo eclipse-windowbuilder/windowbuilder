@@ -122,7 +122,7 @@ public final class FieldBeanBindableInfo extends BeanBindableInfo {
 			//
 			presentation.setJavaInfo(newJavaInfo);
 			presentation.setObjectType(componentClass);
-			presentation.setBeanImage(getBeanSupport().getBeanImage(componentClass, newJavaInfo));
+			presentation.setBeanImage(getBeanSupport().getBeanImageDescriptor(componentClass, newJavaInfo));
 			//
 			if (m_hostJavaInfo != null) {
 				m_hostJavaInfo = newJavaInfo;

@@ -445,7 +445,7 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
+	public ImageDescriptor getSmallAlignmentImageDescriptor(boolean horizontal) {
 		if (horizontal) {
 			switch (horizontalAlignment) {
 			case TableWrapData.LEFT :

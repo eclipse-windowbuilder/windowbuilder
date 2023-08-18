@@ -97,7 +97,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 				}
 				// draw alignment indicator
 				if (titleLeft - r.x > 3 + 7 + 3) {
-					Image image = m_column.getAlignment(true).getSmallImage().createImage();
+					Image image = m_column.getAlignment(true).getSmallImageDescriptor().createImage();
 					int x = r.x + 2;
 					drawCentered(graphics, image, x);
 					image.dispose();

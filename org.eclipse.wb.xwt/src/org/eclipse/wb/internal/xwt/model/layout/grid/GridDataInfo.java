@@ -473,7 +473,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
+	public ImageDescriptor getSmallAlignmentImageDescriptor(boolean horizontal) {
 		if (horizontal) {
 			switch (horizontalAlignment) {
 			case SWT.LEFT :

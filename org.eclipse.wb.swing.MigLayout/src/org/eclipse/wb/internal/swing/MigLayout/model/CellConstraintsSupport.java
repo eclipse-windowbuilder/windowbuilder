@@ -839,11 +839,11 @@ public final class CellConstraintsSupport {
 	 * @return the small {@link ImageDescriptor} that represents horizontal/vertical
 	 *         alignment.
 	 */
-	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
+	public ImageDescriptor getSmallAlignmentImageDescriptor(boolean horizontal) {
 		if (horizontal) {
-			return getHorizontalAlignment().getSmallImage();
+			return getHorizontalAlignment().getSmallImageDescriptor();
 		} else {
-			return getVerticalAlignment().getSmallImage();
+			return getVerticalAlignment().getSmallImageDescriptor();
 		}
 	}
 
@@ -935,7 +935,7 @@ public final class CellConstraintsSupport {
 		public SetHorizontalAlignmentAction(String text, MigColumnInfo.Alignment alignment) {
 			super(m_layout, text, AS_RADIO_BUTTON);
 			m_alignment = alignment;
-			setImageDescriptor(alignment.getMenuImage());
+			setImageDescriptor(alignment.getMenuImageDescriptor());
 			// set check for current alignment
 			setChecked(getHorizontalAlignment() == m_alignment);
 		}
@@ -970,7 +970,7 @@ public final class CellConstraintsSupport {
 		public SetVerticalAlignmentAction(String text, MigRowInfo.Alignment alignment) {
 			super(m_layout, text, AS_RADIO_BUTTON);
 			m_alignment = alignment;
-			setImageDescriptor(alignment.getMenuImage());
+			setImageDescriptor(alignment.getMenuImageDescriptor());
 			// set check for current alignment
 			setChecked(getVerticalAlignment() == m_alignment);
 		}

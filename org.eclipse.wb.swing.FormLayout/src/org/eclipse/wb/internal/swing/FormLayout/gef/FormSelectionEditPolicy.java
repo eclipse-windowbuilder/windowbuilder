@@ -118,8 +118,8 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
 		if (horizontal) {
 			return new AbstractPopupFigure(viewer, 9, 5) {
 				@Override
-				protected ImageDescriptor getImage() {
-					return constraints.getSmallAlignmentImage(true);
+				protected ImageDescriptor getImageDescriptor() {
+					return constraints.getSmallAlignmentImageDescriptor(true);
 				}
 
 				@Override
@@ -130,8 +130,8 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
 		} else {
 			return new AbstractPopupFigure(viewer, 5, 9) {
 				@Override
-				protected ImageDescriptor getImage() {
-					return constraints.getSmallAlignmentImage(false);
+				protected ImageDescriptor getImageDescriptor() {
+					return constraints.getSmallAlignmentImageDescriptor(false);
 				}
 
 				@Override

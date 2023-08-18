@@ -32,7 +32,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
@@ -523,9 +522,9 @@ public final class CellConstraintsSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the small {@link Image} that represents horizontal/vertical alignment.
+	 * @return the small {@link ImageDescriptor} that represents horizontal/vertical alignment.
 	 */
-	public ImageDescriptor getSmallAlignmentImage(boolean horizontal) {
+	public ImageDescriptor getSmallAlignmentImageDescriptor(boolean horizontal) {
 		if (horizontal) {
 			if (alignH == CellConstraints.LEFT) {
 				return Activator.getImageDescriptor("alignment/h/left.gif");

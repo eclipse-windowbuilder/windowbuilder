@@ -40,7 +40,7 @@ public final class MigColumnInfo extends MigDimensionInfo {
 		/**
 		 * @return the small image (5x9) to display current alignment to user.
 		 */
-		public ImageDescriptor getSmallImage() {
+		public ImageDescriptor getSmallImageDescriptor() {
 			String pattern = "alignment/h/small/{0}.gif";
 			String path = MessageFormat.format(pattern, name().toLowerCase());
 			return Activator.getImageDescriptor(path);
@@ -49,7 +49,7 @@ public final class MigColumnInfo extends MigDimensionInfo {
 		/**
 		 * @return the big image (16x16) to display for user in menu.
 		 */
-		public ImageDescriptor getMenuImage() {
+		public ImageDescriptor getMenuImageDescriptor() {
 			String pattern = "alignment/h/menu/{0}.gif";
 			String path = MessageFormat.format(pattern, name().toLowerCase());
 			return Activator.getImageDescriptor(path);

@@ -413,7 +413,7 @@ public final class BeanSupport {
 	/**
 	 * @return {@link ImageDescriptor} represented given bean class.
 	 */
-	public ImageDescriptor getBeanImage(Class<?> beanClass, ObjectInfo javaInfo) throws Exception {
+	public ImageDescriptor getBeanImageDescriptor(Class<?> beanClass, ObjectInfo javaInfo) throws Exception {
 		// check java info
 		if (javaInfo != null) {
 			return null;

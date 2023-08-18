@@ -50,7 +50,7 @@ ILayoutAssistantPage {
 	private final List<C> m_selection;
 	private final IFormLayoutInfo<C> m_layout;
 	private final PlacementsSupport m_placementsSupport;
-	private final IActionImageProvider m_imageProvider = FormLayoutInfoImplAutomatic::getImage;
+	private final IActionImageProvider m_imageProvider = FormLayoutInfoImplAutomatic::getImageDescriptor;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -201,7 +201,7 @@ ILayoutAssistantPage {
 		private final List<C> m_widgets;
 
 		private SetCornerAnchorsAction(List<C> selection, String text, String imageName, int alignment) {
-			super(m_layout.getUnderlyingModel(), text, m_imageProvider.getActionImage(imageName));
+			super(m_layout.getUnderlyingModel(), text, m_imageProvider.getActionImageDescriptor(imageName));
 			m_widgets = selection;
 			m_alignment = alignment;
 		}

@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
-import org.eclipse.swt.graphics.Image;
 
 import java.util.Iterator;
 
@@ -32,11 +31,6 @@ import java.util.Iterator;
  * @coverage bindings.model
  */
 public abstract class JavaInfoDecorator {
-	/**
-	 * @deprecated Use {@link #IMAGE_DESCRIPTOR} instead.
-	 */
-	@Deprecated
-	public static final Image IMAGE = Activator.getImage("decorator.gif");
 	public static final ImageDescriptor IMAGE_DESCRIPTOR = Activator.getImageDescriptor("decorator.gif");
 	private final IDatabindingsProvider m_provider;
 

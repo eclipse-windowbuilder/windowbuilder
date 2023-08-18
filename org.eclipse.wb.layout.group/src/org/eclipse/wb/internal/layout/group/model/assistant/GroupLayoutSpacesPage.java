@@ -141,7 +141,7 @@ LayoutConstants {
 		ToolBar toolBar = new ToolBar(parent, SWT.FLAT | SWT.RIGHT);
 		ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
 		Image image = m_layout.getAdapter(IImageProvider.class) //
-				.getImage("info/layout/groupLayout/clear.gif") //
+				.getImageDescriptor("info/layout/groupLayout/clear.gif") //
 				.createImage();
 		toolItem.addDisposeListener(event -> image.dispose());
 		toolItem.setImage(image);

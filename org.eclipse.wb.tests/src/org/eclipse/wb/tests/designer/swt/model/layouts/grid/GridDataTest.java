@@ -289,7 +289,7 @@ public class GridDataTest extends RcpModelTest {
 			} else {
 				gridData.setVerticalAlignment(alignment);
 			}
-			assertSame(expectedImage, gridData.getSmallAlignmentImage(horizontal));
+			assertSame(expectedImage, gridData.getSmallAlignmentImageDescriptor(horizontal));
 		}
 	}
 
@@ -313,8 +313,8 @@ public class GridDataTest extends RcpModelTest {
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		GridDataInfo gridData = getGridData(button);
-		assertSame(null, gridData.getSmallAlignmentImage(true));
-		assertSame(null, gridData.getSmallAlignmentImage(false));
+		assertSame(null, gridData.getSmallAlignmentImageDescriptor(true));
+		assertSame(null, gridData.getSmallAlignmentImageDescriptor(false));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

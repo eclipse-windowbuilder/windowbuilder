@@ -34,13 +34,13 @@ IObservePresentationDecorator {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public final ImageDescriptor getImageDescriptor() throws Exception {
-		return m_decorateImage == null ? getInternalImage() : m_decorateImage;
+		return m_decorateImage == null ? getInternalImageDescriptor() : m_decorateImage;
 	}
 
 	/**
 	 * @return {@link ImageDescriptor} for displaying and decorate.
 	 */
-	protected abstract ImageDescriptor getInternalImage() throws Exception;
+	protected abstract ImageDescriptor getInternalImageDescriptor() throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -50,7 +50,7 @@ IObservePresentationDecorator {
 	@Override
 	public final void setBindingDecorator(int corner) throws Exception {
 		if (corner != 0) {
-			ImageDescriptor image = getInternalImage();
+			ImageDescriptor image = getInternalImageDescriptor();
 			if (image != null) {
 				m_decorateImage = new DecorationOverlayIcon(image, JavaInfoDecorator.IMAGE_DESCRIPTOR, corner);
 			}
