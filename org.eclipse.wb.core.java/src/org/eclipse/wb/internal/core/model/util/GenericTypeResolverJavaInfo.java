@@ -52,8 +52,7 @@ public class GenericTypeResolverJavaInfo extends GenericTypeResolver {
 	private static Map<String, String> getTypeArguments(JavaInfo javaInfo) throws Exception {
 		Map<String, String> typeArguments = Maps.newHashMap();
 		ASTNode node = javaInfo.getCreationSupport().getNode();
-		if (node instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) node;
+		if (node instanceof ClassInstanceCreation creation) {
 			if (creation.getType() instanceof ParameterizedType) {
 				ParameterizedType parameterizedType = (ParameterizedType) creation.getType();
 				ITypeBinding binding = AstNodeUtils.getTypeBinding(parameterizedType);

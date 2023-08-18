@@ -72,8 +72,7 @@ public final class RemoveCommand extends Command {
 		// remove other commands, these are not needed because this entry will be deleted
 		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
 			Command command = I.next();
-			if (command instanceof LookAndFeelCommand) {
-				LookAndFeelCommand lookAndFeelCommand = (LookAndFeelCommand) command;
+			if (command instanceof LookAndFeelCommand lookAndFeelCommand) {
 				if (lookAndFeelCommand.m_id.equals(m_id)) {
 					I.remove();
 				}

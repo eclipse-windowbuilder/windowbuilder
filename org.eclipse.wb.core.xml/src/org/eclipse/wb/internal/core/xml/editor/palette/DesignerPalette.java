@@ -535,8 +535,7 @@ public class DesignerPalette {
 		public void editEntry(ToolEntryInfo targetEntry) {
 			AbstractPaletteElementDialog dialog = null;
 			// prepare editing dialog
-			if (targetEntry instanceof ComponentEntryInfo) {
-				ComponentEntryInfo entryInfo = (ComponentEntryInfo) targetEntry;
+			if (targetEntry instanceof ComponentEntryInfo entryInfo) {
 				dialog = new ComponentEditDialog(getShell(), m_rootObject.getContext(), entryInfo);
 			}
 			// execute dialog

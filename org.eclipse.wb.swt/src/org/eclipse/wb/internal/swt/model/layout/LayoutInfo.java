@@ -109,10 +109,9 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 			public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
 					throws Exception {
 				// add new LayoutData - remove existing one
-				if (parent instanceof ControlInfo
+				if (parent instanceof ControlInfo control
 						&& child instanceof LayoutDataInfo
 						&& isActiveOnComposite(parent.getParent())) {
-					ControlInfo control = (ControlInfo) parent;
 					LayoutDataInfo existingLayoutData = getLayoutData(control);
 					if (existingLayoutData != null) {
 						control.removeChild(existingLayoutData);
@@ -153,16 +152,14 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 			@Override
 			public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
 				// delete layout data - create virtual
-				if (parent instanceof ControlInfo
+				if (parent instanceof ControlInfo control
 						&& child instanceof LayoutDataInfo
 						&& shouldCreateLayoutData((ControlInfo) parent)
 						&& isActiveOnComposite(parent.getParent())) {
-					ControlInfo control = (ControlInfo) parent;
 					ensureLayoutData(control);
 				}
 				// delete ControlInfo from this composite
-				if (isActiveOnComposite(parent) && child instanceof ControlInfo) {
-					ControlInfo control = (ControlInfo) child;
+				if (isActiveOnComposite(parent) && child instanceof ControlInfo control) {
 					if (control.isDeleted()) {
 						onControlRemoveAfter(control);
 					}
@@ -183,9 +180,8 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 					throws Exception {
 				// move ControlInfo FROM this composite
 				if (isActiveOnComposite(oldParent)
-						&& child instanceof ControlInfo
+						&& child instanceof ControlInfo control
 						&& newParent != oldParent) {
-					ControlInfo control = (ControlInfo) child;
 					onControlRemoveBefore(control);
 					deleteLayoutData(control);
 				}
@@ -325,10 +321,9 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 
 	@Override
 	public boolean isManagedObject(Object object) {
-		if (object instanceof ControlInfo
+		if (object instanceof ControlInfo control
 				&& isActive()
 				&& getComposite().getChildren().contains(object)) {
-			ControlInfo control = (ControlInfo) object;
 			if (JavaInfoUtils.isIndirectlyExposed(control)) {
 				return false;
 			}

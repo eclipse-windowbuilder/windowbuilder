@@ -51,8 +51,7 @@ public final class SimpleNameEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof SimpleName) {
-			SimpleName simpleName = (SimpleName) expression;
+		if (expression instanceof SimpleName simpleName) {
 			// try to find field in super Class or implemented interface
 			{
 				Object value = evaluateAsConstant(context, simpleName);

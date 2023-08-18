@@ -48,8 +48,7 @@ public final class IntegerEvaluator implements IExpressionEvaluator {
 		// integer expression
 		if ("int".equals(typeQualifiedName)) {
 			// single number literal
-			if (expression instanceof NumberLiteral) {
-				NumberLiteral numberLiteral = (NumberLiteral) expression;
+			if (expression instanceof NumberLiteral numberLiteral) {
 				String token = numberLiteral.getToken();
 				// hex
 				if (token.startsWith("0x")) {
@@ -63,8 +62,7 @@ public final class IntegerEvaluator implements IExpressionEvaluator {
 				return Integer.valueOf(token);
 			}
 			// prefix expression (+, -, ~)
-			if (expression instanceof PrefixExpression) {
-				PrefixExpression prefixExpression = (PrefixExpression) expression;
+			if (expression instanceof PrefixExpression prefixExpression) {
 				PrefixExpression.Operator operator = prefixExpression.getOperator();
 				//
 				Expression operand = prefixExpression.getOperand();
@@ -83,8 +81,7 @@ public final class IntegerEvaluator implements IExpressionEvaluator {
 				}
 			}
 			// postfix expression (++, --)
-			if (expression instanceof PostfixExpression) {
-				PostfixExpression postfixExpression = (PostfixExpression) expression;
+			if (expression instanceof PostfixExpression postfixExpression) {
 				PostfixExpression.Operator operator = postfixExpression.getOperator();
 				//
 				Expression operand = postfixExpression.getOperand();
@@ -106,8 +103,7 @@ public final class IntegerEvaluator implements IExpressionEvaluator {
 				}
 			}
 			// infix expression (+, -, *, /, %, |, &)
-			if (expression instanceof InfixExpression) {
-				InfixExpression infixExpression = (InfixExpression) expression;
+			if (expression instanceof InfixExpression infixExpression) {
 				// prepare operands
 				int operands[];
 				{
@@ -171,8 +167,7 @@ public final class IntegerEvaluator implements IExpressionEvaluator {
 			throws Exception {
 		Object value = AstEvaluationEngine.evaluate(context, expression);
 		// Character
-		if (value instanceof Character) {
-			Character character = (Character) value;
+		if (value instanceof Character character) {
 			return character.charValue();
 		}
 		// Number

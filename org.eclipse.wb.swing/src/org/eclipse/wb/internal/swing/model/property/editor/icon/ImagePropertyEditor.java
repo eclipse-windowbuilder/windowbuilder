@@ -76,8 +76,7 @@ public final class ImagePropertyEditor extends TextDialogPropertyEditor {
 		}
 		//
 		expression = getFinalExpression(javaInfo, expression);
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			if (AstNodeUtils.isMethodInvocation(
 					invocation,
 					"java.awt.Toolkit",
@@ -89,8 +88,7 @@ public final class ImagePropertyEditor extends TextDialogPropertyEditor {
 			if (AstNodeUtils.isMethodInvocation(invocation, "java.awt.Toolkit", "getImage(java.net.URL)")) {
 				Expression urlExpression = DomGenerics.arguments(invocation).get(0);
 				urlExpression = getFinalExpression(javaInfo, urlExpression);
-				if (urlExpression instanceof MethodInvocation) {
-					MethodInvocation urlInvocation = (MethodInvocation) urlExpression;
+				if (urlExpression instanceof MethodInvocation urlInvocation) {
 					boolean fromClass =
 							AstNodeUtils.isMethodInvocation(
 									urlInvocation,

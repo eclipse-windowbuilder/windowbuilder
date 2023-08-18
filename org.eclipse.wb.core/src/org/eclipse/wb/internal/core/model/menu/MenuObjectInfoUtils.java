@@ -114,8 +114,7 @@ public final class MenuObjectInfoUtils {
 			return isParentChild(((IMenuItemInfo) parent).getMenu(), child);
 		}
 		// menu
-		if (parent instanceof IMenuInfo) {
-			IMenuInfo parentMenu = (IMenuInfo) parent;
+		if (parent instanceof IMenuInfo parentMenu) {
 			for (IMenuItemInfo item : parentMenu.getItems()) {
 				if (isParentChild(item, child)) {
 					return true;

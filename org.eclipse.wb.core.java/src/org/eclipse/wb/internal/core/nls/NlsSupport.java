@@ -458,9 +458,7 @@ public final class NlsSupport {
 		for (AbstractCommand command : commands) {
 			IEditableSource editableSource = command.getEditableSource();
 			// create source
-			if (command instanceof CreateSourceCommand) {
-				// create new source
-				CreateSourceCommand cmd = (CreateSourceCommand) command;
+			if (command instanceof CreateSourceCommand cmd) {
 				AbstractSource newSource =
 						cmd.getSourceDescription().createNewSource(editableSource, m_root, cmd.getParameters());
 				// add new source in containers
@@ -472,38 +470,31 @@ public final class NlsSupport {
 			// prepare source for editable source
 			AbstractSource source = getAttachedSource(editable, editableSource);
 			// set values
-			if (command instanceof SetValuesCommand) {
-				SetValuesCommand cmd = (SetValuesCommand) command;
+			if (command instanceof SetValuesCommand cmd) {
 				source.apply_setValues(cmd.getLocale(), cmd.getValues());
 			}
 			// rename key
-			if (command instanceof RenameKeyCommand) {
-				RenameKeyCommand cmd = (RenameKeyCommand) command;
+			if (command instanceof RenameKeyCommand cmd) {
 				source.apply_renameKeys(cmd.getOldToNewMap());
 			}
 			// add key
-			if (command instanceof AddKeyCommand) {
-				AddKeyCommand cmd = (AddKeyCommand) command;
+			if (command instanceof AddKeyCommand cmd) {
 				source.apply_addKey(cmd.getKey());
 			}
 			// externalize property
-			if (command instanceof ExternalizePropertyCommand) {
-				ExternalizePropertyCommand cmd = (ExternalizePropertyCommand) command;
+			if (command instanceof ExternalizePropertyCommand cmd) {
 				source.apply_externalizeProperty(cmd.getProperty(), cmd.getKey());
 			}
 			// internalize keys
-			if (command instanceof InternalizeKeyCommand) {
-				InternalizeKeyCommand cmd = (InternalizeKeyCommand) command;
+			if (command instanceof InternalizeKeyCommand cmd) {
 				source.apply_internalizeKeys(cmd.getKeys());
 			}
 			// add locale
-			if (command instanceof AddLocaleCommand) {
-				AddLocaleCommand cmd = (AddLocaleCommand) command;
+			if (command instanceof AddLocaleCommand cmd) {
 				source.apply_addLocale(cmd.getLocale(), cmd.getValues());
 			}
 			// remove locale
-			if (command instanceof RemoveLocaleCommand) {
-				RemoveLocaleCommand cmd = (RemoveLocaleCommand) command;
+			if (command instanceof RemoveLocaleCommand cmd) {
 				source.apply_removeLocale(cmd.getLocale());
 			}
 		}

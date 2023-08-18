@@ -285,8 +285,7 @@ public final class ExecutionFlowUtils {
 		List<BodyDeclaration> bodyDeclarations = DomGenerics.bodyDeclarations(typeDeclaration);
 		for (BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			boolean isStatic = isStatic(bodyDeclaration);
-			if (bodyDeclaration instanceof Initializer && context != null) {
-				Initializer initializer = (Initializer) bodyDeclaration;
+			if (bodyDeclaration instanceof Initializer initializer && context != null) {
 				if (onlyStatic && isStatic) {
 					visitStatement(context, flowDescription, initializer.getBody(), visitor);
 				}
@@ -333,8 +332,7 @@ public final class ExecutionFlowUtils {
 			Statement statement,
 			ExecutionFlowFrameVisitor visitor) {
 		visitor.m_currentStatement = statement;
-		if (statement instanceof Block) {
-			Block block = (Block) statement;
+		if (statement instanceof Block block) {
 			if (visitor.enterFrame(block)) {
 				//
 				for (Statement childStatement : DomGenerics.statements(block)) {
@@ -343,11 +341,9 @@ public final class ExecutionFlowUtils {
 				//
 				visitor.leaveFrame(block);
 			}
-		} else if (statement instanceof TryStatement) {
-			TryStatement tryStatement = (TryStatement) statement;
+		} else if (statement instanceof TryStatement tryStatement) {
 			visitStatement(context, flowDescription, tryStatement.getBody(), visitor);
-		} else if (statement instanceof IfStatement) {
-			IfStatement ifStatement = (IfStatement) statement;
+		} else if (statement instanceof IfStatement ifStatement) {
 			if (shouldVisit_IfStatement_Then(ifStatement)) {
 				visitStatement(context, flowDescription, ifStatement.getThenStatement(), visitor);
 			} else if (ifStatement.getElseStatement() != null
@@ -472,8 +468,7 @@ public final class ExecutionFlowUtils {
 	private static boolean shouldVisit_IfStatement_Then(IfStatement ifStatement) {
 		Expression expression = ifStatement.getExpression();
 		// if (true) {}
-		if (expression instanceof BooleanLiteral) {
-			BooleanLiteral literal = (BooleanLiteral) expression;
+		if (expression instanceof BooleanLiteral literal) {
 			return literal.booleanValue();
 		}
 		// if (Beans.isDesignTime()) {}
@@ -500,13 +495,11 @@ public final class ExecutionFlowUtils {
 	private static boolean shouldVisit_IfStatement_Else(IfStatement ifStatement) {
 		Expression expression = ifStatement.getExpression();
 		// if (false) {}
-		if (expression instanceof BooleanLiteral) {
-			BooleanLiteral literal = (BooleanLiteral) expression;
+		if (expression instanceof BooleanLiteral literal) {
 			return !literal.booleanValue();
 		}
 		// if (!Beans.isDesignTime()) {}
-		if (expression instanceof PrefixExpression) {
-			PrefixExpression prefixExpression = (PrefixExpression) expression;
+		if (expression instanceof PrefixExpression prefixExpression) {
 			if (prefixExpression.getOperator() == PrefixExpression.Operator.NOT
 					&& AstNodeUtils.isMethodInvocation(prefixExpression.getOperand(), "isDesignTime()")) {
 				return true;
@@ -740,8 +733,7 @@ public final class ExecutionFlowUtils {
 			@Override
 			public void postVisit(ASTNode node) {
 				// store assignment for variable usage
-				if (node instanceof Expression && isVariable(node)) {
-					Expression variable = (Expression) node;
+				if (node instanceof Expression variable && isVariable(node)) {
 					variable.setProperty(KEY_LAST_VARIABLE_STAMP, assignmentStamp);
 					executionFlowContext.storeAssignments(variable);
 				}
@@ -760,8 +752,7 @@ public final class ExecutionFlowUtils {
 				if (isFrameNode(node)) {
 					enterFrame(node);
 					// visit all fields on enter TypeDeclaration
-					if (node instanceof TypeDeclaration) {
-						TypeDeclaration typeDeclaration = (TypeDeclaration) node;
+					if (node instanceof TypeDeclaration typeDeclaration) {
 						visitFields(this, typeDeclaration, true);
 						visitFields(this, typeDeclaration, false);
 					}
@@ -779,8 +770,7 @@ public final class ExecutionFlowUtils {
 						executionFlowContext.storeReferences((Expression) node);
 					}
 					// special support for "instanceOfTopType.field"
-					if (node instanceof QualifiedName) {
-						QualifiedName qualifiedName = (QualifiedName) node;
+					if (node instanceof QualifiedName qualifiedName) {
 						CompilationUnit unit = (CompilationUnit) qualifiedName.getRoot();
 						TypeDeclaration topType = (TypeDeclaration) unit.types().get(0);
 						if (qualifiedName.getQualifier().resolveTypeBinding() == topType.resolveBinding()) {
@@ -829,8 +819,7 @@ public final class ExecutionFlowUtils {
 		@Override
 		public boolean enterFrame(ASTNode node) {
 			executionFlowContext.enterFrame(node);
-			if (node instanceof MethodDeclaration) {
-				MethodDeclaration methodDeclaration = (MethodDeclaration) node;
+			if (node instanceof MethodDeclaration methodDeclaration) {
 				for (SingleVariableDeclaration parameter : DomGenerics.parameters(methodDeclaration)) {
 					executionFlowContext.define(parameter);
 				}
@@ -851,8 +840,7 @@ public final class ExecutionFlowUtils {
 		@Override
 		public void preVisit(ASTNode node) {
 			// "pre" visit because we should visit declaration before SimpleName
-			if (node instanceof VariableDeclaration) {
-				VariableDeclaration variableDeclaration = (VariableDeclaration) node;
+			if (node instanceof VariableDeclaration variableDeclaration) {
 				executionFlowContext.define(variableDeclaration);
 			}
 		}
@@ -1077,11 +1065,9 @@ public final class ExecutionFlowUtils {
 			{
 				// prepare initializer
 				Expression initializer = null;
-				if (node instanceof VariableDeclaration) {
-					VariableDeclaration declaration = (VariableDeclaration) node;
+				if (node instanceof VariableDeclaration declaration) {
 					initializer = declaration.getInitializer();
-				} else if (node instanceof Assignment) {
-					Assignment assignment = (Assignment) node;
+				} else if (node instanceof Assignment assignment) {
 					initializer = assignment.getRightHandSide();
 				}
 				// add assignment to the list

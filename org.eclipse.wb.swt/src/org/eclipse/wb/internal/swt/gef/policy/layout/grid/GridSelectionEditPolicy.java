@@ -188,8 +188,7 @@ AbstractGridSelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		if (request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (request instanceof KeyRequest keyRequest) {
 			if (keyRequest.isPressed()) {
 				char c = keyRequest.getCharacter();
 				// FILL_BOTH

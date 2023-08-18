@@ -73,8 +73,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
 		m_layout.addBroadcastListener(new ObjectInfoDelete() {
 			@Override
 			public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-				if (parent instanceof JavaInfo) {
-					JavaInfo parentJava = (JavaInfo) parent;
+				if (parent instanceof JavaInfo parentJava) {
 					// don't do any processing if parent is deleting.
 					if (!parentJava.isDeleting()) {
 						if (isOurChild(parent, child) && child instanceof AbstractComponentInfo) {

@@ -64,8 +64,7 @@ public final class JavaInfoReferenceProvider implements IReferenceProvider {
 	public static String getReference(JavaInfo javaInfo) throws Exception {
 		VariableSupport variableSupport = javaInfo.getVariableSupport();
 		// handle lazy
-		if (LAZY_DETECTED && variableSupport instanceof LazyVariableSupport) {
-			LazyVariableSupport lazyVariableSupport = (LazyVariableSupport) variableSupport;
+		if (LAZY_DETECTED && variableSupport instanceof LazyVariableSupport lazyVariableSupport) {
 			return lazyVariableSupport.getAccessorReferenceExpression();
 		}
 		// handle this

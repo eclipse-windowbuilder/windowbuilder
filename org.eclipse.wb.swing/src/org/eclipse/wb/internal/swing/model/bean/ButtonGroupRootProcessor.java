@@ -41,8 +41,7 @@ public final class ButtonGroupRootProcessor implements IRootProcessor {
 	@Override
 	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
 		for (JavaInfo javaInfo : components) {
-			if (javaInfo instanceof ButtonGroupInfo) {
-				ButtonGroupInfo buttonGroupInfo = (ButtonGroupInfo) javaInfo;
+			if (javaInfo instanceof ButtonGroupInfo buttonGroupInfo) {
 				buttonGroupInfo.setAssociation(new EmptyAssociation());
 				ButtonGroupContainerInfo.get(root).addChild(buttonGroupInfo);
 			}

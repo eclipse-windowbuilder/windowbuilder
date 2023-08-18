@@ -104,8 +104,7 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
 				m_validators.put(methodName, validator);
 				//
 				IModelSupport modelSupport = resolver.getModelSupport(invocation.getExpression());
-				if (modelSupport instanceof StrategyModelSupport) {
-					StrategyModelSupport strategyModelSupport = (StrategyModelSupport) modelSupport;
+				if (modelSupport instanceof StrategyModelSupport strategyModelSupport) {
 					strategyModelSupport.addInvocation(invocation);
 				}
 			}

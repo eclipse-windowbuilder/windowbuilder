@@ -35,10 +35,9 @@ public final class PropertiesClipboardCommand extends ClipboardCommand {
 	////////////////////////////////////////////////////////////////////////////
 	public PropertiesClipboardCommand(JavaInfo javaInfo) throws Exception {
 		for (Property property : javaInfo.getProperties()) {
-			if (property instanceof GenericPropertyImpl
+			if (property instanceof GenericPropertyImpl genericProperty
 					&& !property.getCategory().isSystem()
 					&& property.isModified()) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
 				String clipboardSource = genericProperty.getClipboardSource();
 				if (clipboardSource != null) {
 					m_propertyTitleToSource.put(property.getTitle(), clipboardSource);
@@ -55,8 +54,7 @@ public final class PropertiesClipboardCommand extends ClipboardCommand {
 	@Override
 	public void execute(JavaInfo javaInfo) throws Exception {
 		for (Property property : javaInfo.getProperties()) {
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				String clipboardSource = m_propertyTitleToSource.get(property.getTitle());
 				if (clipboardSource != null) {
 					genericProperty.setExpression(clipboardSource, Property.UNKNOWN_VALUE);

@@ -50,8 +50,7 @@ public class ObserveTreeContentProvider implements ITreeContentProvider {
 			return (Object[]) input;
 		}
 		// case collection
-		if (input instanceof List<?>) {
-			List<?> listInput = (List<?>) input;
+		if (input instanceof List<?> listInput) {
 			return listInput.toArray();
 		}
 		// case direct object

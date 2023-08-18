@@ -410,8 +410,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
 			int[] events = ArrayUtils.EMPTY_INT_ARRAY;
 			if (arguments.length == 1) {
 				Object objectValue = CoreUtils.evaluateObject(editor, arguments[0]);
-				if (objectValue instanceof Integer) {
-					Integer value = (Integer) objectValue;
+				if (objectValue instanceof Integer value) {
 					events = new int[]{value.intValue()};
 				} else if (objectValue instanceof int[]) {
 					events = (int[]) objectValue;

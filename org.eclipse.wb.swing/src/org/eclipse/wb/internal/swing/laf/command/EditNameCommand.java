@@ -64,8 +64,7 @@ public class EditNameCommand extends LookAndFeelCommand {
 		// remove other edit commands for this
 		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
 			Command command = I.next();
-			if (command instanceof EditNameCommand) {
-				EditNameCommand editCommand = (EditNameCommand) command;
+			if (command instanceof EditNameCommand editCommand) {
 				if (editCommand.m_id.equals(m_id)) {
 					I.remove();
 				}

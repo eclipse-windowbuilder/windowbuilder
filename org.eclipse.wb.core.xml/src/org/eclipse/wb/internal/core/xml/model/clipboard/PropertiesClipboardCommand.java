@@ -45,8 +45,7 @@ public final class PropertiesClipboardCommand extends ClipboardCommand {
 					m_propertyTitleToSource.put(title, clipboardSource);
 				}
 			}
-			if (property instanceof IClipboardObjectProperty) {
-				IClipboardObjectProperty objectProperty = (IClipboardObjectProperty) property;
+			if (property instanceof IClipboardObjectProperty objectProperty) {
 				Object value = objectProperty.getClipboardObject();
 				if (value != Property.UNKNOWN_VALUE) {
 					m_propertyTitleToObject.put(title, value);
@@ -64,15 +63,13 @@ public final class PropertiesClipboardCommand extends ClipboardCommand {
 	public void execute(XmlObjectInfo object) throws Exception {
 		for (Property property : object.getProperties()) {
 			String title = property.getTitle();
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				String clipboardSource = m_propertyTitleToSource.get(title);
 				if (clipboardSource != null) {
 					genericProperty.setExpression(clipboardSource, Property.UNKNOWN_VALUE);
 				}
 			}
-			if (property instanceof IClipboardObjectProperty) {
-				IClipboardObjectProperty objectProperty = (IClipboardObjectProperty) property;
+			if (property instanceof IClipboardObjectProperty objectProperty) {
 				Object value = m_propertyTitleToObject.get(title);
 				if (value != null) {
 					objectProperty.setClipboardObject(value);

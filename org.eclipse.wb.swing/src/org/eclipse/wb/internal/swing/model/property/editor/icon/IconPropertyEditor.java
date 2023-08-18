@@ -77,8 +77,7 @@ public final class IconPropertyEditor extends TextDialogPropertyEditor {
 		}
 		//
 		expression = getFinalExpression(javaInfo, expression);
-		if (expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+		if (expression instanceof ClassInstanceCreation creation) {
 			// absolute path
 			if (AstNodeUtils.isCreation(creation, "javax.swing.ImageIcon", new String[]{
 					"<init>(java.lang.String)",
@@ -93,8 +92,7 @@ public final class IconPropertyEditor extends TextDialogPropertyEditor {
 			"<init>(java.net.URL,java.lang.String)"})) {
 				Expression urlExpression = DomGenerics.arguments(creation).get(0);
 				urlExpression = getFinalExpression(javaInfo, urlExpression);
-				if (urlExpression instanceof MethodInvocation) {
-					MethodInvocation urlInvocation = (MethodInvocation) urlExpression;
+				if (urlExpression instanceof MethodInvocation urlInvocation) {
 					boolean fromClass =
 							AstNodeUtils.isMethodInvocation(
 									urlInvocation,

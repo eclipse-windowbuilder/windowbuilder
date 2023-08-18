@@ -73,8 +73,7 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
 			throws Exception {
 		// bind {@link ResourceRegistryInfo}'s into hierarchy.
 		for (JavaInfo javaInfo : components) {
-			if (javaInfo instanceof ResourceRegistryInfo) {
-				ResourceRegistryInfo resourceRegistryInfo = (ResourceRegistryInfo) javaInfo;
+			if (javaInfo instanceof ResourceRegistryInfo resourceRegistryInfo) {
 				RegistryContainerInfo.get(root).addChild(resourceRegistryInfo);
 			}
 		}
@@ -95,10 +94,9 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
 		EditorState editorState = EditorState.get(javaInfo.getEditor());
 		// SWT utilities require "activeJavaInfo"
 		ObjectInfo activeObject = GlobalState.getActiveObject();
-		if (!(activeObject instanceof JavaInfo)) {
+		if (!(activeObject instanceof JavaInfo activeJavaInfo)) {
 			return;
 		}
-		JavaInfo activeJavaInfo = (JavaInfo) activeObject;
 		try {
 			GlobalStateJava.activate(javaInfo);
 			if (AbstractSupport.is_SWT()) {

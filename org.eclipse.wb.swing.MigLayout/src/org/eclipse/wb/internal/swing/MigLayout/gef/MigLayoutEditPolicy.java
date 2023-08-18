@@ -215,8 +215,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	protected Command getCreateCommand(CreateRequest request) {
 		if (isValidTarget()) {
 			Object newObject = request.getNewObject();
-			if (newObject instanceof ComponentInfo) {
-				final ComponentInfo component = (ComponentInfo) newObject;
+			if (newObject instanceof final ComponentInfo component) {
 				return new EditCommand(m_layout) {
 					@Override
 					protected void executeEdit() throws Exception {

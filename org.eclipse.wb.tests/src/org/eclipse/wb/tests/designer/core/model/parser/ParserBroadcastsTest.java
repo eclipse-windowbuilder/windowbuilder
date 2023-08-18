@@ -85,8 +85,7 @@ public class ParserBroadcastsTest extends SwingModelTest {
 			panel.accept(new ObjectInfoVisitor() {
 				@Override
 				public void endVisit(ObjectInfo objectInfo) throws Exception {
-					if (objectInfo instanceof JavaInfo) {
-						JavaInfo javaInfo = (JavaInfo) objectInfo;
+					if (objectInfo instanceof JavaInfo javaInfo) {
 						assertNotSame(JTextField.class, javaInfo.getDescription().getComponentClass());
 					}
 				}

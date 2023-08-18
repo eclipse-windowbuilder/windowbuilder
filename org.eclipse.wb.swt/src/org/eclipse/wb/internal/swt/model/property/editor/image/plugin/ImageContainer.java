@@ -32,8 +32,7 @@ public abstract class ImageContainer implements IImageContainer, IDisposable {
 		if (elements != null) {
 			for (int i = 0; i < elements.length; i++) {
 				IImageElement element = elements[i];
-				if (element instanceof IDisposable) {
-					IDisposable disposable = (IDisposable) element;
+				if (element instanceof IDisposable disposable) {
 					disposable.dispose();
 				}
 			}

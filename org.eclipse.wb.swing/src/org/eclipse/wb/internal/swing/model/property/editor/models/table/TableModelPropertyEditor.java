@@ -57,8 +57,7 @@ public final class TableModelPropertyEditor extends TextDialogPropertyEditor {
 	protected String getText(Property property) throws Exception {
 		if (property.isModified()) {
 			Object value = property.getValue();
-			if (value instanceof TableModel) {
-				TableModel tableModel = (TableModel) value;
+			if (value instanceof TableModel tableModel) {
 				return tableModel.getColumnCount() + " columns, " + tableModel.getRowCount() + " rows";
 			}
 		}

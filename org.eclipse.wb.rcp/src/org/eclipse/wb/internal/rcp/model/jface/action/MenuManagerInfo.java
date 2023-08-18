@@ -343,8 +343,7 @@ IAdaptable {
 		public void commandCreate(Object newObject, Object nextObject) throws Exception {
 			AbstractComponentInfo nextItem = (AbstractComponentInfo) nextObject;
 			AbstractComponentInfo newItem;
-			if (newObject instanceof ActionInfo) {
-				ActionInfo action = (ActionInfo) newObject;
+			if (newObject instanceof ActionInfo action) {
 				newItem = command_CREATE(action, nextItem);
 			} else {
 				newItem = (AbstractComponentInfo) newObject;

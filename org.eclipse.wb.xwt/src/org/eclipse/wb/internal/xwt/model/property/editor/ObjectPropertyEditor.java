@@ -141,8 +141,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 	}
 
 	private boolean isValidComponent(Class<?> propertyType, Object element) {
-		if (element instanceof XmlObjectInfo) {
-			XmlObjectInfo component = (XmlObjectInfo) element;
+		if (element instanceof XmlObjectInfo component) {
 			Class<?> componentClass = component.getDescription().getComponentClass();
 			return componentClass != null && propertyType.isAssignableFrom(componentClass);
 		}

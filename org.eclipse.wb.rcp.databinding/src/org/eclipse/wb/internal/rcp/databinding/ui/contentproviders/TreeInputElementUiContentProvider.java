@@ -498,8 +498,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
 	private void saveJFaceObjects() throws Exception {
 		ObservableCollectionTreeContentProviderInfo contentProvider = m_binding.getContentProvider();
 		ObservableFactoryInfo factoryInfo = contentProvider.getFactoryInfo();
-		if (factoryInfo instanceof AbstractFactoryInfo) {
-			AbstractFactoryInfo aFactoryInfo = (AbstractFactoryInfo) factoryInfo;
+		if (factoryInfo instanceof AbstractFactoryInfo aFactoryInfo) {
 			//
 			if (aFactoryInfo.isCancel()) {
 				//

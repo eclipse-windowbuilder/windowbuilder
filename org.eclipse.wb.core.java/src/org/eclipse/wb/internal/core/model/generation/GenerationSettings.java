@@ -378,8 +378,7 @@ public final class GenerationSettings {
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof AbstractComponentInfo) {
-					AbstractComponentInfo component = (AbstractComponentInfo) objectInfo;
+				if (objectInfo instanceof AbstractComponentInfo component) {
 					GenerationSettings settings = component.getDescription().getToolkit().getGenerationSettings();
 					// prepare list of components
 					Set<AbstractComponentInfo> components = settingsToComponents.get(settings);

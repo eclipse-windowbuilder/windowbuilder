@@ -49,8 +49,7 @@ public final class ActionDropRequestProcessor extends RequestProcessor {
 
 	@Override
 	public Request process(final EditPart editPart, Request request) throws Exception {
-		if (request instanceof ActionDropRequest) {
-			final ActionDropRequest actionDropRequest = (ActionDropRequest) request;
+		if (request instanceof final ActionDropRequest actionDropRequest) {
 			final ActionInfo action = actionDropRequest.getAction();
 			scheduleActionItemSelection(actionDropRequest);
 			// prepare CreateRequest, that creates our ActionInfo

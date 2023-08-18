@@ -104,8 +104,7 @@ public abstract class MethodOrder {
 		for (Pair<MethodInvocation, MethodOrder> pair : getInvocationOrders(javaInfo)) {
 			MethodInvocation existingInvocation = pair.getLeft();
 			MethodOrder existingOrder = pair.getRight();
-			if (existingOrder instanceof MethodOrderAfter) {
-				MethodOrderAfter afterOrder = (MethodOrderAfter) existingOrder;
+			if (existingOrder instanceof MethodOrderAfter afterOrder) {
 				if (afterOrder.isTarget(newSignature)) {
 					Statement statement = AstNodeUtils.getEnclosingStatement(existingInvocation);
 					return new StatementTarget(statement, true);

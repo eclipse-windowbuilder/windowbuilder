@@ -201,8 +201,7 @@ public final class PropertiesComposite extends Composite {
 				public void checkStateChanged(CheckStateChangedEvent event) {
 					Object element = event.getElement();
 					// if we change "check" state for component, change state for all its properties
-					if (element instanceof JavaInfo) {
-						JavaInfo component = (JavaInfo) element;
+					if (element instanceof JavaInfo component) {
 						List<StringPropertyInfo> properties = m_support.getProperties(component);
 						for (StringPropertyInfo property : properties) {
 							m_propertiesViewer.setChecked(property, event.getChecked());
@@ -413,8 +412,7 @@ public final class PropertiesComposite extends Composite {
 
 		@Override
 		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof JavaInfo) {
-				final JavaInfo component = (JavaInfo) parentElement;
+			if (parentElement instanceof final JavaInfo component) {
 				final List<Object> children = Lists.newArrayList();
 				// add properties
 				children.addAll(m_support.getProperties(component));
@@ -478,8 +476,7 @@ public final class PropertiesComposite extends Composite {
 			return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
 				@Override
 				public String runObject() throws Exception {
-					if (element instanceof JavaInfo) {
-						JavaInfo component = (JavaInfo) element;
+					if (element instanceof JavaInfo component) {
 						return component.getPresentation().getText();
 					} else {
 						Assert.instanceOf(StringPropertyInfo.class, element);
@@ -495,8 +492,7 @@ public final class PropertiesComposite extends Composite {
 			ImageDescriptor imageDescriptor = ExecutionUtils.runObjectLog(new RunnableObjectEx<ImageDescriptor>() {
 				@Override
 				public ImageDescriptor runObject() throws Exception {
-					if (element instanceof JavaInfo) {
-						JavaInfo component = (JavaInfo) element;
+					if (element instanceof JavaInfo component) {
 						return component.getPresentation().getIcon();
 					} else {
 						Assert.instanceOf(StringPropertyInfo.class, element);

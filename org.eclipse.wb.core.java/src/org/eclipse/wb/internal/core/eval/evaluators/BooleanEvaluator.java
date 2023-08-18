@@ -47,13 +47,11 @@ public final class BooleanEvaluator implements IExpressionEvaluator {
 		// boolean expression
 		if ("boolean".equals(typeQualifiedName)) {
 			// single literal
-			if (expression instanceof BooleanLiteral) {
-				BooleanLiteral numberLiteral = (BooleanLiteral) expression;
+			if (expression instanceof BooleanLiteral numberLiteral) {
 				return numberLiteral.booleanValue() ? Boolean.TRUE : Boolean.FALSE;
 			}
 			// prefix expression (!)
-			if (expression instanceof PrefixExpression) {
-				PrefixExpression prefixExpression = (PrefixExpression) expression;
+			if (expression instanceof PrefixExpression prefixExpression) {
 				// only "!" is possible prefix operator for string's
 				Assert.isTrue(prefixExpression.getOperator() == PrefixExpression.Operator.NOT);
 				// prepare operand value
@@ -63,8 +61,7 @@ public final class BooleanEvaluator implements IExpressionEvaluator {
 				return !operandValue;
 			}
 			// infix expression (&&, ||)
-			if (expression instanceof InfixExpression) {
-				InfixExpression infixExpression = (InfixExpression) expression;
+			if (expression instanceof InfixExpression infixExpression) {
 				Operator operator = infixExpression.getOperator();
 				Expression leftOperand = infixExpression.getLeftOperand();
 				Expression rightOperand = infixExpression.getRightOperand();

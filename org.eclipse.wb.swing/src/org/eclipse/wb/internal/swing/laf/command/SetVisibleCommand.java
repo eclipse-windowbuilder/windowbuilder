@@ -89,8 +89,7 @@ public final class SetVisibleCommand extends Command {
 	public void addToCommandList(List<Command> commands) {
 		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
 			Command command = I.next();
-			if (command instanceof SetVisibleCommand) {
-				SetVisibleCommand svCommand = (SetVisibleCommand) command;
+			if (command instanceof SetVisibleCommand svCommand) {
 				if (svCommand.m_id.equals(m_id)) {
 					I.remove();
 				}

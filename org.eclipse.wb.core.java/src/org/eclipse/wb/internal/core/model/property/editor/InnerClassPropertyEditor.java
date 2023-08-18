@@ -98,8 +98,7 @@ IConfigurablePropertyObject {
 	protected String getText(Property property) throws Exception {
 		GenericProperty genericProperty = (GenericProperty) property;
 		Expression expression = genericProperty.getExpression();
-		if (expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation cic = (ClassInstanceCreation) expression;
+		if (expression instanceof ClassInstanceCreation cic) {
 			if (cic.getAnonymousClassDeclaration() != null) {
 				return "<anonymous>";
 			}

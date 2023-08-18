@@ -41,14 +41,12 @@ public final class ClassEvaluator implements IExpressionEvaluator {
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
 		// TypeLiteral
-		if (expression instanceof TypeLiteral) {
-			TypeLiteral typeLiteral = (TypeLiteral) expression;
+		if (expression instanceof TypeLiteral typeLiteral) {
 			ITypeBinding binding = AstNodeUtils.getTypeBinding(typeLiteral.getType());
 			return loadClass(context, binding);
 		}
 		// getClass()
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			if (isThisInvocation(invocation) && AstNodeUtils.isMethodInvocation(invocation, "getClass()")) {
 				TypeDeclaration typeDeclaration = AstNodeUtils.getEnclosingType(invocation);
 				ITypeBinding binding = AstNodeUtils.getTypeBinding(typeDeclaration);

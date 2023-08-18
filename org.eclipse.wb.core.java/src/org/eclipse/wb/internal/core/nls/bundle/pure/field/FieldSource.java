@@ -80,8 +80,7 @@ public final class FieldSource extends AbstractPureBundleSource {
 		//
 		Object[] nonJavaResources = pkg.getNonJavaResources();
 		for (Object o : nonJavaResources) {
-			if (o instanceof IFile) {
-				IFile file = (IFile) o;
+			if (o instanceof IFile file) {
 				String fileName = file.getName();
 				// we need .properties files
 				if (!fileName.endsWith(".properties")) {
@@ -154,8 +153,7 @@ public final class FieldSource extends AbstractPureBundleSource {
 			String fieldName,
 			List<AbstractSource> sources) throws Exception {
 		for (AbstractSource abstractSource : sources) {
-			if (abstractSource instanceof FieldSource) {
-				FieldSource source = (FieldSource) abstractSource;
+			if (abstractSource instanceof FieldSource source) {
 				if (source.m_bundleName.equals(bundleName)) {
 					return source;
 				}
@@ -169,9 +167,7 @@ public final class FieldSource extends AbstractPureBundleSource {
 	 * bundle name, key and optional default value.
 	 */
 	private static ExpressionInfo getExpressionInfo(JavaInfo component, Expression expression) {
-		if (expression instanceof MethodInvocation) {
-			// check for getString(key)
-			MethodInvocation getString_invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation getString_invocation) {
 			{
 				boolean is_getString =
 						getString_invocation.getName().getIdentifier().equals("getString")
@@ -195,10 +191,9 @@ public final class FieldSource extends AbstractPureBundleSource {
 								ExecutionFlowUtils.getLastAssignment(
 										editorState.getFlowDescription(),
 										fieldExpression);
-						if (!(assignment instanceof VariableDeclarationFragment)) {
+						if (!(assignment instanceof VariableDeclarationFragment fieldAssignment)) {
 							return null;
 						}
-						VariableDeclarationFragment fieldAssignment = (VariableDeclarationFragment) assignment;
 						fieldInitializer = fieldAssignment.getInitializer();
 					}
 					// prepare bundle name
@@ -241,8 +236,7 @@ public final class FieldSource extends AbstractPureBundleSource {
 			}
 		}
 		// get Bundle name from ResourceBundle.getBundle(String)
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			// check for: getBundle(bundleName)
 			{
 				boolean is_getBundle =

@@ -220,8 +220,7 @@ public class ControllerSupport {
 			List<WidgetBindableInfo> observables,
 			Expression expression) throws Exception {
 		if (provider.isController()) {
-			if (expression instanceof MethodInvocation) {
-				MethodInvocation invocation = (MethodInvocation) expression;
+			if (expression instanceof MethodInvocation invocation) {
 				String reference = CoreUtils.getNodeReference(invocation.getExpression());
 				//
 				if (provider.getControllerViewerField().equals(reference)) {
@@ -536,8 +535,7 @@ public class ControllerSupport {
 
 	private static void convertJavaInfoToGetter(DatabindingsProvider provider, IObserveInfo observe)
 			throws Exception {
-		if (observe instanceof WidgetBindableInfo) {
-			WidgetBindableInfo widgetBindable = (WidgetBindableInfo) observe;
+		if (observe instanceof WidgetBindableInfo widgetBindable) {
 			JavaInfo javaInfo = widgetBindable.getJavaInfo();
 			if (getReference(provider, javaInfo) == null) {
 				ensureControllerReference(provider, javaInfo, false);
@@ -635,9 +633,7 @@ public class ControllerSupport {
 			IObserveInfo observe,
 			AstEditor controllerEditor,
 			TypeDeclaration controllerRootNode) throws Exception {
-		if (observe instanceof FieldBeanBindableInfo) {
-			//
-			FieldBeanBindableInfo fieldBindable = (FieldBeanBindableInfo) observe;
+		if (observe instanceof FieldBeanBindableInfo fieldBindable) {
 			VariableDeclarationFragment fragment = fieldBindable.getFragment();
 			//
 			if (fragment != null) {

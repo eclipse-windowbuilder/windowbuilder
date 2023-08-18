@@ -96,8 +96,7 @@ IClipboardSourceProvider {
 		// configure pages
 		for (Iterator<AbstractFontPage> I = fontDialog.getPages().iterator(); I.hasNext();) {
 			AbstractFontPage page = I.next();
-			if (page instanceof DerivedFontPage) {
-				DerivedFontPage derivedPage = (DerivedFontPage) page;
+			if (page instanceof DerivedFontPage derivedPage) {
 				boolean success = derivedPage.configure(genericProperty);
 				if (!success) {
 					I.remove();
@@ -265,8 +264,7 @@ IClipboardSourceProvider {
 	}
 
 	private static String getBaseFontClipboardSource(AstEditor editor, Expression baseFontExpression) {
-		if (baseFontExpression instanceof MethodInvocation) {
-			MethodInvocation invocation2 = (MethodInvocation) baseFontExpression;
+		if (baseFontExpression instanceof MethodInvocation invocation2) {
 			return "%this%."
 			+ editor.getSourceBeginEnd(
 					invocation2.getName().getStartPosition(),
@@ -336,8 +334,7 @@ IClipboardSourceProvider {
 			String baseFontSource,
 			Expression sizeExpression) {
 		// size as +/-
-		if (sizeExpression instanceof InfixExpression) {
-			InfixExpression infixExpression = (InfixExpression) sizeExpression;
+		if (sizeExpression instanceof InfixExpression infixExpression) {
 			Expression leftOperand = infixExpression.getLeftOperand();
 			Expression rightOperand = infixExpression.getRightOperand();
 			boolean isBaseFontSize = editor.getSource(leftOperand).equals(baseFontSource + ".getSize()");

@@ -81,8 +81,7 @@ IClipboardSourceProvider {
 	}
 
 	private String getTextForStyle(Expression styleExpression) {
-		if (styleExpression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) styleExpression;
+		if (styleExpression instanceof QualifiedName qualifiedName) {
 			if (AstNodeUtils.isSuccessorOf(qualifiedName.getQualifier(), "org.eclipse.swt.SWT")) {
 				return qualifiedName.getName().getIdentifier();
 			}
@@ -123,8 +122,7 @@ IClipboardSourceProvider {
 
 	@Override
 	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			ManagerUtils.ensure_SWTResourceManager(genericProperty.getJavaInfo());
 			// prepare source
 			String source;

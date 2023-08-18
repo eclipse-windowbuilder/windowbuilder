@@ -192,8 +192,7 @@ public final class FactoryApplyAction extends Action {
 	 */
 	private void prepareGenericProperties() throws Exception {
 		for (Property property : m_component.getProperties()) {
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				if (genericProperty.getExpression() != null) {
 					m_genericProperties.add((GenericPropertyImpl) property);
 				}

@@ -104,14 +104,12 @@ IExposedCreationSupport {
 
 	@Override
 	public boolean isJavaInfo(ASTNode node) {
-		if (node instanceof SimpleName) {
-			SimpleName simpleName = (SimpleName) node;
+		if (node instanceof SimpleName simpleName) {
 			return isNameOfField(simpleName)
 					&& !isFieldHidden(simpleName)
 					&& m_hostJavaInfo.isRepresentedBy(null);
 		}
-		if (node instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) node;
+		if (node instanceof QualifiedName qualifiedName) {
 			Name qualifier = qualifiedName.getQualifier();
 			SimpleName simpleName = qualifiedName.getName();
 			return isNameOfField(simpleName) && m_hostJavaInfo.isRepresentedBy(qualifier);

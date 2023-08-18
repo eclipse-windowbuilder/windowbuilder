@@ -45,8 +45,7 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
 		if (model instanceof GridLayoutInfo) {
 			return new GridLayoutEditPolicy<>((GridLayoutInfo) model);
 		}
-		if (model instanceof FormLayoutInfo) {
-			FormLayoutInfo formLayoutInfo = (FormLayoutInfo) model;
+		if (model instanceof FormLayoutInfo formLayoutInfo) {
 			if (formLayoutInfo.getImpl() instanceof FormLayoutInfoImplAutomatic) {
 				return new FormLayoutEditPolicy<>(formLayoutInfo);
 			} else {

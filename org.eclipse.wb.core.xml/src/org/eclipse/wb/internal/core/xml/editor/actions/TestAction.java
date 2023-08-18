@@ -74,8 +74,7 @@ public final class TestAction extends Action {
 	}
 
 	private void run0() throws Exception {
-		if (m_rootObject instanceof AbstractComponentInfo) {
-			AbstractComponentInfo component = (AbstractComponentInfo) m_rootObject;
+		if (m_rootObject instanceof AbstractComponentInfo component) {
 			TopBoundsSupport topSupport = component.getTopBoundsSupport();
 			boolean doReparse = topSupport.show();
 			// refresh because user can change something

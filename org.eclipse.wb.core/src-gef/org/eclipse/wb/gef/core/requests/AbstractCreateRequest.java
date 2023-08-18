@@ -59,8 +59,7 @@ public abstract class AbstractCreateRequest extends LocationRequest implements I
 	 * Copies state from given {@link Request} into this one.
 	 */
 	public void copyStateFrom(Request _source) {
-		if (_source instanceof AbstractCreateRequest) {
-			AbstractCreateRequest source = (AbstractCreateRequest) _source;
+		if (_source instanceof AbstractCreateRequest source) {
 			setLocation(source.getLocation());
 			setSize(source.getSize());
 			setStateMask(source.getStateMask());

@@ -239,8 +239,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (request instanceof DragPermissionRequest) {
-			DragPermissionRequest permissionRequest = (DragPermissionRequest) request;
+		if (request instanceof DragPermissionRequest permissionRequest) {
 			permissionRequest.setMove(m_object.canMove());
 			permissionRequest.setReparent(m_object.canReparent());
 		}

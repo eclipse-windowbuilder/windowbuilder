@@ -176,8 +176,7 @@ public final class GlobalStateJava {
 
 		@Override
 		public boolean canUseParentForChild(Object parent, Object child) throws Exception {
-			if (parent instanceof JavaInfo && child instanceof JavaInfo) {
-				JavaInfo parentJava = (JavaInfo) parent;
+			if (parent instanceof JavaInfo parentJava && child instanceof JavaInfo) {
 				JavaInfo childJava = (JavaInfo) child;
 				return childJava.getCreationSupport().canUseParent(parentJava);
 			}
@@ -186,8 +185,7 @@ public final class GlobalStateJava {
 
 		@Override
 		public boolean canReference(Object object) {
-			if (object instanceof JavaInfo) {
-				JavaInfo javaInfo = (JavaInfo) object;
+			if (object instanceof JavaInfo javaInfo) {
 				return !(javaInfo.getCreationSupport() instanceof IImplicitCreationSupport);
 			}
 			return false;

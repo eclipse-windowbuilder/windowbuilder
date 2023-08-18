@@ -179,19 +179,15 @@ public abstract class AbstractDocumentEditContext {
 				} else {
 					handleAttributeChange(event);
 				}
-			} else if (changedObject instanceof DocumentTextNode) {
-				DocumentTextNode textNode = (DocumentTextNode) changedObject;
+			} else if (changedObject instanceof DocumentTextNode textNode) {
 				handleTextChange(textNode);
 			}
 		} else if (type == ModelChangedEvent.INSERT) {
-			if (changedObject instanceof DocumentElement) {
-				DocumentElement element = (DocumentElement) changedObject;
+			if (changedObject instanceof DocumentElement element) {
 				handleNodeInsert(element);
-			} else if (changedObject instanceof DocumentAttribute) {
-				DocumentAttribute attribute = (DocumentAttribute) changedObject;
+			} else if (changedObject instanceof DocumentAttribute attribute) {
 				handleAttributeInsert(attribute);
-			} else if (changedObject instanceof DocumentTextNode) {
-				DocumentTextNode textNode = (DocumentTextNode) changedObject;
+			} else if (changedObject instanceof DocumentTextNode textNode) {
 				handleTextInsert(textNode);
 			}
 		} else if (type == ModelChangedEvent.MOVE) {
@@ -203,14 +199,11 @@ public abstract class AbstractDocumentEditContext {
 				handleNodeMove(element, oldParent, newParent, position);
 			}
 		} else if (type == ModelChangedEvent.REMOVE) {
-			if (changedObject instanceof DocumentElement) {
-				DocumentElement element = (DocumentElement) changedObject;
+			if (changedObject instanceof DocumentElement element) {
 				handleNodeDelete(element);
-			} else if (changedObject instanceof DocumentAttribute) {
-				DocumentAttribute attribute = (DocumentAttribute) changedObject;
+			} else if (changedObject instanceof DocumentAttribute attribute) {
 				handleAttributeDelete(attribute);
-			} else if (changedObject instanceof DocumentTextNode) {
-				DocumentTextNode textNode = (DocumentTextNode) changedObject;
+			} else if (changedObject instanceof DocumentTextNode textNode) {
 				handleTextDelete(textNode);
 			}
 		}

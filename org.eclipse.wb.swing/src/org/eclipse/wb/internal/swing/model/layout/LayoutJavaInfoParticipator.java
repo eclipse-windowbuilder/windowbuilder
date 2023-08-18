@@ -49,8 +49,7 @@ public final class LayoutJavaInfoParticipator implements IJavaInfoInitialization
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void process(JavaInfo javaInfo) throws Exception {
-		if (javaInfo instanceof LayoutInfo) {
-			final LayoutInfo layout = (LayoutInfo) javaInfo;
+		if (javaInfo instanceof final LayoutInfo layout) {
 			// perform bindings...
 			if (layout.getParent() != null) {
 				// ...right now, if Layout already bound to its container

@@ -75,8 +75,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
 		rootJavaInfo.addBroadcastListener(new ObjectInfoChildTree() {
 			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-				if (object instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) object;
+				if (object instanceof JavaInfo javaInfo) {
 					String visibilityTreeString = JavaInfoUtils.getParameter(javaInfo, "visible.inTree");
 					if (visibilityTreeString != null) {
 						visible[0] = Boolean.parseBoolean(visibilityTreeString);
@@ -92,8 +91,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
 		rootJavaInfo.addBroadcastListener(new ObjectInfoChildGraphical() {
 			@Override
 			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-				if (object instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) object;
+				if (object instanceof JavaInfo javaInfo) {
 					String visibilityGraphString =
 							JavaInfoUtils.getParameter(javaInfo, "visible.inGraphical");
 					if (visibilityGraphString != null) {
@@ -111,8 +109,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
 		rootJavaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
 			@Override
 			public void invoke(ObjectInfo object, String[] text) throws Exception {
-				if (object instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) object;
+				if (object instanceof JavaInfo javaInfo) {
 					IPreferenceStore preferences = javaInfo.getDescription().getToolkit().getPreferences();
 					if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_TEXT_SUFFIX)) {
 						broadcast_presentation_decorateText(javaInfo, text);
@@ -128,8 +125,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
 	private static void broadcast_presentation_decorateText(JavaInfo javaInfo, String[] text)
 			throws Exception {
 		for (Property property : javaInfo.getProperties()) {
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				GenericPropertyDescription propertyDescription = genericProperty.getDescription();
 				if (propertyDescription != null
 						&& propertyDescription.hasTrueTag("isText")

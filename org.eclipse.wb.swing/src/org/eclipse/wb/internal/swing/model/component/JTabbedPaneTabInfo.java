@@ -48,8 +48,7 @@ public final class JTabbedPaneTabInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof JTabbedPaneTabInfo) {
-			JTabbedPaneTabInfo tab = (JTabbedPaneTabInfo) obj;
+		if (obj instanceof JTabbedPaneTabInfo tab) {
 			return tab.m_component == m_component;
 		}
 		return false;

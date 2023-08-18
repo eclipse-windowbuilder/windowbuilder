@@ -48,8 +48,7 @@ IClipboardSourceProvider {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Font) {
-			Font font = (Font) value;
+		if (value instanceof Font font) {
 			return getText(font);
 		}
 		return null;
@@ -95,8 +94,7 @@ IClipboardSourceProvider {
 		// set initial value
 		{
 			Object value = property.getValue();
-			if (value instanceof Font) {
-				Font font = (Font) value;
+			if (value instanceof Font font) {
 				FontInfo fontInfo = new FontInfo(font, false);
 				fontDialog.setFontInfo(fontInfo);
 			}

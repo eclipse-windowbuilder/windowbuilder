@@ -79,8 +79,7 @@ IColorProvider {
 				return binding.getModelPresentationText(true);
 			case 3:
 				// strategy
-				if (binding instanceof AutoBindingInfo) {
-					AutoBindingInfo autoBinding = (AutoBindingInfo) binding;
+				if (binding instanceof AutoBindingInfo autoBinding) {
 					return autoBinding.getStrategyInfo().getStrategyValue();
 				}
 				return null;
@@ -128,8 +127,7 @@ IColorProvider {
 		if (element instanceof AutoBindingInfo) {
 			return AUTO_BINDING_IMAGE;
 		}
-		if (element instanceof VirtualBindingInfo) {
-			VirtualBindingInfo binding = (VirtualBindingInfo) element;
+		if (element instanceof VirtualBindingInfo binding) {
 			switch (binding.getSwingType()) {
 			case JListBinding :
 				return JLIST_BINDING_IMAGE;

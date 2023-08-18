@@ -35,8 +35,7 @@ public final class AssignmentEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof Assignment) {
-			Assignment assignment = (Assignment) expression;
+		if (expression instanceof Assignment assignment) {
 			// evaluate right side
 			return AstEvaluationEngine.evaluate(context, assignment.getRightHandSide());
 		}

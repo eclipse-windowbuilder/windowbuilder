@@ -81,8 +81,7 @@ public final class BorderOfChildLayoutRequestValidator implements ILayoutRequest
 			return true;
 		}
 		// if "child" and "host" are siblings, check for borders
-		if (host instanceof GraphicalEditPart) {
-			GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
+		if (host instanceof GraphicalEditPart graphicalHost) {
 			if (request.getEditParts().get(0).getParent() == host.getParent()) {
 				return isTargeting_innerPartOfHost(graphicalHost, request);
 			}
@@ -96,8 +95,7 @@ public final class BorderOfChildLayoutRequestValidator implements ILayoutRequest
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static boolean isTargetingToHost_containerSelected(EditPart host, IDropRequest request) {
-		if (host instanceof GraphicalEditPart) {
-			GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
+		if (host instanceof GraphicalEditPart graphicalHost) {
 			if (isTransparentOnBorders(graphicalHost)) {
 				return isTargeting_innerPartOfHost(graphicalHost, request);
 			}

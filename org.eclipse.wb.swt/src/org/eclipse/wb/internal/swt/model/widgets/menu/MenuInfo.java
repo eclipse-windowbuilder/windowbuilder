@@ -463,8 +463,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 
 		@Override
 		public boolean validateMove(Object object) {
-			if (object instanceof MenuItemInfo) {
-				MenuItemInfo item = (MenuItemInfo) object;
+			if (object instanceof MenuItemInfo item) {
 				// don't move item on its child menu
 				return !item.isParentOf(m_this);
 			}

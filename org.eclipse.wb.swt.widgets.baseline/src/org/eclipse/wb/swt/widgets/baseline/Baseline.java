@@ -199,8 +199,7 @@ public class Baseline {
 	 */
 	public static int[] getInsets(Control control) {
 		int[] is = new int[4];
-		if (control instanceof Scrollable) {
-			Scrollable scrollable = (Scrollable) control;
+		if (control instanceof Scrollable scrollable) {
 			Rectangle bounds = scrollable.getBounds();
 			Rectangle clientArea = scrollable.getClientArea();
 			Point clientAreaInDisplay = scrollable.toDisplay(new Point(clientArea.x, clientArea.y));

@@ -35,8 +35,7 @@ public final class ConditionalExpressionEvaluator implements IExpressionEvaluato
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof ConditionalExpression) {
-			ConditionalExpression conditionalExpression = (ConditionalExpression) expression;
+		if (expression instanceof ConditionalExpression conditionalExpression) {
 			// evaluate condition
 			Expression conditionExpression = conditionalExpression.getExpression();
 			boolean condition = (Boolean) AstEvaluationEngine.evaluate(context, conditionExpression);

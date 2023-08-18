@@ -36,8 +36,7 @@ public final class CharEvaluator implements IExpressionEvaluator {
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
 		// character literal
-		if (expression instanceof CharacterLiteral) {
-			CharacterLiteral literal = (CharacterLiteral) expression;
+		if (expression instanceof CharacterLiteral literal) {
 			return literal.charValue();
 		}
 		// we don't understand given expression

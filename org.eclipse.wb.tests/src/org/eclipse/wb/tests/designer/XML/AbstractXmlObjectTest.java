@@ -362,8 +362,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 		m_lastObject.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo object) throws Exception {
-				if (object instanceof XmlObjectInfo) {
-					XmlObjectInfo xmlObject = (XmlObjectInfo) object;
+				if (object instanceof XmlObjectInfo xmlObject) {
 					CreationSupport creationSupport = xmlObject.getCreationSupport();
 					if (!XmlObjectUtils.isImplicit(xmlObject)) {
 						DocumentElement element = creationSupport.getElement();

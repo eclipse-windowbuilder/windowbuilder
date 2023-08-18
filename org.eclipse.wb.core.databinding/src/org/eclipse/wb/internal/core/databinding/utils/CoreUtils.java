@@ -113,20 +113,16 @@ public final class CoreUtils {
 	 */
 	public static String getNodeReference(ASTNode node) {
 		// simple and qualified names
-		if (node instanceof QualifiedName) {
-			QualifiedName name = (QualifiedName) node;
+		if (node instanceof QualifiedName name) {
 			return AstNodeUtils.getFullyQualifiedName(name.getQualifier(), false)
 					+ "."
 					+ name.getName().getIdentifier();
 		}
-		if (node instanceof SimpleName) {
-			SimpleName name = (SimpleName) node;
+		if (node instanceof SimpleName name) {
 			return name.getIdentifier();
 		}
 		// method invocation
-		if (node instanceof MethodInvocation) {
-			// method reference
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			String reference = invocation.getName().getIdentifier() + "()";
 			// invocation expression reference
 			Expression expression = invocation.getExpression();
@@ -137,9 +133,7 @@ public final class CoreUtils {
 			return reference;
 		}
 		// field
-		if (node instanceof FieldAccess) {
-			// field name reference
-			FieldAccess fieldAccess = (FieldAccess) node;
+		if (node instanceof FieldAccess fieldAccess) {
 			String reference = fieldAccess.getName().getIdentifier();
 			// field expression reference
 			Expression expression = fieldAccess.getExpression();
@@ -150,9 +144,7 @@ public final class CoreUtils {
 			return getNodeReference(expression) + "." + reference;
 		}
 		// this
-		if (node instanceof ThisExpression) {
-			// this reference
-			ThisExpression thisExpression = (ThisExpression) node;
+		if (node instanceof ThisExpression thisExpression) {
 			String reference = "this";
 			// this qualifier reference
 			Name qualifier = thisExpression.getQualifier();
@@ -163,8 +155,7 @@ public final class CoreUtils {
 			return reference;
 		}
 		// CIC
-		if (node instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) node;
+		if (node instanceof ClassInstanceCreation creation) {
 			return "new "
 			+ AstNodeUtils.getFullyQualifiedName(creation, false)
 			+ "("

@@ -254,8 +254,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 	 * @return the {@link ComponentInfo} of button, or <code>null</code>.
 	 */
 	private static ComponentInfo contextMenu_getButton(ObjectInfo object) {
-		if (object instanceof ComponentInfo) {
-			ComponentInfo component = (ComponentInfo) object;
+		if (object instanceof ComponentInfo component) {
 			if (AbstractButton.class.isAssignableFrom(component.getDescription().getComponentClass())) {
 				return component;
 			}

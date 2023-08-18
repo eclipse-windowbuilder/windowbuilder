@@ -131,8 +131,7 @@ public final class AstEvaluationEngine {
 			context.evaluationSuccessful(expression, null);
 			return null;
 		}
-		if (expression instanceof ParenthesizedExpression) {
-			ParenthesizedExpression parenthesizedExpression = (ParenthesizedExpression) expression;
+		if (expression instanceof ParenthesizedExpression parenthesizedExpression) {
 			Object value = evaluate(context, parenthesizedExpression.getExpression());
 			context.evaluationSuccessful(expression, value);
 			return value;

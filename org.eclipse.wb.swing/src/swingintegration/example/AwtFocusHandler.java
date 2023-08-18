@@ -52,8 +52,7 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		FocusTraversalPolicy policy = frame.getFocusTraversalPolicy();
 		Component component;
-		if (policy instanceof EmbeddedChildFocusTraversalPolicy) {
-			EmbeddedChildFocusTraversalPolicy embeddedPolicy = (EmbeddedChildFocusTraversalPolicy) policy;
+		if (policy instanceof EmbeddedChildFocusTraversalPolicy embeddedPolicy) {
 			component = embeddedPolicy.getCurrentComponent(frame);
 		} else {
 			// TODO: direction based?

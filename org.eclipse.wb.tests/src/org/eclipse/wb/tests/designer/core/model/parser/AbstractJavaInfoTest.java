@@ -316,8 +316,7 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
 				if (objectInfo instanceof AbsoluteLayoutInfo) {
 					// in Swing absolute layout has object "null"
-				} else if (objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				} else if (objectInfo instanceof JavaInfo javaInfo) {
 					assertNotNull("Object expected.", javaInfo.getObject());
 				}
 			}
@@ -334,8 +333,7 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				if (objectInfo instanceof JavaInfo javaInfo) {
 					assertNull(javaInfo.getObject());
 				}
 			}

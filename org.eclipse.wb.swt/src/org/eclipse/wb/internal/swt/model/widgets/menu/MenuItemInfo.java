@@ -348,8 +348,7 @@ org.eclipse.wb.internal.core.utils.IAdaptable {
 
 		@Override
 		public boolean validateMove(Object object) {
-			if (object instanceof MenuInfo) {
-				MenuInfo menuInfo = (MenuInfo) object;
+			if (object instanceof MenuInfo menuInfo) {
 				// don't move Menu on its child Item
 				if (menuInfo.isParentOf(m_this)) {
 					return false;

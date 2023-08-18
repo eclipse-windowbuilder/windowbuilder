@@ -1000,8 +1000,7 @@ public final class AstEditor {
 	private static boolean replaceNode_QualifiedName_to_FieldAccess(ASTNode originalNode,
 			ASTNode replacementNode) throws Exception {
 		ASTNode parent = originalNode.getParent();
-		if (parent instanceof QualifiedName && !(replacementNode instanceof Name)) {
-			QualifiedName qualifiedName = (QualifiedName) parent;
+		if (parent instanceof QualifiedName qualifiedName && !(replacementNode instanceof Name)) {
 			// prepare FieldAccess
 			FieldAccess fieldAccess = originalNode.getAST().newFieldAccess();
 			AstNodeUtils.copySourceRange(fieldAccess, qualifiedName);
@@ -1425,8 +1424,7 @@ public final class AstEditor {
 		while (true) {
 			ASTNode parent = statement.getParent();
 			// TryStatement
-			if (parent instanceof TryStatement) {
-				TryStatement tryStatement = (TryStatement) parent;
+			if (parent instanceof TryStatement tryStatement) {
 				List<CatchClause> catchClauses = DomGenerics.catchClauses(tryStatement);
 				for (CatchClause catchClause : catchClauses) {
 					SingleVariableDeclaration exception = catchClause.getException();
@@ -2669,9 +2667,7 @@ public final class AstEditor {
 	 */
 	public void removeVariableDeclaration(VariableDeclaration declaration) throws Exception {
 		ASTNode parent = declaration.getParent();
-		if (parent instanceof FieldDeclaration) {
-			// field
-			FieldDeclaration fieldDeclaration = (FieldDeclaration) parent;
+		if (parent instanceof FieldDeclaration fieldDeclaration) {
 			List<VariableDeclarationFragment> fragments = DomGenerics.fragments(fieldDeclaration);
 			if (fragments.size() == 1) {
 				removeBodyDeclaration(fieldDeclaration);

@@ -72,8 +72,7 @@ public class PropertyAdapter {
 			return true;
 		}
 		// compare with other adapter
-		if (object instanceof PropertyAdapter) {
-			PropertyAdapter adapter = (PropertyAdapter) object;
+		if (object instanceof PropertyAdapter adapter) {
 			return m_name.equals(adapter.m_name) && m_type == adapter.m_type;
 		}
 		// default

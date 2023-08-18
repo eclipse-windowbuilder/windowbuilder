@@ -97,8 +97,7 @@ public final class RenameKeyCommand extends AbstractCommand {
 				continue;
 			}
 			// "rename key" found
-			if (oldCommand instanceof RenameKeyCommand) {
-				RenameKeyCommand oldRenameKeyCommand = (RenameKeyCommand) oldCommand;
+			if (oldCommand instanceof RenameKeyCommand oldRenameKeyCommand) {
 				// merge with "rename key" for same source
 				if (oldRenameKeyCommand.getEditableSource() == getEditableSource()) {
 					merge(oldRenameKeyCommand);

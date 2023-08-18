@@ -209,8 +209,7 @@ public final class ChildTargetCalculator {
 
 					@Override
 					public void postVisit(ASTNode node) {
-						if (node instanceof Statement) {
-							Statement statement = (Statement) node;
+						if (node instanceof Statement statement) {
 							postVisit(statement);
 						}
 					}
@@ -365,8 +364,7 @@ public final class ChildTargetCalculator {
 	}
 
 	private MethodInvocation getMethodInvocation(JavaInfo javaInfo, Statement statement) {
-		if (statement instanceof ExpressionStatement) {
-			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+		if (statement instanceof ExpressionStatement expressionStatement) {
 			if (expressionStatement.getExpression() instanceof MethodInvocation) {
 				MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
 				if (javaInfo.isRepresentedBy(invocation.getExpression())) {

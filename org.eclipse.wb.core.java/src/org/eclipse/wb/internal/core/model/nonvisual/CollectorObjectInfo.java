@@ -177,8 +177,7 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
 	public Rectangle getBounds() {
 		Rectangle bounds = null;
 		for (ObjectInfo objectInfo : getItems()) {
-			if (objectInfo instanceof AbstractComponentInfo) {
-				AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
+			if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 				Rectangle itemBounds = componentInfo.getBounds();
 				if (bounds == null && itemBounds != null) {
 					bounds = new Rectangle(itemBounds);

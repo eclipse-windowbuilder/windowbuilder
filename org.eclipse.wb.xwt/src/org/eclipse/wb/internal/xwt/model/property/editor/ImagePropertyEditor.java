@@ -125,8 +125,7 @@ IClipboardSourceProvider {
 		// try to append Java package name
 		IContainer packageFolder = context.getFile().getParent();
 		IJavaElement javaElement = JavaCore.create(packageFolder);
-		if (javaElement instanceof IPackageFragment) {
-			IPackageFragment packageFragment = (IPackageFragment) javaElement;
+		if (javaElement instanceof IPackageFragment packageFragment) {
 			packagePath += packageFragment.getElementName().replace('.', '/') + "/";
 		}
 		// done

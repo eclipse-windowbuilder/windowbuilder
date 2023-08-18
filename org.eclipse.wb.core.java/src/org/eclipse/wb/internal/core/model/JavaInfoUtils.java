@@ -316,8 +316,7 @@ public class JavaInfoUtils {
 		for (Entry<Object, Object> arbitrary : javaInfo.getArbitraries().entrySet()) {
 			Object key = arbitrary.getKey();
 			Object value = arbitrary.getValue();
-			if (key instanceof String && value instanceof String) {
-				String stringKey = (String) key;
+			if (key instanceof String stringKey && value instanceof String) {
 				if (stringKey.startsWith(KEY_PARAMETER_PREFIX)) {
 					parameters.put(stringKey.substring(KEY_PARAMETER_PREFIX.length()), (String) value);
 				}
@@ -876,8 +875,7 @@ public class JavaInfoUtils {
 			}
 
 			private boolean isExposed(ObjectInfo o) {
-				if (o instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) o;
+				if (o instanceof JavaInfo javaInfo) {
 					return javaInfo.getCreationSupport() instanceof IExposedCreationSupport;
 				}
 				return false;
@@ -1011,8 +1009,7 @@ public class JavaInfoUtils {
 				component.accept(new ObjectInfoVisitor() {
 					@Override
 					public void endVisit(ObjectInfo objectInfo) throws Exception {
-						if (objectInfo instanceof JavaInfo) {
-							JavaInfo javaInfo = (JavaInfo) objectInfo;
+						if (objectInfo instanceof JavaInfo javaInfo) {
 							for (Object componentObject : getComponentObjects(javaInfo)) {
 								objectToModel.put(componentObject, javaInfo);
 							}
@@ -1796,8 +1793,7 @@ public class JavaInfoUtils {
 		// special case: JavaInfo with constructor as node
 		{
 			ASTNode node = javaInfo.getCreationSupport().getNode();
-			if (node instanceof MethodDeclaration) {
-				MethodDeclaration methodDeclaration = (MethodDeclaration) node;
+			if (node instanceof MethodDeclaration methodDeclaration) {
 				if (methodDeclaration.isConstructor()) {
 					return true;
 				}
@@ -2022,8 +2018,7 @@ public class JavaInfoUtils {
 	 * @return the wrapped {@link JavaInfo} or original {@link JavaInfo} if there are no wrapping.
 	 */
 	public static JavaInfo getWrapped(JavaInfo original) throws Exception {
-		if (original instanceof IWrapperInfo) {
-			IWrapperInfo wrapperInfo = (IWrapperInfo) original;
+		if (original instanceof IWrapperInfo wrapperInfo) {
 			return wrapperInfo.getWrapper().getWrappedInfo();
 		}
 		return original;

@@ -679,8 +679,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		ObservableInfo newObservable = factory.createObservable(bindable, property, type, version_1_3);
 		//
 		for (IBindingInfo ibinding : getBindings()) {
-			if (ibinding instanceof BindingInfo) {
-				BindingInfo binding = (BindingInfo) ibinding;
+			if (ibinding instanceof BindingInfo binding) {
 				// check target
 				ObservableInfo targetObservable = binding.getTargetObservable();
 				if (targetObservable.canShared()

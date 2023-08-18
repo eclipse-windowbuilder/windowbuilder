@@ -241,8 +241,7 @@ IListenerMethodProperty {
 				return AstNodeUtils.getEnclosingType(argument);
 			}
 			// check for listener creation
-			if (argument instanceof ClassInstanceCreation) {
-				ClassInstanceCreation creation = (ClassInstanceCreation) argument;
+			if (argument instanceof ClassInstanceCreation creation) {
 				// check for anonymous class
 				if (creation.getAnonymousClassDeclaration() != null) {
 					return AnonymousTypeDeclaration.create(creation.getAnonymousClassDeclaration());
@@ -943,8 +942,7 @@ IListenerMethodProperty {
 		// conditional stub method (for "this" listener)
 		List<Statement> statements = DomGenerics.statements(listenerMethod.getBody());
 		for (Statement statement : statements) {
-			if (statement instanceof IfStatement) {
-				IfStatement ifStatement = (IfStatement) statement;
+			if (statement instanceof IfStatement ifStatement) {
 				if (ifStatement.getExpression() instanceof InfixExpression) {
 					InfixExpression condition = (InfixExpression) ifStatement.getExpression();
 					if (condition.getOperator() == InfixExpression.Operator.EQUALS
@@ -981,8 +979,7 @@ IListenerMethodProperty {
 		// analyze statements
 		if (statements.size() == 1) {
 			Statement statement = statements.get(0);
-			if (statement instanceof ExpressionStatement) {
-				ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+			if (statement instanceof ExpressionStatement expressionStatement) {
 				if (expressionStatement.getExpression() instanceof MethodInvocation) {
 					MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
 					TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_javaInfo);

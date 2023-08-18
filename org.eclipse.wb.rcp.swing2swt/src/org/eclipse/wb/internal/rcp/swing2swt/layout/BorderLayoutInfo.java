@@ -197,8 +197,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
 		addBroadcastListener(new JavaInfoAddProperties() {
 			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-				if (javaInfo instanceof ControlInfo && isActiveOnComposite(javaInfo.getParent())) {
-					ControlInfo control = (ControlInfo) javaInfo;
+				if (javaInfo instanceof ControlInfo control && isActiveOnComposite(javaInfo.getParent())) {
 					Property constraintsProperty = (Property) control.getArbitraryValue(m_this);
 					if (constraintsProperty == null) {
 						constraintsProperty = new RegionProperty(control);

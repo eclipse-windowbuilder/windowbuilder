@@ -71,8 +71,7 @@ IImplicitCreationSupport {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean isJavaInfo(ASTNode node) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			return invocation.arguments().isEmpty()
 					&& invocation.getName().getIdentifier().equals("getLayoutData")
 					&& m_controlInfo.isRepresentedBy(invocation.getExpression());

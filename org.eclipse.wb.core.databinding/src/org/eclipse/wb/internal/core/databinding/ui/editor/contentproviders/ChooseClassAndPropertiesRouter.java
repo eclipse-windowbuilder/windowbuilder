@@ -48,9 +48,7 @@ public final class ChooseClassAndPropertiesRouter {
 		// prepare checked properties
 		List<PropertyAdapter> properties = m_source.getChoosenProperties0();
 		// reset target checked properties
-		if (m_target instanceof ChooseClassAndPropertiesUiContentProvider) {
-			ChooseClassAndPropertiesUiContentProvider target =
-					(ChooseClassAndPropertiesUiContentProvider) m_target;
+		if (m_target instanceof ChooseClassAndPropertiesUiContentProvider target) {
 			target.getPropertiesViewer().setAllChecked(false);
 		}
 		// handle properties

@@ -81,11 +81,9 @@ public final class SpinnerModelPropertyEditor extends TextDialogPropertyEditor {
 	 */
 	private String getText(Property property, boolean forTooltip) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof SpinnerModel) {
-			SpinnerModel model = (SpinnerModel) value;
+		if (value instanceof SpinnerModel model) {
 			// analyze known models
-			if (model instanceof SpinnerNumberModel) {
-				SpinnerNumberModel numberModel = (SpinnerNumberModel) model;
+			if (model instanceof SpinnerNumberModel numberModel) {
 				// prepare labels
 				String typeLabel = forTooltip ? "type=" : "";
 				String valueLabel = forTooltip ? " value=" : ", ";
@@ -100,12 +98,10 @@ public final class SpinnerModelPropertyEditor extends TextDialogPropertyEditor {
 				String endText = endLabel + numberModel.getMaximum();
 				String stepText = stepLabel + numberModel.getStepSize();
 				return typeText + valueText + startText + endText + stepText;
-			} else if (model instanceof SpinnerListModel) {
-				SpinnerListModel listModel = (SpinnerListModel) model;
+			} else if (model instanceof SpinnerListModel listModel) {
 				String separator = forTooltip ? "\n" : ", ";
 				return StringUtils.join(listModel.getList().iterator(), separator);
-			} else if (model instanceof SpinnerDateModel) {
-				SpinnerDateModel dateModel = (SpinnerDateModel) model;
+			} else if (model instanceof SpinnerDateModel dateModel) {
 				// prepare labels
 				String valueLabel = forTooltip ? "value=" : "";
 				String startLabel = forTooltip ? "\nstart=" : ", ";
@@ -185,8 +181,7 @@ public final class SpinnerModelPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected void openDialog(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof SpinnerModel) {
-			SpinnerModel model = (SpinnerModel) value;
+		if (value instanceof SpinnerModel model) {
 			SpinnerModelDialog modelDialog =
 					new SpinnerModelDialog(DesignerPlugin.getShell(), property.getTitle(), model);
 			// open dialog

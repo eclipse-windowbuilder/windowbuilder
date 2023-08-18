@@ -57,8 +57,7 @@ public final class KeyFieldInfo {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof KeyFieldInfo) {
-			KeyFieldInfo info = (KeyFieldInfo) object;
+		if (object instanceof KeyFieldInfo info) {
 			return keyName.equals(info.keyName);
 		}
 		return false;

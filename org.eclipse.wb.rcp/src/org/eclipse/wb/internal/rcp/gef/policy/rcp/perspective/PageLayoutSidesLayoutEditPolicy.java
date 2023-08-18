@@ -122,8 +122,7 @@ public final class PageLayoutSidesLayoutEditPolicy extends AbstractPositionLayou
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object data) {
-		if (request instanceof ViewDropRequest) {
-			final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
+		if (request instanceof final ViewDropRequest viewDrop_Request) {
 			final ViewInfo viewInfo = viewDrop_Request.getView();
 			final int relationship = (Integer) data;
 			return new EditCommand(m_page) {
@@ -161,15 +160,13 @@ public final class PageLayoutSidesLayoutEditPolicy extends AbstractPositionLayou
 	@Override
 	protected Command getAddCommand(Object addObject, Object data) {
 		final int relationship = (Integer) data;
-		if (addObject instanceof AbstractPartInfo) {
-			final AbstractPartInfo item = (AbstractPartInfo) addObject;
+		if (addObject instanceof final AbstractPartInfo item) {
 			return new EditCommand(m_page) {
 				@Override
 				protected void executeEdit() throws Exception {
 					if (relationship != FOLDER_RELATIONSHIP) {
 						m_page.command_MOVE(item, relationship, 0.5f, m_part);
-					} else if (item instanceof PageLayoutAddViewInfo) {
-						PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) item;
+					} else if (item instanceof PageLayoutAddViewInfo view) {
 						PageLayoutCreateFolderInfo folder = convertIntoFolder();
 						// move "view" on new "folder" and select
 						FolderViewInfo newView = folder.command_MOVE(view, null);
@@ -178,8 +175,7 @@ public final class PageLayoutSidesLayoutEditPolicy extends AbstractPositionLayou
 				}
 			};
 		}
-		if (addObject instanceof FolderViewInfo) {
-			final FolderViewInfo item = (FolderViewInfo) addObject;
+		if (addObject instanceof final FolderViewInfo item) {
 			return new EditCommand(m_page) {
 				@Override
 				protected void executeEdit() throws Exception {

@@ -51,8 +51,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		// menu
 		{
-			if (model instanceof MenuInfo) {
-				MenuInfo menu = (MenuInfo) model;
+			if (model instanceof MenuInfo menu) {
 				if (menu.isPopup()) {
 					IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(menu);
 					return MenuEditPartFactory.createPopupMenu(menu, popupObject);
@@ -61,8 +60,7 @@ public final class EditPartFactory implements IEditPartFactory {
 					return createMenuEditPart(menu, menuObject);
 				}
 			}
-			if (model instanceof MenuItemInfo) {
-				MenuItemInfo item = (MenuItemInfo) model;
+			if (model instanceof MenuItemInfo item) {
 				IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
 				return MenuEditPartFactory.createMenuItem(item, itemObject);
 			}

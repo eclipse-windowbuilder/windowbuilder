@@ -179,8 +179,7 @@ public final class DataBindingsCodeUtils {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public boolean visit(ObjectInfo objectInfo) throws Exception {
-			if (objectInfo instanceof ComponentInfo) {
-				ComponentInfo componentInfo = (ComponentInfo) objectInfo;
+			if (objectInfo instanceof ComponentInfo componentInfo) {
 				ASTNode node = componentInfo.getAssociation().getStatement();
 				if (node == null) {
 					if (componentInfo.getVariableSupport() instanceof LazyVariableSupport) {

@@ -84,8 +84,7 @@ public class AccessorUtils {
 	 */
 	public static IExposableExpressionAccessor getExposableExpressionAccessor(Property property)
 			throws Exception {
-		if (property instanceof GenericPropertyImpl) {
-			GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+		if (property instanceof GenericPropertyImpl genericProperty) {
 			for (ExpressionAccessor accessor : genericProperty.getAccessors()) {
 				IExposableExpressionAccessor exposableAccessor =
 						accessor.getAdapter(IExposableExpressionAccessor.class);

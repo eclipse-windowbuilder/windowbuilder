@@ -335,25 +335,21 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 				}
 				// check bindings
 				{
-					if (node instanceof ImportDeclaration) {
-						ImportDeclaration declaration = (ImportDeclaration) node;
+					if (node instanceof ImportDeclaration declaration) {
 						if (!declaration.isOnDemand()) {
 							assertNotNull(AstNodeUtils.getTypeBinding(declaration.getName()));
 						}
 					}
-					if (node instanceof Type) {
-						Type type = (Type) node;
+					if (node instanceof Type type) {
 						assertNotNull(AstNodeUtils.getTypeBinding(type));
 					}
-					if (node instanceof VariableDeclaration) {
-						VariableDeclaration declaration = (VariableDeclaration) node;
+					if (node instanceof VariableDeclaration declaration) {
 						assertNotNull(AstNodeUtils.getTypeBinding(declaration.getName()));
 						if (declaration.getInitializer() != null) {
 							assertNotNull(AstNodeUtils.getTypeBinding(declaration.getInitializer()));
 						}
 					}
-					if (node instanceof MethodInvocation) {
-						MethodInvocation invocation = (MethodInvocation) node;
+					if (node instanceof MethodInvocation invocation) {
 						IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(invocation);
 						assertNotNull(methodBinding);
 						// check that names in MethodInvocation and IMethodBinding are same
@@ -396,8 +392,7 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 							//	);
 						}
 					}
-					if (node instanceof MethodDeclaration) {
-						MethodDeclaration declaration = (MethodDeclaration) node;
+					if (node instanceof MethodDeclaration declaration) {
 						IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(declaration);
 						assertNotNull(methodBinding);
 						// check that names in MethodDeclaration and IMethodBinding are same
@@ -453,8 +448,7 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 					}
 				}
 				// check Block: statements order
-				if (node instanceof Block) {
-					Block block = (Block) node;
+				if (node instanceof Block block) {
 					int lastStatementEnd = -1;
 					for (Statement statement : DomGenerics.statements(block)) {
 						assertTrue(lastStatementEnd <= statement.getStartPosition());
@@ -462,8 +456,7 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 					}
 				}
 				// check TypeDeclaration: declarations order
-				if (node instanceof TypeDeclaration) {
-					TypeDeclaration typeDeclaration = (TypeDeclaration) node;
+				if (node instanceof TypeDeclaration typeDeclaration) {
 					int lastDeclarationEnd = -1;
 					for (BodyDeclaration declaration : DomGenerics.bodyDeclarations(typeDeclaration)) {
 						assertTrue(lastDeclarationEnd <= declaration.getStartPosition());

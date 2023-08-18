@@ -41,8 +41,7 @@ public final class HeadersContextMenuProvider extends MultiSelectionContextMenuP
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void buildContextMenu(EditPart editPart, IMenuManager manager) {
-		if (editPart instanceof IHeaderMenuProvider) {
-			IHeaderMenuProvider headerMenuProvider = (IHeaderMenuProvider) editPart;
+		if (editPart instanceof IHeaderMenuProvider headerMenuProvider) {
 			headerMenuProvider.buildContextMenu(manager);
 		}
 	}

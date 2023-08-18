@@ -108,8 +108,7 @@ public final class JavaInfoReferenceProvider implements IReferenceProvider {
 			} catch (Throwable e) {
 			}
 			ObjectInfo parent = javaInfo.getParent();
-			if (parent instanceof JavaInfo) {
-				JavaInfo parentJava = (JavaInfo) parent;
+			if (parent instanceof JavaInfo parentJava) {
 				if (javaInfo instanceof ViewerInfo
 						&& parentJava.getVariableSupport() instanceof WrapperMethodControlVariableSupport) {
 					parentJava = parentJava.getParentJava();

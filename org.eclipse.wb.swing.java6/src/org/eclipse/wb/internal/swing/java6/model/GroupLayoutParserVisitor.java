@@ -252,8 +252,7 @@ final class GroupLayoutParserVisitor extends ASTVisitor {
 				node.setProperty(GroupLayoutInfo.PROPERTY_NAME_GROUP, parallelGroup);
 			} else if (m_methodName.startsWith(identifier) && node.arguments().size() == 1) {
 				final ASTNode arg0 = (ASTNode) node.arguments().get(0);
-				if (arg0 instanceof MethodInvocation) {
-					final MethodInvocation mi = (MethodInvocation) arg0;
+				if (arg0 instanceof final MethodInvocation mi) {
 					m_rootGroup = (SpringInfo) mi.getProperty(GroupLayoutInfo.PROPERTY_NAME_GROUP);
 				}
 			}

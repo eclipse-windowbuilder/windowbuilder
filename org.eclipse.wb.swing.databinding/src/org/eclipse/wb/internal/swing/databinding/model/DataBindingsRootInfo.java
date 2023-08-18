@@ -594,8 +594,7 @@ public final class DataBindingsRootInfo implements ISubParser {
 
 	private static ObserveInfo createDefaultProperty(PropertyInfo astProperty) {
 		String text = "";
-		if (astProperty instanceof BeanPropertyInfo) {
-			BeanPropertyInfo beanProperty = (BeanPropertyInfo) astProperty;
+		if (astProperty instanceof BeanPropertyInfo beanProperty) {
 			text = beanProperty.getPath();
 		}
 		return new UndefineObserveInfo(text, null);

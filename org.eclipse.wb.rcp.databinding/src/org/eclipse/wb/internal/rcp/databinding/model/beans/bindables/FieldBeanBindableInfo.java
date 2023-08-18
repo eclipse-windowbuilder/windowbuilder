@@ -64,9 +64,7 @@ public final class FieldBeanBindableInfo extends BeanBindableInfo {
 		m_children = Lists.newArrayList();
 		// add "getter" properties contains sub properties to children
 		for (PropertyBindableInfo property : getProperties()) {
-			if (property instanceof BeanPropertyDescriptorBindableInfo) {
-				BeanPropertyDescriptorBindableInfo descriptorProperty =
-						(BeanPropertyDescriptorBindableInfo) property;
+			if (property instanceof BeanPropertyDescriptorBindableInfo descriptorProperty) {
 				PropertyDescriptor descriptor = descriptorProperty.getDescriptor();
 				//
 				if (BeanSupport.isGetter(descriptor)) {

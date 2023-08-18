@@ -45,8 +45,7 @@ public final class DimensionPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Dimension) {
-			Dimension dimension = (Dimension) value;
+		if (value instanceof Dimension dimension) {
 			return "(" + dimension.width + ", " + dimension.height + ")";
 		}
 		// unknown value

@@ -411,16 +411,14 @@ IPreferenceConstants {
 		m_lafTree.getTree().setRedraw(false);
 		try {
 			for (Object entry : getSelectedEntries()) {
-				if (entry instanceof CategoryInfo) {
-					CategoryInfo category = (CategoryInfo) entry;
+				if (entry instanceof CategoryInfo category) {
 					List<CategoryInfo> categories = LafSupport.getLAFCategoriesList();
 					int index = categories.indexOf(entry);
 					int targetIndex = index + moveDelta;
 					CategoryInfo nextCategory =
 							targetIndex < categories.size() ? (CategoryInfo) categories.get(targetIndex) : null;
 					commands_add(new MoveCategoryCommand(category, nextCategory));
-				} else if (entry instanceof LafInfo) {
-					LafInfo lafInfo = (LafInfo) entry;
+				} else if (entry instanceof LafInfo lafInfo) {
 					CategoryInfo category = lafInfo.getCategory();
 					List<LafInfo> lafs = category.getLAFList();
 					int index = lafs.indexOf(lafInfo);
@@ -533,8 +531,7 @@ IPreferenceConstants {
 	 */
 	private void handleEdit() {
 		Object entry = getSelectedEntries().get(0);
-		if (entry instanceof CategoryInfo) {
-			CategoryInfo category = (CategoryInfo) entry;
+		if (entry instanceof CategoryInfo category) {
 			InputDialog inputDialog = new InputDialog(getShell(),
 					Messages.LafPreferencePage_editCategoryTitle,
 					Messages.LafPreferencePage_editCategoryMessage,
@@ -544,8 +541,7 @@ IPreferenceConstants {
 			if (inputDialog.open() == Window.OK) {
 				commands_add(new RenameCategoryCommand(category, inputDialog.getValue()));
 			}
-		} else if (entry instanceof LafInfo) {
-			LafInfo lafInfo = (LafInfo) entry;
+		} else if (entry instanceof LafInfo lafInfo) {
 			EditCustomLookAndFeelDialog dialog =
 					new EditCustomLookAndFeelDialog(DesignerPlugin.getShell(), lafInfo);
 			// execute dialog
@@ -588,8 +584,7 @@ IPreferenceConstants {
 				if (element instanceof CategoryInfo) {
 					upEnabled &= categories.indexOf(element) != 0;
 					downEnabled &= categories.indexOf(element) != categories.size() - 1;
-				} else if (element instanceof LafInfo) {
-					LafInfo lafInfo = (LafInfo) element;
+				} else if (element instanceof LafInfo lafInfo) {
 					List<LafInfo> lafList = lafInfo.getCategory().getLAFList();
 					upEnabled &= lafList.indexOf(lafInfo) != 0;
 					downEnabled &= lafList.indexOf(lafInfo) != lafList.size() - 1;
@@ -866,8 +861,7 @@ IPreferenceConstants {
 		ViewerDropAdapter dropAdapter = new ViewerDropAdapter(m_lafTree) {
 			@Override
 			protected int determineLocation(DropTargetEvent event) {
-				if (event.item instanceof Item) {
-					Item item = (Item) event.item;
+				if (event.item instanceof Item item) {
 					Point coordinates = m_lafTree.getControl().toControl(event.x, event.y);
 					Rectangle bounds = getBounds(item);
 					// when dragging LAF entry relation with category can be only ON
@@ -1077,8 +1071,7 @@ IPreferenceConstants {
 
 		@Override
 		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof CategoryInfo) {
-				CategoryInfo category = (CategoryInfo) parentElement;
+			if (parentElement instanceof CategoryInfo category) {
 				return LafSupport.isRootCategory(category)
 						? ArrayUtils.EMPTY_OBJECT_ARRAY
 								: category.getLAFList().toArray();

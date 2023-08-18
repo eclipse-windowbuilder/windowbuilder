@@ -113,9 +113,8 @@ public final class FieldEditorRootProcessor implements IRootProcessor {
 	private void bindFieldEditors(final JavaInfo root, final List<JavaInfo> components)
 			throws Exception {
 		for (JavaInfo component : components) {
-			if (component instanceof FieldEditorInfo
+			if (component instanceof FieldEditorInfo fieldEditor
 					&& component.getCreationSupport() instanceof ConstructorCreationSupport) {
-				FieldEditorInfo fieldEditor = (FieldEditorInfo) component;
 				ConstructorCreationSupport creationSupport =
 						(ConstructorCreationSupport) component.getCreationSupport();
 				for (ParameterDescription parameter : creationSupport.getDescription().getParameters()) {

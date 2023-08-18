@@ -143,8 +143,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		// System-based close
 		Window window = event.getWindow();
-		if (window instanceof Dialog) {
-			final Dialog dialog = (Dialog) window;
+		if (window instanceof final Dialog dialog) {
 			// Defer until later. Bad things happen if
 			// handleRemovedDialog() is called directly from
 			// this event handler. The Swing dialog does not close

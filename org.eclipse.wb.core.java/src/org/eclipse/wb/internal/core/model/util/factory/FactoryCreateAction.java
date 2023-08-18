@@ -590,8 +590,7 @@ public final class FactoryCreateAction extends Action {
 					}
 				}
 				// replace getClass() with ClassLiteral source
-				if (from instanceof MethodInvocation) {
-					MethodInvocation invocationNode = (MethodInvocation) from;
+				if (from instanceof MethodInvocation invocationNode) {
 					if (invocationNode.getExpression() == null
 							&& invocationNode.getName().getIdentifier().equals("getClass")
 							&& invocationNode.arguments().isEmpty()) {
@@ -600,8 +599,7 @@ public final class FactoryCreateAction extends Action {
 					}
 				}
 				// replace "expression" of method invocation with empty string
-				if (invocation instanceof InvocationInfo) {
-					InvocationInfo methodInvocation = (InvocationInfo) invocation;
+				if (invocation instanceof InvocationInfo methodInvocation) {
 					if (from == methodInvocation.m_invocation.getExpression()) {
 						return "";
 					}

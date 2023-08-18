@@ -218,8 +218,7 @@ public final class InstanceFactoryCreationSupport extends AbstractExplicitFactor
 						Expression expression,
 						ITypeBinding typeBinding,
 						String typeQualifiedName) throws Exception {
-					if (expression instanceof CastExpression) {
-						CastExpression castExpression = (CastExpression) expression;
+					if (expression instanceof CastExpression castExpression) {
 						String typeName = AstNodeUtils.getFullyQualifiedName(castExpression.getType(), false);
 						if (typeName.equals(m_factoryTypeName)
 								&& castExpression.getExpression() instanceof NullLiteral) {

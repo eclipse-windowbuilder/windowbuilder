@@ -146,25 +146,21 @@ public final class BindingLabelProvider extends LabelProvider implements ITableL
 	}
 
 	private static boolean isDelayBinding(Object element) {
-		if (element instanceof BindingInfo) {
-			BindingInfo binding = (BindingInfo) element;
+		if (element instanceof BindingInfo binding) {
 			return isDelayObservable(binding.getTargetObservable())
 					|| isDelayObservable(binding.getModelObservable());
 		}
-		if (element instanceof AbstractViewerInputBindingInfo) {
-			AbstractViewerInputBindingInfo binding = (AbstractViewerInputBindingInfo) element;
+		if (element instanceof AbstractViewerInputBindingInfo binding) {
 			return isDelayObservable(binding.getInputObservable());
 		}
 		return false;
 	}
 
 	private static boolean isDelayObservable(ObservableInfo observable) {
-		if (observable instanceof DetailBeanObservableInfo) {
-			DetailBeanObservableInfo detailObservable = (DetailBeanObservableInfo) observable;
+		if (observable instanceof DetailBeanObservableInfo detailObservable) {
 			return isDelayObservable(detailObservable.getMasterObservable());
 		}
-		if (observable instanceof IDelayValueProvider) {
-			IDelayValueProvider delayValueProvider = (IDelayValueProvider) observable;
+		if (observable instanceof IDelayValueProvider delayValueProvider) {
 			return delayValueProvider.getDelayValue() != 0;
 		}
 		return false;

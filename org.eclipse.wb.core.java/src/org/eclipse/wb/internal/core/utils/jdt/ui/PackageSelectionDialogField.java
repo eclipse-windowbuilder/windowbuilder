@@ -244,8 +244,7 @@ IDialogFieldListener {
 			}
 			// iterate over children and add valid packages
 			for (int i = 0; i < children.length; i++) {
-				if (children[i] instanceof IPackageFragment) {
-					IPackageFragment packageFragment = (IPackageFragment) children[i];
+				if (children[i] instanceof IPackageFragment packageFragment) {
 					String packageName = packageFragment.getElementName();
 					// check for unique package name
 					if (addedPackageNames != null && addedPackageNames.contains(packageName)) {

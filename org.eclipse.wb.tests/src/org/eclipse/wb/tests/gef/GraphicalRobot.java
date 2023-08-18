@@ -201,8 +201,7 @@ public final class GraphicalRobot {
 		Predicate<Handle> predicate = new Predicate<>() {
 			@Override
 			public boolean apply(Handle handle) {
-				if (handle instanceof ResizeHandle) {
-					ResizeHandle resizeHandle = (ResizeHandle) handle;
+				if (handle instanceof ResizeHandle resizeHandle) {
 					return resizeHandle.getDirection() == direction;
 				}
 				return false;

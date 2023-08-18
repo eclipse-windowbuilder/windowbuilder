@@ -121,8 +121,7 @@ public class CellConstraintsAssistantPage extends AbstractAssistantPage {
 
 	@Override
 	protected Property getCustomProperty(Object object, String propertyName) throws Exception {
-		if (object instanceof ComponentInfo) {
-			ComponentInfo component = (ComponentInfo) object;
+		if (object instanceof ComponentInfo component) {
 			return FormLayoutInfo.getConstraints(component).getPropertyByTitle(propertyName);
 		}
 		return null;

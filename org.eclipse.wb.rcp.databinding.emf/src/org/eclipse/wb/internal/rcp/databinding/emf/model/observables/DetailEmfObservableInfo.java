@@ -176,8 +176,7 @@ public abstract class DetailEmfObservableInfo extends DetailBeanObservableInfo {
 			@Override
 			protected ObservePropertyAdapter convertPropertyToAdapter(IObserveInfo observe)
 					throws Exception {
-				if (observe instanceof EPropertyBindableInfo) {
-					EPropertyBindableInfo property = (EPropertyBindableInfo) observe;
+				if (observe instanceof EPropertyBindableInfo property) {
 					ObservePropertyAdapter adapter =
 							new ObservePropertyAdapter(convertPropertyToAdapter(property.getParent()), property);
 					adapter.addToParent();

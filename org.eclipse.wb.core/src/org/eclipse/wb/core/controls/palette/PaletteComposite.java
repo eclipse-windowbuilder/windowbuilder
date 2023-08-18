@@ -839,8 +839,7 @@ public final class PaletteComposite extends Composite {
 			m_moveCommand = null;
 			// handle target
 			Figure targetFigure = getTargetFigure(this, p);
-			if (targetFigure instanceof EntryFigure) {
-				final EntryFigure targetEntryFigure = (EntryFigure) targetFigure;
+			if (targetFigure instanceof final EntryFigure targetEntryFigure) {
 				final CategoryFigure targetCategoryFigure = (CategoryFigure) targetFigure.getParent();
 				final ICategory targetCategory = targetCategoryFigure.m_category;
 				final IEntry targetEntry = targetEntryFigure.m_entry;

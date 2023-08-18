@@ -141,8 +141,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 	 */
 	private boolean checkChoosenElement(String name) {
 		for (Object element : m_propertiesViewer.getCheckedElements()) {
-			if (element instanceof PropertiesGroup) {
-				PropertiesGroup group = (PropertiesGroup) element;
+			if (element instanceof PropertiesGroup group) {
 				if (name.equals(group.name)) {
 					return true;
 				}
@@ -296,8 +295,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 				(TreeObservableLabelProviderInfo) m_binding.getLabelProvider();
 		// extract checked properties
 		for (Object element : m_propertiesViewer.getCheckedElements()) {
-			if (element instanceof TreePropertyWrapper) {
-				TreePropertyWrapper wrapper = (TreePropertyWrapper) element;
+			if (element instanceof TreePropertyWrapper wrapper) {
 				String propertyName = wrapper.descriptor.getName();
 				String groupName = wrapper.parent.name;
 				// check group
@@ -372,8 +370,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 
 		@Override
 		public Object[] getChildren(Object element) {
-			if (element instanceof PropertiesGroup) {
-				PropertiesGroup group = (PropertiesGroup) element;
+			if (element instanceof PropertiesGroup group) {
 				return group.properties;
 			}
 			return null;
@@ -381,8 +378,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 
 		@Override
 		public boolean hasChildren(Object element) {
-			if (element instanceof PropertiesGroup) {
-				PropertiesGroup group = (PropertiesGroup) element;
+			if (element instanceof PropertiesGroup group) {
 				return group.properties.length > 0;
 			}
 			return false;
@@ -390,8 +386,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 
 		@Override
 		public Object getParent(Object element) {
-			if (element instanceof TreePropertyWrapper) {
-				TreePropertyWrapper wrapper = (TreePropertyWrapper) element;
+			if (element instanceof TreePropertyWrapper wrapper) {
 				return wrapper.parent;
 			}
 			return null;
@@ -413,8 +408,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 
 		@Override
 		public String getText(Object element) {
-			if (element instanceof PropertiesGroup) {
-				PropertiesGroup group = (PropertiesGroup) element;
+			if (element instanceof PropertiesGroup group) {
 				return group.name;
 			}
 			//
@@ -448,8 +442,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 			Object element = event.getElement();
 			//
 			if (event.getChecked()) {
-				if (element instanceof PropertiesGroup) {
-					PropertiesGroup group = (PropertiesGroup) element;
+				if (element instanceof PropertiesGroup group) {
 					if (ArrayUtils.isEmpty(group.properties)) {
 						// clear checked for empty group
 						viewer.setChecked(element, false);
@@ -471,9 +464,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 					}
 				}
 			} else {
-				if (element instanceof PropertiesGroup) {
-					// clear checked elements if group unchecked
-					PropertiesGroup group = (PropertiesGroup) element;
+				if (element instanceof PropertiesGroup group) {
 					for (TreePropertyWrapper property : group.properties) {
 						if (viewer.getChecked(property)) {
 							viewer.setChecked(property, false);

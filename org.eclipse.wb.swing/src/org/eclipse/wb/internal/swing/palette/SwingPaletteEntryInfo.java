@@ -132,8 +132,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 	 */
 	private static void makeNoFocus(Control control) throws Exception {
 		ReflectionUtils.setField(control, "style", control.getStyle() | SWT.NO_FOCUS);
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			for (Control child : composite.getChildren()) {
 				makeNoFocus(child);
 			}

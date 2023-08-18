@@ -681,8 +681,7 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 		panel.addBroadcastListener(new ObjectInfoChildAddAfter() {
 			@Override
 			public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
-				if (parent == panel && child instanceof LayoutInfo) {
-					LayoutInfo newLayout = (LayoutInfo) child;
+				if (parent == panel && child instanceof LayoutInfo newLayout) {
 					buffer.append("layout added: " + newLayout.getDescription().getComponentClass().getName());
 				}
 			}

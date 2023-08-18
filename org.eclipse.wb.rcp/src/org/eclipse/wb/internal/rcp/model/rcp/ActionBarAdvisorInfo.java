@@ -105,8 +105,7 @@ IJavaInfoRendering {
 		addBroadcastListener(new JavaEventListener() {
 			@Override
 			public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
-				if (child instanceof ActionInfo) {
-					ActionInfo action = (ActionInfo) child;
+				if (child instanceof ActionInfo action) {
 					String source = TemplateUtils.format("register({0})", action);
 					Expression expression = action.addExpressionStatement(source);
 					addRelatedNodes(expression);

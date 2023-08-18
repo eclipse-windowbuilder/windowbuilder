@@ -148,8 +148,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
 
 		@Override
 		public boolean hasChildren(Object element) {
-			if (element instanceof IHasChildren) {
-				IHasChildren tester = (IHasChildren) element;
+			if (element instanceof IHasChildren tester) {
 				return tester.hasChildren();
 			}
 			return getChildren(element).length != 0;
@@ -158,8 +157,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
 		@Override
 		public Object[] getChildren(Object parentElement) {
 			try {
-				if (parentElement instanceof IImageContainer) {
-					IImageContainer container = (IImageContainer) parentElement;
+				if (parentElement instanceof IImageContainer container) {
 					return container.elements();
 				}
 			} catch (Throwable e) {
@@ -193,8 +191,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
 	private static final class ImageLabelProvider extends LabelProvider {
 		@Override
 		public Image getImage(Object element) {
-			if (element instanceof IImageElement) {
-				IImageElement imageElement = (IImageElement) element;
+			if (element instanceof IImageElement imageElement) {
 				return imageElement.getImage();
 			}
 			return null;
@@ -202,11 +199,9 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
 
 		@Override
 		public String getText(Object element) {
-			if (element instanceof IImageContainer) {
-				IImageContainer container = (IImageContainer) element;
+			if (element instanceof IImageContainer container) {
 				return container.getName();
-			} else if (element instanceof IImageResource) {
-				IImageResource resource = (IImageResource) element;
+			} else if (element instanceof IImageResource resource) {
 				return resource.getName();
 			}
 			return "???";

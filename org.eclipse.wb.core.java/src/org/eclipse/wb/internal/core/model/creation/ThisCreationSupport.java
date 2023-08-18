@@ -190,8 +190,7 @@ public final class ThisCreationSupport extends CreationSupport {
 			return null;
 		}
 		Statement statement = statements.get(0);
-		if (statement instanceof ConstructorInvocation) {
-			ConstructorInvocation invocation = (ConstructorInvocation) statement;
+		if (statement instanceof ConstructorInvocation invocation) {
 			constructor = AstNodeUtils.getConstructor(invocation);
 			Assert.isNotNull(constructor, "Can not find constructor declaration for %s", invocation);
 			return findSuperConstructorInvocation(constructor);
@@ -606,19 +605,16 @@ public final class ThisCreationSupport extends CreationSupport {
 	 *         safe to visit this {@link MethodDeclaration} several times.
 	 */
 	private static boolean isSimpleReturnMethod(ASTNode node) {
-		if (node instanceof MethodDeclaration) {
-			MethodDeclaration methodDeclaration = (MethodDeclaration) node;
+		if (node instanceof MethodDeclaration methodDeclaration) {
 			List<Statement> statements = DomGenerics.statements(methodDeclaration);
 			return methodDeclaration.parameters().isEmpty()
 					&& statements.size() == 1
 					&& isSimpleReturnMethod(statements.get(0));
 		}
-		if (node instanceof ReturnStatement) {
-			ReturnStatement returnStatement = (ReturnStatement) node;
+		if (node instanceof ReturnStatement returnStatement) {
 			return isSimpleReturnMethod(returnStatement.getExpression());
 		}
-		if (node instanceof ParenthesizedExpression) {
-			ParenthesizedExpression parenthesizedExpression = (ParenthesizedExpression) node;
+		if (node instanceof ParenthesizedExpression parenthesizedExpression) {
 			return isSimpleReturnMethod(parenthesizedExpression.getExpression());
 		}
 		if (node instanceof SimpleName) {

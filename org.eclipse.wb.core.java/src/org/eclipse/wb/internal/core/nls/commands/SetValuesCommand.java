@@ -68,8 +68,7 @@ public final class SetValuesCommand extends AbstractCommand {
 		for (int index = commands.size() - 1; index >= 0; index--) {
 			AbstractCommand oldCommand = commands.get(index);
 			// "set values" found
-			if (oldCommand instanceof SetValuesCommand) {
-				SetValuesCommand oldSetValuesCommand = (SetValuesCommand) oldCommand;
+			if (oldCommand instanceof SetValuesCommand oldSetValuesCommand) {
 				// if same locale, remove it
 				if (oldSetValuesCommand.getLocale().equals(locale)) {
 					commands.remove(index);

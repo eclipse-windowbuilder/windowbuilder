@@ -23,10 +23,9 @@ import java.awt.Dimension;
 public class BaselineSupport implements IBaselineSupport {
 	@Override
 	public int getBaseline(Object component) {
-		if (!(component instanceof Component)) {
+		if (!(component instanceof Component comp)) {
 			return NO_BASELINE;
 		}
-		Component comp = (Component) component;
 		Dimension size = comp.getSize();
 		return comp.getBaseline(size.width, size.height);
 	}

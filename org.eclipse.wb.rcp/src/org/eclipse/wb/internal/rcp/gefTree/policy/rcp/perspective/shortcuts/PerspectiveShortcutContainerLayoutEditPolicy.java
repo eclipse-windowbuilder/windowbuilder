@@ -75,8 +75,7 @@ public final class PerspectiveShortcutContainerLayoutEditPolicy extends LayoutEd
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof PerspectiveDropRequest) {
-			final PerspectiveDropRequest perspectiveDrop_Request = (PerspectiveDropRequest) request;
+		if (request instanceof final PerspectiveDropRequest perspectiveDrop_Request) {
 			final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
 			final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
 			return new EditCommand(m_page) {

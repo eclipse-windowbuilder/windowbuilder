@@ -36,8 +36,7 @@ public final class IntegerConverter extends ExpressionConverter {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String toSource(XmlObjectInfo object, Object value) throws Exception {
-		if (value instanceof Integer) {
-			Integer valueInteger = (Integer) value;
+		if (value instanceof Integer valueInteger) {
 			return valueInteger.toString();
 		}
 		return null;

@@ -273,8 +273,7 @@ public class XmlObjectInfo extends ObjectInfo implements HasSourcePosition {
 			return this;
 		}
 		for (ObjectInfo child : getChildren()) {
-			if (child instanceof XmlObjectInfo) {
-				XmlObjectInfo xmlChild = (XmlObjectInfo) child;
+			if (child instanceof XmlObjectInfo xmlChild) {
 				XmlObjectInfo result = xmlChild.getChildByObject(o);
 				if (result != null) {
 					return result;

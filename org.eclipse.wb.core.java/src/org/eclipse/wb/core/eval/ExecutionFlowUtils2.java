@@ -222,18 +222,16 @@ public final class ExecutionFlowUtils2 {
 		 * {@link #whenLeave_type_visitRestMethods(ASTNode)} later.
 		 */
 		private void whenLeave_method_rememberVisited(ASTNode node) {
-			if (node instanceof MethodDeclaration) {
-				MethodDeclaration method = (MethodDeclaration) node;
+			if (node instanceof MethodDeclaration method) {
 				m_visitedMethods.add(method);
 			}
 		}
 
 		private void defineMethodParameters(ASTNode node) {
 			// prepare declaration
-			if (!(node instanceof MethodDeclaration)) {
+			if (!(node instanceof MethodDeclaration declaration)) {
 				return;
 			}
-			MethodDeclaration declaration = (MethodDeclaration) node;
 			List<SingleVariableDeclaration> parameters = DomGenerics.parameters(declaration);
 			// prepare invocation
 			ASTNode invocation;
@@ -325,8 +323,7 @@ public final class ExecutionFlowUtils2 {
 				if (!isLocalStaticFactory) {
 					List<Statement> statements = DomGenerics.statements(method);
 					Statement lastStatement = GenericsUtils.getLastOrNull(statements);
-					if (lastStatement instanceof ReturnStatement) {
-						ReturnStatement returnStatement = (ReturnStatement) lastStatement;
+					if (lastStatement instanceof ReturnStatement returnStatement) {
 						Expression expression = returnStatement.getExpression();
 						if (expression != null) {
 							ExpressionValue value = createValue(expression);
@@ -345,8 +342,7 @@ public final class ExecutionFlowUtils2 {
 		@Override
 		public void endVisit(PostfixExpression node) {
 			Expression operand = node.getOperand();
-			if (operand instanceof SimpleName) {
-				SimpleName variable = (SimpleName) operand;
+			if (operand instanceof SimpleName variable) {
 				String identifier = variable.getIdentifier();
 				// remember previous value
 				variable.setProperty(KEY_VALUE_PREV, m_frame.getValue(identifier));
@@ -364,15 +360,13 @@ public final class ExecutionFlowUtils2 {
 			}
 			Expression leftSide = node.getLeftHandSide();
 			Expression rightSide = node.getRightHandSide();
-			if (leftSide instanceof SimpleName) {
-				SimpleName variable = (SimpleName) leftSide;
+			if (leftSide instanceof SimpleName variable) {
 				String identifier = variable.getIdentifier();
 				ExpressionValue value = createValue(rightSide);
 				m_frame.setValue(identifier, value);
 				variable.setProperty(KEY_VALUE, value);
 			}
-			if (leftSide instanceof FieldAccess) {
-				FieldAccess leftFieldAccess = (FieldAccess) leftSide;
+			if (leftSide instanceof FieldAccess leftFieldAccess) {
 				if (leftFieldAccess.getExpression() instanceof ThisExpression) {
 					SimpleName variable = leftFieldAccess.getName();
 					ExpressionValue value = createValue(rightSide);

@@ -217,8 +217,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 
 			@Override
 			public boolean equals(Object a, Object b) {
-				if (a instanceof IPluginElement && b instanceof IPluginElement) {
-					IPluginElement elementA = (IPluginElement) a;
+				if (a instanceof IPluginElement elementA && b instanceof IPluginElement) {
 					IPluginElement elementB = (IPluginElement) b;
 					String idA = PdeUtils.getAttribute(elementA, "id");
 					String idB = PdeUtils.getAttribute(elementB, "id");
@@ -281,8 +280,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 					return true;
 				}
 				// check for some category
-				if (target instanceof IPluginElement) {
-					IPluginElement targetElement = (IPluginElement) target;
+				if (target instanceof IPluginElement targetElement) {
 					return isCategoryElement(targetElement);
 				}
 				//
@@ -297,8 +295,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 					public void run() throws Exception {
 						if (m_target == OTHER_CATEGORY) {
 							m_utils.setAttribute(dragElement[0], "category", null);
-						} else if (m_target instanceof IPluginElement) {
-							IPluginElement targetElement = (IPluginElement) m_target;
+						} else if (m_target instanceof IPluginElement targetElement) {
 							String categoryId = PdeUtils.getAttribute(targetElement, "id");
 							m_utils.setAttribute(dragElement[0], "category", categoryId);
 						}
@@ -436,8 +433,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 						categoryViews.add(view);
 					}
 				}
-			} else if (parentElement instanceof IPluginElement) {
-				IPluginElement pluginElement = (IPluginElement) parentElement;
+			} else if (parentElement instanceof IPluginElement pluginElement) {
 				if (isCategoryElement(pluginElement)) {
 					String thisCategoryId = PdeUtils.getAttribute(pluginElement, "id");
 					for (IPluginElement view : m_views) {
@@ -454,8 +450,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 
 		@Override
 		public Object getParent(Object element) {
-			if (element instanceof IPluginElement) {
-				IPluginElement view = (IPluginElement) element;
+			if (element instanceof IPluginElement view) {
 				String viewCategoryId = PdeUtils.getAttribute(view, "category");
 				// check for category "other"
 				if (StringUtils.isEmpty(viewCategoryId)) {
@@ -541,8 +536,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 	}
 
 	private static boolean isCategoryObject(Object o) {
-		if (o instanceof IPluginElement) {
-			IPluginElement element = (IPluginElement) o;
+		if (o instanceof IPluginElement element) {
 			return element.getName().equals("category");
 		}
 		return false;

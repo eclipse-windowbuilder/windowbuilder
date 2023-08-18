@@ -30,8 +30,7 @@ public final class RcpPolicyConfigurator implements IEditPartConfigurator {
 	public void configure(EditPart context, EditPart editPart) {
 		editPart.addRequestProcessor(FieldEditorDropRequestProcessor.INSTANCE);
 		// allow drop Action on MenuManager
-		if (editPart instanceof IMenuObjectEditPart) {
-			IMenuObjectEditPart menuEditPart = (IMenuObjectEditPart) editPart;
+		if (editPart instanceof IMenuObjectEditPart menuEditPart) {
 			if (menuEditPart.getMenuModel().getToolkitModel() instanceof MenuManagerInfo) {
 				editPart.addRequestProcessor(ActionDropRequestProcessor.INSTANCE);
 			}

@@ -53,8 +53,7 @@ public final class JTableInfo extends ContainerInfo {
 		addBroadcastListener(new EvaluationEventListener() {
 			@Override
 			public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
-				if (node instanceof ExpressionStatement) {
-					ExpressionStatement expressionStatement = (ExpressionStatement) node;
+				if (node instanceof ExpressionStatement expressionStatement) {
 					if (AstNodeUtils.isMethodInvocation(
 							expressionStatement.getExpression(),
 							"javax.swing.JTable",
@@ -69,8 +68,7 @@ public final class JTableInfo extends ContainerInfo {
 	private void evaluateColumnModelInvocations(EvaluationContext context) throws Exception {
 		for (MethodInvocation invocationPart : getMethodInvocations("getColumnModel()")) {
 			Statement statement = AstNodeUtils.getEnclosingStatement(invocationPart);
-			if (statement instanceof ExpressionStatement) {
-				ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+			if (statement instanceof ExpressionStatement expressionStatement) {
 				if (expressionStatement.getExpression() instanceof MethodInvocation) {
 					MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
 					AstEvaluationEngine.evaluate(context, invocation);

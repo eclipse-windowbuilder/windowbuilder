@@ -480,9 +480,7 @@ public final class ViewerInputParser implements ISubParser {
 						ObservableFactoryInfo factoryInfo =
 								treeViewerBinding.getContentProvider().getFactoryInfo();
 						//
-						if (factoryInfo instanceof BeansObservableFactoryInfo) {
-							BeansObservableFactoryInfo beansFactoryInfo =
-									(BeansObservableFactoryInfo) factoryInfo;
+						if (factoryInfo instanceof BeansObservableFactoryInfo beansFactoryInfo) {
 							String propertyName = beansFactoryInfo.getPropertyName();
 							PropertyBindableInfo propertyObject =
 									propertyName == null
@@ -602,8 +600,7 @@ public final class ViewerInputParser implements ISubParser {
 			//
 			if (cellEditorPropertyInfo instanceof CellEditorValuePropertyCodeSupport) {
 				cellEditorProperty = (CellEditorValuePropertyCodeSupport) cellEditorPropertyInfo;
-			} else if (cellEditorPropertyInfo instanceof ValuePropertyCodeSupport) {
-				ValuePropertyCodeSupport value = (ValuePropertyCodeSupport) cellEditorPropertyInfo;
+			} else if (cellEditorPropertyInfo instanceof ValuePropertyCodeSupport value) {
 				cellEditorProperty = new CellEditorValuePropertyCodeSupport(value);
 			}
 			//

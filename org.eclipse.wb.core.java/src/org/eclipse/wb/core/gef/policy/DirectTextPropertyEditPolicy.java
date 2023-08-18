@@ -82,8 +82,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
 			throws Exception {
 		// try to find property with "isText" tag
 		for (Property property : component.getProperties()) {
-			if (property instanceof GenericPropertyImpl) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty) {
 				GenericPropertyDescription description = genericProperty.getDescription();
 				if (genericProperty.getJavaInfo() == component
 						&& description != null
@@ -232,8 +231,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		if (request instanceof KeyRequest) {
-			KeyRequest keyRequest = (KeyRequest) request;
+		if (request instanceof KeyRequest keyRequest) {
 			if (keyRequest.isPressed() && (keyRequest.getCharacter() == ' ' || //
 					keyRequest.getKeyCode() == SWT.F2)) { //
 				beginEdit();

@@ -373,8 +373,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		m_editor.getAstUnit().accept(new ASTVisitor() {
 			@Override
 			public void postVisit(ASTNode node) {
-				if (node instanceof Expression) {
-					Expression expression = (Expression) node;
+				if (node instanceof Expression expression) {
 					ExpressionValue value = ExecutionFlowUtils2.getValue0(expression);
 					if (value != null) {
 						JavaInfo model = (JavaInfo) value.getModel();
@@ -553,8 +552,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 				}
 			});
 			// enter in "lazy creation" methods, but only one time
-			if (node instanceof MethodDeclaration) {
-				MethodDeclaration method = (MethodDeclaration) node;
+			if (node instanceof MethodDeclaration method) {
 				if (m_visitedLazyMethods.contains(method)) {
 					return false;
 				}
@@ -564,8 +562,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 				}
 			}
 			// skip factories
-			if (node instanceof MethodDeclaration) {
-				MethodDeclaration method = (MethodDeclaration) node;
+			if (node instanceof MethodDeclaration method) {
 				if (FactoryDescriptionHelper.isFactoryMethod(method)) {
 					return false;
 				}
@@ -835,9 +832,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 							if (parameterTypes[parameterIndex].isArray()) {
 								// array parameter
 								Expression parameterExpression = arguments[parameterDescription.getIndex()];
-								if (parameterJavaInfo == null && parameterExpression instanceof ArrayCreation) {
-									// allow only inline array creation for simple type
-									ArrayCreation creation = (ArrayCreation) parameterExpression;
+								if (parameterJavaInfo == null && parameterExpression instanceof ArrayCreation creation) {
 									if (creation.getType().getComponentType().isSimpleType()) {
 										// prepare ArrayObjectInfo
 										bindChild_MethodInvocationParameter_ArrayCreation(

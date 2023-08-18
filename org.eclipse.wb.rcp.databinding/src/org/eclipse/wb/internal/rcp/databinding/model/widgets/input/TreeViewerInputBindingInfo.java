@@ -81,9 +81,7 @@ public final class TreeViewerInputBindingInfo extends AbstractViewerInputBinding
 
 	public void setLabelProvider(AbstractLabelProviderInfo labelProvider) {
 		m_labelProvider = labelProvider;
-		if (m_labelProvider instanceof ObservableMapLabelProviderInfo) {
-			ObservableMapLabelProviderInfo mapsLabelProvider =
-					(ObservableMapLabelProviderInfo) m_labelProvider;
+		if (m_labelProvider instanceof ObservableMapLabelProviderInfo mapsLabelProvider) {
 			mapsLabelProvider.setBinding(this);
 		}
 	}
@@ -91,8 +89,7 @@ public final class TreeViewerInputBindingInfo extends AbstractViewerInputBinding
 	@Override
 	public Class<?> getElementType() {
 		ObservableFactoryInfo factoryInfo = m_contentProvider.getFactoryInfo();
-		if (factoryInfo instanceof BeansObservableFactoryInfo) {
-			BeansObservableFactoryInfo designerFactoryInfo = (BeansObservableFactoryInfo) factoryInfo;
+		if (factoryInfo instanceof BeansObservableFactoryInfo designerFactoryInfo) {
 			return designerFactoryInfo.getElementType();
 		}
 		return super.getElementType();

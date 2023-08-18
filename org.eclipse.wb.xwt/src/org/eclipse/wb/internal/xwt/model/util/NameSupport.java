@@ -56,8 +56,7 @@ public final class NameSupport {
 		root.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
 			@Override
 			public void invoke(ObjectInfo object, String[] text) throws Exception {
-				if (object instanceof XmlObjectInfo) {
-					XmlObjectInfo xObject = (XmlObjectInfo) object;
+				if (object instanceof XmlObjectInfo xObject) {
 					String name = getName(xObject);
 					if (name != null) {
 						text[0] = text[0] + " - " + name;
@@ -130,8 +129,7 @@ public final class NameSupport {
 		object.getRootXML().accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo object) throws Exception {
-				if (object instanceof XmlObjectInfo) {
-					XmlObjectInfo xmlObject = (XmlObjectInfo) object;
+				if (object instanceof XmlObjectInfo xmlObject) {
 					if (XmlObjectUtils.isImplicit(xmlObject)) {
 						return;
 					}

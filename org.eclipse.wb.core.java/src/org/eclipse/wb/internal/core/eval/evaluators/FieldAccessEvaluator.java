@@ -44,8 +44,7 @@ public final class FieldAccessEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof FieldAccess) {
-			FieldAccess fieldAccess = (FieldAccess) expression;
+		if (expression instanceof FieldAccess fieldAccess) {
 			String fieldName = fieldAccess.getName().getIdentifier();
 			// check "this" expression
 			Expression fieldAccessExpression = fieldAccess.getExpression();

@@ -97,8 +97,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 			// set image
 			control.setData(WBP_IMAGE, makeShot(control));
 			// create images for children
-			if (control instanceof Composite) {
-				Composite composite = (Composite) control;
+			if (control instanceof Composite composite) {
 				for (Control child : composite.getChildren()) {
 					makeShotsHierarchy(child);
 				}

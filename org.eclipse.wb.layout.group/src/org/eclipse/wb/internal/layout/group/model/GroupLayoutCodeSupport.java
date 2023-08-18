@@ -144,8 +144,7 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
 			List<Expression> arguments = DomGenerics.arguments(invocation);
 			Expression arg = arguments.get(0);
 			// old way
-			if (arg instanceof ArrayCreation) {
-				ArrayCreation arrayCreation = (ArrayCreation) arg;
+			if (arg instanceof ArrayCreation arrayCreation) {
 				ArrayInitializer arrayInitializer = arrayCreation.getInitializer();
 				List<Expression> expressions = DomGenerics.expressions(arrayInitializer);
 				for (Expression expression : expressions) {
@@ -171,8 +170,7 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
 			int axis = convertDimension((Integer) JavaInfoEvaluationHelper.getValue(axisArg));
 			Expression arg = arguments.get(componentsArgIndex);
 			// old way
-			if (arg instanceof ArrayCreation) {
-				ArrayCreation arrayCreation = (ArrayCreation) arg;
+			if (arg instanceof ArrayCreation arrayCreation) {
 				ArrayInitializer arrayInitializer = arrayCreation.getInitializer();
 				List<Expression> expressions = DomGenerics.expressions(arrayInitializer);
 				for (Expression expression : expressions) {

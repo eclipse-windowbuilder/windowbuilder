@@ -74,16 +74,13 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
 			Expression expression,
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			return evaluate(context, invocation);
 		}
-		if (expression instanceof SuperMethodInvocation) {
-			SuperMethodInvocation invocation = (SuperMethodInvocation) expression;
+		if (expression instanceof SuperMethodInvocation invocation) {
 			return evaluate(context, invocation);
 		}
-		if (expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+		if (expression instanceof ClassInstanceCreation creation) {
 			return evaluate(context, creation, typeBinding, typeQualifiedName);
 		}
 		// we don't understand given expression

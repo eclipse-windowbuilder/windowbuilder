@@ -46,9 +46,7 @@ public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindab
 	}
 
 	private static String createReference(IObserveInfo parent, String reference) throws Exception {
-		if (parent instanceof BeanPropertyDescriptorBindableInfo) {
-			BeanPropertyDescriptorBindableInfo bindableParent =
-					(BeanPropertyDescriptorBindableInfo) parent;
+		if (parent instanceof BeanPropertyDescriptorBindableInfo bindableParent) {
 			return StringUtils.removeEnd(bindableParent.getReference(), "\"") + "." + reference + "\"";
 		}
 		return "\"" + reference + "\"";
@@ -57,9 +55,7 @@ public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindab
 	private static IObservePresentation createPresentation(IObserveInfo parent,
 			String reference,
 			Class<?> objectType) throws Exception {
-		if (parent instanceof BeanPropertyDescriptorBindableInfo) {
-			BeanPropertyDescriptorBindableInfo bindableParent =
-					(BeanPropertyDescriptorBindableInfo) parent;
+		if (parent instanceof BeanPropertyDescriptorBindableInfo bindableParent) {
 			String parentReference = StringUtils.removeStart(bindableParent.getReference(), "\"");
 			parentReference = StringUtils.removeEnd(parentReference, "\"");
 			//

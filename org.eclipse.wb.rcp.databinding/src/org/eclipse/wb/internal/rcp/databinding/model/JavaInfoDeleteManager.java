@@ -74,8 +74,7 @@ org.eclipse.wb.internal.core.databinding.model.JavaInfoDeleteManager {
 	}
 
 	static boolean checkWidget(JavaInfo javaInfo, BindableInfo bindable) {
-		if (bindable instanceof WidgetBindableInfo) {
-			WidgetBindableInfo widgetBindable = (WidgetBindableInfo) bindable;
+		if (bindable instanceof WidgetBindableInfo widgetBindable) {
 			return javaInfo == widgetBindable.getJavaInfo();
 		}
 		return false;

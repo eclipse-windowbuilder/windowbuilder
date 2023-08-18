@@ -244,8 +244,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof AbstractComponentInfo) {
-					AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
+				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
 					if (ControlSupport.isControl(componentObject)) {
 						ToolkitSupport.markAsNeededImage(componentObject);
@@ -259,8 +258,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof AbstractComponentInfo) {
-					AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
+				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
 					if (ControlSupport.isControl(componentObject)) {
 						Image image = ToolkitSupport.getShotImage(componentObject);

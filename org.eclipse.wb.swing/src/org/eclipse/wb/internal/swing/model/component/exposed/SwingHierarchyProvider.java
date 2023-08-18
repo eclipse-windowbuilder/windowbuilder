@@ -38,8 +38,7 @@ public final class SwingHierarchyProvider extends HierarchyProvider {
 		if (object instanceof JMenuItem) {
 			return getJMenu((JMenuItem) object);
 		}
-		if (object instanceof Component) {
-			Component component = (Component) object;
+		if (object instanceof Component component) {
 			return component.getParent();
 		}
 		return null;
@@ -48,8 +47,7 @@ public final class SwingHierarchyProvider extends HierarchyProvider {
 	@Override
 	public Object[] getChildrenObjects(Object object) throws Exception {
 		// javax.swing.JMenu
-		if (object instanceof JMenu) {
-			JMenu menu = (JMenu) object;
+		if (object instanceof JMenu menu) {
 			int componentCount = menu.getMenuComponentCount();
 			Component[] menuComponents = new Component[componentCount];
 			for (int i = 0; i < componentCount; i++) {
@@ -58,8 +56,7 @@ public final class SwingHierarchyProvider extends HierarchyProvider {
 			return menuComponents;
 		}
 		// generic java.awt.Container
-		if (object instanceof Container) {
-			Container container = (Container) object;
+		if (object instanceof Container container) {
 			return container.getComponents();
 		}
 		// unknown

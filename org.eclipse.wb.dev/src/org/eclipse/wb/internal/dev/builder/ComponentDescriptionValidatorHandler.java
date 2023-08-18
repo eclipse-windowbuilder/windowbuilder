@@ -116,8 +116,7 @@ public final class ComponentDescriptionValidatorHandler implements BuilderHandle
 				m_considerXSD = true;
 			}
 		}
-		if (resource instanceof IFile && resourcePathString.endsWith(".wbp-component.xml")) {
-			IFile file = (IFile) resource;
+		if (resource instanceof IFile file && resourcePathString.endsWith(".wbp-component.xml")) {
 			if (resourcePathString.contains("/bin/")) {
 				return;
 			}

@@ -356,8 +356,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 		m_rootJavaInfo.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				if (objectInfo instanceof JavaInfo javaInfo) {
 					VariableSupport variableSupport = javaInfo.getVariableSupport();
 					Class<?> componentClass = javaInfo.getDescription().getComponentClass();
 					if (componentClass != null
@@ -1055,8 +1054,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 		m_rootJavaInfo.accept(new ObjectInfoVisitor() {
 			@Override
 			public boolean visit(ObjectInfo objectInfo) throws Exception {
-				if (result[0] == null && objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				if (result[0] == null && objectInfo instanceof JavaInfo javaInfo) {
 					if (variable.equals(JavaInfoReferenceProvider.getReference(javaInfo))) {
 						result[0] = javaInfo;
 					}

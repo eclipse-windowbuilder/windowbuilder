@@ -89,8 +89,7 @@ public class WrapperByMethod extends AbstractWrapper {
 
 	@Override
 	public boolean isWrappedInfo(ASTNode node) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			return invocation.arguments().isEmpty()
 					&& invocation.getName().getIdentifier().equals(m_method.getName())
 					&& m_wrapperInfo.isRepresentedBy(invocation.getExpression());

@@ -161,8 +161,7 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
 	}
 
 	private static String getNormalizedSource(AstEditor editor, Expression expression) {
-		if (expression instanceof CastExpression) {
-			CastExpression castExpression = (CastExpression) expression;
+		if (expression instanceof CastExpression castExpression) {
 			if (castExpression.getExpression() instanceof NullLiteral) {
 				String qualifiedTypeName = AstNodeUtils.getFullyQualifiedName(expression, false);
 				return MessageFormat.format("({0}) null", qualifiedTypeName);

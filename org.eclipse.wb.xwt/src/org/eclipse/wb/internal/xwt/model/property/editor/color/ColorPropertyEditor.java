@@ -72,8 +72,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 	@Override
 	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Color) {
-			Color color = (Color) value;
+		if (value instanceof Color color) {
 			// draw color sample
 			{
 				Color oldBackground = gc.getBackground();
@@ -124,8 +123,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 		}
 		// use value
 		Object value = property.getValue();
-		if (value instanceof Color) {
-			Color color = (Color) value;
+		if (value instanceof Color color) {
 			return ColorSupport.toString(color);
 		}
 		return null;
@@ -167,8 +165,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 		// set initial color
 		{
 			Object value = property.getValue();
-			if (value instanceof Color) {
-				Color color = (Color) value;
+			if (value instanceof Color color) {
 				m_colorDialog.setColorInfo(ColorSupport.createInfo(color));
 			}
 		}

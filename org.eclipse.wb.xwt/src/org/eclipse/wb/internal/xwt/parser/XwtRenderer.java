@@ -117,8 +117,7 @@ public final class XwtRenderer {
 		m_rootModel.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof XmlObjectInfo) {
-					XmlObjectInfo xmlObjectInfo = (XmlObjectInfo) objectInfo;
+				if (objectInfo instanceof XmlObjectInfo xmlObjectInfo) {
 					CreationSupport creationSupport = xmlObjectInfo.getCreationSupport();
 					if (!XmlObjectUtils.isImplicit(xmlObjectInfo)) {
 						DocumentElement element = creationSupport.getElement();

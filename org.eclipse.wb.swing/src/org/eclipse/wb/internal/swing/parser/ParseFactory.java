@@ -86,8 +86,7 @@ public class ParseFactory extends AbstractParseFactory {
 			typeDeclaration.accept(new ASTVisitor() {
 				@Override
 				public void postVisit(ASTNode node) {
-					if (!isSwing[0] && node instanceof Expression) {
-						Expression expression = (Expression) node;
+					if (!isSwing[0] && node instanceof Expression expression) {
 						ITypeBinding expressionBinding = AstNodeUtils.getTypeBinding(expression);
 						if (AstNodeUtils.isSuccessorOf(expressionBinding, Component.class)) {
 							isSwing[0] = true;
@@ -248,11 +247,10 @@ public class ParseFactory extends AbstractParseFactory {
 		}
 		// javax.swing.JPopupMenu is associated using addPopup() invocation
 		if (argumentInfos.length == 2
-				&& argumentInfos[0] instanceof ComponentInfo
+				&& argumentInfos[0] instanceof ComponentInfo component
 				&& argumentInfos[1] instanceof JPopupMenuInfo
 				&& AstNodeUtils.getMethodSignature(methodBinding).equals(
 						"addPopup(java.awt.Component,javax.swing.JPopupMenu)")) {
-			ComponentInfo component = (ComponentInfo) argumentInfos[0];
 			JPopupMenuInfo popup = (JPopupMenuInfo) argumentInfos[1];
 			popup.setAssociation(new JPopupMenuAssociation(invocation));
 			component.addChild(popup);

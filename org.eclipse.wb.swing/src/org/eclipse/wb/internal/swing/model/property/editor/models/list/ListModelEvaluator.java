@@ -50,15 +50,13 @@ public final class ListModelEvaluator implements IExpressionEvaluator {
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
 		// check for anonymous AbstractListModel
-		if (expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+		if (expression instanceof ClassInstanceCreation creation) {
 			if (creation.getAnonymousClassDeclaration() != null
 					&& AstNodeUtils.isSuccessorOf(expression, AbstractListModel.class)) {
 				AnonymousClassDeclaration declaration = creation.getAnonymousClassDeclaration();
 				List<BodyDeclaration> declarations = DomGenerics.bodyDeclarations(declaration);
 				for (BodyDeclaration bodyDeclaration : declarations) {
-					if (bodyDeclaration instanceof FieldDeclaration) {
-						FieldDeclaration fieldDeclaration = (FieldDeclaration) bodyDeclaration;
+					if (bodyDeclaration instanceof FieldDeclaration fieldDeclaration) {
 						VariableDeclaration fragment = DomGenerics.fragments(fieldDeclaration).get(0);
 						Type fieldType = fieldDeclaration.getType();
 						String fieldTypeName = AstNodeUtils.getFullyQualifiedName(fieldType, false);

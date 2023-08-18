@@ -77,10 +77,9 @@ public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
 		addBroadcastListener(new JavaInfoAddProperties() {
 			@Override
 			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-				if (javaInfo instanceof ComponentInfo
+				if (javaInfo instanceof ComponentInfo component
 						&& javaInfo.getParent() == getContainer()
 						&& JComponent.class.isAssignableFrom(javaInfo.getDescription().getComponentClass())) {
-					ComponentInfo component = (ComponentInfo) javaInfo;
 					Property alignmentProperty = addAlignmentProperty(component, properties);
 					properties.add(alignmentProperty);
 				}
@@ -123,8 +122,7 @@ public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
 			throws Exception {
 		GenericPropertyImpl alignmentSubProperty = null;
 		for (Property property : properties) {
-			if (property instanceof GenericPropertyImpl && property.getTitle().equals(title)) {
-				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			if (property instanceof GenericPropertyImpl genericProperty && property.getTitle().equals(title)) {
 				alignmentSubProperty = new GenericPropertyImpl(genericProperty, property.getTitle());
 				alignmentSubProperty.setCategory(PropertyCategory.NORMAL);
 				break;

@@ -146,8 +146,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
 			String accessorClassName,
 			List<AbstractSource> sources) throws Exception {
 		for (AbstractSource abstractSource : sources) {
-			if (abstractSource instanceof ModernEclipseSource) {
-				ModernEclipseSource source = (ModernEclipseSource) abstractSource;
+			if (abstractSource instanceof ModernEclipseSource source) {
 				if (source.m_accessorClassName.equals(accessorClassName)) {
 					return source;
 				}
@@ -161,8 +160,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
 	 * bundle name and key.
 	 */
 	private static ExpressionInfo getExpressionInfo(Expression expression) {
-		if (expression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) expression;
+		if (expression instanceof QualifiedName qualifiedName) {
 			Name qualifier = qualifiedName.getQualifier();
 			// check that qualifier is successor of NLS
 			if (!AstNodeUtils.isSuccessorOf(
@@ -296,8 +294,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
 		m_accessorEditor.getAstUnit().accept(new AstVisitorEx() {
 			@Override
 			public void postVisitEx(ASTNode node) throws Exception {
-				if (node instanceof FieldDeclaration) {
-					FieldDeclaration fieldDeclaration = (FieldDeclaration) node;
+				if (node instanceof FieldDeclaration fieldDeclaration) {
 					if (fieldDeclaration.fragments().size() == 1) {
 						VariableDeclarationFragment vdf =
 								(VariableDeclarationFragment) fieldDeclaration.fragments().get(0);
@@ -318,8 +315,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
 		m_accessorEditor.getAstUnit().accept(new AstVisitorEx() {
 			@Override
 			public void postVisitEx(ASTNode node) throws Exception {
-				if (node instanceof FieldDeclaration) {
-					FieldDeclaration fieldDeclaration = (FieldDeclaration) node;
+				if (node instanceof FieldDeclaration fieldDeclaration) {
 					if (fieldDeclaration.fragments().size() == 1) {
 						VariableDeclarationFragment vdf =
 								(VariableDeclarationFragment) fieldDeclaration.fragments().get(0);

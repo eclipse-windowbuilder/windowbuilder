@@ -211,8 +211,7 @@ public final class JavaInfoResolver {
 			}
 		}
 		// invocation
-		if (expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) expression;
+		if (expression instanceof MethodInvocation invocation) {
 			String invName = invocation.getName().getIdentifier();
 			// XXX special support for GWT RootPanel
 			if (invName.equals("get")
@@ -236,8 +235,7 @@ public final class JavaInfoResolver {
 					}
 				}
 				// viewer.getTable()
-				if (expressionJavaInfo instanceof IWrapperInfo) {
-					IWrapperInfo wrapperInfo = (IWrapperInfo) expressionJavaInfo;
+				if (expressionJavaInfo instanceof IWrapperInfo wrapperInfo) {
 					IWrapper wrapper = wrapperInfo.getWrapper();
 					JavaInfo javaInfo = wrapper.getWrappedInfo();
 					if (wrapper.isWrappedInfo(invocation)) {
@@ -250,15 +248,13 @@ public final class JavaInfoResolver {
 			return null;
 		}
 		// m_exposedField
-		if (expression instanceof SimpleName) {
-			SimpleName simpleName = (SimpleName) expression;
+		if (expression instanceof SimpleName simpleName) {
 			JavaInfo thisJavaInfo = getJavaInfo(null);
 			String fieldName = simpleName.getIdentifier();
 			return getExposedJavaInfo(thisJavaInfo, expression, fieldName);
 		}
 		// someJavaInfo.m_exposedField
-		if (expression instanceof QualifiedName) {
-			QualifiedName qualifiedName = (QualifiedName) expression;
+		if (expression instanceof QualifiedName qualifiedName) {
 			JavaInfo hostJavaInfo = getJavaInfo(qualifiedName.getQualifier());
 			String fieldName = qualifiedName.getName().getIdentifier();
 			return getExposedJavaInfo(hostJavaInfo, expression, fieldName);
@@ -382,8 +378,7 @@ public final class JavaInfoResolver {
 			m_rootJavaInfo.accept0(new ObjectInfoVisitor() {
 				@Override
 				public void endVisit(ObjectInfo objectInfo) throws Exception {
-					if (objectInfo instanceof JavaInfo) {
-						JavaInfo javaInfo = (JavaInfo) objectInfo;
+					if (objectInfo instanceof JavaInfo javaInfo) {
 						if (!isExplicitJavaInfo(javaInfo)) {
 							return;
 						}

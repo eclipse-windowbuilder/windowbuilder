@@ -40,8 +40,7 @@ public final class ActionRootProcessor implements IRootProcessor {
 	@Override
 	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
 		for (JavaInfo javaInfo : components) {
-			if (javaInfo instanceof ActionInfo) {
-				ActionInfo actionInfo = (ActionInfo) javaInfo;
+			if (javaInfo instanceof ActionInfo actionInfo) {
 				ActionContainerInfo.get(root).addAction(actionInfo);
 			}
 		}

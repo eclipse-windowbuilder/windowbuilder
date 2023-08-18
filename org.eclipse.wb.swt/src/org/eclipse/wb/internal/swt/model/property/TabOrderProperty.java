@@ -58,8 +58,7 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 		MethodInvocation invocation = getTabListMethod();
 		if (invocation != null) {
 			Object expression = invocation.arguments().get(0);
-			if (expression instanceof ArrayCreation) {
-				ArrayCreation creation = (ArrayCreation) expression;
+			if (expression instanceof ArrayCreation creation) {
 				return creation.getInitializer();
 			}
 		}

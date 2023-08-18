@@ -619,8 +619,7 @@ public class BindingsTest extends AbstractJavaTest {
 			assertEquals(
 					getFullyQualifiedName((ITypeBinding) expectedValue, false),
 					getFullyQualifiedName((ITypeBinding) actualValue, false));
-		} else if (expectedValue instanceof IPackageBinding) {
-			IPackageBinding expectedPackage = (IPackageBinding) expectedValue;
+		} else if (expectedValue instanceof IPackageBinding expectedPackage) {
 			IPackageBinding actualPackage = (IPackageBinding) actualValue;
 			assertEquals(message, expectedPackage.getName(), actualPackage.getName());
 			assertEquals(message, expectedPackage.isUnnamed(), actualPackage.isUnnamed());

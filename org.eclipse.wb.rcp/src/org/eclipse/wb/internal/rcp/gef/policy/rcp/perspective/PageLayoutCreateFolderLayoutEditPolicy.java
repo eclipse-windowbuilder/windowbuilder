@@ -87,8 +87,7 @@ public final class PageLayoutCreateFolderLayoutEditPolicy extends AbstractFlowLa
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof ViewDropRequest) {
-			final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
+		if (request instanceof final ViewDropRequest viewDrop_Request) {
 			final ViewInfo viewInfo = viewDrop_Request.getView();
 			final FolderViewInfo reference = (FolderViewInfo) referenceObject;
 			return new EditCommand(m_folder) {
@@ -116,20 +115,16 @@ public final class PageLayoutCreateFolderLayoutEditPolicy extends AbstractFlowLa
 
 	@Override
 	protected Command getAddCommand(Object addObject, Object referenceObject) {
-		if (addObject instanceof PageLayoutAddViewInfo) {
-			PageLayoutAddViewInfo oldView = (PageLayoutAddViewInfo) addObject;
+		if (addObject instanceof PageLayoutAddViewInfo oldView) {
 			return getAddCommand(oldView, oldView.getId(), referenceObject);
 		}
-		if (addObject instanceof FolderViewInfo) {
-			FolderViewInfo oldView = (FolderViewInfo) addObject;
+		if (addObject instanceof FolderViewInfo oldView) {
 			return getAddCommand(oldView, oldView.getId(), referenceObject);
 		}
-		if (addObject instanceof FastViewInfo) {
-			FastViewInfo oldView = (FastViewInfo) addObject;
+		if (addObject instanceof FastViewInfo oldView) {
 			return getAddCommand(oldView, oldView.getId(), referenceObject);
 		}
-		if (addObject instanceof ViewShortcutInfo) {
-			ViewShortcutInfo oldView = (ViewShortcutInfo) addObject;
+		if (addObject instanceof ViewShortcutInfo oldView) {
 			return getAddCommand(oldView, oldView.getId(), referenceObject);
 		}
 		return null;

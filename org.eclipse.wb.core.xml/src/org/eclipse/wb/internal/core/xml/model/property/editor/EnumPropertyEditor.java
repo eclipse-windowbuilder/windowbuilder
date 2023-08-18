@@ -49,8 +49,7 @@ IClipboardSourceProvider {
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
 		// return title for value
-		if (value instanceof Enum<?>) {
-			Enum<?> element = (Enum<?>) value;
+		if (value instanceof Enum<?> element) {
 			return element.toString();
 		}
 		// unknown value
@@ -109,8 +108,7 @@ IClipboardSourceProvider {
 	 * Apply new selected value to {@link Property}.
 	 */
 	private void setPropertyValue(Property property, Enum<?> element) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			String source = getValueExpression(genericProperty, element);
 			genericProperty.setExpression(source, element);
 		} else {
@@ -125,8 +123,7 @@ IClipboardSourceProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String getValueExpression(GenericProperty property, Object value) throws Exception {
-		if (value instanceof Enum<?>) {
-			Enum<?> element = (Enum<?>) value;
+		if (value instanceof Enum<?> element) {
 			return element.name();
 		}
 		// unknown value

@@ -205,8 +205,7 @@ public final class GlobalStateXml {
 
 		@Override
 		public boolean canReference(Object object) {
-			if (object instanceof XmlObjectInfo) {
-				XmlObjectInfo xmlObject = (XmlObjectInfo) object;
+			if (object instanceof XmlObjectInfo xmlObject) {
 				return !(xmlObject.getCreationSupport() instanceof IImplicitCreationSupport);
 			}
 			return false;

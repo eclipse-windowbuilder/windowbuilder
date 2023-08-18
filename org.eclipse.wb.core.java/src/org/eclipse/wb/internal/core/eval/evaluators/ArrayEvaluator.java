@@ -46,8 +46,7 @@ public final class ArrayEvaluator implements IExpressionEvaluator {
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
 		// evaluate ArrayCreation
-		if (expression instanceof ArrayCreation) {
-			ArrayCreation creation = (ArrayCreation) expression;
+		if (expression instanceof ArrayCreation creation) {
 			ArrayInitializer initializer = creation.getInitializer();
 			if (initializer != null) {
 				return AstEvaluationEngine.evaluate(context, initializer);
@@ -55,13 +54,11 @@ public final class ArrayEvaluator implements IExpressionEvaluator {
 			return evaluateEmpty(context, typeBinding, creation);
 		}
 		// evaluate ArrayInitializer
-		if (expression instanceof ArrayInitializer) {
-			ArrayInitializer initializer = (ArrayInitializer) expression;
+		if (expression instanceof ArrayInitializer initializer) {
 			return evaluateInitializer(context, typeBinding, initializer);
 		}
 		// evaluate ArrayAccess
-		if (expression instanceof ArrayAccess) {
-			ArrayAccess arrayAccess = (ArrayAccess) expression;
+		if (expression instanceof ArrayAccess arrayAccess) {
 			Expression arrayExpression = arrayAccess.getArray();
 			Expression indexExpression = arrayAccess.getIndex();
 			Object arrayObject = AstEvaluationEngine.evaluate(context, arrayExpression);

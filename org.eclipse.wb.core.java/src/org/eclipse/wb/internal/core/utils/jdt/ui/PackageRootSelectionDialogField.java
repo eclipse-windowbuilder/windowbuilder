@@ -265,8 +265,7 @@ IDialogFieldListener {
 
 				public boolean isElementValid(Object element) {
 					try {
-						if (element instanceof IJavaProject) {
-							IJavaProject project = (IJavaProject) element;
+						if (element instanceof IJavaProject project) {
 							IPath path = project.getProject().getFullPath();
 							return project.findPackageFragmentRoot(path) != null;
 						} else if (element instanceof IPackageFragmentRoot) {
@@ -287,8 +286,7 @@ IDialogFieldListener {
 			//
 			if (dialog.open() == Window.OK) {
 				Object element = dialog.getFirstResult();
-				if (element instanceof IJavaProject) {
-					IJavaProject javaProject = (IJavaProject) element;
+				if (element instanceof IJavaProject javaProject) {
 					return javaProject.getPackageFragmentRoot(javaProject.getProject());
 				} else if (element instanceof IPackageFragmentRoot) {
 					return (IPackageFragmentRoot) element;

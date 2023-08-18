@@ -227,8 +227,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
 		// try constructor matching
 		if (target.getCreationId() == null) {
 			CreationSupport creation = m_component.getCreationSupport();
-			if (creation instanceof ConstructorCreationSupport) {
-				ConstructorCreationSupport constructorCreation = (ConstructorCreationSupport) creation;
+			if (creation instanceof ConstructorCreationSupport constructorCreation) {
 				String signature = constructorCreation.getDescription().getSignature();
 				final Class<?> targetClass = target.getComponentClass();
 				if (ReflectionUtils.getConstructorBySignature(targetClass, signature) != null) {

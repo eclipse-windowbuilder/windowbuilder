@@ -283,8 +283,7 @@ public final class DerivedFontPage extends AbstractFontPage {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean setFont(FontInfo _font) {
-		if (_font instanceof DerivedFontInfo) {
-			DerivedFontInfo font = (DerivedFontInfo) _font;
+		if (_font instanceof DerivedFontInfo font) {
 			// family
 			if (font.m_newFamily != null) {
 				m_familyCombo.setText(font.m_newFamily);

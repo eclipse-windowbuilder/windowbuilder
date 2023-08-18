@@ -88,8 +88,7 @@ IConfigurablePropertyObject {
 		// by Expression
 		Expression expression = getInstanceExpression(property);
 		if (expression != null) {
-			if (expression instanceof ClassInstanceCreation) {
-				ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+			if (expression instanceof ClassInstanceCreation creation) {
 				if (creation.getAnonymousClassDeclaration() != null) {
 					return "<anonymous>";
 				}
@@ -283,8 +282,7 @@ IConfigurablePropertyObject {
 				{
 					Expression expression = getInstanceExpression(property);
 					Assert.isNotNull(expression, "setting expression failed.");
-					if (expression instanceof ClassInstanceCreation) {
-						ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+					if (expression instanceof ClassInstanceCreation creation) {
 						if (creation.getAnonymousClassDeclaration() == null) {
 							JavaInfo newInstanceInfo =
 									JavaInfoUtils.createJavaInfo(

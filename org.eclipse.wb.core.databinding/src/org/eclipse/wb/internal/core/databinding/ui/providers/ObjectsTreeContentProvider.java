@@ -37,8 +37,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getElements(Object input) {
 		// case collection
-		if (input instanceof Collection<?>) {
-			Collection<?> inputCollection = (Collection<?>) input;
+		if (input instanceof Collection<?> inputCollection) {
 			return inputCollection.toArray();
 		}
 		// case array
@@ -60,8 +59,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Object getParent(Object element) {
-		if (element instanceof ObjectInfo) {
-			ObjectInfo info = (ObjectInfo) element;
+		if (element instanceof ObjectInfo info) {
 			return info.getParent();
 		}
 		return null;
@@ -69,9 +67,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
 
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof ObjectInfo) {
-			// prepare info
-			ObjectInfo info = (ObjectInfo) element;
+		if (element instanceof ObjectInfo info) {
 			// prepare presentation
 			final IObjectPresentation presentation = info.getPresentation();
 			if (presentation != null) {
@@ -89,9 +85,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object element) {
-		if (element instanceof ObjectInfo) {
-			// prepare info
-			ObjectInfo info = (ObjectInfo) element;
+		if (element instanceof ObjectInfo info) {
 			// prepare presentation
 			final IObjectPresentation presentation = info.getPresentation();
 			if (presentation != null) {

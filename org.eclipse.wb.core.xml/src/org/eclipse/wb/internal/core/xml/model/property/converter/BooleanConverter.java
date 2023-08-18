@@ -36,8 +36,7 @@ public final class BooleanConverter extends ExpressionConverter {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String toSource(XmlObjectInfo object, Object value) throws Exception {
-		if (value instanceof Boolean) {
-			Boolean valueBoolean = (Boolean) value;
+		if (value instanceof Boolean valueBoolean) {
 			return valueBoolean.toString();
 		}
 		return null;

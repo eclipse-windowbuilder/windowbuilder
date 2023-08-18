@@ -294,8 +294,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 				new RequestTestCaseEditPart("ChildEditPart1", actualLogger) {
 			@Override
 			public void performRequest(Request request) {
-				if (request instanceof DragPermissionRequest) {
-					DragPermissionRequest permissionRequest = (DragPermissionRequest) request;
+				if (request instanceof DragPermissionRequest permissionRequest) {
 					permissionRequest.setMove(false);
 					permissionRequest.setReparent(false);
 				}

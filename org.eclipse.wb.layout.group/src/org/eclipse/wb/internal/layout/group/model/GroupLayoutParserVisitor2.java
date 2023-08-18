@@ -248,8 +248,7 @@ final class GroupLayoutParserVisitor2 extends ASTVisitor implements LayoutConsta
 			node.setProperty(GroupLayoutCodeSupport.PROPERTY_NAME_GROUP, parallelGroup);
 		} else if (m_methodName.startsWith(identifier) && node.arguments().size() == 1) {
 			ASTNode arg0 = (ASTNode) node.arguments().get(0);
-			if (arg0 instanceof MethodInvocation) {
-				MethodInvocation mi = (MethodInvocation) arg0;
+			if (arg0 instanceof MethodInvocation mi) {
 				m_rootGroup = (LayoutInterval) mi.getProperty(GroupLayoutCodeSupport.PROPERTY_NAME_GROUP);
 			}
 		}

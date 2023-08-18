@@ -520,8 +520,7 @@ public abstract class DesignerTestCase extends Assert {
 		IContributionItem[] items = manager.getItems();
 		for (int i = 0; i < items.length; i++) {
 			IContributionItem contributionItem = items[i];
-			if (contributionItem instanceof MenuManager) {
-				MenuManager managerChild = (MenuManager) contributionItem;
+			if (contributionItem instanceof MenuManager managerChild) {
 				if (managerChild.getMenuText().equals(text)) {
 					return managerChild;
 				}
@@ -546,8 +545,7 @@ public abstract class DesignerTestCase extends Assert {
 		List<IAction> actions = Lists.newArrayList();
 		text = getNormalizedActionText(text);
 		for (IContributionItem contributionItem : manager.getItems()) {
-			if (contributionItem instanceof ActionContributionItem) {
-				ActionContributionItem actionContributionItem = (ActionContributionItem) contributionItem;
+			if (contributionItem instanceof ActionContributionItem actionContributionItem) {
 				IAction action = actionContributionItem.getAction();
 				if (getNormalizedActionText(action.getText()).equals(text)) {
 					actions.add(action);
@@ -580,8 +578,7 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	protected static IAction findAction(List<?> actions, String text) {
 		for (Object object : actions) {
-			if (object instanceof IAction) {
-				IAction action = (IAction) object;
+			if (object instanceof IAction action) {
 				if (text.equals(action.getText()) || text.equals(action.getToolTipText())) {
 					return action;
 				}

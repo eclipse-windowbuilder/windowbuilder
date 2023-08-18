@@ -58,8 +58,7 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof MatteBorder) {
-			MatteBorder ourBorder = (MatteBorder) border;
+		if (border instanceof MatteBorder ourBorder) {
 			Insets borderInsets = ourBorder.getBorderInsets();
 			m_colorField.setValue(ourBorder.getMatteColor());
 			m_topField.setValue(borderInsets.top);

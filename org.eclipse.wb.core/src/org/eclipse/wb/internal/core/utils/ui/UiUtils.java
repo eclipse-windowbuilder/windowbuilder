@@ -132,8 +132,7 @@ public class UiUtils {
 	 */
 	public static void addFocusListenerForControlTree(Control control, FocusListener focusListener) {
 		control.addFocusListener(focusListener);
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			Control[] children = composite.getChildren();
 			for (int i = 0; i < children.length; i++) {
 				Control child = children[i];
@@ -153,8 +152,7 @@ public class UiUtils {
 		if (control.isFocusControl()) {
 			return true;
 		}
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			Control[] children = composite.getChildren();
 			for (int i = 0; i < children.length; i++) {
 				Control child = children[i];
@@ -175,8 +173,7 @@ public class UiUtils {
 	 * @return <code>true</code> if given {@link Widget}s are parent and child.
 	 */
 	public static boolean isChildOf(Widget parent, Widget child) {
-		if (child instanceof Control) {
-			Control childControl = (Control) child;
+		if (child instanceof Control childControl) {
 			while (childControl != null) {
 				if (childControl == parent) {
 					return true;
@@ -445,8 +442,7 @@ public class UiUtils {
 		if (control.getEnabled() != enable) {
 			control.setEnabled(enable);
 		}
-		if (control instanceof Composite) {
-			Composite composite = (Composite) control;
+		if (control instanceof Composite composite) {
 			Control[] children = composite.getChildren();
 			for (int i = 0; i < children.length; i++) {
 				Control child = children[i];

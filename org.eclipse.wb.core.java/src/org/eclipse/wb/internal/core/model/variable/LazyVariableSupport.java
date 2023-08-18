@@ -78,8 +78,7 @@ public final class LazyVariableSupport extends AbstractSimpleVariableSupport {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean isJavaInfo(ASTNode node) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			String signature = AstNodeUtils.getMethodSignature(invocation);
 			if (getAccessorSignature().equals(signature)) {
 				return true;

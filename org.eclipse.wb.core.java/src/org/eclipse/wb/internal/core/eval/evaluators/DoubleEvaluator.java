@@ -46,8 +46,7 @@ public final class DoubleEvaluator implements IExpressionEvaluator {
 		// double expression
 		if ("double".equals(typeQualifiedName)) {
 			// single number literal
-			if (expression instanceof NumberLiteral) {
-				NumberLiteral numberLiteral = (NumberLiteral) expression;
+			if (expression instanceof NumberLiteral numberLiteral) {
 				String token = numberLiteral.getToken();
 				// remove trailing 'D'/'d'
 				token = StringUtils.stripEnd(token, "Dd");
@@ -55,8 +54,7 @@ public final class DoubleEvaluator implements IExpressionEvaluator {
 				return Double.valueOf(token);
 			}
 			// prefix expression (+, -)
-			if (expression instanceof PrefixExpression) {
-				PrefixExpression prefixExpression = (PrefixExpression) expression;
+			if (expression instanceof PrefixExpression prefixExpression) {
 				PrefixExpression.Operator operator = prefixExpression.getOperator();
 				//
 				Expression operand = prefixExpression.getOperand();
@@ -71,8 +69,7 @@ public final class DoubleEvaluator implements IExpressionEvaluator {
 				}
 			}
 			// infix expression (+, -, *, /, %)
-			if (expression instanceof InfixExpression) {
-				InfixExpression infixExpression = (InfixExpression) expression;
+			if (expression instanceof InfixExpression infixExpression) {
 				// prepare operands
 				double operands[];
 				{
@@ -124,8 +121,7 @@ public final class DoubleEvaluator implements IExpressionEvaluator {
 			throws Exception {
 		Object value = AstEvaluationEngine.evaluate(context, expression);
 		// Character
-		if (value instanceof Character) {
-			Character character = (Character) value;
+		if (value instanceof Character character) {
 			return character.charValue();
 		}
 		// Number

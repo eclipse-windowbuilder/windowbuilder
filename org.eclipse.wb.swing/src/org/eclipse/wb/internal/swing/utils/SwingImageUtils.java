@@ -261,8 +261,7 @@ public class SwingImageUtils {
 			}
 			componentImages.put(component, thisComponentImage);
 		}
-		if (component instanceof Container) {
-			Container container = (Container) component;
+		if (component instanceof Container container) {
 			for (Component childComponent : container.getComponents()) {
 				makeShotsHierarchy(childComponent, componentImages, rootComponent);
 			}
@@ -286,8 +285,7 @@ public class SwingImageUtils {
 	public static void prepareForPrinting(Component component) throws Exception {
 		component.setLocation(10000, 10000);
 		// don't grab focus during printing
-		if (component instanceof Window) {
-			Window window = (Window) component;
+		if (component instanceof Window window) {
 			m_fosucableStates.put(window, window.getFocusableWindowState());
 			window.setFocusableWindowState(false);
 		}
@@ -296,8 +294,7 @@ public class SwingImageUtils {
 		{
 			// workaround to prevent window from flashing if the Window Manager
 			// doesn't allow the window to appear off-screen.
-			if (component instanceof Window) {
-				Window window = (Window) component;
+			if (component instanceof Window window) {
 				window.toBack();
 				// do the location change once again, because sometimes setLocation()
 				// for invisible windows could be ignored.
@@ -376,8 +373,7 @@ public class SwingImageUtils {
 		 */
 		public ComponentShotConfigurator(Component component) {
 			m_component = component;
-			if (m_component instanceof JComponent) {
-				JComponent jcomponent = (JComponent) m_component;
+			if (m_component instanceof JComponent jcomponent) {
 				m_oldOpaque = jcomponent.isOpaque();
 				m_oldBackground = jcomponent.getBackground();
 				if (!m_oldOpaque) {
@@ -400,8 +396,7 @@ public class SwingImageUtils {
 		 * {@link ComponentShotConfigurator} constructor.
 		 */
 		public void dispose() {
-			if (m_component instanceof JComponent) {
-				JComponent jcomponent = (JComponent) m_component;
+			if (m_component instanceof JComponent jcomponent) {
 				jcomponent.setOpaque(m_oldOpaque);
 				jcomponent.setBackground(m_oldBackground);
 			}

@@ -49,10 +49,9 @@ public final class PropertyDescriptorEditorProvider extends PropertyEditorProvid
 	private static boolean isEnumerationProperty(PropertyDescriptor descriptor) {
 		Object attributeValue = descriptor.getValue("enumerationValues");
 		// should be Object[]
-		if (!(attributeValue instanceof Object[])) {
+		if (!(attributeValue instanceof Object[] enumElements)) {
 			return false;
 		}
-		Object[] enumElements = (Object[]) attributeValue;
 		// should be multiple 3
 		if (enumElements.length == 0 || enumElements.length % 3 != 0) {
 			return false;

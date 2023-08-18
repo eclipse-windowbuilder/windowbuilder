@@ -378,8 +378,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
 		m_javaInfo.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
-				if (objectInfo instanceof JavaInfo) {
-					JavaInfo javaInfo = (JavaInfo) objectInfo;
+				if (objectInfo instanceof JavaInfo javaInfo) {
 					if (javaInfo.getVariableSupport() instanceof LocalVariableSupport) {
 						LocalVariableSupport variableSupport =
 								(LocalVariableSupport) javaInfo.getVariableSupport();

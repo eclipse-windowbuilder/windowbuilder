@@ -42,10 +42,9 @@ public final class Pair<L, R> {
 		if (o == this) {
 			return true;
 		}
-		if (!(o instanceof Pair<?, ?>)) {
+		if (!(o instanceof Pair<?, ?> other)) {
 			return false;
 		}
-		Pair<?, ?> other = (Pair<?, ?>) o;
 		return ObjectUtils.equals(getLeft(), other.getLeft())
 				&& ObjectUtils.equals(getRight(), other.getRight());
 	}

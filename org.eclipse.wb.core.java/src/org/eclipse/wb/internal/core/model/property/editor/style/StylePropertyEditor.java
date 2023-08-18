@@ -514,9 +514,8 @@ IValueSourcePropertyEditor {
 		for (ListIterator<Property> I = properties.listIterator(); I.hasNext();) {
 			Property property = I.next();
 			// check "constructor" property
-			if (property instanceof ComplexProperty
+			if (property instanceof ComplexProperty complexProperty
 					&& ("Constructor".equals(property.getTitle()) || "Factory".equals(property.getTitle()))) {
-				ComplexProperty complexProperty = (ComplexProperty) property;
 				Property[] subProperties = complexProperty.getProperties();
 				// loop of all sub properties
 				for (Property subProperty : subProperties) {

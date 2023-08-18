@@ -207,16 +207,14 @@ public class AstNodeUtils {
 			}
 		}
 		// VariableDeclaration
-		if (node instanceof VariableDeclaration) {
-			VariableDeclaration variableDeclaration = (VariableDeclaration) node;
+		if (node instanceof VariableDeclaration variableDeclaration) {
 			IVariableBinding binding = variableDeclaration.resolveBinding();
 			if (binding != null) {
 				return binding;
 			}
 		}
 		// check for SimpleName
-		if (node instanceof SimpleName) {
-			SimpleName simpleName = (SimpleName) node;
+		if (node instanceof SimpleName simpleName) {
 			// get standard binding
 			{
 				IBinding binding = simpleName.resolveBinding();
@@ -226,8 +224,7 @@ public class AstNodeUtils {
 			}
 		}
 		// check for FieldAccess
-		if (node instanceof FieldAccess) {
-			FieldAccess fieldAccess = (FieldAccess) node;
+		if (node instanceof FieldAccess fieldAccess) {
 			return fieldAccess.resolveFieldBinding();
 		}
 		// not a variable
@@ -1028,8 +1025,7 @@ public class AstNodeUtils {
 		Assert.isNotNull(signature);
 		// check each declaration
 		for (BodyDeclaration bodyDeclaration : bodyDeclarations) {
-			if (bodyDeclaration instanceof MethodDeclaration) {
-				MethodDeclaration methodDeclaration = (MethodDeclaration) bodyDeclaration;
+			if (bodyDeclaration instanceof MethodDeclaration methodDeclaration) {
 				if (getMethodSignature(methodDeclaration).equals(signature)) {
 					return methodDeclaration;
 				}
@@ -1194,8 +1190,7 @@ public class AstNodeUtils {
 		Assert.isNotNull(name);
 		List<BodyDeclaration> bodyDeclarations = DomGenerics.bodyDeclarations(typeDeclaration);
 		for (BodyDeclaration bodyDeclaration : bodyDeclarations) {
-			if (bodyDeclaration instanceof MethodDeclaration) {
-				MethodDeclaration methodDeclaration = (MethodDeclaration) bodyDeclaration;
+			if (bodyDeclaration instanceof MethodDeclaration methodDeclaration) {
 				if (methodDeclaration.getName().getIdentifier().equals(name)) {
 					return methodDeclaration;
 				}
@@ -1481,8 +1476,7 @@ public class AstNodeUtils {
 	 *         signature. Note, no check for type, so use only when really required.
 	 */
 	public static boolean isMethodInvocation(ASTNode node, String signature) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			return getMethodSignature(invocation).equals(signature);
 		}
 		return false;
@@ -1500,8 +1494,7 @@ public class AstNodeUtils {
 	 *         {@link Expression} type and signature.
 	 */
 	public static boolean isMethodInvocation(ASTNode node, String expressionType, String signature) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			if (getMethodSignature(invocation).equals(signature)) {
 				Expression expression = invocation.getExpression();
 				if (expression == null) {
@@ -1510,8 +1503,7 @@ public class AstNodeUtils {
 				return isSuccessorOf(expression, expressionType);
 			}
 		}
-		if (node instanceof SuperMethodInvocation) {
-			SuperMethodInvocation invocation = (SuperMethodInvocation) node;
+		if (node instanceof SuperMethodInvocation invocation) {
 			IMethodBinding methodBinding = getMethodBinding(invocation);
 			return isSuccessorOf(methodBinding.getDeclaringClass(), expressionType)
 					&& getMethodSignature(methodBinding).equals(signature);
@@ -1531,8 +1523,7 @@ public class AstNodeUtils {
 	 *         {@link Expression} type and and one of the signatures.
 	 */
 	public static boolean isMethodInvocation(ASTNode node, String expressionType, String[] signatures) {
-		if (node instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation) node;
+		if (node instanceof MethodInvocation invocation) {
 			// check Expression
 			{
 				Expression expression = invocation.getExpression();
@@ -1569,8 +1560,7 @@ public class AstNodeUtils {
 	 *         given type using given constructor.
 	 */
 	public static boolean isCreation(ASTNode node, String typeName, String signature) {
-		if (node instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) node;
+		if (node instanceof ClassInstanceCreation creation) {
 			if (getFullyQualifiedName(creation, false).equals(typeName)) {
 				return getCreationSignature(creation).equals(signature);
 			}
@@ -2264,8 +2254,7 @@ public class AstNodeUtils {
 		List<VariableDeclaration> declarations = Lists.newArrayList();
 		ASTNode node = getEnclosingNode(root, position);
 		// if we hit the empty space inside of block, process all statements before given position
-		if (node instanceof Block) {
-			Block block = (Block) node;
+		if (node instanceof Block block) {
 			for (Statement statement : DomGenerics.statements(block)) {
 				if (statement.getStartPosition() < position) {
 					addStatementVariableDeclarations(declarations, statement);
@@ -2275,20 +2264,17 @@ public class AstNodeUtils {
 		// go up along hierarchy and remember variable declarations
 		while (node != null) {
 			// type - add fields
-			if (node instanceof TypeDeclaration) {
-				TypeDeclaration type = (TypeDeclaration) node;
+			if (node instanceof TypeDeclaration type) {
 				for (FieldDeclaration fieldDeclaration : type.getFields()) {
 					declarations.addAll(DomGenerics.fragments(fieldDeclaration));
 				}
 			}
 			// method - add parameters
-			if (node instanceof MethodDeclaration) {
-				MethodDeclaration method = (MethodDeclaration) node;
+			if (node instanceof MethodDeclaration method) {
 				declarations.addAll(DomGenerics.parameters(method));
 			}
 			// statement - process siblings above
-			if (node instanceof Statement && node.getParent() instanceof Block) {
-				Statement statement = (Statement) node;
+			if (node instanceof Statement statement && node.getParent() instanceof Block) {
 				Block block = (Block) statement.getParent();
 				for (Statement siblingStatement : DomGenerics.statements(block)) {
 					if (siblingStatement == statement) {
@@ -2310,8 +2296,7 @@ public class AstNodeUtils {
 	 */
 	private static void addStatementVariableDeclarations(List<VariableDeclaration> declarations,
 			Statement statement) {
-		if (statement instanceof VariableDeclarationStatement) {
-			VariableDeclarationStatement variableStatement = (VariableDeclarationStatement) statement;
+		if (statement instanceof VariableDeclarationStatement variableStatement) {
 			declarations.addAll(DomGenerics.fragments(variableStatement));
 		}
 	}
@@ -2322,8 +2307,7 @@ public class AstNodeUtils {
 	 */
 	public static boolean isVariable(ASTNode variable) {
 		// FieldAccess
-		if (variable instanceof FieldAccess) {
-			FieldAccess fieldAccess = (FieldAccess) variable;
+		if (variable instanceof FieldAccess fieldAccess) {
 			return fieldAccess.getExpression() instanceof ThisExpression;
 		}
 		// SimpleName
@@ -2379,11 +2363,9 @@ public class AstNodeUtils {
 				MethodDeclaration method = AstNodeUtils.getEnclosingMethod(lastAssignment);
 				// Note: we need assignment from enclosing method or field initializer
 				if (method == null || method == enclosingMethod) {
-					if (lastAssignment instanceof Assignment) {
-						Assignment assignment = (Assignment) lastAssignment;
+					if (lastAssignment instanceof Assignment assignment) {
 						return assignment.getRightHandSide();
-					} else if (lastAssignment instanceof VariableDeclarationFragment) {
-						VariableDeclarationFragment fragment = (VariableDeclarationFragment) lastAssignment;
+					} else if (lastAssignment instanceof VariableDeclarationFragment fragment) {
 						Expression initializer = fragment.getInitializer();
 						if (initializer != null) {
 							return initializer;
@@ -2438,16 +2420,13 @@ public class AstNodeUtils {
 				|| expression instanceof QualifiedName) {
 			return true;
 		}
-		if (expression instanceof CastExpression) {
-			CastExpression castExpression = (CastExpression) expression;
+		if (expression instanceof CastExpression castExpression) {
 			return isLiteral(castExpression.getExpression());
 		}
-		if (expression instanceof PrefixExpression) {
-			PrefixExpression prefixExpression = (PrefixExpression) expression;
+		if (expression instanceof PrefixExpression prefixExpression) {
 			return isLiteral(prefixExpression.getOperand());
 		}
-		if (expression instanceof InfixExpression) {
-			InfixExpression infixExpression = (InfixExpression) expression;
+		if (expression instanceof InfixExpression infixExpression) {
 			List<Expression> operands = DomGenerics.allOperands(infixExpression);
 			return areLiterals(operands);
 		}

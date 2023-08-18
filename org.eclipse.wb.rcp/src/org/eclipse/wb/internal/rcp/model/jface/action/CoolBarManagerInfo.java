@@ -120,8 +120,7 @@ public final class CoolBarManagerInfo extends ContributionManagerInfo {
 					toolBarManager.accept(new ObjectInfoVisitor() {
 						@Override
 						public void endVisit(ObjectInfo objectInfo) throws Exception {
-							if (objectInfo instanceof AbstractComponentInfo) {
-								AbstractComponentInfo component = (AbstractComponentInfo) objectInfo;
+							if (objectInfo instanceof AbstractComponentInfo component) {
 								component.getBounds().performTranslate(deltaX, deltaY);
 							}
 						}

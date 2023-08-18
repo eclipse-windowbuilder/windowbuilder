@@ -527,8 +527,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		@Override
 		public void showValue() {
 			Object value = getValue();
-			if (value instanceof Boolean) {
-				Boolean boolValue = (Boolean) value;
+			if (value instanceof Boolean boolValue) {
 				m_button.setSelection(boolValue.booleanValue());
 			} else {
 				m_button.setSelection(false);
@@ -775,8 +774,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		@Override
 		public void showValue() {
 			Object value = getValue();
-			if (value instanceof Integer) {
-				Integer intValue = (Integer) value;
+			if (value instanceof Integer intValue) {
 				m_spinner.setSelection(intValue.intValue());
 			} else {
 				m_spinner.setSelection(m_spinner.getMinimum());
@@ -916,8 +914,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		@Override
 		public void showValue() {
 			Object value = getValue();
-			if (value instanceof Number) {
-				Number numberValue = (Number) value;
+			if (value instanceof Number numberValue) {
 				m_spinner.setSelection((int) (numberValue.doubleValue() * m_multiplier));
 			} else {
 				m_spinner.setSelection(m_spinner.getMinimum());

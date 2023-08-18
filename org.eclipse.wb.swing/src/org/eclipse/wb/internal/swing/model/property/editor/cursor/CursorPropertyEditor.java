@@ -48,8 +48,7 @@ public final class CursorPropertyEditor extends AbstractComboPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
-		if (value instanceof Cursor) {
-			Cursor cursor = (Cursor) value;
+		if (value instanceof Cursor cursor) {
 			// return the name of cursor field
 			for (Field cursorField : getCursorFields()) {
 				if (cursor.getType() == cursorField.getInt(null)) {
@@ -80,8 +79,7 @@ public final class CursorPropertyEditor extends AbstractComboPropertyEditor {
 
 	@Override
 	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-		if (property instanceof GenericProperty) {
-			GenericProperty genericProperty = (GenericProperty) property;
+		if (property instanceof GenericProperty genericProperty) {
 			// prepare source
 			String source;
 			{

@@ -50,8 +50,7 @@ public final class StringListPropertyEditor extends AbstractListPropertyEditor {
 
 	@Override
 	protected int getValueIndex(Object value) {
-		if (value instanceof String) {
-			String string = (String) value;
+		if (value instanceof String string) {
 			for (int i = 0; i < getCount(); i++) {
 				if (m_ignoreCase) {
 					if (string.equalsIgnoreCase(m_strings[i])) {

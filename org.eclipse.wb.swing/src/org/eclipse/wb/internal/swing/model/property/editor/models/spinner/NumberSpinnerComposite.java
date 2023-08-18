@@ -166,8 +166,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 
 	@Override
 	public boolean setModel(SpinnerModel model) {
-		if (model instanceof SpinnerNumberModel) {
-			SpinnerNumberModel numberModel = (SpinnerNumberModel) model;
+		if (model instanceof SpinnerNumberModel numberModel) {
 			// type
 			NumberTypeDescription[] values = NumberTypeDescription.values();
 			for (int i = 0; i < values.length; i++) {
