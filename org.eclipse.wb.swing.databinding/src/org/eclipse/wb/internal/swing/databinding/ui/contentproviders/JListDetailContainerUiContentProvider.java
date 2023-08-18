@@ -58,7 +58,7 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected IUiContentProvider createNewPageContentProvider() throws Exception {
-		return new UIContentContainer<DetailBindingInfo>(m_binding.createDefaultDetailBinding(),
+		return new UIContentContainer<>(m_binding.createDefaultDetailBinding(),
 				m_bindings,
 				Messages.JListDetailContainerUiContentProvider_detail1,
 				m_provider);
@@ -84,7 +84,7 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
 	@Override
 	public void updateFromObject() throws Exception {
 		List<IUiContentProvider> providers = Lists.newArrayList();
-		providers.add(new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),
+		providers.add(new UIContentContainer<>(m_binding.getDetailBinding(),
 				m_bindings,
 				Messages.JListDetailContainerUiContentProvider_detail2,
 				m_provider));

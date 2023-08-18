@@ -455,7 +455,7 @@ public abstract class JavaInfoEvaluationHelper {
 			return Lists.newLinkedList();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.Vector")) {
-			return new java.util.Vector<Object>();
+			return new java.util.Vector<>();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.List")) {
 			return Lists.newArrayList();

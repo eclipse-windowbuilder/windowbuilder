@@ -137,7 +137,7 @@ public final class ButtonGroupInfo extends JavaInfo {
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
 		public List<ObjectInfo> getChildrenTree() throws Exception {
-			return new ArrayList<ObjectInfo>(getButtons());
+			return new ArrayList<>(getButtons());
 		}
 	};
 

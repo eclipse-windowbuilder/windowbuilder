@@ -392,7 +392,7 @@ public abstract class AbstractSource {
 			return null;
 		}
 		// This list will contain only normal words meaning the ones that have 4 letters or more
-		ArrayList<String> normalWords = new ArrayList<String>();
+		ArrayList<String> normalWords = new ArrayList<>();
 		String[] words = strippedOnlyText.split(" ");
 		if (words.length > 5) {
 			for (int i = 0; i < words.length; i++) {

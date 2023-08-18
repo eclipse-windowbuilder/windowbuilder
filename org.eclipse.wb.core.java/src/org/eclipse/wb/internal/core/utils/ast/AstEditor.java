@@ -3380,7 +3380,7 @@ public final class AstEditor {
 		// replace arguments
 		{
 			List<Expression> newArguments = DomGenerics.arguments(newInvocation);
-			List<Expression> newArgumentsCopy = new ArrayList<Expression>(newArguments);
+			List<Expression> newArgumentsCopy = new ArrayList<>(newArguments);
 			newArguments.clear();
 			arguments.clear();
 			arguments.addAll(newArgumentsCopy);

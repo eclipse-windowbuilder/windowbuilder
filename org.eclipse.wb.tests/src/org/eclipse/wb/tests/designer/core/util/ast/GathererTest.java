@@ -54,7 +54,7 @@ public class GathererTest extends AbstractJavaTest {
 						"  String a = 'aaa';",
 						"  String b = 'bbb';",
 						"}");
-		Gatherer<StringLiteral> gatherer = new ListGatherer<StringLiteral>() {
+		Gatherer<StringLiteral> gatherer = new ListGatherer<>() {
 			@Override
 			public void endVisit(StringLiteral node) {
 				addResult(node);
@@ -82,7 +82,7 @@ public class GathererTest extends AbstractJavaTest {
 						"  String a = 'aaa';",
 						"  String b = 'bbb';",
 						"}");
-		Gatherer<StringLiteral> gatherer = new SetGatherer<StringLiteral>() {
+		Gatherer<StringLiteral> gatherer = new SetGatherer<>() {
 			@Override
 			public void endVisit(StringLiteral node) {
 				addResult(node);
@@ -111,7 +111,7 @@ public class GathererTest extends AbstractJavaTest {
 						"public class Test {",
 						"  String a = 'aaa';",
 						"}");
-		Gatherer<StringLiteral> gatherer = new SetGatherer<StringLiteral>() {
+		Gatherer<StringLiteral> gatherer = new SetGatherer<>() {
 			@Override
 			public void endVisit(StringLiteral node) {
 				addResult(node);
@@ -135,7 +135,7 @@ public class GathererTest extends AbstractJavaTest {
 						"  String b = 'bbb';",
 						"}");
 		Gatherer<VariableDeclarationFragment> gatherer =
-				new ListGatherer<VariableDeclarationFragment>() {
+				new ListGatherer<>() {
 			@Override
 			public void endVisit(VariableDeclarationFragment node) {
 				addResult(node);

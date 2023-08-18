@@ -82,28 +82,28 @@ SnapPoints.DefaultSnapPoints {
 		{
 			SnapPoint snapPoint =
 					new ComponentSnapPoint(m_vdProvider, target, lSide, PlacementInfo.TRAILING, true);
-			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToComponentCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// snap to child on leading side
 		{
 			ComponentSnapPoint snapPoint =
 					new ComponentSnapPoint(m_vdProvider, target, lSide, PlacementInfo.LEADING);
-			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToComponentCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// snap to child on trailing side with gap
 		{
 			SnapPoint snapPoint =
 					new ComponentSnapPoint(m_vdProvider, target, tSide, PlacementInfo.LEADING, true);
-			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToComponentCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// snap to child on trailing side
 		{
 			SnapPoint snapPoint =
 					new ComponentSnapPoint(m_vdProvider, target, tSide, PlacementInfo.TRAILING);
-			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToComponentCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		return pts;
@@ -117,25 +117,25 @@ SnapPoints.DefaultSnapPoints {
 		// snap to parent at leading side with gap
 		{
 			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, leadingSide, true);
-			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToContainerCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// snap to parent at leading side
 		{
 			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, leadingSide);
-			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToContainerCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// snap to parent at trailing side with gap
 		{
 			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, trailingSide, true);
-			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToContainerCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// snap to parent at trailing side
 		{
 			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, trailingSide);
-			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			snapPoint.setCommand(new MoveToContainerCommand<>(m_layout, snapPoint));
 			pts.add(snapPoint);
 		}
 		// 'same size'
@@ -150,23 +150,23 @@ SnapPoints.DefaultSnapPoints {
 		// percentage
 		for (Integer percent : m_vdProvider.getPercentsValues(isHorizontal)) {
 			{
-				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, leadingSide, percent, true);
-				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				SnapPoint snapPoint = new PercentageSnapPoint<>(m_vdProvider, leadingSide, percent, true);
+				snapPoint.setCommand(new MoveToPercentCommand<>(m_layout, snapPoint));
 				pts.add(snapPoint);
 			}
 			{
-				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, leadingSide, percent);
-				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				SnapPoint snapPoint = new PercentageSnapPoint<>(m_vdProvider, leadingSide, percent);
+				snapPoint.setCommand(new MoveToPercentCommand<>(m_layout, snapPoint));
 				pts.add(snapPoint);
 			}
 			{
-				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, trailingSide, percent, true);
-				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				SnapPoint snapPoint = new PercentageSnapPoint<>(m_vdProvider, trailingSide, percent, true);
+				snapPoint.setCommand(new MoveToPercentCommand<>(m_layout, snapPoint));
 				pts.add(snapPoint);
 			}
 			{
-				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, trailingSide, percent);
-				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				SnapPoint snapPoint = new PercentageSnapPoint<>(m_vdProvider, trailingSide, percent);
+				snapPoint.setCommand(new MoveToPercentCommand<>(m_layout, snapPoint));
 				pts.add(snapPoint);
 			}
 		}

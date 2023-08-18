@@ -1562,7 +1562,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// visit using default visitor
 		rootElement.accept(new DocumentModelVisitor());
 		//
-		final List<AbstractDocumentObject> visitObjects = new ArrayList<AbstractDocumentObject>();
+		final List<AbstractDocumentObject> visitObjects = new ArrayList<>();
 		rootElement.accept(new DocumentModelVisitor() {
 			@Override
 			public boolean visit(DocumentElement element) {

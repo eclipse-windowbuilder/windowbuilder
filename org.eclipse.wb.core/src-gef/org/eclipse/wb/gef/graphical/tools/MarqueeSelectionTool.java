@@ -165,7 +165,7 @@ public class MarqueeSelectionTool extends Tool {
 				viewer.appendSelection(editPart);
 			}
 		} else if (m_selectionMode == TOGGLE_MODE) {
-			List<EditPart> selected = new ArrayList<EditPart>(viewer.getSelectedEditParts());
+			List<EditPart> selected = new ArrayList<>(viewer.getSelectedEditParts());
 			//
 			for (EditPart editPart : newSelections) {
 				if (editPart.getSelected() == EditPart.SELECTED_NONE) {

@@ -37,7 +37,7 @@ import java.util.List;
  */
 public final class CTabFolderInfo extends CompositeInfo {
 	private final StackContainerSupport<CTabItemInfo> m_stackContainer =
-			new StackContainerSupport<CTabItemInfo>(this) {
+			new StackContainerSupport<>(this) {
 		@Override
 		protected List<CTabItemInfo> getChildren() {
 			return getItems();

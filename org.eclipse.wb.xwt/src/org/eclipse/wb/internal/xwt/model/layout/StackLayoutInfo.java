@@ -35,7 +35,7 @@ public final class StackLayoutInfo extends GenericFlowLayoutInfo
 implements
 IStackLayoutInfo<ControlInfo> {
 	private final StackContainerSupport<ControlInfo> m_stackContainer =
-			new StackContainerSupport<ControlInfo>(this) {
+			new StackContainerSupport<>(this) {
 		@Override
 		protected boolean isActive() {
 			return StackLayoutInfo.this.isActive();

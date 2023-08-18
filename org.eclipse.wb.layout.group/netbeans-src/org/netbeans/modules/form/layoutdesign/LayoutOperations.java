@@ -100,13 +100,13 @@ class LayoutOperations implements LayoutConstants {
 				LayoutInterval li = (LayoutInterval) it.next();
 				if (idx < startIndex) {
 					if (toRemainL == null) {
-						toRemainL = new LinkedList<Object>();
+						toRemainL = new LinkedList<>();
 						toRemainL.add(Integer.valueOf(LayoutInterval.getEffectiveAlignment(li)));
 					}
 					toRemainL.add(li);
 				} else if (idx > endIndex) {
 					if (toRemainT == null) {
-						toRemainT = new LinkedList<Object>();
+						toRemainT = new LinkedList<>();
 						toRemainT.add(Integer.valueOf(LayoutInterval.getEffectiveAlignment(li)));
 					}
 					toRemainT.add(li);
@@ -622,7 +622,7 @@ class LayoutOperations implements LayoutConstants {
 						singleOverlap = li;
 					} else {
 						if (overlapList == null) {
-							overlapList = new LinkedList<LayoutInterval>();
+							overlapList = new LinkedList<>();
 							overlapList.add(singleOverlap);
 						}
 						overlapList.add(li);

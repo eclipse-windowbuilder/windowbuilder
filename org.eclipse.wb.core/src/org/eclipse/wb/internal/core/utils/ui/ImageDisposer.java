@@ -36,7 +36,7 @@ import java.util.TimerTask;
  */
 public final class ImageDisposer {
 	private static boolean DEBUG = false;
-	private static ReferenceQueue<Object> m_queue = new ReferenceQueue<Object>();
+	private static ReferenceQueue<Object> m_queue = new ReferenceQueue<>();
 	private static final List<ImageHolder> m_references = Lists.newArrayList();
 	private static Timer m_timer;
 	static {

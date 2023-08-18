@@ -162,7 +162,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
 		//
 		ExpressionListPropertyEditor editor =
 				createEditor(ExpressionListPropertyEditor.class, parameters);
-		assert_getText("AL", editor, new ArrayList<Object>());
+		assert_getText("AL", editor, new ArrayList<>());
 		assert_getText("STR", editor, new String());
 		assert_getText("NIL", editor, null);
 	}

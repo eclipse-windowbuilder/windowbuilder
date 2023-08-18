@@ -59,7 +59,7 @@ public final class XmlWriter {
 	// fields
 	private final PrintWriter m_printWriter;
 	private String m_indent = "\t";
-	private final Stack<TagInfo> m_tagStack = new Stack<TagInfo>();
+	private final Stack<TagInfo> m_tagStack = new Stack<>();
 	private boolean m_closed;
 	private boolean m_isShortTagClosed;
 

@@ -68,7 +68,7 @@ ILayoutAssistantPage {
 			{
 				ToolBarManager manager = new ToolBarManager();
 				GridDataFactory.create(manager.createControl(group)).fill().grab();
-				new PredefinedAnchorsActions<C>(m_layout).contributeActions(m_selection, manager);
+				new PredefinedAnchorsActions<>(m_layout).contributeActions(m_selection, manager);
 				manager.update(true);
 			}
 		}

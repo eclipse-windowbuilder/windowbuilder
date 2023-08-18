@@ -48,7 +48,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		};
 		// check property
 		ExtensionElementProperty<String> property =
-				new ExtensionElementProperty<String>(setValueListener,
+				new ExtensionElementProperty<>(setValueListener,
 						StringPropertyEditor.INSTANCE,
 						"title",
 						m_project,
@@ -136,7 +136,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 	}
 
 	private ExtensionElementProperty<String> createPropertyWithDefaults() {
-		return new ExtensionElementProperty<String>(null,
+		return new ExtensionElementProperty<>(null,
 				StringPropertyEditor.INSTANCE,
 				"title",
 				m_project,
@@ -159,7 +159,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		"</plugin>"});
 		// check property
 		ExtensionElementProperty<Boolean> property =
-				new ExtensionElementProperty<Boolean>(null,
+				new ExtensionElementProperty<>(null,
 						StringPropertyEditor.INSTANCE,
 						"title",
 						m_project,

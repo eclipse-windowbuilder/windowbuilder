@@ -28,7 +28,7 @@ import java.util.WeakHashMap;
  */
 public abstract class SelectionPolicyDecorationHelper {
 	private final LayoutEditPolicy m_layoutPolicy;
-	private final Map<EditPart, EditPolicy> m_policies = new WeakHashMap<EditPart, EditPolicy>();
+	private final Map<EditPart, EditPolicy> m_policies = new WeakHashMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

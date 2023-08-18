@@ -170,7 +170,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected AbstractAlignmentActionsSupport<C> getAlignmentActionsSupport() {
-		return new SelectionActionsSupport<C>(m_layout);
+		return new SelectionActionsSupport<>(m_layout);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -138,7 +138,7 @@ public final class NlsDialog extends ResizableDialog {
 	 */
 	private List<IEditableSource> getSortedSourcesList() {
 		List<IEditableSource> sources = m_editableSupport.getEditableSources();
-		List<IEditableSource> sourcesList = new ArrayList<IEditableSource>(sources);
+		List<IEditableSource> sourcesList = new ArrayList<>(sources);
 		Collections.sort(sourcesList, new Comparator<IEditableSource>() {
 			@Override
 			public int compare(IEditableSource source_1, IEditableSource source_2) {

@@ -36,7 +36,7 @@ public final class AddLocaleCommand extends AbstractCommand {
 			Map<String, String> values) {
 		super(editableSource);
 		m_locale = locale;
-		m_values = new HashMap<String, String>(values);
+		m_values = new HashMap<>(values);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

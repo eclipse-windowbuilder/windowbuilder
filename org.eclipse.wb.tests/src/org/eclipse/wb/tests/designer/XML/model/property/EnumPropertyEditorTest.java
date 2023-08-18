@@ -142,7 +142,7 @@ public class EnumPropertyEditorTest extends AbstractCoreTest {
 		parse("<t:MyComponent foo='C'/>");
 		refresh();
 		// prepare property
-		final AtomicReference<Object> newValue = new AtomicReference<Object>();
+		final AtomicReference<Object> newValue = new AtomicReference<>();
 		class MyProperty extends PropertyNoValue implements ITypedProperty {
 			public MyProperty() {
 				super(EnumPropertyEditor.INSTANCE);

@@ -211,7 +211,7 @@ public final class PropertyUtils {
 	 *         titles.
 	 */
 	public static Predicate<Property> getExcludeByTitlePredicate(final String... excludeTitles) {
-		return new Predicate<Property>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Property t) {
 				return !ArrayUtils.contains(excludeTitles, t.getTitle());
@@ -222,7 +222,7 @@ public final class PropertyUtils {
 	 * @return the {@link Predicate} for {@link Property} that does accept properties given titles.
 	 */
 	public static Predicate<Property> getIncludeByTitlePredicate(final String... includeTitles) {
-		return new Predicate<Property>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Property t) {
 				return ArrayUtils.contains(includeTitles, t.getTitle());

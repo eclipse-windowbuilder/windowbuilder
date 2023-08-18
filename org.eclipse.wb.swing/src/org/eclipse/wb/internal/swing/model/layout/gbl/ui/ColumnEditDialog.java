@@ -30,13 +30,13 @@ public final class ColumnEditDialog extends DimensionEditDialog<ColumnInfo, Colu
 	private static final List<AlignmentDescription<ColumnInfo.Alignment>> ALIGNMENTS =
 			Lists.newArrayList();
 	static {
-		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.LEFT,
+		ALIGNMENTS.add(new AlignmentDescription<>(ColumnInfo.Alignment.LEFT,
 				ModelMessages.ColumnEditDialog_aLeft));
-		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.CENTER,
+		ALIGNMENTS.add(new AlignmentDescription<>(ColumnInfo.Alignment.CENTER,
 				ModelMessages.ColumnEditDialog_aCenter));
-		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.RIGHT,
+		ALIGNMENTS.add(new AlignmentDescription<>(ColumnInfo.Alignment.RIGHT,
 				ModelMessages.ColumnEditDialog_aRight));
-		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.FILL,
+		ALIGNMENTS.add(new AlignmentDescription<>(ColumnInfo.Alignment.FILL,
 				ModelMessages.ColumnEditDialog_aFill));
 	}
 

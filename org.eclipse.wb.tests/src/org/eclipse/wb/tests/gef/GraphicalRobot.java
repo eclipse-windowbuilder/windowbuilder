@@ -198,7 +198,7 @@ public final class GraphicalRobot {
 	 * Prepares mouse location on {@link ResizeHandle} with given direction.
 	 */
 	public GraphicalRobot toResizeHandle(Object object, final int direction) {
-		Predicate<Handle> predicate = new Predicate<Handle>() {
+		Predicate<Handle> predicate = new Predicate<>() {
 			@Override
 			public boolean apply(Handle handle) {
 				if (handle instanceof ResizeHandle) {
@@ -217,7 +217,7 @@ public final class GraphicalRobot {
 	 * Prepares mouse location on resize {@link Handle} with given type and direction.
 	 */
 	public GraphicalRobot toResizeHandle(Object object, final Object type, final int direction) {
-		Predicate<Handle> predicate = new Predicate<Handle>() {
+		Predicate<Handle> predicate = new Predicate<>() {
 			@Override
 			public boolean apply(Handle handle) {
 				if (handle.getDragTrackerTool() instanceof ResizeTracker) {
@@ -1002,7 +1002,7 @@ public final class GraphicalRobot {
 	 * Asserts that feedback layer contains exactly same {@link Figure}'s as described.
 	 */
 	public void assertFeedbackFigures(FigureDescription... descriptions) {
-		HashSet<Figure> feedbackFigures = new HashSet<Figure>(getFeedbackFigures());
+		HashSet<Figure> feedbackFigures = new HashSet<>(getFeedbackFigures());
 		//
 		for (int i = 0; i < descriptions.length; i++) {
 			FigureDescription description = descriptions[i];
@@ -1119,7 +1119,7 @@ public final class GraphicalRobot {
 			}
 		}
 		// return predicate
-		return new Predicate<Figure>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Figure feedback) {
 				if (!(feedback instanceof Polyline)) {
@@ -1162,7 +1162,7 @@ public final class GraphicalRobot {
 			FigureUtils.translateFigureToAbsolute(part.getFigure(), partBounds);
 		}
 		// return predicate
-		return new Predicate<Figure>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Figure feedback) {
 				if (!(feedback instanceof Polyline)) {
@@ -1229,7 +1229,7 @@ public final class GraphicalRobot {
 			partBounds.expand(3, 3);
 		}
 		// return predicate
-		return new Predicate<Figure>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Figure feedback) {
 				return partBounds.equals(feedback.getBounds());

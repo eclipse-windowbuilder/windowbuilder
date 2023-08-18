@@ -327,7 +327,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
 			if (element instanceof IImageContainer) {
 				IImageContainer container = (IImageContainer) element;
 				IImageElement[] elements = container.elements();
-				List<IImageContainer> containers = new ArrayList<IImageContainer>();
+				List<IImageContainer> containers = new ArrayList<>();
 				// check only children
 				for (IImageElement subElement : elements) {
 					if (m_pattern.matches(subElement.getName())) {

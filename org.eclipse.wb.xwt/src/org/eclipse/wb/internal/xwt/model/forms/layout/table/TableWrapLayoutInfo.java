@@ -89,7 +89,7 @@ IPreferenceConstants {
 			CreationSupport creationSupport) throws Exception {
 		super(context, description, creationSupport);
 		new TableWrapLayoutAssistant(this);
-		new SelectionActionsSupport<ControlInfo>(this);
+		new SelectionActionsSupport<>(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -516,7 +516,7 @@ IPreferenceConstants {
 		if (m_columns.size() != size.width) {
 			m_columns.clear();
 			for (int i = 0; i < size.width; i++) {
-				m_columns.add(new TableWrapColumnInfo<ControlInfo>(this));
+				m_columns.add(new TableWrapColumnInfo<>(this));
 			}
 		}
 		return m_columns;
@@ -528,7 +528,7 @@ IPreferenceConstants {
 		if (m_rows.size() != size.height) {
 			m_rows.clear();
 			for (int i = 0; i < size.height; i++) {
-				m_rows.add(new TableWrapRowInfo<ControlInfo>(this));
+				m_rows.add(new TableWrapRowInfo<>(this));
 			}
 		}
 		return m_rows;

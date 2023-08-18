@@ -34,10 +34,10 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
 	@Override
 	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
 		if (model instanceof AbsoluteLayoutInfo) {
-			return new AbsoluteLayoutEditPolicy<ControlInfo>((AbsoluteLayoutInfo) model);
+			return new AbsoluteLayoutEditPolicy<>((AbsoluteLayoutInfo) model);
 		}
 		if (model instanceof FormLayoutInfo) {
-			return new FormLayoutEditPolicy<ControlInfo>((FormLayoutInfo) model);
+			return new FormLayoutEditPolicy<>((FormLayoutInfo) model);
 		}
 		/*if (model instanceof GenericFlowLayout_Info) {
     	return new GenericFlowLayout_LayoutEditPolicy((GenericFlowLayout_Info) model);

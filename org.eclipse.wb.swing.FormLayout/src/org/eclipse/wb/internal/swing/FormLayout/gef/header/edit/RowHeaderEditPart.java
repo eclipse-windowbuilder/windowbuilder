@@ -160,7 +160,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 		}
 		// operations
 		{
-			manager.add(new DimensionHeaderAction<FormRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_insertRow) {
 				@Override
 				protected void run(FormRowInfo dimension) throws Exception {
@@ -168,7 +168,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 					m_layout.insertRow(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<FormRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_appendRow) {
 				@Override
 				protected void run(FormRowInfo dimension) throws Exception {
@@ -176,7 +176,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 					m_layout.insertRow(index + 1);
 				}
 			});
-			manager.add(new DimensionHeaderAction<FormRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_deleteRow) {
 				@Override
 				protected void run(FormRowInfo dimension) throws Exception {
@@ -184,7 +184,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 					m_layout.deleteRow(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<FormRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_deleteContents) {
 				@Override
 				protected void run(FormRowInfo dimension) throws Exception {
@@ -192,7 +192,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 					m_layout.deleteRowContents(index);
 				}
 			});
-			manager.add(new DimensionHeaderAction<FormRowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_splitRow) {
 				@Override
 				protected void run(FormRowInfo dimension) throws Exception {
@@ -204,19 +204,19 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 		// alignment
 		{
 			manager.add(new Separator());
-			manager.add(new SetAlignmentAction<FormRowInfo>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaTop,
 					Activator.getImageDescriptor("alignment/v/menu/top.gif"),
 					RowSpec.TOP));
-			manager.add(new SetAlignmentAction<FormRowInfo>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaCenter,
 					Activator.getImageDescriptor("alignment/v/menu/center.gif"),
 					RowSpec.CENTER));
-			manager.add(new SetAlignmentAction<FormRowInfo>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaBottom,
 					Activator.getImageDescriptor("alignment/v/menu/bottom.gif"),
 					RowSpec.BOTTOM));
-			manager.add(new SetAlignmentAction<FormRowInfo>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaFill,
 					Activator.getImageDescriptor("alignment/v/menu/fill.gif"),
 					RowSpec.FILL));
@@ -224,7 +224,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 		// grow
 		{
 			manager.add(new Separator());
-			manager.add(new SetGrowAction<FormRowInfo>(this,
+			manager.add(new SetGrowAction<>(this,
 					GefMessages.RowHeaderEditPart_grow,
 					Activator.getImageDescriptor("alignment/h/menu/grow.gif")));
 		}
@@ -243,7 +243,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 			manager.add(new Separator());
 			{
 				DimensionHeaderAction<FormRowInfo> action =
-						new DimensionHeaderAction<FormRowInfo>(this, GefMessages.RowHeaderEditPart_group) {
+						new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_group) {
 					@Override
 					protected void run(List<FormRowInfo> dimensions) throws Exception {
 						m_layout.groupRows(dimensions);
@@ -254,7 +254,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 			}
 			{
 				DimensionHeaderAction<FormRowInfo> action =
-						new DimensionHeaderAction<FormRowInfo>(this, GefMessages.RowHeaderEditPart_unGroup) {
+						new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_unGroup) {
 					@Override
 					protected void run(List<FormRowInfo> dimensions) throws Exception {
 						m_layout.unGroupRows(dimensions);

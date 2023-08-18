@@ -94,7 +94,7 @@ public final class BroadcastSupport {
 	 * @noreference
 	 */
 	public void cleanUpTargets(ObjectInfo root) {
-		List<ObjectInfo> targets = new ArrayList<ObjectInfo>(m_targetToListeners.keySet());
+		List<ObjectInfo> targets = new ArrayList<>(m_targetToListeners.keySet());
 		for (ObjectInfo target : targets) {
 			if (!root.isItOrParentOf(target)) {
 				cleanUpTarget(target);
@@ -175,7 +175,7 @@ public final class BroadcastSupport {
 	 */
 	private void cleanUpTarget(ObjectInfo target) {
 		// remove separate listeners for target
-		List<Object> listeners = new ArrayList<Object>(getTargetListeners(target));
+		List<Object> listeners = new ArrayList<>(getTargetListeners(target));
 		for (Object listenerImpl : listeners) {
 			removeListener(target, listenerImpl);
 		}

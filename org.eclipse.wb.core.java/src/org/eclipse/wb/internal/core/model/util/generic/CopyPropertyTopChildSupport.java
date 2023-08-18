@@ -53,7 +53,7 @@ public final class CopyPropertyTopChildSupport extends CopyPropertyTopAbstractSu
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Predicate<JavaInfo> createTargetPredicate(final JavaInfo javaInfo) {
-		return new Predicate<JavaInfo>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(JavaInfo t) {
 				return t.getParent() == javaInfo;

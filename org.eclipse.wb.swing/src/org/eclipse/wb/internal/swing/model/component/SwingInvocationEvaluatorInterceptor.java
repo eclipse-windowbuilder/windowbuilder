@@ -170,7 +170,7 @@ public final class SwingInvocationEvaluatorInterceptor extends InvocationEvaluat
 				arguments[0] = new Object[0];
 			}
 			if ("<init>(java.util.Vector)".equals(signature) && arguments[0] == null) {
-				arguments[0] = new java.util.Vector<Object>();
+				arguments[0] = new java.util.Vector<>();
 			}
 		}
 		if (clazz == JComboBox.class) {

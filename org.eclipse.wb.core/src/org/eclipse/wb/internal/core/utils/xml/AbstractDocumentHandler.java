@@ -28,7 +28,7 @@ import java.util.Stack;
  */
 public class AbstractDocumentHandler extends QHandlerAdapter {
 	private DocumentElement m_rootNode;
-	private final Stack<DocumentElement> m_nodeStack = new Stack<DocumentElement>();
+	private final Stack<DocumentElement> m_nodeStack = new Stack<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

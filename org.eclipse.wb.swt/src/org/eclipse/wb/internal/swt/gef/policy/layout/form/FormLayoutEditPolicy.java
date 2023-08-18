@@ -74,7 +74,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 						}
 					}
 					LayoutAssistantPage<C> page =
-							new LayoutAssistantPage<C>(layout, placementsSupport, folder, objects);
+							new LayoutAssistantPage<>(layout, placementsSupport, folder, objects);
 					TabFactory.item(folder).text("FormLayout").control(page);
 					pages.add(page);
 				}
@@ -90,7 +90,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (layout.getControls().contains(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicy<C>(layout));
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicy<>(layout));
 		}
 	}
 
@@ -224,7 +224,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected AbstractAlignmentActionsSupport<C> getAlignmentActionsSupport() {
-		return new FormLayoutAlignmentActionsSupport<C>(layout, placementsSupport);
+		return new FormLayoutAlignmentActionsSupport<>(layout, placementsSupport);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -57,7 +57,7 @@ public final class QParser {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static void parse(Reader reader, QHandler handler) throws Exception {
-		Stack<Integer> st = new Stack<Integer>();
+		Stack<Integer> st = new Stack<>();
 		int depth = 0;
 		int mode = PRE;
 		int quotec = '"';
@@ -182,8 +182,8 @@ public final class QParser {
 					st.push(mode);
 					mode = OPEN_TAG;
 					tagName = null;
-					attrs = new TreeMap<String, String>();
-					attrList = new ArrayList<QAttribute>();
+					attrs = new TreeMap<>();
+					attrList = new ArrayList<>();
 					sb.append((char) c);
 				}
 				// we are processing an entity, e.g. &lt;, &#187;, etc.
@@ -234,8 +234,8 @@ public final class QParser {
 					return;
 				}
 				sb.setLength(0);
-				attrs = new TreeMap<String, String>();
-				attrList = new ArrayList<QAttribute>();
+				attrs = new TreeMap<>();
+				attrList = new ArrayList<>();
 				tagName = null;
 				mode = popMode(st);
 				// we are processing something
@@ -256,8 +256,8 @@ public final class QParser {
 							attrList,
 							false);
 					tagName = null;
-					attrs = new TreeMap<String, String>();
-					attrList = new ArrayList<QAttribute>();
+					attrs = new TreeMap<>();
+					attrList = new ArrayList<>();
 					mode = popMode(st);
 				} else if (c == '/') {
 					mode = SINGLE_TAG;
@@ -343,8 +343,8 @@ public final class QParser {
 							false);
 					depth++;
 					tagName = null;
-					attrs = new TreeMap<String, String>();
-					attrList = new ArrayList<QAttribute>();
+					attrs = new TreeMap<>();
+					attrList = new ArrayList<>();
 				} else if (c == '/') {
 					mode = SINGLE_TAG;
 				} else if (Character.isWhitespace((char) c)) {

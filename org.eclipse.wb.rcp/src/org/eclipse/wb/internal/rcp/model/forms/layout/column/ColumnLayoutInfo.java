@@ -57,7 +57,7 @@ IColumnLayoutInfo<ControlInfo> {
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
 		new ColumnLayoutAssistant(this);
-		new ColumnLayoutSelectionActionsSupport<ControlInfo>(this);
+		new ColumnLayoutSelectionActionsSupport<>(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

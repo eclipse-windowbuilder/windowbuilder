@@ -63,7 +63,7 @@ public final class KeyToComponentsSupport {
 			String key = entry.getKey();
 			Set<JavaInfo> components = entry.getValue();
 			//
-			Set<JavaInfo> componentsCopy = new HashSet<JavaInfo>(components);
+			Set<JavaInfo> componentsCopy = new HashSet<>(components);
 			copy.m_keyToComponents.put(key, componentsCopy);
 		}
 		return copy;

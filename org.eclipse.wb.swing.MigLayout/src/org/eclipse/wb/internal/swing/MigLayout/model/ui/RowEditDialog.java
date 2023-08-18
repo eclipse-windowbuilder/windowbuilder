@@ -30,17 +30,17 @@ import java.util.List;
 public final class RowEditDialog extends DimensionEditDialog<MigRowInfo, Alignment> {
 	private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
 	static {
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.DEFAULT,
 				ModelMessages.RowEditDialog_alignmentDefault));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TOP,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.TOP,
 				ModelMessages.RowEditDialog_alignmentTop));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.CENTER,
 				ModelMessages.RowEditDialog_alignmentCenter));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BOTTOM,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.BOTTOM,
 				ModelMessages.RowEditDialog_alignmentBottom));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.FILL,
 				ModelMessages.RowEditDialog_alignmentFill));
-		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BASELINE,
+		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.BASELINE,
 				ModelMessages.RowEditDialog_alignmentBaseline));
 	}
 

@@ -224,28 +224,28 @@ IAbsoluteLayoutInfo<ControlInfo> {
 			boundsProperty.setModified(true);
 			control.putArbitraryValue(this, boundsProperty);
 			// x
-			BoundsProperty<?> xProperty = new BoundsProperty<ControlInfo>(control, "x") {
+			BoundsProperty<?> xProperty = new BoundsProperty<>(control, "x") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					commandChangeBounds(m_component, new Point(value, modelBounds.y), null);
 				}
 			};
 			// y
-			BoundsProperty<?> yProperty = new BoundsProperty<ControlInfo>(control, "y") {
+			BoundsProperty<?> yProperty = new BoundsProperty<>(control, "y") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					commandChangeBounds(m_component, new Point(modelBounds.x, value), null);
 				}
 			};
 			// width
-			BoundsProperty<?> widthProperty = new BoundsProperty<ControlInfo>(control, "width") {
+			BoundsProperty<?> widthProperty = new BoundsProperty<>(control, "width") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					commandChangeBounds(m_component, null, new Dimension(value, modelBounds.height));
 				}
 			};
 			// height
-			BoundsProperty<?> heightProperty = new BoundsProperty<ControlInfo>(control, "height") {
+			BoundsProperty<?> heightProperty = new BoundsProperty<>(control, "height") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					commandChangeBounds(m_component, null, new Dimension(modelBounds.width, value));

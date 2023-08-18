@@ -76,6 +76,6 @@ public final class Pair<L, R> {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static <L, R> Pair<L, R> create(L left, R right) {
-		return new Pair<L, R>(left, right);
+		return new Pair<>(left, right);
 	}
 }

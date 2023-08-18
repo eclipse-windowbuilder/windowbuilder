@@ -462,7 +462,7 @@ public final class ThisCreationSupport extends CreationSupport {
 			}
 		}
 		// use as Predicate
-		return new Predicate<Method>() {
+		return new Predicate<>() {
 			@Override
 			public boolean apply(Method method) {
 				String declaringClassName = method.getDeclaringClass().getName();

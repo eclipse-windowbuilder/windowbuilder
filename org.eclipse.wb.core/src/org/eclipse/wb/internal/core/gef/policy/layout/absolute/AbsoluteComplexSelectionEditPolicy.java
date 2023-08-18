@@ -116,7 +116,7 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 		for (Figure figure : getFeedbacks()) {
 			FigureUtils.removeFigure(figure);
 		}
-		m_feedbacks = new ArrayList<Figure>();
+		m_feedbacks = new ArrayList<>();
 		hideAlignmentFigures();
 	}
 

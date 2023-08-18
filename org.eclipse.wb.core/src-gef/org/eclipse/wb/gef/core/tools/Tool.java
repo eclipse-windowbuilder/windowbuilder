@@ -189,7 +189,7 @@ public abstract class Tool {
 	 * override this method to filter or alter the operation set as necessary.
 	 */
 	protected List<EditPart> createOperationSet() {
-		return new ArrayList<EditPart>(m_viewer.getSelectedEditParts());
+		return new ArrayList<>(m_viewer.getSelectedEditParts());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

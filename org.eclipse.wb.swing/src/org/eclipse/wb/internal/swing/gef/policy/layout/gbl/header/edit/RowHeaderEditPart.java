@@ -166,33 +166,33 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 	public void buildContextMenu(IMenuManager manager) {
 		// operations
 		{
-			manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_insertRow) {
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_insertRow) {
 				@Override
 				protected void run(RowInfo row) throws Exception {
 					m_layout.getRowOperations().insert(row.getIndex());
 				}
 			});
-			manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_appendRow) {
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_appendRow) {
 				@Override
 				protected void run(RowInfo row) throws Exception {
 					m_layout.getRowOperations().insert(row.getIndex() + 1);
 				}
 			});
-			manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_deleteRow,
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_deleteRow,
 					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/delete.gif")) {
 				@Override
 				protected void run(RowInfo row) throws Exception {
 					m_layout.getRowOperations().delete(row.getIndex());
 				}
 			});
-			manager.add(new DimensionHeaderAction<RowInfo>(this,
+			manager.add(new DimensionHeaderAction<>(this,
 					GefMessages.RowHeaderEditPart_deleteContents) {
 				@Override
 				protected void run(RowInfo row) throws Exception {
 					m_layout.getRowOperations().clear(row.getIndex());
 				}
 			});
-			manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_splitRow) {
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_splitRow) {
 				@Override
 				protected void run(RowInfo row) throws Exception {
 					m_layout.getRowOperations().split(row.getIndex());
@@ -236,7 +236,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 		// grow
 		{
 			manager.add(new Separator());
-			manager.add(new SetGrowAction<RowInfo>(this,
+			manager.add(new SetGrowAction<>(this,
 					GefMessages.RowHeaderEditPart_grow,
 					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/grow.gif")));
 		}

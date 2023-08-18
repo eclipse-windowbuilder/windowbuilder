@@ -68,7 +68,7 @@ public final class DetailsPageWizardPage extends RcpWizardPage {
 	@Override
 	protected void initTypePage(IJavaElement elem) {
 		super.initTypePage(elem);
-		List<String> interfacesNames = new ArrayList<String>();
+		List<String> interfacesNames = new ArrayList<>();
 		interfacesNames.add("org.eclipse.ui.forms.IDetailsPage");
 		setSuperInterfaces(interfacesNames, false);
 	}

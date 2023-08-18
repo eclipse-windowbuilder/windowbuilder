@@ -49,7 +49,7 @@ extends
 AbstractGridSelectionEditPolicy {
 	private final ITableWrapLayoutInfo<C> m_layout;
 	private final C m_component;
-	private final GridHelper<C> m_gridHelper = new GridHelper<C>(this, false);
+	private final GridHelper<C> m_gridHelper = new GridHelper<>(this, false);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -506,7 +506,7 @@ public final class PaletteManager {
 
 	public static CategoryInfo filterPaletteLayouts(CategoryInfo categoryInfo) {
 		CategoryInfo filteredCategory = categoryInfo;
-		List<EntryInfo> entries = new ArrayList<EntryInfo>();
+		List<EntryInfo> entries = new ArrayList<>();
 		entries.addAll(categoryInfo.getEntries()); // make a copy of the entries list to avoid concurrent modification
 		// error
 		for (EntryInfo entryInfo : entries) {

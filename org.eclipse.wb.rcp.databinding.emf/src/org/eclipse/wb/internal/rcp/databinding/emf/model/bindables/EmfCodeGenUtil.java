@@ -72,7 +72,7 @@ public final class EmfCodeGenUtil {
 		if (leadingSeparators != null) {
 			name = name.substring(leadingSeparators.length());
 		}
-		List<String> parsedName = new ArrayList<String>();
+		List<String> parsedName = new ArrayList<>();
 		if (prefix != null
 				&& name.startsWith(prefix)
 				&& name.length() > prefix.length()
@@ -111,7 +111,7 @@ public final class EmfCodeGenUtil {
 	 * This method breaks sourceName into words delimited by separator and/or mixed-case naming.
 	 */
 	public static List<String> parseName(String sourceName, char separator) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		if (sourceName != null) {
 			StringBuilder currentWord = new StringBuilder();
 			boolean lastIsLower = false;

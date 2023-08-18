@@ -201,7 +201,7 @@ public final class SpringLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicyS
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected AbstractAlignmentActionsSupport<ComponentInfo> getAlignmentActionsSupport() {
-		return new ComplexAlignmentActionsSupport<ComponentInfo>(placementsSupport) {
+		return new ComplexAlignmentActionsSupport<>(placementsSupport) {
 			@Override
 			protected boolean isComponentInfo(ObjectInfo object) {
 				return object instanceof ComponentInfo;

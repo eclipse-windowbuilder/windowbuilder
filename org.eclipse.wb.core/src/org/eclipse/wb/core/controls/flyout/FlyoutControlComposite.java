@@ -81,7 +81,7 @@ public final class FlyoutControlComposite extends Composite {
 	private int m_minWidth = 150;
 	private int m_validDockLocations = -1;
 	private final List<IFlyoutMenuContributor> m_menuContributors =
-			new ArrayList<IFlyoutMenuContributor>();
+			new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

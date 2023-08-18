@@ -89,7 +89,7 @@ class LayoutAligner implements LayoutConstants {
 		}
 		// Divide layout intervals into pre/aligned/post parallel groups.
 		markByAlignAttributes(parParent, intervals);
-		List<LayoutInterval> removedSeqs = new LinkedList<LayoutInterval>();
+		List<LayoutInterval> removedSeqs = new LinkedList<>();
 		parParent = splitByAlignAttrs(parParent, removedSeqs, alignment, closed, dimension, false);
 		// Transfer the intervals into common parallel parent
 		List<LayoutInterval> gapsToResize =
@@ -99,9 +99,9 @@ class LayoutAligner implements LayoutConstants {
 		if (alignment != CENTER) {
 			// Calculate leading and trailing intervals
 			Map<LayoutInterval, LayoutInterval> leadingMap =
-					new HashMap<LayoutInterval, LayoutInterval>();
+					new HashMap<>();
 			Map<LayoutInterval, LayoutInterval> trailingMap =
-					new HashMap<LayoutInterval, LayoutInterval>();
+					new HashMap<>();
 			for (int i = 0; i < intervals.length; i++) {
 				LayoutInterval interval = intervals[i];
 				LayoutInterval parent = interval.getParent();
@@ -584,14 +584,14 @@ class LayoutAligner implements LayoutConstants {
 		boolean sequenceResizable;
 		boolean leadingGaps = true;
 		boolean trailingGaps = true;
-		List<LayoutInterval> gapsToResize = new LinkedList<LayoutInterval>();
+		List<LayoutInterval> gapsToResize = new LinkedList<>();
 		List<LayoutInterval> sequenceGapsToResize;
 		LayoutInterval[] firstIntervals = new LayoutInterval[intervals.length];
 		LayoutInterval[] lastIntervals = new LayoutInterval[intervals.length];
 		// List of new sequence groups for individual intervals
 		List<LayoutInterval> intervalList = Arrays.asList(intervals);
-		List<List<LayoutInterval>> newSequences = new LinkedList<List<LayoutInterval>>();
-		Map<LayoutInterval, Integer> gapSizes = new HashMap<LayoutInterval, Integer>();
+		List<List<LayoutInterval>> newSequences = new LinkedList<>();
+		Map<LayoutInterval, Integer> gapSizes = new HashMap<>();
 		for (int i = 0; i < intervals.length; i++) {
 			LayoutInterval interval = intervals[i];
 			// Find intervals that should be in the same sequence with the transfered interval
@@ -612,10 +612,10 @@ class LayoutAligner implements LayoutConstants {
 			firstIntervals[i] = firstInterval;
 			lastIntervals[i] = lastInterval;
 			// List of LayoutIntervals in the new sequence group
-			List<LayoutInterval> newSequenceList = new LinkedList<LayoutInterval>();
+			List<LayoutInterval> newSequenceList = new LinkedList<>();
 			newSequences.add(newSequenceList);
 			sequenceResizable = false;
-			sequenceGapsToResize = new LinkedList<LayoutInterval>();
+			sequenceGapsToResize = new LinkedList<>();
 			Iterator<LayoutInterval> iter = transferedComponents.iterator();
 			// Determine leading gap of the sequence
 			LayoutRegion parentRegion = parParent.getCurrentSpace();
@@ -852,8 +852,8 @@ class LayoutAligner implements LayoutConstants {
 			LayoutInterval parParent) {
 		LayoutInterval interval = intervals[index];
 		LayoutInterval oppInterval = oppositeComponentInterval(interval);
-		List<LayoutInterval> transferedComponents = new LinkedList<LayoutInterval>();
-		List<LayoutInterval> components = new LinkedList<LayoutInterval>();
+		List<LayoutInterval> transferedComponents = new LinkedList<>();
+		List<LayoutInterval> components = new LinkedList<>();
 		componentsInGroup(parParent, components);
 		/*for (int i=0; i<intervals.length; i++) {
         if (i == index) continue;
@@ -938,9 +938,9 @@ class LayoutAligner implements LayoutConstants {
 			}
 		}
 		// prepare separation to groups
-		List<LayoutInterval> aligned = new LinkedList<LayoutInterval>();
-		List<List> restLeading = new LinkedList<List>();
-		List<List> restTrailing = new LinkedList<List>();
+		List<LayoutInterval> aligned = new LinkedList<>();
+		List<List> restLeading = new LinkedList<>();
+		List<List> restTrailing = new LinkedList<>();
 		int mainEffectiveAlign = -1;
 		int originalCount = commonGroup.getSubIntervalCount();
 		for (int i = 0; i < intervals.length; i++) {

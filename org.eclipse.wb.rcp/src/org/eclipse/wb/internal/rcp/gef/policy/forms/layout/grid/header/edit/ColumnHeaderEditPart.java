@@ -166,26 +166,26 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 	public void buildContextMenu(IMenuManager manager) {
 		// grab
 		{
-			manager.add(new SetGrabAction<C>(this,
+			manager.add(new SetGrabAction<>(this,
 					GefMessages.ColumnHeaderEditPart_actionGrab,
 					TableWrapLayoutImages.getImageDescriptor("h/menu/grow.gif")));
 		}
 		// alignment
 		{
 			manager.add(new Separator());
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_alignmentLeft,
 					TableWrapLayoutImages.getImageDescriptor("h/menu/left.gif"),
 					TableWrapData.LEFT));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_alignmentCenter,
 					TableWrapLayoutImages.getImageDescriptor("h/menu/center.gif"),
 					TableWrapData.CENTER));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_alignmentRight,
 					TableWrapLayoutImages.getImageDescriptor("h/menu/right.gif"),
 					TableWrapData.RIGHT));
-			manager.add(new SetAlignmentAction<C>(this,
+			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_alignmentFill,
 					TableWrapLayoutImages.getImageDescriptor("h/menu/fill.gif"),
 					TableWrapData.FILL));
@@ -193,7 +193,7 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 		// operations
 		{
 			manager.add(new Separator());
-			manager.add(new DimensionHeaderAction<C>(this, GefMessages.ColumnHeaderEditPart_actionDelete,
+			manager.add(new DimensionHeaderAction<>(this, GefMessages.ColumnHeaderEditPart_actionDelete,
 					TableWrapLayoutImages.getImageDescriptor("h/menu/delete.gif")) {
 				@Override
 				protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {

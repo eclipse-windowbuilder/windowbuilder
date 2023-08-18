@@ -30,19 +30,19 @@ public final class RowEditDialog extends DimensionEditDialog<RowInfo, RowInfo.Al
 	private static final List<AlignmentDescription<RowInfo.Alignment>> ALIGNMENTS =
 			Lists.newArrayList();
 	static {
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.TOP,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.TOP,
 				ModelMessages.RowEditDialog_aTop));
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.CENTER,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.CENTER,
 				ModelMessages.RowEditDialog_aCenter));
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BOTTOM,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.BOTTOM,
 				ModelMessages.RowEditDialog_aBottom));
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.FILL,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.FILL,
 				ModelMessages.RowEditDialog_aFill));
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.BASELINE,
 				ModelMessages.RowEditDialog_aBaseline));
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_ABOVE,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.BASELINE_ABOVE,
 				ModelMessages.RowEditDialog_aAboveBaseline));
-		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_BELOW,
+		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.BASELINE_BELOW,
 				ModelMessages.RowEditDialog_aBelowBaseline));
 	}
 

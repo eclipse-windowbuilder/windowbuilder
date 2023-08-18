@@ -97,7 +97,7 @@ public class BundleImageContainer extends ImageContainer implements IHasChildren
 	 */
 	private static boolean isContainsResources(Bundle bundle, String path) {
 		Enumeration<?> entryPaths = bundle.getEntryPaths(path);
-		List<String> folders = new ArrayList<String>();
+		List<String> folders = new ArrayList<>();
 		// handle only file resources
 		while (entryPaths.hasMoreElements()) {
 			String entry = (String) entryPaths.nextElement();

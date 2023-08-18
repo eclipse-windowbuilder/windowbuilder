@@ -59,7 +59,7 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected IUiContentProvider createNewPageContentProvider() throws Exception {
-		return new UIContentContainer<ColumnBindingInfo>(m_binding.createNewColumnBinding(-1),
+		return new UIContentContainer<>(m_binding.createNewColumnBinding(-1),
 				m_bindings,
 				Messages.JTableColumnContainerUiContentProvider_column,
 				m_provider);
@@ -81,7 +81,7 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
 	public void updateFromObject() throws Exception {
 		List<IUiContentProvider> providers = Lists.newArrayList();
 		for (ColumnBindingInfo binding : m_binding.getColumns()) {
-			providers.add(new UIContentContainer<ColumnBindingInfo>(binding,
+			providers.add(new UIContentContainer<>(binding,
 					m_bindings,
 					Messages.JTableColumnContainerUiContentProvider_column,
 					m_provider));

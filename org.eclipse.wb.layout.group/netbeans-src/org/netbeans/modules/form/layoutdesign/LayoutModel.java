@@ -58,7 +58,7 @@ import javax.swing.undo.UndoableEdit;
 public class LayoutModel implements LayoutConstants {
 	// map String component Id -> LayoutComponent instance
 	private final Map<String, LayoutComponent> idToComponents =
-			new HashMap<String, LayoutComponent>();
+			new HashMap<>();
 	// list of listeners registered on LayoutModel
 	private ArrayList<Listener> listeners;
 	// layout changes recording and undo/redo
@@ -67,8 +67,8 @@ public class LayoutModel implements LayoutConstants {
 	private int changeMark;
 	private int oldestMark;
 	private final int changeCountHardLimit = 10000;
-	private final Map<Integer, LayoutEvent> undoMap = new HashMap<Integer, LayoutEvent>(500);
-	private final Map<Integer, LayoutEvent> redoMap = new HashMap<Integer, LayoutEvent>(100);
+	private final Map<Integer, LayoutEvent> undoMap = new HashMap<>(500);
+	private final Map<Integer, LayoutEvent> redoMap = new HashMap<>(100);
 	private LayoutUndoableEdit lastUndoableEdit;
 	// remembers whether the model was corrected/upgraded during loading
 	private boolean corrected;
@@ -626,7 +626,7 @@ public class LayoutModel implements LayoutConstants {
 					LayoutComponent comp = e.getKey();
 					Rectangle bounds = e.getValue();
 					if (removedCompToBounds == null) {
-						removedCompToBounds = new HashMap<LayoutComponent, Rectangle>();
+						removedCompToBounds = new HashMap<>();
 					}
 					removedCompToBounds.put(comp, bounds);
 					compToBounds.remove(comp);
@@ -635,7 +635,7 @@ public class LayoutModel implements LayoutConstants {
 				parts = cutIntoParts(cutSet, effDim);
 			} while (!compToBounds.isEmpty() && parts.isEmpty());
 			dimension = effDim;
-			List<RegionInfo> regions = new LinkedList<RegionInfo>();
+			List<RegionInfo> regions = new LinkedList<>();
 			Iterator<Map<LayoutComponent, Rectangle>> iter = parts.iterator();
 			while (iter.hasNext()) {
 				Map<LayoutComponent, Rectangle> part = iter.next();
@@ -670,7 +670,7 @@ public class LayoutModel implements LayoutConstants {
 		}
 
 		private SortedSet<Integer> createPossibleCuts(int dimension) {
-			SortedSet<Integer> cutSet = new TreeSet<Integer>();
+			SortedSet<Integer> cutSet = new TreeSet<>();
 			for (Rectangle bounds : compToBounds.values()) {
 				// Leading lines are sufficient
 				int leading = dimension == HORIZONTAL ? bounds.x : bounds.y;
@@ -682,15 +682,15 @@ public class LayoutModel implements LayoutConstants {
 
 		private List<Map<LayoutComponent, Rectangle>> cutIntoParts(Set<Integer> cutSet, int dimension) {
 			List<Map<LayoutComponent, Rectangle>> parts =
-					new LinkedList<Map<LayoutComponent, Rectangle>>();
+					new LinkedList<>();
 			Iterator<Integer> iter = cutSet.iterator();
 			while (iter.hasNext()) {
 				Integer cutInt = iter.next();
 				int cut = cutInt.intValue();
 				boolean isCut = true;
-				Map<LayoutComponent, Rectangle> preCompToBounds = new HashMap<LayoutComponent, Rectangle>();
+				Map<LayoutComponent, Rectangle> preCompToBounds = new HashMap<>();
 				Map<LayoutComponent, Rectangle> postCompToBounds =
-						new HashMap<LayoutComponent, Rectangle>();
+						new HashMap<>();
 				Iterator<Map.Entry<LayoutComponent, Rectangle>> it = compToBounds.entrySet().iterator();
 				while (isCut && it.hasNext()) {
 					Map.Entry<LayoutComponent, Rectangle> entry = it.next();
@@ -789,7 +789,7 @@ public class LayoutModel implements LayoutConstants {
 	// listeners registration, firing methods (no synchronization)
 	void addListener(Listener l) {
 		if (listeners == null) {
-			listeners = new ArrayList<Listener>();
+			listeners = new ArrayList<>();
 		} else {
 			listeners.remove(l);
 		}
@@ -969,7 +969,7 @@ public class LayoutModel implements LayoutConstants {
 	 * @return dump of the layout model.
 	 */
 	public String dump(final Map<String, String> idToNameMap) {
-		Set<LayoutComponent> roots = new TreeSet<LayoutComponent>(new Comparator<LayoutComponent>() {
+		Set<LayoutComponent> roots = new TreeSet<>(new Comparator<LayoutComponent>() {
 			// comparator to ensure stable order of dump; according to tree
 			// hierarchy, order within container, name
 			@Override
@@ -1112,8 +1112,8 @@ public class LayoutModel implements LayoutConstants {
 	 * LINKSIZE
 	 */
 	// each object in the map is a List and contains list of components within the group
-	private final Map<Integer, List<String>> linkSizeGroupsH = new HashMap<Integer, List<String>>();
-	private final Map<Integer, List<String>> linkSizeGroupsV = new HashMap<Integer, List<String>>();
+	private final Map<Integer, List<String>> linkSizeGroupsH = new HashMap<>();
+	private final Map<Integer, List<String>> linkSizeGroupsV = new HashMap<>();
 	private int maxLinkGroupId = 0;
 
 	public void addComponentToLinkSizedGroup(int groupId, String compId, int dimension) {
@@ -1142,7 +1142,7 @@ public class LayoutModel implements LayoutConstants {
 		if (l != null) {
 			l.add(lc.getId());
 		} else {
-			l = new ArrayList<String>();
+			l = new ArrayList<>();
 			l.add(lc.getId());
 			linkSizeGroups.put(groupIdInt, l);
 		}
@@ -1209,7 +1209,7 @@ public class LayoutModel implements LayoutConstants {
 			return retVal ? TRUE : FALSE;
 		}
 		Iterator i = components.iterator();
-		List<Integer> idsFound = new ArrayList<Integer>();
+		List<Integer> idsFound = new ArrayList<>();
 		while (i.hasNext()) {
 			String cid = (String) i.next();
 			LayoutComponent lc = getLayoutComponent(cid);

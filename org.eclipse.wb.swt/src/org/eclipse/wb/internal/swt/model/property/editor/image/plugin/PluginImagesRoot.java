@@ -69,11 +69,11 @@ public class PluginImagesRoot implements IImageRoot {
 			try {
 				dispose();
 				//
-				Set<IPluginModelBase> includeModels = new HashSet<IPluginModelBase>();
+				Set<IPluginModelBase> includeModels = new HashSet<>();
 				Map<IPluginModelBase, IProject> workspaceModelToProject =
-						new HashMap<IPluginModelBase, IProject>();
+						new HashMap<>();
 				//
-				List<ImageContainer> containers = new ArrayList<ImageContainer>();
+				List<ImageContainer> containers = new ArrayList<>();
 				//
 				String thisPluginId = getPluginId(m_pluginModel);
 				if (thisPluginId != null) {

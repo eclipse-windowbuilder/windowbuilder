@@ -107,7 +107,7 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
 								return ArrayUtils.EMPTY_OBJECT_ARRAY;
 							}
 							// check each non-Java file in current package
-							List<IFile> result = new ArrayList<IFile>(1);
+							List<IFile> result = new ArrayList<>(1);
 							Object[] nonJava = currentPackage.getNonJavaResources();
 							for (int i = 0; i < nonJava.length; i++) {
 								if (isPropertyFile(nonJava[i])) {

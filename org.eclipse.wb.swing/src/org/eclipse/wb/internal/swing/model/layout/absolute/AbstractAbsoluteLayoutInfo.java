@@ -161,28 +161,28 @@ public abstract class AbstractAbsoluteLayoutInfo extends LayoutInfo {
 			boundsProperty.setModified(true);
 			component.putArbitraryValue(this, boundsProperty);
 			// x
-			BoundsProperty<?> xProperty = new BoundsProperty<ComponentInfo>(component, "x") {
+			BoundsProperty<?> xProperty = new BoundsProperty<>(component, "x") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					setBoundsX(m_component, value);
 				}
 			};
 			// y
-			BoundsProperty<?> yProperty = new BoundsProperty<ComponentInfo>(component, "y") {
+			BoundsProperty<?> yProperty = new BoundsProperty<>(component, "y") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					setBoundsY(m_component, value);
 				}
 			};
 			// width
-			BoundsProperty<?> widthProperty = new BoundsProperty<ComponentInfo>(component, "width") {
+			BoundsProperty<?> widthProperty = new BoundsProperty<>(component, "width") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					setBoundsWidth(m_component, value);
 				}
 			};
 			// height
-			BoundsProperty<?> heightProperty = new BoundsProperty<ComponentInfo>(component, "height") {
+			BoundsProperty<?> heightProperty = new BoundsProperty<>(component, "height") {
 				@Override
 				public void setValue2(int value, Rectangle modelBounds) throws Exception {
 					setBoundsHeight(m_component, value);

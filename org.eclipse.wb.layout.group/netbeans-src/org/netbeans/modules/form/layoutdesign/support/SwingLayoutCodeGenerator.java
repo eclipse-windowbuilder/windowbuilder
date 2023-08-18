@@ -69,7 +69,7 @@ public class SwingLayoutCodeGenerator {
 	 *          layout model of the form.
 	 */
 	public SwingLayoutCodeGenerator(LayoutModel layoutModel) {
-		componentIDMap = new HashMap<String, ComponentInfo>();
+		componentIDMap = new HashMap<>();
 	}
 
 	/**

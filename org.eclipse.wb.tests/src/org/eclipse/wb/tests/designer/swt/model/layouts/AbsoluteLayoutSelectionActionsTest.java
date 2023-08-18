@@ -1193,7 +1193,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 			public void addSelectionActions(List<ObjectInfo> objects, List<Object> actions)
 					throws Exception {
 				AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) composite.getLayout();
-				new SelectionActionsSupport<ControlInfo>(layout).addAlignmentActions(objects, actions);
+				new SelectionActionsSupport<>(layout).addAlignmentActions(objects, actions);
 			}
 		});
 	}

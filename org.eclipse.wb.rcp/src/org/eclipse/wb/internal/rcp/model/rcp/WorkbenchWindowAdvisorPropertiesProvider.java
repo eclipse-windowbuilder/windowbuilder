@@ -294,7 +294,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
 		private MethodInvocation getInvocation() {
 			MethodDeclaration method = getTargetMethod();
 			if (method != null) {
-				ListGatherer<MethodInvocation> gatherer = new ListGatherer<MethodInvocation>() {
+				ListGatherer<MethodInvocation> gatherer = new ListGatherer<>() {
 					@Override
 					public boolean visit(MethodInvocation invocation) {
 						if (invocation.getName().getIdentifier().equals(m_methodName)) {
@@ -314,7 +314,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
 		 *         {@link IWorkbenchWindowConfigurer}.
 		 */
 		private VariableDeclaration getConfigurerDeclaration(MethodDeclaration method) {
-			ListGatherer<VariableDeclaration> gatherer = new ListGatherer<VariableDeclaration>() {
+			ListGatherer<VariableDeclaration> gatherer = new ListGatherer<>() {
 				@Override
 				public void endVisit(VariableDeclarationStatement node) {
 					ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(node.getType());

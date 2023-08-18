@@ -60,7 +60,7 @@ public final class EditableSource implements IEditableSource {
 	private String m_longTitle;
 	private final Set<String> m_keys = Sets.newHashSet();
 	private final Set<String> m_formKeys = Sets.newHashSet();
-	private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
+	private final HashMap<String, String> m_keyToValue = new HashMap<>();
 	private KeyToComponentsSupport m_keyToComponentsSupport = new KeyToComponentsSupport(false); // initialize by default for case of new source
 	private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newTreeMap();
 
@@ -198,7 +198,7 @@ public final class EditableSource implements IEditableSource {
 		Map<String, String> keyToValue;
 		if (baseLocale != null) {
 			EditableLocaleInfo editableBaseLocale = getEditableLocale(baseLocale);
-			keyToValue = new HashMap<String, String>(editableBaseLocale.m_keyToValue);
+			keyToValue = new HashMap<>(editableBaseLocale.m_keyToValue);
 		} else {
 			keyToValue = Maps.newHashMap();
 		}
@@ -429,7 +429,7 @@ public final class EditableSource implements IEditableSource {
 		////////////////////////////////////////////////////////////////////////////
 		public EditableLocaleInfo(LocaleInfo locale, Map<String, String> keyToValue) {
 			m_locale = locale;
-			m_keyToValue = new HashMap<String, String>(keyToValue);
+			m_keyToValue = new HashMap<>(keyToValue);
 		}
 
 		////////////////////////////////////////////////////////////////////////////

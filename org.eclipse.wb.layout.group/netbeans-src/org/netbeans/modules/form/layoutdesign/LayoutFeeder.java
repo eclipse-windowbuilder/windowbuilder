@@ -171,7 +171,7 @@ class LayoutFeeder implements LayoutConstants {
 			// prepare task for searching the position
 			IncludeDesc inclusion1 = null;
 			IncludeDesc inclusion2 = null;
-			List<IncludeDesc> inclusions = new LinkedList<IncludeDesc>();
+			List<IncludeDesc> inclusions = new LinkedList<>();
 			boolean preserveOriginal = false;
 			// if resizing in the other dimension then renew the original position
 			if (dragger.isResizing(dim ^ 1)) {
@@ -604,7 +604,7 @@ class LayoutFeeder implements LayoutConstants {
 	// Helper method for getDimensionSolvingOverlap() method
 	private static int[][] overlappingGapSides(LayoutInterval layoutRoot, LayoutRegion region) {
 		int[][] overlapSides = new int[][]{{0, 0}, {0, 0}};
-		List<LayoutComponent> overlaps = new LinkedList<LayoutComponent>();
+		List<LayoutComponent> overlaps = new LinkedList<>();
 		//        LayoutInterval layoutRoot = LayoutInterval.getRoot(positions[HORIZONTAL].interval);
 		fillOverlappingComponents(overlaps, layoutRoot, region);
 		Iterator<LayoutComponent> iter = overlaps.iterator();
@@ -1525,8 +1525,8 @@ resizing = false;
 		//            }
 		//        }
 		// separate content out of the emerging group
-		List<LayoutInterval> alignedList = new ArrayList<LayoutInterval>(2);
-		List<List> remainder = new ArrayList<List>(2);
+		List<LayoutInterval> alignedList = new ArrayList<>(2);
+		List<List> remainder = new ArrayList<>(2);
 		int originalCount = parParent.getSubIntervalCount();
 		int extAlign1 = extract(toAlignWith, alignedList, remainder, alignment);
 		extract(aligning, alignedList, remainder, alignment);
@@ -2335,8 +2335,8 @@ return false; */
 		// 3rd analyse inclusions requiring a subgroup (parallel with part of sequence)
 		LayoutInterval subGroup = null;
 		LayoutInterval nextTo = null;
-		List<List> separatedLeading = new LinkedList<List>();
-		List<List> separatedTrailing = new LinkedList<List>();
+		List<List> separatedLeading = new LinkedList<>();
+		List<List> separatedTrailing = new LinkedList<>();
 		for (IncludeDesc iDesc : inclusions) {
 			if (iDesc.parent.isSequential() && iDesc.newSubGroup) {
 				LayoutInterval parSeq =

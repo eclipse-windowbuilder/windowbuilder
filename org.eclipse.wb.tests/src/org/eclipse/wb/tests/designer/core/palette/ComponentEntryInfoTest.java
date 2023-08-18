@@ -1103,7 +1103,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// animate createTool()
 		CreationTool creationTool;
 		{
-			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<CreationTool>();
+			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<>();
 			new UiContext().executeAndCheck(new UIRunnable() {
 				@Override
 				public void run(UiContext context) throws Exception {
@@ -1171,7 +1171,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// animate createTool()
 		CreationTool creationTool;
 		{
-			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<CreationTool>();
+			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<>();
 			new UiContext().executeAndCheck(new UIRunnable() {
 				@Override
 				public void run(UiContext context) throws Exception {
