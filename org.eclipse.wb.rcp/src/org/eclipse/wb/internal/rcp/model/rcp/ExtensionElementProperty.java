@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -21,6 +18,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.pde.core.plugin.IPluginElement;
 
 import org.apache.commons.lang.ObjectUtils;
+
+import java.util.function.Function;
 
 /**
  * {@link Property} that updates PDE model.
@@ -34,19 +33,9 @@ public final class ExtensionElementProperty<T> extends Property {
 	// Converters
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final Function<String, String> IDENTITY = Functions.identity();
-	public static final Function<Boolean, String> FROM_BOOLEAN = new Function<>() {
-		@Override
-		public String apply(Boolean from) {
-			return from.toString();
-		}
-	};
-	public static final Function<String, Boolean> TO_BOOLEAN = new Function<>() {
-		@Override
-		public Boolean apply(String from) {
-			return Boolean.parseBoolean(from);
-		}
-	};
+	public static final Function<String, String> IDENTITY = Function.identity();
+	public static final Function<Boolean, String> FROM_BOOLEAN = from -> from.toString();
+	public static final Function<String, Boolean> TO_BOOLEAN = Boolean::parseBoolean;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance fields

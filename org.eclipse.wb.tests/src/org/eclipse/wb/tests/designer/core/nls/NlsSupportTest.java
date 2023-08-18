@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -303,12 +302,7 @@ public class NlsSupportTest extends SwingModelTest {
 			preferencesRepairer.setValue(IPreferenceConstants.P_NLS_ALWAYS_VISIBLE_LOCALES, "de, ru_RU");
 			LocaleInfo[] locales = m_support.getLocales();
 			List<String> localeNames =
-					Lists.transform(ImmutableList.copyOf(locales), new Function<LocaleInfo, String>() {
-						@Override
-						public String apply(LocaleInfo from) {
-							return from.toString();
-						}
-					});
+					Lists.transform(ImmutableList.copyOf(locales), from -> from.toString());
 			Assertions.assertThat(localeNames).hasSize(4).containsOnly("(default)", "it", "de", "ru_RU");
 		} finally {
 			preferencesRepairer.restore();

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.factory;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -580,33 +579,30 @@ public final class FactoryCreateAction extends Action {
 	 *         needed.
 	 */
 	private String getFactorySource(final AbstractInvocationInfo invocation) {
-		return m_editor.getExternalSource(invocation.m_expression, new Function<ASTNode, String>() {
-			@Override
-			public String apply(ASTNode from) {
-				// replace arguments with parameters
-				for (ArgumentInfo argument : invocation.m_arguments) {
-					if (argument.m_parameter && argument.m_expression == from) {
-						return argument.m_parameterName;
-					}
+		return m_editor.getExternalSource(invocation.m_expression, from -> {
+			// replace arguments with parameters
+			for (ArgumentInfo argument : invocation.m_arguments) {
+				if (argument.m_parameter && argument.m_expression == from) {
+					return argument.m_parameterName;
 				}
-				// replace getClass() with ClassLiteral source
-				if (from instanceof MethodInvocation invocationNode) {
-					if (invocationNode.getExpression() == null
-							&& invocationNode.getName().getIdentifier().equals("getClass")
-							&& invocationNode.arguments().isEmpty()) {
-						TypeDeclaration enclosingType = AstNodeUtils.getEnclosingType(invocationNode);
-						return AstNodeUtils.getFullyQualifiedName(enclosingType, false) + ".class";
-					}
-				}
-				// replace "expression" of method invocation with empty string
-				if (invocation instanceof InvocationInfo methodInvocation) {
-					if (from == methodInvocation.m_invocation.getExpression()) {
-						return "";
-					}
-				}
-				// use usual expression source
-				return null;
 			}
+			// replace getClass() with ClassLiteral source
+			if (from instanceof MethodInvocation invocationNode) {
+				if (invocationNode.getExpression() == null
+						&& invocationNode.getName().getIdentifier().equals("getClass")
+						&& invocationNode.arguments().isEmpty()) {
+					TypeDeclaration enclosingType = AstNodeUtils.getEnclosingType(invocationNode);
+					return AstNodeUtils.getFullyQualifiedName(enclosingType, false) + ".class";
+				}
+			}
+			// replace "expression" of method invocation with empty string
+			if (invocation instanceof InvocationInfo methodInvocation) {
+				if (from == methodInvocation.m_invocation.getExpression()) {
+					return "";
+				}
+			}
+			// use usual expression source
+			return null;
 		});
 	}
 

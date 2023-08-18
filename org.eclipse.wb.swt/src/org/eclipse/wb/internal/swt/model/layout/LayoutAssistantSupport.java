@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -65,12 +64,7 @@ org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantSupport {
 	 */
 	protected final List<ILayoutDataInfo> getDataList(List<ObjectInfo> objects) {
 		List<ILayoutDataInfo> dataList =
-				Lists.transform(objects, new Function<ObjectInfo, ILayoutDataInfo>() {
-					@Override
-					public ILayoutDataInfo apply(ObjectInfo from) {
-						return m_layout.getLayoutData2((IControlInfo) from);
-					}
-				});
+				Lists.transform(objects, from -> m_layout.getLayoutData2((IControlInfo) from));
 		return dataList;
 	}
 }

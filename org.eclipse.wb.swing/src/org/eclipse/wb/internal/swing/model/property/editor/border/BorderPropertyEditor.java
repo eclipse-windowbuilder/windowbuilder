@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border;
-
-import com.google.common.base.Function;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -30,7 +28,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IVariableBinding;
@@ -91,15 +88,12 @@ IClipboardSourceProvider {
 			// Ask "external" source.
 			// Replace each reference on variable with "bad" mark.
 			AstEditor editor = property.getJavaInfo().getEditor();
-			String source = editor.getExternalSource(expression, new Function<ASTNode, String>() {
-				@Override
-				public String apply(ASTNode input) {
-					IVariableBinding variableBinding = AstNodeUtils.getVariableBinding(input);
-					if (variableBinding != null && !variableBinding.isField()) {
-						return badExpressionMark;
-					}
-					return null;
+			String source = editor.getExternalSource(expression, input -> {
+				IVariableBinding variableBinding = AstNodeUtils.getVariableBinding(input);
+				if (variableBinding != null && !variableBinding.isField()) {
+					return badExpressionMark;
 				}
+				return null;
 			});
 			// if source has variable references, fail
 			if (source.contains(badExpressionMark)) {
