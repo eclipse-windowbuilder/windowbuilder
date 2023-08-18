@@ -130,7 +130,7 @@ public final class ComponentPresentationHelper {
 			String name = parseHelper.getName(componentClassName, creationId);
 			String key = getKey(componentClassName, creationId);
 			String toolkitId = getToolkitId(context, resource);
-			ImageDescriptor icon = getComponentImage(componentClass, creationId, loadingContext);
+			ImageDescriptor icon = getComponentImageDescriptor(componentClass, creationId, loadingContext);
 			ComponentPresentation presentation =
 					new ComponentPresentation(key, toolkitId, name, desc, icon);
 			if (shouldCacheFast(resource.getBundle())) {
@@ -154,18 +154,18 @@ public final class ComponentPresentationHelper {
 		return false;
 	}
 
-	private static ImageDescriptor getComponentImage(Class<?> clazz, String creationId, ILoadingContext context)
+	private static ImageDescriptor getComponentImageDescriptor(Class<?> clazz, String creationId, ILoadingContext context)
 			throws Exception {
 		String iconPath = getImageName(clazz.getName(), creationId);
 		ImageDescriptor image = DescriptionHelper.getIcon(context, iconPath);
 		if (image == null) {
 			// no image for this type, use super type
-			return getComponentImage(clazz.getSuperclass(), null/*use default id*/, context);
+			return getComponentImageDescriptor(clazz.getSuperclass(), null/*use default id*/, context);
 		}
 		return image;
 	}
 
-	private static ImageDescriptor getComponentImage(Bundle bundle, String componentClassName, String creationId)
+	private static ImageDescriptor getComponentImageDescriptor(Bundle bundle, String componentClassName, String creationId)
 			throws Exception {
 		String iconPath = "/wbp-meta/" + getImageName(componentClassName, creationId);
 		for (String ext : DescriptionHelper.ICON_EXTS) {
@@ -633,7 +633,7 @@ public final class ComponentPresentationHelper {
 			String desc = parseHelper.getDescription(creationId);
 			String name = parseHelper.getName(componentClassName, creationId);
 			String key = getKey(componentClassName, creationId);
-			ImageDescriptor icon = getComponentImage(bundle, componentClassName, creationId);
+			ImageDescriptor icon = getComponentImageDescriptor(bundle, componentClassName, creationId);
 			if (icon == null) {
 				// no image -- no presentation ;)
 				return;

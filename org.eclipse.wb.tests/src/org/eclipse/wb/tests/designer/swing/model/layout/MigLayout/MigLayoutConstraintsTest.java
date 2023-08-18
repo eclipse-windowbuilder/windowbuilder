@@ -870,7 +870,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		}
 		assertSame(
 				Activator.getImageDescriptor("alignment/h/small/" + imageName),
-				constraints.getSmallAlignmentImage(true));
+				constraints.getSmallAlignmentImageDescriptor(true));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -927,7 +927,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		}
 		assertSame(
 				Activator.getImageDescriptor("alignment/v/small/" + imageName),
-				constraints.getSmallAlignmentImage(false));
+				constraints.getSmallAlignmentImageDescriptor(false));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

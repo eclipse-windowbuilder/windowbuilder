@@ -524,7 +524,7 @@ final class ObserveElementsComposite extends SashForm {
 		// fill menu
 		for (PropertyFilter filter : filters) {
 			MenuItem item = new MenuItem(m_propertiesFilterMenu, SWT.RADIO);
-			ImageDescriptor imageDescriptor = filter.getImage();
+			ImageDescriptor imageDescriptor = filter.getImageDescriptor();
 			if (imageDescriptor != null) {
 				Image image = imageDescriptor.createImage();
 				item.addDisposeListener(event -> image.dispose());

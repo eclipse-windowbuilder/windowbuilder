@@ -43,7 +43,7 @@ public class SimpleObservePresentation extends ObservePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected ImageDescriptor getInternalImage() throws Exception {
+	protected ImageDescriptor getInternalImageDescriptor() throws Exception {
 		return m_image == null ? null : m_image;
 	}
 

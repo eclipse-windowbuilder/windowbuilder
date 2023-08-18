@@ -18,5 +18,5 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @author mitin_aa
  */
 public interface IActionImageProvider {
-	ImageDescriptor getActionImage(String imagePath);
+	ImageDescriptor getActionImageDescriptor(String imagePath);
 }

@@ -41,7 +41,7 @@ public final class PropertyAdapterLabelProvider extends LabelProvider {
 	@Override
 	public Image getImage(Object element) {
 		PropertyAdapter adapter = (PropertyAdapter) element;
-		return m_resourceManager.createImageWithDefault(TypeImageProvider.getImage(adapter.getType()));
+		return m_resourceManager.createImageWithDefault(TypeImageProvider.getImageDescriptor(adapter.getType()));
 	}
 
 	@Override

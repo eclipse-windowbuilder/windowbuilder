@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,7 +73,7 @@ public class AnchorsActionsSupport {
 				String text,
 				String imageName,
 				int alignment) {
-			super(widget.getUnderlyingModel(), text, m_imageProvider.getActionImage(imageName));
+			super(widget.getUnderlyingModel(), text, m_imageProvider.getActionImageDescriptor(imageName));
 			m_widget = widget;
 			m_alignment = alignment;
 		}
@@ -91,7 +91,7 @@ public class AnchorsActionsSupport {
 				String text,
 				String imageName,
 				boolean isHorizontal) {
-			super(widget.getUnderlyingModel(), text, m_imageProvider.getActionImage(imageName));
+			super(widget.getUnderlyingModel(), text, m_imageProvider.getActionImageDescriptor(imageName));
 			m_widget = widget;
 			m_isHorizontal = isHorizontal;
 		}

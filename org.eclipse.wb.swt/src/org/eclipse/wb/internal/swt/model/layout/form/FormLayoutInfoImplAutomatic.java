@@ -726,7 +726,7 @@ FormLayoutInfoImpl<C> implements IAbsoluteLayoutCommands {
 		return null;
 	}
 
-	public static ImageDescriptor getImage(String imageName) {
+	public static ImageDescriptor getImageDescriptor(String imageName) {
 		return Activator.getImageDescriptor("info/layout/FormLayout/" + imageName);
 	}
 

@@ -49,7 +49,7 @@ public final class TypeImageProvider {
 	/**
 	 * @return {@link ImageDescriptor} association with given {@link Class}.
 	 */
-	public static ImageDescriptor getImage(Class<?> type) {
+	public static ImageDescriptor getImageDescriptor(Class<?> type) {
 		// unknown type accept as object
 		if (type == null) {
 			return OBJECT_IMAGE;

@@ -75,7 +75,7 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
 			IObservableFactory observableFactory,
 			IObserveDecorator decorator) {
 		this(text,
-				TypeImageProvider.getImage(objectType),
+				TypeImageProvider.getImageDescriptor(objectType),
 				objectType,
 				reference,
 				observableFactory,

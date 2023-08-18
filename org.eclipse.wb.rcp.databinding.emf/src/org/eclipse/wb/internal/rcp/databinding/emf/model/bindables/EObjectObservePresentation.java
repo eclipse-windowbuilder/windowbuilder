@@ -42,7 +42,7 @@ public final class EObjectObservePresentation extends ObservePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected ImageDescriptor getInternalImage() throws Exception {
+	protected ImageDescriptor getInternalImageDescriptor() throws Exception {
 		return IMAGE;
 	}
 

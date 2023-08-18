@@ -41,7 +41,7 @@ public final class FieldBeanObserveInfo extends BeanObserveInfo {
 		setBindingDecoration(IDecoration.TOP_LEFT);
 		m_fragment = fragment;
 		m_presentation =
-				new FieldBeanObservePresentation(this, javaInfo, beanSupport.getBeanImage(
+				new FieldBeanObservePresentation(this, javaInfo, beanSupport.getBeanImageDescriptor(
 						getObjectClass(),
 						javaInfo,
 						true));

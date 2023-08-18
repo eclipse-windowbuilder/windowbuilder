@@ -118,7 +118,7 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 		if (horizontal) {
 			return new AbstractPopupFigure(viewer, 9, 5) {
 				@Override
-				protected ImageDescriptor getImage() {
+				protected ImageDescriptor getImageDescriptor() {
 					switch (constraints.getHorizontalAlignment()) {
 					case LEFT :
 						return getImage2("h/alignment/left.gif");
@@ -140,7 +140,7 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 		} else {
 			return new AbstractPopupFigure(viewer, 5, 9) {
 				@Override
-				protected ImageDescriptor getImage() {
+				protected ImageDescriptor getImageDescriptor() {
 					switch (constraints.getVerticalAlignment()) {
 					case TOP :
 						return getImage2("v/alignment/top.gif");

@@ -21,5 +21,5 @@ public interface IImageProvider {
 	/**
 	 * @return the Image instance by given path.
 	 */
-	ImageDescriptor getImage(String path);
+	ImageDescriptor getImageDescriptor(String path);
 }

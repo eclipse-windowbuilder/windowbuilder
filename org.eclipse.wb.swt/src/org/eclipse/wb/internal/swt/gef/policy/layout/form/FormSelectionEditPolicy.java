@@ -48,8 +48,8 @@ AbsoluteComplexSelectionEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public ImageDescriptor getActionImage(String imageName) {
-		return FormLayoutInfoImplAutomatic.getImage(imageName);
+	public ImageDescriptor getActionImageDescriptor(String imageName) {
+		return FormLayoutInfoImplAutomatic.getImageDescriptor(imageName);
 	}
 
 	@Override

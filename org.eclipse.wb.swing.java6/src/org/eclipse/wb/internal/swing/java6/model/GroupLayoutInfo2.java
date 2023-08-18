@@ -157,7 +157,7 @@ public final class GroupLayoutInfo2 extends LayoutInfo implements IAdaptable {
 		static final IImageProvider INSTANCE = new ImageProvider();
 
 		@Override
-		public ImageDescriptor getImage(String path) {
+		public ImageDescriptor getImageDescriptor(String path) {
 			return Activator.getImageDescriptor(path);
 		}
 	}

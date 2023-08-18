@@ -280,7 +280,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 		return !getAttachment(widget, side).isVirtual();
 	}
 
-	public static ImageDescriptor getImage(String imageName) {
+	public static ImageDescriptor getImageDescriptor(String imageName) {
 		return Activator.getImageDescriptor("info/layout/springLayout/" + imageName);
 	}
 

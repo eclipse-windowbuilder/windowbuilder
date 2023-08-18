@@ -133,7 +133,7 @@ public interface ITableWrapDataInfo extends ILayoutDataInfo {
 	 * @return the small {@link ImageDescriptor} that represents horizontal/vertical
 	 *         alignment.
 	 */
-	ImageDescriptor getSmallAlignmentImage(boolean horizontal);
+	ImageDescriptor getSmallAlignmentImageDescriptor(boolean horizontal);
 
 	/**
 	 * Adds the horizontal alignment {@link Action}'s.

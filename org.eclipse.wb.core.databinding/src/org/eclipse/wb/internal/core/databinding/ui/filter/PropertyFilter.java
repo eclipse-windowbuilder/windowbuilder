@@ -50,7 +50,7 @@ public abstract class PropertyFilter {
 	/**
 	 * @return the image to display for user.
 	 */
-	public final ImageDescriptor getImage() {
+	public final ImageDescriptor getImageDescriptor() {
 		return m_image;
 	}
 

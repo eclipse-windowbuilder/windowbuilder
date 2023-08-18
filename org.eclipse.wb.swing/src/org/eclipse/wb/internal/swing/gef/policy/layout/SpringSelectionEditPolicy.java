@@ -44,8 +44,8 @@ public final class SpringSelectionEditPolicy extends AbsoluteComplexSelectionEdi
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public ImageDescriptor getActionImage(String imageName) {
-		return SpringLayoutInfo.getImage(imageName);
+	public ImageDescriptor getActionImageDescriptor(String imageName) {
+		return SpringLayoutInfo.getImageDescriptor(imageName);
 	}
 
 	@Override

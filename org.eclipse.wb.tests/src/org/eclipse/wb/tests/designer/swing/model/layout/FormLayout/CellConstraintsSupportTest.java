@@ -301,7 +301,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 			constraints.setAlignV(alignment);
 		}
 		// check image
-		ImageDescriptor alignmentImage = constraints.getSmallAlignmentImage(horizontal);
+		ImageDescriptor alignmentImage = constraints.getSmallAlignmentImageDescriptor(horizontal);
 		if (notNullExpected) {
 			assertNotNull(alignmentImage);
 		} else {

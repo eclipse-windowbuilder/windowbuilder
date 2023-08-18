@@ -45,7 +45,7 @@ public final class FieldBeanObservePresentation extends ObservePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected ImageDescriptor getInternalImage() throws Exception {
+	protected ImageDescriptor getInternalImageDescriptor() throws Exception {
 		if (m_beanImage == null && m_javaInfo == null) {
 			return null;
 		}

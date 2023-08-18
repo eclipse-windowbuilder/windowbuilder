@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.IJavaInfoRendering;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.TabFolderDecorator;
@@ -39,7 +38,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
@@ -168,12 +166,7 @@ IJavaInfoRendering {
 
 	@Override
 	protected void refresh_fetch() throws Exception {
-		ControlInfo.refresh_fetch(this, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				WorkbenchPartLikeInfo.super.refresh_fetch();
-			}
-		});
+		ControlInfo.refresh_fetch(this, () -> WorkbenchPartLikeInfo.super.refresh_fetch());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -216,9 +209,7 @@ IJavaInfoRendering {
 					IProject project = getEditor().getJavaProject().getProject();
 					IFile iconFile = project.getFile(new Path(iconPath));
 					if (iconFile.exists()) {
-						String iconLocation = iconFile.getLocation().toOSString();
-						ImageData imageData = new ImageData(iconLocation);
-						icon = ImageDescriptor.createFromImageDataProvider((zoom) -> zoom == 100 ? imageData : null);
+						icon = ImageDescriptor.createFromURL(iconFile.getLocationURI().toURL());
 					}
 				}
 			}

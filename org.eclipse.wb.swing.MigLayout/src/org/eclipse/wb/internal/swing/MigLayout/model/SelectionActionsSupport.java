@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -116,7 +116,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		public HorizontalAlignmentAction(List<CellConstraintsSupport> constraints,
 				boolean checked,
 				MigColumnInfo.Alignment alignment) {
-			super(m_layout, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
+			super(m_layout, alignment.getText(), alignment.getMenuImageDescriptor(), AS_RADIO_BUTTON);
 			setChecked(checked);
 			m_constraints = constraints;
 			m_alignment = alignment;
@@ -171,7 +171,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		public VerticalAlignmentAction(List<CellConstraintsSupport> constraints,
 				boolean checked,
 				MigRowInfo.Alignment alignment) {
-			super(m_layout, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
+			super(m_layout, alignment.getText(), alignment.getMenuImageDescriptor(), AS_RADIO_BUTTON);
 			setChecked(checked);
 			m_constraints = constraints;
 			m_alignment = alignment;
