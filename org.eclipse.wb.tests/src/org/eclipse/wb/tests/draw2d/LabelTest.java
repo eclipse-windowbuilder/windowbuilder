@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,7 +81,8 @@ public class LabelTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setText()
 		label.setText("123");
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setText() if text not change
@@ -90,12 +91,14 @@ public class LabelTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setText()
 		label.setText("231");
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during setText()
 		label.setText(null);
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 	}
 

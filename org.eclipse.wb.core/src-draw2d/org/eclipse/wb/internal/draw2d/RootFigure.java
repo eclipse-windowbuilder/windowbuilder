@@ -162,11 +162,14 @@ public class RootFigure extends Figure implements IRootFigure {
 	 * reconfigure scrolling.
 	 */
 	@Override
-	protected void repaint(boolean reset, int x, int y, int width, int height) {
-		if (reset) {
-			m_preferredSize = null;
-		}
+	public void repaint(int x, int y, int width, int height) {
 		m_updateManager.addDirtyRegion(this, x, y, width, height);
+	}
+
+	@Override
+	public void invalidate() {
+		m_preferredSize = null;
+		super.invalidate();
 	}
 
 	/**

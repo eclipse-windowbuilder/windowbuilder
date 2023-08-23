@@ -51,11 +51,9 @@ public final class VerticalLabel extends Label {
 	}
 
 	@Override
-	protected void repaint(boolean reset, int x, int y, int width, int height) {
-		if (reset) {
-			m_preferredSize = null;
-		}
-		super.repaint(reset, x, y, width, height);
+	public void invalidate() {
+		m_preferredSize = null;
+		super.invalidate();
 	}
 
 	/**

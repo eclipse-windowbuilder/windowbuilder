@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,10 @@ public class Polyline extends Figure {
 	 */
 	public void addPoint(Point point) {
 		m_points.addPoint(point);
-		resetState();
+		if (isVisible()) {
+			revalidate();
+			repaint();
+		}
 	}
 
 	/**
@@ -45,7 +48,10 @@ public class Polyline extends Figure {
 	 */
 	public void insertPoint(Point point, int index) {
 		m_points.insertPoint(point, index);
-		resetState();
+		if (isVisible()) {
+			revalidate();
+			repaint();
+		}
 	}
 
 	/**
@@ -53,7 +59,10 @@ public class Polyline extends Figure {
 	 */
 	public void removePoint(int index) {
 		m_points.removePoint(index);
-		resetState();
+		if (isVisible()) {
+			revalidate();
+			repaint();
+		}
 	}
 
 	/**
@@ -61,7 +70,10 @@ public class Polyline extends Figure {
 	 */
 	public void removeAllPoints() {
 		m_points.removeAllPoints();
-		resetState();
+		if (isVisible()) {
+			revalidate();
+			repaint();
+		}
 	}
 
 	/**
@@ -79,7 +91,10 @@ public class Polyline extends Figure {
 	 */
 	public void setPoints(PointList points) {
 		m_points = points;
-		resetState();
+		if (isVisible()) {
+			revalidate();
+			repaint();
+		}
 	}
 
 	/**
@@ -134,7 +149,10 @@ public class Polyline extends Figure {
 	 */
 	public void setPoint(Point point, int index) {
 		m_points.setPoint(point, index);
-		resetState();
+		if (isVisible()) {
+			revalidate();
+			repaint();
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -280,7 +298,10 @@ public class Polyline extends Figure {
 		if (m_lineWidth != lineWidth) {
 			m_lineWidth = lineWidth;
 			m_pointsBounds = null;
-			resetState();
+			if (isVisible()) {
+				revalidate();
+				repaint();
+			}
 		}
 	}
 

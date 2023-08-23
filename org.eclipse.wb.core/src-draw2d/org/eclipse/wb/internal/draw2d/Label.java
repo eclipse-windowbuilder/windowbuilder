@@ -84,7 +84,10 @@ public class Label extends Figure {
 		}
 		if (!m_text.equals(text)) {
 			m_text = text;
-			resetState();
+			if (isVisible()) {
+				revalidate();
+				repaint();
+			}
 		}
 	}
 
@@ -94,11 +97,9 @@ public class Label extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void repaint(boolean reset, int x, int y, int width, int height) {
-		if (reset) {
-			m_preferredSize = null;
-		}
-		super.repaint(reset, x, y, width, height);
+	public void invalidate() {
+		m_preferredSize = null;
+		super.invalidate();
 	}
 
 	@Override

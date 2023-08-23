@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,31 +64,6 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 	// Figure notify tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Test
-	public void test_reset() throws Exception {
-		Figure testFigure = addFigure(10, 11, 50, 78);
-		TestLogger expectedLogger = new TestLogger();
-		//
-		// check reset state from figure fully
-		testFigure.resetState();
-		expectedLogger.log("repaint(true, 10, 11, 50, 78)");
-		m_actualLogger.assertEquals(expectedLogger);
-		//
-		// check reset state from part figure
-		testFigure.resetState(new Rectangle(1, 2, 3, 4));
-		expectedLogger.log("repaint(true, 1, 2, 3, 4)");
-		m_actualLogger.assertEquals(expectedLogger);
-		//
-		// check no reset state from invisible figure
-		testFigure.setVisible(false);
-		m_actualLogger.clear();
-		//
-		testFigure.resetState();
-		m_actualLogger.assertEmpty();
-		//
-		testFigure.resetState(new Rectangle(1, 2, 3, 4));
-		m_actualLogger.assertEmpty();
-	}
 
 	@Test
 	public void test_repaint() throws Exception {
@@ -97,7 +72,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint from figure fully
 		testFigure.repaint();
-		expectedLogger.log("repaint(false, 10, 11, 50, 78)");
+		expectedLogger.log("repaint(10, 11, 50, 78)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint from invisible figure
@@ -115,26 +90,32 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during add child figure with empty bounds
 		testFigure.add(new Figure());
-		expectedLogger.log("repaint(true, 10, 11, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(10, 11, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during add(Figure) child figure with not empty bounds
 		Figure testChildFigure = new Figure();
 		testChildFigure.setBounds(new Rectangle(1, 2, 3, 4));
 		testFigure.add(testChildFigure);
-		expectedLogger.log("repaint(true, 11, 13, 3, 4)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during add(Figure, Rectangle) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4));
-		expectedLogger.log("repaint(true, 10, 11, 4, 6)");
-		expectedLogger.log("repaint(true, 11, 13, 3, 4)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(10, 11, 4, 6)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during add(Figure, Rectangle, int) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4), -1);
-		expectedLogger.log("repaint(true, 10, 11, 4, 6)");
-		expectedLogger.log("repaint(true, 11, 13, 3, 4)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(10, 11, 4, 6)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
 	}
 
@@ -150,12 +131,14 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during remove child figure
 		testFigure.remove(testChildFigure);
-		expectedLogger.log("repaint(true, 31, 28, 25, 24)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(31, 28, 25, 24)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during remove all children figures
 		testFigure.removeAll();
-		expectedLogger.log("repaint(true, 10, 11, 50, 78)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(10, 11, 50, 78)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during remove if not childrens
@@ -170,7 +153,8 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setBounds()
 		testFigure.setBounds(new Rectangle(1, 2, 3, 4));
-		expectedLogger.log("repaint(true, 0, 0, 4, 6)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 4, 6)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setBounds() if bounds not change
@@ -183,12 +167,14 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setSize(int, int)
 		testFigure.setSize(1, 5);
-		expectedLogger.log("repaint(true, 1, 2, 3, 5)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(1, 2, 3, 5)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during setSize(Dimension)
 		testFigure.setSize(new Dimension(11, 12));
-		expectedLogger.log("repaint(true, 1, 2, 11, 12)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(1, 2, 11, 12)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setSize(Dimension) if bounds not change
@@ -201,12 +187,14 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setLocation(int, int)
 		testFigure.setLocation(3, 7);
-		expectedLogger.log("repaint(true, 1, 2, 13, 17)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(1, 2, 13, 17)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during setLocation(Point)
 		testFigure.setLocation(new Point());
-		expectedLogger.log("repaint(true, 0, 0, 14, 19)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 14, 19)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setLocation(Point) if bounds not change
@@ -222,7 +210,8 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		// check repaint during setBorder()
 		LineBorder border = new LineBorder();
 		testFigure.setBorder(border);
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setBorder() if border not change
@@ -231,12 +220,14 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setBorder()
 		testFigure.setBorder(new LineBorder(7));
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check repaint during setBorder()
 		testFigure.setBorder(null);
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setBorder() if border not change
@@ -251,7 +242,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setBackground()
 		testFigure.setBackground(red);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setBackground() if color not change
@@ -260,12 +251,12 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setBackground()
 		testFigure.setBackground(green);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check repaint during setBackground()
 		testFigure.setBackground(null);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setBackground() if color not change
@@ -280,7 +271,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setForeground()
 		testFigure.setForeground(red);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setForeground() if color not change
@@ -289,12 +280,12 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setForeground()
 		testFigure.setForeground(green);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check repaint during setForeground()
 		testFigure.setForeground(null);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setForeground() if color not change
@@ -309,12 +300,14 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setFont()
 		testFigure.setFont(new Font(null, "Courier New", 12, SWT.BOLD));
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during setFont()
 		testFigure.setFont(Display.getCurrent().getSystemFont());
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setFont() if font not change
@@ -323,7 +316,8 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setFont()
 		testFigure.setFont(null);
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setFont() if font not change
@@ -367,7 +361,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setOpaque()
 		testFigure.setOpaque(true);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setOpaque() if opaque not change
@@ -376,7 +370,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check repaint during setOpaque()
 		testFigure.setOpaque(false);
-		expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setOpaque() if opaque not change
@@ -391,7 +385,9 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setVisible()
 		testFigure.setVisible(false);
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setVisible() if visible not change
@@ -400,7 +396,9 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setVisible()
 		testFigure.setVisible(true);
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setVisible() if visible not change

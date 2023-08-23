@@ -92,7 +92,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		assertSame(preferredSize, testRoot.getPreferredSize());
 		//
 		// check work resetState()
-		figure0.resetState();
+		figure0.revalidate();
+		figure0.repaint();
 		waitEventLoop(10);
 		//
 		expectedLogger.log("refreshRequest(10, 10, 100, 200)");
@@ -145,7 +146,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		//
 		RootFigure testRoot = new RootFigure(null) {
 			@Override
-			protected void repaint(boolean reset, int x, int y, int width, int height) {
+			public void repaint(int x, int y, int width, int height) {
 			}
 
 			@Override
@@ -195,7 +196,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		Layer layer0 = new Layer("Main");
 		testRoot.addLayer(layer0);
 		//
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertSame(testRoot, layer0.getParent());
@@ -205,7 +207,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		Layer layer1 = new Layer("Feedback");
 		testRoot.addLayer(layer1);
 		//
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertSame(testRoot, layer1.getParent());
@@ -255,7 +258,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		// check work removeLayer(Layer)
 		testRoot.removeLayer(layer0);
 		//
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertNull(layer0.getParent());
@@ -265,7 +269,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		// check work removeLayer(String)
 		testRoot.removeLayer("feedback");
 		//
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertNull(layer0.getParent());
@@ -294,7 +299,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		// check reset state during removeAll()
 		testRoot.removeAll();
 		//
-		expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertNull(layer0.getParent());

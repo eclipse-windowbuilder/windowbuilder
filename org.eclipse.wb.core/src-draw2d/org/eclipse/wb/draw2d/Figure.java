@@ -232,8 +232,9 @@ public class Figure extends org.eclipse.draw2d.Figure {
 			childFigure.setParent(null);
 		}
 		// notify of change
-		if (m_children != null && !m_children.isEmpty()) {
-			resetState();
+		if (m_children != null && !m_children.isEmpty() && isVisible()) {
+			revalidate();
+			repaint();
 		}
 		// reset container
 		m_children = null;
@@ -306,24 +307,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	}
 
 	/**
-	 * Request of change bounds and repaint this Figure. Use when bounds change is indirectly (change
-	 * visible, font, etc.).
-	 */
-	public final void resetState() {
-		resetState(getBounds());
-	}
-
-	/**
-	 * Request of change bounds and repaints the rectangular area within this Figure. Use into
-	 * <code>setBounds()</code> where <code>area</code> is union of <i>old</i> and <i>new</i> bounds.
-	 */
-	public final void resetState(Rectangle area) {
-		if (isVisible()) {
-			repaint(true, area.x, area.y, area.width, area.height);
-		}
-	}
-
-	/**
 	 * Request of change bounds and repaints the rectangular area within this Figure. Rectangular area
 	 * <code>childFigure</code>'s bounds. Use into {@link #add(Figure, Rectangle, int)} and
 	 * {@link #remove(Figure)}.
@@ -333,9 +316,8 @@ public class Figure extends org.eclipse.draw2d.Figure {
 			Rectangle bounds = getBounds();
 			Insets insets = getInsets();
 			Rectangle childBounds = childFigure.getBounds();
-			repaint(
-					true,
-					bounds.x + insets.left + childBounds.x,
+			revalidate();
+			repaint(bounds.x + insets.left + childBounds.x,
 					bounds.y + insets.top + childBounds.y,
 					childBounds.width,
 					childBounds.height);
@@ -349,7 +331,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	public final void repaint() {
 		if (isVisible()) {
 			Rectangle bounds = getBounds();
-			repaint(false, bounds.x, bounds.y, bounds.width, bounds.height);
+			repaint(bounds.x, bounds.y, bounds.width, bounds.height);
 		}
 	}
 
@@ -359,12 +341,13 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * respectively. If parameter <code>reset</code> is <code>true</code> then request of change
 	 * bounds and reconfigure scrolling.
 	 */
-	protected void repaint(boolean reset, int x, int y, int width, int height) {
+	@Override
+	public void repaint(int x, int y, int width, int height) {
 		Figure parent = getParent();
 		if (parent != null) {
 			Rectangle bounds = parent.getBounds();
 			Insets insets = parent.getInsets();
-			parent.repaint(reset, bounds.x + insets.left + x, bounds.y + insets.top + y, width, height);
+			parent.repaint(bounds.x + insets.left + x, bounds.y + insets.top + y, width, height);
 		}
 	}
 
@@ -510,7 +493,8 @@ public class Figure extends org.eclipse.draw2d.Figure {
 			// send move event
 			fireMoved();
 			// reset state
-			resetState(dirtyArea);
+			revalidate();
+			repaint(dirtyArea);
 		}
 	}
 
@@ -589,7 +573,10 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	public void setBorder(Border border) {
 		if (m_border != border) {
 			m_border = border;
-			resetState();
+			if (isVisible()) {
+				revalidate();
+				repaint();
+			}
 		}
 	}
 
@@ -642,7 +629,8 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	public void setFont(Font font) {
 		if (m_font != font) {
 			m_font = font;
-			resetState();
+			revalidate();
+			repaint();
 		}
 	}
 
@@ -699,9 +687,11 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	@Override
 	public void setVisible(boolean visible) {
 		if (m_visible != visible) {
-			resetState();
+			revalidate();
+			repaint();
 			m_visible = visible;
-			resetState();
+			revalidate();
+			repaint();
 		}
 	}
 
