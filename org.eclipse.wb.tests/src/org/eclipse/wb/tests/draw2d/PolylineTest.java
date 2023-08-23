@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,19 +59,22 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check reset state during addPoint()
 		m_polyline.addPoint(new Point(10, 20));
 		//
-		m_expectedLogger.log("repaint(true, 10, 20, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(10, 20, 1, 1)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check reset state during addPoint()
 		m_polyline.addPoint(new Point(-90, 0));
 		//
-		m_expectedLogger.log("repaint(true, -90, 0, 101, 21)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-90, 0, 101, 21)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check reset state during addPoint()
 		m_polyline.addPoint(new Point(120, -70));
 		//
-		m_expectedLogger.log("repaint(true, -90, -70, 211, 91)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-90, -70, 211, 91)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check add null point and not reset state
@@ -104,25 +107,29 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work insert point and reset state
 		m_polyline.insertPoint(new Point(), 0);
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 1, 1)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check work insert point and reset state
 		m_polyline.addPoint(new Point(10, 20));
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 11, 21)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 11, 21)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check work insert point and reset state
 		m_polyline.addPoint(new Point(-90, 0));
 		//
-		m_expectedLogger.log("repaint(true, -90, 0, 101, 21)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-90, 0, 101, 21)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check work insert point and reset state
 		m_polyline.insertPoint(new Point(-1, -1), 1);
 		//
-		m_expectedLogger.log("repaint(true, -90, -1, 101, 22)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-90, -1, 101, 22)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check points order
@@ -163,7 +170,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check remove point and reset state
 		m_polyline.removePoint(2);
 		//
-		m_expectedLogger.log("repaint(true, -90, -20, 101, 21)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-90, -20, 101, 21)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(2, list.size());
@@ -173,7 +181,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check remove point and reset state
 		m_polyline.removePoint(0);
 		//
-		m_expectedLogger.log("repaint(true, -90, 0, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-90, 0, 1, 1)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(1, list.size());
@@ -182,7 +191,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check remove point and reset state
 		m_polyline.removePoint(0);
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(0, list.size());
@@ -201,7 +211,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work removeAllPoints() when not children
 		m_polyline.removeAllPoints();
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		PointList list = m_polyline.getPoints();
@@ -217,7 +228,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work removeAllPoints()
 		m_polyline.removeAllPoints();
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(0, list.size());
@@ -225,7 +237,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work removeAllPoints() when not children
 		m_polyline.removeAllPoints();
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(0, list.size());
@@ -296,7 +309,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		Point point = new Point(3, 4);
 		m_polyline.setPoint(point, 1);
 		//
-		m_expectedLogger.log("repaint(true, 3, -20, 8, 25)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(3, -20, 8, 25)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(new Point(3, 4), point);
@@ -307,7 +321,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		point = new Point(-1, 2);
 		m_polyline.setPoint(point, 0);
 		//
-		m_expectedLogger.log("repaint(true, -1, 2, 5, 3)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-1, 2, 5, 3)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(new Point(-1, 2), point);
@@ -322,7 +337,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setStart() and reset state
 		m_polyline.setStart(new Point(10, 10));
 		//
-		m_expectedLogger.log("repaint(true, 10, 10, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(10, 10, 1, 1)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(1, m_polyline.getPoints().size());
@@ -331,7 +347,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setStart() and reset state
 		m_polyline.setStart(new Point(120, -110));
 		//
-		m_expectedLogger.log("repaint(true, 120, -110, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(120, -110, 1, 1)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(1, m_polyline.getPoints().size());
@@ -345,7 +362,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setEnd() and reset state
 		m_polyline.setEnd(new Point(1, 1));
 		//
-		m_expectedLogger.log("repaint(true, 1, 1, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(1, 1, 1, 1)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(1, m_polyline.getPoints().size());
@@ -362,7 +380,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setEnd() and reset state
 		m_polyline.setEnd(new Point(10, 10));
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 11, 11)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 11, 11)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(2, m_polyline.getPoints().size());
@@ -371,7 +390,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setEnd() and reset state
 		m_polyline.setEnd(new Point(120, -110));
 		//
-		m_expectedLogger.log("repaint(true, 0, -110, 121, 111)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, -110, 121, 111)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(2, m_polyline.getPoints().size());
@@ -389,8 +409,10 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setEndpoints() and reset state
 		m_polyline.setEndpoints(new Point(10, 10), new Point(120, -110));
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 11, 11)");
-		m_expectedLogger.log("repaint(true, 10, -110, 111, 121)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 11, 11)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(10, -110, 111, 121)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(2, m_polyline.getPoints().size());
@@ -400,8 +422,10 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check work setEndpoints() and reset state
 		m_polyline.setEndpoints(new Point(120, -110), new Point(10, 10));
 		//
-		m_expectedLogger.log("repaint(true, 120, -110, 1, 1)");
-		m_expectedLogger.log("repaint(true, 10, -110, 111, 121)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(120, -110, 1, 1)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(10, -110, 111, 121)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(2, m_polyline.getPoints().size());
@@ -420,7 +444,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		PointList list2 = new PointList();
 		m_polyline.setPoints(list2);
 		//
-		m_expectedLogger.log("repaint(true, 0, 0, 0, 0)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertNotSame(list1, m_polyline.getPoints());
@@ -529,7 +554,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check change lineStyle
 		m_polyline.setLineStyle(SWT.LINE_DOT);
 		//
-		m_expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(SWT.LINE_DOT, m_polyline.getLineStyle());
@@ -543,7 +568,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check change lineWidth and reset state
 		m_polyline.setLineWidth(3);
 		//
-		m_expectedLogger.log("repaint(true, -1, -1, 2, 2)");
+		m_expectedLogger.log("invalidate");
+		m_expectedLogger.log("repaint(-1, -1, 2, 2)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertEquals(3, m_polyline.getLineWidth());
@@ -562,7 +588,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check change xor mode
 		m_polyline.setXorMode(true);
 		//
-		m_expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertTrue(m_polyline.isXorMode());
@@ -575,7 +601,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		// check change xor mode
 		m_polyline.setXorMode(false);
 		//
-		m_expectedLogger.log("repaint(false, 0, 0, 0, 0)");
+		m_expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		assertFalse(m_polyline.isXorMode());
