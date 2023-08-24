@@ -105,7 +105,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		// check reset state during add(Figure, Rectangle) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4));
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(10, 11, 4, 6)");
+		expectedLogger.log("repaint(0, 0, 4, 6)");
 		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
@@ -113,7 +113,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		// check reset state during add(Figure, Rectangle, int) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4), -1);
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(10, 11, 4, 6)");
+		expectedLogger.log("repaint(0, 0, 4, 6)");
 		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);

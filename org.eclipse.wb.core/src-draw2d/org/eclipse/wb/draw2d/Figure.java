@@ -320,33 +320,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	}
 
 	/**
-	 * Repaints this Figure.
-	 */
-	@Override
-	public final void repaint() {
-		if (isVisible()) {
-			Rectangle bounds = getBounds();
-			repaint(bounds.x, bounds.y, bounds.width, bounds.height);
-		}
-	}
-
-	/**
-	 * Repaints the rectangular area within this Figure whose upper-left corner is located at the
-	 * point <code>(x,y)</code> and whose width and height are <code>w</code> and <code>h</code>,
-	 * respectively. If parameter <code>reset</code> is <code>true</code> then request of change
-	 * bounds and reconfigure scrolling.
-	 */
-	@Override
-	public void repaint(int x, int y, int width, int height) {
-		Figure parent = getParent();
-		if (parent != null) {
-			Rectangle bounds = parent.getBounds();
-			Insets insets = parent.getInsets();
-			parent.repaint(bounds.x + insets.left + x, bounds.y + insets.top + y, width, height);
-		}
-	}
-
-	/**
 	 * Paints this Figure and its children.
 	 *
 	 * @noreference @nooverride
