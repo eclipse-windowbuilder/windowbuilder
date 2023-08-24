@@ -106,7 +106,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	}
 
 	@Override
-	public final UpdateManager getUpdateManager() {
+	public UpdateManager getUpdateManager() {
 		return m_updateManager;
 	}
 
