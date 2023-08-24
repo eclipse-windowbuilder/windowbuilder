@@ -25,8 +25,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -46,10 +44,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	private Border m_border;
 	private Color m_background;
 	private Color m_foreground;
-	private Font m_font = Display.getCurrent().getSystemFont();
 	private Cursor m_cursor;
-	private boolean m_opaque;
-	private boolean m_visible = true;
 	private Object m_data;
 	private String m_toolTipText;
 	private ICustomTooltipProvider m_customTooltipProvider;
@@ -365,8 +360,8 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		if (m_foreground != null) {
 			graphics.setForegroundColor(m_foreground);
 		}
-		if (m_font != null) {
-			graphics.setFont(m_font);
+		if (getFont() != null) {
+			graphics.setFont(getFont());
 		}
 		graphics.pushState();
 		//
@@ -385,7 +380,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		// fill all figure before any painting clientArea, clilds, and border.
-		if (m_opaque) {
+		if (isOpaque()) {
 			Rectangle bounds = getBounds();
 			graphics.fillRectangle(0, 0, bounds.width, bounds.height);
 		}
@@ -615,26 +610,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	}
 
 	/**
-	 * Returns the current Font by reference.
-	 */
-	@Override
-	public Font getFont() {
-		return m_font;
-	}
-
-	/**
-	 * Sets the font.
-	 */
-	@Override
-	public void setFont(Font font) {
-		if (m_font != font) {
-			m_font = font;
-			revalidate();
-			repaint();
-		}
-	}
-
-	/**
 	 * @return The Cursor used when the mouse is over this Figure
 	 */
 	@Override
@@ -650,48 +625,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		if (m_cursor != cursor) {
 			m_cursor = cursor;
 			updateCursor();
-		}
-	}
-
-	/**
-	 * Returns <code>true</code> if this Figure is opaque.
-	 */
-	@Override
-	public boolean isOpaque() {
-		return m_opaque;
-	}
-
-	/**
-	 * Sets this Figure to be opaque if <i>opaque</i> is <code>true</code> and transparent if
-	 * <i>opaque</i> is <code>false</code>.
-	 */
-	@Override
-	public void setOpaque(boolean opaque) {
-		if (m_opaque != opaque) {
-			m_opaque = opaque;
-			repaint();
-		}
-	}
-
-	/**
-	 * @return <code>true</code> if the figure's visibility flag is set
-	 */
-	@Override
-	public boolean isVisible() {
-		return m_visible;
-	}
-
-	/**
-	 * Sets this Figure's visibility.
-	 */
-	@Override
-	public void setVisible(boolean visible) {
-		if (m_visible != visible) {
-			revalidate();
-			repaint();
-			m_visible = visible;
-			revalidate();
-			repaint();
 		}
 	}
 

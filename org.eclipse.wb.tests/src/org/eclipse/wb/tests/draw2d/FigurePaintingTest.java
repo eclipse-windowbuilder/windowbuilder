@@ -385,7 +385,6 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setVisible()
 		testFigure.setVisible(false);
-		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		expectedLogger.log("invalidate");
 		m_actualLogger.assertEquals(expectedLogger);
@@ -396,9 +395,8 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during setVisible()
 		testFigure.setVisible(true);
-		expectedLogger.log("invalidate");
-		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during setVisible() if visible not change
