@@ -30,7 +30,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 
 import org.junit.Test;
 
@@ -610,7 +609,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getBorder());
 		assertNull(testFigure.getBackground());
 		assertNull(testFigure.getForeground());
-		assertEquals(Display.getCurrent().getSystemFont(), testFigure.getFont());
+		assertNull(testFigure.getFont());
 		assertNull(testFigure.getCursor());
 		assertFalse(testFigure.isOpaque());
 		assertTrue(testFigure.isVisible());
@@ -685,7 +684,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check font for new Figure
-		assertEquals(Display.getCurrent().getSystemFont(), testFigure.getFont());
+		assertNull(testFigure.getFont());
 		//
 		// check set font
 		Font font = new Font(null, "Courier New", 12, SWT.BOLD);
