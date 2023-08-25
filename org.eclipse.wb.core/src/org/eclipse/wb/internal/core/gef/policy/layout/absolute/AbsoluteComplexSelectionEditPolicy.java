@@ -197,7 +197,7 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 		Polyline line = new Polyline();
 		line.addPoint(begin);
 		line.addPoint(end);
-		line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
+		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);
 		addMyFeedback(line);
 	}

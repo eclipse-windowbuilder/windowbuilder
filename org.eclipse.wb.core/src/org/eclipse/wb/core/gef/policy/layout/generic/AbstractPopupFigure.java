@@ -61,8 +61,8 @@ public abstract class AbstractPopupFigure extends Figure {
 		m_viewer = viewer;
 		// configure figure
 		setSize(width + MARGIN, height + MARGIN);
-		setBackground(COLOR_BACKGROUND);
-		setForeground(COLOR_FOREGROUND);
+		setBackgroundColor(COLOR_BACKGROUND);
+		setForegroundColor(COLOR_FOREGROUND);
 		setCursor(ICursorConstants.HAND);
 		// add mouse listener
 		addMouseListener(new MouseListener.Stub() {

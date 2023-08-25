@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -930,14 +930,14 @@ IPreferenceConstants {
 	@Override
 	public Figure addHorizontalFeedbackLine(int y, int x, int width) {
 		Polyline line = createLineFeedback(x, y, x + width, y);
-		line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
+		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		return line;
 	}
 
 	@Override
 	public Figure addHorizontalMiddleLineFeedback(int y, int x, int width) {
 		Polyline line = createLineFeedback(x, y, x + width, y);
-		line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
+		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);
 		return line;
 	}
@@ -958,14 +958,14 @@ IPreferenceConstants {
 	@Override
 	public Figure addVerticalFeedbackLine(int x, int y, int height) {
 		Polyline line = createLineFeedback(x, y, x, y + height);
-		line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
+		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		return line;
 	}
 
 	@Override
 	public Figure addVerticalMiddleLineFeedback(int x, int y, int height) {
 		Polyline line = createLineFeedback(x, y, x, y + height);
-		line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
+		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);
 		return line;
 	}

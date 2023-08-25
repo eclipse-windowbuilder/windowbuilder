@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ public final class GhostPositionFeedback extends AbstractPositionFeedback {
 	@Override
 	protected Figure createFigure() {
 		Figure figure = new SemiTransparentFigure(50);
-		figure.setBackground(m_fillColor);
+		figure.setBackgroundColor(m_fillColor);
 		figure.setBorder(new LineBorder(m_borderColor));
 		return figure;
 	}
@@ -54,9 +54,9 @@ public final class GhostPositionFeedback extends AbstractPositionFeedback {
 	@Override
 	public void update(boolean contains) {
 		if (contains) {
-			m_figure.setBackground(m_activeColor);
+			m_figure.setBackgroundColor(m_activeColor);
 		} else {
-			m_figure.setBackground(m_fillColor);
+			m_figure.setBackgroundColor(m_fillColor);
 		}
 	}
 }

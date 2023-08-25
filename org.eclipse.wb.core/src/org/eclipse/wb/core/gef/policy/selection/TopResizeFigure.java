@@ -38,8 +38,8 @@ public class TopResizeFigure extends SemiTransparentFigure {
 	////////////////////////////////////////////////////////////////////////////
 	public TopResizeFigure() {
 		super(64);
-		setBackground(IColorConstants.lightGreen);
-		setForeground(IColorConstants.darkGray);
+		setBackgroundColor(IColorConstants.lightGreen);
+		setForegroundColor(IColorConstants.darkGray);
 		setBorder(new LineBorder(IColorConstants.darkBlue, 1));
 	}
 

@@ -143,10 +143,10 @@ IHeadersProvider {
 				// show target rectangle
 				{
 					if (m_target.m_valid) {
-						m_targetFeedback.setBackground(m_goodTargetFillColor);
+						m_targetFeedback.setBackgroundColor(m_goodTargetFillColor);
 						m_targetFeedback.setBorder(new LineBorder(m_goodTargetBorderColor));
 					} else {
-						m_targetFeedback.setBackground(m_badTargetFillColor);
+						m_targetFeedback.setBackgroundColor(m_badTargetFillColor);
 						m_targetFeedback.setBorder(new LineBorder(m_badTargetBorderColor));
 					}
 					getLayer(IEditPartViewer.HANDLE_LAYER_SUB_1).add(m_targetFeedback);
@@ -264,7 +264,7 @@ IHeadersProvider {
 	 */
 	public static Figure createInsertFigure() {
 		Figure figure = new SemiTransparentFigure(160);
-		figure.setBackground(m_insertTargetFillColor);
+		figure.setBackgroundColor(m_insertTargetFillColor);
 		figure.setBorder(new LineBorder(m_insertTargetBorderColor));
 		return figure;
 	}

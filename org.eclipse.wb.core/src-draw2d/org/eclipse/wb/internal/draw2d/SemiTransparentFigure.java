@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ public class SemiTransparentFigure extends Figure {
 		{
 			PaletteData palette = new PaletteData(0xFF, 0xFF00, 0xFF0000);
 			ImageData data = new ImageData(1, 1, 32, palette);
-			int pixel = palette.getPixel(getBackground().getRGB());
+			int pixel = palette.getPixel(getBackgroundColor().getRGB());
 			data.setPixel(0, 0, pixel);
 			data.setAlpha(0, 0, m_alpha);
 			//

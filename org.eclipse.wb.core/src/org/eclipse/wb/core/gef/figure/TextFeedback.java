@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,8 +45,8 @@ public final class TextFeedback {
 		// create label
 		m_label = isHorizontal ? new Label() : new VerticalLabel();
 		m_label.setOpaque(true);
-		m_label.setBackground(IColorConstants.tooltipBackground);
-		m_label.setForeground(IColorConstants.tooltipForeground);
+		m_label.setBackgroundColor(IColorConstants.tooltipBackground);
+		m_label.setForegroundColor(IColorConstants.tooltipForeground);
 		{
 			Border outer = new LineBorder(IColorConstants.tooltipForeground);
 			Border inner = new MarginBorder(2);
@@ -102,7 +102,7 @@ public final class TextFeedback {
 	 * Sets the background of feedback.
 	 */
 	public void setBackground(Color color) {
-		m_label.setBackground(color);
+		m_label.setBackgroundColor(color);
 	}
 
 	/**

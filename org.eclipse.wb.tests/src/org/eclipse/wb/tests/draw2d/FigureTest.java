@@ -607,8 +607,8 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(), testFigure.getClientArea(new Rectangle()));
 		assertEquals(new Insets(), testFigure.getInsets());
 		assertNull(testFigure.getBorder());
-		assertNull(testFigure.getBackground());
-		assertNull(testFigure.getForeground());
+		assertNull(testFigure.getBackgroundColor());
+		assertNull(testFigure.getForegroundColor());
 		assertNull(testFigure.getFont());
 		assertNull(testFigure.getCursor());
 		assertFalse(testFigure.isOpaque());
@@ -644,19 +644,19 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check color for new Figure
-		assertNull(testFigure.getBackground());
+		assertNull(testFigure.getBackgroundColor());
 		//
 		// check set color
-		testFigure.setBackground(black);
-		assertSame(black, testFigure.getBackground());
+		testFigure.setBackgroundColor(black);
+		assertSame(black, testFigure.getBackgroundColor());
 		//
 		// check set other color
-		testFigure.setBackground(red);
-		assertSame(red, testFigure.getBackground());
+		testFigure.setBackgroundColor(red);
+		assertSame(red, testFigure.getBackgroundColor());
 		//
 		// check set 'null' color
-		testFigure.setBackground(null);
-		assertNull(testFigure.getBackground());
+		testFigure.setBackgroundColor(null);
+		assertNull(testFigure.getBackgroundColor());
 	}
 
 	@Test
@@ -664,19 +664,19 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check color for new Figure
-		assertNull(testFigure.getForeground());
+		assertNull(testFigure.getForegroundColor());
 		//
 		// check set color
-		testFigure.setForeground(black);
-		assertSame(black, testFigure.getForeground());
+		testFigure.setForegroundColor(black);
+		assertSame(black, testFigure.getForegroundColor());
 		//
 		// check set other color
-		testFigure.setForeground(red);
-		assertSame(red, testFigure.getForeground());
+		testFigure.setForegroundColor(red);
+		assertSame(red, testFigure.getForegroundColor());
 		//
 		// check set 'null' color
-		testFigure.setForeground(null);
-		assertNull(testFigure.getForeground());
+		testFigure.setForegroundColor(null);
+		assertNull(testFigure.getForegroundColor());
 	}
 
 	@Test

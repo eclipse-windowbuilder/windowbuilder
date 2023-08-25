@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -128,13 +128,13 @@ GraphicalEditPart implements IHeaderMenuProvider {
 		// update background
 		{
 			if (m_dimension.isGap()) {
-				getFigure().setBackground(COLOR_GAP);
+				getFigure().setBackgroundColor(COLOR_GAP);
 			} else {
 				int group = m_layout.getDimensionGroupIndex(m_dimension);
 				if (group != -1) {
-					getFigure().setBackground(GROUP_COLORS[group % GROUP_COLORS.length]);
+					getFigure().setBackgroundColor(GROUP_COLORS[group % GROUP_COLORS.length]);
 				} else {
-					getFigure().setBackground(COLOR_NORMAL);
+					getFigure().setBackgroundColor(COLOR_NORMAL);
 				}
 			}
 		}

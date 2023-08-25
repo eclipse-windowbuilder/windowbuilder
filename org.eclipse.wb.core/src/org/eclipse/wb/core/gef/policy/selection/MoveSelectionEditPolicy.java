@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ public final class MoveSelectionEditPolicy extends SelectionEditPolicy {
 		List<Handle> handles = Lists.newArrayList();
 		{
 			MoveHandle moveHandle = new MoveHandle(getHost());
-			moveHandle.setForeground(m_color);
+			moveHandle.setForegroundColor(m_color);
 			handles.add(moveHandle);
 		}
 		return handles;

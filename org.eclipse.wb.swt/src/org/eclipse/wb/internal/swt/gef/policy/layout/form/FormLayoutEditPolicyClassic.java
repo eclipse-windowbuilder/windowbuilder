@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1187,7 +1187,7 @@ implements IHeadersProvider {
 		translateModelToFeedback(p2);
 		line.addPoint(p1);
 		line.addPoint(p2);
-		line.setForeground(color);
+		line.setForegroundColor(color);
 		line.setLineStyle(SWT.LINE_DOT);
 		// add the line to feedbacks
 		addFeedback(line);
