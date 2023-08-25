@@ -237,7 +237,7 @@ public abstract class AbstractGridHelper {
 		// add border around container
 		{
 			RectangleFigure borderFigure = new RectangleFigure();
-			borderFigure.setForeground(m_borderColor);
+			borderFigure.setForegroundColor(m_borderColor);
 			borderFigure.setBounds(hostClientArea);
 			m_gridFigure.add(borderFigure);
 		}
@@ -266,7 +266,7 @@ public abstract class AbstractGridHelper {
 	private void addGridLine(int x1, int y1, int x2, int y2, Color color) {
 		if (color != null) {
 			Polyline line = new Polyline();
-			line.setForeground(color);
+			line.setForegroundColor(color);
 			// prepare points
 			Point p1 = new Point(x1, y1);
 			Point p2 = new Point(x2, y2);

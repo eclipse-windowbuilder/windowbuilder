@@ -45,8 +45,8 @@ public final class ResizeHintFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	public ResizeHintFigure() {
 		setOpaque(true);
-		setBackground(IColorConstants.tooltipBackground);
-		setForeground(IColorConstants.tooltipForeground);
+		setBackgroundColor(IColorConstants.tooltipBackground);
+		setForegroundColor(IColorConstants.tooltipForeground);
 		setBorder(new CompoundBorder(new LineBorder(IColorConstants.tooltipForeground),
 				new MarginBorder(2)));
 	}

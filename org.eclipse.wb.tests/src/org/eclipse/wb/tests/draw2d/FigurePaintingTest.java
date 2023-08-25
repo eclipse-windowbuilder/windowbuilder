@@ -241,26 +241,26 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		TestLogger expectedLogger = new TestLogger();
 		//
 		// check repaint during setBackground()
-		testFigure.setBackground(red);
+		testFigure.setBackgroundColor(red);
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setBackground() if color not change
-		testFigure.setBackground(red);
+		testFigure.setBackgroundColor(red);
 		m_actualLogger.assertEmpty();
 		//
 		// check repaint during setBackground()
-		testFigure.setBackground(green);
+		testFigure.setBackgroundColor(green);
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check repaint during setBackground()
-		testFigure.setBackground(null);
+		testFigure.setBackgroundColor(null);
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setBackground() if color not change
-		testFigure.setBackground(null);
+		testFigure.setBackgroundColor(null);
 		m_actualLogger.assertEmpty();
 	}
 
@@ -270,26 +270,26 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		TestLogger expectedLogger = new TestLogger();
 		//
 		// check repaint during setForeground()
-		testFigure.setForeground(red);
+		testFigure.setForegroundColor(red);
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setForeground() if color not change
-		testFigure.setForeground(red);
+		testFigure.setForegroundColor(red);
 		m_actualLogger.assertEmpty();
 		//
 		// check repaint during setForeground()
-		testFigure.setForeground(green);
+		testFigure.setForegroundColor(green);
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check repaint during setForeground()
-		testFigure.setForeground(null);
+		testFigure.setForegroundColor(null);
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no repaint during setForeground() if color not change
-		testFigure.setForeground(null);
+		testFigure.setForegroundColor(null);
 		m_actualLogger.assertEmpty();
 	}
 

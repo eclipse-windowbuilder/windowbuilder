@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,9 +50,9 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	@Override
 	public void update(boolean contains) {
 		if (contains) {
-			m_figure.setBackground(getActiveColor());
+			m_figure.setBackgroundColor(getActiveColor());
 		} else {
-			m_figure.setBackground(getInactiveColor());
+			m_figure.setBackgroundColor(getInactiveColor());
 		}
 	}
 

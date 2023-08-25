@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -140,7 +140,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 				}
 			}
 		});
-		moveHandle.setForeground(IColorConstants.red);
+		moveHandle.setForegroundColor(IColorConstants.red);
 		return moveHandle;
 	}
 
@@ -381,7 +381,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			// add feedback figure
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new RectangleFigure();
-				m_lineFeedback.setForeground(IColorConstants.green);
+				m_lineFeedback.setForegroundColor(IColorConstants.green);
 				addFeedback(m_lineFeedback);
 			}
 			// set bounds
@@ -510,7 +510,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			// add feedback figure
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new RectangleFigure();
-				m_lineFeedback.setForeground(IColorConstants.green);
+				m_lineFeedback.setForegroundColor(IColorConstants.green);
 				addFeedback(m_lineFeedback);
 			}
 			// set bounds

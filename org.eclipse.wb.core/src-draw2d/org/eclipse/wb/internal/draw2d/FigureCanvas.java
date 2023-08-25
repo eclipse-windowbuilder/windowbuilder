@@ -69,8 +69,8 @@ public class FigureCanvas extends Canvas {
 
 	private void createRootFigure() {
 		m_rootFigure = new RootFigure(this);
-		m_rootFigure.setBackground(getBackground());
-		m_rootFigure.setForeground(getForeground());
+		m_rootFigure.setBackgroundColor(getBackground());
+		m_rootFigure.setForegroundColor(getForeground());
 		m_rootFigure.setFont(getFont());
 		setDefaultEventManager();
 	}

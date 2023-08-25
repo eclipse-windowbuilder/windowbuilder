@@ -1123,7 +1123,7 @@ SelectionEditPolicy {
 		translateModelToFeedback(p2);
 		line.addPoint(p1);
 		line.addPoint(p2);
-		line.setForeground(color);
+		line.setForegroundColor(color);
 		line.setLineStyle(SWT.LINE_DOT);
 		// add feedback
 		addFeedback(line);

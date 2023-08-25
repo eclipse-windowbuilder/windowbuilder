@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -437,7 +437,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 			m_insertionLine = new Polyline();
 			// presentation
 			m_insertionLine.setLineWidth(2);
-			m_insertionLine.setForeground(IColorConstants.red);
+			m_insertionLine.setForegroundColor(IColorConstants.red);
 			// default points
 			m_insertionLine.addPoint(new Point(0, 0));
 			m_insertionLine.addPoint(new Point(0, 0));

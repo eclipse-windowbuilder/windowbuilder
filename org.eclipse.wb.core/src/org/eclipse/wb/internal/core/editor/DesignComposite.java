@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2021 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -158,7 +158,7 @@ public abstract class DesignComposite extends Composite {
 		// configure main GEF viewer
 		{
 			m_viewer = m_viewersComposite.getViewer();
-			m_viewer.getRootFigure().setBackground(IColorConstants.listBackground);
+			m_viewer.getRootFigure().setBackgroundColor(IColorConstants.listBackground);
 			m_viewer.setEditDomain(domain);
 			m_viewer.setEditPartFactory(EditPartFactory.INSTANCE);
 		}

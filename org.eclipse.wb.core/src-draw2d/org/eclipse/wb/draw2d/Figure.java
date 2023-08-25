@@ -23,7 +23,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 
 import java.util.Collections;
@@ -42,8 +41,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	private final Rectangle m_bounds = new Rectangle();
 	private List<Figure> m_children;
 	private Border m_border;
-	private Color m_background;
-	private Color m_foreground;
 	private Cursor m_cursor;
 	private Object m_data;
 	private String m_toolTipText;
@@ -327,11 +324,11 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	@Override
 	public final void paint(Graphics graphics) {
 		// set figure state
-		if (m_background != null) {
-			graphics.setBackgroundColor(m_background);
+		if (getBackgroundColor() != null) {
+			graphics.setBackgroundColor(getBackgroundColor());
 		}
-		if (m_foreground != null) {
-			graphics.setForegroundColor(m_foreground);
+		if (getForegroundColor() != null) {
+			graphics.setForegroundColor(getForegroundColor());
 		}
 		if (getFont() != null) {
 			graphics.setFont(getFont());
@@ -545,40 +542,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 				revalidate();
 				repaint();
 			}
-		}
-	}
-
-	/**
-	 * Returns the background Color of this Figure.
-	 */
-	public Color getBackground() {
-		return m_background;
-	}
-
-	/**
-	 * Sets the background color.
-	 */
-	public void setBackground(Color background) {
-		if (m_background != background) {
-			m_background = background;
-			repaint();
-		}
-	}
-
-	/**
-	 * Returns the local foreground Color of this Figure.
-	 */
-	public Color getForeground() {
-		return m_foreground;
-	}
-
-	/**
-	 * Sets the foreground color.
-	 */
-	public void setForeground(Color foreground) {
-		if (m_foreground != foreground) {
-			m_foreground = foreground;
-			repaint();
 		}
 	}
 

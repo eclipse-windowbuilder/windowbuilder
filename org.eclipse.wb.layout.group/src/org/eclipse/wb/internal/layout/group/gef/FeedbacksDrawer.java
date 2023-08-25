@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -55,7 +55,7 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 	@Override
 	public void drawLine(int x1, int y1, int x2, int y2) {
 		Polyline line = createLineFeedback(x1, y1, x2, y2);
-		line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
+		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		m_feedbacks.add(line);
 	}
 

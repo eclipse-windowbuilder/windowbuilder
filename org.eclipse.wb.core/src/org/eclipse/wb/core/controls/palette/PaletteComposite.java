@@ -131,8 +131,8 @@ public final class PaletteComposite extends Composite {
 		// prepare draw2d FigureCanvas
 		{
 			m_figureCanvas = new FigureCanvas(this, SWT.V_SCROLL);
-			m_figureCanvas.getRootFigure().setBackground(COLOR_PALETTE_BACKGROUND);
-			m_figureCanvas.getRootFigure().setForeground(COLOR_TEXT_ENABLED);
+			m_figureCanvas.getRootFigure().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
+			m_figureCanvas.getRootFigure().setForegroundColor(COLOR_TEXT_ENABLED);
 		}
 		// prepare GC (for layout)
 		{
