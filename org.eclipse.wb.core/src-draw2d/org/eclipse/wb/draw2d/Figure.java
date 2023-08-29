@@ -631,4 +631,9 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	public void setCustomTooltipProvider(ICustomTooltipProvider provider) {
 		m_customTooltipProvider = provider;
 	}
+
+	@Override
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
 }
