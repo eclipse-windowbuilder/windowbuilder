@@ -17,6 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.model.ModelTests;
 import org.eclipse.wb.tests.designer.rcp.nebula.NebulaTests;
 import org.eclipse.wb.tests.designer.rcp.resource.ResourceTests;
 import org.eclipse.wb.tests.designer.rcp.swing2swt.Swing2SwtTests;
+import org.eclipse.wb.tests.designer.rcp.wizard.WizardTests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -35,7 +36,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	NebulaTests.class,
 	Swing2SwtTests.class,
 	GefTests.class,
-	BindingTests.class
+	BindingTests.class,
+	WizardTests.class
 })
 public class RcpTests {
 }

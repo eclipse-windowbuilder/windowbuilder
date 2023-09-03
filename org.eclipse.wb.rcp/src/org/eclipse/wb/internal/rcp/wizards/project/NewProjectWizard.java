@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -66,5 +66,8 @@ public class NewProjectWizard extends DesignerJavaProjectWizard {
 		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.workbench");
 		ProjectUtils.addPluginLibraries(javaProject, "com.ibm.icu");
 		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.forms");
+		// E4 support
+		ProjectUtils.addPluginLibraries(javaProject, "javax.annotation");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.e4.ui.di");
 	}
 }
