@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 field
+	private static final long serialVersionUID = 1L;
+
+field
 	private JPanel %field-prefix%contentPane;
 
 method

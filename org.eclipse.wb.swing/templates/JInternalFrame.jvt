@@ -1,6 +1,9 @@
 import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 
+field
+	private static final long serialVersionUID = 1L;
+
 method
 	/**
 	 * Launch the application.

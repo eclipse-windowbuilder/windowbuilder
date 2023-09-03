@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 field
+	private static final long serialVersionUID = 1L;
+
+field
 	private final JPanel %field-prefix%contentPanel = new JPanel();
 
 method
