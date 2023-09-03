@@ -46,10 +46,13 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.ActionFactory;
@@ -141,7 +144,25 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	}
 
 	/**
-	 * Opens given {@link ICompilationUnit} in new Designer editor and shows "Design" page.
+	 * Creates new source file using the given wizard, opens resulting
+	 * {@link ICompilationUnit} in new Designer editor and shows "Design" page.
+	 */
+	protected final void openDesign(IWizard wizard, IPackageFragment packageFragment, String fileName)
+			throws Exception {
+		new UiContext().executeAndCheck(
+				context -> TestUtils.runWizard(wizard, new StructuredSelection(packageFragment)), //
+				context -> {
+					context.useShell(wizard.getWindowTitle());
+					context.getTextByLabel("Name:").setText(fileName);
+					context.clickButton("Finish");
+				});
+		ICompilationUnit cu = packageFragment.getCompilationUnit(fileName + ".java");
+		openDesign(cu);
+	}
+
+	/**
+	 * Opens given {@link ICompilationUnit} in new Designer editor and shows
+	 * "Design" page.
 	 */
 	protected final void openDesign(ICompilationUnit unit) throws Exception {
 		openEditor(unit);

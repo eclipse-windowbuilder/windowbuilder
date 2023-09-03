@@ -39,7 +39,8 @@ method
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 		createActions();
-		initializeToolBar();
+		// Uncomment if you wish to add code to initialize the toolbar
+		// initializeToolBar();
 		initializeMenu();
 	}
 
