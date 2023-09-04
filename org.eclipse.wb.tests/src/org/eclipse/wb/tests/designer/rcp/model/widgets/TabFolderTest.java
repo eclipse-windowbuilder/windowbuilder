@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -254,6 +254,35 @@ public class TabFolderTest extends RcpModelTest {
 			Assertions.assertThat(refresh[0]).isTrue();
 			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_1);
 		}
+	}
+
+	/**
+	 * Test whether the selection is removed when the tab item is deleted.
+	 *
+	 * @see <a href=
+	 *      "https://github.com/eclipse-windowbuilder/windowbuilder/issues/556">here</a>
+	 */
+	@Test
+	public void test_deleteSelectedTabItem() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    setLayout(new FillLayout());",
+				"    TabFolder tabFolder = new TabFolder(this, SWT.NONE);",
+				"    TabItem item_1 = new TabItem(tabFolder, SWT.NONE);",
+				"    TabItem item_2 = new TabItem(tabFolder, SWT.NONE);",
+				"  }",
+				"}");
+		shell.refresh();
+		TabFolderInfo tabFolder = (TabFolderInfo) shell.getChildrenControls().get(0);
+		TabItemInfo item_1 = tabFolder.getItems2().get(0);
+		TabItemInfo item_2 = tabFolder.getItems2().get(1);
+
+		item_2.doSelect();
+		assertEquals(tabFolder.getSelectedItem(), item_2);
+
+		item_2.delete();
+		assertEquals(tabFolder.getSelectedItem(), item_1);
 	}
 
 	/**
