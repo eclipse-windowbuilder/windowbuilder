@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,9 @@ import org.eclipse.wb.internal.core.xml.model.description.CreationDescription;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.withSettings;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
@@ -52,7 +54,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 */
 	@Test
 	public void test_CreationSupport() throws Exception {
-		CreationSupport creationSupport = mock(CreationSupport.class);
+		CreationSupport creationSupport = mock(CreationSupport.class, withSettings().defaultAnswer(CALLS_REAL_METHODS));
 		// no getTitle()
 		try {
 			creationSupport.getTitle();
