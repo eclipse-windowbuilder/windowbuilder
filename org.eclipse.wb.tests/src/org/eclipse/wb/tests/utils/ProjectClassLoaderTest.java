@@ -542,10 +542,8 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 		File oldProjectFile = new File(m_project.getLocation().toPortableString());
 		File newProjectFile = new File(newProjectLocation);
 		// move project content
-		if (newProjectFile.exists()) {
-			FileUtils.forceDelete(newProjectFile);
-		}
-		FileUtils.moveDirectory(oldProjectFile, newProjectFile);
+		FileUtils.deleteQuietly(newProjectFile);
+		FileUtils.copyDirectory(oldProjectFile, newProjectFile);
 		// delete old project
 		m_project.delete(true, null);
 		// create new project, in workspace sub-folder
