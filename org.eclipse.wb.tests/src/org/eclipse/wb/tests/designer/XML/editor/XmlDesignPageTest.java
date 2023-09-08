@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPage;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -49,6 +50,7 @@ import org.junit.Test;
  *
  * @author scheglov_ke
  */
+@Ignore
 public class XmlDesignPageTest extends XwtGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

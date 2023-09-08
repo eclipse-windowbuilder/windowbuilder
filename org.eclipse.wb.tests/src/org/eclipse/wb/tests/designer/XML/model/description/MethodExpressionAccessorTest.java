@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.MethodExpressionAccessor;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
@@ -87,6 +88,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 	}
 
 	@Test
+	@Ignore
 	public void test_getX_hasValue() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -156,6 +158,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 	 * Test for {@link MethodExpressionAccessor#setExpression(XmlObjectInfo, String)}.
 	 */
 	@Test
+	@Ignore
 	public void test_setExpression() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",

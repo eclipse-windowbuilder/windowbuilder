@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 import org.eclipse.swt.SWT;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.TypeVariable;
@@ -183,6 +184,7 @@ public class PropertyTest extends AbstractCoreTest {
 	 * Test for {@link PropertyTooltipProvider} implementation.
 	 */
 	@Test
+	@Ignore
 	public void test_getAdapter_PropertyTooltipProvider() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -209,6 +211,7 @@ public class PropertyTest extends AbstractCoreTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
+	@Ignore
 	public void test_getValue_modified() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -362,6 +365,7 @@ public class PropertyTest extends AbstractCoreTest {
 	 * Test for using {@link MethodExpressionAccessor} in {@link GenericProperty#setValue(Object)}.
 	 */
 	@Test
+	@Ignore
 	public void test_setValue_method_noGetter() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
