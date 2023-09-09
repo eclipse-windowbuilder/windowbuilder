@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -94,6 +94,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Implementation of {@link CreationSupport} for subclasses.
@@ -253,7 +254,7 @@ public final class ThisCreationSupport extends CreationSupport {
 	 * {@link StubMethodInterceptor}.
 	 * </p>
 	 */
-	private static final ThreadLocal<MethodInterceptor> PROXY_INTERCEPTOR = new ThreadLocal<>();
+	private static final AtomicReference<MethodInterceptor> PROXY_INTERCEPTOR = new AtomicReference<>();
 	/**
 	 * <p>
 	 * This field is used to create an enhanced class for a given component class.
@@ -342,24 +343,29 @@ public final class ThisCreationSupport extends CreationSupport {
 		}
 		// create object
 		try {
-			PROXY_INTERCEPTOR.set(new ExecutionMethodInterceptor(visitor));
-			Class<?> m_enhancer = PROXY_CACHE.find(getClassLoader(), new TypeCache.SimpleKey(componentClass));
-			Object instance;
-			if (constructor != null) {
-				Assert.isTrueException(
-						!ReflectionUtils.isPackagePrivate(constructor),
-						ICoreExceptionConstants.EVAL_NON_PUBLIC_CONSTRUCTOR,
-						constructor);
-				instance = m_enhancer.getConstructor(constructor.getParameterTypes()).newInstance(argumentValues);
-			} else {
-				instance = m_enhancer.getConstructor().newInstance();
+			synchronized(ThisCreationSupport.class) {
+				try {
+					PROXY_INTERCEPTOR.set(new ExecutionMethodInterceptor(visitor));
+					Class<?> m_enhancer = PROXY_CACHE.find(getClassLoader(), new TypeCache.SimpleKey(componentClass));
+					Object instance;
+					if (constructor != null) {
+						Assert.isTrueException(
+								!ReflectionUtils.isPackagePrivate(constructor),
+								ICoreExceptionConstants.EVAL_NON_PUBLIC_CONSTRUCTOR,
+								constructor);
+						instance = m_enhancer.getConstructor(constructor.getParameterTypes()).newInstance(argumentValues);
+					} else {
+						instance = m_enhancer.getConstructor().newInstance();
+					}
+					ReflectionUtils.setField(instance, MethodInterceptor.FIELD_INTERCEPTOR, PROXY_INTERCEPTOR.get());
+					return instance;
+				} finally {
+					PROXY_INTERCEPTOR.set(null);
+				}
 			}
-			ReflectionUtils.setField(instance, MethodInterceptor.FIELD_INTERCEPTOR, PROXY_INTERCEPTOR.get());
-			return instance;
 		} catch (ReflectiveOperationException e) {
 			throw new DesignerException(ICoreExceptionConstants.EVAL_BYTEBUDDY, e);
 		} finally {
-			PROXY_INTERCEPTOR.set(null);
 			flowDescription.leaveStatement(m_constructor.getBody());
 		}
 	}
