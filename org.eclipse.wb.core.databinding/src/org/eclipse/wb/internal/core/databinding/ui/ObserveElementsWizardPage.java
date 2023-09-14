@@ -26,6 +26,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -97,9 +98,11 @@ public class ObserveElementsWizardPage extends WizardPage {
 		// create value bold label
 		Label valueLabel = new Label(titleComposite, SWT.NONE);
 		GridDataFactory.create(valueLabel).fillH().grabH();
-		valueLabel.setFont(FontDescriptor.createFrom(valueLabel.getFont()) //
+		Font boldFont = FontDescriptor.createFrom(valueLabel.getFont()) //
 				.setStyle(SWT.BOLD) //
-				.createFont(null));
+				.createFont(null);
+		valueLabel.setFont(boldFont);
+		valueLabel.addDisposeListener(event -> boldFont.dispose());
 		valueLabel.setText(ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
 			@Override
 			public String runObject() throws Exception {

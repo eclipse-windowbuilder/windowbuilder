@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -59,9 +60,11 @@ public final class LabelUiContentProvider extends UiContentProviderAdapter {
 		// create value bold label
 		Label valueLabel = new Label(parent, SWT.NONE);
 		GridDataFactory.create(valueLabel).fillH().grabH().spanH(columns - 1);
-		valueLabel.setFont(FontDescriptor.createFrom(valueLabel.getFont()) //
+		Font boldFont = FontDescriptor.createFrom(valueLabel.getFont()) //
 				.setStyle(SWT.BOLD) //
-				.createFont(null));
+				.createFont(null);
+		valueLabel.setFont(boldFont);
+		valueLabel.addDisposeListener(event -> boldFont.dispose());
 		valueLabel.setText(m_value);
 	}
 }

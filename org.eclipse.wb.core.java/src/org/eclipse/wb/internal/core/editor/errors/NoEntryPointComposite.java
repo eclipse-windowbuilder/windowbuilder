@@ -42,6 +42,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -81,11 +82,13 @@ public final class NoEntryPointComposite extends Composite {
 				label.setImage(parent.getDisplay().getSystemImage(SWT.ICON_INFORMATION));
 			}
 			{
-				m_titleLabel = new Label(titleComposite, SWT.NONE);
-				m_titleLabel.setFont(FontDescriptor.createFrom(getFont()) //
+				Font boldFont = FontDescriptor.createFrom(getFont()) //
 						.setHeight(14) //
 						.setStyle(SWT.BOLD) //
-						.createFont(null));
+						.createFont(null);
+				m_titleLabel = new Label(titleComposite, SWT.NONE);
+				m_titleLabel.setFont(boldFont);
+				m_titleLabel.addDisposeListener(event -> boldFont.dispose());
 			}
 		}
 		// Browser

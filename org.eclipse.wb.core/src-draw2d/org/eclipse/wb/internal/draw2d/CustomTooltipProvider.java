@@ -25,6 +25,8 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage gef.draw2d
  */
 public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
+	protected FigureCanvas m_canvas;
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// ICustomTooltipProvider
@@ -32,12 +34,12 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public final Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
-		FigureCanvas canvas = new FigureCanvas(parent, SWT.NONE);
-		GridDataFactory.create(canvas).fill().grab();
-		canvas.addListener(SWT.MouseDown, site.getHideListener());
-		canvas.addListener(SWT.MouseExit, site.getHideListener());
+		m_canvas = new FigureCanvas(parent, SWT.NONE);
+		GridDataFactory.create(m_canvas).fill().grab();
+		m_canvas.addListener(SWT.MouseDown, site.getHideListener());
+		m_canvas.addListener(SWT.MouseExit, site.getHideListener());
 		//
-		RootFigure rootFigure = canvas.getRootFigure();
+		RootFigure rootFigure = m_canvas.getRootFigure();
 		rootFigure.setForegroundColor(parent.getForeground());
 		rootFigure.setBackgroundColor(parent.getBackground());
 		//
@@ -45,7 +47,7 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
 		layer.add(createTooltipFigure(figure));
 		rootFigure.addLayer(layer);
 		//
-		return canvas;
+		return m_canvas;
 	}
 
 	@Override
