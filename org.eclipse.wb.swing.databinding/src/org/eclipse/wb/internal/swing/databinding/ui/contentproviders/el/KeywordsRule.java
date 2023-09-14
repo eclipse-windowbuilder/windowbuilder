@@ -18,6 +18,8 @@ import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Font;
 
 /**
  * {@link IRule} for detect {@code EL} keywords.
@@ -44,13 +46,15 @@ public class KeywordsRule implements IRule {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public KeywordsRule(ISourceViewer sourceViewer, ElPropertyUiConfiguration configuration) {
-		m_token =
-				new Token(new TextAttribute(configuration.getKeywordsColor(),
+		StyledText control = sourceViewer.getTextWidget();
+		Font boldFont = FontDescriptor.createFrom(control.getFont()) //
+			.setStyle(SWT.BOLD) //
+			.createFont(null);
+		control.addDisposeListener(event -> boldFont.dispose());
+		m_token = new Token(new TextAttribute(configuration.getKeywordsColor(),
 						null,
 						SWT.NORMAL,
-						FontDescriptor.createFrom(sourceViewer.getTextWidget().getFont()) //
-								.setStyle(SWT.BOLD) //
-								.createFont(null)));
+						boldFont));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

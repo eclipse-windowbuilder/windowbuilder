@@ -250,6 +250,11 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
 			return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_CLASS);
 		}
 
+		@Override
+		public void dispose() {
+			m_treeFont.dispose();
+		}
+
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// IFontProvider

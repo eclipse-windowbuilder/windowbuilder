@@ -20,6 +20,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -62,14 +63,18 @@ public class TopResizeFigure extends SemiTransparentFigure {
 		super.paintClientArea(graphics);
 		if (!StringUtils.isEmpty(m_sizeText)) {
 			Rectangle area = getClientArea();
-			graphics.setFont(FontDescriptor.createFrom(graphics.getFont()) //
+			Font oldFont = graphics.getFont();
+			Font newFont = FontDescriptor.createFrom(oldFont) //
 					.setHeight(16) //
 					.setStyle(SWT.NONE) //
-					.createFont(null));
+					.createFont(null);
+			graphics.setFont(newFont);
 			Dimension textExtent = TextUtilities.INSTANCE.getTextExtents(m_sizeText, graphics.getFont());
 			int x = area.x + (area.width - textExtent.width) / 2;
 			int y = area.y + (area.height - textExtent.height) / 2;
 			graphics.drawString(m_sizeText, x, y);
+			graphics.setFont(oldFont);
+			newFont.dispose();
 		}
 	}
 }

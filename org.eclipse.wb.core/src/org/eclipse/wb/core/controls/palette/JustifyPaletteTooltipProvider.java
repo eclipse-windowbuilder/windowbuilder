@@ -21,6 +21,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 
 /**
  * Standard palette tooltip: bold header and multi line details.
@@ -53,9 +54,11 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 	protected Figure createTooltipFigure(Figure hostFigure) {
 		// header figure
 		Label headerFigure = new Label(m_header);
-		headerFigure.setFont(FontDescriptor.createFrom(headerFigure.getFont()) //
+		Font boldFont = FontDescriptor.createFrom(headerFigure.getFont()) //
 				.setStyle(SWT.BOLD) //
-				.createFont(null));
+				.createFont(null);
+		m_canvas.addDisposeListener(event -> boldFont.dispose());
+		headerFigure.setFont(boldFont);
 		// details figure
 		JustifyLabel detailsFigure = new JustifyLabel();
 		detailsFigure.setBorder(new MarginBorder(new Insets(0, 2, 2, 2)));
