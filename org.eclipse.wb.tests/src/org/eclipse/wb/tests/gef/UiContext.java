@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -668,6 +668,8 @@ public class UiContext {
 						} catch (Throwable e) {
 							e.printStackTrace();
 							checkException[0] = e;
+							// close any opened shells to avoid deadlocks
+							closeShells();
 						}
 					}
 				});
@@ -706,6 +708,21 @@ public class UiContext {
 			while (m_display.readAndDispatch()) {
 				// do nothing
 			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Cleanup
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	private void closeShells() {
+		Shell activeShell = getShell();
+		while (activeShell != null) {
+			popShell();
+			activeShell.dispose();
+			activeShell = getShell();
 		}
 	}
 }
