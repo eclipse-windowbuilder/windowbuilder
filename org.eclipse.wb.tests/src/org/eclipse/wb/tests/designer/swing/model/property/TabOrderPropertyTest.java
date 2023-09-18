@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swing.model.property.TabOrderProperty;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Container;
@@ -36,7 +35,6 @@ import java.util.List;
  *
  * @author lobas_av
  */
-@Ignore
 public class TabOrderPropertyTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -325,8 +323,47 @@ public class TabOrderPropertyTest extends SwingModelTest {
 	}
 
 	/**
-	 * {@link Container#setFocusTraversalPolicy(FocusTraversalPolicy)} should be last method, this
-	 * should be kept even when we add new component.
+	 * When a new component is added to the list but no focus traversal policy is
+	 * defined, then none should be created.
+	 */
+	@Test
+	public void test_noValue_addNewComponent() throws Exception {
+		ContainerInfo container =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    {",
+						"      JButton button_1 = new JButton();",
+						"      add(button_1);",
+						"    }",
+						"  }",
+						"}");
+		container.refresh();
+		// add new JButton
+		ComponentInfo newButton = createJButton();
+		((FlowLayoutInfo) container.getLayout()).add(newButton, null);
+		//
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JButton button_1 = new JButton();",
+				"      add(button_1);",
+				"    }",
+				"    {",
+				"      JButton button = new JButton();",
+				"      add(button);",
+				"    }",
+				"  }",
+				"}");
+	}
+
+	/**
+	 * {@link Composite#setFocusTraversalPolicy(FocusTraversalPolicy)} should be
+	 * last method, this should be kept even when we add new component. Note that
+	 * because there already is a focus traversal policy defined for the container,
+	 * the newly created button is appended to the end of the list of active
+	 * components..
 	 */
 	@Test
 	public void test_hasValue_addNewComponent() throws Exception {
@@ -359,6 +396,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 				"public class Test extends JPanel {",
 				"  private JButton button_1;",
 				"  private JButton button_2;",
+				"  private JButton button;",
 				"  public Test() {",
 				"    {",
 				"      button_1 = new JButton();",
@@ -369,10 +407,10 @@ public class TabOrderPropertyTest extends SwingModelTest {
 				"      add(button_2);",
 				"    }",
 				"    {",
-				"      JButton button = new JButton();",
+				"      button = new JButton();",
 				"      add(button);",
 				"    }",
-				"    setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{button_1}));",
+				"    setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{button_1, button}));",
 				"  }",
 				"}");
 	}

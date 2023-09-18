@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.property;
 
+import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.order.TabOrderInfo;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipTextProvider;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.property.TabOrderProperty;
+import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
@@ -67,6 +69,44 @@ public class TabOrderPropertyTest extends RcpModelTest {
 				tooltipProvider,
 				"getText(org.eclipse.wb.internal.core.model.property.Property)",
 				property));
+	}
+
+	/**
+	 * When a new component is added to the list but no focus traversal policy is
+	 * defined, then none should be created.
+	 */
+	@Test
+	public void test_noValue_addNewComponent() throws Exception {
+		CompositeInfo container =
+				parseComposite(
+						"public class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"    {",
+						"      Button button_1 = new Button(this, SWT.NONE);",
+						"      button_1.setText('New Button');",
+						"    }",
+						"  }",
+						"}");
+		container.refresh();
+		// add new Button
+		ButtonInfo newButton = createJavaInfo("org.eclipse.swt.widgets.Button");
+		JavaInfoUtils.add(newButton, null, container, null);
+		//
+		assertEditor(
+				"public class Test extends Composite {",
+				"  public Test(Composite parent, int style) {",
+				"    super(parent, style);",
+				"    {",
+				"      Button button_1 = new Button(this, SWT.NONE);",
+				"      button_1.setText('New Button');",
+				"    }",
+				"    {",
+				"      Button button = new Button(this, SWT.NONE);",
+				"      button.setText('New Button');",
+				"    }",
+				"  }",
+				"}");
 	}
 
 	@Test
@@ -279,6 +319,7 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		assertEditor(
 				"public class Test extends Composite {",
 				"  private Combo combo;",
+				"  private Label label;",
 				"  public Test(Composite parent, int style) {",
 				"    super(parent, style);",
 				"    setLayout(new FillLayout());",
@@ -289,10 +330,10 @@ public class TabOrderPropertyTest extends RcpModelTest {
 				"      combo = new Combo(this, SWT.NONE);",
 				"    }",
 				"    {",
-				"      Label label = new Label(this, SWT.NONE);",
+				"      label = new Label(this, SWT.NONE);",
 				"      label.setText('New Label');",
 				"    }",
-				"    setTabList(new Control[]{combo});",
+				"    setTabList(new Control[]{combo, label});",
 				"  }",
 				"}");
 	}

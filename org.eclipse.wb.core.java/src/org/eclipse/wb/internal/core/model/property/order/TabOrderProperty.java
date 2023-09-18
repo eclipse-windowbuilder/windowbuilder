@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.property.order;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
@@ -25,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import java.util.List;
 
@@ -50,6 +52,20 @@ public abstract class TabOrderProperty extends Property {
 			@Override
 			public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
 				handleDeleteOrderElement(parent, child);
+			}
+		});
+		//
+		m_container.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
+				// Add the new child to the end of the tab order if:
+				// 1) A custom tab order has been set
+				// 2) The object is a descendant of the container
+				if (getMethodInvocation() != null && getTabPossibleChildren().contains(child)) {
+					TabOrderInfo orderInfo = (TabOrderInfo) getValue();
+					orderInfo.addOrderedInfo((AbstractComponentInfo) child);
+					setValue(orderInfo);
+				}
 			}
 		});
 	}
@@ -201,6 +217,11 @@ public abstract class TabOrderProperty extends Property {
 	 * others.
 	 */
 	protected abstract void removePropertyAssociation() throws Exception;
+
+	/**
+	 * @return method instance used to update the tab order.
+	 */
+	protected abstract MethodInvocation getMethodInvocation();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
