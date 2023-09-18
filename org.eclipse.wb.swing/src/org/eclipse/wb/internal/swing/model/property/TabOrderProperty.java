@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,7 +60,7 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected ArrayInitializer getOrderedArray() throws Exception {
-		MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
+		MethodInvocation invocation = getMethodInvocation();
 		if (invocation != null) {
 			Object traversalPolicy = invocation.arguments().get(0);
 			if (traversalPolicy instanceof ClassInstanceCreation traversalPolicyCreation) {
@@ -86,7 +86,7 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 	protected void setOrderedArraySource(String source) throws Exception {
 		String newSource =
 				"new org.eclipse.wb.swing.FocusTraversalOnArray(new java.awt.Component[]" + source + ")";
-		MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
+		MethodInvocation invocation = getMethodInvocation();
 		if (invocation == null) {
 			ProjectUtils.ensureResourceType(
 					m_container.getEditor().getJavaProject(),
@@ -97,6 +97,11 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 			Expression argument = DomGenerics.arguments(invocation).get(0);
 			m_container.replaceExpression(argument, newSource);
 		}
+	}
+
+	@Override
+	protected MethodInvocation getMethodInvocation() {
+		return m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
