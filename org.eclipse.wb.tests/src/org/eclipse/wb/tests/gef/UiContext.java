@@ -668,8 +668,6 @@ public class UiContext {
 						} catch (Throwable e) {
 							e.printStackTrace();
 							checkException[0] = e;
-							// close any opened shells to avoid deadlocks
-							closeShells();
 						}
 					}
 				});
@@ -693,9 +691,9 @@ public class UiContext {
 	 * Waits until given condition will be satisfied.
 	 */
 	public void waitFor(UIPredicate predicate) throws InterruptedException {
-		while (!predicate.check()) {
+		do {
 			waitEventLoop(10);
-		}
+		} while (!predicate.check());
 	}
 
 	/**
@@ -708,21 +706,6 @@ public class UiContext {
 			while (m_display.readAndDispatch()) {
 				// do nothing
 			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Cleanup
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	private void closeShells() {
-		Shell activeShell = getShell();
-		while (activeShell != null) {
-			popShell();
-			activeShell.dispose();
-			activeShell = getShell();
 		}
 	}
 }

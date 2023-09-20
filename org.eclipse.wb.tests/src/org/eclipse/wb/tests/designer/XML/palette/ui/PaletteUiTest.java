@@ -382,6 +382,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 					context.useShell("Open type");
 					Text filterText = context.findFirstWidget(Text.class);
 					filterText.setText(className);
+					context.waitFor(new UIPredicate() {
+						@Override
+						public boolean check() {
+							return className.equals(filterText.getText());
+						}
+					});
 				}
 				// wait for types
 				{
