@@ -213,7 +213,12 @@ public class BeanBindableTest extends AbstractBindingTest {
 		//
 		List<IObserveInfo> listProperties =
 				observes.get(2).getChildren(ChildrenContext.ChildrenForPropertiesTable);
-		assertEquals(3, listProperties.size());
+
+		if (Runtime.version().feature() >= 21) {
+			assertEquals(5, listProperties.size());
+		} else {
+			assertEquals(3, listProperties.size());
+		}
 		//
 		assertBindable(
 				CollectionPropertyBindableInfo.class,
@@ -235,6 +240,22 @@ public class BeanBindableTest extends AbstractBindingTest {
 				false,
 				"empty|\"empty\"|boolean",
 				listProperties.get(2));
+		//
+		if (Runtime.version().feature() >= 21) {
+			assertBindable(
+					BeanPropertyDescriptorBindableInfo.class,
+					null,
+					true,
+					"first|\"first\"|java.lang.Object",
+					listProperties.get(3));
+			//
+			assertBindable(
+					BeanPropertyDescriptorBindableInfo.class,
+					null,
+					true,
+					"last|\"last\"|java.lang.Object",
+					listProperties.get(4));
+		}
 	}
 
 	@Test

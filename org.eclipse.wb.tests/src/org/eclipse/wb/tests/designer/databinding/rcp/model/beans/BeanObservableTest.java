@@ -177,48 +177,69 @@ public class BeanObservableTest extends AbstractBindingTest {
 		//
 		List<IObserveInfo> listProperties =
 				observes.get(2).getChildren(ChildrenContext.ChildrenForPropertiesTable);
-		assertEquals(6, listProperties.size());
+		if (Runtime.version().feature() >= 21) {
+			assertEquals(8, listProperties.size());
+		} else {
+			assertEquals(6, listProperties.size());
+		}
 		//
+		int index = 0;
 		BeanBindableTest.assertBindable(
 				DirectPropertyBindableInfo.class,
 				null,
 				false,
 				"Object as IObservableList||org.eclipse.core.databinding.observable.list.IObservableList",
-				listProperties.get(0));
+				listProperties.get(index++));
 		//
 		BeanBindableTest.assertBindable(
 				BeanPropertyDescriptorBindableInfo.class,
 				null,
 				false,
 				"disposed|\"disposed\"|boolean",
-				listProperties.get(1));
+				listProperties.get(index++));
 		BeanBindableTest.assertBindable(
 				BeanPropertyDescriptorBindableInfo.class,
 				null,
 				true,
 				"elementType|\"elementType\"|java.lang.Object",
-				listProperties.get(2));
+				listProperties.get(index++));
 		//
 		BeanBindableTest.assertBindable(
 				BeanPropertyDescriptorBindableInfo.class,
 				null,
 				false,
 				"empty|\"empty\"|boolean",
-				listProperties.get(3));
+				listProperties.get(index++));
+		//
+		if (Runtime.version().feature() >= 21) {
+			BeanBindableTest.assertBindable(
+					BeanPropertyDescriptorBindableInfo.class,
+					null,
+					true,
+					"first|\"first\"|java.lang.Object",
+					listProperties.get(index++));
+			//
+			BeanBindableTest.assertBindable(
+					BeanPropertyDescriptorBindableInfo.class,
+					null,
+					true,
+					"last|\"last\"|java.lang.Object",
+					listProperties.get(index++));
+		}
 		//
 		BeanBindableTest.assertBindable(
 				BeanPropertyDescriptorBindableInfo.class,
 				null,
 				true,
 				"realm|\"realm\"|org.eclipse.core.databinding.observable.Realm",
-				listProperties.get(4));
+				listProperties.get(index++));
 		//
 		BeanBindableTest.assertBindable(
 				BeanPropertyDescriptorBindableInfo.class,
 				null,
 				false,
 				"stale|\"stale\"|boolean",
-				listProperties.get(5));
+				listProperties.get(index++));
 		// ----------------------------------------------
 		BeanBindableTest.assertBindable(
 				FieldBeanBindableInfo.class,
