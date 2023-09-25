@@ -13,13 +13,16 @@ package org.eclipse.wb.internal.draw2d;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
+import org.eclipse.draw2d.EventDispatcher;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Control;
@@ -32,8 +35,8 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public class EventManager implements MouseListener, MouseMoveListener, MouseTrackListener {
-	public static final int ANY_BUTTON = SWT.BUTTON1 | SWT.BUTTON2 | SWT.BUTTON3;
+// TODO GEF - Synchronize with SWTEventDispatcher
+public class EventManager extends EventDispatcher {
 	//
 	private final FigureCanvas m_canvas;
 	private final RootFigure m_root;
@@ -54,9 +57,56 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 		// custom tooltip
 		new CustomTooltipManager(canvas, this);
 		// add listeners
-		m_canvas.addMouseListener(this);
-		m_canvas.addMouseMoveListener(this);
-		m_canvas.addMouseTrackListener(this);
+		// TODO GEF - Obsolete once we use the LightweightSystem
+		m_canvas.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
+				dispatchMouseDoubleClicked(e);
+			}
+
+			@Override
+			public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
+				dispatchMousePressed(e);
+			}
+
+			@Override
+			public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
+				dispatchMouseReleased(e);
+			}
+
+		});
+		m_canvas.addMouseMoveListener(this::dispatchMouseMoved);
+		m_canvas.addMouseTrackListener(new MouseTrackListener() {
+			@Override
+			public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
+				dispatchMouseEntered(e);
+			}
+
+			@Override
+			public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
+				dispatchMouseExited(e);
+			}
+
+			@Override
+			public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
+				dispatchMouseHover(e);
+			}
+		});
+	}
+
+	@Override
+	protected AccessibilityDispatcher getAccessibilityDispatcher() {
+		return null;
+	}
+
+	@Override
+	public void setControl(Control control) {
+		throw new UnsupportedOperationException("Set via constructor...");
+	}
+
+	@Override
+	public void setRoot(IFigure root) {
+		throw new UnsupportedOperationException("Set via constructor...");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -67,6 +117,7 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	/**
 	 * Updates the Cursor.
 	 */
+	@Override
 	public void updateCursor() {
 		if (m_cursorFigure == null) {
 			setCursor(null);
@@ -133,8 +184,19 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	 * Sets capture to the given figure. All subsequent events will be sent to the given figure until
 	 * {@link #setCapture(null)} is called.
 	 */
-	public void setCapture(Figure captureFigure) {
-		m_captureFigure = captureFigure;
+	@Override
+	public void setCapture(IFigure captureFigure) {
+		m_captureFigure = (Figure) captureFigure;
+	}
+
+	@Override
+	public boolean isCaptured() {
+		return m_captureFigure != null;
+	}
+
+	@Override
+	protected void releaseCapture() {
+		m_captureFigure = null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -156,13 +218,13 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMouseDoubleClicked(org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
 		sendEvent(() -> m_targetFigure.handleMouseDoubleClicked(m_currentEvent), event);
 	}
 
 	@Override
-	public void mouseDown(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMousePressed(org.eclipse.swt.events.MouseEvent event) {
 		if (m_canvas.getToolTipText() != null) {
 			m_canvas.setToolTipText(null);
 		}
@@ -171,13 +233,13 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	}
 
 	@Override
-	public void mouseUp(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMouseReleased(org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
 		sendEvent(() -> m_targetFigure.handleMouseReleased(m_currentEvent), event);
 	}
 
 	@Override
-	public void mouseMove(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMouseMoved(org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
 		sendEvent(() -> m_targetFigure.handleMouseMoved(m_currentEvent), event);
 	}
@@ -205,25 +267,83 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// FocusListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void dispatchFocusGained(FocusEvent e) {
+		// May be overwritten by subclass
+	}
+
+	@Override
+	public void dispatchFocusLost(FocusEvent e) {
+		// May be overwritten by subclass
+	}
+
+	@Override
+	public void dispatchKeyPressed(KeyEvent e) {
+		// May be overwritten by subclass
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// KeyListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public void dispatchKeyReleased(KeyEvent e) {
+		// May be overwritten by subclass
+	}
+
+	@Override
+	public void dispatchKeyTraversed(TraverseEvent e) {
+		// May be overwritten by subclass
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// MouseTrackListener
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void mouseEnter(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMouseEntered(org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
 		sendEvent(() -> m_targetFigure.handleMouseEntered(m_currentEvent), event);
 	}
 
 	@Override
-	public void mouseExit(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMouseExited(org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
 		sendEvent(() -> m_targetFigure.handleMouseExited(m_currentEvent), event);
 	}
 
 	@Override
-	public void mouseHover(org.eclipse.swt.events.MouseEvent event) {
+	public void dispatchMouseHover(org.eclipse.swt.events.MouseEvent event) {
 		updateFigureUnderCursor(event);
 		sendEvent(() -> m_targetFigure.handleMouseHover(m_currentEvent), event);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Focus
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public IFigure getFocusOwner() {
+		return null;
+	}
+
+	@Override
+	public void requestFocus(IFigure fig) {
+		// May be overwritten by subclass
+	}
+
+	@Override
+	public void requestRemoveFocus(IFigure fig) {
+		// May be overwritten by subclass
 	}
 
 	////////////////////////////////////////////////////////////////////////////

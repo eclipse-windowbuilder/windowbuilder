@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -26,7 +27,7 @@ import org.eclipse.swt.graphics.Cursor;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class EditEventManager extends EventManager implements KeyListener {
+public class EditEventManager extends EventManager {
 	private final EditDomain m_domain;
 	private final IEditPartViewer m_viewer;
 	private boolean m_eventCapture;
@@ -43,7 +44,18 @@ public class EditEventManager extends EventManager implements KeyListener {
 		m_domain = domain;
 		m_viewer = viewer;
 		// add listeners
-		canvas.addKeyListener(this);
+		// TODO GEF - Obsolete once we use the LightweightSystem
+		canvas.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				dispatchKeyPressed(e);
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				dispatchKeyReleased(e);
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -90,12 +102,12 @@ public class EditEventManager extends EventManager implements KeyListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void keyPressed(KeyEvent event) {
+	public void dispatchKeyPressed(KeyEvent event) {
 		m_domain.keyPressed(event, m_viewer);
 	}
 
 	@Override
-	public void keyReleased(KeyEvent event) {
+	public void dispatchKeyReleased(KeyEvent event) {
 		m_domain.keyReleased(event, m_viewer);
 	}
 
@@ -105,11 +117,11 @@ public class EditEventManager extends EventManager implements KeyListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void mouseDoubleClick(MouseEvent event) {
+	public void dispatchMouseDoubleClicked(MouseEvent event) {
 		m_currentMouseEvent = event;
 		//
 		if (!m_eventCapture) {
-			super.mouseDoubleClick(event);
+			super.dispatchMouseDoubleClicked(event);
 			if (isEventConsumed()) {
 				return;
 			}
@@ -119,12 +131,12 @@ public class EditEventManager extends EventManager implements KeyListener {
 	}
 
 	@Override
-	public void mouseDown(MouseEvent event) {
+	public void dispatchMousePressed(MouseEvent event) {
 		m_viewer.getControl().forceFocus();
 		m_currentMouseEvent = event;
 		//
 		if (!m_eventCapture) {
-			super.mouseDown(event);
+			super.dispatchMousePressed(event);
 			if (isEventConsumed()) {
 				return;
 			}
@@ -135,11 +147,11 @@ public class EditEventManager extends EventManager implements KeyListener {
 	}
 
 	@Override
-	public void mouseUp(MouseEvent event) {
+	public void dispatchMouseReleased(MouseEvent event) {
 		m_currentMouseEvent = event;
 		//
 		if (!m_eventCapture) {
-			super.mouseUp(event);
+			super.dispatchMouseReleased(event);
 			if (isEventConsumed()) {
 				return;
 			}
@@ -155,17 +167,17 @@ public class EditEventManager extends EventManager implements KeyListener {
 	}
 
 	@Override
-	public void mouseMove(MouseEvent event) {
+	public void dispatchMouseMoved(MouseEvent event) {
 		m_currentMouseEvent = event;
 		//
 		if (!m_eventCapture) {
-			super.mouseMove(event);
+			super.dispatchMouseMoved(event);
 			if (isEventConsumed()) {
 				return;
 			}
 		}
 		//
-		if ((event.stateMask & ANY_BUTTON) != 0) {
+		if ((event.stateMask & SWT.BUTTON_MASK) != 0) {
 			m_domain.mouseDrag(event, m_viewer);
 		} else {
 			m_domain.mouseMove(event, m_viewer);
@@ -178,14 +190,14 @@ public class EditEventManager extends EventManager implements KeyListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void mouseEnter(MouseEvent event) {
+	public void dispatchMouseEntered(MouseEvent event) {
 		m_currentMouseEvent = event;
 		m_domain.viewerEntered(event, m_viewer);
 		updateFigureUnderCursor(event);
 	}
 
 	@Override
-	public void mouseExit(MouseEvent event) {
+	public void dispatchMouseExited(MouseEvent event) {
 		m_eventCapture = false;
 		m_currentMouseEvent = event;
 		m_domain.viewerExited(event, m_viewer);
@@ -193,6 +205,6 @@ public class EditEventManager extends EventManager implements KeyListener {
 	}
 
 	@Override
-	public void mouseHover(MouseEvent event) {
+	public void dispatchMouseHover(MouseEvent event) {
 	}
 }

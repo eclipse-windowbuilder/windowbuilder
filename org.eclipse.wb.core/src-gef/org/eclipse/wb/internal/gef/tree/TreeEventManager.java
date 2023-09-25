@@ -11,12 +11,12 @@
 package org.eclipse.wb.internal.gef.tree;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeDropListener;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeTransfer;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
 import org.eclipse.swt.dnd.Transfer;
@@ -128,7 +128,7 @@ MouseTrackListener {
 	@Override
 	public void mouseMove(MouseEvent event) {
 		if (m_domain != null) {
-			if ((event.stateMask & EventManager.ANY_BUTTON) != 0) {
+			if ((event.stateMask & SWT.BUTTON_MASK) != 0) {
 				m_domain.mouseDrag(event, m_viewer);
 			} else {
 				m_domain.mouseMove(event, m_viewer);
