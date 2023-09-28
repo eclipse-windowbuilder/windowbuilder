@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.forms.layout.table;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -65,6 +63,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -682,8 +681,8 @@ IPreferenceConstants {
 		// prepare grid
 		fixGrid();
 		ControlInfo[][] grid = getControlsGrid();
-		Set<Point> cellsToAddFillers = Sets.newHashSet();
-		Set<Point> cellsToRemoveFillers = Sets.newHashSet();
+		Set<Point> cellsToAddFillers = new HashSet<>();
+		Set<Point> cellsToRemoveFillers = new HashSet<>();
 		// replace control with fillers
 		if (forMove) {
 			for (int x = layoutData.x; x < layoutData.x + layoutData.width; x++) {

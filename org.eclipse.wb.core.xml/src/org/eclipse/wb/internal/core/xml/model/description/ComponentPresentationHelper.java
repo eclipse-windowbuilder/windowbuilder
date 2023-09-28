@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -57,6 +55,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -339,7 +338,7 @@ public final class ComponentPresentationHelper {
 	private static class ComponentPresentationCache {
 		private final String m_toolkitId;
 		private final List<Bundle> m_bundles = new ArrayList<>();
-		private final Set<String> m_bundleCheckSums = Sets.newHashSet();
+		private final Set<String> m_bundleCheckSums = new HashSet<>();
 		private final File m_cacheFile;
 		private final Map<String, ComponentPresentation> m_presentations = new HashMap<>();
 
@@ -532,7 +531,7 @@ public final class ComponentPresentationHelper {
 		}
 
 		private static Set<String> readCheckSums(DataInputStream dataInput) throws IOException {
-			Set<String> checkSums = Sets.newHashSet();
+			Set<String> checkSums = new HashSet<>();
 			int sumCount = dataInput.readInt();
 			for (int i = 0; i < sumCount; i++) {
 				String checkSum = dataInput.readUTF();

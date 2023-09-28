@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaElement;
@@ -22,6 +20,7 @@ import org.eclipse.jdt.core.search.SearchEngine;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -33,7 +32,7 @@ import java.util.Set;
 public final class SubtypesScope implements IJavaSearchScope {
 	private final IType[] m_subtypes;
 	private final IJavaSearchScope m_hierarchyScope;
-	private final Set<String> m_enclosingResourcePaths = Sets.newHashSet();
+	private final Set<String> m_enclosingResourcePaths = new HashSet<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

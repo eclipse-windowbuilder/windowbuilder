@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.parser;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -58,6 +56,7 @@ import org.apache.commons.lang.StringUtils;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -160,7 +159,7 @@ public final class XwtParser {
 					// Tweaks for handling tested XWT files
 					//
 					////////////////////////////////////////////////////////////////////////////
-					private final Set<Element> m_processedElements = Sets.newHashSet();
+					private final Set<Element> m_processedElements = new HashSet<>();
 
 					private boolean isRoot(Element element) {
 						if (!m_processedElements.contains(element)) {

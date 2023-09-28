@@ -11,7 +11,6 @@
 package org.eclipse.wb.core.eval;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
 
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getBinding;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getConstructor;
@@ -85,6 +84,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -165,7 +165,7 @@ public final class ExecutionFlowUtils {
 		boolean classInitialized;
 		boolean instanceInitialized;
 		boolean useBinaryFlow;
-		final Set<MethodDeclaration> visitedMethods = Sets.newHashSet();
+		final Set<MethodDeclaration> visitedMethods = new HashSet<>();
 
 		public VisitingContext(boolean useBinaryFlow) {
 			this.useBinaryFlow = useBinaryFlow;

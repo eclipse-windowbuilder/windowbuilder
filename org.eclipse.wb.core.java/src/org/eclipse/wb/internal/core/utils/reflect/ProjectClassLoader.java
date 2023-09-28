@@ -37,6 +37,7 @@ import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -70,7 +71,7 @@ public class ProjectClassLoader extends URLClassLoader {
 	 */
 	public static URL[] getClasspathUrls(IJavaProject javaProject) throws Exception {
 		List<String> entries = new ArrayList<>();
-		addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet(), true);
+		addRuntimeClassPathEntries(entries, javaProject, new HashSet<>(), true);
 		return toURLs(entries);
 	}
 

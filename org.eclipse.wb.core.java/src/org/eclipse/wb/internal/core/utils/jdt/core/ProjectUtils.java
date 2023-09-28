@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -55,6 +54,7 @@ import org.osgi.framework.Bundle;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -540,7 +540,7 @@ public final class ProjectUtils {
 	 */
 	public static List<IFile> findFiles(IJavaProject javaProject, String filePath) throws Exception {
 		List<IFile> files = new ArrayList<>();
-		findFiles(files, javaProject, filePath, Sets.<IJavaProject>newHashSet());
+		findFiles(files, javaProject, filePath, new HashSet<>());
 		return files;
 	}
 

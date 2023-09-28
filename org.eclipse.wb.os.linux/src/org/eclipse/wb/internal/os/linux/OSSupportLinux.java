@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.linux;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -41,6 +39,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -192,7 +191,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 */
 	private void makeShots0(final Shell shell) throws Exception {
 		prepareScreenshot(shell);
-		final Set<Image> disposeImages = Sets.newHashSet();
+		final Set<Image> disposeImages = new HashSet<>();
 		// apply shot magic
 		makeShot(shell, (handle, image) -> {
 			// get the registered control by handle

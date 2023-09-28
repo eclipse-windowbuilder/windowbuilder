@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -22,6 +20,7 @@ import org.eclipse.swt.widgets.Event;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -206,7 +205,7 @@ public class MenuIntersector {
 	 * A wrapper for a {@link IAction}.
 	 */
 	private static class MenuItemElement extends AbstractMenuElement {
-		private final Collection<IAction> m_actions = Sets.newHashSet();
+		private final Collection<IAction> m_actions = new HashSet<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//

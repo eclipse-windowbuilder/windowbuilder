@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentGroup;
@@ -27,6 +25,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -71,7 +70,7 @@ public final class MigLayoutConverter {
 			createDimensions(layout, rows, false);
 		}
 		// prepare set of components in groups
-		Set<ComponentInGroup> componentsInGroups = Sets.newHashSet();
+		Set<ComponentInGroup> componentsInGroups = new HashSet<>();
 		for (ComponentGroup column : columns) {
 			for (ComponentInGroup componentInGroup : column.getComponents()) {
 				componentsInGroups.add(componentInGroup);

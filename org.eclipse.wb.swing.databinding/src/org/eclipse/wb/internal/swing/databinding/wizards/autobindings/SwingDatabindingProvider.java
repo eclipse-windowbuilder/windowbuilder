@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.wizards.autobindings;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
@@ -48,6 +46,7 @@ import org.apache.commons.lang.StringUtils;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -164,7 +163,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 		CodeGenerationSupport generationSupport =
 				new CodeGenerationSupport(CoreUtils.useGenerics(m_javaProject));
 		// prepare imports
-		Collection<String> importList = Sets.newHashSet();
+		Collection<String> importList = new HashSet<>();
 		importList.add("java.awt.GridBagLayout");
 		importList.add("java.awt.GridBagConstraints");
 		importList.add("java.awt.Insets");

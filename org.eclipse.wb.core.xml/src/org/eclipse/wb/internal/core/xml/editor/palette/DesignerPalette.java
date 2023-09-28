@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.xml.editor.palette;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
@@ -61,6 +60,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -224,8 +224,8 @@ public class DesignerPalette {
 	private final Map<CategoryInfo, ICategory> m_categoryInfoToVisual = new HashMap<>();
 	private final Map<ICategory, CategoryInfo> m_visualToCategoryInfo = new HashMap<>();
 	private final Map<String, Boolean> m_openCategories = new HashMap<>();
-	private final Set<EntryInfo> m_knownEntryInfos = Sets.newHashSet();
-	private final Set<EntryInfo> m_goodEntryInfos = Sets.newHashSet();
+	private final Set<EntryInfo> m_knownEntryInfos = new HashSet<>();
+	private final Set<EntryInfo> m_goodEntryInfos = new HashSet<>();
 	private final Map<EntryInfo, IEntry> m_entryInfoToVisual = new HashMap<>();
 	private final Map<IEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
 

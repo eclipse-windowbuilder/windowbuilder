@@ -10,9 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Sets;
-
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Instances of the class <code>SetGatherer</code> implement a gatherer that ensures that there are
@@ -31,6 +30,6 @@ public abstract class SetGatherer<T> extends Gatherer<T> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected final Collection<T> createCollection() {
-		return Sets.newHashSet();
+		return new HashSet<>();
 	}
 }

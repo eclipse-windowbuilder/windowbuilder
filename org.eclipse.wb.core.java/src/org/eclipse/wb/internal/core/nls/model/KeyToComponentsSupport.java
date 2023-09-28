@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 
 import java.util.Collections;
@@ -92,7 +90,7 @@ public final class KeyToComponentsSupport {
 		// prepare components
 		Set<JavaInfo> components = m_keyToComponents.get(key);
 		if (components == null) {
-			components = Sets.newHashSet();
+			components = new HashSet<>();
 			m_keyToComponents.put(key, components);
 		}
 		// add component

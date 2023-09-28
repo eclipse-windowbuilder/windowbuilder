@@ -86,6 +86,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -944,7 +945,7 @@ public final class AstEditor {
 	// ASTNode's replacement
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Set<Method> m_invalidNodeMethods = Sets.newHashSet();
+	private static final Set<Method> m_invalidNodeMethods = new HashSet<>();
 
 	/**
 	 * Replaces given <code>originalNode</code> with <code>replacementNode</code>. This method uses

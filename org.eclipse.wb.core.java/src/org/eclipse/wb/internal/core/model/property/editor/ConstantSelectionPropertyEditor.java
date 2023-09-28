@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -79,6 +77,7 @@ import org.eclipse.swt.widgets.Text;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -357,7 +356,7 @@ IConfigurablePropertyObject {
 	 *         {@link ConstantSelectionPropertyEditor} in current {@link CompilationUnit}.
 	 */
 	private Set<IType> getUsedTypes(JavaInfo javaInfo) throws Exception {
-		Set<IType> types = Sets.newHashSet();
+		Set<IType> types = new HashSet<>();
 		collectUsedTypes(types, javaInfo.getRootJava());
 		return types;
 	}
@@ -447,7 +446,7 @@ IConfigurablePropertyObject {
 		private final JavaInfo m_javaInfo;
 		private final IField m_currentField;
 		private final IType m_currentType;
-		private final Set<IType> m_additionalTypes = Sets.newHashSet();
+		private final Set<IType> m_additionalTypes = new HashSet<>();
 		private TableViewer m_typesViewer;
 		private Text m_filterText;
 		private TableViewer m_fieldsViewer;
@@ -677,7 +676,7 @@ IConfigurablePropertyObject {
 				return ExecutionUtils.runObject(new RunnableObjectEx<Object[]>() {
 					@Override
 					public Object[] runObject() throws Exception {
-						Set<IType> types = Sets.newHashSet();
+						Set<IType> types = new HashSet<>();
 						types.addAll(m_additionalTypes);
 						types.addAll(getUsedTypes(m_javaInfo));
 						types.addAll(getLocalTypes(m_javaInfo));
