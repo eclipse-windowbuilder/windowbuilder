@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -24,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Resolver for type variables.
@@ -209,7 +208,7 @@ public class GenericTypeResolver {
 	}
 
 	private static Map<String, Type> getTypeArguments(Type type) {
-		Map<String, Type> typeArguments = Maps.newTreeMap();
+		Map<String, Type> typeArguments = new TreeMap<>();
 		if (type instanceof ParameterizedType parameterized) {
 			Type[] actualTypeArguments = parameterized.getActualTypeArguments();
 			Class<?> raw = (Class<?>) parameterized.getRawType();

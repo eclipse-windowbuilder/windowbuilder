@@ -90,6 +90,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
@@ -1148,7 +1149,7 @@ public final class AstEditor {
 	// Global values
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Object> m_globalMap = Maps.newTreeMap();
+	private final Map<String, Object> m_globalMap = new TreeMap<>();
 
 	/**
 	 * @return the current global value for given key.

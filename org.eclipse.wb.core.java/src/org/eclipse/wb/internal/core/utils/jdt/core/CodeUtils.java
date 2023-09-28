@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.utils.jdt.core;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -65,6 +64,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * This class contains different utilities for working with Java model elements.
@@ -569,7 +569,7 @@ public class CodeUtils {
 	 */
 	public static IMethod[] findMethods(IType type, String[] signatures) throws JavaModelException {
 		// prepare map: signature -> IMethod
-		Map<String, IMethod> signatureToMethod = Maps.newTreeMap();
+		Map<String, IMethod> signatureToMethod = new TreeMap<>();
 		for (IMethod method : type.getMethods()) {
 			signatureToMethod.put(getMethodSignature(method), method);
 		}

@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Abstract superclass for all description objects.
@@ -96,7 +95,7 @@ public abstract class AbstractDescription implements IAdaptable {
 	 */
 	public final void putTag(String tag, String value) {
 		if (m_tags == null) {
-			m_tags = Maps.newTreeMap();
+			m_tags = new TreeMap<>();
 		}
 		m_tags.put(tag, value);
 	}
@@ -107,7 +106,7 @@ public abstract class AbstractDescription implements IAdaptable {
 	public final void putTags(Map<String, String> tags) {
 		if (tags != null && !tags.isEmpty()) {
 			if (m_tags == null) {
-				m_tags = Maps.newTreeMap();
+				m_tags = new TreeMap<>();
 			}
 			m_tags.putAll(tags);
 		}

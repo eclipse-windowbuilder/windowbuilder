@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Support for managing name of {@link LayoutInfo}, so that it corresponds to the name of its parent
@@ -62,7 +61,7 @@ org.eclipse.wb.internal.core.model.layout.LayoutNameSupport<LayoutInfo> {
 	@Override
 	protected Map<String, String> getValueMap() {
 		// prepare variables
-		Map<String, String> valueMap = Maps.newTreeMap();
+		Map<String, String> valueMap = new TreeMap<>();
 		{
 			valueMap.put("layoutAcronym", getAcronym());
 			valueMap.put("layoutClassName", getClassName());

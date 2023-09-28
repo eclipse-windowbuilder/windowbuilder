@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Abstract superclass for description objects.
@@ -92,7 +93,7 @@ public abstract class AbstractDescription implements IAdaptable {
 	 */
 	public final void putTag(String tag, String value) {
 		if (m_tags == null) {
-			m_tags = Maps.newTreeMap();
+			m_tags = new TreeMap<>();
 		}
 		m_tags.put(tag, value);
 	}

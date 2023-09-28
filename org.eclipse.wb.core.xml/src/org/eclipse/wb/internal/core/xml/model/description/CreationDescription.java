@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description for creating new component.
@@ -161,7 +160,7 @@ public final class CreationDescription extends AbstractDescription {
 	// Parameters
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, String> m_parameters = Maps.newTreeMap();
+	private final Map<String, String> m_parameters = new TreeMap<>();
 
 	/**
 	 * @return the {@link CreationDescription} specific parameters.

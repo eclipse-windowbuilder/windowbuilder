@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Code generation settings for adding new {@link JavaInfo}.
@@ -64,8 +65,8 @@ public final class GenerationSettings {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final IPreferenceStore m_store;
-	private final Map<String, VariableSupportDescription> m_idToVariable = Maps.newTreeMap();
-	private final Map<String, StatementGeneratorDescription> m_idToStatement = Maps.newTreeMap();
+	private final Map<String, VariableSupportDescription> m_idToVariable = new TreeMap<>();
+	private final Map<String, StatementGeneratorDescription> m_idToStatement = new TreeMap<>();
 	private final List<VariableSupportDescription> m_variables = new ArrayList<>();
 	private final Map<VariableSupportDescription, StatementGeneratorDescription[]> m_variableToStatements = Maps
 			.newHashMap();

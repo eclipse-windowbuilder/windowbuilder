@@ -77,6 +77,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
@@ -687,7 +688,7 @@ public final class LafSupport {
 		try {
 			// prepare mapping: id -> command class
 			if (m_idToCommandClass == null) {
-				m_idToCommandClass = Maps.newTreeMap();
+				m_idToCommandClass = new TreeMap<>();
 				for (Class<? extends Command> commandClass : m_commandClasses) {
 					String id = (String) commandClass.getField("ID").get(null);
 					m_idToCommandClass.put(id, commandClass);

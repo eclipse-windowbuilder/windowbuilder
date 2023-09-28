@@ -45,6 +45,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description of any {@link JavaInfo}, its constructors, methods, etc.
@@ -326,7 +327,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final List<MethodDescription> m_methods = new ArrayList<>();
-	private final Map<String, MethodDescription> m_methodsMap = Maps.newTreeMap();
+	private final Map<String, MethodDescription> m_methodsMap = new TreeMap<>();
 
 	/**
 	 * @return the list of {@link MethodDescription}'s of this component.
@@ -505,7 +506,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Parameters
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, String> m_parameters = Maps.newTreeMap();
+	private final Map<String, String> m_parameters = new TreeMap<>();
 
 	/**
 	 * Adds new parameter.

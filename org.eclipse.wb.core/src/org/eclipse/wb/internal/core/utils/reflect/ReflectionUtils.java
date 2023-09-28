@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.reflect;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
@@ -46,6 +45,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.WeakHashMap;
 
 /**
@@ -1440,8 +1440,8 @@ public class ReflectionUtils {
 			}
 		}
 		// prepare getters/setters
-		Map<String, Method> propertyToGetter = Maps.newTreeMap();
-		Map<String, Method> propertyToSetter = Maps.newTreeMap();
+		Map<String, Method> propertyToGetter = new TreeMap<>();
+		Map<String, Method> propertyToSetter = new TreeMap<>();
 		// append existing getters/setters
 		for (PropertyDescriptor propertyDescriptor : descriptors) {
 			Method readMethod = getReadMethod(propertyDescriptor);

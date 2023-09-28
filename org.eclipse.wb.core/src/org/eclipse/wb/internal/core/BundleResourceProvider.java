@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -31,6 +29,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Provider for resources of some {@link Bundle}.
@@ -155,8 +154,8 @@ public final class BundleResourceProvider {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Image> m_pathToImage = Maps.newTreeMap();
-	private final Map<String, ImageDescriptor> m_pathToImageDescriptor = Maps.newTreeMap();
+	private final Map<String, Image> m_pathToImage = new TreeMap<>();
+	private final Map<String, ImageDescriptor> m_pathToImageDescriptor = new TreeMap<>();
 
 	/**
 	 * @return the {@link Image}, with caching.

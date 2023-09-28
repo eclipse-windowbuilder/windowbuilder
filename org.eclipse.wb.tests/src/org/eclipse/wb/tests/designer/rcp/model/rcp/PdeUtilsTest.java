@@ -39,6 +39,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Tests for {@link PdeUtils}.
@@ -816,7 +817,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	@Test
 	public void test_getViews() throws Exception {
 		List<ViewInfo> views = PdeUtils.getViews();
-		Map<String, ViewInfo> idToView = Maps.newTreeMap();
+		Map<String, ViewInfo> idToView = new TreeMap<>();
 		for (ViewInfo viewInfo : views) {
 			idToView.put(viewInfo.getId(), viewInfo);
 		}
@@ -865,7 +866,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			assertEquals("(org.eclipse.jdt.ui.java, Java)", category.toString());
 			// views
 			List<ViewInfo> views = category.getViews();
-			Map<String, ViewInfo> idToView = Maps.newTreeMap();
+			Map<String, ViewInfo> idToView = new TreeMap<>();
 			for (ViewInfo viewInfo : views) {
 				idToView.put(viewInfo.getId(), viewInfo);
 			}
@@ -991,7 +992,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	@Test
 	public void test_getPerspectives() throws Exception {
 		List<PerspectiveInfo> perspectives = PdeUtils.getPerspectives();
-		Map<String, PerspectiveInfo> idToPerspective = Maps.newTreeMap();
+		Map<String, PerspectiveInfo> idToPerspective = new TreeMap<>();
 		for (PerspectiveInfo perspectiveInfo : perspectives) {
 			idToPerspective.put(perspectiveInfo.getId(), perspectiveInfo);
 		}

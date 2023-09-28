@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.utils.base64.Base64Utils;
@@ -24,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * {@link PropertyManager} is used to get/set attributes of {@link Property}.
@@ -116,7 +115,7 @@ public final class PropertyManager {
 		return categories;
 	}
 	private static Map<String, PropertyCategory> loadCategories(final ToolkitDescription toolkit) {
-		return ExecutionUtils.runObjectIgnore(() -> loadCategories0(toolkit), Maps.<String, PropertyCategory>newTreeMap());
+		return ExecutionUtils.runObjectIgnore(() -> loadCategories0(toolkit), new TreeMap<>());
 	}
 	private static void saveCategories(final ToolkitDescription toolkit,
 			final Map<String, PropertyCategory> categories) {
@@ -152,14 +151,14 @@ public final class PropertyManager {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static Map<String, Integer> toCategoriesIndex(Map<String, PropertyCategory> source) {
-		Map<String, Integer> target = Maps.newTreeMap();
+		Map<String, Integer> target = new TreeMap<>();
 		for (Map.Entry<String, PropertyCategory> entry : source.entrySet()) {
 			target.put(entry.getKey(), getCategoryIndex(entry.getValue()));
 		}
 		return target;
 	}
 	private static Map<String, PropertyCategory> toCategoriesObject(Map<String, Integer> source) {
-		Map<String, PropertyCategory> target = Maps.newTreeMap();
+		Map<String, PropertyCategory> target = new TreeMap<>();
 		for (Map.Entry<String, Integer> entry : source.entrySet()) {
 			target.put(entry.getKey(), getCategoryByIndex(entry.getValue()));
 		}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.actions;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.actions.DeleteAction;
@@ -24,6 +22,7 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for managing {@link XmlDesignPage} actions.
@@ -115,7 +114,7 @@ public final class DesignPageActions {
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, IAction> m_originalActions = Maps.newTreeMap();
+	private final Map<String, IAction> m_originalActions = new TreeMap<>();
 
 	/**
 	 * Installs Designer handlers for global actions.

@@ -45,6 +45,7 @@ import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implementation of {@link PropertyEditor} for SWT accelerator.
@@ -347,8 +348,8 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
 	private static void prepareKeyMaps() {
 		if (m_keyCodeToName == null) {
 			m_keyFields = new ArrayList<>();
-			m_keyCodeToName = Maps.newTreeMap();
-			m_keyNameToCode = Maps.newTreeMap();
+			m_keyCodeToName = new TreeMap<>();
+			m_keyNameToCode = new TreeMap<>();
 			// add fields
 			ExecutionUtils.runLog(new RunnableEx() {
 				@Override

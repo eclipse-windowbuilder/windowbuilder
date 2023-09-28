@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.clipboard;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.Property;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Command for applying properties of {@link JavaInfo}.
@@ -26,7 +25,7 @@ import java.util.Map;
  */
 public final class PropertiesClipboardCommand extends ClipboardCommand {
 	private static final long serialVersionUID = 0L;
-	private final Map<String, String> m_propertyTitleToSource = Maps.newTreeMap();
+	private final Map<String, String> m_propertyTitleToSource = new TreeMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.utils;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -32,6 +30,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for accessing "live" information for {@link AbstractComponentInfo} during adding it on
@@ -185,7 +184,7 @@ public abstract class AbstractLiveManager {
 			Class<?> clazz = m_component.getDescription().getComponentClass();
 			cache = CACHE.get(clazz);
 			if (cache == null) {
-				cache = Maps.newTreeMap();
+				cache = new TreeMap<>();
 				CACHE.put(clazz, cache);
 			}
 		}

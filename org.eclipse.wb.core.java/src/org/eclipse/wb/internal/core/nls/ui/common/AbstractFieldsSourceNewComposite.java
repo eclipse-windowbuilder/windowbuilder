@@ -55,6 +55,7 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 
 import java.text.MessageFormat;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Abstract composite for creating strings source using {@link DialogField}'s.
@@ -120,7 +121,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
 	// Validation: utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, IStatus> m_statusMap = Maps.newTreeMap();
+	private final Map<String, IStatus> m_statusMap = new TreeMap<>();
 
 	protected final void setStatus(String key, IStatus status) {
 		m_statusMap.put(key, status);
