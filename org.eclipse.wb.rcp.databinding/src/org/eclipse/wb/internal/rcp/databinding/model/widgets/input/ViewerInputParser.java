@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.parser.AbstractParser;
@@ -48,6 +46,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +73,7 @@ public final class ViewerInputParser implements ISubParser {
 			"org.eclipse.jface.databinding.viewers.CellEditorProperties.control()";
 	//
 	private final Map<WidgetBindableInfo, AbstractViewerInputBindingInfo> m_viewers =
-			Maps.newHashMap();
+			new HashMap<>();
 	private final DataBindingContextInfo m_contextInfo;
 	private final BeansObserveTypeContainer m_beansContainer;
 	private final WidgetsObserveTypeContainer m_widgetsContainer;

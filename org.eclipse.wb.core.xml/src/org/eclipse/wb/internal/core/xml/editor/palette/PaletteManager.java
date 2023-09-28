@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -63,6 +62,7 @@ import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -471,7 +471,7 @@ public final class PaletteManager {
 			return true;
 		}
 		// evaluate condition
-		Map<String, Object> variables = Maps.newHashMap();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("rootModel", m_rootObject);
 		variables.putAll(m_context.getVersions());
 		Object result = ScriptUtils.evaluate(condition, variables);

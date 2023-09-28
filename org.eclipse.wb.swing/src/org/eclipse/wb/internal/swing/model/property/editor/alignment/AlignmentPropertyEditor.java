@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.alignment;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.FloatPropertyEditor;
@@ -30,6 +28,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
 import java.awt.Component;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JComponent;
@@ -43,7 +42,7 @@ import javax.swing.JComponent;
  */
 abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
 	private final Map<Float, ButtonPropertyEditorPresentation> m_valueToPresentation =
-			Maps.newHashMap();
+			new HashMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

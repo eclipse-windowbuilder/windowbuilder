@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.modern.ModernEclipseSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSource;
@@ -21,6 +19,8 @@ import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
+
+import java.util.HashMap;
 
 /**
  * Utilities for testing NLS.
@@ -36,7 +36,7 @@ public class NlsTestUtils {
 		String title = "NEW: " + name;
 		editableSource.setShortTitle(title);
 		editableSource.setLongTitle(title);
-		editableSource.add(LocaleInfo.DEFAULT, Maps.<String, String>newHashMap());
+		editableSource.add(LocaleInfo.DEFAULT, new HashMap<>());
 		editableSource.setKeyGeneratorStrategy(AbstractBundleSource.KEY_GENERATOR);
 		return editableSource;
 	}

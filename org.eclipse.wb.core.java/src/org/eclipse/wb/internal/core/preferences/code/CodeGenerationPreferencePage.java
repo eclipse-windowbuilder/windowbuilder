@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.preferences.code;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.generation.GenerationDescription;
 import org.eclipse.wb.internal.core.model.generation.GenerationPropertiesComposite;
@@ -53,6 +51,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -388,9 +387,9 @@ IWorkbenchPreferencePage {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<GenerationDescription, Composite> m_descriptionComposites = Maps.newHashMap();
+	private final Map<GenerationDescription, Composite> m_descriptionComposites = new HashMap<>();
 	private final Map<GenerationDescription, GenerationPropertiesComposite> m_descriptionPropertyComposites =
-			Maps.newHashMap();
+			new HashMap<>();
 
 	/**
 	 * @return the {@link Composite} for displaying/editing {@link GenerationDescription} properties.

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -22,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,7 +40,7 @@ public abstract class GroupLayoutClipboardCommand extends ClipboardCommand {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public GroupLayoutClipboardCommand(GroupLayoutSupport _this) {
-		Map<String, String> componentsMap = Maps.newHashMap();
+		Map<String, String> componentsMap = new HashMap<>();
 		// map current component ids to xml ids; this requires child order preserving
 		int i = 0;
 		for (AbstractComponentInfo component : _this.getLayoutChildren()) {
@@ -69,7 +68,7 @@ public abstract class GroupLayoutClipboardCommand extends ClipboardCommand {
 			// prepare
 			GroupLayoutSupport _this = getLayoutSupport(javaInfo);
 			// map xml ids back to newly created component ids
-			Map<String, String> componentsMap = Maps.newHashMap();
+			Map<String, String> componentsMap = new HashMap<>();
 			int i = 0;
 			for (AbstractComponentInfo component : _this.getLayoutChildren()) {
 				componentsMap.put("" + i++, ObjectInfoUtils.getId(component));

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.Activator;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
@@ -58,6 +56,7 @@ import org.eclipse.ui.dialogs.SearchPattern;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,8 +95,8 @@ final class ObserveElementsComposite extends SashForm {
 			}
 		}
 	};
-	private final Map<ObserveType, ISelection[]> m_typeToSelection = Maps.newHashMap();
-	private final Map<ObserveType, Object[][]> m_typeToExpanded = Maps.newHashMap();
+	private final Map<ObserveType, ISelection[]> m_typeToSelection = new HashMap<>();
+	private final Map<ObserveType, Object[][]> m_typeToExpanded = new HashMap<>();
 	private ObserveType m_currentType;
 
 	////////////////////////////////////////////////////////////////////////////

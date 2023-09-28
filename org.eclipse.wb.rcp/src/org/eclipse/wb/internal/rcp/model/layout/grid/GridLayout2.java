@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.layout.grid;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -27,6 +25,7 @@ import org.eclipse.swt.widgets.Scrollable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -144,7 +143,7 @@ public final class GridLayout2 extends Layout {
 	int[] m_columnWidths;
 	int[] m_rowOrigins;
 	int[] m_rowHeights;
-	Map<Control, Point> m_controlToXY = Maps.newHashMap();
+	Map<Control, Point> m_controlToXY = new HashMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

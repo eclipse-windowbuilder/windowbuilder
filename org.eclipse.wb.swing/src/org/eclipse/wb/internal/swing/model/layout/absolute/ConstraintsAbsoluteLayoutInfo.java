@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.absolute;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.association.InvocationSecondaryAssociation;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -36,6 +34,7 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -162,7 +161,7 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
 		String script = JavaInfoUtils.getParameter(this, scriptName);
 		if (script != null) {
 			ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-			Map<String, Object> variables = Maps.newHashMap();
+			Map<String, Object> variables = new HashMap<>();
 			variables.put("component", component);
 			variables.put("value", value);
 			value = (Integer) ScriptUtils.evaluate(classLoader, script, variables);

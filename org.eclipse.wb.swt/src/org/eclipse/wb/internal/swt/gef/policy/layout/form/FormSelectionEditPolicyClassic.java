@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
@@ -65,6 +63,7 @@ import org.eclipse.swt.graphics.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,7 +119,7 @@ SelectionEditPolicy {
 	// Resize handles
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Figure> resizeFeedbacks = Maps.newHashMap();
+	private final Map<String, Figure> resizeFeedbacks = new HashMap<>();
 
 	@Override
 	protected List<Handle> createSelectionHandles() {
@@ -861,7 +860,7 @@ SelectionEditPolicy {
 		//
 		if (selectionFeedbacks == null) {
 			try {
-				selectionFeedbacks = Maps.newHashMap();
+				selectionFeedbacks = new HashMap<>();
 				addSideLinesFeedbacks();
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.utils;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -32,6 +30,7 @@ import java.awt.Point;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JDesktopPane;
@@ -47,7 +46,7 @@ import javax.swing.JPanel;
  */
 public final class SwingScreenshotMaker {
 	private final AbstractComponentInfo m_root;
-	private final Map<Component, java.awt.Image> m_componentImages = Maps.newHashMap();
+	private final Map<Component, java.awt.Image> m_componentImages = new HashMap<>();
 	private final Component m_component;
 	private Window m_window;
 	private Point m_oldComponentLocation;
@@ -182,7 +181,7 @@ public final class SwingScreenshotMaker {
 		// do traverse
 		SwingImageUtils.makeShotsHierarchy(m_component, m_componentImages, m_component);
 		// convert images
-		final Map<Component, Image> convertedImages = Maps.newHashMap();
+		final Map<Component, Image> convertedImages = new HashMap<>();
 		for (Component keyComponent : Collections.unmodifiableMap(m_componentImages).keySet()) {
 			java.awt.Image image2 = m_componentImages.get(keyComponent);
 			if (image2 != null) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.swt.graphics.Image;
@@ -21,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,7 +31,7 @@ import java.util.Map;
  * @coverage core.nls.ui
  */
 public class FlagImagesRepository {
-	private static Map<String, Image> m_countriesFlags = Maps.newHashMap();
+	private static Map<String, Image> m_countriesFlags = new HashMap<>();
 	private static Locale[] m_locales;
 
 	////////////////////////////////////////////////////////////////////////////

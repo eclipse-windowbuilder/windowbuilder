@@ -14,7 +14,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
@@ -89,6 +88,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -451,7 +451,7 @@ public final class ThisCreationSupport extends CreationSupport {
 		class ExcludedPackage {
 			Set<String> exceptions = Sets.newHashSet();
 		}
-		final Map<String, ExcludedPackage> excludedPackages = Maps.newHashMap();
+		final Map<String, ExcludedPackage> excludedPackages = new HashMap<>();
 		// prepare excluded packages
 		String parameterNamePrefix = "binaryExecutionFlow.dontVisit.package ";
 		for (Map.Entry<String, String> entry : JavaInfoUtils.getParameters(javaInfo).entrySet()) {

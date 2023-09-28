@@ -98,7 +98,7 @@ public final class ScriptUtils {
 	 * Evaluates given script.
 	 */
 	public static Object evaluate(String script) {
-		return evaluate(script, Maps.<String, Object>newHashMap());
+		return evaluate(script, new HashMap<>());
 	}
 
 	/**

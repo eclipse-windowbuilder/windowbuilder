@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.helpers.ILoadingContext;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -20,6 +18,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IJavaProject;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +85,7 @@ public final class XmlLoadingContext implements ILoadingContext {
 	// Global values
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Object> m_globalMap = Maps.newHashMap();
+	private final Map<String, Object> m_globalMap = new HashMap<>();
 
 	@Override
 	public Object getGlobalValue(String key) {

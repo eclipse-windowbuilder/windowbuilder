@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -635,7 +634,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 	// Bundle access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<LocaleInfo, BundleInfo> m_localeToBundleMap = Maps.newHashMap();
+	private final Map<LocaleInfo, BundleInfo> m_localeToBundleMap = new HashMap<>();
 
 	/**
 	 * Return existing or new information about resource bundle for given locale.

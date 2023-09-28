@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.context.strategies;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -39,6 +37,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +52,7 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
 			"setAfterConvertValidator",
 			"setAfterGetValidator",
 	"setBeforeSetValidator"};
-	private final Map<String, ValidatorInfo> m_validators = Maps.newHashMap();
+	private final Map<String, ValidatorInfo> m_validators = new HashMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

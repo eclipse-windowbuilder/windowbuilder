@@ -10,14 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.linux;
 
-/**
- * OSSupport for Linux.
- *
- * @author mitin_aa
- *
- * @coverage os.linux
- */
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.IColorConstants;
@@ -48,6 +40,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,7 +84,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * Creates the registry of {@link Control}s.
 	 */
 	private void createRegistry() {
-		m_controlsRegistry = Maps.newHashMap();
+		m_controlsRegistry = new HashMap<>();
 	}
 
 	/**

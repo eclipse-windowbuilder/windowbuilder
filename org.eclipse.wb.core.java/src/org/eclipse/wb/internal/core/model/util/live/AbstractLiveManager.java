@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util.live;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -41,6 +40,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -276,7 +276,7 @@ public abstract class AbstractLiveManager {
 	// Caching
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Map<String, ILiveCacheEntry> m_staticCache = Maps.newHashMap();
+	private static final Map<String, ILiveCacheEntry> m_staticCache = new HashMap<>();
 	private static final String EDITOR_CACHE_KEY = "LIVE_CACHE";
 
 	/**
@@ -294,7 +294,7 @@ public abstract class AbstractLiveManager {
 		Map<String, ILiveCacheEntry> cache =
 				(Map<String, ILiveCacheEntry>) m_component.getEditor().getGlobalValue(EDITOR_CACHE_KEY);
 		if (cache == null) {
-			cache = Maps.newHashMap();
+			cache = new HashMap<>();
 			m_component.getEditor().putGlobalValue(EDITOR_CACHE_KEY, cache);
 		}
 		return cache;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.parser;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.utils.xml.DocumentAttribute;
@@ -36,6 +34,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -244,7 +243,7 @@ public final class DatabindingParser {
 	}
 
 	private static Map<String, String> getAttributes(DocumentElement element) {
-		Map<String, String> attributes = Maps.newHashMap();
+		Map<String, String> attributes = new HashMap<>();
 		for (DocumentAttribute attribute : element.getDocumentAttributes()) {
 			attributes.put(attribute.getName().toLowerCase(), attribute.getValue());
 		}
@@ -252,7 +251,7 @@ public final class DatabindingParser {
 	}
 
 	private static Map<String, String> getAttributes(String value) {
-		Map<String, String> attributes = Maps.newHashMap();
+		Map<String, String> attributes = new HashMap<>();
 		for (String pair : splitAttributePairs(value, " \t,")) {
 			String[] values = StringUtils.split(pair, '=');
 			if (values.length == 2) {

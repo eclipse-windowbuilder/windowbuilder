@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.OutlineImageFigure;
@@ -70,6 +68,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,7 +91,7 @@ implements IHeadersProvider {
 	private static final Color baseColor = DrawUtils.getShiftedColor(offsetColor, -32);
 	private static final Color controlColor = DrawUtils.getShiftedColor(offsetColor, 32);
 	// feedbacks
-	private final Map<EditPart, List<Figure>> feedbacks = Maps.newHashMap();
+	private final Map<EditPart, List<Figure>> feedbacks = new HashMap<>();
 	private Map<EditPart, Figure> moveFeedbacks;
 	private int lastMouseQuadrant;
 	private int frozenYValue;
@@ -237,7 +236,7 @@ implements IHeadersProvider {
 		}
 		lastMouseQuadrant = quadrant;
 		if (moveFeedbacks == null) {
-			moveFeedbacks = Maps.newHashMap();
+			moveFeedbacks = new HashMap<>();
 		}
 		// prepare change bounds feedback
 		Figure moveFeedback = moveFeedbacks.get(part);
@@ -334,7 +333,7 @@ implements IHeadersProvider {
 
 	private void showCreateFeedback(CreateRequest request, C newChild) throws Exception {
 		if (moveFeedbacks == null) {
-			moveFeedbacks = Maps.newHashMap();
+			moveFeedbacks = new HashMap<>();
 		}
 		// hide any old create feedbacks (it is more easy to add each time new feedback
 		// than track old ones and change their positions)
@@ -466,11 +465,11 @@ implements IHeadersProvider {
 	private void showPasteFeedback(PasteRequest request) throws Exception {
 		List<IObjectInfo> pastingComponents = GlobalState.getPasteRequestProcessor().getPastingComponents(request);
 		if (moveFeedbacks == null) {
-			moveFeedbacks = Maps.newHashMap();
+			moveFeedbacks = new HashMap<>();
 		}
 		// remove create feedback
 		if (moveFeedbacks == null) {
-			moveFeedbacks = Maps.newHashMap();
+			moveFeedbacks = new HashMap<>();
 		}
 		// hide any old create feedbacks
 		removeFeedbacks();
@@ -1356,8 +1355,8 @@ implements IHeadersProvider {
 	// Location and size hints
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Map<EditPart, TextFeedback> xTextFeedbacks = Maps.newHashMap();
-	private Map<EditPart, TextFeedback> yTextFeedbacks = Maps.newHashMap();
+	private Map<EditPart, TextFeedback> xTextFeedbacks = new HashMap<>();
+	private Map<EditPart, TextFeedback> yTextFeedbacks = new HashMap<>();
 	private TextFeedback createControlHintFeedbackX;
 	private TextFeedback createControlHintFeedbackY;
 
@@ -1375,8 +1374,8 @@ implements IHeadersProvider {
 		for (TextFeedback feedback : yTextFeedbacks.values()) {
 			feedback.remove();
 		}
-		xTextFeedbacks = Maps.newHashMap(); // use fast GC :)
-		yTextFeedbacks = Maps.newHashMap(); // use fast GC :)
+		xTextFeedbacks = new HashMap<>(); // use fast GC :)
+		yTextFeedbacks = new HashMap<>(); // use fast GC :)
 		if (createControlHintFeedbackX != null) {
 			createControlHintFeedbackX.remove();
 			createControlHintFeedbackX = null;

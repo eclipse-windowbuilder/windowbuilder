@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui.common;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.nls.Messages;
@@ -54,6 +52,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -178,7 +177,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
 		String title = "NEW: " + name;
 		editableSource.setShortTitle(title);
 		editableSource.setLongTitle(title);
-		editableSource.add(LocaleInfo.DEFAULT, Maps.<String, String>newHashMap());
+		editableSource.add(LocaleInfo.DEFAULT, new HashMap<>());
 		return editableSource;
 	}
 

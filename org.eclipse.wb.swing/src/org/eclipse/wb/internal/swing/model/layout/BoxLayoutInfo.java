@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -26,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import java.awt.Component;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,7 +91,7 @@ public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<ComponentInfo, Property> m_alignmentProperties = Maps.newHashMap();
+	private final Map<ComponentInfo, Property> m_alignmentProperties = new HashMap<>();
 
 	/**
 	 * @return the composite "Alignment" property constructed from given {@link Property}'s.

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -24,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,7 +33,7 @@ import java.util.Map;
  * @coverage swt.support
  */
 public class ContainerSupport extends AbstractSupport {
-	private static final Map<Image, Object> SWT_TO_TOOLKIT_IMAGES = Maps.newHashMap();
+	private static final Map<Image, Object> SWT_TO_TOOLKIT_IMAGES = new HashMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

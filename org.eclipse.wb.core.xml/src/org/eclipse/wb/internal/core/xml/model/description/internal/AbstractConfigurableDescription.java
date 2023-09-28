@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description.internal;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.property.IConfigurablePropertyObject;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public abstract class AbstractConfigurableDescription {
 	// Parameters
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Object> m_parameters = Maps.newHashMap();
+	private final Map<String, Object> m_parameters = new HashMap<>();
 
 	/**
 	 * Adds new parameter.

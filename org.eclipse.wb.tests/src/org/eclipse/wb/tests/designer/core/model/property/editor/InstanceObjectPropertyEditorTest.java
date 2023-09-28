@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.InstanceListPropertyEditor;
@@ -326,7 +324,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		//    }
 		//  </parameter>
 		//</editor>
-		HashMap<String, Object> params = Maps.newHashMap();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("class", "");
 		params.put("source", getSourceDQ("new javax.swing.AbstractButton() {", "}"));
 		return params;

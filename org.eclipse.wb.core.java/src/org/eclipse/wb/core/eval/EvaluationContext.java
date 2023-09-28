@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
@@ -23,6 +21,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -171,7 +170,7 @@ public class EvaluationContext {
 	 */
 	public final void putArbitraryValue(Object key, Object value) {
 		if (m_arbitraryMap == null) {
-			m_arbitraryMap = Maps.newHashMap();
+			m_arbitraryMap = new HashMap<>();
 		}
 		m_arbitraryMap.put(key, value);
 	}

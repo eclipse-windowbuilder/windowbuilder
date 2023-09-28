@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.ObserveComparator;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
@@ -24,6 +22,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -494,7 +493,7 @@ public final class SwtProperties {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final Map<String, String> SWT_OBSERVABLES_TO_WIDGET_PROPERTIES = Maps.newHashMap();
+	public static final Map<String, String> SWT_OBSERVABLES_TO_WIDGET_PROPERTIES = new HashMap<>();
 	static {
 		String[] keys =
 			{

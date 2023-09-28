@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
@@ -25,6 +23,7 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -129,7 +128,7 @@ public final class SynchronizeManager {
 			ISynchronizeProcessor<T, V> processor) throws Exception {
 		// prepare map[key, object]
 		int beanCount = 0;
-		Map<T, V> keyObjectToObject = Maps.newHashMap();
+		Map<T, V> keyObjectToObject = new HashMap<>();
 		for (V object : objects) {
 			if (processor.handleObject(object)) {
 				keyObjectToObject.put(processor.getKeyObject(object), object);

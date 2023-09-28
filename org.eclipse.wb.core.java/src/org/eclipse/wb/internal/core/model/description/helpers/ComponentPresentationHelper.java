@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 
@@ -56,6 +55,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -245,8 +245,8 @@ public final class ComponentPresentationHelper {
 
 	private static final class ComponentParseHelper extends QHandlerAdapter {
 		private String m_currentId = null;
-		private final Map<String, String> m_descriptions = Maps.newHashMap();
-		private final Map<String, String> m_names = Maps.newHashMap();
+		private final Map<String, String> m_descriptions = new HashMap<>();
+		private final Map<String, String> m_names = new HashMap<>();
 		//
 		private final String m_xml;
 		private int m_descStart;
@@ -576,7 +576,7 @@ public final class ComponentPresentationHelper {
 	private static void fillPresentations(ComponentPresentationCache cache,
 			String toolkitId,
 			IProgressMonitor monitor) throws Exception {
-		Map<Bundle, List<IConfigurationElement>> bundles = Maps.newHashMap();
+		Map<Bundle, List<IConfigurationElement>> bundles = new HashMap<>();
 		// prepare bundles and entries
 		for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(toolkitId)) {
 			IConfigurationElement[] elements = toolkitElement.getChildren("palette");

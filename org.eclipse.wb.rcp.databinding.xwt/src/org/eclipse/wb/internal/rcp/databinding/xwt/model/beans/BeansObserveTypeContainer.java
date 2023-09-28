@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model.beans;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
@@ -32,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +73,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 		//
 		DocumentElement rootElement = m_xmlObjectRoot.getElement();
 		//
-		final Map<String, String> namespaceToPackage = Maps.newHashMap();
+		final Map<String, String> namespaceToPackage = new HashMap<>();
 		final String[] xKey = new String[1];
 		final String[] dataContextReference = new String[1];
 		//
