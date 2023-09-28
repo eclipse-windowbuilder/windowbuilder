@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.Association;
@@ -35,6 +33,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -92,7 +91,7 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
 			@Override
 			public List<ObjectInfo> getChildrenTree() throws Exception {
 				if (isHideInTree()) {
-					return Lists.<ObjectInfo>newLinkedList();
+					return new LinkedList<>();
 				} else {
 					return getItems();
 				}

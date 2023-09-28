@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
@@ -72,6 +71,7 @@ import org.apache.commons.collections.Predicate;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -1201,7 +1201,7 @@ implements IHeadersProvider {
 		}
 		List<Figure> partFeedbacks = feedbacks.get(part);
 		if (partFeedbacks == null) {
-			partFeedbacks = Lists.newLinkedList();
+			partFeedbacks = new LinkedList<>();
 			feedbacks.put(part, partFeedbacks);
 		}
 		partFeedbacks.add(line);

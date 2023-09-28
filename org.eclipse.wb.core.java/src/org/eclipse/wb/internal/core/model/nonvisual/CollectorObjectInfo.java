@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
@@ -28,6 +26,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -110,7 +109,7 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
 			@Override
 			public List<ObjectInfo> getChildrenTree() throws Exception {
 				if (isHideInTree()) {
-					return Lists.<ObjectInfo>newLinkedList();
+					return new LinkedList<>();
 				} else {
 					return getItems();
 				}

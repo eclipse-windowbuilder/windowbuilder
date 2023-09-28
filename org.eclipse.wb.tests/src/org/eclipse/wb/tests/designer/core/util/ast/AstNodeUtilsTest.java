@@ -3681,7 +3681,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("int m_value;");
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		// remember ranges
-		final LinkedList<Integer> ranges = Lists.newLinkedList();
+		final LinkedList<Integer> ranges = new LinkedList<>();
 		fieldDeclaration.accept(new ASTVisitor() {
 			@Override
 			public void preVisit(ASTNode node) {
