@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.variables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -50,6 +48,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -901,7 +900,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 		ToolkitDescription toolkit = ToolkitProvider.DESCRIPTION;
 		// set type specific
 		{
-			List<ComponentNameDescription> descriptions = Lists.newArrayList();
+			List<ComponentNameDescription> descriptions = new ArrayList<>();
 			descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
 					"textField",
 					"txt",

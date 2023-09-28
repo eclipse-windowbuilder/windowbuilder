@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.Command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ import java.util.List;
  * @coverage gef.core
  */
 public class CompoundCommand extends Command {
-	private final List<Command> m_commands = Lists.newArrayList();
+	private final List<Command> m_commands = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

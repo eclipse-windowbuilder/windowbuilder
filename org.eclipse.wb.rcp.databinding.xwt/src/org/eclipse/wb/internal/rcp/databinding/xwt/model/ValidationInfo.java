@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
@@ -26,6 +25,7 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +35,7 @@ import java.util.Map;
  *
  */
 public class ValidationInfo {
-	private List<String> m_classNames = Lists.newArrayList();
+	private List<String> m_classNames = new ArrayList<>();
 	private Map<String, String> m_namespaceToPackage = Maps.newHashMap();
 	private final Map<String, String> m_packageToNamespace = Maps.newHashMap();
 	private boolean m_update;
@@ -184,7 +184,7 @@ public class ValidationInfo {
 						attribute.setValue(value.substring(0, index) + namespace + value.substring(index));
 					}
 				} else {
-					List<String> nonExistingNamespace = Lists.newArrayList();
+					List<String> nonExistingNamespace = new ArrayList<>();
 					DocumentAttribute attribute = (DocumentAttribute) object;
 					for (String className : m_classNames) {
 						String namespace = m_packageToNamespace.get(ClassUtils.getPackageName(className));

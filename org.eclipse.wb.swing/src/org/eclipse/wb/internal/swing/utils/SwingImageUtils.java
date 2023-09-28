@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.utils;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
@@ -45,6 +43,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.ImageConsumer;
 import java.awt.image.ImageProducer;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -508,7 +507,7 @@ public class SwingImageUtils {
 	}
 
 	private static void fetchMenuVisualData_items(MenuVisualData menuData, Container menuObject) {
-		menuData.m_itemBounds = Lists.newArrayList();
+		menuData.m_itemBounds = new ArrayList<>();
 		for (Component menuComponent : menuObject.getComponents()) {
 			menuData.m_itemBounds.add(CoordinateUtils.get(menuComponent.getBounds()));
 		}

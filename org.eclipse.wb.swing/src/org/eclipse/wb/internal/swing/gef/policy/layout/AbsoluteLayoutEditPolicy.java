@@ -191,7 +191,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 		return new EditCommand(m_layout) {
 			@Override
 			protected void executeEdit() throws Exception {
-				ArrayList<IAbstractComponentInfo> models = Lists.newArrayList();
+				ArrayList<IAbstractComponentInfo> models = new ArrayList<>();
 				for (EditPart editPart : editParts) {
 					models.add((IAbstractComponentInfo) editPart.getModel());
 				}
@@ -211,7 +211,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 		return new EditCommand(m_layout) {
 			@Override
 			protected void executeEdit() throws Exception {
-				ArrayList<IAbstractComponentInfo> models = Lists.newArrayList();
+				ArrayList<IAbstractComponentInfo> models = new ArrayList<>();
 				for (EditPart editPart : editParts) {
 					models.add((IAbstractComponentInfo) editPart.getModel());
 				}

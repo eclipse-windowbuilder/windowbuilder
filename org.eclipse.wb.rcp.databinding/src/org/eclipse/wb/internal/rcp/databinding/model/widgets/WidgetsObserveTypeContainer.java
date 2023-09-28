@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
@@ -63,6 +61,7 @@ import org.eclipse.swt.widgets.Text;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -245,7 +244,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
 			IModelResolver resolver,
 			AstEditor editor,
 			TypeDeclaration rootNode) throws Exception {
-		m_observables = Lists.newArrayList();
+		m_observables = new ArrayList<>();
 		m_observables.add(new WidgetBindableInfo(root, m_provider));
 	}
 

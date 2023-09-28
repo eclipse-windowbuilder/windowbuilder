@@ -54,6 +54,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -128,7 +129,7 @@ public class ParseFactory extends AbstractParseFactory {
 			if (javaInfo != null) {
 				javaInfo.setVariableSupport(new ThisVariableSupport(javaInfo, constructor));
 				// prepare root context
-				List<MethodDeclaration> rootMethods = Lists.newArrayList();
+				List<MethodDeclaration> rootMethods = new ArrayList<>();
 				rootMethods.add(constructor);
 				addRootMethods(rootMethods, superClass, typeDeclaration);
 				return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));

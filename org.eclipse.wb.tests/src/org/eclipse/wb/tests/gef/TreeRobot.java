@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.Command;
@@ -38,6 +37,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -508,7 +508,7 @@ public final class TreeRobot {
 
 	private List<TreeItem> getFeedbackSelection() {
 		Tree tree = (Tree) m_viewer.getControl();
-		List<TreeItem> selectedItems = Lists.newArrayList();
+		List<TreeItem> selectedItems = new ArrayList<>();
 		Collections.addAll(selectedItems, tree.getSelection());
 		for (EditPart selectedEditPart : m_viewer.getSelectedEditParts()) {
 			selectedItems.remove(((TreeEditPart) selectedEditPart).getWidget());

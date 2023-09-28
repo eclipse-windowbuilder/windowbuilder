@@ -14,7 +14,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -744,7 +743,7 @@ public final class ThisCreationSupport extends CreationSupport {
 			m_complexProperty.setCategory(PropertyCategory.system(3));
 			m_complexProperty.setModified(true);
 			//
-			List<Property> subPropertiesList = Lists.newArrayList();
+			List<Property> subPropertiesList = new ArrayList<>();
 			if (m_invocation != null) {
 				// add accessors for parameters bound to given property
 				for (ParameterDescription parameter : m_description.getParameters()) {

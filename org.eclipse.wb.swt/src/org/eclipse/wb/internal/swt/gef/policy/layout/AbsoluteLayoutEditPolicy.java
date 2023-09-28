@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -31,6 +29,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +67,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 			@SuppressWarnings("unchecked")
 			@Override
 			protected void executeEdit() throws Exception {
-				List<C> models = Lists.newArrayList();
+				List<C> models = new ArrayList<>();
 				for (EditPart editPart : editParts) {
 					models.add((C) editPart.getModel());
 				}
@@ -89,7 +88,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 			@SuppressWarnings("unchecked")
 			@Override
 			protected void executeEdit() throws Exception {
-				List<C> models = Lists.newArrayList();
+				List<C> models = new ArrayList<>();
 				for (EditPart editPart : editParts) {
 					models.add((C) editPart.getModel());
 				}

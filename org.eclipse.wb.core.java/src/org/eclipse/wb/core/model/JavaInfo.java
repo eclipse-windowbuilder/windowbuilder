@@ -92,6 +92,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -535,10 +536,10 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 
 	@Override
 	protected List<Property> getPropertyList() throws Exception {
-		List<Property> properties = Lists.newArrayList();
+		List<Property> properties = new ArrayList<>();
 		// add description based properties
 		if (m_descriptionBasedProperties == null) {
-			m_descriptionBasedProperties = Lists.newArrayList();
+			m_descriptionBasedProperties = new ArrayList<>();
 			for (GenericPropertyDescription description : getDescription().getProperties()) {
 				GenericPropertyImpl property = PropertyUtils2.createGenericPropertyImpl(this, description);
 				m_descriptionBasedProperties.add(property);
@@ -580,7 +581,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 */
 	private void addConfigurableProperties(List<Property> properties) throws Exception {
 		if (m_configurableProperties == null) {
-			m_configurableProperties = Lists.newArrayList();
+			m_configurableProperties = new ArrayList<>();
 			for (ConfigurablePropertyDescription description : getDescription().getConfigurableProperties()) {
 				String id = description.getId();
 				IConfigurablePropertyFactory factory = getConfigurablePropertyFactory(id);
@@ -871,7 +872,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 * @return the {@link List} of all {@link MethodInvocation} of this {@link JavaInfo}.
 	 */
 	public final List<MethodInvocation> getMethodInvocations() {
-		List<MethodInvocation> invocations = Lists.newArrayList();
+		List<MethodInvocation> invocations = new ArrayList<>();
 		for (ASTNode node : getRelatedNodes()) {
 			MethodInvocation invocation = getMethodInvocation(node);
 			if (invocation != null) {
@@ -886,7 +887,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 *         signature.
 	 */
 	public final List<MethodInvocation> getMethodInvocations(String signature) {
-		List<MethodInvocation> invocations = Lists.newArrayList();
+		List<MethodInvocation> invocations = new ArrayList<>();
 		for (ASTNode node : getRelatedNodes()) {
 			// prepare invocation from related node
 			MethodInvocation invocation = getMethodInvocation(node);
@@ -1013,7 +1014,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 * @return the all {@link Assignment}'s to fields, may be empty {@link List}.
 	 */
 	public final List<Assignment> getFieldAssignments() {
-		List<Assignment> assignments = Lists.newArrayList();
+		List<Assignment> assignments = new ArrayList<>();
 		for (ASTNode node : getRelatedNodes()) {
 			Expression fieldAccess = AstNodeUtils.getFieldAssignment(node);
 			if (fieldAccess != null) {
@@ -1028,7 +1029,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 * @return the {@link Assignment}'s to field, may be empty {@link List}.
 	 */
 	public final List<Assignment> getFieldAssignments(String fieldName) {
-		List<Assignment> assignments = Lists.newArrayList();
+		List<Assignment> assignments = new ArrayList<>();
 		for (Assignment assignment : getFieldAssignments()) {
 			Expression fieldAccess = assignment.getLeftHandSide();
 			String fieldAccessName = AstNodeUtils.getFieldAccessName(fieldAccess).getIdentifier();

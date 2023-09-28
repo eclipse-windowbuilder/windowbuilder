@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -33,6 +31,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.InOrder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -321,27 +320,27 @@ public class ObjectInfoTest extends DesignerTestCase {
 		child_1.addChild(child_1_1);
 		// direct parent
 		{
-			List<ObjectInfo> parents = Lists.newArrayList();
+			List<ObjectInfo> parents = new ArrayList<>();
 			parents.add(parent);
 			parents.add(child_1);
 			assertSame(child_1, child_1_1.getParent(parents));
 		}
 		// direct parent 2
 		{
-			List<ObjectInfo> parents = Lists.newArrayList();
+			List<ObjectInfo> parents = new ArrayList<>();
 			parents.add(parent);
 			parents.add(child_1);
 			assertSame(parent, child_2.getParent(parents));
 		}
 		// indirect parent
 		{
-			List<ObjectInfo> parents = Lists.newArrayList();
+			List<ObjectInfo> parents = new ArrayList<>();
 			parents.add(parent);
 			assertSame(parent, child_1_1.getParent(parents));
 		}
 		// no parent
 		{
-			List<ObjectInfo> parents = Lists.newArrayList();
+			List<ObjectInfo> parents = new ArrayList<>();
 			parents.add(child_1);
 			assertNull(child_2.getParent(parents));
 		}

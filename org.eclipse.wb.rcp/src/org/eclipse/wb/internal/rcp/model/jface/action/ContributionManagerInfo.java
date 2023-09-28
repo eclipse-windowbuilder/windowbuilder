@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -40,6 +38,7 @@ import org.eclipse.jface.action.Separator;
 
 import net.bytebuddy.ByteBuddy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +70,7 @@ public abstract class ContributionManagerInfo extends AbstractComponentInfo {
 	 * @return the {@link IContributionItem} model children.
 	 */
 	public final List<AbstractComponentInfo> getItems() {
-		List<AbstractComponentInfo> contributionItems = Lists.newArrayList();
+		List<AbstractComponentInfo> contributionItems = new ArrayList<>();
 		for (ObjectInfo child : getChildren()) {
 			if (child instanceof ContributionItemInfo || child instanceof MenuManagerInfo) {
 				contributionItems.add((AbstractComponentInfo) child);

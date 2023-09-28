@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.actions.assistant;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.core.controls.CSpinnerDeferredNotifier;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -43,6 +41,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,7 +55,7 @@ import java.util.List;
 public abstract class AbstractAssistantPage extends Composite implements ILayoutAssistantPage {
 	private static final Object NO_VALUE = new Object();
 	private final List<ObjectInfo> m_selection;
-	private final List<PropertyInfo> m_properties = Lists.newArrayList();
+	private final List<PropertyInfo> m_properties = new ArrayList<>();
 	private boolean m_saving;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -224,7 +223,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		 */
 		private void prepareProperties() {
 			if (m_propertyList == null) {
-				m_propertyList = Lists.newArrayList();
+				m_propertyList = new ArrayList<>();
 				ExecutionUtils.runLog(new RunnableEx() {
 					@Override
 					public void run() throws Exception {
@@ -602,7 +601,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 	 * Adapter for choosing single value.
 	 */
 	private final class ChoicePropertyInfo extends PropertyInfo {
-		private final List<Button> m_buttons = Lists.newArrayList();
+		private final List<Button> m_buttons = new ArrayList<>();
 		private final Listener m_listener = new Listener() {
 			@Override
 			public void handleEvent(Event event) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets.exposed;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.HierarchyProvider;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -19,6 +17,7 @@ import org.eclipse.swt.widgets.Table;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,13 +47,13 @@ public final class ItemsHierarchyProvider extends HierarchyProvider {
 	@Override
 	public Object[] getChildrenObjects(Object object) throws Exception {
 		if (isSuccessorOf(object, "org.eclipse.swt.widgets.Table")) {
-			List<Object> childrenObjects = Lists.newArrayList();
+			List<Object> childrenObjects = new ArrayList<>();
 			Collections.addAll(childrenObjects, getItems(object, "getColumns"));
 			Collections.addAll(childrenObjects, getItems(object, "getItems"));
 			return childrenObjects.toArray(new Object[childrenObjects.size()]);
 		}
 		if (isSuccessorOf(object, "org.eclipse.swt.widgets.Tree")) {
-			List<Object> childrenObjects = Lists.newArrayList();
+			List<Object> childrenObjects = new ArrayList<>();
 			Collections.addAll(childrenObjects, getItems(object, "getItems"));
 			return childrenObjects.toArray(new Object[childrenObjects.size()]);
 		}

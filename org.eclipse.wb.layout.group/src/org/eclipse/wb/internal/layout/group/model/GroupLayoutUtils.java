@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -21,6 +19,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public final class GroupLayoutUtils {
 	 * @return the {@link List} of ids corresponding to list of {@link AbstractComponentInfo}.
 	 */
 	public static <C extends IAbstractComponentInfo> List<String> getIdsList(final List<C> components) {
-		final List<String> idsList = Lists.newArrayList();
+		final List<String> idsList = new ArrayList<>();
 		for (C component : components) {
 			idsList.add(ObjectInfoUtils.getId(component.getUnderlyingModel()));
 		}

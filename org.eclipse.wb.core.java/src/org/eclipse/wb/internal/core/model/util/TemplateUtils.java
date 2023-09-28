@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
@@ -26,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -135,7 +134,7 @@ public final class TemplateUtils {
 	 * @return the {@link List} with all resolved {@link String}'s.
 	 */
 	public static List<String> resolve(NodeTarget target, List<String> lines) throws Exception {
-		List<String> resolvedLines = Lists.newArrayList();
+		List<String> resolvedLines = new ArrayList<>();
 		for (String line : lines) {
 			line = resolve(target, line);
 			resolvedLines.add(line);

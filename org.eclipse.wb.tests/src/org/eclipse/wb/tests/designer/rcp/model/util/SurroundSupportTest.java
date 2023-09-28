@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.util;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -45,6 +44,7 @@ import org.eclipse.swt.widgets.Group;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -1040,7 +1040,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	 * @return the {@link ControlInfo} models for {@link Button} controls.
 	 */
 	private static List<ControlInfo> getButtons(CompositeInfo parent) {
-		List<ControlInfo> buttons = Lists.newArrayList();
+		List<ControlInfo> buttons = new ArrayList<>();
 		for (ControlInfo control : parent.getChildrenControls()) {
 			if (control.getDescription().getComponentClass().getName().equals(
 					"org.eclipse.swt.widgets.Button")) {
@@ -1067,7 +1067,7 @@ public class SurroundSupportTest extends RcpModelTest {
 		} else {
 			resultMenuManager = new MenuManager();
 			// handle multi selection
-			List<IMenuManager> managers = Lists.newArrayList();
+			List<IMenuManager> managers = new ArrayList<>();
 			for (ObjectInfo object_ : objects) {
 				IMenuManager manager = getDesignerMenuManager();
 				object.getBroadcastObject().addContextMenu(objects, object_, manager);

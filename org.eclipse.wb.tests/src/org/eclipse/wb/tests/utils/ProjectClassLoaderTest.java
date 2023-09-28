@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -40,6 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -564,7 +564,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * @return result of {@link ProjectClassLoader#addSourceLocations(Set, List, IProject)}.
 	 */
 	private List<String> getSourceLocations() throws Exception {
-		List<String> locations = Lists.newArrayList();
+		List<String> locations = new ArrayList<>();
 		ProjectClassLoader.addSourceLocations(Sets.<IProject>newHashSet(), locations, m_project);
 		return locations;
 	}
@@ -632,7 +632,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * @return result of {@link ProjectClassLoader#addOutputLocations(Set, List, IProject)}.
 	 */
 	private List<String> getOutputLocations() throws Exception {
-		List<String> locations = Lists.newArrayList();
+		List<String> locations = new ArrayList<>();
 		ProjectClassLoader.addOutputLocations(Sets.<IProject>newHashSet(), locations, m_project);
 		return locations;
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
@@ -43,6 +41,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -649,7 +648,7 @@ public class LayoutTest extends XwtModelTest {
 				assertNotNull(dropDown);
 				dropDown.notifyListeners(SWT.Show, null);
 				{
-					List<String> itemTexts = Lists.newArrayList();
+					List<String> itemTexts = new ArrayList<>();
 					for (MenuItem menuItem : dropDown.getItems()) {
 						itemTexts.add(menuItem.getText());
 					}

@@ -60,6 +60,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -320,7 +321,7 @@ public class DesignerPalette {
 						}
 					});
 					// convert EntryInfo's into IEntry's
-					List<IEntry> entries = Lists.newArrayList();
+					List<IEntry> entries = new ArrayList<>();
 					for (EntryInfo entryInfo : entryInfoList) {
 						if (entryInfo.isVisible()) {
 							IEntry entry = getVisualEntry(entryInfo);
@@ -393,7 +394,7 @@ public class DesignerPalette {
 					}
 				});
 				// convert CategoryInfo's into ICategory's
-				List<ICategory> categories = Lists.newArrayList();
+				List<ICategory> categories = new ArrayList<>();
 				for (CategoryInfo categoryInfo : categoryInfoList) {
 					if (shouldBeDisplayed(categoryInfo)) {
 						ICategory category = getVisualCategory(categoryInfo);

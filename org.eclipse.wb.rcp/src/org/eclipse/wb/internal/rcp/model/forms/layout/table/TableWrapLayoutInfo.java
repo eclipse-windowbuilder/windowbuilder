@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -67,6 +66,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -500,8 +500,8 @@ IPreferenceConstants {
 	// Dimensions access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<TableWrapColumnInfo<ControlInfo>> m_columns = Lists.newArrayList();
-	private final List<TableWrapRowInfo<ControlInfo>> m_rows = Lists.newArrayList();
+	private final List<TableWrapColumnInfo<ControlInfo>> m_columns = new ArrayList<>();
+	private final List<TableWrapRowInfo<ControlInfo>> m_rows = new ArrayList<>();
 
 	@Override
 	public List<TableWrapColumnInfo<ControlInfo>> getColumns() {

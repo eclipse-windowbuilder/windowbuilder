@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.wizards.autobindings;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -49,6 +48,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.beans.PropertyDescriptor;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -163,7 +163,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 		if (properties != null) {
 			return properties;
 		}
-		properties = Lists.newArrayList();
+		properties = new ArrayList<>();
 		for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(choosenClass)) {
 			properties.add(new PropertyAdapter(descriptor));
 		}
@@ -185,7 +185,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 	@Override
 	public String performSubstitutions(String code, ImportsManager imports) throws Exception {
 		// prepare properties
-		final List<PropertyAdapter> properties = Lists.newArrayList();
+		final List<PropertyAdapter> properties = new ArrayList<>();
 		Display.getDefault().syncExec(new Runnable() {
 			@Override
 			public void run() {

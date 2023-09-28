@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -33,6 +32,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -188,7 +188,7 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
 	 * @return the references on this {@link JavaInfo} using this variable.
 	 */
 	protected final List<Expression> getComponentReferences() {
-		List<Expression> componentReferences = Lists.newArrayList();
+		List<Expression> componentReferences = new ArrayList<>();
 		for (Expression reference : getReferences()) {
 			if (m_javaInfo.isRepresentedBy(reference)) {
 				componentReferences.add(reference);

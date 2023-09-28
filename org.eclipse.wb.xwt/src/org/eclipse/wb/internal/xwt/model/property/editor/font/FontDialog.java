@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.property.editor.font;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ReusableDialog;
@@ -25,6 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,7 +81,7 @@ public final class FontDialog extends ReusableDialog {
 	////////////////////////////////////////////////////////////////////////////
 	private FontPreviewCanvas m_previewCanvas;
 	private TabFolder m_tabFolder;
-	private final List<AbstractFontPage> m_pages = Lists.newArrayList();
+	private final List<AbstractFontPage> m_pages = new ArrayList<>();
 
 	//
 	@Override

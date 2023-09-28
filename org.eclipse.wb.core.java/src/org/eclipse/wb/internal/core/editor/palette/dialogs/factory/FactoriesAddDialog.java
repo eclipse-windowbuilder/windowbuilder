@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs.factory;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -42,6 +40,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -201,7 +200,7 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
 		CategoryInfo category = m_palette.getCategories().get(m_categoryField.getSelectionIndex());
 		//
 		List<?> signatures = m_signaturesField.getCheckedElements();
-		List<Command> commands = Lists.newArrayList();
+		List<Command> commands = new ArrayList<>();
 		for (int i = 0; i < signatures.size(); i++) {
 			String signature = (String) signatures.get(i);
 			//

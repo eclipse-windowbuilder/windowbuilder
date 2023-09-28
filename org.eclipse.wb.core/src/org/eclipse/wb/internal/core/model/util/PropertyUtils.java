@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,7 +62,7 @@ public final class PropertyUtils {
 	 * @return the titles of given {@link Property}'s.
 	 */
 	public static List<String> getTitles(List<Property> properties) {
-		List<String> titles = Lists.newArrayList();
+		List<String> titles = new ArrayList<>();
 		for (Property property : properties) {
 			titles.add(property.getTitle());
 		}
@@ -162,7 +162,7 @@ public final class PropertyUtils {
 	public static List<Property> getProperties(ObjectInfo objectInfo, Predicate<Property> predicate)
 			throws Exception {
 		Property[] properties = objectInfo.getProperties();
-		List<Property> filteredProperties = Lists.newArrayList();
+		List<Property> filteredProperties = new ArrayList<>();
 		for (Property property : properties) {
 			if (predicate.apply(property)) {
 				filteredProperties.add(property);

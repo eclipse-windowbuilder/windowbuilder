@@ -7,8 +7,6 @@
  *******************************************************************************/
 package swingintegration.example;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.swt.widgets.Display;
 
 import java.awt.AWTEvent;
@@ -20,6 +18,7 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ import java.util.List;
 class AwtDialogListener implements AWTEventListener, ComponentListener {
 	// modalDialogs should be accessed only from the AWT thread, so no
 	// synchronization is needed.
-	private final List<Dialog> modalDialogs = Lists.newArrayList();
+	private final List<Dialog> modalDialogs = new ArrayList<>();
 	private final Display display;
 
 	/**

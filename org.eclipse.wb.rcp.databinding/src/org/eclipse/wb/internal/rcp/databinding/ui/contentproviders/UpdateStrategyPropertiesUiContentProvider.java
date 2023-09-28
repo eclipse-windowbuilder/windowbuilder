@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
@@ -29,6 +27,7 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ import java.util.List;
  */
 public final class UpdateStrategyPropertiesUiContentProvider implements IUiContentProvider {
 	//
-	private final List<IUiContentProvider> m_providers = Lists.newArrayList();
+	private final List<IUiContentProvider> m_providers = new ArrayList<>();
 	private ExpandableComposite m_expandableComposite;
 	private final String m_settingKey;
 	private final String m_captionPrefix;

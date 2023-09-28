@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAreaDialog;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
@@ -59,6 +57,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +67,7 @@ import java.util.List;
  * @coverage swing.laf.ui
  */
 public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidationTitleAreaDialog {
-	protected final List<Command> m_commands = Lists.newArrayList();
+	protected final List<Command> m_commands = new ArrayList<>();
 	private final CategoryInfo m_targetCategory;
 	// ui
 	protected ComboViewer m_categoriesCombo;

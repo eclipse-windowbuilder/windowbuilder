@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.rcp.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
@@ -86,6 +84,7 @@ import org.eclipse.swt.SWT;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,7 +102,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		ConverterInfo converter =
 				new ConverterInfo("org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter");
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, converter);
 		//
 		assertEquals(
@@ -123,7 +122,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		ValidatorInfo validator =
 				new ValidatorInfo("org.eclipse.core.internal.databinding.validation.StringToDateValidator");
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, validator);
 		//
 		assertEquals(
@@ -772,7 +771,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				new ValueBeanObservableInfo(bindableObject, bindableProperty);
 		masterObservable.setCodeSupport(new BeanObservableValueCodeSupport());
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, masterObservable);
 		// ----------
 		DetailValueBeanObservableInfo observableDetailValue =
@@ -898,7 +897,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 			assertInstanceOf(UnsupportedOperationException.class, e);
 		}
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
 		//
 		observable.addSourceCode(lines, generationSupport);
@@ -955,7 +954,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 			assertInstanceOf(UnsupportedOperationException.class, e);
 		}
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
 		//
 		observable.addSourceCode(lines, generationSupport);
@@ -1289,7 +1288,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		//
 		DataBindingContextInfo contextInfo = new DataBindingContextInfo();
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, contextInfo);
 		//
 		contextInfo.addSourceCode(m_lastEditor, lines, generationSupport);
@@ -1411,7 +1410,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		model0.setCodeSupport(new SwtObservableCodeSupport());
 		ValueBindingInfo binding0 = new ValueBindingInfo(target0, model0);
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, binding0);
 		DataBindingContextInfo context = new DataBindingContextInfo();
 		context.setVariableIdentifier("context");
@@ -3079,7 +3078,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		//
 		observable.setDelayValue(100);
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
 		observable.addSourceCode(lines, generationSupport);
 		//
@@ -3091,7 +3090,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 			String variable,
 			String line1,
 			String line2) throws Exception {
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
 		//
 		observable.setCodeSupport(codeSupport);
@@ -3110,7 +3109,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 	private static void assertStrategy(UpdateStrategyInfo strategy,
 			String expectedSourceCode,
 			String... expectedLines) throws Exception {
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, strategy);
 		//
 		assertEquals(expectedSourceCode, strategy.getSourceCode(lines, generationSupport));

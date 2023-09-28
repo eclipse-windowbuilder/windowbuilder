@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 
@@ -20,6 +18,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
 	public SrcImageContainer(String id, IPackageFragmentRoot packageFragmentRoot) throws Exception {
 		m_packageFragmentRoot = packageFragmentRoot;
 		//
-		List<SrcPackageImageContainer> packageContainers = Lists.newArrayList();
+		List<SrcPackageImageContainer> packageContainers = new ArrayList<>();
 		{
 			IJavaElement[] children = m_packageFragmentRoot.getChildren();
 			for (IJavaElement child : children) {

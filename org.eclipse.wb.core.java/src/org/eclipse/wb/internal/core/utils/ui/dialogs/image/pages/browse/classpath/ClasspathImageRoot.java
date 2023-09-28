@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
@@ -24,6 +22,7 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public final class ClasspathImageRoot implements IImageRoot {
 	public ClasspathImageRoot(String id, IJavaProject project) {
 		m_project = project;
 		//
-		List<IImageContainer> containers = Lists.newArrayList();
+		List<IImageContainer> containers = new ArrayList<>();
 		try {
 			IPackageFragmentRoot[] roots = m_project.getAllPackageFragmentRoots();
 			for (int i = 0; i < roots.length; i++) {

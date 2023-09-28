@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.parser;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -111,6 +110,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -439,7 +439,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	 * Calls {@link IRootProcessor}-s.
 	 */
 	private void callRootProcessors(JavaInfo root) throws Exception {
-		List<JavaInfo> components = Lists.newArrayList();
+		List<JavaInfo> components = new ArrayList<>();
 		// fill components with no duplicates
 		for (JavaInfo javaInfo : m_components) {
 			if (!components.contains(javaInfo)) {

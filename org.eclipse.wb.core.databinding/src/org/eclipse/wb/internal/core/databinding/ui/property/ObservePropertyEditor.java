@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,8 +38,8 @@ IComplexPropertyEditor {
 		AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
 		List<AbstractBindingProperty> bindingProperties = observeProperty.getBindingProperties();
 		//
-		List<IBindingInfo> bindings = Lists.newArrayList();
-		List<Boolean> isTargets = Lists.newArrayList();
+		List<IBindingInfo> bindings = new ArrayList<>();
+		List<Boolean> isTargets = new ArrayList<>();
 		observeProperty.getBindings(bindings, isTargets);
 		//
 		int oldSize = bindingProperties.size();

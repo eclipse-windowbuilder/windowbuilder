@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.assistant;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
@@ -30,6 +28,7 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -164,7 +163,7 @@ public final class LayoutAssistantAction extends Action {
 	private void updateWindow() {
 		if (m_assistantWindow != null) {
 			// prepare selection object's
-			List<Object> selectedObjects = Lists.newArrayList();
+			List<Object> selectedObjects = new ArrayList<>();
 			for (EditPart editPart : m_viewer.getSelectedEditParts()) {
 				selectedObjects.add(editPart.getModel());
 			}

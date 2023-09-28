@@ -52,6 +52,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +67,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
 	private boolean m_initialized;
 	private AstEditor m_windowEditor;
 	private TypeDeclaration m_windowType;
-	private final List<Property> m_properties = Lists.newArrayList();
+	private final List<Property> m_properties = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

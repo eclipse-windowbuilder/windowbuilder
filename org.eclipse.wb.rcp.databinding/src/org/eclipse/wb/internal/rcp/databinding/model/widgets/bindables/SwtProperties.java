@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.databinding.model.ObserveComparator;
@@ -23,6 +22,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -34,38 +34,38 @@ import java.util.Map;
  * @coverage bindings.rcp.model.widgets
  */
 public final class SwtProperties {
-	static final List<WidgetPropertyBindableInfo> CONTROL = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> BUTTON = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> DATE_TIME = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TEXT = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> STYLED_TEXT = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TOOL_TIP = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> SPINNER = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> SCALE = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> LIST = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TABLE = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> LINK = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> SHELL = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> FORM = Lists.newArrayList();
+	static final List<WidgetPropertyBindableInfo> CONTROL = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> BUTTON = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> DATE_TIME = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TEXT = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> STYLED_TEXT = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TOOL_TIP = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> SPINNER = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> SCALE = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> LIST = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TABLE = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> LINK = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> SHELL = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> FORM = new ArrayList<>();
 	//
-	static final List<WidgetPropertyBindableInfo> LABEL = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> CLABEL = Lists.newArrayList();
+	static final List<WidgetPropertyBindableInfo> LABEL = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> CLABEL = new ArrayList<>();
 	//
-	static final List<WidgetPropertyBindableInfo> COMBO = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> CCOMBO = Lists.newArrayList();
+	static final List<WidgetPropertyBindableInfo> COMBO = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> CCOMBO = new ArrayList<>();
 	//
-	static final List<WidgetPropertyBindableInfo> ITEM = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TABLE_COLUMN = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TREE_COLUMN = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TOOL_ITEM = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> TRAY_ITEM = Lists.newArrayList();
+	static final List<WidgetPropertyBindableInfo> ITEM = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TABLE_COLUMN = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TREE_COLUMN = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TOOL_ITEM = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> TRAY_ITEM = new ArrayList<>();
 	//
-	static final List<WidgetPropertyBindableInfo> TAB_ITEM = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> CTAB_ITEM = Lists.newArrayList();
+	static final List<WidgetPropertyBindableInfo> TAB_ITEM = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> CTAB_ITEM = new ArrayList<>();
 	//
-	static final List<WidgetPropertyBindableInfo> VIEWER = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> STRUCTURED_VIEWER = Lists.newArrayList();
-	static final List<WidgetPropertyBindableInfo> CHECKABLE_VIEWER = Lists.newArrayList();
+	static final List<WidgetPropertyBindableInfo> VIEWER = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> STRUCTURED_VIEWER = new ArrayList<>();
+	static final List<WidgetPropertyBindableInfo> CHECKABLE_VIEWER = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
@@ -19,6 +17,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 
 import org.eclipse.swt.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +50,7 @@ public final class MoveSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		{
 			MoveHandle moveHandle = new MoveHandle(getHost());
 			moveHandle.setForegroundColor(m_color);

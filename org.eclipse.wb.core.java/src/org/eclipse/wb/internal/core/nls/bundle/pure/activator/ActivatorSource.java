@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.pure.activator;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -41,6 +39,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -73,7 +72,7 @@ public final class ActivatorSource extends AbstractPureBundleSource {
 	 */
 	public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
 			throws Exception {
-		List<AbstractSource> sources = Lists.newArrayList();
+		List<AbstractSource> sources = new ArrayList<>();
 		IJavaElement[] packageElements = pkg.getChildren();
 		for (int i = 0; i < packageElements.length; i++) {
 			ICompilationUnit unit = (ICompilationUnit) packageElements[i];

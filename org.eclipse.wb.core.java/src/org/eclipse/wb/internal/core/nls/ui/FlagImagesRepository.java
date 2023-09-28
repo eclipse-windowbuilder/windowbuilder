@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -19,6 +18,7 @@ import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -44,7 +44,7 @@ public class FlagImagesRepository {
 		if (m_locales == null) {
 			// prepare sorted Locale's
 			{
-				List<Locale> locales = Lists.newArrayList();
+				List<Locale> locales = new ArrayList<>();
 				Collections.addAll(locales, Locale.getAvailableLocales());
 				Collections.sort(locales, new Comparator<Locale>() {
 					@Override

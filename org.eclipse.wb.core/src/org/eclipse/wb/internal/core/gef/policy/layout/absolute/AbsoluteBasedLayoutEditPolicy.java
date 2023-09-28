@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
@@ -380,7 +379,7 @@ IPreferenceConstants {
 		}
 		// some preparations
 		List<EditPart> editParts = request.getEditParts();
-		List<IAbstractComponentInfo> modelList = Lists.newArrayList();
+		List<IAbstractComponentInfo> modelList = new ArrayList<>();
 		Rectangle[] relativeBounds = new Rectangle[editParts.size()];
 		Rectangle widgetBounds;
 		// calculate model bounds and create move feedback
@@ -485,7 +484,7 @@ IPreferenceConstants {
 		getPlacementsSupport().cleanup();
 		// prepare
 		List<EditPart> editParts = request.getEditParts();
-		List<IAbstractComponentInfo> modelList = Lists.newArrayList();
+		List<IAbstractComponentInfo> modelList = new ArrayList<>();
 		Rectangle[] relativeBounds = new Rectangle[editParts.size()];
 		Rectangle widgetBounds;
 		// calculate model bounds and create move feedback
@@ -868,7 +867,7 @@ IPreferenceConstants {
 	@Override
 	protected Command getOrphanCommand(GroupRequest request) {
 		List<EditPart> editParts = request.getEditParts();
-		final List<IAbstractComponentInfo> widgets = Lists.newArrayList();
+		final List<IAbstractComponentInfo> widgets = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			widgets.add((IAbstractComponentInfo) editPart.getModel());
 		}

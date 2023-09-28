@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
@@ -23,6 +22,7 @@ import org.eclipse.jface.action.IAction;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +58,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(button), actions);
 		// check actions: 13 action's, 2 separator's
 		assertEquals(15, actions.size());
@@ -85,7 +85,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 						"}");
 		panel.refresh();
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(), actions);
 		// no selection, so no actions
 		Assertions.assertThat(actions).isEmpty();
@@ -102,7 +102,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 						"}");
 		panel.refresh();
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(panel.getLayout());
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// not Component on MigLayout selected, so no actions
@@ -122,7 +122,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(button), actions);
 		// "Leading" should be checked
 		{
@@ -157,7 +157,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(button), actions);
 		// "Top" should be checked
 		{

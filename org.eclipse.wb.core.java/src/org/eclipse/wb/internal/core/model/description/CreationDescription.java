@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.description;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.StringUtilities;
@@ -22,6 +21,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +148,7 @@ public final class CreationDescription extends AbstractDescription {
 	// Invocations
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<CreationInvocationDescription> m_invocations = Lists.newArrayList();
+	private final List<CreationInvocationDescription> m_invocations = new ArrayList<>();
 
 	/**
 	 * @return the {@link List} of {@link CreationInvocationDescription}.

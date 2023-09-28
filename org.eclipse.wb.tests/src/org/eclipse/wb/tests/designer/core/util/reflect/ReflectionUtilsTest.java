@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.util.reflect;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -992,7 +991,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_invokeMethod() throws Exception {
-		assertEquals(0, ReflectionUtils.invokeMethod(Lists.newArrayList(), "size()"));
+		assertEquals(0, ReflectionUtils.invokeMethod(new ArrayList<>(), "size()"));
 	}
 
 	@Test
@@ -1005,7 +1004,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	@Test
 	public void test_invokeMethod_notFound() throws Exception {
 		try {
-			assertEquals(0, ReflectionUtils.invokeMethod(Lists.newArrayList(), "size2()"));
+			assertEquals(0, ReflectionUtils.invokeMethod(new ArrayList<>(), "size2()"));
 			fail();
 		} catch (AssertionFailedException e) {
 		}
@@ -1044,7 +1043,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 
 	@Test
 	public void test_invokeMethodEx_noException() {
-		assertEquals(0, ReflectionUtils.invokeMethodEx(Lists.newArrayList(), "size()"));
+		assertEquals(0, ReflectionUtils.invokeMethodEx(new ArrayList<>(), "size()"));
 	}
 
 	/**
@@ -1332,7 +1331,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getFieldObject() throws Exception {
-		assertEquals(0, ReflectionUtils.getFieldObject(Lists.newArrayList(), "size"));
+		assertEquals(0, ReflectionUtils.getFieldObject(new ArrayList<>(), "size"));
 	}
 
 	@Test
@@ -1377,7 +1376,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 
 	@Test
 	public void test_getFieldInt() throws Exception {
-		assertEquals(0, ReflectionUtils.getFieldInt(Lists.newArrayList(), "size"));
+		assertEquals(0, ReflectionUtils.getFieldInt(new ArrayList<>(), "size"));
 	}
 
 	@Test
@@ -1932,8 +1931,8 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	private static void assertHasProperties(Class<?> clazz, String... expectedNames) throws Exception {
 		List<PropertyDescriptor> descriptors = getPropertyDescriptors(clazz);
 		// prepare names/setters of all PropertyDescriptor's
-		List<String> propertyNames = Lists.newArrayList();
-		List<Method> propertySetters = Lists.newArrayList();
+		List<String> propertyNames = new ArrayList<>();
+		List<Method> propertySetters = new ArrayList<>();
 		for (PropertyDescriptor descriptor : descriptors) {
 			propertyNames.add(descriptor.getName());
 			if (descriptor.getWriteMethod() != null) {
@@ -2038,7 +2037,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertTrue(ReflectionUtils.isSuccessorOf(new String(), "java.lang.Object"));
 		assertTrue(ReflectionUtils.isSuccessorOf(new String(), "java.lang.String"));
 		//
-		assertTrue(ReflectionUtils.isSuccessorOf(Lists.newArrayList(), "java.util.List"));
+		assertTrue(ReflectionUtils.isSuccessorOf(new ArrayList<>(), "java.util.List"));
 	}
 
 	/**

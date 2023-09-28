@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.ObserveTypeContainer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
 
 	@Override
 	public void createObservables(XmlObjectInfo xmlObjectRoot) throws Exception {
-		m_observables = Lists.newArrayList();
+		m_observables = new ArrayList<>();
 		m_observables.add(new WidgetBindableInfo(xmlObjectRoot, null));
 	}
 

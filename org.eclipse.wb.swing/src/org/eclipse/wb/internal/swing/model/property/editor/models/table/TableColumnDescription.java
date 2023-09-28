@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.table;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -75,7 +74,7 @@ public final class TableColumnDescription {
 	 * update non-default values of this column.
 	 */
 	List<String> getInvocations() {
-		List<String> invocations = Lists.newArrayList();
+		List<String> invocations = new ArrayList<>();
 		if (!m_resizable) {
 			invocations.add("setResizable(false)");
 		}

@@ -11,13 +11,13 @@
 package org.eclipse.wb.internal.core.utils.xml;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -234,7 +234,7 @@ public class DocumentElement extends AbstractDocumentObject {
 	// Children
 	//
 	////////////////////////////////////////////////////////////////////////////
-	final List<DocumentElement> m_children = Lists.newArrayList();
+	final List<DocumentElement> m_children = new ArrayList<>();
 
 	/**
 	 * Adds given {@link DocumentElement} as last child.
@@ -306,7 +306,7 @@ public class DocumentElement extends AbstractDocumentObject {
 	 */
 	@SuppressWarnings("unchecked")
 	public final <T extends DocumentElement> List<T> getChildren(Class<T> elementClass) {
-		List<T> result = Lists.newArrayList();
+		List<T> result = new ArrayList<>();
 		for (DocumentElement child : getChildren()) {
 			if (elementClass.isInstance(child)) {
 				result.add((T) child);

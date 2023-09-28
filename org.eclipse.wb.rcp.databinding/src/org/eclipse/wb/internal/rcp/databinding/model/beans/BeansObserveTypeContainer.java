@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -93,6 +92,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -351,7 +351,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private List<JavaInfo> getLocalComposites() throws Exception {
-		final List<JavaInfo> composites = Lists.newArrayList();
+		final List<JavaInfo> composites = new ArrayList<>();
 		final Class<?> compositeClass = loadClass("org.eclipse.swt.widgets.Composite");
 		m_rootJavaInfo.accept(new ObjectInfoVisitor() {
 			@Override
@@ -379,7 +379,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 			AstEditor editor,
 			TypeDeclaration rootNode) throws Exception {
 		m_rootJavaInfo = root;
-		m_observables = Lists.newArrayList();
+		m_observables = new ArrayList<>();
 		// handle fields
 		ClassLoader classLoader = EditorState.get(m_rootJavaInfo.getEditor()).getEditorLoader();
 		BeanSupport beanSupport = new BeanSupport(classLoader, resolver);

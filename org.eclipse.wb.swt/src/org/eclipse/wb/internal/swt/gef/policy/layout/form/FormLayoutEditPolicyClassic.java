@@ -70,6 +70,7 @@ import org.eclipse.swt.graphics.Image;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1609,7 +1610,7 @@ implements IHeadersProvider {
 	public List<?> getHeaders(boolean isHorizontal) {
 		List<Integer> values = isHorizontal ? layout.getPreferences().getHorizontalPercents()
 				: layout.getPreferences().getVerticalPercents();
-		List<FormLayoutPreferences.PercentsInfo> results = Lists.newArrayList();
+		List<FormLayoutPreferences.PercentsInfo> results = new ArrayList<>();
 		for (Integer percent : values) {
 			results.add(new FormLayoutPreferences.PercentsInfo(percent));
 		}

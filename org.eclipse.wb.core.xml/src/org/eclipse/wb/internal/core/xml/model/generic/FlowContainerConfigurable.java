@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.generic;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.xml.model.association.Association;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -135,7 +134,7 @@ public final class FlowContainerConfigurable implements FlowContainer {
 	 * @return the {@link Method} with given name that can be invoked with object/referenceObject.
 	 */
 	private Method getCommandMethod(String methodName, Object object, Object referenceObject) {
-		List<Method> methods = Lists.newArrayList();
+		List<Method> methods = new ArrayList<>();
 		for (Method method : m_container.getClass().getMethods()) {
 			if (method.getName().equals(methodName)) {
 				Class<?>[] parameterTypes = method.getParameterTypes();

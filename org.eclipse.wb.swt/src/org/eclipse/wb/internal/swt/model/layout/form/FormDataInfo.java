@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -36,6 +34,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -202,7 +201,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 
 	@Override
 	protected void sortPropertyList(List<Property> properties) {
-		List<Property> sorted = Lists.newArrayList();
+		List<Property> sorted = new ArrayList<>();
 		Property variableProperty = PropertyUtils.getByTitle(properties, "Variable");
 		if (variableProperty != null) {
 			sorted.add(variableProperty);

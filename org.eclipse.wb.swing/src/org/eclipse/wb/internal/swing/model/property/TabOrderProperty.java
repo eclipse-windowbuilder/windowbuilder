@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
@@ -28,6 +26,7 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -111,7 +110,7 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<? extends AbstractComponentInfo> getTabPossibleChildren() throws Exception {
-		final List<AbstractComponentInfo> children = Lists.newArrayList();
+		final List<AbstractComponentInfo> children = new ArrayList<>();
 		m_container.accept(new ObjectInfoVisitor() {
 			@Override
 			public boolean visit(ObjectInfo objectInfo) throws Exception {

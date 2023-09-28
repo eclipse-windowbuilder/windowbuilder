@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.context;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -33,6 +31,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public final class DataBindingContextInfo extends AstObjectInfo {
 	private static final String BIND_SET_METHOD_2 =
 			"org.eclipse.core.databinding.DataBindingContext.bindSet(org.eclipse.core.databinding.observable.set.IObservableSet,org.eclipse.core.databinding.observable.set.IObservableSet)";
 	//
-	private final List<AbstractBindingInfo> m_bindings = Lists.newArrayList();
+	private final List<AbstractBindingInfo> m_bindings = new ArrayList<>();
 	private boolean m_addInitializeContext;
 	private String m_userTryCatchBlock;
 

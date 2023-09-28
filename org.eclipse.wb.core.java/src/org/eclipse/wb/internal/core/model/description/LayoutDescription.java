@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.LibraryInfo;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
@@ -30,6 +28,7 @@ import org.apache.commons.logging.impl.NoOpLog;
 import org.xml.sax.Attributes;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -132,7 +131,7 @@ public final class LayoutDescription {
 	// Libraries
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<LibraryInfo> m_libraries = Lists.newArrayList();
+	private final List<LibraryInfo> m_libraries = new ArrayList<>();
 
 	/**
 	 * Adds new {@link LibraryInfo} to ensure.

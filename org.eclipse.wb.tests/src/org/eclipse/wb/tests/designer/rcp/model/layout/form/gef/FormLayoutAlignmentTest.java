@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.layout.form.gef;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -27,6 +26,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -451,7 +451,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		// prepare actions
 		List<Object> actions;
 		{
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>copyOf(controls);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}

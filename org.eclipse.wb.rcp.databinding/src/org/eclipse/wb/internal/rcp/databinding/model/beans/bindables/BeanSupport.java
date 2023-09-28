@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -44,6 +43,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -126,7 +126,7 @@ public final class BeanSupport {
 			IObserveInfo parent = topLevel ? null : beanObjectInfo;
 			Class<?> beanClass = beanObjectInfo.getObjectType();
 			// load properties
-			List<PropertyBindableInfo> properties = Lists.newArrayList();
+			List<PropertyBindableInfo> properties = new ArrayList<>();
 			boolean version_1_3 =
 					Activator.getStore().getBoolean(IPreferenceConstants.GENERATE_CODE_FOR_VERSION_1_3);
 			// load properties
@@ -354,7 +354,7 @@ public final class BeanSupport {
 	 */
 	public static List<PropertyDescriptor> getPropertyDescriptors(Class<?> beanClass)
 			throws Exception {
-		List<PropertyDescriptor> descriptors = Lists.newArrayList();
+		List<PropertyDescriptor> descriptors = new ArrayList<>();
 		// handle interfaces
 		if (beanClass.isInterface() || Modifier.isAbstract(beanClass.getModifiers())) {
 			List<Class<?>> interfaces = CoreUtils.cast(ClassUtils.getAllInterfaces(beanClass));

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.event;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -70,6 +69,7 @@ import org.apache.commons.lang.text.StrSubstitutor;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -563,7 +563,7 @@ IListenerMethodProperty {
 			ListenerMethodInfo methodInfo) throws Exception {
 		AstEditor editor = m_javaInfo.getEditor();
 		// prepare annotations
-		List<String> annotations = Lists.newArrayList();
+		List<String> annotations = new ArrayList<>();
 		if (shouldAppendOverride(typeDeclaration, methodInfo)) {
 			annotations.add("@Override");
 		}

@@ -39,6 +39,7 @@ import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -251,7 +252,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Constructors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<ConstructorDescription> m_constructors = Lists.newArrayList();
+	private final List<ConstructorDescription> m_constructors = new ArrayList<>();
 
 	/**
 	 * @return the list of {@link ConstructorDescription}'s of this component.
@@ -324,7 +325,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Methods
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<MethodDescription> m_methods = Lists.newArrayList();
+	private final List<MethodDescription> m_methods = new ArrayList<>();
 	private final Map<String, MethodDescription> m_methodsMap = Maps.newTreeMap();
 
 	/**
@@ -428,7 +429,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Generic properties
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<GenericPropertyDescription> m_properties = Lists.newArrayList();
+	private final List<GenericPropertyDescription> m_properties = new ArrayList<>();
 	private final Map<String, GenericPropertyDescription> m_idToProperty = Maps.newHashMap();
 
 	/**
@@ -587,7 +588,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Exposed children
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<ExposingRule> m_exposingRules = Lists.newArrayList();
+	private final List<ExposingRule> m_exposingRules = new ArrayList<>();
 
 	/**
 	 * @return the {@link List} of {@link ExposingRule}'s.
@@ -611,7 +612,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Morphing
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<MorphingTargetDescription> m_morphingTargets = Lists.newArrayList();
+	private final List<MorphingTargetDescription> m_morphingTargets = new ArrayList<>();
 
 	/**
 	 * @return the {@link MorphingTargetDescription}'s registered for this component.

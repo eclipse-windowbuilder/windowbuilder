@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -45,7 +44,7 @@ public class GridConvertionHelper {
 	////////////////////////////////////////////////////////////////////////////
 	public static List<ComponentGroup> buildGroups(List<? extends IAbstractComponentInfo> components,
 			boolean horizontal) {
-		List<ComponentInGroup> groupComponents = Lists.newArrayList();
+		List<ComponentInGroup> groupComponents = new ArrayList<>();
 		for (IAbstractComponentInfo component : components) {
 			ComponentInGroup groupComponent =
 					new ComponentInGroup(component, component.getModelBounds(), horizontal);
@@ -63,7 +62,7 @@ public class GridConvertionHelper {
 			}
 		});
 		// create groups
-		List<ComponentGroup> groups = Lists.newArrayList();
+		List<ComponentGroup> groups = new ArrayList<>();
 		for (ComponentInGroup component : components) {
 			// create group for this component
 			ComponentGroup group = new ComponentGroup();
@@ -166,7 +165,7 @@ public class GridConvertionHelper {
 	 * Also creates gap {@link ComponentGroup}'s.
 	 */
 	public static void updateBoundsGaps(List<ComponentGroup> groups, boolean addGaps) {
-		List<ComponentGroup> newGroups = Lists.newArrayList();
+		List<ComponentGroup> newGroups = new ArrayList<>();
 		//
 		for (int i = 0; i < groups.size(); i++) {
 			ComponentGroup group = groups.get(i);
@@ -353,7 +352,7 @@ public class GridConvertionHelper {
 	 * @author scheglov_ke
 	 */
 	public static class ComponentGroup {
-		private final List<ComponentInGroup> m_components = Lists.newArrayList();
+		private final List<ComponentInGroup> m_components = new ArrayList<>();
 		private int m_min;
 		private int m_max;
 

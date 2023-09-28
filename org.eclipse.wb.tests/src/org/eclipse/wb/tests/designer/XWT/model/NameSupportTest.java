@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
@@ -23,6 +21,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -268,7 +267,7 @@ public class NameSupportTest extends XwtModelTest {
 	public void test_ensureName_defaultNameInPreferences() throws Exception {
 		// set descriptions
 		{
-			List<ComponentNameDescription> descriptions = Lists.newArrayList();
+			List<ComponentNameDescription> descriptions = new ArrayList<>();
 			descriptions.add(new ComponentNameDescription("org.eclipse.swt.widgets.Button",
 					"myButton",
 					"mbtn"));

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.jface.preference;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -20,6 +18,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ IPropertyChangeListener {
 	/**
 	 * The field editors.
 	 */
-	private final List<FieldEditor> fields = Lists.newArrayList();
+	private final List<FieldEditor> fields = new ArrayList<>();
 	/**
 	 * The first invalid field editor, or <code>null</code> if all field editors are valid.
 	 */

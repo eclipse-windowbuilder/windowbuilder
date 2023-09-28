@@ -21,6 +21,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class SnapPoints {
 	protected int m_horizontalMouseMoveDirection;
 	protected int m_verticalMouseMoveDirection;
 	// feedbacks
-	protected List<Figure> m_feedbacks = Lists.newArrayList();
+	protected List<Figure> m_feedbacks = new ArrayList<>();
 	private final IFeedbackProxy m_feedbackProxy;
 	private SnapPoint m_horizontalSnappedPoint;
 	private SnapPoint m_verticalSnappedPoint;
@@ -278,7 +279,7 @@ public class SnapPoints {
 	 * Used to create snap points at whole.
 	 */
 	private List<SnapPoint> getSnapPoints(boolean isHorizontal) {
-		List<SnapPoint> pts = Lists.newArrayList();
+		List<SnapPoint> pts = new ArrayList<>();
 		for (IAbstractComponentInfo child : m_allWidgets) {
 			pts.addAll(m_snapPoints.forComponent(child, isHorizontal));
 		}
@@ -308,7 +309,7 @@ public class SnapPoints {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public List<SnapPoint> forContainer(boolean isHorizontal) {
-			List<SnapPoint> pts = Lists.newArrayList();
+			List<SnapPoint> pts = new ArrayList<>();
 			int leadingSide = PlacementUtils.getSide(isHorizontal, true);
 			int trailingSide = PlacementUtils.getSide(isHorizontal, false);
 			// snap to parent at left side with gap
@@ -327,7 +328,7 @@ public class SnapPoints {
 
 		@Override
 		public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
-			List<SnapPoint> pts = Lists.newArrayList();
+			List<SnapPoint> pts = new ArrayList<>();
 			int leadingSide = PlacementUtils.getSide(isHorizontal, true);
 			int trailingSide = PlacementUtils.getSide(isHorizontal, false);
 			if (isHorizontal) {
@@ -375,6 +376,6 @@ public class SnapPoints {
 		for (Figure figure : m_feedbacks) {
 			FigureUtils.removeFigure(figure);
 		}
-		m_feedbacks = Lists.newArrayList();
+		m_feedbacks = new ArrayList<>();
 	}
 }

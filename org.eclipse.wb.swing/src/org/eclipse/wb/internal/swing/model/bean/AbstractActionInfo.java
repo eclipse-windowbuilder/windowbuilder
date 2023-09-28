@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.model.bean;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
@@ -43,6 +42,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import org.apache.commons.lang.SystemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -100,10 +100,10 @@ public class AbstractActionInfo extends ActionInfo {
 		CreationSupport creationSupport = getCreationSupport();
 		// no additional properties available
 		if (!(creationSupport instanceof IActionSupport)) {
-			return Lists.newArrayList();
+			return new ArrayList<>();
 		}
 		// create properties
-		List<Property> properties = Lists.newArrayList();
+		List<Property> properties = new ArrayList<>();
 		properties.add(createStringProperty("name", "NAME"));
 		properties.add(createStringProperty("short description", "SHORT_DESCRIPTION"));
 		properties.add(createStringProperty("long description", "LONG_DESCRIPTION"));
@@ -166,7 +166,7 @@ public class AbstractActionInfo extends ActionInfo {
 
 	private List<ExpressionAccessor> getAccessors(String keyName) throws Exception {
 		IActionSupport creationInfo = (IActionSupport) getCreationSupport();
-		List<ExpressionAccessor> accessors = Lists.newArrayList();
+		List<ExpressionAccessor> accessors = new ArrayList<>();
 		// <init>()
 		{
 			ExpressionAccessor constructorAccessor =

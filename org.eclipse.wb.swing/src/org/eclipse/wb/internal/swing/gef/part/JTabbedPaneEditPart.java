@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.part;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.JTabbedPaneLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.JTabbedPaneTabLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +57,7 @@ public final class JTabbedPaneEditPart extends ComponentEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Object> getModelChildren() {
-		List<Object> children = Lists.newArrayList();
+		List<Object> children = new ArrayList<>();
 		children.addAll(super.getModelChildren());
 		children.addAll(m_component.getTabs());
 		return children;

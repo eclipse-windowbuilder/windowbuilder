@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -22,6 +20,7 @@ import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,7 +122,7 @@ public final class GenericPropertyDescription extends AbstractDescription {
 	// Accessors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<ExpressionAccessor> m_accessors = Lists.newArrayList();
+	private final List<ExpressionAccessor> m_accessors = new ArrayList<>();
 
 	/**
 	 * @return the list of {@link ExpressionAccessor}'s.

@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.core.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.GenericTypeError;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
@@ -31,6 +30,7 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		// prepare objects
 		List<Object> objects;
 		{
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			objects.add(firstObject);
 			objects.add(555);
 		}
@@ -75,7 +75,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		// prepare objects
 		List<Object> objects;
 		{
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			objects.add("123");
 			objects.add(555);
 		}
@@ -110,7 +110,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		// prepare objects
 		List<Object> objects;
 		{
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			objects.add("123");
 			objects.add(555);
 		}
@@ -193,7 +193,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		// prepare objects
 		List<Object> objects;
 		{
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			objects.add("111");
 			objects.add("222");
 			objects.add(333);
@@ -220,7 +220,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		// prepare objects
 		List<Object> objects;
 		{
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			objects.add("111");
 			objects.add("222");
 		}

@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -28,6 +26,7 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,7 +86,7 @@ IContextMenuConstants {
 	protected void preprocessSelection(List<EditPart> editParts) {
 		super.preprocessSelection(editParts);
 		// prepare selected ObjectInfo's
-		m_selectedObjects = Lists.newArrayList();
+		m_selectedObjects = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			if (editPart.getModel() instanceof ObjectInfo) {
 				m_selectedObjects.add((ObjectInfo) editPart.getModel());

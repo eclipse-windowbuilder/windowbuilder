@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.tree;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -27,6 +25,7 @@ import org.eclipse.jface.window.Window;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -96,7 +95,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 		if (property instanceof GenericProperty genericProperty) {
 			JavaInfo javaInfo = genericProperty.getJavaInfo();
 			// prepare lines
-			List<String> lines = Lists.newArrayList();
+			List<String> lines = new ArrayList<>();
 			// header
 			{
 				lines.add("new javax.swing.tree.DefaultTreeModel(");

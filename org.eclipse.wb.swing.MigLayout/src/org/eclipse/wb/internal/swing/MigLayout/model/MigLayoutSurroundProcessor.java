@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.util.surround.ISurroundProcessor;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +80,7 @@ ISurroundProcessor<ContainerInfo, ComponentInfo> {
 			MigLayoutInfo sourceLayout = (MigLayoutInfo) sourceContainer.getLayout();
 			// copy columns
 			{
-				List<MigColumnInfo> targetColumns = Lists.newArrayList();
+				List<MigColumnInfo> targetColumns = new ArrayList<>();
 				for (int columnIndex = targetBounds.x; columnIndex < targetBounds.right(); columnIndex++) {
 					MigColumnInfo sourceColumn = sourceLayout.getColumns().get(columnIndex);
 					MigColumnInfo targetColumn = new MigColumnInfo(targetLayout);
@@ -92,7 +91,7 @@ ISurroundProcessor<ContainerInfo, ComponentInfo> {
 			}
 			// copy rows
 			{
-				List<MigRowInfo> targetRows = Lists.newArrayList();
+				List<MigRowInfo> targetRows = new ArrayList<>();
 				for (int rowIndex = targetBounds.y; rowIndex < targetBounds.bottom(); rowIndex++) {
 					MigRowInfo sourceRow = sourceLayout.getRows().get(rowIndex);
 					MigRowInfo targetRow = new MigRowInfo(targetLayout);

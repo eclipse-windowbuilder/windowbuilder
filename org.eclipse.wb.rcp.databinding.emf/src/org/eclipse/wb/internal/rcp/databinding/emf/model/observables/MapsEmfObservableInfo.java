@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.observables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.HierarchySupport;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.KnownElements
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class MapsEmfObservableInfo extends MapsBeanObservableInfo {
 		List<PropertyInfo> emfProperties = m_propertiesSupport.getProperties(getElementType());
 		Assert.isTrue(!CollectionUtils.isEmpty(emfProperties));
 		// bind properties to EMF properties
-		m_emfProperties = Lists.newArrayList();
+		m_emfProperties = new ArrayList<>();
 		//
 		for (String propertyName : properties) {
 			for (PropertyInfo property : emfProperties) {
@@ -79,8 +78,8 @@ public class MapsEmfObservableInfo extends MapsBeanObservableInfo {
 		Object[] firstResult = m_propertiesSupport.getClassInfoForProperty(referenceProperties.get(0));
 		Assert.isNotNull(firstResult);
 		//
-		m_emfProperties = Lists.newArrayList();
-		List<String> properties = Lists.newArrayList();
+		m_emfProperties = new ArrayList<>();
+		List<String> properties = new ArrayList<>();
 		HierarchySupport hierarchySupport = new HierarchySupport(m_propertiesSupport, false);
 		// prepare EMF properties
 		for (String propertyReference : referenceProperties) {

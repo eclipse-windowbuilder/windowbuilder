@@ -7,8 +7,6 @@
  *******************************************************************************/
 package swingintegration.example;
 
-import com.google.common.collect.Lists;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.EventQueue;
@@ -21,6 +19,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPopupMenu;
@@ -180,7 +179,7 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
 	// Returns true if any popup has been hidden
 	private boolean hidePopups() {
 		boolean result = false;
-		List<JPopupMenu> popups = Lists.newArrayList();
+		List<JPopupMenu> popups = new ArrayList<>();
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		// Look for popups inside the frame's component hierarchy.
 		// Lightweight popups will be found here.

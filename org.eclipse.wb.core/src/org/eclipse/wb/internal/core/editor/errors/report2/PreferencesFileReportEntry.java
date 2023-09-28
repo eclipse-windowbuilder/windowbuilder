@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.core.runtime.IStatus;
@@ -29,6 +27,7 @@ import org.osgi.service.prefs.BackingStoreException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +65,7 @@ public final class PreferencesFileReportEntry extends FileReportEntry {
 			IEclipsePreferences node =
 					(IEclipsePreferences) service.getRootNode().node(InstanceScope.SCOPE);
 			// prepare list of preferences to exclude to pass later into export method
-			final List<String> excludesList = Lists.newArrayList();
+			final List<String> excludesList = new ArrayList<>();
 			node.accept(new IPreferenceNodeVisitor() {
 				@Override
 				public boolean visit(IEclipsePreferences childNode) throws BackingStoreException {

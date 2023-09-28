@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.model.layout.spring;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -41,6 +40,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.SpringLayout;
@@ -563,7 +563,7 @@ public final class SpringAttachmentInfo {
 	 * An editor for choosing components in properties.
 	 */
 	private final class ComponentEditor extends AbstractComboPropertyEditor {
-		private final List<ComponentInfo> m_components = Lists.newArrayList();
+		private final List<ComponentInfo> m_components = new ArrayList<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//

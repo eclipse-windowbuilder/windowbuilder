@@ -30,6 +30,7 @@ import org.eclipse.draw2d.geometry.Transposer;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -1065,7 +1066,7 @@ public final class PlacementsSupport {
 	 *         any side.
 	 */
 	private List<ComponentAttachmentInfo> findAffectedWidgets() throws Exception {
-		List<ComponentAttachmentInfo> attached = Lists.newArrayList();
+		List<ComponentAttachmentInfo> attached = new ArrayList<>();
 		// traverse through non-operating widgets.
 		List<IAbstractComponentInfo> remainingWidgets = getRemainingWidgets();
 		for (IAbstractComponentInfo remainingWidget : remainingWidgets) {
@@ -1154,7 +1155,7 @@ public final class PlacementsSupport {
 	}
 
 	private List<ComponentAttachmentInfo> detectCyclicReferences(boolean isHorizontal) throws Exception {
-		List<ComponentAttachmentInfo> cyclicList = Lists.newArrayList();
+		List<ComponentAttachmentInfo> cyclicList = new ArrayList<>();
 		List<IAbstractComponentInfo> widgets = getNonDeletedWidgets();
 		for (IAbstractComponentInfo widget : widgets) {
 			IAbstractComponentInfo attachedLeading = m_layoutCommands.getAttachedToWidget(widget,

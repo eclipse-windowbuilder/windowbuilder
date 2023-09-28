@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -31,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -140,7 +139,7 @@ public final class TestBundle {
 		}
 	}
 	private static int m_nextExtensionId = 0;
-	private final List<ExtensionDeclaration> m_extensions = Lists.newArrayList();
+	private final List<ExtensionDeclaration> m_extensions = new ArrayList<>();
 
 	public void addExtension(String pointId, String... lines) {
 		ExtensionDeclaration extension = new ExtensionDeclaration();

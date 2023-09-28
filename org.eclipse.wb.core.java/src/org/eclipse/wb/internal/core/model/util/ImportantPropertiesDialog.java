@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -32,6 +30,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -140,7 +139,7 @@ public class ImportantPropertiesDialog extends ResizableDialog {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void showImportantProperties() throws Exception {
-		List<Property> importantProperties = Lists.newArrayList();
+		List<Property> importantProperties = new ArrayList<>();
 		for (Property property : m_javaInfo.getProperties()) {
 			PropertyCategory category = PropertyManager.getCategory(property);
 			if (category.isPreferred() || category.isSystem()) {

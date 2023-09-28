@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -39,6 +37,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -312,7 +311,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider extends ChooseCl
 		if (m_configuration.isDefaultString(className)) {
 			// default starts
 			m_choosenClass = null;
-			m_properties = Lists.newArrayList();
+			m_properties = new ArrayList<>();
 			m_properties.add(m_defaultProperty);
 			m_propertiesViewer.getViewer().setInput(m_properties);
 			m_propertiesViewer.setCheckedElements(new Object[] { m_defaultProperty });
@@ -444,7 +443,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider extends ChooseCl
 	}
 
 	List<PropertyAdapter> getChoosenProperties0() {
-		List<PropertyAdapter> properties = Lists.newArrayList();
+		List<PropertyAdapter> properties = new ArrayList<>();
 		CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
 		return properties;
 	}

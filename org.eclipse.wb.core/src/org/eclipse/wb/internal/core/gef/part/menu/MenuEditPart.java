@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
@@ -30,6 +28,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -157,7 +156,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<?> getModelChildren() {
-		List<Object> modelItems = Lists.newArrayList();
+		List<Object> modelItems = new ArrayList<>();
 		for (IMenuItemInfo menuItem : m_menu.getItems()) {
 			modelItems.add(menuItem.getModel());
 		}

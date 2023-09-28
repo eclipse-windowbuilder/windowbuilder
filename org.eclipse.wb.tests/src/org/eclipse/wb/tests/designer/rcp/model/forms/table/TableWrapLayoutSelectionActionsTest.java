@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
@@ -24,6 +23,7 @@ import org.eclipse.jface.action.IAction;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,7 +72,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions;
 		{
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of();
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
@@ -100,7 +100,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions;
 		{
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button, shell);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
@@ -138,7 +138,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		ControlInfo button = shell.getChildrenControls().get(1);
 		// actions for "button"
 		{
-			List<Object> actions = Lists.newArrayList();
+			List<Object> actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 			// check actions
@@ -155,7 +155,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		}
 		// actions for "label", "button"
 		{
-			List<Object> actions = Lists.newArrayList();
+			List<Object> actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(label, button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 			// check actions
@@ -193,7 +193,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions;
 		{
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
@@ -282,7 +282,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		// prepare actions
 		List<Object> actions;
 		{
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}

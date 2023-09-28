@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.tests;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -66,6 +65,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -542,7 +542,7 @@ public abstract class DesignerTestCase extends Assert {
 	 * @return the {@link IAction}-s children with given text.
 	 */
 	protected static List<IAction> findChildActions(IContributionManager manager, String text) {
-		List<IAction> actions = Lists.newArrayList();
+		List<IAction> actions = new ArrayList<>();
 		text = getNormalizedActionText(text);
 		for (IContributionItem contributionItem : manager.getItems()) {
 			if (contributionItem instanceof ActionContributionItem actionContributionItem) {
@@ -608,7 +608,7 @@ public abstract class DesignerTestCase extends Assert {
 	 * @return the selection actions for empty selection.
 	 */
 	public static List<Object> getSelectionActions_noSelection(ObjectInfo root) throws Exception {
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		ImmutableList<ObjectInfo> objects = ImmutableList.<ObjectInfo>of();
 		root.getBroadcastObject().addSelectionActions(objects, actions);
 		return actions;
@@ -618,7 +618,7 @@ public abstract class DesignerTestCase extends Assert {
 	 * @return the selection actions, displayed on editor toolbar.
 	 */
 	public static List<Object> getSelectionActions(ObjectInfo... objectsArray) throws Exception {
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		if (objectsArray.length != 0) {
 			ObjectInfo object = objectsArray[0];
 			List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);

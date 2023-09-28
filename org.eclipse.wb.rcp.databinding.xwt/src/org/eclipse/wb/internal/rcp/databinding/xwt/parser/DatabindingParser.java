@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.parser;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetsObserveT
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -264,7 +264,7 @@ public final class DatabindingParser {
 
 	private static List<String> splitAttributePairs(String str, String separatorChars) {
 		// StringUtils.split(str, separatorChars)
-		List<String> attributePairs = Lists.newArrayList();
+		List<String> attributePairs = new ArrayList<>();
 		int lastSeparatorPosition = 0;
 		int innerCounter = 0;
 		for (int i = 0; i < str.length(); i++) {

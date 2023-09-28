@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.FormLayout.model;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
@@ -70,6 +69,7 @@ import com.jgoodies.forms.util.DefaultUnitConverter;
 
 import java.awt.Container;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -86,10 +86,10 @@ import javax.swing.JTextField;
  * @coverage swing.FormLayout.model
  */
 public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConstants {
-	private final List<FormColumnInfo> m_columns = Lists.newArrayList();
-	private final List<FormRowInfo> m_rows = Lists.newArrayList();
-	private final List<List<FormColumnInfo>> m_columnGroups = Lists.newArrayList();
-	private final List<List<FormRowInfo>> m_rowGroups = Lists.newArrayList();
+	private final List<FormColumnInfo> m_columns = new ArrayList<>();
+	private final List<FormRowInfo> m_rows = new ArrayList<>();
+	private final List<List<FormColumnInfo>> m_columnGroups = new ArrayList<>();
+	private final List<List<FormRowInfo>> m_rowGroups = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -511,7 +511,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 		for (int groupIndex = 0; groupIndex < intGroups.length; groupIndex++) {
 			int[] intGroup = intGroups[groupIndex];
 			// create group
-			List<T> group = Lists.newArrayList();
+			List<T> group = new ArrayList<>();
 			groups.add(group);
 			// fill group
 			for (int groupElementIndex = 0; groupElementIndex < intGroup.length; groupElementIndex++) {
@@ -655,7 +655,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 		}
 		// if there are no existing group, create new one
 		if (targetGroup == null) {
-			targetGroup = Lists.newArrayList();
+			targetGroup = new ArrayList<>();
 			groups.add(targetGroup);
 		}
 		// add all dimensions into group

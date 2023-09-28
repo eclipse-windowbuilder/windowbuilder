@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
@@ -29,6 +27,7 @@ import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -137,7 +136,7 @@ FormLayoutInfoImpl<C> implements IAbsoluteLayoutCommands {
 
 	private List<AttachmentDef> findAttachedToSource(List<? extends IAbstractComponentInfo> sourceSet,
 			boolean isHorizontal) throws Exception {
-		List<AttachmentDef> affected = Lists.newArrayList();
+		List<AttachmentDef> affected = new ArrayList<>();
 		int leadingSide = PlacementUtils.getSide(isHorizontal, true);
 		int trailingSide = PlacementUtils.getSide(isHorizontal, false);
 		List<IAbstractComponentInfo> remainingComponents = getRemainingComponents(sourceSet);
@@ -419,7 +418,7 @@ FormLayoutInfoImpl<C> implements IAbsoluteLayoutCommands {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private List<IAbstractComponentInfo> getRemainingComponents(List<? extends IAbstractComponentInfo> sourceSet) {
-		List<IAbstractComponentInfo> components = Lists.newArrayList();
+		List<IAbstractComponentInfo> components = new ArrayList<>();
 		List<C> allControls = m_layout.getControls();
 		for (C control : allControls) {
 			if (!sourceSet.contains(control)) {

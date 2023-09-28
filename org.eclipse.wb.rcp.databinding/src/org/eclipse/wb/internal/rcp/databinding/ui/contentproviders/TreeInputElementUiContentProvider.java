@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
@@ -74,6 +72,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -91,7 +90,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
 	private final TreeViewerInputBindingInfo m_binding;
 	private final IPageListener m_pageListener;
 	private final DatabindingsProvider m_provider;
-	private final List<SimpleClassObjectInfo> m_defaultObjects = Lists.newArrayList();
+	private final List<SimpleClassObjectInfo> m_defaultObjects = new ArrayList<>();
 	private ICompleteListener m_completeListener;
 	private TabFolder m_tabFolder;
 	private final ChooseClassUiContentProvider m_elementTypeDesignerUIProvider;
@@ -207,7 +206,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
 	 * Fill Designer page.
 	 */
 	private List<IUiContentProvider> createDesignerProviders() {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		providers.add(m_elementTypeDesignerUIProvider);
 		//
 		if (m_binding.isDesignerMode()) {
@@ -274,7 +273,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
 	 * Fill JFace page.
 	 */
 	private List<IUiContentProvider> createJFaceProviders() {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		//
 		if (m_binding.isDesignerMode()) {
 			// create fake objects
@@ -630,7 +629,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
 					if (properties == null) {
 						setClassName(CoreUtils.getClassName(elementType));
 					} else {
-						List<String> checkedProperties = Lists.newArrayList();
+						List<String> checkedProperties = new ArrayList<>();
 						for (int i = 0; i < properties.length; i++) {
 							checkedProperties.add("\"" + properties[i] + "\"");
 						}

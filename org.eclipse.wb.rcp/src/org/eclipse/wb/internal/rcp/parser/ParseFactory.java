@@ -75,6 +75,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.ui.PlatformUI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -190,7 +191,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 			if (javaInfo != null) {
 				javaInfo.setVariableSupport(new ThisVariableSupport(javaInfo, constructor));
 				// prepare root context
-				List<MethodDeclaration> rootMethods = Lists.newArrayList();
+				List<MethodDeclaration> rootMethods = new ArrayList<>();
 				rootMethods.add(constructor);
 				if (javaInfo instanceof DialogInfo) {
 					DialogInfo.contributeExecutionFlow(typeDeclaration, rootMethods);

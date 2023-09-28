@@ -85,6 +85,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -516,7 +517,7 @@ public final class ExecutionFlowUtils {
 	 */
 	public static MethodDeclaration getExecutionFlowConstructor(TypeDeclaration typeDeclaration) {
 		// build list of constructors
-		List<MethodDeclaration> constructors = Lists.newArrayList();
+		List<MethodDeclaration> constructors = new ArrayList<>();
 		for (MethodDeclaration methodDeclaration : typeDeclaration.getMethods()) {
 			if (methodDeclaration.isConstructor()) {
 				constructors.add(methodDeclaration);
@@ -1119,7 +1120,7 @@ public final class ExecutionFlowUtils {
 			String variableName = getVariableName(variable);
 			List<ASTNode> assignments = m_variableToAssignments.get(variableName);
 			if (assignments == null) {
-				assignments = Lists.newArrayList();
+				assignments = new ArrayList<>();
 				m_variableToAssignments.put(variableName, assignments);
 			}
 			return assignments;
@@ -1149,7 +1150,7 @@ public final class ExecutionFlowUtils {
 				String variableName = getVariableName(variable);
 				references = m_variableToReferences.get(variableName);
 				if (references == null) {
-					references = Lists.newArrayList();
+					references = new ArrayList<>();
 					m_variableToReferences.put(variableName, references);
 				}
 			}
@@ -1173,7 +1174,7 @@ public final class ExecutionFlowUtils {
 	 */
 	public static List<ASTNode> getInvocations(ExecutionFlowDescription flowDescription,
 			MethodDeclaration methodDeclaration) {
-		final List<ASTNode> invocations = Lists.newArrayList();
+		final List<ASTNode> invocations = new ArrayList<>();
 		// prepare required values
 		IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
 		if (requiredBinding == null) {

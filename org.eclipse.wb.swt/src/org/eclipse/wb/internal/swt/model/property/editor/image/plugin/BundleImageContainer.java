@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IHasChildren;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
@@ -64,7 +62,7 @@ public class BundleImageContainer extends ImageContainer implements IHasChildren
 	private void ensureResources() {
 		if (m_resources == null) {
 			Enumeration<?> entryPaths = m_bundle.getEntryPaths(m_path);
-			List<IImageElement> resources = Lists.newArrayList();
+			List<IImageElement> resources = new ArrayList<>();
 			while (entryPaths.hasMoreElements()) {
 				String entry = (String) entryPaths.nextElement();
 				if (entry.endsWith("/")) {

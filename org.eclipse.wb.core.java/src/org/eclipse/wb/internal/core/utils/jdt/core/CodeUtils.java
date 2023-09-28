@@ -61,6 +61,7 @@ import org.eclipse.osgi.service.resolver.BundleDescription;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -251,7 +252,7 @@ public class CodeUtils {
 	 */
 	private static List<IJavaElement> searchReferences(IJavaSearchScope scope, IJavaElement element)
 			throws Exception {
-		final List<IJavaElement> references = Lists.newArrayList();
+		final List<IJavaElement> references = new ArrayList<>();
 		SearchRequestor requestor = new SearchRequestor() {
 			@Override
 			public void acceptSearchMatch(SearchMatch match) {
@@ -751,7 +752,7 @@ public class CodeUtils {
 	 */
 	public static List<IContainer> getSourceContainers(IJavaProject javaProject,
 			boolean includeRequiredProjects) throws Exception {
-		List<IContainer> containers = Lists.newArrayList();
+		List<IContainer> containers = new ArrayList<>();
 		addSourceContainers(
 				containers,
 				Sets.<IJavaProject>newHashSet(),

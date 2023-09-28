@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -85,6 +84,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -406,7 +406,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 	}
 
 	private void createCommands() {
-		m_commands = Lists.newArrayList();
+		m_commands = new ArrayList<>();
 		// handle category command
 		int categoryIndex = m_categoryCombo.getSelectionIndex();
 		CategoryInfo category = null;
@@ -604,7 +604,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 	private List<PaletteElementInfo> extractElementsFromJarAllClasses(JarInputStream jarStream)
 			throws Exception {
 		// load all classes
-		List<PaletteElementInfo> elements = Lists.newArrayList();
+		List<PaletteElementInfo> elements = new ArrayList<>();
 		try {
 			while (true) {
 				JarEntry jarEntry = jarStream.getNextJarEntry();
@@ -638,7 +638,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 
 	private List<PaletteElementInfo> extractElementsFromJarByManifest(JarInputStream jarStream)
 			throws Exception {
-		List<PaletteElementInfo> elements = Lists.newArrayList();
+		List<PaletteElementInfo> elements = new ArrayList<>();
 		Manifest manifest = jarStream.getManifest();
 		// check manifest, if null find it
 		if (manifest == null) {

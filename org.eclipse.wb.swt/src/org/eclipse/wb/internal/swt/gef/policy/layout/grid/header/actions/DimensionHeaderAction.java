@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,7 +79,7 @@ public abstract class DimensionHeaderAction<C extends IControlInfo> extends Obje
 	@SuppressWarnings("unchecked")
 	protected final void runEx() throws Exception {
 		// prepare selection
-		List<GridDimensionInfo<C>> dimensions = Lists.newArrayList();
+		List<GridDimensionInfo<C>> dimensions = new ArrayList<>();
 		{
 			for (EditPart editPart : m_viewer.getSelectedEditParts()) {
 				if (editPart instanceof DimensionHeaderEditPart<?>) {

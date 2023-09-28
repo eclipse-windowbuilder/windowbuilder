@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.model;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.core.model.variable.FieldVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -181,7 +181,7 @@ public final class SynchronizeManager {
 	@SuppressWarnings("unchecked")
 	public static <T extends ObjectInfo> List<T> getChildren(ObjectInfo objectInfo, Class<T> clazz)
 			throws Exception {
-		List<T> childrenInfos = Lists.newArrayList();
+		List<T> childrenInfos = new ArrayList<>();
 		for (ObjectInfo childObjectInfo : objectInfo.getChildren()) {
 			boolean[] visible = new boolean[]{childObjectInfo.getPresentation().isVisible()};
 			objectInfo.getBroadcast(ObjectInfoChildTree.class).invoke(childObjectInfo, visible);

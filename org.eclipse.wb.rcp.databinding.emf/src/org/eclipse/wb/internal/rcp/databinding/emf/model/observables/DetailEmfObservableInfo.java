@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.observables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
@@ -33,6 +31,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ObservableDet
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -138,7 +137,7 @@ public abstract class DetailEmfObservableInfo extends DetailBeanObservableInfo {
 		providers.add(new ObservableDetailUiContentProvider(configuration, this, provider) {
 			@Override
 			protected List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
-				List<PropertyAdapter> properties = Lists.newArrayList();
+				List<PropertyAdapter> properties = new ArrayList<>();
 				for (PropertyInfo emfPropertyInfo : m_propertiesSupport.getProperties(choosenClass)) {
 					properties.add(new ChooseClassAndTreePropertiesUiContentProvider.ObservePropertyAdapter(null,
 							new EPropertyBindableInfo(m_propertiesSupport,

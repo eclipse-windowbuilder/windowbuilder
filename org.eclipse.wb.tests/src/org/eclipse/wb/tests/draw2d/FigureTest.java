@@ -35,6 +35,7 @@ import org.junit.Test;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -805,7 +806,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		testFigure1.add(testFigure2);
 		testFigure1.add(testFigure3);
 		//
-		final List<Figure> track = Lists.newArrayList();
+		final List<Figure> track = new ArrayList<>();
 		FigureVisitor visitor = new FigureVisitor() {
 			@Override
 			public boolean visit(Figure figure) {

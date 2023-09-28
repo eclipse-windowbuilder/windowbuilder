@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette.model;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -45,6 +44,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -160,7 +160,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	// Libraries
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<LibraryInfo> m_libraries = Lists.newArrayList();
+	private final List<LibraryInfo> m_libraries = new ArrayList<>();
 
 	/**
 	 * Adds new {@link LibraryInfo} to ensure.

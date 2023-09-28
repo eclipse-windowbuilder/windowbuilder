@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public final class ProjectImageContainer extends FileImageContainer {
 	@Override
 	public Object[] findResource(String symbolicName, String imagePath) {
 		if (m_symbolicName.equals(symbolicName)) {
-			List<Object> paths = Lists.newArrayList();
+			List<Object> paths = new ArrayList<>();
 			if (findResource(paths, imagePath)) {
 				return paths.toArray();
 			}

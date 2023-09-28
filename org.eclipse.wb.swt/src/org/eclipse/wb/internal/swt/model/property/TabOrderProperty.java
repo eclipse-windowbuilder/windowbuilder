@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -24,6 +22,7 @@ import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,7 +94,7 @@ org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
 	@Override
 	protected List<? extends AbstractComponentInfo> getTabPossibleChildren() throws Exception {
 		CompositeInfo composite = (CompositeInfo) m_container;
-		List<AbstractComponentInfo> children = Lists.newArrayList();
+		List<AbstractComponentInfo> children = new ArrayList<>();
 		for (AbstractComponentInfo child : composite.getChildrenControls()) {
 			// ask listeners if child should be displayed
 			boolean[] visible = new boolean[]{true};

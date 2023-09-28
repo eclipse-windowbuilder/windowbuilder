@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.order;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -20,6 +18,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +65,7 @@ public abstract class MethodOrderChildren extends MethodOrder {
 	 * @return list typed (managed by this order) children {@link JavaInfo}'s of given parent.
 	 */
 	protected List<JavaInfo> getTargetChildren(JavaInfo javaInfo) throws Exception {
-		List<JavaInfo> list = Lists.newArrayList();
+		List<JavaInfo> list = new ArrayList<>();
 		for (JavaInfo child : javaInfo.getChildrenJava()) {
 			if (isTargetChild(child)) {
 				list.add(child);

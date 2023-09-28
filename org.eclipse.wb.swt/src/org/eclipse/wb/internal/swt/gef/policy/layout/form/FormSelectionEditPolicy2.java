@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -28,6 +26,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public final class FormSelectionEditPolicy2 extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		moveHandle.setBorder(new LineBorder(IColorConstants.lightBlue));
 		handles.add(moveHandle);

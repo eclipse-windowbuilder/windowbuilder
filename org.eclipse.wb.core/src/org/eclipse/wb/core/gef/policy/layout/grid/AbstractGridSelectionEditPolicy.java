@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
@@ -44,6 +42,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -191,7 +190,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 */
 	public final void showAlignmentFigures() {
 		if (m_alignmentFigures == null) {
-			m_alignmentFigures = Lists.newArrayList();
+			m_alignmentFigures = new ArrayList<>();
 			// show cell figures for all children of host's parent
 			{
 				Collection<EditPart> editParts = getHost().getParent().getChildren();

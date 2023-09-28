@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -30,6 +29,7 @@ import org.apache.commons.lang.ClassUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,11 +57,11 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
 		// prepare value scope
 		String valuesScope = m_configuration.getValuesScope();
 		if (valuesScope == null) {
-			m_classes = Lists.newArrayList();
+			m_classes = new ArrayList<>();
 		} else {
 			List<String> classes = SCOPES.get(valuesScope);
 			if (classes == null) {
-				classes = Lists.newArrayList();
+				classes = new ArrayList<>();
 				SCOPES.put(valuesScope, classes);
 			}
 			m_classes = classes;

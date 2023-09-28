@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.EmptyProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
@@ -35,6 +33,7 @@ import org.eclipse.swt.graphics.Point;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,8 +83,8 @@ public class ColorPropertyEditorTest extends XwtModelTest {
 	public void test_ColorSupport_getSystemColors() throws Exception {
 		ColorInfo[] colors = ColorSupport.getSystemColors();
 		// check some names
-		List<String> names = Lists.newArrayList();
-		List<Object> datas = Lists.newArrayList();
+		List<String> names = new ArrayList<>();
+		List<Object> datas = new ArrayList<>();
 		for (ColorInfo colorInfo : colors) {
 			names.add(colorInfo.getName());
 			datas.add(colorInfo.getName());
@@ -103,8 +102,8 @@ public class ColorPropertyEditorTest extends XwtModelTest {
 	public void test_ColorSupport_getNamedColors() throws Exception {
 		ColorInfo[] colors = ColorSupport.getNamedColors();
 		// check some names
-		List<String> names = Lists.newArrayList();
-		List<Object> datas = Lists.newArrayList();
+		List<String> names = new ArrayList<>();
+		List<Object> datas = new ArrayList<>();
 		for (ColorInfo colorInfo : colors) {
 			names.add(colorInfo.getName());
 			datas.add(colorInfo.getData());

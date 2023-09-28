@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.utils.xml;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public final class Model {
 	// Listeners
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<IModelChangedListener> m_listeners = Lists.newArrayList();
+	private final List<IModelChangedListener> m_listeners = new ArrayList<>();
 
 	/**
 	 * Adds the listener to the list of listeners that will be notified on model changes.

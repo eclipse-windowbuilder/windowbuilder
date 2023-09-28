@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -29,6 +27,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +44,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	private IEditPartFactory m_factory;
 	private final Map<Object, EditPart> m_modelToEditPart = new HashMap<>();
 	private MenuManager m_contextMenu;
-	private List<EditPart> m_selectionList = Lists.newArrayList();
+	private List<EditPart> m_selectionList = new ArrayList<>();
 	private EventListenerList m_eventTable;
 	/**
 	 * The EditPart which is being selected in selection process.
@@ -344,7 +343,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 
 	private void internalDeselectAll() {
 		List<EditPart> selectionList = m_selectionList;
-		m_selectionList = Lists.newArrayList();
+		m_selectionList = new ArrayList<>();
 		for (EditPart part : selectionList) {
 			part.setSelected(EditPart.SELECTED_NONE);
 		}

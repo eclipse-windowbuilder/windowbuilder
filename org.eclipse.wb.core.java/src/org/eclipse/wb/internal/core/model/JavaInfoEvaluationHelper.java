@@ -58,6 +58,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -454,7 +455,7 @@ public abstract class JavaInfoEvaluationHelper {
 			return new java.util.Vector<>();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.List")) {
-			return Lists.newArrayList();
+			return new ArrayList<>();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.Set")) {
 			return Sets.newHashSet();

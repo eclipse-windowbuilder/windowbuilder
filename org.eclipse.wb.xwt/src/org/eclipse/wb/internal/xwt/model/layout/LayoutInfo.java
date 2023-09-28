@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddAfter;
@@ -51,6 +49,7 @@ import org.eclipse.swt.widgets.Menu;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -442,7 +441,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
 	 */
 	@Override
 	public final List<ControlInfo> getControls() {
-		List<ControlInfo> controls = Lists.newArrayList();
+		List<ControlInfo> controls = new ArrayList<>();
 		for (ControlInfo control : getComposite().getChildrenControls()) {
 			if (isManagedObject(control)) {
 				controls.add(control);

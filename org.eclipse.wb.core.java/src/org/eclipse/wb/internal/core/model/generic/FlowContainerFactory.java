@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model.generic;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObjectFactories;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,7 +53,7 @@ public final class FlowContainerFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public List<FlowContainer> get() {
-		List<FlowContainer> containers = Lists.newArrayList();
+		List<FlowContainer> containers = new ArrayList<>();
 		addConfigurableContainers(containers);
 		return containers;
 	}
@@ -76,7 +76,7 @@ public final class FlowContainerFactory {
 	}
 
 	private List<FlowContainerConfiguration> getConfigurationsEx() {
-		List<FlowContainerConfiguration> configurations = Lists.newArrayList();
+		List<FlowContainerConfiguration> configurations = new ArrayList<>();
 		for (String prefix : getConfigurationPrefixes()) {
 			FlowContainerConfiguration configuration = createConfiguration(prefix);
 			configurations.add(configuration);
@@ -85,7 +85,7 @@ public final class FlowContainerFactory {
 	}
 
 	private List<String> getConfigurationPrefixes() {
-		List<String> prefixes = Lists.newArrayList();
+		List<String> prefixes = new ArrayList<>();
 		addConfigurationPrefixes(prefixes, "flowContainer");
 		if (m_forCanvas) {
 			addConfigurationPrefixes(prefixes, "flowContainer.canvas");

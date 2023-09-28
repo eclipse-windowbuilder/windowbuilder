@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.ui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -30,6 +29,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -216,7 +216,7 @@ IDialogFieldListener {
 		 */
 		private List<IPackageFragment> getPackagesList() {
 			try {
-				List<IPackageFragment> packages = Lists.newArrayList();
+				List<IPackageFragment> packages = new ArrayList<>();
 				// add packages for selected root
 				if (m_receiver.m_root != null) {
 					addValidPackages(m_receiver.m_root, packages, Sets.<String>newTreeSet());

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.dnd;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -26,6 +24,7 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.Transfer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -125,7 +124,7 @@ public class TreeDropListener implements DropTargetListener {
 	}
 
 	private List<Object> getModels(List<EditPart> editParts) {
-		List<Object> models = Lists.newArrayList();
+		List<Object> models = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			models.add(editPart.getModel());
 		}
@@ -138,7 +137,7 @@ public class TreeDropListener implements DropTargetListener {
 	private void resetSelectionFromModels(List<Object> models) {
 		if (!models.isEmpty()) {
 			// prepare new EditPart's
-			List<EditPart> newEditParts = Lists.newArrayList();
+			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
 				EditPart newEditPart = m_viewer.getEditPartByModel(model);
 				newEditParts.add(newEditPart);
@@ -248,7 +247,7 @@ public class TreeDropListener implements DropTargetListener {
 	}
 
 	private static List<EditPart> includeChildren(List<EditPart> parts) {
-		List<EditPart> result = Lists.newArrayList();
+		List<EditPart> result = new ArrayList<>();
 		for (EditPart editPart : parts) {
 			result.add(editPart);
 			result.addAll(includeChildren(editPart.getChildren()));

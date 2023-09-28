@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.order.MethodOrder;
@@ -20,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public final class MethodOrderMethodsRule extends AbstractDesignerRule {
 		}
 		// push List for signatures
 		{
-			m_signatures = Lists.newArrayList();
+			m_signatures = new ArrayList<>();
 			getDigester().push(m_signatures);
 		}
 	}

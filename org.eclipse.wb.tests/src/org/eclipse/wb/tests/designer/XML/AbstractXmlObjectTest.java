@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.XML;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -49,6 +48,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -537,7 +537,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 	 * @return items from combo.
 	 */
 	protected static List<String> getComboPropertyItems() {
-		List<String> items = Lists.newArrayList();
+		List<String> items = new ArrayList<>();
 		int itemCount = TEST_COMBO.getItemCount();
 		for (int i = 0; i < itemCount; i++) {
 			items.add(TEST_COMBO.getItem(i));
@@ -606,7 +606,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 	 * @return the selection actions for empty selection.
 	 */
 	public static List<Object> getSelectionActions_noSelection(ObjectInfo root) throws Exception {
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		ImmutableList<ObjectInfo> objects = ImmutableList.<ObjectInfo>of();
 		root.getBroadcastObject().addSelectionActions(objects, actions);
 		return actions;
@@ -616,7 +616,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 	 * @return the selection actions, displayed on editor toolbar.
 	 */
 	public static List<Object> getSelectionActions(ObjectInfo... objectsArray) throws Exception {
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		if (objectsArray.length != 0) {
 			ObjectInfo object = objectsArray[0];
 			List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);

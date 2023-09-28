@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
@@ -187,7 +185,7 @@ public class MarqueeSelectionTool extends Tool {
 	 * Do not select children who are not visible.
 	 */
 	private List<EditPart> calculateNewSelection() {
-		List<EditPart> newSelections = Lists.newArrayList();
+		List<EditPart> newSelections = new ArrayList<>();
 		// loop of all editparts
 		for (EditPart editPart : getAllChildren()) {
 			if (!editPart.isSelectable()) {
@@ -288,7 +286,7 @@ public class MarqueeSelectionTool extends Tool {
 	 */
 	private List<EditPart> getAllChildren() {
 		if (m_allChildren == null || m_allChildren.isEmpty()) {
-			m_allChildren = Lists.newArrayList();
+			m_allChildren = new ArrayList<>();
 			getAllChildren(m_allChildren, getViewer().getRootEditPart());
 		}
 		return m_allChildren;

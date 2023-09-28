@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.palette.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public final class PaletteInfo {
 	// Categories
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<CategoryInfo> m_categories = Lists.newArrayList();
+	private final List<CategoryInfo> m_categories = new ArrayList<>();
 
 	/**
 	 * @return the {@link List} of {@link CategoryInfo}.

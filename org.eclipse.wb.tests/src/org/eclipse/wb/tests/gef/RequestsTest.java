@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
@@ -33,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,7 +102,7 @@ public class RequestsTest extends Assert {
 		assertSame(editPart2, request.getEditParts().get(1));
 		//
 		// check setEditParts
-		List<EditPart> editParts = Lists.newArrayList();
+		List<EditPart> editParts = new ArrayList<>();
 		request.setEditParts(editParts);
 		assertSame(editParts, request.getEditParts());
 	}

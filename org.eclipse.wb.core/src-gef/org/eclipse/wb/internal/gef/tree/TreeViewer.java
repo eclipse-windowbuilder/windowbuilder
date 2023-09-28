@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -34,6 +32,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -212,7 +211,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	 */
 	public void setSelectionToTreeWidget() {
 		// prepare selected TreeItem's
-		List<TreeItem> treeItems = Lists.newArrayList();
+		List<TreeItem> treeItems = new ArrayList<>();
 		for (EditPart editPart : getSelectedEditParts()) {
 			TreeEditPart treeEditPart = (TreeEditPart) editPart;
 			treeItems.add(treeEditPart.getWidget());

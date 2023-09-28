@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
@@ -34,6 +33,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -201,7 +201,7 @@ public final class SelectSupport {
 	 * Sets selection in {@link #m_graphicalViewer} using prepared {@link #m_selectingSet} models.
 	 */
 	private void selectByModels() {
-		List<EditPart> editParts = Lists.newArrayList();
+		List<EditPart> editParts = new ArrayList<>();
 		for (ObjectInfo object : m_selectingSet) {
 			EditPart editPart = m_graphicalViewer.getEditPartByModel(object);
 			if (editPart != null) {

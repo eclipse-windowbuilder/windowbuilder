@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
@@ -23,6 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 import com.jgoodies.forms.layout.FormSpecs;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ public final class RowsDialog extends DimensionsDialog<FormRowInfo> {
 	 * @return the deep copy of {@link List} with {@link FormRowInfo}'s.
 	 */
 	private static List<FormRowInfo> createRowsCopy(final FormLayoutInfo layout) {
-		final List<FormRowInfo> rows = Lists.newArrayList();
+		final List<FormRowInfo> rows = new ArrayList<>();
 		ExecutionUtils.runRethrow(new RunnableEx() {
 			@Override
 			public void run() throws Exception {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -41,6 +39,7 @@ import org.eclipse.wb.internal.core.utils.state.IPasteRequestProcessor;
 
 import org.eclipse.jdt.core.IJavaProject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -227,7 +226,7 @@ public final class GlobalStateJava {
 		public List<IObjectInfo> getPastingComponents(final PasteRequest request) {
 			@SuppressWarnings("unchecked")
 			final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-			final List<IObjectInfo> components = Lists.newArrayList();
+			final List<IObjectInfo> components = new ArrayList<>();
 			// prepare models
 			ExecutionUtils.runLog(new RunnableEx() {
 				@Override

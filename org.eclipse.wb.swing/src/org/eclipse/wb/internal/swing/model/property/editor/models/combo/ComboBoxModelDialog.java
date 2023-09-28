@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.combo;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
@@ -48,6 +46,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
@@ -270,7 +269,7 @@ public class ComboBoxModelDialog extends ResizableDialog {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
 			@Override
 			public String[] runObject() throws Exception {
-				List<String> strings = Lists.newArrayList();
+				List<String> strings = new ArrayList<>();
 				String stringItems =
 						itemsText != null && !itemsText.isDisposed()
 						? itemsText.getText()

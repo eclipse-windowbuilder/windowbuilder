@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.model.AbstractElementInfo;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -87,6 +85,7 @@ import org.eclipse.ui.dialogs.SearchPattern;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -114,7 +113,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 	private final AstEditor m_editor;
 	private final PaletteInfo m_palette;
 	private final Set<EntryInfo> m_goodEntryInfos;
-	private final List<Command> m_commands = Lists.newArrayList();
+	private final List<Command> m_commands = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -328,7 +327,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		private List<CategoryInfo> getCategoriesWithGoodEntries() {
-			List<CategoryInfo> goodCategories = Lists.newArrayList();
+			List<CategoryInfo> goodCategories = new ArrayList<>();
 			for (CategoryInfo category : m_palette.getCategories()) {
 				if (!category.isOptional() || hasGoodEntries(category)) {
 					goodCategories.add(category);
@@ -414,7 +413,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		m_viewer.refresh();
 		// update "visible"
 		{
-			List<Object> visibleElements = Lists.newArrayList();
+			List<Object> visibleElements = new ArrayList<>();
 			for (CategoryInfo category : m_palette.getCategories()) {
 				if (category.isVisible()) {
 					visibleElements.add(category);

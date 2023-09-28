@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ConstructorDescription;
@@ -31,6 +29,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -162,7 +161,7 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
 		// add inner TypeDeclaration with Action
 		String typeName = editor.getUniqueTypeName("SwingAction");
 		{
-			List<String> lines = Lists.newArrayList();
+			List<String> lines = new ArrayList<>();
 			lines.add("private class " + typeName + " extends javax.swing.AbstractAction {");
 			lines.add("\tpublic " + typeName + "() {");
 			lines.add("\t\tputValue(NAME, \"" + typeName + "\");");

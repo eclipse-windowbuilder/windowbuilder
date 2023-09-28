@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -72,6 +71,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -988,7 +988,7 @@ public class AstNodeUtils {
 	 *         {@link TypeDeclaration}.
 	 */
 	public static List<String> getMethodSignatures(List<MethodDeclaration> methodDeclarations) {
-		List<String> signatures = Lists.newArrayList();
+		List<String> signatures = new ArrayList<>();
 		for (MethodDeclaration methodDeclaration : methodDeclarations) {
 			signatures.add(getMethodSignature(methodDeclaration));
 		}
@@ -1150,7 +1150,7 @@ public class AstNodeUtils {
 	 * Implementation for {@link #getMethodInvocations(MethodDeclaration)}.
 	 */
 	private static List<MethodInvocation> getMethodInvocations0(MethodDeclaration methodDeclaration) {
-		final List<MethodInvocation> invocations = Lists.newArrayList();
+		final List<MethodInvocation> invocations = new ArrayList<>();
 		// prepare required values
 		IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
 		if (requiredBinding == null) {
@@ -1357,7 +1357,7 @@ public class AstNodeUtils {
 	 * Implementation for {@link #getConstructorInvocation2(MethodDeclaration)}.
 	 */
 	private static List<ConstructorInvocation> getConstructorInvocations0(MethodDeclaration methodDeclaration) {
-		final List<ConstructorInvocation> invocations = Lists.newArrayList();
+		final List<ConstructorInvocation> invocations = new ArrayList<>();
 		// prepare required values
 		IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
 		if (requiredBinding == null) {
@@ -1387,7 +1387,7 @@ public class AstNodeUtils {
 	 *         {@link CompilationUnit}.
 	 */
 	public static List<ClassInstanceCreation> getClassInstanceCreations(MethodDeclaration constructor) {
-		final List<ClassInstanceCreation> creations = Lists.newArrayList();
+		final List<ClassInstanceCreation> creations = new ArrayList<>();
 		final IMethodBinding constructorBinding = getMethodBinding(constructor);
 		constructor.getRoot().accept(new ASTVisitor() {
 			@Override
@@ -1405,7 +1405,7 @@ public class AstNodeUtils {
 	 * @return constructor {@link MethodDeclaration}'s of given {@link TypeDeclaration}.
 	 */
 	public static List<MethodDeclaration> getConstructors(TypeDeclaration typeDeclaration) {
-		List<MethodDeclaration> constructors = Lists.newArrayList();
+		List<MethodDeclaration> constructors = new ArrayList<>();
 		for (MethodDeclaration method : typeDeclaration.getMethods()) {
 			if (method.isConstructor()) {
 				constructors.add(method);
@@ -1419,7 +1419,7 @@ public class AstNodeUtils {
 	 *         this {@link CompilationUnit}.
 	 */
 	public static List<ClassInstanceCreation> getClassInstanceCreations(TypeDeclaration type) {
-		final List<ClassInstanceCreation> creations = Lists.newArrayList();
+		final List<ClassInstanceCreation> creations = new ArrayList<>();
 		final String typeName = getFullyQualifiedName(type, false);
 		type.getRoot().accept(new ASTVisitor() {
 			@Override
@@ -1684,7 +1684,7 @@ public class AstNodeUtils {
 	 *         classes.
 	 */
 	public static List<IMethodBinding> getMethodBindings(ITypeBinding typeBinding, int visibilityMask) {
-		List<IMethodBinding> methods = Lists.newArrayList();
+		List<IMethodBinding> methods = new ArrayList<>();
 		addMethodBindings(methods, typeBinding, visibilityMask);
 		return methods;
 	}
@@ -1701,7 +1701,7 @@ public class AstNodeUtils {
 	 *         classes.
 	 */
 	public static List<IVariableBinding> getFieldBindings(ITypeBinding typeBinding, int visibilityMask) {
-		List<IVariableBinding> fields = Lists.newArrayList();
+		List<IVariableBinding> fields = new ArrayList<>();
 		addFieldBindings(fields, typeBinding, visibilityMask);
 		return fields;
 	}
@@ -2251,7 +2251,7 @@ public class AstNodeUtils {
 	 */
 	public static List<VariableDeclaration> getVariableDeclarationsVisibleAt(ASTNode root,
 			int position) {
-		List<VariableDeclaration> declarations = Lists.newArrayList();
+		List<VariableDeclaration> declarations = new ArrayList<>();
 		ASTNode node = getEnclosingNode(root, position);
 		// if we hit the empty space inside of block, process all statements before given position
 		if (node instanceof Block block) {

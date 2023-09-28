@@ -27,7 +27,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.awt.Component;
 import java.util.List;
-import java.util.Optional;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

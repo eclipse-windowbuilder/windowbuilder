@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.property.event;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.event.AbstractComplexEventPropertyEditor;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectEventListeners;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +56,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
 	}
 
 	private AbstractListenerProperty[] createProperties(XmlObjectInfo object) throws Exception {
-		List<AbstractListenerProperty> properties = Lists.newArrayList();
+		List<AbstractListenerProperty> properties = new ArrayList<>();
 		object.getBroadcast(XmlObjectEventListeners.class).invoke(object, properties);
 		return properties.toArray(new AbstractListenerProperty[properties.size()]);
 	}

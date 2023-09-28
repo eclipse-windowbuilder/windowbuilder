@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.wizards.autobindings;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -47,6 +46,7 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +133,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<PropertyAdapter> getProperties0(Class<?> choosenClass) throws Exception {
-		List<PropertyAdapter> adapters = Lists.newArrayList();
+		List<PropertyAdapter> adapters = new ArrayList<>();
 		BeanSupport beanSupport = new BeanSupport();
 		beanSupport.doAddELProperty(false);
 		beanSupport.doAddSelfProperty(false);
@@ -198,7 +198,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 		code = StringUtils.replace(code, "%BeanName%", StringUtils.capitalize(beanClassShortName));
 		code = StringUtils.replace(code, "%BeanFieldAccess%", accessPrefix + fieldName);
 		// prepare properties
-		final List<PropertyAdapter> properties = Lists.newArrayList();
+		final List<PropertyAdapter> properties = new ArrayList<>();
 		Display.getDefault().syncExec(new Runnable() {
 			@Override
 			public void run() {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -24,6 +22,7 @@ import java.security.AccessControlContext;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +36,7 @@ import java.util.TimerTask;
 public final class ImageDisposer {
 	private static boolean DEBUG = false;
 	private static ReferenceQueue<Object> m_queue = new ReferenceQueue<>();
-	private static final List<ImageHolder> m_references = Lists.newArrayList();
+	private static final List<ImageHolder> m_references = new ArrayList<>();
 	private static Timer m_timer;
 	static {
 		// create Timer (its TimerThread) with empty set of ProtectionDomain's,

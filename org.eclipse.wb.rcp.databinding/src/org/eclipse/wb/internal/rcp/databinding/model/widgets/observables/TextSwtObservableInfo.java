@@ -25,6 +25,7 @@ import org.eclipse.swt.SWT;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -116,7 +117,7 @@ public final class TextSwtObservableInfo extends SwtObservableInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static List<String> getEventsSources(int[] updateEvents) {
-		List<String> updateEventStrings = Lists.newArrayList();
+		List<String> updateEventStrings = new ArrayList<>();
 		if (updateEvents.length == 1) {
 			int updateEventTypeIndex = ArrayUtils.indexOf(VALID_UPDATE_EVENT_TYPES, updateEvents[0]);
 			Assert.isTrue(updateEventTypeIndex >= 0

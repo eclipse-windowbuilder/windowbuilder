@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.databinding.ui.editor.DialogFieldUiContentProvider;
@@ -36,6 +34,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -210,7 +209,7 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void updateFromObject() throws Exception {
-		List<ClassInfo> infos = Lists.newArrayList();
+		List<ClassInfo> infos = new ArrayList<>();
 		for (String className : m_validator.getClassNames()) {
 			infos.add(createInfo(className));
 		}
@@ -221,7 +220,7 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
 
 	@Override
 	public void saveToObject() throws Exception {
-		List<String> classNames = Lists.newArrayList();
+		List<String> classNames = new ArrayList<>();
 		//
 		int size = m_dialogField.getSize();
 		for (int i = 0; i < size; i++) {

@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.swt.gefTree.policy.AbsoluteLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.gefTree.policy.FormLayoutEditPolicy;
 import org.eclipse.wb.internal.xwt.model.layout.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.xwt.model.layout.form.FormLayoutInfo;
-import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * {@link ILayoutEditPolicyFactory} for XWT.

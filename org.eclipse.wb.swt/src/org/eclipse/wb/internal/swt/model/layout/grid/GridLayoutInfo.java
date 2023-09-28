@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.model.layout.grid;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -58,6 +57,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -544,8 +544,8 @@ IGridLayoutInfo<ControlInfo> {
 	// Dimensions access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<GridColumnInfo<ControlInfo>> m_columns = Lists.newArrayList();
-	private final List<GridRowInfo<ControlInfo>> m_rows = Lists.newArrayList();
+	private final List<GridColumnInfo<ControlInfo>> m_columns = new ArrayList<>();
+	private final List<GridRowInfo<ControlInfo>> m_rows = new ArrayList<>();
 
 	/**
 	 * @return the "numColumns" property value.

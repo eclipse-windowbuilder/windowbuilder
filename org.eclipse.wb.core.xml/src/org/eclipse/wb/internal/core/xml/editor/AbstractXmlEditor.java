@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignComposite;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -48,6 +46,7 @@ import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +62,7 @@ IDesignCompositeProvider {
 	protected StructuredTextEditor m_xmlEditor;
 	private SourcePage m_sourcePage;
 	private XmlDesignPage m_designPage;
-	private final List<IXmlEditorPage> m_additionalPages = Lists.newArrayList();
+	private final List<IXmlEditorPage> m_additionalPages = new ArrayList<>();
 	private IXmlEditorPage m_activePage;
 	private String m_cleanSource;
 	private Control m_partControl;

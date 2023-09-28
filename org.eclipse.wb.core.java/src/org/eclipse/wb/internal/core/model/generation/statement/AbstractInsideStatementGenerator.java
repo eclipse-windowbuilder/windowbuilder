@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generation.statement;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.AssociationUtils;
@@ -24,6 +22,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,7 +70,7 @@ public abstract class AbstractInsideStatementGenerator extends StatementGenerato
 				List<String> lines;
 				{
 					statementSource = AssociationUtils.replaceTemplates(child, statementSource, target);
-					lines = Lists.newArrayList();
+					lines = new ArrayList<>();
 					if (leadingComments != null) {
 						Collections.addAll(lines, leadingComments);
 					}

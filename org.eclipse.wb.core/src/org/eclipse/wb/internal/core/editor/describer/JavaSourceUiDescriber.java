@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.describer;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -24,6 +22,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,7 +118,7 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 	}
 
 	private static List<String> getPatterns(String elementName) {
-		List<String> patterns = Lists.newArrayList();
+		List<String> patterns = new ArrayList<>();
 		List<IConfigurationElement> elements =
 				ExternalFactoriesHelper.getElements(
 						"org.eclipse.wb.core.designerContentPatterns",

@@ -103,6 +103,7 @@ import org.xml.sax.SAXParseException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -204,7 +205,7 @@ public final class ComponentDescriptionHelper {
 			suffix = signatureUnix + "." + parameterIndex;
 		}
 		// prepare DescriptionInfo's for parameter in inheritance hierarchy
-		List<ClassResourceInfo> additionalDescriptions = Lists.newArrayList();
+		List<ClassResourceInfo> additionalDescriptions = new ArrayList<>();
 		{
 			Class<?> hostComponentClass = hostDescription.getComponentClass();
 			List<Class<?>> types = ReflectionUtils.getSuperHierarchy(hostComponentClass);

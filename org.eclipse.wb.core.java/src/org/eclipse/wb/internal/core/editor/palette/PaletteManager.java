@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -170,7 +169,7 @@ public final class PaletteManager {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final List<Class<? extends Command>> m_commandClasses = Lists.newArrayList();
+	private static final List<Class<? extends Command>> m_commandClasses = new ArrayList<>();
 	static {
 		m_commandClasses.add(ElementVisibilityCommand.class);
 		m_commandClasses.add(CategoryAddCommand.class);
@@ -203,7 +202,7 @@ public final class PaletteManager {
 	}
 
 	private void commandsRead() throws Exception {
-		m_commands = Lists.newArrayList();
+		m_commands = new ArrayList<>();
 		// read-only "wbp-meta" from classpath, for example from jar's
 		{
 			String commandsPath = "wbp-meta/" + m_toolkitId + ".wbp-palette-commands.xml";
@@ -352,7 +351,7 @@ public final class PaletteManager {
 	 */
 	private void parseExtensionPalette() {
 		// prepare <toolkit>/<palette> elements
-		List<IConfigurationElement> paletteElements = Lists.newArrayList();
+		List<IConfigurationElement> paletteElements = new ArrayList<>();
 		for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(m_toolkitId)) {
 			for (IConfigurationElement paletteElement : toolkitElement.getChildren("palette")) {
 				if (isConditionTrue(paletteElement)) {

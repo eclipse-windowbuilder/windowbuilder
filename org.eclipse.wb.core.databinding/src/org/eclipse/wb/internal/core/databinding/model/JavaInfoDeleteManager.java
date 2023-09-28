@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public abstract class JavaInfoDeleteManager {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public final void deleteJavaInfo(ObjectInfo javaInfo) throws Exception {
-		List<IBindingInfo> deleteList = Lists.newArrayList();
+		List<IBindingInfo> deleteList = new ArrayList<>();
 		List<IBindingInfo> bindings = m_provider.getBindings();
 		//
 		if (!m_provider.getBindings().isEmpty() && accept(javaInfo)) {

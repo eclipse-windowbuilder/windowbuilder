@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -20,6 +18,7 @@ import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class NonResizableSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
 		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
 		handles.add(createHandle(IPositionConstants.SOUTH_WEST));

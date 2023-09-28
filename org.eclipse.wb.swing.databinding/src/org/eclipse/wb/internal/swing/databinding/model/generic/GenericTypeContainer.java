@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.generic;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public final class GenericTypeContainer implements IGenericType {
 	private final int m_dimension;
 	private String m_fullName;
 	private final String m_simpleName;
-	private final List<IGenericType> m_subTypes = Lists.newArrayList();
+	private final List<IGenericType> m_subTypes = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

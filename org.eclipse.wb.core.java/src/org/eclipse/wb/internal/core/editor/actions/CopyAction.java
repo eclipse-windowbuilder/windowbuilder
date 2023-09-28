@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -29,6 +27,7 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.ActionFactory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -153,7 +152,7 @@ public class CopyAction extends Action {
 
 	private static List<JavaInfoMemento> getMemento0(List<EditPart> editParts) throws Exception {
 		// prepare objects
-		List<JavaInfo> objects = Lists.newArrayList();
+		List<JavaInfo> objects = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			// prepare object
 			JavaInfo object;
@@ -175,7 +174,7 @@ public class CopyAction extends Action {
 			}
 		}
 		// prepare mementos
-		List<JavaInfoMemento> mementos = Lists.newArrayList();
+		List<JavaInfoMemento> mementos = new ArrayList<>();
 		for (JavaInfo object : objects) {
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(object);
 			mementos.add(memento);

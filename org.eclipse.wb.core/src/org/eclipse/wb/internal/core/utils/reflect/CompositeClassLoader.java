@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.reflect;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -36,9 +35,9 @@ import java.util.Set;
  * @coverage core.util
  */
 public class CompositeClassLoader extends ClassLoader {
-	private final List<ClassLoader> m_classLoaders = Lists.newArrayList();
-	private final List<List<String>> m_classNamespaces = Lists.newArrayList();
-	private final List<List<String>> m_resourceNamespaces = Lists.newArrayList();
+	private final List<ClassLoader> m_classLoaders = new ArrayList<>();
+	private final List<List<String>> m_classNamespaces = new ArrayList<>();
+	private final List<List<String>> m_resourceNamespaces = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -95,7 +94,7 @@ public class CompositeClassLoader extends ClassLoader {
 			m_classNamespaces.add(0, classPrefixes);
 			// resource namespace: convert to use '/' instead of '.' to do this only one time
 			if (resourcePrefixes != null) {
-				List<String> resourceNamespaces = Lists.newArrayList();
+				List<String> resourceNamespaces = new ArrayList<>();
 				for (String namespace : resourcePrefixes) {
 					resourceNamespaces.add(namespace.replace('.', '/'));
 				}

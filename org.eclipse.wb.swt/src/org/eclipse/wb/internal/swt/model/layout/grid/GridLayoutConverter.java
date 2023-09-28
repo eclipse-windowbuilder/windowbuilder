@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentGroup;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.internal.core.util.ComponentInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +66,7 @@ public final class GridLayoutConverter {
 		reorderControls(parent, rows);
 		// set cell for controls
 		int numColumns = columns.size();
-		List<IControlInfo> appliedControls = Lists.newArrayList();
+		List<IControlInfo> appliedControls = new ArrayList<>();
 		for (ComponentGroup column : columns) {
 			for (ComponentInGroup component : column.getComponents()) {
 				T control = (T) component.getComponent();
@@ -167,7 +166,7 @@ public final class GridLayoutConverter {
 	private static void reorderControls(ICompositeInfo parent, List<ComponentGroup> rows)
 			throws Exception {
 		// prepare list of controls in reversed order
-		List<IControlInfo> reversedControls = Lists.newArrayList();
+		List<IControlInfo> reversedControls = new ArrayList<>();
 		for (ComponentGroup row : rows) {
 			for (ComponentInGroup componentInGroup : row.getComponents()) {
 				IControlInfo control = (IControlInfo) componentInGroup.getComponent();

@@ -11,7 +11,6 @@
 package org.eclipse.wb.gef.core;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.gef.core.events.IEditPartListener;
 import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -61,8 +61,8 @@ public abstract class EditPart {
 	private EditPart m_parent;
 	private List<EditPart> m_children;
 	private boolean m_isActive;
-	private final List<EditPolicy> m_policies = Lists.newArrayList();
-	private final List<Object> m_keyPolicies = Lists.newArrayList();
+	private final List<EditPolicy> m_policies = new ArrayList<>();
+	private final List<Object> m_keyPolicies = new ArrayList<>();
 	private int m_selected;
 	private Object m_model;
 
@@ -437,7 +437,7 @@ public abstract class EditPart {
 		int newPartCount = children.size();
 		if (newPartCount - index > 1) {
 			// deselect old child EditPart's
-			List<EditPart> deselectList = Lists.newArrayList();
+			List<EditPart> deselectList = new ArrayList<>();
 			Iterators.addAll(deselectList, children.listIterator(index));
 			getViewer().deselect(deselectList);
 		}
@@ -504,7 +504,7 @@ public abstract class EditPart {
 		Assert.isNotNull(childPart);
 		// check container
 		if (m_children == null) {
-			m_children = Lists.newArrayList();
+			m_children = new ArrayList<>();
 		}
 		// add to child list
 		if (index == -1) {
@@ -655,7 +655,7 @@ public abstract class EditPart {
 	 *         empty {@link List}.
 	 */
 	private List<EditPolicy> getUnderstandingPolicies(Request request) {
-		List<EditPolicy> policies = Lists.newArrayList();
+		List<EditPolicy> policies = new ArrayList<>();
 		for (EditPolicy editPolicy : m_policies) {
 			if (editPolicy.understandsRequest(request)) {
 				policies.add(editPolicy);
@@ -669,7 +669,7 @@ public abstract class EditPart {
 	// Request processors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<RequestProcessor> m_requestProcessors = Lists.newArrayList();
+	private final List<RequestProcessor> m_requestProcessors = new ArrayList<>();
 
 	/**
 	 * Adds the {@link RequestProcessor}, if not added yet.

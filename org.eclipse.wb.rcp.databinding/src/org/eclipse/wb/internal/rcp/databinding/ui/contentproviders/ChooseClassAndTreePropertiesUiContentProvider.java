@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
@@ -56,6 +54,7 @@ import org.eclipse.swt.widgets.Control;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +69,7 @@ extends
 org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesUiContentProvider {
 	private CheckboxTreeViewer m_treeViewer;
 	private TableViewer m_orderPropertiesViewer;
-	private final List<PropertyAdapter> m_orderProperties = Lists.newArrayList();
+	private final List<PropertyAdapter> m_orderProperties = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -235,7 +234,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 			m_orderPropertiesViewer.refresh();
 		}
 		//
-		List<PropertyAdapter> adapters = Lists.newArrayList();
+		List<PropertyAdapter> adapters = new ArrayList<>();
 		//
 		ClassLoader classLoader = JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo());
 		BeanSupport beanSupport = new BeanSupport(classLoader, null);
@@ -292,7 +291,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 
 		public List<ObservePropertyAdapter> getChildren() {
 			if (m_children == null) {
-				m_children = Lists.newArrayList();
+				m_children = new ArrayList<>();
 				List<BindableInfo> properties =
 						CoreUtils.cast(m_property.getChildren(ChildrenContext.ChildrenForPropertiesTable));
 				for (BindableInfo property : properties) {
@@ -312,7 +311,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 
 		public void addToParent() {
 			if (m_parent != null) {
-				m_parent.m_children = Lists.newArrayList();
+				m_parent.m_children = new ArrayList<>();
 				m_parent.m_children.add(this);
 			}
 		}

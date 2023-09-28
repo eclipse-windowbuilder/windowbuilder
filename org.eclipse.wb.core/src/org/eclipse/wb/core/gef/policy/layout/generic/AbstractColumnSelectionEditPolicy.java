@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.generic;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.model.IObjectInfo;
@@ -31,6 +29,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,7 +59,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		// create move column handle
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		moveHandle.setForegroundColor(IColorConstants.red);
@@ -71,7 +70,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 
 	@Override
 	protected List<Handle> createStaticHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		// create resize column handle
 		SideResizeHandle resizeHandle =
 				new SideResizeHandle(getHost(), IPositionConstants.RIGHT, 10, true);

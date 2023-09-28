@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.databinding.Activator;
@@ -57,6 +56,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.dialogs.SearchPattern;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +81,7 @@ final class ObserveElementsComposite extends SashForm {
 	private final TreeViewer m_propertiesViewer;
 	private final Menu m_propertiesFilterMenu;
 	private final PropertiesFilter m_propertiesFilter = new PropertiesFilter();
-	private final List<ToolItem> m_typeActions = Lists.newArrayList();
+	private final List<ToolItem> m_typeActions = new ArrayList<>();
 	private final SelectionListener m_changeTypeListener = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {

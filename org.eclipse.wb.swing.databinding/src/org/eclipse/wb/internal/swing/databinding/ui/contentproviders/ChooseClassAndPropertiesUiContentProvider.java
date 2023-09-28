@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
@@ -54,6 +52,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -179,7 +178,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 
 	@Override
 	protected List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
-		List<PropertyAdapter> adapters = Lists.newArrayList();
+		List<PropertyAdapter> adapters = new ArrayList<>();
 		BeanSupport beanSupport = new BeanSupport();
 		beanSupport.doAddELProperty(m_configuration.isWorkWithELProperty());
 		ClassGenericType objectType = new ClassGenericType(choosenClass, null, null);
@@ -268,7 +267,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 	protected final void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenAdapters)
 			throws Exception {
 		BeanSupport beanSupport = new BeanSupport();
-		List<PropertyInfo> choosenProperties = Lists.newArrayList();
+		List<PropertyInfo> choosenProperties = new ArrayList<>();
 		if (m_elProperty) {
 			m_elPropertyUIContentProvider.saveToObject();
 			choosenProperties.add(m_elPropertyUIContentProvider.getProperty());
@@ -326,7 +325,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 
 		public List<ObservePropertyAdapter> getChildren() {
 			if (m_children == null) {
-				m_children = Lists.newArrayList();
+				m_children = new ArrayList<>();
 				List<ObserveInfo> properties =
 						CoreUtils.cast(m_property.getChildren(ChildrenContext.ChildrenForPropertiesTable));
 				for (ObserveInfo property : properties) {
@@ -342,7 +341,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 
 		public void addToParent() {
 			if (m_parent != null) {
-				m_parent.m_children = Lists.newArrayList();
+				m_parent.m_children = new ArrayList<>();
 				m_parent.m_children.add(this);
 			}
 		}

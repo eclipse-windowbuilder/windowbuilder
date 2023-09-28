@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.model.property.converter.ShortConverter;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -282,7 +283,7 @@ public final class TableModelDescription {
 	}
 
 	public List<String> getColumnModelInvocations() {
-		List<String> invocations = Lists.newArrayList();
+		List<String> invocations = new ArrayList<>();
 		for (int columnIndex = 0; columnIndex < m_columnCount; columnIndex++) {
 			TableColumnDescription column = m_columns.get(columnIndex);
 			for (String invocation : column.getInvocations()) {

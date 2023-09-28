@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
@@ -26,6 +25,7 @@ import org.eclipse.jface.action.MenuManager;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -276,7 +276,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	 * @return the {@link ComponentInfo} models for {@link JButton} components.
 	 */
 	private static List<ComponentInfo> getButtons(ContainerInfo parent) {
-		List<ComponentInfo> buttons = Lists.newArrayList();
+		List<ComponentInfo> buttons = new ArrayList<>();
 		for (ComponentInfo control : parent.getChildrenComponents()) {
 			if (control.getDescription().getComponentClass().getName().equals("javax.swing.JButton")) {
 				buttons.add(control);
@@ -302,7 +302,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 		} else {
 			resultMenuManager = new MenuManager();
 			// handle multi selection
-			List<IMenuManager> managers = Lists.newArrayList();
+			List<IMenuManager> managers = new ArrayList<>();
 			for (ObjectInfo object_ : objects) {
 				IMenuManager manager = getDesignerMenuManager();
 				object.getBroadcastObject().addContextMenu(objects, object_, manager);

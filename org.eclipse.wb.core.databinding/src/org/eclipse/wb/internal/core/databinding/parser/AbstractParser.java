@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.parser;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -28,6 +26,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +37,8 @@ import java.util.List;
 public abstract class AbstractParser implements IModelResolver {
 	protected final AstEditor m_editor;
 	protected final IDatabindingsProvider m_provider;
-	protected final List<ISubParser> m_subParsers = Lists.newArrayList();
-	protected final List<IModelSupport> m_modelSupports = Lists.newArrayList();
+	protected final List<ISubParser> m_subParsers = new ArrayList<>();
+	protected final List<IModelSupport> m_modelSupports = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

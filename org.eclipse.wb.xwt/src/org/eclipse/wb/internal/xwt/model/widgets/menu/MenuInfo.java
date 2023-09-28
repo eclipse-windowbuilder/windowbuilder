@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
@@ -46,6 +44,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Menu;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -352,7 +351,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 
 		@Override
 		public List<IMenuItemInfo> getItems() {
-			List<IMenuItemInfo> items = Lists.newArrayList();
+			List<IMenuItemInfo> items = new ArrayList<>();
 			for (MenuItemInfo item : m_this.getItems()) {
 				items.add(MenuObjectInfoUtils.getMenuItemInfo(item));
 			}
@@ -423,7 +422,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		@Override
 		@SuppressWarnings("unchecked")
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-			List<MenuItemInfo> pastedObjects = Lists.newArrayList();
+			List<MenuItemInfo> pastedObjects = new ArrayList<>();
 			List<XmlObjectMemento> mementos = (List<XmlObjectMemento>) mementoObject;
 			for (XmlObjectMemento memento : mementos) {
 				MenuItemInfo item = (MenuItemInfo) memento.create(m_this);

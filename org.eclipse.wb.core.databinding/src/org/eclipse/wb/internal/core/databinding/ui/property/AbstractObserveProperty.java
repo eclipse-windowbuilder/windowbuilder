@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.databinding.ui.BindWizard;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public abstract class AbstractObserveProperty extends AbstractProperty {
 	protected final IObserveInfo m_observeProperty;
-	protected final List<AbstractBindingProperty> m_bindingProperties = Lists.newArrayList();
+	protected final List<AbstractBindingProperty> m_bindingProperties = new ArrayList<>();
 	private final String m_title;
 
 	////////////////////////////////////////////////////////////////////////////

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -29,6 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -155,7 +154,7 @@ public class GraphicalViewerTest extends GefTestCase {
 		assertTrue(m_viewer.getSelectedEditParts().isEmpty());
 		//
 		// check work multi selection
-		List<EditPart> selection = Lists.newArrayList();
+		List<EditPart> selection = new ArrayList<>();
 		selection.add(part2);
 		selection.add(part1);
 		m_viewer.setSelection(selection);
@@ -221,7 +220,7 @@ public class GraphicalViewerTest extends GefTestCase {
 		actualLogger.assertEquals(expectedLogger);
 		//
 		// check invoke during setSelection(List)
-		List<EditPart> selection = Lists.newArrayList();
+		List<EditPart> selection = new ArrayList<>();
 		selection.add(part2);
 		selection.add(part1);
 		m_viewer.setSelection(selection);

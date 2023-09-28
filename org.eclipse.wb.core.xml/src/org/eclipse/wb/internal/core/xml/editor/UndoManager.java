@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
@@ -34,6 +32,7 @@ import org.eclipse.swt.widgets.Display;
 import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -348,7 +347,7 @@ public final class UndoManager {
 		}
 		// if no expanded element, perform default expanding
 		if (m_componentsTree.getExpandedElements().length == 0) {
-			List<Object> expandedElements = Lists.newArrayList();
+			List<Object> expandedElements = new ArrayList<>();
 			Object element = m_rootObject;
 			while (true) {
 				expandedElements.add(element);

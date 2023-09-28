@@ -33,7 +33,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.List;
-import java.util.Optional;
 
 import javax.swing.JApplet;
 import javax.swing.JDialog;

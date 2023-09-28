@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -74,6 +73,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -89,7 +89,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	private static List<PropertyFilter> m_filters;
 	private final JavaInfo m_javaInfoRoot;
 	private final List<ObserveTypeContainer> m_containers;
-	private final List<ObserveType> m_types = Lists.newArrayList();
+	private final List<ObserveType> m_types = new ArrayList<>();
 	private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = Maps.newHashMap();
 	private ObserveType m_targetStartType;
 	private ObserveType m_modelStartType;
@@ -109,7 +109,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	////////////////////////////////////////////////////////////////////////////
 	protected DatabindingsProvider() {
 		m_javaInfoRoot = null;
-		m_containers = Lists.newArrayList();
+		m_containers = new ArrayList<>();
 	}
 
 	public DatabindingsProvider(JavaInfo javaInfoRoot) throws Exception {
@@ -321,7 +321,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 
 	public static List<PropertyFilter> observePropertyFilters() {
 		if (m_filters == null) {
-			m_filters = Lists.newArrayList();
+			m_filters = new ArrayList<>();
 			// advanced
 			m_filters.add(new AdvancedPropertyFilter());
 			// any type
@@ -378,7 +378,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
 			throws Exception {
 		AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		binding.createContentProviders(providers, listener, this);
 		return providers;
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
@@ -22,6 +20,7 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ISelection getSelection() {
-		List<Object> models = Lists.newArrayList();
+		List<Object> models = new ArrayList<>();
 		for (EditPart editPart : m_viewer.getSelectedEditParts()) {
 			models.add(editPart.getModel());
 		}
@@ -68,7 +67,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
 	@Override
 	public void setSelection(ISelection selection) {
 		// prepare EditPart's for model selection
-		List<EditPart> editParts = Lists.newArrayList();
+		List<EditPart> editParts = new ArrayList<>();
 		for (Iterator<?> I = ((StructuredSelection) selection).iterator(); I.hasNext();) {
 			Object model = I.next();
 			EditPart editPart = m_viewer.getEditPartByModel(model);

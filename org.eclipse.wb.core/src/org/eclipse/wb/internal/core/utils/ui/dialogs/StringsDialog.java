@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
@@ -23,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +63,7 @@ public class StringsDialog extends TextDialog {
 		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
 			@Override
 			public String[] runObject() throws Exception {
-				List<String> strings = Lists.newArrayList();
+				List<String> strings = new ArrayList<>();
 				BufferedReader br = new BufferedReader(new StringReader(getText()));
 				while (true) {
 					String s = br.readLine();

@@ -15,7 +15,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.TableWrapLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
-import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for RCP.

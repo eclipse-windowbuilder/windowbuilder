@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -24,6 +22,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -563,7 +562,7 @@ public class StackContainerSupportTest extends SwingModelTest {
 				new StackContainerSupport<>(this) {
 			@Override
 			protected List<ComponentInfo> getChildren() {
-				List<ComponentInfo> stackComponents = Lists.newArrayList();
+				List<ComponentInfo> stackComponents = new ArrayList<>();
 				for (ComponentInfo component : getChildrenComponents()) {
 					if (component.getDescription().getComponentClass() != JTextField.class) {
 						stackComponents.add(component);

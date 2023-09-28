@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.style;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.EmptyProperty;
@@ -25,6 +23,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,9 +44,9 @@ IComplexPropertyEditor {
 	// Instance fields
 	//
 	////////////////////////////////////////////////////////////////////////////
-	protected final List<SubStylePropertyImpl> m_macroProperties = Lists.newArrayList();
-	protected final List<SubStylePropertyImpl> m_otherProperties = Lists.newArrayList();
-	protected final List<SubStylePropertyImpl> m_properties = Lists.newArrayList();
+	protected final List<SubStylePropertyImpl> m_macroProperties = new ArrayList<>();
+	protected final List<SubStylePropertyImpl> m_otherProperties = new ArrayList<>();
+	protected final List<SubStylePropertyImpl> m_properties = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

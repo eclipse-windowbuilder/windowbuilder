@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -44,6 +42,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -349,7 +348,7 @@ public class UiUtils {
 	 * @return the array of expanded {@link TreeItem}'s.
 	 */
 	public static TreeItem[] getExpanded(Tree tree) {
-		List<TreeItem> expandedItems = Lists.newArrayList();
+		List<TreeItem> expandedItems = new ArrayList<>();
 		addExpanded(expandedItems, tree.getItems());
 		return expandedItems.toArray(new TreeItem[expandedItems.size()]);
 	}

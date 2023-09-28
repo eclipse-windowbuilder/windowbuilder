@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -58,6 +56,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -419,7 +418,7 @@ public final class TestUtils {
 	 * @return the names of methods declared in the given {@link Class}, in same order as in source.
 	 */
 	private static List<String> getSourceMethodNames(Class<?> testClass) throws Exception {
-		final List<String> sourceMethodNames = Lists.newArrayList();
+		final List<String> sourceMethodNames = new ArrayList<>();
 		String classPath = testClass.getName().replace('.', '/') + ".class";
 		InputStream classStream = testClass.getClassLoader().getResourceAsStream(classPath);
 		ClassReader classReader = new ClassReader(classStream);

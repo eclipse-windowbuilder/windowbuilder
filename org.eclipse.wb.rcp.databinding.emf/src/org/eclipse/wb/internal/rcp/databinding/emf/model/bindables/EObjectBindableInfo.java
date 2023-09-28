@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenceProvider;
@@ -29,6 +27,7 @@ import org.eclipse.jface.viewers.IDecoration;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public final class EObjectBindableInfo extends BindableInfo {
 	private final VariableDeclarationFragment m_fragment;
 	private final PropertiesSupport m_propertiesSupport;
 	private final IObservePresentation m_presentation;
-	private final List<EPropertyBindableInfo> m_properties = Lists.newArrayList();
+	private final List<EPropertyBindableInfo> m_properties = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

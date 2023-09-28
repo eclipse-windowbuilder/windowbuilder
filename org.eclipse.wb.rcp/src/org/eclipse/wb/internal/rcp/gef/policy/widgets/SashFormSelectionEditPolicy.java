@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.Figure;
@@ -33,6 +31,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +62,7 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		// create move handle
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		moveHandle.setForegroundColor(IColorConstants.red);
@@ -74,7 +73,7 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 
 	@Override
 	protected List<Handle> createStaticHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		// create resize handle (exclude last ControlInfo)
 		boolean isLast = GenericsUtils.getLastOrNull(m_composite.getChildrenControls()) == m_control;
 		if (!isLast) {

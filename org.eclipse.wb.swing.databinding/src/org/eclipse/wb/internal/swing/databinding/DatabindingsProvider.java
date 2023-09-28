@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -68,6 +67,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +83,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	private final JavaInfo m_javaInfoRoot;
 	private final DataBindingsRootInfo m_rootInfo = new DataBindingsRootInfo(this);
 	private final List<ObserveTypeContainer> m_containers;
-	private final List<ObserveType> m_types = Lists.newArrayList();
+	private final List<ObserveType> m_types = new ArrayList<>();
 	private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = Maps.newHashMap();
 	private BindingDesignPage m_bindingPage;
 	private ObserveType m_targetStartType;
@@ -248,7 +248,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public List<PropertyFilter> getObservePropertyFilters() {
 		if (m_filters == null) {
-			m_filters = Lists.newArrayList();
+			m_filters = new ArrayList<>();
 			// advanced
 			m_filters.add(new HideAdvancedPropertyFilter());
 			m_filters.add(new ShowAdvancedPropertyFilter());
@@ -326,7 +326,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
 			throws Exception {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		BindingInfo binding = (BindingInfo) ibinding;
 		binding.createContentProviders(m_rootInfo.getBindings(), providers, listener, this);
 		return providers;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.xml.DocumentAttribute;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetBindableI
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ import java.util.List;
 public class ElementDocumentEditor implements IDocumentEditor {
 	private final BindingInfo m_binding;
 	private final DocumentElement m_element;
-	private final List<AttributeEditor> m_editors = Lists.newArrayList();
+	private final List<AttributeEditor> m_editors = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
@@ -23,6 +21,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +50,7 @@ public final class MenuUtils {
 	 * @return the {@link IMenuItemInfo}'s of given menu container.
 	 */
 	public static List<IMenuItemInfo> getItems(ContainerInfo container) {
-		List<IMenuItemInfo> items = Lists.newArrayList();
+		List<IMenuItemInfo> items = new ArrayList<>();
 		for (ComponentInfo component : container.getChildrenComponents()) {
 			IMenuItemInfo item = getMenuItem(component);
 			items.add(item);

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.xml.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
@@ -46,6 +45,7 @@ import org.osgi.framework.Bundle;
 
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -322,7 +322,7 @@ public abstract class EditorContext {
 	////////////////////////////////////////////////////////////////////////////
 	private final Map<String, Object> m_versions = Maps.newHashMap();
 	private final List<IDescriptionVersionsProvider> m_descriptionVersionsProviders =
-			Lists.newArrayList();
+			new ArrayList<>();
 
 	/**
 	 * @return the {@link Map} of versions for toolkit in this {@link EditorContext}.
@@ -354,7 +354,7 @@ public abstract class EditorContext {
 	// Warnings
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<EditorWarning> m_warnings = Lists.newArrayList();
+	private final List<EditorWarning> m_warnings = new ArrayList<>();
 
 	/**
 	 * @return the {@link List} of {@link EditorWarning}'s.

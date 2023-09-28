@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.nls.Messages;
@@ -20,7 +18,6 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSourceListener;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.PixelConverter;
@@ -66,6 +63,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +83,7 @@ public final class SourceComposite extends Composite {
 	////////////////////////////////////////////////////////////////////////////
 	private final IEditableSource m_source;
 	private LocaleInfo[] m_locales;
-	private final List<String> m_keys = Lists.newArrayList();
+	private final List<String> m_keys = new ArrayList<>();
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// UI objects
@@ -521,7 +519,7 @@ public final class SourceComposite extends Composite {
 		@Override
 		public Object[] getElements(Object inputElement) {
 			if (m_currentStringsButton.getSelection()) {
-				List<String> elements = Lists.newArrayList();
+				List<String> elements = new ArrayList<>();
 				Set<String> formKeys = m_source.getFormKeys();
 				for (String key : m_keys) {
 					if (formKeys.contains(key)) {

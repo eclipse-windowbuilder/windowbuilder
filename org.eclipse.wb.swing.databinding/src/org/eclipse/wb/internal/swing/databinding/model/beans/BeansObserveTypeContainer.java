@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.beans;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
@@ -49,6 +47,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -225,7 +224,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 			TypeDeclaration rootNode) throws Exception {
 		m_javaInfoRoot = root;
 		//
-		m_observes = Lists.newArrayList();
+		m_observes = new ArrayList<>();
 		// add virtual
 		m_observes.add(new VirtualObserveInfo());
 		// handle fields

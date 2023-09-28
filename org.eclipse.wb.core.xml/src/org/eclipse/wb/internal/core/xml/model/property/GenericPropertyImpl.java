@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -26,6 +24,7 @@ import org.eclipse.wb.internal.core.xml.model.property.converter.ExpressionConve
 
 import org.apache.commons.lang.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -226,7 +225,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 	 * @return all {@link ExpressionAccessor} which can be used.
 	 */
 	public List<ExpressionAccessor> getAccessors() {
-		List<ExpressionAccessor> accessors = Lists.newArrayList();
+		List<ExpressionAccessor> accessors = new ArrayList<>();
 		// content accessor first
 		if (m_description.hasTrueTag("isContent")) {
 			accessors.add(ContentExpressionAccessor.INSTANCE);
