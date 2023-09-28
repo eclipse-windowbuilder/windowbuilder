@@ -14,7 +14,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
@@ -64,6 +63,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Helper for working with PDE model.
@@ -264,7 +264,7 @@ public final class PdeUtils {
 	 * @return the {@link Set} of all ID's in this <code>plugin.xml</code> file.
 	 */
 	private Set<String> getIDSet() {
-		Set<String> idSet = Sets.newTreeSet();
+		Set<String> idSet = new TreeSet<>();
 		for (IPluginExtension extension : getExtensions(getModel())) {
 			for (IPluginObject pluginObject : extension.getChildren()) {
 				if (pluginObject instanceof IPluginElement element) {

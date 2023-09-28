@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.ui;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
@@ -33,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Field editor for package selection.
@@ -219,7 +218,7 @@ IDialogFieldListener {
 				List<IPackageFragment> packages = new ArrayList<>();
 				// add packages for selected root
 				if (m_receiver.m_root != null) {
-					addValidPackages(m_receiver.m_root, packages, Sets.<String>newTreeSet());
+					addValidPackages(m_receiver.m_root, packages, new TreeSet<>());
 				}
 				//
 				return packages;

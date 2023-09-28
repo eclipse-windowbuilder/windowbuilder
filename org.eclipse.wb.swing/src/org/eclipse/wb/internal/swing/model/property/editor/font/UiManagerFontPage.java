@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.font;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
@@ -30,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -129,7 +128,7 @@ public final class UiManagerFontPage extends AbstractFontPage {
 			m_fonts = new ArrayList<>();
 			UIDefaults defaults = UIManager.getLookAndFeelDefaults();
 			// prepare set of all String keys in UIManager
-			Set<String> allKeys = Sets.newTreeSet();
+			Set<String> allKeys = new TreeSet<>();
 			for (Iterator<?> I = defaults.keySet().iterator(); I.hasNext();) {
 				Object key = I.next();
 				if (key instanceof String) {

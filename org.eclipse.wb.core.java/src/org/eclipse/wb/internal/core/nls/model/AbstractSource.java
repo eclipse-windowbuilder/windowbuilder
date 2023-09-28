@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -33,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Abstract source for NLS information.
@@ -74,7 +73,7 @@ public abstract class AbstractSource {
 	// Current form keys
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Set<String> m_formKeys = Sets.newTreeSet();
+	private final Set<String> m_formKeys = new TreeSet<>();
 
 	/**
 	 * @return the {@link Set} of keys used on current form.

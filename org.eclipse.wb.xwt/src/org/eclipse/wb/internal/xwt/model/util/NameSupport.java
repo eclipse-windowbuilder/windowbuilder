@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.xwt.model.util;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateText;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Maintains special "Name" property for XWT.
@@ -125,7 +125,7 @@ public final class NameSupport {
 	 * Traverses the entire hierarchy and gathers set of existing names.
 	 */
 	private static Set<String> getExistingNames(XmlObjectInfo object) {
-		final Set<String> resultSet = Sets.newTreeSet();
+		final Set<String> resultSet = new TreeSet<>();
 		object.getRootXML().accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo object) throws Exception {
