@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -25,6 +23,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,7 +34,7 @@ import java.util.Map;
  */
 public final class SourcePage implements IEditorPage {
 	private final DesignerEditor m_editor;
-	private final Map<String, IAction> m_idToTextEditorAction = Maps.newHashMap();
+	private final Map<String, IAction> m_idToTextEditorAction = new HashMap<>();
 	private Composite m_composite;
 
 	////////////////////////////////////////////////////////////////////////////

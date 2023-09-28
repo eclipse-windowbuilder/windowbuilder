@@ -11,7 +11,6 @@
 package org.eclipse.wb.core.eval;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getBinding;
@@ -85,6 +84,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -997,12 +997,12 @@ public final class ExecutionFlowUtils {
 		private final MethodDeclaration m_method;
 		private final boolean m_forExecutionFlow;
 		private final boolean m_forTypeDeclaration;
-		private final Map<String, VariableDeclaration> m_variableToDeclaration = Maps.newHashMap();
-		private final Map<String, ASTNode> m_assignments = Maps.newHashMap();
-		private final Map<String, Expression> m_assignmentsVariables = Maps.newHashMap();
-		private final Map<String, ASTNode> m_variableToLastAssignment = Maps.newHashMap();
-		private final Map<String, List<ASTNode>> m_variableToAssignments = Maps.newHashMap();
-		private final Map<String, List<Expression>> m_variableToReferences = Maps.newHashMap();
+		private final Map<String, VariableDeclaration> m_variableToDeclaration = new HashMap<>();
+		private final Map<String, ASTNode> m_assignments = new HashMap<>();
+		private final Map<String, Expression> m_assignmentsVariables = new HashMap<>();
+		private final Map<String, ASTNode> m_variableToLastAssignment = new HashMap<>();
+		private final Map<String, List<ASTNode>> m_variableToAssignments = new HashMap<>();
+		private final Map<String, List<Expression>> m_variableToReferences = new HashMap<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//

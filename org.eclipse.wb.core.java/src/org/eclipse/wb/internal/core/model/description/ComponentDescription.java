@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.description;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -42,6 +41,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -431,7 +431,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final List<GenericPropertyDescription> m_properties = new ArrayList<>();
-	private final Map<String, GenericPropertyDescription> m_idToProperty = Maps.newHashMap();
+	private final Map<String, GenericPropertyDescription> m_idToProperty = new HashMap<>();
 
 	/**
 	 * @return the {@link GenericPropertyDescription}'s of this component.
@@ -486,7 +486,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final Map<String, ConfigurablePropertyDescription> m_idToConfigurableProperty =
-			Maps.newHashMap();
+			new HashMap<>();
 
 	/**
 	 * @return the {@link GenericPropertyDescription}'s of this component.
@@ -542,7 +542,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private CreationDescription m_creationDefault;
-	private final Map<String, CreationDescription> m_creations = Maps.newHashMap();
+	private final Map<String, CreationDescription> m_creations = new HashMap<>();
 
 	/**
 	 * @return all {@link CreationDescription}'s.

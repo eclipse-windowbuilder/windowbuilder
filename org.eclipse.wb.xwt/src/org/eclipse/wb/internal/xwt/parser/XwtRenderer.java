@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.parser;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -55,6 +54,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -65,8 +65,8 @@ import java.util.Set;
  * @coverage XWT.parser
  */
 public final class XwtRenderer {
-	private final Map<String, XmlObjectInfo> m_pathToModelMap = Maps.newHashMap();
-	private final Map<Object, XmlObjectInfo> m_objectToModelMap = Maps.newHashMap();
+	private final Map<String, XmlObjectInfo> m_pathToModelMap = new HashMap<>();
+	private final Map<Object, XmlObjectInfo> m_objectToModelMap = new HashMap<>();
 	private final XmlObjectInfo m_rootModel;
 	private final EditorContext m_context;
 	private final ISetPostAction m_setPostAction;
@@ -264,7 +264,7 @@ public final class XwtRenderer {
 			String host = uri.getHost();
 			URL url = (host != null && localPath == null ? uri : URIUtil.toURI(localPath)).toURL();
 			String content = m_context.getContent();
-			Map<String, Object> options = Maps.newHashMap();
+			Map<String, Object> options = new HashMap<>();
 			options.put(IXWTLoader.DESIGN_MODE_PROPERTY, Boolean.TRUE);
 			content = removeCompositeClassAttribute(content);
 			XwtParser.configureForForms(m_context, options);

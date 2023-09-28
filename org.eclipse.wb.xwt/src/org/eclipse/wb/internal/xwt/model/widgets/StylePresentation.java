@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectPresentation;
 
@@ -21,6 +19,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.osgi.framework.Bundle;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -71,7 +70,7 @@ public abstract class StylePresentation extends XmlObjectPresentation {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Map<Class<?>, Map<Integer, ImageDescriptor>> m_images = Maps.newHashMap();
+	private static final Map<Class<?>, Map<Integer, ImageDescriptor>> m_images = new HashMap<>();
 
 	/**
 	 * @return the "style to image" map corresponding to this {@link StylePresentation}.
@@ -79,7 +78,7 @@ public abstract class StylePresentation extends XmlObjectPresentation {
 	private Map<Integer, ImageDescriptor> getImages() throws Exception {
 		Map<Integer, ImageDescriptor> images = m_images.get(getClass());
 		if (images == null) {
-			images = Maps.newHashMap();
+			images = new HashMap<>();
 			m_images.put(getClass(), images);
 			initImages();
 		}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
@@ -25,6 +23,7 @@ import org.osgi.framework.Bundle;
 
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -80,7 +79,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	private Map<Integer, ImageDescriptor> getImages() throws Exception {
 		Map<Integer, ImageDescriptor> images = m_images.get(getClass());
 		if (images == null) {
-			images = Maps.newHashMap();
+			images = new HashMap<>();
 			m_images.put(getClass(), images);
 			initImages();
 		}

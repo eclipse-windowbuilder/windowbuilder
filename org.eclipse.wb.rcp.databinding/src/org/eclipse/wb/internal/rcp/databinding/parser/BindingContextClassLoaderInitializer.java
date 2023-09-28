@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.parser;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.asm.ToBytesClassAdapter;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -30,6 +28,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +39,7 @@ import java.util.Map;
  * @coverage bindings.rcp.parser
  */
 public final class BindingContextClassLoaderInitializer implements IClassLoaderInitializer {
-	private static final Map<ClassLoader, Object> CLASS_LOADER_TO_THREAD_LOCAL = Maps.newHashMap();
+	private static final Map<ClassLoader, Object> CLASS_LOADER_TO_THREAD_LOCAL = new HashMap<>();
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor

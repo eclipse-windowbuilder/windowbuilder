@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.editor;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.controls.PageBook;
 import org.eclipse.wb.core.editor.DesignerEditorListener;
@@ -63,6 +62,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -167,7 +167,7 @@ public final class DesignPage implements IDesignPage {
 	////////////////////////////////////////////////////////////////////////////
 	private PageBook m_pageBook;
 	private JavaDesignComposite m_designComposite;
-	private final Map<Class<?>, Composite> m_errorCompositesMap = Maps.newHashMap();
+	private final Map<Class<?>, Composite> m_errorCompositesMap = new HashMap<>();
 
 	/**
 	 * Creates the SWT control(s) for this page.

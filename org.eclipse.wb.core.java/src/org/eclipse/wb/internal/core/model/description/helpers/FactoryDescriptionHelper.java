@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.CreationInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
@@ -58,6 +56,7 @@ import java.beans.PropertyDescriptor;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -169,7 +168,7 @@ public class FactoryDescriptionHelper {
 			String descriptionName = factoryClassName.replace('.', '/') + ".wbp-factory.xml";
 			ResourceInfo resourceInfo = DescriptionHelper.getResourceInfo(context, factoryClass, descriptionName);
 			if (resourceInfo != null) {
-				Map<Integer, FactoryMethodDescription> textualDescriptions = Maps.newHashMap();
+				Map<Integer, FactoryMethodDescription> textualDescriptions = new HashMap<>();
 				Digester digester = prepareDigester(factoryClass, state, textualDescriptions);
 				digester.push(allMethodsAreFactories);
 				digester.push(descriptions);

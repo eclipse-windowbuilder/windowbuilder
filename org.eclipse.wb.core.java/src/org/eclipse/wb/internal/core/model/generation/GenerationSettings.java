@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generation;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -43,6 +42,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,8 +68,7 @@ public final class GenerationSettings {
 	private final Map<String, VariableSupportDescription> m_idToVariable = new TreeMap<>();
 	private final Map<String, StatementGeneratorDescription> m_idToStatement = new TreeMap<>();
 	private final List<VariableSupportDescription> m_variables = new ArrayList<>();
-	private final Map<VariableSupportDescription, StatementGeneratorDescription[]> m_variableToStatements = Maps
-			.newHashMap();
+	private final Map<VariableSupportDescription, StatementGeneratorDescription[]> m_variableToStatements = new HashMap<>();
 	private final MultiKeyMap/* <variable + statement -> GenerationPreview> */ m_previewMap = new MultiKeyMap();
 
 	////////////////////////////////////////////////////////////////////////////
@@ -375,7 +374,7 @@ public final class GenerationSettings {
 	 */
 	public static void deduce(JavaInfo root) throws Exception {
 		// prepare map: settings -> components
-		final Map<GenerationSettings, Set<AbstractComponentInfo>> settingsToComponents = Maps.newHashMap();
+		final Map<GenerationSettings, Set<AbstractComponentInfo>> settingsToComponents = new HashMap<>();
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
@@ -436,7 +435,7 @@ public final class GenerationSettings {
 	private void deduceVariable(Set<AbstractComponentInfo> components, IPreferenceStore store) {
 		// prepare statistics
 		int componentCount = 0;
-		Map<VariableSupportDescription, Integer> variableToCount = Maps.newHashMap();
+		Map<VariableSupportDescription, Integer> variableToCount = new HashMap<>();
 		for (AbstractComponentInfo component : components) {
 			VariableSupport variableSupport = component.getVariableSupport();
 			VariableSupportDescription variableDescription = getVariableDescription(variableSupport);
@@ -459,7 +458,7 @@ public final class GenerationSettings {
 	private void deduceStatement(Set<AbstractComponentInfo> components, IPreferenceStore store) throws Exception {
 		// prepare statistics
 		int componentCount = 0;
-		Map<Block, Integer> blockToCount = Maps.newHashMap();
+		Map<Block, Integer> blockToCount = new HashMap<>();
 		for (AbstractComponentInfo component : components) {
 			VariableSupport variableSupport = component.getVariableSupport();
 			if (getVariableDescription(variableSupport) != null) {

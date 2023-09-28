@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -102,6 +101,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -302,7 +302,7 @@ public class JavaInfoUtils {
 	 * @return mapped {@link JavaInfo} parameters.
 	 */
 	public static Map<String, String> getParameters(JavaInfo javaInfo) {
-		Map<String, String> parameters = Maps.newHashMap();
+		Map<String, String> parameters = new HashMap<>();
 		parameters.putAll(extractArbitraryParameters(javaInfo));
 		parameters.putAll(javaInfo.getDescription().getParameters());
 		return parameters;
@@ -313,7 +313,7 @@ public class JavaInfoUtils {
 	 *         .
 	 */
 	private static Map<String, String> extractArbitraryParameters(JavaInfo javaInfo) {
-		Map<String, String> parameters = Maps.newHashMap();
+		Map<String, String> parameters = new HashMap<>();
 		for (Entry<Object, Object> arbitrary : javaInfo.getArbitraries().entrySet()) {
 			Object key = arbitrary.getKey();
 			Object value = arbitrary.getValue();
@@ -357,7 +357,7 @@ public class JavaInfoUtils {
 	 */
 	public static Object executeScript(JavaInfo javaInfo, String script) throws Exception {
 		ClassLoader classLoader = JavaInfoUtils.getClassLoader(javaInfo);
-		Map<String, Object> variables = Maps.newHashMap();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", javaInfo);
 		variables.put("object", javaInfo.getObject());
 		return ScriptUtils.evaluate(classLoader, script, variables);
@@ -848,7 +848,7 @@ public class JavaInfoUtils {
 	 */
 	private static void buildExposedChildrenHierarchy(JavaInfo host) throws Exception {
 		// prepare map (object -> child)
-		final Map<Object, JavaInfo> objectToChild = Maps.newHashMap();
+		final Map<Object, JavaInfo> objectToChild = new HashMap<>();
 		for (JavaInfo child : host.getChildrenJava()) {
 			objectToChild.put(child.getObject(), child);
 		}
@@ -1005,7 +1005,7 @@ public class JavaInfoUtils {
 		// prepare map (object -> JavaInfo)
 		final Map<Object, JavaInfo> objectToModel;
 		{
-			objectToModel = Maps.newHashMap();
+			objectToModel = new HashMap<>();
 			for (JavaInfo component : components) {
 				component.accept(new ObjectInfoVisitor() {
 					@Override
@@ -2108,7 +2108,7 @@ public class JavaInfoUtils {
 	public static void rememberDependency(JavaInfo javaInfo) throws Exception {
 		AstEditor editor = javaInfo.getEditor();
 		// prepare dependencies
-		Map<IResource, Long> dependencies = Maps.newHashMap();
+		Map<IResource, Long> dependencies = new HashMap<>();
 		addDependencies(dependencies, Sets.<String>newTreeSet(), editor.getModelUnit(), 0);
 		// don't use this compilation unit resource
 		dependencies.remove(editor.getModelUnit().getResource());

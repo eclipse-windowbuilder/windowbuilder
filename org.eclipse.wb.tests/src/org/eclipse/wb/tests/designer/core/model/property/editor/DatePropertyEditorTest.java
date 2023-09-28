@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.DatePropertyEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -47,7 +45,7 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_configure_default() throws Exception {
-		HashMap<String, Object> parameters = Maps.newHashMap();
+		HashMap<String, Object> parameters = new HashMap<>();
 		/*DatePropertyEditor editor = */createEditor(DatePropertyEditor.class, parameters);
 	}
 
@@ -238,7 +236,7 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 		//	<parameter name="toDate">(new SimpleDateFormat(\"dd.MM.yyyy\")).parse(value)</parameter>
 		//	<parameter name="source">new java.util.Date(\"%value%\")</parameter>
 		//</editor>
-		HashMap<String, Object> params = Maps.newHashMap();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put(
 				"functions",
 				getSourceDQ("import javax.swing.JTextField;", "import java.text.SimpleDateFormat;"));

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -47,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -58,7 +57,7 @@ import java.util.Set;
  * @coverage bindings.rcp.model.beans
  */
 public final class BeanSupport {
-	private final Map<Class<?>, ImageDescriptor> m_classToImage = Maps.newHashMap();
+	private final Map<Class<?>, ImageDescriptor> m_classToImage = new HashMap<>();
 	private final IModelResolver m_resolver;
 	private final Class<?> m_IObservable;
 	private final Class<?> m_IObservableValue;
@@ -329,7 +328,7 @@ public final class BeanSupport {
 	// Descriptors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<Class<?>, List<PropertyDescriptor>> m_classToDescriptors = Maps.newHashMap();
+	private final Map<Class<?>, List<PropertyDescriptor>> m_classToDescriptors = new HashMap<>();
 
 	/**
 	 * @return {@link PropertyDescriptor} properties for given bean {@link Class}.

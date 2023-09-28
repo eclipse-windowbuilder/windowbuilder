@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.utils;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -38,6 +36,7 @@ import org.eclipse.swt.widgets.Control;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -111,7 +110,7 @@ public final class XmlObjectUtils {
 	 * @return mapped {@link XmlObjectInfo} parameters.
 	 */
 	public static Map<String, String> getParameters(XmlObjectInfo object) {
-		Map<String, String> parameters = Maps.newHashMap();
+		Map<String, String> parameters = new HashMap<>();
 		parameters.putAll(extractArbitraryParameters(object));
 		parameters.putAll(object.getDescription().getParameters());
 		return parameters;
@@ -122,7 +121,7 @@ public final class XmlObjectUtils {
 	 *         {@link #setParameter(XmlObjectInfo, String, String)}.
 	 */
 	private static Map<String, String> extractArbitraryParameters(XmlObjectInfo object) {
-		Map<String, String> parameters = Maps.newHashMap();
+		Map<String, String> parameters = new HashMap<>();
 		for (Entry<Object, Object> arbitrary : object.getArbitraries().entrySet()) {
 			Object key = arbitrary.getKey();
 			Object value = arbitrary.getValue();
@@ -158,7 +157,7 @@ public final class XmlObjectUtils {
 	 */
 	public static Object executeScript(XmlObjectInfo model, String script) throws Exception {
 		ClassLoader classLoader = model.getContext().getClassLoader();
-		Map<String, Object> variables = Maps.newHashMap();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", model);
 		variables.put("object", model.getObject());
 		return ScriptUtils.evaluate(classLoader, script, variables);

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -201,7 +200,7 @@ public final class EditableSource implements IEditableSource {
 			EditableLocaleInfo editableBaseLocale = getEditableLocale(baseLocale);
 			keyToValue = new HashMap<>(editableBaseLocale.m_keyToValue);
 		} else {
-			keyToValue = Maps.newHashMap();
+			keyToValue = new HashMap<>();
 		}
 		// add new locale
 		add(locale, keyToValue);

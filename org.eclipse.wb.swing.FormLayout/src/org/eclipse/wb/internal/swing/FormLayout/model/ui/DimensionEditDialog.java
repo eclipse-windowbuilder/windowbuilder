@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -45,6 +43,7 @@ import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,7 +99,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
 	private Text m_specificationText;
 	private Button[] m_alignmentButtons;
 	private Combo m_templateCombo;
-	private final Map<Size, Button> m_componentSizeToButton = Maps.newHashMap();
+	private final Map<Size, Button> m_componentSizeToButton = new HashMap<>();
 	// constant
 	private ConstantSizeComposite m_constantSizeComposite;
 	private Button m_constantSizeButton;

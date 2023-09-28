@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -23,6 +21,7 @@ import org.eclipse.ui.forms.widgets.LayoutCache;
 import org.eclipse.ui.forms.widgets.SizeCache;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
@@ -102,7 +101,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
 	int[] m_columnWidths;
 	int[] m_rowOrigins;
 	int[] m_rowHeights;
-	Map<Control, Point> m_controlToXY = Maps.newHashMap();
+	Map<Control, Point> m_controlToXY = new HashMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

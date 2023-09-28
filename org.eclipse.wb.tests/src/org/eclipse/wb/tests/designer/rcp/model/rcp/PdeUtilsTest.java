@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -36,6 +35,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -843,7 +843,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 	@Test
 	public void test_getViewCategories() throws Exception {
 		List<ViewCategoryInfo> categories = PdeUtils.getViewCategories();
-		Map<String, ViewCategoryInfo> idToCategory = Maps.newHashMap();
+		Map<String, ViewCategoryInfo> idToCategory = new HashMap<>();
 		for (ViewCategoryInfo category : categories) {
 			idToCategory.put(category.getId(), category);
 		}

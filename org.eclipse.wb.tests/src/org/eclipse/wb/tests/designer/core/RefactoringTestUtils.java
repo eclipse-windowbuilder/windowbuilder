@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
@@ -34,6 +32,7 @@ import org.eclipse.ltk.core.refactoring.RefactoringCore;
 import org.eclipse.ltk.core.refactoring.RefactoringDescriptor;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -109,7 +108,7 @@ public final class RefactoringTestUtils {
 		// prepare RefactoringDescriptor
 		DeleteDescriptor refactoringDescriptor;
 		{
-			Map<String, String> arguments = Maps.newHashMap();
+			Map<String, String> arguments = new HashMap<>();
 			arguments.put(ATTRIBUTE_DELETE_SUBPACKAGES, "false");
 			arguments.put(ATTRIBUTE_SUGGEST_ACCESSORS, "false");
 			arguments.put(ATTRIBUTE_RESOURCES, "0");

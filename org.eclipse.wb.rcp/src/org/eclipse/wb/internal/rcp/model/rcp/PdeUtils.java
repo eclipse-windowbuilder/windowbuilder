@@ -14,7 +14,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -60,6 +59,7 @@ import org.osgi.framework.Bundle;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -80,7 +80,7 @@ public final class PdeUtils {
 	// Instance access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Map<IProject, PdeUtils> m_projectToUtilitiesMap = Maps.newHashMap();
+	private static final Map<IProject, PdeUtils> m_projectToUtilitiesMap = new HashMap<>();
 
 	/**
 	 * @return the instance of {@link PdeUtils} for given {@link IProject}, existing from cache or

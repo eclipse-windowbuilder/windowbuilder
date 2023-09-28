@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
@@ -75,6 +73,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +89,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	private final JavaInfo m_javaInfoRoot;
 	private final List<ObserveTypeContainer> m_containers;
 	private final List<ObserveType> m_types = new ArrayList<>();
-	private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = Maps.newHashMap();
+	private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = new HashMap<>();
 	private ObserveType m_targetStartType;
 	private ObserveType m_modelStartType;
 	private BindingDesignPage m_bindingPage;

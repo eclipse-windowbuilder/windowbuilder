@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -110,7 +109,7 @@ public abstract class AbstractDescription implements IAdaptable {
 	 */
 	public final void putArbitraryValue(Object key, Object value) {
 		if (m_arbitraryMap == null) {
-			m_arbitraryMap = Maps.newHashMap();
+			m_arbitraryMap = new HashMap<>();
 		}
 		m_arbitraryMap.put(key, value);
 	}

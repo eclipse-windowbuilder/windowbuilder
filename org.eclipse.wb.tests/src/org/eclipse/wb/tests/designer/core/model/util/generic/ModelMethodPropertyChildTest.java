@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util.generic;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -27,6 +25,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +56,7 @@ public class ModelMethodPropertyChildTest extends SwingModelTest {
 			super(editor, description, creationSupport);
 		}
 
-		private final Map<Object, String> m_values = Maps.newHashMap();
+		private final Map<Object, String> m_values = new HashMap<>();
 
 		public Object getValue(ComponentInfo component) {
 			String value = m_values.get(component);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -40,6 +38,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.jdt.core.IJavaProject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -325,7 +324,7 @@ public class XmlObjectInfo extends ObjectInfo implements HasSourcePosition {
 	// Attributes
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Object> m_attributeValues = Maps.newHashMap();
+	private final Map<String, Object> m_attributeValues = new HashMap<>();
 
 	/**
 	 * Registers value for attribute during rendering. Resolves the attribute (adds namespace

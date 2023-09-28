@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.linux;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.runtime.IStatus;
@@ -26,6 +24,7 @@ import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -103,7 +102,7 @@ public class Activator extends AbstractUIPlugin {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Map<String, Image> m_nameToIconMap = Maps.newHashMap();
+	private static final Map<String, Image> m_nameToIconMap = new HashMap<>();
 
 	/**
 	 * @return the {@link Image} from "icons" directory.

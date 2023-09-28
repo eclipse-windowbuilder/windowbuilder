@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.parser;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
@@ -58,6 +57,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -71,8 +71,8 @@ public final class XwtParser {
 	private final EditorContext m_context;
 	private final IFile m_file;
 	private final IDocument m_document;
-	private final Map<String, DocumentElement> m_pathToElementMap = Maps.newHashMap();
-	private final Map<String, XmlObjectInfo> m_pathToModelMap = Maps.newHashMap();
+	private final Map<String, DocumentElement> m_pathToElementMap = new HashMap<>();
+	private final Map<String, XmlObjectInfo> m_pathToModelMap = new HashMap<>();
 	private XmlObjectInfo m_rootModel;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -200,7 +200,7 @@ public final class XwtParser {
 			String host = uri.getHost();
 			URL url = (host != null && localPath == null ? uri : URIUtil.toURI(localPath)).toURL();
 			String content = m_document.get();
-			Map<String, Object> options = Maps.newHashMap();
+			Map<String, Object> options = new HashMap<>();
 			options.put(IXWTLoader.DESIGN_MODE_PROPERTY, Boolean.TRUE);
 			configureForForms(m_context, options);
 			XWT.loadWithOptions(IOUtils.toInputStream(content), url, options);

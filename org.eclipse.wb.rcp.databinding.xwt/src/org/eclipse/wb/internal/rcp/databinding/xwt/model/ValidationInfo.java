@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.xml.AbstractDocumentObject;
@@ -26,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +35,8 @@ import java.util.Map;
  */
 public class ValidationInfo {
 	private List<String> m_classNames = new ArrayList<>();
-	private Map<String, String> m_namespaceToPackage = Maps.newHashMap();
-	private final Map<String, String> m_packageToNamespace = Maps.newHashMap();
+	private Map<String, String> m_namespaceToPackage = new HashMap<>();
+	private final Map<String, String> m_packageToNamespace = new HashMap<>();
 	private boolean m_update;
 
 	////////////////////////////////////////////////////////////////////////////

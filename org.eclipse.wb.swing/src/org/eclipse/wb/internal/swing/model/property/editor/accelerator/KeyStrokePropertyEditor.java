@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.accelerator;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -44,6 +42,7 @@ import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -164,7 +163,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 		////////////////////////////////////////////////////////////////////////////
 		private Text m_keyStrokeText;
 		private List m_keyCodeList;
-		private final Map<Integer, Button> m_modifierToButton = Maps.newHashMap();
+		private final Map<Integer, Button> m_modifierToButton = new HashMap<>();
 
 		@Override
 		protected Control createDialogArea(Composite parent) {

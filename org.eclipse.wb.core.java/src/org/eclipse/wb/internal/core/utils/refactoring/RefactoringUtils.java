@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.refactoring;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.xml.AbstractDocumentEditContext;
@@ -42,6 +40,7 @@ import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 import org.eclipse.text.edits.TextEdit;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -197,7 +196,7 @@ public class RefactoringUtils {
 	 * @return map of all {@link TextFileChange}-s in given composite {@link Change}.
 	 */
 	private static Map<IFile, TextFileChange> getTextFileChanges(Change change) {
-		Map<IFile, TextFileChange> textFileChanges = Maps.newHashMap();
+		Map<IFile, TextFileChange> textFileChanges = new HashMap<>();
 		addTextFileChanges(textFileChanges, change);
 		return textFileChanges;
 	}

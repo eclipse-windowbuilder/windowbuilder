@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSup
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public class HierarchySupport {
 	private final List<HierarchyElement> m_roots = new ArrayList<>();
-	private final Map<String, HierarchyElement> m_nameToElement = Maps.newHashMap();
+	private final Map<String, HierarchyElement> m_nameToElement = new HashMap<>();
 	private final PropertiesSupport m_propertiesSupport;
 	private final boolean m_addProperties;
 

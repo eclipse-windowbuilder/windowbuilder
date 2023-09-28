@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.state;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -38,6 +37,7 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import java.beans.PropertyEditorManager;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -466,7 +466,7 @@ public final class EditorState {
 	// IDescriptionVersionsProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Object> m_versions = Maps.newHashMap();
+	private final Map<String, Object> m_versions = new HashMap<>();
 	private final List<IDescriptionVersionsProvider> m_descriptionVersionsProviders =
 			new ArrayList<>();
 

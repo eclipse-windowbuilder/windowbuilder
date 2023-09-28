@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.laf;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
@@ -74,6 +73,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -187,7 +187,7 @@ public final class LafSupport {
 			return true;
 		}
 		// evaluate condition
-		Map<String, Object> variables = Maps.newHashMap();
+		Map<String, Object> variables = new HashMap<>();
 		{
 			variables.put("isWindows", EnvironmentUtils.IS_WINDOWS);
 		}

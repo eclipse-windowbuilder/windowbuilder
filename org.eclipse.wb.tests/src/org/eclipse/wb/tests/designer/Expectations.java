@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 
@@ -24,6 +23,7 @@ import org.apache.commons.lang.SystemUtils;
 
 import java.text.MessageFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -162,7 +162,7 @@ public final class Expectations {
 	}
 
 	public static <V> V get(V default_value, KeyValue<V>... values) {
-		Map<String, V> map = Maps.newHashMap();
+		Map<String, V> map = new HashMap<>();
 		for (KeyValue<V> value : values) {
 			map.put(value.key, value.value);
 		}
@@ -214,7 +214,7 @@ public final class Expectations {
 	}
 
 	public static String get(String default_value, StrValue... values) {
-		Map<String, String> map = Maps.newHashMap();
+		Map<String, String> map = new HashMap<>();
 		for (StrValue value : values) {
 			map.put(value.key, value.value);
 		}
@@ -245,7 +245,7 @@ public final class Expectations {
 	}
 
 	public static <V> State<V> get(V def) {
-		Map<String, V> map = Maps.newHashMap();
+		Map<String, V> map = new HashMap<>();
 		return new State<>(def, map);
 	}
 }

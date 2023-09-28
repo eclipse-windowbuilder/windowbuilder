@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.generic;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidator;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -152,7 +151,7 @@ public final class SimpleContainerFactory {
 	 * Parses attributes in format: attrA='a' attrB='b b'
 	 */
 	private static Map<String, String> parseAttributes(String s) {
-		Map<String, String> attributes = Maps.newHashMap();
+		Map<String, String> attributes = new HashMap<>();
 		while (s.length() != 0) {
 			s = s.trim();
 			// extract name/value

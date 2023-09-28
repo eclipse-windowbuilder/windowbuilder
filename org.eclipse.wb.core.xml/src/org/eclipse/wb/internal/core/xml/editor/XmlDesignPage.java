@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.controls.PageBook;
 import org.eclipse.wb.core.editor.DesignerState;
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -53,6 +51,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -67,7 +66,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
 	protected Composite m_composite;
 	private PageBook m_pageBook;
 	private XmlDesignComposite m_designComposite;
-	private final Map<Class<?>, Composite> m_errorCompositesMap = Maps.newHashMap();
+	private final Map<Class<?>, Composite> m_errorCompositesMap = new HashMap<>();
 	private UndoManager m_undoManager;
 	protected XmlObjectInfo m_rootObject;
 	private DesignerState m_designerState = DesignerState.Undefined;

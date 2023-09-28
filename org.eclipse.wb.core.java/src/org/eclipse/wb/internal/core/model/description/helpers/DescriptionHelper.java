@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -34,6 +33,7 @@ import org.osgi.framework.Bundle;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -249,7 +249,7 @@ public final class DescriptionHelper {
 			String key = "ComponentDescriptionHelper.getResourceInfo0.hasResult";
 			cacheResult = (Map<String, ResourceInfo>) context.getGlobalValue(key);
 			if (cacheResult == null) {
-				cacheResult = Maps.newHashMap();
+				cacheResult = new HashMap<>();
 				context.putGlobalValue(key, cacheResult);
 			}
 			ResourceInfo result = cacheResult.get(name);

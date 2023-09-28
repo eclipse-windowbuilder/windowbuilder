@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.xml.model.description;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
@@ -27,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -173,7 +173,7 @@ IComponentDescription {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final List<GenericPropertyDescription> m_properties = new ArrayList<>();
-	private final Map<String, GenericPropertyDescription> m_idToProperty = Maps.newHashMap();
+	private final Map<String, GenericPropertyDescription> m_idToProperty = new HashMap<>();
 
 	/**
 	 * @return the {@link GenericPropertyDescription}'s of this component.
@@ -205,7 +205,7 @@ IComponentDescription {
 	// Creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, CreationDescription> m_creations = Maps.newHashMap();
+	private final Map<String, CreationDescription> m_creations = new HashMap<>();
 
 	/**
 	 * @return all {@link CreationDescription}'s.

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.color;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -20,6 +19,7 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -112,7 +112,7 @@ public final class AwtColors {
 	// Swing
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static Map<String, ColorInfo[]> m_LAFColors = Maps.newHashMap();
+	private static Map<String, ColorInfo[]> m_LAFColors = new HashMap<>();
 
 	//private static ColorInfo[] m_colors;
 	/**

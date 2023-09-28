@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -42,6 +40,7 @@ import org.netbeans.modules.form.layoutdesign.LayoutModel;
 import org.netbeans.modules.form.layoutdesign.VisualMapper;
 
 import java.awt.Rectangle;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -218,7 +217,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
 		initializeLayout();
 		// prepare components
 		List<AbstractComponentInfo> components = getLayoutChildren();
-		Map<String, Rectangle> boundsMap = Maps.newHashMap();
+		Map<String, Rectangle> boundsMap = new HashMap<>();
 		for (AbstractComponentInfo component : components) {
 			// remove association and set new if needed
 			AssociationObject associationObject = getAssociationObject();

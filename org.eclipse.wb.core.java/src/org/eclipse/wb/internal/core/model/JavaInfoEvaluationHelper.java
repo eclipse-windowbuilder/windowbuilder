@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
@@ -58,6 +57,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -461,7 +461,7 @@ public abstract class JavaInfoEvaluationHelper {
 			return Sets.newHashSet();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.Map")) {
-			return Maps.newHashMap();
+			return new HashMap<>();
 		}
 		// Object
 		return null;

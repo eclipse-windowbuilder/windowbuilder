@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
@@ -43,6 +41,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,8 +54,8 @@ import java.util.Map;
 public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticDatabindingProvider {
 	private final DescriptorContainer m_widgetContainer;
 	private final DescriptorContainer m_strategyContainer;
-	protected final Map<PropertyAdapter, AbstractDescriptor[]> m_propertyToEditor = Maps.newHashMap();
-	protected final Map<IJavaProject, ClassLoader> m_classLoaders = Maps.newHashMap();
+	protected final Map<PropertyAdapter, AbstractDescriptor[]> m_propertyToEditor = new HashMap<>();
+	protected final Map<IJavaProject, ClassLoader> m_classLoaders = new HashMap<>();
 	protected ClassLoader m_classLoader;
 	protected Class<?> m_beanClass;
 	protected IJavaProject m_javaProject;

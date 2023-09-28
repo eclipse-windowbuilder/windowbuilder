@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.LayoutDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.core.runtime.IConfigurationElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ public final class LayoutDescriptionHelper {
 	////////////////////////////////////////////////////////////////////////////
 	private static final String POINT_ID = "org.eclipse.wb.core.layoutManagers";
 	private static final Map<ToolkitDescription, List<LayoutDescription>> m_layouts =
-			Maps.newHashMap();
+			new HashMap<>();
 
 	/**
 	 * @return the {@link List} of {@link LayoutDescription}'s contributed for given toolkit.
