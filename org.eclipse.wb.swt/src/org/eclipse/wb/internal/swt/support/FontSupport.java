@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.swt.graphics.Font;
@@ -21,6 +19,7 @@ import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Stub class for using SWT {@link Font} in another {@link ClassLoader}.
@@ -84,7 +83,7 @@ public class FontSupport extends AbstractSupport {
 	 * @return names of all fonts into system.
 	 */
 	public static String[] getFontFamilies() throws Exception {
-		Set<String> families = Sets.newTreeSet();
+		Set<String> families = new TreeSet<>();
 		// add all font families
 		Collections.addAll(families, ToolkitSupport.getFontFamilies(false));
 		Collections.addAll(families, ToolkitSupport.getFontFamilies(true));

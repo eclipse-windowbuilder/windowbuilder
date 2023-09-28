@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 
@@ -41,6 +39,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -324,7 +323,7 @@ public class ProjectClassLoader extends URLClassLoader {
 	/**
 	 * {@link Set} of classes names that should be made non-abstract.
 	 */
-	private final Set<String> m_nonAbstractClasses = Sets.newTreeSet();
+	private final Set<String> m_nonAbstractClasses = new TreeSet<>();
 	private final IJavaProject m_javaProject;
 
 	////////////////////////////////////////////////////////////////////////////

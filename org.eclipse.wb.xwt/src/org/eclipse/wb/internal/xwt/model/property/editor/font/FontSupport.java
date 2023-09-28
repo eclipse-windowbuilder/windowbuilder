@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.property.editor.font;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
@@ -22,6 +20,7 @@ import org.eclipse.swt.widgets.Display;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Helper for working with {@link Font}.
@@ -39,7 +38,7 @@ public class FontSupport {
 	 * @return names of all fonts into system.
 	 */
 	public static String[] getFontFamilies() throws Exception {
-		Set<String> families = Sets.newTreeSet();
+		Set<String> families = new TreeSet<>();
 		// add all font families
 		families.addAll(getFontFamilies(true));
 		families.addAll(getFontFamilies(false));
@@ -50,7 +49,7 @@ public class FontSupport {
 	}
 
 	private static Set<String> getFontFamilies(boolean scalable) throws Exception {
-		Set<String> families = Sets.newTreeSet();
+		Set<String> families = new TreeSet<>();
 		//
 		FontData[] fontList = Display.getDefault().getFontList(null, scalable);
 		for (FontData fontData : fontList) {

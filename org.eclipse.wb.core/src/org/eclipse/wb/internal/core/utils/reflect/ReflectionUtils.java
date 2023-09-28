@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.utils.reflect;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -47,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 /**
@@ -1459,7 +1459,7 @@ public class ReflectionUtils {
 			}
 		}
 		// append missing methods (most probably protected)
-		Set<String> newPropertyNames = Sets.newTreeSet();
+		Set<String> newPropertyNames = new TreeSet<>();
 		appendPropertyComponents(componentClass, newPropertyNames, propertyToGetter, propertyToSetter);
 		// create PropertyDescriptor's for new getters/setters
 		for (String propertyName : newPropertyNames) {

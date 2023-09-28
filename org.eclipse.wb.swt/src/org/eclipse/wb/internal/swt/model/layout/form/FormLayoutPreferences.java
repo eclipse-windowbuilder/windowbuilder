@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.model.layout.form;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -34,6 +33,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Class maintaining FromLayout support preferences (both Classic & Auto).
@@ -210,7 +210,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
 	 * preference store.
 	 */
 	private Set<Integer> loadPercents(final QualifiedName keyPercents) {
-		final Set<Integer> values = Sets.<Integer>newTreeSet();
+		final Set<Integer> values = new TreeSet<>();
 		// load persistence
 		ExecutionUtils.runLog(new RunnableEx() {
 			@Override

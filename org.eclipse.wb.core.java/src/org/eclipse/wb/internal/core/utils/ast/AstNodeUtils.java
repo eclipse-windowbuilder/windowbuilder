@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -78,6 +76,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 /**
@@ -1074,7 +1073,7 @@ public class AstNodeUtils {
 			Set<String> allNames = getValue(unit, key, new RunnableObjectEx<Set<String>>() {
 				@Override
 				public Set<String> runObject() throws Exception {
-					Set<String> names = Sets.newTreeSet();
+					Set<String> names = new TreeSet<>();
 					TypeDeclaration typeDeclaration = getEnclosingType(invocation);
 					MethodDeclaration[] methods = typeDeclaration.getMethods();
 					for (MethodDeclaration method : methods) {

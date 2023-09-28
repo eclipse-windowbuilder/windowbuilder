@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -108,6 +107,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Utilities for {@link JavaInfo}.
@@ -2110,7 +2110,7 @@ public class JavaInfoUtils {
 		AstEditor editor = javaInfo.getEditor();
 		// prepare dependencies
 		Map<IResource, Long> dependencies = new HashMap<>();
-		addDependencies(dependencies, Sets.<String>newTreeSet(), editor.getModelUnit(), 0);
+		addDependencies(dependencies, new TreeSet<>(), editor.getModelUnit(), 0);
 		// don't use this compilation unit resource
 		dependencies.remove(editor.getModelUnit().getResource());
 		// remember dependencies

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -80,6 +79,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Model for {@link IPageLayout}, used in {@link IPerspectiveFactory}.
@@ -780,7 +780,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 		String folderId;
 		{
 			// prepare set of used ID's for all parts
-			final Set<String> usedIDs = Sets.newTreeSet();
+			final Set<String> usedIDs = new TreeSet<>();
 			for (AbstractPartInfo part : getParts()) {
 				usedIDs.add(part.getId());
 			}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
-import com.google.common.collect.Sets;
-
 import org.apache.commons.lang.SystemUtils;
 
 import java.io.InputStream;
@@ -115,7 +113,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
 		@Override
 		@SuppressWarnings("unchecked")
 		public synchronized Enumeration keys() {
-			TreeSet<String> set = Sets.newTreeSet();
+			TreeSet<String> set = new TreeSet<>();
 			for (Enumeration e = super.keys(); e.hasMoreElements();) {
 				set.add((String) e.nextElement());
 			}

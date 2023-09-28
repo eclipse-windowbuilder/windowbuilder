@@ -14,7 +14,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -59,6 +58,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -175,8 +175,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
-	protected final Set<Integer> m_refreshFilledColumns = Sets.newTreeSet();
-	protected final Set<Integer> m_refreshFilledRows = Sets.newTreeSet();
+	protected final Set<Integer> m_refreshFilledColumns = new TreeSet<>();
+	protected final Set<Integer> m_refreshFilledRows = new TreeSet<>();
 
 	@Override
 	public void refresh_dispose() throws Exception {
