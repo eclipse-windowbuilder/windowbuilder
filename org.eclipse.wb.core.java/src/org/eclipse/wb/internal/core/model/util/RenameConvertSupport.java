@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -49,6 +48,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -175,7 +175,7 @@ public final class RenameConvertSupport {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<JavaInfo, RenameCommand> m_commands = Maps.newLinkedHashMap();
+	private final Map<JavaInfo, RenameCommand> m_commands = new LinkedHashMap<>();
 
 	/**
 	 * Executes pending {@link RenameCommand}'s.
