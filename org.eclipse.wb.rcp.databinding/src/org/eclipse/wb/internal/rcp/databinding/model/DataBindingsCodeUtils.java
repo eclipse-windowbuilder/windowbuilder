@@ -45,6 +45,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,7 +96,7 @@ public final class DataBindingsCodeUtils {
 			// check 'java project' or 'plugin project'
 			if (project.hasNature("org.eclipse.pde.PluginNature")) {
 				// collect plugin imports
-				List<String> pluginIds = Lists.newArrayList();
+				List<String> pluginIds = new ArrayList<>();
 				if (addDatabindingCore) {
 					pluginIds.add("org.eclipse.core.databinding");
 				}
@@ -296,7 +297,7 @@ public final class DataBindingsCodeUtils {
 						"org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display.getDefault();",
 						new StatementTarget(mainMethod, true));
 		//
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		lines.add("org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.jface.databinding.swt.DisplayRealm.getRealm(display), new java.lang.Runnable() {");
 		lines.add("\tpublic void run() {");
 		lines.add("\t}");

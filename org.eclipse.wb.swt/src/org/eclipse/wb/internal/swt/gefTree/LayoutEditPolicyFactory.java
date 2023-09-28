@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swt.gefTree.policy.FormLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
-import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for SWT.

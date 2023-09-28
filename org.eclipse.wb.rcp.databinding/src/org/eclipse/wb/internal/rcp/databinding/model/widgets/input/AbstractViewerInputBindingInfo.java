@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
@@ -208,7 +206,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
 			IPageListener listener,
 			DatabindingsProvider provider) throws Exception {
 		if (m_isColumnViewer) {
-			List<WidgetBindableInfo> viewerColumns = Lists.newArrayList();
+			List<WidgetBindableInfo> viewerColumns = new ArrayList<>();
 			// prepare viewer columns
 			WidgetBindableInfo viewerControlBindable = (WidgetBindableInfo) m_viewerBindable.getParent();
 			for (IObserveInfo observe : viewerControlBindable.getChildren(ChildrenContext.ChildrenForMasterTable)) {

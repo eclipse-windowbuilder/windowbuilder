@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -178,7 +176,7 @@ public class TestProject {
 	 */
 	public void addPlugin(String pluginId) throws CoreException {
 		// prepare entries for plugin
-		ArrayList<IClasspathEntry> entries = Lists.newArrayList();
+		ArrayList<IClasspathEntry> entries = new ArrayList<>();
 		{
 			IPluginModelBase model = PDECore.getDefault().getModelManager().findModel(pluginId);
 			ClasspathUtilCore.addLibraries(model, entries);

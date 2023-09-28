@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 
@@ -19,6 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +57,7 @@ public final class PluginBundleContainer extends BundleImageContainer {
 	@Override
 	public Object[] findResource(String symbolicName, String imagePath) {
 		if (m_symbolicName.equals(symbolicName)) {
-			List<Object> paths = Lists.newArrayList();
+			List<Object> paths = new ArrayList<>();
 			if (findResource(paths, imagePath)) {
 				return paths.toArray();
 			}

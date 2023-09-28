@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.presentation;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  * @coverage core.model.property.editor
  */
 public class CompoundPropertyEditorPresentation extends PropertyEditorPresentation {
-	private final List<PropertyEditorPresentation> m_presentations = Lists.newArrayList();
+	private final List<PropertyEditorPresentation> m_presentations = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

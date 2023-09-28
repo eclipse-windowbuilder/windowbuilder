@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.color;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.swt.SWT;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public final class SwtColors {
 	 */
 	public static ColorInfo[] getSystemColors(JavaInfo javaInfo) {
 		if (m_systemColors == null) {
-			List<ColorInfo> colors = Lists.newArrayList();
+			List<ColorInfo> colors = new ArrayList<>();
 			try {
 				Field[] fields = SwtSupport.getSwtClass().getFields();
 				for (int i = 0; i < fields.length; i++) {

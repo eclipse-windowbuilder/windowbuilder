@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.Request;
 
@@ -19,6 +17,7 @@ import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ import java.util.List;
  * @author scheglov_ke
  */
 public final class RequestsLogger {
-	private final List<String> m_events = Lists.newArrayList();
+	private final List<String> m_events = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

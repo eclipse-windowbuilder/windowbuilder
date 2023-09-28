@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.property.editor.style;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
@@ -44,6 +42,7 @@ import org.eclipse.swt.SWT;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -65,8 +64,8 @@ IComplexPropertyEditor {
 	private IStyleClassResolver m_classResolver;
 	private String m_className;
 	private Class<?> m_class;
-	private final List<SubStylePropertyImpl> m_macroProperties = Lists.newArrayList();
-	private final List<SubStylePropertyImpl> m_otherProperties = Lists.newArrayList();
+	private final List<SubStylePropertyImpl> m_macroProperties = new ArrayList<>();
+	private final List<SubStylePropertyImpl> m_otherProperties = new ArrayList<>();
 	private SubStylePropertyImpl[] m_properties;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -192,7 +191,7 @@ IComplexPropertyEditor {
 		m_className = (String) parameters.get("class");
 		m_class = context.getClassLoader().loadClass(m_className);
 		// prepare sub properties
-		List<SubStylePropertyImpl> properties = Lists.newArrayList();
+		List<SubStylePropertyImpl> properties = new ArrayList<>();
 		configureSet(properties, context, parameters);
 		configureMacro(properties, context, parameters);
 		configureSelect(properties, context, parameters);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.gef.policy;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.selection.TopResizeFigure;
 import org.eclipse.wb.draw2d.Figure;
@@ -30,6 +28,7 @@ import org.eclipse.wb.internal.core.xml.model.TopBoundsSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +57,7 @@ public final class TopSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
 		handles.add(createResizeHandle(IPositionConstants.EAST));
 		handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));

@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IRootProcessor;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public final class NonVisualBeanRootProcessor implements IRootProcessor {
 		// check initial root state
 		Assert.isNull(NonVisualBeanContainerInfo.find(root));
 		// prepare all non-visual beans
-		List<JavaInfo> nonVisualBeans = Lists.newArrayList();
+		List<JavaInfo> nonVisualBeans = new ArrayList<>();
 		for (JavaInfo component : components) {
 			if (component.getParent() == null && NonVisualBeanInfo.getNonVisualInfo(component) != null) {
 				nonVisualBeans.add(component);

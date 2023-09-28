@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model.util.factory;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -85,6 +84,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -124,7 +124,7 @@ public final class FactoryCreateAction extends Action {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final CreationInfo m_creationInfo = new CreationInfo();
-	private final List<InvocationInfo> m_invocations = Lists.newArrayList();
+	private final List<InvocationInfo> m_invocations = new ArrayList<>();
 
 	/**
 	 * Information about single argument {@link Expression} in component creation or invocation.
@@ -142,7 +142,7 @@ public final class FactoryCreateAction extends Action {
 	 */
 	private static abstract class AbstractInvocationInfo {
 		Expression m_expression;
-		List<ArgumentInfo> m_arguments = Lists.newArrayList();
+		List<ArgumentInfo> m_arguments = new ArrayList<>();
 	}
 	/**
 	 * Information about component creation.
@@ -469,7 +469,7 @@ public final class FactoryCreateAction extends Action {
 		m_generate_invocationArguments = "";
 		{
 			// prepare list of JavaDoc comments
-			m_generate_methodComments = Lists.newArrayList();
+			m_generate_methodComments = new ArrayList<>();
 			m_generate_methodComments.add("@wbp.factory");
 			// prepare method header
 			{
@@ -481,7 +481,7 @@ public final class FactoryCreateAction extends Action {
 				// prepare all parameters
 				List<ArgumentInfo> parameters;
 				{
-					parameters = Lists.newArrayList();
+					parameters = new ArrayList<>();
 					for (ArgumentInfo argument : m_creationInfo.m_arguments) {
 						if (argument.m_parameter) {
 							parameters.add(argument);
@@ -541,7 +541,7 @@ public final class FactoryCreateAction extends Action {
 			String creationSource = getFactorySource(m_creationInfo);
 			// prepare body lines
 			{
-				List<String> bodyLines = Lists.newArrayList();
+				List<String> bodyLines = new ArrayList<>();
 				// create component
 				bodyLines.add(componentTypeName + " " + componentName + " = " + creationSource + ";");
 				// invocations

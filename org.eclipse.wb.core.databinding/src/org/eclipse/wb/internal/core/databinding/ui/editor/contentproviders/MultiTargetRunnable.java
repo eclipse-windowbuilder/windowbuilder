@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ import java.util.List;
  */
 public class MultiTargetRunnable implements Runnable {
 	private final ChooseClassUiContentProvider m_source;
-	private final List<ChooseClassUiContentProvider> m_targets = Lists.newArrayList();
+	private final List<ChooseClassUiContentProvider> m_targets = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

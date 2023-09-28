@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerUiContentProvider;
@@ -23,6 +21,7 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JListBindingInfo
 
 import org.eclipse.swt.custom.CTabItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,7 +82,7 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void updateFromObject() throws Exception {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		providers.add(new UIContentContainer<>(m_binding.getDetailBinding(),
 				m_bindings,
 				Messages.JListDetailContainerUiContentProvider_detail2,

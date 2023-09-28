@@ -23,6 +23,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -193,7 +194,7 @@ public final class ExecutionFlowDescription {
 		m_modificationCount++;
 		List<MethodDeclaration> methods = m_binaryFlowMethodsBefore.get(currentStatement);
 		if (methods == null) {
-			methods = Lists.newArrayList();
+			methods = new ArrayList<>();
 			m_binaryFlowMethodsBefore.put(currentStatement, methods);
 		}
 		// appends new method
@@ -212,7 +213,7 @@ public final class ExecutionFlowDescription {
 		Statement currentStatement = getCurrentStatement();
 		List<MethodDeclaration> methods = m_binaryFlowMethodsAfter.get(currentStatement);
 		if (methods == null) {
-			methods = Lists.newArrayList();
+			methods = new ArrayList<>();
 			m_binaryFlowMethodsAfter.put(currentStatement, methods);
 		}
 		// appends new method
@@ -226,7 +227,7 @@ public final class ExecutionFlowDescription {
 		m_modificationCount++;
 		List<MethodDeclaration> methods = m_binaryFlowMethodsAfter.get(currentStatement);
 		if (methods == null) {
-			methods = Lists.newArrayList();
+			methods = new ArrayList<>();
 			m_binaryFlowMethodsAfter.put(currentStatement, methods);
 		}
 		// appends new method

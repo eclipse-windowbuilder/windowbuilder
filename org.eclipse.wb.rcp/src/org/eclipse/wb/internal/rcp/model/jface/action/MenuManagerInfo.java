@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
@@ -41,8 +40,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Model for {@link IMenuManager}.
@@ -290,7 +289,7 @@ IAdaptable {
 
 		@Override
 		public List<IMenuItemInfo> getItems() {
-			List<IMenuItemInfo> items = Lists.newArrayList();
+			List<IMenuItemInfo> items = new ArrayList<>();
 			for (AbstractComponentInfo item : MenuManagerInfo.this.getItems()) {
 				IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
 				items.add(itemObject);

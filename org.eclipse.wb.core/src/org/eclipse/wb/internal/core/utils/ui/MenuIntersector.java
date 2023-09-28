@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.jface.action.Action;
@@ -21,6 +20,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Event;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -58,7 +58,7 @@ public class MenuIntersector {
 	public void merge(IMenuManager menu) {
 		IContributionItem[] items = menu.getItems();
 		if (m_elements == null) {
-			m_elements = Lists.newArrayList();
+			m_elements = new ArrayList<>();
 			for (IContributionItem item : items) {
 				// create wrapper's
 				if (SeparatorElement.accept(item)) {

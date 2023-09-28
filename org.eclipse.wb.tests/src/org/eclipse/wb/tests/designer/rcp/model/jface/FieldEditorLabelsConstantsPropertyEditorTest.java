@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -29,6 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,8 +93,8 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	private final String m_propertyName = "labelsAndValues";
 	private Property m_property;
 	private FieldEditorLabelsConstantsPropertyEditor m_propertyEditor;
-	private List<String> m_resultLabels = Lists.newArrayList();
-	private List<IField> m_resultFields = Lists.newArrayList();
+	private List<String> m_resultLabels = new ArrayList<>();
+	private List<IField> m_resultFields = new ArrayList<>();
 
 	private void prepareProperty() throws Exception {
 		m_property = m_lastParseInfo.getPropertyByTitle(m_propertyName);

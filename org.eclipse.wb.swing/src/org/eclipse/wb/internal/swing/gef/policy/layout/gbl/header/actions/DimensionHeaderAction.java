@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -20,6 +18,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,7 +77,7 @@ public abstract class DimensionHeaderAction<T extends DimensionInfo> extends Obj
 	@Override
 	protected final void runEx() throws Exception {
 		// prepare selection
-		List<T> dimensions = Lists.newArrayList();
+		List<T> dimensions = new ArrayList<>();
 		{
 			List<EditPart> editParts = m_viewer.getSelectedEditParts();
 			for (EditPart editPart : editParts) {

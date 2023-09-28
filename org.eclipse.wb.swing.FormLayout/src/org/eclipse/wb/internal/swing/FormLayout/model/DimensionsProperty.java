@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
@@ -20,6 +18,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.ui.RowsDialog;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,7 +90,7 @@ public final class DimensionsProperty extends Property {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		protected String getText(Property property) throws Exception {
-			List<String> titles = Lists.newArrayList();
+			List<String> titles = new ArrayList<>();
 			List<? extends FormDimensionInfo> dimensions =
 					m_horizontal ? m_layout.getColumns() : m_layout.getRows();
 			for (FormDimensionInfo dimension : dimensions) {

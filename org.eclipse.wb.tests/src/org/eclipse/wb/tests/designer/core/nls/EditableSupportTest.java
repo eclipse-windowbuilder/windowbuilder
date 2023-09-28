@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
@@ -44,6 +42,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -430,7 +429,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 			}
 			// externalize
 			{
-				List<StringPropertyInfo> properties = Lists.newArrayList();
+				List<StringPropertyInfo> properties = new ArrayList<>();
 				properties.addAll(editableSupport.getProperties(frame));
 				properties.addAll(editableSupport.getProperties(button));
 				for (StringPropertyInfo propertyInfo : properties) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 
 import java.lang.reflect.Array;
@@ -72,8 +70,8 @@ public final class PlacementInfo {
 	@SuppressWarnings("unchecked")
 	public PlacementInfo() {
 		m_overlappings = (List<IAbstractComponentInfo>[]) Array.newInstance(ArrayList.class, 2);
-		m_overlappings[LEADING] = Lists.newArrayList();
-		m_overlappings[TRAILING] = Lists.newArrayList();
+		m_overlappings[LEADING] = new ArrayList<>();
+		m_overlappings[TRAILING] = new ArrayList<>();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -118,8 +116,8 @@ public final class PlacementInfo {
 	}
 
 	public final void cleanup() {
-		m_overlappings[LEADING] = Lists.newArrayList();
-		m_overlappings[TRAILING] = Lists.newArrayList();
+		m_overlappings[LEADING] = new ArrayList<>();
+		m_overlappings[TRAILING] = new ArrayList<>();
 		m_distances[LEADING] = UNDEFINED_DISTANCE;
 		m_distances[TRAILING] = UNDEFINED_DISTANCE;
 		m_neighbors[LEADING] = null;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 
@@ -20,6 +18,7 @@ import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +67,7 @@ final class JarPackageImageContainer extends AbstractJarImageElement implements 
 	// Image resources
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<JarImageResource> m_imageEntryList = Lists.newArrayList();
+	private final List<JarImageResource> m_imageEntryList = new ArrayList<>();
 
 	/**
 	 * Adds given {@link JarImageResource} to this package.

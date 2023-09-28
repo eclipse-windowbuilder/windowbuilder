@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration.IPropertiesFilter;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -175,7 +174,7 @@ public class ChooseClassAndPropertiesConfiguration extends ChooseClassConfigurat
 	// Properties filter settings
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<IPropertiesFilter> m_propertiesFilters = Lists.newArrayList();
+	private final List<IPropertiesFilter> m_propertiesFilters = new ArrayList<>();
 
 	/**
 	 * Add properties filter.

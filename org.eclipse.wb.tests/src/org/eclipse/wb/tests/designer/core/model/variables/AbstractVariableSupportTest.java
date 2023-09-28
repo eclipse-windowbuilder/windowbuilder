@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.variables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
@@ -23,6 +21,7 @@ import static org.mockito.Mockito.mock;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +63,7 @@ public class AbstractVariableSupportTest extends AbstractVariableTest {
 		assertEquals("other", variableSupport.getComponentName());
 		// addProperties()
 		{
-			List<Property> properties = Lists.newArrayList();
+			List<Property> properties = new ArrayList<>();
 			variableSupport.addProperties(properties);
 			assertTrue(properties.isEmpty());
 		}

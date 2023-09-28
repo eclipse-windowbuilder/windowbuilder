@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -375,7 +376,7 @@ public abstract class ObjectInfo implements IObjectInfo {
 	 * @return the {@link List} of {@link Property}'s.
 	 */
 	protected List<Property> getPropertyList() throws Exception {
-		return Lists.newArrayList();
+		return new ArrayList<>();
 	}
 
 	@Override

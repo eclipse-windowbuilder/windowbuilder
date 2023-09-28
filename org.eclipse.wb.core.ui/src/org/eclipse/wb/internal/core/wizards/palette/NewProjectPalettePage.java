@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.wizards.palette;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.UiMessages;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
@@ -37,6 +35,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -122,7 +121,7 @@ public final class NewProjectPalettePage extends WizardPage {
 	////////////////////////////////////////////////////////////////////////////
 	private ProjectSelectionDialogField m_projectField;
 	private ComboDialogField m_toolkitField;
-	private final List<ToolkitDescription> m_toolkits = Lists.newArrayList();
+	private final List<ToolkitDescription> m_toolkits = new ArrayList<>();
 
 	@Override
 	public void createControl(Composite parent) {

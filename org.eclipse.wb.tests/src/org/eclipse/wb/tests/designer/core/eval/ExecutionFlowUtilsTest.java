@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.eval;
 
-import com.google.common.collect.Lists;
-
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.getAssignments;
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.getDeclaration;
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.getExecutionFlowConstructor;
@@ -61,6 +59,7 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -785,7 +784,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 			flowDescription = new ExecutionFlowDescription(rootMethods);
 		}
 		// visit
-		final List<String> nodes = Lists.newArrayList();
+		final List<String> nodes = new ArrayList<>();
 		visit(new VisitingContext(true), flowDescription, new ExecutionFlowFrameVisitor() {
 			@Override
 			public void postVisit(ASTNode node) {

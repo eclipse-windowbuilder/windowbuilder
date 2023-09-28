@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.tree.policies;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -33,6 +31,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -198,7 +197,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	 */
 	private List<EditPart> getReferenceChildren(Request request) {
 		List<EditPart> allChildren = getHost().getChildren();
-		List<EditPart> referenceChildren = Lists.newArrayList();
+		List<EditPart> referenceChildren = new ArrayList<>();
 		//
 		for (EditPart editPart : allChildren) {
 			if (isGoodReferenceChild(request, editPart)) {

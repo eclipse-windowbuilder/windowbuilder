@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.broadcast;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -142,7 +140,7 @@ public final class BroadcastSupport {
 	private List<Object> getClassListeners(Class<?> listenerClass) {
 		List<Object> listeners = m_classToListeners.get(listenerClass);
 		if (listeners == null) {
-			listeners = Lists.newArrayList();
+			listeners = new ArrayList<>();
 			m_classToListeners.put(listenerClass, listeners);
 		}
 		return listeners;
@@ -155,7 +153,7 @@ public final class BroadcastSupport {
 	private List<Object> getTargetListeners(ObjectInfo target) {
 		List<Object> listeners = m_targetToListeners.get(target);
 		if (listeners == null) {
-			listeners = Lists.newArrayList();
+			listeners = new ArrayList<>();
 			m_targetToListeners.put(target, listeners);
 		}
 		return listeners;

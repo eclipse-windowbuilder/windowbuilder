@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -41,6 +39,7 @@ import org.eclipse.swt.widgets.TrayItem;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -284,7 +283,7 @@ public final class PropertiesSupport {
 	}
 
 	private static List<WidgetPropertyBindableInfo> createBindables(List<WidgetPropertyBindableInfo> staticBindables) {
-		List<WidgetPropertyBindableInfo> bindables = Lists.newArrayList();
+		List<WidgetPropertyBindableInfo> bindables = new ArrayList<>();
 		for (WidgetPropertyBindableInfo bindable : staticBindables) {
 			bindables.add(new WidgetPropertyBindableInfo(bindable));
 		}

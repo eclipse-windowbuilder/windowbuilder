@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.Messages;
 
 import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class ChooseClassConfiguration {
 	private String m_retargetClassName;
 	private String[] m_baseClassNames;
 	private boolean m_chooseInterfaces;
-	private final List<String> m_defaultStarts = Lists.newArrayList();
+	private final List<String> m_defaultStarts = new ArrayList<>();
 	private Class<?>[][] m_constructorParameters;
 	private String m_emptyClassErrorMessage = Messages.ChooseClassConfiguration_validateEmptyClass;
 	private String m_errorMessagePrefix = Messages.ChooseClassConfiguration_validateMessagePrefix;

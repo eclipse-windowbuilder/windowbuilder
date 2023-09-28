@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 
@@ -21,6 +19,7 @@ import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -224,7 +223,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	@Override
 	public List<Layer> getLayers() {
-		List<Layer> layers = Lists.newArrayList();
+		List<Layer> layers = new ArrayList<>();
 		for (Figure childFigure : getChildren()) {
 			layers.add((Layer) childFigure);
 		}

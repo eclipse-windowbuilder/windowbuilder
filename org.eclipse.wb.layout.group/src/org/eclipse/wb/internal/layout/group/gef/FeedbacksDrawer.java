@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
@@ -26,6 +24,7 @@ import org.eclipse.swt.graphics.Image;
 import org.netbeans.modules.form.layoutdesign.IFeedbacksDrawer;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ import java.util.List;
  */
 final class FeedbacksDrawer implements IFeedbacksDrawer {
 	private final IFeedbacksHelper m_helper;
-	private final List<Figure> m_feedbacks = Lists.newArrayList();
+	private final List<Figure> m_feedbacks = new ArrayList<>();
 	private static final Image[] m_images = {null, null, null};
 
 	////////////////////////////////////////////////////////////////////////////

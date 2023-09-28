@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo;
@@ -58,6 +56,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Offset;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -2673,7 +2672,7 @@ public class PageLayoutTest extends RcpModelTest {
 		// ask for palette categories
 		List<CategoryInfo> categories;
 		{
-			categories = Lists.newArrayList();
+			categories = new ArrayList<>();
 			// add some "old" category
 			CategoryInfo oldCategory = new CategoryInfo("old.ID");
 			categories.add(oldCategory);

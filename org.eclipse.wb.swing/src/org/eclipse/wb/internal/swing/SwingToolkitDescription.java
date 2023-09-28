@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -41,6 +39,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -155,7 +154,7 @@ public final class SwingToolkitDescription extends ToolkitDescriptionJava {
 	}
 
 	private void configureTypeSpecific() {
-		List<ComponentNameDescription> descriptions = Lists.newArrayList();
+		List<ComponentNameDescription> descriptions = new ArrayList<>();
 		descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
 				"textField",
 				"txt",

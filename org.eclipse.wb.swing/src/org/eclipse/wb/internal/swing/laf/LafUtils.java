@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.laf.model.LafInfo;
@@ -25,6 +23,7 @@ import java.io.File;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -66,7 +65,7 @@ public final class LafUtils {
 	 */
 	public static UserDefinedLafInfo[] scanJarForLookAndFeels(String jarFileName,
 			IProgressMonitor monitor) throws Exception {
-		List<UserDefinedLafInfo> lafList = Lists.newArrayList();
+		List<UserDefinedLafInfo> lafList = new ArrayList<>();
 		File jarFile = new File(jarFileName);
 		URLClassLoader ucl = new URLClassLoader(new URL[]{jarFile.toURI().toURL()});
 		JarFile jar = new JarFile(jarFile);

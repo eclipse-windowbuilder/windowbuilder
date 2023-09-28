@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.presentation.IObservePresentationDecorator;
@@ -23,6 +21,7 @@ import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -110,7 +109,7 @@ public abstract class ObserveInfo implements IObserveInfo {
 
 	public void createBinding(BindingInfo binding) throws Exception {
 		if (m_bindings == null) {
-			m_bindings = Lists.newArrayList();
+			m_bindings = new ArrayList<>();
 		}
 		m_bindings.add(binding);
 		updateBindingDecoration();

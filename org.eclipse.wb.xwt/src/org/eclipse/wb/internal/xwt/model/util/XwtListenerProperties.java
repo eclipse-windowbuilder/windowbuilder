@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectEventListeners;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.xwt.model.property.event.XwtListenerProperty;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,7 +70,7 @@ public final class XwtListenerProperties {
 		Class<?> componentClass = widget.getDescription().getComponentClass();
 		List<String> events = m_widgetEvents.get(componentClass);
 		if (events == null) {
-			events = Lists.newArrayList();
+			events = new ArrayList<>();
 			m_widgetEvents.put(componentClass, events);
 			while (componentClass != null) {
 				{

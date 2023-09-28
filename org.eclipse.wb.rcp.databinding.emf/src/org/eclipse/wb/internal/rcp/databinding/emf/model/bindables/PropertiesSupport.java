@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -36,6 +35,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -366,8 +366,8 @@ public class PropertiesSupport {
 		String packageName = literalsClass.getPackage().getName();
 		Map<String, ClassInfo> packageClasses = Maps.newHashMap();
 		String literalsReference = literalsType.getFullyQualifiedName('.') + ".";
-		List<Field> eClasses = Lists.newArrayList();
-		List<Field> eProperties = Lists.newArrayList();
+		List<Field> eClasses = new ArrayList<>();
+		List<Field> eProperties = new ArrayList<>();
 		// collect literals
 		for (Field field : literalsClass.getFields()) {
 			Class<?> fieldType = field.getType();
@@ -421,7 +421,7 @@ public class PropertiesSupport {
 	private static void linkClassProperties(ClassInfo classInfo) throws Exception {
 		if (classInfo.status != InfoStatus.LOADED && classInfo.thisClass != null) {
 			classInfo.status = InfoStatus.LOADING;
-			List<PropertyInfo> newProperties = Lists.newArrayList();
+			List<PropertyInfo> newProperties = new ArrayList<>();
 			for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(classInfo.thisClass)) {
 				String propertyName =
 						EmfCodeGenUtil.format(descriptor.getName(), '_', null, false, false).toUpperCase(
@@ -474,7 +474,7 @@ public class PropertiesSupport {
 		InfoStatus status = InfoStatus.NEW;
 		public final String className;
 		public Class<?> thisClass;
-		public List<PropertyInfo> properties = Lists.newArrayList();
+		public List<PropertyInfo> properties = new ArrayList<>();
 
 		ClassInfo(String className) {
 			this.className = className;

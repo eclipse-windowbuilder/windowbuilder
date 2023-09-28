@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Widget;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -76,7 +77,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 		MenuVisualData menuInfo = new MenuVisualData();
 		if ((menu.getStyle() & SWT.BAR) != 0) {
 			// menu bar
-			List<org.eclipse.swt.graphics.Rectangle> itemBounds = Lists.newArrayList();
+			List<org.eclipse.swt.graphics.Rectangle> itemBounds = new ArrayList<>();
 			menuInfo.m_menuImage = OSSupport.get().getMenuBarVisualData(menu, itemBounds);
 			if (menuInfo.m_menuImage == null) {
 				menuInfo.m_menuBounds = new Rectangle(OSSupport.get().getMenuBarBounds(menu));

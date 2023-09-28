@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.reflect;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
@@ -40,6 +39,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -198,7 +198,7 @@ public class ReflectionUtils {
 		}
 		// collections
 		if (isSuccessorOf(clazz, "java.util.List")) {
-			return Lists.newArrayList();
+			return new ArrayList<>();
 		}
 		if (isSuccessorOf(clazz, "java.util.Set")) {
 			return Sets.newHashSet();
@@ -353,7 +353,7 @@ public class ReflectionUtils {
 	 *         interfaces first, then superclass.
 	 */
 	public static List<Class<?>> getSuperHierarchy(Class<?> clazz) throws Exception {
-		List<Class<?>> types = Lists.newArrayList();
+		List<Class<?>> types = new ArrayList<>();
 		types.add(clazz);
 		// check super Class
 		Class<?> superclass = clazz.getSuperclass();
@@ -1173,7 +1173,7 @@ public class ReflectionUtils {
 	 * @return all declared {@link Field}'s, including protected and private.
 	 */
 	public static List<Field> getFields(Class<?> clazz) {
-		List<Field> fields = Lists.newArrayList();
+		List<Field> fields = new ArrayList<>();
 		while (clazz != null) {
 			// add all declared field
 			for (Field field : clazz.getDeclaredFields()) {
@@ -1427,7 +1427,7 @@ public class ReflectionUtils {
 			}
 		}
 		// prepare descriptions
-		List<PropertyDescriptor> descriptors = Lists.newArrayList();
+		List<PropertyDescriptor> descriptors = new ArrayList<>();
 		// if there is BeanInfo, try to use it
 		if (beanInfo != null) {
 			Collections.addAll(descriptors, beanInfo.getPropertyDescriptors());

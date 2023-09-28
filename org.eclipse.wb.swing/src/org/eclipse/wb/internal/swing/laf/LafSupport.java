@@ -74,6 +74,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -138,7 +139,7 @@ public final class LafSupport {
 	 */
 	private static void createLAFList() {
 		if (m_lafList == null) {
-			m_lafList = Lists.newArrayList();
+			m_lafList = new ArrayList<>();
 			CategoryInfo rootCategory = new CategoryInfo(ROOT_ID, "<root>");
 			m_lafList.add(rootCategory);
 			// add "undefined" and "current system"
@@ -663,7 +664,7 @@ public final class LafSupport {
 	// Commands
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final List<Class<? extends Command>> m_commandClasses = Lists.newArrayList();
+	private static final List<Class<? extends Command>> m_commandClasses = new ArrayList<>();
 	static {
 		m_commandClasses.add(SetVisibleCommand.class);
 		m_commandClasses.add(AddCategoryCommand.class);
@@ -693,7 +694,7 @@ public final class LafSupport {
 				}
 			}
 			// read commands
-			m_commands = Lists.newArrayList();
+			m_commands = new ArrayList<>();
 			File commandsFile = commands_getFile();
 			if (commandsFile.exists()) {
 				FileInputStream inputStream = new FileInputStream(commandsFile);
@@ -789,7 +790,7 @@ public final class LafSupport {
 	// LAF changing listener
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static List<ILookAndFeelsChangeListener> m_lafChangingListeners = Lists.newArrayList();
+	private static List<ILookAndFeelsChangeListener> m_lafChangingListeners = new ArrayList<>();
 
 	public static void fireLookAndFeelsChanged() {
 		for (ILookAndFeelsChangeListener listener : m_lafChangingListeners) {

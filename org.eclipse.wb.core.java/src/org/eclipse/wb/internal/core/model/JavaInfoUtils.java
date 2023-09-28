@@ -99,6 +99,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -854,7 +855,7 @@ public class JavaInfoUtils {
 		// prepare sorted list of children, so we will add them to the logical parents in correct order
 		final List<JavaInfo> sortedChildren;
 		{
-			sortedChildren = Lists.newArrayList();
+			sortedChildren = new ArrayList<>();
 			fillChildren(sortedChildren, host.getObject(), objectToChild);
 		}
 		// sort children in host JavaInfo (to reorder children that have host as logical parent)
@@ -971,7 +972,7 @@ public class JavaInfoUtils {
 			}
 		}
 		// prepare children objects
-		List<Object> childrenObjects = Lists.newArrayList();
+		List<Object> childrenObjects = new ArrayList<>();
 		for (HierarchyProvider provider : getHierarchyProviders()) {
 			Collections.addAll(childrenObjects, provider.getChildrenObjects(object));
 		}
@@ -1021,7 +1022,7 @@ public class JavaInfoUtils {
 		// prepare toolkit objects for ALL hierarchies
 		List<Object> objects;
 		{
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			for (JavaInfo component : components) {
 				if (component.getParent() == null) {
 					for (Object componentObject : getComponentObjects(component)) {
@@ -1154,7 +1155,7 @@ public class JavaInfoUtils {
 		// add current object
 		objects.add(object);
 		// prepare children objects
-		List<Object> children = Lists.newArrayList();
+		List<Object> children = new ArrayList<>();
 		for (HierarchyProvider provider : getHierarchyProviders()) {
 			Collections.addAll(children, provider.getChildrenObjects(object));
 		}
@@ -1690,7 +1691,7 @@ public class JavaInfoUtils {
 			flowDescription = getState(someComponent).getFlowDescription();
 		}
 		// prepare new List, with components in execution flow order
-		final List<JavaInfo> sortedComponents = Lists.newArrayList();
+		final List<JavaInfo> sortedComponents = new ArrayList<>();
 		ExecutionFlowUtils.visit(
 				new VisitingContext(true),
 				flowDescription,
@@ -1727,7 +1728,7 @@ public class JavaInfoUtils {
 	public static void sortNodesByFlow(ExecutionFlowDescription flowDescription,
 			final boolean onEnter,
 			final List<? extends ASTNode> nodes) {
-		final List<ASTNode> sortedNodes = Lists.newArrayList();
+		final List<ASTNode> sortedNodes = new ArrayList<>();
 		ExecutionFlowUtils.visit(
 				new VisitingContext(true),
 				flowDescription,

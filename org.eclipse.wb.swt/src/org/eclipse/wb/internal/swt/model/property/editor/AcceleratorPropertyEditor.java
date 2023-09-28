@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -44,6 +43,7 @@ import org.eclipse.swt.widgets.Text;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -346,7 +346,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
 	 */
 	private static void prepareKeyMaps() {
 		if (m_keyCodeToName == null) {
-			m_keyFields = Lists.newArrayList();
+			m_keyFields = new ArrayList<>();
 			m_keyCodeToName = Maps.newTreeMap();
 			m_keyNameToCode = Maps.newTreeMap();
 			// add fields

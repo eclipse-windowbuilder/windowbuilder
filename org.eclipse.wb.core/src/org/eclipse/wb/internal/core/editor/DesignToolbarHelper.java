@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -183,7 +184,7 @@ public class DesignToolbarHelper {
 	////////////////////////////////////////////////////////////////////////////
 	private static final String HIERARCHY_ACTIONS_GROUP = "HIERARCHY_ACTIONS_GROUP";
 	private static final String HIERARCHY_ACTIONS_GROUP_END = "HIERARCHY_ACTIONS_GROUP_end";
-	private final List<IContributionItem> m_hierarchyItems = Lists.newArrayList();
+	private final List<IContributionItem> m_hierarchyItems = new ArrayList<>();
 
 	/**
 	 * Creates group {@link Separator}'s for adding/removing actions based on components hierarchy.
@@ -205,7 +206,7 @@ public class DesignToolbarHelper {
 				// prepare items
 				List<Object> items;
 				{
-					items = Lists.newArrayList();
+					items = new ArrayList<>();
 					m_rootObject.getBroadcastObject().addHierarchyActions(items);
 				}
 				// add items to toolbar
@@ -241,7 +242,7 @@ public class DesignToolbarHelper {
 	////////////////////////////////////////////////////////////////////////////
 	private static final String SELECTION_ACTIONS_GROUP = "SELECTION_ACTIONS_GROUP";
 	private static final String SELECTION_ACTIONS_GROUP_END = "SELECTION_ACTIONS_GROUP_end";
-	private final List<IContributionItem> m_selectionItems = Lists.newArrayList();
+	private final List<IContributionItem> m_selectionItems = new ArrayList<>();
 
 	/**
 	 * Creates group {@link Separator}'s for adding/removing actions based on selection in
@@ -258,7 +259,7 @@ public class DesignToolbarHelper {
 	private void refreshSelectionActions() {
 		final List<IContributionItem> toRemove = Lists.newArrayList(m_selectionItems);
 		// prepare selected ObjectInfo's
-		final List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		final List<ObjectInfo> selectedObjects = new ArrayList<>();
 		for (EditPart editPart : m_viewer.getSelectedEditParts()) {
 			Object model = editPart.getModel();
 			if (model instanceof ObjectInfo) {
@@ -274,7 +275,7 @@ public class DesignToolbarHelper {
 				// prepare items
 				List<Object> items;
 				{
-					items = Lists.newArrayList();
+					items = new ArrayList<>();
 					m_rootObject.getBroadcastObject().addSelectionActions(selectedObjects, items);
 				}
 				// don't remove items that are added again

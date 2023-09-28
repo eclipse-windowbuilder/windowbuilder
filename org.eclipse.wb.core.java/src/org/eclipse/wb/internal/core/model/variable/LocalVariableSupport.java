@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -33,6 +31,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -107,7 +106,7 @@ public abstract class LocalVariableSupport extends AbstractSimpleVariableSupport
 		// prepare potentially conflicting declarations
 		List<VariableDeclaration> existingDeclarations;
 		{
-			existingDeclarations = Lists.newArrayList();
+			existingDeclarations = new ArrayList<>();
 			// prepare state
 			AstEditor editor = m_javaInfo.getEditor();
 			CompilationUnit unit = editor.getAstUnit();

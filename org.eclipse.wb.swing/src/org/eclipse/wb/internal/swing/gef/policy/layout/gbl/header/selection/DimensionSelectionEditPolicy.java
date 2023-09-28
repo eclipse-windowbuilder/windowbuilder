@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -37,6 +35,7 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +65,7 @@ AbstractHeaderSelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		// move handle
 		{
 			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
@@ -79,7 +78,7 @@ AbstractHeaderSelectionEditPolicy {
 
 	@Override
 	protected List<Handle> createStaticHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		handles.add(createResizeHandle());
 		return handles;
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration.IPropertiesFilter;
@@ -69,6 +67,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -190,7 +189,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
 				@Override
 				public List<PropertyAdapter> filterProperties(Class<?> choosenClass,
 						List<PropertyAdapter> properties) throws Exception {
-					properties = Lists.newArrayList();
+					properties = new ArrayList<>();
 					for (PropertyInfo emfPropertyInfo : propertiesSupport.getProperties(choosenClass)) {
 						properties.add(new ChooseClassAndTreePropertiesUiContentProvider.ObservePropertyAdapter(null,
 								new EPropertyBindableInfo(propertiesSupport,
@@ -282,7 +281,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
 			ClassLoader classLoader,
 			Class<?> eObjectClass) throws Exception {
 		if (isEMFObject(classLoader, eObjectClass)) {
-			List<PropertyAdapter> properties = Lists.newArrayList();
+			List<PropertyAdapter> properties = new ArrayList<>();
 			List<VariableDeclarationFragment> fragments = Collections.emptyList();
 			PropertiesSupport propertiesSupport =
 					new PropertiesSupport(javaProject, classLoader, fragments);

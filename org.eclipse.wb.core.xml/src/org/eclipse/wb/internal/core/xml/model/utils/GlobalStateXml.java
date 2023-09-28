@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.xml.model.utils;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IObjectInfo;
@@ -42,6 +41,7 @@ import org.eclipse.wb.internal.core.xml.model.description.DescriptionPropertiesH
 
 import org.eclipse.jdt.core.IJavaProject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -247,7 +247,7 @@ public final class GlobalStateXml {
 		public List<IObjectInfo> getPastingComponents(PasteRequest request) {
 			@SuppressWarnings("unchecked")
 			final List<XmlObjectMemento> mementos = (List<XmlObjectMemento>) request.getMemento();
-			final List<IObjectInfo> components = Lists.newArrayList();
+			final List<IObjectInfo> components = new ArrayList<>();
 			// prepare models
 			ExecutionUtils.runLog(new RunnableEx() {
 				@Override

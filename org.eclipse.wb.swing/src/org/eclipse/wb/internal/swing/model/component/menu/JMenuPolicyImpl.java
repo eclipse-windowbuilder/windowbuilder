@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.model.component.menu;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JMenu;
@@ -148,7 +148,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<?> commandPaste(Object mementoObject, final Object nextObject) throws Exception {
-		List<ComponentInfo> pastedObjects = Lists.newArrayList();
+		List<ComponentInfo> pastedObjects = new ArrayList<>();
 		List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) mementoObject;
 		for (JavaInfoMemento memento : mementos) {
 			ComponentInfo newComponent = (ComponentInfo) memento.create(m_menu);

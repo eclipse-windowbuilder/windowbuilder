@@ -42,6 +42,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.NestableException;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -159,7 +160,7 @@ public class UiContext {
 	 * @return the {@link List} of {@link Widget}'s with compatible {@link Class}.
 	 */
 	public static <T extends Widget> List<T> findWidgets(Widget start, final Class<T> classToFind) {
-		final List<T> widgets = Lists.newArrayList();
+		final List<T> widgets = new ArrayList<>();
 		visit(start, new IWidgetsVisitor() {
 			@Override
 			@SuppressWarnings("unchecked")

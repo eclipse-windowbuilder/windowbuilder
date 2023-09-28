@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.description.CreationInvocationDescription;
@@ -58,6 +57,7 @@ import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.io.StringReader;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -162,7 +162,7 @@ public class FactoryDescriptionHelper {
 			return Maps.newTreeMap();
 		}
 		Boolean allMethodsAreFactories = null;
-		List<FactoryMethodDescription> descriptions = Lists.newArrayList();
+		List<FactoryMethodDescription> descriptions = new ArrayList<>();
 		// read descriptions from XML
 		{
 			String descriptionName = factoryClassName.replace('.', '/') + ".wbp-factory.xml";
@@ -352,7 +352,7 @@ public class FactoryDescriptionHelper {
 	 */
 	public static List<ICompilationUnit> getFactoryUnits(AstEditor editor, IPackageFragment thePackage)
 			throws Exception {
-		List<ICompilationUnit> factoryUnits = Lists.newArrayList();
+		List<ICompilationUnit> factoryUnits = new ArrayList<>();
 		//
 		for (ICompilationUnit unit : thePackage.getCompilationUnits()) {
 			String typeName;

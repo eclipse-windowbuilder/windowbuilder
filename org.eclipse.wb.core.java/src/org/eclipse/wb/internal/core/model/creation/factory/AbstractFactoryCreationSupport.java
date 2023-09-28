@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.creation.factory;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -31,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -116,7 +115,7 @@ public abstract class AbstractFactoryCreationSupport extends CreationSupport {
 					m_javaInfo.getEditor().getJavaProject(),
 					m_description);
 			// prepare list of sub-properties
-			List<Property> subPropertiesList = Lists.newArrayList();
+			List<Property> subPropertiesList = new ArrayList<>();
 			for (ParameterDescription parameter : m_description.getParameters()) {
 				Property property = getGenericProperty(parameter);
 				if (property != null) {

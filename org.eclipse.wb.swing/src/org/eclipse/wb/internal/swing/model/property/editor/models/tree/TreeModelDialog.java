@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.tree;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -34,6 +32,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.tree.TreeModel;
@@ -134,7 +133,7 @@ public final class TreeModelDialog extends ResizableDialog {
 	@Override
 	protected void okPressed() {
 		{
-			m_resultItems = Lists.newArrayList();
+			m_resultItems = new ArrayList<>();
 			prepareResult(m_resultItems, 0, m_treeWidget.getItems());
 		}
 		super.okPressed();
@@ -184,7 +183,7 @@ public final class TreeModelDialog extends ResizableDialog {
 	static final class ItemInformation {
 		private final int m_level;
 		private final String m_text;
-		private final List<ItemInformation> m_children = Lists.newArrayList();
+		private final List<ItemInformation> m_children = new ArrayList<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//

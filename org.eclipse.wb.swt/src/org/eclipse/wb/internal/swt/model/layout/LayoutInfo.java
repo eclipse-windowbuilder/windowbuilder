@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -57,6 +55,7 @@ import org.eclipse.swt.widgets.Menu;
 
 import org.apache.commons.lang.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -307,7 +306,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 
 	@Override
 	public final List<ControlInfo> getControls() {
-		List<ControlInfo> controls = Lists.newArrayList();
+		List<ControlInfo> controls = new ArrayList<>();
 		CompositeInfo composite = getComposite();
 		if (isActiveOnComposite(composite)) {
 			for (ControlInfo control : composite.getChildrenControls()) {
@@ -483,7 +482,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 	 */
 	public static LayoutDataInfo getLayoutData(ControlInfo control) {
 		// select only layout data
-		List<LayoutDataInfo> objects = Lists.newArrayList();
+		List<LayoutDataInfo> objects = new ArrayList<>();
 		for (ObjectInfo object : control.getChildren()) {
 			if (object instanceof LayoutDataInfo) {
 				objects.add((LayoutDataInfo) object);

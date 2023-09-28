@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.structure.components;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -41,6 +39,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -199,7 +198,7 @@ public final class ComponentsTreePage implements IPage {
 			ISelectionChangedListener selectionListener,
 			List<EditPart> sourceEditParts) {
 		// prepare EditPart's in target viewer
-		List<EditPart> targetEditParts = Lists.newArrayList();
+		List<EditPart> targetEditParts = new ArrayList<>();
 		for (EditPart sourceEditPart : sourceEditParts) {
 			Object model = sourceEditPart.getModel();
 			if (model instanceof ObjectReferenceInfo) {

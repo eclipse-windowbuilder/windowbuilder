@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -54,6 +52,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
 
 import javax.swing.border.Border;
 
@@ -128,7 +128,7 @@ public final class BorderDialog extends ResizableDialog {
 	private Combo m_typeCombo;
 	private Group m_pagesComposite;
 	private StackLayout m_pagesLayout;
-	private final java.util.List<AbstractBorderComposite> m_pages = Lists.newArrayList();
+	private final java.util.List<AbstractBorderComposite> m_pages = new ArrayList<>();
 
 	@Override
 	protected Control createDialogArea(Composite parent) {

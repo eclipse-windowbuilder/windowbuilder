@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public final class RowEditDialog extends DimensionEditDialog<RowInfo, RowInfo.Alignment> {
 	private static final List<AlignmentDescription<RowInfo.Alignment>> ALIGNMENTS =
-			Lists.newArrayList();
+			new ArrayList<>();
 	static {
 		ALIGNMENTS.add(new AlignmentDescription<>(RowInfo.Alignment.TOP,
 				ModelMessages.RowEditDialog_aTop));

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -56,6 +55,7 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -338,7 +338,7 @@ public final class ComponentPresentationHelper {
 	 */
 	private static class ComponentPresentationCache {
 		private final String m_toolkitId;
-		private final List<Bundle> m_bundles = Lists.newArrayList();
+		private final List<Bundle> m_bundles = new ArrayList<>();
 		private final Set<String> m_bundleCheckSums = Sets.newHashSet();
 		private final File m_cacheFile;
 		private final Map<String, ComponentPresentation> m_presentations = Maps.newHashMap();
@@ -584,7 +584,7 @@ public final class ComponentPresentationHelper {
 		// prepare bundles and entries
 		for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(toolkitId)) {
 			IConfigurationElement[] elements = toolkitElement.getChildren("palette");
-			List<IConfigurationElement> paletteElements = Lists.newArrayList();
+			List<IConfigurationElement> paletteElements = new ArrayList<>();
 			Collections.addAll(paletteElements, elements);
 			bundles.put(ExternalFactoriesHelper.getExtensionBundle(toolkitElement), paletteElements);
 		}

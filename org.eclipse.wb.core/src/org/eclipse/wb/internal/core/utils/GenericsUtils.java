@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.utils;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
@@ -22,6 +21,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -142,7 +142,7 @@ public final class GenericsUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> select(Collection<? super T> source, Class<T> clazz) {
-		List<T> result = Lists.newArrayList();
+		List<T> result = new ArrayList<>();
 		for (Object object : source) {
 			if (object != null && clazz.isAssignableFrom(object.getClass())) {
 				result.add((T) object);
@@ -156,7 +156,7 @@ public final class GenericsUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> cast(Collection<?> source) {
-		List<T> result = Lists.newArrayList();
+		List<T> result = new ArrayList<>();
 		for (Object object : source) {
 			result.add((T) object);
 		}
@@ -174,7 +174,7 @@ public final class GenericsUtils {
 	 * @return the {@link List} that contains given elements plus one more element.
 	 */
 	public static <T> List<T> asList(T[] elements, T element) {
-		List<T> list = Lists.newArrayList();
+		List<T> list = new ArrayList<>();
 		if (elements != null) {
 			for (T t : elements) {
 				list.add(t);
@@ -376,7 +376,7 @@ public final class GenericsUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Enum<?>> T[] getEnumValues(Class<T> enumClass, Predicate<T> predicate) {
-		List<T> selectedElements = Lists.newArrayList();
+		List<T> selectedElements = new ArrayList<>();
 		for (T element : enumClass.getEnumConstants()) {
 			if (predicate.apply(element)) {
 				selectedElements.add(element);

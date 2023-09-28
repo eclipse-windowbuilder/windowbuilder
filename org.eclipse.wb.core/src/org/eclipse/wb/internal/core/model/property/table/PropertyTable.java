@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -728,11 +729,11 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		// set new properties
 		if (m_rawProperties == null || m_rawProperties.length == 0) {
 			deactivateEditor(false);
-			m_properties = Lists.newArrayList();
+			m_properties = new ArrayList<>();
 		} else {
 			try {
 				// add PropertyInfo for each Property
-				m_properties = Lists.newArrayList();
+				m_properties = new ArrayList<>();
 				for (Property property : m_rawProperties) {
 					if (rawProperties_shouldShow(property)) {
 						PropertyInfo propertyInfo = new PropertyInfo(property);
@@ -901,7 +902,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	// ISelectionProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<ISelectionChangedListener> m_selectionListeners = Lists.newArrayList();
+	private final List<ISelectionChangedListener> m_selectionListeners = new ArrayList<>();
 
 	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
@@ -1429,7 +1430,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		 */
 		private void prepareChildren() throws Exception {
 			if (m_children == null) {
-				m_children = Lists.newArrayList();
+				m_children = new ArrayList<>();
 				for (Property subProperty : getSubProperties()) {
 					PropertyInfo subPropertyInfo = createSubPropertyInfo(subProperty);
 					m_children.add(subPropertyInfo);
@@ -1443,7 +1444,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 
 		private Property[] getSubProperties() throws Exception {
 			IComplexPropertyEditor complexEditor = (IComplexPropertyEditor) m_property.getEditor();
-			List<Property> subProperties = Lists.newArrayList();
+			List<Property> subProperties = new ArrayList<>();
 			for (Property subProperty : complexEditor.getProperties(m_property)) {
 				if (getCategory(subProperty).isHidden() && !subProperty.isModified()) {
 					// skip hidden properties

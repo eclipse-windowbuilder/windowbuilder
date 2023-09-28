@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
@@ -31,6 +29,7 @@ import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,7 +83,7 @@ public final class MethodPropertyRule extends AbstractDesignerRule {
 		// prepare editor
 		PropertyEditor editor;
 		{
-			List<GenericPropertyDescription> descriptions = Lists.newArrayList();
+			List<GenericPropertyDescription> descriptions = new ArrayList<>();
 			for (ParameterDescription parameter : methodDescription.getParameters()) {
 				GenericPropertyDescription description =
 						createPropertyDescription(method, propertyId, parameter);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.BaselineComponentSnapPoint;
@@ -31,6 +29,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +65,7 @@ SnapPoints.DefaultSnapPoints {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
-		List<SnapPoint> pts = Lists.newArrayList();
+		List<SnapPoint> pts = new ArrayList<>();
 		int lSide = PlacementUtils.getSide(isHorizontal, true);
 		int tSide = PlacementUtils.getSide(isHorizontal, false);
 		if (isHorizontal) {
@@ -111,7 +110,7 @@ SnapPoints.DefaultSnapPoints {
 
 	@Override
 	public List<SnapPoint> forContainer(boolean isHorizontal) {
-		List<SnapPoint> pts = Lists.newArrayList();
+		List<SnapPoint> pts = new ArrayList<>();
 		int leadingSide = PlacementUtils.getSide(isHorizontal, true);
 		int trailingSide = PlacementUtils.getSide(isHorizontal, false);
 		// snap to parent at leading side with gap

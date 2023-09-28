@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.xml.model.utils;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +64,7 @@ public abstract class CopyPropertyTopAbstractSupport {
 	}
 
 	private List<CopyProcessor> createProcessors(XmlObjectInfo object) {
-		List<CopyProcessor> processors = Lists.newArrayList();
+		List<CopyProcessor> processors = new ArrayList<>();
 		Predicate<XmlObjectInfo> targetPredicate = createTargetPredicate(object);
 		for (String parameter : object.getDescription().getParameters().keySet()) {
 			String sourcePath = null;

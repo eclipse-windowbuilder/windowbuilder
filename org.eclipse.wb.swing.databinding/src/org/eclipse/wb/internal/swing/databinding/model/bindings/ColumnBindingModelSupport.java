@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.bindings;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.parser.AstModelSupport;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  * @coverage bindings.swing.model.bindings
  */
 public final class ColumnBindingModelSupport extends AstModelSupport {
-	private final List<Expression> m_invocations = Lists.newArrayList();
+	private final List<Expression> m_invocations = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.property;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -34,6 +33,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,7 +103,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 		//
 		assertEquals(2, panel.getChildrenComponents().size());
 		// prepare defaults
-		List<AbstractComponentInfo> defaultControls = Lists.newArrayList();
+		List<AbstractComponentInfo> defaultControls = new ArrayList<>();
 		defaultControls.add(panel.getChildrenComponents().get(0));
 		// create property
 		TestTabOrderProperty property =
@@ -151,7 +151,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 		ComponentInfo label = panel.getChildrenComponents().get(2);
 		//
 		// prepare defaults
-		List<AbstractComponentInfo> defaultControls = Lists.newArrayList();
+		List<AbstractComponentInfo> defaultControls = new ArrayList<>();
 		defaultControls.add(button);
 		// prepare array
 		TypeDeclaration type = (TypeDeclaration) m_lastEditor.getAstUnit().types().get(0);

@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ import java.util.List;
  * @coverage XML.editor.palette
  */
 public final class CategoryInfo extends AbstractElementInfo {
-	private final List<EntryInfo> m_entries = Lists.newArrayList();
+	private final List<EntryInfo> m_entries = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
@@ -72,6 +70,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -216,7 +215,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
 			AstEditor editor,
 			TypeDeclaration rootNode) throws Exception {
 		m_javaInfoRoot = root;
-		m_observables = Lists.newArrayList();
+		m_observables = new ArrayList<>();
 		//
 		IJavaProject javaProject = editor.getJavaProject();
 		ClassLoader classLoader = JavaInfoUtils.getClassLoader(m_javaInfoRoot);
@@ -602,7 +601,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
 		ArrayCreation arrayReferenceProperties = (ArrayCreation) arguments[startIndex + 1];
 		List<Expression> expressionReferenceProperties =
 				DomGenerics.expressions(arrayReferenceProperties.getInitializer());
-		List<String> referenceProperties = Lists.newArrayList();
+		List<String> referenceProperties = new ArrayList<>();
 		for (Expression expression : expressionReferenceProperties) {
 			Assert.instanceOf(QualifiedName.class, expression);
 			referenceProperties.add(CoreUtils.getNodeReference(expression));

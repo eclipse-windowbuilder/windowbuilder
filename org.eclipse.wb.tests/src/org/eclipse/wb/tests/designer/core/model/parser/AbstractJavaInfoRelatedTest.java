@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.parser;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -65,6 +64,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -490,7 +490,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 	 * @return items from combo.
 	 */
 	protected static List<String> getComboPropertyItems() {
-		List<String> items = Lists.newArrayList();
+		List<String> items = new ArrayList<>();
 		int itemCount = TEST_COMBO.getItemCount();
 		for (int i = 0; i < itemCount; i++) {
 			items.add(TEST_COMBO.getItem(i));

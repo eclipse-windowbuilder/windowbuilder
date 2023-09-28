@@ -52,6 +52,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -405,7 +406,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
 		// replace statements with blocks
 		{
 			// prepare unique list of blocks
-			List<Block> blocks = Lists.newArrayList();
+			List<Block> blocks = new ArrayList<>();
 			for (Statement statement : statementSet) {
 				Block block = AstNodeUtils.getEnclosingBlock(statement);
 				if (!blocks.contains(block)) {

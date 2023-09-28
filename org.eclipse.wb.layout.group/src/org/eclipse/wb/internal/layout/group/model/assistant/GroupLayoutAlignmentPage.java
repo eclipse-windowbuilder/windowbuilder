@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model.assistant;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -31,6 +29,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.apache.commons.collections.CollectionUtils;
 import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,8 +79,8 @@ LayoutConstants {
 	@Override
 	public void updatePage() {
 		m_toolBarManager.removeAll();
-		List<ObjectInfo> sel = Lists.newArrayList();
-		List<Object> actions = Lists.newArrayList();
+		List<ObjectInfo> sel = new ArrayList<>();
+		List<Object> actions = new ArrayList<>();
 		CollectionUtils.addAll(sel, m_objects.iterator());
 		new AlignmentsSupport(m_layout).addAlignmentActions(sel, actions);
 		for (Object action : actions) {

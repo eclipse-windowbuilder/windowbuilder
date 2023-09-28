@@ -610,7 +610,7 @@ public final class AstEditor {
 			lineNode = lineNode.getParent();
 		}
 		// find all literals on this line
-		final List<StringLiteral> literals = Lists.newArrayList();
+		final List<StringLiteral> literals = new ArrayList<>();
 		lineNode.accept(new ASTVisitor() {
 			@Override
 			public void endVisit(StringLiteral literal) {
@@ -911,7 +911,7 @@ public final class AstEditor {
 	 * @return the {@link List} of {@link Comment}'s in this {@link CompilationUnit}.
 	 */
 	public List<Comment> getCommentList() throws Exception {
-		List<Comment> comments = Lists.newArrayList();
+		List<Comment> comments = new ArrayList<>();
 		comments.addAll(DomGenerics.getCommentList(m_astUnit));
 		// clean up
 		int documentLength = m_document.getLength();
@@ -1193,7 +1193,7 @@ public final class AstEditor {
 			String baseName,
 			VariableDeclaration excludedVariable) {
 		// prepare declarations...
-		List<VariableDeclaration> declarations = Lists.newArrayList();
+		List<VariableDeclaration> declarations = new ArrayList<>();
 		if (position != -1) {
 			// ...visible + shadows
 			declarations.addAll(AstNodeUtils.getVariableDeclarationsVisibleAt(m_astUnit, position));
@@ -2117,7 +2117,7 @@ public final class AstEditor {
 			List<String> bodyLines,
 			BodyDeclarationTarget target) throws Exception {
 		// prepare full method lines
-		List<String> lines = Lists.newArrayList();
+		List<String> lines = new ArrayList<>();
 		{
 			lines.addAll(annotations);
 			if (bodyLines != null) {

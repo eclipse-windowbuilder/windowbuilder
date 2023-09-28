@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -140,7 +138,7 @@ ILayoutAssistantPage {
 	}
 
 	private void fillAlignmentActions(final IContributionManager manager) {
-		ArrayList<Object> actions = Lists.newArrayList();
+		ArrayList<Object> actions = new ArrayList<>();
 		new FormLayoutEditPolicy.FormLayoutAlignmentActionsSupport<>(m_layout, m_placementsSupport).addAlignmentActions(
 				GenericsUtils.<ObjectInfo>cast(m_selection),
 				actions);

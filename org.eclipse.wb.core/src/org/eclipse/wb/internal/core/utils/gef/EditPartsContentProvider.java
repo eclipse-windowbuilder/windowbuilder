@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
@@ -20,6 +18,7 @@ import org.eclipse.jface.viewers.Viewer;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +64,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
 	public Object[] getChildren(Object parentElement) {
 		EditPart parentEditPart = m_viewer.getEditPartByModel(parentElement);
 		if (parentEditPart != null) {
-			List<Object> children = Lists.newArrayList();
+			List<Object> children = new ArrayList<>();
 			for (EditPart editPart : parentEditPart.getChildren()) {
 				children.add(editPart.getModel());
 			}

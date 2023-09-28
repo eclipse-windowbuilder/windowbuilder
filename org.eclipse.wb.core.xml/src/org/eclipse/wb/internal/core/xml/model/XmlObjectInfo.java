@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.HasSourcePosition;
@@ -40,6 +39,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -185,10 +185,10 @@ public class XmlObjectInfo extends ObjectInfo implements HasSourcePosition {
 
 	@Override
 	protected List<Property> getPropertyList() throws Exception {
-		List<Property> properties = Lists.newArrayList();
+		List<Property> properties = new ArrayList<>();
 		// add description based properties
 		if (m_descriptionBasedProperties == null) {
-			m_descriptionBasedProperties = Lists.newArrayList();
+			m_descriptionBasedProperties = new ArrayList<>();
 			for (GenericPropertyDescription description : getDescription().getProperties()) {
 				GenericProperty property = new GenericPropertyImpl(this, description);
 				m_descriptionBasedProperties.add(property);

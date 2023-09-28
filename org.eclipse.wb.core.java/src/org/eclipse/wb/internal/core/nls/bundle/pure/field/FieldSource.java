@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.pure.field;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -43,6 +41,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,7 +75,7 @@ public final class FieldSource extends AbstractPureBundleSource {
 	 */
 	public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
 			throws Exception {
-		List<AbstractSource> sources = Lists.newArrayList();
+		List<AbstractSource> sources = new ArrayList<>();
 		//
 		Object[] nonJavaResources = pkg.getNonJavaResources();
 		for (Object o : nonJavaResources) {

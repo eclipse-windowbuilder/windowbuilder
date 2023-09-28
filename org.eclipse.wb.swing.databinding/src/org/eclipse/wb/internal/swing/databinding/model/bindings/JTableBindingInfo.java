@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.bindings;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -42,6 +40,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +66,7 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
 			null);
 	//
 	private boolean m_editable = true;
-	private List<ColumnBindingInfo> m_columns = Lists.newArrayList();
+	private List<ColumnBindingInfo> m_columns = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

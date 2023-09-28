@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -38,6 +37,7 @@ import org.apache.commons.lang.text.StrSubstitutor;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -392,7 +392,7 @@ public final class NamesManager {
 	 */
 	public static List<ComponentNameDescription> getNameDescriptions(ToolkitDescription toolkit,
 			boolean def) {
-		final List<ComponentNameDescription> descriptions = Lists.newArrayList();
+		final List<ComponentNameDescription> descriptions = new ArrayList<>();
 		// prepare settings as String
 		final String settingsString;
 		{

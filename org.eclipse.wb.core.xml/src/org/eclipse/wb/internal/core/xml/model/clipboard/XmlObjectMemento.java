@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.clipboard;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
@@ -23,6 +21,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,7 +104,7 @@ public class XmlObjectMemento implements Serializable {
 	////////////////////////////////////////////////////////////////////////////
 	private final String m_componentClassName;
 	private final IClipboardCreationSupport m_creationSupport;
-	private final List<ClipboardCommand> m_commands = Lists.newArrayList();
+	private final List<ClipboardCommand> m_commands = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

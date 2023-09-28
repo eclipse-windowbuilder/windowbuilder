@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -21,6 +19,7 @@ import org.eclipse.jface.action.IAction;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,10 +83,10 @@ public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		ComponentInfo text = panel.getChildrenComponents().get(1);
 		// prepare "text" selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(text);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// check actions
 		assertEquals(12, actions.size()); // 10 action's, 2 separator's

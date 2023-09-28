@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -72,6 +71,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -349,7 +349,7 @@ public class ActionTest extends RcpModelTest {
 						"  }",
 						"}");
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-		List<CategoryInfo> categories = Lists.newArrayList();
+		List<CategoryInfo> categories = new ArrayList<>();
 		listener.categories(categories);
 		Assertions.assertThat(categories).isEmpty();
 	}
@@ -387,7 +387,7 @@ public class ActionTest extends RcpModelTest {
 						"}");
 		// check for "Actions" category
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-		List<CategoryInfo> categories = Lists.newArrayList();
+		List<CategoryInfo> categories = new ArrayList<>();
 		listener.categories(categories);
 		Assertions.assertThat(categories).hasSize(1);
 		// check "Actions" category
@@ -429,7 +429,7 @@ public class ActionTest extends RcpModelTest {
 		// prepare categories
 		List<CategoryInfo> categories;
 		{
-			categories = Lists.newArrayList();
+			categories = new ArrayList<>();
 			// add "Menu" category
 			categories.add(new CategoryInfo("org.eclipse.wb.rcp.menu"));
 			// ask for categories
@@ -474,7 +474,7 @@ public class ActionTest extends RcpModelTest {
 						"}");
 		// check for "Actions" category
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-		List<CategoryInfo> categories = Lists.newArrayList();
+		List<CategoryInfo> categories = new ArrayList<>();
 		listener.categories(categories);
 		Assertions.assertThat(categories).hasSize(1);
 		// check "Actions" category
@@ -530,7 +530,7 @@ public class ActionTest extends RcpModelTest {
 						"}");
 		// check for "Actions" category
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-		List<CategoryInfo> categories = Lists.newArrayList();
+		List<CategoryInfo> categories = new ArrayList<>();
 		listener.categories(categories);
 		Assertions.assertThat(categories).hasSize(1);
 		// check "Actions" category
@@ -588,7 +588,7 @@ public class ActionTest extends RcpModelTest {
 		{
 			PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
 			CategoryInfo category = new CategoryInfo("org.eclipse.wb.rcp.jface.actions");
-			List<EntryInfo> entries = Lists.newArrayList();
+			List<EntryInfo> entries = new ArrayList<>();
 			listener.entries(category, entries);
 			entry = (ActionUseEntryInfo) entries.get(0);
 		}

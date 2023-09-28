@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.combo;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -33,6 +31,7 @@ import org.eclipse.jface.window.Window;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
@@ -161,7 +160,7 @@ public final class ComboBoxModelPropertyEditor extends TextDialogPropertyEditor 
 	private static String[] getItems(Property property) throws Exception {
 		Object value = property.getValue();
 		if (value instanceof ComboBoxModel) {
-			List<String> items = Lists.newArrayList();
+			List<String> items = new ArrayList<>();
 			ComboBoxModel model = (ComboBoxModel) value;
 			for (int i = 0; i < model.getSize(); i++) {
 				Object element = model.getElementAt(i);

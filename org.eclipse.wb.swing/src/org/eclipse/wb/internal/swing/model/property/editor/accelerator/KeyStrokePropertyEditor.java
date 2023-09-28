@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.accelerator;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -44,6 +43,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.KeyStroke;
@@ -438,7 +438,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 	 */
 	private static synchronized void prepareKeyMaps() {
 		if (m_keyCodeToName == null) {
-			m_keyFields = Lists.newArrayList();
+			m_keyFields = new ArrayList<>();
 			m_keyCodeToName = Maps.newTreeMap();
 			m_keyNameToCode = Maps.newTreeMap();
 			// add fields

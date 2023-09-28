@@ -81,6 +81,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.awt.FlowLayout;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -2672,7 +2673,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 		ComponentInfo component_1 = panel.getChildrenComponents().get(1);
 		// check 0: no components
 		{
-			List<JavaInfo> components = Lists.<JavaInfo>newArrayList();
+			List<JavaInfo> components = new ArrayList<>();
 			JavaInfoUtils.sortComponentsByFlow(components);
 			Assertions.assertThat(components).isEmpty();
 		}

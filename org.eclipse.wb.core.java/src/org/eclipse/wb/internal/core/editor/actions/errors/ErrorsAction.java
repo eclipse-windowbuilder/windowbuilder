@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.errors;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.Action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ import java.util.List;
  * @coverage core.editor.action.error
  */
 public class ErrorsAction extends Action {
-	private final List<IErrorPage> m_pages = Lists.newArrayList();
+	private final List<IErrorPage> m_pages = new ArrayList<>();
 	private ObjectInfo m_rootObject;
 
 	////////////////////////////////////////////////////////////////////////////

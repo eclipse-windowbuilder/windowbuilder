@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.clipboard;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,7 +98,7 @@ public class JavaInfoMemento implements Serializable {
 	////////////////////////////////////////////////////////////////////////////
 	private final String m_componentClassName;
 	private final IClipboardCreationSupport m_creationSupport;
-	private final List<ClipboardCommand> m_commands = Lists.newArrayList();
+	private final List<ClipboardCommand> m_commands = new ArrayList<>();
 
 	//the variable.field name must be kept, it's not contained in javaInfo created during paste.
 	private String m_variableName;

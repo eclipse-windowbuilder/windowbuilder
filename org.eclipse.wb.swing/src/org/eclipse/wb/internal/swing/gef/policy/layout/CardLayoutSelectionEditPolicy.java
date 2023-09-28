@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ICursorConstants;
@@ -29,6 +27,7 @@ import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +56,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
 		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
 		handles.add(createHandle(IPositionConstants.SOUTH_WEST));

@@ -62,6 +62,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -416,7 +417,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 
 		@Override
 		public List<IMenuItemInfo> getItems() {
-			List<IMenuItemInfo> items = Lists.newArrayList();
+			List<IMenuItemInfo> items = new ArrayList<>();
 			for (MenuItemInfo item : getChildrenItems()) {
 				items.add(MenuObjectInfoUtils.getMenuItemInfo(item));
 			}
@@ -493,7 +494,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		@Override
 		@SuppressWarnings("unchecked")
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-			List<MenuItemInfo> pastedObjects = Lists.newArrayList();
+			List<MenuItemInfo> pastedObjects = new ArrayList<>();
 			List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) mementoObject;
 			for (JavaInfoMemento memento : mementos) {
 				MenuItemInfo item = (MenuItemInfo) memento.create(m_this);

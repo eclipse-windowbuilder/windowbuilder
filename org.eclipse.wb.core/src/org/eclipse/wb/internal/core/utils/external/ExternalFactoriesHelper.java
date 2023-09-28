@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.external;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -29,6 +27,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -148,7 +147,7 @@ public class ExternalFactoriesHelper {
 		// check for cached: List<?>
 		List<T> objects = (List<T>) elementName_to_objects.get(elementName);
 		if (objects == null) {
-			objects = Lists.newArrayList();
+			objects = new ArrayList<>();
 			elementName_to_objects.put(elementName, objects);
 			List<IConfigurationElement> elements = getElements(pointId, elementName);
 			// create object
@@ -205,7 +204,7 @@ public class ExternalFactoriesHelper {
 		// check for cached: List<IConfigurationElement>
 		List<IConfigurationElement> elements = elementName_to_elements.get(elementName);
 		if (elements == null) {
-			elements = Lists.newArrayList();
+			elements = new ArrayList<>();
 			elementName_to_elements.put(elementName, elements);
 			// load elements
 			for (IExtension extension : getExtensions(pointId)) {
@@ -295,7 +294,7 @@ public class ExternalFactoriesHelper {
 	private static List<IExtension> getExtensions(String pointId) {
 		List<IExtension> extensions = m_extensions.get(pointId);
 		if (extensions == null) {
-			extensions = Lists.newArrayList();
+			extensions = new ArrayList<>();
 			m_extensions.put(pointId, extensions);
 			IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(pointId);
 			if (extensionPoint != null) {

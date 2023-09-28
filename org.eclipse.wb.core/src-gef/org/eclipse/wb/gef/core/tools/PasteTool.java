@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +66,7 @@ public class PasteTool extends AbstractCreationTool {
 	protected void selectAddedObjects() {
 		final IEditPartViewer viewer = getViewer();
 		// prepare pasted EditPart's
-		List<EditPart> editParts = Lists.newArrayList();
+		List<EditPart> editParts = new ArrayList<>();
 		{
 			PasteRequest request = (PasteRequest) getTargetRequest();
 			for (Object model : request.getObjects()) {

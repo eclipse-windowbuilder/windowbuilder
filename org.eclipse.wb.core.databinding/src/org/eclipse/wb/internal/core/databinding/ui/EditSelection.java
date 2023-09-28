@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 
@@ -214,7 +212,7 @@ public final class EditSelection {
 	 * @return the array of objects for given array of paths.
 	 */
 	private static Object[] pathsToObjects(ITreeContentProvider provider, Object[] input, int[][] paths) {
-		List<Object> objects = Lists.newArrayList();
+		List<Object> objects = new ArrayList<>();
 		for (int[] path : paths) {
 			Object object = pathToObject(provider, input, path);
 			if (object != null) {

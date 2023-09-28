@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.clipboard;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ import java.util.List;
 final class ImplicitChildCommand extends ClipboardCommand {
 	private static final long serialVersionUID = 0L;
 	private final IClipboardImplicitCreationSupport m_implicitCreation;
-	private final List<ClipboardCommand> m_commands = Lists.newArrayList();
+	private final List<ClipboardCommand> m_commands = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

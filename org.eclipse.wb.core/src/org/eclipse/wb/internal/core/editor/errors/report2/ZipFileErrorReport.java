@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -29,6 +28,7 @@ import org.apache.commons.lang.time.DateFormatUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,7 @@ import java.util.zip.ZipOutputStream;
  */
 public final class ZipFileErrorReport implements IErrorReport {
 	// fields
-	private final List<IReportEntry> m_entries = Lists.newArrayList();
+	private final List<IReportEntry> m_entries = new ArrayList<>();
 	private final IProject m_project;
 	private final IReportEntry m_sourceFileReport;
 	private final ProjectReportEntry m_projectFileReport;

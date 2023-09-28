@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.association;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -20,6 +18,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,8 +35,8 @@ import java.util.List;
  * @coverage core.model.association
  */
 public final class CompoundAssociation extends Association {
-	private final List<Association> m_associations = Lists.newArrayList();
-	private final List<Association> m_newAssociations = Lists.newArrayList();
+	private final List<Association> m_associations = new ArrayList<>();
+	private final List<Association> m_newAssociations = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

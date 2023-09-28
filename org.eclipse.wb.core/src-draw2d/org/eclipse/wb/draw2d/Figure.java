@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
@@ -25,6 +23,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Cursor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -161,7 +160,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		}
 		// check container
 		if (m_children == null) {
-			m_children = Lists.newArrayList();
+			m_children = new ArrayList<>();
 		}
 		// check index
 		if (index < -1 || index > m_children.size()) {

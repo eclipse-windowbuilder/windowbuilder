@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +68,7 @@ public abstract class AbstractBindingComposite extends Composite {
 	// Listener
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<Runnable> m_updateListeners = Lists.newArrayList();
+	private final List<Runnable> m_updateListeners = new ArrayList<>();
 	/**
 	 * Adds new {@link Runnable} for update of bounds preferences.
 	 */

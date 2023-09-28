@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.OutlineImageFigure;
@@ -53,6 +51,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -253,7 +252,7 @@ IHeadersProvider {
 		boolean isKeyboardMoving = isKeyboardMoving();
 		// some preparations
 		List<EditPart> editParts = request.getEditParts();
-		List<IAbstractComponentInfo> modelList = Lists.newArrayList();
+		List<IAbstractComponentInfo> modelList = new ArrayList<>();
 		Rectangle[] relativeBounds = new Rectangle[editParts.size()];
 		Rectangle widgetBounds;
 		// calculate model bounds and create move feedback
@@ -421,7 +420,7 @@ IHeadersProvider {
 	}
 
 	private List<IAbstractComponentInfo> getAllComponents() {
-		List<IAbstractComponentInfo> components = Lists.newArrayList();
+		List<IAbstractComponentInfo> components = new ArrayList<>();
 		components.addAll(m_layout.getComposite().getChildrenControls());
 		return components;
 	}
@@ -473,7 +472,7 @@ IHeadersProvider {
 		FormLayoutPreferences preferences = m_layout.getPreferences();
 		List<Integer> values =
 				isHorizontal ? preferences.getHorizontalPercents() : preferences.getVerticalPercents();
-		List<FormLayoutPreferences.PercentsInfo> results = Lists.newArrayList();
+		List<FormLayoutPreferences.PercentsInfo> results = new ArrayList<>();
 		for (Integer percent : values) {
 			results.add(new FormLayoutPreferences.PercentsInfo(percent));
 		}

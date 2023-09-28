@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.resources.IFile;
@@ -46,6 +44,7 @@ import org.eclipse.pde.internal.ui.wizards.tools.OrganizeManifest;
 
 import org.osgi.framework.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -155,8 +154,8 @@ public class PdeProjectConversionUtils {
 	private void loadClasspathEntries(IProject project, IProgressMonitor monitor) {
 		IJavaProject javaProject = JavaCore.create(project);
 		IClasspathEntry[] currentClassPath = new IClasspathEntry[0];
-		List<String> sources = Lists.newArrayList();
-		List<String> libraries = Lists.newArrayList();
+		List<String> sources = new ArrayList<>();
+		List<String> libraries = new ArrayList<>();
 		try {
 			currentClassPath = javaProject.getRawClasspath();
 		} catch (JavaModelException e) {

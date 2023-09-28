@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.StringUtilities;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +119,7 @@ public final class CreationDescription extends AbstractDescription {
 	// Attributes
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<CreationAttributeDescription> m_attributes = Lists.newArrayList();
+	private final List<CreationAttributeDescription> m_attributes = new ArrayList<>();
 
 	/**
 	 * @return attributes to set on creation.

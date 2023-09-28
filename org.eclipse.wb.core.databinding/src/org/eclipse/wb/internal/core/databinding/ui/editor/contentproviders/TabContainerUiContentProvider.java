@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
@@ -36,6 +34,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -405,7 +404,7 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
 
 	@Override
 	public void saveToObject() throws Exception {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		if (!m_showEmptyPage) {
 			int count = m_folder.getItemCount();
 			for (int i = 0; i < count; i++) {
@@ -429,7 +428,7 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
 	}
 
 	protected final List<IUiContentProvider> getProviders() {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		if (!m_showEmptyPage) {
 			int count = m_folder.getItemCount();
 			for (int i = 0; i < count; i++) {

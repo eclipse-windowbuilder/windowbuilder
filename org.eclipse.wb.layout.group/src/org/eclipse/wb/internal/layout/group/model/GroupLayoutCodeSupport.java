@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -34,6 +32,7 @@ import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 import org.netbeans.modules.form.layoutdesign.LayoutInterval;
 import org.netbeans.modules.form.layoutdesign.LayoutModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -258,7 +257,7 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
 	}
 
 	private List<String> extractLinkSizeCode(String layoutCode) {
-		List<String> result = Lists.newArrayList();
+		List<String> result = new ArrayList<>();
 		int beginIndex = 0;
 		while (true) {
 			beginIndex = layoutCode.indexOf(ID_LINK_SIZE, beginIndex);

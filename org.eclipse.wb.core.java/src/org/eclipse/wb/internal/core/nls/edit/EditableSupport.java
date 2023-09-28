@@ -46,7 +46,7 @@ import java.util.Map;
  */
 public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	private final JavaInfo m_root;
-	private final List<IEditableSource> m_newEditableSources = Lists.newArrayList();
+	private final List<IEditableSource> m_newEditableSources = new ArrayList<>();
 	private final Map<AbstractSource, IEditableSource> m_sourceToEditable = Maps.newHashMap();
 	private final Map<IEditableSource, AbstractSource> m_editableToSource = Maps.newHashMap();
 	private final MultiKeyMap/*<IEditableSource, String, List<StringPropertyInfo>>*/m_externalizedProperties =
@@ -121,7 +121,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	private void initializeProperties(NlsSupport support, JavaInfo component) throws Exception {
 		// add list of properties for current component
 		{
-			List<StringPropertyInfo> componentProperties = Lists.newArrayList();
+			List<StringPropertyInfo> componentProperties = new ArrayList<>();
 			m_componentToPropertyList.put(component, componentProperties);
 			// prepare list of properties
 			List<Property> properties = Lists.newArrayList(component.getProperties());
@@ -213,7 +213,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	// IEditableSupport: listener
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<IEditableSupportListener> m_listeners = Lists.newArrayList();
+	private final List<IEditableSupportListener> m_listeners = new ArrayList<>();
 
 	@Override
 	public void addListener(IEditableSupportListener listener) {
@@ -261,7 +261,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 
 	@Override
 	public List<IEditableSource> getEditableSources() {
-		List<IEditableSource> editableSources = Lists.newArrayList();
+		List<IEditableSource> editableSources = new ArrayList<>();
 		// add existing and new sources
 		editableSources.addAll(m_sourceToEditable.values());
 		editableSources.addAll(m_newEditableSources);
@@ -345,7 +345,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 
 	@Override
 	public List<JavaInfo> getTreeChildren(JavaInfo component) throws Exception {
-		List<JavaInfo> selectedTreeChildren = Lists.newArrayList();
+		List<JavaInfo> selectedTreeChildren = new ArrayList<>();
 		for (ObjectInfo child : component.getPresentation().getChildrenTree()) {
 			if (child instanceof JavaInfo) {
 				// check if child can be visited
@@ -364,7 +364,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 
 	@Override
 	public List<StringPropertyInfo> getProperties(JavaInfo component) {
-		List<StringPropertyInfo> externalizableProperties = Lists.newArrayList();
+		List<StringPropertyInfo> externalizableProperties = new ArrayList<>();
 		// prepare all properties of component
 		List<StringPropertyInfo> componentProperties = m_componentToPropertyList.get(component);
 		externalizableProperties.addAll(componentProperties);
@@ -406,7 +406,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	// ICommandQueue
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<AbstractCommand> m_commands = Lists.newArrayList();
+	private final List<AbstractCommand> m_commands = new ArrayList<>();
 
 	@Override
 	public void addCommand(AbstractCommand command) {

@@ -63,6 +63,7 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -123,7 +124,7 @@ SelectionEditPolicy {
 
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		moveHandle.setBorder(new LineBorder(IColorConstants.lightBlue));
 		handles.add(moveHandle);

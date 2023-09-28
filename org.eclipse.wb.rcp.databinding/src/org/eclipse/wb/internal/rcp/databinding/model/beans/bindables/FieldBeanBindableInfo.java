@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.reference.CompoundReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenceProvider;
@@ -29,6 +27,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.viewers.IDecoration;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 
 /**
  * Model for field based <code>Java Beans</code> objects.
@@ -61,7 +60,7 @@ public final class FieldBeanBindableInfo extends BeanBindableInfo {
 		setBindingDecoration(IDecoration.TOP_RIGHT);
 		m_hostJavaInfo = fragment == null ? javaInfo : null;
 		m_fragment = fragment;
-		m_children = Lists.newArrayList();
+		m_children = new ArrayList<>();
 		// add "getter" properties contains sub properties to children
 		for (PropertyBindableInfo property : getProperties()) {
 			if (property instanceof BeanPropertyDescriptorBindableInfo descriptorProperty) {

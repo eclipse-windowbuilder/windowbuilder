@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
@@ -25,6 +24,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -82,7 +82,7 @@ public class GridBagLayoutConverter {
 			}
 		}
 		// create constraints for each control
-		List<ComponentInfo> appliedControls = Lists.newArrayList();
+		List<ComponentInfo> appliedControls = new ArrayList<>();
 		for (ComponentInGroup componentInGroup : componentsInGroups) {
 			ComponentInfo component = (ComponentInfo) componentInGroup.getComponent();
 			if (appliedControls.contains(component)) {

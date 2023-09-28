@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
@@ -58,6 +56,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -293,13 +292,13 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private List<PropertyAdapter> getChoosenProperties() {
-		List<PropertyAdapter> properties = Lists.newArrayList();
+		List<PropertyAdapter> properties = new ArrayList<>();
 		CollectionUtils.addAll(properties, treeViewer.getCheckedElements());
 		return properties;
 	}
 
 	private List<PropertyAdapter> getProperties(IGenericType objectType) throws Exception {
-		List<PropertyAdapter> adapters = Lists.newArrayList();
+		List<PropertyAdapter> adapters = new ArrayList<>();
 		BeanSupport beanSupport = new BeanSupport();
 		beanSupport.doAddELProperty(true);
 		for (ObserveInfo property : beanSupport.createProperties(null, objectType)) {
@@ -376,7 +375,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 
 		public List<ObservePropertyAdapter> getChildren() {
 			if (m_children == null) {
-				m_children = Lists.newArrayList();
+				m_children = new ArrayList<>();
 				List<ObserveInfo> properties =
 						CoreUtils.cast(m_property.getChildren(ChildrenContext.ChildrenForPropertiesTable));
 				for (ObserveInfo property : properties) {
@@ -392,7 +391,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 
 		public void addToParent() {
 			if (m_parent != null) {
-				m_parent.m_children = Lists.newArrayList();
+				m_parent.m_children = new ArrayList<>();
 				m_parent.m_children.add(this);
 			}
 		}

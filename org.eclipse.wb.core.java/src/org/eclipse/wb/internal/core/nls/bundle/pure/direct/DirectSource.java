@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.pure.direct;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -33,6 +31,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,7 +64,7 @@ public final class DirectSource extends AbstractPureBundleSource {
 	 */
 	public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
 			throws Exception {
-		List<AbstractSource> sources = Lists.newArrayList();
+		List<AbstractSource> sources = new ArrayList<>();
 		//
 		Object[] nonJavaResources = pkg.getNonJavaResources();
 		for (int i = 0; i < nonJavaResources.length; i++) {

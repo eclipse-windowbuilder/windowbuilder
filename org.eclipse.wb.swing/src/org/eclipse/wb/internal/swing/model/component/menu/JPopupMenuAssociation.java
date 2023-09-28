@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.AssociationUtils;
@@ -32,6 +30,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -104,7 +103,7 @@ public final class JPopupMenuAssociation extends InvocationAssociation {
 				typeDeclaration,
 				"addPopup(java.awt.Component,javax.swing.JPopupMenu)") == null) {
 			// prepare method lines
-			List<String> lines = Lists.newArrayList();
+			List<String> lines = new ArrayList<>();
 			{
 				lines.add("component.addMouseListener(new java.awt.event.MouseAdapter() {");
 				lines.add("  public void mousePressed(java.awt.event.MouseEvent e) {");

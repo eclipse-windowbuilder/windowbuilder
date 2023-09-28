@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,7 +91,7 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
 	protected void preprocessSelection(List<EditPart> editParts) {
 		super.preprocessSelection(editParts);
 		// prepare selected ObjectInfo's
-		m_selectedObjects = Lists.newArrayList();
+		m_selectedObjects = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			if (editPart.getModel() instanceof ObjectInfo) {
 				m_selectedObjects.add((ObjectInfo) editPart.getModel());

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.color;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.color.CustomColorPickerComposite;
 import org.eclipse.wb.core.editor.constants.IColorChooserPreferenceConstants;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -62,6 +60,7 @@ import org.osgi.service.prefs.Preferences;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -468,7 +467,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 			for (ColorRegistryInfo registryInfo : registries) {
 				// prepare color info's
 				Object registry = registryInfo.getObject();
-				List<ColorInfo> infos = Lists.newArrayList();
+				List<ColorInfo> infos = new ArrayList<>();
 				for (KeyFieldInfo keyInfo : registryInfo.getKeyFields()) {
 					if (keyInfo.value == null) {
 						keyInfo.value =

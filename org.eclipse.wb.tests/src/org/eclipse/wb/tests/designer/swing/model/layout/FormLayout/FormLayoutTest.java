@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
@@ -44,6 +43,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -270,7 +270,7 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 		FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
 		//
 		assertEquals(2, layout.getColumns().size());
-		layout.setColumns(Lists.<FormColumnInfo>newArrayList());
+		layout.setColumns(new ArrayList<>());
 		assertEquals(0, layout.getColumns().size());
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -303,7 +303,7 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 		//
 		assertEquals(1, layout.getRows().size());
 		//
-		layout.setRows(Lists.<FormRowInfo>newArrayList());
+		layout.setRows(new ArrayList<>());
 		assertEquals(0, layout.getRows().size());
 		assertEditor(
 				"public class Test extends JPanel {",

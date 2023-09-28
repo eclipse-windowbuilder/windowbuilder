@@ -34,6 +34,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ChooseClassAn
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -217,7 +218,7 @@ public final class VirtualEditingSupportInfo {
 							if (m_children == null) {
 								try {
 									// prepare control SWT properties
-									m_children = Lists.newArrayList();
+									m_children = new ArrayList<>();
 									List<WidgetPropertyBindableInfo> swtProperties =
 											getWidgetProperties(
 													JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()),

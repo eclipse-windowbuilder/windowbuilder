@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -22,6 +21,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +35,8 @@ import javax.xml.parsers.SAXParserFactory;
  * @coverage bindings.wizard.auto
  */
 public final class DescriptorContainer {
-	private final List<AbstractDescriptor> m_descriptors = Lists.newArrayList();
-	private final List<AbstractDescriptor> m_defaults = Lists.newArrayList();
+	private final List<AbstractDescriptor> m_descriptors = new ArrayList<>();
+	private final List<AbstractDescriptor> m_defaults = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

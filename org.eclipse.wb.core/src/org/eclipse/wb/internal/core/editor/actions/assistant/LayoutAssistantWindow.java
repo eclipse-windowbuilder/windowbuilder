@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.assistant;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantListener;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -34,6 +32,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -143,11 +142,11 @@ public class LayoutAssistantWindow extends Window {
 				tabItem.getControl().dispose();
 				tabItem.dispose();
 			}
-			m_pages = Lists.newArrayList();
+			m_pages = new ArrayList<>();
 			// check selection
 			{
 				// check selection and parent
-				m_selectedComponents = Lists.newArrayList();
+				m_selectedComponents = new ArrayList<>();
 				{
 					ObjectInfo parent = null;
 					for (Object object : selectedObjects) {

@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.structure.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.PropertyManager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public final class PropertyListIntersector {
 	 */
 	public void intersect(Property[] properties) {
 		if (m_intersection == null) {
-			m_intersection = Lists.newArrayList();
+			m_intersection = new ArrayList<>();
 			for (int i = 0; i < properties.length; i++) {
 				Property property = properties[i];
 				m_intersection.add(new PropertyGroup(property));
@@ -56,7 +55,7 @@ public final class PropertyListIntersector {
 	 * @return the array of matched composite {@link Property}'s.
 	 */
 	public Property[] getProperties() {
-		List<Property> properties = Lists.newArrayList();
+		List<Property> properties = new ArrayList<>();
 		for (PropertyGroup propertyGroup : m_intersection) {
 			Property compositeProperty = propertyGroup.getCompositeProperty();
 			if (compositeProperty != null) {
@@ -76,7 +75,7 @@ public final class PropertyListIntersector {
 	 * The group of {@link Property}'s that match.
 	 */
 	private static final class PropertyGroup {
-		private final List<Property> m_properties = Lists.newArrayList();
+		private final List<Property> m_properties = new ArrayList<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//

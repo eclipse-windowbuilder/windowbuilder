@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -29,6 +27,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -147,7 +146,7 @@ IClipboardSourceProvider {
 	 * @return the {@link Field}'s with cursor constants from {@link SWT}.
 	 */
 	private static List<Field> getCursorFields() throws Exception {
-		List<Field> cursorFields = Lists.newArrayList();
+		List<Field> cursorFields = new ArrayList<>();
 		Class<?> class_SWT = SwtSupport.getSwtClass();
 		Field[] fields = class_SWT.getFields();
 		for (Field field : fields) {

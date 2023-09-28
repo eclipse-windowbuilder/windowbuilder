@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.variables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -32,6 +30,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -210,7 +209,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 	public void test_getNameDescriptions_setNameDescriptions() throws Exception {
 		// set descriptions
 		{
-			List<ComponentNameDescription> descriptions = Lists.newArrayList();
+			List<ComponentNameDescription> descriptions = new ArrayList<>();
 			descriptions.add(new ComponentNameDescription("javax.swing.JButton", "button", "btn"));
 			descriptions.add(new ComponentNameDescription("javax.swing.JComboBox", "combo", "cmb"));
 			NamesManager.setNameDescriptions(TOOLKIT, descriptions);
@@ -257,7 +256,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 				"}");
 		// set description
 		{
-			List<ComponentNameDescription> descriptions = Lists.newArrayList();
+			List<ComponentNameDescription> descriptions = new ArrayList<>();
 			descriptions.add(new ComponentNameDescription("javax.swing.JButton", "b_name", "b_acronym"));
 			NamesManager.setNameDescriptions(TOOLKIT, descriptions);
 		}
@@ -336,7 +335,7 @@ public class NamesManagerTest extends AbstractVariableTest {
 				"}");
 		// set description for javax.swing.JTextField
 		{
-			List<ComponentNameDescription> descriptions = Lists.newArrayList();
+			List<ComponentNameDescription> descriptions = new ArrayList<>();
 			descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
 					"textField",
 					"txt",

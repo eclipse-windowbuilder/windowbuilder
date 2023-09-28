@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy;
@@ -36,6 +34,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,7 +83,7 @@ AbstractGridSelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handlesList = Lists.newArrayList();
+		List<Handle> handlesList = new ArrayList<>();
 		// add move handle
 		handlesList.add(createMoveHandle());
 		// add resize handles

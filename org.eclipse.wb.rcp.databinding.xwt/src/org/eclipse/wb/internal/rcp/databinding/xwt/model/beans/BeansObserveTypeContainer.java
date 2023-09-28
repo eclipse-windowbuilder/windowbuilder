@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model.beans;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.ObserveTypeContainer;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +64,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void createObservables(XmlObjectInfo xmlObjectRoot) throws Exception {
-		m_observables = Lists.newArrayList();
+		m_observables = new ArrayList<>();
 		m_xmlObjectRoot = xmlObjectRoot;
 		// handle XML elements
 		final ClassLoader classLoader = m_xmlObjectRoot.getContext().getClassLoader();

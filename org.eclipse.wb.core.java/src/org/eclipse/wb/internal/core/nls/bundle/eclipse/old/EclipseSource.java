@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.eclipse.old;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -46,6 +44,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +72,7 @@ public final class EclipseSource extends AbstractBundleSource {
 	 */
 	public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
 			throws Exception {
-		List<AbstractSource> sources = Lists.newArrayList();
+		List<AbstractSource> sources = new ArrayList<>();
 		IJavaElement[] packageElements = pkg.getChildren();
 		for (int i = 0; i < packageElements.length; i++) {
 			ICompilationUnit unit = (ICompilationUnit) packageElements[i];

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -235,7 +233,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 * Return collection model's of operation set.
 	 */
 	private List<Object> getOperationSetModels() {
-		List<Object> models = Lists.newArrayList();
+		List<Object> models = new ArrayList<>();
 		for (EditPart part : getOperationSet()) {
 			models.add(part.getModel());
 		}
@@ -249,7 +247,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		if (models != null) {
 			IEditPartViewer viewer = getViewer();
 			// prepare new EditPart's
-			List<EditPart> newEditParts = Lists.newArrayList();
+			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
 				EditPart newEditPart = viewer.getEditPartByModel(model);
 				if (newEditPart != null) {

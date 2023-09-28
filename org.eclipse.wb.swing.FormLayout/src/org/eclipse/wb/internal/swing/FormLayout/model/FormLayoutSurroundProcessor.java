@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.util.surround.ISurroundProcessor;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +80,7 @@ ISurroundProcessor<ContainerInfo, ComponentInfo> {
 			FormLayoutInfo sourceLayout = (FormLayoutInfo) sourceContainer.getLayout();
 			// copy columns
 			{
-				List<FormColumnInfo> targetColumns = Lists.newArrayList();
+				List<FormColumnInfo> targetColumns = new ArrayList<>();
 				for (int columnIndex = targetBounds.x; columnIndex < targetBounds.right(); columnIndex++) {
 					FormColumnInfo sourceColumn = sourceLayout.getColumns().get(columnIndex - 1);
 					targetColumns.add(sourceColumn.copy());
@@ -90,7 +89,7 @@ ISurroundProcessor<ContainerInfo, ComponentInfo> {
 			}
 			// copy rows
 			{
-				List<FormRowInfo> targetRows = Lists.newArrayList();
+				List<FormRowInfo> targetRows = new ArrayList<>();
 				for (int rowIndex = targetBounds.y; rowIndex < targetBounds.bottom(); rowIndex++) {
 					FormRowInfo sourceRow = sourceLayout.getRows().get(rowIndex - 1);
 					targetRows.add(sourceRow.copy());

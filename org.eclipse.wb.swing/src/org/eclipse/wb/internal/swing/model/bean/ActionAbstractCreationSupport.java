@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -36,6 +34,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -102,7 +101,7 @@ IActionSupport {
 	 * Adds initializer {@link Block}s into {@link #m_initializingBlocks}.
 	 */
 	protected void addInitializationBlocks() {
-		m_initializingBlocks = Lists.newArrayList();
+		m_initializingBlocks = new ArrayList<>();
 		for (Initializer typeInitializer : DomGenerics.initializers(m_typeDeclaration, false)) {
 			m_initializingBlocks.add(typeInitializer.getBody());
 		}

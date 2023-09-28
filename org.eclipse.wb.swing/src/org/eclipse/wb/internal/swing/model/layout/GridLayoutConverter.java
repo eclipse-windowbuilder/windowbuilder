@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +81,7 @@ public final class GridLayoutConverter extends AbstractGridConverter {
 
 		@Override
 		public List<IAbstractComponentInfo> getControls() {
-			List<IAbstractComponentInfo> controls = Lists.newArrayList();
+			List<IAbstractComponentInfo> controls = new ArrayList<>();
 			controls.addAll(m_container.getChildrenComponents());
 			return controls;
 		}
@@ -141,7 +141,7 @@ public final class GridLayoutConverter extends AbstractGridConverter {
 		@Override
 		public void applyChanges() throws Exception {
 			List<ComponentInfo> components = m_container.getComponents();
-			List<ComponentInfo> fillers = Lists.newArrayList();
+			List<ComponentInfo> fillers = new ArrayList<>();
 			int colCount = getColumnCount();
 			// calculate rows count
 			int rowCount;

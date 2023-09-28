@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public class PasteRequest extends AbstractCreateRequest {
 	 * Shortcut for {@link #setObjects(List)} for single object.
 	 */
 	public void setObject(Object object) {
-		List<Object> objects = Lists.newArrayList();
+		List<Object> objects = new ArrayList<>();
 		objects.add(object);
 		setObjects(objects);
 	}

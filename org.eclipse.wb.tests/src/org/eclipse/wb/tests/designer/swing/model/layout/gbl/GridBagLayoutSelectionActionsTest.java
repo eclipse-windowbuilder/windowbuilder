@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -22,6 +20,7 @@ import org.eclipse.jface.action.IAction;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,10 +72,10 @@ public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest
 		//
 		panel.refresh();
 		// prepare "button" selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(button);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// check actions
 		assertEquals(16, actions.size()); // 13 action's, 3 separator's
@@ -131,10 +130,10 @@ public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest
 		//
 		panel.refresh();
 		// prepare "button" selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(button);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		IAction action = findAction(actions, "Right");

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.ISynchronizeProcessor;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.PropertiesSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPropertyBindableInfo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,7 @@ import java.util.Map;
 public class WidgetBindableInfo extends BindableInfo {
 	private final XmlObjectInfo m_xmlObjectInfo;
 	private final WidgetBindableInfo m_parent;
-	private final List<WidgetBindableInfo> m_children = Lists.newArrayList();
+	private final List<WidgetBindableInfo> m_children = new ArrayList<>();
 	private final List<WidgetPropertyBindableInfo> m_properties;
 	private final XmlObjectObservePresentation m_presentation;
 

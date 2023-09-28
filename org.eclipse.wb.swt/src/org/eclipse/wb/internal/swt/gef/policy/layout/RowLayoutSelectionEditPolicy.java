@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
@@ -35,6 +33,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +64,7 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
 		handles.add(createHandle(IPositionConstants.EAST));
 		handles.add(createHandle(IPositionConstants.SOUTH));

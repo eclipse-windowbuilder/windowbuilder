@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.beans;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -42,6 +41,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -103,7 +103,7 @@ public final class BeanSupport {
 			BeanDecorationInfo decorationInfo = DecorationUtils.getDecorationInfo(objectClass);
 			IDecorationProvider decorationProvider =
 					decorationInfo == null ? m_decorationProviderOverType : m_decorationProviderOverInfo;
-			List<ObserveInfo> properties = Lists.newArrayList();
+			List<ObserveInfo> properties = new ArrayList<>();
 			// handle generic
 			TypeVariable<?> superTypeParameter = null;
 			Type superTypeParameterClass = null;
@@ -222,7 +222,7 @@ public final class BeanSupport {
 	 */
 	public static List<PropertyDescriptor> getPropertyDescriptors(Class<?> beanClass)
 			throws Exception {
-		List<PropertyDescriptor> descriptors = Lists.newArrayList();
+		List<PropertyDescriptor> descriptors = new ArrayList<>();
 		// handle interfaces
 		if (beanClass.isInterface() || Modifier.isAbstract(beanClass.getModifiers())) {
 			List<Class<?>> interfaces = CoreUtils.cast(ClassUtils.getAllInterfaces(beanClass));

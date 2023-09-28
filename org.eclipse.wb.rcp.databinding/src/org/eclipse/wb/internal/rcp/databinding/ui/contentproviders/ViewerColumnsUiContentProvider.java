@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.SimpleBindDialog;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
@@ -50,6 +48,7 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -195,7 +194,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
 			VirtualEditingSupportInfo editingSupport =
 					(VirtualEditingSupportInfo) selection.getFirstElement();
 			// create providers
-			List<IUiContentProvider> providers = Lists.newArrayList();
+			List<IUiContentProvider> providers = new ArrayList<>();
 			editingSupport.createContentProviders(providers);
 			// open dialog
 			SimpleBindDialog dialog =

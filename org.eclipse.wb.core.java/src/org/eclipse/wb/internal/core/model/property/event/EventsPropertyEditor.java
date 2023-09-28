@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.event;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoEventListeners;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -62,7 +61,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
 	}
 
 	private AbstractListenerProperty[] createProperties(JavaInfo javaInfo) throws Exception {
-		List<AbstractListenerProperty> properties = Lists.newArrayList();
+		List<AbstractListenerProperty> properties = new ArrayList<>();
 		// standard: add*[Listener,Handler]
 		for (ListenerInfo listener : getListeners(javaInfo)) {
 			properties.add(new ListenerProperty(javaInfo, listener));
@@ -99,7 +98,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
 		// prepare methods
 		List<Method> methods = get_addListener_methods(componentClass);
 		// fill list of listeners
-		List<ListenerInfo> listeners = Lists.newArrayList();
+		List<ListenerInfo> listeners = new ArrayList<>();
 		for (Method method : methods) {
 			listeners.add(new ListenerInfo(method, componentClass, externalResolver));
 		}
@@ -119,7 +118,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
 	 * @return the <code>addXXXListener(listener)</code> {@link Method}'s.
 	 */
 	private static List<Method> get_addListener_methods(Class<?> clazz) {
-		List<Method> listenerMethods = Lists.newArrayList();
+		List<Method> listenerMethods = new ArrayList<>();
 		for (Method method : clazz.getMethods()) {
 			if (ListenerInfo.isAddListenerMethod(method)) {
 				listenerMethods.add(method);

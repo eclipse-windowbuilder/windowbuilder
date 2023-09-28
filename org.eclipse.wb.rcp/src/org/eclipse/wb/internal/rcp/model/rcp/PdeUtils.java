@@ -59,6 +59,7 @@ import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -435,7 +436,7 @@ public final class PdeUtils {
 	 * @return the {@link IPluginExtension}'s for given extension point.
 	 */
 	private static List<IPluginExtension> getExtensions(IPluginModelBase pluginModel, String pointId) {
-		List<IPluginExtension> extensions = Lists.newArrayList();
+		List<IPluginExtension> extensions = new ArrayList<>();
 		if (pluginModel != null) {
 			for (IPluginExtension extension : getExtensions(pluginModel)) {
 				if (extension.getPoint().equals(pointId)) {
@@ -465,7 +466,7 @@ public final class PdeUtils {
 	private static List<IPluginElement> getExtensionElements(IPluginModelBase pluginModel,
 			String pointId,
 			String elementName) {
-		List<IPluginElement> elements = Lists.newArrayList();
+		List<IPluginElement> elements = new ArrayList<>();
 		for (IPluginExtension extension : getExtensions(pluginModel, pointId)) {
 			for (IPluginObject pluginObject : extension.getChildren()) {
 				if (pluginObject instanceof IPluginElement element) {
@@ -752,7 +753,7 @@ public final class PdeUtils {
 		 * @return the {@link ViewInfo}'s for views in this category.
 		 */
 		public List<ViewInfo> getViews() {
-			final List<ViewInfo> views = Lists.newArrayList();
+			final List<ViewInfo> views = new ArrayList<>();
 			visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
 				@Override
 				public boolean visit(IPluginElement element) {
@@ -780,7 +781,7 @@ public final class PdeUtils {
 	 * @return the {@link ViewCategoryInfo}'s for each views category in Eclipse runtime/workspace.
 	 */
 	public static List<ViewCategoryInfo> getViewCategories() {
-		final List<ViewCategoryInfo> categories = Lists.newArrayList();
+		final List<ViewCategoryInfo> categories = new ArrayList<>();
 		categories.add(new ViewCategoryInfo(null, "Other"));
 		visitExtensions("org.eclipse.ui.views", "category", new IExtensionVisitor() {
 			@Override
@@ -902,7 +903,7 @@ public final class PdeUtils {
 	 * @return the {@link ViewInfo}'s for each view in Eclipse runtime/workspace.
 	 */
 	public static List<ViewInfo> getViews() {
-		final List<ViewInfo> views = Lists.newArrayList();
+		final List<ViewInfo> views = new ArrayList<>();
 		visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
 			@Override
 			public boolean visit(IPluginElement element) {
@@ -1050,7 +1051,7 @@ public final class PdeUtils {
 	 * @return the {@link PerspectiveInfo}'s for each perspective in Eclipse runtime/workspace.
 	 */
 	public static List<PerspectiveInfo> getPerspectives() {
-		final List<PerspectiveInfo> perspectives = Lists.newArrayList();
+		final List<PerspectiveInfo> perspectives = new ArrayList<>();
 		visitExtensions("org.eclipse.ui.perspectives", "perspective", new IExtensionVisitor() {
 			@Override
 			public boolean visit(IPluginElement element) {

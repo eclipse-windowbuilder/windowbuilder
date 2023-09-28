@@ -43,6 +43,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -121,8 +122,8 @@ public final class LazyVariableSupportUtils {
 		AstEditor editor = javaInfo.getEditor();
 		StatementTarget target = new StatementTarget(assignment, false);
 		// process related nodes
-		List<Statement> moveStatements = Lists.newArrayList();
-		List<ASTNode> replaceNodes = Lists.newArrayList();
+		List<Statement> moveStatements = new ArrayList<>();
+		List<ASTNode> replaceNodes = new ArrayList<>();
 		// prepare node lists...
 		collectNodesToEdit(javaInfo, moveStatements, replaceNodes, target);
 		moveStatements.remove(AstNodeUtils.getEnclosingStatement(creation));
@@ -149,7 +150,7 @@ public final class LazyVariableSupportUtils {
 		// replace statements with blocks
 		{
 			// prepare unique list of blocks
-			List<Block> blocks = Lists.newArrayList();
+			List<Block> blocks = new ArrayList<>();
 			for (Statement statement : moveStatements) {
 				Block block = AstNodeUtils.getEnclosingBlock(statement);
 				if (!blocks.contains(block)) {
@@ -303,7 +304,7 @@ public final class LazyVariableSupportUtils {
 		}
 		//
 		String header = modifiers + className + " " + methodName + "()";
-		List<String> bodyLines = Lists.newArrayList();
+		List<String> bodyLines = new ArrayList<>();
 		bodyLines.add("if (" + fieldName + " == null) {");
 		bodyLines.add("\t" + fieldName + " = null;");
 		bodyLines.add("}");

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
@@ -55,6 +54,7 @@ import org.osgi.framework.Bundle;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -412,7 +412,7 @@ public final class ProjectUtils {
 	 */
 	public static void addPluginLibraries(IJavaProject javaProject, String pluginId)
 			throws Exception {
-		List<IClasspathEntry> entries = Lists.newArrayList();
+		List<IClasspathEntry> entries = new ArrayList<>();
 		// add existing entries
 		CollectionUtils.addAll(entries, javaProject.getRawClasspath());
 		// add plugin entries
@@ -450,7 +450,7 @@ public final class ProjectUtils {
 	 */
 	public static void removeClasspathEntries(IJavaProject javaProject,
 			Predicate<IClasspathEntry> predicate) throws CoreException {
-		List<IClasspathEntry> newEntries = Lists.newArrayList();
+		List<IClasspathEntry> newEntries = new ArrayList<>();
 		IClasspathEntry[] existingEntries = javaProject.getRawClasspath();
 		for (IClasspathEntry entry : existingEntries) {
 			if (!predicate.apply(entry)) {
@@ -491,7 +491,7 @@ public final class ProjectUtils {
 	public static void addNature(IProject project, String natureId) throws Exception {
 		IProjectDescription description = project.getDescription();
 		//
-		List<String> natureIds = Lists.newArrayList();
+		List<String> natureIds = new ArrayList<>();
 		CollectionUtils.addAll(natureIds, description.getNatureIds());
 		natureIds.add(natureId);
 		description.setNatureIds(natureIds.toArray(new String[natureIds.size()]));
@@ -505,7 +505,7 @@ public final class ProjectUtils {
 	public static void removeNature(IProject project, String natureId) throws Exception {
 		IProjectDescription description = project.getDescription();
 		//
-		List<String> natureIds = Lists.newArrayList();
+		List<String> natureIds = new ArrayList<>();
 		CollectionUtils.addAll(natureIds, description.getNatureIds());
 		natureIds.remove(natureId);
 		description.setNatureIds(natureIds.toArray(new String[natureIds.size()]));
@@ -539,7 +539,7 @@ public final class ProjectUtils {
 	 * 's.
 	 */
 	public static List<IFile> findFiles(IJavaProject javaProject, String filePath) throws Exception {
-		List<IFile> files = Lists.newArrayList();
+		List<IFile> files = new ArrayList<>();
 		findFiles(files, javaProject, filePath, Sets.<IJavaProject>newHashSet());
 		return files;
 	}

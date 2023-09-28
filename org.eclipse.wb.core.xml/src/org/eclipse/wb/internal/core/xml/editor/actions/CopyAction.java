@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.actions.ActionUtils;
@@ -30,6 +28,7 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.ActionFactory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -158,7 +157,7 @@ public class CopyAction extends Action {
 	 */
 	private static List<XmlObjectMemento> getMementoEx(List<EditPart> editParts) throws Exception {
 		// prepare objects
-		List<XmlObjectInfo> objects = Lists.newArrayList();
+		List<XmlObjectInfo> objects = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			Object model = editPart.getModel();
 			if (model instanceof XmlObjectInfo object) {
@@ -173,7 +172,7 @@ public class CopyAction extends Action {
 			}
 		}
 		// prepare mementos
-		List<XmlObjectMemento> mementos = Lists.newArrayList();
+		List<XmlObjectMemento> mementos = new ArrayList<>();
 		for (XmlObjectInfo object : objects) {
 			XmlObjectMemento memento = XmlObjectMemento.createMemento(object);
 			mementos.add(memento);

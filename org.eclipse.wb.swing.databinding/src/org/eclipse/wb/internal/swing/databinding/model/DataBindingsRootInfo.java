@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -60,6 +58,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,7 +85,7 @@ public final class DataBindingsRootInfo implements ISubParser {
 	private static Constructor<JTableBindingInfo> m_constructorJTable;
 	private static Constructor<JComboBoxBindingInfo> m_constructorJComboBox;
 	private final DatabindingsProvider m_provider;
-	private final List<BindingInfo> m_bindings = Lists.newArrayList();
+	private final List<BindingInfo> m_bindings = new ArrayList<>();
 	private MethodDeclaration m_initDataBindings;
 	private boolean m_addToGroup;
 	private boolean m_addInitializeContext;
@@ -622,7 +621,7 @@ public final class DataBindingsRootInfo implements ISubParser {
 		//
 		boolean reparse = DataBindingsCodeUtils.ensureDBLibraries(javaProject);
 		// prepare source code
-		List<String> methodLines = Lists.newArrayList();
+		List<String> methodLines = new ArrayList<>();
 		//
 		if (m_addInitializeContext) {
 			methodLines.add("initializeBindings();");

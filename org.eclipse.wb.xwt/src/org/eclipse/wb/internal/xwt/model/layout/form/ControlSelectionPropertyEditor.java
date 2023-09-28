@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.AbstractComboPropertyEditor;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ import java.util.List;
  * @coverage XWT.model.property.editor
  */
 public final class ControlSelectionPropertyEditor extends AbstractComboPropertyEditor {
-	private final List<ControlInfo> m_controls = Lists.newArrayList();
+	private final List<ControlInfo> m_controls = new ArrayList<>();
 
 	@Override
 	protected void addItems(Property property, CCombo3 combo) throws Exception {

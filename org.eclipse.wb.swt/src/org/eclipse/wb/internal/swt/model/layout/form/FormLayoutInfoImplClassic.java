@@ -79,7 +79,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 							return;
 						}
 					}
-					ArrayList<Object> actions = Lists.newArrayList();
+					ArrayList<Object> actions = new ArrayList<>();
 					alignmentActions.addAlignmentActions(objects, actions);
 					LayoutAssistantPageClassic<C> page =
 							new LayoutAssistantPageClassic<>(layout, folder, objects, actions);
@@ -287,7 +287,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public List<C> getAlignControlInfos(C sourceControl, int sourceSide) throws Exception {
-		List<C> list = Lists.newArrayList();
+		List<C> list = new ArrayList<>();
 		for (C info : layout.getControls()) {
 			if (isRelative(info, sourceControl, sourceSide)) {
 				continue;

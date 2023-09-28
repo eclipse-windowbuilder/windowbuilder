@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -50,6 +49,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +104,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 		JTabbedPane pane = (JTabbedPane) getObject();
 		int tabCount = pane.getTabCount();
 		// fill tabs
-		List<JTabbedPaneTabInfo> tabs = Lists.newArrayList();
+		List<JTabbedPaneTabInfo> tabs = new ArrayList<>();
 		for (int i = 0; i < tabCount; i++) {
 			Component componentObject = pane.getComponentAt(i);
 			ComponentInfo component = (ComponentInfo) getChildByObject(componentObject);

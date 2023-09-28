@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -25,6 +23,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +64,7 @@ AbsoluteBasedLayoutEditPolicy<C> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public List<C> getAllComponents() {
-		List<C> components = Lists.newArrayList();
+		List<C> components = new ArrayList<>();
 		components.addAll(m_layout.getControls());
 		return components;
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.column;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -22,6 +20,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ ObjectEventListener {
 			return;
 		}
 		// prepare layout data info's
-		List<IColumnLayoutDataInfo> dataInfos = Lists.newArrayList();
+		List<IColumnLayoutDataInfo> dataInfos = new ArrayList<>();
 		for (ObjectInfo object : objects) {
 			// check object
 			if (!(object instanceof IControlInfo) || object.getParent() != m_layout.getComposite()) {

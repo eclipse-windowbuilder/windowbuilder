@@ -58,6 +58,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -538,7 +539,7 @@ public class ActionTest extends SwingModelTest {
 		// prepare category/entries
 		CategoryInfo category = new CategoryInfo();
 		category.setId("org.eclipse.wb.internal.swing.actions");
-		List<EntryInfo> entries = Lists.newArrayList();
+		List<EntryInfo> entries = new ArrayList<>();
 		// send palette broadcast
 		PaletteEventListener listener = panel.getBroadcast(PaletteEventListener.class);
 		listener.entries(category, entries);

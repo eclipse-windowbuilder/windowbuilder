@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ import java.util.List;
  * @coverage swing.MigLayout.ui
  */
 public final class RowEditDialog extends DimensionEditDialog<MigRowInfo, Alignment> {
-	private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
+	private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = new ArrayList<>();
 	static {
 		ALIGNMENTS.add(new AlignmentDescription<>(Alignment.DEFAULT,
 				ModelMessages.RowEditDialog_alignmentDefault));

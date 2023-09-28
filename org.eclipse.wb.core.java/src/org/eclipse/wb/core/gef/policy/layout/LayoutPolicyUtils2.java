@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.Command;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ public class LayoutPolicyUtils2 {
 				// prepare models
 				final List<JavaInfo> components;
 				{
-					components = Lists.newArrayList();
+					components = new ArrayList<>();
 					for (JavaInfoMemento memento : mementos) {
 						JavaInfo javaInfo = memento.create(existingHierarchyObject);
 						if (componentClass.isAssignableFrom(javaInfo.getClass())) {

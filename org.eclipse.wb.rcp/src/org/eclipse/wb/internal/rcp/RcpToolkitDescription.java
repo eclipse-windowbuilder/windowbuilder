@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
@@ -35,6 +33,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -136,7 +135,7 @@ public final class RcpToolkitDescription extends ToolkitDescriptionJava {
 	}
 
 	private void configureTypeSpecific() {
-		List<ComponentNameDescription> descriptions = Lists.newArrayList();
+		List<ComponentNameDescription> descriptions = new ArrayList<>();
 		descriptions.add(new ComponentNameDescription("org.eclipse.swt.widgets.Text",
 				"text",
 				"txt",

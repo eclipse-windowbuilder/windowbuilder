@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -42,6 +40,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -163,7 +162,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 					elementType,
 					descriptors);
 			// prepare groups
-			List<PropertiesGroup> groups = Lists.newArrayList();
+			List<PropertiesGroup> groups = new ArrayList<>();
 			groups.add(new PropertiesGroup(PARENT_GROUP_NAME, filterProperties(descriptors, Object.class)));
 			groups.add(new PropertiesGroup(CHILDREN_GROUP_NAME, filterCollectionProperties(descriptors)));
 			groups.add(new PropertiesGroup(HAS_CHILDREN_GROUP_NAME, filterBooleanProperties(descriptors)));
@@ -184,7 +183,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 	 */
 	private static List<PropertyDescriptor> filterProperties(List<PropertyDescriptor> properties,
 			Class<?> testType) {
-		List<PropertyDescriptor> newProperties = Lists.newArrayList();
+		List<PropertyDescriptor> newProperties = new ArrayList<>();
 		for (PropertyDescriptor property : properties) {
 			Class<?> type = property.getPropertyType();
 			if (type != null && (testType == type || testType.isAssignableFrom(type))) {
@@ -198,7 +197,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 	 * Helper method that filter given <code>properties</code> include only boolean properties.
 	 */
 	private static List<PropertyDescriptor> filterBooleanProperties(List<PropertyDescriptor> properties) {
-		List<PropertyDescriptor> newProperties = Lists.newArrayList();
+		List<PropertyDescriptor> newProperties = new ArrayList<>();
 		for (PropertyDescriptor property : properties) {
 			Class<?> type = property.getPropertyType();
 			if (type == boolean.class || type == Boolean.class) {
@@ -213,7 +212,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 	 * array properties.
 	 */
 	private static List<PropertyDescriptor> filterCollectionProperties(List<PropertyDescriptor> properties) {
-		List<PropertyDescriptor> newProperties = Lists.newArrayList();
+		List<PropertyDescriptor> newProperties = new ArrayList<>();
 		for (PropertyDescriptor property : properties) {
 			Class<?> type = property.getPropertyType();
 			if (type != null && (type.isArray() || Collection.class.isAssignableFrom(type))) {
@@ -236,7 +235,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
 				// set element type
 				setElementType(elementType);
 				// prepare checked groups
-				List<Object> checkedObjects = Lists.newArrayList();
+				List<Object> checkedObjects = new ArrayList<>();
 				// check parent/children/has children
 				TreeBeanAdvisorInfo advisor =
 						(TreeBeanAdvisorInfo) m_binding.getContentProvider().getAdvisorInfo();

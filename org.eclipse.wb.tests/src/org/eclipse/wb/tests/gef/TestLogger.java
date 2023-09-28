@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ import java.util.List;
  * @author lobas_av
  */
 public class TestLogger {
-	private final List<String> m_events = Lists.newArrayList();
+	private final List<String> m_events = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

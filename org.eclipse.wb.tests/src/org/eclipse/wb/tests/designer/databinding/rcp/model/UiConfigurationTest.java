@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.rcp.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.BindingContentProvider;
@@ -39,6 +37,7 @@ import org.eclipse.swt.graphics.Image;
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -104,7 +103,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
 		//
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		//
 		BindingUiContentProviderContext context = new BindingUiContentProviderContext();
 		context.setDirection("Target");
@@ -227,7 +226,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
 		//
 		assertNotNull(binding.getTargetStrategy());
 		//
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		BindingUiContentProviderContext context = new BindingUiContentProviderContext();
 		context.setDirection("Target");
 		//
@@ -646,7 +645,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
 		//
 		assertNotNull(binding.getTargetStrategy());
 		//
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		BindingUiContentProviderContext context = new BindingUiContentProviderContext();
 		context.setDirection("Target");
 		binding.getTargetStrategy().createContentProviders(providers, context);
@@ -741,7 +740,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
 		//
 		assertNotNull(binding.getTargetStrategy());
 		//
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		BindingUiContentProviderContext context = new BindingUiContentProviderContext();
 		context.setDirection("Target");
 		binding.getTargetStrategy().createContentProviders(providers, context);

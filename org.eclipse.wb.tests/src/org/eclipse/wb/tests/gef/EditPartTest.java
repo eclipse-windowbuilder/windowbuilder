@@ -24,6 +24,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -489,7 +490,7 @@ public class EditPartTest extends GefTestCase {
 
 			@Override
 			protected List<Object> getModelChildren() {
-				List<Object> modelList = Lists.newArrayList();
+				List<Object> modelList = new ArrayList<>();
 				modelList.add("_child3_Model");
 				modelList.add("_child1_Model");
 				modelList.add("_child5_Model");
@@ -534,7 +535,7 @@ public class EditPartTest extends GefTestCase {
 
 			@Override
 			protected List<?> getModelChildren() {
-				List<Object> modelList = Lists.newArrayList();
+				List<Object> modelList = new ArrayList<>();
 				modelList.add("_child2_Model");
 				modelList.add("_child3_Model");
 				modelList.add("_child5_Model");
@@ -577,7 +578,7 @@ public class EditPartTest extends GefTestCase {
 
 			@Override
 			protected List<?> getModelChildren() {
-				List<Object> modelList = Lists.newArrayList();
+				List<Object> modelList = new ArrayList<>();
 				modelList.add("_child2_Model");
 				modelList.add("_child3_Model");
 				modelList.add("_child5_Model");

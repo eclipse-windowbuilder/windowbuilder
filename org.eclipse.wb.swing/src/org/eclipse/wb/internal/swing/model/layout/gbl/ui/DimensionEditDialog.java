@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -38,6 +36,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -270,7 +269,7 @@ ResizableDialog {
 		GridLayoutFactory.create(composite).noMargins().columns(1);
 		//composite.setLayout(new RowLayout());
 		//
-		m_alignmentButtons = Lists.newArrayList();
+		m_alignmentButtons = new ArrayList<>();
 		for (final AlignmentDescription<A> description : m_alignments) {
 			// create radio button
 			Button button = new Button(composite, SWT.RADIO);

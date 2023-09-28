@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.layouts;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -26,6 +24,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,10 +81,10 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		setupSelectionActions(composite);
 		shell.refresh();
 		// prepare "button" selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(button);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// check actions
 		assertEquals(17, actions.size()); // 12 action's, 5 separator's
@@ -940,11 +939,11 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		setupSelectionActions(shell);
 		shell.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(shell.getChildrenControls().get(0));
 		selectedObjects.add(shell.getChildrenControls().get(1));
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, "Space equally, horizontally").run();
@@ -998,12 +997,12 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		setupSelectionActions(shell);
 		shell.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(shell.getChildrenControls().get(0));
 		selectedObjects.add(shell.getChildrenControls().get(1));
 		selectedObjects.add(shell.getChildrenControls().get(2));
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		try {
@@ -1060,10 +1059,10 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		setupSelectionActions(shell);
 		shell.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(shell.getChildrenControls().get(0));
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, "Center horizontally in window").run();
@@ -1113,7 +1112,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		shell.refresh();
 		//
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		{
 			selectedObjects.add(getJavaInfoByName("button_1"));
 			selectedObjects.add(getJavaInfoByName("button_2"));
@@ -1123,7 +1122,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		{
 			CompositeInfo composite = getJavaInfoByName("composite");
 			setupSelectionActions(composite);
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		//
@@ -1143,7 +1142,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		setupSelectionActions(shell);
 		shell.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		if (toUp) {
 			selectedObjects.add(shell.getChildrenControls().get(1));
 			selectedObjects.add(shell.getChildrenControls().get(0));
@@ -1152,7 +1151,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 			selectedObjects.add(shell.getChildrenControls().get(1));
 		}
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, action).run();
@@ -1168,7 +1167,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 		setupSelectionActions(shell);
 		shell.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(1);
 		setupSelectionActions(composite);
 		if (toUp) {
@@ -1179,7 +1178,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 			selectedObjects.add(composite.getChildrenControls().get(0));
 		}
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, action).run();

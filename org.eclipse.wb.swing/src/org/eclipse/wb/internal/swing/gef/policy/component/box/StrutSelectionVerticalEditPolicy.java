@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.model.property.converter.IntegerConverter;
 import org.eclipse.wb.internal.swing.gef.part.box.BoxStrutVerticalEditPart;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public final class StrutSelectionVerticalEditPolicy extends StrutSelectionEditPo
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<Handle> createStaticHandles() {
-		List<Handle> handles = Lists.newArrayList();
+		List<Handle> handles = new ArrayList<>();
 		handles.add(createResizeHandle(IPositionConstants.TOP, IPositionConstants.NORTH));
 		handles.add(createResizeHandle(IPositionConstants.BOTTOM, IPositionConstants.SOUTH));
 		return handles;

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
@@ -31,6 +30,7 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -274,7 +274,7 @@ public class ConverterInfo {
 		if (!m_element) {
 			ClassLoader classLoader = provider.getXmlObjectRoot().getContext().getClassLoader();
 			Class<?> ConverterClass = classLoader.loadClass("org.eclipse.xwt.IValueConverter");
-			List<String> defaultValues = Lists.newArrayList();
+			List<String> defaultValues = new ArrayList<>();
 			BeansObserveTypeContainer beanContainer =
 					(BeansObserveTypeContainer) provider.getContainer(ObserveType.BEANS);
 			for (BeanBindableInfo bindable : beanContainer.getObservables0()) {

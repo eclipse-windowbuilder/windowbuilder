@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.DesignerEditorListener;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.editor.IMultiMode;
@@ -41,6 +39,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.contexts.IContextService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -236,7 +235,7 @@ IDesignCompositeProvider {
 	// Listeners
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<DesignerEditorListener> m_designPageListeners = Lists.newArrayList();
+	private final List<DesignerEditorListener> m_designPageListeners = new ArrayList<>();
 
 	@Override
 	public void addDesignPageListener(DesignerEditorListener listener) {

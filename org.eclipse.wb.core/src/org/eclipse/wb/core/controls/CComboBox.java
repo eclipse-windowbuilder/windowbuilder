@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.editor.TextControlActionsManager;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -409,7 +407,7 @@ public class CComboBox extends Composite {
 		}
 	}
 
-	ArrayList<ComboBoxItem> m_items = Lists.newArrayList();
+	ArrayList<ComboBoxItem> m_items = new ArrayList<>();
 
 	/**
 	 * Add new item.

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -57,6 +55,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IEditorPart;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,8 +66,8 @@ import java.util.List;
  */
 public final class DatabindingsProvider implements IDatabindingsProvider {
 	private final XmlObjectInfo m_xmlObjectRoot;
-	private final List<ObserveTypeContainer> m_containers = Lists.newArrayList();
-	private final List<BindingInfo> m_bindings = Lists.newArrayList();
+	private final List<ObserveTypeContainer> m_containers = new ArrayList<>();
+	private final List<BindingInfo> m_bindings = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -232,7 +231,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
 			throws Exception {
-		List<IUiContentProvider> providers = Lists.newArrayList();
+		List<IUiContentProvider> providers = new ArrayList<>();
 		BindingInfo binding = (BindingInfo) ibinding;
 		binding.createContentProviders(providers, listener, this);
 		return providers;

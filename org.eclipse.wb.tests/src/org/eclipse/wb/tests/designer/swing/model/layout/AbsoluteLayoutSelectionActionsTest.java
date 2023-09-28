@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -25,6 +23,7 @@ import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -85,10 +84,10 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		ComponentInfo label = subPanel.getChildrenComponents().get(0);
 		panel.refresh();
 		// prepare "button" selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(button);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// check actions
 		assertEquals(17, actions.size()); // 12 action's, 5 separator's
@@ -193,11 +192,11 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// bad selection: "button" and "panel" itself
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(button);
 		selectedObjects.add(panel);
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// bad selection, so no actions
 		Assertions.assertThat(actions).isEmpty();
@@ -1039,11 +1038,11 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		setupSelectionActions(panel);
 		panel.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(panel.getChildrenComponents().get(0));
 		selectedObjects.add(panel.getChildrenComponents().get(1));
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, "Space equally, horizontally").run();
@@ -1099,12 +1098,12 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		setupSelectionActions(panel);
 		panel.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(panel.getChildrenComponents().get(0));
 		selectedObjects.add(panel.getChildrenComponents().get(1));
 		selectedObjects.add(panel.getChildrenComponents().get(2));
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		try {
@@ -1162,10 +1161,10 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		setupSelectionActions(panel);
 		panel.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		selectedObjects.add(panel.getChildrenComponents().get(0));
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, "Center horizontally in window").run();
@@ -1221,7 +1220,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		root.refresh();
 		//
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		{
 			selectedObjects.add(getJavaInfoByName("button_1"));
 			selectedObjects.add(getJavaInfoByName("button_2"));
@@ -1231,7 +1230,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		{
 			ContainerInfo panel = getJavaInfoByName("panel");
 			setupSelectionActions(panel);
-			actions = Lists.newArrayList();
+			actions = new ArrayList<>();
 			root.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		//
@@ -1273,7 +1272,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		setupSelectionActions(panel);
 		panel.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		if (toUp) {
 			selectedObjects.add(panel.getChildrenComponents().get(1));
 			selectedObjects.add(panel.getChildrenComponents().get(0));
@@ -1282,7 +1281,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 			selectedObjects.add(panel.getChildrenComponents().get(1));
 		}
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, action).run();
@@ -1298,7 +1297,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 		setupSelectionActions(panel);
 		panel.refresh();
 		// prepare selection
-		List<ObjectInfo> selectedObjects = Lists.newArrayList();
+		List<ObjectInfo> selectedObjects = new ArrayList<>();
 		ContainerInfo subPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
 		setupSelectionActions(subPanel);
 		if (toUp) {
@@ -1309,7 +1308,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
 			selectedObjects.add(subPanel.getChildrenComponents().get(0));
 		}
 		// prepare actions
-		List<Object> actions = Lists.newArrayList();
+		List<Object> actions = new ArrayList<>();
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		//
 		findAction(actions, action).run();

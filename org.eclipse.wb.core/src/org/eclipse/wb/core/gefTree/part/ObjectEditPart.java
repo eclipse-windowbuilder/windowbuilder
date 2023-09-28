@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -128,7 +129,7 @@ public class ObjectEditPart extends TreeEditPart {
 					if (objects == null) {
 						return null;
 					}
-					List<EditPart> editParts = Lists.newArrayList();
+					List<EditPart> editParts = new ArrayList<>();
 					for (ObjectInfo object : objects) {
 						EditPart editPart = viewer.getEditPartByModel(object);
 						if (editPart == null) {

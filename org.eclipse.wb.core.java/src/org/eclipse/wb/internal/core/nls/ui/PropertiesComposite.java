@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -60,6 +58,7 @@ import org.eclipse.swt.widgets.Tree;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -322,7 +321,7 @@ public final class PropertiesComposite extends Composite {
 	 * Return selected properties.
 	 */
 	private List<StringPropertyInfo> getSelectedProperties() {
-		List<StringPropertyInfo> properties = Lists.newArrayList();
+		List<StringPropertyInfo> properties = new ArrayList<>();
 		//
 		Object[] checkedElements = m_propertiesViewer.getCheckedElements();
 		for (Object element : checkedElements) {
@@ -413,7 +412,7 @@ public final class PropertiesComposite extends Composite {
 		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof final JavaInfo component) {
-				final List<Object> children = Lists.newArrayList();
+				final List<Object> children = new ArrayList<>();
 				// add properties
 				children.addAll(m_support.getProperties(component));
 				// add children with properties

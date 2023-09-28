@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -66,6 +64,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -424,7 +423,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 
 		@Override
 		public Object[] getChildren(Object parentElement) {
-			List<IPluginElement> categoryViews = Lists.newArrayList();
+			List<IPluginElement> categoryViews = new ArrayList<>();
 			//
 			if (parentElement == OTHER_CATEGORY) {
 				for (IPluginElement view : m_views) {

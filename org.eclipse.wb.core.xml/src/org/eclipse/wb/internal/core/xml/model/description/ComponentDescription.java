@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.xml.model.description;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -26,6 +25,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -171,7 +171,7 @@ IComponentDescription {
 	// Generic properties
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<GenericPropertyDescription> m_properties = Lists.newArrayList();
+	private final List<GenericPropertyDescription> m_properties = new ArrayList<>();
 	private final Map<String, GenericPropertyDescription> m_idToProperty = Maps.newHashMap();
 
 	/**
@@ -275,7 +275,7 @@ IComponentDescription {
 	// Morphing
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<MorphingTargetDescription> m_morphingTargets = Lists.newArrayList();
+	private final List<MorphingTargetDescription> m_morphingTargets = new ArrayList<>();
 
 	/**
 	 * @return the {@link MorphingTargetDescription}'s registered for this component.

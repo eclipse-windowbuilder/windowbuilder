@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +66,7 @@ public class GroupRequest extends Request {
 	 */
 	public void addEditPart(EditPart editPart) {
 		if (m_editParts == null) {
-			m_editParts = Lists.newArrayList();
+			m_editParts = new ArrayList<>();
 		}
 		m_editParts.add(editPart);
 	}
