@@ -102,6 +102,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -552,7 +553,7 @@ public class JavaInfoUtils {
 		String key = "JavaInfoUtils.alreadyExposed.Method";
 		Set<Method> alreadyExposed = (Set<Method>) host.getArbitraryValue(key);
 		if (alreadyExposed == null) {
-			alreadyExposed = Sets.newHashSet();
+			alreadyExposed = new HashSet<>();
 			host.putArbitraryValue(key, alreadyExposed);
 		}
 		if (alreadyExposed.contains(getMethod)) {
@@ -650,7 +651,7 @@ public class JavaInfoUtils {
 		String key = "JavaInfoUtils.alreadyExposed.Field";
 		Set<Field> alreadyExposed = (Set<Field>) host.getArbitraryValue(key);
 		if (alreadyExposed == null) {
-			alreadyExposed = Sets.newHashSet();
+			alreadyExposed = new HashSet<>();
 			host.putArbitraryValue(key, alreadyExposed);
 		}
 		if (alreadyExposed.contains(field)) {

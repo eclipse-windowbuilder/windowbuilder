@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.nls.ui.FlagImagesRepository;
 
 import org.eclipse.swt.graphics.Image;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -72,7 +71,7 @@ public final class LocalePartInfos {
 		if (m_languages == null) {
 			// languages
 			{
-				Set<LocalePartInfo> languagesSet = Sets.newHashSet();
+				Set<LocalePartInfo> languagesSet = new HashSet<>();
 				// fill
 				for (String language : Locale.getISOLanguages()) {
 					Locale locale = new Locale(language);
@@ -87,7 +86,7 @@ public final class LocalePartInfos {
 			}
 			// countries
 			{
-				Set<LocalePartInfo> countriesSet = Sets.newHashSet();
+				Set<LocalePartInfo> countriesSet = new HashSet<>();
 				countriesSet.add(new LocalePartInfo("", "(none)", FlagImagesRepository.getEmptyFlagImage()));
 				// fill
 				for (String country : Locale.getISOCountries()) {

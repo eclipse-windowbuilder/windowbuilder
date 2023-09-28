@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.VisitingContext;
 import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport.LazyVariableInformation;
@@ -39,6 +37,7 @@ import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -182,7 +181,7 @@ public final class ExecutionFlowUtils2 {
 		private Frame m_frame;
 		private Frame m_typeFrame;
 		private boolean m_ignoreAssignments;
-		private final Set<MethodDeclaration> m_visitedMethods = Sets.newHashSet();
+		private final Set<MethodDeclaration> m_visitedMethods = new HashSet<>();
 
 		@Override
 		public boolean enterFrame(ASTNode node) {

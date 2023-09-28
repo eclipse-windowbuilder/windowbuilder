@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.utils;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.xml.DocumentAttribute;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,7 +28,7 @@ import java.util.Set;
  */
 public class NamespacesHelper {
 	protected final DocumentElement m_rootElement;
-	protected final Set<String> m_names = Sets.newHashSet();
+	protected final Set<String> m_names = new HashSet<>();
 	protected final Map<String, String> m_nameForURI = new HashMap<>();
 	protected final Map<String, String> m_uriForName = new HashMap<>();
 

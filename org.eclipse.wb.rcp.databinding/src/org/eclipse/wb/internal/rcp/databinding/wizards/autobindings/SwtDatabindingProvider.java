@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.wizards.autobindings;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
@@ -50,6 +48,7 @@ import java.beans.PropertyDescriptor;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -215,7 +214,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 			widgetStart = "\t";
 		}
 		// prepare imports
-		Collection<String> importList = Sets.newHashSet();
+		Collection<String> importList = new HashSet<>();
 		importList.add(SWT.class.getName());
 		importList.add("org.eclipse.jface.databinding.swt.SWTObservables");
 		importList.add("org.eclipse.core.databinding.observable.value.IObservableValue");

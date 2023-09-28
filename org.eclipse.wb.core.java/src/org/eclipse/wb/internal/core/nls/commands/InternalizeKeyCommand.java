@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.commands;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -47,7 +46,7 @@ public final class InternalizeKeyCommand extends AbstractCommand {
 	////////////////////////////////////////////////////////////////////////////
 	public Set<String> getKeys() {
 		if (m_keys == null) {
-			m_keys = Sets.newHashSet();
+			m_keys = new HashSet<>();
 			m_keys.add(m_key);
 		}
 		return m_keys;

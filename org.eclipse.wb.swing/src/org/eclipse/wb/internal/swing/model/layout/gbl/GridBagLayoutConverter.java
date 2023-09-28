@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentGroup;
@@ -25,6 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -75,7 +74,7 @@ public class GridBagLayoutConverter {
 			createDimensions(layout.getRowOperations(), rows);
 		}
 		// prepare set of components in groups
-		Set<ComponentInGroup> componentsInGroups = Sets.newHashSet();
+		Set<ComponentInGroup> componentsInGroups = new HashSet<>();
 		for (ComponentGroup column : columns) {
 			for (ComponentInGroup componentInGroup : column.getComponents()) {
 				componentsInGroups.add(componentInGroup);
@@ -105,8 +104,8 @@ public class GridBagLayoutConverter {
 		}
 		// remove empty/small columns/rows
 		{
-			final Set<Integer> filledColumns = Sets.newHashSet();
-			final Set<Integer> filledRows = Sets.newHashSet();
+			final Set<Integer> filledColumns = new HashSet<>();
+			final Set<Integer> filledRows = new HashSet<>();
 			layout.visitComponents(new IComponentVisitor() {
 				@Override
 				public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)

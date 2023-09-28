@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
@@ -63,6 +61,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -338,7 +337,7 @@ public final class PaletteManager {
 	// Extensions parsing
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Set<Pair<String, String>> m_categoryReorderRequests = Sets.newHashSet();
+	private final Set<Pair<String, String>> m_categoryReorderRequests = new HashSet<>();
 
 	/**
 	 * Fills {@link #m_paletteInfo} using contributed extensions.

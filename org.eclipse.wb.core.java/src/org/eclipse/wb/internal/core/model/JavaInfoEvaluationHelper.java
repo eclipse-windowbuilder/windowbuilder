@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -58,6 +56,7 @@ import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -176,8 +175,8 @@ public abstract class JavaInfoEvaluationHelper {
 	private final EditorState m_state;
 	private final ExecutionFlowFrameVisitor m_visitor;
 	private final EvaluationContext m_context;
-	private final Set<MethodInvocation> m_impossibleJavaInfo = Sets.newHashSet();
-	private final Set<Expression> m_evaluatedExpressions = Sets.newHashSet();
+	private final Set<MethodInvocation> m_impossibleJavaInfo = new HashSet<>();
+	private final Set<Expression> m_evaluatedExpressions = new HashSet<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -458,7 +457,7 @@ public abstract class JavaInfoEvaluationHelper {
 			return new ArrayList<>();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.Set")) {
-			return Sets.newHashSet();
+			return new HashSet<>();
 		}
 		if (AstNodeUtils.isSuccessorOf(binding, "java.util.Map")) {
 			return new HashMap<>();

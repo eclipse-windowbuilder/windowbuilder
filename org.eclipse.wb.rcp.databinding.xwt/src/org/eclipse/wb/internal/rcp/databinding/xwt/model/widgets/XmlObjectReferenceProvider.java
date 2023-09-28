@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.beans.BeansObserveTypeC
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -72,7 +71,7 @@ public class XmlObjectReferenceProvider implements IReferenceProvider {
 
 	public static void generateName(XmlObjectInfo objectInfo) throws Exception {
 		if (getName(objectInfo) == null) {
-			final Set<String> variables = Sets.newHashSet();
+			final Set<String> variables = new HashSet<>();
 			//
 			DocumentElement rootElement = objectInfo.getElement().getRoot();
 			final String[] xName = new String[1];

@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.utils.jdt.core;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -61,6 +60,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -755,7 +755,7 @@ public class CodeUtils {
 		List<IContainer> containers = new ArrayList<>();
 		addSourceContainers(
 				containers,
-				Sets.<IJavaProject>newHashSet(),
+				new HashSet<>(),
 				javaProject,
 				includeRequiredProjects);
 		return containers;

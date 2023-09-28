@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.model.layout.grid;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -58,6 +57,7 @@ import org.eclipse.swt.widgets.Control;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -155,7 +155,7 @@ IGridLayoutInfo<ControlInfo> {
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Set<Object> m_controlsImplicit = Sets.newHashSet();
+	private final Set<Object> m_controlsImplicit = new HashSet<>();
 
 	@Override
 	public void refresh_dispose() throws Exception {
@@ -178,7 +178,7 @@ IGridLayoutInfo<ControlInfo> {
 	private void prepareImplicitControls() {
 		m_controlsImplicit.clear();
 		// with model
-		Set<Object> controlsWithModel = Sets.newHashSet();
+		Set<Object> controlsWithModel = new HashSet<>();
 		for (ControlInfo control : getControls()) {
 			controlsWithModel.add(control.getObject());
 		}
@@ -748,8 +748,8 @@ IGridLayoutInfo<ControlInfo> {
 		GridDataInfo gridData = getGridData(control);
 		// prepare grid
 		ControlInfo[][] grid = getControlsGrid();
-		Set<Point> cellsToAddFillers = Sets.newHashSet();
-		Set<Point> cellsToRemoveFillers = Sets.newHashSet();
+		Set<Point> cellsToAddFillers = new HashSet<>();
+		Set<Point> cellsToRemoveFillers = new HashSet<>();
 		// replace control with fillers
 		if (forMove) {
 			for (int x = gridData.x; x < gridData.x + gridData.width; x++) {

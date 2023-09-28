@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.parser;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -55,6 +53,7 @@ import java.lang.reflect.Proxy;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -71,7 +70,7 @@ public final class XwtRenderer {
 	private final EditorContext m_context;
 	private final ISetPostAction m_setPostAction;
 	private final IXWTLoader m_loaderXWT;
-	private final Set<IMetaclass> m_knownMetaclassXWT = Sets.newHashSet();
+	private final Set<IMetaclass> m_knownMetaclassXWT = new HashSet<>();
 	private final XmlObjectSetObjectAfter m_broadcast_setObjectAfter;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -223,7 +222,7 @@ public final class XwtRenderer {
 					// Tweaks for handling tested XWT files
 					//
 					////////////////////////////////////////////////////////////////////////////
-					private final Set<Element> m_processedElements = Sets.newHashSet();
+					private final Set<Element> m_processedElements = new HashSet<>();
 
 					private boolean isRoot(Element element) {
 						if (!m_processedElements.contains(element)) {

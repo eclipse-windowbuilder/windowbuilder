@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.description;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
@@ -27,6 +25,7 @@ import org.eclipse.core.runtime.Platform;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +61,7 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getToolkitElements() throws Exception {
-		Set<String> toolkitIds = Sets.newHashSet();
+		Set<String> toolkitIds = new HashSet<>();
 		{
 			List<IConfigurationElement> toolkitElements = DescriptionHelper.getToolkitElements();
 			for (IConfigurationElement toolkitElement : toolkitElements) {

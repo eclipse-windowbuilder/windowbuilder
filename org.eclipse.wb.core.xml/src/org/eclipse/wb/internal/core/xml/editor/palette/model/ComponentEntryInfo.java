@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
@@ -45,6 +43,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -356,7 +355,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 		{
 			hasClasses = m_contextHasClasses.get(classLoader);
 			if (hasClasses == null) {
-				hasClasses = Sets.newHashSet();
+				hasClasses = new HashSet<>();
 				m_contextHasClasses.put(classLoader, hasClasses);
 			}
 		}
@@ -369,7 +368,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 		{
 			noClasses = m_contextNoClasses.get(classLoader);
 			if (noClasses == null) {
-				noClasses = Sets.newHashSet();
+				noClasses = new HashSet<>();
 				m_contextNoClasses.put(classLoader, noClasses);
 			}
 		}

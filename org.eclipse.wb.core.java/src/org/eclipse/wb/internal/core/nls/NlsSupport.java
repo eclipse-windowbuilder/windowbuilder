@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -48,6 +46,7 @@ import org.osgi.framework.Bundle;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -412,7 +411,7 @@ public final class NlsSupport {
 	 * @return the array of all {@link LocaleInfo}'s in all source.
 	 */
 	public LocaleInfo[] getLocales() throws Exception {
-		Set<LocaleInfo> locales = Sets.newHashSet();
+		Set<LocaleInfo> locales = new HashSet<>();
 		for (AbstractSource source : m_sources) {
 			Collections.addAll(locales, source.getLocales());
 		}

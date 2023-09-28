@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.variables;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.model.variable.AbstractNamedVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.AbstractSimpleVariableSupport;
@@ -34,6 +33,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -253,7 +253,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	// validateVariables()
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Set<AbstractNamedVariableSupport> NO_VARIABLES = Sets.newHashSet();
+	private static final Set<AbstractNamedVariableSupport> NO_VARIABLES = new HashSet<>();
 
 	private static String validateVariables(Map<AbstractNamedVariableSupport, String> variablesNames) {
 		return validateVariables(variablesNames, NO_VARIABLES, NO_VARIABLES);

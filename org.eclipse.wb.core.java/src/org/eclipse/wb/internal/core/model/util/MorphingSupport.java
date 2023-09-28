@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.AssociationUtils;
@@ -47,6 +45,7 @@ import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -163,7 +162,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
 	@Override
 	protected String validate(MorphingTargetDescription target) throws Exception {
 		// prepare signatures of methods used for children association
-		Set<String> associationSignatures = Sets.newHashSet();
+		Set<String> associationSignatures = new HashSet<>();
 		for (JavaInfo child : m_component.getChildrenJava()) {
 			if (child.getAssociation() instanceof InvocationChildAssociation) {
 				InvocationChildAssociation association =

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IASTObjectInfo2;
@@ -39,6 +37,7 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -48,7 +47,7 @@ import java.util.Set;
  * @coverage bindings.ui
  */
 public final class BindingContentProvider implements IUiContentProvider {
-	private final Set<String> m_fields = Sets.newHashSet();
+	private final Set<String> m_fields = new HashSet<>();
 	private final IASTObjectInfo2 m_binding;
 	private final JavaInfo m_javaInfoRoot;
 	private ExpandableComposite m_expandableComposite;

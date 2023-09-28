@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -33,6 +32,7 @@ import org.apache.commons.collections.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1162,9 +1162,9 @@ public final class PlacementsSupport {
 					PlacementUtils.getSide(isHorizontal, true));
 			IAbstractComponentInfo attachedTrailing = m_layoutCommands.getAttachedToWidget(widget,
 					PlacementUtils.getSide(isHorizontal, false));
-			traverseAttachedWidgets(cyclicList, Sets.<IAbstractComponentInfo>newHashSet(), attachedLeading, widget,
+			traverseAttachedWidgets(cyclicList, new HashSet<>(), attachedLeading, widget,
 					isHorizontal);
-			traverseAttachedWidgets(cyclicList, Sets.<IAbstractComponentInfo>newHashSet(), attachedTrailing, widget,
+			traverseAttachedWidgets(cyclicList, new HashSet<>(), attachedTrailing, widget,
 					isHorizontal);
 		}
 		return cyclicList;

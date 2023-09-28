@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.databinding.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -78,6 +77,7 @@ import org.apache.commons.lang.StringUtils;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -298,13 +298,13 @@ public class ControllerSupport {
 			widgetStart = "\t";
 		}
 		// prepare imports
-		Collection<String> hostImportList = Sets.newHashSet();
+		Collection<String> hostImportList = new HashSet<>();
 		hostImportList.add(SWT.class.getName());
 		hostImportList.add("org.eclipse.swt.widgets.Label");
 		hostImportList.add("org.eclipse.swt.layout.GridLayout");
 		hostImportList.add("org.eclipse.swt.layout.GridData");
 		//
-		Collection<String> controllerImportList = Sets.newHashSet();
+		Collection<String> controllerImportList = new HashSet<>();
 		controllerImportList.add(SWT.class.getName());
 		controllerImportList.add("org.eclipse.jface.databinding.swt.SWTObservables");
 		controllerImportList.add("org.eclipse.core.databinding.observable.value.IObservableValue");
@@ -612,7 +612,7 @@ public class ControllerSupport {
 		TypeDeclaration controllerRootNode = provider.getRootNode();
 		List<IBindingInfo> bindings = provider.getBindings();
 		int size = bindings.size();
-		Set<IObserveInfo> observes = Sets.newHashSet();
+		Set<IObserveInfo> observes = new HashSet<>();
 		for (int i = size - 1; i >= 0; i--) {
 			IBindingInfo binding = bindings.get(i);
 			IObserveInfo model = binding.getModel();

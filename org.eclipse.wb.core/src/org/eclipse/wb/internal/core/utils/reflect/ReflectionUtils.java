@@ -41,6 +41,7 @@ import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -201,7 +202,7 @@ public class ReflectionUtils {
 			return new ArrayList<>();
 		}
 		if (isSuccessorOf(clazz, "java.util.Set")) {
-			return Sets.newHashSet();
+			return new HashSet<>();
 		}
 		if (isSuccessorOf(clazz, "java.util.Map")) {
 			return new HashMap<>();

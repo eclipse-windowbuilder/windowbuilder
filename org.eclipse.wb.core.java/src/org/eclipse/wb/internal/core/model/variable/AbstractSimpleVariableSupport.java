@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.variable;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -55,6 +54,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -400,7 +400,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
 		// prepare statements to move
 		Set<Statement> statementSet;
 		{
-			statementSet = Sets.newHashSet();
+			statementSet = new HashSet<>();
 			addStatementsToMove(statementSet, target, m_javaInfo);
 		}
 		// replace statements with blocks

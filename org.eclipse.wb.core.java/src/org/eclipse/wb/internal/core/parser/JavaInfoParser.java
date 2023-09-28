@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.parser;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -113,6 +111,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -535,7 +534,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	 * @author scheglov_ke
 	 */
 	private final class ExecutionFlowParseVisitor extends ExecutionFlowFrameVisitor {
-		private final Set<MethodDeclaration> m_visitedLazyMethods = Sets.newHashSet();
+		private final Set<MethodDeclaration> m_visitedLazyMethods = new HashSet<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//
@@ -1271,7 +1270,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	// Evaluation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Set<ASTNode> m_evaluatedNodes = Sets.newHashSet();
+	private final Set<ASTNode> m_evaluatedNodes = new HashSet<>();
 	private JavaInfoEvaluationHelper m_evaluationHelper;
 
 	/**

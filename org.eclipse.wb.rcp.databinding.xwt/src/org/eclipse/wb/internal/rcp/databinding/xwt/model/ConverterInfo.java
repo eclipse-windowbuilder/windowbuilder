@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.xwt.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
@@ -31,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -224,7 +223,7 @@ public class ConverterInfo {
 	}
 
 	private void createNamespace(DocumentElement rootElement) throws Exception {
-		Set<String> domains = Sets.newHashSet();
+		Set<String> domains = new HashSet<>();
 		String domainName = "clr-namespace:" + ClassUtils.getPackageName(m_className);
 		for (DocumentAttribute attribute : rootElement.getDocumentAttributes()) {
 			if (attribute.getName().startsWith("xmlns:")
