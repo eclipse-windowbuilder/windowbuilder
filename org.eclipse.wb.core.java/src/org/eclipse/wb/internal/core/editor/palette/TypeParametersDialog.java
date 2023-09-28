@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.description.CreationDescription.TypeParameterDescription;
@@ -28,6 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 /**
  * Dialog provides ability to select argument for type parameters of creating generic component.
@@ -38,8 +37,8 @@ import java.util.Map.Entry;
 public final class TypeParametersDialog extends ResizableTitleAreaDialog {
 	private final IJavaProject m_javaProject;
 	private final Map<String, TypeParameterDescription> m_typeParameters;
-	private final Map<String, String> m_typeArguments = Maps.newTreeMap();
-	private final Map<String, TypeParameterComposite> m_typeParameterComposites = Maps.newTreeMap();
+	private final Map<String, String> m_typeArguments = new TreeMap<>();
+	private final Map<String, TypeParameterComposite> m_typeParameterComposites = new TreeMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.InvocationEvaluatorInterceptor;
@@ -35,6 +33,7 @@ import java.awt.Component;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * For custom SWT {@link Component} try to find and use default constructor.
@@ -176,7 +175,7 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
 						"label.setBackground(new Color(null, 0xFF, 0xCC, 0xCC));",
 						"",
 						"return composite;");
-		Map<String, Object> variables = Maps.newTreeMap();
+		Map<String, Object> variables = new TreeMap<>();
 		variables.put("parent", parent);
 		variables.put("message", message);
 		return ScriptUtils.evaluate(classLoader, script, variables);

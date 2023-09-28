@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description of {@link Class} based component in XML.
@@ -239,7 +240,7 @@ IComponentDescription {
 	// Parameters
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, String> m_parameters = Maps.newTreeMap();
+	private final Map<String, String> m_parameters = new TreeMap<>();
 
 	/**
 	 * Adds new parameter.

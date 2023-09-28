@@ -63,6 +63,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Helper for working with PDE model.
@@ -633,11 +634,11 @@ public final class PdeUtils {
 	/**
 	 * {@link Map} for <code>bundleId + path</code> into loaded {@link Image}.
 	 */
-	private static Map<String, ImageDescriptor> m_bundleIcons = Maps.newTreeMap();
+	private static Map<String, ImageDescriptor> m_bundleIcons = new TreeMap<>();
 	/**
 	 * {@link Map} for <code>projectName + path</code> into loaded {@link Image}.
 	 */
-	private static Map<String, ImageDescriptor> m_projectIcons = Maps.newTreeMap();
+	private static Map<String, ImageDescriptor> m_projectIcons = new TreeMap<>();
 
 	/**
 	 * Returns icon from {@link IPluginElement}, attribute <code>"icon"</code>.
@@ -825,7 +826,7 @@ public final class PdeUtils {
 	/**
 	 * Cache for view ID to {@link ViewInfo}.
 	 */
-	private static final Map<String, ViewInfo> m_viewsById = Maps.newTreeMap();
+	private static final Map<String, ViewInfo> m_viewsById = new TreeMap<>();
 
 	/**
 	 * Information about view in "org.eclipse.ui.views" extension.
@@ -981,7 +982,7 @@ public final class PdeUtils {
 	/**
 	 * Cache for view ID to {@link ViewInfo}.
 	 */
-	private static final Map<String, PerspectiveInfo> m_perspectivesById = Maps.newTreeMap();
+	private static final Map<String, PerspectiveInfo> m_perspectivesById = new TreeMap<>();
 
 	/**
 	 * Information about perspective in "org.eclipse.ui.perspectives" extension.

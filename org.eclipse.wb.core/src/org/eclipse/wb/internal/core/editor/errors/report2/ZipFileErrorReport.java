@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -33,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -190,7 +189,7 @@ public final class ZipFileErrorReport implements IErrorReport {
 	 */
 	public void setupScreenshots() {
 		removeEntries(m_screenshotsMap);
-		m_screenshotsMap = Maps.newTreeMap();
+		m_screenshotsMap = new TreeMap<>();
 		if (hasDefaultScreenshot()) {
 			addScreenshot("default-screenshot.png");
 		}
@@ -242,7 +241,7 @@ public final class ZipFileErrorReport implements IErrorReport {
 	 */
 	public void setupFiles() {
 		removeEntries(m_filesMap);
-		m_filesMap = Maps.newTreeMap();
+		m_filesMap = new TreeMap<>();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

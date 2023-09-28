@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.model;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -19,6 +18,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Utility class that encapsulates information about keys and components that have properties with
@@ -28,7 +28,7 @@ import java.util.Set;
  * @coverage core.nls
  */
 public final class KeyToComponentsSupport {
-	private final Map<String, Set<JavaInfo>> m_keyToComponents = Maps.newTreeMap();
+	private final Map<String, Set<JavaInfo>> m_keyToComponents = new TreeMap<>();
 
 	/*private final IJavaInfoListener m_javaInfoListener = new IJavaInfoListener() {
    public void deleted(JavaInfo component) {

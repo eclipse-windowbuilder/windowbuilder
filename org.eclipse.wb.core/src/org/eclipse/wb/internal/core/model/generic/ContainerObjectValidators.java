@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.generic;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.state.ILayoutRequestValidatorHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Factory for {@link ContainerObjectValidator} objects.
@@ -110,7 +110,7 @@ public final class ContainerObjectValidators {
 			public boolean validate(Object container, Object component) {
 				ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
 				if (validatorHelper.isComponent(container) && validatorHelper.isComponent(component)) {
-					Map<String, Object> variables = Maps.newTreeMap();
+					Map<String, Object> variables = new TreeMap<>();
 					variables.put("container", container);
 					variables.put("component", component);
 					return evaluate(expression, variables);
@@ -131,7 +131,7 @@ public final class ContainerObjectValidators {
 			public boolean validate(Object container, Object reference) {
 				ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
 				if (validatorHelper.isComponent(container) && validatorHelper.isComponent(reference)) {
-					Map<String, Object> variables = Maps.newTreeMap();
+					Map<String, Object> variables = new TreeMap<>();
 					variables.put("container", container);
 					variables.put("reference", reference);
 					return evaluate(expression, variables);
@@ -156,7 +156,7 @@ public final class ContainerObjectValidators {
 	}
 
 	private static boolean validateContainer(String expression, Object container) {
-		Map<String, Object> variables = Maps.newTreeMap();
+		Map<String, Object> variables = new TreeMap<>();
 		variables.put("container", container);
 		return evaluate(expression, variables);
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.validator;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
@@ -23,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * {@link ILayoutRequestValidator} that checks also that given parent/child objects are compatible.
@@ -136,7 +135,7 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
 
 	private static boolean executeScriptBoolean(String script, Object parent, Object child)
 			throws Exception {
-		Map<String, Object> variables = Maps.newTreeMap();
+		Map<String, Object> variables = new TreeMap<>();
 		variables.put("parent", parent);
 		variables.put("child", child);
 		return (Boolean) ScriptUtils.evaluate(DEF_functions + script, variables);

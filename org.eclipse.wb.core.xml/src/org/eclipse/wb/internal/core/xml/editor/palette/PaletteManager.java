@@ -66,6 +66,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -178,7 +179,7 @@ public final class PaletteManager {
 		m_commandClasses.add(ComponentAddCommand.class);
 		m_commandClasses.add(ComponentEditCommand.class);
 	}
-	private static final Map<String, Class<? extends Command>> m_idToCommandClass = Maps.newTreeMap();
+	private static final Map<String, Class<? extends Command>> m_idToCommandClass = new TreeMap<>();
 	private List<Command> m_commands;
 
 	/**

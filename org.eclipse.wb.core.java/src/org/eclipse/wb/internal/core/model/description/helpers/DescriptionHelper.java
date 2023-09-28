@@ -38,6 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -492,7 +493,7 @@ public final class DescriptionHelper {
 		Assert.isNotNull(toolkitId);
 		// prepare all toolkits
 		if (m_idToToolkit == null) {
-			m_idToToolkit = Maps.newTreeMap();
+			m_idToToolkit = new TreeMap<>();
 			for (IConfigurationElement toolkitElement : getToolkitElements()) {
 				// ask each toolkit provider
 				IConfigurationElement[] providerElements = toolkitElement.getChildren("provider");

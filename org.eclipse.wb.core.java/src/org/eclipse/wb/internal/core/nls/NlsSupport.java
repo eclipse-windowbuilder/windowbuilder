@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -53,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Helper for NLS support.
@@ -108,8 +108,8 @@ public final class NlsSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final String POINT_NLS_SOURCES = "org.eclipse.wb.core.nlsSources";
-	private static Map<String, SourceDescription> m_idToDescription = Maps.newTreeMap();
-	private static Map<String, SourceDescription[]> m_toolkitToDescriptions = Maps.newTreeMap();
+	private static Map<String, SourceDescription> m_idToDescription = new TreeMap<>();
+	private static Map<String, SourceDescription[]> m_toolkitToDescriptions = new TreeMap<>();
 
 	/**
 	 * @return the {@link SourceDescription} with given id.

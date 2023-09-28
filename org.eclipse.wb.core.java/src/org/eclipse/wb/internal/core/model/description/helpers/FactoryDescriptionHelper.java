@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for accessing descriptions of factories -
@@ -103,7 +104,7 @@ public class FactoryDescriptionHelper {
 		int index = forStatic ? 0 : 1;
 		Map<String, FactoryMethodDescription> signaturesMap = signaturesMaps[index];
 		if (signaturesMap == null) {
-			signaturesMap = Maps.newTreeMap();
+			signaturesMap = new TreeMap<>();
 			signaturesMaps[index] = signaturesMap;
 			// this factory class methods
 			{
@@ -136,7 +137,7 @@ public class FactoryDescriptionHelper {
 			return getDescriptionsMap0Ex(editor, factoryClass, forStatic);
 		} catch (Throwable e) {
 			EditorState.get(editor).addWarning(new EditorWarning("Can not get factory methods for " + factoryClass, e));
-			return Maps.newTreeMap();
+			return new TreeMap<>();
 		}
 	}
 
@@ -159,7 +160,7 @@ public class FactoryDescriptionHelper {
 		String factoryClassName = factoryClass.getName();
 		IType factoryType = editor.getJavaProject().findType(factoryClassName);
 		if (factoryType == null) {
-			return Maps.newTreeMap();
+			return new TreeMap<>();
 		}
 		Boolean allMethodsAreFactories = null;
 		List<FactoryMethodDescription> descriptions = new ArrayList<>();
@@ -177,7 +178,7 @@ public class FactoryDescriptionHelper {
 			}
 		}
 		// prepare map: signature -> description
-		Map<String, FactoryMethodDescription> signaturesMap = Maps.newTreeMap();
+		Map<String, FactoryMethodDescription> signaturesMap = new TreeMap<>();
 		for (FactoryMethodDescription description : descriptions) {
 			signaturesMap.put(description.getSignature(), description);
 		}
@@ -187,7 +188,7 @@ public class FactoryDescriptionHelper {
 		}
 		// if no methods from XML, may be no methods at all
 		if (!allMethodsAreFactories.booleanValue() && descriptions.isEmpty() && !hasFactoryTagSource(factoryType)) {
-			return Maps.newTreeMap();
+			return new TreeMap<>();
 		}
 		// add descriptions for all methods, using JavaDoc
 		{

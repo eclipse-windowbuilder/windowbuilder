@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.exception;
 
 import com.google.common.collect.MapMaker;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.controls.BrowserComposite;
@@ -56,6 +55,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for {@link DesignerException} manipulations.
@@ -420,7 +420,7 @@ public final class DesignerExceptionUtils {
 	 * Reads exception definitions (using extensions) and creates code->entry map for error entries.
 	 */
 	private static void fillErrorEntries() {
-		m_codeToDescription = Maps.newTreeMap();
+		m_codeToDescription = new TreeMap<>();
 		try {
 			List<IConfigurationElement> fileElements =
 					ExternalFactoriesHelper.getElements("org.eclipse.wb.core.exceptions", "file");

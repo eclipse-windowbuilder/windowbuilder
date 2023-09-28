@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -42,6 +40,7 @@ import org.apache.commons.lang.StringUtils;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The {@link PropertyEditor} for {@link Date}. Using scripts for MVEL library.
@@ -101,7 +100,7 @@ IConfigurablePropertyObject {
 			value = new Date(((Long) value).longValue());
 		}
 		if (value instanceof Date) {
-			Map<String, Object> variables = Maps.newTreeMap();
+			Map<String, Object> variables = new TreeMap<>();
 			if (property instanceof GenericProperty genericProperty) {
 				variables.put("control", genericProperty.getJavaInfo().getObject());
 			}
@@ -131,7 +130,7 @@ IConfigurablePropertyObject {
 		} else {
 			// prepare value
 			try {
-				Map<String, Object> variables = Maps.newTreeMap();
+				Map<String, Object> variables = new TreeMap<>();
 				variables.put("value", valueText);
 				if (property instanceof GenericProperty genericProperty) {
 					variables.put("control", genericProperty.getJavaInfo().getObject());
@@ -163,7 +162,7 @@ IConfigurablePropertyObject {
 			if (StringUtils.isEmpty(m_sourceTemplate)) {
 				source = "new java.util.Date(%millisecs%)";
 			} else {
-				Map<String, Object> variables = Maps.newTreeMap();
+				Map<String, Object> variables = new TreeMap<>();
 				variables.put("value", value);
 				String valueText = (String) evaluate(m_toStringScript, variables);
 				source = StringUtils.replace(m_sourceTemplate, "%value%", valueText);

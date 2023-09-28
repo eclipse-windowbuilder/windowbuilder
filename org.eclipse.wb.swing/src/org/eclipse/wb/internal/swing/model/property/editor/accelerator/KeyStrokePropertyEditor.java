@@ -45,6 +45,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.KeyStroke;
 
@@ -439,8 +440,8 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 	private static synchronized void prepareKeyMaps() {
 		if (m_keyCodeToName == null) {
 			m_keyFields = new ArrayList<>();
-			m_keyCodeToName = Maps.newTreeMap();
-			m_keyNameToCode = Maps.newTreeMap();
+			m_keyCodeToName = new TreeMap<>();
+			m_keyNameToCode = new TreeMap<>();
 			// add fields
 			try {
 				int expected_modifiers = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;

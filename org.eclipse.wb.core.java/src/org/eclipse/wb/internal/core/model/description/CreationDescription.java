@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description for creating (adding) new component.
@@ -169,7 +170,7 @@ public final class CreationDescription extends AbstractDescription {
 	// Parameters
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, String> m_parameters = Maps.newTreeMap();
+	private final Map<String, String> m_parameters = new TreeMap<>();
 
 	/**
 	 * @return the {@link CreationDescription} specific parameters.

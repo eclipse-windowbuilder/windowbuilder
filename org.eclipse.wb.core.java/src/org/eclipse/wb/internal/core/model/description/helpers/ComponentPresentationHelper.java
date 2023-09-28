@@ -59,6 +59,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Helper for accessing {@link ComponentPresentation}'s.
@@ -84,7 +85,7 @@ public final class ComponentPresentationHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final Map<String, ComponentPresentationCache> m_presentationCaches =
-			Maps.newTreeMap();
+			new TreeMap<>();
 
 	/**
 	 * @return the {@link ComponentPresentation} for component with given {@link Class}.
@@ -335,7 +336,7 @@ public final class ComponentPresentationHelper {
 		private final List<Bundle> m_bundles = new ArrayList<>();
 		private final Set<String> m_bundleCheckSums = Sets.newHashSet();
 		private final File m_cacheFile;
-		private final Map<String, ComponentPresentation> m_presentations = Maps.newTreeMap();
+		private final Map<String, ComponentPresentation> m_presentations = new TreeMap<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//
