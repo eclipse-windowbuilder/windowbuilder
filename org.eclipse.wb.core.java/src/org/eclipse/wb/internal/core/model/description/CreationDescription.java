@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.description;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
@@ -23,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -225,7 +225,7 @@ public final class CreationDescription extends AbstractDescription {
 	 */
 	public void setTypeParameter(String name, String typeName, String title) {
 		if (m_typeArguments == null) {
-			m_typeArguments = Maps.newLinkedHashMap();
+			m_typeArguments = new LinkedHashMap<>();
 		}
 		m_typeArguments.put(name, new TypeParameterDescription(typeName, title));
 	}
