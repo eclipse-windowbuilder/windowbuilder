@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.EvaluationContext;
@@ -95,6 +94,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -703,7 +703,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 * represents reference of this {@link JavaInfo}, i.e. is creation or usage as part of
 	 * {@link MethodInvocation} (as target expression or argument) or {@link Assignment}, etc.
 	 */
-	private final List<ASTNode> m_nodes = Lists.newLinkedList();
+	private final List<ASTNode> m_nodes = new LinkedList<>();
 
 	/**
 	 * Adds given related {@link ASTNode}.

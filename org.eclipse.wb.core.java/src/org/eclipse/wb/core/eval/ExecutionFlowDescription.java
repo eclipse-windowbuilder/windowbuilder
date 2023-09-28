@@ -39,7 +39,7 @@ public final class ExecutionFlowDescription {
 	private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsAfter = Maps.newHashMap();
 	private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsBefore = Maps.newHashMap();
 	private boolean m_binaryFlowLocked;
-	private final LinkedList<Statement> m_traceStatements = Lists.newLinkedList();
+	private final LinkedList<Statement> m_traceStatements = new LinkedList<>();
 	private int m_modificationCount;
 
 	////////////////////////////////////////////////////////////////////////////

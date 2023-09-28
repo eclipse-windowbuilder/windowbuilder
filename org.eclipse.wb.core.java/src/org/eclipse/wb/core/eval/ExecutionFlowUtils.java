@@ -11,7 +11,6 @@
 package org.eclipse.wb.core.eval;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -858,7 +857,7 @@ public final class ExecutionFlowUtils {
 	 */
 	private static final class ExecutionFlowContext {
 		private final boolean m_forExecutionFlow;
-		private final LinkedList<ExecutionFlowFrame> m_stack = Lists.newLinkedList();
+		private final LinkedList<ExecutionFlowFrame> m_stack = new LinkedList<>();
 		private ExecutionFlowFrame m_currentFrame;
 
 		////////////////////////////////////////////////////////////////////////////

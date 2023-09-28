@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.laf;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
@@ -75,6 +74,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +102,7 @@ public final class LafSupport {
 	public static final String SET_LOOK_AND_FEEL_LAF = "setLookAndFeel(javax.swing.LookAndFeel)";
 	// fields
 	private static List<CategoryInfo> m_lafList;
-	private static List<LafInfo> m_mruLAFList = Lists.newLinkedList();
+	private static List<LafInfo> m_mruLAFList = new LinkedList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

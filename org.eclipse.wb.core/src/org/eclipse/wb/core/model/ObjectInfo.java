@@ -12,7 +12,6 @@ package org.eclipse.wb.core.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -34,6 +33,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +52,7 @@ public abstract class ObjectInfo implements IObjectInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private ObjectInfo m_parent;
-	private final List<ObjectInfo> m_children = Lists.newLinkedList();
+	private final List<ObjectInfo> m_children = new LinkedList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

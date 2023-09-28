@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -29,7 +27,7 @@ import java.util.List;
  */
 public class ItemCollectorObjectInfo extends CollectorObjectInfo {
 	private final ItemCollectorObjectInfo m_this = this;
-	protected final LinkedList<ObjectInfo> m_items = Lists.newLinkedList();
+	protected final LinkedList<ObjectInfo> m_items = new LinkedList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

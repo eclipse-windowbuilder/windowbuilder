@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -203,7 +201,7 @@ public final class ChildTargetCalculator {
 				new VisitingContext(true),
 				flowDescription,
 				new ExecutionFlowFrameVisitor() {
-					private final LinkedList<TargetMethodInformation> m_methodsStack = Lists.newLinkedList();
+					private final LinkedList<TargetMethodInformation> m_methodsStack = new LinkedList<>();
 					private boolean m_anyChildFound = false;
 					private boolean m_terminalFound = false;
 

@@ -349,7 +349,7 @@ public final class ComponentDescriptionHelper {
 			// prepare list of description resources, from generic to specific
 			LinkedList<ClassResourceInfo> descriptionInfos;
 			{
-				descriptionInfos = Lists.newLinkedList();
+				descriptionInfos = new LinkedList<>();
 				DescriptionHelper.addDescriptionResources(descriptionInfos, context, componentClass);
 				Assert.isTrueException(!descriptionInfos.isEmpty(), ICoreExceptionConstants.DESCRIPTION_NO_DESCRIPTIONS,
 						componentClass.getName());

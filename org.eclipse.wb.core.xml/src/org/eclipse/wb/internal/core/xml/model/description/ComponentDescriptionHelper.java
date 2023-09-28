@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.model.description.helpers.ILoadingContext;
@@ -109,7 +107,7 @@ public final class ComponentDescriptionHelper {
 		// prepare description resources, from generic to specific
 		LinkedList<ClassResourceInfo> descriptionInfos;
 		{
-			descriptionInfos = Lists.newLinkedList();
+			descriptionInfos = new LinkedList<>();
 			DescriptionHelper.addDescriptionResources(descriptionInfos, context.getLoadingContext(), componentClass);
 			Assert.isTrueException(!descriptionInfos.isEmpty(), IExceptionConstants.DESCRIPTION_NO_DESCRIPTIONS,
 					componentClass.getName());

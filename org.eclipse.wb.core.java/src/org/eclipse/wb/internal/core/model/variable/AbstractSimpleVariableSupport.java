@@ -255,7 +255,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
 	 *         invocations or <code>null</code> if there are no such special invocations.
 	 */
 	private StatementTarget getAssociationTarget_beforeAssocitation() {
-		LinkedList<MethodInvocation> beforeAssociationInvocations = Lists.newLinkedList();
+		LinkedList<MethodInvocation> beforeAssociationInvocations = new LinkedList<>();
 		for (ASTNode node : m_javaInfo.getRelatedNodes()) {
 			MethodInvocation invocation = m_javaInfo.getMethodInvocation(node);
 			if (invocation != null) {

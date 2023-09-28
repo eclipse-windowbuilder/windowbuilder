@@ -54,7 +54,7 @@ import java.util.List;
 public class UiContext {
 	private final Display m_display;
 	private Shell m_shell;
-	private final LinkedList<Shell> m_shells = Lists.newLinkedList();
+	private final LinkedList<Shell> m_shells = new LinkedList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

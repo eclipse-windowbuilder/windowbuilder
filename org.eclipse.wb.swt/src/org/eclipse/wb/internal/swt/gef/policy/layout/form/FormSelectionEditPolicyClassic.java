@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
@@ -67,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -1349,7 +1349,7 @@ SelectionEditPolicy {
 	static <C extends IControlInfo> List<C> sortControlsByAxisRange(List<C> components,
 			final boolean isX,
 			final int value) {
-		List<C> newControls = Lists.newLinkedList();
+		List<C> newControls = new LinkedList<>();
 		newControls.addAll(components);
 		// proceed with sorting
 		Collections.sort(newControls, new Comparator<C>() {

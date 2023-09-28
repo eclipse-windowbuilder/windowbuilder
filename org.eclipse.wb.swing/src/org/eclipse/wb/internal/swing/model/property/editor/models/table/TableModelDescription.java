@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.table;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.converter.ByteConverter;
 import org.eclipse.wb.internal.core.model.property.converter.DoubleConverter;
 import org.eclipse.wb.internal.core.model.property.converter.FloatConverter;
@@ -38,8 +36,8 @@ import javax.swing.table.TableModel;
  * @coverage swing.model
  */
 public final class TableModelDescription {
-	private final LinkedList<LinkedList<Object>> m_values = Lists.newLinkedList();
-	private final LinkedList<TableColumnDescription> m_columns = Lists.newLinkedList();
+	private final LinkedList<LinkedList<Object>> m_values = new LinkedList<>();
+	private final LinkedList<TableColumnDescription> m_columns = new LinkedList<>();
 	private int m_rowCount;
 	private int m_columnCount;
 
@@ -57,7 +55,7 @@ public final class TableModelDescription {
 		m_columnCount = model.getColumnCount();
 		// copy values
 		for (int row = 0; row < m_rowCount; row++) {
-			LinkedList<Object> rowValues = Lists.newLinkedList();
+			LinkedList<Object> rowValues = new LinkedList<>();
 			m_values.add(rowValues);
 			for (int column = 0; column < m_columnCount; column++) {
 				rowValues.add(model.getValueAt(row, column));
@@ -144,7 +142,7 @@ public final class TableModelDescription {
 	////////////////////////////////////////////////////////////////////////////
 	public void insertRow(int index) {
 		m_rowCount++;
-		LinkedList<Object> newRow = Lists.newLinkedList();
+		LinkedList<Object> newRow = new LinkedList<>();
 		m_values.add(newRow);
 		for (int column = 0; column < m_columnCount; column++) {
 			newRow.add(null);
