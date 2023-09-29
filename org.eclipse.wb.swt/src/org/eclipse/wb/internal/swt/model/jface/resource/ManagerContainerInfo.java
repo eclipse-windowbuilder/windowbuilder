@@ -1,78 +1,53 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2023 Patrick Ziegler
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Google, Inc. - initial API and implementation
+ *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.jface.resource;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
-import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Container for {@link ResourceRegistryInfo}, direct child of root {@link JavaInfo}.
- *
- * @author lobas_av
- * @coverage swt.model.jface
+ * Container for {@link ResourceManagerInfo}, direct child of root
+ * {@link JavaInfo}.
  */
-public final class RegistryContainerInfo extends AbstractContainerInfo {
+public final class ManagerContainerInfo extends AbstractContainerInfo {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the existing or new {@link RegistryContainerInfo} for given root.
+	 * @return the existing or new {@link ManagerContainerInfo} for given root.
 	 */
-	public static RegistryContainerInfo get(JavaInfo root) throws Exception {
-		return get(root, new RegistryContainerInfo());
+	public static ManagerContainerInfo get(JavaInfo root) throws Exception {
+		return get(root, new ManagerContainerInfo());
 	}
 
 	/**
 	 * @return all registries for given root assignable from given {@link Class}.
 	 */
-	public static <T extends ResourceRegistryInfo> List<T> getRegistries(JavaInfo root,
-			Class<T> componentClass) throws Exception {
-		RegistryContainerInfo container = findContainer(root, RegistryContainerInfo.class);
+	public static <T extends ResourceManagerInfo> List<T> getManagers(JavaInfo root, Class<T> componentClass)
+			throws Exception {
+		ManagerContainerInfo container = findContainer(root, ManagerContainerInfo.class);
 		if (container != null) {
 			return container.getChildren(componentClass);
 		}
 		return Collections.emptyList();
-	}
-
-	/**
-	 * @return {@link ResourceRegistryInfo} defined into given root represented given {@link ASTNode}.
-	 */
-	public static ResourceRegistryInfo getRegistry(JavaInfo root, ASTNode node) throws Exception {
-		RegistryContainerInfo container = findContainer(root, RegistryContainerInfo.class);
-		Assert.isNotNull(container);
-		//
-		for (ResourceRegistryInfo registry : container.getChildren(ResourceRegistryInfo.class)) {
-			if (registry.isRepresentedBy(node)) {
-				return registry;
-			}
-		}
-		//
-		Assert.fail(MessageFormat.format(
-				ModelMessages.RegistryContainerInfo_unknownRegistry,
-				root,
-				node));
-		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -85,12 +60,12 @@ public final class RegistryContainerInfo extends AbstractContainerInfo {
 		return new DefaultObjectPresentation(this) {
 			@Override
 			public String getText() throws Exception {
-				return ModelMessages.RegistryContainerInfo_jfaceRegistries;
+				return ModelMessages.ManagerContainerInfo_jfaceManagers;
 			}
 
 			@Override
 			public ImageDescriptor getIcon() throws Exception {
-				return Activator.getImageDescriptor("components/registry_container.gif");
+				return Activator.getImageDescriptor("components/manager_container.png");
 			}
 		};
 	}
