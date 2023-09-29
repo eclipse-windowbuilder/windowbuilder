@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.swt.support.AbstractSupport;
 import org.eclipse.wb.internal.swt.support.DisplaySupport;
@@ -25,8 +24,9 @@ import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.ResourceRegistry;
 import org.eclipse.swt.widgets.Display;
 
-import java.lang.reflect.Array;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * When we create instances of various {@link ResourceRegistry}'s, for example {@link ColorRegistry}
@@ -91,7 +91,6 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
 	 *          the root {@link JavaInfo} of hierarchy.
 	 */
 	private static void disposeResourceRegistries(JavaInfo javaInfo) throws Exception {
-		EditorState editorState = EditorState.get(javaInfo.getEditor());
 		// SWT utilities require "activeJavaInfo"
 		ObjectInfo activeObject = GlobalState.getActiveObject();
 		if (!(activeObject instanceof JavaInfo activeJavaInfo)) {
@@ -101,22 +100,26 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
 			GlobalStateJava.activate(javaInfo);
 			if (AbstractSupport.is_SWT()) {
 				Object display = DisplaySupport.getDefault();
-				Object disposeList = ReflectionUtils.getFieldObject(display, "disposeList");
+				Runnable[] disposeList = (Runnable[]) ReflectionUtils.getFieldObject(display, "disposeList");
 				if (disposeList != null) {
-					int length = Array.getLength(disposeList);
-					for (int i = 0; i < length; i++) {
-						Object runnable = Array.get(disposeList, i);
-						if (runnable != null) {
-							try {
-								Object registry = ReflectionUtils.getFieldObject(runnable, "this$0");
-								Class<?> registryClass = registry.getClass();
-								if (editorState.isLoadedFrom(registryClass)) {
-									// remove listener
-									Array.set(disposeList, i, null);
-									// clear resources
-									ReflectionUtils.invokeMethod(runnable, "run()");
-								}
-							} catch (Throwable e) {
+					// Step 1: Get all listeners called once the display is disposed
+					Set<Runnable> disposeRunnables = new HashSet<>();
+					for (ResourceRegistryInfo registryInfo : RegistryContainerInfo.getRegistries(javaInfo, ResourceRegistryInfo.class)) {
+						Runnable disposeRunnable = registryInfo.getDisposeRunnable();
+						if (disposeRunnable != null) {
+							// get listener
+							disposeRunnables.add(disposeRunnable);
+						}
+					}
+					// Step 2: Manually call the selected listeners and remove them from the display
+					for (int i = 0; i < disposeList.length; ++i) {
+						Runnable disposeRunnable = disposeList[i];
+						if (disposeRunnable != null) {
+							if (disposeRunnables.contains(disposeRunnable)) {
+								// remove listener
+								disposeList[i] = null;
+								// clear resources
+								disposeRunnable.run();
 							}
 						}
 					}

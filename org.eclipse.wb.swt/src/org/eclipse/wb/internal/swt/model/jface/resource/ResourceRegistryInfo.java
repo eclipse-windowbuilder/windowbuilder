@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,10 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
+import org.eclipse.jface.resource.ColorRegistry;
+import org.eclipse.jface.resource.ResourceRegistry;
+import org.eclipse.swt.widgets.Display;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage swt.model.jface
  */
-public class ResourceRegistryInfo extends JavaInfo {
+public abstract class ResourceRegistryInfo extends JavaInfo {
 	private final List<KeyFieldInfo> m_fields;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -60,6 +64,19 @@ public class ResourceRegistryInfo extends JavaInfo {
 	public final List<KeyFieldInfo> getKeyFields() {
 		return m_fields;
 	}
+
+	/**
+	 * When we create instances of various {@link ResourceRegistry}'s, for example
+	 * {@link ColorRegistry} , they usually want to be disposed with
+	 * {@link Display}, so they use {@link Display#disposeExec(Runnable)}. But our
+	 * {@link Display} instance lives all time while Eclipse lives. So, practically
+	 * we have memory leak: we keep in memory instance of {@link ResourceRegistry},
+	 * its allocated resources, and what is much worse - instance of
+	 * {@link ClassLoader} that loaded this {@link ResourceRegistry}.
+	 *
+	 * @return the {@link Runnable} that is executed when the registry is disposed.
+	 */
+	public abstract Runnable getDisposeRunnable();
 
 	/**
 	 * Extract all <code>public static</code> field's with type {@link String} for given {@link Class}
