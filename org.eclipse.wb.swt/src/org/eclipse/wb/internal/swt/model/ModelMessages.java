@@ -125,6 +125,7 @@ public class ModelMessages extends NLS {
 	public static String LayoutAssistantPageClassic_alignmentGroup;
 	public static String LayoutAssistantPageClassic_anchorsGroup;
 	public static String LayoutAssistantSupport_layoutDataPage;
+	public static String ManagerContainerInfo_jfaceManagers;
 	public static String PluginFileImagePage_clearButton;
 	public static String PluginFileImagePage_emptyFilterText;
 	public static String PluginFileImagePage_showAllPluginsButton;

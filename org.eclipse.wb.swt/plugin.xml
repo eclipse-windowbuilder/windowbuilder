@@ -55,6 +55,7 @@
 	<!-- ======================================================== -->
     <extension point="org.eclipse.wb.core.java.rootProcessors">
 		<processor class="org.eclipse.wb.internal.swt.utils.AsyncMessagesSupport"/>
+		<processor class="org.eclipse.wb.internal.swt.model.jface.resource.ResourceManagerRootProcessor"/>
 		<processor class="org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryRootProcessor"/>
 	</extension>
 	
