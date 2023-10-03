@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -43,19 +42,6 @@ public class EditEventManager extends EventManager {
 		super(canvas);
 		m_domain = domain;
 		m_viewer = viewer;
-		// add listeners
-		// TODO GEF - Obsolete once we use the LightweightSystem
-		canvas.addKeyListener(new KeyListener() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				dispatchKeyPressed(e);
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				dispatchKeyReleased(e);
-			}
-		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////

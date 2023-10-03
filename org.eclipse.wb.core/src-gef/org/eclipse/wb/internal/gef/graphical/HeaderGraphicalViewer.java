@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,8 +11,8 @@
 package org.eclipse.wb.internal.gef.graphical;
 
 import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
-import org.eclipse.wb.internal.draw2d.scroll.ScrollModel;
 
+import org.eclipse.draw2d.RangeModel;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -79,14 +79,12 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
 			}
 		});
 		// configure scrolling
-		m_mainViewer.m_canvas.getHorizontalScrollModel().addSelectionListener(
-				new ScrollModel.ISelectionListener() {
-					@Override
-					public void setSelection(int newSelection) {
-						m_canvas.getHorizontalScrollModel().setSelection(newSelection);
-						getRootFigureInternal().repaint();
-					}
-				});
+		m_mainViewer.m_canvas.getViewport().getHorizontalRangeModel().addPropertyChangeListener(event -> {
+			if (RangeModel.PROPERTY_VALUE.equals(event.getPropertyName())) {
+				m_canvas.getViewport().getHorizontalRangeModel().setValue((int) event.getNewValue());
+				getRootFigureInternal().repaint();
+			}
+		});
 	}
 
 	private void setVerticalHook() {
@@ -100,13 +98,11 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
 			}
 		});
 		// configure scrolling
-		m_mainViewer.m_canvas.getVerticalScrollModel().addSelectionListener(
-				new ScrollModel.ISelectionListener() {
-					@Override
-					public void setSelection(int newSelection) {
-						m_canvas.getVerticalScrollModel().setSelection(newSelection);
-						getRootFigureInternal().repaint();
-					}
-				});
+		m_mainViewer.m_canvas.getViewport().getVerticalRangeModel().addPropertyChangeListener(event -> {
+			if (RangeModel.PROPERTY_VALUE.equals(event.getPropertyName())) {
+				m_canvas.getViewport().getVerticalRangeModel().setValue((int) event.getNewValue());
+				getRootFigureInternal().repaint();
+			}
+		});
 	}
 }

@@ -20,8 +20,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.swt.graphics.Cursor;
@@ -56,42 +54,6 @@ public class EventManager extends EventDispatcher {
 		m_root = m_canvas.getRootFigure();
 		// custom tooltip
 		new CustomTooltipManager(canvas, this);
-		// add listeners
-		// TODO GEF - Obsolete once we use the LightweightSystem
-		m_canvas.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
-				dispatchMouseDoubleClicked(e);
-			}
-
-			@Override
-			public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-				dispatchMousePressed(e);
-			}
-
-			@Override
-			public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
-				dispatchMouseReleased(e);
-			}
-
-		});
-		m_canvas.addMouseMoveListener(this::dispatchMouseMoved);
-		m_canvas.addMouseTrackListener(new MouseTrackListener() {
-			@Override
-			public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
-				dispatchMouseEntered(e);
-			}
-
-			@Override
-			public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
-				dispatchMouseExited(e);
-			}
-
-			@Override
-			public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
-				dispatchMouseHover(e);
-			}
-		});
 	}
 
 	@Override
@@ -101,12 +63,12 @@ public class EventManager extends EventDispatcher {
 
 	@Override
 	public void setControl(Control control) {
-		throw new UnsupportedOperationException("Set via constructor...");
+		// throw new UnsupportedOperationException("Set via constructor...");
 	}
 
 	@Override
 	public void setRoot(IFigure root) {
-		throw new UnsupportedOperationException("Set via constructor...");
+		// throw new UnsupportedOperationException("Set via constructor...");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -254,8 +216,8 @@ public class EventManager extends EventDispatcher {
 			//
 			Rectangle bounds = m_targetFigure.getBounds();
 			Point location = new Point(m_currentEvent.x - bounds.x, m_currentEvent.y - bounds.y);
-			location.x += m_canvas.getHorizontalScrollModel().getSelection();
-			location.y += m_canvas.getVerticalScrollModel().getSelection();
+			location.x += m_canvas.getViewport().getHorizontalRangeModel().getValue();
+			location.y += m_canvas.getViewport().getVerticalRangeModel().getValue();
 			FigureUtils.translateAbsoluteToFigure(m_targetFigure, location);
 			//
 			m_currentEvent.x = location.x;
