@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,8 +31,8 @@ public class TargetFigureFindVisitor extends FigureVisitor {
 	////////////////////////////////////////////////////////////////////////////
 	public TargetFigureFindVisitor(FigureCanvas canvas, int x, int y) {
 		m_location = new Point(x, y);
-		m_location.x += canvas.getHorizontalScrollModel().getSelection();
-		m_location.y += canvas.getVerticalScrollModel().getSelection();
+		m_location.x += canvas.getViewport().getHorizontalRangeModel().getValue();
+		m_location.y += canvas.getViewport().getVerticalRangeModel().getValue();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

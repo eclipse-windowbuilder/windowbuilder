@@ -82,6 +82,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	public void setEventManager(EventManager eventManager) {
 		m_eventManager = eventManager;
+		m_figureCanvas.getLightweightSystem().setEventDispatcher(eventManager);
 	}
 
 	/**

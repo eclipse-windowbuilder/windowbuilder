@@ -11,11 +11,10 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.internal.draw2d.scroll.HorizontalScrollModel;
-import org.eclipse.wb.internal.draw2d.scroll.ScrollModel;
-import org.eclipse.wb.internal.draw2d.scroll.VerticalScrollModel;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -23,7 +22,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -34,11 +32,12 @@ import org.eclipse.swt.widgets.Listener;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public class FigureCanvas extends Canvas {
+public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	private RootFigure m_rootFigure;
 	private final Dimension m_rootPreferredSize = new Dimension();
-	private ScrollModel m_horizontalModel;
-	private ScrollModel m_verticalModel;
+	// TODO ptziegler: Painting the figures on the canvas is the responsibility of
+	// the UpdateManager, not the FigureCanvas.
+	@Deprecated
 	private Image m_bufferedImage;
 	private boolean m_drawCached;
 
@@ -48,9 +47,7 @@ public class FigureCanvas extends Canvas {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public FigureCanvas(Composite parent, int style) {
-		super(parent, style | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE);
-		// initialize scroll begin state
-		initScrolling();
+		super(parent, style | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE, createLightweightSystem());
 		// add all listeners
 		hookControlEvents();
 		// create root figure
@@ -62,10 +59,6 @@ public class FigureCanvas extends Canvas {
 	// FigureCanvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void initScrolling() {
-		m_horizontalModel = new HorizontalScrollModel(this);
-		m_verticalModel = new VerticalScrollModel(this);
-	}
 
 	private void createRootFigure() {
 		m_rootFigure = new RootFigure(this);
@@ -73,6 +66,27 @@ public class FigureCanvas extends Canvas {
 		m_rootFigure.setForegroundColor(getForeground());
 		m_rootFigure.setFont(getFont());
 		setDefaultEventManager();
+		setContents(m_rootFigure);
+	}
+
+	private static LightweightSystem createLightweightSystem() {
+		return new LightweightSystem() {
+			private FigureCanvas getFigureCanvas() {
+				return (FigureCanvas) ReflectionUtils.getFieldObject(this, "canvas");
+			}
+
+			@Override
+			protected void controlResized() {
+				getFigureCanvas().disposeBufferedImage();
+				super.controlResized();
+			}
+
+			@Override
+			public void paint(GC gc) {
+				org.eclipse.swt.graphics.Rectangle bounds = gc.getClipping();
+				getFigureCanvas().handlePaint(gc, bounds.x, bounds.y, bounds.width, bounds.height);
+			}
+		};
 	}
 
 	protected void setDefaultEventManager() {
@@ -91,19 +105,6 @@ public class FigureCanvas extends Canvas {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the {@link ScrollModel} what support the horizontal scrolling.
-	 */
-	public ScrollModel getHorizontalScrollModel() {
-		return m_horizontalModel;
-	}
-
-	/**
-	 * Returns the {@link ScrollModel} what support the vertical scrolling.
-	 */
-	public ScrollModel getVerticalScrollModel() {
-		return m_verticalModel;
-	}
 
 	/**
 	 * Returns figures container.
@@ -142,23 +143,6 @@ public class FigureCanvas extends Canvas {
 				disposeBufferedImage();
 			}
 		});
-		addListener(SWT.Resize, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				handleResize();
-			}
-		});
-		addListener(SWT.Paint, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				handlePaint(event.gc, event.x, event.y, event.width, event.height);
-			}
-		});
-	}
-
-	private void handleResize() {
-		disposeBufferedImage();
-		configureScrollingAndRedraw();
 	}
 
 	private void handlePaint(GC paintGC, int x, int y, int width, int height) {
@@ -188,27 +172,15 @@ public class FigureCanvas extends Canvas {
 			bufferedGC.setXORMode(paintGC.getXORMode());
 			// draw content
 			Graphics graphics = new SWTGraphics(bufferedGC);
-			graphics.translate(-m_horizontalModel.getSelection(), -m_verticalModel.getSelection());
+			int dx = -getViewport().getHorizontalRangeModel().getValue();
+			int dy = -getViewport().getVerticalRangeModel().getValue();
+			graphics.translate(dx, dy);
 			m_rootFigure.paint(graphics);
 		} finally {
 			bufferedGC.dispose();
 		}
 		// flush painting
 		paintGC.drawImage(m_bufferedImage, 0, 0);
-	}
-
-	private void configureScrollingAndRedraw() {
-		// cache figures preferred size
-		m_rootPreferredSize.setSize(m_rootFigure.getPreferredSize());
-		// get client area
-		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
-		// set new figures bounds (thereof or resize window or resize/relocate figure)
-		m_rootFigure.setBounds(new Rectangle(clientArea).setLocation(0, 0));
-		// configure horizontal and vertical scroll bar's
-		m_horizontalModel.configure(clientArea.width, m_rootPreferredSize.width);
-		m_verticalModel.configure(clientArea.height, m_rootPreferredSize.height);
-		// set repaint
-		redraw();
 	}
 
 	/**
@@ -223,7 +195,13 @@ public class FigureCanvas extends Canvas {
 			// set repaint
 			redraw(paintArea.x, paintArea.y, paintArea.width, paintArea.height, true);
 		} else {
-			configureScrollingAndRedraw();
+			org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
+			Rectangle bounds = new Rectangle(clientArea).setLocation(0, 0);
+			m_rootFigure.setBounds(bounds);
+			getViewport().setBounds(bounds);
+			getViewport().revalidate();
+			// set repaint
+			redraw();
 		}
 	}
 }
