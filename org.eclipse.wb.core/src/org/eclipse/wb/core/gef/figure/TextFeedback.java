@@ -132,7 +132,7 @@ public final class TextFeedback {
 		int x = target.x + (target.width - m_size.width) / 2;
 		int y = target.y - m_size.height - shift;
 		y = Math.max(y, 1);
-		m_label.setLocation(x, y);
+		m_label.setLocation(new Point(x, y));
 	}
 
 	/**
@@ -142,7 +142,7 @@ public final class TextFeedback {
 	public void moveRightOuter(Rectangle target, int shift) {
 		int x = target.right() + shift;
 		int y = target.bottom() - m_size.height;
-		m_label.setLocation(x, y);
+		m_label.setLocation(new Point(x, y));
 	}
 
 	/**
@@ -151,6 +151,6 @@ public final class TextFeedback {
 	public void moveTopLeftCenter(Point location) {
 		int x = location.x - m_size.width / 2;
 		int y = location.y - m_size.height / 2;
-		m_label.setLocation(x, y);
+		m_label.setLocation(new Point(x, y));
 	}
 }

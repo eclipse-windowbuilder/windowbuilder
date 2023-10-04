@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.draw2d;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
@@ -89,7 +90,7 @@ public abstract class AbstractRelativeLocator implements ILocator, IPositionCons
 		int x = reference.x + (int) (reference.width * m_relativeX) - (targetSize.width + 1) / 2;
 		int y = reference.y + (int) (reference.height * m_relativeY) - (targetSize.height + 1) / 2;
 		// set target location
-		target.setLocation(x, y);
+		target.setLocation(new Point(x, y));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
