@@ -523,7 +523,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(20, 40, 120, 57), testFigure.getBounds());
 		//
 		// check work setLocation(int, int)
-		testFigure.setLocation(90, 40);
+		testFigure.setLocation(new Point(90, 40));
 		assertEquals(new Rectangle(90, 40, 120, 57), testFigure.getBounds());
 	}
 
@@ -1038,7 +1038,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		actualLogger.assertEquals(expectedLogger);
 		//
 		// check invoke figure move during setLocation()
-		testFigure.setLocation(10, 20);
+		testFigure.setLocation(new Point(10, 20));
 		//
 		expectedLogger.log("figureMoved(__testFigure_)");
 		actualLogger.assertEquals(expectedLogger);

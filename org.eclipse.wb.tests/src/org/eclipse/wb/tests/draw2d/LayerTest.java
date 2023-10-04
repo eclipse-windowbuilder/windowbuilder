@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ public class LayerTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(1, 2, 3, 4), layer.getBounds());
 		//
 		// check work setLocation(int, int) and not reset state
-		layer.setLocation(5, 5);
+		layer.setLocation(new Point(5, 5));
 		actualLogger.assertEmpty();
 		assertEquals(new Rectangle(5, 5, 3, 4), layer.getBounds());
 		//

@@ -19,7 +19,6 @@ import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -37,7 +36,6 @@ import java.util.List;
  */
 public class Figure extends org.eclipse.draw2d.Figure {
 	private Figure m_parent;
-	private final Rectangle m_bounds = new Rectangle();
 	private List<Figure> m_children;
 	private Border m_border;
 	private Cursor m_cursor;
@@ -408,52 +406,17 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Returns the smallest rectangle completely enclosing the figure. Returns Reactangle by
-	 * reference. DO NOT Modify returned value.
-	 */
-	@Override
-	public Rectangle getBounds() {
-		return m_bounds;
-	}
-
-	/**
-	 * Sets the location of this Figure.
-	 */
-	public void setLocation(int x, int y) {
-		if (m_bounds.x != x || m_bounds.y != y) {
-			setBounds(new Rectangle(getBounds()).setLocation(x, y));
-		}
-	}
-
-	/**
-	 * Sets the location of this Figure.
-	 */
-	@Override
-	public void setLocation(Point location) {
-		setLocation(location.x, location.y);
-	}
-
-	/**
-	 * Sets this Figure's size.
-	 */
-	@Override
-	public void setSize(int width, int height) {
-		if (m_bounds.width != width || m_bounds.height != height) {
-			setBounds(new Rectangle(getBounds()).setSize(width, height));
-		}
-	}
 
 	/**
 	 * Sets the bounds of this Figure to the Rectangle <i>rect</i>.
 	 */
 	@Override
 	public void setBounds(Rectangle bounds) {
-		if (!m_bounds.equals(bounds)) {
+		if (!this.bounds.equals(bounds)) {
 			// calc repaint rectangle
-			Rectangle dirtyArea = m_bounds.getUnion(bounds);
+			Rectangle dirtyArea = this.bounds.getUnion(bounds);
 			// change bounds
-			m_bounds.setBounds(bounds);
+			this.bounds.setBounds(bounds);
 			// send move event
 			fireMoved();
 			// reset state
@@ -472,36 +435,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 			return IFigure.NO_INSETS;
 		}
 		return m_border.getInsets(this);
-	}
-
-	/**
-	 * Copies the client area into the specified {@link Rectangle}, and returns that rectangle for
-	 * convenience.
-	 */
-	@Override
-	public Rectangle getClientArea(Rectangle rectangle) {
-		rectangle.setBounds(getBounds());
-		rectangle.crop(getInsets());
-		rectangle.setLocation(0, 0);
-		return rectangle;
-	}
-
-	/**
-	 * Returns <code>true</code> if this Figure's bounds intersect with the given Rectangle. Figure is
-	 * asked so that non-rectangular Figures can reduce the frequency of paints.
-	 */
-	@Override
-	public boolean intersects(Rectangle rectangle) {
-		return getBounds().intersects(rectangle);
-	}
-
-	/**
-	 * Returns <code>true</code> if the point <code>(x, y)</code> is contained within this
-	 * {@link Figure}'s bounds.
-	 */
-	@Override
-	public boolean containsPoint(int x, int y) {
-		return getBounds().contains(x, y);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -182,11 +182,11 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		m_actualLogger.assertEmpty();
 		//
 		// check no reset state during setLocation(int, int) if bounds not change
-		testFigure.setLocation(1, 2);
+		testFigure.setLocation(new Point(1, 2));
 		m_actualLogger.assertEmpty();
 		//
 		// check reset state during setLocation(int, int)
-		testFigure.setLocation(3, 7);
+		testFigure.setLocation(new Point(3, 7));
 		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(1, 2, 13, 17)");
 		m_actualLogger.assertEquals(expectedLogger);
