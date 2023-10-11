@@ -50,6 +50,22 @@ public final class ManagerContainerInfo extends AbstractContainerInfo {
 		return Collections.emptyList();
 	}
 
+	/**
+	 * Returns the {@link ResourceManagerInfo} attached to the given root. If none
+	 * exists, a new {@link LocalResourceManagerInfo} object info is created. If
+	 * multiple exist, the first one is returned.
+	 *
+	 * @param root the {@link JavaInfo} of the root object.
+	 * @return the {@link ResourceManagerInfo} bound to {@code root}.
+	 */
+	public static ResourceManagerInfo getResourceManagerInfo(JavaInfo root) throws Exception {
+		List<ResourceManagerInfo> resourceManagers = getManagers(root, ResourceManagerInfo.class);
+		if (resourceManagers.isEmpty()) {
+			return LocalResourceManagerInfo.createNew(root);
+		}
+		return resourceManagers.get(0);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Presentation

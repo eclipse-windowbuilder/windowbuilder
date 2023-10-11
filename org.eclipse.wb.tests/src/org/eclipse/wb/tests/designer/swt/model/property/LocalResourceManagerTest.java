@@ -49,4 +49,86 @@ public class LocalResourceManagerTest extends RcpModelTest {
 		VariableSupport variableSupport = containerInfo.getVariableSupport();
 		assertEquals(variableSupport.getName(), "resourceManager");
 	}
+
+	@Test
+	public void test_createResourceManager1() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"}");
+		ManagerContainerInfo.getResourceManagerInfo(shell);
+		shell.refresh();
+		assertEditor(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager localResourceManager;",
+				"  public Test() {",
+				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
+	}
+
+	@Test
+	public void test_createResourceManager2() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test {",
+				"  private Shell shell;",
+				"  public Test() {",
+				"    shell = new Shell();",
+				"  }",
+				"}");
+		ManagerContainerInfo.getResourceManagerInfo(shell);
+		shell.refresh();
+		assertEditor(
+				"public class Test {",
+				"  private Shell shell;",
+				"  private LocalResourceManager localResourceManager;",
+				"  public Test() {",
+				"    shell = new Shell();",
+				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),shell);",
+				"  }",
+				"}");
+	}
+
+	@Test
+	public void test_createResourceManager3() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test {",
+				"  private Shell shell;",
+				"  public Test() {",
+				"    shell = new Shell();",
+				"    new Composite(shell, SWT.NONE);",
+				"  }",
+				"}");
+		ManagerContainerInfo.getResourceManagerInfo(shell);
+		shell.refresh();
+		assertEditor(
+				"public class Test {",
+				"  private Shell shell;",
+				"  private LocalResourceManager localResourceManager;",
+				"  public Test() {",
+				"    shell = new Shell();",
+				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),shell);",
+				"    new Composite(shell, SWT.NONE);",
+				"  }",
+				"}");
+	}
+
+	@Test
+	public void test_createResourceManager4() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    new Composite(this, SWT.NONE);",
+				"  }",
+				"}");
+		ManagerContainerInfo.getResourceManagerInfo(shell);
+		shell.refresh();
+		assertEditor(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager localResourceManager;",
+				"  public Test() {",
+				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"    new Composite(this, SWT.NONE);",
+				"  }",
+				"}");
+	}
 }
