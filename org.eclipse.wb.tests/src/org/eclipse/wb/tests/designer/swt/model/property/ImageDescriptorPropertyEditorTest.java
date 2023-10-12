@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.swt.model.property.editor.image.ImageDescriptorPropertyEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
@@ -78,9 +77,6 @@ public abstract class ImageDescriptorPropertyEditorTest extends RcpModelTest {
 		ControlInfo control = shell.getChildrenControls().get(0);
 		shell.refresh();
 		assertNoErrors(shell);
-		// ensure SWTResourceManager and ResourceManager
-		ManagerUtils.ensure_SWTResourceManager(shell);
-		ManagerUtils.ensure_ResourceManager(shell);
 		// set property using "source"
 		GenericProperty property = (GenericProperty) control.getPropertyByTitle("imageDescriptor");
 		property.setExpression(source, Property.UNKNOWN_VALUE);

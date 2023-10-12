@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.DefaultImagePag
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.FileImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.NullImagePage;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.property.editor.image.plugin.PluginFileImagePage;
 import org.eclipse.wb.internal.swt.model.property.editor.image.plugin.PluginImagesRoot;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
@@ -40,6 +41,8 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -61,6 +64,25 @@ IClipboardSourceProvider {
 	public static final PropertyEditor INSTANCE = new ImagePropertyEditor();
 
 	private ImagePropertyEditor() {
+	}
+
+	/**
+	 * Returns the Java code required for creating a new {@link Image} using a
+	 * {@link ResourceManager}.
+	 *
+	 * @param javaInfo Java info the resource manager belongs to.
+	 * @param location the class whose resource directory contain the file
+	 * @param filename the file name
+	 * @return {@code LocalResourceManager.createImage(ImageDescriptor.createFromFile(<clazz>, <path>))}
+	 * @see ImageDescriptor#createFromFile(Class, String)
+	 */
+	public static String getInvocationSource(JavaInfo javaInfo, String location, String filename) throws Exception {
+		String resourceManager = ManagerContainerInfo //
+				.getResourceManagerInfo(javaInfo.getRootJava()) //
+				.getVariableSupport() //
+				.getName();
+		return String.format("%s.create(%s)", //
+				resourceManager, ImageDescriptorPropertyEditor.getInvocationSource(location, filename));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -101,6 +123,7 @@ IClipboardSourceProvider {
 					}
 				}
 			}
+			// Only here for backwards compatibility
 			// SWTResourceManager.getImage(String path)
 			if (AstNodeUtils.isMethodInvocation(
 					expression,
@@ -110,6 +133,7 @@ IClipboardSourceProvider {
 				Expression stringExpression = DomGenerics.arguments(invocation).get(0);
 				return "File: " + JavaInfoEvaluationHelper.getValue(stringExpression);
 			}
+			// Only here for backwards compatibility
 			// SWTResourceManager.getImage(Class class, String path)
 			if (AstNodeUtils.isMethodInvocation(
 					expression,
@@ -118,6 +142,19 @@ IClipboardSourceProvider {
 				MethodInvocation invocation = (MethodInvocation) expression;
 				Expression stringExpression = DomGenerics.arguments(invocation).get(1);
 				return "Classpath: " + JavaInfoEvaluationHelper.getValue(stringExpression);
+			}
+			// LocalResourceManager.create(ImageDescriptor.createFrom(Class, String))
+			if (AstNodeUtils.isMethodInvocation(expression, "org.eclipse.jface.resource.ResourceManager",
+					"create(org.eclipse.jface.resource.DeviceResourceDescriptor)")) {
+				MethodInvocation managerInvocation = (MethodInvocation) expression;
+				Expression managerExpression = DomGenerics.arguments(managerInvocation).get(0);
+				if (AstNodeUtils.isMethodInvocation(managerExpression, "org.eclipse.jface.resource.ImageDescriptor",
+						"createFromFile(java.lang.Class,java.lang.String)")) {
+					MethodInvocation invocation = (MethodInvocation) managerExpression;
+					Object clazz = JavaInfoEvaluationHelper.getValue(DomGenerics.arguments(invocation).get(0));
+					Object path = JavaInfoEvaluationHelper.getValue(DomGenerics.arguments(invocation).get(1));
+					return (clazz == null ? "File: " : "Classpath: ") + path;
+				}
 			}
 			// ResourceManager.getPluginImageXXX
 			String[] imageValue = ImageEvaluator.getPluginImageValue(property);
@@ -155,7 +192,7 @@ IClipboardSourceProvider {
 						String path = text.substring("File: ".length());
 						String pathSource = StringConverter.INSTANCE.toJavaSource(javaInfo, path);
 						if (useResourceManager) {
-							return "org.eclipse.wb.swt.SWTResourceManager.getImage(" + pathSource + ")";
+							return getInvocationSource(property.getJavaInfo(), null, pathSource);
 						}
 						return "new org.eclipse.swt.graphics.Image(null, " + pathSource + ")";
 					}
@@ -163,9 +200,7 @@ IClipboardSourceProvider {
 						String path = text.substring("Classpath: ".length());
 						String pathSource = StringConverter.INSTANCE.toJavaSource(javaInfo, path);
 						if (useResourceManager) {
-							return "org.eclipse.wb.swt.SWTResourceManager.getImage({wbp_classTop}, "
-									+ pathSource
-									+ ")";
+							return getInvocationSource(property.getJavaInfo(), "{wbp_classTop}", pathSource);
 						}
 						return "new org.eclipse.swt.graphics.Image(null, {wbp_classTop}.getResourceAsStream("
 						+ pathSource
@@ -233,15 +268,12 @@ IClipboardSourceProvider {
 					IPreferenceStore preferences = javaInfo.getDescription().getToolkit().getPreferences();
 					boolean useResourceManager =
 							preferences.getBoolean(IPreferenceConstants.P_USE_RESOURCE_MANAGER);
-					if (useResourceManager) {
-						ManagerUtils.ensure_SWTResourceManager(javaInfo);
-					}
 					//
 					if (pageId == FileImagePage.ID) {
 						String path = (String) imageInfo.getData();
 						String pathSource = StringConverter.INSTANCE.toJavaSource(javaInfo, path);
 						if (useResourceManager) {
-							source = "org.eclipse.wb.swt.SWTResourceManager.getImage(" + pathSource + ")";
+							source = getInvocationSource(javaInfo, null, pathSource);
 						} else {
 							source = "new org.eclipse.swt.graphics.Image(null, " + pathSource + ")";
 						}
@@ -249,10 +281,7 @@ IClipboardSourceProvider {
 						String path = "/" + imageInfo.getData();
 						String pathSource = StringConverter.INSTANCE.toJavaSource(javaInfo, path);
 						if (useResourceManager) {
-							source =
-									"org.eclipse.wb.swt.SWTResourceManager.getImage({wbp_classTop}, "
-											+ pathSource
-											+ ")";
+							source = getInvocationSource(javaInfo, "{wbp_classTop}", pathSource);
 						} else {
 							source =
 									"new org.eclipse.swt.graphics.Image(null, {wbp_classTop}.getResourceAsStream("

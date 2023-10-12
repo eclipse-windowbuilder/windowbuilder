@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.property;
+
+import static org.eclipse.wb.internal.swt.model.property.editor.image.ImageDescriptorPropertyEditor.getInvocationSource;
 
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
@@ -87,11 +89,10 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 		File file = createTempImage();
 		try {
 			String path = FilenameUtils.separatorsToUnix(file.getCanonicalPath());
-			String source = "ImageDescriptor.createFromFile(null, \"" + path + "\")";
 			assert_getText_getClipboardSource_forSource(
-					source,
+					getInvocationSource(null, '"' + path + '"'),
 					"File: " + path,
-					"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(\"" + path + "\")");
+					getInvocationSource(null, '"' + path + '"'));
 		} finally {
 			file.delete();
 		}
@@ -104,9 +105,9 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
 		assert_getText_getClipboardSource_forSource(
-				"ImageDescriptor.createFromFile(getClass(), \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
+				getInvocationSource("getClass()", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor({wbp_classTop}, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")");
+				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 	}
 
 	/**
@@ -116,9 +117,9 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
 		assert_getText_getClipboardSource_forSource(
-				"ImageDescriptor.createFromFile(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
+				getInvocationSource("String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor({wbp_classTop}, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")");
+				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -127,7 +128,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Test for <code>ResourceManager.getImageDescriptor(absolutePath)</code>.
+	 * Test for <code>ImageDescriptor.createFrom(null, absolutePath)</code>.
 	 */
 	@Test
 	public void test_textSource_absolutePath2() throws Exception {
@@ -135,34 +136,34 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 		try {
 			String path = FilenameUtils.separatorsToUnix(file.getCanonicalPath());
 			assert_getText_getClipboardSource_forSource(
-					"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(\"" + path + "\")",
+					getInvocationSource(null, '"' + path + '"'),
 					"File: " + path,
-					"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(\"" + path + "\")");
+					getInvocationSource(null, '"' + path + '"'));
 		} finally {
 			file.delete();
 		}
 	}
 
 	/**
-	 * Test for <code>ResourceManager.getImageDescriptor(Class, resourcePath)</code>.
+	 * Test for <code>ImageDescriptor.createFrom(Class, resourcePath)</code>.
 	 */
 	@Test
 	public void test_textSource_image_over_classpath2() throws Exception {
 		assert_getText_getClipboardSource_forSource(
-				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(getClass(), \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
+				getInvocationSource("getClass()", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor({wbp_classTop}, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")");
+				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 	}
 
 	/**
-	 * Test for <code>ResourceManager.getImageDescriptor(Class, resourcePath)</code>, some other
+	 * Test for <code>ImageDescriptor.createFrom(Class, resourcePath)</code>, some other
 	 * {@link Class} as location.
 	 */
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass2() throws Exception {
 		assert_getText_getClipboardSource_forSource(
-				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
+				getInvocationSource("String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				"org.eclipse.wb.swt.ResourceManager.getImageDescriptor({wbp_classTop}, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")");
+				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.property;
+
+import static org.eclipse.wb.internal.swt.model.property.editor.image.ImageDescriptorPropertyEditor.getInvocationSource;
 
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
@@ -88,9 +90,9 @@ public class ImageDescriptorPropertyEditorTestNoManager extends ImageDescriptorP
 		try {
 			String path = FilenameUtils.separatorsToUnix(file.getCanonicalPath());
 			assert_getText_getClipboardSource_forSource(
-					"ImageDescriptor.createFromFile(null, \"" + path + "\")",
+					getInvocationSource(null, '"' + path + '"'),
 					"File: " + path,
-					"org.eclipse.jface.resource.ImageDescriptor.createFromFile(null, \"" + path + "\")");
+					getInvocationSource(null, '"' + path + '"'));
 		} finally {
 			file.delete();
 		}
@@ -103,9 +105,9 @@ public class ImageDescriptorPropertyEditorTestNoManager extends ImageDescriptorP
 	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
 		assert_getText_getClipboardSource_forSource(
-				"ImageDescriptor.createFromFile(getClass(), \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
+				getInvocationSource("getClass()", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				"org.eclipse.jface.resource.ImageDescriptor.createFromFile({wbp_classTop}, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")");
+				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 	}
 
 	/**
@@ -115,8 +117,8 @@ public class ImageDescriptorPropertyEditorTestNoManager extends ImageDescriptorP
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
 		assert_getText_getClipboardSource_forSource(
-				"ImageDescriptor.createFromFile(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")",
+				getInvocationSource("String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				"org.eclipse.jface.resource.ImageDescriptor.createFromFile({wbp_classTop}, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")");
+				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 	}
 }
