@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.swt.preferences;
 
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
+
+import org.eclipse.jface.resource.LocalResourceManager;
 
 /**
  * Contains various preference constants for SWT.
@@ -27,8 +29,8 @@ public interface IPreferenceConstants {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * When <code>true</code>, we automatically add <code>SWTResourceManager</code> and use it for
-	 * color/font/image access. This allows use resources sharing.
+	 * When <code>true</code>, we automatically add {@link LocalResourceManager} and
+	 * use it for color/font/image access. This allows use resources sharing.
 	 */
 	String P_USE_RESOURCE_MANAGER = "useResourceManager";
 	/**
