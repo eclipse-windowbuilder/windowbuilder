@@ -16,10 +16,14 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
+import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.generation.statement.PureFlatStatementGenerator;
+import org.eclipse.wb.internal.core.model.order.MethodOrder;
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -28,7 +32,10 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.resource.LocalResourceManager;
+
+import java.util.Collections;
 
 /**
  * Implementation {@link JavaInfo} for {@link LocalResourceManager}.
@@ -89,17 +96,25 @@ public class LocalResourceManagerInfo extends ResourceManagerInfo {
 		final AstEditor editor = root.getEditor();
 		final VariableSupport rootVariableSupport = root.getVariableSupport();
 		final StatementTarget rootTarget = rootVariableSupport.getStatementTarget();
-		final StatementTarget managerTarget;
-		if (rootVariableSupport.hasName()) {
-			// If the root object is stored in a local variable, initialize the
-			// resource manager directly afterwards.
-			managerTarget = new StatementTarget(rootTarget.getStatement(), false);
-		} else {
-			// Otherwise initialize it as early as possible inside the
-			// constructor...
-			final MethodDeclaration rootMethod = editor.getEnclosingMethod(rootTarget.getPosition());
-			managerTarget = new StatementTarget(rootMethod, true);
+
+		// prepare "createResourceManager()" method
+		String methodName = "createResourceManager";
+		String methodSignature = "createResourceManager()";
+		String methodHeader = "private void createResourceManager()";
+		String methodInvocation = "createResourceManager()";
+		// ensure "createResourceManager()" exists
+		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(root);
+		MethodDeclaration managerMethod = AstNodeUtils.getMethodBySignature(typeDeclaration, methodSignature);
+		if (managerMethod == null) {
+			MethodDeclaration rootMethod = editor.getEnclosingMethod(rootTarget.getPosition());
+			managerMethod = editor.addMethodDeclaration(
+					methodHeader,
+					Collections.emptyList(),
+					new BodyDeclarationTarget(rootMethod, false));
+			root.addExpressionStatement(rootTarget, methodInvocation);
 		}
+
+		final StatementTarget managerTarget = new StatementTarget(managerMethod, true);
 		final CreationSupport creationSupport = new CreationSupport() {
 			@Override
 			public boolean isJavaInfo(ASTNode node) {
@@ -124,6 +139,11 @@ public class LocalResourceManagerInfo extends ResourceManagerInfo {
 			}
 		};
 		resourceManager.setCreationSupport(creationSupport);
+		//
+		MethodDescription methodDescription = new MethodDescription((Class<?>) null);
+		methodDescription.setOrder(MethodOrder.parse("first"));
+		methodDescription.setName(methodName);
+		methodDescription.postProcess();
 		// do add new resource manager
 		JavaInfoUtils.add(resourceManager, //
 				new FieldUniqueVariableSupport(resourceManager), //
@@ -133,6 +153,7 @@ public class LocalResourceManagerInfo extends ResourceManagerInfo {
 				null, //
 				managerTarget);
 		root.removeChild(resourceManager);
+		root.getDescription().addMethod(methodDescription);
 		ManagerContainerInfo.get(root).addChild(resourceManager);
 	}
 }
