@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,12 +36,12 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComp
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
 import org.eclipse.wb.internal.swt.model.jface.resource.ColorRegistryInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.KeyFieldInfo;
+import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.swt.support.ColorSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
-import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.dom.Expression;
@@ -49,11 +49,14 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ColorDescriptor;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
 import org.osgi.service.prefs.Preferences;
@@ -80,6 +83,26 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 	static Preferences preferences = InstanceScope.INSTANCE.getNode(IColorChooserPreferenceConstants.PREFERENCE_NODE);
 
 	private ColorPropertyEditor() {
+	}
+
+	/**
+	 * Returns the Java code required for creating a new {@link Color} using a
+	 * {@link ResourceManager}.
+	 *
+	 * @param javaInfo Java info the resource manager belongs to.
+	 * @param red      the red component of the new instance
+	 * @param green    the green component of the new instance
+	 * @param blue     the blue component of the new instance
+	 * @return {@code LocalResourceManager.create(ColorDescriptor.createFrom(<rgb>))}
+	 * @see ColorDescriptor#createFrom(org.eclipse.swt.graphics.RGB)
+	 */
+	public static String getInvocationSource(JavaInfo javaInfo, int red, int green, int blue) throws Exception {
+		String resourceManager = ManagerContainerInfo.getResourceManagerInfo(javaInfo.getRootJava()) //
+				.getVariableSupport() //
+				.getName();
+		return String.format(
+				"%s.create(org.eclipse.jface.resource.ColorDescriptor.createFrom(new org.eclipse.swt.graphics.RGB(%d, %d, %d)))",
+				resourceManager, red, green, blue);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -163,6 +186,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 					return fieldName;
 				}
 			}
+			// Only here for backwards compatibility
 			// SWTResourceManager.getColor(String key)
 			if (AstNodeUtils.isMethodInvocation(
 					expression,
@@ -192,6 +216,18 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 								+ keyQualifiedName.getName().getIdentifier();
 					}
 					return null;
+				}
+			}
+			// LocalResourceManager.create(ColorDescriptor.createFrom(RGB))
+			if (AstNodeUtils.isMethodInvocation(expression, "org.eclipse.jface.resource.ResourceManager",
+					"create(org.eclipse.jface.resource.DeviceResourceDescriptor)")) {
+				MethodInvocation managerInvocation = (MethodInvocation) expression;
+				Expression managerExpression = DomGenerics.arguments(managerInvocation).get(0);
+				if (AstNodeUtils.isMethodInvocation(managerExpression, "org.eclipse.jface.resource.ColorDescriptor",
+						"createFrom(org.eclipse.swt.graphics.RGB)")) {
+					MethodInvocation invocation = (MethodInvocation) managerExpression;
+					RGB rgb = (RGB) JavaInfoEvaluationHelper.getValue(DomGenerics.arguments(invocation).get(0));
+					return String.format("%d, %d, %d", rgb.red, rgb.green, rgb.blue);
 				}
 			}
 			// use RGB
@@ -254,6 +290,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 				Expression idExpression = DomGenerics.arguments(invocation).get(0);
 				colorInfo.setData("org.eclipse.swt.SWT." + getColorFieldName(idExpression));
 			}
+			// Only here for backwards compatibility
 			// SWTResourceManager.getColor(String key)
 			if (AstNodeUtils.isMethodInvocation(
 					expression,
@@ -325,20 +362,13 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 		IPreferenceStore preferences =
 				property.getJavaInfo().getDescription().getToolkit().getPreferences();
 
-		if (preferences.getBoolean(IPreferenceConstants.P_USE_RESOURCE_MANAGER)) {
-			ManagerUtils.ensure_SWTResourceManager(property.getJavaInfo());
-			if (colorInfo.getData() != null) {
-				return "org.eclipse.wb.swt.SWTResourceManager.getColor(" + colorInfo.getData() + ")";
-			}
-			return "org.eclipse.wb.swt.SWTResourceManager.getColor(" + colorInfo.getCommaRGB() + ")";
+		if (colorInfo.getData() != null) {
+			return "org.eclipse.swt.widgets.Display.getCurrent().getSystemColor(" + colorInfo.getData() + ")";
+		} else if (preferences.getBoolean(IPreferenceConstants.P_USE_RESOURCE_MANAGER)) {
+			RGB rgb = colorInfo.getRGB();
+			return getInvocationSource(property.getJavaInfo(), rgb.red, rgb.green, rgb.blue);
 		} else {
-			if (colorInfo.getData() != null) {
-				return "org.eclipse.swt.widgets.Display.getCurrent().getSystemColor("
-						+ colorInfo.getData()
-						+ ")";
-			} else {
-				return "new org.eclipse.swt.graphics.Color(null, " + colorInfo.getCommaRGB() + ")";
-			}
+			return "new org.eclipse.swt.graphics.Color(null, " + colorInfo.getCommaRGB() + ")";
 		}
 	}
 
