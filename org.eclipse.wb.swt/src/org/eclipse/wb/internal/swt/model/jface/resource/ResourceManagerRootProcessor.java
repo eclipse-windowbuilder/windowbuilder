@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.jface.resource;
 import org.eclipse.wb.core.model.IRootProcessor;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
+import org.eclipse.wb.internal.core.model.order.MethodOrder;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public final class ResourceManagerRootProcessor implements IRootProcessor {
 			if (javaInfo instanceof ResourceManagerInfo resourceManagerInfo) {
 				javaInfo.setAssociation(new EmptyAssociation());
 				ManagerContainerInfo.get(root).addChild(resourceManagerInfo);
+				MethodOrder methodOrder = new LocalResourceManagerInfo.MethodOrderAfterResourceManager();
+				root.getDescription().setDefaultMethodOrder(methodOrder);
 			}
 		}
 	}

@@ -166,4 +166,119 @@ public class LocalResourceManagerTest extends RcpModelTest {
 				"  }",
 				"}");
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Check whether the new method call is added AFTER
+	// the resource manager has been created
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void test_useResourceManager1() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager;",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    createResourceManager();",
+				"  }",
+				"  private void createResourceManager() {",
+				"    resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
+		shell.addMethodInvocation("setBackground(Color)", "resourceManager.create(new RGB(1,1,1))");
+		shell.refresh();
+		assertEditor(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager;",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    createResourceManager();",
+				"    setBackground(resourceManager.create(new RGB(1,1,1)));",
+				"  }",
+				"  private void createResourceManager() {",
+				"    resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
+	}
+
+	@Test
+	public void test_useResourceManager2() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager;",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    createResourceManager1();",
+				"  }",
+				"  private void createResourceManager1() {",
+				"    createResourceManager();",
+				"  }",
+				"  private void createResourceManager() {",
+				"    resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
+		shell.addMethodInvocation("setBackground(Color)", "resourceManager.create(new RGB(1,1,1))");
+		shell.refresh();
+		assertEditor(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager;",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    createResourceManager1();",
+				"    setBackground(resourceManager.create(new RGB(1,1,1)));",
+				"  }",
+				"  private void createResourceManager1() {",
+				"    createResourceManager();",
+				"  }",
+				"  private void createResourceManager() {",
+				"    resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
+	}
+
+	@Test
+	public void test_useResourceManager3() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager;",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
+		shell.addMethodInvocation("setBackground(Color)", "resourceManager.create(new RGB(1,1,1))");
+		shell.refresh();
+		assertEditor(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager;",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"    setBackground(resourceManager.create(new RGB(1,1,1)));",
+				"  }",
+				"}");
+	}
+
+	@Test
+	public void test_useResourceManager4() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"  }",
+				"}");
+		shell.addMethodInvocation("setBackground(Color)", "resourceManager.create(new RGB(1,1,1))");
+		shell.refresh();
+		assertEditor(
+				"public class Test extends Shell {",
+				"  private LocalResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  public Test() {",
+				"    super(SWT.NONE);",
+				"    setBackground(resourceManager.create(new RGB(1,1,1)));",
+				"  }",
+				"}");
+	}
 }
