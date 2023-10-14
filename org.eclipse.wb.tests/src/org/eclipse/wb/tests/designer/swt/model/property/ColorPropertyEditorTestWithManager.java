@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,19 +11,20 @@
 package org.eclipse.wb.tests.designer.swt.model.property;
 
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
-import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
+import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.property.editor.color.ColorPropertyEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
+
+import org.eclipse.jface.resource.LocalResourceManager;
 
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for {@link ColorPropertyEditor} with <code>SWTResourceManager</code>.
+ * Tests for {@link ColorPropertyEditor} with {@link LocalResourceManager}.
  *
  * @author scheglov_ke
  */
@@ -67,28 +68,6 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 	}
 
 	/**
-	 * System color using "id" - SWT field.
-	 */
-	@Test
-	public void test_textSource_systemConstant() throws Exception {
-		assert_getText_getClipboardSource_forSource(
-				"Display.getCurrent().getSystemColor(SWT.COLOR_RED)",
-				"COLOR_RED",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(org.eclipse.swt.SWT.COLOR_RED)");
-	}
-
-	/**
-	 * System color using "id" - direct number.
-	 */
-	@Test
-	public void test_textSource_systemNumber() throws Exception {
-		assert_getText_getClipboardSource_forSource(
-				"Display.getCurrent().getSystemColor(3)",
-				"COLOR_RED",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(org.eclipse.swt.SWT.COLOR_RED)");
-	}
-
-	/**
 	 * Color creation using constructor with separate <code>int</code> values.
 	 */
 	@Test
@@ -96,7 +75,7 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 		assert_getText_getClipboardSource_forSource(
 				"new Color(null, 1, 2, 3)",
 				"1,2,3",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(1, 2, 3)");
+				ColorPropertyEditor.getInvocationSource(shell(), 1, 2, 3));
 	}
 
 	/**
@@ -107,80 +86,40 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 		assert_getText_getClipboardSource_forSource(
 				"new Color(null, new RGB(1, 2, 3))",
 				"1,2,3",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(1, 2, 3)");
+				ColorPropertyEditor.getInvocationSource(shell(), 1, 2, 3));
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Code with SWTResourceManager
-	//
-	////////////////////////////////////////////////////////////////////////////
+	private CompositeInfo shell() throws Exception {
+		return parseComposite("public class Test extends Shell {}");
+	}
+
 	/**
-	 * System color using "id" - SWT field.
+	 * The call to setBackground() must occur AFTER the resource manager was
+	 * created.
 	 */
 	@Test
-	public void test_textSource_systemConstant2() throws Exception {
-		assert_getText_getClipboardSource_forSource2(
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(org.eclipse.swt.SWT.COLOR_RED)",
-				"COLOR_RED",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(org.eclipse.swt.SWT.COLOR_RED)");
-	}
-
-	/**
-	 * System color using "id" - direct number.
-	 */
-	@Test
-	public void test_textSource_systemNumber2() throws Exception {
-		assert_getText_getClipboardSource_forSource2(
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(3)",
-				"COLOR_RED",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(org.eclipse.swt.SWT.COLOR_RED)");
-	}
-
-	/**
-	 * Color creation using constructor with separate <code>int</code> values.
-	 */
-	@Test
-	public void test_getText_constructor_ints2() throws Exception {
-		assert_getText_getClipboardSource_forSource2(
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(1, 2, 3)",
-				"1,2,3",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(1, 2, 3)");
-	}
-
-	/**
-	 * Color creation using constructor with RGB argument.
-	 */
-	@Test
-	public void test_getText_constructor_RGB2() throws Exception {
-		assert_getText_getClipboardSource_forSource2(
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(new RGB(1, 2, 3))",
-				"1,2,3",
-				"org.eclipse.wb.swt.SWTResourceManager.getColor(1, 2, 3)");
-	}
-
-	/**
-	 * Checks the results of {@link ColorPropertyEditor#getText()} and
-	 * {@link ColorPropertyEditor#getClipboardSource()} when color is set using given source.
-	 */
-	private void assert_getText_getClipboardSource_forSource2(String colorSource,
-			String expectedText,
-			String expectedClipboardSource) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
-		// add SWTResourceManager
-		ManagerUtils.ensure_SWTResourceManager(shell);
-		// set "background" property
-		shell.addMethodInvocation("setBackground(org.eclipse.swt.graphics.Color)", colorSource);
+	public void test_textSource_order() throws Exception {
+		CompositeInfo shell = parseComposite(
+				"// filler filler filler",
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"  }",
+				"}");
+		ManagerContainerInfo.getResourceManagerInfo(shell);
+		shell.addMethodInvocation("setBackground(org.eclipse.swt.graphics.Color)",
+				ColorPropertyEditor.getInvocationSource(shell, 1, 2, 3));
 		shell.refresh();
-		//
-		Property property = shell.getPropertyByTitle("background");
-		assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
-		assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends Shell {",
+				"  private LocalResourceManager localResourceManager;",
+				"  public Test() {",
+				"    createResourceManager();",
+				"    setBackground(localResourceManager.create(ColorDescriptor.createFrom(new RGB(1, 2, 3))));",
+				"  }",
+				"  private void createResourceManager() {",
+				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
+				"  }",
+				"}");
 	}
 }
