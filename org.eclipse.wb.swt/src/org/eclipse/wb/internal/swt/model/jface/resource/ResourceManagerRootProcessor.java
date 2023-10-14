@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swt.model.jface.resource;
 
 import org.eclipse.wb.core.model.IRootProcessor;
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.core.model.association.EmptyAssociation;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public final class ResourceManagerRootProcessor implements IRootProcessor {
 		// bind {@link ResourceManagerInfo}'s into hierarchy.
 		for (JavaInfo javaInfo : components) {
 			if (javaInfo instanceof ResourceManagerInfo resourceManagerInfo) {
+				javaInfo.setAssociation(new EmptyAssociation());
 				ManagerContainerInfo.get(root).addChild(resourceManagerInfo);
 			}
 		}
