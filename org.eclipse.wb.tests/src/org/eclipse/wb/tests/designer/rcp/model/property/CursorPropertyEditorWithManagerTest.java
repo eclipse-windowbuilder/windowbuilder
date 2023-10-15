@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,8 @@ import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.rcp.model.property.CursorPropertyEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.swt.utils.ManagerUtils;
+
+import org.eclipse.jface.resource.LocalResourceManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +27,7 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * Tests for {@link CursorPropertyEditor} with <code>SWTResourceManager</code>.
+ * Tests for {@link CursorPropertyEditor} with {@link LocalResourceManager}.
  *
  * @author scheglov_ke
  */
@@ -76,7 +77,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 		assert_getText_getClipboardSource_forSource(
 				"new Cursor(null, SWT.CURSOR_WAIT)",
 				"CURSOR_WAIT",
-				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_WAIT)");
+				"org.eclipse.swt.widgets.Display.getCurrent().getSystemCursor(org.eclipse.swt.SWT.CURSOR_WAIT)");
 	}
 
 	@Test
@@ -88,14 +89,6 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	}
 
 	@Test
-	public void test_useSWTResourceManager() throws Exception {
-		assert_getText_getClipboardSource_forSource(
-				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_WAIT)",
-				"CURSOR_WAIT",
-				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_WAIT)");
-	}
-
-	@Test
 	public void test_combo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -104,18 +97,15 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 						"  public Test() {",
 						"  }",
 						"}");
-		// add SWTResourceManager
-		ManagerUtils.ensure_SWTResourceManager(shell);
 		// set "cursor" property
 		shell.addMethodInvocation(
 				"setCursor(org.eclipse.swt.graphics.Cursor)",
-				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_CROSS)");
+				"org.eclipse.swt.widgets.Display.getCurrent().getSystemCursor(org.eclipse.swt.SWT.CURSOR_CROSS)");
 		assertEditor(
-				"import org.eclipse.wb.swt.SWTResourceManager;",
 				"// filler filler filler",
 				"public class Test extends Shell {",
 				"  public Test() {",
-				"    setCursor(SWTResourceManager.getCursor(SWT.CURSOR_CROSS));",
+				"    setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_CROSS));",
 				"  }",
 				"}");
 		//
@@ -141,11 +131,10 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 		{
 			setComboPropertyValue(property, 4);
 			assertEditor(
-					"import org.eclipse.wb.swt.SWTResourceManager;",
 					"// filler filler filler",
 					"public class Test extends Shell {",
 					"  public Test() {",
-					"    setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HELP));",
+					"    setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_HELP));",
 					"  }",
 					"}");
 		}
@@ -167,19 +156,16 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 		// prepare property
 		Property property = shell.getPropertyByTitle("cursor");
 		PropertyEditor propertyEditor = property.getEditor();
-		// no SWTResourceManager initially
-		assertNull(m_javaProject.findType("org.eclipse.wb.swt.SWTResourceManager"));
 		// set cursor
 		ReflectionUtils.invokeMethod(propertyEditor, "toPropertyEx("
 				+ "org.eclipse.wb.internal.core.model.property.Property,"
 				+ "org.eclipse.wb.core.controls.CCombo3,"
 				+ "int)", property, null, 0);
 		assertEditor(
-				"import org.eclipse.wb.swt.SWTResourceManager;",
 				"// filler filler filler",
 				"public class Test extends Shell {",
 				"  public Test() {",
-				"    setCursor(SWTResourceManager.getCursor(SWT.CURSOR_ARROW));",
+				"    setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));",
 				"  }",
 				"}");
 	}

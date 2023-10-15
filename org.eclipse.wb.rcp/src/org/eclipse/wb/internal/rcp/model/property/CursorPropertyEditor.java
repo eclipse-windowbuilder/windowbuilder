@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -66,6 +66,7 @@ IClipboardSourceProvider {
 				Expression styleExpression = DomGenerics.arguments(expression).get(1);
 				return getTextForStyle(styleExpression);
 			}
+			// Only here for backwards compatibility
 			// SWTResourceManager.getCursor(style)
 			if (AstNodeUtils.isMethodInvocation(
 					expression,
@@ -74,6 +75,15 @@ IClipboardSourceProvider {
 				Expression styleExpression = DomGenerics.arguments(expression).get(0);
 				return getTextForStyle(styleExpression);
 			}
+			// Display.getSystemCursor(style)
+			if (AstNodeUtils.isMethodInvocation(
+					expression,
+					"org.eclipse.swt.widgets.Display",
+					"getSystemCursor(int)")) {
+				Expression styleExpression = DomGenerics.arguments(expression).get(0);
+				return getTextForStyle(styleExpression);
+			}
+
 		}
 		// unknown value
 		return null;
@@ -97,7 +107,7 @@ IClipboardSourceProvider {
 	public String getClipboardSource(GenericProperty property) throws Exception {
 		String text = getText(property);
 		if (text != null) {
-			return "org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT." + text + ")";
+			return "org.eclipse.swt.widgets.Display.getCurrent().getSystemCursor(org.eclipse.swt.SWT." + text + ")";
 		}
 		return null;
 	}
@@ -128,7 +138,7 @@ IClipboardSourceProvider {
 			{
 				Field cursorField = getCursorFields().get(index);
 				source =
-						"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT."
+						"org.eclipse.swt.widgets.Display.getCurrent().getSystemCursor(org.eclipse.swt.SWT."
 								+ cursorField.getName()
 								+ ")";
 			}
