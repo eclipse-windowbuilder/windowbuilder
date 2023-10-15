@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.rcp.model.property.CursorPropertyEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.wb.tests.designer.swt.model.property.PropertyEditorTestUtils;
 
@@ -78,8 +77,6 @@ public abstract class CursorPropertyEditorTest extends RcpModelTest {
 						"  public Test() {",
 						"  }",
 						"}");
-		// add SWTResourceManager
-		ManagerUtils.ensure_SWTResourceManager(shell);
 		// set "cursor" property
 		shell.addMethodInvocation("setCursor(org.eclipse.swt.graphics.Cursor)", cursorSource);
 		shell.refresh();
