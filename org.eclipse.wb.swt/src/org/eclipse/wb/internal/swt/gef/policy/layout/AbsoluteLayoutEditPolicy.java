@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;

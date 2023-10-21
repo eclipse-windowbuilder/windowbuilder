@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -21,6 +20,8 @@ import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
+
+import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;

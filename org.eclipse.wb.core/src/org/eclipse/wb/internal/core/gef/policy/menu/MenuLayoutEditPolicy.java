@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.policy.layout.flow.AbstractFlowLayoutEditPolicy;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -25,7 +24,8 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+
+import org.eclipse.gef.commands.Command;
 
 import java.util.List;
 
@@ -82,13 +82,8 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
 	protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
 		return new Command() {
 			@Override
-			public void execute() throws Exception {
-				m_menu.executeEdit(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						m_policy.commandCreate(newObject, referenceObject);
-					}
-				});
+			public void execute() {
+				m_menu.executeEdit(() -> m_policy.commandCreate(newObject, referenceObject));
 			}
 		};
 	}
@@ -102,13 +97,10 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
 	protected Command getPasteCommand(final PasteRequest request, final Object referenceObject) {
 		return new Command() {
 			@Override
-			public void execute() throws Exception {
-				m_menu.executeEdit(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						List<?> pastedObject = m_policy.commandPaste(request.getMemento(), referenceObject);
-						request.setObjects(pastedObject);
-					}
+			public void execute() {
+				m_menu.executeEdit(() -> {
+					List<?> pastedObject = m_policy.commandPaste(request.getMemento(), referenceObject);
+					request.setObjects(pastedObject);
 				});
 			}
 		};
@@ -123,13 +115,8 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
 	protected Command getMoveCommand(final Object moveObject, final Object referenceObject) {
 		return new Command() {
 			@Override
-			public void execute() throws Exception {
-				m_menu.executeEdit(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						m_policy.commandMove(moveObject, referenceObject);
-					}
-				});
+			public void execute() {
+				m_menu.executeEdit(() -> m_policy.commandMove(moveObject, referenceObject));
 			}
 		};
 	}

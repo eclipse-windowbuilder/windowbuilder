@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.gef;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
@@ -27,6 +26,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;

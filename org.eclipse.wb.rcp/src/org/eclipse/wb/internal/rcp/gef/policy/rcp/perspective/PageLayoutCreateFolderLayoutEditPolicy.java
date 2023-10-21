@@ -15,7 +15,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.flow.AbstractFlowLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutAddViewInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutCreateFolderInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link PageLayoutCreateFolderInfo}.

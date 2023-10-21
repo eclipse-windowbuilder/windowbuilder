@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.draw2d.geometry.Transposer;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -179,7 +179,7 @@ AbstractHeaderLayoutEditPolicy {
 			final int oldPercent = ((PercentsInfo) editPart.getModel()).value;
 			return new Command() {
 				@Override
-				public void execute() throws Exception {
+				public void execute() {
 					layout.getPreferences().removePercent(oldPercent, isHorizontal);
 					layout.getPreferences().addPercent(percent, isHorizontal);
 					getHost().refresh();

@@ -11,13 +11,14 @@
 package org.eclipse.wb.internal.swt.gefTree.policy;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for dropping {@link LayoutInfo} on

@@ -16,7 +16,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -30,6 +29,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -539,7 +539,7 @@ public final class PaletteComposite extends Composite {
 				// create command
 				m_moveCommand = new Command() {
 					@Override
-					public void execute() throws Exception {
+					public void execute() {
 						ICategory targetCategory = before ? category_2 : category_1;
 						if (category_1 == m_category) {
 						} else {
@@ -905,7 +905,7 @@ public final class PaletteComposite extends Composite {
 				// create command
 				m_moveCommand = new Command() {
 					@Override
-					public void execute() throws Exception {
+					public void execute() {
 						m_palette.moveEntry(m_entry, targetCategory, null);
 					}
 				};
@@ -918,7 +918,7 @@ public final class PaletteComposite extends Composite {
 		private void move_commandBefore(final ICategory targetCategory, final IEntry targetEntry) {
 			m_moveCommand = new Command() {
 				@Override
-				public void execute() throws Exception {
+				public void execute() {
 					if (m_entry != targetEntry) {
 						m_palette.moveEntry(m_entry, targetCategory, targetEntry);
 					}
@@ -932,7 +932,7 @@ public final class PaletteComposite extends Composite {
 		private void move_commandAfter(final ICategory targetCategory, final IEntry targetEntry) {
 			m_moveCommand = new Command() {
 				@Override
-				public void execute() throws Exception {
+				public void execute() {
 					if (m_entry != targetEntry) {
 						// prepare "real" target
 						final IEntry targetEntry2 =

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.component;
 
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -20,6 +19,8 @@ import org.eclipse.wb.internal.swing.gef.part.JTabbedPaneTabEditPart;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link JTabbedPaneInfo} manipulating

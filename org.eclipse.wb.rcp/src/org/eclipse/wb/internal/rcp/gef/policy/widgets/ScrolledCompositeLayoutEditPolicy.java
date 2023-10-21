@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2.IPasteProcessor;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -24,6 +23,8 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.widgets.ScrolledCompositeInfo;
 import org.eclipse.wb.internal.swt.gef.ControlsLayoutRequestValidator;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ScrolledCompositeInfo}.

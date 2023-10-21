@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
 import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 import org.eclipse.wb.internal.core.utils.state.IPasteRequestProcessor;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jdt.core.IJavaProject;
 
 import java.util.ArrayList;

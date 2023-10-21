@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 

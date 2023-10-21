@@ -17,7 +17,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
@@ -32,6 +31,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 
 import java.util.ArrayList;
@@ -144,7 +144,7 @@ AbstractHeaderSelectionEditPolicy {
 		// but GEF already asked command and will not ask it again
 		return new Command() {
 			@Override
-			public void execute() throws Exception {
+			public void execute() {
 				getHost().getViewer().getEditDomain().executeCommand(m_resizeCommand);
 			}
 		};

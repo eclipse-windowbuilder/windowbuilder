@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gefTree.policy.menu;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -22,6 +21,8 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
+
+import org.eclipse.gef.commands.Command;
 
 import java.util.List;
 

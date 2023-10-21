@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -29,7 +28,6 @@ import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.edit.DimensionHeaderEditPart;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.selection.ResizeHintFigure.SizeElement;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
@@ -38,6 +36,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 
 import net.miginfocom.layout.UnitValue;
 
@@ -150,7 +149,7 @@ AbstractHeaderSelectionEditPolicy {
 		// but GEF already asked command and will not ask it again
 		return new Command() {
 			@Override
-			public void execute() throws Exception {
+			public void execute() {
 				getHost().getViewer().getEditDomain().executeCommand(m_resizeCommand);
 			}
 		};
@@ -370,12 +369,9 @@ AbstractHeaderSelectionEditPolicy {
 	 */
 	private void flipGrow() {
 		final MigLayoutInfo layout = getLayout();
-		ExecutionUtils.run(layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				getDimension().flipGrow();
-				layout.writeDimensions();
-			}
+		ExecutionUtils.run(layout, () -> {
+			getDimension().flipGrow();
+			layout.writeDimensions();
 		});
 	}
 }

@@ -31,11 +31,11 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.draw2d.EventManager;
-import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 

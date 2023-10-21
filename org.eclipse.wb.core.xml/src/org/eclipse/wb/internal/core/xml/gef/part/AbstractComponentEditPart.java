@@ -25,11 +25,11 @@ import org.eclipse.wb.internal.core.xml.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.xml.gef.policy.TopSelectionEditPolicy;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
-import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 

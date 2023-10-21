@@ -110,4 +110,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.rcp
 Import-Package: org.apache.commons.io,
- org.apache.commons.lang
+ org.apache.commons.lang,
+ org.eclipse.gef.commands

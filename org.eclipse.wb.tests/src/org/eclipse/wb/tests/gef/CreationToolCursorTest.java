@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
@@ -18,6 +17,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.graphics.Cursor;
 
 import org.junit.Before;
@@ -81,7 +81,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 	@Test
 	public void test_work_updateCursors_Move() throws Exception {
 		EditPart shellEditPart =
-				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		EditPart buttonEditPart = createEditPart(shellEditPart, 100, 100, 200, 100, null);
 		m_viewer.select(buttonEditPart);
 		CursorLogger expectedLogger = new CursorLogger();
@@ -153,7 +153,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 	@Test
 	public void test_work_updateCursors_Accept_Click() throws Exception {
 		EditPart shellEditPart =
-				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		EditPart buttonEditPart = createEditPart(shellEditPart, 100, 100, 200, 100, null);
 		m_viewer.select(buttonEditPart);
 		CursorLogger expectedLogger = new CursorLogger();
@@ -210,7 +210,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 	@Test
 	public void test_work_updateCursors_Not_Accept_Click() throws Exception {
 		EditPart shellEditPart =
-				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		EditPart buttonEditPart = createEditPart(shellEditPart, 100, 100, 200, 100, null);
 		m_viewer.select(buttonEditPart);
 		//
@@ -261,7 +261,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 
 	@Test
 	public void test_work_updateCursors_Accept_Move_InvalidInputClick() throws Exception {
-		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		CursorLogger expectedLogger = new CursorLogger();
 		// first update cursor after mouse enter into viewer
 		{
@@ -290,7 +290,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 
 	@Test
 	public void test_work_updateCursors_Accept_Drag_InvalidInputClick() throws Exception {
-		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		CursorLogger expectedLogger = new CursorLogger();
 		// first update cursor after mouse enter into viewer
 		{
@@ -337,7 +337,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 
 	@Test
 	public void test_work_updateCursors_Accept_Drag_InvalidInputDrag() throws Exception {
-		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		CursorLogger expectedLogger = new CursorLogger();
 		// first update cursor after mouse enter into viewer
 		{
@@ -390,7 +390,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 
 	@Test
 	public void test_work_updateCursors_Accept_Click_Again_Activate_SelectionTool() throws Exception {
-		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		CursorLogger expectedLogger = new CursorLogger();
 		// first update cursor after mouse enter into viewer
 		{
@@ -430,7 +430,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 
 	@Test
 	public void test_work_updateCursors_Accept_Click_Again_Activate_CreationTool() throws Exception {
-		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, Command.EMPTY);
+		createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		CursorLogger expectedLogger = new CursorLogger();
 		// first update cursor after mouse enter into viewer
 		{

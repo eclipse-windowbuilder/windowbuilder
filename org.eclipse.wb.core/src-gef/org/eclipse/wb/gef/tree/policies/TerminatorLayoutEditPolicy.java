@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.tree.policies;
 
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.Request;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Special {@link LayoutEditPolicy} that accepts any object, but returns <code>null</code> as

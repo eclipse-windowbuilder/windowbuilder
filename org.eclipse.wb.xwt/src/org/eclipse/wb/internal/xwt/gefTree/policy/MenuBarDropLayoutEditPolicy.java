@@ -11,12 +11,13 @@
 package org.eclipse.wb.internal.xwt.gefTree.policy;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.xwt.gef.policy.MenuBarDropLayoutEditPolicy.MenuBarDrop_Validator;
 import org.eclipse.wb.internal.xwt.model.widgets.ShellInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * {@link LayoutEditPolicy} allowing drop "bar" {@link MenuInfo} on {@link ShellInfo}.
