@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.flow.AbstractFlowLayoutEditPolicy;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.rcp.gef.part.jface.DialogButtonBarEditPart;
 import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * {@link LayoutEditPolicy} for dropping buttons on {@link DialogButtonBarEditPart}.

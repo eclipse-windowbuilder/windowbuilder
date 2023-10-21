@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
@@ -18,10 +17,11 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.Request;
-import org.eclipse.wb.internal.gef.core.CompoundCommand;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 
 import java.util.ArrayList;
 import java.util.Collection;

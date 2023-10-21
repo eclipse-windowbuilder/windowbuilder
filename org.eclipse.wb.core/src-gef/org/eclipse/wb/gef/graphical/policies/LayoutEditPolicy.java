@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.events.IEditPartListener;
 import org.eclipse.wb.gef.core.policies.IEditPartDecorationListener;
@@ -20,6 +19,8 @@ import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
+
+import org.eclipse.gef.commands.Command;
 
 import java.util.Iterator;
 

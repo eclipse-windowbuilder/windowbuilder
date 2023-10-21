@@ -152,5 +152,6 @@ Automatic-Module-Name: org.eclipse.wb.core.java
 Import-Package: org.apache.commons.io,
  org.apache.commons.lang,
  org.apache.commons.lang.exception,
- org.apache.commons.lang.text
+ org.apache.commons.lang.text,
+ org.eclipse.gef.commands
 

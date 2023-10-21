@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.policies;
 
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.events.IEditPolicyListener;
 import org.eclipse.wb.gef.core.requests.Request;
 
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.gef.commands.Command;
 
 import java.util.Iterator;
 

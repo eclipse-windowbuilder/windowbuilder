@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.gef;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.events.IEditPartListener;
@@ -21,6 +20,8 @@ import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.gef.commands.Command;
 
 import org.junit.Test;
 
@@ -257,13 +258,14 @@ public class EditPartTest extends GefTestCase {
 		// check route Request's
 		//
 		TestEditPart testEditPart = new TestEditPart();
+		Command dummy = new Command() {};
 		//
 		final RequestsLogger actualLogger = new RequestsLogger();
 		TestEditPolicy editPolicy = new TestEditPolicy() {
 			@Override
 			public Command getCommand(Request request) {
 				actualLogger.log(getHost(), "getCommand", request);
-				return Command.EMPTY;
+				return dummy;
 			}
 
 			@Override
@@ -307,7 +309,7 @@ public class EditPartTest extends GefTestCase {
 		testEditPart.installEditPolicy("", editPolicy);
 		//
 		// check route before activate()
-		assertSame(Command.EMPTY, testEditPart.getCommand(request));
+		assertSame(dummy, testEditPart.getCommand(request));
 		assertSame(testEditPart, testEditPart.getTargetEditPart(request));
 		testEditPart.showSourceFeedback(request);
 		testEditPart.eraseSourceFeedback(request);
@@ -326,7 +328,7 @@ public class EditPartTest extends GefTestCase {
 		//
 		// check route after activate()
 		testEditPart.activate();
-		assertSame(Command.EMPTY, testEditPart.getCommand(request));
+		assertSame(dummy, testEditPart.getCommand(request));
 		assertSame(testEditPart, testEditPart.getTargetEditPart(request));
 		testEditPart.showSourceFeedback(request);
 		testEditPart.eraseSourceFeedback(request);

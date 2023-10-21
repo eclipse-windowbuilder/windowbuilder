@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.ICursorConstants;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 
 import org.junit.After;
@@ -273,7 +273,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 
 	@Test
 	public void test_ResizeTracker_NoResize() throws Exception {
-		EditPart editPart = createEditPart(m_shellEditPart, 10, 10, 50, 60, null, Command.EMPTY);
+		EditPart editPart = createEditPart(m_shellEditPart, 10, 10, 50, 60, null, new Command(){});
 		m_viewer.select(editPart);
 		CursorLogger expectedLogger = new CursorLogger();
 		//
@@ -374,7 +374,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			protected Command getMoveCommand(ChangeBoundsRequest request) {
 				return new Command() {
 					@Override
-					public void execute() throws Exception {
+					public void execute() {
 						editPart.getFigure().setBounds(new Rectangle(10, 10, 50, 50));
 					}
 				};
@@ -534,7 +534,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public void execute() throws Exception {
+		public void execute() {
 			m_editPart.getFigure().setBounds(new Rectangle(10, 10, 60, 60));
 		}
 	}

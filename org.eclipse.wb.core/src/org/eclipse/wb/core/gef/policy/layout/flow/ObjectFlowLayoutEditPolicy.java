@@ -13,11 +13,12 @@ package org.eclipse.wb.core.gef.policy.layout.flow;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Abstract {@link LayoutEditPolicy} for typical {@link ObjectInfo} flow container.

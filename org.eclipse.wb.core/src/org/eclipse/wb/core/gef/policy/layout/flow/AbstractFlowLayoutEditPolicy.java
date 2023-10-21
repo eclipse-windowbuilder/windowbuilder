@@ -15,7 +15,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
+import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -175,11 +175,11 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 			if (children.contains(moveEditPart)) {
 				// move of last to last
 				if (referenceEditPart == null && children.indexOf(moveEditPart) == children.size() - 1) {
-					return Command.EMPTY;
+					return new Command(){};
 				}
 				// move before already next
 				if (children.indexOf(moveEditPart) + 1 == children.indexOf(referenceEditPart)) {
-					return Command.EMPTY;
+					return new Command(){};
 				}
 			}
 		}

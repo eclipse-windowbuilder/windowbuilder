@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,13 +13,11 @@ package org.eclipse.wb.tests.designer.XML.editor;
 import org.eclipse.wb.core.controls.palette.PaletteComposite;
 import org.eclipse.wb.core.editor.DesignerState;
 import org.eclipse.wb.core.editor.IDesignPageSite;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.core.views.PaletteView;
@@ -32,10 +30,10 @@ import org.eclipse.wb.internal.gef.core.CancelOperationError;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 import org.eclipse.wb.tests.designer.core.TestBundle;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPage;
@@ -310,17 +308,9 @@ public class XmlDesignPageTest extends XwtGefTest {
 			getVisibleExceptionCompositeXML(context);
 		}
 		// open "Create Report" dialog
-		new UiContext().executeAndCheck(new UIRunnable() {
-			@Override
-			public void run(UiContext context) throws Exception {
-				context.clickButton("Create Report...");
-			}
-		}, new UIRunnable() {
-			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Create Report");
-				context.clickButton("Cancel");
-			}
+		new UiContext().executeAndCheck(context -> context.clickButton("Create Report..."), context -> {
+			context.useShell("Create Report");
+			context.clickButton("Cancel");
 		});
 	}
 
@@ -342,11 +332,8 @@ public class XmlDesignPageTest extends XwtGefTest {
 		assertSame(null, context.findFirstWidget(XmlExceptionComposite.class));
 		// run "edit operation" which causes exception
 		EnvironmentUtils.setTestingTime(false);
-		ExecutionUtils.run(m_lastObject, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				throw new Error();
-			}
+		ExecutionUtils.run(m_lastObject, () -> {
+			throw new Error();
 		});
 		// ExceptionCompositeXML is visible
 		XmlExceptionComposite exceptionCompositeXML = getVisibleExceptionCompositeXML(context);
@@ -374,13 +361,10 @@ public class XmlDesignPageTest extends XwtGefTest {
 		openEditor("<Shell/>");
 		// run "edit operation" which causes exception
 		EnvironmentUtils.setTestingTime(false);
-		ExecutionUtils.run(m_lastObject, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				Throwable e = new Error();
-				DesignerExceptionUtils.setSourcePosition(e, 5);
-				ReflectionUtils.propagate(e);
-			}
+		ExecutionUtils.run(m_lastObject, () -> {
+			Throwable e = new Error();
+			DesignerExceptionUtils.setSourcePosition(e, 5);
+			ReflectionUtils.propagate(e);
 		});
 		// prepare UIContext
 		UiContext context = new UiContext();
@@ -409,7 +393,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 		try {
 			m_viewerCanvas.getEditDomain().executeCommand(new Command() {
 				@Override
-				public void execute() throws Exception {
+				public void execute() {
 					throw new Error();
 				}
 			});
@@ -494,11 +478,8 @@ public class XmlDesignPageTest extends XwtGefTest {
 			final DesignerException designerException = new DesignerException(-1000);
 			try {
 				EnvironmentUtils.setTestingTime(false);
-				ExecutionUtils.run(m_lastObject, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						throw designerException;
-					}
+				ExecutionUtils.run(m_lastObject, () -> {
+					throw designerException;
 				});
 			} catch (Throwable e) {
 				assertSame(designerException, e);

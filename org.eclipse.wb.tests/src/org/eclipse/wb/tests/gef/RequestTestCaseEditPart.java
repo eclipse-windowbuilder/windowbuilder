@@ -11,10 +11,11 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * Helper {@link EditPart} used to check invoke different method and logging it use format:

@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface.action;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.flow.ObjectFlowLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -21,6 +20,8 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ContributionItemInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo;
+
+import org.eclipse.gef.commands.Command;
 
 /**
  * {@link LayoutEditPolicy} for dropping items on {@link ToolBarManagerInfo}.

@@ -16,5 +16,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.internal.rcp.swing2swt;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.rcp.swing2swt.layout;x-friends:="org.eclipse.wb.tests"
+Import-Package: org.eclipse.gef.commands
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.swing2swt

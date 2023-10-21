@@ -15,7 +15,6 @@ import com.google.common.collect.ImmutableMap;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
@@ -39,6 +38,7 @@ import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.xml.model.description.DescriptionPropertiesHelper;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jdt.core.IJavaProject;
 
 import java.util.ArrayList;

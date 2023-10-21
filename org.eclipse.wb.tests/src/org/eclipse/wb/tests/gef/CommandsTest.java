@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.Command;
-import org.eclipse.wb.internal.gef.core.CompoundCommand;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.commands.UnexecutableCommand;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class CommandsTest extends Assert {
 		assertTrue(command.getCommands().isEmpty());
 		assertTrue(command.isEmpty());
 		assertEquals(0, command.size());
-		assertNull(command.unwrap());
+		assertEquals(command.unwrap(), UnexecutableCommand.INSTANCE);
 		//
 		// check add 'null' command
 		command.add(null);
@@ -43,13 +44,15 @@ public class CommandsTest extends Assert {
 		assertTrue(command.isEmpty());
 		//
 		// check add command
-		command.add(Command.EMPTY);
+		Command dummy = new Command() {
+		};
+		command.add(dummy);
 		assertEquals(1, command.size());
 		assertFalse(command.isEmpty());
-		assertSame(Command.EMPTY, command.unwrap());
+		assertSame(dummy, command.unwrap());
 		//
 		// again check add command
-		command.add(Command.EMPTY);
+		command.add(new Command(){});
 		assertEquals(2, command.size());
 		assertFalse(command.isEmpty());
 		assertSame(command, command.unwrap());

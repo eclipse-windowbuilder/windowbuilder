@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -38,6 +37,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 
 import java.util.List;
 
@@ -199,7 +199,7 @@ AbstractHeaderLayoutEditPolicy {
 			GridColumnInfo<C> column = (GridColumnInfo<C>) headerEditPart.getDimension();
 			final int sourceIndex = column.getIndex();
 			if (index == sourceIndex || index == sourceIndex + 1) {
-				m_moveCommand = Command.EMPTY;
+				m_moveCommand = new Command(){};
 			} else {
 				m_moveCommand = new EditCommand(m_layout) {
 					@Override

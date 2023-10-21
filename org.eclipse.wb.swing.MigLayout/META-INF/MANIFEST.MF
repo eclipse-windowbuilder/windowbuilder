@@ -19,4 +19,5 @@ Export-Package: org.eclipse.wb.internal.swing.MigLayout,
  org.eclipse.wb.internal.swing.MigLayout.model
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.swing.MigLayout
-Import-Package: org.apache.commons.lang
+Import-Package: org.apache.commons.lang,
+ org.eclipse.gef.commands

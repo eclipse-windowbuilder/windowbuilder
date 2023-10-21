@@ -19,12 +19,13 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.tree.TreeEditPart;
-import org.eclipse.wb.internal.gef.core.CompoundCommand;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;

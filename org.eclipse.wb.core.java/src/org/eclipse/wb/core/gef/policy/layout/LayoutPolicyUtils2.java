@@ -12,12 +12,13 @@ package org.eclipse.wb.core.gef.policy.layout;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
+
+import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;

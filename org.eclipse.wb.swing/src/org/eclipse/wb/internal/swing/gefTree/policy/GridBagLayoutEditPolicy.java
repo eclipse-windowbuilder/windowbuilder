@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.gefTree.policy;
 
 import org.eclipse.wb.core.gefTree.policy.ObjectLayoutEditPolicy;
-import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -19,6 +18,8 @@ import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
+
+import org.eclipse.gef.commands.Command;
 
 import java.util.List;
 
