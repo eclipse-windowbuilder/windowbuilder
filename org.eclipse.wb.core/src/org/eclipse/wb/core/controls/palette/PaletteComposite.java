@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -107,7 +108,6 @@ public final class PaletteComposite extends Composite {
 	////////////////////////////////////////////////////////////////////////////
 	private IPalettePreferences m_preferences;
 	private final FigureCanvas m_figureCanvas;
-	private final GC m_paletteGC;
 	private final PaletteFigure m_paletteFigure;
 	private final Layer m_feedbackLayer;
 	private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
@@ -133,11 +133,6 @@ public final class PaletteComposite extends Composite {
 			m_figureCanvas = new FigureCanvas(this, SWT.V_SCROLL);
 			m_figureCanvas.getRootFigure().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
 			m_figureCanvas.getRootFigure().setForegroundColor(COLOR_TEXT_ENABLED);
-		}
-		// prepare GC (for layout)
-		{
-			m_paletteGC = new GC(m_figureCanvas);
-			addListener(SWT.Dispose, event -> m_paletteGC.dispose());
 		}
 		// add palette figure (layer)
 		m_paletteFigure = new PaletteFigure();
@@ -569,8 +564,8 @@ public final class PaletteComposite extends Composite {
 		 * Lays out inner {@link EntryFigure}'s and returns the height of this figure.
 		 */
 		public int layout(int y, int width) {
-			m_titleHeight =
-					MARGIN_HEIGHT + m_paletteGC.textExtent(m_category.getText()).y + MARGIN_HEIGHT;
+			Dimension textExtent = FigureUtilities.getTextExtents(m_category.getText(), getFont());
+			m_titleHeight = MARGIN_HEIGHT + textExtent.height() + MARGIN_HEIGHT;
 			//
 			int height = m_titleHeight;
 			if (m_category.isOpen() && !getChildren().isEmpty()) {
@@ -977,11 +972,10 @@ public final class PaletteComposite extends Composite {
 		 */
 		public Dimension getIconTextSize() {
 			org.eclipse.swt.graphics.Rectangle imageBounds = getIcon().getBounds();
-			org.eclipse.swt.graphics.Point textExtent = m_paletteGC.textExtent(m_entry.getText());
+			Dimension textExtent = FigureUtilities.getTextExtents(m_entry.getText(), getFont());
 			// prepare total size
-			int width =
-					MARGIN_WIDTH_1 + imageBounds.width + IMAGE_SPACE_RIGHT + textExtent.x + MARGIN_WIDTH_2;
-			int height = MARGIN_HEIGHT + Math.max(imageBounds.height, textExtent.y) + MARGIN_HEIGHT;
+			int width = MARGIN_WIDTH_1 + imageBounds.width + IMAGE_SPACE_RIGHT + textExtent.width() + MARGIN_WIDTH_2;
+			int height = MARGIN_HEIGHT + Math.max(imageBounds.height, textExtent.height()) + MARGIN_HEIGHT;
 			return new Dimension(width, height);
 		}
 
