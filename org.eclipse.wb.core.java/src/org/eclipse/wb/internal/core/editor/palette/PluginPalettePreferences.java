@@ -128,6 +128,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	 */
 	public void setCategoryFont(FontData[] fontDataArray) {
 		PreferenceConverter.setValue(m_store, m_categoryFontKey, fontDataArray);
+		m_categoryFont = null;
 	}
 
 	/**
@@ -135,6 +136,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	 */
 	public void setEntryFont(FontData[] fontDataArray) {
 		PreferenceConverter.setValue(m_store, m_entryFontKey, fontDataArray);
+		m_entryFont = null;
 	}
 
 	/**
