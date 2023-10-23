@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.tests.designer.XML.XmlTests;
 import org.eclipse.wb.tests.designer.XWT.XwtTests;
 import org.eclipse.wb.tests.designer.core.CoreTests;
 import org.eclipse.wb.tests.designer.editor.EditorTests;
+import org.eclipse.wb.tests.designer.example.SwingExampleTest;
 import org.eclipse.wb.tests.designer.rcp.RcpTests;
 import org.eclipse.wb.tests.designer.swing.SwingTests;
 import org.eclipse.wb.tests.designer.swt.SwtTests;
@@ -43,8 +44,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	RcpTests.class,
 	// not yet ready to run, need work to run successfully
 	XmlTests.class,
-	XwtTests.class
-
+	XwtTests.class,
+	SwingExampleTest.class
 })
 
 public class WindowBuilderTests {
