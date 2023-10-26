@@ -137,7 +137,9 @@ Import-Package: org.apache.commons.io,
  org.apache.commons.lang.builder,
  org.apache.commons.lang.exception,
  org.apache.commons.lang.time,
- org.eclipse.gef.commands
+ org.eclipse.gef,
+ org.eclipse.gef.commands,
+ org.eclipse.gef.tools
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide;visibility:=reexport,

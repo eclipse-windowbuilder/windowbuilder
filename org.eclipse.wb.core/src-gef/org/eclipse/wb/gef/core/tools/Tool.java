@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,11 +31,10 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.core
  */
-public abstract class Tool {
+public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	private boolean m_active;
 	private IEditPartViewer m_viewer;
 	private EditDomain m_domain;
-	private boolean m_canUnload = true;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -110,22 +109,6 @@ public abstract class Tool {
 	}
 
 	/**
-	 * Returns <code>true</code> if the tool is set to unload when its current operation is complete.
-	 */
-	protected final boolean unloadWhenFinished() {
-		return m_canUnload;
-	}
-
-	/**
-	 * Setting this to <code>true</code> will cause the tool to be unloaded after one operation has
-	 * completed. The default value is <code>true</code>. The tool is unloaded, and the edit domains
-	 * default tool will be activated.
-	 */
-	public final void setUnloadWhenFinished(boolean value) {
-		m_canUnload = value;
-	}
-
-	/**
 	 * Called when the current tool operation is to be completed. In other words, the "state machine"
 	 * and has accepted the sequence of input (i.e. the mouse gesture). By default, the tool will
 	 * either reactivate itself, or ask the edit domain to load the default tool.
@@ -136,7 +119,7 @@ public abstract class Tool {
 	 * @see #unloadWhenFinished()
 	 */
 	protected void handleFinished() {
-		if (m_canUnload) {
+		if (unloadWhenFinished()) {
 			m_domain.loadDefaultTool();
 		} else {
 			// create emulate event
@@ -160,6 +143,11 @@ public abstract class Tool {
 				mouseMove(new MouseEvent(event), m_viewer);
 			}
 		}
+	}
+
+	@Override
+	protected String getCommandName() {
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -364,7 +352,7 @@ public abstract class Tool {
 		m_button = event.button;
 	}
 
-	private boolean movedPastThreshold() {
+	protected boolean movedPastThreshold() {
 		if (!m_canPastThreshold) {
 			m_canPastThreshold =
 					Math.abs(m_startScreenX - m_currentScreenX) > DRAG_THRESHOLD
@@ -464,79 +452,8 @@ public abstract class Tool {
 		if (m_viewer == viewer) {
 			setEvent(event);
 			handleViewerExited();
-			setViewer(null);
+			setViewer((IEditPartViewer) null);
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// High-Level handle MouseEvent
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Called when the mouse button has been pressed. Subclasses may override this method to interpret
-	 * the meaning of a mouse down.
-	 */
-	protected void handleButtonDown(int button) {
-	}
-
-	/**
-	 * Called when the mouse button has been released. Subclasses may override this method to
-	 * interpret the mouse up.
-	 */
-	protected void handleButtonUp(int button) {
-	}
-
-	/**
-	 * Handles high-level processing of a mouse move. Subclasses may extend this method to process
-	 * mouse moves.
-	 */
-	protected void handleMove() {
-	}
-
-	/**
-	 * Called whenever the mouse is being dragged. This method continues to be called even once
-	 * {@link #handleDragInProgress()} starts getting called. Subclasses may override this method to
-	 * interpret a drag.
-	 */
-	protected void handleDrag() {
-	}
-
-	/**
-	 * Called only one time during a drag when the drag threshold has been exceeded. Subclasses may
-	 * override to interpret the drag starting.
-	 */
-	protected void handleDragStarted() {
-	}
-
-	/**
-	 * Called whenever a mouse is being dragged and the drag threshold has been exceeded. Prior to the
-	 * drag threshold being exceeded, only {@link #handleDrag()} is called. This method gets called
-	 * repeatedly for every mouse move during the drag. Subclasses may override this method to
-	 * interpret the drag.
-	 */
-	protected void handleDragInProgress() {
-	}
-
-	/**
-	 * Called when a mouse double-click occurs. Subclasses may override this method to interpret
-	 * double-clicks.
-	 */
-	protected void handleDoubleClick(int button) {
-	}
-
-	/**
-	 * Called when the mouse enters an {@link IEditPartViewer}. Subclasses may extend this method to
-	 * process the viewer enter.
-	 */
-	protected void handleViewerEntered() {
-	}
-
-	/**
-	 * Called when the mouse exits an {@link IEditPartViewer}. Subclasses may extend this method to
-	 * process the viewer enter.
-	 */
-	protected void handleViewerExited() {
 	}
 
 	////////////////////////////////////////////////////////////////////////////

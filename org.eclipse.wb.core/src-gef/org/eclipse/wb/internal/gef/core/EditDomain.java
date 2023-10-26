@@ -24,21 +24,12 @@ import org.eclipse.swt.events.MouseEvent;
  * @author lobas_av
  * @coverage gef.core
  */
-public class EditDomain {
+public class EditDomain extends org.eclipse.gef.EditDomain {
 	private Tool m_activeTool;
 	private Tool m_defaultTool;
 	private IEditPartViewer m_currentViewer;
 	private MouseEvent m_currentMouseEvent;
 	private ICommandExceptionHandler m_exceptionHandler;
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public EditDomain() {
-		loadDefaultTool();
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -102,7 +93,14 @@ public class EditDomain {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private IDefaultToolProvider m_defaultToolProvider;
-	private final EventListenerList m_eventTable = new EventListenerList();
+	private EventListenerList m_eventTable;
+
+	private EventListenerList getEventTable() {
+		if (m_eventTable == null) {
+			m_eventTable = new EventListenerList();
+		}
+		return m_eventTable;
+	}
 
 	/**
 	 * Sets the {@link IDefaultToolProvider}.
@@ -115,14 +113,14 @@ public class EditDomain {
 	 * Adds new {@link IActiveToolListener}.
 	 */
 	public void addActiveToolListener(IActiveToolListener listener) {
-		m_eventTable.addListener(IActiveToolListener.class, listener);
+		getEventTable().addListener(IActiveToolListener.class, listener);
 	}
 
 	/**
 	 * Removes {@link IActiveToolListener}.
 	 */
 	public void removeActiveToolListener(IActiveToolListener listener) {
-		m_eventTable.removeListener(IActiveToolListener.class, listener);
+		getEventTable().removeListener(IActiveToolListener.class, listener);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -181,7 +179,7 @@ public class EditDomain {
 			m_activeTool.setDomain(this);
 			m_activeTool.activate();
 			// notify listeners
-			for (IActiveToolListener listener : m_eventTable.getListenersIterable(IActiveToolListener.class)) {
+			for (IActiveToolListener listener : getEventTable().getListenersIterable(IActiveToolListener.class)) {
 				listener.toolActivated(m_activeTool);
 			}
 			// handle auto reload tool and update cursor

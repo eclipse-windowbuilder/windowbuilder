@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -66,7 +66,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleButtonDown(int button) {
+	protected boolean handleButtonDown(int button) {
 		if ((button == 1 || button == 3)
 				&& m_state == STATE_INIT
 				&& m_sourceEditPart.getSelected() == EditPart.SELECTED_NONE) {
@@ -84,31 +84,35 @@ public class SelectEditPartTracker extends TargetingTool {
 			}
 			handleInvalidInput();
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleButtonUp(int button) {
+	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG) {
 			performSelection();
 			performClick();
 			m_state = STATE_NONE;
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleDragStarted() {
+	protected boolean handleDragStarted() {
 		if (m_state == STATE_DRAG) {
 			m_state = STATE_DRAG_IN_PROGRESS;
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleDoubleClick(int button) {
+	protected boolean handleDoubleClick(int button) {
 		if (button == 1) {
 			SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
 			request.setLocation(getLocation());
 			m_sourceEditPart.performRequest(request);
 		}
+		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

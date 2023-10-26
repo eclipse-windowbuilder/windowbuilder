@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,20 +37,22 @@ public class ParentTargetDragEditPartTracker extends DragEditPartTracker {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleButtonUp(int button) {
+	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			unlockTargetEditPart();
 		}
 		super.handleButtonUp(button);
+		return true;
 	}
 
 	@Override
-	protected void handleDragStarted() {
+	protected boolean handleDragStarted() {
 		super.handleDragStarted();
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
 			List<EditPart> editParts = request.getEditParts();
 			lockTargetEditPart(editParts.get(0).getParent());
 		}
+		return true;
 	}
 }

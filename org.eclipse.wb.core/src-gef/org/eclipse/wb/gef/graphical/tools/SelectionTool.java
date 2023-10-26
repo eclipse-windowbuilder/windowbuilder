@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -110,7 +110,7 @@ public class SelectionTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleButtonDown(int button) {
+	protected boolean handleButtonDown(int button) {
 		if (m_state == STATE_INIT) {
 			m_state = STATE_DRAG;
 			//
@@ -120,13 +120,13 @@ public class SelectionTool extends TargetingTool {
 			//
 			if ((m_stateMask & SWT.ALT) != 0) {
 				setDragTrackerTool(new MarqueeDragTracker());
-				return;
+				return true;
 			}
 			//
 			Handle handle = getViewer().findTargetHandle(m_currentScreenX, m_currentScreenY);
 			if (handle != null) {
 				setDragTrackerTool(handle.getDragTrackerTool());
-				return;
+				return true;
 			}
 			//
 			updateTargetRequest();
@@ -142,18 +142,20 @@ public class SelectionTool extends TargetingTool {
 				lockTargetEditPart(editPart);
 			}
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleButtonUp(int button) {
+	protected boolean handleButtonUp(int button) {
 		((SelectionRequest) getTargetRequest()).setLastButtonPressed(0);
 		setDragTrackerTool(null);
 		m_state = STATE_INIT;
 		unlockTargetEditPart();
+		return true;
 	}
 
 	@Override
-	protected void handleMove() {
+	protected boolean handleMove() {
 		if (m_state == STATE_DRAG) {
 			m_state = STATE_INIT;
 			setDragTrackerTool(null);
@@ -163,6 +165,7 @@ public class SelectionTool extends TargetingTool {
 			updateTargetUnderMouse();
 			showTargetFeedback();
 		}
+		return true;
 	}
 
 	/**
@@ -170,7 +173,7 @@ public class SelectionTool extends TargetingTool {
 	 * initial state.
 	 */
 	@Override
-	protected void handleViewerExited() {
+	protected boolean handleViewerExited() {
 		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
 			// send low level event to give current tracker a chance to process 'mouse up' event.
 			Event event = new Event();
@@ -182,6 +185,7 @@ public class SelectionTool extends TargetingTool {
 			mouseUp(new MouseEvent(event), getViewer());
 		}
 		super.handleViewerExited();
+		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

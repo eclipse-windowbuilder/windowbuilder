@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleButtonDown(int button) {
+	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
 			if (m_state == STATE_INIT) {
 				m_state = STATE_DRAG;
@@ -52,10 +52,11 @@ public abstract class AbstractCreationTool extends TargetingTool {
 			m_state = STATE_INVALID;
 			handleInvalidInput();
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleButtonUp(int button) {
+	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
 			eraseTargetFeedback();
 			unlockTargetEditPart();
@@ -65,30 +66,34 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		//
 		m_state = STATE_NONE;
 		handleFinished();
+		return true;
 	}
 
 	@Override
-	protected void handleMove() {
+	protected boolean handleMove() {
 		updateTargetRequest();
 		updateTargetUnderMouse();
 		showTargetFeedback();
 		updateCommand();
+		return true;
 	}
 
 	@Override
-	protected void handleDragStarted() {
+	protected boolean handleDragStarted() {
 		if (m_state == STATE_DRAG) {
 			m_state = STATE_DRAG_IN_PROGRESS;
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleDragInProgress() {
+	protected boolean handleDragInProgress() {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			updateTargetRequest();
 			showTargetFeedback();
 			updateCommand();
 		}
+		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
