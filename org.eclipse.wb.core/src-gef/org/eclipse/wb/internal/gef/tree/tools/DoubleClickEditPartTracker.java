@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,11 +41,12 @@ public class DoubleClickEditPartTracker extends Tool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleDoubleClick(int button) {
+	protected boolean handleDoubleClick(int button) {
 		if (button == 1) {
 			SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
 			request.setLocation(getLocation());
 			m_sourceEditPart.performRequest(request);
 		}
+		return true;
 	}
 }

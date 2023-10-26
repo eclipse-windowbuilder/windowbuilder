@@ -103,7 +103,7 @@ public class MarqueeSelectionTool extends Tool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleButtonDown(int button) {
+	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
 			if (m_state == STATE_INIT) {
 				m_state = STATE_DRAG_IN_PROGRESS;
@@ -119,10 +119,11 @@ public class MarqueeSelectionTool extends Tool {
 			eraseMarqueeFeedback();
 		}
 		refreshCursor();
+		return true;
 	}
 
 	@Override
-	protected void handleButtonUp(int button) {
+	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			m_state = STATE_NONE;
 			eraseTargetFeedback();
@@ -132,16 +133,18 @@ public class MarqueeSelectionTool extends Tool {
 		//
 		//setUnloadWhenFinished(false);
 		handleFinished();
+		return true;
 	}
 
 	@Override
-	protected void handleDragInProgress() {
+	protected boolean handleDragInProgress() {
 		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
 			showMarqueeFeedback();
 			eraseTargetFeedback();
 			m_selectedEditParts = calculateNewSelection();
 			showTargetFeedback();
 		}
+		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

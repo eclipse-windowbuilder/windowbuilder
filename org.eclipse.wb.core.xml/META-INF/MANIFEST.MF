@@ -54,4 +54,5 @@ Export-Package: org.eclipse.wb.internal.core.xml,
 Automatic-Module-Name: org.eclipse.wb.core.xml
 Import-Package: org.apache.commons.io,
  org.apache.commons.lang,
- org.eclipse.gef.commands
+ org.eclipse.gef.commands,
+ org.eclipse.gef.tools

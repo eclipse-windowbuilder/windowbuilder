@@ -183,6 +183,7 @@ Import-Package: org.apache.commons.io,
  org.assertj.core.api,
  org.assertj.core.data;version="3.24.2",
  org.assertj.core.description;version="3.24.2",
+ org.eclipse.gef,
  org.eclipse.gef.commands
 Automatic-Module-Name: org.eclipse.wb.tests
 

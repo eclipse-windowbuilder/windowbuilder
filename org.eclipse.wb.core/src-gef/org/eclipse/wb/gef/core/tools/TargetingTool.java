@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,14 +105,16 @@ public abstract class TargetingTool extends Tool {
 	 * command is set to <code>null</code>. The state does not change, so the caller must set the
 	 * state to {@link Tool#STATE_INVALID}.
 	 */
-	protected void handleInvalidInput() {
+	protected boolean handleInvalidInput() {
 		eraseTargetFeedback();
 		setCommand(null);
+		return true;
 	}
 
 	@Override
-	protected void handleViewerExited() {
+	protected boolean handleViewerExited() {
 		setTargetEditPart(null);
+		return true;
 	}
 
 	/**

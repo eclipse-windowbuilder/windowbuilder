@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -65,7 +65,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void handleButtonUp(int button) {
+	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			// prepare models if restoring selection
 			List<Object> models = getOperationSetModels();
@@ -77,25 +77,28 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		} else {
 			super.handleButtonUp(button);
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleDragStarted() {
+	protected boolean handleDragStarted() {
 		super.handleDragStarted();
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 		}
+		return true;
 	}
 
 	@Override
-	protected void handleDragInProgress() {
+	protected boolean handleDragInProgress() {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 			showTargetFeedback();
 			updateCommand();
 		}
+		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
