@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
+import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -61,7 +62,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 		// create root EditPart
 		m_rootEditPart = new RootEditPart(this);
 		m_rootEditPart.activate();
-		setRootEditPart(m_rootEditPart);
+		setRootEditPart((IRootContainer) m_rootEditPart);
 		// handle selection events
 		synchronizeSelection();
 	}
@@ -106,7 +107,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	 * Returns root {@link EditPart}.
 	 */
 	@Override
-	public EditPart getRootEditPart() {
+	public RootEditPart getRootEditPart() {
 		return m_rootEditPart;
 	}
 

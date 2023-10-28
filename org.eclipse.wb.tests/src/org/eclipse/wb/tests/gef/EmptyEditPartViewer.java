@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,10 +17,12 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.events.IEditPartClickListener;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
+import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -34,7 +36,7 @@ import java.util.List;
  * @author lobas_av
  *
  */
-public class EmptyEditPartViewer implements IEditPartViewer {
+public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEditPartViewer {
 	private final EditDomain m_editDomain = new EditDomain();
 
 	@Override
@@ -182,7 +184,7 @@ public class EmptyEditPartViewer implements IEditPartViewer {
 	}
 
 	@Override
-	public EditPart getRootEditPart() {
+	public RootEditPart getRootEditPart() {
 		return null;
 	}
 

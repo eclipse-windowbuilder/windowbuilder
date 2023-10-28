@@ -18,16 +18,20 @@ import org.eclipse.wb.gef.core.events.IEditPartClickListener;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,7 +42,7 @@ import java.util.Map;
  * @author mitin_aa
  * @coverage gef.core
  */
-public abstract class AbstractEditPartViewer implements IEditPartViewer {
+public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.AbstractEditPartViewer implements IEditPartViewer {
 	private/*final*/IRootContainer m_rootEditPart;
 	private EditDomain m_domain;
 	private IEditPartFactory m_factory;
@@ -205,7 +209,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 		}
 	}
 
-	private void fireSelectionChanged() {
+	protected void fireSelectionChanged() {
 		Iterator<ISelectionChangedListener> listeners = getListeners(ISelectionChangedListener.class);
 		if (listeners != null) {
 			SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
@@ -410,5 +414,20 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
 	 */
 	private <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GEF
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart findObjectAtExcluding(Point location, Collection<IFigure> exclusionSet, Conditional conditional) {
+		return null;
+	}
+
+	@Override
+	public Control createControl(Composite parent) {
+		return null;
 	}
 }

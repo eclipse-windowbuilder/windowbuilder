@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -55,7 +55,7 @@ public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
 	}
 
 	@Override
-	protected void addChildVisual(EditPart childPart, int index) {
+	protected void addChildVisual(org.eclipse.gef.EditPart childPart, int index) {
 		// this needed because index for menu item child (cascaded menu)
 		// is always zero. This leads to improper edit parts order.
 		// The workaround is to override this method and forcibly

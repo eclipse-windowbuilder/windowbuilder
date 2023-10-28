@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -61,7 +61,7 @@ public abstract class GraphicalEditPart extends EditPart {
 	 * Adds the child's {@link Figure} to the {@link #getContentPane() contentPane}.
 	 */
 	@Override
-	protected void addChildVisual(EditPart childPart, int index) {
+	protected void addChildVisual(org.eclipse.gef.EditPart childPart, int index) {
 		GraphicalEditPart graphicalChildPart = (GraphicalEditPart) childPart;
 		if (!graphicalChildPart.addSelfVisual(index)) {
 			getContentPane().add(graphicalChildPart.getFigure(), index);
@@ -82,7 +82,7 @@ public abstract class GraphicalEditPart extends EditPart {
 	 * Remove the child's {@link Figure} to the {@link #getContentPane() contentPane}.
 	 */
 	@Override
-	protected void removeChildVisual(EditPart childPart) {
+	protected void removeChildVisual(org.eclipse.gef.EditPart childPart) {
 		GraphicalEditPart graphicalChildPart = (GraphicalEditPart) childPart;
 		if (!graphicalChildPart.removeSelfVisual()) {
 			getContentPane().remove(graphicalChildPart.getFigure());

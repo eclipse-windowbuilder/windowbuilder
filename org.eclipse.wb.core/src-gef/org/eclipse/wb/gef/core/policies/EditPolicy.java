@@ -23,7 +23,7 @@ import java.util.Iterator;
  * @author lobas_av
  * @coverage gef.core
  */
-public abstract class EditPolicy {
+public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEditPolicy {
 	/**
 	 * The key used to install a <i>selection</i> {@link EditPolicy}.
 	 */
