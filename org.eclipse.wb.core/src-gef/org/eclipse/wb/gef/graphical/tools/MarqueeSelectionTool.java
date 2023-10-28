@@ -290,7 +290,7 @@ public class MarqueeSelectionTool extends Tool {
 	private List<EditPart> getAllChildren() {
 		if (m_allChildren == null || m_allChildren.isEmpty()) {
 			m_allChildren = new ArrayList<>();
-			getAllChildren(m_allChildren, getViewer().getRootEditPart());
+			getAllChildren(m_allChildren, (EditPart) getViewer().getRootEditPart());
 		}
 		return m_allChildren;
 	}

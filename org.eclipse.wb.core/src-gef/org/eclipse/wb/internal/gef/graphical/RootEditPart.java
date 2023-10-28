@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,8 @@ import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
+import org.eclipse.gef.EditPartViewer;
+
 /**
  * A {@link RootEditPart} is the <i>root</i> of an {@link IEditPartViewer}. It bridges the gap
  * between the {@link IEditPartViewer} and its contents. It does not correspond to anything in the
@@ -30,8 +32,8 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
  * @author lobas_av
  * @coverage gef.graphical
  */
-class RootEditPart extends GraphicalEditPart implements IRootContainer {
-	private final IEditPartViewer m_viewer;
+class RootEditPart extends GraphicalEditPart implements IRootContainer, org.eclipse.gef.RootEditPart {
+	private IEditPartViewer m_viewer;
 	private final IRootFigure m_rootFigure;
 	private EditPart m_contentEditPart;
 
@@ -83,6 +85,11 @@ class RootEditPart extends GraphicalEditPart implements IRootContainer {
 		return m_viewer;
 	}
 
+	@Override
+	public void setViewer(EditPartViewer viewer) {
+		m_viewer = (IEditPartViewer) viewer;
+	}
+
 	/**
 	 * Return root {@link Figure} for all {@link EditPart} {@link Figure}'s.
 	 */
@@ -106,18 +113,41 @@ class RootEditPart extends GraphicalEditPart implements IRootContainer {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Returns the <i>content</i> {@link EditPart}.
+	 *
+	 * @deprecated Deprecated by {@link #getContents()}.
 	 */
 	@Override
+	@Deprecated
 	public EditPart getContent() {
+		return getContents();
+	}
+
+	/**
+	 * Returns the <i>content</i> {@link EditPart}.
+	 */
+	@Override
+	public EditPart getContents() {
 		return m_contentEditPart;
 	}
 
 	/**
 	 * Sets the <i>content</i> {@link EditPart}. A RootEditPart only has a single child, called its
 	 * <i>contents</i>.
+	 *
+	 * @deprecated Replaced by {@link #setContents(org.eclipse.gef.EditPart)}
 	 */
 	@Override
+	@Deprecated
 	public void setContent(EditPart contentEditPart) {
+		setContents(contentEditPart);
+	}
+
+	/**
+	 * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
+	 * <i>contents</i>.
+	 */
+	@Override
+	public void setContents(org.eclipse.gef.EditPart contentEditPart) {
 		if (m_contentEditPart != null) {
 			// remove content
 			removeChild(m_contentEditPart);
@@ -127,7 +157,7 @@ class RootEditPart extends GraphicalEditPart implements IRootContainer {
 			}
 		}
 		//
-		m_contentEditPart = contentEditPart;
+		m_contentEditPart = (EditPart) contentEditPart;
 		//
 		if (m_contentEditPart != null) {
 			addChild(m_contentEditPart, -1);

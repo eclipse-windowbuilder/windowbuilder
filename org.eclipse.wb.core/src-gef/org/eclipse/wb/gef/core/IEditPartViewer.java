@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.graphics.Cursor;
@@ -32,7 +33,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.core
  */
-public interface IEditPartViewer extends ISelectionProvider {
+public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.EditPartViewer {
 	/**
 	 * The layer directly below {@link #PRIMARY_LAYER}.
 	 */
@@ -128,7 +129,7 @@ public interface IEditPartViewer extends ISelectionProvider {
 	/**
 	 * Returns root {@link EditPart}.
 	 */
-	EditPart getRootEditPart();
+	RootEditPart getRootEditPart();
 
 	/**
 	 * Returns root {@link Figure} use for access to {@link Layer}'s.

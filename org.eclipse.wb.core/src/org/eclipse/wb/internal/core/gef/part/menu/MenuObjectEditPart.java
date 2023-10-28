@@ -202,7 +202,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 				public void run() {
 					try {
 						MenuObjectInfoUtils.m_selectingObject = m_object;
-						getViewer().getRootEditPart().accept(new EditPartVisitor() {
+						((EditPart)getViewer().getRootEditPart()).accept(new EditPartVisitor() {
 							@Override
 							public boolean visit(EditPart editPart) {
 								if (editPart instanceof MenuObjectEditPart) {

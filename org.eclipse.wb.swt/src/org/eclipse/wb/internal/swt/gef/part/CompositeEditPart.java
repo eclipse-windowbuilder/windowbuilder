@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc. and others
+ * Copyright (c) 2011, 2023 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,7 +69,7 @@ public class CompositeEditPart extends ControlEditPart {
 	}
 
 	@Override
-	protected void addChildVisual(EditPart childPart, int index) {
+	protected void addChildVisual(org.eclipse.gef.EditPart childPart, int index) {
 		super.addChildVisual(childPart, getFigure().getChildren().size() - index);
 	}
 

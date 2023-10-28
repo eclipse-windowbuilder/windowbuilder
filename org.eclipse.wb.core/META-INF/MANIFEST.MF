@@ -139,7 +139,11 @@ Import-Package: org.apache.commons.io,
  org.apache.commons.lang.time,
  org.eclipse.gef,
  org.eclipse.gef.commands,
- org.eclipse.gef.tools
+ org.eclipse.gef.dnd,
+ org.eclipse.gef.editparts,
+ org.eclipse.gef.editpolicies,
+ org.eclipse.gef.tools,
+ org.eclipse.gef.ui.parts
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide;visibility:=reexport,

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -24,8 +25,8 @@ import org.eclipse.swt.widgets.TreeItem;
  * @author lobas_av
  * @coverage gef.tree
  */
-class RootEditPart extends TreeEditPart implements IRootContainer {
-	private final IEditPartViewer m_viewer;
+class RootEditPart extends TreeEditPart implements IRootContainer, org.eclipse.gef.RootEditPart {
+	private IEditPartViewer m_viewer;
 	private TreeEditPart m_contentEditPart;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -51,7 +52,12 @@ class RootEditPart extends TreeEditPart implements IRootContainer {
 	}
 
 	@Override
-	protected void addChildVisual(EditPart childPart, int index) {
+	public void setViewer(EditPartViewer viewer) {
+		m_viewer = (IEditPartViewer) viewer;
+	}
+
+	@Override
+	protected void addChildVisual(org.eclipse.gef.EditPart childPart, int index) {
 		m_contentEditPart.setWidget(new TreeItem(getTreeControl(), SWT.NONE));
 	}
 
@@ -66,10 +72,33 @@ class RootEditPart extends TreeEditPart implements IRootContainer {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Returns the <i>content</i> {@link EditPart}.
+	 *
+	 * @deprecated Deprecated by {@link #getContents()}.
 	 */
 	@Override
+	@Deprecated
 	public EditPart getContent() {
+		return getContents();
+	}
+
+	/**
+	 * Returns the <i>content</i> {@link EditPart}.
+	 */
+	@Override
+	public EditPart getContents() {
 		return m_contentEditPart;
+	}
+
+	/**
+	 * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
+	 * <i>contents</i>.
+	 *
+	 * @deprecated Replaced by {@link #setContents(org.eclipse.gef.EditPart)}
+	 */
+	@Override
+	@Deprecated
+	public void setContent(EditPart contentEditPart) {
+		setContents(contentEditPart);
 	}
 
 	/**
@@ -77,7 +106,7 @@ class RootEditPart extends TreeEditPart implements IRootContainer {
 	 * <i>contents</i>.
 	 */
 	@Override
-	public void setContent(EditPart contentEditPart) {
+	public void setContents(org.eclipse.gef.EditPart contentEditPart) {
 		if (m_contentEditPart != null) {
 			// remove content
 			removeChild(m_contentEditPart);

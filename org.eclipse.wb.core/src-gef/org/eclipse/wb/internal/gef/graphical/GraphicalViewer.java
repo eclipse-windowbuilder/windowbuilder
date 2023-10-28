@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
+import org.eclipse.wb.internal.gef.core.IRootContainer;
 import org.eclipse.wb.internal.gef.core.TargetEditPartFindVisitor;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -66,7 +67,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 		m_canvas = canvas;
 		m_rootEditPart = new RootEditPart(this, getRootFigure());
 		m_rootEditPart.activate();
-		setRootEditPart(m_rootEditPart);
+		setRootEditPart((IRootContainer) m_rootEditPart);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -102,7 +103,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	 * Returns root {@link EditPart}.
 	 */
 	@Override
-	public EditPart getRootEditPart() {
+	public RootEditPart getRootEditPart() {
 		return m_rootEditPart;
 	}
 

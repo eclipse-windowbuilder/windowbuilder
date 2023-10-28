@@ -69,4 +69,5 @@ Automatic-Module-Name: org.eclipse.wb.swt
 Import-Package: org.apache.commons.io,
  org.apache.commons.lang,
  org.apache.commons.lang.exception,
+ org.eclipse.gef,
  org.eclipse.gef.commands

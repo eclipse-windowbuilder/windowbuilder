@@ -24,6 +24,8 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 
@@ -44,7 +46,7 @@ import java.util.Map;
  * @author lobas_av
  * @coverage gef.core
  */
-public abstract class EditPart {
+public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPart {
 	/**
 	 * Used to indicate no selection.
 	 */
@@ -546,7 +548,7 @@ public abstract class EditPart {
 	 *          The child's position.
 	 * @see #addChild(EditPart, int)
 	 */
-	protected abstract void addChildVisual(EditPart childPart, int index);
+	protected abstract void addChildVisual(org.eclipse.gef.EditPart childPart, int index);
 
 	/**
 	 * Removes the childs visual from this EditPart's visual. Subclasses should implement this method
@@ -555,7 +557,7 @@ public abstract class EditPart {
 	 * @param childPart
 	 *          the child EditPart
 	 */
-	protected abstract void removeChildVisual(EditPart childPart);
+	protected abstract void removeChildVisual(org.eclipse.gef.EditPart childPart);
 
 	/**
 	 * When existing {@link EditPart} is not touched in its parent, i.e. has same model and index,
@@ -632,13 +634,13 @@ public abstract class EditPart {
 		}
 	}
 
-	private void activateEditPolicies() {
+	protected void activateEditPolicies() {
 		for (EditPolicy editPolicy : m_policies) {
 			editPolicy.activate();
 		}
 	}
 
-	private void deactivateEditPolicies() {
+	protected void deactivateEditPolicies() {
 		for (EditPolicy editPolicy : m_policies) {
 			editPolicy.deactivate();
 		}
@@ -706,6 +708,12 @@ public abstract class EditPart {
 	// DragTracking
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DragTracker getDragTracker(org.eclipse.gef.Request request) {
+		// TODO
+		return null;
+	}
+	
 	/**
 	 * Returns a {@link Tool} for dragging this {@link EditPart}. The SelectionTool is the only
 	 * {@link Tool} by default that calls this method. The SelectionTool will use a SelectionRequest
