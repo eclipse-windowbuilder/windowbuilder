@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -82,6 +81,7 @@ import org.mockito.ArgumentCaptor;
 import java.awt.FlowLayout;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -3312,13 +3312,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// fail if no components
 		try {
-			JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.<JavaInfo>of());
+			JavaInfoUtils.getStatementTarget_whenAllCreated(Collections.emptyList());
 			fail();
 		} catch (AssertionFailedException e) {
 		}
 		// ask for "button_1" and "button_2"
 		{
-			List<ComponentInfo> components = ImmutableList.of(button_1, button_2);
+			List<ComponentInfo> components = List.of(button_1, button_2);
 			StatementTarget target = JavaInfoUtils.getStatementTarget_whenAllCreated(components);
 			assertTarget(target, null, getStatement(panel, 2), false);
 		}
@@ -3344,7 +3344,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// ask for "button_1" and "button_2"
 		{
-			List<ComponentInfo> components = ImmutableList.of(button_1, button_2);
+			List<ComponentInfo> components = List.of(button_1, button_2);
 			StatementTarget target = JavaInfoUtils.getStatementTarget_whenAllCreated(components);
 			assertTarget(target, null, getStatement(panel, 0), false);
 		}
@@ -3370,7 +3370,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// ask for "button_1" and "button_2"
 		{
-			List<ComponentInfo> components = ImmutableList.of(button_1, button_2);
+			List<ComponentInfo> components = List.of(button_1, button_2);
 			StatementTarget target = JavaInfoUtils.getStatementTarget_whenAllCreated(components);
 			assertTarget(target, getBlock(panel), null, true);
 		}
@@ -3401,7 +3401,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// ask for "button_1" and "button_2"
 		{
-			List<ComponentInfo> components = ImmutableList.of(button_1, button_2);
+			List<ComponentInfo> components = List.of(button_1, button_2);
 			StatementTarget target = JavaInfoUtils.getStatementTarget_whenAllCreated(components);
 			assertTarget(target, null, getStatement(button_2, 0), false);
 		}
@@ -3611,7 +3611,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
 				"    {method: public test.MyFactory test.MyContainer.getFactory()} {property} {}");
 		// send broadcast to move "getFactory()" into InstanceFactoryContainerInfo
-		InstanceFactoryRootProcessor.INSTANCE.process(panel, ImmutableList.<JavaInfo>of(exposedFactory));
+		InstanceFactoryRootProcessor.INSTANCE.process(panel, List.of(exposedFactory));
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/add(new MyContainer())/}",
 				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",

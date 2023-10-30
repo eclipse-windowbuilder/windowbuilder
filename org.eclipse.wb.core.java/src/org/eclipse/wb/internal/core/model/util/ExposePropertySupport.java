@@ -1,7 +1,6 @@
 package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -274,7 +273,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 								"return {0}.{1};",
 								m_javaInfo,
 								m_exposableAccessor.getGetterCode(m_javaInfo));
-				m_editor.addMethodDeclaration(header, ImmutableList.of(body), methodTarget);
+				m_editor.addMethodDeclaration(header, List.of(body), methodTarget);
 			}
 			// setter
 			{
@@ -291,7 +290,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 								"{0}.{1};",
 								m_javaInfo,
 								m_exposableAccessor.getSetterCode(m_javaInfo, m_exposedSetterParameter));
-				m_editor.addMethodDeclaration(header, ImmutableList.of(body), methodTarget);
+				m_editor.addMethodDeclaration(header, List.of(body), methodTarget);
 			}
 		}
 

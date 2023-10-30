@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -50,6 +48,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -204,7 +203,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
 		public List<ObjectInfo> getChildrenGraphical() throws Exception {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 	};
 

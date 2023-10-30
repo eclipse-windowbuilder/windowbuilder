@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -1002,7 +1001,8 @@ public class JavaInfoUtils {
 	 * Binds any not bound yet components to the given root {@link JavaInfo} or any of its children.
 	 */
 	public static void bindBinaryComponents(List<JavaInfo> components) throws Exception {
-		List<JavaInfo> reverseComponents = ImmutableList.copyOf(components).reverse();
+		List<JavaInfo> reverseComponents = new ArrayList<>(components);
+		Collections.reverse(reverseComponents);
 		// prepare map (object -> JavaInfo)
 		final Map<Object, JavaInfo> objectToModel;
 		{
@@ -2041,7 +2041,7 @@ public class JavaInfoUtils {
 	 */
 	public static void deleteJavaInfo(JavaInfo javaInfo, boolean removeFromParent) throws Exception {
 		// delete children
-		List<ObjectInfo> children = ImmutableList.copyOf(javaInfo.getChildren());
+		List<ObjectInfo> children = List.copyOf(javaInfo.getChildren());
 		for (ObjectInfo child : children) {
 			// There are cases when children of some parent are "linked", so one deletes other on delete.
 			// So, we should check, may be child is already deleted.

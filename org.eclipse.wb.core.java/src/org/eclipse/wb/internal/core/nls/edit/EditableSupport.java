@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -125,7 +124,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 			m_componentToPropertyList.put(component, componentProperties);
 			// prepare list of properties
 			List<Property> properties = Lists.newArrayList(component.getProperties());
-			for (Property property : ImmutableList.copyOf(properties)) {
+			for (Property property : List.copyOf(properties)) {
 				PropertyEditor editor = property.getEditor();
 				if (editor instanceof INlsPropertyContributor) {
 					((INlsPropertyContributor) editor).contributeNlsProperties(property, properties);

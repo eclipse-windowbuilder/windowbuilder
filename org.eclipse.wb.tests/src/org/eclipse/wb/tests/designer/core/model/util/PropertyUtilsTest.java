@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.util;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -82,8 +81,8 @@ public class PropertyUtilsTest extends SwingModelTest {
 	public void test_getTitles_asList() throws Exception {
 		Property property_1 = new PropertyWithTitle("a");
 		Property property_2 = new PropertyWithTitle("b");
-		List<Property> properties = ImmutableList.of(property_1, property_2);
-		List<String> expectedTitles = ImmutableList.of("a", "b");
+		List<Property> properties = List.of(property_1, property_2);
+		List<String> expectedTitles = List.of("a", "b");
 		Assertions.assertThat(PropertyUtils.getTitles(properties)).isEqualTo(expectedTitles);
 	}
 
@@ -126,7 +125,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 						"  }",
 						"}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
-		List<Property> properties = ImmutableList.copyOf(button.getProperties());
+		List<Property> properties = List.of(button.getProperties());
 		//
 		assertNotNull(PropertyUtils.getByTitle(properties, "enabled"));
 		assertNull(PropertyUtils.getByTitle(properties, "noSuchProperty"));

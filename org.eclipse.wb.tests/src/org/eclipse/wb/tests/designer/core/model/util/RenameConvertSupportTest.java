@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -92,7 +90,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		// ask action using broadcast (good)
 		{
 			MenuManager manager = getDesignerMenuManager();
-			button.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, manager);
+			button.getBroadcastObject().addContextMenu(List.of(button), button, manager);
 			assertNotNull(findChildAction(manager, "Rename..."));
 		}
 	}
@@ -141,7 +139,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		assertNotNull(getRenameAction(button, textField));
 		// ask using broadcast
 		{
-			List<ComponentInfo> objects = ImmutableList.of(button, textField);
+			List<ComponentInfo> objects = List.of(button, textField);
 			{
 				MenuManager manager = getDesignerMenuManager();
 				button.getBroadcastObject().addContextMenu(objects, button, manager);
@@ -178,7 +176,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
 			public void run(UiContext context) throws Exception {
-				RenameConvertSupport.rename(ImmutableList.of(button));
+				RenameConvertSupport.rename(List.of(button));
 			}
 		}, new UIRunnable() {
 			@Override
@@ -616,7 +614,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	 */
 	private RenameConvertSupport getRenameSupport(ObjectInfo... objects) throws Exception {
 		return ReflectionUtils.getConstructor(RenameConvertSupport.class, Iterable.class).newInstance(
-				ImmutableList.copyOf(objects));
+				List.of(objects));
 	}
 
 	/**
@@ -641,7 +639,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		// prepare manager
 		MenuManager menuManager = getDesignerMenuManager();
 		// add action
-		RenameConvertSupport.contribute(ImmutableList.copyOf(objects), menuManager);
+		RenameConvertSupport.contribute(List.of(objects), menuManager);
 		return findChildAction(menuManager, "Rename...");
 	}
 }

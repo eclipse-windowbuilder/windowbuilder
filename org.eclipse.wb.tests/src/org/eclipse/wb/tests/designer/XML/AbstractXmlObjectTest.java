@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
@@ -49,6 +47,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -596,7 +595,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 	 */
 	public static IMenuManager getContextMenu(ObjectInfo... objectsArray) throws Exception {
 		IMenuManager manager = getDesignerMenuManager();
-		List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
+		List<ObjectInfo> objects = List.of(objectsArray);
 		ObjectInfo object = objectsArray[0];
 		object.getBroadcastObject().addContextMenu(objects, object, manager);
 		return manager;
@@ -607,7 +606,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 	 */
 	public static List<Object> getSelectionActions_noSelection(ObjectInfo root) throws Exception {
 		List<Object> actions = new ArrayList<>();
-		ImmutableList<ObjectInfo> objects = ImmutableList.<ObjectInfo>of();
+		List<ObjectInfo> objects = Collections.emptyList();
 		root.getBroadcastObject().addSelectionActions(objects, actions);
 		return actions;
 	}
@@ -619,7 +618,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
 		List<Object> actions = new ArrayList<>();
 		if (objectsArray.length != 0) {
 			ObjectInfo object = objectsArray[0];
-			List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
+			List<ObjectInfo> objects = List.of(objectsArray);
 			object.getBroadcastObject().addSelectionActions(objects, actions);
 		}
 		return actions;

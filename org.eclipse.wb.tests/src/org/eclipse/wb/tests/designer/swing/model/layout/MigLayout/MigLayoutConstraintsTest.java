@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
@@ -1128,7 +1126,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		IMenuManager alignmentManager;
 		{
 			MenuManager contextMenu = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, contextMenu);
+			panel.getBroadcastObject().addContextMenu(List.of(button), button, contextMenu);
 			alignmentManager = findChildMenuManager(contextMenu, managerText);
 			assertNotNull(alignmentManager);
 		}

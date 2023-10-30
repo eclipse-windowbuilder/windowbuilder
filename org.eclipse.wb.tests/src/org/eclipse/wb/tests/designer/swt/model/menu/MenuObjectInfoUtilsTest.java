@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
@@ -444,7 +442,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 		IMenuItemInfo item_1 = mock(IMenuItemInfo.class);
 		IMenuItemInfo item_2 = mock(IMenuItemInfo.class);
 		IMenuItemInfo item_3 = mock(IMenuItemInfo.class);
-		List<IMenuItemInfo> items = ImmutableList.of(item_1, item_2, item_3);
+		List<IMenuItemInfo> items = List.of(item_1, item_2, item_3);
 		// prepare scenario
 		when(menu.getItems()).thenReturn(items);
 		when(item_1.getMenu()).thenReturn(null);

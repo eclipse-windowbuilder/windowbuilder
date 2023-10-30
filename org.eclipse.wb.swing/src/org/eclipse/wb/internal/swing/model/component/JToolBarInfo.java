@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -24,6 +22,8 @@ import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
+
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;
@@ -93,7 +93,7 @@ public final class JToolBarInfo extends ContainerInfo {
 		ComponentInfo newButton =
 				(ComponentInfo) JavaInfoUtils.createJavaInfo(getEditor(), JButton.class, creationSupport);
 		JavaInfoUtils.add(newButton, AssociationObjects.invocationVoid(), this, nextComponent);
-		getBroadcastObject().select(ImmutableList.of(newButton));
+		getBroadcastObject().select(List.of(newButton));
 		return newButton;
 	}
 

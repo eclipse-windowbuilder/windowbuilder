@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -22,6 +19,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,7 +65,7 @@ public class ScriptUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_evaluate_withContext() throws Exception {
-		assertEquals(3, ScriptUtils.evaluate("size()", ImmutableList.of(1, 2, 3)));
+		assertEquals(3, ScriptUtils.evaluate("size()", List.of(1, 2, 3)));
 	}
 
 	/**
@@ -75,7 +73,7 @@ public class ScriptUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_evaluate_withVariables() throws Exception {
-		Map<String, Object> variables = ImmutableMap.<String, Object>of("a", 2, "b", 3);
+		Map<String, Object> variables = Map.of("a", 2, "b", 3);
 		assertEquals(6, ScriptUtils.evaluate("a * b", variables));
 		assertEquals(6, ScriptUtils.evaluate("c = a * b; return c;", variables));
 		// variables should not be changed
@@ -189,7 +187,7 @@ public class ScriptUtilsTest extends SwingModelTest {
 				ScriptUtils.evaluate(
 						m_lastLoader,
 						"a + (com.jgoodies.forms.layout.Sizes.DLUX1).value",
-						ImmutableMap.<String, Object>of("a", 5.0));
+						Map.of("a", 5.0));
 		assertEquals(6.0, ((Double) actual).doubleValue(), 0.001);
 	}
 

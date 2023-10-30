@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.swing.model.bean.ButtonGroupContainerInfo;
@@ -451,7 +449,7 @@ public class ButtonGroupTest extends SwingModelTest {
 		{
 			MenuManager designerMenu = getDesignerMenuManager();
 			panel.getBroadcastObject().addContextMenu(
-					ImmutableList.of(button_1, button_2),
+					List.of(button_1, button_2),
 					button_2,
 					designerMenu);
 			IMenuManager groupsMenu = findChildMenuManager(designerMenu, "Set ButtonGroup");

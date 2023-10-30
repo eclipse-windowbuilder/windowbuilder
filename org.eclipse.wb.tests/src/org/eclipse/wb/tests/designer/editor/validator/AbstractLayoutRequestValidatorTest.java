@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.editor.validator;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -25,6 +23,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 /**
  * Abstract tests for {@link ILayoutRequestValidator}.
@@ -101,7 +101,7 @@ public abstract class AbstractLayoutRequestValidatorTest extends SwingModelTest 
 			EditPart host,
 			JavaInfo child) throws Exception {
 		JavaInfoMemento memento = JavaInfoMemento.createMemento(child);
-		PasteRequest request = new PasteRequest(ImmutableList.of(memento));
+		PasteRequest request = new PasteRequest(List.of(memento));
 		assertEquals(expected, validator.validatePasteRequest(host, request));
 	}
 
@@ -112,7 +112,7 @@ public abstract class AbstractLayoutRequestValidatorTest extends SwingModelTest 
 		EditPart editPart = createHost(child);
 
 		ChangeBoundsRequest request = new ChangeBoundsRequest();
-		request.setEditParts(ImmutableList.of(editPart));
+		request.setEditParts(List.of(editPart));
 		//
 		assertEquals(expected, validator.validateMoveRequest(host, request));
 		//
@@ -127,7 +127,7 @@ public abstract class AbstractLayoutRequestValidatorTest extends SwingModelTest 
 		EditPart editPart = createHost(child);
 
 		ChangeBoundsRequest request = new ChangeBoundsRequest();
-		request.setEditParts(ImmutableList.of(editPart));
+		request.setEditParts(List.of(editPart));
 		//
 		assertEquals(expected, validator.validateAddRequest(host, request));
 		//

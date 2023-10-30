@@ -10,11 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.variable.NamesManager;
-import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
@@ -35,6 +32,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
+
+import java.util.Collections;
 
 /**
  * Abstract super class for XWT tests.
@@ -99,7 +98,7 @@ public abstract class XwtModelTest extends AbstractXmlModelTest {
 		IPreferenceStore preferences = toolkit.getPreferences();
 		preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
 		preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-		NamesManager.setNameDescriptions(toolkit, ImmutableList.<ComponentNameDescription>of());
+		NamesManager.setNameDescriptions(toolkit, Collections.emptyList());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

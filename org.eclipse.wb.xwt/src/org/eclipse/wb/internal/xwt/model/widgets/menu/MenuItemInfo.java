@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
@@ -49,6 +47,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -386,7 +385,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 
 		@Override
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 
 		@Override

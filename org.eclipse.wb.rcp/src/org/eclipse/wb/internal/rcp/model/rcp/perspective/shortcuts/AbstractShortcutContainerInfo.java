@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -47,6 +45,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IPageLayout;
 
 import java.lang.reflect.Constructor;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -240,7 +239,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
 					shortcutsMethod =
 							editor.addMethodDeclaration(
 									"private void " + shortcutsMethodName + "(org.eclipse.ui.IPageLayout layout)",
-									ImmutableList.<String>of(),
+									Collections.emptyList(),
 									new BodyDeclarationTarget(typeDeclaration, false));
 					// add shortcuts method invocation into "createInitialLayout"
 					{

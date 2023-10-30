@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generation.statement.block;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.internal.core.model.generation.statement.AbstractInsideStatementGenerator;
@@ -20,6 +18,8 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.Statement;
+
+import java.util.List;
 
 /**
  * Implementation of {@link StatementGenerator} that adds {@link Statement}'s in new {@link Block}
@@ -47,7 +47,7 @@ public final class BlockStatementGenerator extends AbstractInsideStatementGenera
 	@Override
 	public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
 		// prepare block
-		Block block = (Block) child.getEditor().addStatement(ImmutableList.of("{", "}"), target);
+		Block block = (Block) child.getEditor().addStatement(List.of("{", "}"), target);
 		// add statements in block
 		target = new StatementTarget(block, true);
 		add(child, target, null, association);

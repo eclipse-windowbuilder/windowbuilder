@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
@@ -143,7 +142,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	 * Visits all {@link ComponentInfo} of this {@link ContainerInfo}.
 	 */
 	void visitComponents(IComponentVisitor visitor, IComponentPredicate predicate) throws Exception {
-		List<ComponentInfo> components = ImmutableList.copyOf(getComponents());
+		List<ComponentInfo> components = List.copyOf(getComponents());
 		for (ComponentInfo component : components) {
 			AbstractGridBagConstraintsInfo constraints = getConstraints(component);
 			if (predicate.apply(component, constraints)) {

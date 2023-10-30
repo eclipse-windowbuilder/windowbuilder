@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
@@ -44,6 +42,8 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
+
+import java.util.List;
 
 import javax.swing.Box;
 
@@ -169,8 +169,8 @@ public final class EditPartFactory implements IEditPartFactory {
 		}
 	};
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.model.component"),
-					ImmutableList.of("org.eclipse.wb.internal.swing.gef.part"));
+			new MatchingEditPartFactory(List.of("org.eclipse.wb.internal.swing.model.component"),
+					List.of("org.eclipse.wb.internal.swing.gef.part"));
 	private static final IEditPartFactory GENERIC_FACTORY = new IEditPartFactory() {
 		@Override
 		public EditPart createEditPart(EditPart context, Object model) {

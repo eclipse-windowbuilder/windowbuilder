@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.nebula.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
+
+import java.util.List;
 
 /**
  * Implementation of {@link IEditPartFactory} for Nebula widgets.
@@ -24,8 +24,8 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.nebula"),
-					ImmutableList.of("org.eclipse.wb.internal.rcp.nebula"));
+			new MatchingEditPartFactory(List.of("org.eclipse.wb.internal.rcp.nebula"),
+					List.of("org.eclipse.wb.internal.rcp.nebula"));
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -10,14 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gefTree;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.rcp.gefTree.part.forms.FormHeadEditPart;
 import org.eclipse.wb.internal.rcp.model.forms.FormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+
+import java.util.List;
 
 /**
  * Implementation of {@link IEditPartFactory} for RCP.
@@ -27,8 +27,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.model"),
-					ImmutableList.of("org.eclipse.wb.internal.rcp.gefTree.part"));
+			new MatchingEditPartFactory(List.of("org.eclipse.wb.internal.rcp.model"),
+					List.of("org.eclipse.wb.internal.rcp.gefTree.part"));
 
 	////////////////////////////////////////////////////////////////////////////
 	//

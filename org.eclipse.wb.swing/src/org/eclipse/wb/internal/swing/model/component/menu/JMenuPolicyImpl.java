@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.AssociationObjects;
@@ -121,7 +119,7 @@ final class JMenuPolicyImpl implements IMenuPolicy {
 							m_menu.getEditor(),
 							JMenuItem.class,
 							creationSupport);
-			m_menu.getBroadcastObject().select(ImmutableList.of(newComponent));
+			m_menu.getBroadcastObject().select(List.of(newComponent));
 			// association is done implicitly during creation
 			association = AssociationObjects.invocationVoid();
 		} else {

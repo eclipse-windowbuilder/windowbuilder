@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -45,6 +43,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -81,7 +80,7 @@ public class SurroundSupportTest extends RcpModelTest {
 						"}");
 		shell.refresh();
 		//
-		assertNoSurroundManager(shell, ImmutableList.<ObjectInfo>of());
+		assertNoSurroundManager(shell, Collections.emptyList());
 	}
 
 	/**
@@ -99,7 +98,7 @@ public class SurroundSupportTest extends RcpModelTest {
 		shell.refresh();
 		LayoutInfo layout = shell.getLayout();
 		//
-		assertNoSurroundManager(shell, ImmutableList.of(layout));
+		assertNoSurroundManager(shell, List.of(layout));
 	}
 
 	/**
@@ -120,7 +119,7 @@ public class SurroundSupportTest extends RcpModelTest {
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
-		assertNoSurroundManager(shell, ImmutableList.of(shell, button));
+		assertNoSurroundManager(shell, List.of(shell, button));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -234,7 +233,7 @@ public class SurroundSupportTest extends RcpModelTest {
 		ControlInfo button_1 = shell.getChildrenControls().get(0);
 		ControlInfo button_3 = shell.getChildrenControls().get(2);
 		// can not surround
-		assertNoSurroundManager(button_3, ImmutableList.of(button_1, button_3));
+		assertNoSurroundManager(button_3, List.of(button_1, button_3));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -662,7 +661,7 @@ public class SurroundSupportTest extends RcpModelTest {
 		ControlInfo button = getJavaInfoByName("getButton()");
 		assertNotNull(button);
 		// no surround
-		assertNoSurroundManager(button, ImmutableList.of(button));
+		assertNoSurroundManager(button, List.of(button));
 	}
 
 	/**
@@ -692,7 +691,7 @@ public class SurroundSupportTest extends RcpModelTest {
 		ControlInfo button_1 = buttons.get(0);
 		ControlInfo button_2 = buttons.get(2);
 		// no surround
-		assertNoSurroundManager(shell, ImmutableList.of(button_1, button_2));
+		assertNoSurroundManager(shell, List.of(button_1, button_2));
 	}
 
 	/**
@@ -1094,7 +1093,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	 */
 	private static void runSurround(String actionText, ObjectInfo... objects) throws Exception {
 		assertFalse(objects.length == 0);
-		IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.copyOf(objects));
+		IMenuManager surroundManager = createSurroundManager(objects[0], List.of(objects));
 		assertNotNull(surroundManager);
 		IAction surroundAction = findChildAction(surroundManager, actionText);
 		assertNotNull(surroundAction);

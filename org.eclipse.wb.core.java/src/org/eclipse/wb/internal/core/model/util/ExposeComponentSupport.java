@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -138,7 +136,7 @@ public final class ExposeComponentSupport {
 						component.getDescription().getComponentClass().getName(),
 						methodName);
 		String returnSource = TemplateUtils.resolve(methodTarget, "return {0};", component);
-		editor.addMethodDeclaration(headerSource, ImmutableList.of(returnSource), methodTarget);
+		editor.addMethodDeclaration(headerSource, List.of(returnSource), methodTarget);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

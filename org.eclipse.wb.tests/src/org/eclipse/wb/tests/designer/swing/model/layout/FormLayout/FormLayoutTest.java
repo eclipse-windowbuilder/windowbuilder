@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
@@ -245,7 +243,7 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 						"}");
 		// check for actions
 		MenuManager menuManager = getDesignerMenuManager();
-		panel.getBroadcastObject().addContextMenu(ImmutableList.of(panel), panel, menuManager);
+		panel.getBroadcastObject().addContextMenu(List.of(panel), panel, menuManager);
 		assertNotNull(findChildAction(menuManager, "Edit c&olumns..."));
 		assertNotNull(findChildAction(menuManager, "Edit &rows..."));
 	}

@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.FormLayout.model;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
@@ -426,7 +425,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 			//
 			getEditor().replaceCreationArguments(
 					creation,
-					ImmutableList.copyOf(CodeUtils.join(columnsSource, rowsSource)));
+					List.of(CodeUtils.join(columnsSource, rowsSource)));
 		}
 		// write groups
 		writeDimensionsGroups("setColumnGroups", m_columns, m_columnGroups);

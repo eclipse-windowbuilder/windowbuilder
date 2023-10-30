@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
@@ -38,6 +36,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.ToolItem;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -145,9 +144,9 @@ public final class ToolItemInfo extends ItemInfo {
 	public final List<ObjectInfo> getSimpleContainerChildren() {
 		ObjectInfo control = getControl();
 		if (control != null) {
-			return ImmutableList.of(control);
+			return List.of(control);
 		} else {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 	}
 

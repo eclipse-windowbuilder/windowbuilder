@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -24,6 +22,7 @@ import org.eclipse.wb.os.OSSupport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -71,7 +70,7 @@ public class TabItemInfo extends ItemInfo {
 	private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
 		@Override
 		public List<ObjectInfo> getChildrenGraphical() throws Exception {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 	};
 

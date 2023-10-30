@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.java6.model;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
@@ -180,12 +178,12 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
 	private void saveGroup(String methodName, SpringInfo rootGroup) throws Exception {
 		/*List<ComponentInfo> childrenComponents = getContainer().getChildrenComponents();
     StatementTarget statementTarget =
-    		JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.copyOf(childrenComponents));
+    		JavaInfoUtils.getStatementTarget_whenAllCreated(List.copyOf(childrenComponents));
     String referenceExpression =
     		getVariableSupport().getReferenceExpression(new NodeTarget(statementTarget));*/
 		MethodInvocation invocation = getMethodInvocation(methodName);
 		String groupCode = rootGroup.getCode();
-		getEditor().replaceInvocationArguments(invocation, ImmutableList.of(groupCode));
+		getEditor().replaceInvocationArguments(invocation, List.of(groupCode));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

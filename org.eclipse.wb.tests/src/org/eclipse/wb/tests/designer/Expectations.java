@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -79,12 +76,12 @@ public final class Expectations {
 	}
 
 	public static <V> V get(String key_1, V value_1, String key_2, V value_2) {
-		Map<String, V> map = ImmutableMap.of(key_1, value_1, key_2, value_2);
+		Map<String, V> map = Map.of(key_1, value_1, key_2, value_2);
 		return get(map);
 	}
 
 	public static <V> V get(String key_1, V value_1, String key_2, V value_2, String key_3, V value_3) {
-		Map<String, V> map = ImmutableMap.of(key_1, value_1, key_2, value_2, key_3, value_3);
+		Map<String, V> map = Map.of(key_1, value_1, key_2, value_2, key_3, value_3);
 		return get(map);
 	}
 
@@ -94,7 +91,7 @@ public final class Expectations {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static int get(String key_1, int value_1, String key_2, int value_2) {
-		Map<String, Integer> map = ImmutableMap.of(key_1, value_1, key_2, value_2);
+		Map<String, Integer> map = Map.of(key_1, value_1, key_2, value_2);
 		return get(map);
 	}
 
@@ -104,7 +101,7 @@ public final class Expectations {
 			int value_2,
 			String key_3,
 			int value_3) {
-		Map<String, Integer> map = ImmutableMap.of(key_1, value_1, key_2, value_2, key_3, value_3);
+		Map<String, Integer> map = Map.of(key_1, value_1, key_2, value_2, key_3, value_3);
 		return get(map);
 	}
 
@@ -114,7 +111,7 @@ public final class Expectations {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static double get(String key_1, double value_1, String key_2, double value_2) {
-		Map<String, Double> map = ImmutableMap.of(key_1, value_1, key_2, value_2);
+		Map<String, Double> map = Map.of(key_1, value_1, key_2, value_2);
 		return get(map);
 	}
 
@@ -124,7 +121,7 @@ public final class Expectations {
 			double value_2,
 			String key_3,
 			double value_3) {
-		Map<String, Double> map = ImmutableMap.of(key_1, value_1, key_2, value_2, key_3, value_3);
+		Map<String, Double> map = Map.of(key_1, value_1, key_2, value_2, key_3, value_3);
 		return get(map);
 	}
 
@@ -138,7 +135,7 @@ public final class Expectations {
 		String keyHost = m_hostName;
 		String keyOS = m_OSName;
 		String timeZone = Calendar.getInstance().getTimeZone().getID();
-		return ImmutableList.of(
+		return List.of(
 				keyHostOS,
 				keyHost,
 				keyHost.toLowerCase(Locale.ENGLISH),

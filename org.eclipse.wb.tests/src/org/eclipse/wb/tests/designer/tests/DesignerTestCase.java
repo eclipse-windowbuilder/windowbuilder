@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.tests;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -66,6 +64,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -598,7 +597,7 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	public static IMenuManager getContextMenu(ObjectInfo... objectsArray) throws Exception {
 		IMenuManager manager = getDesignerMenuManager();
-		List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
+		List<ObjectInfo> objects = List.of(objectsArray);
 		ObjectInfo object = objectsArray[0];
 		object.getBroadcastObject().addContextMenu(objects, object, manager);
 		return manager;
@@ -609,7 +608,7 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	public static List<Object> getSelectionActions_noSelection(ObjectInfo root) throws Exception {
 		List<Object> actions = new ArrayList<>();
-		ImmutableList<ObjectInfo> objects = ImmutableList.<ObjectInfo>of();
+		List<ObjectInfo> objects = Collections.emptyList();
 		root.getBroadcastObject().addSelectionActions(objects, actions);
 		return actions;
 	}
@@ -621,7 +620,7 @@ public abstract class DesignerTestCase extends Assert {
 		List<Object> actions = new ArrayList<>();
 		if (objectsArray.length != 0) {
 			ObjectInfo object = objectsArray[0];
-			List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
+			List<ObjectInfo> objects = List.of(objectsArray);
 			object.getBroadcastObject().addSelectionActions(objects, actions);
 		}
 		return actions;

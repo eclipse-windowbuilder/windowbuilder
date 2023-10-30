@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.Activator;
@@ -438,7 +436,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			m_utils.createExtensionElement(
 					pointId,
 					"view",
-					ImmutableMap.of("id", "id_2", "name", "name 2", "class", "C_2"));
+					Map.of("id", "id_2", "name", "name 2", "class", "C_2"));
 			element = m_utils.getExtensionElementById(pointId, "view", "id_2");
 		}
 		assertEquals("id_2", PdeUtils.getAttribute(element, "id"));
@@ -473,7 +471,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			m_utils.createExtensionElement(
 					pointId,
 					"view",
-					ImmutableMap.of("id", "id_2", "name", "name 2", "class", "C_2"));
+					Map.of("id", "id_2", "name", "name 2", "class", "C_2"));
 			element = m_utils.waitExtensionElementById(pointId, "view", "id_2");
 			assertNotNull(element);
 		}
@@ -510,7 +508,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			m_utils.createExtensionElement(
 					pointId,
 					"view",
-					ImmutableMap.of("id", "id_2", "name", "name 2", "class", "C_2"));
+					Map.of("id", "id_2", "name", "name 2", "class", "C_2"));
 			element = m_utils.waitExtensionElementById(pointId, "view", "id_2");
 		}
 		assertEquals("id_2", PdeUtils.getAttribute(element, "id"));
@@ -554,7 +552,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 						m_utils.createExtensionElement(
 								pointId,
 								"view",
-								ImmutableMap.of("id", "id_2", "name", "name 2", "class", "C_2"));
+								Map.of("id", "id_2", "name", "name 2", "class", "C_2"));
 					} catch (Throwable e) {
 						DesignerPlugin.log(e);
 					}

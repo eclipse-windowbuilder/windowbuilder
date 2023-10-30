@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.core.util.jdt.core;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
@@ -1097,7 +1096,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		IType aType = aUnit.getTypes()[0];
 		//
 		List<IMethod> methods =
-				CodeUtils.findMethods(aType, ImmutableList.of("foo()", "bar()", "baz()"));
+				CodeUtils.findMethods(aType, List.of("foo()", "bar()", "baz()"));
 		Assertions.assertThat(methods).hasSize(3);
 		assertEquals("foo", methods.get(0).getElementName());
 		assertEquals("bar", methods.get(1).getElementName());

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.component;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -302,6 +300,6 @@ public class JLayeredPaneTest extends SwingModelTest {
 		//
 		IObjectPresentation presentation = pane.getPresentation();
 		List<ObjectInfo> graphical = presentation.getChildrenGraphical();
-		Assertions.assertThat(graphical).isEqualTo(ImmutableList.of(button_2, button_3, button_1));
+		Assertions.assertThat(graphical).isEqualTo(List.of(button_2, button_3, button_1));
 	}
 }

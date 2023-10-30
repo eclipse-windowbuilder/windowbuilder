@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -215,7 +213,7 @@ public class ActionTest extends RcpModelTest {
 			ClassInstanceCreation actionCreation =
 					(ClassInstanceCreation) action.getCreationSupport().getNode();
 			Expression imageDescriptionExpression = (Expression) actionCreation.arguments().get(1);
-			m_lastEditor.replaceExpression(imageDescriptionExpression, ImmutableList.of(
+			m_lastEditor.replaceExpression(imageDescriptionExpression, List.of(
 					"org.eclipse.jface.resource.ImageDescriptor.createFromURL(",
 					"org.eclipse.core.runtime.Platform.getBundle(\"org.eclipse.ui\").getResource(\"/icons/full/etool16/delete_edit.png\"))"));
 		}

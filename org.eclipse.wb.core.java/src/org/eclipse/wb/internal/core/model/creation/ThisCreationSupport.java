@@ -12,8 +12,6 @@ package org.eclipse.wb.internal.core.model.creation;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
@@ -461,7 +459,7 @@ public final class ThisCreationSupport extends CreationSupport {
 				ExcludedPackage excludedPackage = new ExcludedPackage();
 				String exceptionMethodsString = entry.getValue();
 				String[] exceptionMethodsSignatures = StringUtils.split(exceptionMethodsString);
-				excludedPackage.exceptions = ImmutableSet.copyOf(exceptionMethodsSignatures);
+				excludedPackage.exceptions = Set.of(exceptionMethodsSignatures);
 				excludedPackages.put(packageName, excludedPackage);
 			}
 		}
@@ -599,7 +597,7 @@ public final class ThisCreationSupport extends CreationSupport {
 				m_editorState.getTmp_visitingContext(),
 				flowDescription,
 				visitor,
-				ImmutableList.of(methodDeclaration));
+				List.of(methodDeclaration));
 		// during execution we remember "return value", so return it here to binary
 		return JavaInfoEvaluationHelper.getReturnValue(methodDeclaration);
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -309,7 +307,7 @@ public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo
 			private boolean isDefault(String signature, List<Object> args) throws Exception {
 				String script = JavaInfoUtils.getParameter(m_this, "isDefault");
 				if (script != null) {
-					Map<String, Object> variables = ImmutableMap.of("signature", signature, "args", args);
+					Map<String, Object> variables = Map.of("signature", signature, "args", args);
 					return (Boolean) ScriptUtils.evaluate(
 							JavaInfoUtils.getClassLoader(m_this),
 							script,

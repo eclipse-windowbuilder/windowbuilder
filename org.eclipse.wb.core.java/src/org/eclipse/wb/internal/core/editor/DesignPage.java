@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.controls.PageBook;
 import org.eclipse.wb.core.editor.DesignerEditorListener;
 import org.eclipse.wb.core.editor.DesignerState;
@@ -410,7 +408,7 @@ public final class DesignPage implements IDesignPage {
 		// notify listeners
 		{
 			List<DesignerEditorListener> designPageListeners =
-					ImmutableList.copyOf(m_designerEditor.getDesignPageListeners());
+					List.copyOf(m_designerEditor.getDesignPageListeners());
 			for (DesignerEditorListener listener : designPageListeners) {
 				listener.reparsed();
 			}

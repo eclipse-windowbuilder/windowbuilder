@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -217,7 +215,7 @@ public final class CreationDescription extends AbstractDescription {
 	public Map<String, TypeParameterDescription> getTypeParameters() {
 		return m_typeArguments != null
 				? m_typeArguments
-						: ImmutableMap.<String, TypeParameterDescription>of();
+						: Collections.emptyMap();
 	}
 
 	/**

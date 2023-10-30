@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.property.event;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -41,6 +39,8 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Collections;
 
 /**
  * {@link Property} for single XML event.
@@ -275,7 +275,7 @@ public final class XwtListenerProperty extends AbstractListenerProperty {
 		MethodDeclaration method =
 				m_editor.addMethodDeclaration(
 						"public void " + methodName + "(org.eclipse.swt.widgets.Event event)",
-						ImmutableList.<String>of(),
+						Collections.emptyList(),
 						new BodyDeclarationTarget(m_typeDeclaration, false));
 		saveAST();
 		// set method in XML

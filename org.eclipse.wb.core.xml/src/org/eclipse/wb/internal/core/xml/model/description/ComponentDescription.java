@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.description;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
@@ -211,7 +209,7 @@ IComponentDescription {
 	 * @return all {@link CreationDescription}'s.
 	 */
 	public List<CreationDescription> getCreations() {
-		return ImmutableList.copyOf(m_creations.values());
+		return List.copyOf(m_creations.values());
 	}
 
 	/**

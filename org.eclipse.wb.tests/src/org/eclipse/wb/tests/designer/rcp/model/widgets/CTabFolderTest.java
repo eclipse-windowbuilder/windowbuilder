@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -144,7 +142,7 @@ public class CTabFolderTest extends RcpModelTest {
 		// check tree/graphical children
 		Assertions.assertThat(tabFolder.getPresentation().getChildrenTree()).containsOnly(item_1, item_2);
 		Assertions.assertThat(tabFolder.getPresentation().getChildrenGraphical()).isEqualTo(
-				ImmutableList.of(item_1, item_2));
+				List.of(item_1, item_2));
 	}
 
 	/**

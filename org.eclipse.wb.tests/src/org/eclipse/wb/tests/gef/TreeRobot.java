@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -224,7 +222,7 @@ public final class TreeRobot {
 	public TreeRobot select(Object... models) {
 		TreeEditPart[] editParts = getEditParts(models);
 		m_justSelectedEditParts = editParts;
-		m_viewer.setSelection(ImmutableList.<EditPart>copyOf(editParts));
+		m_viewer.setSelection(List.of(editParts));
 		DesignerTestCase.waitEventLoop(100, 0);
 		return this;
 	}

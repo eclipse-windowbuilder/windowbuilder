@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
@@ -21,6 +19,8 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorsGridComposite;
 
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+
+import java.util.List;
 
 /**
  * Composite for selecting of of the 216 web safe colors.
@@ -36,11 +36,11 @@ public final class WebSafeColorsComposite extends AbstractColorsGridComposite {
 	////////////////////////////////////////////////////////////////////////////
 	public WebSafeColorsComposite(Composite parent, int style, AbstractColorDialog colorPickerDialog) {
 		super(parent, style, colorPickerDialog);
-		createSortGroup(this, ImmutableList.of(
+		createSortGroup(this, List.of(
 				Messages.WebSafeColorsComposite_sortTone,
 				Messages.WebSafeColorsComposite_sortHue,
 				Messages.WebSafeColorsComposite_sortSaturation,
-				Messages.WebSafeColorsComposite_sortLightness), ImmutableList.of(
+				Messages.WebSafeColorsComposite_sortLightness), List.of(
 						ColorInfoComparator.TONE,
 						ColorInfoComparator.HUE,
 						ColorInfoComparator.SATURATION,

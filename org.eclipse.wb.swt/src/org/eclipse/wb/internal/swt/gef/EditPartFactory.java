@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
@@ -24,6 +22,8 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 
+import java.util.List;
+
 /**
  * Implementation of {@link IEditPartFactory} for SWT.
  *
@@ -33,9 +33,9 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of(
+			new MatchingEditPartFactory(List.of(
 					"org.eclipse.wb.internal.swt.model.widgets",
-					"org.eclipse.wb.internal.swt.model.jface.viewer"), ImmutableList.of(
+					"org.eclipse.wb.internal.swt.model.jface.viewer"), List.of(
 							"org.eclipse.wb.internal.swt.gef.part",
 							"org.eclipse.wb.internal.swt.gef.part"));
 

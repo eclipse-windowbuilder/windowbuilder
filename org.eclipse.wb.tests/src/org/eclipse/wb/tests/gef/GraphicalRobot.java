@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -134,7 +133,7 @@ public final class GraphicalRobot {
 	 */
 	public void select(Object... models) {
 		EditPart[] editParts = getEditParts(models);
-		m_viewer.setSelection(ImmutableList.copyOf(editParts));
+		m_viewer.setSelection(List.of(editParts));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

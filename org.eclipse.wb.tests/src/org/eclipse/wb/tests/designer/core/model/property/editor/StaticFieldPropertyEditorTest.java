@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.StaticFieldPropertyEditor;
@@ -31,6 +28,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.SwingConstants;
 
@@ -156,7 +154,7 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 				"}");
 		// create StaticFieldPropertyEditor
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-		editor.configure(m_lastState, ImmutableMap.<String, Object>of(
+		editor.configure(m_lastState, Map.of(
 				"class",
 				"javax.swing.SwingConstants",
 				"fields",
@@ -184,11 +182,11 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 				"}");
 		// create StaticFieldPropertyEditor
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-		editor.configure(m_lastState, ImmutableMap.<String, Object>of(
+		editor.configure(m_lastState, Map.of(
 				"class",
 				"javax.swing.SwingConstants",
 				"field",
-				ImmutableList.of("LEFT", "RIGHT")));
+				List.of("LEFT", "RIGHT")));
 		// check state
 		Class<?> e_class = SwingConstants.class;
 		String m_classSourceName = "javax.swing.SwingConstants";
@@ -215,7 +213,7 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 			StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 			editor.configure(
 					m_lastState,
-					ImmutableMap.<String, Object>of("class", "javax.swing.SwingConstants"));
+					Map.of("class", "javax.swing.SwingConstants"));
 			fail();
 		} catch (DesignerException e) {
 		}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.parser;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProviderFactory;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -31,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import java.security.AccessController;
 import java.security.PrivilegedExceptionAction;
 import java.util.List;
+import java.util.Map;
 
 /**
  * {@link EditorContext} for XWT.
@@ -47,7 +46,7 @@ public final class XwtEditorContext extends EditorContext {
 	public XwtEditorContext(IFile file, IDocument document) throws Exception {
 		super(RcpToolkitDescription.INSTANCE, file, document);
 		configureDescriptionVersionsProviders();
-		addVersions(ImmutableMap.of("isXWT", "true"));
+		addVersions(Map.of("isXWT", "true"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

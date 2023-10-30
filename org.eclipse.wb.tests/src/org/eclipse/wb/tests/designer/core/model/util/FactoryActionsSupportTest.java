@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.util.factory.FactoryActionsSupport;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -26,6 +24,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Tests for {@link FactoryActionsSupport}.
@@ -242,7 +241,7 @@ public class FactoryActionsSupportTest extends SwingModelTest {
 	private IMenuManager getFactoryManager(ComponentInfo component) throws Exception {
 		MenuManager menuManager = getDesignerMenuManager();
 		component.getBroadcastObject().addContextMenu(
-				ImmutableList.of(component),
+				List.of(component),
 				component,
 				menuManager);
 		return findChildMenuManager(menuManager, "Factory");

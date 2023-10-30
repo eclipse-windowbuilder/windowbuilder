@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.editor;
 
-import com.google.common.collect.ImmutableList;
-
-import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -31,6 +28,9 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IAction;
 
 import org.junit.Test;
+
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JButton;
 
@@ -74,11 +74,11 @@ public class ComponentsTreePageTest extends SwingGefTest {
 		assertTreeSelectionModels();
 		assertSelectionModels();
 		// use broadcast to select
-		panel.getBroadcastObject().select(ImmutableList.of(button));
+		panel.getBroadcastObject().select(List.of(button));
 		assertTreeSelectionModels(button);
 		assertSelectionModels(button);
 		// set empty selection
-		panel.getBroadcastObject().select(ImmutableList.<ObjectInfo>of());
+		panel.getBroadcastObject().select(Collections.emptyList());
 		assertTreeSelectionModels();
 		assertSelectionModels();
 	}
@@ -106,14 +106,14 @@ public class ComponentsTreePageTest extends SwingGefTest {
 				// add new JButton
 				((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
 				// use broadcast to select
-				panel.getBroadcastObject().select(ImmutableList.of(newButton));
+				panel.getBroadcastObject().select(List.of(newButton));
 			}
 		});
 		// assert selection
 		assertTreeSelectionModels(newButton);
 		assertSelectionModels(newButton);
 		// set empty selection
-		panel.getBroadcastObject().select(ImmutableList.<ObjectInfo>of());
+		panel.getBroadcastObject().select(Collections.emptyList());
 		assertTreeSelectionModels();
 		assertSelectionModels();
 	}

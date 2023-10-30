@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -94,7 +92,7 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
 					TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(WindowInfo.this);
 					getEditor().addMethodDeclaration(
 							"protected org.eclipse.swt.graphics.Point getInitialSize()",
-							ImmutableList.of("return new org.eclipse.swt.graphics.Point(545, 390);"),
+							List.of("return new org.eclipse.swt.graphics.Point(545, 390);"),
 							new BodyDeclarationTarget(typeDeclaration, false));
 				}
 				Dimension preferredSize = getPreferredSize();

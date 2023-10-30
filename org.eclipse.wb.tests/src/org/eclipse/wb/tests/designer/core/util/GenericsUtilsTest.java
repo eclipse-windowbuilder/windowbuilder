@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.util;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.internal.core.utils.GenericTypeError;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
@@ -31,6 +30,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -176,7 +176,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_get_fromList() throws Exception {
-		List<?> objects = ImmutableList.<Object>of("0", 1, 2.2);
+		List<?> objects = List.of("0", 1, 2.2);
 		assertEquals("0", GenericsUtils.get(String.class, objects));
 		assertEquals(Integer.valueOf(1), GenericsUtils.get(Integer.class, objects));
 		assertEquals(Double.valueOf(2.2), GenericsUtils.get(Double.class, objects));
@@ -287,7 +287,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getPrevOrNull_index() throws Exception {
-		List<String> elements = ImmutableList.of("000", "111", "222");
+		List<String> elements = List.of("000", "111", "222");
 		assertSame(null, GenericsUtils.getPrevOrNull(elements, 0));
 		assertSame("000", GenericsUtils.getPrevOrNull(elements, 1));
 		assertSame("111", GenericsUtils.getPrevOrNull(elements, 2));
@@ -298,7 +298,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getPrevOrNull_element() throws Exception {
-		List<String> elements = ImmutableList.of("000", "111", "222");
+		List<String> elements = List.of("000", "111", "222");
 		// use element
 		assertSame("000", GenericsUtils.getPrevOrNull(elements, "111"));
 		assertSame("111", GenericsUtils.getPrevOrNull(elements, "222"));
@@ -311,9 +311,9 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getPrevOrLast_element() throws Exception {
-		List<String> elements = ImmutableList.of("000", "111", "222");
+		List<String> elements = List.of("000", "111", "222");
 		// no elements
-		assertNull(GenericsUtils.getPrevOrLast(ImmutableList.of(), "no matter"));
+		assertNull(GenericsUtils.getPrevOrLast(Collections.emptyList(), "no matter"));
 		// use element
 		assertSame("111", GenericsUtils.getPrevOrLast(elements, "222"));
 		assertSame("000", GenericsUtils.getPrevOrLast(elements, "111"));
@@ -331,7 +331,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getNextOrNull_index() throws Exception {
-		List<String> elements = ImmutableList.of("000", "111", "222");
+		List<String> elements = List.of("000", "111", "222");
 		// use index
 		assertSame("111", GenericsUtils.getNextOrNull(elements, 0));
 		assertSame("222", GenericsUtils.getNextOrNull(elements, 1));
@@ -343,7 +343,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getNextOrNull_element() throws Exception {
-		List<String> elements = ImmutableList.of("000", "111", "222");
+		List<String> elements = List.of("000", "111", "222");
 		// use element
 		assertSame("111", GenericsUtils.getNextOrNull(elements, "000"));
 		assertSame("222", GenericsUtils.getNextOrNull(elements, "111"));
@@ -356,9 +356,9 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getNextOrFirst_element() throws Exception {
-		List<String> elements = ImmutableList.of("000", "111", "222");
+		List<String> elements = List.of("000", "111", "222");
 		// no elements
-		assertNull(GenericsUtils.getNextOrFirst(ImmutableList.of(), "no matter"));
+		assertNull(GenericsUtils.getNextOrFirst(Collections.emptyList(), "no matter"));
 		// use element
 		assertSame("111", GenericsUtils.getNextOrFirst(elements, "000"));
 		assertSame("222", GenericsUtils.getNextOrFirst(elements, "111"));
@@ -371,8 +371,8 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getFirstOrNull() throws Exception {
-		assertNull(GenericsUtils.getFirstOrNull(ImmutableList.of()));
-		assertSame("000", GenericsUtils.getFirstOrNull(ImmutableList.of("000", "111", "222")));
+		assertNull(GenericsUtils.getFirstOrNull(Collections.emptyList()));
+		assertSame("000", GenericsUtils.getFirstOrNull(List.of("000", "111", "222")));
 	}
 
 	/**
@@ -380,8 +380,8 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getLastOrNull() throws Exception {
-		assertNull(GenericsUtils.getLastOrNull(ImmutableList.of()));
-		assertSame("222", GenericsUtils.getLastOrNull(ImmutableList.of("000", "111", "222")));
+		assertNull(GenericsUtils.getLastOrNull(Collections.emptyList()));
+		assertSame("222", GenericsUtils.getLastOrNull(List.of("000", "111", "222")));
 	}
 
 	/**
@@ -390,11 +390,11 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	@Test
 	public void test_getLast() throws Exception {
 		try {
-			assertNull(GenericsUtils.getLast(ImmutableList.of()));
+			assertNull(GenericsUtils.getLast(Collections.emptyList()));
 			fail();
 		} catch (IndexOutOfBoundsException e) {
 		}
-		assertSame("222", GenericsUtils.getLast(ImmutableList.of("000", "111", "222")));
+		assertSame("222", GenericsUtils.getLast(List.of("000", "111", "222")));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -407,18 +407,18 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_areAdjacent() throws Exception {
-		assertTrue(GenericsUtils.areAdjacent(ImmutableList.of(), ImmutableList.of()));
-		assertTrue(GenericsUtils.areAdjacent(ImmutableList.of("a"), ImmutableList.of("a")));
-		assertTrue(GenericsUtils.areAdjacent(ImmutableList.of("a", "b", "c"), ImmutableList.of("a")));
+		assertTrue(GenericsUtils.areAdjacent(Collections.emptyList(), Collections.emptyList()));
+		assertTrue(GenericsUtils.areAdjacent(List.of("a"), List.of("a")));
+		assertTrue(GenericsUtils.areAdjacent(List.of("a", "b", "c"), List.of("a")));
 		assertTrue(GenericsUtils.areAdjacent(
-				ImmutableList.of("a", "b", "c"),
-				ImmutableList.of("a", "b")));
+				List.of("a", "b", "c"),
+				List.of("a", "b")));
 		assertTrue(GenericsUtils.areAdjacent(
-				ImmutableList.of("a", "b", "c"),
-				ImmutableList.of("b", "c")));
+				List.of("a", "b", "c"),
+				List.of("b", "c")));
 		assertFalse(GenericsUtils.areAdjacent(
-				ImmutableList.of("a", "b", "c"),
-				ImmutableList.of("a", "c")));
+				List.of("a", "b", "c"),
+				List.of("a", "c")));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

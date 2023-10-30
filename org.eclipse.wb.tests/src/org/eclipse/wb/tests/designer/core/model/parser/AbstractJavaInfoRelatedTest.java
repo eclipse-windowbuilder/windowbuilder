@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.parser;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -37,7 +35,6 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipTextProvider;
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.NamesManager;
-import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.model.variable.description.LocalUniqueVariableDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -65,6 +62,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -92,7 +90,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 		preferences.setToDefault(IPreferenceConstants.P_VARIABLE_TEXT_TEMPLATE);
 		preferences.setToDefault(IPreferenceConstants.P_VARIABLE_TEXT_WORDS_LIMIT);
 		preferences.setToDefault(IPreferenceConstants.P_VARIABLE_IN_COMPONENT);
-		NamesManager.setNameDescriptions(toolkit, ImmutableList.<ComponentNameDescription>of());
+		NamesManager.setNameDescriptions(toolkit, Collections.emptyList());
 		// please, always use in tests default settings
 		{
 			GenerationSettings generationSettings = toolkit.getGenerationSettings();

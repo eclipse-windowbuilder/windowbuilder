@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.resource;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,7 +56,7 @@ public abstract class FromListDescriptionVersionsProvider implements IDescriptio
 		if (validate(componentClass)) {
 			return m_versions;
 		}
-		return ImmutableList.of();
+		return Collections.emptyList();
 	}
 
 	protected abstract boolean validate(Class<?> componentClass) throws Exception;

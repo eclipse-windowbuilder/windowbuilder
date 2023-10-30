@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.ast;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -1460,7 +1459,7 @@ public final class AstEditor {
 			String line_3 = "}";
 			tryStatement =
 					(TryStatement) addStatement(
-							ImmutableList.of(line_1, line_2, line_3),
+							List.of(line_1, line_2, line_3),
 							new StatementTarget(statement, true));
 		}
 		moveStatement(statement, new StatementTarget(tryStatement.getBody(), true));
@@ -1494,7 +1493,7 @@ public final class AstEditor {
 	public Block encloseInBlock(Statement statement) throws Exception {
 		// add new Block
 		Block block =
-				(Block) addStatement(ImmutableList.of("{", "}"), new StatementTarget(statement, true));
+				(Block) addStatement(List.of("{", "}"), new StatementTarget(statement, true));
 		// move Statement into Block
 		moveStatement(statement, new StatementTarget(block, true));
 		// OK, return Block
@@ -2068,7 +2067,7 @@ public final class AstEditor {
 	 */
 	public FieldDeclaration addFieldDeclaration(String source, BodyDeclarationTarget target)
 			throws Exception {
-		return addFieldDeclaration(ImmutableList.of(source), target);
+		return addFieldDeclaration(List.of(source), target);
 	}
 
 	/**
@@ -2098,7 +2097,7 @@ public final class AstEditor {
 	public MethodDeclaration addMethodDeclaration(String header,
 			List<String> bodyLines,
 			BodyDeclarationTarget target) throws Exception {
-		return addMethodDeclaration(ImmutableList.<String>of(), header, bodyLines, target);
+		return addMethodDeclaration(Collections.emptyList(), header, bodyLines, target);
 	}
 
 	/**
@@ -2149,7 +2148,7 @@ public final class AstEditor {
 	 */
 	public MethodDeclaration addInterfaceMethodDeclaration(String header, BodyDeclarationTarget target)
 			throws Exception {
-		List<String> lines = ImmutableList.of(header + ";");
+		List<String> lines = List.of(header + ";");
 		return (MethodDeclaration) addBodyDeclaration(lines, target);
 	}
 

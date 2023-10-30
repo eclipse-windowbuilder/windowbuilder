@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -34,6 +32,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -236,7 +235,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 				ArrayInitializer initializer,
 				String tooltip) {
 			super(container);
-			m_allInfos = allInfos != null ? allInfos : ImmutableList.<AbstractComponentInfo>of();
+			m_allInfos = allInfos != null ? allInfos : Collections.emptyList();
 			m_defaultInfos = defaultInfos;
 			m_initializer = initializer;
 			m_tooltip = tooltip;

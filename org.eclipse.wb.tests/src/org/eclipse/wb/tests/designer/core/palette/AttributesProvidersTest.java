@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.palette;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.editor.palette.model.entry.AttributesProvider;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.AttributesProviders;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -97,7 +95,7 @@ public class AttributesProvidersTest extends AbstractPaletteTest {
 	 */
 	@Test
 	public void test_getMap() throws Exception {
-		Map<String, String> attributes = ImmutableMap.of("attr", "someValue");
+		Map<String, String> attributes = Map.of("attr", "someValue");
 		AttributesProvider provider = AttributesProviders.get(attributes);
 		assertEquals("someValue", provider.getAttribute("attr"));
 		assertNull(provider.getAttribute("noSuchAttribute"));

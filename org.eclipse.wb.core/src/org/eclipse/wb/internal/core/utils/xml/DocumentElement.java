@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.xml;
 
-import com.google.common.collect.ImmutableList;
-
 import org.apache.commons.lang.StringUtils;
 
 import java.io.PrintWriter;
@@ -298,7 +296,7 @@ public class DocumentElement extends AbstractDocumentObject {
 	 * @return the {@link DocumentElement} children.
 	 */
 	public List<DocumentElement> getChildren() {
-		return ImmutableList.copyOf(m_children);
+		return List.copyOf(m_children);
 	}
 
 	/**
@@ -492,7 +490,7 @@ public class DocumentElement extends AbstractDocumentObject {
 	 * @return the {@link List} with all attributes.
 	 */
 	public List<DocumentAttribute> getDocumentAttributes() {
-		return ImmutableList.copyOf(m_attributes.values());
+		return List.copyOf(m_attributes.values());
 	}
 
 	/**

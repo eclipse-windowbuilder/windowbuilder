@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
@@ -38,6 +36,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormLayout;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * SWT {@link FormAttachment} model. This is related to {@link FormLayout}.
@@ -324,7 +323,7 @@ public final class FormAttachmentInfo extends JavaInfo implements IFormAttachmen
 	private String getReferenceExpression_ensureFormDataVisible(ControlInfo control) throws Exception {
 		FormDataInfo layoutData = (FormDataInfo) getParent();
 		StatementTarget statementTarget =
-				JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.of(layoutData, control));
+				JavaInfoUtils.getStatementTarget_whenAllCreated(List.of(layoutData, control));
 		String referenceExpression =
 				control.getVariableSupport().getReferenceExpression(new NodeTarget(statementTarget));
 		moveStatement(this, statementTarget);
@@ -341,7 +340,7 @@ public final class FormAttachmentInfo extends JavaInfo implements IFormAttachmen
 	private void setConstructorArguments(final String source, ControlInfo control) throws Exception {
 		ConstructorCreationSupport creationSupport = (ConstructorCreationSupport) getCreationSupport();
 		ClassInstanceCreation cic = creationSupport.getCreation();
-		getEditor().replaceCreationArguments(cic, ImmutableList.of(source));
+		getEditor().replaceCreationArguments(cic, List.of(source));
 		if (control != null) {
 			replaceFormDataQualifier(cic, control);
 		}
@@ -354,7 +353,7 @@ public final class FormAttachmentInfo extends JavaInfo implements IFormAttachmen
 		QualifiedName formDataAssignmentLeft = (QualifiedName) formDataAssignment.getLeftHandSide();
 		FormDataInfo layoutData = (FormDataInfo) getParent();
 		StatementTarget statementTarget =
-				JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.of(layoutData, control));
+				JavaInfoUtils.getStatementTarget_whenAllCreated(List.of(layoutData, control));
 		String referenceExpression =
 				layoutData.getVariableSupport().getReferenceExpression(new NodeTarget(statementTarget));
 		getEditor().replaceExpression(formDataAssignmentLeft.getQualifier(), referenceExpression);

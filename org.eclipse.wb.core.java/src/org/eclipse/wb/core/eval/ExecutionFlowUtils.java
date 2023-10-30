@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-import com.google.common.collect.ImmutableList;
-
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getBinding;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getConstructor;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getCreationBinding;
@@ -83,6 +81,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -638,7 +637,7 @@ public final class ExecutionFlowUtils {
 			String key) {
 		List<T> result = (List<T>) getVariableCachedValue(flowDescription, variable, key);
 		if (result == null) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		} else {
 			return result;
 		}
