@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
@@ -172,7 +170,7 @@ public final class ActionContainerInfo extends ObjectInfo {
 					actionsMethod =
 							editor.addMethodDeclaration(
 									methodHeader,
-									ImmutableList.<String>of(),
+									Collections.emptyList(),
 									new BodyDeclarationTarget(rootMethod, false));
 					// if needed, invoke from constructor
 					if (methodInvocation != null) {
@@ -185,7 +183,7 @@ public final class ActionContainerInfo extends ObjectInfo {
 			{
 				Block targetBlock =
 						(Block) editor.addStatement(
-								ImmutableList.of("{", "}"),
+								List.of("{", "}"),
 								new StatementTarget(actionsMethod, false));
 				actionTarget = new StatementTarget(targetBlock, true);
 			}

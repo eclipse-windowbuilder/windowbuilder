@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.layout.form;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
@@ -23,6 +21,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Tests for {@link FormLayoutInfoImplAutomatic}.
@@ -576,7 +576,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 		Rectangle controlBounds = control.getModelBounds();
 		impl.command_moveFreely(
 				new Rectangle(x, 0, controlBounds.width, controlBounds.height),
-				ImmutableList.of(control),
+				List.of(control),
 				control,
 				direction,
 				true);

@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.rcp;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -506,7 +504,7 @@ public final class PdeUtils {
 		IFile pluginXML = m_project.getFile("plugin.xml");
 		if (!pluginXML.exists()) {
 			List<String> lines =
-					ImmutableList.of(
+					List.of(
 							"<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
 							"<?eclipse version=\"3.2\"?>",
 							"<plugin>",
@@ -919,7 +917,7 @@ public final class PdeUtils {
 	 * Creates new {@link IPluginElement} for Eclipse view category.
 	 */
 	public IPluginElement createViewCategoryElement(String id, String name) throws Exception {
-		Map<String, String> attributes = ImmutableMap.of("id", id, "name", name);
+		Map<String, String> attributes = Map.of("id", id, "name", name);
 		createExtensionElement("org.eclipse.ui.views", "category", attributes);
 		return waitExtensionElementById("org.eclipse.ui.views", "category", id);
 	}
@@ -928,7 +926,7 @@ public final class PdeUtils {
 	 * Creates new {@link IPluginElement} for Eclipse view.
 	 */
 	public void createViewElement(String id, String name, String className) throws Exception {
-		Map<String, String> attributes = ImmutableMap.of("id", id, "name", name, "class", className);
+		Map<String, String> attributes = Map.of("id", id, "name", name, "class", className);
 		createExtensionElement("org.eclipse.ui.views", "view", attributes);
 	}
 
@@ -1067,7 +1065,7 @@ public final class PdeUtils {
 	 * Creates new {@link IPluginElement} for Eclipse perspective.
 	 */
 	public void createPerspectiveElement(String id, String name, String className) throws Exception {
-		Map<String, String> attributes = ImmutableMap.of("id", id, "name", name, "class", className);
+		Map<String, String> attributes = Map.of("id", id, "name", name, "class", className);
 		createExtensionElement("org.eclipse.ui.perspectives", "perspective", attributes);
 	}
 
@@ -1120,7 +1118,7 @@ public final class PdeUtils {
 	 * Creates new {@link IPluginElement} for Eclipse editor.
 	 */
 	public void createEditorElement(String id, String name, String className) throws Exception {
-		Map<String, String> attributes = ImmutableMap.of("id", id, "name", name, "class", className);
+		Map<String, String> attributes = Map.of("id", id, "name", name, "class", className);
 		createExtensionElement("org.eclipse.ui.editors", "editor", attributes);
 	}
 

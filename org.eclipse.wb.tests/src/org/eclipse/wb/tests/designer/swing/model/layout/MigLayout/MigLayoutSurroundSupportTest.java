@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutSurroundProcessor;
@@ -81,7 +79,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 		ComponentInfo button_00 = getButtons(panel).get(0);
 		ComponentInfo button_11 = getButtons(panel).get(2);
 		// no surround
-		assertNoSurroundManager(panel, ImmutableList.of(button_00, button_11));
+		assertNoSurroundManager(panel, List.of(button_00, button_11));
 	}
 
 	/**
@@ -321,7 +319,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	private static IAction getSurroundAction(String actionText, ObjectInfo... objects)
 			throws Exception {
 		assertFalse(objects.length == 0);
-		IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.copyOf(objects));
+		IMenuManager surroundManager = createSurroundManager(objects[0], List.of(objects));
 		assertNotNull(surroundManager);
 		return findChildAction(surroundManager, actionText);
 	}

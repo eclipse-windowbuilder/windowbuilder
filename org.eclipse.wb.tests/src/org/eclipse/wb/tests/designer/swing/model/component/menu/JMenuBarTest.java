@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.component.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.RootAssociation;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
@@ -426,7 +424,7 @@ public class JMenuBarTest extends SwingModelTest {
 		// paste copy of "existingMenu"
 		{
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(existingMenuInfo);
-			List<JavaInfoMemento> mementos = ImmutableList.of(memento);
+			List<JavaInfoMemento> mementos = List.of(memento);
 			assertTrue(policy.validatePaste(mementos));
 			policy.commandPaste(mementos, null);
 		}

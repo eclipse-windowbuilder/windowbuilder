@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.OutlineImageFigure;
@@ -437,9 +435,9 @@ IPreferenceConstants {
 		// do drag
 		placementsSupport.drag(
 				moveLocation,
-				ImmutableList.copyOf(modelList),
+				List.copyOf(modelList),
 				widgetBounds,
-				ImmutableList.copyOf(relativeBounds));
+				List.of(relativeBounds));
 		widgetBounds = placementsSupport.getBounds();
 		// Store new "model" location to be shown in TextFeedback if enabled
 		int newX = widgetBounds.x;
@@ -536,9 +534,9 @@ IPreferenceConstants {
 		// do drag
 		getPlacementsSupport().drag(
 				moveLocation,
-				ImmutableList.copyOf(modelList),
+				List.copyOf(modelList),
 				widgetBounds,
-				ImmutableList.copyOf(relativeBounds),
+				List.of(relativeBounds),
 				request.getResizeDirection());
 		//
 		widgetBounds = getPlacementsSupport().getBounds();
@@ -781,9 +779,9 @@ IPreferenceConstants {
 			}
 			placementsSupport.drag(
 					request.getLocation(),
-					ImmutableList.copyOf(pastedModels),
+					List.copyOf(pastedModels),
 					widgetBounds,
-					ImmutableList.copyOf(relativeBounds));
+					List.of(relativeBounds));
 			widgetBounds = placementsSupport.getBounds();
 			m_pasteLocation = widgetBounds.getLocation();
 			translateModelToFeedback(widgetBounds);
@@ -861,7 +859,7 @@ IPreferenceConstants {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	protected void onDelete(ObjectInfo child) throws Exception {
-		placementsSupport.delete(ImmutableList.of((IAbstractComponentInfo) child));
+		placementsSupport.delete(List.of((IAbstractComponentInfo) child));
 	}
 
 	@Override

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.variables;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.model.variable.AbstractNamedVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.AbstractSimpleVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
@@ -33,6 +31,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -296,13 +295,13 @@ public class AbstractNamedTest extends AbstractVariableTest {
 		// invalid identifier
 		{
 			Map<AbstractNamedVariableSupport, String> variablesNames =
-					ImmutableMap.of((AbstractNamedVariableSupport) button.getVariableSupport(), "in-valid");
+					Map.of((AbstractNamedVariableSupport) button.getVariableSupport(), "in-valid");
 			assertTrue(validateVariables(variablesNames).contains("identifier"));
 		}
 		// valid identifier
 		{
 			Map<AbstractNamedVariableSupport, String> variablesNames =
-					ImmutableMap.of((AbstractNamedVariableSupport) button.getVariableSupport(), "myButton");
+					Map.of((AbstractNamedVariableSupport) button.getVariableSupport(), "myButton");
 			validateVariables(true, variablesNames);
 		}
 	}
@@ -332,35 +331,35 @@ public class AbstractNamedTest extends AbstractVariableTest {
 				(AbstractNamedVariableSupport) button2.getVariableSupport();
 		// no conflict: no modifications
 		{
-			Map<AbstractNamedVariableSupport, String> variablesNames = ImmutableMap.of();
+			Map<AbstractNamedVariableSupport, String> variablesNames = Collections.emptyMap();
 			validateVariables(true, variablesNames);
 		}
 		// visible conflict: button2 -> button1
 		{
-			validateVariables(false, ImmutableMap.of(variable2, "button1"));
+			validateVariables(false, Map.of(variable2, "button1"));
 		}
 		// no visible conflict: button2 -> button1, button1 -> button_1
 		{
 			Map<AbstractNamedVariableSupport, String> variablesNames =
-					ImmutableMap.of(variable2, "button1", variable1, "button_1");
+					Map.of(variable2, "button1", variable1, "button_1");
 			validateVariables(true, variablesNames);
 		}
 		// no visible conflict: button2 -> button1, button1 -> button2
 		{
 			Map<AbstractNamedVariableSupport, String> variablesNames =
-					ImmutableMap.of(variable2, "button1", variable1, "button2");
+					Map.of(variable2, "button1", variable1, "button2");
 			validateVariables(true, variablesNames);
 		}
 		// shadow conflict: button1 -> button2
 		{
 			Map<AbstractNamedVariableSupport, String> variablesNames =
-					ImmutableMap.of(variable1, "button2");
+					Map.of(variable1, "button2");
 			validateVariables(false, variablesNames);
 		}
 		// no shadow conflict: button1 -> button2, button2 -> button_2
 		{
 			Map<AbstractNamedVariableSupport, String> variablesNames =
-					ImmutableMap.of(variable1, "button2", variable2, "button_2");
+					Map.of(variable1, "button2", variable2, "button_2");
 			validateVariables(true, variablesNames);
 		}
 	}

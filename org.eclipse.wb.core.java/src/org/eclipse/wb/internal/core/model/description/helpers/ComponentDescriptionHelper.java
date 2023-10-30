@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.model.description.AbstractInvocationDescription;
@@ -104,6 +103,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -278,7 +278,7 @@ public final class ComponentDescriptionHelper {
 		}
 		// OK, get description
 		ComponentDescriptionKey key = new ComponentDescriptionKey(componentClass);
-		return getDescription0(editor, key, ImmutableList.<ClassResourceInfo>of());
+		return getDescription0(editor, key, Collections.emptyList());
 	}
 
 	/**
@@ -317,7 +317,7 @@ public final class ComponentDescriptionHelper {
 		}
 		// OK, get key-specific description
 		ClassResourceInfo descriptionInfo = new ClassResourceInfo(componentClass, resourceInfo);
-		return getDescription0(editor, key, ImmutableList.of(descriptionInfo));
+		return getDescription0(editor, key, List.of(descriptionInfo));
 	}
 
 	/**

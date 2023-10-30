@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.ui;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.utils.ui.IActionSingleton;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
@@ -157,7 +155,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 		manager_2.add(action_2);
 		// merge
 		IMenuManager main = new MenuManager();
-		MenuIntersector.merge(main, ImmutableList.of(manager_1, manager_2));
+		MenuIntersector.merge(main, List.of(manager_1, manager_2));
 		// prepare single IAction that wraps two IAction's
 		IAction wrapperAction;
 		{
@@ -213,7 +211,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 		manager_2.add(action_2);
 		// merge
 		IMenuManager main = new MenuManager();
-		MenuIntersector.merge(main, ImmutableList.of(manager_1, manager_2));
+		MenuIntersector.merge(main, List.of(manager_1, manager_2));
 		// prepare single IAction that wraps two IAction's
 		IAction wrapperAction;
 		{

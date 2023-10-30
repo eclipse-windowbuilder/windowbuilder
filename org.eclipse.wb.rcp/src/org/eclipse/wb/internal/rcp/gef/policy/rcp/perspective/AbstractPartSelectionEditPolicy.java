@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -33,6 +31,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -76,7 +75,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 	@Override
 	protected List<Handle> createStaticHandles() {
 		if (m_line == null) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 		// prepare handle
 		Handle resizeHandle = new Handle(getHost(), new ILocator() {
@@ -104,7 +103,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 		}
 		// single static handle
 		resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(), m_line.getPosition(), REQ_RESIZE));
-		return ImmutableList.of(resizeHandle);
+		return List.of(resizeHandle);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

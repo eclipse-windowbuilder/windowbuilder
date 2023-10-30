@@ -11,9 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.model.description.resource.FromListDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProviderFactory;
@@ -22,6 +19,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.swt.SWT;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -54,11 +52,11 @@ IDescriptionVersionsProviderFactory {
 	public Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
 			throws Exception {
 		if (!isRCP(javaProject)) {
-			return ImmutableMap.of();
+			return Collections.emptyMap();
 		}
 		// OK, RCP project
 		String version = getSWTVersion();
-		return ImmutableMap.<String, Object>of("rcp_version", version);
+		return Map.of("rcp_version", version);
 	}
 
 	@Override
@@ -69,7 +67,7 @@ IDescriptionVersionsProviderFactory {
 		}
 		// OK, RCP project
 		String version = getSWTVersion();
-		List<String> allVersions = ImmutableList.of(
+		List<String> allVersions = List.of(
 				"3.7",
 				"3.8",
 				"4.2",

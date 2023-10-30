@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.accessor;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -23,6 +21,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * The implementation of {@link ExpressionAccessor} for accessing {@link MethodInvocation} of some
@@ -77,7 +76,7 @@ public final class MethodInvocationAccessor extends ExpressionAccessor {
 				ExecutionUtils.run(javaInfo, new RunnableEx() {
 					@Override
 					public void run() throws Exception {
-						editor.replaceInvocationArguments(invocation, ImmutableList.of(source));
+						editor.replaceInvocationArguments(invocation, List.of(source));
 					}
 				});
 			}

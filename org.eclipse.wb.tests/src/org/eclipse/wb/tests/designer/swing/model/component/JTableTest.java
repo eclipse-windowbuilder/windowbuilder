@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.component;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.JTableInfo;
@@ -584,7 +582,7 @@ public class JTableTest extends SwingModelTest {
 		{
 			List<String> invocations = modelDescription.getColumnModelInvocations();
 			Assertions.assertThat(invocations).isEqualTo(
-					ImmutableList.of(
+					List.of(
 							"getColumnModel().getColumn(0).setResizable(false)",
 							"getColumnModel().getColumn(0).setPreferredWidth(100)",
 							"getColumnModel().getColumn(0).setMinWidth(50)",

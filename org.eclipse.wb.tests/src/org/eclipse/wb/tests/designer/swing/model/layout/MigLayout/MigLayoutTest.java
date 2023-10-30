@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -103,7 +101,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		IMenuManager layoutManager;
 		{
 			MenuManager menuManager = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(panel), panel, menuManager);
+			panel.getBroadcastObject().addContextMenu(List.of(panel), panel, menuManager);
 			layoutManager = findChildMenuManager(menuManager, "Set layout");
 			assertNotNull(layoutManager);
 		}
@@ -1972,11 +1970,11 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		ComponentInfo button_4 = panel.getChildrenComponents().get(3);
 		ComponentInfo button_5 = panel.getChildrenComponents().get(4);
 		//
-		Assertions.assertThat(layout.getCellComponents(0, 0)).isEqualTo(ImmutableList.of(button_1, button_2));
-		Assertions.assertThat(layout.getCellComponents(1, 0)).isEqualTo(ImmutableList.of(button_3));
-		Assertions.assertThat(layout.getCellComponents(1, 1)).isEqualTo(ImmutableList.of(button_4));
-		Assertions.assertThat(layout.getCellComponents(0, 2)).isEqualTo(ImmutableList.of(button_5));
-		Assertions.assertThat(layout.getCellComponents(1, 2)).isEqualTo(ImmutableList.of(button_5));
+		Assertions.assertThat(layout.getCellComponents(0, 0)).isEqualTo(List.of(button_1, button_2));
+		Assertions.assertThat(layout.getCellComponents(1, 0)).isEqualTo(List.of(button_3));
+		Assertions.assertThat(layout.getCellComponents(1, 1)).isEqualTo(List.of(button_4));
+		Assertions.assertThat(layout.getCellComponents(0, 2)).isEqualTo(List.of(button_5));
+		Assertions.assertThat(layout.getCellComponents(1, 2)).isEqualTo(List.of(button_5));
 		Assertions.assertThat(layout.getCellComponents(2, 2)).isEmpty();
 	}
 
@@ -3093,7 +3091,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 						"}");
 		// check for actions
 		MenuManager menuManager = getDesignerMenuManager();
-		panel.getBroadcastObject().addContextMenu(ImmutableList.of(panel), panel, menuManager);
+		panel.getBroadcastObject().addContextMenu(List.of(panel), panel, menuManager);
 		assertNotNull(findChildAction(menuManager, "Edit c&olumns..."));
 		assertNotNull(findChildAction(menuManager, "Edit &rows..."));
 	}

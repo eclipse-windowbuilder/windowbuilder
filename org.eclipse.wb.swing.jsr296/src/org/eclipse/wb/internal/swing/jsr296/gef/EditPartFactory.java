@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.jsr296.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
+
+import java.util.List;
 
 /**
  * {@link IEditPartFactory} for JSR-296.
@@ -24,8 +24,8 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.jsr296.model"),
-					ImmutableList.of("org.eclipse.wb.internal.swing.jsr296.gef"));
+			new MatchingEditPartFactory(List.of("org.eclipse.wb.internal.swing.jsr296.model"),
+					List.of("org.eclipse.wb.internal.swing.jsr296.gef"));
 
 	////////////////////////////////////////////////////////////////////////////
 	//

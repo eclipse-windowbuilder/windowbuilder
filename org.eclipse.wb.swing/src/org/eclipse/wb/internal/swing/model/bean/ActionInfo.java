@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -156,7 +154,7 @@ public class ActionInfo extends JavaInfo {
 			}
 			action.addRelatedNodes(invocation);
 			// select component
-			component.getBroadcastObject().select(ImmutableList.of(component));
+			component.getBroadcastObject().select(List.of(component));
 		}
 	}
 

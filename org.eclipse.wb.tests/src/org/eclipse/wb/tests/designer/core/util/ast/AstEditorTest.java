@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.ast;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -91,6 +90,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -1841,7 +1841,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(null, targetField, true);
 		MethodDeclaration newMethod =
-				m_lastEditor.addMethodDeclaration("int foo()", ImmutableList.of("return 0;"), target);
+				m_lastEditor.addMethodDeclaration("int foo()", List.of("return 0;"), target);
 		assertAST(m_lastEditor);
 		assertNotNull(newMethod);
 		assertEquals(0, typeDeclaration.bodyDeclarations().indexOf(newMethod));
@@ -1871,7 +1871,7 @@ public class AstEditorTest extends AbstractJavaTest {
 						"}");
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, false);
 		//
-		m_lastEditor.addMethodDeclaration("int foo()", ImmutableList.of("return 0;"), target);
+		m_lastEditor.addMethodDeclaration("int foo()", List.of("return 0;"), target);
 		assertEditor(
 				getSource(
 						"package test;",
@@ -1898,7 +1898,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(null, targetField, true);
 		MethodDeclaration newMethod =
-				m_lastEditor.addMethodDeclaration("int foo()", ImmutableList.of("\t", "return 0;"), target);
+				m_lastEditor.addMethodDeclaration("int foo()", List.of("\t", "return 0;"), target);
 		assertAST(m_lastEditor);
 		assertNotNull(newMethod);
 		assertEquals(0, typeDeclaration.bodyDeclarations().indexOf(newMethod));
@@ -1929,7 +1929,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		MethodDeclaration newMethod =
 				m_lastEditor.addMethodDeclaration(
 						"void foo(int a, String b, String[] c)",
-						ImmutableList.<String>of(),
+						Collections.emptyList(),
 						target);
 		assertAST(m_lastEditor);
 		assertNotNull(newMethod);
@@ -1960,9 +1960,9 @@ public class AstEditorTest extends AbstractJavaTest {
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, true);
 		MethodDeclaration newMethod =
 				m_lastEditor.addMethodDeclaration(
-						ImmutableList.<String>of("@Override"),
+						List.of("@Override"),
 						"public void fooBar()",
-						ImmutableList.<String>of(),
+						Collections.emptyList(),
 						target);
 		assertNotNull(newMethod);
 		assertEquals(0, typeDeclaration.bodyDeclarations().indexOf(newMethod));
@@ -2021,7 +2021,7 @@ public class AstEditorTest extends AbstractJavaTest {
 						"}");
 		m_lastEditor.addMethodDeclaration(
 				"void testMethod()",
-				ImmutableList.<String>of(),
+				Collections.emptyList(),
 				new BodyDeclarationTarget(typeDeclaration, false));
 	}
 
@@ -2127,7 +2127,7 @@ public class AstEditorTest extends AbstractJavaTest {
 						"}");
 		m_lastEditor.addMethodDeclaration(
 				"void someTestMethod2(TestEnum testEnum)",
-				ImmutableList.<String>of(),
+				Collections.emptyList(),
 				new BodyDeclarationTarget(typeDeclaration, false));
 	}
 
@@ -2152,7 +2152,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		try {
 			m_lastEditor.addMethodDeclaration(
 					"void foo()",
-					ImmutableList.of("somethingBadA();", "somethingBadB();"),
+					List.of("somethingBadA();", "somethingBadB();"),
 					new BodyDeclarationTarget(typeDeclaration, false));
 			fail();
 		} catch (Throwable e) {
@@ -2380,7 +2380,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, true);
 		TypeDeclaration newType =
-				m_lastEditor.addTypeDeclaration(ImmutableList.of(
+				m_lastEditor.addTypeDeclaration(List.of(
 						"private class Inner {",
 						"\tint a;",
 						"\tint getA() {",
@@ -2426,7 +2426,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, true);
 		TypeDeclaration newType =
-				m_lastEditor.addTypeDeclaration(ImmutableList.of(
+				m_lastEditor.addTypeDeclaration(List.of(
 						"private class Inner extends ArrayList {",
 						"\tInner() {",
 						"\t\tsuper(5);",
@@ -4110,7 +4110,7 @@ public class AstEditorTest extends AbstractJavaTest {
 				(VariableDeclarationFragment) statement.fragments().get(0);
 		ClassInstanceCreation creation = (ClassInstanceCreation) fragment.getInitializer();
 		// do replace
-		m_lastEditor.replaceCreationArguments(creation, ImmutableList.copyOf(newArgumentsLines));
+		m_lastEditor.replaceCreationArguments(creation, List.of(newArgumentsLines));
 		// check source
 		assertEditor(getSource(expectedSourceLines), m_lastEditor);
 		// check signature
@@ -4146,7 +4146,7 @@ public class AstEditorTest extends AbstractJavaTest {
 				"}");
 		MethodInvocation invocation = (MethodInvocation) m_lastEditor.getEnclosingNode(", ");
 		// do replace
-		m_lastEditor.replaceInvocationArguments(invocation, ImmutableList.of("2, true"));
+		m_lastEditor.replaceInvocationArguments(invocation, List.of("2, true"));
 		assertEditor(
 				getSourceDQ(
 						"public class Test {",
@@ -4177,7 +4177,7 @@ public class AstEditorTest extends AbstractJavaTest {
 				"}");
 		MethodInvocation invocation = (MethodInvocation) m_lastEditor.getEnclosingNode(", ");
 		// do replace
-		m_lastEditor.replaceInvocationArguments(invocation, ImmutableList.of("2, true"));
+		m_lastEditor.replaceInvocationArguments(invocation, List.of("2, true"));
 		assertEditor(
 				getSourceDQ(
 						"public class Test {",
@@ -4583,7 +4583,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		Statement targetStatement = (Statement) targetMethod.getBody().statements().get(1);
 		//
 		m_lastEditor.addStatement(
-				ImmutableList.of("// first comment", "// second comment", "setVisible(false);"),
+				List.of("// first comment", "// second comment", "setVisible(false);"),
 				new StatementTarget(targetStatement, true));
 		assertEquals(
 				getSourceDQ(
@@ -7273,7 +7273,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		Expression newExpression =
 				m_lastEditor.replaceExpression(
 						fragment.getInitializer(),
-						ImmutableList.of("new", "\tjava.util.ArrayList()"));
+						List.of("new", "\tjava.util.ArrayList()"));
 		assertSame(newExpression, fragment.getInitializer());
 		assertEditor(
 				getSourceDQ(
@@ -7399,7 +7399,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		Expression expression = (Expression) getNode("new Object()");
 		m_lastEditor.replaceExpression(
 				expression,
-				ImmutableList.of("test2.Style.Orientation.HORIZONTAL"));
+				List.of("test2.Style.Orientation.HORIZONTAL"));
 		assertEditor(
 				getSource(
 						"// filler filler filler filler filler",

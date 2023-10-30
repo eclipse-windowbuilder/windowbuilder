@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.ast;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodDeclarationSignature;
@@ -68,6 +67,7 @@ import org.junit.Test;
 
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -2365,7 +2365,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		MethodDeclaration newMethod =
 				m_lastEditor.addMethodDeclaration(
 						"void bar()",
-						ImmutableList.<String>of(),
+						Collections.emptyList(),
 						new BodyDeclarationTarget(typeDeclaration, false));
 		// now new method
 		assertSame(newMethod, AstNodeUtils.getLocalMethodDeclaration(invocation));
@@ -3327,9 +3327,9 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<String> signatures =
-				AstNodeUtils.getMethodSignatures(ImmutableList.of(methods[0], methods[1]));
+				AstNodeUtils.getMethodSignatures(List.of(methods[0], methods[1]));
 		Assertions.assertThat(signatures).hasSize(2).isEqualTo(
-				ImmutableList.of("foo()", "bar(int,java.lang.String)"));
+				List.of("foo()", "bar(int,java.lang.String)"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -3844,9 +3844,9 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		assertTrue(AstNodeUtils.isLiteral(qualifiedName));
 		assertFalse(AstNodeUtils.isLiteral(varNode));
 		// List checks
-		assertTrue(AstNodeUtils.areLiterals(ImmutableList.<Expression>of()));
-		assertTrue(AstNodeUtils.areLiterals(ImmutableList.of(booleanLiteral, numberLiteral)));
-		assertFalse(AstNodeUtils.areLiterals(ImmutableList.of(booleanLiteral, varNode)));
+		assertTrue(AstNodeUtils.areLiterals(Collections.emptyList()));
+		assertTrue(AstNodeUtils.areLiterals(List.of(booleanLiteral, numberLiteral)));
+		assertFalse(AstNodeUtils.areLiterals(List.of(booleanLiteral, varNode)));
 	}
 
 	/**

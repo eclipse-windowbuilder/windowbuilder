@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.surround;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -200,7 +198,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
 			ExecutionUtils.runLogLater(new RunnableEx() {
 				@Override
 				public void run() throws Exception {
-					container.getBroadcastObject().select(ImmutableList.of(container));
+					container.getBroadcastObject().select(List.of(container));
 				}
 			});
 		}

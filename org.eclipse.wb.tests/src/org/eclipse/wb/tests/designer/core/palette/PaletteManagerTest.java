@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.palette;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
@@ -39,6 +37,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests for {@link PaletteInfo}.
@@ -957,7 +956,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"</category>"});
 		// parse and configure EditorState
 		JavaInfo panel = parseEmptyPanel();
-		m_lastState.addVersions(ImmutableMap.<String, Object>of("version", "3.5"));
+		m_lastState.addVersions(Map.of("version", "3.5"));
 		//
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors(panel);
@@ -973,7 +972,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"</category>"});
 		// parse and configure EditorState
 		JavaInfo panel = parseEmptyPanel();
-		m_lastState.addVersions(ImmutableMap.<String, Object>of("version", "2.1"));
+		m_lastState.addVersions(Map.of("version", "2.1"));
 		//
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors(panel);
@@ -989,7 +988,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"</category>"});
 		// parse and configure EditorState
 		JavaInfo panel = parseEmptyPanel();
-		m_lastState.addVersions(ImmutableMap.<String, Object>of("version", "2.1"));
+		m_lastState.addVersions(Map.of("version", "2.1"));
 		//
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors(panel);

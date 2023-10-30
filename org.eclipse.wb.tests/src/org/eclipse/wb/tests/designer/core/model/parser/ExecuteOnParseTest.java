@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.parser;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -1967,8 +1965,8 @@ public class ExecuteOnParseTest extends SwingModelTest {
 						"  }",
 						"}");
 		// listen for ASTNode evaluation
-		List<String> expectedNodes_before = ImmutableList.of("setEnabled(false)", "setEnabled(false);");
-		List<String> expectedNodes_after = ImmutableList.of("setEnabled(false)", "setEnabled(false);");
+		List<String> expectedNodes_before = List.of("setEnabled(false)", "setEnabled(false);");
+		List<String> expectedNodes_after = List.of("setEnabled(false)", "setEnabled(false);");
 		final Iterator<String> expectedIterator_before = expectedNodes_before.iterator();
 		final Iterator<String> expectedIterator_after = expectedNodes_after.iterator();
 		panel.addBroadcastListener(new EvaluationEventListener() {

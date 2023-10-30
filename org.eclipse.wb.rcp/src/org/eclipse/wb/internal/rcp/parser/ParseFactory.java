@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.parser;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -161,7 +160,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 				javaInfo.setVariableSupport(new MethodParameterVariableSupport(javaInfo,
 						pageLayoutParameter));
 				// prepare root context
-				List<MethodDeclaration> rootMethods = ImmutableList.of(createMethod);
+				List<MethodDeclaration> rootMethods = List.of(createMethod);
 				return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
 			}
 		}
@@ -500,7 +499,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 	@Override
 	protected void initializeClassLoader_parent(AstEditor editor,
 			CompositeClassLoader parentClassLoader) throws Exception {
-		parentClassLoader.add(new BundleClassLoader("com.ibm.icu"), ImmutableList.of("com.ibm.icu."));
+		parentClassLoader.add(new BundleClassLoader("com.ibm.icu"), List.of("com.ibm.icu."));
 		parentClassLoader.add(new BundleClassLoader("org.eclipse.ui"), null);
 		parentClassLoader.add(new BundleClassLoader("org.eclipse.ui.forms"), null);
 		parentClassLoader.add(new BundleClassLoader("org.eclipse.jdt.ui"), null);

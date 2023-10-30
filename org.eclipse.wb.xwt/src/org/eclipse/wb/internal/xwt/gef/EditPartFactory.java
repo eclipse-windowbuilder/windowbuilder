@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
@@ -24,6 +22,8 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuItemInfo;
 
+import java.util.List;
+
 /**
  * {@link IEditPartFactory} for XWT.
  *
@@ -32,11 +32,11 @@ import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuItemInfo;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of(
+			new MatchingEditPartFactory(List.of(
 					"org.eclipse.wb.internal.xwt.model.widgets",
 					"org.eclipse.wb.internal.xwt.model.widgets",
 					"org.eclipse.wb.internal.xwt.model.jface",
-					"org.eclipse.wb.internal.xwt.model.forms"), ImmutableList.of(
+					"org.eclipse.wb.internal.xwt.model.forms"), List.of(
 							"org.eclipse.wb.internal.xwt.gef.part",
 							"org.eclipse.wb.internal.rcp.gef.part.widgets",
 							"org.eclipse.wb.internal.xwt.gef.part",

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model.association;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.association.Association;
 import org.eclipse.wb.internal.core.xml.model.association.Associations;
@@ -21,6 +19,9 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.junit.Test;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Test for {@link IntermediateAssociation}.
@@ -51,7 +52,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 	@Test
 	public void test_toString_withAttributes() throws Exception {
 		Association association =
-				Associations.intermediate("foo", ImmutableMap.of("attrA", "a", "attrB", "b"));
+				Associations.intermediate("foo", new TreeMap<>(Map.of("attrA", "a", "attrB", "b")));
 		assertEquals("inter foo {attrA=a, attrB=b}", association.toString());
 	}
 
@@ -123,7 +124,7 @@ public class IntermediateAssociationTest extends AbstractCoreTest {
 		// add
 		XmlObjectInfo newObject = createButton();
 		Association association =
-				Associations.intermediate("foo", ImmutableMap.of("attrA", "a", "attrB", "b"));
+				Associations.intermediate("foo", new TreeMap<>(Map.of("attrA", "a", "attrB", "b")));
 		XmlObjectUtils.add(newObject, association, container, null);
 		assertXML(
 				"// filler filler filler filler filler",

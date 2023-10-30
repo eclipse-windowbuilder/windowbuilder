@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.event;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -69,6 +67,7 @@ import org.apache.commons.lang.text.StrSubstitutor;
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -438,7 +437,7 @@ IListenerMethodProperty {
 		}
 		// add inner class
 		List<String> lines =
-				ImmutableList.of("private class " + createInnerClassName() + headerSource + " {", "}");
+				List.of("private class " + createInnerClassName() + headerSource + " {", "}");
 		return m_javaInfo.getEditor().addTypeDeclaration(lines, target);
 	}
 
@@ -645,10 +644,10 @@ IListenerMethodProperty {
 	private static List<String> getListenerMethodBody(ListenerMethodInfo methodInfo) {
 		Class<?> returnType = methodInfo.getMethod().getReturnType();
 		if (returnType == Void.TYPE) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		} else {
 			String defaultValue = AstParser.getDefaultValue(returnType.getName());
-			return ImmutableList.of("return " + defaultValue + ";");
+			return List.of("return " + defaultValue + ";");
 		}
 	}
 
@@ -807,7 +806,7 @@ IListenerMethodProperty {
 				// add stub method
 				stubMethod = editor.addMethodDeclaration(
 						header,
-						ImmutableList.<String>of(),
+						Collections.emptyList(),
 						new BodyDeclarationTarget(typeDeclaration, false));
 			}
 		}
@@ -822,7 +821,7 @@ IListenerMethodProperty {
 			if (m_preferences.getInt(P_CODE_TYPE) == V_CODE_INTERFACE) {
 				lines = getConditionalStubInvocationSource(listenerMethod, editor, lineInvoke);
 			} else {
-				lines = ImmutableList.of(lineInvoke);
+				lines = List.of(lineInvoke);
 			}
 			// add Statement that invokes stub
 			if (lines != null) {
@@ -871,7 +870,7 @@ IListenerMethodProperty {
 							parameter.getName().getIdentifier(),
 							componentAccess,
 							m_javaInfo);
-					return ImmutableList.of(lineIf, "\t" + lineInvoke, "}");
+					return List.of(lineIf, "\t" + lineInvoke, "}");
 				}
 			}
 		}
@@ -974,7 +973,7 @@ IListenerMethodProperty {
 		if (listenerStatement instanceof Block) {
 			statements = DomGenerics.statements((Block) listenerStatement);
 		} else {
-			statements = ImmutableList.of(listenerStatement);
+			statements = List.of(listenerStatement);
 		}
 		// analyze statements
 		if (statements.size() == 1) {

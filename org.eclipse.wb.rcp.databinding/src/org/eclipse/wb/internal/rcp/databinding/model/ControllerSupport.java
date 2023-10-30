@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
@@ -203,7 +201,7 @@ public class ControllerSupport {
 		String header =
 				"public " + javaInfo.getDescription().getComponentClass().getName() + " " + methodName;
 		// prepare method lines
-		List<String> methodLines = ImmutableList.of("return " + reference + ";");
+		List<String> methodLines = List.of("return " + reference + ";");
 		// add method
 		javaInfo.getEditor().addMethodDeclaration(header, methodLines, target);
 		if (commit) {

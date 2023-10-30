@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -86,7 +85,7 @@ public final class PlacementsSupport {
 			IAbsoluteLayoutCommands layoutCommands, List<? extends IAbstractComponentInfo> remainingWidgets) {
 		this(visualDataProvider, null, layoutCommands, remainingWidgets);
 		m_bounds = PlacementUtils.getTranslatedBounds(visualDataProvider, widget);
-		m_operatingWidgets = ImmutableList.of(widget);
+		m_operatingWidgets = List.of(widget);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -102,7 +101,7 @@ public final class PlacementsSupport {
 		m_resizeDirection = resizeDirection;
 		m_isCreating = widget.getModelBounds() == null;
 		m_bounds = widgetBounds.getCopy();
-		m_operatingWidgets = ImmutableList.of(widget);
+		m_operatingWidgets = List.of(widget);
 		m_snapPoints.processBounds(this, location, m_operatingWidgets, resizeDirection);
 		m_newModelBounds.put(widget, m_bounds.getCopy());
 	}
@@ -721,7 +720,7 @@ public final class PlacementsSupport {
 	}
 
 	private void setOperatingWidgets(List<? extends IAbstractComponentInfo> widgets) {
-		m_operatingWidgets = ImmutableList.copyOf(widgets);
+		m_operatingWidgets = List.copyOf(widgets);
 	}
 
 	private void addWidgets() {
@@ -829,7 +828,7 @@ public final class PlacementsSupport {
 		}
 		for (int i = 1; i < widgets.size(); i++) {
 			IAbstractComponentInfo widget = widgets.get(i);
-			m_operatingWidgets = ImmutableList.of(widget);
+			m_operatingWidgets = List.of(widget);
 			postprocess();
 		}
 		cleanup();
@@ -856,7 +855,7 @@ public final class PlacementsSupport {
 		int position = (containerSize.width - widgetBounds.width) / 2;
 		Point newPosition = new Point(position, widgetBounds.y);
 		//
-		m_operatingWidgets = ImmutableList.of(widget);
+		m_operatingWidgets = List.of(widget);
 		moveTo(widget, t.t(newPosition));
 	}
 
@@ -903,7 +902,7 @@ public final class PlacementsSupport {
 		for (IAbstractComponentInfo widget : widgets) {
 			Rectangle widgetBounds = t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget));
 			//
-			m_operatingWidgets = ImmutableList.of(widget);
+			m_operatingWidgets = List.of(widget);
 			moveTo(widget, t.t(new Point(x, widgetBounds.y)));
 			x += widgetBounds.width;
 			x += space;
@@ -930,7 +929,7 @@ public final class PlacementsSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void setAlignment(IAbstractComponentInfo widget, int side) throws Exception {
-		setOperatingWidgets(ImmutableList.of(widget));
+		setOperatingWidgets(List.of(widget));
 		preprocess();
 		// proceed
 		boolean isHorizontal = PlacementUtils.isHorizontalSide(side);
@@ -953,7 +952,7 @@ public final class PlacementsSupport {
 	}
 
 	public void setResizeable(IAbstractComponentInfo widget, boolean isHorizontal) throws Exception {
-		setOperatingWidgets(ImmutableList.of(widget));
+		setOperatingWidgets(List.of(widget));
 		preprocess();
 		// proceed
 		int leadingSide = PlacementUtils.getSide(isHorizontal, true);

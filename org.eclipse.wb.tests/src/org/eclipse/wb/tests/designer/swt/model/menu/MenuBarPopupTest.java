@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.tools.PasteTool;
@@ -24,6 +23,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Tests for "bar" and "popup" menu, create/move them.
@@ -231,7 +232,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 		// load "paste" tool
 		{
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(popupInfo);
-			PasteTool pasteTool = new PasteTool(ImmutableList.of(memento));
+			PasteTool pasteTool = new PasteTool(List.of(memento));
 			m_viewerCanvas.getEditDomain().setActiveTool(pasteTool);
 		}
 		// move on "button_2": target feedback

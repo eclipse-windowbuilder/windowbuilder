@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.creation;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
@@ -135,7 +133,7 @@ public class ElementCreationSupport extends CreationSupport implements ILiveCrea
 	@Override
 	public void delete() throws Exception {
 		// delete children
-		List<ObjectInfo> children = ImmutableList.copyOf(m_object.getChildren());
+		List<ObjectInfo> children = List.copyOf(m_object.getChildren());
 		for (ObjectInfo child : children) {
 			child.delete();
 		}

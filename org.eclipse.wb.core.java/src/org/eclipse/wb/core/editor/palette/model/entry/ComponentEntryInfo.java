@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.palette.model.entry;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
@@ -55,6 +53,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -450,7 +449,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	private Map<String, String> getTypeArguments() throws JavaModelException {
 		Map<String, TypeParameterDescription> typeParameters = m_creation.getTypeParameters();
 		if (typeParameters.isEmpty()) {
-			return ImmutableMap.of();
+			return Collections.emptyMap();
 		}
 		// open dialog
 		TypeParametersDialog dialog =

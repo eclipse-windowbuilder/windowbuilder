@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.reflect;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
@@ -796,10 +794,10 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			Method base = ReflectionUtils.getMethodBySignature(A.class, "foo(java.lang.Object)");
 			Method specific = ReflectionUtils.getMethodBySignature(A.class, "foo(java.lang.String)");
 			Method bar = ReflectionUtils.getMethodBySignature(A.class, "bar(java.lang.String)");
-			assertSame(specific, ReflectionUtils.getMostSpecific(ImmutableList.of(base, specific, bar)));
+			assertSame(specific, ReflectionUtils.getMostSpecific(List.of(base, specific, bar)));
 		}
 		{
-			assertSame(null, ReflectionUtils.getMostSpecific(ImmutableList.<Method>of()));
+			assertSame(null, ReflectionUtils.getMostSpecific(Collections.emptyList()));
 		}
 	}
 

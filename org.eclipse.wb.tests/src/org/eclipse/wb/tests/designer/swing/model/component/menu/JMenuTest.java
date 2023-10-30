@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.component.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -557,7 +555,7 @@ public class JMenuTest extends SwingModelTest {
 		// paste copy of "existingItemInfo"
 		{
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(existingItemInfo);
-			List<JavaInfoMemento> mementos = ImmutableList.of(memento);
+			List<JavaInfoMemento> mementos = List.of(memento);
 			assertTrue(policy.validatePaste(mementos));
 			policy.commandPaste(mementos, null);
 		}

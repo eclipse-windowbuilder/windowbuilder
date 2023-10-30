@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.editor;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -202,7 +201,7 @@ IComplexPropertyEditor {
 						property.setExpression(TemplateUtils.getExpression(component), component);
 						return;
 					}
-					List<JavaInfo> allComponents = ImmutableList.of(thisComponent, component);
+					List<JavaInfo> allComponents = List.of(thisComponent, component);
 					target = JavaInfoUtils.getStatementTarget_whenAllCreated(allComponents);
 				}
 				String source =

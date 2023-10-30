@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -52,6 +50,7 @@ import org.junit.Test;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.List;
 
 /**
  * Test for {@link GridBagConstraintsInfo}.
@@ -1212,7 +1211,7 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		IMenuManager alignmentManager;
 		{
 			MenuManager contextMenu = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, contextMenu);
+			panel.getBroadcastObject().addContextMenu(List.of(button), button, contextMenu);
 			alignmentManager = findChildMenuManager(contextMenu, managerText);
 			assertNotNull(alignmentManager);
 		}
@@ -1275,7 +1274,7 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		IMenuManager alignmentManager;
 		{
 			MenuManager contextMenu = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, contextMenu);
+			panel.getBroadcastObject().addContextMenu(List.of(button), button, contextMenu);
 			alignmentManager = findChildMenuManager(contextMenu, "Horizontal alignment");
 			assertNotNull(alignmentManager);
 		}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
@@ -36,6 +34,7 @@ import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -79,7 +78,7 @@ public class SurroundSupportTest extends SwingModelTest {
 						"}");
 		panel.refresh();
 		//
-		assertNoSurroundManager(panel, ImmutableList.<ObjectInfo>of());
+		assertNoSurroundManager(panel, Collections.emptyList());
 	}
 
 	/**
@@ -97,7 +96,7 @@ public class SurroundSupportTest extends SwingModelTest {
 		panel.refresh();
 		LayoutInfo layout = panel.getLayout();
 		//
-		assertNoSurroundManager(panel, ImmutableList.of(layout));
+		assertNoSurroundManager(panel, List.of(layout));
 	}
 
 	/**
@@ -119,7 +118,7 @@ public class SurroundSupportTest extends SwingModelTest {
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
-		assertNoSurroundManager(panel, ImmutableList.of(panel, button));
+		assertNoSurroundManager(panel, List.of(panel, button));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -274,7 +273,7 @@ public class SurroundSupportTest extends SwingModelTest {
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_3 = panel.getChildrenComponents().get(2);
 		// can not surround
-		assertNoSurroundManager(button_3, ImmutableList.of(button_1, button_3));
+		assertNoSurroundManager(button_3, List.of(button_1, button_3));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -732,7 +731,7 @@ public class SurroundSupportTest extends SwingModelTest {
 		ComponentInfo button_22 = getButtons(panel).get(0);
 		ComponentInfo button_44 = getButtons(panel).get(2);
 		// no surround
-		assertNoSurroundManager(panel, ImmutableList.of(button_22, button_44));
+		assertNoSurroundManager(panel, List.of(button_22, button_44));
 	}
 
 	/**
@@ -1070,7 +1069,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	private static IAction getSurroundAction(String actionText, ObjectInfo... objects)
 			throws Exception {
 		assertFalse(objects.length == 0);
-		IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.copyOf(objects));
+		IMenuManager surroundManager = createSurroundManager(objects[0], List.of(objects));
 		assertNotNull(surroundManager);
 		return findChildAction(surroundManager, actionText);
 	}

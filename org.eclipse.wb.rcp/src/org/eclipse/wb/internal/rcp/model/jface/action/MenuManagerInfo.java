@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -41,6 +39,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -354,7 +353,7 @@ IAdaptable {
 
 		@Override
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 
 		@Override

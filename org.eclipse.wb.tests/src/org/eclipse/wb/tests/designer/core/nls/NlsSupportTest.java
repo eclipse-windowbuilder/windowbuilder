@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -302,7 +301,7 @@ public class NlsSupportTest extends SwingModelTest {
 			preferencesRepairer.setValue(IPreferenceConstants.P_NLS_ALWAYS_VISIBLE_LOCALES, "de, ru_RU");
 			LocaleInfo[] locales = m_support.getLocales();
 			List<String> localeNames =
-					Lists.transform(ImmutableList.copyOf(locales), from -> from.toString());
+					Lists.transform(List.of(locales), from -> from.toString());
 			Assertions.assertThat(localeNames).hasSize(4).containsOnly("(default)", "it", "de", "ru_RU");
 		} finally {
 			preferencesRepairer.restore();

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.internal.core.model.generation.statement.AbstractInsideStatementGenerator;
@@ -19,6 +17,8 @@ import org.eclipse.wb.internal.core.model.generation.statement.StatementGenerato
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
 import org.eclipse.jdt.core.dom.Block;
+
+import java.util.List;
 
 /**
  * Implementation of {@link StatementGenerator} for virtual {@link LayoutDataInfo}.
@@ -37,7 +37,7 @@ public final class VirtualLayoutDataStatementGenerator extends AbstractInsideSta
 	@Override
 	public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
 		// prepare block
-		Block block = (Block) child.getEditor().addStatement(ImmutableList.of("{", "}"), target);
+		Block block = (Block) child.getEditor().addStatement(List.of("{", "}"), target);
 		// add statements in block
 		target = new StatementTarget(block, true);
 		add(child, target, null, association);

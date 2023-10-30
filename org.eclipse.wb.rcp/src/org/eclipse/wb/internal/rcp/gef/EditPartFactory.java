@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -28,6 +26,8 @@ import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
+import java.util.List;
+
 /**
  * Implementation of {@link IEditPartFactory} for RCP.
  *
@@ -36,8 +36,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.model"),
-					ImmutableList.of("org.eclipse.wb.internal.rcp.gef.part"));
+			new MatchingEditPartFactory(List.of("org.eclipse.wb.internal.rcp.model"),
+					List.of("org.eclipse.wb.internal.rcp.gef.part"));
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.MigLayout.model;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
@@ -423,7 +422,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			ClassInstanceCreation creation = creationSupport.getCreation();
 			getEditor().replaceCreationArguments(
 					creation,
-					ImmutableList.of(MessageFormat.format(
+					List.of(MessageFormat.format(
 							"{0}, {1}, {2}",
 							layoutConstraintsSource,
 							columnsSource,

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -24,6 +22,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,7 +72,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		List<Object> actions;
 		{
 			actions = new ArrayList<>();
-			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of();
+			List<ObjectInfo> selectedObjects = Collections.emptyList();
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		// no actions
@@ -101,7 +100,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		List<Object> actions;
 		{
 			actions = new ArrayList<>();
-			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button, shell);
+			List<ObjectInfo> selectedObjects = List.of(button, shell);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		// no actions
@@ -139,7 +138,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		// actions for "button"
 		{
 			List<Object> actions = new ArrayList<>();
-			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
+			List<ObjectInfo> selectedObjects = List.of(button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 			// check actions
 			hasAction(actions, "Left", true);
@@ -156,7 +155,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		// actions for "label", "button"
 		{
 			List<Object> actions = new ArrayList<>();
-			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(label, button);
+			List<ObjectInfo> selectedObjects = List.of(label, button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 			// check actions
 			hasAction(actions, "Left", true);
@@ -194,7 +193,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		List<Object> actions;
 		{
 			actions = new ArrayList<>();
-			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
+			List<ObjectInfo> selectedObjects = List.of(button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		// use "vertical grab" action
@@ -283,7 +282,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		List<Object> actions;
 		{
 			actions = new ArrayList<>();
-			List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
+			List<ObjectInfo> selectedObjects = List.of(button);
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		// set "right" alignment

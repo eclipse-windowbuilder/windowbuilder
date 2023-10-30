@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.util;
 
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableList;
 
 import static org.eclipse.wb.internal.core.model.util.TemplateUtils.addStatement;
 import static org.eclipse.wb.internal.core.model.util.TemplateUtils.evaluate;
@@ -203,8 +202,8 @@ public class TemplateUtilsTest extends SwingModelTest {
 						"}");
 		NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
 		// do resolve
-		List<String> lines = ImmutableList.of(getExpression(panel) + " a", getExpression(panel) + " b");
-		List<String> result = ImmutableList.of("this a", "this b");
+		List<String> lines = List.of(getExpression(panel) + " a", getExpression(panel) + " b");
+		List<String> result = List.of("this a", "this b");
 		Assertions.assertThat(resolve(nodeTarget, lines)).isEqualTo(result);
 	}
 
@@ -266,7 +265,7 @@ public class TemplateUtilsTest extends SwingModelTest {
 						"}");
 		StatementTarget target = getBlockTarget(panel, true);
 		// do resolve
-		addStatement(panel, target, ImmutableList.of(TemplateUtils.format("{0}", panel), "\t.setEnabled(false);"));
+		addStatement(panel, target, List.of(TemplateUtils.format("{0}", panel), "\t.setEnabled(false);"));
 		assertEditor(
 				"// filler filler filler",
 				"public class Test extends JPanel {",

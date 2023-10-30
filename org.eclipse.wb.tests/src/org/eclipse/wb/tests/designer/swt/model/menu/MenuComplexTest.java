@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
@@ -28,6 +26,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Tests for "popup" with several item's, sub-menu's, etc.
@@ -794,7 +794,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// load "paste" tool
 		{
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(itemInfo);
-			PasteTool pasteTool = new PasteTool(ImmutableList.of(memento));
+			PasteTool pasteTool = new PasteTool(List.of(memento));
 			m_viewerCanvas.getEditDomain().setActiveTool(pasteTool);
 		}
 		// move before "item": add before feedback
@@ -843,7 +843,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// load "paste" tool
 		{
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(buttonInfo);
-			PasteTool pasteTool = new PasteTool(ImmutableList.of(memento));
+			PasteTool pasteTool = new PasteTool(List.of(memento));
 			m_viewerCanvas.getEditDomain().setActiveTool(pasteTool);
 		}
 		// move on "bar"
@@ -890,7 +890,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// load "paste" tool
 		{
 			JavaInfoMemento memento = JavaInfoMemento.createMemento(buttonInfo);
-			PasteTool pasteTool = new PasteTool(ImmutableList.of(memento));
+			PasteTool pasteTool = new PasteTool(List.of(memento));
 			m_viewerCanvas.getEditDomain().setActiveTool(pasteTool);
 		}
 		// initially "popup" has no drop-down

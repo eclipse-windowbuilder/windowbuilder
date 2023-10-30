@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.gefTree;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
+
+import java.util.List;
 
 /**
  * {@link IEditPartFactory} for XML.
@@ -24,8 +24,8 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  */
 public final class EditPartFactory implements IEditPartFactory {
 	private final static IEditPartFactory MATCHING_FACTORY =
-			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.core.xml.model"),
-					ImmutableList.of("org.eclipse.wb.internal.core.xml.gefTree.part"));
+			new MatchingEditPartFactory(List.of("org.eclipse.wb.internal.core.xml.model"),
+					List.of("org.eclipse.wb.internal.core.xml.gefTree.part"));
 
 	////////////////////////////////////////////////////////////////////////////
 	//

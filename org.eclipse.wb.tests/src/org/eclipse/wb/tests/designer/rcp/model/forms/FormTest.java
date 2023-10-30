@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.forms;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.rcp.model.forms.FormInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo;
@@ -425,7 +423,7 @@ public class FormTest extends AbstractFormsTest {
 
 	private IAction getDecorateAction(FormInfo form) throws Exception {
 		IMenuManager manager = getDesignerMenuManager();
-		form.getBroadcastObject().addContextMenu(ImmutableList.of(form), form, manager);
+		form.getBroadcastObject().addContextMenu(List.of(form), form, manager);
 		IAction decorateAction = findChildAction(manager, "Decorate heading");
 		assertNotNull(decorateAction);
 		return decorateAction;

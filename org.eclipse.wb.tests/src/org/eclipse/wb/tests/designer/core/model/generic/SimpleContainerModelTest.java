@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.generic;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.Association;
@@ -45,6 +43,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -380,7 +379,7 @@ public class SimpleContainerModelTest extends SwingModelTest {
 		}
 
 		public List<ObjectInfo> getSimpleContainerChildren() {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 
 		public void command_CREATE(Object component) {
@@ -409,7 +408,7 @@ public class SimpleContainerModelTest extends SwingModelTest {
 		}
 		// isEmpty() == true, because no existing children
 		{
-			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+			when(container.getSimpleContainerChildren()).thenReturn(Collections.emptyList());
 			//
 			assertTrue(simpleContainer.isEmpty());
 			//
@@ -421,7 +420,7 @@ public class SimpleContainerModelTest extends SwingModelTest {
 			clearInvocations(container);
 			//
 			final TestObjectInfo existingChild = new TestObjectInfo();
-			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+			when(container.getSimpleContainerChildren()).thenReturn(List.of(existingChild));
 			//
 			assertFalse(simpleContainer.isEmpty());
 			//
@@ -432,7 +431,7 @@ public class SimpleContainerModelTest extends SwingModelTest {
 		{
 			clearInvocations(container);
 			//
-			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+			when(container.getSimpleContainerChildren()).thenReturn(Collections.emptyList());
 			//
 			assertSame(null, simpleContainer.getChild());
 			//
@@ -444,7 +443,7 @@ public class SimpleContainerModelTest extends SwingModelTest {
 			clearInvocations(container);
 			//
 			final TestObjectInfo existingChild = new TestObjectInfo();
-			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+			when(container.getSimpleContainerChildren()).thenReturn(List.of(existingChild));
 			//
 			assertSame(existingChild, simpleContainer.getChild());
 			//

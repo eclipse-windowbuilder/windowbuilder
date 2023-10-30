@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.utils;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -42,6 +40,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jdt.core.IJavaProject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -139,7 +138,7 @@ public final class GlobalStateXml {
 			if (object instanceof ComponentDescription) {
 				return ((ComponentDescription) object).getParameters();
 			}
-			return ImmutableMap.of();
+			return Collections.emptyMap();
 		}
 
 		@Override

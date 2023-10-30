@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.palette.ICategory;
@@ -59,6 +58,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -176,7 +176,7 @@ public class DesignerPalette {
 	 * Adds given {@link Command} to the list and writes commands.
 	 */
 	private void commands_addWrite(Command command) {
-		commands_addWrite(ImmutableList.of(command));
+		commands_addWrite(List.of(command));
 	}
 
 	/**
@@ -377,7 +377,7 @@ public class DesignerPalette {
 			public List<ICategory> getCategories() {
 				// check for skipping palette during tests
 				if (System.getProperty(FLAG_NO_PALETTE) != null) {
-					return ImmutableList.of();
+					return Collections.emptyList();
 				}
 				// get categories for palette model
 				final List<CategoryInfo> categoryInfoList;

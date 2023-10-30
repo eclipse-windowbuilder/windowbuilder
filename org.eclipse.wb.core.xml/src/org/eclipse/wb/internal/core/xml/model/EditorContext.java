@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
@@ -185,7 +183,7 @@ public abstract class EditorContext {
 	private static List<String> getBundleClassLoaderNamespaces(IConfigurationElement contributorElement) {
 		String namespacesString = contributorElement.getAttribute("namespaces");
 		if (namespacesString != null) {
-			return ImmutableList.copyOf(StringUtils.split(namespacesString));
+			return List.of(StringUtils.split(namespacesString));
 		}
 		return null;
 	}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.complex;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
@@ -56,6 +54,7 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -276,7 +275,7 @@ IConfigurablePropertyObject {
 				}
 				// evaluate new expression
 				String evaluateSource =
-						TemplateUtils.evaluate(source, javaInfo, ImmutableMap.<String, String>of());
+						TemplateUtils.evaluate(source, javaInfo, Collections.emptyMap());
 				property.setExpression(evaluateSource, Property.UNKNOWN_VALUE);
 				// create new instance info
 				{

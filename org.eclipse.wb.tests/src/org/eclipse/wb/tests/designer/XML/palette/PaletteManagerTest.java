@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.palette;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
@@ -39,6 +37,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests for {@link PaletteManager}.
@@ -819,7 +818,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"</category>"});
 		// parse and configure EditorState
 		XmlObjectInfo panel = parseEmptyPanel();
-		m_lastContext.addVersions(ImmutableMap.<String, Object>of("version", "3.5"));
+		m_lastContext.addVersions(Map.of("version", "3.5"));
 		//
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
@@ -835,7 +834,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"</category>"});
 		// parse and configure EditorState
 		XmlObjectInfo panel = parseEmptyPanel();
-		m_lastContext.addVersions(ImmutableMap.<String, Object>of("version", "2.1"));
+		m_lastContext.addVersions(Map.of("version", "2.1"));
 		//
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();
@@ -851,7 +850,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		"</category>"});
 		// parse and configure EditorState
 		XmlObjectInfo panel = parseEmptyPanel();
-		m_lastContext.addVersions(ImmutableMap.of("version", "2.1"));
+		m_lastContext.addVersions(Map.of("version", "2.1"));
 		//
 		PaletteInfo palette = loadPalette(panel);
 		assertNoErrors();

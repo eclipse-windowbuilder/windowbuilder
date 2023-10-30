@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -45,6 +42,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Constructor;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -197,7 +195,7 @@ IConfigurablePropertyObject {
 	 */
 	private void newClass_ANONYMOUS(GenericProperty genericProperty) throws Exception {
 		JavaInfo javaInfo = genericProperty.getJavaInfo();
-		String source = TemplateUtils.evaluate(m_source, javaInfo, ImmutableMap.<String, String>of());
+		String source = TemplateUtils.evaluate(m_source, javaInfo, Collections.emptyMap());
 		genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
 	}
 
@@ -213,8 +211,8 @@ IConfigurablePropertyObject {
 		{
 			newName = editor.getUniqueTypeName(m_baseName);
 			String newSource =
-					TemplateUtils.evaluate(m_source, javaInfo, ImmutableMap.of("name", newName));
-			newLines = ImmutableList.copyOf(StringUtils.split(newSource, "\r\n"));
+					TemplateUtils.evaluate(m_source, javaInfo, Map.of("name", newName));
+			newLines = List.of(StringUtils.split(newSource, "\r\n"));
 		}
 		// add type
 		{

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
@@ -38,6 +36,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -121,7 +120,7 @@ public final class ExpandItemInfo extends ItemInfo {
 		@Override
 		public List<ObjectInfo> getChildrenGraphical() throws Exception {
 			if (!isExpanded()) {
-				return ImmutableList.of();
+				return Collections.emptyList();
 			}
 			return getChildrenTree();
 		}

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.generic;
 
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.model.IRootProcessor;
@@ -26,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +90,7 @@ public final class LocalStaticFactoriesRootProcessor implements IRootProcessor {
 		AstEditor editor = rootJavaInfo.getEditor();
 		// quick check
 		if (!editor.getSource().contains("@wbp.factory")) {
-			return ImmutableMap.of();
+			return Collections.emptyMap();
 		}
 		// analyze
 		String editorTypeName = editor.getModelUnit().findPrimaryType().getFullyQualifiedName();
@@ -113,7 +112,7 @@ public final class LocalStaticFactoriesRootProcessor implements IRootProcessor {
 		for (FactoryMethodDescription methodDescription : descriptionsMap.values()) {
 			String factoryClassName = methodDescription.getDeclaringClass().getName();
 			AttributesProvider attributes =
-					AttributesProviders.get(ImmutableMap.of("signature", methodDescription.getSignature()));
+					AttributesProviders.get(Map.of("signature", methodDescription.getSignature()));
 			StaticFactoryEntryInfo entry =
 					new StaticFactoryEntryInfo(category, factoryClassName, attributes);
 			category.addEntry(entry);

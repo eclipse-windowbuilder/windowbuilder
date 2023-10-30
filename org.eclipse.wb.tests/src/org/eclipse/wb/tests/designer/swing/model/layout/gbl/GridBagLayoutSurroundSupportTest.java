@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagConstraintsInfo;
@@ -19,6 +17,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.util.SurroundSupportTest;
 
 import org.junit.Test;
+
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -81,7 +81,7 @@ public class GridBagLayoutSurroundSupportTest extends AbstractGridBagLayoutTest 
 		ComponentInfo button_00 = getJavaInfoByName("button_00");
 		ComponentInfo button_11 = getJavaInfoByName("button_11");
 		// no surround
-		SurroundSupportTest.assertNoSurroundManager(panel, ImmutableList.of(button_00, button_11));
+		SurroundSupportTest.assertNoSurroundManager(panel, List.of(button_00, button_11));
 	}
 
 	/**

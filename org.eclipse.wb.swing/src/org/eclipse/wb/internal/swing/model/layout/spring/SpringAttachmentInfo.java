@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.spring;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
@@ -350,7 +348,7 @@ public final class SpringAttachmentInfo {
 	 */
 	private NodeTarget getRequiredNodeTarget() throws Exception {
 		StatementTarget statementTarget =
-				JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.of(
+				JavaInfoUtils.getStatementTarget_whenAllCreated(List.of(
 						m_layout,
 						m_component,
 						m_anchorComponent));

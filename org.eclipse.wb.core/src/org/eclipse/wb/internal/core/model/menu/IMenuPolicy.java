@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.menu;
 
-import com.google.common.collect.ImmutableList;
-
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -131,7 +130,7 @@ public interface IMenuPolicy {
 
 		@Override
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 	};
 }

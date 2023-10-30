@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
@@ -1651,7 +1650,7 @@ public class ActionTest extends SwingModelTest {
 		panel.refresh();
 		// no "Set Action" expected
 		MenuManager designerMenu = getDesignerMenuManager();
-		panel.getBroadcastObject().addContextMenu(ImmutableList.of(panel), panel, designerMenu);
+		panel.getBroadcastObject().addContextMenu(List.of(panel), panel, designerMenu);
 		IMenuManager actionsMenu = findChildMenuManager(designerMenu, "Set Action");
 		assertNull(actionsMenu);
 	}
@@ -1680,7 +1679,7 @@ public class ActionTest extends SwingModelTest {
 		IAction runnable;
 		{
 			MenuManager designerMenu = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, designerMenu);
+			panel.getBroadcastObject().addContextMenu(List.of(button), button, designerMenu);
 			IMenuManager actionsMenu = findChildMenuManager(designerMenu, "Set Action");
 			runnable = findChildAction(actionsMenu, "m_action");
 			assertNotNull(runnable);
@@ -1730,7 +1729,7 @@ public class ActionTest extends SwingModelTest {
 		{
 			MenuManager designerMenu = getDesignerMenuManager();
 			panel.getBroadcastObject().addContextMenu(
-					ImmutableList.of(button_1, button_2),
+					List.of(button_1, button_2),
 					button_2,
 					designerMenu);
 			IMenuManager actionsMenu = findChildMenuManager(designerMenu, "Set Action");
@@ -1746,7 +1745,7 @@ public class ActionTest extends SwingModelTest {
 		{
 			MenuManager designerMenu = getDesignerMenuManager();
 			panel.getBroadcastObject().addContextMenu(
-					ImmutableList.of(button_1, button_2),
+					List.of(button_1, button_2),
 					button_1,
 					designerMenu);
 			IMenuManager actionsMenu = findChildMenuManager(designerMenu, "Set Action");
@@ -1798,7 +1797,7 @@ public class ActionTest extends SwingModelTest {
 		// do exclude
 		{
 			MenuManager designerMenu = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, designerMenu);
+			panel.getBroadcastObject().addContextMenu(List.of(button), button, designerMenu);
 			IMenuManager actionsMenu = findChildMenuManager(designerMenu, "Set Action");
 			IAction runnable = findChildAction(actionsMenu, "None");
 			runnable.run();
@@ -1838,7 +1837,7 @@ public class ActionTest extends SwingModelTest {
 		IAction runnable;
 		{
 			MenuManager designerMenu = getDesignerMenuManager();
-			panel.getBroadcastObject().addContextMenu(ImmutableList.of(button), button, designerMenu);
+			panel.getBroadcastObject().addContextMenu(List.of(button), button, designerMenu);
 			IMenuManager actionsMenu = findChildMenuManager(designerMenu, "Set Action");
 			runnable = findChildAction(actionsMenu, "New...");
 			assertNotNull(runnable);

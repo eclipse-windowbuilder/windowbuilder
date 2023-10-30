@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoAllProperties;
@@ -622,7 +619,7 @@ public abstract class ObjectInfo implements IObjectInfo {
 	 */
 	protected void refresh_finish() throws Exception {
 		List<ObjectInfo> children = getChildren();
-		children = ImmutableList.copyOf(getChildren());
+		children = List.copyOf(getChildren());
 		for (ObjectInfo child : children) {
 			child.refresh_finish();
 		}
@@ -672,7 +669,7 @@ public abstract class ObjectInfo implements IObjectInfo {
 		if (m_arbitraryMap != null) {
 			arbitraries = new HashMap<>(m_arbitraryMap);
 		} else {
-			arbitraries = ImmutableMap.of();
+			arbitraries = Collections.emptyMap();
 		}
 		return arbitraries;
 	}

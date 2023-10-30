@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.live;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -41,6 +39,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -179,12 +178,12 @@ public abstract class AbstractLiveManager {
 		// create method
 		m_tmpType =
 				m_editor.addTypeDeclaration(
-						ImmutableList.of("private static class __Tmp {", "}"),
+						List.of("private static class __Tmp {", "}"),
 						new BodyDeclarationTarget(typeDeclaration, false));
 		m_method =
 				m_editor.addMethodDeclaration(
 						"private static void __tmp()",
-						ImmutableList.copyOf(sourceLines),
+						List.of(sourceLines),
 						new BodyDeclarationTarget(m_tmpType, false));
 		m_editorState.setFlowDescription(new ExecutionFlowDescription(m_method));
 		// parse created method

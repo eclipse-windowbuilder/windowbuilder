@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.swingx;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -25,6 +23,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
 import java.awt.Component;
+import java.util.List;
 
 /**
  * Model for <code>org.jdesktop.swingx.JXTaskPane</code>.
@@ -70,7 +69,7 @@ public final class JXTaskPaneInfo extends JPanelInfo {
 		ComponentInfo newComponent =
 				(ComponentInfo) JavaInfoUtils.createJavaInfo(getEditor(), Component.class, creationSupport);
 		JavaInfoUtils.add(newComponent, AssociationObjects.invocationVoid(), this, nextComponent);
-		getBroadcastObject().select(ImmutableList.of(newComponent));
+		getBroadcastObject().select(List.of(newComponent));
 		return newComponent;
 	}
 }

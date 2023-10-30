@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 
@@ -24,6 +23,7 @@ import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +43,7 @@ public final class ScriptUtils {
 	 * Evaluates given script.
 	 */
 	public static Object evaluate(ClassLoader contextClassLoader, String script) {
-		Map<String, Object> variables = ImmutableMap.of();
+		Map<String, Object> variables = Collections.emptyMap();
 		return evaluate(contextClassLoader, script, variables);
 	}
 

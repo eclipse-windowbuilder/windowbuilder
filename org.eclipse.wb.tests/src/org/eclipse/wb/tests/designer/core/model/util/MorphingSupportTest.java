@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
 import org.eclipse.wb.core.model.association.FactoryParentAssociation;
@@ -933,7 +931,7 @@ public class MorphingSupportTest extends SwingModelTest {
 	private static IMenuManager getMorphManager(JavaInfo component) throws Exception {
 		MenuManager menuManager = getDesignerMenuManager();
 		component.getBroadcastObject().addContextMenu(
-				ImmutableList.of(component),
+				List.of(component),
 				component,
 				menuManager);
 		return findChildMenuManager(menuManager, "Morph");

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
@@ -20,6 +18,8 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfoComparator;
 
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+
+import java.util.List;
 
 /**
  * Composite for selecting named color (HTML or SVG).
@@ -35,12 +35,12 @@ public final class NamedColorsComposite extends AbstractColorsGridComposite {
 	////////////////////////////////////////////////////////////////////////////
 	public NamedColorsComposite(Composite parent, int style, AbstractColorDialog colorDialog) {
 		super(parent, style, colorDialog);
-		createSortGroup(this, ImmutableList.of(
+		createSortGroup(this, List.of(
 				Messages.NamedColorsComposite_sortTone,
 				Messages.NamedColorsComposite_sortHue,
 				Messages.NamedColorsComposite_sortSaturation,
 				Messages.NamedColorsComposite_sortLightness,
-				Messages.NamedColorsComposite_sortName), ImmutableList.of(
+				Messages.NamedColorsComposite_sortName), List.of(
 						ColorInfoComparator.TONE,
 						ColorInfoComparator.HUE,
 						ColorInfoComparator.SATURATION,

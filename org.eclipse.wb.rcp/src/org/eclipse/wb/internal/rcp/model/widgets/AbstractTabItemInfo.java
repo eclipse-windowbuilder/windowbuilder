@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
@@ -37,6 +35,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -155,9 +154,9 @@ public abstract class AbstractTabItemInfo extends ItemInfo {
 		public List<ObjectInfo> getChildrenTree() throws Exception {
 			ControlInfo control = getControl();
 			if (control != null) {
-				return ImmutableList.<ObjectInfo>of(control);
+				return List.of(control);
 			} else {
-				return ImmutableList.of();
+				return Collections.emptyList();
 			}
 		}
 	};

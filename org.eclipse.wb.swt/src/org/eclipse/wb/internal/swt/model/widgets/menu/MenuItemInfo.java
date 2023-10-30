@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets.menu;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -45,6 +43,7 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -370,7 +369,7 @@ org.eclipse.wb.internal.core.utils.IAdaptable {
 
 		@Override
 		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 
 		@Override

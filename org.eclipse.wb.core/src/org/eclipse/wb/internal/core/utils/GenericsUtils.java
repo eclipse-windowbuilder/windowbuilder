@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
@@ -23,6 +22,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -190,9 +190,9 @@ public final class GenericsUtils {
 	 */
 	public static <T, E extends T> List<T> singletonList(E element) {
 		if (element == null) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
-		return ImmutableList.<T>of(element);
+		return List.of(element);
 	}
 
 	/**

@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.resource;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.jdt.core.IJavaProject;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,6 +41,6 @@ public final class EmptyDescriptionVersionsProvider implements IDescriptionVersi
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public List<String> getVersions(Class<?> componentClass) throws Exception {
-		return ImmutableList.of();
+		return Collections.emptyList();
 	}
 }

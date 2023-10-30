@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -51,6 +49,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -168,11 +167,11 @@ public class DomGenerics {
 
 	public static List<Statement> statements(MethodDeclaration method) {
 		if (method == null) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 		Block body = method.getBody();
 		if (body == null) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 		return statements(body);
 	}

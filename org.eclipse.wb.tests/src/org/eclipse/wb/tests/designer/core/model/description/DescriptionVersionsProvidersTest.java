@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.description;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
@@ -70,7 +68,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	@Test
 	public void test_providerFromList_noCurrentInList() throws Exception {
 		try {
-			new FromListDescriptionVersionsProvider(ImmutableList.of("1.0", "2.0", "3.0"), "2.1") {
+			new FromListDescriptionVersionsProvider(List.of("1.0", "2.0", "3.0"), "2.1") {
 				@Override
 				protected boolean validate(Class<?> componentClass) throws Exception {
 					return false;
@@ -86,7 +84,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_providerFromList_getVersions_middleVersion() throws Exception {
-		List<String> allVersions = ImmutableList.of("1.0", "2.0", "3.0");
+		List<String> allVersions = List.of("1.0", "2.0", "3.0");
 		String currentVersion = "2.0";
 		FromListDescriptionVersionsProvider provider =
 				new FromListDescriptionVersionsProvider(allVersions, currentVersion) {
@@ -103,7 +101,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 		// valid Class, "1.0" and "2.0" expected
 		{
 			List<String> versions = provider.getVersions(JButton.class);
-			Assertions.assertThat(versions).isEqualTo(ImmutableList.of("2.0", "1.0"));
+			Assertions.assertThat(versions).isEqualTo(List.of("2.0", "1.0"));
 		}
 	}
 
@@ -112,7 +110,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_providerFromList_getVersions_latestVersion() throws Exception {
-		List<String> allVersions = ImmutableList.of("1.0", "2.0", "3.0");
+		List<String> allVersions = List.of("1.0", "2.0", "3.0");
 		String currentVersion = "3.0";
 		FromListDescriptionVersionsProvider provider =
 				new FromListDescriptionVersionsProvider(allVersions, currentVersion) {
@@ -123,7 +121,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 		};
 		//
 		List<String> versions = provider.getVersions(JButton.class);
-		Assertions.assertThat(versions).isEqualTo(ImmutableList.of("3.0", "2.0", "1.0"));
+		Assertions.assertThat(versions).isEqualTo(List.of("3.0", "2.0", "1.0"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

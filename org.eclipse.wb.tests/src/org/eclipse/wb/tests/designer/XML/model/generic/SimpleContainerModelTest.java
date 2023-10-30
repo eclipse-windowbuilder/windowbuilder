@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model.generic;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidator;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
@@ -44,6 +42,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -339,7 +338,7 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
 		}
 
 		public List<ObjectInfo> getSimpleContainerChildren() {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 
 		public void command_CREATE(Object component) {
@@ -368,7 +367,7 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
 			simpleContainer = new SimpleContainerConfigurable(container, configuration);
 		}
 		// isEmpty() == true, because no existing children
-		when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+		when(container.getSimpleContainerChildren()).thenReturn(Collections.emptyList());
 		//
 		assertTrue(simpleContainer.isEmpty());
 		//
@@ -378,7 +377,7 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
 		clearInvocations(container);
 		//
 		TestObjectInfo existingChild = new TestObjectInfo();
-		when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+		when(container.getSimpleContainerChildren()).thenReturn(List.of(existingChild));
 		//
 		assertFalse(simpleContainer.isEmpty());
 		//
@@ -387,7 +386,7 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
 		// getChild() == null, because no existing children
 		clearInvocations(container);
 		//
-		when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+		when(container.getSimpleContainerChildren()).thenReturn(Collections.emptyList());
 		//
 		assertSame(null, simpleContainer.getChild());
 		//
@@ -396,7 +395,7 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
 		// getChild() != null, because return existing child
 		clearInvocations(container);
 		//
-		when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+		when(container.getSimpleContainerChildren()).thenReturn(List.of(existingChild));
 		//
 		assertSame(existingChild, simpleContainer.getChild());
 		//

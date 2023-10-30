@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -124,7 +122,7 @@ public final class LafSupport {
 	 */
 	public static List<CategoryInfo> getLAFCategoriesList() {
 		createLAFList();
-		return ImmutableList.copyOf(m_lafList);
+		return List.copyOf(m_lafList);
 	}
 
 	/**

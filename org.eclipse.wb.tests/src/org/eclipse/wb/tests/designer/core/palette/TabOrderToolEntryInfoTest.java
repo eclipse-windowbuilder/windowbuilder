@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.palette;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -29,6 +27,9 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InOrder;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Test for {@link TabOrderToolEntryInfo}.
@@ -55,7 +56,7 @@ public class TabOrderToolEntryInfoTest extends AbstractPaletteTest {
 		IEditPartViewer viewer;
 		{
 			viewer = mock(IEditPartViewer.class);
-			when(viewer.getSelectedEditParts()).thenReturn(ImmutableList.<EditPart>of());
+			when(viewer.getSelectedEditParts()).thenReturn(Collections.emptyList());
 		}
 		// check tool
 		assertTrue(entry.initialize(viewer, panel));
@@ -88,7 +89,7 @@ public class TabOrderToolEntryInfoTest extends AbstractPaletteTest {
 			//
 			when(selectedEditPart.getViewer()).thenReturn(viewer);
 			when(selectedEditPart.getEditPolicy(TabOrderContainerEditPolicy.TAB_CONTAINER_ROLE)).thenReturn(tabContainerRole);
-			when(viewer.getSelectedEditParts()).thenReturn(ImmutableList.of(selectedEditPart));
+			when(viewer.getSelectedEditParts()).thenReturn(List.of(selectedEditPart));
 		}
 		// check tool
 		assertTrue(entry.initialize(viewer, panel));

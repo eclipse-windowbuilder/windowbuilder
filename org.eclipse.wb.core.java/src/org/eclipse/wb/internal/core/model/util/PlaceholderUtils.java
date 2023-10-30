@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.ImmutableList;
-
 import org.eclipse.wb.core.model.JavaInfo;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -69,7 +68,7 @@ public final class PlaceholderUtils {
 	 */
 	public static List<Throwable> getExceptions(ASTNode node) {
 		List<Throwable> exceptions = getExceptions0(node);
-		return exceptions != null ? exceptions : ImmutableList.<Throwable>of();
+		return exceptions != null ? exceptions : Collections.emptyList();
 	}
 
 	/**
