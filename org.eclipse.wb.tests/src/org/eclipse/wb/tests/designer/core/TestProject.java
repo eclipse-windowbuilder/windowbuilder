@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,12 +51,14 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.logging.Logger;
 
 /**
  * @author Erich Gamma
  * @author scheglov_ke
  */
 public class TestProject {
+	private static final Logger LOGGER = Logger.getLogger("TestProject");
 	private final IProject m_project;
 	private final IJavaProject m_javaProject;
 
@@ -304,7 +306,8 @@ public class TestProject {
 				return packageRoot;
 			}
 		}
-		throw new IllegalStateException("Can not find source folder.");
+		LOGGER.warning("Can not find source folder, new one is created instead...");
+		return createSourceFolder();
 	}
 
 	/**
