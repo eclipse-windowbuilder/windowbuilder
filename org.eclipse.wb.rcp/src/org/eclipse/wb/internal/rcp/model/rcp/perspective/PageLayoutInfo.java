@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
-
-import com.google.common.base.Predicate;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -785,12 +783,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 				usedIDs.add(part.getId());
 			}
 			// do generate unique
-			folderId = CodeUtils.generateUniqueName("folder", new Predicate<String>() {
-				@Override
-				public boolean apply(String t) {
-					return !usedIDs.contains(t);
-				}
-			});
+			folderId = CodeUtils.generateUniqueName("folder", t -> !usedIDs.contains(t));
 		}
 		// prepare CreationSupport
 		CreationSupport creationSupport;

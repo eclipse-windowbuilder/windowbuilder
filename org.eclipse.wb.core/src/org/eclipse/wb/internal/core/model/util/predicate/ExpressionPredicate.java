@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.predicate;
 
-import com.google.common.base.Predicate;
-
 import org.mvel2.MVEL;
+
+import java.util.function.Predicate;
 
 /**
  * {@link Predicate} that evaluates its value using some script expressions, currently using MVEL.
@@ -48,7 +48,7 @@ public final class ExpressionPredicate<T> implements Predicate<T> {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean apply(T t) {
+	public boolean test(T t) {
 		return MVEL.evalToBoolean(m_expression, t);
 	}
 }

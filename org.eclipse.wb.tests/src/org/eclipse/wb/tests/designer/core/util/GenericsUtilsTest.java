@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.internal.core.utils.GenericTypeError;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -33,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Tests for {@link GenericsUtils}.
@@ -472,12 +471,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	@Test
 	public void test_getEnumValues_filter() throws Exception {
 		MyEnum[] expectedValues = new MyEnum[]{MyEnum.B, MyEnum.C};
-		MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, new Predicate<MyEnum>() {
-			@Override
-			public boolean apply(MyEnum t) {
-				return t == MyEnum.B || t == MyEnum.C;
-			}
-		});
+		MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, t -> t == MyEnum.B || t == MyEnum.C);
 		Assertions.assertThat(actualValues).isEqualTo(expectedValues);
 	}
 

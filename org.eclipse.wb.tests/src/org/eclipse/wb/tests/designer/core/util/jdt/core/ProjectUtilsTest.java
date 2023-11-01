@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.jdt.core;
-
-import com.google.common.base.Predicate;
 
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
@@ -51,6 +49,7 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Tests for {@link ProjectUtils}.
@@ -796,12 +795,9 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			assertEquals("/TestProject/src", rawClasspath[1].getPath().toPortableString());
 		}
 		// remove "src"
-		ProjectUtils.removeClasspathEntries(m_javaProject, new Predicate<IClasspathEntry>() {
-			@Override
-			public boolean apply(IClasspathEntry entry) {
-				String location = entry.getPath().toPortableString();
-				return location.endsWith("/src");
-			}
+		ProjectUtils.removeClasspathEntries(m_javaProject, entry -> {
+			String location = entry.getPath().toPortableString();
+			return location.endsWith("/src");
 		});
 		// has only JRE_CONTAINER
 		{

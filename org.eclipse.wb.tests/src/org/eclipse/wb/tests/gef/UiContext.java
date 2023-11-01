@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -44,6 +42,7 @@ import org.apache.commons.lang.exception.NestableException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Helper for testing SWT UI.
@@ -184,24 +183,14 @@ public class UiContext {
 	 * @return the {@link Button} with given text.
 	 */
 	public Button getButtonByTextPrefix(final String prefix) {
-		return getButton(getShell(), new Predicate<String>() {
-			@Override
-			public boolean apply(String input) {
-				return input != null && input.startsWith(prefix);
-			}
-		});
+		return getButton(getShell(), input -> input != null && input.startsWith(prefix));
 	}
 
 	/**
 	 * @return the {@link Button} with given text.
 	 */
 	public Button getButtonByText(Widget start, final String text) {
-		return getButton(start, new Predicate<String>() {
-			@Override
-			public boolean apply(String input) {
-				return isSameText(input, text);
-			}
-		});
+		return getButton(start, input -> isSameText(input, text));
 	}
 
 	/**
@@ -213,7 +202,7 @@ public class UiContext {
 			@Override
 			public void endVisit(Widget widget) {
 				if (widget instanceof Button button) {
-					if (predicate.apply(button.getText()) || predicate.apply(button.getToolTipText())) {
+					if (predicate.test(button.getText()) || predicate.test(button.getToolTipText())) {
 						result[0] = button;
 					}
 				}

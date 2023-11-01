@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -20,6 +18,8 @@ import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import java.util.function.Predicate;
 
 /**
  * Tester for feedbacks on {@link IEditPartViewer#MENU_FEEDBACK_LAYER}.
@@ -54,12 +54,7 @@ public final class MenuFeedbackTester {
 			FigureUtils.translateFigureToAbsolute(part.getFigure(), partBounds);
 		}
 		// return predicate
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Figure feedback) {
-				return partBounds.equals(feedback.getBounds());
-			}
-		};
+		return feedback -> partBounds.equals(feedback.getBounds());
 	}
 
 	private Predicate<Figure> getSelectionPredicate(Object object) {

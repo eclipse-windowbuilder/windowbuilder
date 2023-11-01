@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.rcp.model.jface.ApplicationWindowInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
@@ -69,12 +66,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 		canvas.assertNoFeedbacks();
 		// move on "shell": target feedback appears
 		canvas.moveTo(shell);
-		canvas.assertFeedbacks(new Predicate<Figure>() {
-			@Override
-			public boolean apply(Figure t) {
-				return t.getSize().width > 200;
-			}
-		});
+		canvas.assertFeedbacks(t -> t.getSize().width > 200);
 		// click, so drop "newMenu"
 		canvas.click();
 		canvas.assertNoFeedbacks();

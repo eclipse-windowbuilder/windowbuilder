@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.creation;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -92,6 +89,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 
 /**
  * Implementation of {@link CreationSupport} for subclasses.
@@ -106,7 +104,7 @@ public final class ThisCreationSupport extends CreationSupport {
 	private CreationSupportUtils m_utils;
 	private EditorState m_editorState;
 	private boolean m_interceptOnlyDuringExecution;
-	private Predicate<Method> m_methodInterceptorPredicate = Predicates.alwaysTrue();
+	private Predicate<Method> m_methodInterceptorPredicate = o -> true;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -464,18 +462,15 @@ public final class ThisCreationSupport extends CreationSupport {
 			}
 		}
 		// use as Predicate
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Method method) {
-				String declaringClassName = method.getDeclaringClass().getName();
-				String declaringPackage = CodeUtils.getPackage(declaringClassName);
-				ExcludedPackage excludedPackage = excludedPackages.get(declaringPackage);
-				if (excludedPackage != null) {
-					String signature = ReflectionUtils.getMethodSignature(method);
-					return excludedPackage.exceptions.contains(signature);
-				}
-				return true;
+		return method -> {
+			String declaringClassName = method.getDeclaringClass().getName();
+			String declaringPackage = CodeUtils.getPackage(declaringClassName);
+			ExcludedPackage excludedPackage = excludedPackages.get(declaringPackage);
+			if (excludedPackage != null) {
+				String signature = ReflectionUtils.getMethodSignature(method);
+				return excludedPackage.exceptions.contains(signature);
 			}
+			return true;
 		};
 	}
 
@@ -528,7 +523,7 @@ public final class ThisCreationSupport extends CreationSupport {
 			}
 		}
 		// class level predicate
-		return m_methodInterceptorPredicate.apply(method);
+		return m_methodInterceptorPredicate.test(method);
 	}
 
 	/**

@@ -10,12 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model.generic;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
+import org.eclipse.wb.internal.core.model.util.predicate.AlwaysPredicate;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -41,6 +39,7 @@ import org.mockito.InOrder;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Test for {@link FlowContainer} and {@link FlowContainerConfigurable} models.
@@ -497,7 +496,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 
 	private static String getHorizontalPredicateString(FlowContainerConfiguration configuration) {
 		Predicate<Object> predicate = configuration.getHorizontalPredicate();
-		if (predicate == Predicates.alwaysTrue()) {
+		if (predicate instanceof AlwaysPredicate && ReflectionUtils.getFieldBoolean(predicate, "m_value")) {
 			return "alwaysTrue";
 		}
 		return predicate.toString();
@@ -606,8 +605,8 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		final InOrder inOrder = inOrder(component, nextComponent, container);
 		final FlowContainer flowContainer =
 				new FlowContainerConfigurable(container,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true,
+								o -> false,
 								Associations.direct(),
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue()));
@@ -640,8 +639,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		final InOrder inOrder = inOrder(component, oldContainer, nextComponent, container);
 		final FlowContainer flowContainer =
 				new FlowContainerConfigurable(container,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true, o -> false,
 								Associations.direct(),
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue()));
@@ -671,8 +669,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		final InOrder inOrder = inOrder(component, nextComponent, container);
 		final FlowContainer flowContainer =
 				new FlowContainerConfigurable(container,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true, o -> false,
 								Associations.direct(),
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue()));
@@ -697,7 +694,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		final InOrder inOrder = inOrder(container, component, reference, configuration);
 		final FlowContainer flowContainer = new FlowContainerConfigurable(container, configuration);
 		// isHorizontal()
-		when(configuration.getHorizontalPredicate()).thenReturn(Predicates.alwaysTrue());
+		when(configuration.getHorizontalPredicate()).thenReturn(o -> true);
 		//
 		assertTrue(flowContainer.isHorizontal());
 		//
@@ -812,8 +809,8 @@ public class FlowContainerModelTest extends AbstractCoreTest {
 		// prepare FlowContainer
 		FlowContainer flowContainer =
 				new FlowContainerConfigurable(panel,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true,
+								o -> false,
 								Associations.direct(),
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue()));

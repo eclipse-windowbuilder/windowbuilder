@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.property.editor;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -31,6 +29,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+
+import java.util.function.Predicate;
 
 /**
  * {@link PropertyEditor} for selecting model of {@link Object} in XWT.
@@ -129,7 +129,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 		final ITreeContentProvider[] contentProvider = new ITreeContentProvider[1];
 		contentProvider[0] = new ObjectsTreeContentProvider(new Predicate<ObjectInfo>() {
 			@Override
-			public boolean apply(ObjectInfo t) {
+			public boolean test(ObjectInfo t) {
 				return isValidComponent(propertyType, t) || hasValidComponents(t);
 			}
 

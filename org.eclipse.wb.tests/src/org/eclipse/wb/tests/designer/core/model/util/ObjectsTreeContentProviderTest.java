@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.util.ObjectsTreeContentProvider;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
@@ -21,6 +19,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+
+import java.util.function.Predicate;
 
 /**
  * Test for {@link ObjectsTreeContentProvider}.
@@ -36,12 +36,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
 		parent.addChild(child_1);
 		parent.addChild(child_2);
 		// prepare ITreeContentProvider
-		Predicate<ObjectInfo> predicate = new Predicate<>() {
-			@Override
-			public boolean apply(ObjectInfo t) {
-				return t != child_2;
-			}
-		};
+		Predicate<ObjectInfo> predicate = t -> t != child_2;
 		ITreeContentProvider contentProvider = new ObjectsTreeContentProvider(predicate);
 		// check ITreeContentProvider
 		Assertions.assertThat(contentProvider.getElements(new Object[]{parent})).containsOnly(parent);

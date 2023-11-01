@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.factory;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -564,12 +563,7 @@ public final class FactoryCreateAction extends Action {
 	 * @return the new generated identifier.
 	 */
 	private static String generateUniqueIdentifier(final Set<String> usedIdentifiers, String baseName) {
-		String newIdentifier = CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
-			@Override
-			public boolean apply(String t) {
-				return !usedIdentifiers.contains(t);
-			}
-		});
+		String newIdentifier = CodeUtils.generateUniqueName(baseName, t -> !usedIdentifiers.contains(t));
 		usedIdentifiers.add(newIdentifier);
 		return newIdentifier;
 	}

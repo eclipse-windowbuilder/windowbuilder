@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -62,6 +61,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 /**
  * Helper for working with PDE model.
@@ -250,12 +250,7 @@ public final class PdeUtils {
 	 */
 	public String generateUniqueID(String baseId) {
 		final Set<String> idSet = getIDSet();
-		return CodeUtils.generateUniqueName(baseId, new Predicate<String>() {
-			@Override
-			public boolean apply(String t) {
-				return !idSet.contains(t);
-			}
-		});
+		return CodeUtils.generateUniqueName(baseId, t -> !idSet.contains(t));
 	}
 
 	/**

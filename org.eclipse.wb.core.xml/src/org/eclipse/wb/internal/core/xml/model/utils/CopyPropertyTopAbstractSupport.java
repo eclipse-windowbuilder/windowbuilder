@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.utils;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.MapMaker;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -26,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * This helper allows to create top-level {@link Property} as copy of other {@link Property}
@@ -140,7 +140,7 @@ public abstract class CopyPropertyTopAbstractSupport {
 		private Property m_oldCopy;
 
 		public void addCopy(XmlObjectInfo object, List<Property> properties) throws Exception {
-			if (m_targetPredicate.apply(object)) {
+			if (m_targetPredicate.test(object)) {
 				Property copy = getCopy(properties);
 				if (copy != null) {
 					properties.add(copy);

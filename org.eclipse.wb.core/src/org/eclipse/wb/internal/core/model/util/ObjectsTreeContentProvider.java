@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,15 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Implementation of {@link ITreeContentProvider} for {@link ObjectInfo}.
@@ -59,9 +56,10 @@ public final class ObjectsTreeContentProvider implements ITreeContentProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		List<ObjectInfo> children = ((ObjectInfo) parentElement).getChildren();
-		Iterable<ObjectInfo> filtered = Iterables.filter(children, m_predicate);
-		return Iterables.toArray(filtered, ObjectInfo.class);
+		return ((ObjectInfo) parentElement).getChildren() //
+				.stream() //
+				.filter(m_predicate) //
+				.toArray();
 	}
 
 	@Override

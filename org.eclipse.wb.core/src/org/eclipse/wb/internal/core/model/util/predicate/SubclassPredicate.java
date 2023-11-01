@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.predicate;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import java.util.function.Predicate;
 
 /**
  * {@link Predicate} that checks that given {@link Object} has compatible class.
@@ -38,7 +38,7 @@ public final class SubclassPredicate implements Predicate<Object> {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean apply(Object t) {
+	public boolean test(Object t) {
 		return ReflectionUtils.isAssignableFrom(m_superClass, t);
 	}
 }

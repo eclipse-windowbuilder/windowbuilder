@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -25,6 +24,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Tests for {@link PropertyUtils}.
@@ -252,15 +252,15 @@ public class PropertyUtilsTest extends SwingModelTest {
 		Predicate<Property> predicate = PropertyUtils.getExcludeByTitlePredicate("a", "c");
 		{
 			Property property = new PropertyWithTitle("a");
-			assertFalse(predicate.apply(property));
+			assertFalse(predicate.test(property));
 		}
 		{
 			Property property = new PropertyWithTitle("b");
-			assertTrue(predicate.apply(property));
+			assertTrue(predicate.test(property));
 		}
 		{
 			Property property = new PropertyWithTitle("c");
-			assertFalse(predicate.apply(property));
+			assertFalse(predicate.test(property));
 		}
 	}
 
@@ -272,15 +272,15 @@ public class PropertyUtilsTest extends SwingModelTest {
 		Predicate<Property> predicate = PropertyUtils.getIncludeByTitlePredicate("a", "c");
 		{
 			Property property = new PropertyWithTitle("a");
-			assertTrue(predicate.apply(property));
+			assertTrue(predicate.test(property));
 		}
 		{
 			Property property = new PropertyWithTitle("b");
-			assertFalse(predicate.apply(property));
+			assertFalse(predicate.test(property));
 		}
 		{
 			Property property = new PropertyWithTitle("c");
-			assertTrue(predicate.apply(property));
+			assertTrue(predicate.test(property));
 		}
 	}
 
@@ -345,15 +345,15 @@ public class PropertyUtilsTest extends SwingModelTest {
 				PropertyUtils.getExcludeByTitlePredicate(panel, "exclude-parameter");
 		{
 			Property property = new PropertyWithTitle("a");
-			assertFalse(predicate.apply(property));
+			assertFalse(predicate.test(property));
 		}
 		{
 			Property property = new PropertyWithTitle("b");
-			assertTrue(predicate.apply(property));
+			assertTrue(predicate.test(property));
 		}
 		{
 			Property property = new PropertyWithTitle("c");
-			assertFalse(predicate.apply(property));
+			assertFalse(predicate.test(property));
 		}
 	}
 
