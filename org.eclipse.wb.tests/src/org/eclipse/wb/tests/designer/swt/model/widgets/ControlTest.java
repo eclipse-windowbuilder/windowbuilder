@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
 import org.eclipse.wb.core.model.association.RootAssociation;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.model.util.PlaceholderUtils;
@@ -40,6 +41,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import static org.junit.Assume.assumeTrue;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -67,6 +70,7 @@ public class ControlTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MethodMain() throws Exception {
+		assumeTrue(EnvironmentUtils.IS_WINDOWS);
 		CompositeInfo shellInfo =
 				parseComposite(
 						"class Test {",

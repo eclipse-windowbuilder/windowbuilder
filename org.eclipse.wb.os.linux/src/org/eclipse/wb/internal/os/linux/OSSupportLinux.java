@@ -10,21 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.linux;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -50,11 +46,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		System.loadLibrary("wbp3");
 	}
 
-	// constants
-	private static final Color TITLE_BORDER_COLOR_DARKEST =
-			DrawUtils.getShiftedColor(IColorConstants.titleBackground, -24);
-	private static final Color TITLE_BORDER_COLOR_DARKER =
-			DrawUtils.getShiftedColor(IColorConstants.titleBackground, -16);
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance
@@ -249,7 +240,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 *                 model. Can be <code>null</code>.
 	 * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
 	 */
-	protected abstract Image makeShot(Shell shell, BiConsumer<H, Image> callback);
+	protected abstract Image makeShot(Shell shell, BiConsumer<H, Image> callback) throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -368,19 +359,16 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		return newImage;
 	}
 
+	private Image createImage(H windowHandle, int width, int height) throws Exception {
+		H imageHandle = _getImageSurface(windowHandle, width, height);
+		return createImage(imageHandle);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Menu
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception {
-		// create new image and fetch item sizes
-		H handle = getHandleValue(menu, "handle");
-		H imageHandle = _fetchMenuVisualData(handle, bounds);
-		// set new handle to image
-		return createImage(imageHandle);
-	}
 
 	/**
 	 * Fetches the all menu bar item's bounds and returns as {@link List} of {@link Rectangle}.
@@ -399,12 +387,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 */
 	@Override
 	public final Rectangle getMenuBarBounds(Menu menu) {
-		Rectangle bounds = getWidgetBounds(menu);
-		Shell shell = menu.getShell();
-		Point p = shell.toControl(shell.getLocation());
-		p.x = -p.x;
-		p.y = -p.y - bounds.height;
-		return new Rectangle(p.x, p.y, bounds.width, bounds.height);
+		return getWidgetBounds(menu);
 	}
 
 	@Override
@@ -544,15 +527,17 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	private static native <H extends Number> void _getWidgetBounds(H widgetHandle, int[] bounds);
 
 	/**
-	 * Fetches the menu data: returns item bounds as plain array and the image handle of menu image.
+	 * Paints the surface of the given window onto a image. The image is created
+	 * within the native C code and its handle returned by this method. The caller
+	 * of this method needs to ensure that this handle is disposed properly. The
+	 * size of the image matches {@code width} and {@code height}.
 	 *
-	 * @param menuHandle
-	 *          the handle (GtkWidget*) of menu.
-	 * @param bounds
-	 *          the array of integer with size 4 * menu item count.
-	 * @return the GdkPixmap* or cairo_surface_t* of menu widget.
+	 * @param windowHandle The memory address of the window to capture.
+	 * @param width        The width of the window.
+	 * @param height       The height of the window.
+	 * @return The memory address of the image handle.
 	 */
-	private static native <H extends Number> H _fetchMenuVisualData(H menuHandle, int[] bounds);
+	private static native <H extends Number> H _getImageSurface(H windowHandle, int width, int height);
 
 	/**
 	 * Toggles the "above" X Window property. If <code>forceToggle</code> is <code>false</code> then
@@ -743,7 +728,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 					0);
 		}
 
-		protected Image getImageSurface(Shell shell, Long window, BiConsumer<Long, Image> callback) {
+		protected Image getImageSurface(Long window, BiConsumer<Long, Image> callback) throws Exception {
 			if (!_gdk_window_is_visible(window)) {
 				// don't deal with unmapped windows
 				return null;
@@ -757,7 +742,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 			long[] widget = new long[1];
 			gdk("gdk_window_get_user_data(long,long[])", window, widget);
 			// take screenshot
-			Image image = getImageSurface(shell, widget[0], new Rectangle(x[0], y[0], width[0], height[0]));
+			Image image = super.createImage(window, width[0], height[0]);
 			// get Java code notified
 			if (callback != null) {
 				callback.accept(widget[0], image);
@@ -766,48 +751,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 			return image;
 		}
 
-		private Image getImageSurface(Shell shell, Long widget, Rectangle surface) {
-			// Take a shot of the entire shell, not just the client area.
-			if (shell.getDisplay().findWidget(widget) instanceof Shell) {
-				return getImageSurface(shell);
-			}
-
-			return getImageSurface(shell, surface);
-		}
-
-		private Image getImageSurface(Shell shell) {
-			Image image = new Image(shell.getDisplay(), shell.getBounds());
-			Point location = shell.getLocation();
-			GC gc = new GC(shell.getDisplay());
-			gc.copyArea(image, location.x, location.y);
-			gc.dispose();
-			return image;
-		}
-
-		private Image getImageSurface(Shell shell, Rectangle surface) {
-			// Wayland: Trying to take a screenshot of a partially unmapped widget
-			// results in a SIGFAULT.
-			Rectangle visibleSurface = shell.getClientArea().intersection(surface);
-
-			// Create "dummy" image in case of unmapped widget
-			if (visibleSurface.width <= 0 || visibleSurface.height <= 0) {
-				return new Image(shell.getDisplay(), 1, 1);
-			}
-
-			// Wayland: Trying to use the shell as a drawable results in a SIGFAULT.
-			// Use the display instead.
-			Point location = shell.toDisplay(visibleSurface.x, visibleSurface.y);
-
-			Image image = new Image(shell.getDisplay(), visibleSurface);
-			GC gc = new GC(shell.getDisplay());
-			gc.copyArea(image, location.x, location.y);
-			gc.dispose();
-			return image;
-
-		}
-
-		private Image traverse(Shell shell, Long window, BiConsumer<Long, Image> callback) {
-			Image image = getImageSurface(shell, window, callback);
+		private Image traverse(Long window, BiConsumer<Long, Image> callback) throws Exception {
+			Image image = getImageSurface(window, callback);
 			if (image == null) {
 				return null;
 			}
@@ -815,7 +760,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 			int length = gtk("g_list_length(long)", children);
 			for (int i = 0; i < length; ++i) {
 				Long childWindow = gtk("g_list_nth_data(long,int)", children, i);
-				Image childImage = traverse(shell, childWindow, callback);
+				Image childImage = traverse(childWindow, callback);
 				if (childImage == null) {
 					continue;
 				}
@@ -828,8 +773,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		}
 
 		@Override
-		protected Image makeShot(Shell shell, BiConsumer<Long, Image> callback) {
-			return traverse(shell, _gtk_widget_get_window(getShellHandle(shell)), callback);
+		protected Image makeShot(Shell shell, BiConsumer<Long, Image> callback) throws Exception {
+			return traverse(_gtk_widget_get_window(getShellHandle(shell)), callback);
 		}
 	}
 }
