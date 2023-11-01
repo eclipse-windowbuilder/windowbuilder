@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.os.OSSupport;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -17,6 +20,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Utilities for SWT widget coordinates.
@@ -52,6 +57,19 @@ public final class CoordinateUtils {
 	 * @return the given location (in parent of given <code>composite</code>) in display coordinates.
 	 */
 	public static Point getDisplayLocation(Object composite, int x, int y) throws Exception {
+		if (EnvironmentUtils.IS_LINUX && ContainerSupport.isShell(composite)) {
+			// In GTK, the bounds of a shell return the top-left position of the window
+			// manager. Because this manager is not part of the actual shell, we need to use
+			// this little workaround to get the REAL position of the shell.
+			// See: https://github.com/eclipse-platform/eclipse.platform.swt/issues/828
+			Point point = ControlSupport.toDisplay(composite, 0, 0);
+			y = point.y;
+			Menu menuBar = ((Shell) composite).getMenuBar();
+			if (menuBar != null) {
+				var menuBounds = OSSupport.get().getMenuBarBounds(menuBar);
+				y -= menuBounds.height;
+			}
+		}
 		if (!ContainerSupport.isShell(composite)) {
 			Object parent = ControlSupport.getParent(composite);
 			if (parent != null) {
