@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -41,6 +39,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * {@link PropertyEditor} for selecting model of {@link Object}, for example in
@@ -142,7 +141,7 @@ IComplexPropertyEditor {
 		final ITreeContentProvider[] contentProvider = new ITreeContentProvider[1];
 		contentProvider[0] = new ObjectsTreeContentProvider(new Predicate<ObjectInfo>() {
 			@Override
-			public boolean apply(ObjectInfo t) {
+			public boolean test(ObjectInfo t) {
 				return isValidComponent(propertyType, t) || hasValidComponents(t);
 			}
 

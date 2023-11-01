@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
-
-import com.google.common.base.Predicate;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -46,6 +44,7 @@ import org.assertj.core.description.Description;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Fluent interface for performing create/move/resize operations on {@link GraphicalViewer}.
@@ -197,14 +196,11 @@ public final class GraphicalRobot {
 	 * Prepares mouse location on {@link ResizeHandle} with given direction.
 	 */
 	public GraphicalRobot toResizeHandle(Object object, final int direction) {
-		Predicate<Handle> predicate = new Predicate<>() {
-			@Override
-			public boolean apply(Handle handle) {
-				if (handle instanceof ResizeHandle resizeHandle) {
-					return resizeHandle.getDirection() == direction;
-				}
-				return false;
+		Predicate<Handle> predicate = handle -> {
+			if (handle instanceof ResizeHandle resizeHandle) {
+				return resizeHandle.getDirection() == direction;
 			}
+			return false;
 		};
 		toHandle(object, predicate);
 		// continue
@@ -215,16 +211,13 @@ public final class GraphicalRobot {
 	 * Prepares mouse location on resize {@link Handle} with given type and direction.
 	 */
 	public GraphicalRobot toResizeHandle(Object object, final Object type, final int direction) {
-		Predicate<Handle> predicate = new Predicate<>() {
-			@Override
-			public boolean apply(Handle handle) {
-				if (handle.getDragTrackerTool() instanceof ResizeTracker) {
-					ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTrackerTool();
-					return resizeTracker.getDirection() == direction
-							&& ObjectUtils.equals(resizeTracker.getRequestType(), type);
-				}
-				return false;
+		Predicate<Handle> predicate = handle -> {
+			if (handle.getDragTrackerTool() instanceof ResizeTracker) {
+				ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTrackerTool();
+				return resizeTracker.getDirection() == direction
+						&& ObjectUtils.equals(resizeTracker.getRequestType(), type);
 			}
+			return false;
 		};
 		toHandle(object, predicate);
 		// continue
@@ -295,7 +288,7 @@ public final class GraphicalRobot {
 		y += bounds.y;
 		while (x < bounds.right() && y < bounds.bottom()) {
 			Handle handle = m_viewer.findTargetHandle(x, y);
-			if (predicate.apply(handle)) {
+			if (predicate.test(handle)) {
 				return handle.getBounds().getCenter();
 			}
 			x += deltaX;
@@ -959,7 +952,7 @@ public final class GraphicalRobot {
 		for (int i = 0; i < predicates.length; i++) {
 			Predicate<Figure> predicate = predicates[i];
 			Figure feedback = feedbacks.get(i);
-			Assertions.assertThat(predicate.apply(feedback)).describedAs("Predicate [" + i + "] failed.").isTrue();
+			Assertions.assertThat(predicate.test(feedback)).describedAs("Predicate [" + i + "] failed.").isTrue();
 		}
 	}
 
@@ -1117,27 +1110,24 @@ public final class GraphicalRobot {
 			}
 		}
 		// return predicate
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Figure feedback) {
-				if (!(feedback instanceof Polyline)) {
+		return feedback -> {
+			if (!(feedback instanceof Polyline)) {
+				return false;
+			}
+			// prepare points of line
+			Point p1_;
+			Point p2_;
+			{
+				Polyline polyline = (Polyline) feedback;
+				PointList points = polyline.getPoints();
+				if (points.size() != 2) {
 					return false;
 				}
-				// prepare points of line
-				Point p1_;
-				Point p2_;
-				{
-					Polyline polyline = (Polyline) feedback;
-					PointList points = polyline.getPoints();
-					if (points.size() != 2) {
-						return false;
-					}
-					p1_ = points.getPoint(0);
-					p2_ = points.getPoint(1);
-				}
-				// compare
-				return p1_.equals(p1) && p2_.equals(p2);
+				p1_ = points.getPoint(0);
+				p2_ = points.getPoint(1);
 			}
+			// compare
+			return p1_.equals(p1) && p2_.equals(p2);
 		};
 	}
 
@@ -1160,53 +1150,50 @@ public final class GraphicalRobot {
 			FigureUtils.translateFigureToAbsolute(part.getFigure(), partBounds);
 		}
 		// return predicate
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Figure feedback) {
-				if (!(feedback instanceof Polyline)) {
+		return feedback -> {
+			if (!(feedback instanceof Polyline)) {
+				return false;
+			}
+			// prepare points of line
+			Point p1;
+			Point p2;
+			{
+				Polyline polyline = (Polyline) feedback;
+				PointList points = polyline.getPoints();
+				if (points.size() != 2) {
 					return false;
 				}
-				// prepare points of line
-				Point p1;
-				Point p2;
-				{
-					Polyline polyline = (Polyline) feedback;
-					PointList points = polyline.getPoints();
-					if (points.size() != 2) {
-						return false;
-					}
-					p1 = points.getPoint(0);
-					p2 = points.getPoint(1);
-				}
-				// checks that line has expected location
-				int delta = 5;
-				boolean result = true;
-				if (location == IPositionConstants.TOP) {
-					result &= p1.y == p2.y;
-					result &= Math.abs(p1.y - partBounds.y) < delta;
-					result &= Math.abs(p1.x - partBounds.x) < delta;
-					result &= Math.abs(p2.x - partBounds.right()) < delta;
-				} else if (location == IPositionConstants.BOTTOM) {
-					result &= p1.y == p2.y;
-					result &= Math.abs(p1.y - partBounds.bottom()) < delta;
-					result &= Math.abs(p1.x - partBounds.x) < delta;
-					result &= Math.abs(p2.x - partBounds.right()) < delta;
-				} else if (location == IPositionConstants.LEFT) {
-					result &= p1.x == p2.x;
-					result &= Math.abs(p1.x - partBounds.x) < delta;
-					result &= Math.abs(p1.y - partBounds.y) < delta;
-					result &= Math.abs(p2.y - partBounds.bottom()) < delta;
-				} else if (location == IPositionConstants.RIGHT) {
-					result &= p1.x == p2.x;
-					result &= Math.abs(p1.x - partBounds.right()) < delta;
-					result &= Math.abs(p1.y - partBounds.y) < delta;
-					result &= Math.abs(p2.y - partBounds.bottom()) < delta;
-				} else {
-					Assert.fail("Unsupported location: " + location);
-				}
-				// OK, final result
-				return result;
+				p1 = points.getPoint(0);
+				p2 = points.getPoint(1);
 			}
+			// checks that line has expected location
+			int delta = 5;
+			boolean result = true;
+			if (location == IPositionConstants.TOP) {
+				result &= p1.y == p2.y;
+				result &= Math.abs(p1.y - partBounds.y) < delta;
+				result &= Math.abs(p1.x - partBounds.x) < delta;
+				result &= Math.abs(p2.x - partBounds.right()) < delta;
+			} else if (location == IPositionConstants.BOTTOM) {
+				result &= p1.y == p2.y;
+				result &= Math.abs(p1.y - partBounds.bottom()) < delta;
+				result &= Math.abs(p1.x - partBounds.x) < delta;
+				result &= Math.abs(p2.x - partBounds.right()) < delta;
+			} else if (location == IPositionConstants.LEFT) {
+				result &= p1.x == p2.x;
+				result &= Math.abs(p1.x - partBounds.x) < delta;
+				result &= Math.abs(p1.y - partBounds.y) < delta;
+				result &= Math.abs(p2.y - partBounds.bottom()) < delta;
+			} else if (location == IPositionConstants.RIGHT) {
+				result &= p1.x == p2.x;
+				result &= Math.abs(p1.x - partBounds.right()) < delta;
+				result &= Math.abs(p1.y - partBounds.y) < delta;
+				result &= Math.abs(p2.y - partBounds.bottom()) < delta;
+			} else {
+				Assert.fail("Unsupported location: " + location);
+			}
+			// OK, final result
+			return result;
 		};
 	}
 
@@ -1227,12 +1214,7 @@ public final class GraphicalRobot {
 			partBounds.expand(3, 3);
 		}
 		// return predicate
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Figure feedback) {
-				return partBounds.equals(feedback.getBounds());
-			}
-		};
+		return feedback -> partBounds.equals(feedback.getBounds());
 	}
 
 	public final Predicate<Figure> getTargetPredicate(Object object) {

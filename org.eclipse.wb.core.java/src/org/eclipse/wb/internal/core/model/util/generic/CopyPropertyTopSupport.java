@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.generic;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
+
+import java.util.function.Predicate;
 
 /**
  * This helper allows to create top-level {@link Property} as copy of other {@link Property}
@@ -50,11 +50,6 @@ public final class CopyPropertyTopSupport extends CopyPropertyTopAbstractSupport
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Predicate<JavaInfo> createTargetPredicate(final JavaInfo javaInfo) {
-		return new Predicate<>() {
-			@Override
-			public boolean apply(JavaInfo t) {
-				return t == javaInfo;
-			}
-		};
+		return t -> t == javaInfo;
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.util;
-
-import com.google.common.base.Predicate;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateText;
@@ -112,12 +110,7 @@ public final class NameSupport {
 	private static String generateName(XmlObjectInfo object) {
 		String baseName = getBaseName(object);
 		final Set<String> existingNames = getExistingNames(object);
-		String uniqueName = CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
-			@Override
-			public boolean apply(String name) {
-				return !existingNames.contains(name);
-			}
-		});
+		String uniqueName = CodeUtils.generateUniqueName(baseName, name -> !existingNames.contains(name));
 		return uniqueName;
 	}
 

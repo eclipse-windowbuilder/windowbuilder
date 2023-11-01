@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.generic;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidator;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
+import org.eclipse.wb.internal.core.model.util.predicate.AlwaysPredicate;
 import org.eclipse.wb.internal.core.model.util.predicate.ExpressionPredicate;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -31,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Factory for accessing {@link FlowContainer} for {@link XmlObjectInfo}.
@@ -72,12 +71,7 @@ public final class FlowContainerFactory {
 	}
 
 	public List<FlowContainerConfiguration> getConfigurations() {
-		return ExecutionUtils.runObject(new RunnableObjectEx<List<FlowContainerConfiguration>>() {
-			@Override
-			public List<FlowContainerConfiguration> runObject() throws Exception {
-				return getConfigurationsEx();
-			}
-		}, "Exception during reading flow container configurations for %s", m_object);
+		return ExecutionUtils.runObject((RunnableObjectEx<List<FlowContainerConfiguration>>) () -> getConfigurationsEx(), "Exception during reading flow container configurations for %s", m_object);
 	}
 
 	private List<FlowContainerConfiguration> getConfigurationsEx() {
@@ -176,7 +170,7 @@ public final class FlowContainerFactory {
 	private Predicate<Object> getHorizontalPredicate(String prefix, boolean def) {
 		String horizontalString = getParameter(prefix + ".horizontal");
 		if (horizontalString == null) {
-			return Predicates.alwaysTrue();
+			return new AlwaysPredicate<>(true);
 		}
 		return new ExpressionPredicate<>(horizontalString);
 	}
@@ -184,7 +178,7 @@ public final class FlowContainerFactory {
 	private Predicate<Object> getRtlPredicate(String prefix, boolean def) {
 		String rtlString = getParameter(prefix + ".rtl");
 		if (rtlString == null) {
-			return Predicates.alwaysFalse();
+			return new AlwaysPredicate<>(false);
 		}
 		return new ExpressionPredicate<>(rtlString);
 	}

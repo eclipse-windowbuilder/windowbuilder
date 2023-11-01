@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.jdt.core;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
@@ -164,13 +161,8 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_generateUniqueName() throws Exception {
-		assertSame("base", CodeUtils.generateUniqueName("base", Predicates.<String>alwaysTrue()));
-		assertEquals("base_3", CodeUtils.generateUniqueName("base", new Predicate<String>() {
-			@Override
-			public boolean apply(String name) {
-				return !name.equals("base") && !name.equals("base_1") && !name.equals("base_2");
-			}
-		}));
+		assertSame("base", CodeUtils.generateUniqueName("base", o -> true));
+		assertEquals("base_3", CodeUtils.generateUniqueName("base", name -> !name.equals("base") && !name.equals("base_1") && !name.equals("base_2")));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

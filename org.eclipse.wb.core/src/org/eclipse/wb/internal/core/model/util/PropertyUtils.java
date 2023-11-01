@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -27,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Utils for {@link Property}.
@@ -164,7 +162,7 @@ public final class PropertyUtils {
 		Property[] properties = objectInfo.getProperties();
 		List<Property> filteredProperties = new ArrayList<>();
 		for (Property property : properties) {
-			if (predicate.apply(property)) {
+			if (predicate.test(property)) {
 				filteredProperties.add(property);
 			}
 		}
@@ -186,7 +184,7 @@ public final class PropertyUtils {
 			throws Exception {
 		for (Iterator<Property> I = properties.iterator(); I.hasNext();) {
 			Property property = I.next();
-			if (!predicate.apply(property)) {
+			if (!predicate.test(property)) {
 				I.remove();
 			}
 		}
@@ -197,7 +195,7 @@ public final class PropertyUtils {
 	 */
 	public static Predicate<Property> getExcludeByTitlePredicate(ObjectInfo objectInfo,
 			String parameterName) {
-		Predicate<Property> predicate = Predicates.alwaysTrue();
+		Predicate<Property> predicate = o -> true;
 		String propertiesExcludeString =
 				GlobalState.getParametersProvider().getParameter(objectInfo, parameterName);
 		if (propertiesExcludeString != null) {
@@ -211,22 +209,12 @@ public final class PropertyUtils {
 	 *         titles.
 	 */
 	public static Predicate<Property> getExcludeByTitlePredicate(final String... excludeTitles) {
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Property t) {
-				return !ArrayUtils.contains(excludeTitles, t.getTitle());
-			}
-		};
+		return t -> !ArrayUtils.contains(excludeTitles, t.getTitle());
 	}
 	/**
 	 * @return the {@link Predicate} for {@link Property} that does accept properties given titles.
 	 */
 	public static Predicate<Property> getIncludeByTitlePredicate(final String... includeTitles) {
-		return new Predicate<>() {
-			@Override
-			public boolean apply(Property t) {
-				return ArrayUtils.contains(includeTitles, t.getTitle());
-			}
-		};
+		return t -> ArrayUtils.contains(includeTitles, t.getTitle());
 	}
 }

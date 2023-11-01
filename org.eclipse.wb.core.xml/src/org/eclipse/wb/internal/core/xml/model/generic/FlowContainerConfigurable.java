@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,12 +47,12 @@ public final class FlowContainerConfigurable implements FlowContainer {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean isHorizontal() {
-		return m_configuration.getHorizontalPredicate().apply(m_container);
+		return m_configuration.getHorizontalPredicate().test(m_container);
 	}
 
 	@Override
 	public boolean isRtl() {
-		return m_configuration.getRtlPredicate().apply(m_container);
+		return m_configuration.getRtlPredicate().test(m_container);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.predicate;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import java.util.function.Predicate;
 
 /**
  * {@link Predicate} that checks that given {@link Object} is {@link JavaInfo} with compatible
@@ -50,7 +50,7 @@ public final class ComponentSubclassPredicate implements Predicate<Object> {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean apply(Object t) {
+	public boolean test(Object t) {
 		if (t instanceof JavaInfo javaInfo) {
 			Class<?> componentClass = javaInfo.getDescription().getComponentClass();
 			return ReflectionUtils.isSuccessorOf(componentClass, m_superClass);

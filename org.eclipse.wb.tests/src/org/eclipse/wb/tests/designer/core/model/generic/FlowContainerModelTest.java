@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.generic;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
@@ -23,7 +20,9 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerConfigurable;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerConfiguration;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
+import org.eclipse.wb.internal.core.model.util.predicate.AlwaysPredicate;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
@@ -41,6 +40,7 @@ import org.mockito.InOrder;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Test for {@link FlowContainer} and {@link FlowContainerConfigurable} models.
@@ -507,7 +507,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 
 	private static String getHorizontalPredicateString(FlowContainerConfiguration configuration) {
 		Predicate<Object> predicate = configuration.getHorizontalPredicate();
-		if (predicate == Predicates.alwaysTrue()) {
+		if (predicate instanceof AlwaysPredicate && ReflectionUtils.getFieldBoolean(predicate, "m_value")) {
 			return "alwaysTrue";
 		}
 		return predicate.toString();
@@ -617,8 +617,8 @@ public class FlowContainerModelTest extends SwingModelTest {
 		final InOrder inOrder = inOrder(component, nextComponent, container);
 		final FlowContainer flowContainer =
 				new FlowContainerConfigurable(container,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true,
+								o -> false,
 								null,
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue(),
@@ -650,8 +650,8 @@ public class FlowContainerModelTest extends SwingModelTest {
 		final InOrder inOrder = inOrder(component, nextComponent, container);
 		final FlowContainer flowContainer =
 				new FlowContainerConfigurable(container,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true,
+								o -> false,
 								null,
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue(),
@@ -677,7 +677,7 @@ public class FlowContainerModelTest extends SwingModelTest {
 		final InOrder inOrder = inOrder(container, component, reference, configuration);
 		final FlowContainer flowContainer = new FlowContainerConfigurable(container, configuration);
 		// isHorizontal()
-		when(configuration.getHorizontalPredicate()).thenReturn(Predicates.alwaysTrue());
+		when(configuration.getHorizontalPredicate()).thenReturn(o -> true);
 		//
 		assertTrue(flowContainer.isHorizontal());
 		//
@@ -816,8 +816,8 @@ public class FlowContainerModelTest extends SwingModelTest {
 		// prepare FlowContainer
 		FlowContainer flowContainer =
 				new FlowContainerConfigurable(panel,
-						new FlowContainerConfiguration(Predicates.alwaysTrue(),
-								Predicates.alwaysFalse(),
+						new FlowContainerConfiguration(o -> true,
+								o -> false,
 								AssociationObjectFactories.invocationChild("%parent%.add(%child%)", false),
 								ContainerObjectValidators.alwaysTrue(),
 								ContainerObjectValidators.alwaysTrue(),

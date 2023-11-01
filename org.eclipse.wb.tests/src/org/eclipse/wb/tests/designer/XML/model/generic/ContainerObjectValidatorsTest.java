@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model.generic;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidator;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
@@ -20,6 +18,8 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+
+import java.util.function.Predicate;
 
 /**
  * Test for {@link ContainerObjectValidators}.
@@ -120,7 +120,7 @@ public class ContainerObjectValidatorsTest extends AbstractCoreTest {
 	private static void assertContainerValidator(boolean expected, String expression, Object container) {
 		Predicate<Object> validator = ContainerObjectValidators.forContainerExpression(expression);
 		assertEquals(expression, validator.toString());
-		assertEquals(expected, validator.apply(container));
+		assertEquals(expected, validator.test(container));
 		if (container instanceof JavaInfo) {
 			assertEquals(expected, ContainerObjectValidators.validateContainer(container, expression));
 		}

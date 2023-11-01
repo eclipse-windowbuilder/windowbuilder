@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -44,6 +43,7 @@ import org.apache.commons.lang.SystemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -128,7 +128,7 @@ public class AbstractActionInfo extends ActionInfo {
 			properties.add(createIconProperty("large icon", "LARGE_ICON_KEY"));
 		}
 		// remove null-s
-		Iterables.removeIf(properties, Predicates.isNull());
+		properties.removeIf(Objects::isNull);
 		return properties;
 	}
 

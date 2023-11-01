@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.core;
-
-import com.google.common.base.Predicate;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -58,6 +56,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * The class implements utility methods that operate on {@link IProject} and {@link IJavaProject}.
@@ -453,7 +452,7 @@ public final class ProjectUtils {
 		List<IClasspathEntry> newEntries = new ArrayList<>();
 		IClasspathEntry[] existingEntries = javaProject.getRawClasspath();
 		for (IClasspathEntry entry : existingEntries) {
-			if (!predicate.apply(entry)) {
+			if (!predicate.test(entry)) {
 				newEntries.add(entry);
 			}
 		}

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -1226,12 +1225,7 @@ public final class AstEditor {
 			existingIdentifiers.add(declaration.getName().getIdentifier());
 		}
 		// generate unique name
-		return CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
-			@Override
-			public boolean apply(String name) {
-				return !existingIdentifiers.contains(name);
-			}
-		});
+		return CodeUtils.generateUniqueName(baseName, name -> !existingIdentifiers.contains(name));
 	}
 
 	/**
@@ -1252,12 +1246,7 @@ public final class AstEditor {
 			}
 		});
 		// generate unique name
-		return CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
-			@Override
-			public boolean apply(String name) {
-				return !existingMethods.contains(name);
-			}
-		});
+		return CodeUtils.generateUniqueName(baseName, name -> !existingMethods.contains(name));
 	}
 
 	/**
@@ -1273,12 +1262,7 @@ public final class AstEditor {
 			}
 		});
 		// generate unique name
-		return CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
-			@Override
-			public boolean apply(String name) {
-				return !existingTypes.contains(name);
-			}
-		});
+		return CodeUtils.generateUniqueName(baseName, name -> !existingTypes.contains(name));
 	}
 
 	/**

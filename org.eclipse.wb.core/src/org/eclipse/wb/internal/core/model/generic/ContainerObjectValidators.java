@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generic;
-
-import com.google.common.base.Predicate;
 
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
@@ -23,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * Factory for {@link ContainerObjectValidator} objects.
@@ -164,7 +163,7 @@ public final class ContainerObjectValidators {
 	public static Predicate<Object> forContainerExpression(final String expression) {
 		return new Predicate<>() {
 			@Override
-			public boolean apply(Object container) {
+			public boolean test(Object container) {
 				ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
 				if (validatorHelper.isComponent(container)) {
 					return validateContainer(expression, container);

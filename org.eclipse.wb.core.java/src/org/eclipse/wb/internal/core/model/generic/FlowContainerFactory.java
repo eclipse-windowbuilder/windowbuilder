@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generic;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObjectFactories;
 import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.util.predicate.AlwaysPredicate;
 import org.eclipse.wb.internal.core.model.util.predicate.ExpressionPredicate;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -26,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Factory for accessing {@link FlowContainer} for {@link JavaInfo}.
@@ -174,7 +173,7 @@ public final class FlowContainerFactory {
 	private Predicate<Object> getHorizontalPredicate(String prefix, boolean def) {
 		String horizontalString = getParameter(prefix + ".horizontal");
 		if (horizontalString == null) {
-			return Predicates.alwaysTrue();
+			return new AlwaysPredicate<>(true);
 		}
 		return new ExpressionPredicate<>(horizontalString);
 	}
@@ -182,7 +181,7 @@ public final class FlowContainerFactory {
 	private Predicate<Object> getRtlPredicate(String prefix, boolean def) {
 		String rtlString = getParameter(prefix + ".rtl");
 		if (rtlString == null) {
-			return Predicates.alwaysFalse();
+			return new AlwaysPredicate<>(false);
 		}
 		return new ExpressionPredicate<>(rtlString);
 	}

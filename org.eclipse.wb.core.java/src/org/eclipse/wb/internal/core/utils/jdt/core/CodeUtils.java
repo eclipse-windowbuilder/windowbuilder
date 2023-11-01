@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -65,6 +64,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * This class contains different utilities for working with Java model elements.
@@ -416,7 +416,7 @@ public class CodeUtils {
 				name += "_" + index;
 			}
 			// if name is unique, return it
-			if (validator.apply(name)) {
+			if (validator.test(name)) {
 				return name;
 			}
 		}

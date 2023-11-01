@@ -1,7 +1,5 @@
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.base.Predicate;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -155,16 +153,13 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 				final List<VariableDeclaration> variables =
 						AstNodeUtils.getVariableDeclarationsAll(m_editor.getAstUnit());
 				m_exposedSetterParameter =
-						CodeUtils.generateUniqueName(m_property.getTitle(), new Predicate<String>() {
-							@Override
-							public boolean apply(String name) {
-								for (VariableDeclaration variable : variables) {
-									if (variable.getName().getIdentifier().equals(name)) {
-										return false;
-									}
+						CodeUtils.generateUniqueName(m_property.getTitle(), name -> {
+							for (VariableDeclaration variable : variables) {
+								if (variable.getName().getIdentifier().equals(name)) {
+									return false;
 								}
-								return true;
 							}
+							return true;
 						});
 			}
 		}
