@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,13 +12,14 @@ package org.eclipse.wb.internal.core.gefTree;
 
 import org.eclipse.wb.core.gefTree.part.JavaEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.gefTree.part.ArrayObjectEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.FlowContainerGroupEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Generic implementation of {@link IEditPartFactory} for {@link TreeViewer} that redirects
