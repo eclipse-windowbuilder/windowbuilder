@@ -21,9 +21,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -33,6 +31,8 @@ import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartListener;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -61,9 +61,9 @@ IHeadersProvider {
 				refreshSelectionGrid();
 			}
 		});
-		new SelectionListenerHelper(this, new IEditPartSelectionListener() {
+		new SelectionListenerHelper(this, new EditPartListener.Stub() {
 			@Override
-			public void selectionChanged(EditPart editPart) {
+			public void selectedStateChanged(EditPart editPart) {
 				refreshSelectionGrid();
 			}
 		});
