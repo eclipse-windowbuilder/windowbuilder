@@ -23,4 +23,5 @@ Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.layout.group
 Import-Package: org.apache.commons.io,
  org.eclipse.gef,
- org.eclipse.gef.commands
+ org.eclipse.gef.commands,
+ org.eclipse.gef.editparts

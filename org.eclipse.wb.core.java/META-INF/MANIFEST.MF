@@ -154,5 +154,6 @@ Import-Package: org.apache.commons.io,
  org.apache.commons.lang.exception,
  org.apache.commons.lang.text,
  org.eclipse.gef.commands,
+ org.eclipse.gef.editparts,
  org.eclipse.gef.tools
 

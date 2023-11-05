@@ -70,4 +70,5 @@ Import-Package: org.apache.commons.io,
  org.apache.commons.lang,
  org.apache.commons.lang.exception,
  org.eclipse.gef,
- org.eclipse.gef.commands
+ org.eclipse.gef.commands,
+ org.eclipse.gef.editparts
