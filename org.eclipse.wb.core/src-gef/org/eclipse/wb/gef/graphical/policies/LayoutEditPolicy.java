@@ -11,7 +11,6 @@
 package org.eclipse.wb.gef.graphical.policies;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.events.IEditPartListener;
 import org.eclipse.wb.gef.core.policies.IEditPartDecorationListener;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
+import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.commands.Command;
 
 import java.util.Iterator;
@@ -29,15 +29,15 @@ import java.util.Iterator;
  * @coverage gef.graphical
  */
 public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
-	private final IEditPartListener m_listener = new IEditPartListener() {
+	private final EditPartListener m_listener = new EditPartListener.Stub() {
 		@Override
-		public void childAdded(EditPart child, int index) {
-			decorateChild(child);
+		public void childAdded(org.eclipse.gef.EditPart child, int index) {
+			decorateChild((EditPart) child);
 		}
 
 		@Override
-		public void removingChild(EditPart child, int index) {
-			undecorateChild(child);
+		public void removingChild(org.eclipse.gef.EditPart child, int index) {
+			undecorateChild((EditPart) child);
 		}
 	};
 

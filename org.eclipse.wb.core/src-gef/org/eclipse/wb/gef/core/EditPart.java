@@ -12,7 +12,6 @@ package org.eclipse.wb.gef.core;
 
 import com.google.common.collect.Iterators;
 
-import org.eclipse.wb.gef.core.events.IEditPartListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -22,7 +21,6 @@ import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
@@ -31,7 +29,6 @@ import org.eclipse.gef.commands.CompoundCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -272,64 +269,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 				childPart.accept(visitor);
 			}
 			visitor.endVisit(this);
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Events
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private EventListenerList m_eventTable;
-
-	/**
-	 * Adds a listener to the {@link EditPart}.
-	 */
-	public void addEditPartListener(IEditPartListener listener) {
-		getEnsureEventTable().addListener(IEditPartListener.class, listener);
-	}
-
-	/**
-	 * Removes the first occurrence of the specified listener from the list of listeners. Does nothing
-	 * if the listener was not present.
-	 */
-	public void removeEditPartListener(IEditPartListener listener) {
-		getEnsureEventTable().removeListener(IEditPartListener.class, listener);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Events support
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Return all registers listeners for given class or <code>null</code>.
-	 */
-	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
-		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
-	}
-
-	/**
-	 * Access to <code>{@link EventListenerList}</code> use lazy creation mechanism.
-	 */
-	private EventListenerList getEnsureEventTable() {
-		if (m_eventTable == null) {
-			m_eventTable = new EventListenerList();
-		}
-		return m_eventTable;
-	}
-
-	private void fireChildAdded(EditPart child, int index) {
-		Iterator<IEditPartListener> listeners = getListeners(IEditPartListener.class);
-		if (listeners != null) {
-			listeners.forEachRemaining(listener -> listener.childAdded(child, index));
-		}
-	}
-
-	private void fireRemovingChild(EditPart child, int index) {
-		Iterator<IEditPartListener> listeners = getListeners(IEditPartListener.class);
-		if (listeners != null) {
-			listeners.forEachRemaining(listener -> listener.removingChild(child, index));
 		}
 	}
 
