@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.swing.wizards.dialog.NewJDialogWizard;
 import org.eclipse.wb.internal.swing.wizards.frame.NewJFrameWizard;
 import org.eclipse.wb.internal.swing.wizards.frame.NewJInternalFrameWizard;
 import org.eclipse.wb.internal.swing.wizards.panel.NewJPanelWizard;
+import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 
 import org.eclipse.jdt.core.IPackageFragment;
@@ -37,46 +38,55 @@ public class SwingNewWizardTest extends DesignerEditorTestCase {
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateNewJFrame() throws Exception {
 		openDesign(new NewJFrameWizard(), m_packageFragment, "MyJFrame");
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateNewJPanel() throws Exception {
 		openDesign(new NewJPanelWizard(), m_packageFragment, "MyJPanel");
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateNewJDialog() throws Exception {
 		openDesign(new NewJDialogWizard(), m_packageFragment, "MyJDialog");
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateNewJApplet() throws Exception {
 		openDesign(new NewJAppletWizard(), m_packageFragment, "MyJApplet");
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateNewJInternalFrame() throws Exception {
 		openDesign(new NewJInternalFrameWizard(), m_packageFragment, "MyJInternalFrame");
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateNewApplicationWindow() throws Exception {
 		openDesign(new NewSwingApplicationWizard(), m_packageFragment, "MyApplicationWindow");
 	}
 
 	@Test
+	@DisposeProjectAfter
 	public void testCreateWithJavaModules() throws Exception {
 		setFileContentSrc("module-info.java", """
 				module test {
 				}""");
 		//
 		openDesign(new NewJFrameWizard(), m_packageFragment, "MyJFrame");
-		//
-		assertEquals(getFileContentSrc("module-info.java"), """
-				module test {
-					requires java.desktop;
-				}""");
+		// We can't use code blocks as they don't consider carriage-returns
+		assertArrayEquals(getFileContentSrc("module-info.java").split(System.lineSeparator()),
+				new String[] {
+						"module test {",
+						"	requires java.desktop;",
+						"}"
+				});
 	}
 }
