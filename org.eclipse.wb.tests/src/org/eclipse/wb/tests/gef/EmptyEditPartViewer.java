@@ -14,7 +14,6 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartClickListener;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
@@ -186,17 +185,5 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	@Override
 	public RootEditPart getRootEditPart() {
 		return null;
-	}
-
-	@Override
-	public void addEditPartClickListener(IEditPartClickListener listener) {
-	}
-
-	@Override
-	public void fireEditPartClick(EditPart editPart) {
-	}
-
-	@Override
-	public void removeEditPartClickListener(IEditPartClickListener listener) {
 	}
 }
