@@ -91,7 +91,6 @@ public class SelectEditPartTracker extends TargetingTool {
 	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG) {
 			performSelection();
-			performClick();
 			m_state = STATE_NONE;
 		}
 		return true;
@@ -144,17 +143,6 @@ public class SelectEditPartTracker extends TargetingTool {
 			} else {
 				viewer.select(m_sourceEditPart);
 			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Click
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private void performClick() {
-		if (m_sourceEditPart.getSelected() != EditPart.SELECTED_NONE) {
-			getViewer().fireEditPartClick(m_sourceEditPart);
 		}
 	}
 }

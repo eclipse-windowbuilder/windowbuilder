@@ -12,7 +12,6 @@ package org.eclipse.wb.gef.core;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.events.IEditPartClickListener;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.EditDomain;
@@ -239,26 +238,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * all selection listeners fired this method returns <code>null</code>.
 	 */
 	EditPart getSelectingEditPart();
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Click
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Adds a listener on click {@link EditPart}.
-	 */
-	void addEditPartClickListener(IEditPartClickListener listener);
-
-	/**
-	 * Removes a listener on click {@link EditPart}.
-	 */
-	void removeEditPartClickListener(IEditPartClickListener listener);
-
-	/**
-	 * Notify listeners on click given {@link EditPart}.
-	 */
-	void fireEditPartClick(EditPart editPart);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

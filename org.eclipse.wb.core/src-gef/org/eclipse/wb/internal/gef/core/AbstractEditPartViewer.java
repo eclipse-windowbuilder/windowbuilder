@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.gef.core;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartClickListener;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
@@ -369,29 +368,6 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	@Override
 	public EditPart getSelectingEditPart() {
 		return m_selecting;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Click
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void addEditPartClickListener(IEditPartClickListener listener) {
-		getEnsureEventTable().addListener(IEditPartClickListener.class, listener);
-	}
-
-	@Override
-	public void removeEditPartClickListener(IEditPartClickListener listener) {
-		getEnsureEventTable().removeListener(IEditPartClickListener.class, listener);
-	}
-
-	@Override
-	public void fireEditPartClick(EditPart editPart) {
-		Iterator<IEditPartClickListener> listeners = getListeners(IEditPartClickListener.class);
-		if (listeners != null) {
-			listeners.forEachRemaining(listener -> listener.clickNotify(editPart));
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

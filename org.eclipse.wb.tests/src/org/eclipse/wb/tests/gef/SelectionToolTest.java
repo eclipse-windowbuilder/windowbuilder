@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartClickListener;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -58,57 +56,6 @@ public class SelectionToolTest extends RequestTestCase {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Test
-	public void test_Click() throws Exception {
-		final RequestsLogger actualLogger = new RequestsLogger();
-		m_viewer.addEditPartClickListener(new IEditPartClickListener() {
-			@Override
-			public void clickNotify(EditPart editPart) {
-				actualLogger.log(editPart, "clickNotify");
-			}
-		});
-		RequestTestCaseEditPart editPart =
-				addEditPart(
-						m_viewer.getRootEditPart(),
-						"ParentEditPart",
-						new RequestsLogger(),
-						50,
-						50,
-						400,
-						300);
-		actualLogger.assertEmpty();
-		//
-		RequestsLogger expectedLogger = new RequestsLogger();
-		//
-		m_viewer.fireEditPartClick(editPart);
-		expectedLogger.log(editPart, "clickNotify");
-		assertLoggers(expectedLogger, actualLogger);
-		//
-		m_sender.click(60, 60, 1);
-		expectedLogger.log(editPart, "clickNotify");
-		assertLoggers(expectedLogger, actualLogger);
-		//
-		m_sender.startDrag(60, 60, 1);
-		actualLogger.assertEmpty();
-		//
-		m_sender.dragTo(10, 10);
-		actualLogger.assertEmpty();
-		//
-		m_sender.endDrag();
-		actualLogger.assertEmpty();
-		//
-		m_sender.click(60, 60, 1);
-		expectedLogger.log(editPart, "clickNotify");
-		assertLoggers(expectedLogger, actualLogger);
-		//
-		m_sender.click(60, 60, 1);
-		expectedLogger.log(editPart, "clickNotify");
-		assertLoggers(expectedLogger, actualLogger);
-		//
-		m_sender.setStateMask(SWT.CONTROL);
-		m_sender.click(60, 60, 1);
-		actualLogger.assertEmpty();
-	}
 
 	@Test
 	public void test_Move() throws Exception {
