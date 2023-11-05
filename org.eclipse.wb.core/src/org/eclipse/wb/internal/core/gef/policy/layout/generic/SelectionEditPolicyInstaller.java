@@ -82,7 +82,7 @@ public final class SelectionEditPolicyInstaller {
 					Class<?> policyClass = classLoader.loadClass(policyClassName);
 					SelectionEditPolicy policy = createPolicy(policyClass);
 					if (policy != null) {
-						childPart.installEditPolicy(EditPolicy.SELECTION_ROLE, policy);
+						childPart.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, policy);
 						return;
 					}
 				} catch (Throwable e) {
@@ -103,7 +103,7 @@ public final class SelectionEditPolicyInstaller {
 		// install policy
 		SelectionEditPolicy policy = createPolicy(policyClass);
 		if (policy != null) {
-			childPart.installEditPolicy(EditPolicy.SELECTION_ROLE, policy);
+			childPart.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, policy);
 		}
 		// policy was loaded
 		return true;

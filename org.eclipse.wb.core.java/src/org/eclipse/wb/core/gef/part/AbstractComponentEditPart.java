@@ -132,9 +132,9 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart {
 	@Override
 	protected void createEditPolicies() {
 		if (m_component.isRoot()) {
-			installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_component));
+			installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TopSelectionEditPolicy(m_component));
 		} else {
-			installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+			installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 		}
 		installEditPolicy(new OpenListenerEditPolicy(m_component));
 		OpenErrorLogEditPolicy.install(this);

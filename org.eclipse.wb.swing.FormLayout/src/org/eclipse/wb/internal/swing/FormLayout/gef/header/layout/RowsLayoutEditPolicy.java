@@ -67,7 +67,7 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void decorateChild(EditPart child) {
-		child.installEditPolicy(EditPolicy.SELECTION_ROLE, new RowSelectionEditPolicy(m_mainPolicy));
+		child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new RowSelectionEditPolicy(m_mainPolicy));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

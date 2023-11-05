@@ -50,6 +50,6 @@ public final class PageLayoutAddViewEditPart extends AbstractComponentEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new AbstractPartSelectionEditPolicy(m_view));
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new AbstractPartSelectionEditPolicy(m_view));
 	}
 }

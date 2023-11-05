@@ -90,7 +90,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (layout.getControls().contains(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicy<>(layout));
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new FormSelectionEditPolicy<>(layout));
 		}
 	}
 
@@ -136,7 +136,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 			if (layout.getControls().contains(child.getModel())) {
 				@SuppressWarnings("unchecked")
 				FormSelectionEditPolicy<C> editPolicy =
-				(FormSelectionEditPolicy<C>) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+				(FormSelectionEditPolicy<C>) child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.hideSelection();
 			}
 		}
@@ -150,7 +150,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 					&& child.getSelected() != EditPart.SELECTED_NONE) {
 				@SuppressWarnings("unchecked")
 				FormSelectionEditPolicy<C> editPolicy =
-				(FormSelectionEditPolicy<C>) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+				(FormSelectionEditPolicy<C>) child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.showSelection();
 			}
 		}

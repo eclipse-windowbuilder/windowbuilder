@@ -92,7 +92,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 		Object childModel = child.getModel();
 		if (childModel instanceof ComponentInfo) {
 			EditPolicy policy = new AbsoluteLayoutSelectionEditPolicy<ComponentInfo>();
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, policy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, policy);
 		}
 	}
 

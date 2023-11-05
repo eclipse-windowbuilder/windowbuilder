@@ -138,7 +138,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new MenuLayoutEditPolicy(m_menu));
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new MenuSelectionEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new MenuSelectionEditPolicy());
 	}
 	@Override
 	public Tool getDragTrackerTool(Request request) {

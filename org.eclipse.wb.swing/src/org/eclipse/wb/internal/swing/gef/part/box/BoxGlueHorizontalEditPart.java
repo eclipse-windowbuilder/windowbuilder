@@ -45,7 +45,7 @@ public final class BoxGlueHorizontalEditPart extends BoxEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new GlueSelectionEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new GlueSelectionEditPolicy());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -73,7 +73,7 @@ public final class JTabbedPaneTabEditPart extends GraphicalEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 	}
 
 	@Override

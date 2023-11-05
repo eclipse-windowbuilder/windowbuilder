@@ -114,7 +114,7 @@ AbstractGridLayoutEditPolicy {
 		if (isControl(model)) {
 			C control = toControl(model);
 			EditPolicy selectionPolicy = new TableWrapSelectionEditPolicy<>(m_layout, control);
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, selectionPolicy);
 		}
 	}
 

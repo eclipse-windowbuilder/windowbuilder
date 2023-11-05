@@ -46,7 +46,7 @@ public final class BoxStrutVerticalEditPart extends BoxEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new StrutSelectionVerticalEditPolicy(m_component));
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new StrutSelectionVerticalEditPolicy(m_component));
 		installEditPolicy(new StrutDirectVerticalEditPolicy(m_component));
 	}
 

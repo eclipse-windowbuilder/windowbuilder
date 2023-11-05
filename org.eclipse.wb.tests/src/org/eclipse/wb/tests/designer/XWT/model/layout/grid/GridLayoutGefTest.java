@@ -157,12 +157,12 @@ public class GridLayoutGefTest extends XwtGefTest {
 		GraphicalEditPart buttonPart = canvas.getEditPart(button);
 		// select "button", so show grid selection
 		canvas.select(button);
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE)).isInstanceOf(
+		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
 				GridSelectionEditPolicy.class);
 		// set "exclude"
 		GridLayoutInfo.getGridData(button).getPropertyByTitle("exclude").setValue(true);
 		assertNoLoggedExceptions();
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE)).isInstanceOf(
+		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
 				NonResizableSelectionEditPolicy.class);
 		assertXML(
 				"// filler filler filler filler filler",

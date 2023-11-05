@@ -56,7 +56,7 @@ public final class FlowContainerLayoutEditPolicy extends ObjectFlowLayoutEditPol
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (m_container.validateComponent(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 			new SelectionEditPolicyInstaller(m_model, child).decorate();
 		}
 	}

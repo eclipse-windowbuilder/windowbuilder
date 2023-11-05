@@ -58,7 +58,7 @@ public abstract class GenericFlowLayoutEditPolicy extends ComponentFlowLayoutEdi
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (child.getModel() instanceof ComponentInfo) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 		}
 	}
 

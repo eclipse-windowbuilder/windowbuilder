@@ -121,7 +121,7 @@ implements IHeadersProvider {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (layout.getControls().contains(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicyClassic<>(layout));
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new FormSelectionEditPolicyClassic<>(layout));
 		}
 	}
 
@@ -219,7 +219,7 @@ implements IHeadersProvider {
 		// prepare FormSelectionEditPolicy
 		FormSelectionEditPolicyClassic<C> formSelectionPolicy = null;
 		{
-			EditPolicy selectionPolicy = part.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			EditPolicy selectionPolicy = part.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 			if (selectionPolicy instanceof FormSelectionEditPolicyClassic) {
 				formSelectionPolicy = (FormSelectionEditPolicyClassic<C>) selectionPolicy;
 			}
@@ -1284,7 +1284,7 @@ implements IHeadersProvider {
 		for (EditPart child : getHost().getChildren()) {
 			if (layout.getControls().contains(child.getModel()) && child.getSelected() != EditPart.SELECTED_NONE) {
 				FormSelectionEditPolicyClassic<C> editPolicy = (FormSelectionEditPolicyClassic<C>) child
-						.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.showSelection();
 			}
 		}
