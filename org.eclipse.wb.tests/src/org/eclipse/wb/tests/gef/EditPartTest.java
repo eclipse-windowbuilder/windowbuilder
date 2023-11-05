@@ -15,7 +15,6 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -722,40 +721,42 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_Add_Remove_EditPartListener() throws Exception {
 		TestEditPart testEditPart = new TestEditPart();
+		EventListenerList eventListeners = (EventListenerList) ReflectionUtils.getFieldObject(testEditPart,
+				"eventListeners");
 		//
 		// check init state of listener for new EditPart
-		assertNull(testEditPart.getListeners(IEditPartListener.class));
+		assertFalse(eventListeners.getListeners(EditPartListener.class).hasNext());
 		//
-		IEditPartListener listener1 = new IEditPartListener() {
+		EditPartListener listener1 = new EditPartListener.Stub() {
 			@Override
-			public void removingChild(EditPart child, int index) {
+			public void removingChild(org.eclipse.gef.EditPart child, int index) {
 			}
 
 			@Override
-			public void childAdded(EditPart child, int index) {
+			public void childAdded(org.eclipse.gef.EditPart child, int index) {
 			}
 		};
 		testEditPart.addEditPartListener(listener1);
 		//
-		// check add IEditPartListener
-		List<IEditPartListener> list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
+		// check add EditPartListener
+		List<EditPartListener> list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
 		//
-		IEditPartListener listener2 = new IEditPartListener() {
+		EditPartListener listener2 = new EditPartListener.Stub() {
 			@Override
-			public void removingChild(EditPart child, int index) {
+			public void removingChild(org.eclipse.gef.EditPart child, int index) {
 			}
 
 			@Override
-			public void childAdded(EditPart child, int index) {
+			public void childAdded(org.eclipse.gef.EditPart child, int index) {
 			}
 		};
 		testEditPart.addEditPartListener(listener2);
 		//
-		// again check add IEditPartListener
-		list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
+		// again check add EditPartListener
+		list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -763,16 +764,16 @@ public class EditPartTest extends GefTestCase {
 		//
 		testEditPart.removeEditPartListener(listener1);
 		//
-		// check remove IEditPartListener
-		list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
+		// check remove EditPartListener
+		list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
 		testEditPart.removeEditPartListener(listener2);
 		//
-		// again check remove IEditPartListener
-		list = Lists.newArrayList(testEditPart.getListeners(IEditPartListener.class));
+		// again check remove EditPartListener
+		list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -780,14 +781,14 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_Invoke_EditPartListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
-		IEditPartListener listener = new IEditPartListener() {
+		EditPartListener listener = new EditPartListener.Stub() {
 			@Override
-			public void childAdded(EditPart child, int index) {
+			public void childAdded(org.eclipse.gef.EditPart child, int index) {
 				actualLogger.log("childAdded(" + child + ", " + index + ")");
 			}
 
 			@Override
-			public void removingChild(EditPart child, int index) {
+			public void removingChild(org.eclipse.gef.EditPart child, int index) {
 				actualLogger.log("removingChild(" + child + ", " + index + ")");
 			}
 		};
@@ -799,7 +800,7 @@ public class EditPartTest extends GefTestCase {
 		TestEditPart child = new TestEditPart();
 		parent.test_access_addChild(child, -1);
 		//
-		// check invoke IEditPartListener.childAdded() from child
+		// check invoke EditPartListener.childAdded() from child
 		TestLogger expectedLogger = new TestLogger();
 		expectedLogger.log("childAdded(" + child + ", 0)");
 		actualLogger.assertEquals(expectedLogger);
@@ -807,19 +808,19 @@ public class EditPartTest extends GefTestCase {
 		TestEditPart child2 = new TestEditPart();
 		parent.test_access_addChild(child2, -1);
 		//
-		// check invoke IEditPartListener.childAdded() from child2
+		// check invoke EditPartListener.childAdded() from child2
 		expectedLogger.log("childAdded(" + child2 + ", 1)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		parent.test_access_removeChild(child2);
 		//
-		// check invoke IEditPartListener.removingChild() from child2
+		// check invoke EditPartListener.removingChild() from child2
 		expectedLogger.log("removingChild(" + child2 + ", 1)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		parent.test_access_removeChild(child);
 		//
-		// check invoke IEditPartListener.removingChild() from child
+		// check invoke EditPartListener.removingChild() from child
 		expectedLogger.log("removingChild(" + child + ", 0)");
 		actualLogger.assertEquals(expectedLogger);
 	}
