@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,13 +11,12 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.EditPart;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.swt.widgets.Display;
 
 import org.junit.Assert;
 import org.junit.Before;
-
-import java.lang.reflect.Method;
 
 /**
  * @author lobas_av
@@ -37,9 +36,6 @@ public abstract class GefTestCase extends Assert {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	protected static final void addChildEditPart(EditPart parent, EditPart child) throws Exception {
-		Method method =
-				EditPart.class.getDeclaredMethod("addChild", new Class[]{EditPart.class, int.class});
-		method.setAccessible(true);
-		method.invoke(parent, new Object[]{child, -1});
+		ReflectionUtils.invokeMethod(parent, "addChild(org.eclipse.gef.EditPart,int)", child, -1);
 	}
 }

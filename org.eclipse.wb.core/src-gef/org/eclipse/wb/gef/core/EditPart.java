@@ -44,13 +44,8 @@ import java.util.Map;
  */
 public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPart {
 	//
-	private EditPart m_parent;
-	private List<EditPart> m_children;
-	private boolean m_isActive;
 	private final List<EditPolicy> m_policies = new ArrayList<>();
 	private final List<Object> m_keyPolicies = new ArrayList<>();
-	private int m_selected;
-	private Object m_model;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -75,7 +70,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * </UL>
 	 */
 	public void activate() {
-		m_isActive = true;
+		setFlag(FLAG_ACTIVE, true);
 		activateEditPolicies();
 		for (EditPart childPart : getChildren()) {
 			childPart.activate();
@@ -102,15 +97,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 			childPart.deactivate();
 		}
 		deactivateEditPolicies();
-		m_isActive = false;
-	}
-
-	/**
-	 * Returns <code>true</code> if the {@link EditPart} is active. Editparts are active after
-	 * {@link #activate()} is called, and until {@link #deactivate()} is called.
-	 */
-	public boolean isActive() {
-		return m_isActive;
+		setFlag(FLAG_ACTIVE, false);
 	}
 
 	/**
@@ -154,22 +141,14 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * the children. The returned List may be by reference, and should never be modified.
 	 */
 	public List<EditPart> getChildren() {
-		return m_children == null ? Collections.<EditPart>emptyList() : m_children;
+		return (List<EditPart>) super.getChildren();
 	}
-
 	/**
 	 * Returns the parent <code>{@link EditPart}</code>. This method should only be called internally
 	 * or by helpers such as EditPolicies.
 	 */
 	public EditPart getParent() {
-		return m_parent;
-	}
-
-	/**
-	 * Sets the parent. This should only be called by the parent {@link EditPart}.
-	 */
-	public void setParent(EditPart parent) {
-		m_parent = parent;
+		return (EditPart) super.getParent();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -177,25 +156,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	// Model
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the primary model object that this {@link EditPart} represents. EditParts may
-	 * correspond to more than one model object, or even no model object. In practice, the Object
-	 * returned is used by other EditParts to identify this EditPart. In addition, EditPolicies
-	 * probably rely on this method to build Commands that operate on the model.
-	 */
-	public Object getModel() {
-		return m_model;
-	}
-
-	/**
-	 * Sets the model. This method is made public to facilitate the use of {@link IEditPartFactory
-	 * EditPartFactories}.
-	 * <P>
-	 * IMPORTANT: This method should only be called once.
-	 */
-	public void setModel(Object model) {
-		m_model = model;
-	}
 
 	/**
 	 * When existing {@link EditPart} reused for new model, this method will be invoked.
@@ -212,47 +172,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	protected List<?> getModelChildren() {
 		return Collections.EMPTY_LIST;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Selection
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the selected state of this {@link EditPart}. This method should only be called
-	 * internally or by helpers such as EditPolicies.
-	 *
-	 * @return one of:
-	 *         <UL>
-	 *         <LI>{@link #SELECTED}
-	 *         <LI>{@link #SELECTED_NONE}
-	 *         <LI>{@link #SELECTED_PRIMARY}
-	 *         </UL>
-	 */
-	public int getSelected() {
-		return m_selected;
-	}
-
-	/**
-	 * Sets the selected state property to reflect the selection in the EditPartViewer. Fires
-	 * selectionChanged(EditPart) to any {@link EditPartListener}s. Selection is maintained
-	 * by the {@link EditPartViewer}.
-	 * <P>
-	 * IMPORTANT: This method should only be called by the {@link EditPartViewer}.
-	 */
-	public void setSelected(int selected) {
-		if (m_selected != selected) {
-			m_selected = selected;
-			fireSelectionChanged();
-		}
-	}
-
-	/**
-	 * Reserved for future use.
-	 */
-	public boolean isSelectable() {
-		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -396,72 +315,11 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	}
 
 	/**
-	 * Adds a child <code>{@link EditPart}</code> to this {@link EditPart}. This method is called from
-	 * {@link #refreshChildren()}. The following events occur in the order listed:
-	 * <OL>
-	 * <LI>The child is added to the {@link #children} List, and its parent is set to
-	 * <code>this</code>
-	 * <LI>{@link EditPart#addNotify()} is called on the child.
-	 * <LI><code>activate()</code> is called if this part is active
-	 * </OL>
-	 * <P>
-	 */
-	protected final void addChild(EditPart childPart, int index) {
-		// check EditPart
-		Assert.isNotNull(childPart);
-		// check container
-		if (m_children == null) {
-			m_children = new ArrayList<>();
-		}
-		// add to child list
-		if (index == -1) {
-			index = m_children.size();
-			m_children.add(childPart);
-		} else {
-			m_children.add(index, childPart);
-		}
-		// set parent
-		childPart.setParent(this);
-		// add child figure
-		addChildVisual(childPart, index);
-		// notify new child
-		childPart.addNotify();
-		// notify listeners
-		fireChildAdded(childPart, index);
-		// activate if necessary
-		if (isActive()) {
-			childPart.activate();
-		}
-	}
-
-	/**
 	 * Convenience method for returning the <code>{@link IEditPartViewer}</code> for this part.
 	 */
 	public IEditPartViewer getViewer() {
 		return getParent().getViewer();
 	}
-
-	/**
-	 * Performs the addition of the child's <i>visual</i> to this EditPart's Visual. The provided
-	 * subclasses {@link GraphicalEditPart} and {@link TreeEditPart} already implement this method
-	 * correctly, so it is unlikely that this method should be overridden.
-	 *
-	 * @param childPart
-	 *          The EditPart being added.
-	 * @param index
-	 *          The child's position.
-	 * @see #addChild(EditPart, int)
-	 */
-	protected abstract void addChildVisual(org.eclipse.gef.EditPart childPart, int index);
-
-	/**
-	 * Removes the childs visual from this EditPart's visual. Subclasses should implement this method
-	 * to support the visual type they introduce, such as Figures or TreeItems.
-	 *
-	 * @param childPart
-	 *          the child EditPart
-	 */
-	protected abstract void removeChildVisual(org.eclipse.gef.EditPart childPart);
 
 	/**
 	 * When existing {@link EditPart} is not touched in its parent, i.e. has same model and index,

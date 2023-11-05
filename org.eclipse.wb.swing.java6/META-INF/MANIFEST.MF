@@ -23,5 +23,6 @@ Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.swing.java6
 Import-Package: org.apache.commons.lang,
  org.eclipse.gef,
- org.eclipse.gef.commands
+ org.eclipse.gef.commands,
+ org.eclipse.gef.editparts
 
