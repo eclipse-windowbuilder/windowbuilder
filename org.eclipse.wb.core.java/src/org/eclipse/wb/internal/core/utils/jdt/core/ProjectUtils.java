@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -34,6 +35,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -42,6 +44,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.swt.SWT;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -52,10 +55,13 @@ import org.osgi.framework.Bundle;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 
 /**
@@ -421,15 +427,33 @@ public final class ProjectUtils {
 	}
 
 	/**
-	 * Adds SWT plugin library to the classpath of {@link IJavaProject}.
+	 * Returns a list of all Eclipse plugins that should be added to the classpath
+	 * of {@link IJavaProject}.
 	 */
-	public static void addSWTLibrary(IJavaProject javaProject) throws Exception {
+	public static SortedSet<String> getAllPluginLibraries() {
+		TreeSet<String> symbolicNames = new TreeSet<>();
+		symbolicNames.add("org.eclipse.osgi");
+		symbolicNames.add("org.eclipse.core.commands");
+		symbolicNames.add("org.eclipse.equinox.common");
+		symbolicNames.add("org.eclipse.equinox.registry");
+		symbolicNames.add("org.eclipse.core.runtime");
+		symbolicNames.add("org.eclipse.text");
+		symbolicNames.add("org.eclipse.jface");
+		symbolicNames.add("org.eclipse.jface.text");
+		symbolicNames.add("org.eclipse.ui.workbench");
+		symbolicNames.add("com.ibm.icu");
+		symbolicNames.add("org.eclipse.ui.forms");
+		// SWT
 		String pluginId = "org.eclipse.swt." + SWT.getPlatform() + "." + Platform.getOS();
 		boolean isMacCocoa64 = EnvironmentUtils.IS_MAC;
 		if (isMacCocoa64 || !EnvironmentUtils.IS_MAC) {
 			pluginId += "." + Platform.getOSArch();
 		}
-		addPluginLibraries(javaProject, pluginId);
+		symbolicNames.add(pluginId);
+		// E4 support
+		symbolicNames.add("javax.annotation");
+		symbolicNames.add("org.eclipse.e4.ui.di");
+		return symbolicNames;
 	}
 
 	/**
@@ -442,6 +466,34 @@ public final class ProjectUtils {
 				rawClasspath,
 				JavaCore.newProjectEntry(requiredProject.getPath()));
 		project.setRawClasspath(rawClasspath, null);
+	}
+
+	/**
+	 * Updates the classpath entry of each library to include the {@code module}
+	 * attribute. This attribute is required when this library is referenced in the
+	 * {@code module-info.java}.
+	 * 
+	 * @param javaProject the {@link IJavaProject} to add JAR to.
+	 * @throws CoreException - if the classpath could not be set.
+	 */
+	public static void requireModuleAttribute(IJavaProject javaProject) throws CoreException {
+		List<IClasspathEntry> entries = new ArrayList<>();
+		IClasspathAttribute moduleAttribute = JavaCore.newClasspathAttribute("module", "true");
+		for (IClasspathEntry entry : javaProject.getRawClasspath()) {
+			if (IClasspathEntry.CPE_LIBRARY == entry.getEntryKind() && ClasspathEntry.getExtraAttribute(entry, "module") == null) {
+				IClasspathAttribute[] extraAttributes = (IClasspathAttribute[]) ReflectionUtils.getFieldObject(entry,
+						"extraAttributes");
+				if (extraAttributes == null) {
+					extraAttributes = new IClasspathAttribute[] { moduleAttribute };
+				} else {
+					extraAttributes = Arrays.copyOf(extraAttributes, extraAttributes.length + 1);
+					extraAttributes[extraAttributes.length - 1] = moduleAttribute;
+				}
+				ReflectionUtils.setField(entry, "extraAttributes", extraAttributes);
+			}
+			entries.add(entry);
+		}
+		setRawClasspath(javaProject, entries);
 	}
 
 	/**
