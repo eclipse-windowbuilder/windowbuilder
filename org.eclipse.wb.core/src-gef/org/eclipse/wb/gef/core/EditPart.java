@@ -13,7 +13,6 @@ package org.eclipse.wb.gef.core;
 import com.google.common.collect.Iterators;
 
 import org.eclipse.wb.gef.core.events.IEditPartListener;
-import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -47,19 +46,6 @@ import java.util.Map;
  * @coverage gef.core
  */
 public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPart {
-	/**
-	 * Used to indicate no selection.
-	 */
-	public static final int SELECTED_NONE = 0;
-	/**
-	 * Used to indicate non-primary selection.
-	 */
-	public static final int SELECTED = 1;
-	/**
-	 * Used to indicate primary selection, or "Anchor" selection. Primary selection is defined as the
-	 * last object selected.
-	 */
-	public static final int SELECTED_PRIMARY = 2;
 	//
 	private EditPart m_parent;
 	private List<EditPart> m_children;
@@ -253,7 +239,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 
 	/**
 	 * Sets the selected state property to reflect the selection in the EditPartViewer. Fires
-	 * selectionChanged(EditPart) to any {@link IEditPartSelectionListener}s. Selection is maintained
+	 * selectionChanged(EditPart) to any {@link EditPartListener}s. Selection is maintained
 	 * by the {@link EditPartViewer}.
 	 * <P>
 	 * IMPORTANT: This method should only be called by the {@link EditPartViewer}.
@@ -261,7 +247,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	public void setSelected(int selected) {
 		if (m_selected != selected) {
 			m_selected = selected;
-			fireSelection();
+			fireSelectionChanged();
 		}
 	}
 
@@ -311,20 +297,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		getEnsureEventTable().removeListener(IEditPartListener.class, listener);
 	}
 
-	/**
-	 * Registers the given listener as a {@link IEditPartSelectionListener} of this {@link EditPart}.
-	 */
-	public void addSelectionListener(IEditPartSelectionListener listener) {
-		getEnsureEventTable().addListener(IEditPartSelectionListener.class, listener);
-	}
-
-	/**
-	 * Unregisters the given listener, so that it will no longer receive notification of selection.
-	 */
-	public void removeSelectionListener(IEditPartSelectionListener listener) {
-		getEnsureEventTable().removeListener(IEditPartSelectionListener.class, listener);
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Events support
@@ -358,13 +330,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		Iterator<IEditPartListener> listeners = getListeners(IEditPartListener.class);
 		if (listeners != null) {
 			listeners.forEachRemaining(listener -> listener.removingChild(child, index));
-		}
-	}
-
-	private void fireSelection() {
-		Iterator<IEditPartSelectionListener> listeners = getListeners(IEditPartSelectionListener.class);
-		if (listeners != null) {
-			listeners.forEachRemaining(listener -> listener.selectionChanged(this));
 		}
 	}
 

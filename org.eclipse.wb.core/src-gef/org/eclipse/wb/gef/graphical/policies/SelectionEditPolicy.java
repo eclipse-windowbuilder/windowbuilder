@@ -14,10 +14,11 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
+
+import org.eclipse.gef.EditPartListener;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -26,16 +27,20 @@ import java.util.List;
 /**
  * A {@link EditPolicy} that is sensitive to the host's selection.
  * <P>
- * This {@link EditPolicy} adds itself as an {@link IEditPartSelectionListener} so that it can
+ * This {@link EditPolicy} adds itself as an {@link EditPartListener} so that it can
  * observe selection. When selection or focus changes, the EditPolicy will update itself and call
  * the appropriate methods.
  *
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class SelectionEditPolicy extends GraphicalEditPolicy
-implements
-IEditPartSelectionListener {
+public abstract class SelectionEditPolicy extends GraphicalEditPolicy {
+	private final EditPartListener listener = new EditPartListener.Stub() {
+		@Override
+		public void selectedStateChanged(org.eclipse.gef.EditPart part) {
+			selectionChanged(part.getSelected());
+		}
+	};
 	private int m_selection = EditPart.SELECTED_NONE;
 	private List<Handle> m_staticHandles;
 	private List<Handle> m_handles;
@@ -48,14 +53,14 @@ IEditPartSelectionListener {
 	@Override
 	public void activate() {
 		super.activate();
-		getHost().addSelectionListener(this);
+		getHost().addEditPartListener(listener);
 		showStaticHandles();
-		selectionChanged(getHost());
+		selectionChanged(getHost().getSelected());
 	}
 
 	@Override
 	public void deactivate() {
-		getHost().removeSelectionListener(this);
+		getHost().removeEditPartListener(listener);
 		selectionChanged(EditPart.SELECTED_NONE);
 		hideStaticHandles();
 		super.deactivate();
@@ -66,10 +71,6 @@ IEditPartSelectionListener {
 	// Selection
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void selectionChanged(EditPart editPart) {
-		selectionChanged(editPart.getSelected());
-	}
 
 	private void selectionChanged(int selection) {
 		if (m_selection != selection) {

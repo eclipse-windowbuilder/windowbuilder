@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,14 +11,13 @@
 package org.eclipse.wb.internal.gef.tree.policies;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 
 /**
  * A {@link EditPolicy} that is sensitive to the host's selection.
  * <P>
- * This {@link EditPolicy} adds itself as an {@link IEditPartSelectionListener} so that it can
+ * This {@link EditPolicy} adds itself as an {@link EditPartListener} so that it can
  * observe selection. When selection or focus changes, the {@link EditPolicy} will update itself and
  * call the appropriate methods.
  *

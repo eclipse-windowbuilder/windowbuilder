@@ -16,11 +16,13 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.events.IEditPartListener;
-import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.commands.Command;
 
 import org.junit.Test;
@@ -50,7 +52,7 @@ public class EditPartTest extends GefTestCase {
 		assertNull(templatePart.getFigure().getData());
 		assertNull(templatePart.getFigure().getParent());
 		assertEquals(templatePart.getFigure(), templatePart.getContentPane());
-		assertEquals(EditPart.SELECTED_NONE, templatePart.getSelected());
+		assertEquals(org.eclipse.gef.EditPart.SELECTED_NONE, templatePart.getSelected());
 	}
 
 	@Test
@@ -621,50 +623,51 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_Add_Remove_SelectionListener() throws Exception {
 		TestEditPart testEditPart = new TestEditPart();
+		EventListenerList eventListeners = (EventListenerList) ReflectionUtils.getFieldObject(testEditPart,
+				"eventListeners");
 		//
 		// check init state of listener for new EditPart
-		assertNull(testEditPart.getListeners(IEditPartSelectionListener.class));
+		assertFalse(eventListeners.getListeners(EditPartListener.class).hasNext());
 		//
-		IEditPartSelectionListener listener1 = new IEditPartSelectionListener() {
+		EditPartListener listener1 = new EditPartListener.Stub() {
 			@Override
-			public void selectionChanged(EditPart editPart) {
+			public void selectedStateChanged(org.eclipse.gef.EditPart editPart) {
 			}
 		};
-		testEditPart.addSelectionListener(listener1);
+		testEditPart.addEditPartListener(listener1);
 		//
-		// check add IEditPartSelectionListener
-		List<IEditPartSelectionListener> list = Lists
-				.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
+		// check add EditPartListener
+		List<EditPartListener> list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
 		//
-		IEditPartSelectionListener listener2 = new IEditPartSelectionListener() {
+		EditPartListener listener2 = new EditPartListener.Stub() {
 			@Override
-			public void selectionChanged(EditPart editPart) {
+			public void selectedStateChanged(org.eclipse.gef.EditPart editPart) {
 			}
 		};
-		testEditPart.addSelectionListener(listener2);
+		testEditPart.addEditPartListener(listener2);
 		//
-		// again check add IEditPartSelectionListener
-		list = Lists.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
+		// again check add EditPartListener
+		list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
 		assertSame(listener2, list.get(1));
 		//
-		testEditPart.removeSelectionListener(listener1);
+		testEditPart.removeEditPartListener(listener1);
 		//
-		// check remove IEditPartSelectionListener
-		list = Lists.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
+		// check remove EditPartListener
+		list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
-		testEditPart.removeSelectionListener(listener2);
+		testEditPart.removeEditPartListener(listener2);
 		//
-		// again check remove IEditPartSelectionListener
-		list = Lists.newArrayList(testEditPart.getListeners(IEditPartSelectionListener.class));
+		// again check remove EditPartListener
+		list = Lists.newArrayList(eventListeners.getListeners(EditPartListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -672,47 +675,47 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_Selection() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
-		IEditPartSelectionListener listener = new IEditPartSelectionListener() {
+		EditPartListener listener = new EditPartListener.Stub() {
 			@Override
-			public void selectionChanged(EditPart editPart) {
+			public void selectedStateChanged(org.eclipse.gef.EditPart editPart) {
 				actualLogger.log("selectionChanged(" + editPart + ")");
 			}
 		};
 		TestEditPart testEditPart = new TestEditPart();
-		testEditPart.addSelectionListener(listener);
+		testEditPart.addEditPartListener(listener);
 		//
-		// check not ivoke IEditPartSelectionListener.selectionChanged during addSelectionListener()
+		// check not invoke EditPartListener.selectedStateChanged(EditPart) during addSelectionListener()
 		assertTrue(testEditPart.isSelectable());
-		assertEquals(EditPart.SELECTED_NONE, testEditPart.getSelected());
+		assertEquals(org.eclipse.gef.EditPart.SELECTED_NONE, testEditPart.getSelected());
 		actualLogger.assertEmpty();
 		//
-		// check not ivoke IEditPartSelectionListener.selectionChanged if selection value not update
-		testEditPart.setSelected(EditPart.SELECTED_NONE);
+		// check not invoke EditPartListener.selectedStateChanged(EditPart) if selection value not update
+		testEditPart.setSelected(org.eclipse.gef.EditPart.SELECTED_NONE);
 		assertTrue(testEditPart.isSelectable());
-		assertEquals(EditPart.SELECTED_NONE, testEditPart.getSelected());
+		assertEquals(org.eclipse.gef.EditPart.SELECTED_NONE, testEditPart.getSelected());
 		actualLogger.assertEmpty();
 		//
-		testEditPart.setSelected(EditPart.SELECTED);
+		testEditPart.setSelected(org.eclipse.gef.EditPart.SELECTED);
 		assertTrue(testEditPart.isSelectable());
-		assertEquals(EditPart.SELECTED, testEditPart.getSelected());
+		assertEquals(org.eclipse.gef.EditPart.SELECTED, testEditPart.getSelected());
 		//
-		// check ivoke IEditPartSelectionListener.selectionChanged if selection value update
+		// check invoke EditPartListener.selectedStateChanged(EditPart) if selection value update
 		TestLogger expectedLogger = new TestLogger();
 		expectedLogger.log("selectionChanged(" + testEditPart + ")");
 		actualLogger.assertEquals(expectedLogger);
 		//
-		testEditPart.setSelected(EditPart.SELECTED_PRIMARY);
+		testEditPart.setSelected(org.eclipse.gef.EditPart.SELECTED_PRIMARY);
 		//
-		// check ivoke IEditPartSelectionListener.selectionChanged if selection value update
+		// check invoke EditPartListener.selectedStateChanged(EditPart) if selection value update
 		assertTrue(testEditPart.isSelectable());
-		assertEquals(EditPart.SELECTED_PRIMARY, testEditPart.getSelected());
+		assertEquals(org.eclipse.gef.EditPart.SELECTED_PRIMARY, testEditPart.getSelected());
 		expectedLogger.log("selectionChanged(" + testEditPart + ")");
 		actualLogger.assertEquals(expectedLogger);
 		//
-		// check not ivoke IEditPartSelectionListener.selectionChanged if selection value not update
-		testEditPart.setSelected(EditPart.SELECTED_PRIMARY);
+		// check not invoke EditPartListener.selectedStateChanged(EditPart) if selection value not update
+		testEditPart.setSelected(org.eclipse.gef.EditPart.SELECTED_PRIMARY);
 		assertTrue(testEditPart.isSelectable());
-		assertEquals(EditPart.SELECTED_PRIMARY, testEditPart.getSelected());
+		assertEquals(org.eclipse.gef.EditPart.SELECTED_PRIMARY, testEditPart.getSelected());
 		actualLogger.assertEmpty();
 	}
 
