@@ -66,7 +66,7 @@ public final class CardLayoutEditPolicy extends ComponentFlowLayoutEditPolicy {
 		Object model = child.getModel();
 		if (m_layout.isManagedObject(model)) {
 			EditPolicy policy = new CardLayoutSelectionEditPolicy(m_layout);
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, policy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, policy);
 		}
 	}
 

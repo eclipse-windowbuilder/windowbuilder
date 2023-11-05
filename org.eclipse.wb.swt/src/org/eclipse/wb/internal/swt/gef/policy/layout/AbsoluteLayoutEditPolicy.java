@@ -158,7 +158,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (m_layout.getControls().contains(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new AbsoluteLayoutSelectionEditPolicy());
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new AbsoluteLayoutSelectionEditPolicy());
 		}
 	}
 

@@ -24,14 +24,6 @@ import java.util.Iterator;
  * @coverage gef.core
  */
 public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEditPolicy {
-	/**
-	 * The key used to install a <i>selection</i> {@link EditPolicy}.
-	 */
-	public static final String SELECTION_ROLE = "Selection Feedback";
-	/**
-	 * The key used to install a <i>layout</i> {@link EditPolicy}.
-	 */
-	public static final String LAYOUT_ROLE = "LayoutEditPolicy";
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance fields
@@ -53,6 +45,7 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	 * <P>
 	 * Activate is called after the <i>host</i> has been set, and that host has been activated.
 	 */
+	@Override
 	public void activate() {
 		m_isActive = true;
 		fireActivate();
@@ -63,6 +56,7 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	 * when the <i>host</i> is deactivated, or when the {@link EditPolicy} is uninstalled from an
 	 * active host. Deactivate unhooks any listeners, and removes all feedback.
 	 */
+	@Override
 	public void deactivate() {
 		fireDeactivate();
 		m_isActive = false;
@@ -85,6 +79,7 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	/**
 	 * @return the <i>host</i> {@link EditPart} on which this policy is installed.
 	 */
+	@Override
 	public EditPart getHost() {
 		return m_host;
 	}

@@ -70,7 +70,7 @@ IHeaderMenuProvider {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new EmptySelectionEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new EmptySelectionEditPolicy());
 	}
 
 	@Override

@@ -209,7 +209,7 @@ public class ObjectEditPart extends TreeEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new SelectionEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionEditPolicy());
 		installEditPolicy(new AutoExpandEditPolicy());
 		refreshEditPolicies();
 	}

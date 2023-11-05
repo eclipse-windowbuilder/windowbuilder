@@ -84,7 +84,7 @@ AbstractHeaderLayoutEditPolicy {
 	@Override
 	protected void decorateChild(EditPart child) {
 		child.installEditPolicy(
-				EditPolicy.SELECTION_ROLE,
+				EditPolicy.SELECTION_FEEDBACK_ROLE,
 				new FormHeaderSelectionEditPolicy(mainPolicy));
 	}
 

@@ -47,7 +47,7 @@ public final class BoxStrutHorizontalEditPart extends BoxEditPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(
-				EditPolicy.SELECTION_ROLE,
+				EditPolicy.SELECTION_FEEDBACK_ROLE,
 				new StrutSelectionHorizontalEditPolicy(m_component));
 		installEditPolicy(new StrutDirectHorizontalEditPolicy(m_component));
 	}

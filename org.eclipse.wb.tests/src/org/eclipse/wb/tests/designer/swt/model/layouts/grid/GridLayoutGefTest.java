@@ -226,12 +226,12 @@ public class GridLayoutGefTest extends RcpGefTest {
 		GraphicalEditPart buttonPart = canvas.getEditPart(button);
 		// select "button", so show grid selection
 		canvas.select(button);
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE)).isInstanceOf(
+		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
 				GridSelectionEditPolicy.class);
 		// set "exclude"
 		GridLayoutInfo.getGridData(button).getPropertyByTitle("exclude").setValue(true);
 		assertNoLoggedExceptions();
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE)).isInstanceOf(
+		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
 				NonResizableSelectionEditPolicy.class);
 		assertEditor(
 				"public class Test extends Shell {",
@@ -267,7 +267,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 		ControlInfo filterControl = filteredTree.getChildrenControls().get(0);
 		// select "filterControl" has simple selection policy
 		GraphicalEditPart buttonPart = canvas.getEditPart(filterControl);
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE)).isInstanceOf(
+		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
 				NonResizableSelectionEditPolicy.class);
 	}
 
@@ -296,7 +296,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 		canvas.select(button);
 		{
 			GraphicalEditPart buttonPart = canvas.getEditPart(button);
-			EditPolicy selectionPolicy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			EditPolicy selectionPolicy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 			Assertions.assertThat(selectionPolicy).isInstanceOf(GridSelectionEditPolicy.class);
 		}
 		// drag "button" to "group"
@@ -318,7 +318,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 		// no "grid" selection
 		{
 			GraphicalEditPart buttonPart = canvas.getEditPart(button);
-			EditPolicy selectionPolicy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			EditPolicy selectionPolicy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 			Assertions.assertThat(selectionPolicy).isInstanceOf(NonResizableSelectionEditPolicy.class);
 		}
 	}

@@ -279,7 +279,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	@Test
 	public void test_selectionPolicy() throws Exception {
 		MenuSelectionEditPolicy selectionPolicy =
-				(MenuSelectionEditPolicy) popupPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+				(MenuSelectionEditPolicy) popupPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 		// check selection handles
 		{
 			List<Handle> selectionHandles =

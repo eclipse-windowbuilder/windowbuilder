@@ -95,7 +95,7 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
 		if (m_layout.isManagedObject(model)) {
 			ComponentInfo component = (ComponentInfo) model;
 			EditPolicy selectionPolicy = new GridBagSelectionEditPolicy(m_layout, component);
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, selectionPolicy);
 		}
 	}
 

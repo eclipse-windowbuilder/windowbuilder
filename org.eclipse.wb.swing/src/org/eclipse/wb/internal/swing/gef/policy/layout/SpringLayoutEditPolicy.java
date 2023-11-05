@@ -63,7 +63,7 @@ public final class SpringLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicyS
 	protected void decorateChild(EditPart child) {
 		Object model = child.getModel();
 		if (model instanceof ComponentInfo) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new SpringSelectionEditPolicy(m_layout));
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SpringSelectionEditPolicy(m_layout));
 		}
 	}
 
@@ -115,7 +115,7 @@ public final class SpringLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicyS
 		for (EditPart child : getHost().getChildren()) {
 			if (child.getModel() instanceof ComponentInfo) {
 				SpringSelectionEditPolicy editPolicy =
-						(SpringSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						(SpringSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.hideSelection();
 			}
 		}
@@ -128,7 +128,7 @@ public final class SpringLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicyS
 			if (child.getModel() instanceof ComponentInfo
 					&& child.getSelected() != EditPart.SELECTED_NONE) {
 				SpringSelectionEditPolicy editPolicy =
-						(SpringSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						(SpringSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.showSelection();
 			}
 		}

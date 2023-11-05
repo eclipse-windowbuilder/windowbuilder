@@ -96,7 +96,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 		if (child.getModel() instanceof ComponentInfo) {
 			ComponentInfo component = (ComponentInfo) child.getModel();
 			EditPolicy selectionPolicy = new FormSelectionEditPolicy(m_layout, component);
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, selectionPolicy);
 		}
 	}
 

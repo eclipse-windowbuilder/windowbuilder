@@ -47,7 +47,7 @@ public class DialogEditPart extends AbstractComponentEditPart {
 		// injecting into main {@link ShellEditPart} a {@link TopSelectionEditPolicy}.
 		for (EditPart child : getChildren()) {
 			if (child.getModel() == m_dialog.getShellInfo()) {
-				child.installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_dialog));
+				child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TopSelectionEditPolicy(m_dialog));
 			}
 		}
 	}

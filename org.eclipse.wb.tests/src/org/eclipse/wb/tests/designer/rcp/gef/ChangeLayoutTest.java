@@ -56,7 +56,7 @@ public class ChangeLayoutTest extends RcpGefTest {
 		GraphicalEditPart buttonPart = canvas.getEditPart(button);
 		// initially Button has "absolute" selection policy
 		{
-			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 			Assertions.assertThat(policy).isNotNull();
 			Assertions.assertThat(policy.toString()).contains("AbsoluteLayoutSelectionEditPolicy");
 		}
@@ -77,7 +77,7 @@ public class ChangeLayoutTest extends RcpGefTest {
 				"}");
 		// FillLayout uses "non-resizable" selection policy
 		{
-			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 			Assertions.assertThat(policy).isNotNull();
 			Assertions.assertThat(policy.toString()).contains("NonResizableSelectionEditPolicy");
 		}

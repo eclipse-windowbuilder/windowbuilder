@@ -117,7 +117,7 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 		if (m_layout.isManagedObject(model)) {
 			C control = toControl(model);
 			EditPolicy selectionPolicy = new GridSelectionEditPolicy<>(m_layout, control);
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, selectionPolicy);
 		}
 	}
 
@@ -129,11 +129,11 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 			if (isControl(model)) {
 				// not managed: never was or excluded
 				if (!m_layout.isManagedObject(model)) {
-					child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+					child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 					continue;
 				}
 				// managed: may be was excluded
-				if (!(child.getEditPolicy(EditPolicy.SELECTION_ROLE) instanceof GridSelectionEditPolicy<?>)) {
+				if (!(child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE) instanceof GridSelectionEditPolicy<?>)) {
 					decorateChild(child);
 				}
 			}

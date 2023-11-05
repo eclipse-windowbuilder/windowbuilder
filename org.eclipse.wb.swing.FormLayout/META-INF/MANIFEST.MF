@@ -30,5 +30,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.swing.FormLayout
 Import-Package: org.apache.commons.lang,
+ org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts

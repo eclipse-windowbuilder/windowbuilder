@@ -62,7 +62,7 @@ public class ViewerEditPart extends GraphicalEditPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(
-				EditPolicy.SELECTION_ROLE,
+				EditPolicy.SELECTION_FEEDBACK_ROLE,
 				new LineSelectionEditPolicy(IColorConstants.black) {
 					@Override
 					protected Rectangle getHostBounds() {

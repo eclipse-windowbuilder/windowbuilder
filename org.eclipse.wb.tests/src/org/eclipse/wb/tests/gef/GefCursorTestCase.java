@@ -142,7 +142,7 @@ public abstract class GefCursorTestCase extends GefTestCase {
 						return acceptCreateCommand;
 					}
 				});
-				installEditPolicy(EditPolicy.SELECTION_ROLE, new SelectionEditPolicy() {
+				installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionEditPolicy() {
 					@Override
 					protected List<Handle> createSelectionHandles() {
 						List<Handle> handles = new ArrayList<>();

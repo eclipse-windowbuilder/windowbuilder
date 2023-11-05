@@ -74,7 +74,7 @@ public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new SubmenuAwareLayoutEditPolicy(m_object));
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new MenuSelectionEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new MenuSelectionEditPolicy());
 	}
 
 	/////////////////////////////////////////////////////////////////////

@@ -52,6 +52,6 @@ public final class PageLayoutCreateFolderEditPart extends AbstractComponentEditP
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(EditPolicy.SELECTION_ROLE, new AbstractPartSelectionEditPolicy(m_folder));
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new AbstractPartSelectionEditPolicy(m_folder));
 	}
 }

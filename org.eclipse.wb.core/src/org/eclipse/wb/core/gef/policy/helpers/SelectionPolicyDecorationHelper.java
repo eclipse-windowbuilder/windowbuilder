@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * Helper for replacing {@link EditPolicy#SELECTION_ROLE} during child {@link EditPart} decoration
+ * Helper for replacing {@link EditPolicy#SELECTION_FEEDBACK_ROLE} during child {@link EditPart} decoration
  * and restoring original {@link SelectionEditPolicy} during undecoration.
  *
  * @author scheglov_ke
@@ -61,7 +61,7 @@ public abstract class SelectionPolicyDecorationHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void rememberOldPolicy(EditPart child) {
-		EditPolicy selectionPolicy = child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+		EditPolicy selectionPolicy = child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 		if (selectionPolicy != null) {
 			m_policies.put(child, selectionPolicy);
 		}
@@ -69,12 +69,12 @@ public abstract class SelectionPolicyDecorationHelper {
 
 	private void setNewPolicy(EditPart child) {
 		EditPolicy newPolicy = getNewPolicy(child);
-		child.installEditPolicy(EditPolicy.SELECTION_ROLE, newPolicy);
+		child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, newPolicy);
 	}
 
 	private void restoreOldPolicy(EditPart child) {
 		EditPolicy selectionPolicy = m_policies.get(child);
-		child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+		child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, selectionPolicy);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ public abstract class SelectionPolicyDecorationHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return <code>true</code> if {@link EditPolicy#SELECTION_ROLE} of given {@link EditPart} should
+	 * @return <code>true</code> if {@link EditPolicy#SELECTION_FEEDBACK_ROLE} of given {@link EditPart} should
 	 *         be changed.
 	 */
 	protected boolean shouldChangePolicy(EditPart child) {
@@ -91,7 +91,7 @@ public abstract class SelectionPolicyDecorationHelper {
 	}
 
 	/**
-	 * @return new {@link EditPolicy} to use for {@link EditPolicy#SELECTION_ROLE}, may be
+	 * @return new {@link EditPolicy} to use for {@link EditPolicy#SELECTION_FEEDBACK_ROLE}, may be
 	 *         <code>null</code>.
 	 */
 	protected EditPolicy getNewPolicy(EditPart child) {

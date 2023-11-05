@@ -33,7 +33,7 @@ public final class DefaultLayoutEditPolicy extends LayoutEditPolicy {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (child.getModel() instanceof ControlInfo) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 		}
 	}
 }

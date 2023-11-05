@@ -87,7 +87,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (m_layout.isRelatedComponent((JavaInfo) child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new GroupSelectionEditPolicy2(m_layout));
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new GroupSelectionEditPolicy2(m_layout));
 		}
 	}
 
@@ -100,7 +100,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		for (EditPart child : getHost().getChildren()) {
 			if (m_layout.isRelatedComponent((JavaInfo) child.getModel())) {
 				GroupSelectionEditPolicy2 editPolicy = (GroupSelectionEditPolicy2) child
-						.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.hideSelection();
 			}
 		}
@@ -111,7 +111,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 			if (m_layout.isRelatedComponent((JavaInfo) child.getModel())
 					&& child.getSelected() != EditPart.SELECTED_NONE) {
 				GroupSelectionEditPolicy2 editPolicy = (GroupSelectionEditPolicy2) child
-						.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.showSelection();
 			}
 		}

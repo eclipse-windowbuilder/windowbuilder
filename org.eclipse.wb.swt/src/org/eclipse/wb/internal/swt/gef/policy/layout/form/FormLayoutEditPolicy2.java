@@ -84,7 +84,7 @@ IHeadersProvider {
 	@Override
 	protected void decorateChild(EditPart child) {
 		if (m_layout.getControls().contains(child.getModel())) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new FormSelectionEditPolicy2(m_layout));
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new FormSelectionEditPolicy2(m_layout));
 		}
 	}
 

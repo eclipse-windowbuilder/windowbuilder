@@ -59,7 +59,7 @@ public final class GroupLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicySw
 	protected void decorateChild(EditPart child) {
 		Object model = child.getModel();
 		if (model instanceof ComponentInfo) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new GroupSelectionEditPolicy(m_layout));
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new GroupSelectionEditPolicy(m_layout));
 		}
 	}
 
@@ -89,7 +89,7 @@ public final class GroupLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicySw
 		for (EditPart child : getHost().getChildren()) {
 			if (child.getModel() instanceof ComponentInfo) {
 				GroupSelectionEditPolicy editPolicy =
-						(GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						(GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.hideSelection();
 			}
 		}
@@ -102,7 +102,7 @@ public final class GroupLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicySw
 			if (child.getModel() instanceof ComponentInfo
 					&& child.getSelected() != EditPart.SELECTED_NONE) {
 				GroupSelectionEditPolicy editPolicy =
-						(GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+						(GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 				editPolicy.showSelection();
 			}
 		}

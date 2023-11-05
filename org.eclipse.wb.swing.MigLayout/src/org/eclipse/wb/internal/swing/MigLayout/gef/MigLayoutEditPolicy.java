@@ -140,9 +140,9 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	 * one.
 	 */
 	private static void setSelectionEditPolicy(EditPart child, SelectionEditPolicy selectionPolicy) {
-		EditPolicy oldPolicy = child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+		EditPolicy oldPolicy = child.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
 		if (oldPolicy == null || oldPolicy.getClass() != selectionPolicy.getClass()) {
-			child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, selectionPolicy);
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////
