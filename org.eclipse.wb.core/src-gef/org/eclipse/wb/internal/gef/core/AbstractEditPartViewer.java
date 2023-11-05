@@ -140,7 +140,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 * Set input model for this viewer.
 	 */
 	public void setInput(Object model) {
-		EditPart contentEditPart = m_factory.createEditPart((EditPart) m_rootEditPart, model);
+		org.eclipse.gef.EditPart contentEditPart = m_factory.createEditPart((EditPart) m_rootEditPart, model);
 		m_rootEditPart.setContent(contentEditPart);
 	}
 
@@ -193,7 +193,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	@Override
 	public ISelection getSelection() {
 		if (m_selectionList.isEmpty()) {
-			EditPart content = m_rootEditPart.getContent();
+			org.eclipse.gef.EditPart content = m_rootEditPart.getContent();
 			if (content != null) {
 				return new StructuredSelection(content);
 			}

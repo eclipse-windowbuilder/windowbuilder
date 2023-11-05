@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.gefTree;
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
 import org.eclipse.wb.core.gefTree.part.ObjectEditPart;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuItemEditPart;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
+
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -128,7 +129,7 @@ public final class EditPartFactory implements IEditPartFactory {
 						"org.eclipse.wb.core.treeEditPartConfigurators",
 						"configurator");
 		for (IEditPartConfigurator configurator : configurators) {
-			configurator.configure(context, editPart);
+			configurator.configure((org.eclipse.wb.gef.core.EditPart) context, (org.eclipse.wb.gef.core.EditPart) editPart);
 		}
 	}
 }

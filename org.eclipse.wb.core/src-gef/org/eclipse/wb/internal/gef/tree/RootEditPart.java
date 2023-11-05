@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;

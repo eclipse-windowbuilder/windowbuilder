@@ -416,7 +416,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 			//
 			EditPart childPart = modelToPart.get(model);
 			if (childPart == null) {
-				EditPart createEditPart = createEditPart(model);
+				EditPart createEditPart = (EditPart) createEditPart(model);
 				if (createEditPart != null) {
 					addChild(createEditPart, index);
 				} else {
@@ -461,7 +461,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * <code>{@link
 	 * IEditPartViewer}</code> 's {@link IEditPartFactory}.
 	 */
-	protected EditPart createEditPart(Object model) {
+	protected org.eclipse.gef.EditPart createEditPart(Object model) {
 		IEditPartFactory factory = getViewer().getEditPartFactory();
 		return factory.createEditPart(this, model);
 	}

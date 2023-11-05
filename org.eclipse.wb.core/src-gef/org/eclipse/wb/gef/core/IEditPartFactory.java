@@ -22,15 +22,4 @@ import org.eclipse.gef.EditPartViewer;
  * @coverage gef.core
  */
 public interface IEditPartFactory extends org.eclipse.gef.EditPartFactory {
-	/**
-	 * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
-	 */
-	@Override
-	default org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
-		return createEditPart(context, model);
-	}
-	/**
-	 * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
-	 */
-	EditPart createEditPart(EditPart context, Object model);
 }
