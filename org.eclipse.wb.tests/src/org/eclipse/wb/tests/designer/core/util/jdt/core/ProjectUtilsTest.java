@@ -766,20 +766,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	}
 
 	/**
-	 * Test for {@link ProjectUtils#addSWTLibrary(IJavaProject)}.
-	 */
-	@DisposeProjectAfter
-	@Test
-	public void test_addSWTLibrary() throws Exception {
-		// no org.eclipse.swt.SWT
-		assertFalse(ProjectUtils.hasType(m_javaProject, "org.eclipse.swt.SWT"));
-		// add SWP plugin library
-		ProjectUtils.addSWTLibrary(m_javaProject);
-		// OK, org.eclipse.swt.SWT now exists in project
-		assertTrue(ProjectUtils.hasType(m_javaProject, "org.eclipse.swt.SWT"));
-	}
-
-	/**
 	 * Test for {@link ProjectUtils#removeClasspathEntries(IJavaProject, Predicate)}.
 	 */
 	@DisposeProjectAfter

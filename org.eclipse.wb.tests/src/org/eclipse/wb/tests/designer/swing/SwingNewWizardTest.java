@@ -65,4 +65,18 @@ public class SwingNewWizardTest extends DesignerEditorTestCase {
 	public void testCreateNewApplicationWindow() throws Exception {
 		openDesign(new NewSwingApplicationWizard(), m_packageFragment, "MyApplicationWindow");
 	}
+
+	@Test
+	public void testCreateWithJavaModules() throws Exception {
+		setFileContentSrc("module-info.java", """
+				module test {
+				}""");
+		//
+		openDesign(new NewJFrameWizard(), m_packageFragment, "MyJFrame");
+		//
+		assertEquals(getFileContentSrc("module-info.java"), """
+				module test {
+					requires java.desktop;
+				}""");
+	}
 }

@@ -54,20 +54,8 @@ public class NewProjectWizard extends DesignerJavaProjectWizard {
 	}
 
 	private static void addRequiredLibraries(IJavaProject javaProject) throws Exception {
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.osgi");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.core.commands");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.equinox.common");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.equinox.registry");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.core.runtime");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.text");
-		ProjectUtils.addSWTLibrary(javaProject);
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.jface");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.jface.text");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.workbench");
-		ProjectUtils.addPluginLibraries(javaProject, "com.ibm.icu");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.forms");
-		// E4 support
-		ProjectUtils.addPluginLibraries(javaProject, "javax.annotation");
-		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.e4.ui.di");
+		for (String symbolicName : ProjectUtils.getAllPluginLibraries()) {
+			ProjectUtils.addPluginLibraries(javaProject, symbolicName);
+		}
 	}
 }

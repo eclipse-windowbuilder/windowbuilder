@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Automatic bindings wizard.
  *
@@ -41,6 +44,11 @@ public abstract class AutomaticDatabindingWizard extends AbstractDesignWizard {
 	@Override
 	protected final AbstractDesignWizardPage createMainPage() {
 		return null;
+	}
+
+	@Override
+	protected final Set<String> getRequiredModuleNames() {
+		return Collections.emptySet();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
