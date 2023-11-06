@@ -188,6 +188,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 		// set "image" property
 		shell.addMethodInvocation("setImage(org.eclipse.swt.graphics.Image)", imageSource);
 		shell.refresh();
+		waitEventLoop(10);
 		//
 		Property property = shell.getPropertyByTitle("image");
 		assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
