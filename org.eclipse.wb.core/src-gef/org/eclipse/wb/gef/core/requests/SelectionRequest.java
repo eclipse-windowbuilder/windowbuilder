@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,8 @@ package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.wb.gef.core.EditPart;
 
+import org.eclipse.swt.SWT;
+
 /**
  * A {@link Request} to select an {@link EditPart}.
  *
@@ -23,20 +25,65 @@ public class SelectionRequest extends LocationRequest {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructors
+	// State mask
 	//
 	////////////////////////////////////////////////////////////////////////////
+	private int m_stateMask;
+
 	/**
-	 * Constructs an empty {@link SelectionRequest}.
+	 * Returns <code>true</code> if the ALT key is currently pressed.
 	 */
-	public SelectionRequest() {
+	public final boolean isAltKeyPressed() {
+		return (m_stateMask & SWT.ALT) != 0;
 	}
 
 	/**
-	 * Constructs a {@link SelectionRequest} with the specified <i>type</i>.
+	 * Returns <code>true</code> if the CTRL key is currently pressed.
 	 */
-	public SelectionRequest(Object type) {
-		super(type);
+	public final boolean isControlKeyPressed() {
+		return (m_stateMask & SWT.CONTROL) != 0;
+	}
+
+	/**
+	 * Returns <code>true</code> if the SHIFT key is currently pressed.
+	 */
+	public final boolean isShiftKeyPressed() {
+		return (m_stateMask & SWT.SHIFT) != 0;
+	}
+
+	/**
+	 * Returns <code>true</code> if the left mouse button is pressed.
+	 */
+	public final boolean isLeftMouseButtonPressed() {
+		return (m_stateMask & SWT.BUTTON1) != 0;
+	}
+
+	/**
+	 * Returns <code>true</code> if the right mouse button is pressed.
+	 */
+	public final boolean isRightMouseButtonPressed() {
+		return (m_stateMask & SWT.BUTTON3) != 0;
+	}
+
+	/**
+	 * Returns <code>true</code> if any mouse button is currently pressed.
+	 */
+	public final boolean isAnyMouseButtonPressed() {
+		return (m_stateMask & (SWT.BUTTON1 | SWT.BUTTON2 | SWT.BUTTON3)) != 0;
+	}
+
+	/**
+	 * Returns statemask for this request.
+	 */
+	public final int getModifiers() {
+		return m_stateMask;
+	}
+
+	/**
+	 * Sets statemask for this request.
+	 */
+	public final void setModifiers(int stateMask) {
+		m_stateMask = stateMask;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -71,7 +118,7 @@ public class SelectionRequest extends LocationRequest {
 		buffer.append(", location=");
 		buffer.append(getLocation());
 		buffer.append(", stateMask=");
-		buffer.append(getStateMask());
+		buffer.append(getModifiers());
 		buffer.append(", button=");
 		buffer.append(m_lastButtonPressed);
 		buffer.append(")");

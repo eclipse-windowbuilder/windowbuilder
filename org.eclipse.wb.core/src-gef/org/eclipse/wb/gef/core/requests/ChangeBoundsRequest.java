@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,10 +23,12 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.core
  */
 public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
+	private static final int SNAP_TO = 16;
 	private Point m_mouseLocation;
 	private Point m_moveDelta = new Point();
 	private Dimension m_resizeDelta = new Dimension();
 	private int m_resizeDirection;
+	private int m_flags = 0;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -133,6 +135,53 @@ public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// DND Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private int m_dndFeedback;
+
+	/**
+	 * @return additional DND feedback flags.
+	 */
+	public int getDNDFeedback() {
+		return m_dndFeedback;
+	}
+
+	/**
+	 * Sets additional DND feedback flags.
+	 */
+	public void setDNDFeedback(int dndFeedback) {
+		m_dndFeedback = dndFeedback;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Snap to horizontal axis
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Used to set whether snap-to is being performed.
+	 *
+	 * @param value <code>true</code> if the request is for a creation with snap-to
+	 *              enabled
+	 */
+	public void setSnapToEnabled(boolean value) {
+		m_flags = value ? m_flags | SNAP_TO : m_flags & ~SNAP_TO;
+	}
+
+	/**
+	 * Returns <code>true</code> if snap-to is enabled
+	 *
+	 * @return <code>true</code> if the request is for a creation with snap-to
+	 *         enabled
+	 */
+	public boolean isSnapToEnabled() {
+		return (m_flags & SNAP_TO) != 0;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Object
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -142,8 +191,8 @@ public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
 		buffer.append(getType());
 		buffer.append(", editParts=");
 		buffer.append(getEditParts());
-		buffer.append(", stateMask=");
-		buffer.append(getStateMask());
+		buffer.append(", m_flags=");
+		buffer.append(m_flags);
 		buffer.append(", location=");
 		buffer.append(m_mouseLocation);
 		buffer.append(", resizeDelta=");

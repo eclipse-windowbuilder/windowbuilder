@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.SWT;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -107,7 +106,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(10, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -120,7 +118,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(10, 10);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(10, 10));
 			request.setSizeDelta(new Dimension(0, 8));
 			request.setMoveDelta(new Point(0, -8));
@@ -133,7 +130,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(11, 11);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -146,7 +142,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -176,7 +171,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.setStateMask(SWT.BUTTON1);
 			request.addEditPart(m_editPart);
 			request.setLocation(new Point(10, 17));
 			request.setSizeDelta(new Dimension(0, 7));
@@ -189,7 +183,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(10, 18);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(10, 18));
 			request.setSizeDelta(new Dimension(0, 8));
 			//
@@ -201,7 +194,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(11, 17);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 17));
 			request.setSizeDelta(new Dimension(0, 7));
 			//
@@ -213,7 +205,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 17));
 			request.setSizeDelta(new Dimension(0, 7));
 			//
@@ -243,7 +234,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 10));
 			request.setSizeDelta(new Dimension(7, 0));
 			request.setMoveDelta(new Point(-7, 0));
@@ -256,7 +246,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(10, 10);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(10, 10));
 			request.setSizeDelta(new Dimension(8, 0));
 			request.setMoveDelta(new Point(-8, 0));
@@ -269,7 +258,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(11, 11);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(7, 0));
 			request.setMoveDelta(new Point(-7, 0));
@@ -282,7 +270,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(7, 0));
 			request.setMoveDelta(new Point(-7, 0));
@@ -312,7 +299,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.setStateMask(SWT.BUTTON1);
 			request.addEditPart(m_editPart);
 			request.setLocation(new Point(17, 10));
 			request.setSizeDelta(new Dimension(7, 0));
@@ -325,7 +311,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(18, 10);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(18, 10));
 			request.setSizeDelta(new Dimension(8, 0));
 			//
@@ -337,7 +322,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.dragTo(17, 11);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(17, 11));
 			request.setSizeDelta(new Dimension(7, 0));
 			//
@@ -349,7 +333,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(17, 11));
 			request.setSizeDelta(new Dimension(7, 0));
 			//
@@ -379,7 +362,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(25, 11));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -392,7 +374,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(25, 11));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -423,7 +404,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(-7, -7));
@@ -436,7 +416,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(-7, -7));
@@ -467,7 +446,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(18, 18));
 			request.setSizeDelta(new Dimension(7, 7));
 			//
@@ -479,7 +457,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(18, 18));
 			request.setSizeDelta(new Dimension(7, 7));
 			//
@@ -509,7 +486,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 25));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(-7, 0));
@@ -522,7 +498,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(11, 25));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(-7, 0));
@@ -573,7 +548,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
 			request.addEditPart(m_editPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(10, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -586,7 +560,6 @@ public class ResizeTrackerTest extends RequestTestCase {
 			m_sender.click(10, 11, 3);
 			//
 			ChangeBoundsRequest request = createRequest();
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(10, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));

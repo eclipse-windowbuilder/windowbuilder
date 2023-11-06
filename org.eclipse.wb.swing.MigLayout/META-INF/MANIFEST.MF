@@ -22,4 +22,5 @@ Automatic-Module-Name: org.eclipse.wb.swing.MigLayout
 Import-Package: org.apache.commons.lang,
  org.eclipse.gef,
  org.eclipse.gef.commands,
- org.eclipse.gef.editparts
+ org.eclipse.gef.editparts,
+ org.eclipse.gef.editpolicies

@@ -187,6 +187,7 @@ Import-Package: org.apache.commons.io,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts,
  org.eclipse.gef.editpolicies,
+ org.eclipse.gef.requests,
  org.eclipse.gef.ui.parts
 Automatic-Module-Name: org.eclipse.wb.tests
 

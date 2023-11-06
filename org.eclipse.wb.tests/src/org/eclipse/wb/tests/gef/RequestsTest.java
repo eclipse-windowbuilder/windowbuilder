@@ -52,23 +52,11 @@ public class RequestsTest extends Assert {
 		//
 		// check new Request
 		assertNull(request.getType());
-		assertEquals("Request(type=null, stateMask=0)", request.toString());
 		//
 		// check set type
 		Object type = 3;
 		request = new Request(type);
 		assertSame(type, request.getType());
-		assertEquals("Request(type=3, stateMask=0)", request.toString());
-		//
-		// check set key state mask and help methods is...
-		request.setStateMask(SWT.ALT | SWT.BUTTON3);
-		assertEquals("Request(type=3, stateMask=2162688)", request.toString());
-		assertTrue(request.isAltKeyPressed());
-		assertFalse(request.isControlKeyPressed());
-		assertFalse(request.isShiftKeyPressed());
-		assertFalse(request.isLeftMouseButtonPressed());
-		assertTrue(request.isRightMouseButtonPressed());
-		assertTrue(request.isAnyMouseButtonPressed());
 	}
 
 	@Test
@@ -178,7 +166,7 @@ public class RequestsTest extends Assert {
 		// check new SelectionRequest
 		assertNull(request.getType());
 		assertNull(request.getLocation());
-		assertEquals(0, request.getStateMask());
+		assertEquals(0, request.getModifiers());
 		assertEquals(0, request.getLastButtonPressed());
 		assertFalse(request.isAltKeyPressed());
 		assertFalse(request.isControlKeyPressed());
@@ -188,7 +176,8 @@ public class RequestsTest extends Assert {
 		assertFalse(request.isAnyMouseButtonPressed());
 		//
 		// check type
-		request = new SelectionRequest(RequestConstants.REQ_SELECTION);
+		request = new SelectionRequest();
+		request.setType(RequestConstants.REQ_SELECTION);
 		assertSame(RequestConstants.REQ_SELECTION, request.getType());
 		//
 		// check location
@@ -203,7 +192,7 @@ public class RequestsTest extends Assert {
 		assertEquals(3, request.getLastButtonPressed());
 		//
 		// check set key state mask and help methods is...
-		request.setStateMask(SWT.CONTROL | SWT.SHIFT);
+		request.setModifiers(SWT.CONTROL | SWT.SHIFT);
 		assertFalse(request.isAltKeyPressed());
 		assertTrue(request.isControlKeyPressed());
 		assertTrue(request.isShiftKeyPressed());

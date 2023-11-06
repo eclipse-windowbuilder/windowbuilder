@@ -320,12 +320,12 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 			// drop to children
 			removeFromSelection();
 			boolean beforeLocation = isBeforeLocation(targetItem, location);
-			if (EnvironmentUtils.IS_LINUX) {
+			if (EnvironmentUtils.IS_LINUX && request instanceof ChangeBoundsRequest changeBoundsRequest) {
 				/*
 				 * Feature in Linux: during DND dragOver() operation the
 				 * DropTargetEvent.feedback resets all previous tree insert marks.
 				 */
-				request.setDNDFeedback(beforeLocation
+				changeBoundsRequest.setDNDFeedback(beforeLocation
 						? DND.FEEDBACK_INSERT_BEFORE
 								: DND.FEEDBACK_INSERT_AFTER);
 			}

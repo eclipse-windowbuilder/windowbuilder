@@ -189,7 +189,7 @@ AbstractHeaderSelectionEditPolicy {
 			}
 			// set text
 			m_lastResizeRequest = changeBoundsRequest;
-			updateFeedbackText(changeBoundsRequest);
+			updateFeedbackText(changeBoundsRequest, changeBoundsRequest.isSnapToEnabled());
 			// set hint
 			{
 				String hintSize;
@@ -206,8 +206,8 @@ AbstractHeaderSelectionEditPolicy {
 	/**
 	 * Updates the feedback text according to the last resize request and Ctrl state.
 	 */
-	private void updateFeedbackText(Request request) {
-		m_feedback.setText(getTextFeedbackText(m_lastResizeRequest, request.isControlKeyPressed()));
+	private void updateFeedbackText(Request request, boolean snapToEnabled) {
+		m_feedback.setText(getTextFeedbackText(m_lastResizeRequest, snapToEnabled));
 	}
 
 	@Override
@@ -224,7 +224,7 @@ AbstractHeaderSelectionEditPolicy {
 		if (m_feedback != null && request instanceof KeyRequest keyRequest) {
 			if (keyRequest.getKeyCode() == SWT.CTRL) {
 				m_feedback.setShowSizeHint(!keyRequest.isPressed());
-				updateFeedbackText(request);
+				updateFeedbackText(request, true);
 			}
 		}
 	}

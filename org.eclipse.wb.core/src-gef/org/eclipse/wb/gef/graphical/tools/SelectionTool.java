@@ -199,7 +199,9 @@ public class SelectionTool extends TargetingTool {
 	 */
 	@Override
 	protected Request createTargetRequest() {
-		return new SelectionRequest(RequestConstants.REQ_SELECTION);
+		Request request = new SelectionRequest();
+		request.setType(RequestConstants.REQ_SELECTION);
+		return request;
 	}
 
 	/**
