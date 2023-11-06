@@ -14,11 +14,12 @@ import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.swt.gef.part.delegate.IControlEditPartDelegate;
 import org.eclipse.wb.internal.swt.gef.part.delegate.IControlEditPartDelegateProvider;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.gef.Request;
 
 import java.util.List;
 

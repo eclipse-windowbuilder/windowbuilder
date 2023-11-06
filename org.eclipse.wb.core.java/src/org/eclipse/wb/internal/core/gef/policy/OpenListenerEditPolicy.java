@@ -13,12 +13,12 @@ package org.eclipse.wb.internal.core.gef.policy;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
 import org.apache.commons.lang.StringUtils;

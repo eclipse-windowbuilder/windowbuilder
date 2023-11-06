@@ -12,8 +12,9 @@ package org.eclipse.wb.internal.gef.tree.policies;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 
+import org.eclipse.gef.EditPartListener;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
 /**

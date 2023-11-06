@@ -15,10 +15,10 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
 import org.eclipse.gef.EditPartListener;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
 import java.util.Collections;

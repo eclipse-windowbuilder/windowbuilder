@@ -13,12 +13,12 @@ package org.eclipse.wb.internal.core.gefTree.policy.dblclick;
 import org.eclipse.wb.core.gefTree.part.JavaEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
 /**

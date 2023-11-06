@@ -12,9 +12,9 @@ package org.eclipse.wb.core.gef.header;
 
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
 /**

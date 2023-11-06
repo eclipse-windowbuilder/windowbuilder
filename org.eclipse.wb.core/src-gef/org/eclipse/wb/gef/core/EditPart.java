@@ -13,7 +13,6 @@ package org.eclipse.wb.gef.core;
 import com.google.common.collect.Iterators;
 
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 

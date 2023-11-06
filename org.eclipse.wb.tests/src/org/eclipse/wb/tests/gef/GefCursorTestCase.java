@@ -170,7 +170,7 @@ public abstract class GefCursorTestCase extends GefTestCase {
 					}
 
 					@Override
-					public EditPart getTargetEditPart(org.eclipse.wb.gef.core.requests.Request request) {
+					public EditPart getTargetEditPart(org.eclipse.gef.Request request) {
 						if (understandsRequest(request)) {
 							return getHost();
 						}

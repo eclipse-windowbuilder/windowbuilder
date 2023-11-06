@@ -14,7 +14,8 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
-import org.eclipse.wb.gef.core.requests.Request;
+
+import org.eclipse.gef.Request;
 
 /**
  * The {@link CreationTool} creates new {@link EditPart EditParts} via a {@link ICreationFactory}.

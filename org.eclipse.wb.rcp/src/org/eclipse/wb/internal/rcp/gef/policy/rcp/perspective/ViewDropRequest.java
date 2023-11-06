@@ -11,8 +11,9 @@
 package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * {@link Request} to drop new view.

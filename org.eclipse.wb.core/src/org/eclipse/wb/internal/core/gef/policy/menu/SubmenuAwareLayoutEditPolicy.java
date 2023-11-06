@@ -21,7 +21,6 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuPopupEditPart;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
 
 /**
  * {@link LayoutEditPolicy} for {@link SubmenuAwareEditPart} that shows sub-menu when user targets

@@ -11,6 +11,7 @@
 package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
 
 /**
  * A {@link Request} that needs to keep track of a location.

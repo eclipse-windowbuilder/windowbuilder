@@ -12,9 +12,10 @@ package org.eclipse.wb.gef.graphical;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
+
+import org.eclipse.gef.Request;
 
 /**
  * @author lobas_av

@@ -11,8 +11,8 @@
 package org.eclipse.wb.internal.core.gef.tools;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.gef.core.requests.Request;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 import java.util.List;

@@ -12,9 +12,9 @@ package org.eclipse.wb.core.gefTree.policy;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 import java.util.List;

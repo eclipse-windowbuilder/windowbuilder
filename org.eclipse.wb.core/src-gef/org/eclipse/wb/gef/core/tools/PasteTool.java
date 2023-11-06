@@ -13,7 +13,8 @@ package org.eclipse.wb.gef.core.tools;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.core.requests.Request;
+
+import org.eclipse.gef.Request;
 
 import java.util.ArrayList;
 import java.util.List;

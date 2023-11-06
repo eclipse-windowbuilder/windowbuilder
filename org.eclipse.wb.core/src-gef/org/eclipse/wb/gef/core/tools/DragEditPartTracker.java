@@ -16,10 +16,10 @@ import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;

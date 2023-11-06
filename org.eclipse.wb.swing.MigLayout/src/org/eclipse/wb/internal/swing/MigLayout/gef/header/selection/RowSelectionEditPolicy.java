@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef.header.selection;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link RowHeaderEditPart}.

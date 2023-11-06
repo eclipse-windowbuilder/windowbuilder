@@ -11,9 +11,9 @@
 package org.eclipse.wb.gef.graphical.policies;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;

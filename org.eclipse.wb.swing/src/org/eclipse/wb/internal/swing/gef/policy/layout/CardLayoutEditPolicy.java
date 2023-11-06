@@ -12,11 +12,12 @@ package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentFlowLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link CardLayoutInfo}.

@@ -12,10 +12,11 @@ package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * {@link Tool} to drop new perspective.
