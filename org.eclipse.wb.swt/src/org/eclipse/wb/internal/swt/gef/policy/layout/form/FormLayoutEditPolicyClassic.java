@@ -196,7 +196,7 @@ implements IHeadersProvider {
 		// see where the widget(s) moved
 		Point moveDelta = request.getMoveDelta();
 		widgetBounds.x = widgetBounds.x + moveDelta.x;
-		if (isFreezeVerticalAxis(request)) {
+		if (isFreezeVerticalAxis(request.isSnapToEnabled())) {
 			widgetBounds.y = frozenYValue;
 		} else {
 			widgetBounds.y = frozenYValue = widgetBounds.y + moveDelta.y;
@@ -371,7 +371,7 @@ implements IHeadersProvider {
 			preferredSize = newChild.getPreferredSize();
 			int y;
 			// freeze vertical axis if needed
-			boolean freezeVerticalAxis = isFreezeVerticalAxis(request);
+			boolean freezeVerticalAxis = isFreezeVerticalAxis(request.isSnapToEnabled());
 			if (freezeVerticalAxis) {
 				y = frozenYValue;
 			} else {
@@ -528,7 +528,7 @@ implements IHeadersProvider {
 			}
 		}
 		bounds.x = loc.x - bounds.width / 2;
-		if (isFreezeVerticalAxis(request)) {
+		if (isFreezeVerticalAxis(request.isSnapToEnabled())) {
 			bounds.y = frozenYValue;
 		} else {
 			bounds.y = frozenYValue = loc.y - bounds.height / 2;
@@ -1162,8 +1162,8 @@ implements IHeadersProvider {
 		return !DesignerPlugin.isShiftPressed();
 	}
 
-	private boolean isFreezeVerticalAxis(Request request) {
-		return request.isControlKeyPressed() && frozenYValue != 0;
+	private boolean isFreezeVerticalAxis(boolean snapToEnabled) {
+		return snapToEnabled && frozenYValue != 0;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

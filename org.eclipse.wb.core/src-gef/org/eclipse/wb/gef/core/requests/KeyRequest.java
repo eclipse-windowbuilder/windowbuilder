@@ -37,7 +37,6 @@ public class KeyRequest extends Request {
 		m_pressed = pressed;
 		m_character = event.character;
 		m_keyCode = event.keyCode;
-		setStateMask(event.stateMask);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -86,8 +85,6 @@ public class KeyRequest extends Request {
 		buffer.append(m_character);
 		buffer.append(", keyCode=");
 		buffer.append(m_keyCode);
-		buffer.append(", stateMask=");
-		buffer.append(getStateMask());
 		buffer.append(")");
 		return buffer.toString();
 	}

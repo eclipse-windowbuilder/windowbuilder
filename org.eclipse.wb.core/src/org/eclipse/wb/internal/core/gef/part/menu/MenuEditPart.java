@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -141,7 +140,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new MenuSelectionEditPolicy());
 	}
 	@Override
-	public Tool getDragTrackerTool(Request request) {
+	public Tool getDragTrackerTool(org.eclipse.wb.gef.core.requests.Request request) {
 		// we don't need any move/resize for menu edit part!
 		if (isSubMenu()) {
 			return new SelectEditPartTracker(this);

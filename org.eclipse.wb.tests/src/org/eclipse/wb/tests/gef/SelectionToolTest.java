@@ -20,7 +20,6 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.RequestConstants;
-import org.eclipse.swt.SWT;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +47,8 @@ public class SelectionToolTest extends RequestTestCase {
 		m_tool = new SelectionTool();
 		m_domain.setActiveTool(m_tool);
 		//
-		m_request = new SelectionRequest(RequestConstants.REQ_SELECTION);
+		m_request = new SelectionRequest();
+		m_request.setType(RequestConstants.REQ_SELECTION);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,6 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(childEditPart, "performRequest", new DragPermissionRequest());
 			//
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(150, 150));
 			request.setMoveDelta(new Point(15, 25));
 			//
@@ -201,7 +200,6 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.addEditPart(childEditPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(150, 150));
 			request.setMoveDelta(new Point(15, 25));
 			//
@@ -213,7 +211,6 @@ public class SelectionToolTest extends RequestTestCase {
 			expectedLogger.log(childEditPart, "eraseTargetFeedback", m_request);
 			//
 			m_request.setLocation(new Point(150, 150));
-			m_request.setStateMask(SWT.BUTTON1);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);
@@ -260,7 +257,6 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(childEditPart, "performRequest", new DragPermissionRequest());
 			//
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(150, 150));
 			request.setMoveDelta(new Point(50, 50));
 			//
@@ -286,7 +282,6 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.addEditPart(childEditPart);
-			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(150, 150));
 			request.setMoveDelta(new Point(50, 50));
 			//
@@ -297,7 +292,6 @@ public class SelectionToolTest extends RequestTestCase {
 			expectedLogger.log(editPart, "getTargetEditPart", m_request);
 			//
 			m_request.setLocation(new Point(150, 150));
-			m_request.setStateMask(SWT.BUTTON1);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);

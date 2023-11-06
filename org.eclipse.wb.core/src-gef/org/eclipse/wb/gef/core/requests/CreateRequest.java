@@ -19,9 +19,11 @@ import org.eclipse.gef.RequestConstants;
  * @coverage gef.core
  */
 public class CreateRequest extends AbstractCreateRequest {
+	private static final int SNAP_TO = 16;
 	private final ICreationFactory m_factory;
 	private Object m_newObject;
 	private Object m_selectObject;
+	private int m_flags = 0;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -69,6 +71,32 @@ public class CreateRequest extends AbstractCreateRequest {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Snap to horizontal axis
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Used to set whether snap-to is being performed.
+	 *
+	 * @param value <code>true</code> if the request is for a creation with snap-to
+	 *              enabled
+	 */
+	public void setSnapToEnabled(boolean value) {
+		m_flags = value ? m_flags | SNAP_TO : m_flags & ~SNAP_TO;
+	}
+
+	/**
+	 * Returns <code>true</code> if snap-to is enabled
+	 *
+	 * @return <code>true</code> if the request is for a creation with snap-to
+	 *         enabled
+	 */
+	public boolean isSnapToEnabled() {
+		return (m_flags & SNAP_TO) != 0;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Object
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -76,8 +104,8 @@ public class CreateRequest extends AbstractCreateRequest {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer("CreateRequest(type=");
 		buffer.append(getType());
-		buffer.append(", stateMask=");
-		buffer.append(getStateMask());
+		buffer.append(", flags=");
+		buffer.append(m_flags);
 		buffer.append(", location=");
 		buffer.append(getLocation());
 		buffer.append(", size=");
@@ -91,5 +119,17 @@ public class CreateRequest extends AbstractCreateRequest {
 		}
 		buffer.append(")");
 		return buffer.toString();
+	}
+
+	/**
+	 * @return the string presentation of given {@link Object} or "<exception>" if
+	 *         any exception happened.
+	 */
+	protected static String safeToString(Object o) {
+		try {
+			return o == null ? null : o.toString();
+		} catch (Throwable e) {
+			return "<exception>";
+		}
 	}
 }

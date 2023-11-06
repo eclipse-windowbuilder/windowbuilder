@@ -93,7 +93,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 			}
 			m_isKeyboardMoving = true;
 			// fill request
-			boolean isResizing = request.isControlKeyPressed();
+			boolean isResizing = request.getKeyCode() == SWT.CTRL;
 			m_changeBoundsRequest.setEditParts(editParts);
 			m_changeBoundsRequest.setType(isResizing ? getResizeRequestType() : RequestConstants.REQ_MOVE);
 			//

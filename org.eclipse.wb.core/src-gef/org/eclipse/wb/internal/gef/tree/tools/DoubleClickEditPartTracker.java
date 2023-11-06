@@ -44,7 +44,8 @@ public class DoubleClickEditPartTracker extends Tool {
 	@Override
 	protected boolean handleDoubleClick(int button) {
 		if (button == 1) {
-			SelectionRequest request = new SelectionRequest(RequestConstants.REQ_OPEN);
+			SelectionRequest request = new SelectionRequest();
+			request.setType(RequestConstants.REQ_OPEN);
 			request.setLocation(getLocation());
 			m_sourceEditPart.performRequest(request);
 		}

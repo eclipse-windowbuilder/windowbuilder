@@ -142,8 +142,8 @@ IHeadersProvider {
 		m_frozenYValue = 0;
 	}
 
-	private boolean isFreezeVerticalAxis(Request request) {
-		return request.isControlKeyPressed() && m_frozenYValue != 0;
+	private boolean isFreezeVerticalAxis(boolean snapToEnabled) {
+		return snapToEnabled && m_frozenYValue != 0;
 	}
 
 	private SnapPoints createSnapPoints(ISnapPointsListener listener) {
@@ -299,7 +299,7 @@ IHeadersProvider {
 		// see where the widget(s) moved
 		Point moveDelta = request.getMoveDelta();
 		widgetBounds.x = widgetBounds.x + moveDelta.x;
-		if (isFreezeVerticalAxis(request)) {
+		if (isFreezeVerticalAxis(request.isSnapToEnabled())) {
 			widgetBounds.y = m_frozenYValue;
 		} else {
 			widgetBounds.y = m_frozenYValue = widgetBounds.y + moveDelta.y;

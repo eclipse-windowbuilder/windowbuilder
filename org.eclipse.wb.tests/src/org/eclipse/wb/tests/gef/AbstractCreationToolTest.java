@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.SWT;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -117,7 +116,6 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(200, 200);
 			//
-			m_request.setStateMask(SWT.BUTTON1);
 			m_request.setLocation(new Point(130, 130));
 			m_request.setSize(new Dimension(70, 70));
 			//
@@ -142,7 +140,6 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.endDrag();
 			//
-			m_request.setStateMask(SWT.BUTTON1);
 			m_request.setLocation(new Point(130, 130));
 			m_request.setSize(new Dimension(200, 10));
 			//
@@ -227,7 +224,6 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(100, 100);
 			//
-			m_request.setStateMask(SWT.BUTTON1);
 			m_request.setLocation(new Point(90, 90));
 			m_request.setSize(new Dimension(10, 10));
 			//
@@ -237,7 +233,6 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		// click invalid button during drag process
 		{
 			m_sender.click(100, 100, 3);
-			m_request.setStateMask(SWT.BUTTON1);
 			m_request.setLocation(new Point(90, 90));
 			m_request.setSize(new Dimension(10, 10));
 			//

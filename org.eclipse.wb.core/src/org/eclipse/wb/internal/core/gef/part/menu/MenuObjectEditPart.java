@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.part.menu.IMenuObjectEditPart;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IActiveToolListener;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -189,7 +189,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart getTargetEditPart(Request request) {
+	public EditPart getTargetEditPart(org.eclipse.wb.gef.core.requests.Request request) {
 		request = processRequestProcessors(request);
 		EditPart target = super.getTargetEditPart(request);
 		boolean isOperationRequest =

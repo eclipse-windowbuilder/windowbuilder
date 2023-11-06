@@ -23,6 +23,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -235,7 +236,7 @@ public class ResizeTracker extends Tool {
 		// set EditPart's
 		getRequest().setEditParts(getOperationSet());
 		// set stateMask
-		getRequest().setStateMask(m_stateMask);
+		getRequest().setSnapToEnabled((m_stateMask & SWT.CONTROL) > 0);
 		// update request
 		Point corner = new Point();
 		Dimension resize = new Dimension();

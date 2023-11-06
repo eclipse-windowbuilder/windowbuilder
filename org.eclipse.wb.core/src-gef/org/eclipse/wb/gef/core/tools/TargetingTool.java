@@ -68,7 +68,6 @@ public abstract class TargetingTool extends Tool {
 	 */
 	protected void setTargetEditPart(EditPart target) {
 		if (m_target != target) {
-			getTargetRequest().setTarget(target);
 			if (m_target != null) {
 				handleExitingEditPart();
 			}
@@ -209,7 +208,6 @@ public abstract class TargetingTool extends Tool {
 	 * Subclasses should override to update the target request.
 	 */
 	protected void updateTargetRequest() {
-		getTargetRequest().setStateMask(m_stateMask);
 	}
 
 	/**
@@ -260,13 +258,7 @@ public abstract class TargetingTool extends Tool {
 			m_isShowingFeedback = false;
 			//
 			if (m_target != null) {
-				Request targetRequest = getTargetRequest();
-				targetRequest.setEraseFeedback(true);
-				try {
-					m_target.eraseTargetFeedback(targetRequest);
-				} finally {
-					targetRequest.setEraseFeedback(false);
-				}
+				m_target.eraseTargetFeedback(getTargetRequest());
 			}
 		}
 	}

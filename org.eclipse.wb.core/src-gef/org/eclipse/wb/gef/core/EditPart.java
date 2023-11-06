@@ -15,8 +15,6 @@ import com.google.common.collect.Iterators;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
@@ -69,6 +67,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * <LI>call activate() on the EditParts it manages. This includes its children.
 	 * </UL>
 	 */
+	@Override
 	public void activate() {
 		setFlag(FLAG_ACTIVE, true);
 		activateEditPolicies();
@@ -92,6 +91,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * <LI>call deactivate() on the EditParts it manages. This includes its children.
 	 * </UL>
 	 */
+	@Override
 	public void deactivate() {
 		for (EditPart childPart : getChildren()) {
 			childPart.deactivate();
@@ -104,6 +104,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * Called <em>after</em> the {@link EditPart} has been added to its parent. This is used to
 	 * indicate to the {@link EditPart} that it should refresh itself for the first time.
 	 */
+	@Override
 	public void addNotify() {
 		getViewer().registerEditPart(this);
 		createEditPolicies();
@@ -120,6 +121,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * is only called when the EditPart is removed from its parent. This method is the inverse of
 	 * {@link #addNotify()}
 	 */
+	@Override
 	public void removeNotify() {
 		if (getSelected() != SELECTED_NONE) {
 			getViewer().deselect(this);
@@ -140,6 +142,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * is only made public so that helper objects of this EditPart, such as EditPolicies, can obtain
 	 * the children. The returned List may be by reference, and should never be modified.
 	 */
+	@Override
 	public List<EditPart> getChildren() {
 		return (List<EditPart>) super.getChildren();
 	}
@@ -147,6 +150,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * Returns the parent <code>{@link EditPart}</code>. This method should only be called internally
 	 * or by helpers such as EditPolicies.
 	 */
+	@Override
 	public EditPart getParent() {
 		return (EditPart) super.getParent();
 	}
@@ -170,6 +174,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * <P>
 	 * Called by {@link #refreshChildren()}. Must not return <code>null</code>.
 	 */
+	@Override
 	protected List<?> getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -202,6 +207,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * {@link #refreshVisuals()} to update its own displayed properties. Subclasses should extend this
 	 * method to handle additional types of structural refreshing.
 	 */
+	@Override
 	public void refresh() {
 		refreshChildren();
 		refreshVisuals();
@@ -211,9 +217,11 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * Refreshes this EditPart's <i>visuals</i>. This method is called by {@link #refresh()}, and may
 	 * also be called in response to notifications from the model.
 	 */
+	@Override
 	protected void refreshVisuals() {
 	}
 
+	@Override
 	protected void refreshChildren() {
 		// prepare map[model, currentPart]
 		Map<Object, EditPart> modelToPart = new HashMap<>();
@@ -317,6 +325,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	/**
 	 * Convenience method for returning the <code>{@link IEditPartViewer}</code> for this part.
 	 */
+	@Override
 	public IEditPartViewer getViewer() {
 		return getParent().getViewer();
 	}
@@ -345,6 +354,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	/**
 	 * Return <code>null</code> or the {@link EditPolicy} installed with the given key.
 	 */
+	@Override
 	public EditPolicy getEditPolicy(Object key) {
 		int index = m_keyPolicies.indexOf(key);
 		return index == -1 ? null : m_policies.get(index);
@@ -396,12 +406,14 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		}
 	}
 
+	@Override
 	protected void activateEditPolicies() {
 		for (EditPolicy editPolicy : m_policies) {
 			editPolicy.activate();
 		}
 	}
 
+	@Override
 	protected void deactivateEditPolicies() {
 		for (EditPolicy editPolicy : m_policies) {
 			editPolicy.deactivate();
@@ -412,6 +424,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * Creates the initial EditPolicies and/or reserves slots for dynamic ones. Should be implemented
 	 * to install the initial EditPolicies based on the model's initial state.
 	 */
+	@Override
 	protected void createEditPolicies() {
 	}
 
@@ -475,7 +488,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		// TODO
 		return null;
 	}
-	
+
 	/**
 	 * Returns a {@link Tool} for dragging this {@link EditPart}. The SelectionTool is the only
 	 * {@link Tool} by default that calls this method. The SelectionTool will use a SelectionRequest
