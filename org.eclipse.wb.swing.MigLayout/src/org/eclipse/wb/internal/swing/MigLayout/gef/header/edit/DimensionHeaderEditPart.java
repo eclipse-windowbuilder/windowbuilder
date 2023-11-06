@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -159,7 +160,7 @@ IHeaderMenuProvider {
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (request.getType() == Request.REQ_OPEN) {
+		if (request.getType() == RequestConstants.REQ_OPEN) {
 			editDimension();
 		}
 	}

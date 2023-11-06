@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,8 @@ import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
+
+import org.eclipse.gef.RequestConstants;
 
 /**
  * An abstract descendant of {@link LayoutEditPolicy} for double-click handling in widgets tree.
@@ -74,7 +76,7 @@ IPreferenceConstants {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		if (Request.REQ_OPEN.equals(request.getType())) {
+		if (RequestConstants.REQ_OPEN.equals(request.getType())) {
 			performDoubleClick();
 		}
 		super.performRequest(request);

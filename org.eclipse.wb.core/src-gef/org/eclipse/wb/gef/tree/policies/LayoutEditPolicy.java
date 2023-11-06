@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.widgets.Tree;
@@ -98,16 +99,16 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 		Object type = request.getType();
 		ILayoutRequestValidator validator = getRequestValidator();
 		EditPart host = getHost();
-		if (type == Request.REQ_CREATE) {
+		if (type == RequestConstants.REQ_CREATE) {
 			return validator.validateCreateRequest(host, (CreateRequest) request);
 		}
-		if (type == Request.REQ_PASTE) {
+		if (type == PasteRequest.REQ_PASTE) {
 			return validator.validatePasteRequest(host, (PasteRequest) request);
 		}
-		if (type == Request.REQ_MOVE) {
+		if (type == RequestConstants.REQ_MOVE) {
 			return validator.validateMoveRequest(host, (ChangeBoundsRequest) request);
 		}
-		if (type == Request.REQ_ADD) {
+		if (type == RequestConstants.REQ_ADD) {
 			return validator.validateAddRequest(host, (ChangeBoundsRequest) request);
 		}
 		return false;
@@ -218,19 +219,19 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	 */
 	protected Command getCommand(Request request, Object referenceObject) {
 		Object type = request.getType();
-		if (Request.REQ_CREATE.equals(type)) {
+		if (RequestConstants.REQ_CREATE.equals(type)) {
 			CreateRequest createRequest = (CreateRequest) request;
 			return getCreateCommand(createRequest.getNewObject(), referenceObject);
 		}
-		if (Request.REQ_PASTE.equals(type)) {
+		if (PasteRequest.REQ_PASTE.equals(type)) {
 			PasteRequest pasteRequest = (PasteRequest) request;
 			return getPasteCommand(pasteRequest, referenceObject);
 		}
-		if (Request.REQ_MOVE.equals(type)) {
+		if (RequestConstants.REQ_MOVE.equals(type)) {
 			ChangeBoundsRequest boundsRequest = (ChangeBoundsRequest) request;
 			return getMoveCommand(boundsRequest.getEditParts(), referenceObject);
 		}
-		if (Request.REQ_ADD.equals(type)) {
+		if (RequestConstants.REQ_ADD.equals(type)) {
 			ChangeBoundsRequest boundsRequest = (ChangeBoundsRequest) request;
 			return getAddCommand(boundsRequest.getEditParts(), referenceObject);
 		}
@@ -303,7 +304,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 			setTreeInsertMark(null, true);
 			// support expand for not DND
 			Object type = request.getType();
-			if ((Request.REQ_CREATE.equals(type) || Request.REQ_PASTE.equals(type))
+			if ((RequestConstants.REQ_CREATE.equals(type) || PasteRequest.REQ_PASTE.equals(type))
 					&& !hostItem.getExpanded()) {
 				tree.getShell().getDisplay().asyncExec(new Runnable() {
 					@Override

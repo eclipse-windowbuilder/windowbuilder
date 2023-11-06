@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,12 +18,12 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.LocationRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 
 import org.junit.Test;
 
@@ -123,7 +123,7 @@ public class BorderTransparentLayoutRequestValidatorTest extends SwingGefTest {
 	@Test
 	public void test_MOVE() throws Exception {
 		preparePanel();
-		ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+		ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 		// valid even on border
 		{
 			setLocation(request, 10, 5);
@@ -134,7 +134,7 @@ public class BorderTransparentLayoutRequestValidatorTest extends SwingGefTest {
 	@Test
 	public void test_ADD() throws Exception {
 		preparePanel();
-		ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_ADD);
+		ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_ADD);
 		// in inner
 		{
 			setLocation(request, 100, 50);

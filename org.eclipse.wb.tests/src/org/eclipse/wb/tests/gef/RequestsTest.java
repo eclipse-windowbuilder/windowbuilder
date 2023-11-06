@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 
 import org.junit.Assert;
@@ -187,8 +188,8 @@ public class RequestsTest extends Assert {
 		assertFalse(request.isAnyMouseButtonPressed());
 		//
 		// check type
-		request = new SelectionRequest(Request.REQ_SELECTION);
-		assertSame(Request.REQ_SELECTION, request.getType());
+		request = new SelectionRequest(RequestConstants.REQ_SELECTION);
+		assertSame(RequestConstants.REQ_SELECTION, request.getType());
 		//
 		// check location
 		request.setLocation(new Point(11, 22));
@@ -227,7 +228,7 @@ public class RequestsTest extends Assert {
 		CreateRequest request = new CreateRequest(factory);
 		//
 		// check new CreateRequest
-		assertSame(Request.REQ_CREATE, request.getType());
+		assertSame(RequestConstants.REQ_CREATE, request.getType());
 		assertNull(request.getLocation());
 		assertNull(request.getSize());
 		//
@@ -261,7 +262,7 @@ public class RequestsTest extends Assert {
 		PasteRequest request = new PasteRequest(memnto);
 		//
 		// check new PasteRequest, type and memento
-		assertSame(Request.REQ_PASTE, request.getType());
+		assertSame(PasteRequest.REQ_PASTE, request.getType());
 		assertSame(memnto, request.getMemento());
 		assertNull(request.getLocation());
 		assertNull(request.getSize());

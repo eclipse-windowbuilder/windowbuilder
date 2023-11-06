@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,11 +13,13 @@ package org.eclipse.wb.internal.gef.tree.policies;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
+import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -32,7 +34,7 @@ import org.eclipse.swt.widgets.TreeItem;
 public final class AutoExpandEditPolicy extends EditPolicy {
 	@Override
 	public boolean understandsRequest(Request request) {
-		return request.getType() == Request.REQ_CREATE || request.getType() == Request.REQ_PASTE;
+		return request.getType() == RequestConstants.REQ_CREATE || request.getType() == PasteRequest.REQ_PASTE;
 	}
 
 	@Override

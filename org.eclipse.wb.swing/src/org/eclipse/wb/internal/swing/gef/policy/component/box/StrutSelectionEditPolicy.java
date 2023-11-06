@@ -41,7 +41,6 @@ import javax.swing.Box;
  * @coverage swing.gef.policy
  */
 abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final ComponentInfo m_strut;
 
 	////////////////////////////////////////////////////////////////////////////

@@ -47,7 +47,6 @@ import java.util.List;
 abstract class DimensionSelectionEditPolicy<T extends DimensionInfo>
 extends
 AbstractHeaderSelectionEditPolicy {
-	protected static final String REQ_RESIZE = "resize";
 
 	////////////////////////////////////////////////////////////////////////////
 	//

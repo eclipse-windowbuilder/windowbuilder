@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,10 @@ import java.util.List;
  * @coverage gef.core
  */
 public class PasteRequest extends AbstractCreateRequest {
+	/**
+	 * Indicates that an object is to be pasted by the receiver of the Request.
+	 */
+	public static final String REQ_PASTE = "paste";
 	private final Object m_memento;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -27,7 +31,7 @@ public class PasteRequest extends AbstractCreateRequest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public PasteRequest(Object memento) {
-		super(Request.REQ_PASTE);
+		super(REQ_PASTE);
 		m_memento = memento;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +146,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public EditPart getTargetEditPart(Request request) {
-		if (Request.REQ_SELECTION.equals(request.getType())) {
+		if (RequestConstants.REQ_SELECTION.equals(request.getType())) {
 			ComponentInfo component = m_layout.getCurrentComponent();
 			return getHost().getViewer().getEditPartByModel(component);
 		}

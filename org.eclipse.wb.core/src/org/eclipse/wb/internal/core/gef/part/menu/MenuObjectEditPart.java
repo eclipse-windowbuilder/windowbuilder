@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 import org.eclipse.wb.core.gef.part.menu.IMenuObjectEditPart;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
+import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -22,6 +23,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IActiveToolListener;
 
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 
@@ -191,9 +193,9 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 		request = processRequestProcessors(request);
 		EditPart target = super.getTargetEditPart(request);
 		boolean isOperationRequest =
-				request.getType() == Request.REQ_CREATE
-				|| request.getType() == Request.REQ_PASTE
-				|| request.getType() == Request.REQ_ADD;
+				request.getType() == RequestConstants.REQ_CREATE
+				|| request.getType() == PasteRequest.REQ_PASTE
+				|| request.getType() == RequestConstants.REQ_ADD;
 		if (target == this && isOperationRequest) {
 			// Refresh _all_ root MenuObjectEditPart's to close any previously shown drop-downs.
 			// Do this in "async" to don't break normal GEF life cycle.

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -159,7 +160,7 @@ public class TreeDropListener implements DropTargetListener {
 	 */
 	private ChangeBoundsRequest getTargetRequest() {
 		if (m_request == null) {
-			m_request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			m_request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			m_request.setEditParts(getDragSource());
 		}
 		return m_request;
@@ -179,9 +180,9 @@ public class TreeDropListener implements DropTargetListener {
 	private void updateTargetRequestAfter() {
 		ChangeBoundsRequest request = getTargetRequest();
 		if (getDragSource().get(0).getParent() == m_target) {
-			request.setType(Request.REQ_MOVE);
+			request.setType(RequestConstants.REQ_MOVE);
 		} else {
-			request.setType(Request.REQ_ADD);
+			request.setType(RequestConstants.REQ_ADD);
 		}
 	}
 

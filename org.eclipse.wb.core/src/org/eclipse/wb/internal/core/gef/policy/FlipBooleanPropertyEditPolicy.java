@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+
+import org.eclipse.gef.RequestConstants;
 
 /**
  * {@link EditPolicy} that flips some boolean property between <code>true/false</code> states, for
@@ -48,7 +50,7 @@ public final class FlipBooleanPropertyEditPolicy extends EditPolicy {
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (Request.REQ_OPEN.equals(request.getType())) {
+		if (RequestConstants.REQ_OPEN.equals(request.getType())) {
 			ExecutionUtils.run(m_component, new RunnableEx() {
 				@Override
 				public void run() throws Exception {

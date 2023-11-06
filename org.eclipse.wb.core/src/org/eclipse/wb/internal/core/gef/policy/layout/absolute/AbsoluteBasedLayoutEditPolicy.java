@@ -50,6 +50,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -218,7 +219,7 @@ IPreferenceConstants {
 
 	@Override
 	public boolean understandsRequest(Request request) {
-		if (Request.REQ_ORPHAN.equals(request.getType())
+		if (RequestConstants.REQ_ORPHAN.equals(request.getType())
 				|| getResizeRequestType().equals(request.getType())) {
 			return true;
 		}
