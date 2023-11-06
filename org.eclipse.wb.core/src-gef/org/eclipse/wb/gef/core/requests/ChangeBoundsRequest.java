@@ -15,6 +15,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.requests.DropRequest;
 
 /**
  * A {@link Request} to change the bounds of the {@link EditPart}(s).
@@ -22,7 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author lobas_av
  * @coverage gef.core
  */
-public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
+public class ChangeBoundsRequest extends GroupRequest implements DropRequest {
 	private static final int SNAP_TO = 16;
 	private Point m_mouseLocation;
 	private Point m_moveDelta = new Point();

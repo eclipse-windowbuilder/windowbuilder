@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -30,6 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.DropRequest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -500,7 +500,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 	 * @return absolute mouse location from given {@link Request}.
 	 */
 	private static Point getLocationFromRequest(Request request) {
-		return ((IDropRequest) request).getLocation();
+		return ((DropRequest) request).getLocation();
 	}
 
 	/**

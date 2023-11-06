@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuEditPart;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.DropRequest;
 
 /**
  * {@link LayoutEditPolicy} for {@link SubmenuAwareEditPart} that shows sub-menu when user targets
@@ -97,7 +97,7 @@ public final class SubmenuAwareLayoutEditPolicy extends LayoutEditPolicy {
 		}
 		// prepare location in figure
 		Figure figure = getHostFigure();
-		Point location = ((IDropRequest) request).getLocation().getCopy();
+		Point location = ((DropRequest) request).getLocation().getCopy();
 		FigureUtils.translateAbsoluteToFigure2(figure, location);
 		// if request's mouse location are in middle 1/3 height (width) of figure then return getHost()
 		IMenuInfo parentMenu = ((MenuEditPart) getHost().getParent()).getMenu();

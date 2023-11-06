@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.gef.tree.policies;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -46,7 +46,7 @@ public final class AutoExpandEditPolicy extends EditPolicy {
 		// prepare target widget
 		TreeItem targetWidget;
 		{
-			IDropRequest dropRequest = (IDropRequest) request;
+			DropRequest dropRequest = (DropRequest) request;
 			Point location = dropRequest.getLocation();
 			targetWidget = tree.getItem(location.getSWTPoint());
 		}

@@ -22,7 +22,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.gef.FormLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
@@ -36,6 +35,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.DropRequest;
 
 import java.text.MessageFormat;
 
@@ -98,7 +98,7 @@ public final class ColumnsLayoutEditPolicy extends AbstractHeaderLayoutEditPolic
 		// prepare location
 		Point location;
 		{
-			IDropRequest dropRequest = (IDropRequest) request;
+			DropRequest dropRequest = (DropRequest) request;
 			location = dropRequest.getLocation().getCopy();
 		}
 		// prepare target header
