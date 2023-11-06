@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		m_tool = new MarqueeSelectionTool();
 		m_domain.setActiveTool(m_tool);
 		//
-		m_request = new Request(Request.REQ_SELECTION);
+		m_request = new Request(RequestConstants.REQ_SELECTION);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

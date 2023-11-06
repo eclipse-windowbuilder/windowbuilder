@@ -12,9 +12,9 @@ package org.eclipse.wb.gef.core.tools;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.requests.SelectionRequest;
 
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -107,7 +107,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	@Override
 	protected boolean handleDoubleClick(int button) {
 		if (button == 1) {
-			SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
+			SelectionRequest request = new SelectionRequest(RequestConstants.REQ_OPEN);
 			request.setLocation(getLocation());
 			m_sourceEditPart.performRequest(request);
 		}

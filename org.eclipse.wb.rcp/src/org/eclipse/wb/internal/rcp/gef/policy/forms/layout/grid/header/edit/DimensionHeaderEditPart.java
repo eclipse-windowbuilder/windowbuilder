@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDimensionIn
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -127,7 +128,7 @@ IHeaderMenuProvider {
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (request.getType() == Request.REQ_OPEN) {
+		if (request.getType() == RequestConstants.REQ_OPEN) {
 			ExecutionUtils.run(m_layout.getUnderlyingModel(), new RunnableEx() {
 				@Override
 				public void run() throws Exception {

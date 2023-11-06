@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
 import org.eclipse.gef.EditPartListener;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 
 import java.util.Iterator;
@@ -108,16 +109,16 @@ public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
 		Object type = request.getType();
 		ILayoutRequestValidator validator = getRequestValidator();
 		EditPart host = getHost();
-		if (type == Request.REQ_CREATE) {
+		if (type == RequestConstants.REQ_CREATE) {
 			return validator.validateCreateRequest(host, (CreateRequest) request);
 		}
-		if (type == Request.REQ_PASTE) {
+		if (type == PasteRequest.REQ_PASTE) {
 			return validator.validatePasteRequest(host, (PasteRequest) request);
 		}
-		if (type == Request.REQ_MOVE) {
+		if (type == RequestConstants.REQ_MOVE) {
 			return validator.validateMoveRequest(host, (ChangeBoundsRequest) request);
 		}
-		if (type == Request.REQ_ADD) {
+		if (type == RequestConstants.REQ_ADD) {
 			return validator.validateAddRequest(host, (ChangeBoundsRequest) request);
 		}
 		return false;
@@ -144,19 +145,19 @@ public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public Command getCommand(Request request) {
 		Object type = request.getType();
-		if (type == Request.REQ_CREATE) {
+		if (type == RequestConstants.REQ_CREATE) {
 			return getCreateCommand((CreateRequest) request);
 		}
-		if (type == Request.REQ_PASTE) {
+		if (type == PasteRequest.REQ_PASTE) {
 			return getPasteCommand((PasteRequest) request);
 		}
-		if (type == Request.REQ_MOVE) {
+		if (type == RequestConstants.REQ_MOVE) {
 			return getMoveCommand((ChangeBoundsRequest) request);
 		}
-		if (type == Request.REQ_ADD) {
+		if (type == RequestConstants.REQ_ADD) {
 			return getAddCommand((ChangeBoundsRequest) request);
 		}
-		if (type == Request.REQ_ORPHAN) {
+		if (type == RequestConstants.REQ_ORPHAN) {
 			return getOrphanCommand((GroupRequest) request);
 		}
 		return null;

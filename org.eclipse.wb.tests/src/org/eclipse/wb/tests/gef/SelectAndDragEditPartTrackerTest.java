@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 
 import org.junit.Test;
@@ -142,7 +143,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 			//
 			RequestsLogger expectedLogger = new RequestsLogger();
 			//
-			SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
+			SelectionRequest request = new SelectionRequest(RequestConstants.REQ_OPEN);
 			request.setLocation(new Point(1, 1));
 			//
 			expectedLogger.log(editPart5, "performRequest", request);
@@ -189,7 +190,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(130, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_ADD);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_ADD);
 			//
 			request.addEditPart(childEditPart1);
 			//
@@ -198,11 +199,11 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(130, 120));
 			request.setMoveDelta(new Point(10, 0));
-			request.setType(Request.REQ_MOVE);
+			request.setType(RequestConstants.REQ_MOVE);
 			//
 			expectedLogger.log(editPart, new String[]{"getTargetEditPart", "getTargetEditPart"}, request);
 			//
-			request.setType(Request.REQ_MOVE);
+			request.setType(RequestConstants.REQ_MOVE);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", request);
 			//
@@ -218,7 +219,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(140, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.addEditPart(childEditPart1);
 			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(140, 120));
@@ -236,7 +237,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(330, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_ADD);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_ADD);
 			request.addEditPart(childEditPart1);
 			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(330, 120));
@@ -249,13 +250,13 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(editPart, "eraseTargetFeedback", request);
 			//
-			request.setType(Request.REQ_ADD);
+			request.setType(RequestConstants.REQ_ADD);
 			//
 			expectedLogger.log(childEditPart2, new String[]{
 					"showTargetFeedback",
 			"showTargetFeedback" }, request);
 			//
-			expectedLogger.log(editPart, "getCommand", new GroupRequest(Request.REQ_ORPHAN));
+			expectedLogger.log(editPart, "getCommand", new GroupRequest(RequestConstants.REQ_ORPHAN));
 			//
 			expectedLogger.log(childEditPart2, "getCommand", request);
 			//
@@ -265,7 +266,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.endDrag();
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_ADD);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_ADD);
 			request.addEditPart(childEditPart1);
 			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(330, 120));
@@ -327,7 +328,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(130, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
 			request.addEditPart(childEditPart1);
 			//
@@ -385,7 +386,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(130, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
 			request.addEditPart(childEditPart);
 			//
@@ -397,7 +398,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(editPart, new String[]{"getTargetEditPart", "getTargetEditPart"}, request);
 			//
-			request.setType(Request.REQ_MOVE);
+			request.setType(RequestConstants.REQ_MOVE);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", request);
 			//
@@ -413,7 +414,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.click(131, 121, 3);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.addEditPart(childEditPart);
 			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(130, 120));
@@ -462,7 +463,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(130, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
 			request.addEditPart(childEditPart1);
 			//
@@ -474,7 +475,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(editPart, new String[]{"getTargetEditPart", "getTargetEditPart"}, request);
 			//
-			request.setType(Request.REQ_MOVE);
+			request.setType(RequestConstants.REQ_MOVE);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", request);
 			//
@@ -490,7 +491,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.endDrag();
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.addEditPart(childEditPart1);
 			request.setStateMask(SWT.BUTTON1);
 			request.setLocation(new Point(130, 120));
@@ -567,7 +568,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.dragTo(320, 120);
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
 			request.addEditPart(childEditPart1);
 			request.addEditPart(childEditPart2);
@@ -582,7 +583,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(editPart, new String[]{"getTargetEditPart", "getTargetEditPart"}, request);
 			//
-			request.setType(Request.REQ_MOVE);
+			request.setType(RequestConstants.REQ_MOVE);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", request);
 			expectedLogger.log(editPart, new String[]{
@@ -596,7 +597,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			m_sender.endDrag();
 			//
-			ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
+			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.addEditPart(childEditPart1);
 			request.addEditPart(childEditPart2);
 			request.setStateMask(SWT.BUTTON1);

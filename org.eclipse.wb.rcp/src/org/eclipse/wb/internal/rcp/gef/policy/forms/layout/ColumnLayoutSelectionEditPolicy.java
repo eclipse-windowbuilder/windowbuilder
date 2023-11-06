@@ -44,7 +44,6 @@ import java.util.List;
 public final class ColumnLayoutSelectionEditPolicy<C extends IControlInfo>
 extends
 SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final IColumnLayoutInfo<C> m_layout;
 	private final C m_control;
 

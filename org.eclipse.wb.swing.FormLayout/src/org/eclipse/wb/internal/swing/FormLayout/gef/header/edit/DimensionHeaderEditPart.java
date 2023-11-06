@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -176,7 +177,7 @@ GraphicalEditPart implements IHeaderMenuProvider {
 	@Override
 	public void performRequest(Request request) {
 		super.performRequest(request);
-		if (request.getType() == Request.REQ_OPEN) {
+		if (request.getType() == RequestConstants.REQ_OPEN) {
 			editDimension();
 		}
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
+
+import org.eclipse.gef.RequestConstants;
 
 /**
  * {@link EditPolicy} which adds listener code by handling "Open" request (double-clicking on its
@@ -61,7 +63,7 @@ public final class OpenListenerEditPolicy extends EditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		if (m_listenerName != null && Request.REQ_OPEN.equals(request.getType())) {
+		if (m_listenerName != null && RequestConstants.REQ_OPEN.equals(request.getType())) {
 			ExecutionUtils.run(m_object, new RunnableEx() {
 				@Override
 				public void run() throws Exception {

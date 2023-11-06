@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+
+import org.eclipse.gef.RequestConstants;
 
 /**
  * Abstract implementation of {@link LayoutEditPolicy} for headers. It provides additional utilities
@@ -41,7 +43,7 @@ public abstract class AbstractHeaderLayoutEditPolicy extends LayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected boolean isRequestCondition(Request request) {
-		return request.getType() == Request.REQ_MOVE;
+		return request.getType() == RequestConstants.REQ_MOVE;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

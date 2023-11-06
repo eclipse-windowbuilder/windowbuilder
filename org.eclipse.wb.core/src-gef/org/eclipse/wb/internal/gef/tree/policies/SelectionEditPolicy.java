@@ -14,6 +14,8 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 
+import org.eclipse.gef.RequestConstants;
+
 /**
  * A {@link EditPolicy} that is sensitive to the host's selection.
  * <P>
@@ -27,7 +29,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 public final class SelectionEditPolicy extends EditPolicy {
 	@Override
 	public boolean understandsRequest(Request request) {
-		return request.getType() == Request.REQ_SELECTION;
+		return request.getType() == RequestConstants.REQ_SELECTION;
 	}
 
 	@Override

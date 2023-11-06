@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.xwt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 
 /**
@@ -46,7 +47,7 @@ public final class DropLayoutEditPolicy extends LayoutEditPolicy {
 	@Override
 	protected boolean isRequestCondition(Request request) {
 		// we understand only Layout_Info drop
-		if (request.getType() == Request.REQ_CREATE) {
+		if (request.getType() == RequestConstants.REQ_CREATE) {
 			CreateRequest createRequest = (CreateRequest) request;
 			return createRequest.getNewObject() instanceof LayoutInfo;
 		}

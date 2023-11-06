@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.EditPartListener;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 
 import org.junit.Test;
@@ -302,7 +303,7 @@ public class EditPartTest extends GefTestCase {
 			}
 		};
 		//
-		Request request = new Request(Request.REQ_MOVE);
+		Request request = new Request(RequestConstants.REQ_MOVE);
 		//
 		assertNull(testEditPart.getCommand(request));
 		assertNull(testEditPart.getTargetEditPart(request));

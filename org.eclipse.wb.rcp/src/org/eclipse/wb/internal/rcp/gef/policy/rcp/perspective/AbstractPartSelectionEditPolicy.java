@@ -15,7 +15,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -42,7 +41,6 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final AbstractPartInfo m_part;
 	private final SashLineInfo m_line;
 
@@ -78,21 +76,18 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 			return Collections.emptyList();
 		}
 		// prepare handle
-		Handle resizeHandle = new Handle(getHost(), new ILocator() {
-			@Override
-			public void relocate(Figure target) {
-				// prepare bounds (relative to page)
-				Rectangle bounds = m_line.getBounds().getCopy();
-				if (m_line.isHorizontal()) {
-					bounds.expand(6, 0);
-				} else {
-					bounds.expand(0, 6);
-				}
-				// set bounds relative to layer
-				Figure pageFigure = getHostFigure().getParent();
-				FigureUtils.translateFigureToAbsolute2(pageFigure, bounds);
-				target.setBounds(bounds);
+		Handle resizeHandle = new Handle(getHost(), target -> {
+			// prepare bounds (relative to page)
+			Rectangle bounds = m_line.getBounds().getCopy();
+			if (m_line.isHorizontal()) {
+				bounds.expand(6, 0);
+			} else {
+				bounds.expand(0, 6);
 			}
+			// set bounds relative to layer
+			Figure pageFigure = getHostFigure().getParent();
+			FigureUtils.translateFigureToAbsolute2(pageFigure, bounds);
+			target.setBounds(bounds);
 		}) {
 		};
 		// set cursor

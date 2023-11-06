@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 
@@ -189,7 +190,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 */
 	@Override
 	protected Request createTargetRequest() {
-		return new ChangeBoundsRequest(Request.REQ_MOVE);
+		return new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 	}
 
 	/**
@@ -212,9 +213,9 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		List<EditPart> editParts = request.getEditParts();
 		if (!editParts.isEmpty()) {
 			if (editParts.get(0).getParent() == target) {
-				request.setType(Request.REQ_MOVE);
+				request.setType(RequestConstants.REQ_MOVE);
 			} else {
-				request.setType(Request.REQ_ADD);
+				request.setType(RequestConstants.REQ_ADD);
 			}
 		}
 	}
@@ -224,7 +225,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 *         type.
 	 */
 	private boolean isMove() {
-		return getTargetRequest().getType() == Request.REQ_MOVE;
+		return getTargetRequest().getType() == RequestConstants.REQ_MOVE;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -282,7 +283,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 				CompoundCommand compoundCommand = targetEditPart.createCompoundCommand();
 				if (!operationSet.isEmpty()) {
 					EditPart firstPart = operationSet.get(0);
-					GroupRequest orphanRequest = new GroupRequest(Request.REQ_ORPHAN);
+					GroupRequest orphanRequest = new GroupRequest(RequestConstants.REQ_ORPHAN);
 					orphanRequest.setEditParts(operationSet);
 					compoundCommand.add(firstPart.getParent().getCommand(orphanRequest));
 				}

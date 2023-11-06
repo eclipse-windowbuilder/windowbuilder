@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
+
+import org.eclipse.gef.RequestConstants;
 
 /**
  * A {@link Request} to create a new object.
@@ -30,7 +32,7 @@ public class CreateRequest extends AbstractCreateRequest {
 	 * Constructs a {@link CreateRequest} with the specified <i>type</i> and <i>factory</i>.
 	 */
 	public CreateRequest(ICreationFactory factory) {
-		super(Request.REQ_CREATE);
+		super(RequestConstants.REQ_CREATE);
 		m_factory = factory;
 	}
 

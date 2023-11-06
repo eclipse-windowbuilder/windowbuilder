@@ -35,6 +35,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.draw2d.geometry.Transposer;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -104,7 +105,7 @@ AbstractHeaderLayoutEditPolicy {
 
 	@Override
 	public void performRequest(Request request) {
-		if (Request.REQ_OPEN.equals(request.getType())) {
+		if (RequestConstants.REQ_OPEN.equals(request.getType())) {
 			handleDoubleClick((SelectionRequest) request);
 			return;
 		}
@@ -168,7 +169,7 @@ AbstractHeaderLayoutEditPolicy {
 
 	@Override
 	public boolean understandsRequest(Request request) {
-		return Request.REQ_MOVE.equals(request.getType());
+		return RequestConstants.REQ_MOVE.equals(request.getType());
 	}
 
 	@Override

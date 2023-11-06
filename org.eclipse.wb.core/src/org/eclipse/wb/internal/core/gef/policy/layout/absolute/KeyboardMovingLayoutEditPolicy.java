@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 
@@ -94,7 +95,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 			// fill request
 			boolean isResizing = request.isControlKeyPressed();
 			m_changeBoundsRequest.setEditParts(editParts);
-			m_changeBoundsRequest.setType(isResizing ? getResizeRequestType() : Request.REQ_MOVE);
+			m_changeBoundsRequest.setType(isResizing ? getResizeRequestType() : RequestConstants.REQ_MOVE);
 			//
 			if (isResizing) {
 				int resizeDirection = m_changeBoundsRequest.getResizeDirection();
@@ -173,7 +174,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 										CompoundEditCommand command =
 												new CompoundEditCommand((ObjectInfo) getHost().getModel());
 										//
-										if (Request.REQ_MOVE.equals(m_changeBoundsRequest.getType())) {
+										if (RequestConstants.REQ_MOVE.equals(m_changeBoundsRequest.getType())) {
 											eraseLayoutTargetFeedback(m_changeBoundsRequest);
 											command.add(getCommand(m_changeBoundsRequest));
 										} else {

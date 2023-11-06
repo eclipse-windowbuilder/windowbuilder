@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,46 +26,6 @@ import java.util.Map;
  * @coverage gef.core
  */
 public class Request {
-	/**
-	 * Indicates that the user has double-clicked on the receiver. "Open" means different things for
-	 * different applications. Sometimes it means open a popup dialog of properties, or the
-	 * Workbench's properties view. Sometimes it means open a sub-diagram.
-	 */
-	public static final String REQ_OPEN = "open";
-	/**
-	 * Indicates selection Requests.
-	 */
-	public static final String REQ_SELECTION = "selection";
-	/**
-	 * Indicates that the receiver of the request is being moved.
-	 */
-	public static final String REQ_MOVE = "move";
-	/**
-	 * Constant used to indicate that a group of existing children are being added to the receiver of
-	 * the Request.
-	 */
-	public static final String REQ_ADD = "add children";
-	/**
-	 * Indicates that a group of children are being removed from the receiver of the Request.
-	 */
-	public static final String REQ_ORPHAN = "orphan children"; //$NON-NLS-1$
-	/**
-	 * Indicates that an object is to be created by the receiver of the Request.
-	 */
-	public static final String REQ_CREATE = "create child";
-	/**
-	 * Constant used to indicate that the receiver of the Request is being deleted.
-	 */
-	public static final String REQ_DELETE = "delete";
-	/**
-	 * Indicates that an object is to be pasted by the receiver of the Request.
-	 */
-	public static final String REQ_PASTE = "paste";
-	/**
-	 * Constant used to indicate key event request.
-	 */
-	public static final String REQ_KEY_EVENT = "key event";
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructors

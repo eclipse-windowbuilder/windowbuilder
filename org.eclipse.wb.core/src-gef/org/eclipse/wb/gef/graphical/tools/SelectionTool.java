@@ -22,6 +22,7 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
@@ -198,7 +199,7 @@ public class SelectionTool extends TargetingTool {
 	 */
 	@Override
 	protected Request createTargetRequest() {
-		return new SelectionRequest(Request.REQ_SELECTION);
+		return new SelectionRequest(RequestConstants.REQ_SELECTION);
 	}
 
 	/**

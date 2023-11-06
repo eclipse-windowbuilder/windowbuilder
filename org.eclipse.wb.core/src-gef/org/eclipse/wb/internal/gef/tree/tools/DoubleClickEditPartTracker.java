@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.gef.tree.tools;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.requests.SelectionRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
+
+import org.eclipse.gef.RequestConstants;
 
 /**
  * Special {@link Tool} for handle only double-click mouse event and route it to {@link EditPart}.
@@ -43,7 +44,7 @@ public class DoubleClickEditPartTracker extends Tool {
 	@Override
 	protected boolean handleDoubleClick(int button) {
 		if (button == 1) {
-			SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
+			SelectionRequest request = new SelectionRequest(RequestConstants.REQ_OPEN);
 			request.setLocation(getLocation());
 			m_sourceEditPart.performRequest(request);
 		}

@@ -43,7 +43,6 @@ import java.util.List;
  * @coverage swt.gef.policy
  */
 public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final IRowLayoutInfo<C> m_layout;
 	private final C m_control;
 

@@ -39,7 +39,6 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public final class TreeTreeColumnSelectionEditPolicy extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final ITreeColumnInfo m_column;
 
 	////////////////////////////////////////////////////////////////////////////

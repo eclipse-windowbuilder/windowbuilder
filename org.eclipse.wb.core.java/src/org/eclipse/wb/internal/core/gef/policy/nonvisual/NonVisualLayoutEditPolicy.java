@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 
 import org.apache.commons.lang.ClassUtils;
@@ -128,11 +129,11 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 	@Override
 	protected void showLayoutTargetFeedback(Request request) {
 		Object type = request.getType();
-		if (Request.REQ_CREATE.equals(type)) {
+		if (RequestConstants.REQ_CREATE.equals(type)) {
 			showCreationFeedback((CreateRequest) request);
-		} else if (Request.REQ_PASTE.equals(type)) {
+		} else if (PasteRequest.REQ_PASTE.equals(type)) {
 			showPasteFeedback((PasteRequest) request);
-		} else if (Request.REQ_MOVE.equals(type)) {
+		} else if (RequestConstants.REQ_MOVE.equals(type)) {
 			showMoveFeedback((ChangeBoundsRequest) request);
 		}
 	}

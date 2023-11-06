@@ -41,7 +41,6 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final ISashFormInfo<C> m_composite;
 	private final C m_control;
 

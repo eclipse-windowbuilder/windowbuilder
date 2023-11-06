@@ -54,7 +54,6 @@ import java.util.List;
 abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
 extends
 AbstractHeaderSelectionEditPolicy {
-	protected static final String REQ_RESIZE = "resize";
 
 	////////////////////////////////////////////////////////////////////////////
 	//

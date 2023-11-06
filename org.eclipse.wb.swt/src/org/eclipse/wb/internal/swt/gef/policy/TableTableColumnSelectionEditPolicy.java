@@ -41,7 +41,6 @@ import java.util.List;
  * @coverage swt.gef.policy
  */
 public final class TableTableColumnSelectionEditPolicy extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final ITableColumnInfo m_column;
 
 	////////////////////////////////////////////////////////////////////////////

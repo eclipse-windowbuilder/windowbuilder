@@ -40,7 +40,6 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
-	private static final String REQ_RESIZE = "resize";
 	private final IObjectInfo m_column;
 
 	////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,6 +38,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.graphics.Image;
 
@@ -126,7 +127,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 	protected void showLayoutTargetFeedback(Request request) {
 		eraseSelectionFeedbacks();
 		if (request instanceof ChangeBoundsRequest) {
-			if (Request.REQ_ADD.equals(request.getType())) {
+			if (RequestConstants.REQ_ADD.equals(request.getType())) {
 				showAddFeedback((ChangeBoundsRequest) request);
 			} else {
 				showMoveFeedback((ChangeBoundsRequest) request);

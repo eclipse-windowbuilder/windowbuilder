@@ -22,6 +22,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -43,7 +44,7 @@ import java.util.List;
 public class MarqueeSelectionTool extends Tool {
 	private static final int TOGGLE_MODE = 1;
 	private static final int APPEND_MODE = 2;
-	private static final Request REQUEST = new Request(Request.REQ_SELECTION);
+	private static final Request REQUEST = new Request(RequestConstants.REQ_SELECTION);
 	//
 	private int m_selectionMode;
 	private List<EditPart> m_allChildren;

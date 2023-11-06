@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
 import org.eclipse.gef.EditPartListener;
+import org.eclipse.gef.RequestConstants;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -166,7 +167,7 @@ public abstract class SelectionEditPolicy extends GraphicalEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean understandsRequest(Request request) {
-		return request.getType() == Request.REQ_SELECTION;
+		return request.getType() == RequestConstants.REQ_SELECTION;
 	}
 
 	@Override
