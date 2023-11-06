@@ -14,7 +14,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
-import org.eclipse.wb.gef.core.requests.SelectionRequest;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 
@@ -22,6 +21,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.SWT;
 
 import org.junit.Test;

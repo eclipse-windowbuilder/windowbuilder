@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -25,6 +24,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.DropRequest;
 
 import java.util.List;
 
@@ -79,7 +79,7 @@ public final class MigLayoutSplitEditPolicy extends ComponentFlowLayoutEditPolic
 			// prepare location in target component's Figure
 			Point location;
 			{
-				IDropRequest request = (IDropRequest) _request;
+				DropRequest request = (DropRequest) _request;
 				location = request.getLocation().getCopy();
 				FigureUtils.translateAbsoluteToFigure2(targetFigure, location);
 			}

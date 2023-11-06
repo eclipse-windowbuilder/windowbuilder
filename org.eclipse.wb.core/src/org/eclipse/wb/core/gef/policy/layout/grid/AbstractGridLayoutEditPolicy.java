@@ -23,7 +23,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
@@ -33,6 +32,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -124,7 +124,7 @@ IHeadersProvider {
 		m_gridTargetHelper.showGridFeedback();
 		//
 		try {
-			Point location = ((IDropRequest) request).getLocation();
+			Point location = ((DropRequest) request).getLocation();
 			updateGridTarget(location);
 			removeTargetFigures();
 			// show insert feedbacks

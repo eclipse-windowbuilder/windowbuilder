@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.requests.DropRequest;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public final class BorderOfChildLayoutRequestValidator implements ILayoutRequest
 	// Implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static boolean isTargetingToHost_containerSelected(EditPart host, IDropRequest request) {
+	private static boolean isTargetingToHost_containerSelected(EditPart host, DropRequest request) {
 		if (host instanceof GraphicalEditPart graphicalHost) {
 			if (isTransparentOnBorders(graphicalHost)) {
 				return isTargeting_innerPartOfHost(graphicalHost, request);
@@ -94,7 +94,7 @@ public final class BorderOfChildLayoutRequestValidator implements ILayoutRequest
 		return true;
 	}
 
-	private static boolean isTargeting_innerPartOfHost(GraphicalEditPart host, IDropRequest request) {
+	private static boolean isTargeting_innerPartOfHost(GraphicalEditPart host, DropRequest request) {
 		Figure hostFigure = host.getFigure();
 		// prepare location in host
 		Point location;

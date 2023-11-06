@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.requests.SelectionRequest;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.SelectionRequest;
 
 import junit.framework.Assert;
 

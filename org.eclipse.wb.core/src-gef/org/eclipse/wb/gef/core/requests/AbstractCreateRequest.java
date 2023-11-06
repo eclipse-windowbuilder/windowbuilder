@@ -12,12 +12,14 @@ package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.DropRequest;
+import org.eclipse.gef.requests.LocationRequest;
 
 /**
  * @author lobas_av
  * @coverage gef.core
  */
-public abstract class AbstractCreateRequest extends LocationRequest implements IDropRequest {
+public abstract class AbstractCreateRequest extends LocationRequest implements DropRequest {
 	private Dimension m_size;
 
 	////////////////////////////////////////////////////////////////////////////

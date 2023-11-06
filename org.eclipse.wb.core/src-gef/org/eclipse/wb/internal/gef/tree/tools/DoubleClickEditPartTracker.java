@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.gef.tree.tools;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.SelectionRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.SelectionRequest;
 
 /**
  * Special {@link Tool} for handle only double-click mouse event and route it to {@link EditPart}.

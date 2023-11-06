@@ -14,7 +14,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
-import org.eclipse.wb.gef.core.requests.SelectionRequest;
 import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;

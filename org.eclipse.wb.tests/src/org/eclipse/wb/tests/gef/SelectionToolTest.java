@@ -13,13 +13,13 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
-import org.eclipse.wb.gef.core.requests.SelectionRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.SelectionRequest;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -15,7 +15,6 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -26,6 +25,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -128,7 +128,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 		if (isRequestCondition(request)) {
 			// if target item is host, then check for before/after locations
 			{
-				IDropRequest dropRequest = (IDropRequest) request;
+				DropRequest dropRequest = (DropRequest) request;
 				Point location = dropRequest.getLocation();
 				TreeItem targetItem = getTree().getItem(location.getSWTPoint());
 				if (targetItem == getHostWidget()
@@ -148,7 +148,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	@Override
 	public Command getCommand(Request request) {
 		// prepare drop location
-		IDropRequest dropRequest = (IDropRequest) request;
+		DropRequest dropRequest = (DropRequest) request;
 		Point location = dropRequest.getLocation();
 		// prepare target item
 		TreeItem targetItem = getTree().getItem(location.getSWTPoint());
@@ -291,7 +291,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	 */
 	protected void showLayoutTargetFeedback(Request request) {
 		// prepare drop location
-		IDropRequest dropRequest = (IDropRequest) request;
+		DropRequest dropRequest = (DropRequest) request;
 		Point location = dropRequest.getLocation();
 		// prepare tree widget's
 		Tree tree = getTree();
