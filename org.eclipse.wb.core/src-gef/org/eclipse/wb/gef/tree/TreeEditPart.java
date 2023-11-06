@@ -11,10 +11,10 @@
 package org.eclipse.wb.gef.tree;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.gef.tree.tools.DoubleClickEditPartTracker;
 
+import org.eclipse.gef.Request;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;

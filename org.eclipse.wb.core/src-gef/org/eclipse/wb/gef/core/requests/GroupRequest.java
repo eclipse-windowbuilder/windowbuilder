@@ -12,6 +12,8 @@ package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.wb.gef.core.EditPart;
 
+import org.eclipse.gef.Request;
+
 import java.util.ArrayList;
 import java.util.List;
 

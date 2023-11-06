@@ -11,8 +11,9 @@
 package org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons;
 
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * A {@link Request} for adding new "button" on {@link CollapsibleButtonsInfo} widget.

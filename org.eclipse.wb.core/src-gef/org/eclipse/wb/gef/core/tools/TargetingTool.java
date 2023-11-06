@@ -13,8 +13,8 @@ package org.eclipse.wb.gef.core.tools;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
-import org.eclipse.wb.gef.core.requests.Request;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 import java.util.Collection;

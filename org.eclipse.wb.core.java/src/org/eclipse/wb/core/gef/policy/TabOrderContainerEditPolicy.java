@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.order.TabOrderInfo;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
 
 import java.util.ArrayList;
 import java.util.List;

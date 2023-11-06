@@ -19,13 +19,13 @@ import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.requests.LocationRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.requests.SelectionRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
 

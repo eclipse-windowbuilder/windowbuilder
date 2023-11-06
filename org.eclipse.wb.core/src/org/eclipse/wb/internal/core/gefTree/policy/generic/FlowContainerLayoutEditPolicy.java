@@ -15,10 +15,11 @@ import org.eclipse.wb.core.gefTree.policy.ObjectLayoutEditPolicy;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.layout.generic.AbstractContainerRequestValidator;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
+
+import org.eclipse.gef.Request;
 
 /**
  * {@link LayoutEditPolicy} for {@link FlowContainer}.

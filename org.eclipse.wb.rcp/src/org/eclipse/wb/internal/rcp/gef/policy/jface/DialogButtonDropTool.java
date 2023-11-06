@@ -12,11 +12,12 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * {@link Tool} for adding new "button" on {@link DialogInfo} button bar.

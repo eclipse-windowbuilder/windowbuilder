@@ -23,7 +23,8 @@ Export-Package: org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons,
  org.eclipse.wb.internal.rcp.nebula.pshelf,
  org.eclipse.wb.internal.rcp.nebula.titledseparator,
  org.eclipse.wb.internal.rcp.nebula.progresscircle
-Import-Package: org.eclipse.gef.commands,
+Import-Package: org.eclipse.gef,
+ org.eclipse.gef.commands,
  org.eclipse.gef.editparts
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.nebula

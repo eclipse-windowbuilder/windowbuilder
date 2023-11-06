@@ -15,7 +15,6 @@ import org.eclipse.wb.core.gef.policy.layout.flow.AbstractFlowLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective.PerspectiveDropRequest;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveShortcutContainerInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveShortcutInfo;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 /**

@@ -11,8 +11,9 @@
 package org.eclipse.wb.gef.core;
 
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
+
+import org.eclipse.gef.Request;
 
 /**
  * Performs pre-processing {@link Request} in {@link EditPart}'s, before sending {@link Request} to

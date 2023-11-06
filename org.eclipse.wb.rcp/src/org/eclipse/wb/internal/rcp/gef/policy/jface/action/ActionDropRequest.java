@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.rcp.gef.policy.jface.action;
 
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * A {@link Request} for adding new {@link ActionInfo}.

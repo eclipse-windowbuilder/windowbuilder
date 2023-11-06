@@ -11,6 +11,7 @@
 package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.gef.Request;
 
 /**
  * @author lobas_av

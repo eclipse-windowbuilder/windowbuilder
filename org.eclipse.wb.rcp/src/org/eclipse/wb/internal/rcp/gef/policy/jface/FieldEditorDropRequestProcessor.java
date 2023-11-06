@@ -15,10 +15,11 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.RequestProcessor;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 import org.eclipse.wb.internal.rcp.model.jface.FieldLayoutPreferencePageInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * Implementation of {@link RequestProcessor} for dropping {@link FieldEditorInfo} on

@@ -13,11 +13,11 @@ package org.eclipse.wb.internal.xwt.gefTree.policy;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.xwt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 

@@ -13,8 +13,9 @@ package org.eclipse.wb.internal.swing.gef.part;
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+
+import org.eclipse.gef.Request;
 
 /**
  * {@link EditPart} for {@link ComponentInfo}.

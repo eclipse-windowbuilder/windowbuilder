@@ -14,7 +14,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.Request;
 
 /**
  * A {@link RootEditPart} is the <i>root</i> of an {@link IEditPartViewer}. It bridges the gap

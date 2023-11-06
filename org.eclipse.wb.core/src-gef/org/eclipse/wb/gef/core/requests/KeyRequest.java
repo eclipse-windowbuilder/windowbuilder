@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
 
+import org.eclipse.gef.Request;
 import org.eclipse.swt.events.KeyEvent;
 
 /**

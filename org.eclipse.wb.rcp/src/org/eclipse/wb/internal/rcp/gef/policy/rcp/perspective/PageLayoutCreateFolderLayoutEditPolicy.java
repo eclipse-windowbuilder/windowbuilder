@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.FolderViewInfo;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutCreateFolderI
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutInfo;
 
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 /**
