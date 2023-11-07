@@ -100,7 +100,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 		ControlInfo button = getJavaInfoByName("button");
 		// select "button"
 		canvas.select(button);
-		waitEventLoop(10);
+		waitEventLoop(20);
 		// delete
 		{
 			IAction deleteAction = getDeleteAction();
@@ -146,14 +146,14 @@ public class GridLayoutGefTest extends RcpGefTest {
 				"}");
 		// select "shell", so show headers
 		canvas.select(composite);
-		waitEventLoop(0);
+		waitEventLoop(20);
 		// drop "absolute"
 		{
 			AbsoluteLayoutEntryInfo absoluteEntry = new AbsoluteLayoutEntryInfo();
 			absoluteEntry.initialize(m_viewerCanvas, composite);
 			absoluteEntry.activate(false);
 			canvas.target(composite).in(250, 50).move().click();
-			waitEventLoop(0);
+			waitEventLoop(20);
 		}
 		// validate
 		assertEditor(
