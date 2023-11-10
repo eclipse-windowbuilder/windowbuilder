@@ -181,8 +181,10 @@ public class EventManager extends EventDispatcher {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void dispatchMouseDoubleClicked(org.eclipse.swt.events.MouseEvent event) {
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMouseDoubleClicked(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMouseDoubleClicked(m_currentEvent), event);
+		}, event);
 	}
 
 	@Override
@@ -190,23 +192,29 @@ public class EventManager extends EventDispatcher {
 		if (m_canvas.getToolTipText() != null) {
 			m_canvas.setToolTipText(null);
 		}
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMousePressed(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMousePressed(m_currentEvent), event);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseReleased(org.eclipse.swt.events.MouseEvent event) {
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMouseReleased(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMouseReleased(m_currentEvent), event);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseMoved(org.eclipse.swt.events.MouseEvent event) {
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMouseMoved(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMouseMoved(m_currentEvent), event);
+		}, event);
 	}
 
-	private <T extends Object> void sendEvent(Runnable delayEvent,
+	private <T extends Object> void sendEvent(Runnable event,
 			org.eclipse.swt.events.MouseEvent e) {
 		m_currentEvent = null;
 		m_targetFigure = m_captureFigure == null ? m_cursorFigure : m_captureFigure;
@@ -223,7 +231,7 @@ public class EventManager extends EventDispatcher {
 			m_currentEvent.x = location.x;
 			m_currentEvent.y = location.y;
 			//
-			delayEvent(e.widget, delayEvent);
+			event.run();
 		}
 	}
 
@@ -271,20 +279,26 @@ public class EventManager extends EventDispatcher {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void dispatchMouseEntered(org.eclipse.swt.events.MouseEvent event) {
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMouseEntered(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMouseEntered(m_currentEvent), event);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseExited(org.eclipse.swt.events.MouseEvent event) {
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMouseExited(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMouseExited(m_currentEvent), event);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseHover(org.eclipse.swt.events.MouseEvent event) {
-		updateFigureUnderCursor(event);
-		sendEvent(() -> m_targetFigure.handleMouseHover(m_currentEvent), event);
+		delayEvent(() -> {
+			updateFigureUnderCursor(event);
+			sendEvent(() -> m_targetFigure.handleMouseHover(m_currentEvent), event);
+		}, event);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -331,10 +345,11 @@ public class EventManager extends EventDispatcher {
 	 * If arguments contain {@link TypedEvent} and target {@link Control} is disabled, then puts this
 	 * event into {@link List} with key {@link #KEY_DELAYED_EVENTS}.
 	 */
-	private static void delayEvent(Widget widget, Runnable delayEvent) {
+	protected void delayEvent(Runnable event, org.eclipse.swt.events.MouseEvent e) {
+		Widget widget = e.widget;
 		if (widget.isDisposed() || widget.getData(FLAG_DELAY_EVENTS) == null) {
 			// execute immediately
-			delayEvent.run();
+			event.run();
 		} else {
 			// prepare delay queue
 			@SuppressWarnings("unchecked")
@@ -344,7 +359,7 @@ public class EventManager extends EventDispatcher {
 				widget.setData(KEY_DELAYED_EVENTS, eventQueue);
 			}
 			// put event into queue
-			eventQueue.add(delayEvent);
+			eventQueue.add(event);
 		}
 	}
 

@@ -104,70 +104,78 @@ public class EditEventManager extends EventManager {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void dispatchMouseDoubleClicked(MouseEvent event) {
-		m_currentMouseEvent = event;
-		//
-		if (!m_eventCapture) {
-			super.dispatchMouseDoubleClicked(event);
-			if (isEventConsumed()) {
-				return;
+		delayEvent(() -> {
+			m_currentMouseEvent = event;
+			//
+			if (!m_eventCapture) {
+				super.dispatchMouseDoubleClicked(event);
+				if (isEventConsumed()) {
+					return;
+				}
 			}
-		}
-		//
-		m_domain.mouseDoubleClick(event, m_viewer);
+			//
+			m_domain.mouseDoubleClick(event, m_viewer);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMousePressed(MouseEvent event) {
-		m_viewer.getControl().forceFocus();
-		m_currentMouseEvent = event;
-		//
-		if (!m_eventCapture) {
-			super.dispatchMousePressed(event);
-			if (isEventConsumed()) {
-				return;
+		delayEvent(() -> {
+			m_viewer.getControl().forceFocus();
+			m_currentMouseEvent = event;
+			//
+			if (!m_eventCapture) {
+				super.dispatchMousePressed(event);
+				if (isEventConsumed()) {
+					return;
+				}
 			}
-		}
-		//
-		m_eventCapture = true;
-		m_domain.mouseDown(event, m_viewer);
+			//
+			m_eventCapture = true;
+			m_domain.mouseDown(event, m_viewer);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseReleased(MouseEvent event) {
-		m_currentMouseEvent = event;
-		//
-		if (!m_eventCapture) {
-			super.dispatchMouseReleased(event);
-			if (isEventConsumed()) {
-				return;
+		delayEvent(() -> {
+			m_currentMouseEvent = event;
+			//
+			if (!m_eventCapture) {
+				super.dispatchMouseReleased(event);
+				if (isEventConsumed()) {
+					return;
+				}
 			}
-		}
-		//
-		boolean eventCapture = m_eventCapture;
-		m_eventCapture = false;
-		m_domain.mouseUp(event, m_viewer);
-		// after release capture update mouse figure
-		if (eventCapture) {
-			updateFigureUnderCursor(event);
-		}
+			//
+			boolean eventCapture = m_eventCapture;
+			m_eventCapture = false;
+			m_domain.mouseUp(event, m_viewer);
+			// after release capture update mouse figure
+			if (eventCapture) {
+				updateFigureUnderCursor(event);
+			}
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseMoved(MouseEvent event) {
-		m_currentMouseEvent = event;
-		//
-		if (!m_eventCapture) {
-			super.dispatchMouseMoved(event);
-			if (isEventConsumed()) {
-				return;
+		delayEvent(() -> {
+			m_currentMouseEvent = event;
+			//
+			if (!m_eventCapture) {
+				super.dispatchMouseMoved(event);
+				if (isEventConsumed()) {
+					return;
+				}
 			}
-		}
-		//
-		if ((event.stateMask & SWT.BUTTON_MASK) != 0) {
-			m_domain.mouseDrag(event, m_viewer);
-		} else {
-			m_domain.mouseMove(event, m_viewer);
-		}
+			//
+			if ((event.stateMask & SWT.BUTTON_MASK) != 0) {
+				m_domain.mouseDrag(event, m_viewer);
+			} else {
+				m_domain.mouseMove(event, m_viewer);
+			}
+		}, event);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -177,17 +185,21 @@ public class EditEventManager extends EventManager {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void dispatchMouseEntered(MouseEvent event) {
-		m_currentMouseEvent = event;
-		m_domain.viewerEntered(event, m_viewer);
-		updateFigureUnderCursor(event);
+		delayEvent(() -> {
+			m_currentMouseEvent = event;
+			m_domain.viewerEntered(event, m_viewer);
+			updateFigureUnderCursor(event);
+		}, event);
 	}
 
 	@Override
 	public void dispatchMouseExited(MouseEvent event) {
-		m_eventCapture = false;
-		m_currentMouseEvent = event;
-		m_domain.viewerExited(event, m_viewer);
-		updateFigureUnderCursor(event);
+		delayEvent(() -> {
+			m_eventCapture = false;
+			m_currentMouseEvent = event;
+			m_domain.viewerExited(event, m_viewer);
+			updateFigureUnderCursor(event);
+		}, event);
 	}
 
 	@Override
