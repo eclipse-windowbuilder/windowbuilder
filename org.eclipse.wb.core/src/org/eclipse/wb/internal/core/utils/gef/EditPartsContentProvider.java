@@ -46,7 +46,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Object[] getElements(Object inputElement) {
-		Object input = m_viewer.getRootContainer().getContent().getModel();
+		Object input = m_viewer.getRootEditPart().getContents().getModel();
 		return new Object[]{input};
 	}
 

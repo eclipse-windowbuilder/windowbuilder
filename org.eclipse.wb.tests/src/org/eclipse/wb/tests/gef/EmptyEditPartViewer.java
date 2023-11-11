@@ -18,7 +18,6 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.RootEditPart;
@@ -98,11 +97,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 
 	@Override
 	public Layer getLayer(String name) {
-		return null;
-	}
-
-	@Override
-	public IRootContainer getRootContainer() {
 		return null;
 	}
 

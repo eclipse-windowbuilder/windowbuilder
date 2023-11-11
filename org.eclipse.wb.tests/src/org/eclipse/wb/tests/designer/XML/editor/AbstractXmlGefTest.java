@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -195,7 +195,7 @@ public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {
 	 * We should do this after opening "Design" page and after undo/redo.
 	 */
 	protected void fetchContentFields() {
-		m_contentEditPart = (GraphicalEditPart) m_viewerCanvas.getRootContainer().getContent();
+		m_contentEditPart = (GraphicalEditPart) m_viewerCanvas.getRootEditPart().getContents();
 		if (m_contentEditPart == null) {
 			return;
 		}

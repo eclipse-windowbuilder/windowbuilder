@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -62,7 +61,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 		// create root EditPart
 		m_rootEditPart = new RootEditPart(this);
 		m_rootEditPart.activate();
-		setRootEditPart((IRootContainer) m_rootEditPart);
+		setRootEditPart(m_rootEditPart);
 		// handle selection events
 		synchronizeSelection();
 	}

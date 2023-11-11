@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.gef.tree;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.tree.TreeEditPart;
-import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
@@ -25,7 +24,7 @@ import org.eclipse.swt.widgets.TreeItem;
  * @author lobas_av
  * @coverage gef.tree
  */
-class RootEditPart extends TreeEditPart implements IRootContainer, org.eclipse.gef.RootEditPart {
+public class RootEditPart extends TreeEditPart implements org.eclipse.gef.RootEditPart {
 	private IEditPartViewer m_viewer;
 	private TreeEditPart m_contentEditPart;
 
@@ -70,16 +69,6 @@ class RootEditPart extends TreeEditPart implements IRootContainer, org.eclipse.g
 	// IRootEditPart
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the <i>content</i> {@link EditPart}.
-	 *
-	 * @deprecated Deprecated by {@link #getContents()}.
-	 */
-	@Override
-	@Deprecated
-	public EditPart getContent() {
-		return getContents();
-	}
 
 	/**
 	 * Returns the <i>content</i> {@link EditPart}.
@@ -87,18 +76,6 @@ class RootEditPart extends TreeEditPart implements IRootContainer, org.eclipse.g
 	@Override
 	public EditPart getContents() {
 		return m_contentEditPart;
-	}
-
-	/**
-	 * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
-	 * <i>contents</i>.
-	 *
-	 * @deprecated Replaced by {@link #setContents(org.eclipse.gef.EditPart)}
-	 */
-	@Override
-	@Deprecated
-	public void setContent(EditPart contentEditPart) {
-		setContents(contentEditPart);
 	}
 
 	/**

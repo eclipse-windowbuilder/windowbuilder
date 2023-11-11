@@ -18,7 +18,6 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
-import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
@@ -32,7 +31,7 @@ import org.eclipse.gef.Request;
  * @author lobas_av
  * @coverage gef.graphical
  */
-class RootEditPart extends GraphicalEditPart implements IRootContainer, org.eclipse.gef.RootEditPart {
+public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.RootEditPart {
 	private IEditPartViewer m_viewer;
 	private final IRootFigure m_rootFigure;
 	private EditPart m_contentEditPart;
@@ -111,16 +110,6 @@ class RootEditPart extends GraphicalEditPart implements IRootContainer, org.ecli
 	// IRootEditPart
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the <i>content</i> {@link EditPart}.
-	 *
-	 * @deprecated Deprecated by {@link #getContents()}.
-	 */
-	@Override
-	@Deprecated
-	public EditPart getContent() {
-		return getContents();
-	}
 
 	/**
 	 * Returns the <i>content</i> {@link EditPart}.
@@ -128,18 +117,6 @@ class RootEditPart extends GraphicalEditPart implements IRootContainer, org.ecli
 	@Override
 	public EditPart getContents() {
 		return m_contentEditPart;
-	}
-
-	/**
-	 * Sets the <i>content</i> {@link EditPart}. A RootEditPart only has a single child, called its
-	 * <i>contents</i>.
-	 *
-	 * @deprecated Replaced by {@link #setContents(org.eclipse.gef.EditPart)}
-	 */
-	@Override
-	@Deprecated
-	public void setContent(EditPart contentEditPart) {
-		setContents(contentEditPart);
 	}
 
 	/**

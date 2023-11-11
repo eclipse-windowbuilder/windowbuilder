@@ -15,12 +15,12 @@ import com.google.common.collect.Iterators;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
-import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 
@@ -53,7 +53,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	/**
 	 * Activates the {@link EditPart}. EditParts that observe a dynamic model or support editing must
 	 * be <i>active</i>. Called by the managing {@link EditPart}, or the Viewer in the case of the
-	 * {@link IRootContainer}. This method may be called again once {@link #deactivate()} has been
+	 * {@link RootEditPart}. This method may be called again once {@link #deactivate()} has been
 	 * called.
 	 * <P>
 	 * During activation the receiver should:
@@ -80,7 +80,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * Deactivates the {@link EditPart}. EditParts that observe a dynamic model or support editing
 	 * must be <i>active</i>. <code>deactivate()</code> is guaranteed to be called when an EditPart
 	 * will no longer be used. Called by the managing EditPart, or the Viewer in the case of the
-	 * {@link IRootContainer}. This method may be called multiple times.
+	 * {@link RootEditPart}. This method may be called multiple times.
 	 * <P>
 	 * During deactivation the receiver should:
 	 * <UL>
