@@ -29,7 +29,6 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	// Instance fields
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private EditPart m_host;
 	private boolean m_isActive;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -71,27 +70,11 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	}
 
 	/**
-	 * Method called after this {@link EditPolicy} deleted from host {@link EditPart}.
-	 */
-	public void dispose() {
-	}
-
-	/**
 	 * @return the <i>host</i> {@link EditPart} on which this policy is installed.
 	 */
 	@Override
 	public EditPart getHost() {
-		return m_host;
-	}
-
-	/**
-	 * Sets the host in which this {@link EditPolicy} is installed.
-	 *
-	 * @param editpart
-	 *          the host {@link EditPart}
-	 */
-	public void setHost(EditPart host) {
-		m_host = host;
+		return (EditPart) super.getHost();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

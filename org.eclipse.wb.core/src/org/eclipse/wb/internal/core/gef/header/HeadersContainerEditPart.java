@@ -16,12 +16,12 @@ import org.eclipse.wb.core.gef.policy.selection.EmptySelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.action.IMenuManager;
@@ -213,8 +213,8 @@ IHeaderMenuProvider {
 	private static IHeadersProvider getHeadersProvider(EditPart editPart) {
 		// find policy that implements IHeadersProvider
 		for (EditPolicy editPolicy : editPart.getEditPolicies()) {
-			if (editPolicy.isActive() && editPolicy instanceof IHeadersProvider) {
-				return (IHeadersProvider) editPolicy;
+			if (editPolicy instanceof IHeadersProvider headersProvider && headersProvider.isActive()) {
+				return headersProvider;
 			}
 		}
 		// not found
