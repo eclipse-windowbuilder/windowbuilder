@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,4 +49,9 @@ public interface IHeadersProvider {
 	 * Invoked on double click on headers container.
 	 */
 	void handleDoubleClick(boolean horizontal);
+
+	/**
+	 * Returns {@code true} if the {@link IHeadersProvider} is active.
+	 */
+	boolean isActive();
 }

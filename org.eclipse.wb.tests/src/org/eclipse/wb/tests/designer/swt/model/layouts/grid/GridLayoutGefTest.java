@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.swt.model.layouts.grid;
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.GridSelectionEditPolicy;
@@ -28,6 +27,7 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;

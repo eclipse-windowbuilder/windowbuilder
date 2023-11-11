@@ -12,11 +12,10 @@ package org.eclipse.wb.gef.core;
 
 import com.google.common.collect.Iterators;
 
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.Command;
@@ -39,10 +38,6 @@ import java.util.Map;
  * @coverage gef.core
  */
 public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPart {
-	//
-	private final List<EditPolicy> m_policies = new ArrayList<>();
-	private final List<Object> m_keyPolicies = new ArrayList<>();
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Activate/Deactivate
@@ -334,17 +329,11 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	/**
 	 * Return all installed {@link EditPolicy EditPolicies}.
 	 */
+	@Deprecated
 	public List<EditPolicy> getEditPolicies() {
-		return m_policies;
-	}
-
-	/**
-	 * Return <code>null</code> or the {@link EditPolicy} installed with the given key.
-	 */
-	@Override
-	public EditPolicy getEditPolicy(Object key) {
-		int index = m_keyPolicies.indexOf(key);
-		return index == -1 ? null : m_policies.get(index);
+		List<EditPolicy> policies = new ArrayList<>();
+		getEditPolicyIterable().forEach(policies::add);
+		return policies;
 	}
 
 	/**
@@ -352,59 +341,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	public void installEditPolicy(EditPolicy policy) {
 		installEditPolicy(policy.getClass(), policy);
-	}
-
-	/**
-	 * Installs an {@link EditPolicy} for a specified <i>role</i>. A <i>role</i> is is simply an
-	 * Object used to identify the {@link EditPolicy}.
-	 */
-	public void installEditPolicy(Object key, EditPolicy policy) {
-		Assert.isNotNull(key, "Edit Policies must be installed with keys");
-		int index = m_keyPolicies.indexOf(key);
-		//
-		if (index == -1) {
-			if (policy != null) {
-				m_keyPolicies.add(key);
-				m_policies.add(policy);
-			}
-		} else {
-			EditPolicy oldPolicy = m_policies.get(index);
-			//
-			if (isActive()) {
-				oldPolicy.deactivate();
-			}
-			//
-			if (policy == null) {
-				m_keyPolicies.remove(index);
-				m_policies.remove(index);
-			} else {
-				m_policies.set(index, policy);
-			}
-			//
-			oldPolicy.dispose();
-		}
-		//
-		if (policy != null) {
-			policy.setHost(this);
-			//
-			if (isActive()) {
-				policy.activate();
-			}
-		}
-	}
-
-	@Override
-	protected void activateEditPolicies() {
-		for (EditPolicy editPolicy : m_policies) {
-			editPolicy.activate();
-		}
-	}
-
-	@Override
-	protected void deactivateEditPolicies() {
-		for (EditPolicy editPolicy : m_policies) {
-			editPolicy.deactivate();
-		}
 	}
 
 	/**
@@ -421,7 +357,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	private List<EditPolicy> getUnderstandingPolicies(Request request) {
 		List<EditPolicy> policies = new ArrayList<>();
-		for (EditPolicy editPolicy : m_policies) {
+		for (EditPolicy editPolicy : getEditPolicyIterable()) {
 			if (editPolicy.understandsRequest(request)) {
 				policies.add(editPolicy);
 			}
@@ -503,7 +439,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		EditPart target = null;
 		// update target using any understanding EditPolicy
 		for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-			EditPart newTarget = editPolicy.getTargetEditPart(request);
+			EditPart newTarget = ((org.eclipse.wb.gef.core.policies.EditPolicy) editPolicy).getTargetEditPart(request);
 			if (newTarget != null) {
 				target = newTarget;
 			}
@@ -519,8 +455,8 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	public void performRequest(Request request) {
 		request = processRequestProcessors(request);
-		for (EditPolicy editPolicy : m_policies) {
-			editPolicy.performRequest(request);
+		for (EditPolicy editPolicy : getEditPolicyIterable()) {
+			((org.eclipse.wb.gef.core.policies.EditPolicy) editPolicy).performRequest(request);
 		}
 	}
 

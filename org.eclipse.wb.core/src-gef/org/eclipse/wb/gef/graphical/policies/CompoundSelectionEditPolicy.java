@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -109,11 +109,11 @@ public class CompoundSelectionEditPolicy extends SelectionEditPolicy {
 	}
 
 	@Override
-	public EditPart getTargetEditPart(Request request) {
+	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
 		for (SelectionEditPolicy policy : m_policies) {
 			EditPart targetEditPart = policy.getTargetEditPart(request);
 			if (targetEditPart != null) {
-				return targetEditPart;
+				return (org.eclipse.wb.gef.core.EditPart) targetEditPart;
 			}
 		}
 		return null;
