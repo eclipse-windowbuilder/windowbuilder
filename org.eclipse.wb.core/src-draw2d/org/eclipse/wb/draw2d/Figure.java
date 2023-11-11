@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
@@ -36,7 +35,6 @@ import java.util.List;
 public class Figure extends org.eclipse.draw2d.Figure {
 	private Figure m_parent;
 	private List<Figure> m_children;
-	private Border m_border;
 	private Object m_data;
 	private String m_toolTipText;
 	private ICustomTooltipProvider m_customTooltipProvider;
@@ -355,16 +353,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	protected void paintClientArea(Graphics graphics) {
 	}
 
-	/**
-	 * Paints the border associated with this Figure, if one exists.
-	 */
-	@Override
-	protected void paintBorder(Graphics graphics) {
-		if (m_border != null) {
-			m_border.paint(this, graphics, NO_INSETS);
-		}
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Bounds
@@ -390,18 +378,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		}
 	}
 
-	/**
-	 * Returns the border's Insets if the border is set. Otherwise returns NO_INSETS, an instance of
-	 * Insets with all 0s. Returns Insets by reference. DO NOT Modify returned value.
-	 */
-	@Override
-	public Insets getInsets() {
-		if (m_border == null) {
-			return IFigure.NO_INSETS;
-		}
-		return m_border.getInsets(this);
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Properties
@@ -419,27 +395,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 */
 	public void setData(Object data) {
 		m_data = data;
-	}
-
-	/**
-	 * Returns the current border by reference.
-	 */
-	@Override
-	public Border getBorder() {
-		return m_border;
-	}
-
-	/**
-	 * Sets the border.
-	 */
-	public void setBorder(Border border) {
-		if (m_border != border) {
-			m_border = border;
-			if (isVisible()) {
-				revalidate();
-				repaint();
-			}
-		}
 	}
 
 	/**
