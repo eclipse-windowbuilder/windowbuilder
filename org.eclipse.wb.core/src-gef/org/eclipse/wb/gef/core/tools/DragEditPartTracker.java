@@ -72,7 +72,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 			List<Object> models = getOperationSetModels();
 			eraseTargetFeedback();
 			executeCommand();
-			m_state = STATE_NONE;
+			m_state = STATE_TERMINAL;
 			// restore selection
 			restoreSelectionFromModels(models);
 		} else {
@@ -125,7 +125,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 */
 	@Override
 	protected IConditional getTargetingConditional() {
-		if (!getViewer().getSelectedEditParts().isEmpty() && getOperationSet().isEmpty()) {
+		if (!getCurrentViewer().getSelectedEditParts().isEmpty() && getOperationSet().isEmpty()) {
 			return new IConditional() {
 				@Override
 				public boolean evaluate(EditPart editPart) {
@@ -148,7 +148,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	@Override
 	protected List<EditPart> createOperationSet() {
 		// extract OperationSet from selection
-		List<EditPart> operationSet = ToolUtilities.getSelectionWithoutDependants(getViewer());
+		List<EditPart> operationSet = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
 		// check understandsRequest() from parent
 		// FIXME Kosta.20071115 I don't understand, why we should ask parent _here_
 		// Yes, if parent does not support move, we should not allow operation.
@@ -249,7 +249,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 */
 	private void restoreSelectionFromModels(List<Object> models) {
 		if (models != null) {
-			IEditPartViewer viewer = getViewer();
+			IEditPartViewer viewer = getCurrentViewer();
 			// prepare new EditPart's
 			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {

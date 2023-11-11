@@ -109,7 +109,7 @@ IHeaderMenuProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final Tool getDragTrackerTool(Request request) {
+	public final Tool getDragTracker(Request request) {
 		return new ParentTargetDragEditPartTracker(this);
 	}
 

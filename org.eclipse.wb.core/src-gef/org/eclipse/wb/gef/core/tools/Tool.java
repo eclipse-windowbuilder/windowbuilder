@@ -14,11 +14,11 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
@@ -31,10 +31,9 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.core
  */
-public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
-	private boolean m_active;
-	private IEditPartViewer m_viewer;
-	private EditDomain m_domain;
+public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements DragTracker {
+	private static final int FLAG_ACTIVE = 8;
+	private static final int FLAG_PAST_THRESHOLD = 1;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -47,8 +46,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 */
 	public void activate() {
 		resetState();
-		m_state = STATE_INIT;
-		m_active = true;
+		m_state = STATE_INITIAL;
+		setFlag(FLAG_ACTIVE, true);
 	}
 
 	/**
@@ -56,7 +55,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * perform state clean-up or to free resources.
 	 */
 	public void deactivate() {
-		m_active = false;
+		setFlag(FLAG_ACTIVE, false);
 		setCommand(null);
 		m_operationSet = null;
 	}
@@ -65,47 +64,21 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Returns <code>true</code> if the tool is active.
 	 */
 	public final boolean isActive() {
-		return m_active;
+		return getFlag(FLAG_ACTIVE);
 	}
 
 	/**
 	 * Get {@link IEditPartViewer}.
 	 */
-	public final IEditPartViewer getViewer() {
-		return m_viewer;
-	}
-
-	/**
-	 * Set {@link IEditPartViewer} into {@link Tool}.
-	 */
-	public final void setViewer(IEditPartViewer viewer) {
-		if (m_viewer != viewer) {
-			setCursor(null);
-			m_viewer = viewer;
-			//
-			if (m_viewer != null) {
-				org.eclipse.swt.graphics.Point mouseLocation =
-						m_viewer.getControl().toControl(Display.getCurrent().getCursorLocation());
-				m_currentScreenX = mouseLocation.x;
-				m_currentScreenY = mouseLocation.y;
-			}
-			//
-			refreshCursor();
-		}
+	public final IEditPartViewer getCurrentViewer() {
+		return (IEditPartViewer) super.getCurrentViewer();
 	}
 
 	/**
 	 * Returns the {@link EditDomain}.
 	 */
 	public final EditDomain getDomain() {
-		return m_domain;
-	}
-
-	/**
-	 * Set {@link EditDomain} into {@link Tool}.
-	 */
-	public final void setDomain(EditDomain domain) {
-		m_domain = domain;
+		return (EditDomain) super.getDomain();
 	}
 
 	/**
@@ -120,18 +93,18 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 */
 	protected void handleFinished() {
 		if (unloadWhenFinished()) {
-			m_domain.loadDefaultTool();
+			getDomain().loadDefaultTool();
 		} else {
 			// create emulate event
 			Event event = null;
 			//
-			if (m_viewer != null) {
+			if (getCurrentViewer() != null) {
 				event = new Event();
 				event.display = Display.getCurrent();
-				event.widget = m_viewer.getControl();
+				event.widget = getCurrentViewer().getControl();
 				event.type = SWT.MouseMove;
-				event.x = m_currentScreenX;
-				event.y = m_currentScreenY;
+				event.x = getCurrentInput().getMouseLocation().x;
+				event.y = getCurrentInput().getMouseLocation().y;
 				event.button = m_button;
 				event.stateMask = m_stateMask;
 			}
@@ -139,8 +112,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 			deactivate();
 			activate();
 			// send emulate event
-			if (m_viewer != null) {
-				mouseMove(new MouseEvent(event), m_viewer);
+			if (getCurrentViewer() != null) {
+				mouseMove(new MouseEvent(event), getCurrentViewer());
 			}
 		}
 	}
@@ -177,7 +150,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * override this method to filter or alter the operation set as necessary.
 	 */
 	protected List<EditPart> createOperationSet() {
-		return new ArrayList<>(m_viewer.getSelectedEditParts());
+		return new ArrayList<>(getCurrentViewer().getSelectedEditParts());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -194,7 +167,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 		if (m_command != null) {
 			Command command = m_command;
 			setCommand(null);
-			m_domain.executeCommand(command);
+			getDomain().executeCommand(command);
 		}
 	}
 
@@ -225,42 +198,6 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	// Cursor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Cursor m_defaultCursor;
-	private Cursor m_disabledCursor;
-
-	/**
-	 * Returns the cursor used under normal conditions.
-	 */
-	protected Cursor getDefaultCursor() {
-		return m_defaultCursor;
-	}
-
-	/**
-	 * Sets the default cursor.
-	 */
-	public void setDefaultCursor(Cursor cursor) {
-		if (m_defaultCursor != cursor) {
-			m_defaultCursor = cursor;
-			refreshCursor();
-		}
-	}
-
-	/**
-	 * Returns the cursor used under abnormal conditions.
-	 */
-	protected Cursor getDisabledCursor() {
-		return m_disabledCursor == null ? getDefaultCursor() : m_disabledCursor;
-	}
-
-	/**
-	 * Sets the disabled cursor.
-	 */
-	public void setDisabledCursor(Cursor cursor) {
-		if (m_disabledCursor != cursor) {
-			m_disabledCursor = cursor;
-			refreshCursor();
-		}
-	}
 
 	/**
 	 * Returns the appropriate cursor for the tools current state. If the tool is in its terminal
@@ -272,7 +209,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * other conditions.
 	 */
 	protected Cursor calculateCursor() {
-		if (m_state == STATE_NONE) {
+		if (m_state == STATE_TERMINAL) {
 			return null;
 		}
 		if (m_command == null) {
@@ -281,95 +218,43 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 		return getDefaultCursor();
 	}
 
-	/**
-	 * Shows the given cursor on the viewer.
-	 */
-	protected void setCursor(Cursor cursor) {
-		if (m_viewer != null) {
-			m_viewer.setCursor(cursor);
-		}
-	}
-
-	/**
-	 * Sets the cursor being displayed to the appropriate cursor. If the tool is active, the current
-	 * cursor being displayed is updates by calling {@link #calculateCursor()}.
-	 */
-	public void refreshCursor() {
-		if (isActive()) {
-			setCursor(calculateCursor());
-		}
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Low-Level handle MouseEvent
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * The final state for a tool to be in. Once a tool reaches this state, it will not change states
-	 * until it is activated() again.
-	 */
-	protected static final int STATE_NONE = 0;
-	/**
-	 * The first state that a tool is in. The tool will generally be in this state immediately
-	 * following {@link #activate()}.
-	 */
-	protected static final int STATE_INIT = 1;
-	/**
-	 * The state indicating that one or more buttons is pressed, but the user has not moved past the
-	 * drag threshold. Many tools will do nothing during this state but wait until
-	 * {@link #STATE_DRAG_IN_PROGRESS} is entered.
-	 */
-	protected static final int STATE_DRAG = 2;
-	/**
-	 * The state indicating that the drag detection theshold has been passed, and a drag is in
-	 * progress.
-	 */
-	protected static final int STATE_DRAG_IN_PROGRESS = 3;
-	/**
-	 * The state indicating that an input event has invalidated the interaction. For example, during a
-	 * mouse drag, pressing additional mouse button might invalidate the drag.
-	 */
-	protected static final int STATE_INVALID = 4;
 	//
 	private static final int DRAG_THRESHOLD = 5;
 	// mouse event info
-	protected int m_currentScreenX;
-	protected int m_currentScreenY;
 	protected int m_stateMask;
 	protected int m_button;
 	// drag info
-	protected int m_startScreenX;
-	protected int m_startScreenY;
 	protected int m_state;
-	private boolean m_canPastThreshold;
 
 	//
 	private void setEvent(MouseEvent event) {
-		m_currentScreenX = event.x;
-		m_currentScreenY = event.y;
+		getCurrentInput().setInput(event);
 		m_stateMask = event.stateMask;
 		m_button = event.button;
 	}
 
 	protected boolean movedPastThreshold() {
-		if (!m_canPastThreshold) {
-			m_canPastThreshold =
-					Math.abs(m_startScreenX - m_currentScreenX) > DRAG_THRESHOLD
-					|| Math.abs(m_startScreenY - m_currentScreenY) > DRAG_THRESHOLD;
+		if (!getFlag(FLAG_PAST_THRESHOLD)) {
+			Point start = getStartLocation();
+			Point end = getCurrentInput().getMouseLocation();
+			setFlag(FLAG_PAST_THRESHOLD, Math.abs(start.x - end.x) > DRAG_THRESHOLD || Math.abs(start.y - end.y) > DRAG_THRESHOLD);
 		}
-		return m_canPastThreshold;
+		return getFlag(FLAG_PAST_THRESHOLD);
 	}
 
 	/**
 	 * Handles mouse down events within a viewer. Subclasses wanting to handle this event should
 	 * override {@link #handleButtonDown(int)}.
 	 */
-	public void mouseDown(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseDown(MouseEvent event, EditPartViewer viewer) {
 		setViewer(viewer);
 		setEvent(event);
-		m_startScreenX = event.x;
-		m_startScreenY = event.y;
+		setStartLocation(new Point(event.x, event.y));
 		handleButtonDown(event.button);
 	}
 
@@ -377,7 +262,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Handles mouse up within a viewer. Subclasses wanting to handle this event should override
 	 * {@link #handleButtonUp(int)}.
 	 */
-	public void mouseUp(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseUp(MouseEvent event, EditPartViewer viewer) {
 		setViewer(viewer);
 		setEvent(event);
 		handleButtonUp(event.button);
@@ -387,7 +272,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Handles mouse drag events within a viewer. Subclasses wanting to handle this event should
 	 * override {@link #handleDrag()} and/or {@link #handleDragInProgress()}.
 	 */
-	public void mouseDrag(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseDrag(MouseEvent event, EditPartViewer viewer) {
 		setViewer(viewer);
 		boolean wasDragging = movedPastThreshold();
 		setEvent(event);
@@ -405,7 +290,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Handles mouse moves (if the mouse button is up) within a viewer. Subclasses wanting to handle
 	 * this event should override {@link #handleMove()}.
 	 */
-	public void mouseMove(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseMove(MouseEvent event, EditPartViewer viewer) {
 		setViewer(viewer);
 		setEvent(event);
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
@@ -419,7 +304,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Handles mouse double click events within a viewer. Subclasses wanting to handle this event
 	 * should override {@link #handleDoubleClick(int)}.
 	 */
-	public void mouseDoubleClick(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseDoubleClick(MouseEvent event, EditPartViewer viewer) {
 		setViewer(viewer);
 		setEvent(event);
 		handleDoubleClick(event.button);
@@ -433,10 +318,10 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * proper ordering, GEF fakes the exit and calls {@link #handleViewerExited()}. The real exit will
 	 * then be ignored.
 	 */
-	public void viewerEntered(MouseEvent event, IEditPartViewer viewer) {
+	public void viewerEntered(MouseEvent event, EditPartViewer viewer) {
 		setEvent(event);
 		//
-		if (m_viewer != null) {
+		if (getCurrentViewer() != null) {
 			handleViewerExited();
 		}
 		//
@@ -448,8 +333,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Handles the mouse exited event. Subclasses wanting to handle this event should override
 	 * {@link #handleViewerExited()}.
 	 */
-	public void viewerExited(MouseEvent event, IEditPartViewer viewer) {
-		if (m_viewer == viewer) {
+	public void viewerExited(MouseEvent event, EditPartViewer viewer) {
+		if (getCurrentViewer() == viewer) {
 			setEvent(event);
 			handleViewerExited();
 			setViewer((IEditPartViewer) null);
@@ -465,8 +350,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * Returns the current x, y <b>*absolute*</b> position of the mouse cursor.
 	 */
 	public final Point getLocation() {
-		return new Point(m_currentScreenX + m_viewer.getHOffset(), m_currentScreenY
-				+ m_viewer.getVOffset());
+		return new Point(getCurrentInput().getMouseLocation().x + getCurrentViewer().getHOffset(),
+				getCurrentInput().getMouseLocation().y + getCurrentViewer().getVOffset());
 	}
 
 	/**
@@ -475,46 +360,20 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool {
 	 * tools that interpret mouse drags.
 	 */
 	protected Point getStartLocation() {
-		return new Point(m_startScreenX + m_viewer.getHOffset(), m_startScreenY + m_viewer.getVOffset());
-	}
-
-	/**
-	 * Return the number of pixels that the mouse has been moved since that drag was started. The drag
-	 * start is determined by where the mouse button was first pressed.
-	 */
-	protected Dimension getDragMoveDelta() {
-		return getLocation().getDifference(getStartLocation());
+		return new Point(super.getStartLocation().x + getCurrentViewer().getHOffset(),
+				super.getStartLocation().y + getCurrentViewer().getVOffset());
 	}
 
 	/**
 	 * Resets all state fields to default values.
 	 */
 	protected void resetState() {
-		m_currentScreenX = 0;
-		m_currentScreenY = 0;
+		getCurrentInput().setMouseLocation(0, 0);
 		m_stateMask = 0;
 		m_button = 0;
 		//
-		m_startScreenX = 0;
-		m_startScreenY = 0;
+		setStartLocation(new Point(0, 0));
 		//
-		m_canPastThreshold = false;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Handle KeyEvent
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Called when the key has been pressed on a viewer.
-	 */
-	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
-	}
-
-	/**
-	 * Called when the key has been released on a viewer.
-	 */
-	public void keyReleased(KeyEvent event, IEditPartViewer viewer) {
+		setFlag(FLAG_PAST_THRESHOLD, false);
 	}
 }

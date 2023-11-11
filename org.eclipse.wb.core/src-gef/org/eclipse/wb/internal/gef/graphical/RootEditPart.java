@@ -147,7 +147,7 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Tool getDragTrackerTool(Request request) {
+	public Tool getDragTracker(Request request) {
 		return new MarqueeSelectionTool();
 	}
 }

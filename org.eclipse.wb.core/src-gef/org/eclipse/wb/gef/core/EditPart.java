@@ -13,11 +13,9 @@ package org.eclipse.wb.gef.core;
 import com.google.common.collect.Iterators;
 
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RootEditPart;
@@ -466,24 +464,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		}
 		return request;
 	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// DragTracking
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public DragTracker getDragTracker(org.eclipse.gef.Request request) {
-		// TODO
-		return null;
-	}
-
-	/**
-	 * Returns a {@link Tool} for dragging this {@link EditPart}. The SelectionTool is the only
-	 * {@link Tool} by default that calls this method. The SelectionTool will use a SelectionRequest
-	 * to provide information such as which mouse button is down, and what modifier keys are pressed.
-	 */
-	public abstract Tool getDragTrackerTool(Request request);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

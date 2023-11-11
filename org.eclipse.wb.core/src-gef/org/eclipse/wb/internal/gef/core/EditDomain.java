@@ -176,7 +176,7 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 		m_activeTool = activeTool;
 		//
 		if (m_activeTool != null) {
-			m_activeTool.setDomain(this);
+			m_activeTool.setEditDomain(this);
 			m_activeTool.activate();
 			// notify listeners
 			for (IActiveToolListener listener : getEventTable().getListenersIterable(IActiveToolListener.class)) {
@@ -185,7 +185,6 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 			// handle auto reload tool and update cursor
 			if (m_currentViewer != null) {
 				m_activeTool.setViewer(m_currentViewer);
-				m_activeTool.refreshCursor();
 				m_activeTool.mouseMove(m_currentMouseEvent, m_currentViewer);
 			}
 		}
@@ -202,7 +201,7 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
 		Tool tool = getActiveTool();
 		if (tool != null) {
-			tool.keyPressed(event, viewer);
+			tool.keyDown(event, viewer);
 		}
 	}
 
@@ -212,7 +211,7 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	public void keyReleased(KeyEvent event, IEditPartViewer viewer) {
 		Tool tool = getActiveTool();
 		if (tool != null) {
-			tool.keyReleased(event, viewer);
+			tool.keyUp(event, viewer);
 		}
 	}
 

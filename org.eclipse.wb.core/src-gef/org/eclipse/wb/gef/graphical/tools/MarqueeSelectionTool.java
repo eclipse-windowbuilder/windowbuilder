@@ -76,7 +76,7 @@ public class MarqueeSelectionTool extends Tool {
 		super.deactivate();
 		m_allChildren = null;
 		m_selectedEditParts = null;
-		m_state = STATE_NONE;
+		m_state = STATE_TERMINAL;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ public class MarqueeSelectionTool extends Tool {
 	@Override
 	protected Cursor calculateCursor() {
 		switch (m_state) {
-		case STATE_INIT :
+		case STATE_INITIAL :
 		case STATE_DRAG :
 		case STATE_DRAG_IN_PROGRESS :
 			return getDefaultCursor();
@@ -106,7 +106,7 @@ public class MarqueeSelectionTool extends Tool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
-			if (m_state == STATE_INIT) {
+			if (m_state == STATE_INITIAL) {
 				m_state = STATE_DRAG_IN_PROGRESS;
 				if ((m_stateMask & SWT.CONTROL) != 0) {
 					m_selectionMode = TOGGLE_MODE;
@@ -126,7 +126,7 @@ public class MarqueeSelectionTool extends Tool {
 	@Override
 	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
-			m_state = STATE_NONE;
+			m_state = STATE_TERMINAL;
 			eraseTargetFeedback();
 			eraseMarqueeFeedback();
 			performMarqueeSelect();
@@ -158,7 +158,7 @@ public class MarqueeSelectionTool extends Tool {
 	 * the selection and select the new group
 	 */
 	private void performMarqueeSelect() {
-		IEditPartViewer viewer = getViewer();
+		IEditPartViewer viewer = getCurrentViewer();
 		List<EditPart> newSelections = calculateNewSelection();
 		//
 		if (m_selectionMode == APPEND_MODE) {
@@ -274,7 +274,7 @@ public class MarqueeSelectionTool extends Tool {
 	 * Returns feedback layer.
 	 */
 	private Figure getFeedbackPane() {
-		return getViewer().getLayer(IEditPartViewer.FEEDBACK_LAYER);
+		return getCurrentViewer().getLayer(IEditPartViewer.FEEDBACK_LAYER);
 	}
 
 	/**
@@ -291,7 +291,7 @@ public class MarqueeSelectionTool extends Tool {
 	private List<EditPart> getAllChildren() {
 		if (m_allChildren == null || m_allChildren.isEmpty()) {
 			m_allChildren = new ArrayList<>();
-			getAllChildren(m_allChildren, (EditPart) getViewer().getRootEditPart());
+			getAllChildren(m_allChildren, (EditPart) getCurrentViewer().getRootEditPart());
 		}
 		return m_allChildren;
 	}

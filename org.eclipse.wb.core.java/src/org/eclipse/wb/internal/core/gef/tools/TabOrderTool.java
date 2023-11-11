@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -193,18 +194,18 @@ public final class TabOrderTool extends TargetingTool {
 	protected void updateTargetUnderMouse() {
 		// find on clickable layer
 		EditPart editPart =
-				getViewer().findTargetEditPart(
-						m_currentScreenX,
-						m_currentScreenY,
+				getCurrentViewer().findTargetEditPart(
+						getCurrentInput().getMouseLocation().x,
+						getCurrentInput().getMouseLocation().y,
 						getExclusionSet(),
 						getTargetingConditional(),
 						IEditPartViewer.CLICKABLE_LAYER);
 		// common find target part
 		if (editPart == null) {
 			editPart =
-					getViewer().findTargetEditPart(
-							m_currentScreenX,
-							m_currentScreenY,
+					getCurrentViewer().findTargetEditPart(
+							getCurrentInput().getMouseLocation().x,
+							getCurrentInput().getMouseLocation().y,
 							getExclusionSet(),
 							getTargetingConditional());
 		}
@@ -220,7 +221,7 @@ public final class TabOrderTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
+	public void keyDown(KeyEvent event, EditPartViewer viewer) {
 		if (event.keyCode == SWT.ESC) {
 			viewer.getEditDomain().loadDefaultTool();
 		}

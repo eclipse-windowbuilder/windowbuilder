@@ -144,7 +144,8 @@ Import-Package: org.apache.commons.io,
  org.eclipse.gef.editpolicies,
  org.eclipse.gef.requests,
  org.eclipse.gef.tools,
- org.eclipse.gef.ui.parts
+ org.eclipse.gef.ui.parts,
+ org.eclipse.gef.util
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide;visibility:=reexport,

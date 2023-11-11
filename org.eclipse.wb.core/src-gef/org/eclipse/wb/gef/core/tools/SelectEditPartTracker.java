@@ -55,7 +55,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Cursor calculateCursor() {
-		return m_state == STATE_INIT || m_state == STATE_DRAG
+		return m_state == STATE_INITIAL || m_state == STATE_DRAG
 				? getDefaultCursor()
 						: super.calculateCursor();
 	}
@@ -68,17 +68,17 @@ public class SelectEditPartTracker extends TargetingTool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if ((button == 1 || button == 3)
-				&& m_state == STATE_INIT
+				&& m_state == STATE_INITIAL
 				&& m_sourceEditPart.getSelected() == EditPart.SELECTED_NONE) {
 			performSelection();
 		}
 		if (button == 1) {
-			if (m_state == STATE_INIT) {
+			if (m_state == STATE_INITIAL) {
 				m_state = STATE_DRAG;
 			}
 		} else {
 			if (button == 3) {
-				m_state = STATE_NONE;
+				m_state = STATE_TERMINAL;
 			} else {
 				m_state = STATE_INVALID;
 			}
@@ -91,7 +91,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG) {
 			performSelection();
-			m_state = STATE_NONE;
+			m_state = STATE_TERMINAL;
 		}
 		return true;
 	}
@@ -131,7 +131,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	private void performSelection() {
 		if (!m_isSelected) {
 			m_isSelected = true;
-			IEditPartViewer viewer = getViewer();
+			IEditPartViewer viewer = getCurrentViewer();
 			//
 			if ((m_stateMask & SWT.CONTROL) != 0) {
 				if (viewer.getSelectedEditParts().contains(m_sourceEditPart)) {

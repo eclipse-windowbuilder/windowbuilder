@@ -65,7 +65,7 @@ public class PasteTool extends AbstractCreationTool {
 
 	@Override
 	protected void selectAddedObjects() {
-		final IEditPartViewer viewer = getViewer();
+		final IEditPartViewer viewer = getCurrentViewer();
 		// prepare pasted EditPart's
 		List<EditPart> editParts = new ArrayList<>();
 		{

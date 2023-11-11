@@ -11,12 +11,12 @@
 package org.eclipse.wb.internal.rcp.gef.policy.jface.action;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 
 /**
@@ -52,7 +52,7 @@ public final class ActionDropTool extends AbstractCreationTool {
 		ActionDropRequest request = (ActionDropRequest) getTargetRequest();
 		ActionContributionItemInfo item = request.getItem();
 		if (item != null) {
-			IEditPartViewer viewer = getViewer();
+			EditPartViewer viewer = getCurrentViewer();
 			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(item);
 			if (editPart != null) {
 				viewer.select(editPart);
