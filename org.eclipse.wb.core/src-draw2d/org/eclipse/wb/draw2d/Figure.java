@@ -14,9 +14,7 @@ import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 
-import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -50,18 +48,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	@Override
 	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return super.getListeners(listenerClass);
-	}
-
-	/**
-	 * Notifies any {@link IFigureListener IFigureListeners} listening to this {@link Figure} that it
-	 * has moved.
-	 */
-	@Override
-	protected void fireMoved() {
-		Iterator<FigureListener> listeners = getListeners(FigureListener.class);
-		if (listeners != null) {
-			listeners.forEachRemaining(figureListener -> figureListener.figureMoved(this));
-		}
 	}
 
 	/**
@@ -351,31 +337,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 */
 	@Override
 	protected void paintClientArea(Graphics graphics) {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Bounds
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-
-	/**
-	 * Sets the bounds of this Figure to the Rectangle <i>rect</i>.
-	 */
-	@Override
-	public void setBounds(Rectangle bounds) {
-		if (!this.bounds.equals(bounds)) {
-			// calc repaint rectangle
-			Rectangle dirtyArea = this.bounds.getUnion(bounds);
-			// change bounds
-			this.bounds.setBounds(bounds);
-			// send move event
-			fireMoved();
-			// reset state
-			revalidate();
-			repaint(dirtyArea);
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
