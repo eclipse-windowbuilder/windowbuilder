@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,7 +62,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		EditPart parentEditPart = m_viewer.getEditPartByModel(parentElement);
+		EditPart parentEditPart = (EditPart) m_viewer.getEditPartRegistry().get(parentElement);
 		if (parentEditPart != null) {
 			List<Object> children = new ArrayList<>();
 			for (EditPart editPart : parentEditPart.getChildren()) {
@@ -75,7 +75,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object getParent(Object element) {
-		EditPart editPart = m_viewer.getEditPartByModel(element);
+		EditPart editPart = (EditPart) m_viewer.getEditPartRegistry().get(element);
 		if (editPart != null) {
 			return editPart.getParent().getModel();
 		}

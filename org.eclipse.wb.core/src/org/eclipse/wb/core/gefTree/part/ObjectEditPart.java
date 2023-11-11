@@ -131,7 +131,7 @@ public class ObjectEditPart extends TreeEditPart {
 					}
 					List<EditPart> editParts = new ArrayList<>();
 					for (ObjectInfo object : objects) {
-						EditPart editPart = viewer.getEditPartByModel(object);
+						EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(object);
 						if (editPart == null) {
 							return null;
 						}

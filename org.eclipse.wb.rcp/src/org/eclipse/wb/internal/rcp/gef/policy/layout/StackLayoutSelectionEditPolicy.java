@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -123,7 +123,7 @@ SelectionEditPolicy {
 		C component = m_layout.getPrevControl();
 		m_layout.show(component);
 		// select EditPart
-		EditPart editPart = viewer.getEditPartByModel(component);
+		EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
 		viewer.select(editPart);
 	}
 
@@ -136,7 +136,7 @@ SelectionEditPolicy {
 		C component = m_layout.getNextControl();
 		m_layout.show(component);
 		// select EditPart
-		EditPart editPart = viewer.getEditPartByModel(component);
+		EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
 		viewer.select(editPart);
 	}
 }

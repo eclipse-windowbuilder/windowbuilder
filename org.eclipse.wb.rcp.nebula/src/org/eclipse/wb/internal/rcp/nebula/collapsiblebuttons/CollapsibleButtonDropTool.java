@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ public final class CollapsibleButtonDropTool extends AbstractCreationTool {
 		ControlInfo button = request.getButton();
 		if (button != null) {
 			IEditPartViewer viewer = getViewer();
-			EditPart editPart = viewer.getEditPartByModel(button);
+			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(button);
 			if (editPart != null) {
 				viewer.select(editPart);
 			}

@@ -92,11 +92,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public EditPart getEditPartByModel(Object model) {
-		return null;
-	}
-
-	@Override
 	public IEditPartFactory getEditPartFactory() {
 		return null;
 	}

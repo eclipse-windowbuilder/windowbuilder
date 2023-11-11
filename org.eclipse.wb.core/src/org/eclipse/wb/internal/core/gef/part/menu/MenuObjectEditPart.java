@@ -161,7 +161,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 
 			@Override
 			public void deleting(Object toolkitModel) {
-				EditPart objectPart = getViewer().getEditPartByModel(toolkitModel);
+				EditPart objectPart = (EditPart) getViewer().getEditPartRegistry().get(toolkitModel);
 				if (objectPart != null) {
 					EditPart parentPart = objectPart.getParent();
 					List<EditPart> siblings = parentPart.getChildren();

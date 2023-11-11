@@ -253,7 +253,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 			// prepare new EditPart's
 			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
-				EditPart newEditPart = viewer.getEditPartByModel(model);
+				EditPart newEditPart = (EditPart) viewer.getEditPartRegistry().get(model);
 				if (newEditPart != null) {
 					newEditParts.add(newEditPart);
 				}

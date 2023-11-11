@@ -1040,7 +1040,7 @@ SelectionEditPolicy {
 			boolean vertical) {
 		C alignControl = attachment.getControl();
 		IEditPartViewer viewer = getHost().getViewer();
-		GraphicalEditPart bindPart = (GraphicalEditPart) viewer.getEditPartByModel(alignControl);
+		GraphicalEditPart bindPart = (GraphicalEditPart) viewer.getEditPartRegistry().get(alignControl);
 		if (bindPart == null) {
 			return;
 		}

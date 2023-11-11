@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -86,7 +86,7 @@ public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
 		IEditPartViewer viewer = getHost().getViewer();
 		for (int index = 0; index < children.size(); index++) {
 			Object child = children.get(index);
-			GraphicalEditPart part = (GraphicalEditPart) viewer.getEditPartByModel(child);
+			GraphicalEditPart part = (GraphicalEditPart) viewer.getEditPartRegistry().get(child);
 			// prepare bounds for child in feedback layer
 			Figure figure = part.getFigure();
 			Point location = figure.getBounds().getLocation();

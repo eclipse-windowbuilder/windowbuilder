@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,7 +85,7 @@ public class CreationTool extends AbstractCreationTool {
 		if (model != null) {
 			IEditPartViewer viewer = getViewer();
 			if (viewer != null) {
-				EditPart editPart = viewer.getEditPartByModel(model);
+				EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(model);
 				if (editPart != null) {
 					viewer.select(editPart);
 				}

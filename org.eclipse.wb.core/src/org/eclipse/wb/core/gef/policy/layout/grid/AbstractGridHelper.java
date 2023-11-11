@@ -149,7 +149,7 @@ public abstract class AbstractGridHelper {
 		{
 			ObjectInfo rootObjectInfo = ((ObjectInfo) getHost().getModel()).getRoot();
 			GraphicalEditPart rootEditPart =
-					(GraphicalEditPart) getHost().getViewer().getEditPartByModel(rootObjectInfo);
+					(GraphicalEditPart) getHost().getViewer().getEditPartRegistry().get(rootObjectInfo);
 			m_rootFigureListener.install(rootEditPart.getFigure());
 		}
 		// prepare grid information
