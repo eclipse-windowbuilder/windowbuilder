@@ -343,6 +343,7 @@ public final class PaletteComposite extends Composite {
 				CategoryFigure categoryFigure = (CategoryFigure) I.next();
 				y += categoryFigure.layout(y, width);
 			}
+			revalidate();
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////
