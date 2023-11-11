@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,11 +11,12 @@
 package org.eclipse.wb.internal.rcp.gef.part.forms;
 
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.core.gef.EditPartFactory;
 import org.eclipse.wb.internal.rcp.model.forms.FormInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * {@link EditPart} for {@link FormInfo}.
@@ -42,12 +43,12 @@ public final class FormEditPart extends CompositeEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected EditPart createEditPart(Object model) {
+	protected EditPart createChild(Object model) {
 		if (model instanceof MenuManagerInfo manager) {
-			EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_form.getMenuImpl(manager));
+			org.eclipse.wb.gef.core.EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_form.getMenuImpl(manager));
 			EditPartFactory.configureEditPart(this, editPart);
 			return editPart;
 		}
-		return super.createEditPart(model);
+		return super.createChild(model);
 	}
 }

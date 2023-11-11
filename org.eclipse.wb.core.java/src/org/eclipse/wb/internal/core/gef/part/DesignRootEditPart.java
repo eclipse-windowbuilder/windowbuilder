@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.gef.part;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -104,7 +104,7 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 	}
 
 	@Override
-	protected EditPart createEditPart(Object model) {
+	protected EditPart createChild(Object model) {
 		if (m_designRootObject.getRootObject() != model) {
 			// direct create non visual bean part
 			JavaInfo javaInfo = (JavaInfo) model;
@@ -117,7 +117,7 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 			}
 		}
 		// use factory
-		return super.createEditPart(model);
+		return super.createChild(model);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

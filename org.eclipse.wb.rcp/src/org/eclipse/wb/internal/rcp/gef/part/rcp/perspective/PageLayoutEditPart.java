@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -46,8 +46,8 @@ public final class PageLayoutEditPart extends AbstractComponentEditPart {
 	}
 
 	@Override
-	protected EditPart createEditPart(Object model) {
-		return super.createEditPart(model);
+	protected EditPart createChild(Object model) {
+		return super.createChild(model);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
