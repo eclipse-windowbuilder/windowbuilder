@@ -486,7 +486,7 @@ public class EditPartTest extends GefTestCase {
 		//
 		TestEditPart parent = new TestEditPart() {
 			@Override
-			protected EditPart createEditPart(Object model) {
+			protected EditPart createChild(Object model) {
 				TestEditPart child = new TestEditPart();
 				child.setModel(model);
 				return child;
@@ -528,7 +528,7 @@ public class EditPartTest extends GefTestCase {
 	public void test_refreshChildren_2() throws Exception {
 		TestEditPart parent = new TestEditPart() {
 			@Override
-			protected EditPart createEditPart(Object model) {
+			protected EditPart createChild(Object model) {
 				if ("_child3_Model".equals(model)) {
 					return null;
 				}
@@ -571,7 +571,7 @@ public class EditPartTest extends GefTestCase {
 		//
 		TestEditPart parent = new TestEditPart() {
 			@Override
-			protected EditPart createEditPart(Object model) {
+			protected EditPart createChild(Object model) {
 				if ("_child3_Model".equals(model)) {
 					return null;
 				}

@@ -125,7 +125,7 @@ IHeaderMenuProvider {
 	}
 
 	@Override
-	protected EditPart createEditPart(Object model) {
+	protected EditPart createChild(Object model) {
 		return m_headersProvider.createHeaderEditPart(m_horizontal, model);
 	}
 

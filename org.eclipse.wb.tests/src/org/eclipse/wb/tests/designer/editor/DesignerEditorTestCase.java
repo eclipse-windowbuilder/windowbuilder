@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.editor;
 import org.eclipse.wb.core.editor.IDesignPage;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -45,6 +44,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.action.IAction;
@@ -285,11 +285,11 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	 * Asserts that {@link EditPart}'s selected in GEF viewer has given models.
 	 */
 	protected final void assertSelectionModels(Object... models) {
-		List<EditPart> editParts = m_viewerCanvas.getSelectedEditParts();
+		List<org.eclipse.wb.gef.core.EditPart> editParts = m_viewerCanvas.getSelectedEditParts();
 		assertEquals(models.length, editParts.size());
 		for (int i = 0; i < models.length; i++) {
 			Object model = models[i];
-			EditPart editPart = editParts.get(i);
+			org.eclipse.wb.gef.core.EditPart editPart = editParts.get(i);
 			assertSame(model, editPart.getModel());
 		}
 	}

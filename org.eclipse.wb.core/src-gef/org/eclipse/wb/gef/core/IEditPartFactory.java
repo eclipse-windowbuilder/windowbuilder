@@ -27,7 +27,7 @@ public interface IEditPartFactory extends org.eclipse.gef.EditPartFactory {
 	 */
 	@Override
 	default org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
-		return createEditPart(context, model);
+		return createEditPart((EditPart) context, model);
 	}
 	/**
 	 * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
