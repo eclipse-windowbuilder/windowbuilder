@@ -250,7 +250,7 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	 */
 	protected void fetchContentFields() {
 		DesignRootEditPart designRootEditPart =
-				(DesignRootEditPart) m_viewerCanvas.getRootContainer().getContent();
+				(DesignRootEditPart) m_viewerCanvas.getRootEditPart().getContents();
 		m_contentEditPart = designRootEditPart.getJavaRootEditPart();
 		m_contentJavaInfo = (JavaInfo) m_contentEditPart.getModel();
 		m_lastEditor = m_contentJavaInfo.getEditor();

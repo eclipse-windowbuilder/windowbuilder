@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -40,7 +41,6 @@ import java.util.List;
  * @coverage gef.core
  */
 public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.AbstractEditPartViewer implements IEditPartViewer {
-	private/*final*/IRootContainer m_rootEditPart;
 	private EditDomain m_domain;
 	private IEditPartFactory m_factory;
 	private MenuManager m_contextMenu;
@@ -56,18 +56,6 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the {@link IRootContainer}.
-	 */
-	@Override
-	public IRootContainer getRootContainer() {
-		return m_rootEditPart;
-	}
-
-	protected final void setRootEditPart(IRootContainer rootEditPart) {
-		Assert.isTrue(m_rootEditPart == null);
-		m_rootEditPart = rootEditPart;
-	}
 
 	/**
 	 * Get factory for creating new EditParts.
@@ -128,8 +116,9 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 * Set input model for this viewer.
 	 */
 	public void setInput(Object model) {
-		EditPart contentEditPart = m_factory.createEditPart((EditPart) m_rootEditPart, model);
-		m_rootEditPart.setContent(contentEditPart);
+		RootEditPart rootEditPart = getRootEditPart();
+		EditPart contentEditPart = m_factory.createEditPart((EditPart) rootEditPart, model);
+		rootEditPart.setContents(contentEditPart);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -181,7 +170,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	@Override
 	public ISelection getSelection() {
 		if (m_selectionList.isEmpty()) {
-			EditPart content = m_rootEditPart.getContent();
+			EditPart content = (EditPart) getRootEditPart().getContents();
 			if (content != null) {
 				return new StructuredSelection(content);
 			}

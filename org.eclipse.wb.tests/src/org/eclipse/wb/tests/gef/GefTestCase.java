@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.swt.widgets.Display;
 
 import org.junit.Assert;

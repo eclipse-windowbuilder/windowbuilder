@@ -15,7 +15,6 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.RootEditPart;
@@ -119,11 +118,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * @return viewer vertical scroll offset.
 	 */
 	int getVOffset();
-
-	/**
-	 * Returns the {@link IRootContainer}.
-	 */
-	IRootContainer getRootContainer();
 
 	/**
 	 * Returns root {@link EditPart}.
