@@ -83,7 +83,7 @@ public class CreationTool extends AbstractCreationTool {
 		CreateRequest request = (CreateRequest) getTargetRequest();
 		Object model = request.getSelectObject();
 		if (model != null) {
-			IEditPartViewer viewer = getViewer();
+			IEditPartViewer viewer = getCurrentViewer();
 			if (viewer != null) {
 				EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(model);
 				if (editPart != null) {

@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -43,7 +43,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
-			if (m_state == STATE_INIT) {
+			if (m_state == STATE_INITIAL) {
 				m_state = STATE_DRAG;
 				((AbstractCreateRequest) getTargetRequest()).setLocation(getLocation());
 				lockTargetEditPart(getTargetEditPart());
@@ -64,7 +64,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 			selectAddedObjects();
 		}
 		//
-		m_state = STATE_NONE;
+		m_state = STATE_TERMINAL;
 		handleFinished();
 		return true;
 	}
@@ -141,7 +141,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
+	public void keyDown(KeyEvent event, EditPartViewer viewer) {
 		if (event.keyCode == SWT.ESC) {
 			viewer.getEditDomain().loadDefaultTool();
 		}

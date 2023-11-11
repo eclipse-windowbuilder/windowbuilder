@@ -112,7 +112,7 @@ public abstract class GraphicalEditPart extends EditPart {
 	 * to provide information such as which mouse button is down, and what modifier keys are pressed.
 	 */
 	@Override
-	public Tool getDragTrackerTool(Request request) {
+	public Tool getDragTracker(Request request) {
 		return new DragEditPartTracker(this);
 	}
 }

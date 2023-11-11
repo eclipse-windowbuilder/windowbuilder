@@ -140,13 +140,13 @@ public class MenuEditPart extends MenuObjectEditPart {
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new MenuSelectionEditPolicy());
 	}
 	@Override
-	public Tool getDragTrackerTool(org.eclipse.gef.Request request) {
+	public Tool getDragTracker(org.eclipse.gef.Request request) {
 		// we don't need any move/resize for menu edit part!
 		if (isSubMenu()) {
 			return new SelectEditPartTracker(this);
 		}
 		// top level
-		return super.getDragTrackerTool(request);
+		return super.getDragTracker(request);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//

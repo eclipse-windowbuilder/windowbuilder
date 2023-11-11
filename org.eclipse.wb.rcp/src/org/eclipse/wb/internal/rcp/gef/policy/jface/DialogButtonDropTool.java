@@ -11,12 +11,12 @@
 package org.eclipse.wb.internal.rcp.gef.policy.jface;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 
 /**
@@ -41,7 +41,7 @@ public final class DialogButtonDropTool extends AbstractCreationTool {
 		DialogButtonDropRequest request = (DialogButtonDropRequest) getTargetRequest();
 		ControlInfo button = request.getButton();
 		if (button != null) {
-			IEditPartViewer viewer = getViewer();
+			EditPartViewer viewer = getCurrentViewer();
 			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(button);
 			if (editPart != null) {
 				viewer.select(editPart);

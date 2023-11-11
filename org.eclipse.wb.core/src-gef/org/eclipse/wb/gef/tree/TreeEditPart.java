@@ -117,7 +117,7 @@ public abstract class TreeEditPart extends EditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Tool getDragTrackerTool(Request request) {
+	public Tool getDragTracker(Request request) {
 		return new DoubleClickEditPartTracker(this);
 	}
 }

@@ -87,7 +87,8 @@ Import-Package: org.apache.commons.io,
  org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts,
- org.eclipse.gef.requests
+ org.eclipse.gef.requests,
+ org.eclipse.gef.tools
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

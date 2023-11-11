@@ -169,9 +169,9 @@ public abstract class TargetingTool extends Tool {
 	protected void updateTargetUnderMouse() {
 		if (!m_isLockTarget) {
 			EditPart editPart =
-					getViewer().findTargetEditPart(
-							m_currentScreenX,
-							m_currentScreenY,
+					getCurrentViewer().findTargetEditPart(
+							getCurrentInput().getMouseLocation().x,
+							getCurrentInput().getMouseLocation().y,
 							getExclusionSet(),
 							getTargetingConditional());
 			if (editPart != null) {

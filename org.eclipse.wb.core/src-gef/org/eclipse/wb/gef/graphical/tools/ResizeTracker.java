@@ -13,13 +13,13 @@ package org.eclipse.wb.gef.graphical.tools;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -122,7 +122,7 @@ public class ResizeTracker extends Tool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
-			if (m_state == STATE_INIT) {
+			if (m_state == STATE_INITIAL) {
 				m_state = STATE_DRAG;
 			}
 		} else {
@@ -136,7 +136,7 @@ public class ResizeTracker extends Tool {
 	@Override
 	protected boolean handleButtonUp(int button) {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
-			m_state = STATE_NONE;
+			m_state = STATE_TERMINAL;
 			eraseSourceFeedback();
 			executeCommand();
 		}
@@ -167,12 +167,12 @@ public class ResizeTracker extends Tool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
+	public void keyDown(KeyEvent event, EditPartViewer viewer) {
 		sendKeyRequest(true, event);
 	}
 
 	@Override
-	public void keyReleased(KeyEvent event, IEditPartViewer viewer) {
+	public void keyUp(KeyEvent event, EditPartViewer viewer) {
 		sendKeyRequest(false, event);
 	}
 

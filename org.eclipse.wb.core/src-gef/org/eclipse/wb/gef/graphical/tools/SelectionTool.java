@@ -19,6 +19,9 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.RootEditPart;
@@ -39,7 +42,7 @@ import java.util.List;
  * @coverage gef.graphical
  */
 public class SelectionTool extends TargetingTool {
-	private Tool m_dragTracker;
+	private DragTracker m_dragTracker;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -52,7 +55,7 @@ public class SelectionTool extends TargetingTool {
 	 * <code>null</code>, this method will activate it and set the {@link EditDomain} and
 	 * {@link IEditPartViewer}.
 	 */
-	public void setDragTrackerTool(Tool dragTracker) {
+	public void setDragTrackerTool(DragTracker dragTracker) {
 		if (m_dragTracker != dragTracker) {
 			if (m_dragTracker != null) {
 				m_dragTracker.deactivate();
@@ -62,8 +65,8 @@ public class SelectionTool extends TargetingTool {
 			refreshCursor();
 			//
 			if (m_dragTracker != null) {
-				m_dragTracker.setDomain(getDomain());
-				m_dragTracker.setViewer(getViewer());
+				m_dragTracker.setEditDomain(getDomain());
+				m_dragTracker.setViewer(getCurrentViewer());
 				m_dragTracker.activate();
 			}
 		}
@@ -112,7 +115,7 @@ public class SelectionTool extends TargetingTool {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected boolean handleButtonDown(int button) {
-		if (m_state == STATE_INIT) {
+		if (m_state == STATE_INITIAL) {
 			m_state = STATE_DRAG;
 			//
 			if (m_dragTracker != null) {
@@ -124,7 +127,8 @@ public class SelectionTool extends TargetingTool {
 				return true;
 			}
 			//
-			Handle handle = getViewer().findTargetHandle(m_currentScreenX, m_currentScreenY);
+			Point current = getCurrentInput().getMouseLocation();
+			Handle handle = getCurrentViewer().findTargetHandle(current.x, current.y);
 			if (handle != null) {
 				setDragTrackerTool(handle.getDragTrackerTool());
 				return true;
@@ -137,9 +141,9 @@ public class SelectionTool extends TargetingTool {
 			EditPart editPart = getTargetEditPart();
 			if (editPart == null) {
 				setDragTrackerTool(null);
-				getViewer().deselectAll();
+				getCurrentViewer().deselectAll();
 			} else {
-				setDragTrackerTool(editPart.getDragTrackerTool(getTargetRequest()));
+				setDragTrackerTool(editPart.getDragTracker(getTargetRequest()));
 				lockTargetEditPart(editPart);
 			}
 		}
@@ -150,7 +154,7 @@ public class SelectionTool extends TargetingTool {
 	protected boolean handleButtonUp(int button) {
 		((SelectionRequest) getTargetRequest()).setLastButtonPressed(0);
 		setDragTrackerTool(null);
-		m_state = STATE_INIT;
+		m_state = STATE_INITIAL;
 		unlockTargetEditPart();
 		return true;
 	}
@@ -158,10 +162,10 @@ public class SelectionTool extends TargetingTool {
 	@Override
 	protected boolean handleMove() {
 		if (m_state == STATE_DRAG) {
-			m_state = STATE_INIT;
+			m_state = STATE_INITIAL;
 			setDragTrackerTool(null);
 		}
-		if (m_state == STATE_INIT) {
+		if (m_state == STATE_INITIAL) {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 			showTargetFeedback();
@@ -178,12 +182,12 @@ public class SelectionTool extends TargetingTool {
 		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
 			// send low level event to give current tracker a chance to process 'mouse up' event.
 			Event event = new Event();
-			event.x = m_currentScreenX;
-			event.y = m_currentScreenY;
+			event.x = getCurrentInput().getMouseLocation().x;
+			event.y = getCurrentInput().getMouseLocation().y;
 			event.stateMask = m_stateMask;
 			event.button = m_button;
-			event.widget = getViewer().getControl();
-			mouseUp(new MouseEvent(event), getViewer());
+			event.widget = getCurrentViewer().getControl();
+			mouseUp(new MouseEvent(event), getCurrentViewer());
 		}
 		super.handleViewerExited();
 		return true;
@@ -225,12 +229,7 @@ public class SelectionTool extends TargetingTool {
 	 */
 	@Override
 	protected IConditional getTargetingConditional() {
-		return new IConditional() {
-			@Override
-			public boolean evaluate(EditPart editPart) {
-				return editPart.isSelectable();
-			}
-		};
+		return editPart -> editPart.isSelectable();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -242,7 +241,7 @@ public class SelectionTool extends TargetingTool {
 	 * Forwards the mouse down event to the drag tracker, if one exists.
 	 */
 	@Override
-	public void mouseDown(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseDown(MouseEvent event, EditPartViewer viewer) {
 		super.mouseDown(event, viewer);
 		if (m_dragTracker != null) {
 			m_dragTracker.mouseDown(event, viewer);
@@ -253,7 +252,7 @@ public class SelectionTool extends TargetingTool {
 	 * Forwards the mouse up event to the drag tracker, if one exists.
 	 */
 	@Override
-	public void mouseUp(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseUp(MouseEvent event, EditPartViewer viewer) {
 		if (m_dragTracker != null) {
 			m_dragTracker.mouseUp(event, viewer);
 		}
@@ -264,7 +263,7 @@ public class SelectionTool extends TargetingTool {
 	 * Forwards the mouse drag event to the drag tracker, if one exists.
 	 */
 	@Override
-	public void mouseDrag(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseDrag(MouseEvent event, EditPartViewer viewer) {
 		if (m_dragTracker != null) {
 			m_dragTracker.mouseDrag(event, viewer);
 		}
@@ -275,7 +274,7 @@ public class SelectionTool extends TargetingTool {
 	 * Forwards the mouse move event to the drag tracker, if one exists.
 	 */
 	@Override
-	public void mouseMove(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseMove(MouseEvent event, EditPartViewer viewer) {
 		if (m_dragTracker != null) {
 			m_dragTracker.mouseMove(event, viewer);
 		}
@@ -286,7 +285,7 @@ public class SelectionTool extends TargetingTool {
 	 * Forwards the mouse double clicked event to the drag tracker, if one exists.
 	 */
 	@Override
-	public void mouseDoubleClick(MouseEvent event, IEditPartViewer viewer) {
+	public void mouseDoubleClick(MouseEvent event, EditPartViewer viewer) {
 		super.mouseDoubleClick(event, viewer);
 		if (m_dragTracker != null) {
 			m_dragTracker.mouseDoubleClick(event, viewer);
@@ -299,9 +298,9 @@ public class SelectionTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
+	public void keyDown(KeyEvent event, EditPartViewer viewer) {
 		if (m_dragTracker != null) {
-			m_dragTracker.keyPressed(event, viewer);
+			m_dragTracker.keyDown(event, viewer);
 		} else {
 			List<EditPart> selection = viewer.getSelectedEditParts();
 			//
@@ -321,9 +320,9 @@ public class SelectionTool extends TargetingTool {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent event, IEditPartViewer viewer) {
+	public void keyUp(KeyEvent event, EditPartViewer viewer) {
 		if (m_dragTracker != null) {
-			m_dragTracker.keyReleased(event, viewer);
+			m_dragTracker.keyUp(event, viewer);
 		} else if (event.keyCode != SWT.ESC) {
 			handleKeyEvent(false, event, viewer.getSelectedEditParts());
 		}

@@ -11,11 +11,11 @@
 package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 
 /**
@@ -51,7 +51,7 @@ public final class PerspectiveDropTool extends AbstractCreationTool {
 		PerspectiveDropRequest request = (PerspectiveDropRequest) getTargetRequest();
 		Object component = request.getComponent();
 		if (component != null) {
-			IEditPartViewer viewer = getViewer();
+			EditPartViewer viewer = getCurrentViewer();
 			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
 			if (editPart != null) {
 				viewer.select(editPart);
