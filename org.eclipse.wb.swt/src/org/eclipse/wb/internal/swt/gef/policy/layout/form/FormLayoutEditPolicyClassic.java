@@ -1337,7 +1337,7 @@ implements IHeadersProvider {
 			@Override
 			public boolean evaluate(Object input) {
 				try {
-					EditPart part = getHost().getViewer().getEditPartByModel(input);
+					EditPart part = (EditPart) getHost().getViewer().getEditPartRegistry().get(input);
 					if (!includeSelected && part.getSelected() != EditPart.SELECTED_NONE) {
 						return false;
 					}

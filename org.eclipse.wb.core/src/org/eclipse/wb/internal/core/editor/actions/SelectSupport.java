@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -203,7 +203,7 @@ public final class SelectSupport {
 	private void selectByModels() {
 		List<EditPart> editParts = new ArrayList<>();
 		for (ObjectInfo object : m_selectingSet) {
-			EditPart editPart = m_graphicalViewer.getEditPartByModel(object);
+			EditPart editPart = (EditPart) m_graphicalViewer.getEditPartRegistry().get(object);
 			if (editPart != null) {
 				editParts.add(editPart);
 			}

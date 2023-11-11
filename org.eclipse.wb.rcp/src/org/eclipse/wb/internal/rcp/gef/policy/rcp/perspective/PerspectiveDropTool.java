@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ public final class PerspectiveDropTool extends AbstractCreationTool {
 		Object component = request.getComponent();
 		if (component != null) {
 			IEditPartViewer viewer = getViewer();
-			EditPart editPart = viewer.getEditPartByModel(component);
+			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
 			if (editPart != null) {
 				viewer.select(editPart);
 			}

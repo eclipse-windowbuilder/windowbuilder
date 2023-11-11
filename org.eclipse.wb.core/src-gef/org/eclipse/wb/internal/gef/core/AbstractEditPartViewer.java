@@ -31,10 +31,8 @@ import org.eclipse.swt.widgets.Menu;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lobas_av
@@ -45,7 +43,6 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	private/*final*/IRootContainer m_rootEditPart;
 	private EditDomain m_domain;
 	private IEditPartFactory m_factory;
-	private final Map<Object, EditPart> m_modelToEditPart = new HashMap<>();
 	private MenuManager m_contextMenu;
 	private List<EditPart> m_selectionList = new ArrayList<>();
 	private EventListenerList m_eventTable;
@@ -92,7 +89,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 */
 	@Override
 	public void registerEditPart(EditPart editPart) {
-		m_modelToEditPart.put(editPart.getModel(), editPart);
+		getEditPartRegistry().put(editPart.getModel(), editPart);
 	}
 
 	/**
@@ -101,22 +98,14 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	@Override
 	public void unregisterEditPart(EditPart editPart) {
 		Object model = editPart.getModel();
-		Object registerPart = m_modelToEditPart.get(model);
+		Object registerPart = getEditPartRegistry().get(model);
 		/*
 		 * check editPart because during refreshChildren firstly add new child,
 		 * example (old model, new EditPart) after remove old child (old model, old EditPart)
 		 */
 		if (registerPart == editPart) {
-			m_modelToEditPart.remove(model);
+			getEditPartRegistry().remove(model);
 		}
-	}
-
-	/**
-	 * Returns {@link EditPart} register into this viewer associate given model.
-	 */
-	@Override
-	public EditPart getEditPartByModel(Object model) {
-		return m_modelToEditPart.get(model);
 	}
 
 	/**

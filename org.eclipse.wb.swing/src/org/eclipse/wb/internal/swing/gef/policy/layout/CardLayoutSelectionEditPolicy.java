@@ -122,7 +122,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 		ComponentInfo component = m_layout.getPrevComponent();
 		m_layout.show(component);
 		// select EditPart
-		EditPart editPart = viewer.getEditPartByModel(component);
+		EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
 		viewer.select(editPart);
 	}
 
@@ -135,7 +135,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 		ComponentInfo component = m_layout.getNextComponent();
 		m_layout.show(component);
 		// select EditPart
-		EditPart editPart = viewer.getEditPartByModel(component);
+		EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
 		viewer.select(editPart);
 	}
 
@@ -148,7 +148,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	public EditPart getTargetEditPart(Request request) {
 		if (RequestConstants.REQ_SELECTION.equals(request.getType())) {
 			ComponentInfo component = m_layout.getCurrentComponent();
-			return getHost().getViewer().getEditPartByModel(component);
+			return (EditPart) getHost().getViewer().getEditPartRegistry().get(component);
 		}
 		return null;
 	}

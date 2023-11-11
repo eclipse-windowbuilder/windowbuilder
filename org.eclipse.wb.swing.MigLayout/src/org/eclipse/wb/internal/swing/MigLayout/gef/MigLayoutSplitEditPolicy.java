@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,7 +73,7 @@ public final class MigLayoutSplitEditPolicy extends ComponentFlowLayoutEditPolic
 			Figure targetFigure;
 			{
 				ComponentInfo targetComponent = m_components.get(0);
-				EditPart targetEditPart = getHost().getViewer().getEditPartByModel(targetComponent);
+				EditPart targetEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(targetComponent);
 				targetFigure = ((GraphicalEditPart) targetEditPart).getFigure();
 			}
 			// prepare location in target component's Figure

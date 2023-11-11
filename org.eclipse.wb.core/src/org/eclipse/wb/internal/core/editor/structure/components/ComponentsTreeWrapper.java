@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -101,7 +101,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
 		EditPart[] editParts = new EditPart[elements.length];
 		for (int i = 0; i < elements.length; i++) {
 			Object element = elements[i];
-			editParts[i] = m_viewer.getEditPartByModel(element);
+			editParts[i] = (EditPart) m_viewer.getEditPartRegistry().get(element);
 		}
 		// expand using EditPart's
 		UiUtils.setExpandedByData(m_viewer.getTree(), editParts);

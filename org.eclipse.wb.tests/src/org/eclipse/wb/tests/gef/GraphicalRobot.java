@@ -744,7 +744,7 @@ public final class GraphicalRobot {
 		GraphicalEditPart editPart =
 				object instanceof GraphicalEditPart
 				? (GraphicalEditPart) object
-						: (GraphicalEditPart) m_viewer.getEditPartByModel(object);
+						: (GraphicalEditPart) m_viewer.getEditPartRegistry().get(object);
 		return editPart;
 	}
 
