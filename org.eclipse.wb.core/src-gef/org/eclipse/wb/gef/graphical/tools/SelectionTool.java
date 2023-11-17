@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -138,7 +138,7 @@ public class SelectionTool extends TargetingTool {
 			((SelectionRequest) getTargetRequest()).setLastButtonPressed(button);
 			updateTargetUnderMouse();
 			//
-			EditPart editPart = getTargetEditPart();
+			org.eclipse.wb.gef.core.EditPart editPart = getTargetEditPart();
 			if (editPart == null) {
 				setDragTrackerTool(null);
 				getCurrentViewer().deselectAll();
@@ -302,7 +302,7 @@ public class SelectionTool extends TargetingTool {
 		if (m_dragTracker != null) {
 			m_dragTracker.keyDown(event, viewer);
 		} else {
-			List<EditPart> selection = viewer.getSelectedEditParts();
+			List<? extends EditPart> selection = viewer.getSelectedEditParts();
 			//
 			if (event.keyCode == SWT.ESC) {
 				if (!selection.isEmpty()) {
@@ -328,7 +328,7 @@ public class SelectionTool extends TargetingTool {
 		}
 	}
 
-	private static void handleKeyEvent(boolean pressed, KeyEvent event, List<EditPart> selection) {
+	private static void handleKeyEvent(boolean pressed, KeyEvent event, List<? extends EditPart> selection) {
 		KeyRequest request = new KeyRequest(pressed, event);
 		for (EditPart part : selection) {
 			part.performRequest(request);
