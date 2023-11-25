@@ -104,7 +104,7 @@ public class SwingLayoutUtils {
 	 * @return <code>STATUS_RESIZABLE</code>, <code>STATUS_NON_RESIZABLE</code> or
 	 *         <code>STATUS_UNKNOWN</code>.
 	 */
-	public static int getResizableStatus(Class componentClass) {
+	public static int getResizableStatus(Class<?> componentClass) {
 		String className = componentClass.getName();
 		if (resizableComponents.contains(className)) {
 			return STATUS_RESIZABLE;

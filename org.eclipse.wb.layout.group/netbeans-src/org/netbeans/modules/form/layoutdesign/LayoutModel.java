@@ -226,7 +226,7 @@ public class LayoutModel implements LayoutConstants {
 		registerComponentImpl(substComp);
 	}
 
-	Iterator getAllComponents() {
+	Iterator<LayoutComponent> getAllComponents() {
 		return idToComponents.values().iterator();
 	}
 
@@ -500,13 +500,13 @@ public class LayoutModel implements LayoutConstants {
 
 	private void copySubIntervals(LayoutInterval sourceInterval,
 			LayoutInterval targetInterval,
-			Map/*<String,String>*/ sourceToTargetIds) {
-		Iterator iter = sourceInterval.getSubIntervals();
+			Map<String, String> sourceToTargetIds) {
+		Iterator<LayoutInterval> iter = sourceInterval.getSubIntervals();
 		while (iter.hasNext()) {
-			LayoutInterval sourceSub = (LayoutInterval) iter.next();
+			LayoutInterval sourceSub = iter.next();
 			LayoutInterval clone = null;
 			if (sourceSub.isComponent()) {
-				String compId = (String) sourceToTargetIds.get(sourceSub.getComponent().getId());
+				String compId = sourceToTargetIds.get(sourceSub.getComponent().getId());
 				LayoutComponent comp = getLayoutComponent(compId);
 				int dimension = sourceSub == sourceSub.getComponent().getLayoutInterval(HORIZONTAL)
 						? HORIZONTAL
@@ -716,7 +716,7 @@ public class LayoutModel implements LayoutConstants {
 			return parts;
 		}
 
-		private void mergeSubRegions(List regions, int dimension) {
+		private void mergeSubRegions(List<RegionInfo> regions, int dimension) {
 			if (regions.size() == 0) {
 				horizontal = new LayoutInterval(PARALLEL);
 				vertical = new LayoutInterval(PARALLEL);
@@ -725,9 +725,9 @@ public class LayoutModel implements LayoutConstants {
 			LayoutInterval seqGroup = new LayoutInterval(SEQUENTIAL);
 			LayoutInterval parGroup = new LayoutInterval(PARALLEL);
 			int lastSeqTrailing = dimension == HORIZONTAL ? minx : miny;
-			Iterator iter = regions.iterator();
+			Iterator<RegionInfo> iter = regions.iterator();
 			while (iter.hasNext()) {
-				RegionInfo region = (RegionInfo) iter.next();
+				RegionInfo region = iter.next();
 				LayoutInterval seqInterval;
 				LayoutInterval parInterval;
 				int seqGap;
@@ -804,9 +804,9 @@ public class LayoutModel implements LayoutConstants {
 
 	private void fireEvent(LayoutEvent event) {
 		if (listeners != null && listeners.size() > 0) {
-			Iterator it = ((List) listeners.clone()).iterator();
+			Iterator<Listener> it = new ArrayList<>(listeners).iterator();
 			while (it.hasNext()) {
-				((Listener) it.next()).layoutChanged(event);
+				it.next().layoutChanged(event);
 			}
 		}
 	}
@@ -1021,9 +1021,9 @@ public class LayoutModel implements LayoutConstants {
 		}
 		StringBuilder sb = new StringBuilder();
 		sb.append("<LayoutModel>\n"); // NOI18N
-		Iterator rootIter = roots.iterator();
+		Iterator<LayoutComponent> rootIter = roots.iterator();
 		while (rootIter.hasNext()) {
-			LayoutComponent root = (LayoutComponent) rootIter.next();
+			LayoutComponent root = rootIter.next();
 			String rootId = root.getId();
 			if (idToNameMap != null) {
 				rootId = idToNameMap.get(rootId);
@@ -1208,10 +1208,10 @@ public class LayoutModel implements LayoutConstants {
 			boolean retVal = getLayoutComponent(id).isLinkSized(dimension);
 			return retVal ? TRUE : FALSE;
 		}
-		Iterator i = components.iterator();
+		Iterator<String> i = components.iterator();
 		List<Integer> idsFound = new ArrayList<>();
 		while (i.hasNext()) {
-			String cid = (String) i.next();
+			String cid = i.next();
 			LayoutComponent lc = getLayoutComponent(cid);
 			Integer linkSizeId = Integer.valueOf(lc.getLinkSizeId(dimension));
 			if (!idsFound.contains(linkSizeId)) {
@@ -1244,29 +1244,29 @@ public class LayoutModel implements LayoutConstants {
 		return null; // incorrect dimension passed
 	}
 
-	public void unsetSameSize(List/*<String>*/ components, int dimension) {
-		Iterator i = components.iterator();
+	public void unsetSameSize(List<String> components, int dimension) {
+		Iterator<String> i = components.iterator();
 		while (i.hasNext()) {
-			String cid = (String) i.next();
+			String cid = i.next();
 			LayoutComponent lc = getLayoutComponent(cid);
 			removeComponentFromLinkSizedGroup(lc, dimension);
 		}
 	}
 
-	public void setSameSize(List/*<String>*/ components, int dimension) {
-		Iterator i = components.iterator();
+	public void setSameSize(List<String> components, int dimension) {
+		Iterator<String> i = components.iterator();
 		int groupId = findGroupId(components, dimension);
 		while (i.hasNext()) {
-			String cid = (String) i.next();
+			String cid = i.next();
 			LayoutComponent lc = getLayoutComponent(cid);
 			addComponentToLinkSizedGroup(groupId, lc.getId(), dimension);
 		}
 	}
 
-	private int findGroupId(List/*<String*/ components, int dimension) {
-		Iterator i = components.iterator();
+	private int findGroupId(List<String> components, int dimension) {
+		Iterator<String> i = components.iterator();
 		while (i.hasNext()) {
-			String cid = (String) i.next();
+			String cid = i.next();
 			LayoutComponent lc = getLayoutComponent(cid);
 			if (lc.isLinkSized(dimension)) {
 				return lc.getLinkSizeId(dimension);

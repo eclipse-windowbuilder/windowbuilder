@@ -196,7 +196,7 @@ public final class LayoutComponent implements LayoutConstants {
 	public List<LayoutComponent> getSubcomponents() {
 		return subComponents != null && subComponents.size() > 0
 				? Collections.unmodifiableList(subComponents)
-						: Collections.EMPTY_LIST;
+						: Collections.emptyList();
 	}
 
 	int getSubComponentCount() {
@@ -229,7 +229,7 @@ public final class LayoutComponent implements LayoutConstants {
 
 	int removeComponent(LayoutComponent comp) {
 		if (subComponents != null) {
-			Iterator it = subComponents.iterator();
+			Iterator<LayoutComponent> it = subComponents.iterator();
 			int index = -1;
 			while (it.hasNext()) {
 				index++;

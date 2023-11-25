@@ -939,8 +939,8 @@ class LayoutAligner implements LayoutConstants {
 		}
 		// prepare separation to groups
 		List<LayoutInterval> aligned = new LinkedList<>();
-		List<List> restLeading = new LinkedList<>();
-		List<List> restTrailing = new LinkedList<>();
+		List<List<Object>> restLeading = new LinkedList<>();
+		List<List<Object>> restTrailing = new LinkedList<>();
 		int mainEffectiveAlign = -1;
 		int originalCount = commonGroup.getSubIntervalCount();
 		for (int i = 0; i < intervals.length; i++) {

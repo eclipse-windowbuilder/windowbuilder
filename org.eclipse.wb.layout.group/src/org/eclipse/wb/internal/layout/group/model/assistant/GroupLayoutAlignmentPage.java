@@ -82,7 +82,7 @@ LayoutConstants {
 		List<ObjectInfo> sel = new ArrayList<>();
 		List<Object> actions = new ArrayList<>();
 		CollectionUtils.addAll(sel, m_objects.iterator());
-		new AlignmentsSupport(m_layout).addAlignmentActions(sel, actions);
+		new AlignmentsSupport<>(m_layout).addAlignmentActions(sel, actions);
 		for (Object action : actions) {
 			if (action instanceof IContributionItem) {
 				m_toolBarManager.add((IContributionItem) action);

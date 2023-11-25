@@ -1526,7 +1526,7 @@ resizing = false;
 		//        }
 		// separate content out of the emerging group
 		List<LayoutInterval> alignedList = new ArrayList<>(2);
-		List<List> remainder = new ArrayList<>(2);
+		List<List<Object>> remainder = new ArrayList<>(2);
 		int originalCount = parParent.getSubIntervalCount();
 		int extAlign1 = extract(toAlignWith, alignedList, remainder, alignment);
 		extract(aligning, alignedList, remainder, alignment);
@@ -1659,7 +1659,7 @@ resizing = false;
 
 	private int extract(LayoutInterval interval,
 			List<LayoutInterval> toAlign,
-			List<List> toRemain,
+			List<List<Object>> toRemain,
 			int alignment) {
 		int effAlign = LayoutInterval.getEffectiveAlignment(interval, alignment);
 		LayoutInterval parent = interval.getParent();
@@ -2335,8 +2335,8 @@ return false; */
 		// 3rd analyse inclusions requiring a subgroup (parallel with part of sequence)
 		LayoutInterval subGroup = null;
 		LayoutInterval nextTo = null;
-		List<List> separatedLeading = new LinkedList<>();
-		List<List> separatedTrailing = new LinkedList<>();
+		List<List<Object>> separatedLeading = new LinkedList<>();
+		List<List<Object>> separatedTrailing = new LinkedList<>();
 		for (IncludeDesc iDesc : inclusions) {
 			if (iDesc.parent.isSequential() && iDesc.newSubGroup) {
 				LayoutInterval parSeq =

@@ -41,7 +41,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -189,10 +188,10 @@ public class SwingLayoutCodeGenerator {
 		} else {
 			layout.append(layoutVarName).append(".createSequentialGroup()"); // NOI18N
 		}
-		Iterator subIntervals = group.getSubIntervals();
+		Iterator<LayoutInterval> subIntervals = group.getSubIntervals();
 		while (subIntervals.hasNext()) {
 			layout.append("\n"); // NOI18N
-			LayoutInterval subInterval = (LayoutInterval) subIntervals.next();
+			LayoutInterval subInterval = subIntervals.next();
 			fillGroup(
 					layout,
 					subInterval,
@@ -457,13 +456,10 @@ public class SwingLayoutCodeGenerator {
 		while (linkGroupsIt.hasNext()) {
 			List<String> l = linkGroupsIt.next();
 			// sort so that the generated line is always the same when no changes were made
-			Collections.sort(l, new Comparator<String>() {
-				@Override
-				public int compare(String id1, String id2) {
-					ComponentInfo info1 = componentIDMap.get(id1);
-					ComponentInfo info2 = componentIDMap.get(id2);
-					return info1.variableName.compareTo(info2.variableName);
-				}
+			Collections.sort(l, (id1, id2) -> {
+				ComponentInfo info1 = componentIDMap.get(id1);
+				ComponentInfo info2 = componentIDMap.get(id2);
+				return info1.variableName.compareTo(info2.variableName);
 			});
 			if (l.size() > 1) {
 				layout.append("\n\n" + layoutVarName + ".linkSize("); // NOI18N
@@ -504,7 +500,7 @@ public class SwingLayoutCodeGenerator {
 		/** Variable name of the component. */
 		public String variableName;
 		/** The component's class. */
-		public Class clazz;
+		public Class<?> clazz;
 		/** The component's minimum size. */
 		public Dimension minSize;
 		/**
