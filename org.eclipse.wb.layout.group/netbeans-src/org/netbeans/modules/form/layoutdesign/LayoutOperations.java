@@ -66,8 +66,8 @@ class LayoutOperations implements LayoutConstants {
 	int extract(LayoutInterval interval,
 			int alignment,
 			boolean closed,
-			List<List> restLeading,
-			List<List> restTrailing) {
+			List<List<Object>> restLeading,
+			List<List<Object>> restTrailing) {
 		return extract(interval, interval, alignment, closed, restLeading, restTrailing);
 	}
 
@@ -75,8 +75,8 @@ class LayoutOperations implements LayoutConstants {
 			LayoutInterval trailing,
 			int alignment,
 			boolean closed,
-			List<List> restLeading,
-			List<List> restTrailing) {
+			List<List<Object>> restLeading,
+			List<List<Object>> restTrailing) {
 		LayoutInterval seq = leading.getParent();
 		assert seq.isSequential();
 		int leadingIndex = seq.indexOf(leading);
@@ -95,7 +95,7 @@ class LayoutOperations implements LayoutConstants {
 			List<Object/*Integer or LayoutInterval*/> toRemainT = null;
 			int startIndex = alignment == LEADING ? leadingIndex : leadingIndex - extractCount + 1;
 			int endIndex = alignment == LEADING ? trailingIndex + extractCount - 1 : trailingIndex;
-			Iterator it = seq.getSubIntervals();
+			Iterator<? extends Object> it = seq.getSubIntervals();
 			for (int idx = 0; it.hasNext(); idx++) {
 				LayoutInterval li = (LayoutInterval) it.next();
 				if (idx < startIndex) {
@@ -149,7 +149,7 @@ class LayoutOperations implements LayoutConstants {
 	 *          TRAILING or something else meaning not aligned)
 	 * @return parallel group if it has been created, or null
 	 */
-	LayoutInterval addGroupContent(List<List> list,
+	LayoutInterval addGroupContent(List<List<Object/* Integer or LayoutInterval */>> list,
 			LayoutInterval seq,
 			int index,
 			int dimension,
@@ -160,7 +160,7 @@ class LayoutOperations implements LayoutConstants {
 		boolean onlyGaps = true;
 		// Remove sequences just with one gap
 		for (int i = list.size() - 1; i >= 0; i--) {
-			List subList = list.get(i);
+			List<Object> subList = list.get(i);
 			assert subList.size() >= 2;
 			if (subList.size() == 2) { // there is just one interval
 				LayoutInterval li = (LayoutInterval) subList.get(1);
@@ -191,7 +191,7 @@ class LayoutOperations implements LayoutConstants {
 			return null;
 		}
 		if (list.size() == 1) { // just one sequence
-			List subList = list.get(0);
+			List<Object> subList = list.get(0);
 			for (int n = subList.size(), i = n - 1; i > 0; i--) { // skip alignment at 0
 				LayoutInterval li = (LayoutInterval) subList.get(i);
 				if (resizingFillGap
@@ -221,8 +221,8 @@ class LayoutOperations implements LayoutConstants {
 		//        }
 		////        group.setGroupAlignment(alignment);
 		// fill the group
-		for (Iterator it = list.iterator(); it.hasNext();) {
-			List subList = (List) it.next();
+		for (Iterator<List<Object>> it = list.iterator(); it.hasNext();) {
+			List<Object> subList = it.next();
 			LayoutInterval interval;
 			if (subList.size() == 2) { // there is just one interval - use it directly
 				int alignment = ((Integer) subList.get(0)).intValue();
@@ -1351,9 +1351,9 @@ class LayoutOperations implements LayoutConstants {
 	}
 
 	void mergeAdjacentGaps(Set<LayoutComponent> updatedContainers) {
-		Iterator it = layoutModel.getAllComponents();
+		Iterator<LayoutComponent> it = layoutModel.getAllComponents();
 		while (it.hasNext()) {
-			LayoutComponent comp = (LayoutComponent) it.next();
+			LayoutComponent comp = it.next();
 			if (!comp.isLayoutContainer()) {
 				continue;
 			}

@@ -104,9 +104,9 @@ public class LayoutDesigner implements LayoutConstants {
 	void requireStructureOptimization() {
 		optimizeStructure = true;
 		visualStateUpToDate = false;
-		Iterator it = layoutModel.getAllComponents();
+		Iterator<LayoutComponent> it = layoutModel.getAllComponents();
 		while (it.hasNext()) {
-			LayoutComponent comp = (LayoutComponent) it.next();
+			LayoutComponent comp = it.next();
 			if (comp.isLayoutContainer()) {
 				LayoutInterval[] roots = getActiveLayoutRoots(comp);
 				for (int dim = 0; dim < DIM_COUNT; dim++) {
@@ -117,9 +117,9 @@ public class LayoutDesigner implements LayoutConstants {
 	}
 
 	private void updatePositions(Set<LayoutComponent> updatedContainers) {
-		Iterator it = layoutModel.getAllComponents();
+		Iterator<LayoutComponent> it = layoutModel.getAllComponents();
 		while (it.hasNext()) {
-			LayoutComponent comp = (LayoutComponent) it.next();
+			LayoutComponent comp = it.next();
 			if (!comp.isLayoutContainer()) {
 				continue;
 			}
@@ -173,9 +173,9 @@ public class LayoutDesigner implements LayoutConstants {
 		boolean firstResizingSpace = false;
 		int leadingSpace = 0;
 		boolean skipNext = false;
-		Iterator it = interval.getSubIntervals();
+		Iterator<LayoutInterval> it = interval.getSubIntervals();
 		while (it.hasNext()) {
-			LayoutInterval sub = (LayoutInterval) it.next();
+			LayoutInterval sub = it.next();
 			if (sub.isEmptySpace()) {
 				if (!interval.isSequential()) {
 					// filling gap in empty root group
@@ -780,7 +780,7 @@ public class LayoutDesigner implements LayoutConstants {
 		if (interval.isGroup()) {
 			boolean parallel = interval.isParallel();
 			LayoutInterval copy = LayoutInterval.cloneInterval(interval, null);
-			Iterator iter = interval.getSubIntervals();
+			Iterator<? extends Object> iter = interval.getSubIntervals();
 			int compCount = 0; // Number of components already copied to the group
 			boolean includeGap = false; // Helper variables that allow us to insert gaps
 			int firstGapToInclude = 0; // instead of components that has been filtered out.
@@ -1146,12 +1146,12 @@ public class LayoutDesigner implements LayoutConstants {
 			}
 		} else {
 			int dimension = component.isLinkSized(HORIZONTAL) ? HORIZONTAL : VERTICAL;
-			Map map = layoutModel.getLinkSizeGroups(dimension);
+			Map<Integer, List<String>> map = layoutModel.getLinkSizeGroups(dimension);
 			Integer linkId = Integer.valueOf(component.getLinkSizeId(dimension));
-			List l = (List) map.get(linkId);
-			Iterator mergedIt = l.iterator();
+			List<String> l = map.get(linkId);
+			Iterator<String> mergedIt = l.iterator();
 			while (mergedIt.hasNext()) {
-				String id = (String) mergedIt.next();
+				String id = mergedIt.next();
 				LayoutComponent lc = layoutModel.getLayoutComponent(id);
 				LayoutInterval interval = lc.getLayoutInterval(dimension);
 				LayoutRegion region = interval.getCurrentSpace();
@@ -1314,9 +1314,9 @@ public class LayoutDesigner implements LayoutConstants {
 		int min = Short.MAX_VALUE;
 		int max = Short.MIN_VALUE;
 		if (interval.isParallel() && interval.getGroupAlignment() != BASELINE) {
-			Iterator iter = interval.getSubIntervals();
+			Iterator<LayoutInterval> iter = interval.getSubIntervals();
 			while (iter.hasNext()) {
-				LayoutInterval subInterval = (LayoutInterval) iter.next();
+				LayoutInterval subInterval = iter.next();
 				int imin, imax;
 				int oppDim = dimension == HORIZONTAL ? VERTICAL : HORIZONTAL;
 				if (LayoutInterval.isPlacedAtBorder(subInterval, oppDim, alignment)) {
@@ -1747,9 +1747,9 @@ public class LayoutDesigner implements LayoutConstants {
 			LayoutInterval knownSub,
 			LayoutInterval[] dupIntervals) {
 		assert group.isGroup();
-		Iterator it = group.getSubIntervals();
+		Iterator<LayoutInterval> it = group.getSubIntervals();
 		while (it.hasNext()) {
-			LayoutInterval sub = (LayoutInterval) it.next();
+			LayoutInterval sub = it.next();
 			if (sub == knownSub || sub.isEmptySpace()) {
 				continue;
 			}
@@ -2385,9 +2385,9 @@ public class LayoutDesigner implements LayoutConstants {
 				}
 			} else {
 				boolean before = true;
-				Iterator iter = parent.getSubIntervals();
+				Iterator<LayoutInterval> iter = parent.getSubIntervals();
 				while (iter.hasNext()) {
-					LayoutInterval li = (LayoutInterval) iter.next();
+					LayoutInterval li = iter.next();
 					if (li == interval) {
 						before = false;
 					} else if (LayoutInterval.wantResize(li)) {
@@ -2461,12 +2461,12 @@ public class LayoutDesigner implements LayoutConstants {
 			LayoutComponent comp = interval.getComponent();
 			dimension = interval == comp.getLayoutInterval(HORIZONTAL) ? HORIZONTAL : VERTICAL;
 			if (comp.isLinkSized(dimension)) {
-				Collection linked = layoutModel.getLinkSizeGroups(dimension).get(
+				Collection<String> linked = layoutModel.getLinkSizeGroups(dimension).get(
 						Integer.valueOf(comp.getLinkSizeId(dimension)));
-				Iterator iter = linked.iterator();
+				Iterator<String> iter = linked.iterator();
 				int prefSize = 0;
 				while (iter.hasNext()) {
-					String compId = (String) iter.next();
+					String compId = iter.next();
 					LayoutComponent component = layoutModel.getLayoutComponent(compId);
 					LayoutInterval intr = component.getLayoutInterval(dimension);
 					int pref = intr.getPreferredSize();
@@ -2490,15 +2490,15 @@ public class LayoutDesigner implements LayoutConstants {
 			} else {
 				assert interval.isGroup();
 				prefSize = 0;
-				Iterator iter = interval.getSubIntervals();
+				Iterator<LayoutInterval> iter = interval.getSubIntervals();
 				if (interval.isSequential()) {
 					while (iter.hasNext()) {
-						LayoutInterval subInterval = (LayoutInterval) iter.next();
+						LayoutInterval subInterval = iter.next();
 						prefSize += prefSizeOfInterval(subInterval);
 					}
 				} else {
 					while (iter.hasNext()) {
-						LayoutInterval subInterval = (LayoutInterval) iter.next();
+						LayoutInterval subInterval = iter.next();
 						prefSize = Math.max(prefSize, prefSizeOfInterval(subInterval));
 					}
 				}
@@ -2533,17 +2533,17 @@ public class LayoutDesigner implements LayoutConstants {
 		LayoutInterval interval = comp.getLayoutInterval(dimension);
 		// Unset the same-size if we are making the component resizable
 		if (resizing && comp.isLinkSized(dimension)) {
-			Collection linked = layoutModel.getLinkSizeGroups(dimension).get(
+			Collection<String> linked = layoutModel.getLinkSizeGroups(dimension).get(
 					Integer.valueOf(comp.getLinkSizeId(dimension)));
-			Collection toChange;
+			Collection<String> toChange;
 			if (linked.size() == 2) { // The second component will be unlinked, too.
 				toChange = linked;
 			} else {
 				toChange = Collections.singletonList(comp.getId());
 			}
-			Iterator iter = toChange.iterator();
+			Iterator<String> iter = toChange.iterator();
 			while (iter.hasNext()) {
-				String compId = (String) iter.next();
+				String compId = iter.next();
 				LayoutComponent component = layoutModel.getLayoutComponent(compId);
 				LayoutInterval intr = component.getLayoutInterval(dimension);
 				Dimension prefDim = visualMapper.getComponentPreferredSize(compId);
@@ -2616,9 +2616,9 @@ public class LayoutDesigner implements LayoutConstants {
 				LayoutInterval leadingGap = null;
 				LayoutInterval trailingGap = null;
 				boolean afterDefining = false;
-				Iterator iter = par.getSubIntervals();
+				Iterator<LayoutInterval> iter = par.getSubIntervals();
 				while (iter.hasNext()) {
-					LayoutInterval candidate = (LayoutInterval) iter.next();
+					LayoutInterval candidate = iter.next();
 					if (candidate == interval) {
 						afterDefining = true;
 					}
@@ -2678,7 +2678,7 @@ public class LayoutDesigner implements LayoutConstants {
 							- prefSizeOfInterval(par)
 							+ delta) / resizableList.size();
 					while (iter.hasNext()) {
-						LayoutInterval candidate = (LayoutInterval) iter.next();
+						LayoutInterval candidate = iter.next();
 						if (candidate.isGroup()) {
 							// PENDING currSize could change - we can't modify prefSize of group directly
 						} else {
@@ -2763,9 +2763,9 @@ public class LayoutDesigner implements LayoutConstants {
 		}
 		if (interval.isGroup()) {
 			boolean subres = true;
-			Iterator it = interval.getSubIntervals();
+			Iterator<LayoutInterval> it = interval.getSubIntervals();
 			while (it.hasNext()) {
-				LayoutInterval li = (LayoutInterval) it.next();
+				LayoutInterval li = it.next();
 				if (LayoutInterval.wantResize(li) && !fillResizable(li)) {
 					subres = false;
 					break;
@@ -2818,12 +2818,12 @@ public class LayoutDesigner implements LayoutConstants {
 	 * @param alignment
 	 *          requested alignment.
 	 */
-	public void align(Collection componentIds, boolean closed, int dimension, int alignment) {
+	public void align(Collection<String> componentIds, boolean closed, int dimension, int alignment) {
 		LayoutInterval[] intervals = new LayoutInterval[componentIds.size()];
 		int counter = 0;
-		Iterator iter = componentIds.iterator();
+		Iterator<String> iter = componentIds.iterator();
 		while (iter.hasNext()) {
-			String id = (String) iter.next();
+			String id = iter.next();
 			LayoutComponent component = layoutModel.getLayoutComponent(id);
 			intervals[counter++] = component.getLayoutInterval(dimension);
 		}
@@ -2841,9 +2841,9 @@ public class LayoutDesigner implements LayoutConstants {
 	}
 
 	private void destroyRedundantGroups(Set<LayoutComponent> updatedContainers) {
-		Iterator it = layoutModel.getAllComponents();
+		Iterator<LayoutComponent> it = layoutModel.getAllComponents();
 		while (it.hasNext()) {
-			LayoutComponent comp = (LayoutComponent) it.next();
+			LayoutComponent comp = it.next();
 			if (!comp.isLayoutContainer()) {
 				continue;
 			}
@@ -2952,9 +2952,9 @@ public class LayoutDesigner implements LayoutConstants {
 				layoutModel.addInterval(gap, parent, index);
 			}
 		}
-		Iterator iter = toRemove.iterator();
+		Iterator<LayoutInterval> iter = toRemove.iterator();
 		while (iter.hasNext()) {
-			LayoutInterval remove = (LayoutInterval) iter.next();
+			LayoutInterval remove = iter.next();
 			layoutModel.removeInterval(remove);
 		}
 		// Consolidate parent
@@ -2980,7 +2980,7 @@ public class LayoutDesigner implements LayoutConstants {
 	 * @param dimension
 	 *          dimension the remainder group is created in.
 	 */
-	void createRemainderGroup(List list,
+	void createRemainderGroup(List<List<Object>> list,
 			LayoutInterval seq,
 			int index,
 			int position,
@@ -2999,7 +2999,7 @@ public class LayoutDesigner implements LayoutConstants {
 		boolean gapTrails = true;
 		// Remove sequences just with one gap
 		for (int i = list.size() - 1; i >= 0; i--) {
-			List subList = (List) list.get(i);
+			List<Object> subList = list.get(i);
 			if (subList.size() == 2) { // there is just one interval
 				int alignment = ((Integer) subList.get(0)).intValue();
 				LayoutInterval li = (LayoutInterval) subList.get(1);
@@ -3026,8 +3026,8 @@ public class LayoutDesigner implements LayoutConstants {
 			}
 		}
 		if (list.size() == 1) { // just one sequence, need not a group
-			List subList = (List) list.get(0);
-			Iterator itr = subList.iterator();
+			List<Object> subList = list.get(0);
+			Iterator<Object> itr = subList.iterator();
 			itr.next(); // skip alignment
 			do {
 				LayoutInterval li = (LayoutInterval) itr.next();
@@ -3036,12 +3036,12 @@ public class LayoutDesigner implements LayoutConstants {
 			return;
 		}
 		// find common ending gaps, possibility to eliminate some...
-		for (Iterator it = list.iterator(); it.hasNext();) {
-			List subList = (List) it.next();
+		for (Iterator<List<Object>> it = list.iterator(); it.hasNext();) {
+			List<Object> subList = it.next();
 			if (subList.size() != 2) { // there are more intervals (will form a sequential group)
 				onlyGaps = false;
 				boolean first = true;
-				Iterator itr = subList.iterator();
+				Iterator<Object> itr = subList.iterator();
 				itr.next(); // skip seq. alignment
 				do {
 					LayoutInterval li = (LayoutInterval) itr.next();
@@ -3075,8 +3075,8 @@ public class LayoutDesigner implements LayoutConstants {
 		}
 		//        group.setGroupAlignment(alignment);
 		// fill the group
-		for (Iterator it = list.iterator(); it.hasNext();) {
-			List subList = (List) it.next();
+		for (Iterator<List<Object>> it = list.iterator(); it.hasNext();) {
+			List<Object> subList = it.next();
 			if (gapLeads) {
 				subList.remove(1);
 			}
@@ -3092,7 +3092,7 @@ public class LayoutDesigner implements LayoutConstants {
 				}
 			} else { // there are more intervals - group them in a sequence
 				interval = new LayoutInterval(SEQUENTIAL);
-				Iterator itr = subList.iterator();
+				Iterator<Object> itr = subList.iterator();
 				int alignment = ((Integer) itr.next()).intValue();
 				if (alignment == LEADING || alignment == TRAILING) {
 					interval.setAlignment(alignment);
@@ -3278,8 +3278,8 @@ index = -1;
 				interval.setAttribute(LayoutInterval.ATTR_FORCED_DEFAULT);
 			}
 		} else {
-			for (Iterator it = interval.getSubIntervals(); it.hasNext();) {
-				setDefaultSizeInContainer((LayoutInterval) it.next());
+			for (Iterator<LayoutInterval> it = interval.getSubIntervals(); it.hasNext();) {
+				setDefaultSizeInContainer(it.next());
 			}
 		}
 	}
@@ -3357,15 +3357,15 @@ index = -1;
 		LayoutInterval parent = resGap.getParent();
 		do {
 			if (parent.isSequential()) {
-				for (Iterator it = parent.getSubIntervals(); it.hasNext();) {
-					LayoutInterval li = (LayoutInterval) it.next();
+				for (Iterator<LayoutInterval> it = parent.getSubIntervals(); it.hasNext();) {
+					LayoutInterval li = it.next();
 					if (li != sub) {
 						li.setAttribute(LayoutInterval.ATTR_DESIGN_SUPPRESSED_RESIZING);
 					}
 				}
 			} else { // parallel parent
-				for (Iterator it = parent.getSubIntervals(); it.hasNext();) {
-					LayoutInterval interval = (LayoutInterval) it.next();
+				for (Iterator<LayoutInterval> it = parent.getSubIntervals(); it.hasNext();) {
+					LayoutInterval interval = it.next();
 					if (interval != sub) {
 						assert interval.isSequential();
 						if (interval.isSequential()) {
@@ -3395,8 +3395,8 @@ index = -1;
 		assert group.isParallel();
 		LayoutInterval theGap = null;
 		int gapSize = Integer.MAX_VALUE;
-		for (Iterator it = group.getSubIntervals(); it.hasNext();) {
-			LayoutInterval seq = (LayoutInterval) it.next();
+		for (Iterator<LayoutInterval> it = group.getSubIntervals(); it.hasNext();) {
+			LayoutInterval seq = it.next();
 			if (!seq.isSequential()) {
 				return null;
 			}
@@ -3862,9 +3862,9 @@ index = -1;
 		int leadCompPos = Integer.MAX_VALUE;
 		int trailCompPos = Integer.MIN_VALUE;
 		int subSize = Integer.MIN_VALUE;
-		Iterator it = group.getSubIntervals();
+		Iterator<LayoutInterval> it = group.getSubIntervals();
 		while (it.hasNext()) {
-			LayoutInterval li = (LayoutInterval) it.next();
+			LayoutInterval li = it.next();
 			int align = li.getAlignment();
 			int l, t; // leading and trailing position of first and last component
 			if (li != excluded) {

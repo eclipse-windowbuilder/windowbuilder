@@ -205,8 +205,8 @@ class LayoutDragger implements LayoutConstants {
 	}
 
 	private LayoutInterval findResizingGap(LayoutInterval group) {
-		for (Iterator it = group.getSubIntervals(); it.hasNext();) {
-			LayoutInterval li = (LayoutInterval) it.next();
+		for (Iterator<LayoutInterval> it = group.getSubIntervals(); it.hasNext();) {
+			LayoutInterval li = it.next();
 			if (li.isEmptySpace() && li.hasAttribute(LayoutInterval.ATTR_DESIGN_CONTAINER_GAP)) {
 				return li;
 			} else if (li.isGroup()) {
@@ -1002,9 +1002,9 @@ class LayoutDragger implements LayoutConstants {
 	 */
 	private void scanLayoutForAligned(LayoutInterval interval, int alignment) {
 		assert alignment == LayoutRegion.ALL_POINTS || alignment == LEADING || alignment == TRAILING;
-		Iterator it = interval.getSubIntervals();
+		Iterator<LayoutInterval> it = interval.getSubIntervals();
 		while (it.hasNext()) {
-			LayoutInterval sub = (LayoutInterval) it.next();
+			LayoutInterval sub = it.next();
 			if (sub.isEmptySpace()) {
 				continue;
 			}
@@ -1077,9 +1077,9 @@ class LayoutDragger implements LayoutConstants {
 		// check if the interval is not the last one to remain in parallel group
 		if (presentAlign != DEFAULT) {
 			boolean lastOne = true;
-			Iterator it = interval.getParent().getSubIntervals();
+			Iterator<LayoutInterval> it = interval.getParent().getSubIntervals();
 			while (it.hasNext()) {
-				LayoutInterval li = (LayoutInterval) it.next();
+				LayoutInterval li = it.next();
 				if (li != interval && isValidInterval(li)) {
 					lastOne = false;
 					break;
@@ -1383,9 +1383,9 @@ class LayoutDragger implements LayoutConstants {
 			// group must contain at least two other intervals - otherwise it
 			// is dissolved before the moving intervals are re-added
 			int count = 0;
-			Iterator it = interval.getSubIntervals();
+			Iterator<LayoutInterval> it = interval.getSubIntervals();
 			while (it.hasNext()) {
-				LayoutInterval li = (LayoutInterval) it.next();
+				LayoutInterval li = it.next();
 				if ((!li.isEmptySpace() || interval.isSequential()) && isValidInterval(li)) { // filling gap (in parallel group) does not count
 					count++;
 					if (count > 1) {
@@ -1583,10 +1583,10 @@ class LayoutDragger implements LayoutConstants {
 			int dimension,
 			int alignment) {
 		int oppAlignment = alignment == LEADING ? TRAILING : LEADING;
-		List movingComps = LayoutUtils.edgeSubComponents(moving, alignment);
-		List fixedComps = LayoutUtils.edgeSubComponents(interval, oppAlignment);
-		List sources = alignment == LEADING ? fixedComps : movingComps;
-		List targets = alignment == LEADING ? movingComps : fixedComps;
+		List<LayoutInterval> movingComps = LayoutUtils.edgeSubComponents(moving, alignment);
+		List<LayoutInterval> fixedComps = LayoutUtils.edgeSubComponents(interval, oppAlignment);
+		List<LayoutInterval> sources = alignment == LEADING ? fixedComps : movingComps;
+		List<LayoutInterval> targets = alignment == LEADING ? movingComps : fixedComps;
 		Map<String, LayoutRegion> map = new HashMap<>();
 		for (int i = 0; i < movingComponents.length; i++) {
 			map.put(movingComponents[i].getId(), movingBounds[i]);

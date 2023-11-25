@@ -285,7 +285,7 @@ public final class LayoutInterval implements LayoutConstants {
 	 * @return iterator of sub-intervals, empty if there are no sub-intervals
 	 */
 	public Iterator<LayoutInterval> getSubIntervals() {
-		return subIntervals != null ? subIntervals.iterator() : Collections.EMPTY_LIST.iterator();
+		return subIntervals != null ? subIntervals.iterator() : Collections.<LayoutInterval>emptyList().iterator();
 	}
 
 	/**
@@ -541,22 +541,22 @@ public final class LayoutInterval implements LayoutConstants {
 	 */
 	static LayoutInterval getCommonParent(LayoutInterval interval1, LayoutInterval interval2) {
 		// Find all parents of given intervals
-		Iterator parents1 = parentsOfInterval(interval1).iterator();
-		Iterator parents2 = parentsOfInterval(interval2).iterator();
-		LayoutInterval parent1 = (LayoutInterval) parents1.next();
-		LayoutInterval parent2 = (LayoutInterval) parents2.next();
+		Iterator<LayoutInterval> parents1 = parentsOfInterval(interval1).iterator();
+		Iterator<LayoutInterval> parents2 = parentsOfInterval(interval2).iterator();
+		LayoutInterval parent1 = parents1.next();
+		LayoutInterval parent2 = parents2.next();
 		assert parent1 == parent2;
 		// Candidate for the common parent
 		LayoutInterval parent = null;
 		while (parent1 == parent2) {
 			parent = parent1;
 			if (parents1.hasNext()) {
-				parent1 = (LayoutInterval) parents1.next();
+				parent1 = parents1.next();
 			} else {
 				break;
 			}
 			if (parents2.hasNext()) {
-				parent2 = (LayoutInterval) parents2.next();
+				parent2 = parents2.next();
 			} else {
 				break;
 			}
@@ -584,9 +584,9 @@ public final class LayoutInterval implements LayoutConstants {
 
 	static int getCount(LayoutInterval group, int alignment, boolean nonEmpty) {
 		int n = 0;
-		Iterator it = group.getSubIntervals();
+		Iterator<LayoutInterval> it = group.getSubIntervals();
 		while (it.hasNext()) {
-			LayoutInterval li = (LayoutInterval) it.next();
+			LayoutInterval li = it.next();
 			if ((group.isSequential()
 					|| alignment == LayoutRegion.ALL_POINTS
 					|| li.getAlignment() == alignment || wantResize(li))
@@ -663,12 +663,12 @@ public final class LayoutInterval implements LayoutConstants {
 				parent = parent.getParent();
 			} while (parent != null && parent.getType() != parentType);
 			if (parent != null) {
-				List subs = parent.subIntervals;
+				List<LayoutInterval> subs = parent.subIntervals;
 				int index = subs.indexOf(interval);
 				if (alignment == LEADING && index > 0) {
-					sibling = (LayoutInterval) subs.get(index - 1);
+					sibling = subs.get(index - 1);
 				} else if (alignment == TRAILING && index + 1 < subs.size()) {
-					sibling = (LayoutInterval) subs.get(index + 1);
+					sibling = subs.get(index + 1);
 				}
 			}
 		} while (parent != null && sibling == null);
@@ -684,8 +684,8 @@ public final class LayoutInterval implements LayoutConstants {
 			int index = alignment == LEADING ? 0 : interval.getSubIntervalCount() - 1;
 			return startsWithEmptySpace(interval.getSubInterval(index), alignment);
 		} else { // parallel group
-			for (Iterator it = interval.getSubIntervals(); it.hasNext();) {
-				LayoutInterval li = (LayoutInterval) it.next();
+			for (Iterator<LayoutInterval> it = interval.getSubIntervals(); it.hasNext();) {
+				LayoutInterval li = it.next();
 				if (startsWithEmptySpace(li, alignment)) {
 					return true;
 				}
@@ -828,9 +828,9 @@ public final class LayoutInterval implements LayoutConstants {
 				|| group.getGroupAlignment() == BASELINE) {
 			return true;
 		}
-		Iterator it = group.getSubIntervals();
+		Iterator<LayoutInterval> it = group.getSubIntervals();
 		while (it.hasNext()) {
-			LayoutInterval li = (LayoutInterval) it.next();
+			LayoutInterval li = it.next();
 			if (li.getAlignment() == alignment || wantResize(li)) {
 				return true;
 			}
@@ -896,9 +896,9 @@ public final class LayoutInterval implements LayoutConstants {
 
 	static boolean contentWantResize(LayoutInterval group) {
 		boolean subres = false;
-		Iterator it = group.getSubIntervals();
+		Iterator<LayoutInterval> it = group.getSubIntervals();
 		while (it.hasNext()) {
-			if (wantResize((LayoutInterval) it.next())) {
+			if (wantResize(it.next())) {
 				subres = true;
 				break;
 			}
@@ -951,9 +951,9 @@ public final class LayoutInterval implements LayoutConstants {
 		boolean before = true;
 		boolean leadingFixed = true;
 		boolean trailingFixed = true;
-		Iterator it = parent.getSubIntervals();
+		Iterator<LayoutInterval> it = parent.getSubIntervals();
 		do {
-			LayoutInterval li = (LayoutInterval) it.next();
+			LayoutInterval li = it.next();
 			if (li == interval) {
 				before = false;
 			} else if (LayoutInterval.wantResize(li)) {
