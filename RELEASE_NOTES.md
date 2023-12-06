@@ -3,6 +3,14 @@
 This page describes all changes introduced by each release which may impact user
 code.
 
+## 1.15.0 (2024-03)
+
+### Deprecation and removal of XWT editor
+
+The technology is effectively dead and the project no longer actively maintained.
+In prevent compilation errors inside the workspace, those components have been
+removed from the project.
+
 ## 1.14.0 (2023-12)
 
 ### Deprecation of SWTResourceManager

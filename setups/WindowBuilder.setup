@@ -142,8 +142,6 @@
               url="https://download.eclipse.org/nebula/incubation/snapshot/"/>
           <repository
               url="https://download.eclipse.org/tools/gef/classic/latest/"/>
-          <repository
-              url="https://download.eclipse.org/xwt/release-1.9.0/"/>
         </repositoryList>
       </targlet>
       <composedTarget>wb-mvn</composedTarget>
