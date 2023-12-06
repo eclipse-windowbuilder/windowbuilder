@@ -23,15 +23,6 @@
       <!-- for testing ExternalFactoriesHelper#loadBundleClass(String) -->
       <contributor namespace="org.eclipse.wb.tests.designer.core.util.ExternalFactoriesHelperTest$"/>
    </extension>
-
-   <!-- ======================================================== -->
-   <!-- Property Editor -->
-   <!-- ======================================================== -->
-   <extension point="org.eclipse.wb.core.xml.propertyEditors">
-   		<configurableEditor
-    		id="testEditor"
-            class="org.eclipse.wb.tests.designer.XML.NoopConfigurablePropertyEditor"/>
-   </extension>
    
    
    <!-- ======================================================== -->
