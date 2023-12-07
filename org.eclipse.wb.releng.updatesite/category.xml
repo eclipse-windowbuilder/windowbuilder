@@ -43,6 +43,8 @@
    <feature id="org.eclipse.wb.swt.feature.source" version="0.0.0"/>
    <feature id="org.eclipse.wb.dependencies.feature"/>
    <feature id="org.eclipse.wb.dependencies.feature.source"/>
+   <bundle id="org.eclipse.wb.dev"/>
+   <bundle id="org.eclipse.wb.dev.source"/>
    <category-def name="org.eclipse.wb" label="WindowBuilder">
       <description>
          This is all of WindowBuilder. You can safely install all features of this section. If you are looking for XWT support, uncheck &quot;Group by category&quot;.
