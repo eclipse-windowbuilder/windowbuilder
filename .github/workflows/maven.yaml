@@ -8,6 +8,10 @@ on:
     branches:
       - master
 jobs:
+  check-dash-licenses:
+    uses: eclipse/dash-licenses/.github/workflows/mavenLicenseCheck.yml@master
+    with:
+      projectId: tools.windowbuilder
   build:
     strategy:
       fail-fast: false
