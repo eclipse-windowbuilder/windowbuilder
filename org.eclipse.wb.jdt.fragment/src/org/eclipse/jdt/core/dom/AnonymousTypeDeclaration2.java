@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -57,7 +57,7 @@ public final class AnonymousTypeDeclaration2 extends TypeDeclaration {
 	}
 
 	@Override
-	void appendDebugString(StringBuffer buffer) {
+	void appendDebugString(StringBuilder buffer) {
 		m_ACD.appendDebugString(buffer);
 	}
 
