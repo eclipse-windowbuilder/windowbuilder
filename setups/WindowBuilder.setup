@@ -91,6 +91,14 @@
           name="org.eclipse.m2e.feature.feature.group"/>
       <requirement
           name="org.eclipse.buildship.feature.group"/>
+      <requirement
+          name="org.eclipse.wb.dev"/>
+      <requirement
+          name="com.github.spotbugs.plugin.eclipse.feature.group"/>
+      <repository
+          url="https://download.eclipse.org/windowbuilder/updates/nightly/latest/"/>
+      <repository
+          url="https://spotbugs.github.io/eclipse-latest/"/>
       <description>Install the tools needed in the IDE to work with the source code for Window Builder</description>
     </setupTask>
     <setupTask
