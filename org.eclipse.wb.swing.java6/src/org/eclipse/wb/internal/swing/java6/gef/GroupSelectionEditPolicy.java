@@ -14,6 +14,7 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsoluteComplexSelectionEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo;
+import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -25,7 +26,7 @@ import javax.swing.GroupLayout;
  * @author mitin_aa
  * @coverage swing.gef.policy
  */
-public final class GroupSelectionEditPolicy extends AbsoluteComplexSelectionEditPolicy {
+public final class GroupSelectionEditPolicy extends AbsoluteComplexSelectionEditPolicy<ComponentInfo> {
 	private final GroupLayoutInfo m_layout;
 
 	////////////////////////////////////////////////////////////////////////////

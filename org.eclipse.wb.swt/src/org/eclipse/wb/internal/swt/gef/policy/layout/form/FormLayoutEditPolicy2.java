@@ -41,6 +41,7 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.SnapPoints;
 import org.eclipse.wb.internal.swt.gef.ControlsLayoutRequestValidator;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -63,7 +64,7 @@ implements
 IFeedbackProxy,
 IHeadersProvider {
 	private final FormLayoutInfo m_layout;
-	private final FormLayoutVisualDataProvider m_visualDataProvider;
+	private final FormLayoutVisualDataProvider<ControlInfo> m_visualDataProvider;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -73,7 +74,7 @@ IHeadersProvider {
 	public FormLayoutEditPolicy2(FormLayoutInfo layout) {
 		super();
 		m_layout = layout;
-		m_visualDataProvider = new FormLayoutVisualDataProvider(layout);
+		m_visualDataProvider = new FormLayoutVisualDataProvider<>(layout);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -148,8 +149,8 @@ IHeadersProvider {
 
 	private SnapPoints createSnapPoints(ISnapPointsListener listener) {
 		List<IAbstractComponentInfo> allComponents = getAllComponents();
-		FormLayoutSnapPointsProvider snapPointsProvider =
-				new FormLayoutSnapPointsProvider(m_layout, m_visualDataProvider, allComponents);
+		FormLayoutSnapPointsProvider<ControlInfo> snapPointsProvider =
+				new FormLayoutSnapPointsProvider<>(m_layout, m_visualDataProvider, allComponents);
 		return new SnapPoints(m_visualDataProvider, this, snapPointsProvider, listener, allComponents);
 	}
 
@@ -395,7 +396,7 @@ IHeadersProvider {
 					final int moveDirection = directions[i];
 					final boolean isHorizontal = i == 0;
 					EditCommand command =
-							new FormLayoutSnapPointsProvider.MoveFreelyCommand(m_layout,
+							new FormLayoutSnapPointsProvider.MoveFreelyCommand<>(m_layout,
 									bounds,
 									components,
 									moveDirection,
@@ -440,25 +441,25 @@ IHeadersProvider {
 	// IHeadersProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private FormHeaderLayoutEditPolicy m_headersPolicyHorizontal;
-	private FormHeaderLayoutEditPolicy m_headersPolicyVertical;
+	private FormHeaderLayoutEditPolicy<?> m_headersPolicyHorizontal;
+	private FormHeaderLayoutEditPolicy<?> m_headersPolicyVertical;
 
 	@Override
 	public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
-		return new FormHeaderEditPart(m_layout, model, isHorizontal, getHostFigure());
+		return new FormHeaderEditPart<>(m_layout, model, isHorizontal, getHostFigure());
 	}
 
 	@Override
 	public void buildContextMenu(IMenuManager manager, boolean isHorizontal) {
-		FormHeaderLayoutEditPolicy headersPolicy =
+		FormHeaderLayoutEditPolicy<?> headersPolicy =
 				isHorizontal ? m_headersPolicyHorizontal : m_headersPolicyVertical;
 		headersPolicy.buildContextMenu(manager);
 	}
 
 	@Override
 	public LayoutEditPolicy getContainerLayoutPolicy(boolean isHorizontal) {
-		FormHeaderLayoutEditPolicy headersPolicy =
-				new FormHeaderLayoutEditPolicy(m_layout, this, isHorizontal);
+		FormHeaderLayoutEditPolicy<?> headersPolicy =
+				new FormHeaderLayoutEditPolicy<>(m_layout, this, isHorizontal);
 		if (isHorizontal) {
 			m_headersPolicyHorizontal = headersPolicy;
 		} else {
@@ -469,7 +470,7 @@ IHeadersProvider {
 
 	@Override
 	public List<?> getHeaders(boolean isHorizontal) {
-		FormLayoutPreferences preferences = m_layout.getPreferences();
+		FormLayoutPreferences<?> preferences = m_layout.getPreferences();
 		List<Integer> values =
 				isHorizontal ? preferences.getHorizontalPercents() : preferences.getVerticalPercents();
 		List<FormLayoutPreferences.PercentsInfo> results = new ArrayList<>();

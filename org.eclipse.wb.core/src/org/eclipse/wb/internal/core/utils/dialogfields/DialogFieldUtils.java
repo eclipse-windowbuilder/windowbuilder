@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc. and Others
+ * Copyright (c) 2011, 2023 Google, Inc. and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ public class DialogFieldUtils {
 		} else if (field instanceof SelectionButtonDialogFieldGroup) {
 			control = ((SelectionButtonDialogFieldGroup) field).getSelectionButtonsGroup(parent);
 		} else if (field instanceof CheckedListDialogField) {
-			control = ((CheckedListDialogField) field).getListControl(parent);
+			control = ((CheckedListDialogField<?>) field).getListControl(parent);
 		} else if (field instanceof FontDialogField) {
 			control = ((FontDialogField) field).getGroupControl(parent);
 		} else if (field instanceof LayoutDialogFieldGroup) {

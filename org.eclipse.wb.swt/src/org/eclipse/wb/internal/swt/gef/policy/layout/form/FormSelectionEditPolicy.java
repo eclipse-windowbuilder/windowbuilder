@@ -27,9 +27,7 @@ import org.eclipse.swt.layout.FormLayout;
  * @author mitin_aa
  * @coverage swt.gef.policy.form
  */
-public final class FormSelectionEditPolicy<C extends IControlInfo>
-extends
-AbsoluteComplexSelectionEditPolicy {
+public final class FormSelectionEditPolicy<C extends IControlInfo> extends AbsoluteComplexSelectionEditPolicy<C> {
 	protected final FormLayoutInfoImplAutomatic<C> m_layout;
 
 	////////////////////////////////////////////////////////////////////////////

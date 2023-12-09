@@ -57,7 +57,7 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
 			"setVerticalGroup(javax.swing.GroupLayout.Group)";
 	// fields
 	private final SpringInfo[] m_rootGroups = new SpringInfo[2];
-	private final Map[] m_widgetMaps = new Map[2];
+	private final Map<IAbstractComponentInfo, WidgetSpringInfo>[] m_widgetMaps = new Map[2];
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -191,7 +191,6 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
 	// Parse
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@SuppressWarnings("unchecked")
 	protected void parse() {
 		try {
 			m_rootGroups[0] = parseGroup(SIGNATURE_SET_HORIZONTAL_GROUP, m_widgetMaps[0]);
