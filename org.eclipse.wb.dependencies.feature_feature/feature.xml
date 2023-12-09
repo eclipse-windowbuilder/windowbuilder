@@ -155,4 +155,20 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="io.github.toolfactory.jvm-driver"
+         version="0.0.0"/>
+
+   <plugin
+         id="io.github.toolfactory.narcissus"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.burningwave.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.burningwave.jvm-driver"
+         version="0.0.0"/>
+
 </feature>

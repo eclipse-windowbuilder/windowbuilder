@@ -287,7 +287,6 @@
     <module>org.eclipse.wb.core</module>
     <module>org.eclipse.wb.core.databinding</module>
     <module>org.eclipse.wb.core.java</module>
-    <module>org.eclipse.wb.core.lib</module>
     <module>org.eclipse.wb.core.ui</module>
 
     <!-- other bundles -->
