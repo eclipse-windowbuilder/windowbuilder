@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -92,7 +92,7 @@ public final class ListModelPropertyEditor extends TextDialogPropertyEditor {
 		Object value = property.getValue();
 		if (value instanceof ListModel) {
 			List<String> items = new ArrayList<>();
-			ListModel model = (ListModel) value;
+			ListModel<?> model = (ListModel<?>) value;
 			for (int i = 0; i < model.getSize(); i++) {
 				Object element = model.getElementAt(i);
 				if (element instanceof String) {

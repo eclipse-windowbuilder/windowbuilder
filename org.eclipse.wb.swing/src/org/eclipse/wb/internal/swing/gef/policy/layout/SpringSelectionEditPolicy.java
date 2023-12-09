@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.gef.policy.layout;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsoluteComplexSelectionEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
+import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -25,7 +26,7 @@ import org.eclipse.swt.layout.FormLayout;
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */
-public final class SpringSelectionEditPolicy extends AbsoluteComplexSelectionEditPolicy {
+public final class SpringSelectionEditPolicy extends AbsoluteComplexSelectionEditPolicy<ComponentInfo> {
 	private final SpringLayoutInfo m_layout;
 
 	////////////////////////////////////////////////////////////////////////////

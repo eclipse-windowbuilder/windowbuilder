@@ -747,7 +747,7 @@ public final class ComponentDescriptionHelper {
 	 */
 	private static void addCreationRules(Digester digester, final ILoadingContext context, String basePattern,
 			String setCreationMethod) {
-		digester.addFactoryCreate(basePattern, new AbstractObjectCreationFactory() {
+		digester.addFactoryCreate(basePattern, new AbstractObjectCreationFactory<>() {
 			@Override
 			public Object createObject(Attributes attributes) throws Exception {
 				ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();

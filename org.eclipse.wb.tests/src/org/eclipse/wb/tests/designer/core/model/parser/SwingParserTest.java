@@ -1320,7 +1320,7 @@ public class SwingParserTest extends SwingModelTest {
 			Assertions.assertThat(m_lastEditor.getSource(badNode.getNode())).startsWith("new ListCellRenderer() {");
 		}
 		// ...but we ignore "setRenderer(null)", so JComboBox has some valid renderer
-		JComboBox combo = (JComboBox) panel.getChildrenComponents().get(0).getComponent();
+		JComboBox<?> combo = (JComboBox<?>) panel.getChildrenComponents().get(0).getComponent();
 		assertNotNull(combo.getRenderer());
 	}
 
@@ -1343,7 +1343,7 @@ public class SwingParserTest extends SwingModelTest {
 		panel.refresh();
 		assertNoErrors(panel);
 		//
-		JComboBox combo = (JComboBox) panel.getChildrenComponents().get(0).getComponent();
+		JComboBox<?> combo = (JComboBox<?>) panel.getChildrenComponents().get(0).getComponent();
 		assertNotNull(combo.getRenderer());
 	}
 

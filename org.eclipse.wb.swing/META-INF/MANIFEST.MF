@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.swing;singleton:=true
-Bundle-Version: 1.9.400.qualifier
+Bundle-Version: 1.9.500.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.swing.Activator
 Bundle-Vendor: %providerName

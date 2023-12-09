@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map<String, String> load(InputStream is, String charset) throws Exception {
 		Properties properties = new Properties();
 		load0(properties, is, charset);
@@ -92,7 +92,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
 	private static class SortedProperties extends Properties {
 		private static final long serialVersionUID = 0L;
 
-		class IteratorWrapper implements Enumeration<String> {
+		class IteratorWrapper implements Enumeration<Object> {
 			Iterator<String> iterator;
 
 			public IteratorWrapper(Iterator<String> iterator) {
@@ -111,10 +111,9 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
 		}
 
 		@Override
-		@SuppressWarnings("unchecked")
-		public synchronized Enumeration keys() {
+		public synchronized Enumeration<Object> keys() {
 			TreeSet<String> set = new TreeSet<>();
-			for (Enumeration e = super.keys(); e.hasMoreElements();) {
+			for (Enumeration<Object> e = super.keys(); e.hasMoreElements();) {
 				set.add((String) e.nextElement());
 			}
 			return new IteratorWrapper(set.iterator());

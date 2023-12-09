@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2011 IBM Corporation and others.
+ * Copyright (c) 2000, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ public class PreferencesAdapter implements IPreferenceStore {
 	}
 
 	/** Listeners on the adapter */
-	private final ListenerList fListeners = new ListenerList(ListenerList.IDENTITY);
+	private final ListenerList<IPropertyChangeListener> fListeners = new ListenerList<>(ListenerList.IDENTITY);
 	/** Listener on the adapted Preferences */
 	private final PropertyChangeListener fListener = new PropertyChangeListener();
 	/** Adapted Preferences */

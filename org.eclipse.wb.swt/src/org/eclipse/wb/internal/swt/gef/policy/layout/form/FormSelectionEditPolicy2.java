@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ import java.util.List;
  * @coverage swt.gef.policy.form
  */
 public final class FormSelectionEditPolicy2 extends SelectionEditPolicy {
-	protected final FormLayoutInfoImplAutomatic m_layout;
+	protected final FormLayoutInfoImplAutomatic<?> m_layout;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -45,7 +45,7 @@ public final class FormSelectionEditPolicy2 extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	public FormSelectionEditPolicy2(FormLayoutInfo layout) {
 		super();
-		m_layout = (FormLayoutInfoImplAutomatic) layout.getImpl();
+		m_layout = (FormLayoutInfoImplAutomatic<?>) layout.getImpl();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
