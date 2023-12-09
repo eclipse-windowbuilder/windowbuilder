@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.core;singleton:=true
-Bundle-Version: 1.13.100.qualifier
+Bundle-Version: 1.15.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.core.DesignerPlugin
@@ -137,6 +137,8 @@ Import-Package: org.apache.commons.io,
  org.apache.commons.lang.builder,
  org.apache.commons.lang.exception,
  org.apache.commons.lang.time,
+ org.burningwave.core.assembler,
+ org.burningwave.core.classes,
  org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.dnd,
@@ -157,7 +159,6 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.wb.os;visibility:=reexport,
  org.eclipse.wb.runtime;visibility:=reexport,
- org.eclipse.wb.core.lib;visibility:=reexport,
  org.eclipse.draw2d;bundle-version="3.13.0",
  com.google.guava;bundle-version="30.1.0",
  net.bytebuddy.byte-buddy;bundle-version="1.14.4",
