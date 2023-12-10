@@ -1,0 +1,15 @@
+name: Request license-review
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  call-license-check:
+    permissions:
+      pull-requests: write
+    uses: eclipse/dash-licenses/.github/workflows/mavenLicenseCheck.yml@master
+    with:
+      projectId: tools.windowbuilder
+    secrets:
+      gitlabAPIToken: ${{ secrets.GITLAB_API_TOKEN }}
