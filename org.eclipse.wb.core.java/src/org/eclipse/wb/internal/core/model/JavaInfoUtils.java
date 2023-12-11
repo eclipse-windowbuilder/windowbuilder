@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -1826,7 +1824,7 @@ public class JavaInfoUtils {
 		{
 			Statement statement = target.getStatement();
 			if (statement != null) {
-				List<ASTNode> nodes = Lists.newArrayList(statement, javaInfoNode);
+				List<ASTNode> nodes = new ArrayList<>(List.of(statement, javaInfoNode));
 				sortNodesByFlow(flowDescription, target.isBefore(), nodes);
 				return nodes.get(0) == javaInfoNode;
 			}
@@ -1834,7 +1832,7 @@ public class JavaInfoUtils {
 		// Block
 		{
 			Block block = target.getBlock();
-			List<ASTNode> nodes = Lists.newArrayList(block, javaInfoNode);
+			List<ASTNode> nodes = new ArrayList<>(List.of(block, javaInfoNode));
 			sortNodesByFlow(flowDescription, target.isBefore(), nodes);
 			return nodes.get(0) == javaInfoNode;
 		}
@@ -1851,7 +1849,7 @@ public class JavaInfoUtils {
 		{
 			BodyDeclaration bodyDeclaration = target.getDeclaration();
 			if (bodyDeclaration != null) {
-				List<ASTNode> nodes = Lists.newArrayList(bodyDeclaration, javaInfoNode);
+				List<ASTNode> nodes = new ArrayList<>(List.of(bodyDeclaration, javaInfoNode));
 				sortNodesByFlow(flowDescription, target.isBefore(), nodes);
 				return nodes.get(0) == javaInfoNode;
 			}
@@ -1859,7 +1857,7 @@ public class JavaInfoUtils {
 		// TypeDeclaration
 		{
 			TypeDeclaration typeDeclaration = target.getType();
-			List<ASTNode> nodes = Lists.newArrayList(typeDeclaration, javaInfoNode);
+			List<ASTNode> nodes = new ArrayList<>(List.of(typeDeclaration, javaInfoNode));
 			sortNodesByFlow(flowDescription, target.isBefore(), nodes);
 			return nodes.get(0) == javaInfoNode;
 		}
@@ -1875,7 +1873,7 @@ public class JavaInfoUtils {
 		// prepare target after last component
 		NodeTarget nodeTarget_afterLastComponent;
 		{
-			List<JavaInfo> componentsCopy = Lists.newArrayList(components);
+			List<JavaInfo> componentsCopy = new ArrayList<>(components);
 			sortComponentsByFlow(componentsCopy);
 			JavaInfo lastComponent = componentsCopy.get(componentsCopy.size() - 1);
 			nodeTarget_afterLastComponent = getNodeTarget_afterCreation(lastComponent);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -123,7 +121,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 			List<StringPropertyInfo> componentProperties = new ArrayList<>();
 			m_componentToPropertyList.put(component, componentProperties);
 			// prepare list of properties
-			List<Property> properties = Lists.newArrayList(component.getProperties());
+			List<Property> properties = new ArrayList<>(List.of(component.getProperties()));
 			for (Property property : List.copyOf(properties)) {
 				PropertyEditor editor = property.getEditor();
 				if (editor instanceof INlsPropertyContributor) {

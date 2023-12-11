@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -171,7 +169,7 @@ public final class LazyVariableSupportUtils {
 		{
 			Statement[] statements = moveStatements.toArray(new Statement[moveStatements.size()]);
 			Arrays.sort(statements, AstNodeUtils.SORT_BY_POSITION);
-			moveStatements = Lists.newArrayList(statements);
+			moveStatements = List.of(statements);
 		}
 		// move statements
 		for (Statement moveStatement : moveStatements) {
@@ -214,7 +212,7 @@ public final class LazyVariableSupportUtils {
 			}
 		}
 		// add children
-		List<JavaInfo> children = Lists.newArrayList(javaInfo.getChildrenJava());
+		List<JavaInfo> children = new ArrayList<>(javaInfo.getChildrenJava());
 		javaInfo.getBroadcastJava().variable_addStatementsToMove(javaInfo, children);
 		for (JavaInfo child : children) {
 			collectNodesToEdit(child, moveStatements, replaceNodes, target);

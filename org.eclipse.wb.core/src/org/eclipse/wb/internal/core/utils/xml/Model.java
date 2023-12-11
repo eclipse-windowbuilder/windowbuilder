@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.xml;
-
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +68,7 @@ public final class Model {
 	 * Delivers change event to all the registered listeners.
 	 */
 	public void fireModelChanged(ModelChangedEvent event) {
-		List<IModelChangedListener> listeners = Lists.newArrayList(m_listeners);
+		List<IModelChangedListener> listeners = new ArrayList<>(m_listeners);
 		for (IModelChangedListener listener : listeners) {
 			listener.modelChanged(event);
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValueEx;
@@ -336,7 +334,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
 				method =
 						m_windowEditor.addMethodDeclaration(
 								"public void preWindowOpen()",
-								Lists.newArrayList("org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();"),
+								List.of("org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();"),
 								new BodyDeclarationTarget(m_windowType, false));
 			}
 			return method;

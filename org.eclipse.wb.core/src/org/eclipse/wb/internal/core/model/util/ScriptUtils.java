@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,14 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.MapMaker;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ClassLoaderLocalMap;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.apache.commons.collections.map.ReferenceMap;
 import org.mvel2.MVEL;
 import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
@@ -143,7 +141,7 @@ public final class ScriptUtils {
 	}
 
 	private static Object evaluate(Object expression, Map<String, Object> _variables) {
-		Map<String, Object> variables = Maps.newHashMap(_variables);
+		Map<String, Object> variables = new HashMap<>(_variables);
 		return MVEL.executeExpression(expression, variables);
 	}
 
@@ -193,8 +191,9 @@ public final class ScriptUtils {
 	// Compilation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> m_compiledExpressions =
-			new MapMaker().weakValues().makeMap();
+			new ReferenceMap(ReferenceMap.HARD, ReferenceMap.WEAK);
 
 	/**
 	 * @return the weak cache for given {@link ClassLoader}.

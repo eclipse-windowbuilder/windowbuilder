@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -32,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -118,7 +117,7 @@ public abstract class AbstractPositionCompositeInfo extends CompositeInfo {
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
 		public List<ObjectInfo> getChildrenTree() throws Exception {
-			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			List<ObjectInfo> children = new ArrayList<>(super.getChildrenTree());
 			Set<ControlInfo> positionedControls = new HashSet<>();
 			for (int i = 0; i < m_methods.length; i++) {
 				String method = m_methods[i];

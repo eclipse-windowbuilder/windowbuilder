@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.factory;
 
-import com.google.common.collect.Iterables;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
@@ -446,7 +444,7 @@ public final class FactoryCreateAction extends Action {
 					factoryEditor.addMethodDeclaration(m_generate_methodHeader, m_generate_methodBody, target);
 			factoryEditor.setJavadoc(
 					methodDeclaration,
-					Iterables.toArray(m_generate_methodComments, String.class));
+					m_generate_methodComments.toArray(String[]::new));
 		}
 		// commit changes to factory unit
 		factoryEditor.commitChanges();

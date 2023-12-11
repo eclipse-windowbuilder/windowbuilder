@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -31,6 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 
 import java.beans.PropertyChangeEvent;

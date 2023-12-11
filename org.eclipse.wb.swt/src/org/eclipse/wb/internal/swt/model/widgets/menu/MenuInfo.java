@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -263,7 +261,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 			ClassInstanceCreation creation = creationSupport.getCreation();
 			NodeTarget target = JavaInfoUtils.getNodeTarget_afterCreation(this);
 			String parentReference = parent.getVariableSupport().getReferenceExpression(target);
-			getEditor().replaceCreationArguments(creation, Lists.newArrayList(parentReference));
+			getEditor().replaceCreationArguments(creation, List.of(parentReference));
 		}
 	}
 

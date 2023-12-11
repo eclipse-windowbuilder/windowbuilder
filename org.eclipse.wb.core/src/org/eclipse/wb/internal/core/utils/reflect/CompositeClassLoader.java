@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
-import com.google.common.collect.Iterators;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.wiring.BundleCapability;
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -156,7 +155,7 @@ public class CompositeClassLoader extends ClassLoader {
 			Enumeration<URL> resources = classLoader.getResources(name);
 			CollectionUtils.addAll(allResources, resources);
 		}
-		return Iterators.asEnumeration(allResources.iterator());
+		return Collections.enumeration(allResources);
 	}
 
 	@Override

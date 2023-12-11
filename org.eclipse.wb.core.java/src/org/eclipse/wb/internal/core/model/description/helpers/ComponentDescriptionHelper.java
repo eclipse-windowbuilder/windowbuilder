@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.description.AbstractInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescriptionKey;
@@ -209,7 +207,7 @@ public final class ComponentDescriptionHelper {
 		{
 			Class<?> hostComponentClass = hostDescription.getComponentClass();
 			List<Class<?>> types = ReflectionUtils.getSuperHierarchy(hostComponentClass);
-			types = Lists.reverse(types);
+			Collections.reverse(types);
 			for (Class<?> type : types) {
 				ComponentDescriptionKey hostKey = new ComponentDescriptionKey(type);
 				// prepare specific ResourceInfo

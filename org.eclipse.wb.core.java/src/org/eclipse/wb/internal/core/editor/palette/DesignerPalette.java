@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalette;
@@ -328,7 +326,7 @@ public class DesignerPalette {
 
 				@Override
 				public List<IEntry> getEntries() {
-					final List<EntryInfo> entryInfoList = Lists.newArrayList(categoryInfo.getEntries());
+					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
 					ExecutionUtils.runIgnore(new RunnableEx() {
 						@Override
@@ -411,7 +409,7 @@ public class DesignerPalette {
 				final List<CategoryInfo> categoryInfoList;
 				{
 					List<CategoryInfo> pristineCategories = m_manager.getPalette().getCategories();
-					categoryInfoList = Lists.newArrayList(pristineCategories);
+					categoryInfoList = new ArrayList<>(pristineCategories);
 				}
 				// add new CategoryInfo's using broadcast
 				ExecutionUtils.runLog(new RunnableEx() {

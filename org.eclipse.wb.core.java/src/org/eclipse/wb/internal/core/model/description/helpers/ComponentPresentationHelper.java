@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.io.Files;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
@@ -472,7 +470,7 @@ public final class ComponentPresentationHelper {
 			File stateDirectory = DesignerPlugin.getDefault().getStateLocation().toFile();
 			File descriptionsDirectory = new File(stateDirectory, "descriptions");
 			File cacheFile = new File(descriptionsDirectory, m_toolkitId + ".cached-presentations.dat");
-			Files.createParentDirs(cacheFile);
+			descriptionsDirectory.mkdir();
 			return cacheFile;
 		}
 

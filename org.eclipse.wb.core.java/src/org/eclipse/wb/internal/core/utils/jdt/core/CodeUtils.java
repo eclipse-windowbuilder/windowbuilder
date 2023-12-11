@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -557,7 +555,7 @@ public class CodeUtils {
 	public static List<IMethod> findMethods(IType type, List<String> signatures)
 			throws JavaModelException {
 		IMethod[] methods = findMethods(type, signatures.toArray(new String[signatures.size()]));
-		return Lists.newArrayList(methods);
+		return List.of(methods);
 	}
 
 	/**

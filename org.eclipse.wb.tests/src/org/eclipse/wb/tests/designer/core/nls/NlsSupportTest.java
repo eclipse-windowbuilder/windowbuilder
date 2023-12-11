@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -47,6 +45,8 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.JFrame;
 
@@ -300,8 +300,9 @@ public class NlsSupportTest extends SwingModelTest {
 		try {
 			preferencesRepairer.setValue(IPreferenceConstants.P_NLS_ALWAYS_VISIBLE_LOCALES, "de, ru_RU");
 			LocaleInfo[] locales = m_support.getLocales();
-			List<String> localeNames =
-					Lists.transform(List.of(locales), from -> from.toString());
+			List<String> localeNames = Stream.of(locales) //
+					.map(LocaleInfo::toString) //
+					.collect(Collectors.toList());
 			Assertions.assertThat(localeNames).hasSize(4).containsOnly("(default)", "it", "de", "ru_RU");
 		} finally {
 			preferencesRepairer.restore();

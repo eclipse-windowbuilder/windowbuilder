@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.collect.Iterables;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -159,9 +157,8 @@ public class AbstractActionInfo extends ActionInfo {
 			return null;
 		}
 		// create property
-		return new GenericPropertyImpl(this, title, Iterables.toArray(
-				accessors,
-				ExpressionAccessor.class), Property.UNKNOWN_VALUE, converter, editor);
+		return new GenericPropertyImpl(this, title, accessors.toArray(ExpressionAccessor[]::new),
+				Property.UNKNOWN_VALUE, converter, editor);
 	}
 
 	private List<ExpressionAccessor> getAccessors(String keyName) throws Exception {

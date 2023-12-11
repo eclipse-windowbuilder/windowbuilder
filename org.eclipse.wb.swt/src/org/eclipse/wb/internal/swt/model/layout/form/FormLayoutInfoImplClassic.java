@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantListener;
@@ -713,7 +711,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 					isHorizontal
 					? FormUtils.getLayoutMarginLeft(layout)
 							: FormUtils.getLayoutMarginTop(layout);
-			List<C> controlList = Lists.newArrayList(m_components);
+			List<C> controlList = new ArrayList<>(m_components);
 			int clientSize = t.t(layout.getContainerSize()).width;
 			boolean alternative = DesignerPlugin.isCtrlPressed() && m_components.size() > 2;
 			// calculate sum size of the controls

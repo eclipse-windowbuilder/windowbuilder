@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.databinding.Activator;
 
@@ -37,7 +35,7 @@ public final class ObserveType {
 			Activator.getImage("Widgets_ObserveType.gif"),
 			ExpandedStrategy.ExpandedAll);
 	//
-	public static final List<ObserveType> TYPES = Lists.newArrayList(
+	public static final List<ObserveType> TYPES = List.of(
 			ObserveType.WIDGETS,
 			ObserveType.BEANS);
 	//

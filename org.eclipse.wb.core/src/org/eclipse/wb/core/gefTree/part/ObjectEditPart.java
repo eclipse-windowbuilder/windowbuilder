@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gefTree.part;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -108,7 +106,7 @@ public class ObjectEditPart extends TreeEditPart {
 					m_delayedSelectionObjects = null;
 					// set selection now, or delay
 					if (!setSelectionIfAllEditParts(objects)) {
-						m_delayedSelectionObjects = Lists.newArrayList(objects);
+						m_delayedSelectionObjects = new ArrayList<>(objects);
 					}
 				}
 

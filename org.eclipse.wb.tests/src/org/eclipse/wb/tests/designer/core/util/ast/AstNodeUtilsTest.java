@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.ast;
 
-import com.google.common.collect.Lists;
-
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodDeclarationSignature;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodGenericSignature;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodSignature;
@@ -62,6 +60,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 
