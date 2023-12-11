@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.wizards.actions;
 
-import com.google.common.collect.Iterables;
-
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -32,6 +30,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowPulldownDelegate;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * {@link Action} for displaying all WindowBuilder wizards in single drop-down menu.
@@ -89,15 +88,15 @@ IActionDelegate2 {
 	////////////////////////////////////////////////////////////////////////////
 	private static void createCategoryItems(Menu parent, String parentCategoryId) {
 		// process wizards
-		for (IConfigurationElement wizard : getWizardWizards(parentCategoryId)) {
+		getWizardWizards(parentCategoryId).forEach(wizard -> {
 			if (isWizardVisibleInMenu(wizard)) {
 				IAction action = new OpenTypeWizardAction(wizard);
 				ActionContributionItem item = new ActionContributionItem(action);
 				item.fill(parent, -1);
 			}
-		}
+		});
 		// process sub-categories
-		for (IConfigurationElement category : getWizardCategories(parentCategoryId)) {
+		getWizardCategories(parentCategoryId).forEach(category -> {
 			boolean isInline = "true".equals(category.getAttribute("wbp-menu-inline"));
 			// prepare Menu for category items
 			Menu categoryMenu;
@@ -116,7 +115,7 @@ IActionDelegate2 {
 			if (isInline) {
 				addSeparator(parent);
 			}
-		}
+		});
 	}
 
 	private static void addSeparator(Menu parent) {
@@ -184,20 +183,20 @@ IActionDelegate2 {
 		return visible != null ? "true".equals(visible) : true;
 	}
 
-	private static Iterable<IConfigurationElement> getWizardWizards(String parentCategoryId) {
+	private static Stream<IConfigurationElement> getWizardWizards(String parentCategoryId) {
 		return getWizardElements("wizard", "category", parentCategoryId);
 	}
 
-	private static Iterable<IConfigurationElement> getWizardCategories(String parentCategoryId) {
+	private static Stream<IConfigurationElement> getWizardCategories(String parentCategoryId) {
 		return getWizardElements("category", "parentCategory", parentCategoryId);
 	}
 
-	private static Iterable<IConfigurationElement> getWizardElements(String elementName,
+	private static Stream<IConfigurationElement> getWizardElements(String elementName,
 			final String attributeName,
 			final String parentCategoryId) {
 		List<IConfigurationElement> allCategories =
 				ExternalFactoriesHelper.getElements("org.eclipse.ui.newWizards", elementName);
-		return Iterables.filter(allCategories, t -> parentCategoryId.equals(t.getAttribute(attributeName)));
+		return allCategories.stream().filter(t -> parentCategoryId.equals(t.getAttribute(attributeName)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

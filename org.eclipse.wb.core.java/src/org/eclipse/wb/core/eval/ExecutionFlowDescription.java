@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -23,6 +21,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +47,7 @@ public final class ExecutionFlowDescription {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public ExecutionFlowDescription(MethodDeclaration... startMethods) {
-		this(Lists.newArrayList(startMethods));
+		this(new ArrayList<>(Arrays.asList(startMethods)));
 	}
 
 	public ExecutionFlowDescription(List<MethodDeclaration> startMethods) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.base.Preconditions;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
+
+import java.util.Objects;
 
 import javax.swing.AbstractButton;
 
@@ -41,7 +41,7 @@ public final class ObjectReferenceInfo extends ObjectInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public ObjectReferenceInfo(ObjectInfo object) {
-		Preconditions.checkNotNull(object);
+		Objects.requireNonNull(object);
 		m_object = object;
 	}
 

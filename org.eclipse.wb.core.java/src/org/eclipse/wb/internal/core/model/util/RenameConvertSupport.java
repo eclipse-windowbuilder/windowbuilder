@@ -93,8 +93,7 @@ public final class RenameConvertSupport {
 	 * @param objects
 	 *          The components that should be renamed/converted.
 	 */
-	public static void rename(List<? extends ObjectInfo> objects) {
-		Iterable<JavaInfo> components = Iterables.filter(objects, JavaInfo.class);
+	public static void rename(List<JavaInfo> components) {
 		RenameConvertSupport support = new RenameConvertSupport(components);
 		support.doRename();
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -20,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.OperatorPrecedence;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ParenthesizedExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
@@ -29,6 +27,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -188,7 +187,7 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
 	 *         can be inlined.
 	 */
 	public boolean canInline() {
-		List<Expression> references = Lists.newArrayList(getReferences());
+		List<Expression> references = new ArrayList<>(getReferences());
 		references.remove(m_variable);
 		return references.size() == 1;
 	}
@@ -204,9 +203,9 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
 		// prepare single reference on component, that should be replaced with creation Expression
 		Expression reference;
 		{
-			List<Expression> references = Lists.newArrayList(getReferences());
+			List<Expression> references = new ArrayList<>(getReferences());
 			references.remove(m_variable);
-			Preconditions.checkState(references.size() == 1, references);
+			Assert.isLegal(references.size() == 1, references.toString());
 			reference = references.get(0);
 		}
 		// prepare "initializer"

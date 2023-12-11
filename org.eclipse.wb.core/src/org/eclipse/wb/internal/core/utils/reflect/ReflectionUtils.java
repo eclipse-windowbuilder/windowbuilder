@@ -10,13 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
+import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -1474,7 +1472,7 @@ public class ReflectionUtils {
 
 	private static void useSimplePropertyNamesWherePossible(List<PropertyDescriptor> descriptors) {
 		// prepare map: simple name -> qualified names
-		Multimap<String, String> simplePropertyNames = HashMultimap.create();
+		MultiValueMap simplePropertyNames = MultiValueMap.decorate(new HashMap<>(), HashSet::new);
 		for (PropertyDescriptor propertyDescriptor : descriptors) {
 			String qualifiedPropertyName = propertyDescriptor.getName();
 			String simplePropertyName = getSimplePropertyName(qualifiedPropertyName);
@@ -1484,7 +1482,7 @@ public class ReflectionUtils {
 		for (PropertyDescriptor propertyDescriptor : descriptors) {
 			String qualifiedPropertyName = propertyDescriptor.getName();
 			String simplePropertyName = getSimplePropertyName(qualifiedPropertyName);
-			if (simplePropertyNames.get(simplePropertyName).size() == 1) {
+			if (simplePropertyNames.getCollection(simplePropertyName).size() == 1) {
 				propertyDescriptor.setName(simplePropertyName);
 			}
 		}

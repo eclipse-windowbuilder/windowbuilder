@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -48,6 +46,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -180,7 +180,7 @@ public final class NoEntryPointComposite extends Composite {
 	private List<IMethod> getPossibleEntryPoints() throws Exception {
 		String typeName = AstNodeUtils.getFullyQualifiedName(m_typeDeclaration, false);
 		IType type = m_editor.getJavaProject().findType(typeName);
-		List<IMethod> methods = Lists.newArrayList(type.getMethods());
+		List<IMethod> methods = new ArrayList<>(Arrays.asList(type.getMethods()));
 		sortMethods(methods);
 		return methods;
 	}

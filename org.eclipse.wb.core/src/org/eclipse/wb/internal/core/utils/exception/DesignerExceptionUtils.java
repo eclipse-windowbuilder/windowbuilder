@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.exception;
-
-import com.google.common.collect.MapMaker;
 
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.controls.BrowserComposite;
@@ -43,6 +41,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
+import org.apache.commons.collections.map.ReferenceMap;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -199,7 +198,8 @@ public final class DesignerExceptionUtils {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static Map<Throwable, Integer> m_exceptionPositions = new MapMaker().weakKeys().makeMap();
+	@SuppressWarnings("unchecked")
+	private static Map<Throwable, Integer> m_exceptionPositions = new ReferenceMap(ReferenceMap.WEAK, ReferenceMap.HARD);
 
 	/**
 	 * See {@link ExceptionUtils#getRootCause(Throwable)}, but returns {@link Throwable} itself if no
