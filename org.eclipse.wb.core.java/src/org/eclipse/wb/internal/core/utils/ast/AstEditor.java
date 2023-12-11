@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.binding.BindingContext;
@@ -1490,7 +1488,7 @@ public final class AstEditor {
 	public void inlineBlock(Block block) throws Exception {
 		StatementTarget target = new StatementTarget((Statement) block, true);
 		// move Statement's
-		List<Statement> statements = Lists.newArrayList(DomGenerics.statements(block));
+		List<Statement> statements = new ArrayList<>(DomGenerics.statements(block));
 		for (Statement statement : statements) {
 			moveStatement(statement, target);
 		}

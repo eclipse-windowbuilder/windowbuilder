@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import com.google.common.collect.Iterators;
-
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 
 import org.eclipse.gef.EditPartViewer;
@@ -265,7 +263,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		if (newPartCount - index > 1) {
 			// deselect old child EditPart's
 			List<EditPart> deselectList = new ArrayList<>();
-			Iterators.addAll(deselectList, children.listIterator(index));
+			children.listIterator(index).forEachRemaining(deselectList::add);
 			getViewer().deselect(deselectList);
 		}
 		// remove old child EditPart's

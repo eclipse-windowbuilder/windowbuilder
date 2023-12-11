@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -198,7 +196,7 @@ public class DesignToolbarHelper {
 	 * Refreshes the actions based on components hierarchy.
 	 */
 	private void refreshHierarchyActions() {
-		final List<IContributionItem> toRemove = Lists.newArrayList(m_hierarchyItems);
+		final List<IContributionItem> toRemove = new ArrayList<>(m_hierarchyItems);
 		// add items for hierarchy
 		ExecutionUtils.runLog(new RunnableEx() {
 			@Override
@@ -257,7 +255,7 @@ public class DesignToolbarHelper {
 	 * Refreshes the actions based on selection.
 	 */
 	private void refreshSelectionActions() {
-		final List<IContributionItem> toRemove = Lists.newArrayList(m_selectionItems);
+		final List<IContributionItem> toRemove = new ArrayList<>(m_selectionItems);
 		// prepare selected ObjectInfo's
 		final List<ObjectInfo> selectedObjects = new ArrayList<>();
 		for (EditPart editPart : m_viewer.getSelectedEditParts()) {

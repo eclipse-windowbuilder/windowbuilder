@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.snapping;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
@@ -65,7 +63,7 @@ public class SnapPoints {
 		m_feedbackProxy = feedbackProxy;
 		m_snapPoints = snapPoints;
 		m_listener = listener;
-		m_allWidgets = Lists.newArrayList(allWidgets);
+		m_allWidgets = new ArrayList<>(allWidgets);
 	}
 
 	/**

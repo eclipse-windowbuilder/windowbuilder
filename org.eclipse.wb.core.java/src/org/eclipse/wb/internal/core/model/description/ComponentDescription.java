@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.order.ComponentOrder;
@@ -548,7 +546,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	 * @return all {@link CreationDescription}'s.
 	 */
 	public List<CreationDescription> getCreations() {
-		List<CreationDescription> creations = Lists.newArrayList(m_creations.values());
+		List<CreationDescription> creations = new ArrayList<>(m_creations.values());
 		creations.add(m_creationDefault);
 		return creations;
 	}
