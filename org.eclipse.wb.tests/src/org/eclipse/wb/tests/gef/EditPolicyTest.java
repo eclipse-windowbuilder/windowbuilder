@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.events.IEditPolicyListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 
 import java.util.List;
