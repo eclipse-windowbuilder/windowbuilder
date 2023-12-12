@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.support;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -92,7 +90,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 			// prepare returned data
 			menuInfo.m_menuImage = OSSupport.get().getMenuPopupVisualData(menu, bounds);
 			menuInfo.m_menuBounds = new Rectangle(menuInfo.m_menuImage.getBounds());
-			menuInfo.m_itemBounds = Lists.newArrayListWithCapacity(menu.getItemCount());
+			menuInfo.m_itemBounds = new ArrayList<>(menu.getItemCount());
 			// create rectangles from array
 			for (int i = 0; i < menu.getItemCount(); ++i) {
 				Rectangle itemRect =
@@ -232,7 +230,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 	 * {@link org.eclipse.draw2d.geometry.Rectangle}.
 	 */
 	private List<Rectangle> convertRectangles(List<org.eclipse.swt.graphics.Rectangle> rectangles) {
-		List<Rectangle> result = Lists.newArrayListWithCapacity(rectangles.size());
+		List<Rectangle> result = new ArrayList<>(rectangles.size());
 		for (org.eclipse.swt.graphics.Rectangle rectangle : rectangles) {
 			result.add(new Rectangle(rectangle));
 		}

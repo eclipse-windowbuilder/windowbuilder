@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -290,7 +288,7 @@ public final class DataBindingsCodeUtils {
 		}
 		//
 		List<Statement> oldStatements =
-				Lists.newArrayList(DomGenerics.statements(mainMethod.getBody()));
+				new ArrayList<>(DomGenerics.statements(mainMethod.getBody()));
 		//
 		Statement displayStatement =
 				editor.addStatement(

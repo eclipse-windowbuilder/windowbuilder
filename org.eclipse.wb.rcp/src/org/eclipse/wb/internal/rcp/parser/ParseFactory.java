@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.parser;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils2;
@@ -139,8 +137,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 		{
 			MethodDeclaration method = ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration);
 			if (method != null) {
-				List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
-				return new ParseRootContext(null, new ExecutionFlowDescription(rootMethods));
+				return new ParseRootContext(null, new ExecutionFlowDescription(method));
 			}
 		}
 		// check for org.eclipse.ui.IPerspectiveFactory
@@ -224,8 +221,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 							ObjectInfoUtils.setNewId(javaInfo);
 							javaInfo.bindToExpression(parameter.getName());
 							// prepare root context
-							List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
-							return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
+							return new ParseRootContext(javaInfo, new ExecutionFlowDescription(method));
 						}
 					}
 				}

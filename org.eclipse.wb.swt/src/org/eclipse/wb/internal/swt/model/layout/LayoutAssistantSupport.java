@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * SWT provider for layout assistant pages.
@@ -63,8 +62,9 @@ org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantSupport {
 	 * Converts {@link IControlInfo}s into their {@link ILayoutDataInfo}s.
 	 */
 	protected final List<ILayoutDataInfo> getDataList(List<ObjectInfo> objects) {
-		List<ILayoutDataInfo> dataList =
-				Lists.transform(objects, from -> m_layout.getLayoutData2((IControlInfo) from));
+		List<ILayoutDataInfo> dataList = objects.stream() //
+				.map(from -> m_layout.getLayoutData2((IControlInfo) from)) //
+				.collect(Collectors.toList());
 		return dataList;
 	}
 }

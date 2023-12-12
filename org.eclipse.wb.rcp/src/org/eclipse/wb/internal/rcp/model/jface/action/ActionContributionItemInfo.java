@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -29,6 +27,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,7 +102,7 @@ public final class ActionContributionItemInfo extends ContributionItemInfo {
 	protected List<Property> getPropertyList() throws Exception {
 		if (isAddAction()) {
 			Property[] actionProperties = getAction().getProperties();
-			return Lists.newArrayList(actionProperties);
+			return new ArrayList<>(List.of(actionProperties));
 		}
 		return super.getPropertyList();
 	}

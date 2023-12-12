@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.observables;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -77,11 +75,11 @@ public final class TextSwtObservableInfo extends SwtObservableInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public List<String> getUpdateEvents() {
-		return Lists.newArrayList(m_updateEvents);
+		return new ArrayList<>(m_updateEvents);
 	}
 
 	public void setUpdateEvents(List<String> updateEvents) {
-		m_updateEvents = Lists.newArrayList(updateEvents);
+		m_updateEvents = new ArrayList<>(updateEvents);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
