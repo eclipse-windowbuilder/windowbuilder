@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swt.Activator;
@@ -22,6 +20,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.Separator;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,8 +48,7 @@ public class PredefinedAnchorsActions<C extends IControlInfo> {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void contributeActions(C widget, IContributionManager manager) {
-		@SuppressWarnings("unchecked")
-		List<C> selection = Lists.newArrayList(widget);
+		List<C> selection = Arrays.asList(widget);
 		contributeActions(selection, manager);
 	}
 

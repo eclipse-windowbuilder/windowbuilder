@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -27,6 +25,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.TabFolder;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public abstract class AbstractTabFolderInfo extends CompositeInfo {
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
 		public List<ObjectInfo> getChildrenTree() throws Exception {
-			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			List<ObjectInfo> children = new ArrayList<>(super.getChildrenTree());
 			// don't show in tree any Control's
 			for (Iterator<ObjectInfo> I = children.iterator(); I.hasNext();) {
 				ObjectInfo child = I.next();

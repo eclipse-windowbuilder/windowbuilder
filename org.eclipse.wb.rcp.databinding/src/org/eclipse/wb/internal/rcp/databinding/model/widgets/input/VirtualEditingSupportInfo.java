@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
@@ -35,6 +33,7 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -290,7 +289,7 @@ public final class VirtualEditingSupportInfo {
 					setClassNameAndProperties(
 							beanClass,
 							m_cellEditorClassName,
-							Lists.newArrayList(m_cellEditorProperty));
+							Arrays.asList(m_cellEditorProperty));
 				}
 			}
 		}
@@ -354,7 +353,7 @@ public final class VirtualEditingSupportInfo {
 					setClassName(CoreUtils.getClassName(elementType));
 				}
 			} else {
-				setClassNameAndProperties(elementType, null, Lists.newArrayList(m_elementProperty));
+				setClassNameAndProperties(elementType, null, Arrays.asList(m_elementProperty));
 			}
 		}
 

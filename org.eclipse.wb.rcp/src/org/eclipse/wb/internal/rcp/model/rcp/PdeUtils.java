@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -55,6 +53,7 @@ import org.osgi.framework.Bundle;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,7 +163,7 @@ public final class PdeUtils {
 	 *          the id of plugin.
 	 */
 	public void addPluginImport(final List<String> pluginIds) throws Exception {
-		final List<String> pluginIdsForAdding = Lists.newArrayList(pluginIds);
+		final List<String> pluginIdsForAdding = new ArrayList<>(pluginIds);
 		// check exist imports
 		for (IPluginImport pluginImport : getModel().getPluginBase().getImports()) {
 			pluginIdsForAdding.remove(pluginImport.getId());
@@ -190,7 +189,7 @@ public final class PdeUtils {
 	}
 
 	public void addPluginImport(String... pluginIds) throws Exception {
-		addPluginImport(Lists.newArrayList(pluginIds));
+		addPluginImport(Arrays.asList(pluginIds));
 	}
 
 	/**

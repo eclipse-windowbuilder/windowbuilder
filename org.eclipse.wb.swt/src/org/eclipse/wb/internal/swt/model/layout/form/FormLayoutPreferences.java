@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -30,6 +28,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -100,11 +99,11 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
 	}
 
 	public List<Integer> getVerticalPercents() {
-		return Lists.newArrayList(loadPercents(KEY_V_PERCENTS));
+		return new ArrayList<>(loadPercents(KEY_V_PERCENTS));
 	}
 
 	public List<Integer> getHorizontalPercents() {
-		return Lists.newArrayList(loadPercents(KEY_H_PERCENTS));
+		return new ArrayList<>(loadPercents(KEY_H_PERCENTS));
 	}
 
 	public int getSnapSensitivity() {

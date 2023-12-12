@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
-
-import com.google.common.base.Preconditions;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -30,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -40,6 +39,7 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Model for {@link FieldEditorPreferencePage}.
@@ -120,7 +120,7 @@ public final class FieldEditorPreferencePageInfo extends PreferencePageInfo {
 	 * Moves {@link FieldEditorInfo}.
 	 */
 	public void command_MOVE(FieldEditorInfo editor, FieldEditorInfo nextEditor) throws Exception {
-		Preconditions.checkArgument(editor.getParent() == this, editor.getParent());
+		Assert.isLegal(editor.getParent() == this, Objects.toString(editor.getParent()));
 		if (editor.getVariableSupport() instanceof EmptyVariableSupport) {
 			ObjectInfo oldParent = editor.getParent();
 			getBroadcastJava().moveBefore0(editor, oldParent, this);
