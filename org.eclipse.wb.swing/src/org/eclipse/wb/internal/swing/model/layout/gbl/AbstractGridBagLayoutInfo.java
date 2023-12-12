@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -58,6 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -107,8 +107,9 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			@Override
 			protected AbstractAssistantPage createConstraintsPage(Composite parent,
 					List<ObjectInfo> objects) {
-				List<AbstractGridBagConstraintsInfo> constraints =
-						Lists.transform(objects, from -> getConstraints((ComponentInfo) from));
+				List<AbstractGridBagConstraintsInfo> constraints = objects.stream() //
+						.map(from -> getConstraints((ComponentInfo) from)) //
+						.collect(Collectors.toList());
 				return new GridBagConstraintsAssistantPage(parent, constraints);
 			}
 		};

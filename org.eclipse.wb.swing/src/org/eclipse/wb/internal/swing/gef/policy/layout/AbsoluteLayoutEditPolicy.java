@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -104,7 +102,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 	@Override
 	public List<ComponentInfo> getAllComponents() {
 		List<ComponentInfo> components = m_layout.getContainer().getChildrenComponents();
-		return Lists.newArrayList(components);
+		return new ArrayList<>(components);
 	}
 
 	@Override

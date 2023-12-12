@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -33,6 +31,7 @@ import org.eclipse.wb.internal.swing.databinding.ui.providers.BindingLabelProvid
 
 import org.eclipse.jface.action.IMenuManager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class BindingsProperty extends AbstractBindingsProperty {
 		}
 		//
 		List<IObserveInfo> observes =
-				Lists.newArrayList(m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable));
+				new ArrayList<>(m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable));
 		for (Iterator<IObserveInfo> I = observes.iterator(); I.hasNext();) {
 			if (!includeProperty(I.next())) {
 				I.remove();
