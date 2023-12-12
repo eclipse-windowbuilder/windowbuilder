@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -75,6 +73,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
