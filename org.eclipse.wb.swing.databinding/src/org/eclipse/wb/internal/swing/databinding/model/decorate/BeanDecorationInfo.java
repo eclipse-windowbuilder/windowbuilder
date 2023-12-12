@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.decorate;
-
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 
@@ -47,19 +45,19 @@ public final class BeanDecorationInfo {
 	////////////////////////////////////////////////////////////////////////////
 	void setPreferredProperties(String[] properties) {
 		if (!ArrayUtils.isEmpty(properties)) {
-			m_preferred = Sets.newHashSet(properties);
+			m_preferred = Set.of(properties);
 		}
 	}
 
 	void setAdvancedProperties(String[] properties) {
 		if (!ArrayUtils.isEmpty(properties)) {
-			m_advanced = Sets.newHashSet(properties);
+			m_advanced = Set.of(properties);
 		}
 	}
 
 	void setHiddenProperties(String[] properties) {
 		if (!ArrayUtils.isEmpty(properties)) {
-			m_hidden = Sets.newHashSet(properties);
+			m_hidden = Set.of(properties);
 		}
 	}
 

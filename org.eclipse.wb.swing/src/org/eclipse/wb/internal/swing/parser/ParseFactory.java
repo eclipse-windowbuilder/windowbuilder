@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.parser;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -108,7 +106,7 @@ public class ParseFactory extends AbstractParseFactory {
 		{
 			MethodDeclaration method = ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration);
 			if (method != null) {
-				List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
+				List<MethodDeclaration> rootMethods = new ArrayList<>(List.of(method));
 				return new ParseRootContext(null, new ExecutionFlowDescription(rootMethods));
 			}
 		}
