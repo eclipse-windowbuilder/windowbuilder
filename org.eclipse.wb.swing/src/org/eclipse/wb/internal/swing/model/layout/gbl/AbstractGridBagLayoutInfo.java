@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
-
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -48,6 +45,10 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
 
 import java.awt.Container;
 import java.awt.GridBagLayout;
@@ -920,30 +921,26 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	// Manage general layout data.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final BiMap<GeneralLayoutData.HorizontalAlignment, ColumnInfo.Alignment> m_horizontalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.HorizontalAlignment.LEFT,
-					ColumnInfo.Alignment.LEFT,
-					GeneralLayoutData.HorizontalAlignment.CENTER,
-					ColumnInfo.Alignment.CENTER,
-					GeneralLayoutData.HorizontalAlignment.RIGHT,
-					ColumnInfo.Alignment.RIGHT,
-					GeneralLayoutData.HorizontalAlignment.FILL,
-					ColumnInfo.Alignment.FILL,
-					GeneralLayoutData.HorizontalAlignment.NONE,
-					ColumnInfo.Alignment.UNKNOWN);
-	public static final BiMap<GeneralLayoutData.VerticalAlignment, RowInfo.Alignment> m_verticalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.VerticalAlignment.TOP,
-					RowInfo.Alignment.TOP,
-					GeneralLayoutData.VerticalAlignment.CENTER,
-					RowInfo.Alignment.CENTER,
-					GeneralLayoutData.VerticalAlignment.BOTTOM,
-					RowInfo.Alignment.BOTTOM,
-					GeneralLayoutData.VerticalAlignment.FILL,
-					RowInfo.Alignment.FILL,
-					GeneralLayoutData.VerticalAlignment.NONE,
-					RowInfo.Alignment.UNKNOWN);
+	public static final BidiMap m_horizontalAlignmentMap;
+	static {
+		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, ColumnInfo.Alignment.LEFT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, ColumnInfo.Alignment.CENTER);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, ColumnInfo.Alignment.RIGHT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, ColumnInfo.Alignment.FILL);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.NONE, ColumnInfo.Alignment.UNKNOWN);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+	}
+	public static final BidiMap m_verticalAlignmentMap;
+	static {
+		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, RowInfo.Alignment.TOP);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, RowInfo.Alignment.CENTER);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, RowInfo.Alignment.BOTTOM);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, RowInfo.Alignment.FILL);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.NONE, RowInfo.Alignment.UNKNOWN);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+	}
 
 	@Override
 	protected void storeLayoutData(ComponentInfo component) throws Exception {

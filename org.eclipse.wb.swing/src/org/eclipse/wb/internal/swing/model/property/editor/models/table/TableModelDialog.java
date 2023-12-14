@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.table;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
 import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -35,6 +32,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
+
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
 
 import java.awt.EventQueue;
 import java.beans.PropertyChangeEvent;
@@ -61,17 +62,19 @@ import swingintegration.example.EmbeddedSwingComposite2;
  * @coverage swing.property.editor
  */
 public final class TableModelDialog extends ResizableDialog {
-	private static final BiMap<String, Class<?>> COLUMN_TYPES = HashBiMap.create();
+	private static final BidiMap COLUMN_TYPES;
 	static {
-		COLUMN_TYPES.put("Object", Object.class);
-		COLUMN_TYPES.put("String", String.class);
-		COLUMN_TYPES.put("Boolean", Boolean.class);
-		COLUMN_TYPES.put("Integer", Integer.class);
-		COLUMN_TYPES.put("Byte", Byte.class);
-		COLUMN_TYPES.put("Short", Short.class);
-		COLUMN_TYPES.put("Long", Long.class);
-		COLUMN_TYPES.put("Float", Float.class);
-		COLUMN_TYPES.put("Double", Double.class);
+		BidiMap columnTypes = new DualHashBidiMap();
+		columnTypes.put("Object", Object.class);
+		columnTypes.put("String", String.class);
+		columnTypes.put("Boolean", Boolean.class);
+		columnTypes.put("Integer", Integer.class);
+		columnTypes.put("Byte", Byte.class);
+		columnTypes.put("Short", Short.class);
+		columnTypes.put("Long", Long.class);
+		columnTypes.put("Float", Float.class);
+		columnTypes.put("Double", Double.class);
+		COLUMN_TYPES = UnmodifiableBidiMap.decorate(columnTypes);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -416,8 +419,8 @@ public final class TableModelDialog extends ResizableDialog {
 			m_columnPropertyType = new Combo(container, SWT.BORDER | SWT.READ_ONLY);
 			GridDataFactory.create(m_columnPropertyType).hintHC(10).fillH();
 			// items
-			for (String typeTitle : COLUMN_TYPES.keySet()) {
-				m_columnPropertyType.add(typeTitle);
+			for (Object typeTitle : COLUMN_TYPES.keySet()) {
+				m_columnPropertyType.add((String) typeTitle);
 			}
 			m_columnPropertyType.setVisibleItemCount(COLUMN_TYPES.size());
 			// listener
@@ -425,7 +428,7 @@ public final class TableModelDialog extends ResizableDialog {
 				@Override
 				public void run(int row, int column) {
 					String typeTitle = m_columnPropertyType.getText();
-					Class<?> type = COLUMN_TYPES.get(typeTitle);
+					Class<?> type = (Class<?>) COLUMN_TYPES.get(typeTitle);
 					m_model.setColumnType(column, type);
 				}
 			});
@@ -654,7 +657,7 @@ public final class TableModelDialog extends ResizableDialog {
 			if (!m_columnPropertyTitle.getText().equals(columnDescription.m_name)) {
 				m_columnPropertyTitle.setText(columnDescription.m_name);
 			}
-			m_columnPropertyType.setText(COLUMN_TYPES.inverse().get(columnDescription.m_class));
+			m_columnPropertyType.setText((String) COLUMN_TYPES.inverseBidiMap().get(columnDescription.m_class));
 			m_columnPropertyPrefWidth.setSelection(columnDescription.m_preferredWidth);
 			m_columnPropertyMinWidth.setSelection(columnDescription.m_minWidth);
 			m_columnPropertyMaxWidth.setSelection(columnDescription.m_maxWidth);
