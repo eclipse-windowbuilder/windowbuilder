@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Iterables;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -51,6 +49,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Helper for rename/convert multiple {@link JavaInfo}'s as single operation.
@@ -78,7 +77,10 @@ public final class RenameConvertSupport {
 			return;
 		}
 		// prepare components
-		Iterable<JavaInfo> components = Iterables.filter(objects, JavaInfo.class);
+		Iterable<JavaInfo> components = objects.stream() //
+				.filter(JavaInfo.class::isInstance) //
+				.map(JavaInfo.class::cast) //
+				.collect(Collectors.toList());
 		RenameConvertSupport support = new RenameConvertSupport(components);
 		// add action
 		if (components.iterator().hasNext()) {
