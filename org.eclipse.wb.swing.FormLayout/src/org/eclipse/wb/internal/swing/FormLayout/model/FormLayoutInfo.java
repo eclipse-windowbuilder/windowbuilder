@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
@@ -64,6 +61,10 @@ import com.jgoodies.forms.layout.FormSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.DefaultUnitConverter;
+
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
 
 import java.awt.Container;
 import java.text.MessageFormat;
@@ -1670,30 +1671,26 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	// Manage general layout data.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final BiMap<GeneralLayoutData.HorizontalAlignment, CellConstraints.Alignment> m_horizontalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.HorizontalAlignment.LEFT,
-					CellConstraints.LEFT,
-					GeneralLayoutData.HorizontalAlignment.CENTER,
-					CellConstraints.CENTER,
-					GeneralLayoutData.HorizontalAlignment.RIGHT,
-					CellConstraints.RIGHT,
-					GeneralLayoutData.HorizontalAlignment.FILL,
-					CellConstraints.FILL,
-					GeneralLayoutData.HorizontalAlignment.NONE,
-					CellConstraints.DEFAULT);
-	public static final BiMap<GeneralLayoutData.VerticalAlignment, CellConstraints.Alignment> m_verticalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.VerticalAlignment.TOP,
-					CellConstraints.TOP,
-					GeneralLayoutData.VerticalAlignment.CENTER,
-					CellConstraints.CENTER,
-					GeneralLayoutData.VerticalAlignment.BOTTOM,
-					CellConstraints.BOTTOM,
-					GeneralLayoutData.VerticalAlignment.FILL,
-					CellConstraints.FILL,
-					GeneralLayoutData.VerticalAlignment.NONE,
-					CellConstraints.DEFAULT);
+	public static final BidiMap m_horizontalAlignmentMap;
+	static {
+		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, CellConstraints.LEFT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, CellConstraints.CENTER);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, CellConstraints.RIGHT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, CellConstraints.FILL);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.NONE, CellConstraints.DEFAULT);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+	}
+	public static final BidiMap m_verticalAlignmentMap;
+	static {
+		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, CellConstraints.TOP);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, CellConstraints.CENTER);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, CellConstraints.BOTTOM);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, CellConstraints.FILL);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.NONE, CellConstraints.DEFAULT);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+	}
 
 	@Override
 	protected void storeLayoutData(ComponentInfo component) throws Exception {

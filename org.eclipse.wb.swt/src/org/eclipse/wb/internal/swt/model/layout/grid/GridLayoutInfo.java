@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.grid;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -54,6 +51,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1323,26 +1324,24 @@ IGridLayoutInfo<ControlInfo> {
 	// Manage general layout data
 	//
 	////////////////////////////////////////////////////////////////////////////
-	static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.HorizontalAlignment.LEFT,
-					SWT.LEFT,
-					GeneralLayoutData.HorizontalAlignment.CENTER,
-					SWT.CENTER,
-					GeneralLayoutData.HorizontalAlignment.RIGHT,
-					SWT.RIGHT,
-					GeneralLayoutData.HorizontalAlignment.FILL,
-					SWT.FILL);
-	static final BiMap<GeneralLayoutData.VerticalAlignment, Integer> m_verticalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.VerticalAlignment.TOP,
-					SWT.TOP,
-					GeneralLayoutData.VerticalAlignment.CENTER,
-					SWT.CENTER,
-					GeneralLayoutData.VerticalAlignment.BOTTOM,
-					SWT.BOTTOM,
-					GeneralLayoutData.VerticalAlignment.FILL,
-					SWT.FILL);
+	static final BidiMap m_horizontalAlignmentMap;
+	static {
+		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, SWT.LEFT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, SWT.CENTER);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, SWT.RIGHT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, SWT.FILL);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+	}
+	static final BidiMap m_verticalAlignmentMap;
+	static {
+		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, SWT.TOP);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, SWT.CENTER);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, SWT.BOTTOM);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, SWT.FILL);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+	}
 
 	@Override
 	protected void storeLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {

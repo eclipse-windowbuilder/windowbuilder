@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.layout;
 
-import com.google.common.collect.BiMap;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
+
+import org.apache.commons.collections.BidiMap;
 
 /**
  * General layout information for support convert layouts one to another.
@@ -148,21 +148,23 @@ public final class GeneralLayoutData {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @param map
-	 *          the {@link BiMap} generic -> real.
+	 *          the {@link BidiMap} generic -> real.
 	 *
 	 * @return the real value that corresponds given generic one, may be <code>null</code>.
 	 */
-	public static <K, T> T getRealValue(BiMap<K, T> map, K generic) {
-		return generic == null ? null : map.get(generic);
+	@SuppressWarnings("unchecked")
+	public static <K, T> T getRealValue(BidiMap map, K generic) {
+		return generic == null ? null : (T) map.get(generic);
 	}
 
 	/**
 	 * @param map
-	 *          the {@link BiMap} generic -> real.
+	 *          the {@link BidiMap} generic -> real.
 	 *
 	 * @return the generic value that corresponds given real one, may be <code>null</code>.
 	 */
-	public static <K, T> K getGeneralValue(BiMap<K, T> map, T real) {
-		return real == null ? null : map.inverse().get(real);
+	@SuppressWarnings("unchecked")
+	public static <K, T> K getGeneralValue(BidiMap map, T real) {
+		return real == null ? null : (K) map.inverseBidiMap().get(real);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.column;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
@@ -35,6 +32,10 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
+
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
 
 import java.util.List;
 
@@ -151,18 +152,16 @@ IColumnLayoutInfo<ControlInfo> {
 	// Manage general layout data.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.HorizontalAlignment.LEFT,
-					ColumnLayoutData.LEFT,
-					GeneralLayoutData.HorizontalAlignment.CENTER,
-					ColumnLayoutData.CENTER,
-					GeneralLayoutData.HorizontalAlignment.RIGHT,
-					ColumnLayoutData.RIGHT,
-					GeneralLayoutData.HorizontalAlignment.FILL,
-					ColumnLayoutData.FILL,
-					GeneralLayoutData.HorizontalAlignment.NONE,
-					0);
+	public static final BidiMap m_horizontalAlignmentMap;
+	static {
+		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, ColumnLayoutData.LEFT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, ColumnLayoutData.CENTER);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, ColumnLayoutData.RIGHT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, ColumnLayoutData.FILL);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.NONE, 0);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+	}
 
 	@Override
 	protected void storeLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {

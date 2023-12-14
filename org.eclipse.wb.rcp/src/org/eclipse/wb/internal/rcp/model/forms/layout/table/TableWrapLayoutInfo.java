@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -61,6 +58,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
+
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -1190,26 +1191,24 @@ IPreferenceConstants {
 	// Manage general layout data.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.HorizontalAlignment.LEFT,
-					TableWrapData.LEFT,
-					GeneralLayoutData.HorizontalAlignment.CENTER,
-					TableWrapData.CENTER,
-					GeneralLayoutData.HorizontalAlignment.RIGHT,
-					TableWrapData.RIGHT,
-					GeneralLayoutData.HorizontalAlignment.FILL,
-					TableWrapData.FILL);
-	static final BiMap<GeneralLayoutData.VerticalAlignment, Integer> m_verticalAlignmentMap =
-			ImmutableBiMap.of(
-					GeneralLayoutData.VerticalAlignment.TOP,
-					TableWrapData.TOP,
-					GeneralLayoutData.VerticalAlignment.CENTER,
-					TableWrapData.MIDDLE,
-					GeneralLayoutData.VerticalAlignment.BOTTOM,
-					TableWrapData.BOTTOM,
-					GeneralLayoutData.VerticalAlignment.FILL,
-					TableWrapData.FILL);
+	static final BidiMap m_horizontalAlignmentMap;
+	static {
+		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, TableWrapData.LEFT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, TableWrapData.CENTER);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, TableWrapData.RIGHT);
+		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, TableWrapData.FILL);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+	}
+	static final BidiMap m_verticalAlignmentMap;
+	static {
+		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, TableWrapData.TOP);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, TableWrapData.CENTER);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, TableWrapData.BOTTOM);
+		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, TableWrapData.FILL);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+	}
 
 	@Override
 	protected void storeLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {
