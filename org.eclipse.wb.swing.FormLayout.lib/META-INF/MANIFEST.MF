@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.swing.FormLayout.lib;singleton:=true
-Bundle-Version: 1.9.3.qualifier
+Bundle-Version: 1.9.400.qualifier
 Bundle-ClassPath: jgoodies-common-1.8.0.jar,
  jgoodies-forms-1.8.0.jar
 Bundle-Vendor: %providerName
@@ -13,7 +13,6 @@ Export-Package: com.jgoodies.forms.builder,
  com.jgoodies.forms.factories,
  com.jgoodies.forms.layout,
  com.jgoodies.forms.util
-Require-Bundle: org.eclipse.core.resources,
- com.google.guava;bundle-version="30.1.0"
+Require-Bundle: org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.swing.FormLayout.lib

@@ -11,7 +11,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wb.core;bundle-version="1.12.0",
  org.eclipse.wb.core.java,
- com.google.guava;bundle-version="30.1.0",
  org.apache.commons.collections;bundle-version="3.2.2"
 Export-Package: org.eclipse.wb.internal.core.databinding,
  org.eclipse.wb.internal.core.databinding.model,
