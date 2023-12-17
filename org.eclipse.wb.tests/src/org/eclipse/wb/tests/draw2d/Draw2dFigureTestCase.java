@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -24,11 +23,7 @@ import org.junit.Before;
  * @author lobas_av
  *
  */
-public abstract class Draw2dFigureTestCase extends DesignerTestCase
-implements
-ColorConstants,
-ICursorConstants {
-
+public abstract class Draw2dFigureTestCase extends DesignerTestCase implements ColorConstants {
 	@Override
 	@Before
 	public void setUp() throws Exception {

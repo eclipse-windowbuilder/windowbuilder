@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.AbstractPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.SashLineInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -92,9 +92,9 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 		};
 		// set cursor
 		if (m_line.isHorizontal()) {
-			resizeHandle.setCursor(ICursorConstants.SIZEE);
+			resizeHandle.setCursor(Cursors.SIZEE);
 		} else {
-			resizeHandle.setCursor(ICursorConstants.SIZEN);
+			resizeHandle.setCursor(Cursors.SIZEN);
 		}
 		// single static handle
 		resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(), m_line.getPosition(), REQ_RESIZE));

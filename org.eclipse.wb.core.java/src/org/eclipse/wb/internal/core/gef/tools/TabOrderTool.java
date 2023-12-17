@@ -12,12 +12,12 @@ package org.eclipse.wb.internal.core.gef.tools;
 
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -50,7 +50,7 @@ public final class TabOrderTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public TabOrderTool(EditPart part) {
-		setDefaultCursor(ICursorConstants.ARROW);
+		setDefaultCursor(Cursors.ARROW);
 		m_viewer = part.getViewer();
 		m_viewer.addSelectionChangedListener(m_selectionListener);
 		m_containerPolicy = getContainerRole(part);

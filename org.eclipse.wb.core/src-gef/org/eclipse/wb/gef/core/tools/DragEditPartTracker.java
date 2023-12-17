@@ -16,7 +16,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
-import org.eclipse.wb.internal.gef.core.ISharedCursors;
+import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
@@ -45,8 +45,8 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	////////////////////////////////////////////////////////////////////////////
 	public DragEditPartTracker(EditPart sourceEditPart) {
 		super(sourceEditPart);
-		setDefaultCursor(ISharedCursors.CURSOR_MOVE);
-		setDisabledCursor(ISharedCursors.CURSOR_NO);
+		setDefaultCursor(SharedCursors.CURSOR_MOVE);
+		setDisabledCursor(SharedCursors.CURSOR_NO);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

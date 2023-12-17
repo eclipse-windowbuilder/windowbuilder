@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
-import org.eclipse.wb.internal.gef.core.ISharedCursors;
+import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
@@ -36,11 +36,11 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static final Cursor CURSOR_ADD() {
-		return ISharedCursors.CURSOR_ADD;
+		return SharedCursors.CURSOR_ADD;
 	}
 
 	public static final Cursor CURSOR_NO() {
-		return ISharedCursors.CURSOR_NO;
+		return SharedCursors.CURSOR_NO;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

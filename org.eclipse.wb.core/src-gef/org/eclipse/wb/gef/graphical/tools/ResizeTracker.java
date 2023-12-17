@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPartViewer;
@@ -64,7 +64,7 @@ public class ResizeTracker extends Tool {
 		}
 		m_direction = direction;
 		m_requestType = requestType;
-		setDefaultCursor(ICursorConstants.Directional.getCursor(direction));
+		setDefaultCursor(Cursors.getDirectionalCursor(direction));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

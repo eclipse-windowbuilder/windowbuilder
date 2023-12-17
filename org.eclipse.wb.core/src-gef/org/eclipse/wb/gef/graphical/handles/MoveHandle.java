@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.draw2d.Cursors;
 
 /**
  * A Handle used for moving {@link EditPart}s.
@@ -45,7 +46,7 @@ public class MoveHandle extends Handle {
 	public MoveHandle(GraphicalEditPart owner, ILocator locator) {
 		super(owner, locator);
 		setBorder(new LineBorder(1));
-		setCursor(ICursorConstants.SIZEALL);
+		setCursor(Cursors.SIZEALL);
 		// set drag tracker
 		{
 			Tool tracker = new DragEditPartTracker(owner);

@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -24,6 +23,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -72,9 +72,9 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	private Handle createHandle(int direction) {
 		ResizeHandle handle = new ResizeHandle(getHost(), direction);
 		ResizeTracker tracker = new ResizeTracker(direction, null);
-		tracker.setDefaultCursor(ICursorConstants.SIZEALL);
+		tracker.setDefaultCursor(Cursors.SIZEALL);
 		handle.setDragTrackerTool(tracker);
-		handle.setCursor(ICursorConstants.SIZEALL);
+		handle.setCursor(Cursors.SIZEALL);
 		return handle;
 	}
 

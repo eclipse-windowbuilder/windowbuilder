@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,10 +11,10 @@
 package org.eclipse.wb.core.controls.flyout;
 
 import org.eclipse.wb.core.controls.Messages;
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -380,9 +380,9 @@ public final class FlyoutControlComposite extends Composite {
 				m_preferences.setState(state);
 				redraw();
 				FlyoutControlComposite.this.layout();
-			} else if (getCursor() == ICursorConstants.SIZEWE || getCursor() == ICursorConstants.SIZENS) {
+			} else if (getCursor() == Cursors.SIZEWE || getCursor() == Cursors.SIZENS) {
 				m_resize = true;
-			} else if (getCursor() == ICursorConstants.SIZEALL) {
+			} else if (getCursor() == Cursors.SIZEALL) {
 				handleDocking();
 			}
 		}
@@ -452,20 +452,20 @@ public final class FlyoutControlComposite extends Composite {
 					// check for resize band
 					if (isOpenExpanded()) {
 						if (isWest() && x >= clientArea.width - RESIZE_WIDTH) {
-							setCursor(ICursorConstants.SIZEWE);
+							setCursor(Cursors.SIZEWE);
 						} else if (isEast() && x <= RESIZE_WIDTH) {
-							setCursor(ICursorConstants.SIZEWE);
+							setCursor(Cursors.SIZEWE);
 						} else if (isNorth() && y >= clientArea.height - RESIZE_WIDTH) {
-							setCursor(ICursorConstants.SIZENS);
+							setCursor(Cursors.SIZENS);
 						} else if (isSouth() && y <= RESIZE_WIDTH) {
-							setCursor(ICursorConstants.SIZENS);
+							setCursor(Cursors.SIZENS);
 						} else {
 							setCursor(null);
 						}
 					}
 					// check for docking
 					if (getCursor() == null) {
-						setCursor(ICursorConstants.SIZEALL);
+						setCursor(Cursors.SIZEALL);
 					}
 				} else {
 					setCursor(null);
