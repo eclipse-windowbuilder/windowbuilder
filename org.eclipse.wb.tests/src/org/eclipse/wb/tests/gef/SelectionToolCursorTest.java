@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -18,6 +17,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
@@ -91,7 +91,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(120, 120);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZENW);
+			m_expectedLogger.setCursor(Cursors.SIZENW);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// move to "ShellEditPart"
@@ -105,7 +105,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(120, 130);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZEALL);
+			m_expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// move to "RootEditPart"
@@ -131,7 +131,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(120, 120);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZENW);
+			m_expectedLogger.setCursor(Cursors.SIZENW);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// start drag
@@ -150,7 +150,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.endDrag();
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZEALL);
+			m_expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// move to "ShellEditPart"
@@ -164,7 +164,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(120, 220);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZESW);
+			m_expectedLogger.setCursor(Cursors.SIZESW);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// start drag
@@ -190,7 +190,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(220, 120);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZEN);
+			m_expectedLogger.setCursor(Cursors.SIZEN);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// start drag
@@ -221,7 +221,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.endDrag();
 			//
-			//m_expectedLogger.setCursor(ICursorConstants.SIZEN);
+			//m_expectedLogger.setCursor(Cursors.SIZEN);
 			m_expectedLogger.setCursor(null);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
@@ -248,7 +248,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(80, 30);
 			//
-			expectedLogger.setCursor(ICursorConstants.SIZENE);
+			expectedLogger.setCursor(Cursors.SIZENE);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag
@@ -289,7 +289,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(80, 30);
 			//
-			expectedLogger.setCursor(ICursorConstants.SIZENE);
+			expectedLogger.setCursor(Cursors.SIZENE);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag
@@ -334,14 +334,14 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.click(20, 20, 1);
 			//
-			expectedLogger.setCursor(ICursorConstants.SIZENW);
+			expectedLogger.setCursor(Cursors.SIZENW);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// move to "ShellEditPart_MoveHandle"
 		{
 			m_sender.moveTo(20, 30);
 			//
-			expectedLogger.setCursor(ICursorConstants.SIZEALL);
+			expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag "ShellEditPart"
@@ -395,7 +395,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(40, 50);
 			//
-			expectedLogger.setCursor(ICursorConstants.SIZEALL);
+			expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag
@@ -415,7 +415,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			m_sender.endDrag();
 			//
 			expectedLogger.setCursor(CreationToolCursorTest.CURSOR_NO());
-			expectedLogger.setCursor(ICursorConstants.SIZEALL);
+			expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 	}
@@ -441,7 +441,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			m_sender.setStateMask(SWT.ALT);
 			m_sender.startDrag(50, 50, 1);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.CROSS);
+			m_expectedLogger.setCursor(Cursors.CROSS);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// drag over "ShellEditPart"
@@ -471,7 +471,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(220, 120);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.SIZEN);
+			m_expectedLogger.setCursor(Cursors.SIZEN);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// use tracker
@@ -479,7 +479,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			m_sender.setStateMask(SWT.ALT);
 			m_sender.startDrag(220, 120, 1);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.CROSS);
+			m_expectedLogger.setCursor(Cursors.CROSS);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// drag
@@ -492,7 +492,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.startDrag(230, 130, 2);
 			//
-			m_expectedLogger.setCursor(ICursorConstants.NO);
+			m_expectedLogger.setCursor(Cursors.NO);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// drag

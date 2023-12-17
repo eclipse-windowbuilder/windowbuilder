@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
+
+import org.eclipse.draw2d.Cursors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 			//
 			m_sender.mouseEnter(0, 0);
 			//
-			expectedLogger.setCursor(ICursorConstants.CROSS);
+			expectedLogger.setCursor(Cursors.CROSS);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// move to "ShellEditPart_NORTH_WEST_ResizeHandle"
@@ -97,7 +98,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.startDrag(45, 30, 2);
 			//
-			expectedLogger.setCursor(ICursorConstants.NO);
+			expectedLogger.setCursor(Cursors.NO);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// drag

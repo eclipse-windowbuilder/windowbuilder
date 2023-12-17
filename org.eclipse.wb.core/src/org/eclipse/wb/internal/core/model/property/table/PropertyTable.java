@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -423,7 +423,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		if (m_properties != null) {
 			// update cursor
 			if (isLocationSplitter(x)) {
-				setCursor(ICursorConstants.SIZEWE);
+				setCursor(Cursors.SIZEWE);
 			} else {
 				setCursor(null);
 			}

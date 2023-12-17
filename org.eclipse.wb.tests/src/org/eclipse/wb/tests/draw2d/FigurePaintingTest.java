@@ -14,6 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -331,17 +332,17 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		TestLogger expectedLogger = new TestLogger();
 		//
 		// check ivoke updateCursor() during setCursor()
-		testFigure.setCursor(HELP);
+		testFigure.setCursor(Cursors.HELP);
 		expectedLogger.log("updateCursor");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check ivoke updateCursor() during setCursor()
-		testFigure.setCursor(CROSS);
+		testFigure.setCursor(Cursors.CROSS);
 		expectedLogger.log("updateCursor");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check not ivoke updateCursor() during setCursor() if cursor not change
-		testFigure.setCursor(CROSS);
+		testFigure.setCursor(Cursors.CROSS);
 		m_actualLogger.assertEmpty();
 		//
 		// check ivoke updateCursor() during setCursor()

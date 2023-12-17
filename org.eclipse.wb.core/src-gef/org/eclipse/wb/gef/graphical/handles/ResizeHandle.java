@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.draw2d.Cursors;
 
 /**
  * A Handle used to resize a {@link EditPart}s.
@@ -45,7 +46,7 @@ public class ResizeHandle extends SquareHandle {
 	public ResizeHandle(GraphicalEditPart owner, int direction, ILocator locator) {
 		super(owner, locator);
 		m_direction = direction;
-		setCursor(ICursorConstants.Directional.getCursor(direction));
+		setCursor(Cursors.getDirectionalCursor(direction));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

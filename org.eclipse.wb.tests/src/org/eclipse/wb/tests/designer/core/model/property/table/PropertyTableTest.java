@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.table;
 
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.swt.graphics.Point;
 
 import org.junit.Before;
@@ -105,7 +105,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 		int splitter = m_propertyTable.forTests_getSplitter();
 		for (int x = splitter - 1; x <= splitter + 1; x++) {
 			m_sender.moveTo(x, 10);
-			assertSame(ICursorConstants.SIZEWE, m_propertyTable.getCursor());
+			assertSame(Cursors.SIZEWE, m_propertyTable.getCursor());
 		}
 		//
 		m_sender.moveTo(splitter + 2, 10);

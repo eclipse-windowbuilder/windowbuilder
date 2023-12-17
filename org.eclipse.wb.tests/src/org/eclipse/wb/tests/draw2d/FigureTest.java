@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.AncestorListener;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseListener;
@@ -703,12 +704,12 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getCursor());
 		//
 		// check set cursor
-		testFigure.setCursor(HELP);
-		assertSame(HELP, testFigure.getCursor());
+		testFigure.setCursor(Cursors.HELP);
+		assertSame(Cursors.HELP, testFigure.getCursor());
 		//
 		// check set other cursor
-		testFigure.setCursor(CROSS);
-		assertSame(CROSS, testFigure.getCursor());
+		testFigure.setCursor(Cursors.CROSS);
+		assertSame(Cursors.CROSS, testFigure.getCursor());
 		//
 		// check set 'null' cursor
 		testFigure.setCursor(null);

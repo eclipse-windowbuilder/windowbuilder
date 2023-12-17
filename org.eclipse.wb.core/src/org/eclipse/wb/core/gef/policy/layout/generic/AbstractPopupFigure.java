@@ -11,11 +11,11 @@
 package org.eclipse.wb.core.gef.policy.layout.generic;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -63,7 +63,7 @@ public abstract class AbstractPopupFigure extends Figure {
 		setSize(width + MARGIN, height + MARGIN);
 		setBackgroundColor(COLOR_BACKGROUND);
 		setForegroundColor(COLOR_FOREGROUND);
-		setCursor(ICursorConstants.HAND);
+		setCursor(Cursors.HAND);
 		// add mouse listener
 		addMouseListener(new MouseListener.Stub() {
 			@Override

@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.AbstractRelativeLocator;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
@@ -34,6 +33,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
@@ -406,7 +406,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	private class SizeHandle extends SquareHandle {
 		public SizeHandle(int direction, ILocator locator) {
 			super(getHost(), locator);
-			setCursor(ICursorConstants.Directional.getCursor(direction));
+			setCursor(Cursors.getDirectionalCursor(direction));
 			setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE_SIZE));
 		}
 
@@ -572,7 +572,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	private class SpanHandle extends SquareHandle {
 		public SpanHandle(int direction, ILocator locator) {
 			super(getHost(), locator);
-			setCursor(ICursorConstants.Directional.getCursor(direction));
+			setCursor(Cursors.getDirectionalCursor(direction));
 			setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE_SPAN));
 		}
 

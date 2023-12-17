@@ -11,7 +11,7 @@
 package org.eclipse.wb.gef.core.tools;
 
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.internal.gef.core.ISharedCursors;
+import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -31,8 +31,8 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public AbstractCreationTool() {
-		setDefaultCursor(ISharedCursors.CURSOR_ADD);
-		setDisabledCursor(ISharedCursors.CURSOR_NO);
+		setDefaultCursor(SharedCursors.CURSOR_ADD);
+		setDisabledCursor(SharedCursors.CURSOR_NO);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
