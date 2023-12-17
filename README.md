@@ -43,5 +43,21 @@ https://download.eclipse.org/windowbuilder/updates/nightly/latest
 * 💬 Discussion channels
      * https://github.com/eclipse-windowbuilder/windowbuilder/discussions
 
+## How to build on the command line
 
+WindowBuilder can be built locally with at least Java 17 and Maven 3.9.0 using:
 
+`mvn clean package`
+
+If the build has been successfull, then the build artifacts can be directly
+consumed via the local p2 repository at:
+
+`org.eclipse.wb.releng.updatesite/target/repository/`
+
+If you also want to execute all tests, use the following command:
+
+`mvn clean verify -fae`
+
+Please note that executing the entire test suite may take between 30min and 1h,
+depending on your system. Getting all tests to pass may also require a specific
+screen resolution or additional fonts to be installed on your system.
