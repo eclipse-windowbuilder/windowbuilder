@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef.header.selection;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -44,9 +44,9 @@ public final class ResizeHintFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	public ResizeHintFigure() {
 		setOpaque(true);
-		setBackgroundColor(IColorConstants.tooltipBackground);
-		setForegroundColor(IColorConstants.tooltipForeground);
-		setBorder(new CompoundBorder(new LineBorder(IColorConstants.tooltipForeground),
+		setBackgroundColor(ColorConstants.tooltipBackground);
+		setForegroundColor(ColorConstants.tooltipForeground);
+		setBorder(new CompoundBorder(new LineBorder(ColorConstants.tooltipForeground),
 				new MarginBorder(5)));
 	}
 
@@ -261,14 +261,14 @@ public final class ResizeHintFigure extends Figure {
 				// key
 				{
 					String key = keyArray[i];
-					graphics.setForegroundColor(IColorConstants.blue);
+					graphics.setForegroundColor(ColorConstants.blue);
 					drawText(graphics, key, x, y, keyFont);
 					x += keyWidth;
 				}
 				// dash
 				{
 					String text = " - ";
-					graphics.setForegroundColor(IColorConstants.black);
+					graphics.setForegroundColor(ColorConstants.black);
 					x += drawText(graphics, text, x, y, textFont).width;
 				}
 				// text
@@ -280,14 +280,14 @@ public final class ResizeHintFigure extends Figure {
 						if (boldEnd != -1) {
 							String boldText = text.substring(0, boldEnd);
 							// draw bold text
-							graphics.setForegroundColor(IColorConstants.black);
+							graphics.setForegroundColor(ColorConstants.black);
 							x += drawText(graphics, boldText, x, y, keyFont).width;
 							// prepare rest of text
 							text = text.substring(boldEnd + 1);
 						}
 					}
 					// rest of the text
-					graphics.setForegroundColor(IColorConstants.black);
+					graphics.setForegroundColor(ColorConstants.black);
 					Dimension size = drawText(graphics, text, x, y, textFont);
 					// update line width
 					lineWidth = Math.max(lineWidth, x - x_ + size.width);

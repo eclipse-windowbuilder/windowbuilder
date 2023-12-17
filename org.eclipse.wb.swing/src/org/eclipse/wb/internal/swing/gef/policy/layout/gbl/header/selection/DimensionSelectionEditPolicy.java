@@ -15,7 +15,6 @@ import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.Dimension
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -68,7 +68,7 @@ AbstractHeaderSelectionEditPolicy {
 		// move handle
 		{
 			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-			moveHandle.setForegroundColor(IColorConstants.red);
+			moveHandle.setForegroundColor(ColorConstants.red);
 			handles.add(moveHandle);
 		}
 		//
@@ -142,7 +142,7 @@ AbstractHeaderSelectionEditPolicy {
 			// create feedback
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new Figure();
-				LineBorder border = new LineBorder(IColorConstants.red, 2);
+				LineBorder border = new LineBorder(ColorConstants.red, 2);
 				m_lineFeedback.setBorder(border);
 				addFeedback(m_lineFeedback);
 			}

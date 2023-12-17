@@ -15,7 +15,6 @@ import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swt.model.layout.IRowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -142,7 +142,7 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 			// create selection feedback
 			{
 				m_resizeFeedback = new RectangleFigure();
-				m_resizeFeedback.setForegroundColor(IColorConstants.red);
+				m_resizeFeedback.setForegroundColor(ColorConstants.red);
 				addFeedback(m_resizeFeedback);
 			}
 			// create text feedback

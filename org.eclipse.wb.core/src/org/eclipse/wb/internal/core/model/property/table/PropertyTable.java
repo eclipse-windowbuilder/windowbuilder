@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyE
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -42,6 +42,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -66,19 +67,19 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	// Colors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Color COLOR_BACKGROUND = IColorConstants.listBackground;
-	private static final Color COLOR_NO_PROPERTIES = IColorConstants.gray;
-	private static final Color COLOR_LINE = IColorConstants.lightGray;
-	private static final Color COLOR_COMPLEX_LINE = DrawUtils.getShiftedColor(IColorConstants.lightGray, -32);
+	private static final Color COLOR_BACKGROUND = ColorConstants.listBackground;
+	private static final Color COLOR_NO_PROPERTIES = ColorConstants.gray;
+	private static final Color COLOR_LINE = ColorConstants.lightGray;
+	private static final Color COLOR_COMPLEX_LINE = DrawUtils.getShiftedColor(ColorConstants.lightGray, -32);
 	private static final Color COLOR_PROPERTY_BG = DrawUtils.getShiftedColor(COLOR_BACKGROUND, -12);
 	private static final Color COLOR_PROPERTY_BG_MODIFIED = COLOR_BACKGROUND;
-	private static final Color COLOR_PROPERTY_FG_TITLE = IColorConstants.listForeground;
-	private static final Color COLOR_PROPERTY_FG_VALUE = DrawUtils.isDarkColor(IColorConstants.listBackground)
-			? IColorConstants.lightBlue
-					: IColorConstants.darkBlue;
-	private static final Color COLOR_PROPERTY_BG_SELECTED = IColorConstants.listSelection;
-	private static final Color COLOR_PROPERTY_FG_SELECTED = IColorConstants.listSelectionText;
-	private static final Color COLOR_PROPERTY_FG_ADVANCED = IColorConstants.gray;
+	private static final Color COLOR_PROPERTY_FG_TITLE = ColorConstants.listForeground;
+	private static final Color COLOR_PROPERTY_FG_VALUE = DrawUtils.isDarkColor(ColorConstants.listBackground)
+			? ColorConstants.lightBlue
+					: ColorConstants.darkBlue;
+	private static final Color COLOR_PROPERTY_BG_SELECTED = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION);
+	private static final Color COLOR_PROPERTY_FG_SELECTED = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT);
+	private static final Color COLOR_PROPERTY_FG_ADVANCED = ColorConstants.gray;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Sizes

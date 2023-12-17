@@ -13,8 +13,8 @@ package org.eclipse.wb.core.controls.test;
 import org.eclipse.wb.core.controls.flyout.FlyoutControlComposite;
 import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.MemoryFlyoutPreferences;
-import org.eclipse.wb.draw2d.IColorConstants;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -61,8 +61,8 @@ public class FlyoutTest {
 		m_shell.setLayout(new FillLayout());
 		//
 		m_tabFolder = new CTabFolder(m_shell, SWT.NONE);
-		m_tabFolder.setBackground(IColorConstants.button);
-		m_tabFolder.setSelectionBackground(IColorConstants.button);
+		m_tabFolder.setBackground(ColorConstants.button);
+		m_tabFolder.setSelectionBackground(ColorConstants.button);
 		{
 			FlyoutControlComposite flyoutComposite = createTab("WEST", IFlyoutPreferences.DOCK_WEST);
 			flyoutComposite.setValidDockLocations(IFlyoutPreferences.DOCK_WEST

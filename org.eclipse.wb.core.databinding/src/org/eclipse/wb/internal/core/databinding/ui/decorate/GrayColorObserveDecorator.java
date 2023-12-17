@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.decorate;
 
-import org.eclipse.wb.draw2d.IColorConstants;
-
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -28,6 +27,6 @@ public class GrayColorObserveDecorator extends ObserveDecorator {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Color getForeground() {
-		return IColorConstants.gray;
+		return ColorConstants.gray;
 	}
 }

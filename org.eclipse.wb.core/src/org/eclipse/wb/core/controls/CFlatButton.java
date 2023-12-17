@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -34,13 +34,13 @@ import org.eclipse.swt.widgets.Listener;
  */
 public final class CFlatButton extends Canvas {
 	// colors
-	private static final Color COLOR_FACE = DrawUtils.getShiftedColor(IColorConstants.button, 12);
-	private static final Color COLOR_FACE_SELECTED = IColorConstants.buttonDarker;
+	private static final Color COLOR_FACE = DrawUtils.getShiftedColor(ColorConstants.button, 12);
+	private static final Color COLOR_FACE_SELECTED = ColorConstants.buttonDarker;
 	private static final Color COLOR_BORDER_GRADIENT1 = DrawUtils.getShiftedColor(
-			IColorConstants.button,
+			ColorConstants.button,
 			-12);
 	private static final Color COLOR_BORDER_GRADIENT1_SELECTED = DrawUtils.getShiftedColor(
-			IColorConstants.buttonDarker,
+			ColorConstants.buttonDarker,
 			64);
 	private static final Color COLOR_BORDER_GRADIENT2 = DrawUtils.getShiftedColor(COLOR_FACE, -8);
 	private static final Color COLOR_BORDER_GRADIENT2_SELECTED = DrawUtils.getShiftedColor(
@@ -71,7 +71,7 @@ public final class CFlatButton extends Canvas {
 				Rectangle ca = getClientArea();
 				// draw client area
 				// dark border
-				gc.setForeground(IColorConstants.buttonDarker);
+				gc.setForeground(ColorConstants.buttonDarker);
 				gc.drawRectangle(ca.x, ca.y, ca.width - 1, ca.height - 1);
 				cropClientArea(ca);
 				// gradient border

@@ -12,13 +12,13 @@ package org.eclipse.wb.core.gef.policy.selection;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 
 import org.eclipse.draw2d.AncestorListener;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -45,7 +45,7 @@ public class LineSelectionEditPolicy extends SelectionEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public LineSelectionEditPolicy() {
-		this(IColorConstants.orange);
+		this(ColorConstants.orange);
 	}
 
 	public LineSelectionEditPolicy(Color lineColor) {

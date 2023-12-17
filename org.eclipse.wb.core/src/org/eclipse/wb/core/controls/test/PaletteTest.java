@@ -18,9 +18,9 @@ import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalette;
 import org.eclipse.wb.core.controls.palette.PaletteComposite;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -41,7 +41,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.test
  */
-public class PaletteTest implements IColorConstants {
+public class PaletteTest implements ColorConstants {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Main

@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.selection;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -45,9 +45,9 @@ public final class ResizeHintFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	public ResizeHintFigure() {
 		setOpaque(true);
-		setBackgroundColor(IColorConstants.tooltipBackground);
-		setForegroundColor(IColorConstants.tooltipForeground);
-		setBorder(new CompoundBorder(new LineBorder(IColorConstants.tooltipForeground),
+		setBackgroundColor(ColorConstants.tooltipBackground);
+		setForegroundColor(ColorConstants.tooltipForeground);
+		setBorder(new CompoundBorder(new LineBorder(ColorConstants.tooltipForeground),
 				new MarginBorder(2)));
 	}
 
@@ -152,7 +152,7 @@ public final class ResizeHintFigure extends Figure {
 				x = drawText(graphics, x, y, GefMessages.ResizeHintFigure_press, font);
 				//
 				graphics.pushState();
-				graphics.setForegroundColor(IColorConstants.lightBlue);
+				graphics.setForegroundColor(ColorConstants.lightBlue);
 				x = drawText(graphics, x, y + 1, "Ctrl", boldFont);
 				graphics.popState();
 				//

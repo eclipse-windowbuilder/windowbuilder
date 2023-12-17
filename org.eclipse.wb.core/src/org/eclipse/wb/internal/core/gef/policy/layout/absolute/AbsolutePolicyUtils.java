@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
-import org.eclipse.wb.draw2d.IColorConstants;
-
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -26,8 +25,8 @@ public final class AbsolutePolicyUtils {
 	// Constants
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final Color COLOR_FEEDBACK = IColorConstants.lightBlue;
-	public static final Color COLOR_OUTLINE = IColorConstants.orange;
+	public static final Color COLOR_FEEDBACK = ColorConstants.lightBlue;
+	public static final Color COLOR_OUTLINE = ColorConstants.orange;
 	public static final int DEFAULT_COMPONENT_GAP = 6;
 	public static final int DEFAULT_CONTAINER_GAP = 6;
 

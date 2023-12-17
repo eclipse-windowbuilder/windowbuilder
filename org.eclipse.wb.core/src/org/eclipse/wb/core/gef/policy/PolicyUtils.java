@@ -13,7 +13,6 @@ package org.eclipse.wb.core.gef.policy;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
@@ -120,9 +120,9 @@ public abstract class PolicyUtils {
 	 * @return the {@link Border} for target feedback.
 	 */
 	public static Border createTargetBorder() {
-		LineBorder darkBorder = new LineBorder(IColorConstants.darkGreen, 1);
-		LineBorder darkBorder2 = new LineBorder(IColorConstants.darkGreen, 1);
-		LineBorder lightBorder = new LineBorder(IColorConstants.lightGreen, 1);
+		LineBorder darkBorder = new LineBorder(ColorConstants.darkGreen, 1);
+		LineBorder darkBorder2 = new LineBorder(ColorConstants.darkGreen, 1);
+		LineBorder lightBorder = new LineBorder(ColorConstants.lightGreen, 1);
 		return new CompoundBorder(new CompoundBorder(darkBorder, lightBorder), darkBorder2);
 	}
 

@@ -12,10 +12,10 @@ package org.eclipse.wb.core.controls.test;
 
 import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.core.controls.CSpinnerDeferredNotifier;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -149,7 +149,7 @@ public class CSpinnerTest {
 
 	private void updateValueLabel(Event event, final Label valueLabel) {
 		valueLabel.setText("value: " + event.detail);
-		valueLabel.setForeground(event.doit ? IColorConstants.black : IColorConstants.red);
+		valueLabel.setForeground(event.doit ? ColorConstants.black : ColorConstants.red);
 		shell.layout();
 	}
 }

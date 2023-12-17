@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.model.property.editor.color;
 
 import org.eclipse.wb.core.editor.color.CustomColorPickerComposite;
 import org.eclipse.wb.core.editor.constants.IColorChooserPreferenceConstants;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -33,6 +32,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsCo
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
@@ -122,7 +122,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
 						gc.fillRectangle(x_c, y_c, width_c, height_c);
 					}
 					// draw line
-					gc.setForeground(IColorConstants.gray);
+					gc.setForeground(ColorConstants.gray);
 					gc.drawRectangle(x_c, y_c, width_c, height_c);
 				} finally {
 					gc.setBackground(oldBackground);

@@ -13,7 +13,6 @@ package org.eclipse.wb.core.gef.policy.layout.flow;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
@@ -24,6 +23,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
@@ -435,7 +435,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 			m_insertionLine = new Polyline();
 			// presentation
 			m_insertionLine.setLineWidth(2);
-			m_insertionLine.setForegroundColor(IColorConstants.red);
+			m_insertionLine.setForegroundColor(ColorConstants.red);
 			// default points
 			m_insertionLine.addPoint(new Point(0, 0));
 			m_insertionLine.addPoint(new Point(0, 0));

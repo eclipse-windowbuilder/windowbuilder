@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDimensionIn
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutImages;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -65,7 +65,7 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 			protected void paintClientArea(Graphics graphics) {
 				Rectangle r = getClientArea();
 				// draw rectangle
-				graphics.setForegroundColor(IColorConstants.buttonDarker);
+				graphics.setForegroundColor(ColorConstants.buttonDarker);
 				graphics.drawLine(r.x, r.y, r.x, r.bottom());
 				graphics.drawLine(r.right() - 1, r.y, r.right() - 1, r.bottom());
 				// draw column index
@@ -81,7 +81,7 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 					titleLeft = r.x + (r.width - textExtents.width) / 2;
 					titleRight = titleLeft + textExtents.width;
 					int y = r.y + (r.height - textExtents.height) / 2;
-					graphics.setForegroundColor(IColorConstants.black);
+					graphics.setForegroundColor(ColorConstants.black);
 					graphics.drawText(title, titleLeft, y);
 				}
 				//

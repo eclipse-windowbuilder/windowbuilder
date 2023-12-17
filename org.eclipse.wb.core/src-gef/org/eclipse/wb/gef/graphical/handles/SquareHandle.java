@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -61,14 +61,14 @@ public abstract class SquareHandle extends Handle {
 	 * Returns the color for the outside of the handle.
 	 */
 	protected Color getBorderColor() {
-		return isPrimary() ? IColorConstants.white : IColorConstants.black;
+		return isPrimary() ? ColorConstants.white : ColorConstants.black;
 	}
 
 	/**
 	 * Returns the color for the inside of the handle.
 	 */
 	protected Color getFillColor() {
-		return isPrimary() ? IColorConstants.black : IColorConstants.white;
+		return isPrimary() ? ColorConstants.black : ColorConstants.white;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.AbstractRelativeLocator;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -34,6 +33,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
@@ -139,7 +139,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 				}
 			}
 		});
-		moveHandle.setForegroundColor(IColorConstants.red);
+		moveHandle.setForegroundColor(ColorConstants.red);
 		return moveHandle;
 	}
 
@@ -380,7 +380,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			// add feedback figure
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new RectangleFigure();
-				m_lineFeedback.setForegroundColor(IColorConstants.green);
+				m_lineFeedback.setForegroundColor(ColorConstants.green);
 				addFeedback(m_lineFeedback);
 			}
 			// set bounds
@@ -412,12 +412,12 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 		@Override
 		protected Color getFillColor() {
-			return isPrimary() ? IColorConstants.black : IColorConstants.white;
+			return isPrimary() ? ColorConstants.black : ColorConstants.white;
 		}
 
 		@Override
 		protected Color getBorderColor() {
-			return IColorConstants.white;
+			return ColorConstants.white;
 		}
 	}
 
@@ -509,7 +509,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			// add feedback figure
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new RectangleFigure();
-				m_lineFeedback.setForegroundColor(IColorConstants.green);
+				m_lineFeedback.setForegroundColor(ColorConstants.green);
 				addFeedback(m_lineFeedback);
 			}
 			// set bounds
@@ -578,12 +578,12 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 		@Override
 		protected Color getFillColor() {
-			return isPrimary() ? IColorConstants.green : IColorConstants.white;
+			return isPrimary() ? ColorConstants.green : ColorConstants.white;
 		}
 
 		@Override
 		protected Color getBorderColor() {
-			return IColorConstants.black;
+			return ColorConstants.black;
 		}
 	}
 

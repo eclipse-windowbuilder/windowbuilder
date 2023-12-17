@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -44,7 +44,7 @@ public final class MacMenuImageFigure extends MenuImageFigure {
 		// draw border on MacOSX because the fill color of menu is the same as fill color of window client area
 		{
 			Rectangle clientArea = getClientArea();
-			graphics.setForegroundColor(IColorConstants.buttonLightest);
+			graphics.setForegroundColor(ColorConstants.buttonLightest);
 			graphics.setLineStyle(SWT.LINE_DASH);
 			graphics.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
 		}

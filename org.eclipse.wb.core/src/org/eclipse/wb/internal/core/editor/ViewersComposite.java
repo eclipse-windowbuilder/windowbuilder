@@ -12,13 +12,13 @@ package org.eclipse.wb.internal.core.editor;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.gef.header.HeadersContainerEditPart;
 import org.eclipse.wb.internal.core.gef.header.HeadersContextMenuProvider;
 import org.eclipse.wb.internal.core.gef.header.HeadersEditPartFactory;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 import org.eclipse.wb.internal.gef.graphical.HeaderGraphicalViewer;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
@@ -63,7 +63,7 @@ public final class ViewersComposite extends Composite {
 				@Override
 				public void handleEvent(Event event) {
 					GC gc = event.gc;
-					gc.setForeground(IColorConstants.buttonDarker);
+					gc.setForeground(ColorConstants.buttonDarker);
 					//
 					Rectangle clientArea = getClientArea();
 					gc.drawLine(HEADER_SIZE, HEADER_SIZE, clientArea.width, HEADER_SIZE);

@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -45,6 +44,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -78,8 +78,8 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
 extends
 SelectionEditPolicy {
 	private static final int EXTENSION = 8;
-	private final Color baseColor = IColorConstants.blue;
-	private final Color offsetColor = IColorConstants.lightBlue;
+	private final Color baseColor = ColorConstants.blue;
+	private final Color offsetColor = ColorConstants.lightBlue;
 	private final IFormLayoutInfo<C> layoutInfo;
 	private final FormLayoutInfoImplClassic<C> layoutImpl;
 	private final AnchorFiguresClassic<C> anchorFigures;
@@ -125,7 +125,7 @@ SelectionEditPolicy {
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> handles = new ArrayList<>();
 		MoveHandle moveHandle = new MoveHandle(getHost());
-		moveHandle.setBorder(new LineBorder(IColorConstants.lightBlue));
+		moveHandle.setBorder(new LineBorder(ColorConstants.lightBlue));
 		handles.add(moveHandle);
 		handles.add(createResizeHandle(IPositionConstants.NORTH));
 		handles.add(createResizeHandle(IPositionConstants.SOUTH));
@@ -143,12 +143,12 @@ SelectionEditPolicy {
 		ResizeHandle handle = new ResizeHandle(owner, direction) {
 			@Override
 			protected Color getBorderColor() {
-				return isPrimary() ? IColorConstants.white : IColorConstants.lightBlue;
+				return isPrimary() ? ColorConstants.white : ColorConstants.lightBlue;
 			}
 
 			@Override
 			protected Color getFillColor() {
-				return isPrimary() ? IColorConstants.lightBlue : IColorConstants.white;
+				return isPrimary() ? ColorConstants.lightBlue : ColorConstants.white;
 			}
 		};
 		handle.setDragTrackerTool(new ResizeTracker(direction,
@@ -247,7 +247,7 @@ SelectionEditPolicy {
 						if (FormUtils.between(x - (childBounds.right() + hwMargin), 0, sens)) {
 							componentFound = true;
 							setX(bounds, childBounds.right() + hwMargin);
-							addVerticalResizeLine("12", child, childBounds.right(), IColorConstants.green);
+							addVerticalResizeLine("12", child, childBounds.right(), ColorConstants.green);
 							addVerticalResizeLine("2", childBounds.right() + hwMargin, offsetColor);
 							xText =
 									(FormUtils.getVariableName(child) == null
@@ -257,7 +257,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							setX(bounds, childBounds.right());
 							addVerticalResizeLine("11", childBounds.right(), offsetColor);
-							addVerticalResizeLine("12", child, childBounds.right(), IColorConstants.green);
+							addVerticalResizeLine("12", child, childBounds.right(), ColorConstants.green);
 							xText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.right())
@@ -266,7 +266,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							setX(bounds, childBounds.x);
 							addVerticalResizeLine("11", childBounds.x, offsetColor);
-							addVerticalResizeLine("12", child, childBounds.x, IColorConstants.green);
+							addVerticalResizeLine("12", child, childBounds.x, ColorConstants.green);
 							xText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.right())
@@ -309,7 +309,7 @@ SelectionEditPolicy {
 			} else {
 				xText = String.valueOf(bounds.width);
 			}
-			addVerticalResizeLine("5", bounds.x, parentClientAreaHeight, IColorConstants.red);
+			addVerticalResizeLine("5", bounds.x, parentClientAreaHeight, ColorConstants.red);
 		}
 		// East
 		if (hasDirection(direction, IPositionConstants.EAST)) {
@@ -325,7 +325,7 @@ SelectionEditPolicy {
 						if (FormUtils.between(childBounds.x - hwMargin - x, 0, sens)) {
 							componentFound = true;
 							bounds.width = childBounds.x - hwMargin - bounds.x;
-							addVerticalResizeLine("12", child, childBounds.x, IColorConstants.green);
+							addVerticalResizeLine("12", child, childBounds.x, ColorConstants.green);
 							addVerticalResizeLine("2", childBounds.x - hwMargin, offsetColor);
 							xText =
 									(FormUtils.getVariableName(child) == null
@@ -335,7 +335,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							bounds.width = childBounds.x - bounds.x;
 							addVerticalResizeLine("11", childBounds.x, offsetColor);
-							addVerticalResizeLine("12", child, childBounds.x, IColorConstants.green);
+							addVerticalResizeLine("12", child, childBounds.x, ColorConstants.green);
 							xText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.x)
@@ -344,7 +344,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							bounds.width = childBounds.right() - bounds.x;
 							addVerticalResizeLine("11", childBounds.right(), offsetColor);
-							addVerticalResizeLine("12", child, childBounds.right(), IColorConstants.green);
+							addVerticalResizeLine("12", child, childBounds.right(), ColorConstants.green);
 							xText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.x)
@@ -387,7 +387,7 @@ SelectionEditPolicy {
 			} else {
 				xText = String.valueOf(bounds.width);
 			}
-			addVerticalResizeLine("5", bounds.right(), parentClientAreaHeight, IColorConstants.red);
+			addVerticalResizeLine("5", bounds.right(), parentClientAreaHeight, ColorConstants.red);
 		}
 		// North
 		if (hasDirection(direction, IPositionConstants.NORTH)) {
@@ -403,7 +403,7 @@ SelectionEditPolicy {
 						if (FormUtils.between(y - (childBounds.bottom() + vwMargin), 0, sens)) {
 							componentFound = true;
 							setY(bounds, childBounds.bottom() + vwMargin);
-							addHorizontalResizeLine("12", child, childBounds.bottom(), IColorConstants.green);
+							addHorizontalResizeLine("12", child, childBounds.bottom(), ColorConstants.green);
 							addHorizontalResizeLine("2", childBounds.bottom() + vwMargin, offsetColor);
 							yText =
 									(FormUtils.getVariableName(child) == null
@@ -413,7 +413,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							setY(bounds, childBounds.bottom());
 							addHorizontalResizeLine("11", childBounds.bottom(), offsetColor);
-							addHorizontalResizeLine("12", child, childBounds.bottom(), IColorConstants.green);
+							addHorizontalResizeLine("12", child, childBounds.bottom(), ColorConstants.green);
 							yText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.bottom())
@@ -422,7 +422,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							setY(bounds, childBounds.y);
 							addHorizontalResizeLine("11", childBounds.y, offsetColor);
-							addHorizontalResizeLine("12", child, childBounds.y, IColorConstants.green);
+							addHorizontalResizeLine("12", child, childBounds.y, ColorConstants.green);
 							yText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.bottom())
@@ -465,7 +465,7 @@ SelectionEditPolicy {
 			} else {
 				yText = String.valueOf(bounds.height);
 			}
-			addHorizontalResizeLine("5", bounds.y, parentClientAreaWidth, IColorConstants.red);
+			addHorizontalResizeLine("5", bounds.y, parentClientAreaWidth, ColorConstants.red);
 		}
 		// South
 		if (hasDirection(direction, IPositionConstants.SOUTH)) {
@@ -481,7 +481,7 @@ SelectionEditPolicy {
 						if (FormUtils.between(childBounds.y - vwMargin - y, 0, sens)) {
 							componentFound = true;
 							bounds.height = childBounds.y - vwMargin - bounds.y;
-							addHorizontalResizeLine("12", child, childBounds.y, IColorConstants.green);
+							addHorizontalResizeLine("12", child, childBounds.y, ColorConstants.green);
 							addHorizontalResizeLine("2", childBounds.y - vwMargin, offsetColor);
 							yText =
 									(FormUtils.getVariableName(child) == null
@@ -491,7 +491,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							bounds.height = childBounds.y - bounds.y;
 							addHorizontalResizeLine("11", childBounds.y, offsetColor);
-							addHorizontalResizeLine("12", child, childBounds.y, IColorConstants.green);
+							addHorizontalResizeLine("12", child, childBounds.y, ColorConstants.green);
 							yText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.y)
@@ -500,7 +500,7 @@ SelectionEditPolicy {
 							componentFound = true;
 							bounds.height = childBounds.bottom() - bounds.y;
 							addHorizontalResizeLine("11", childBounds.bottom(), offsetColor);
-							addHorizontalResizeLine("12", child, childBounds.bottom(), IColorConstants.green);
+							addHorizontalResizeLine("12", child, childBounds.bottom(), ColorConstants.green);
 							yText =
 									FormUtils.getVariableName(child) == null
 									? String.valueOf(childBounds.y)
@@ -543,7 +543,7 @@ SelectionEditPolicy {
 			} else {
 				yText = String.valueOf(bounds.height);
 			}
-			addHorizontalResizeLine("5", bounds.bottom(), parentClientAreaWidth, IColorConstants.red);
+			addHorizontalResizeLine("5", bounds.bottom(), parentClientAreaWidth, ColorConstants.red);
 		}
 		{
 			// move the source feedback figure
@@ -1211,7 +1211,7 @@ SelectionEditPolicy {
 				if (mouseQuadrant == -1) {
 					return;
 				}
-				graphics.setBackgroundColor(IColorConstants.blue);
+				graphics.setBackgroundColor(ColorConstants.blue);
 				Rectangle bounds = figure.getBounds();
 				PointList points = new PointList();
 				switch (mouseQuadrant) {

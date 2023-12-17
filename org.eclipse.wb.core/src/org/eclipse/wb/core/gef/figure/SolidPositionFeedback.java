@@ -11,10 +11,10 @@
 package org.eclipse.wb.core.gef.figure;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
@@ -65,8 +65,8 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	 * @return the border {@link Color}.
 	 */
 	private Color getBorderColor() {
-		return IColorConstants.darkGreen;
-		//return IColorConstants.orange;
+		return ColorConstants.darkGreen;
+		//return ColorConstants.orange;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	 */
 	private Color getInactiveColor() {
 		//return SWTResourceManager.getColor(0x64, 0x95, 0xED);
-		return IColorConstants.lightGreen;
+		return ColorConstants.lightGreen;
 	}
 
 	/**
@@ -82,6 +82,6 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	 */
 	private Color getActiveColor() {
 		//return SWTResourceManager.getColor(0x1E, 0xB0, 0xFF);
-		return IColorConstants.yellow;
+		return ColorConstants.yellow;
 	}
 }

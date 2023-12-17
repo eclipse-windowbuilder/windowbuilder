@@ -12,13 +12,13 @@ package org.eclipse.wb.gef.graphical.tools;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -248,8 +248,8 @@ public class MarqueeSelectionTool extends Tool {
 					graphics.drawRectangle(0, 0, r.width - 1, r.height - 1);
 				}
 			};
-			m_marqueeFeedbackFigure.setForegroundColor(IColorConstants.white);
-			m_marqueeFeedbackFigure.setBackgroundColor(IColorConstants.black);
+			m_marqueeFeedbackFigure.setForegroundColor(ColorConstants.white);
+			m_marqueeFeedbackFigure.setBackgroundColor(ColorConstants.black);
 			getFeedbackPane().add(m_marqueeFeedbackFigure);
 		}
 		// update feedback figure

@@ -19,7 +19,6 @@ import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.PluginFlyoutPreferences;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -118,7 +118,7 @@ public abstract class DesignComposite extends Composite {
 		// separator to highlight toolbar
 		{
 			LineControl separator = new LineControl(editorComposite, SWT.HORIZONTAL);
-			separator.setBackground(IColorConstants.buttonDarker);
+			separator.setBackground(ColorConstants.buttonDarker);
 			//Exclude from GridData when separator is hidden
 			//Separator should be hidden when toolbar is hidden.
 			GridDataFactory.create(separator).grabH().fill().exclude(windowbuilderBasic);
@@ -158,7 +158,7 @@ public abstract class DesignComposite extends Composite {
 		// configure main GEF viewer
 		{
 			m_viewer = m_viewersComposite.getViewer();
-			m_viewer.getRootFigure().setBackgroundColor(IColorConstants.listBackground);
+			m_viewer.getRootFigure().setBackgroundColor(ColorConstants.listBackground);
 			m_viewer.setEditDomain(domain);
 			m_viewer.setEditPartFactory(EditPartFactory.INSTANCE);
 		}

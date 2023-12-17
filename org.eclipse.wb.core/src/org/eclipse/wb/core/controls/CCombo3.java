@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.binding.editors.controls.DefaultControlActionsManager;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -22,6 +22,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
@@ -101,11 +102,11 @@ public class CCombo3 extends Composite {
 							|| m_table.isFocusControl();
 					// configure colors
 					if (hasFocus) {
-						m_text.setBackground(IColorConstants.listSelection);
-						m_text.setForeground(IColorConstants.listSelectionText);
+						m_text.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION));
+						m_text.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT));
 					} else {
-						m_text.setBackground(IColorConstants.listBackground);
-						m_text.setForeground(IColorConstants.listForeground);
+						m_text.setBackground(ColorConstants.listBackground);
+						m_text.setForeground(ColorConstants.listForeground);
 					}
 					// send FocusOut event
 					if (old_hasFocus && !hasFocus) {

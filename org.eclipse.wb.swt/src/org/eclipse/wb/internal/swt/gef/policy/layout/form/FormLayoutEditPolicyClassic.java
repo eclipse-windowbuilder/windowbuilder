@@ -22,7 +22,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
@@ -51,6 +50,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -718,7 +718,7 @@ implements IHeadersProvider {
 				cmd = new MoveToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight, y - layoutMarginTop);
 			}
 		}
-		addVLine(part, bounds.bottom(), layout.getComposite().getClientArea().width, IColorConstants.red);
+		addVLine(part, bounds.bottom(), layout.getComposite().getClientArea().width, ColorConstants.red);
 		if (createControl) {
 			createCommand.add(cmd);
 		} else {
@@ -847,7 +847,7 @@ implements IHeadersProvider {
 				cmd = new MoveToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth, x - layoutMarginLeft);
 			}
 		}
-		addHLine(part, bounds.right(), layout.getComposite().getClientArea().height, IColorConstants.red);
+		addHLine(part, bounds.right(), layout.getComposite().getClientArea().height, ColorConstants.red);
 		if (createControl) {
 			createCommand.add(cmd);
 		} else {
@@ -973,7 +973,7 @@ implements IHeadersProvider {
 				cmd = new MoveToOffsetCommand(control, IPositionConstants.TOP, parentHeight, y - layoutMarginTop);
 			}
 		}
-		addVLine(part, bounds.y, layout.getComposite().getClientArea().width, IColorConstants.red);
+		addVLine(part, bounds.y, layout.getComposite().getClientArea().width, ColorConstants.red);
 		if (createControl) {
 			createCommand.add(cmd);
 		} else {
@@ -1101,7 +1101,7 @@ implements IHeadersProvider {
 				cmd = new MoveToOffsetCommand(control, IPositionConstants.LEFT, parentWidth, x - layoutMarginLeft);
 			}
 		}
-		addHLine(part, bounds.x, layout.getComposite().getClientArea().height, IColorConstants.red);
+		addHLine(part, bounds.x, layout.getComposite().getClientArea().height, ColorConstants.red);
 		if (createControl) {
 			createCommand.add(cmd);
 		} else {

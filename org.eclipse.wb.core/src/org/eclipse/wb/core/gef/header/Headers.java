@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.header;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -28,6 +28,6 @@ public final class Headers {
 	public static final Color COLOR_HEADER = getColorHeader();
 
 	private static Color getColorHeader() {
-		return DrawUtils.getShiftedColor(IColorConstants.white, -16);
+		return DrawUtils.getShiftedColor(ColorConstants.white, -16);
 	}
 }

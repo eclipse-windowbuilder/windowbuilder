@@ -15,7 +15,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.EditPart;
@@ -28,6 +27,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Interval;
@@ -54,7 +54,7 @@ public abstract class AbstractGridHelper {
 	private static final Color EXISTING_COLOR = new Color(null, 219, 158, 158);
 	private static final Color VIRTUAL_COLOR = new Color(null, 240, 204, 204);
 	private static final Color SELECTION_COLOR = DrawUtils.getShiftedColor(
-			IColorConstants.lightGray,
+			ColorConstants.lightGray,
 			-16);
 	////////////////////////////////////////////////////////////////////////////
 	//

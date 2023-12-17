@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public final class MoveSelectionEditPolicy extends SelectionEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public MoveSelectionEditPolicy() {
-		this(IColorConstants.black);
+		this(ColorConstants.black);
 	}
 
 	public MoveSelectionEditPolicy(Color color) {

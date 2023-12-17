@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -39,9 +39,9 @@ public class TopResizeFigure extends SemiTransparentFigure {
 	////////////////////////////////////////////////////////////////////////////
 	public TopResizeFigure() {
 		super(64);
-		setBackgroundColor(IColorConstants.lightGreen);
-		setForegroundColor(IColorConstants.darkGray);
-		setBorder(new LineBorder(IColorConstants.darkBlue, 1));
+		setBackgroundColor(ColorConstants.lightGreen);
+		setForegroundColor(ColorConstants.darkGray);
+		setBorder(new LineBorder(ColorConstants.darkBlue, 1));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

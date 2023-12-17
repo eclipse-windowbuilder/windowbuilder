@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.gef.part.widgets;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.TerminatorLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
@@ -19,6 +18,7 @@ import org.eclipse.wb.internal.rcp.gef.policy.widgets.ScrolledCompositeLayoutEdi
 import org.eclipse.wb.internal.rcp.model.widgets.ScrolledCompositeInfo;
 import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -53,7 +53,7 @@ public final class ScrolledCompositeEditPart extends CompositeEditPart {
 		if (!m_composite.hasRequired_setContent()) {
 			String message = GefMessages.ScrolledCompositeEditPart_setContentWarning;
 			Dimension extent = TextUtilities.INSTANCE.getTextExtents(message, graphics.getFont());
-			graphics.setForegroundColor(IColorConstants.red);
+			graphics.setForegroundColor(ColorConstants.red);
 			graphics.drawText(
 					message,
 					(figure.getSize().width - extent.width) / 2,

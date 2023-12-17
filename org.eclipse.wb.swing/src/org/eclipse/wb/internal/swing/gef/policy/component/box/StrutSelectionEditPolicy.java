@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -25,6 +24,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.BoxSupport;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -62,7 +62,7 @@ abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
 		List<Handle> handles = new ArrayList<>();
 		// create move handle
 		MoveHandle moveHandle = new MoveHandle(getHost());
-		moveHandle.setForegroundColor(IColorConstants.red);
+		moveHandle.setForegroundColor(ColorConstants.red);
 		handles.add(moveHandle);
 		//
 		return handles;
@@ -132,7 +132,7 @@ abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
 			// create size feedback
 			{
 				m_sizeFeedback = new RectangleFigure();
-				m_sizeFeedback.setForegroundColor(IColorConstants.red);
+				m_sizeFeedback.setForegroundColor(ColorConstants.red);
 				addFeedback(m_sizeFeedback);
 			}
 			// create text feedback

@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
+
+import org.eclipse.draw2d.ColorConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public final class GlueSelectionEditPolicy extends SelectionEditPolicy {
 		List<Handle> handles = new ArrayList<>();
 		// create move handle
 		MoveHandle moveHandle = new MoveHandle(getHost());
-		moveHandle.setForegroundColor(IColorConstants.red);
+		moveHandle.setForegroundColor(ColorConstants.red);
 		handles.add(moveHandle);
 		//
 		return handles;
