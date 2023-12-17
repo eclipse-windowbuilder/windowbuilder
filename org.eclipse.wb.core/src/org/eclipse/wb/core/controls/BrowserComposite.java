@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls;
 
-import org.eclipse.wb.draw2d.IColorConstants;
-
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.FillLayout;
@@ -42,7 +41,7 @@ public class BrowserComposite extends Composite {
 			m_browser = new Browser(this, SWT.NONE);
 		} else {
 			m_text = new Text(this, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
-			m_text.setBackground(IColorConstants.button);
+			m_text.setBackground(ColorConstants.button);
 		}
 	}
 

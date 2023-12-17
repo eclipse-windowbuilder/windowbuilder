@@ -11,8 +11,8 @@
 package org.eclipse.wb.core.gef.figure;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
@@ -36,7 +36,7 @@ public final class OutlineImageFigure extends Figure {
 	}
 
 	public OutlineImageFigure(Image image) {
-		this(image, IColorConstants.orange);
+		this(image, ColorConstants.orange);
 	}
 
 	public OutlineImageFigure(Image image, Color borderColor) {

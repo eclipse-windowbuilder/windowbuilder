@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
@@ -19,6 +18,7 @@ import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.internal.draw2d.VerticalLabel;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -45,10 +45,10 @@ public final class TextFeedback {
 		// create label
 		m_label = isHorizontal ? new Label() : new VerticalLabel();
 		m_label.setOpaque(true);
-		m_label.setBackgroundColor(IColorConstants.tooltipBackground);
-		m_label.setForegroundColor(IColorConstants.tooltipForeground);
+		m_label.setBackgroundColor(ColorConstants.tooltipBackground);
+		m_label.setForegroundColor(ColorConstants.tooltipForeground);
 		{
-			Border outer = new LineBorder(IColorConstants.tooltipForeground);
+			Border outer = new LineBorder(ColorConstants.tooltipForeground);
 			Border inner = new MarginBorder(2);
 			m_label.setBorder(new CompoundBorder(outer, inner));
 		}

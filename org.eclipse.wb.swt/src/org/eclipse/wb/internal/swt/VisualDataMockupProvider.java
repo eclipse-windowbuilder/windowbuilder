@@ -1,7 +1,6 @@
 package org.eclipse.wb.internal.swt;
 
-import org.eclipse.wb.draw2d.IColorConstants;
-
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -75,20 +74,20 @@ public class VisualDataMockupProvider {
 		// draw
 		Image image = new Image(menu.getDisplay(), menuWidth, menuHeight);
 		gc = new GC(image);
-		gc.setBackground(IColorConstants.buttonLightest);
+		gc.setBackground(ColorConstants.buttonLightest);
 		gc.fillRectangle(image.getBounds());
 		for (int i = 0; i < menu.getItemCount(); ++i) {
 			MenuItem item = menu.getItem(i);
 			int x = bounds[i * 4 + 0];
 			int y = bounds[i * 4 + 1] + bounds[i * 4 + 3] / 2; // y-center of the item
 			if ((item.getStyle() & SWT.SEPARATOR) != 0) {
-				gc.setForeground(IColorConstants.lightGray);
+				gc.setForeground(ColorConstants.lightGray);
 				gc.drawLine(x, y, x + menuWidth, y);
 			} else {
 				if (item.getEnabled()) {
-					gc.setForeground(IColorConstants.menuForeground);
+					gc.setForeground(ColorConstants.menuForeground);
 				} else {
-					gc.setForeground(IColorConstants.gray);
+					gc.setForeground(ColorConstants.gray);
 				}
 				if (item.getSelection()) {
 					Image checkImage = loadImage("check.png");

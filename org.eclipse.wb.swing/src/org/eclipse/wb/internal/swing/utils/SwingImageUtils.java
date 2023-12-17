@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.utils;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -165,7 +165,7 @@ public class SwingImageUtils {
 				String windowTitle = getWindowTitle(window);
 				if (!StringUtils.isEmpty(windowTitle)) {
 					gc.setClipping(70, 0, width - 80, offsetY);
-					gc.setForeground(IColorConstants.titleForeground);
+					gc.setForeground(ColorConstants.titleForeground);
 					org.eclipse.swt.graphics.Point titleExtent = gc.stringExtent(windowTitle);
 					gc.drawString(
 							windowTitle,

@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.core.editor.errors;
 
 import org.eclipse.wb.core.controls.BrowserComposite;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -99,7 +99,7 @@ public class BrowserMessageDialog extends Dialog {
 				StringUtils.replace(
 						HTML_HEADER,
 						"%bg_color%",
-						DesignerExceptionUtils.getColorWebString(IColorConstants.button))
+						DesignerExceptionUtils.getColorWebString(ColorConstants.button))
 				+ (m_title != null ? "<h3>" + m_title + "</h3>" : "")
 				+ html
 				+ HTML_FOOTER;

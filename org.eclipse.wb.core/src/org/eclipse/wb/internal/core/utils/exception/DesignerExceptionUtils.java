@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.exception;
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.core.editor.errors.IExceptionRewriter;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.xml.parser.QHandlerAdapter;
 import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -132,7 +132,7 @@ public final class DesignerExceptionUtils {
 			IOUtils.closeQuietly(htmlStream);
 		}
 		// prepare color
-		Color color = IColorConstants.button;
+		Color color = ColorConstants.button;
 		String colorString = getColorWebString(color);
 		html = StringUtils.replace(html, "%bg_color%", colorString);
 		// prepare HTML
@@ -168,7 +168,7 @@ public final class DesignerExceptionUtils {
 			IOUtils.closeQuietly(htmlStream);
 		}
 		// prepare color
-		Color color = IColorConstants.button;
+		Color color = ColorConstants.button;
 		String colorString = getColorWebString(color);
 		html = StringUtils.replace(html, "%bg_color%", colorString);
 		// apply entry

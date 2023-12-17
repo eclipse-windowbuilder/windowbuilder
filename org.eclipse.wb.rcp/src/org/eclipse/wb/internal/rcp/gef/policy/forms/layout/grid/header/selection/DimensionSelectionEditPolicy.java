@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.selectio
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit.Dime
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDimensionInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ AbstractHeaderSelectionEditPolicy {
 		// move handle
 		{
 			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-			moveHandle.setForegroundColor(IColorConstants.red);
+			moveHandle.setForegroundColor(ColorConstants.red);
 			handles.add(moveHandle);
 		}
 		//

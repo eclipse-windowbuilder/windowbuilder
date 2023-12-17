@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.EditPart;
@@ -25,6 +24,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.AbstractPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.SashLineInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -64,7 +64,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 		List<Handle> handles = new ArrayList<>();
 		// create move column handle
 		MoveHandle moveHandle = new MoveHandle(getHost());
-		moveHandle.setForegroundColor(IColorConstants.red);
+		moveHandle.setForegroundColor(ColorConstants.red);
 		handles.add(moveHandle);
 		//
 		return handles;
@@ -154,7 +154,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 			// create selection feedback
 			{
 				m_resizeFeedback = new RectangleFigure();
-				m_resizeFeedback.setForegroundColor(IColorConstants.red);
+				m_resizeFeedback.setForegroundColor(ColorConstants.red);
 				addFeedback(m_resizeFeedback);
 			}
 		}

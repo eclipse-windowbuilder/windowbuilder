@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -163,7 +163,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
 				public void paintControl(PaintEvent e) {
 					org.eclipse.swt.graphics.Rectangle r = m_toolBar.getBounds();
 					GC gc = e.gc;
-					gc.setForeground(IColorConstants.buttonDarker);
+					gc.setForeground(ColorConstants.buttonDarker);
 					gc.drawRoundRectangle(r.x - 2, r.y - 2, r.width + 4, r.height + 4, 5, 5);
 				}
 			});

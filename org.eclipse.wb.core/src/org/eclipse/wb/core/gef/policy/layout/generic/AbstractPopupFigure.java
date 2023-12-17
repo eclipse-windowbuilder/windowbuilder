@@ -11,11 +11,11 @@
 package org.eclipse.wb.core.gef.policy.layout.generic;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -37,10 +37,10 @@ import org.eclipse.swt.widgets.Menu;
 public abstract class AbstractPopupFigure extends Figure {
 	private static final int MARGIN = 6;
 	private static final Color COLOR_BACKGROUND = DrawUtils.getShiftedColor(
-			IColorConstants.white,
+			ColorConstants.white,
 			-32);
 	private static final Color COLOR_FOREGROUND = DrawUtils.getShiftedColor(
-			IColorConstants.white,
+			ColorConstants.white,
 			-64);
 	private final IEditPartViewer m_viewer;
 

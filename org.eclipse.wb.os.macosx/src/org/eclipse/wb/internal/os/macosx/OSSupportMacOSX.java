@@ -13,11 +13,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.macosx;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -223,9 +223,9 @@ public abstract class OSSupportMacOSX extends OSSupport {
 		}
 		// draw
 		gc = new GC(image);
-		gc.setBackground(IColorConstants.menuBackground);
+		gc.setBackground(ColorConstants.menuBackground);
 		gc.fillRectangle(image.getBounds());
-		gc.setForeground(IColorConstants.menuForeground);
+		gc.setForeground(ColorConstants.menuForeground);
 		for (int i = 0; i < menu.getItemCount(); ++i) {
 			MenuItem item = menu.getItem(i);
 			String text = item.getText();

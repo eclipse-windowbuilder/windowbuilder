@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsoluteBasedSele
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormLayout;
 
@@ -57,7 +57,7 @@ public final class FormSelectionEditPolicy2 extends SelectionEditPolicy {
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> handles = new ArrayList<>();
 		MoveHandle moveHandle = new MoveHandle(getHost());
-		moveHandle.setBorder(new LineBorder(IColorConstants.lightBlue));
+		moveHandle.setBorder(new LineBorder(ColorConstants.lightBlue));
 		handles.add(moveHandle);
 		handles.add(createResizeHandle(IPositionConstants.NORTH));
 		handles.add(createResizeHandle(IPositionConstants.SOUTH));
@@ -75,12 +75,12 @@ public final class FormSelectionEditPolicy2 extends SelectionEditPolicy {
 		ResizeHandle handle = new ResizeHandle(owner, direction) {
 			@Override
 			protected Color getBorderColor() {
-				return isPrimary() ? IColorConstants.white : IColorConstants.lightBlue;
+				return isPrimary() ? ColorConstants.white : ColorConstants.lightBlue;
 			}
 
 			@Override
 			protected Color getFillColor() {
-				return isPrimary() ? IColorConstants.lightBlue : IColorConstants.white;
+				return isPrimary() ? ColorConstants.lightBlue : ColorConstants.white;
 			}
 		};
 		handle.setDragTrackerTool(new ResizeTracker(direction,

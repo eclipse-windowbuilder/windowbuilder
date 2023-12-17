@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import org.eclipse.wb.draw2d.IColorConstants;
-
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -183,11 +182,11 @@ public class DrawUtils {
 		//
 		Color oldForeground = gc.getForeground();
 		try {
-			gc.setForeground(IColorConstants.buttonLightest);
+			gc.setForeground(ColorConstants.buttonLightest);
 			gc.drawLine(x, y, right, y);
 			gc.drawLine(x, y, x, bottom);
 			//
-			gc.setForeground(IColorConstants.buttonDarker);
+			gc.setForeground(ColorConstants.buttonDarker);
 			gc.drawLine(right, y, right, bottom);
 			gc.drawLine(x, bottom, right, bottom);
 		} finally {

@@ -14,7 +14,6 @@ import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.IRefreshableEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
@@ -56,7 +56,7 @@ public final class ContainerEditPart extends ComponentEditPart {
 	protected void drawCustomBorder(Figure figure, Graphics graphics) {
 		try {
 			if (m_container.shouldDrawDotsBorder()) {
-				graphics.setForegroundColor(IColorConstants.gray);
+				graphics.setForegroundColor(ColorConstants.gray);
 				graphics.setLineStyle(SWT.LINE_DOT);
 				Rectangle area = figure.getClientArea();
 				graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);

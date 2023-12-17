@@ -11,10 +11,10 @@
 package org.eclipse.wb.core.controls.flyout;
 
 import org.eclipse.wb.core.controls.Messages;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -824,7 +824,7 @@ public final class FlyoutControlComposite extends Composite {
 					}
 					// draw text
 					{
-						gc.setForeground(IColorConstants.black);
+						gc.setForeground(ColorConstants.black);
 						gc.setFont(TITLE_FONT);
 						gc.drawText(text, x, 0);
 						x += textSize.x;
@@ -856,11 +856,11 @@ public final class FlyoutControlComposite extends Composite {
 		private void drawTitleLine(GC gc, int x, int y, int width) {
 			int right = x + TITLE_LINES;
 			//
-			gc.setForeground(IColorConstants.buttonLightest);
+			gc.setForeground(ColorConstants.buttonLightest);
 			gc.drawLine(x, y, right - 2, y);
 			gc.drawLine(x, y + 1, right - 2, y + 1);
 			//
-			gc.setForeground(IColorConstants.buttonDarker);
+			gc.setForeground(ColorConstants.buttonDarker);
 			gc.drawLine(right - 2, y, right - 1, y);
 			gc.drawLine(x + 2, y + 1, right - 2, y + 1);
 		}

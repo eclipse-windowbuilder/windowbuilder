@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -82,7 +82,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 				protected void paintClientArea(Graphics graphics) {
 					// draw placeholder text
 					Rectangle bounds = getBounds();
-					graphics.setForegroundColor(IColorConstants.darkGreen);
+					graphics.setForegroundColor(ColorConstants.darkGreen);
 					String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_dropMenuHint;
 					Dimension textExtent = TextUtilities.INSTANCE.getTextExtents(menuBarText, graphics.getFont());
 					FontMetrics fontMetrics = graphics.getFontMetrics();
@@ -95,7 +95,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 				}
 			};
 			m_fillFeedback.setOpaque(true);
-			m_fillFeedback.setBackgroundColor(IColorConstants.menuBackground);
+			m_fillFeedback.setBackgroundColor(ColorConstants.menuBackground);
 			// set figure bounds
 			Insets clientAreaInsets = m_shell.getClientAreaInsets();
 			final Rectangle bounds = getHostFigure().getBounds().getCopy();
@@ -115,7 +115,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 			});
 			m_fillFeedback.setBounds(bounds);
 			// add some border
-			m_fillFeedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
+			m_fillFeedback.setBorder(new LineBorder(ColorConstants.menuBackgroundSelected, 1));
 			addFeedback(m_fillFeedback);
 		}
 	}

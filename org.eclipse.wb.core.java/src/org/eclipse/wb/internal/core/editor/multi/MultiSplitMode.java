@@ -11,11 +11,11 @@
 package org.eclipse.wb.internal.core.editor.multi;
 
 import org.eclipse.wb.core.editor.IEditorPage;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.SWT;
@@ -92,7 +92,7 @@ final class MultiSplitMode extends DefaultMultiMode {
 		super.create(parent);
 		boolean vertical = isSplitVerticalMode();
 		m_sashForm = new SashForm(parent, vertical ? SWT.VERTICAL : SWT.HORIZONTAL);
-		m_sashForm.setBackground(IColorConstants.buttonDarker);
+		m_sashForm.setBackground(ColorConstants.buttonDarker);
 		// parts
 		if (isSourceFirst()) {
 			createSource();

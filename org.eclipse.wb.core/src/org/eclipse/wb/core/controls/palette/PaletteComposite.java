@@ -13,7 +13,6 @@ package org.eclipse.wb.core.controls.palette;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
@@ -67,9 +67,9 @@ public final class PaletteComposite extends Composite {
 	// Colors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Color COLOR_PALETTE_BACKGROUND = IColorConstants.button;
-	private static final Color COLOR_TEXT_ENABLED = IColorConstants.listForeground;
-	private static final Color COLOR_TEXT_DISABLED = IColorConstants.gray;
+	private static final Color COLOR_PALETTE_BACKGROUND = ColorConstants.button;
+	private static final Color COLOR_TEXT_ENABLED = ColorConstants.listForeground;
+	private static final Color COLOR_TEXT_DISABLED = ColorConstants.gray;
 	private static final Color COLOR_ENTRY_SELECTED = DrawUtils.getShiftedColor(
 			COLOR_PALETTE_BACKGROUND,
 			24);
@@ -889,7 +889,7 @@ public final class PaletteComposite extends Composite {
 				// add feedback
 				{
 					m_feedback = new Figure();
-					m_feedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 2));
+					m_feedback.setBorder(new LineBorder(ColorConstants.menuBackgroundSelected, 2));
 					//m_feedback.setBorder(PolicyUtils.createTargetBorder());
 					// set bounds, add
 					Rectangle feedbackBounds = targetFigure.getBounds().getCopy();
@@ -1244,17 +1244,17 @@ public final class PaletteComposite extends Composite {
 		int bottom = r.bottom() - 1;
 		//
 		if (up) {
-			gc.setForegroundColor(IColorConstants.buttonLightest);
+			gc.setForegroundColor(ColorConstants.buttonLightest);
 		} else {
-			gc.setForegroundColor(IColorConstants.buttonDarker);
+			gc.setForegroundColor(ColorConstants.buttonDarker);
 		}
 		gc.drawLine(x, y, right, y);
 		gc.drawLine(x, y, x, bottom);
 		//
 		if (up) {
-			gc.setForegroundColor(IColorConstants.buttonDarker);
+			gc.setForegroundColor(ColorConstants.buttonDarker);
 		} else {
-			gc.setForegroundColor(IColorConstants.buttonLightest);
+			gc.setForegroundColor(ColorConstants.buttonLightest);
 		}
 		gc.drawLine(right, y, right, bottom);
 		gc.drawLine(x, bottom, right, bottom);

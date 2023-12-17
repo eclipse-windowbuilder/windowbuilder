@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo.Alignment;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ui.RowEditDialog;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -71,7 +71,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 					return;
 				}
 				// draw rectangle
-				graphics.setForegroundColor(IColorConstants.buttonDarker);
+				graphics.setForegroundColor(ColorConstants.buttonDarker);
 				graphics.drawLine(r.x, r.y, r.right(), r.y);
 				graphics.drawLine(r.x, r.bottom() - 1, r.right(), r.bottom() - 1);
 				// draw row index
@@ -86,7 +86,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 					titleTop = r.y + (r.height - textExtents.height) / 2;
 					titleBottom = titleTop + textExtents.height;
 					int x = r.x + (r.width - textExtents.width) / 2;
-					graphics.setForegroundColor(IColorConstants.black);
+					graphics.setForegroundColor(ColorConstants.black);
 					graphics.drawText(title, x, titleTop);
 				}
 				// draw alignment indicator

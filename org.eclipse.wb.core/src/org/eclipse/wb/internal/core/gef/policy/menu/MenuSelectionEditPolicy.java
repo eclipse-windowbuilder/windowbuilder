@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.menu;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 
 import org.eclipse.draw2d.AncestorListener;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -55,7 +55,7 @@ public final class MenuSelectionEditPolicy extends SelectionEditPolicy {
 	protected void showSelection() {
 		hideSelection();
 		m_selectionFigure = new Figure();
-		m_selectionFigure.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected));
+		m_selectionFigure.setBorder(new LineBorder(ColorConstants.menuBackgroundSelected));
 		updateFeedbackBounds();
 		m_ancestorListener = new AncestorListener.Stub() {
 			@Override

@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.core.gef.tools.TabOrderContainerRequest;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.order.TabOrderInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 
@@ -101,9 +101,9 @@ public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
 			// well as on EditPart's main figure
 			feedback.setData(part);
 			// set background
-			feedback.setBackground(IColorConstants.yellow);
+			feedback.setBackground(ColorConstants.yellow);
 			if (child == selectedChild) {
-				feedback.setBackground(IColorConstants.lightGreen);
+				feedback.setBackground(ColorConstants.lightGreen);
 			}
 		}
 	}

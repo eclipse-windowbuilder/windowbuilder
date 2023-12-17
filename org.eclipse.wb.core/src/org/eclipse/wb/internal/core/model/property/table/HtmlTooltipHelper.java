@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.PixelConverter;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationAdapter;
@@ -102,8 +102,8 @@ public final class HtmlTooltipHelper {
 			String bodyAttributes =
 					MessageFormat.format(
 							"text=''{0}'' bgcolor=''{1}''",
-							getColorWebString(IColorConstants.tooltipForeground),
-							getColorWebString(IColorConstants.tooltipBackground));
+							getColorWebString(ColorConstants.tooltipForeground),
+							getColorWebString(ColorConstants.tooltipBackground));
 			String closeElement =
 					EnvironmentUtils.IS_LINUX
 					? "    <a href='' style='position:absolute;right:1em;' id=_wbp_close>Close</a>"

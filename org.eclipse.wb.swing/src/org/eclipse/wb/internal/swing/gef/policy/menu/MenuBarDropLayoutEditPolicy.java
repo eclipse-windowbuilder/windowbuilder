@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -80,7 +80,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 				protected void paintClientArea(Graphics graphics) {
 					// draw placeholder text
 					Rectangle bounds = getBounds();
-					graphics.setForegroundColor(IColorConstants.darkGreen);
+					graphics.setForegroundColor(ColorConstants.darkGreen);
 					String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_feedbackText;
 					Dimension textExtent = TextUtilities.INSTANCE.getTextExtents(menuBarText, graphics.getFont());
 					//
@@ -90,7 +90,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 				}
 			};
 			m_feedback.setOpaque(true);
-			m_feedback.setBackgroundColor(IColorConstants.menuBackground);
+			m_feedback.setBackgroundColor(ColorConstants.menuBackground);
 			// set figure bounds
 			Insets clientAreaInsets = m_container.getInsets();
 			Rectangle bounds = getHostFigure().getBounds().getCopy();
@@ -100,7 +100,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 			bounds.height = 27;
 			m_feedback.setBounds(bounds);
 			// add some border
-			m_feedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
+			m_feedback.setBorder(new LineBorder(ColorConstants.menuBackgroundSelected, 1));
 			addFeedback(m_feedback);
 		}
 	}

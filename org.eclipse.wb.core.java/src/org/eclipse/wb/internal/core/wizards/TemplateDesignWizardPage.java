@@ -193,7 +193,7 @@ public abstract class TemplateDesignWizardPage extends AbstractDesignWizardPage 
 			@Override
 			public void run() {
 				try {
-					Class.forName("org.eclipse.wb.internal.draw2d.IColorConstants");
+					Class.forName("org.eclipse.wb.internal.draw2d.ColorConstants");
 				} catch (Throwable e) {
 				}
 			}
