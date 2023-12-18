@@ -15,7 +15,6 @@ import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
@@ -45,6 +44,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutI
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -406,7 +406,7 @@ public class PageLayoutTest extends RcpModelTest {
 			SashLineInfo line = line_0;
 			Assertions.assertThat(line.toString()).contains("view_0").contains("true");
 			assertSame(view_0, line.getPart());
-			assertEquals(IPositionConstants.EAST, line.getPosition());
+			assertEquals(PositionConstants.EAST, line.getPosition());
 			assertTrue(line.isHorizontal());
 			// line bounds
 			Assertions.assertThat(bounds_0.x).isGreaterThan(150);
@@ -428,7 +428,7 @@ public class PageLayoutTest extends RcpModelTest {
 			SashLineInfo line = line_1;
 			Assertions.assertThat(line.toString()).contains("view_1").contains("false");
 			assertSame(view_1, line.getPart());
-			assertEquals(IPositionConstants.SOUTH, line.getPosition());
+			assertEquals(PositionConstants.SOUTH, line.getPosition());
 			assertFalse(line.isHorizontal());
 			// line bounds
 			Assertions.assertThat(bounds_1.x).isEqualTo(bounds_0.x + bounds_0.width);
@@ -440,7 +440,7 @@ public class PageLayoutTest extends RcpModelTest {
 			SashLineInfo line = line_2;
 			Assertions.assertThat(line.toString()).contains("view_2").contains("false");
 			assertSame(view_2, line.getPart());
-			assertEquals(IPositionConstants.NORTH, line.getPosition());
+			assertEquals(PositionConstants.NORTH, line.getPosition());
 			assertFalse(line.isHorizontal());
 			// line bounds
 			Assertions.assertThat(bounds_2.x).isEqualTo(bounds_1.x);
@@ -451,7 +451,7 @@ public class PageLayoutTest extends RcpModelTest {
 			SashLineInfo line = line_3;
 			Assertions.assertThat(line.toString()).contains("view_3").contains("true");
 			assertSame(view_3, line.getPart());
-			assertEquals(IPositionConstants.WEST, line.getPosition());
+			assertEquals(PositionConstants.WEST, line.getPosition());
 			assertTrue(line.isHorizontal());
 			// line bounds
 			Assertions.assertThat(bounds_3.y).isEqualTo(bounds_1.y + bounds_1.height);

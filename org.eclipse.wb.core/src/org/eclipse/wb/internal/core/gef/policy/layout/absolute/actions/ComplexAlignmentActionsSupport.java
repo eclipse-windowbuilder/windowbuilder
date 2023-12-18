@@ -11,8 +11,9 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
+
+import org.eclipse.draw2d.PositionConstants;
 
 /**
  * Alignment actions which uses {@link PlacementsSupport}.
@@ -41,32 +42,32 @@ AbstractAlignmentActionsSupport<C> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void commandAlignLeft() throws Exception {
-		m_placementsSupport.align(m_components, true, IPositionConstants.LEFT);
+		m_placementsSupport.align(m_components, true, PositionConstants.LEFT);
 	}
 
 	@Override
 	protected void commandAlignRight() throws Exception {
-		m_placementsSupport.align(m_components, true, IPositionConstants.RIGHT);
+		m_placementsSupport.align(m_components, true, PositionConstants.RIGHT);
 	}
 
 	@Override
 	protected void commandAlignCenterHorizontally() throws Exception {
-		m_placementsSupport.align(m_components, true, IPositionConstants.CENTER);
+		m_placementsSupport.align(m_components, true, PositionConstants.CENTER);
 	}
 
 	@Override
 	protected void commandAlignTop() throws Exception {
-		m_placementsSupport.align(m_components, false, IPositionConstants.TOP);
+		m_placementsSupport.align(m_components, false, PositionConstants.TOP);
 	}
 
 	@Override
 	protected void commandAlignBottom() throws Exception {
-		m_placementsSupport.align(m_components, false, IPositionConstants.BOTTOM);
+		m_placementsSupport.align(m_components, false, PositionConstants.BOTTOM);
 	}
 
 	@Override
 	protected void commandAlignCenterVertically() throws Exception {
-		m_placementsSupport.align(m_components, false, IPositionConstants.CENTER);
+		m_placementsSupport.align(m_components, false, PositionConstants.CENTER);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

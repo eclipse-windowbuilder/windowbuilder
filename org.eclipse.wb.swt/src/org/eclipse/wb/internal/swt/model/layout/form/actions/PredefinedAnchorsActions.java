@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form.actions;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.Separator;
 
@@ -56,85 +56,85 @@ public class PredefinedAnchorsActions<C extends IControlInfo> {
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topLeft,
 				"top_left.gif",
-				IPositionConstants.LEFT | IPositionConstants.TOP));
+				PositionConstants.LEFT | PositionConstants.TOP));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topRight,
 				"top_right.gif",
-				IPositionConstants.TOP | IPositionConstants.RIGHT));
+				PositionConstants.TOP | PositionConstants.RIGHT));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomLeft,
 				"bottom_left.gif",
-				IPositionConstants.LEFT | IPositionConstants.BOTTOM));
+				PositionConstants.LEFT | PositionConstants.BOTTOM));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomRight,
 				"bottom_right.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
+				PositionConstants.BOTTOM | PositionConstants.RIGHT));
 		manager.add(new Separator());
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_leftRightTop,
 				"top_left_right.gif",
-				IPositionConstants.LEFT | IPositionConstants.TOP | IPositionConstants.RIGHT));
+				PositionConstants.LEFT | PositionConstants.TOP | PositionConstants.RIGHT));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_leftRightBottom,
 				"bottom_left_right.gif",
-				IPositionConstants.LEFT | IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
+				PositionConstants.LEFT | PositionConstants.BOTTOM | PositionConstants.RIGHT));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomLeft,
 				"top_bottom_left.gif",
-				IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.BOTTOM));
+				PositionConstants.TOP | PositionConstants.LEFT | PositionConstants.BOTTOM));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomRight,
 				"top_bottom_right.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.RIGHT | IPositionConstants.TOP));
+				PositionConstants.BOTTOM | PositionConstants.RIGHT | PositionConstants.TOP));
 		manager.add(new Separator());
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_TopBottomLeftRight,
 				"top_bottom_left_right.gif",
-				IPositionConstants.BOTTOM
-				| IPositionConstants.RIGHT
-				| IPositionConstants.TOP
-				| IPositionConstants.LEFT));
+				PositionConstants.BOTTOM
+				| PositionConstants.RIGHT
+				| PositionConstants.TOP
+				| PositionConstants.LEFT));
 		manager.add(new Separator());
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topLeftRelative,
 				"top_left_relative.gif",
-				IPositionConstants.TOP | IPositionConstants.LEFT,
+				PositionConstants.TOP | PositionConstants.LEFT,
 				true));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topRightRelative,
 				"top_right_relative.gif",
-				IPositionConstants.TOP | IPositionConstants.RIGHT,
+				PositionConstants.TOP | PositionConstants.RIGHT,
 				true));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomLeftRelative,
 				"bottom_left_relative.gif",
-				IPositionConstants.LEFT | IPositionConstants.BOTTOM,
+				PositionConstants.LEFT | PositionConstants.BOTTOM,
 				true));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomRightRelative,
 				"bottom_right_relative.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.RIGHT,
+				PositionConstants.BOTTOM | PositionConstants.RIGHT,
 				true));
 		manager.add(new Separator());
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topLeftRightRelative,
 				"top_left_right_relative.gif",
-				IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.RIGHT,
+				PositionConstants.TOP | PositionConstants.LEFT | PositionConstants.RIGHT,
 				true));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_bottomLeftRightRelative,
 				"bottom_left_right_relative.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.LEFT | IPositionConstants.RIGHT,
+				PositionConstants.BOTTOM | PositionConstants.LEFT | PositionConstants.RIGHT,
 				true));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomRightRelative,
 				"top_bottom_right_relative.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.TOP | IPositionConstants.RIGHT,
+				PositionConstants.BOTTOM | PositionConstants.TOP | PositionConstants.RIGHT,
 				true));
 		manager.add(new SetCornerAnchorsAction<>(selection,
 				ModelMessages.PredefinedAnchorsActions_topBottomLeftRelative,
 				"top_bottom_left_relative.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.TOP | IPositionConstants.LEFT,
+				PositionConstants.BOTTOM | PositionConstants.TOP | PositionConstants.LEFT,
 				true));
 	}
 

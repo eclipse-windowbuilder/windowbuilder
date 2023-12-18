@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.EditPart;
@@ -27,6 +26,7 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -1138,9 +1138,9 @@ public final class GraphicalRobot {
 	 * @param part
 	 *          the {@link GraphicalEditPart} relative to which feedback is expected.
 	 * @param location
-	 *          the location of feedback, one of {@link IPositionConstants#TOP},
-	 *          {@link IPositionConstants#BOTTOM} , {@link IPositionConstants#LEFT},
-	 *          {@link IPositionConstants#RIGHT}.
+	 *          the location of feedback, one of {@link PositionConstants#TOP},
+	 *          {@link PositionConstants#BOTTOM} , {@link PositionConstants#LEFT},
+	 *          {@link PositionConstants#RIGHT}.
 	 */
 	public static final Predicate<Figure> getLinePredicate(GraphicalEditPart part, final int location) {
 		// prepare "part" Figure bounds in absolute
@@ -1169,22 +1169,22 @@ public final class GraphicalRobot {
 			// checks that line has expected location
 			int delta = 5;
 			boolean result = true;
-			if (location == IPositionConstants.TOP) {
+			if (location == PositionConstants.TOP) {
 				result &= p1.y == p2.y;
 				result &= Math.abs(p1.y - partBounds.y) < delta;
 				result &= Math.abs(p1.x - partBounds.x) < delta;
 				result &= Math.abs(p2.x - partBounds.right()) < delta;
-			} else if (location == IPositionConstants.BOTTOM) {
+			} else if (location == PositionConstants.BOTTOM) {
 				result &= p1.y == p2.y;
 				result &= Math.abs(p1.y - partBounds.bottom()) < delta;
 				result &= Math.abs(p1.x - partBounds.x) < delta;
 				result &= Math.abs(p2.x - partBounds.right()) < delta;
-			} else if (location == IPositionConstants.LEFT) {
+			} else if (location == PositionConstants.LEFT) {
 				result &= p1.x == p2.x;
 				result &= Math.abs(p1.x - partBounds.x) < delta;
 				result &= Math.abs(p1.y - partBounds.y) < delta;
 				result &= Math.abs(p2.y - partBounds.bottom()) < delta;
-			} else if (location == IPositionConstants.RIGHT) {
+			} else if (location == PositionConstants.RIGHT) {
 				result &= p1.x == p2.x;
 				result &= Math.abs(p1.x - partBounds.right()) < delta;
 				result &= Math.abs(p1.y - partBounds.y) < delta;

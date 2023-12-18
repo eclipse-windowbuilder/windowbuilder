@@ -11,11 +11,11 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IContributionManager;
 
 public class AnchorsActionsSupport {
@@ -40,11 +40,11 @@ public class AnchorsActionsSupport {
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_leftAlignment,
 					"h/menu/left.gif",
-					IPositionConstants.LEFT));
+					PositionConstants.LEFT));
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_rightAlignment,
 					"h/menu/right.gif",
-					IPositionConstants.RIGHT));
+					PositionConstants.RIGHT));
 			manager.add(new MakeResizeableAction(widget,
 					GefMessages.AnchorsActionsSupport_makeResizableHorizontal,
 					"h/menu/both.gif",
@@ -53,11 +53,11 @@ public class AnchorsActionsSupport {
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_topAlignment,
 					"v/menu/top.gif",
-					IPositionConstants.TOP));
+					PositionConstants.TOP));
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_bottomAlignment,
 					"v/menu/bottom.gif",
-					IPositionConstants.BOTTOM));
+					PositionConstants.BOTTOM));
 			manager.add(new MakeResizeableAction(widget,
 					GefMessages.AnchorsActionsSupport_makeResizableVertical,
 					"v/menu/both.gif",

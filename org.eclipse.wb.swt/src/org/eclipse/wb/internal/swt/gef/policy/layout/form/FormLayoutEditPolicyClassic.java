@@ -22,7 +22,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.EditPart;
@@ -51,6 +50,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -250,10 +250,10 @@ implements IHeadersProvider {
 		TextFeedback xTextFeedback = getTextFeedback(xTextFeedbacks, part, true);
 		TextFeedback yTextFeedback = getTextFeedback(yTextFeedbacks, part, false);
 		// try to get form data info for to get an attachment if exists
-		IFormAttachmentInfo<C> leftAttachment = layoutImpl.getAttachment(control, IPositionConstants.LEFT);
-		IFormAttachmentInfo<C> rightAttachment = layoutImpl.getAttachment(control, IPositionConstants.RIGHT);
-		IFormAttachmentInfo<C> topAttachment = layoutImpl.getAttachment(control, IPositionConstants.TOP);
-		IFormAttachmentInfo<C> bottomAttachment = layoutImpl.getAttachment(control, IPositionConstants.BOTTOM);
+		IFormAttachmentInfo<C> leftAttachment = layoutImpl.getAttachment(control, PositionConstants.LEFT);
+		IFormAttachmentInfo<C> rightAttachment = layoutImpl.getAttachment(control, PositionConstants.RIGHT);
+		IFormAttachmentInfo<C> topAttachment = layoutImpl.getAttachment(control, PositionConstants.TOP);
+		IFormAttachmentInfo<C> bottomAttachment = layoutImpl.getAttachment(control, PositionConstants.BOTTOM);
 		// hide any old move feedbacks (it is more easy to add each time new feedback
 		// than track old ones and change their positions)
 		removeFeedbacks(part);
@@ -570,10 +570,10 @@ implements IHeadersProvider {
 				@Override
 				protected void executeEdit() throws Exception {
 					if (size.width != pasted.getPreferredSize().width) {
-						layout.setAttachmentOffset(pasted, IPositionConstants.RIGHT, pastedBounds.x + size.width);
+						layout.setAttachmentOffset(pasted, PositionConstants.RIGHT, pastedBounds.x + size.width);
 					}
 					if (size.height != pasted.getPreferredSize().height) {
-						layout.setAttachmentOffset(pasted, IPositionConstants.BOTTOM, pastedBounds.y + size.height);
+						layout.setAttachmentOffset(pasted, PositionConstants.BOTTOM, pastedBounds.y + size.height);
 					}
 				}
 			});
@@ -628,7 +628,7 @@ implements IHeadersProvider {
 						addVLine(part, child, childBounds.y, controlColor);
 						addVLine(part, left, right, childBounds.y - vwMargin, offsetColor);
 						locationY = getChildSideString(child, "y") + "-" + vwMargin;
-						cmdSide = IPositionConstants.TOP;
+						cmdSide = PositionConstants.TOP;
 						cmdOffset = -vwMargin;
 					} else if (FormUtils.between(childBounds.y - y, -sens, vwMargin)) {
 						controlFound = true;
@@ -636,7 +636,7 @@ implements IHeadersProvider {
 						addVLine(part, left, right, childBounds.y, offsetColor);
 						addVLine(part, child, childBounds.y, controlColor);
 						locationY = getChildSideString(child, "y");
-						cmdSide = IPositionConstants.TOP;
+						cmdSide = PositionConstants.TOP;
 						cmdOffset = 0;
 					} else if (FormUtils.between(childBounds.bottom() - y, -sens, sens)) {
 						controlFound = true;
@@ -644,12 +644,12 @@ implements IHeadersProvider {
 						addVLine(part, left, right, childBounds.bottom(), offsetColor);
 						addVLine(part, child, childBounds.bottom(), controlColor);
 						locationY = getChildSideString(child, "bottom");
-						cmdSide = IPositionConstants.BOTTOM;
+						cmdSide = PositionConstants.BOTTOM;
 						cmdOffset = 0;
 					}
 				}
 				if (controlFound) {
-					cmd = getBindToControlCommand(createControl, control, IPositionConstants.BOTTOM, child, cmdSide,
+					cmd = getBindToControlCommand(createControl, control, PositionConstants.BOTTOM, child, cmdSide,
 							cmdOffset);
 				}
 			}
@@ -674,10 +674,10 @@ implements IHeadersProvider {
 					}
 					if (snappedToPercent) {
 						if (createControl) {
-							cmd = new CreateToPercentOffsetCommand(control, IPositionConstants.BOTTOM,
+							cmd = new CreateToPercentOffsetCommand(control, PositionConstants.BOTTOM,
 									percent.intValue(), offset);
 						} else {
-							cmd = new MoveToPercentOffsetCommand(control, IPositionConstants.BOTTOM, percent.intValue(),
+							cmd = new MoveToPercentOffsetCommand(control, PositionConstants.BOTTOM, percent.intValue(),
 									offset);
 						}
 						break;
@@ -690,10 +690,10 @@ implements IHeadersProvider {
 						addVLine(part, bottomPoint, offsetColor);
 						locationY = "--> " + String.valueOf(vMargin);
 						if (createControl) {
-							cmd = new CreateToMarginCommand(control, IPositionConstants.BOTTOM,
-									IPositionConstants.BOTTOM, vMargin);
+							cmd = new CreateToMarginCommand(control, PositionConstants.BOTTOM,
+									PositionConstants.BOTTOM, vMargin);
 						} else {
-							cmd = new MoveToMarginCommand(control, IPositionConstants.BOTTOM, IPositionConstants.BOTTOM,
+							cmd = new MoveToMarginCommand(control, PositionConstants.BOTTOM, PositionConstants.BOTTOM,
 									vMargin);
 						}
 					} else {
@@ -701,10 +701,10 @@ implements IHeadersProvider {
 						locationY = getLocationString(bottomAttachment, bounds.bottom() - layoutMarginTop,
 								parentHeight);
 						if (createControl) {
-							cmd = new CreateToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight,
+							cmd = new CreateToOffsetCommand(control, PositionConstants.BOTTOM, parentHeight,
 									FormUtils.snapGrid(y - layoutMarginTop, sens));
 						} else {
-							cmd = new MoveToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight,
+							cmd = new MoveToOffsetCommand(control, PositionConstants.BOTTOM, parentHeight,
 									FormUtils.snapGrid(y - layoutMarginTop, sens));
 						}
 					}
@@ -713,9 +713,9 @@ implements IHeadersProvider {
 		} else {
 			locationY = getLocationString(bottomAttachment, bounds.bottom(), parentHeight);
 			if (createControl) {
-				cmd = new CreateToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight, y - layoutMarginTop);
+				cmd = new CreateToOffsetCommand(control, PositionConstants.BOTTOM, parentHeight, y - layoutMarginTop);
 			} else {
-				cmd = new MoveToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight, y - layoutMarginTop);
+				cmd = new MoveToOffsetCommand(control, PositionConstants.BOTTOM, parentHeight, y - layoutMarginTop);
 			}
 		}
 		addVLine(part, bounds.bottom(), layout.getComposite().getClientArea().width, ColorConstants.red);
@@ -757,7 +757,7 @@ implements IHeadersProvider {
 						addHLine(part, child, childBounds.x, controlColor);
 						addHLine(part, top, bottom, childBounds.x - hwMargin, offsetColor);
 						locationX = getChildSideString(child, "x") + "-" + hwMargin;
-						cmdSide = IPositionConstants.LEFT;
+						cmdSide = PositionConstants.LEFT;
 						cmdOffset = -hwMargin;
 					} else if (FormUtils.between(childBounds.x - x, -sens, hwMargin)) {
 						controlFound = true;
@@ -765,7 +765,7 @@ implements IHeadersProvider {
 						addHLine(part, top, bottom, childBounds.x, offsetColor);
 						addHLine(part, child, childBounds.x, controlColor);
 						locationX = getChildSideString(child, "x");
-						cmdSide = IPositionConstants.LEFT;
+						cmdSide = PositionConstants.LEFT;
 						cmdOffset = 0;
 					} else if (FormUtils.between(childBounds.right() - x, -sens, sens)) {
 						controlFound = true;
@@ -773,12 +773,12 @@ implements IHeadersProvider {
 						addHLine(part, top, bottom, childBounds.right(), offsetColor);
 						addHLine(part, child, childBounds.right(), controlColor);
 						locationX = getChildSideString(child, "right");
-						cmdSide = IPositionConstants.RIGHT;
+						cmdSide = PositionConstants.RIGHT;
 						cmdOffset = 0;
 					}
 				}
 				if (controlFound) {
-					cmd = getBindToControlCommand(createControl, control, IPositionConstants.RIGHT, child, cmdSide,
+					cmd = getBindToControlCommand(createControl, control, PositionConstants.RIGHT, child, cmdSide,
 							cmdOffset);
 				}
 			}
@@ -803,10 +803,10 @@ implements IHeadersProvider {
 					}
 					if (snappedToPercent) {
 						if (createControl) {
-							cmd = new CreateToPercentOffsetCommand(control, IPositionConstants.RIGHT,
+							cmd = new CreateToPercentOffsetCommand(control, PositionConstants.RIGHT,
 									percent.intValue(), -offset);
 						} else {
-							cmd = new MoveToPercentOffsetCommand(control, IPositionConstants.RIGHT, percent.intValue(),
+							cmd = new MoveToPercentOffsetCommand(control, PositionConstants.RIGHT, percent.intValue(),
 									-offset);
 						}
 						break;
@@ -820,20 +820,20 @@ implements IHeadersProvider {
 						locationX = String.valueOf(-hMargin);
 						locationX = "--> " + String.valueOf(hMargin);
 						if (createControl) {
-							cmd = new CreateToMarginCommand(control, IPositionConstants.RIGHT, IPositionConstants.RIGHT,
+							cmd = new CreateToMarginCommand(control, PositionConstants.RIGHT, PositionConstants.RIGHT,
 									hMargin);
 						} else {
-							cmd = new MoveToMarginCommand(control, IPositionConstants.RIGHT, IPositionConstants.RIGHT,
+							cmd = new MoveToMarginCommand(control, PositionConstants.RIGHT, PositionConstants.RIGHT,
 									hMargin);
 						}
 					} else {
 						setHBounds(bounds, FormUtils.snapGrid(bounds.right(), sens), createControl);
 						locationX = getLocationString(rightAttachment, bounds.right() - layoutMarginLeft, parentWidth);
 						if (createControl) {
-							cmd = new CreateToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth,
+							cmd = new CreateToOffsetCommand(control, PositionConstants.RIGHT, parentWidth,
 									FormUtils.snapGrid(x - layoutMarginLeft, sens));
 						} else {
-							cmd = new MoveToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth,
+							cmd = new MoveToOffsetCommand(control, PositionConstants.RIGHT, parentWidth,
 									FormUtils.snapGrid(x - layoutMarginLeft, sens));
 						}
 					}
@@ -842,9 +842,9 @@ implements IHeadersProvider {
 		} else {
 			locationX = getLocationString(rightAttachment, bounds.right() - layoutMarginLeft, parentWidth);
 			if (createControl) {
-				cmd = new CreateToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth, x - layoutMarginLeft);
+				cmd = new CreateToOffsetCommand(control, PositionConstants.RIGHT, parentWidth, x - layoutMarginLeft);
 			} else {
-				cmd = new MoveToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth, x - layoutMarginLeft);
+				cmd = new MoveToOffsetCommand(control, PositionConstants.RIGHT, parentWidth, x - layoutMarginLeft);
 			}
 		}
 		addHLine(part, bounds.right(), layout.getComposite().getClientArea().height, ColorConstants.red);
@@ -886,7 +886,7 @@ implements IHeadersProvider {
 						addVLine(part, child, childBounds.bottom(), controlColor);
 						addVLine(part, left, right, childBounds.bottom() + vwMargin, offsetColor);
 						locationY = getChildSideString(child, "bottom") + "+" + vwMargin;
-						cmdSide = IPositionConstants.BOTTOM;
+						cmdSide = PositionConstants.BOTTOM;
 						cmdOffset = vwMargin;
 					} else if (FormUtils.between(y - childBounds.bottom(), -sens, vwMargin)) {
 						controlFound = true;
@@ -894,7 +894,7 @@ implements IHeadersProvider {
 						addVLine(part, left, right, childBounds.bottom(), offsetColor);
 						addVLine(part, child, childBounds.bottom(), controlColor);
 						locationY = getChildSideString(child, "bottom");
-						cmdSide = IPositionConstants.BOTTOM;
+						cmdSide = PositionConstants.BOTTOM;
 						cmdOffset = 0;
 					} else if (FormUtils.between(y - childBounds.y, -sens, sens)) {
 						controlFound = true;
@@ -902,12 +902,12 @@ implements IHeadersProvider {
 						addVLine(part, left, right, childBounds.y, offsetColor);
 						addVLine(part, child, childBounds.y, controlColor);
 						locationY = getChildSideString(child, "y");
-						cmdSide = IPositionConstants.TOP;
+						cmdSide = PositionConstants.TOP;
 						cmdOffset = 0;
 					}
 				}
 				if (controlFound) {
-					cmd = getBindToControlCommand(createControl, control, IPositionConstants.TOP, child, cmdSide,
+					cmd = getBindToControlCommand(createControl, control, PositionConstants.TOP, child, cmdSide,
 							cmdOffset);
 				}
 			}
@@ -932,10 +932,10 @@ implements IHeadersProvider {
 					}
 					if (snappedToPercent) {
 						if (createControl) {
-							cmd = new CreateToPercentOffsetCommand(control, IPositionConstants.TOP, percent.intValue(),
+							cmd = new CreateToPercentOffsetCommand(control, PositionConstants.TOP, percent.intValue(),
 									offset);
 						} else {
-							cmd = new MoveToPercentOffsetCommand(control, IPositionConstants.TOP, percent.intValue(),
+							cmd = new MoveToPercentOffsetCommand(control, PositionConstants.TOP, percent.intValue(),
 									offset);
 						}
 						break;
@@ -946,19 +946,19 @@ implements IHeadersProvider {
 						bounds.y = vMargin;
 						addVLine(part, vMargin, offsetColor);
 						if (createControl) {
-							cmd = new CreateToMarginCommand(control, IPositionConstants.TOP, IPositionConstants.TOP,
+							cmd = new CreateToMarginCommand(control, PositionConstants.TOP, PositionConstants.TOP,
 									vModelMargin);
 						} else {
-							cmd = new MoveToMarginCommand(control, IPositionConstants.TOP, IPositionConstants.TOP,
+							cmd = new MoveToMarginCommand(control, PositionConstants.TOP, PositionConstants.TOP,
 									vModelMargin);
 						}
 					} else {
 						bounds.y = FormUtils.snapGrid(y, sens);
 						if (createControl) {
-							cmd = new CreateToOffsetCommand(control, IPositionConstants.TOP, parentHeight,
+							cmd = new CreateToOffsetCommand(control, PositionConstants.TOP, parentHeight,
 									FormUtils.snapGrid(y - layoutMarginTop, sens));
 						} else {
-							cmd = new MoveToOffsetCommand(control, IPositionConstants.TOP, parentHeight,
+							cmd = new MoveToOffsetCommand(control, PositionConstants.TOP, parentHeight,
 									FormUtils.snapGrid(y - layoutMarginTop, sens));
 						}
 					}
@@ -968,9 +968,9 @@ implements IHeadersProvider {
 		} else {
 			locationY = getLocationString(topAttachment, bounds.y - layoutMarginTop, parentHeight);
 			if (createControl) {
-				cmd = new CreateToOffsetCommand(control, IPositionConstants.TOP, parentHeight, y - layoutMarginTop);
+				cmd = new CreateToOffsetCommand(control, PositionConstants.TOP, parentHeight, y - layoutMarginTop);
 			} else {
-				cmd = new MoveToOffsetCommand(control, IPositionConstants.TOP, parentHeight, y - layoutMarginTop);
+				cmd = new MoveToOffsetCommand(control, PositionConstants.TOP, parentHeight, y - layoutMarginTop);
 			}
 		}
 		addVLine(part, bounds.y, layout.getComposite().getClientArea().width, ColorConstants.red);
@@ -1014,7 +1014,7 @@ implements IHeadersProvider {
 						addHLine(part, child, childBounds.right(), controlColor);
 						addHLine(part, top, bottom, childBounds.right() + hwMargin, offsetColor);
 						locationX = getChildSideString(child, "right") + "+" + hwMargin;
-						cmdSide = IPositionConstants.RIGHT;
+						cmdSide = PositionConstants.RIGHT;
 						cmdOffset = hwMargin;
 					} else if (FormUtils.between(x - childBounds.right(), -sens, hwMargin)) {
 						controlFound = true;
@@ -1022,7 +1022,7 @@ implements IHeadersProvider {
 						addHLine(part, top, bottom, childBounds.right(), offsetColor);
 						addHLine(part, child, childBounds.right(), controlColor);
 						locationX = getChildSideString(child, "right");
-						cmdSide = IPositionConstants.RIGHT;
+						cmdSide = PositionConstants.RIGHT;
 						cmdOffset = 0;
 					} else if (FormUtils.between(x - childBounds.x, -sens, sens)) {
 						controlFound = true;
@@ -1030,12 +1030,12 @@ implements IHeadersProvider {
 						addHLine(part, top, bottom, childBounds.x, offsetColor);
 						addHLine(part, child, childBounds.x, controlColor);
 						locationX = getChildSideString(child, "x");
-						cmdSide = IPositionConstants.LEFT;
+						cmdSide = PositionConstants.LEFT;
 						cmdOffset = 0;
 					}
 				}
 				if (controlFound) {
-					cmd = getBindToControlCommand(createControl, control, IPositionConstants.LEFT, child, cmdSide,
+					cmd = getBindToControlCommand(createControl, control, PositionConstants.LEFT, child, cmdSide,
 							cmdOffset);
 				}
 			}
@@ -1060,10 +1060,10 @@ implements IHeadersProvider {
 					}
 					if (snappedToPercent) {
 						if (createControl) {
-							cmd = new CreateToPercentOffsetCommand(control, IPositionConstants.LEFT, percent.intValue(),
+							cmd = new CreateToPercentOffsetCommand(control, PositionConstants.LEFT, percent.intValue(),
 									offset);
 						} else {
-							cmd = new MoveToPercentOffsetCommand(control, IPositionConstants.LEFT, percent.intValue(),
+							cmd = new MoveToPercentOffsetCommand(control, PositionConstants.LEFT, percent.intValue(),
 									offset);
 						}
 						break;
@@ -1074,19 +1074,19 @@ implements IHeadersProvider {
 						bounds.x = hMargin;
 						addHLine(part, hMargin, offsetColor);
 						if (createControl) {
-							cmd = new CreateToMarginCommand(control, IPositionConstants.LEFT, IPositionConstants.LEFT,
+							cmd = new CreateToMarginCommand(control, PositionConstants.LEFT, PositionConstants.LEFT,
 									hModelMargin);
 						} else {
-							cmd = new MoveToMarginCommand(control, IPositionConstants.LEFT, IPositionConstants.LEFT,
+							cmd = new MoveToMarginCommand(control, PositionConstants.LEFT, PositionConstants.LEFT,
 									hModelMargin);
 						}
 					} else {
 						bounds.x = FormUtils.snapGrid(x, sens);
 						if (createControl) {
-							cmd = new CreateToOffsetCommand(control, IPositionConstants.LEFT, parentWidth,
+							cmd = new CreateToOffsetCommand(control, PositionConstants.LEFT, parentWidth,
 									FormUtils.snapGrid(x - layoutMarginLeft, sens));
 						} else {
-							cmd = new MoveToOffsetCommand(control, IPositionConstants.LEFT, parentWidth,
+							cmd = new MoveToOffsetCommand(control, PositionConstants.LEFT, parentWidth,
 									FormUtils.snapGrid(x - layoutMarginLeft, sens));
 						}
 					}
@@ -1096,9 +1096,9 @@ implements IHeadersProvider {
 		} else {
 			locationX = getLocationString(leftAttachment, bounds.x - layoutMarginLeft, parentWidth);
 			if (createControl) {
-				cmd = new CreateToOffsetCommand(control, IPositionConstants.LEFT, parentWidth, x - layoutMarginLeft);
+				cmd = new CreateToOffsetCommand(control, PositionConstants.LEFT, parentWidth, x - layoutMarginLeft);
 			} else {
-				cmd = new MoveToOffsetCommand(control, IPositionConstants.LEFT, parentWidth, x - layoutMarginLeft);
+				cmd = new MoveToOffsetCommand(control, PositionConstants.LEFT, parentWidth, x - layoutMarginLeft);
 			}
 		}
 		addHLine(part, bounds.x, layout.getComposite().getClientArea().height, ColorConstants.red);

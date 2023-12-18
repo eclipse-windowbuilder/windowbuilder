@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.swing.gef.part.box.BoxStrutHorizontalEditPart;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.property.converter.DimensionConverter;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +45,10 @@ public final class StrutSelectionRigidEditPolicy extends StrutSelectionEditPolic
 	@Override
 	protected List<Handle> createStaticHandles() {
 		List<Handle> handles = new ArrayList<>();
-		handles.add(createResizeHandle(IPositionConstants.LEFT, IPositionConstants.WEST));
-		handles.add(createResizeHandle(IPositionConstants.RIGHT, IPositionConstants.EAST));
-		handles.add(createResizeHandle(IPositionConstants.TOP, IPositionConstants.NORTH));
-		handles.add(createResizeHandle(IPositionConstants.BOTTOM, IPositionConstants.SOUTH));
+		handles.add(createResizeHandle(PositionConstants.LEFT, PositionConstants.WEST));
+		handles.add(createResizeHandle(PositionConstants.RIGHT, PositionConstants.EAST));
+		handles.add(createResizeHandle(PositionConstants.TOP, PositionConstants.NORTH));
+		handles.add(createResizeHandle(PositionConstants.BOTTOM, PositionConstants.SOUTH));
 		return handles;
 	}
 

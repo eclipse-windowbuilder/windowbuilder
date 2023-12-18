@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.ToolUtilities;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
@@ -104,19 +104,19 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 				switch (request.getKeyCode()) {
 				case SWT.ARROW_UP :
 					sizeDelta.height--;
-					resizeDirection |= IPositionConstants.NORTH_SOUTH;
+					resizeDirection |= PositionConstants.NORTH_SOUTH;
 					break;
 				case SWT.ARROW_DOWN :
 					sizeDelta.height++;
-					resizeDirection |= IPositionConstants.NORTH_SOUTH;
+					resizeDirection |= PositionConstants.NORTH_SOUTH;
 					break;
 				case SWT.ARROW_LEFT :
 					sizeDelta.width--;
-					resizeDirection |= IPositionConstants.EAST_WEST;
+					resizeDirection |= PositionConstants.EAST_WEST;
 					break;
 				case SWT.ARROW_RIGHT :
 					sizeDelta.width++;
-					resizeDirection |= IPositionConstants.EAST_WEST;
+					resizeDirection |= PositionConstants.EAST_WEST;
 					break;
 				}
 				m_changeBoundsRequest.setResizeDirection(resizeDirection);
@@ -192,7 +192,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 									// clear request
 									m_changeBoundsRequest.setMoveDelta(new Point());
 									m_changeBoundsRequest.setSizeDelta(new Dimension());
-									m_changeBoundsRequest.setResizeDirection(IPositionConstants.NONE);
+									m_changeBoundsRequest.setResizeDirection(PositionConstants.NONE);
 								}
 							}
 						}

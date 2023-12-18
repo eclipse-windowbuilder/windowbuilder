@@ -12,9 +12,9 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.laf.IBaselineSupport;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -37,7 +37,7 @@ public final class BaselineComponentSnapPoint extends ComponentSnapPoint {
 	////////////////////////////////////////////////////////////////////////////
 	public BaselineComponentSnapPoint(final IVisualDataProvider visualDataProvider,
 			final IAbstractComponentInfo anchorComponent) {
-		super(visualDataProvider, anchorComponent, IPositionConstants.TOP, PlacementInfo.LEADING);
+		super(visualDataProvider, anchorComponent, PositionConstants.TOP, PlacementInfo.LEADING);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

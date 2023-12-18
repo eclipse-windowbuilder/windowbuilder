@@ -11,9 +11,10 @@
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.rcp.model.widgets.TreeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import org.junit.Test;
 
@@ -55,7 +56,7 @@ public class TreeGefTest extends RcpGefTest {
 		//
 		loadCreationTool("org.eclipse.swt.widgets.TreeColumn");
 		canvas.moveTo(column, 0.1, 0.5);
-		canvas.assertFeedbacks(canvas.getLinePredicate(column, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(column, PositionConstants.LEFT));
 		canvas.click();
 		assertEditor(
 				"public class Test extends Tree {",

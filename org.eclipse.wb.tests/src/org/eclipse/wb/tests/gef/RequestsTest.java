@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -122,7 +122,7 @@ public class RequestsTest extends Assert {
 		request.setLocation(location);
 		request.setMoveDelta(moveDelta);
 		request.setSizeDelta(sizeDelta);
-		request.setResizeDirection(IPositionConstants.EAST);
+		request.setResizeDirection(PositionConstants.EAST);
 		//
 		// check set location, moveDelta, sizeDelta, direction
 		assertEquals("sss", request.getType());
@@ -132,7 +132,7 @@ public class RequestsTest extends Assert {
 		assertSame(location, request.getLocation());
 		assertSame(moveDelta, request.getMoveDelta());
 		assertSame(sizeDelta, request.getSizeDelta());
-		assertEquals(IPositionConstants.EAST, request.getResizeDirection());
+		assertEquals(PositionConstants.EAST, request.getResizeDirection());
 		//
 		// check work getTransformedRectangle()
 		Rectangle rectangle = new Rectangle(1, 2, 3, 4);

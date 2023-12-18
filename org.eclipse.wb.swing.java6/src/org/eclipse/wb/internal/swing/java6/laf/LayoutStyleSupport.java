@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.java6.laf;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swing.java6.Messages;
 import org.eclipse.wb.internal.swing.laf.ILayoutStyleSupport;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import java.awt.Container;
 import java.text.MessageFormat;
@@ -69,17 +70,17 @@ public final class LayoutStyleSupport implements ILayoutStyleSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Converts from {@link IPositionConstants} into {@link SwingConstants}.
+	 * Converts from {@link PositionConstants} into {@link SwingConstants}.
 	 */
 	private static int convertPositionConstants(int positionConstant) {
 		switch (positionConstant) {
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			return SwingConstants.NORTH;
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			return SwingConstants.SOUTH;
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			return SwingConstants.WEST;
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			return SwingConstants.EAST;
 		default :
 			throw new IllegalArgumentException(MessageFormat.format(

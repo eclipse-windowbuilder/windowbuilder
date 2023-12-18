@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.model.layout.form;
 
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AnchorsActionsSupport;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.IActionImageProvider;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IContributionManager;
@@ -155,43 +155,43 @@ ILayoutAssistantPage {
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentTopLeft,
 				"assistant/top_left.gif",
-				IPositionConstants.LEFT | IPositionConstants.TOP));
+				PositionConstants.LEFT | PositionConstants.TOP));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentTopRight,
 				"assistant/top_right.gif",
-				IPositionConstants.TOP | IPositionConstants.RIGHT));
+				PositionConstants.TOP | PositionConstants.RIGHT));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentBottomLeft,
 				"assistant/bottom_left.gif",
-				IPositionConstants.LEFT | IPositionConstants.BOTTOM));
+				PositionConstants.LEFT | PositionConstants.BOTTOM));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentBottomRight,
 				"assistant/bottom_right.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
+				PositionConstants.BOTTOM | PositionConstants.RIGHT));
 		manager.add(new Separator());
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentLeftRightTop,
 				"assistant/top_left_right.gif",
-				IPositionConstants.LEFT | IPositionConstants.TOP | IPositionConstants.RIGHT));
+				PositionConstants.LEFT | PositionConstants.TOP | PositionConstants.RIGHT));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentLeftRightBottom,
 				"assistant/bottom_left_right.gif",
-				IPositionConstants.LEFT | IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
+				PositionConstants.LEFT | PositionConstants.BOTTOM | PositionConstants.RIGHT));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentTopBottomLeft,
 				"assistant/top_bottom_left.gif",
-				IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.BOTTOM));
+				PositionConstants.TOP | PositionConstants.LEFT | PositionConstants.BOTTOM));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentTopLBottomRight,
 				"assistant/top_bottom_right.gif",
-				IPositionConstants.BOTTOM | IPositionConstants.RIGHT | IPositionConstants.TOP));
+				PositionConstants.BOTTOM | PositionConstants.RIGHT | PositionConstants.TOP));
 		manager.add(new SetCornerAnchorsAction(m_selection,
 				ModelMessages.LayoutAssistantPage_alignmentAll,
 				"assistant/top_bottom_left_right.gif",
-				IPositionConstants.BOTTOM
-				| IPositionConstants.RIGHT
-				| IPositionConstants.TOP
-				| IPositionConstants.LEFT));
+				PositionConstants.BOTTOM
+				| PositionConstants.RIGHT
+				| PositionConstants.TOP
+				| PositionConstants.LEFT));
 	}
 
 	private final class SetCornerAnchorsAction extends ObjectInfoAction {
@@ -207,19 +207,19 @@ ILayoutAssistantPage {
 		@Override
 		protected void runEx() throws Exception {
 			for (C widget : m_widgets) {
-				if ((m_alignment & IPositionConstants.LEFT) != 0
-						&& (m_alignment & IPositionConstants.RIGHT) != 0) {
+				if ((m_alignment & PositionConstants.LEFT) != 0
+						&& (m_alignment & PositionConstants.RIGHT) != 0) {
 					m_placementsSupport.setResizeable(widget, true);
 				} else {
-					checkAlignment(widget, IPositionConstants.LEFT);
-					checkAlignment(widget, IPositionConstants.RIGHT);
+					checkAlignment(widget, PositionConstants.LEFT);
+					checkAlignment(widget, PositionConstants.RIGHT);
 				}
-				if ((m_alignment & IPositionConstants.TOP) != 0
-						&& (m_alignment & IPositionConstants.BOTTOM) != 0) {
+				if ((m_alignment & PositionConstants.TOP) != 0
+						&& (m_alignment & PositionConstants.BOTTOM) != 0) {
 					m_placementsSupport.setResizeable(widget, false);
 				} else {
-					checkAlignment(widget, IPositionConstants.TOP);
-					checkAlignment(widget, IPositionConstants.BOTTOM);
+					checkAlignment(widget, PositionConstants.TOP);
+					checkAlignment(widget, PositionConstants.BOTTOM);
 				}
 			}
 		}

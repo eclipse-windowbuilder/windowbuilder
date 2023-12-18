@@ -11,10 +11,10 @@
 package org.eclipse.wb.tests.designer.editor;
 
 import org.eclipse.wb.core.gef.policy.selection.TopSelectionEditPolicy;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.assertj.core.api.Assertions;
@@ -57,7 +57,7 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 			assertEquals(300, bounds.height);
 		}
 		// select end resize
-		canvas.beginResize(shell, IPositionConstants.SOUTH_EAST);
+		canvas.beginResize(shell, PositionConstants.SOUTH_EAST);
 		canvas.dragOn(50, 30).endDrag();
 		{
 			Rectangle bounds = shell.getBounds();
@@ -83,7 +83,7 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 			assertEquals(300, bounds.height);
 		}
 		// drag so that size is negative, but no exception
-		canvas.beginResize(shell, IPositionConstants.EAST);
+		canvas.beginResize(shell, PositionConstants.EAST);
 		canvas.dragOn(-455, 0);
 		canvas.endDrag();
 		// size is reasonable
@@ -111,7 +111,7 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 			assertEquals(300, bounds.height);
 		}
 		// drag so that size is negative, but no exception
-		canvas.beginResize(shell, IPositionConstants.SOUTH);
+		canvas.beginResize(shell, PositionConstants.SOUTH);
 		canvas.dragOn(0, -305);
 		canvas.endDrag();
 		// size is reasonable

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.layout.form.gef;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormLayoutEditPolicy;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -361,7 +361,7 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo shell = openEditor1(100);
 		// prepare objects
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
-		int containerGap = getEditPolicy(shell).getContainerGapValue(shell, IPositionConstants.LEFT);
+		int containerGap = getEditPolicy(shell).getContainerGapValue(shell, PositionConstants.LEFT);
 		moveByLeft(shell, button, containerGap, 100);
 		assertEditor(
 				"public class Test extends Shell {",
@@ -383,7 +383,7 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	public void test_move_right_to_container_gap() throws Exception {
 		ControlInfo shell = openEditor1(100);
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
-		int containerGap = getEditPolicy(shell).getContainerGapValue(button, IPositionConstants.RIGHT);
+		int containerGap = getEditPolicy(shell).getContainerGapValue(button, PositionConstants.RIGHT);
 		moveByRight(shell, button, 450 - containerGap - 1, 100);
 		// done drag
 		canvas.endDrag();

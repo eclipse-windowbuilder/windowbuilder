@@ -11,8 +11,8 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -38,8 +38,8 @@ public interface IVisualDataProvider {
 	 *          null.
 	 * @param direction
 	 *          Determines a side of parent container for which gap value is requested. Valid values
-	 *          are {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
-	 *          {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM}.
+	 *          are {@link PositionConstants#LEFT}, {@link PositionConstants#RIGHT},
+	 *          {@link PositionConstants#TOP}, {@link PositionConstants#BOTTOM}.
 	 * @return Gap value for container.
 	 */
 	int getContainerGapValue(IAbstractComponentInfo component, int direction);

@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,10 @@ public class NonResizableSelectionEditPolicy extends SelectionEditPolicy {
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
-		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
-		handles.add(createHandle(IPositionConstants.SOUTH_WEST));
-		handles.add(createHandle(IPositionConstants.NORTH_WEST));
-		handles.add(createHandle(IPositionConstants.NORTH_EAST));
+		handles.add(createHandle(PositionConstants.SOUTH_EAST));
+		handles.add(createHandle(PositionConstants.SOUTH_WEST));
+		handles.add(createHandle(PositionConstants.NORTH_WEST));
+		handles.add(createHandle(PositionConstants.NORTH_EAST));
 		return handles;
 	}
 

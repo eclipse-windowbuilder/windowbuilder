@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 
@@ -38,7 +38,7 @@ public enum FormSide {
 
 		@Override
 		public int getEngineSide() {
-			return IPositionConstants.LEFT;
+			return PositionConstants.LEFT;
 		}
 
 		@Override
@@ -59,7 +59,7 @@ public enum FormSide {
 
 		@Override
 		public int getEngineSide() {
-			return IPositionConstants.RIGHT;
+			return PositionConstants.RIGHT;
 		}
 
 		@Override
@@ -80,7 +80,7 @@ public enum FormSide {
 
 		@Override
 		public int getEngineSide() {
-			return IPositionConstants.TOP;
+			return PositionConstants.TOP;
 		}
 
 		@Override
@@ -101,7 +101,7 @@ public enum FormSide {
 
 		@Override
 		public int getEngineSide() {
-			return IPositionConstants.BOTTOM;
+			return PositionConstants.BOTTOM;
 		}
 
 		@Override
@@ -120,8 +120,8 @@ public enum FormSide {
 	public abstract int getFormSide();
 
 	/**
-	 * @return the side, can be either of IPositionConstants.LEFT, IPositionConstants.RIGHT,
-	 *         IPositionConstants.TOP, IPositionConstants.BOTTOM.
+	 * @return the side, can be either of PositionConstants.LEFT, PositionConstants.RIGHT,
+	 *         PositionConstants.TOP, PositionConstants.BOTTOM.
 	 */
 	public abstract int getEngineSide();
 
@@ -136,20 +136,20 @@ public enum FormSide {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the {@link FormSide} by integer side: IPositionConstants.LEFT,
-	 *         IPositionConstants.RIGHT, IPositionConstants.TOP, IPositionConstants.BOTTOM.
+	 * @return the {@link FormSide} by integer side: PositionConstants.LEFT,
+	 *         PositionConstants.RIGHT, PositionConstants.TOP, PositionConstants.BOTTOM.
 	 */
 	public static FormSide get(int side) {
-		if (side == IPositionConstants.LEFT) {
+		if (side == PositionConstants.LEFT) {
 			return LEFT;
 		}
-		if (side == IPositionConstants.RIGHT) {
+		if (side == PositionConstants.RIGHT) {
 			return RIGHT;
 		}
-		if (side == IPositionConstants.TOP) {
+		if (side == PositionConstants.TOP) {
 			return TOP;
 		}
-		if (side == IPositionConstants.BOTTOM) {
+		if (side == PositionConstants.BOTTOM) {
 			return BOTTOM;
 		}
 		throw new Error(MessageFormat.format(ModelMessages.FormSide_unknownSize, side));

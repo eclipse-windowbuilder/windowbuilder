@@ -11,9 +11,9 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -38,14 +38,14 @@ public class LineEndFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	public LineEndFigure(int alignment, Color color) {
 		m_color = color;
-		if (alignment == IPositionConstants.LEFT || alignment == IPositionConstants.RIGHT) {
+		if (alignment == PositionConstants.LEFT || alignment == PositionConstants.RIGHT) {
 			m_startAngle = 90;
-		} else if (alignment == IPositionConstants.TOP || alignment == IPositionConstants.BOTTOM) {
+		} else if (alignment == PositionConstants.TOP || alignment == PositionConstants.BOTTOM) {
 			m_startAngle = 0;
 		}
-		if (alignment == IPositionConstants.LEFT || alignment == IPositionConstants.TOP) {
+		if (alignment == PositionConstants.LEFT || alignment == PositionConstants.TOP) {
 			m_lengthAngle = -180;
-		} else if (alignment == IPositionConstants.RIGHT || alignment == IPositionConstants.BOTTOM) {
+		} else if (alignment == PositionConstants.RIGHT || alignment == PositionConstants.BOTTOM) {
 			m_lengthAngle = 180;
 		}
 		setSize(FIGURE_SIZE, FIGURE_SIZE);

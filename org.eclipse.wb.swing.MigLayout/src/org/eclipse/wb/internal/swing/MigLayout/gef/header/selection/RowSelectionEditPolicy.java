@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.selection;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.swing.MigLayout.gef.header.edit.RowHeaderEditPart
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
@@ -50,8 +50,8 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<M
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Handle createResizeHandle() {
-		Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, true);
-		handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
+		Handle handle = new SideResizeHandle(getHost(), PositionConstants.BOTTOM, 7, true);
+		handle.setDragTrackerTool(new ResizeTracker(getHost(), PositionConstants.SOUTH, REQ_RESIZE));
 		return handle;
 	}
 

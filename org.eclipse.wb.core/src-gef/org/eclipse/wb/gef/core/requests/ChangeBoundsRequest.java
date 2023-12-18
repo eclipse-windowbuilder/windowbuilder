@@ -100,14 +100,14 @@ public class ChangeBoundsRequest extends GroupRequest implements DropRequest {
 	/**
 	 * Returns the direction the figure is being resized. Possible values are
 	 * <ul>
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#EAST}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#WEST}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#NORTH}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#SOUTH}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#NORTH_EAST}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#NORTH_WEST}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#SOUTH_EAST}
-	 * <li>{@link org.eclipse.wb.draw2d.IPositionConstants#SOUTH_WEST}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#EAST}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#WEST}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#NORTH}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#SOUTH}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#NORTH_EAST}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#NORTH_WEST}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#SOUTH_EAST}
+	 * <li>{@link org.eclipse.draw2d.PositionConstants#SOUTH_WEST}
 	 * </ul>
 	 */
 	public int getResizeDirection() {

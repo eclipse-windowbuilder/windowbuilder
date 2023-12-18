@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
@@ -50,6 +49,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -127,14 +127,14 @@ SelectionEditPolicy {
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		moveHandle.setBorder(new LineBorder(ColorConstants.lightBlue));
 		handles.add(moveHandle);
-		handles.add(createResizeHandle(IPositionConstants.NORTH));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH));
-		handles.add(createResizeHandle(IPositionConstants.WEST));
-		handles.add(createResizeHandle(IPositionConstants.EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.NORTH));
+		handles.add(createResizeHandle(PositionConstants.SOUTH));
+		handles.add(createResizeHandle(PositionConstants.WEST));
+		handles.add(createResizeHandle(PositionConstants.EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_EAST));
 		return handles;
 	}
 
@@ -234,7 +234,7 @@ SelectionEditPolicy {
 		// size hints feedback
 		String xText = "", yText = "";
 		// West
-		if (hasDirection(direction, IPositionConstants.WEST)) {
+		if (hasDirection(direction, PositionConstants.WEST)) {
 			removeSelectionFeedbacks("W");
 			int x = bounds.x;
 			boolean componentFound = false;
@@ -312,7 +312,7 @@ SelectionEditPolicy {
 			addVerticalResizeLine("5", bounds.x, parentClientAreaHeight, ColorConstants.red);
 		}
 		// East
-		if (hasDirection(direction, IPositionConstants.EAST)) {
+		if (hasDirection(direction, PositionConstants.EAST)) {
 			removeSelectionFeedbacks("E");
 			int x = bounds.right();
 			boolean componentFound = false;
@@ -390,7 +390,7 @@ SelectionEditPolicy {
 			addVerticalResizeLine("5", bounds.right(), parentClientAreaHeight, ColorConstants.red);
 		}
 		// North
-		if (hasDirection(direction, IPositionConstants.NORTH)) {
+		if (hasDirection(direction, PositionConstants.NORTH)) {
 			removeSelectionFeedbacks("N");
 			int y = bounds.y;
 			boolean componentFound = false;
@@ -468,7 +468,7 @@ SelectionEditPolicy {
 			addHorizontalResizeLine("5", bounds.y, parentClientAreaWidth, ColorConstants.red);
 		}
 		// South
-		if (hasDirection(direction, IPositionConstants.SOUTH)) {
+		if (hasDirection(direction, PositionConstants.SOUTH)) {
 			removeSelectionFeedbacks("S");
 			int y = bounds.bottom();
 			boolean componentFound = false;
@@ -560,7 +560,7 @@ SelectionEditPolicy {
 				Rectangle textBounds = bounds.getCopy();
 				textBounds.y = parentClientAreaHeight + 1;
 				int x =
-						hasDirection(direction, IPositionConstants.EAST) ? textBounds.right() : textBounds.x;
+						hasDirection(direction, PositionConstants.EAST) ? textBounds.right() : textBounds.x;
 				x -= textSize.width / 2;
 				if (x < 0) {
 					x = 0;
@@ -581,7 +581,7 @@ SelectionEditPolicy {
 				Rectangle textBounds = bounds.getCopy();
 				textBounds.x = parentClientAreaWidth + 1;
 				int y =
-						hasDirection(direction, IPositionConstants.SOUTH) ? textBounds.bottom() : textBounds.y;
+						hasDirection(direction, PositionConstants.SOUTH) ? textBounds.bottom() : textBounds.y;
 				y -= textSize.height / 2;
 				if (y < 0) {
 					y = 0;
@@ -640,10 +640,10 @@ SelectionEditPolicy {
 		@SuppressWarnings("unchecked")
 		IFormDataInfo<C> formDataInfo = (IFormDataInfo<C>) layoutInfo.getLayoutData2(control);
 		// West
-		if (hasDirection(direction, IPositionConstants.WEST)) {
+		if (hasDirection(direction, PositionConstants.WEST)) {
 			int x = bounds.x;
 			Command cmd = null;
-			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.LEFT);
+			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(PositionConstants.LEFT);
 			if (useSnap()) {
 				if (hwMargin > -1) {
 					for (Iterator<C> I = sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
@@ -652,11 +652,11 @@ SelectionEditPolicy {
 						Rectangle componentBounds = getControlModelBounds(child);
 						if (FormUtils.between(x - (componentBounds.right() + hwMargin), 0, sens)) {
 							cmd =
-									new ResizeToControlCommand(attachment, child, IPositionConstants.RIGHT, hwMargin);
+									new ResizeToControlCommand(attachment, child, PositionConstants.RIGHT, hwMargin);
 						} else if (FormUtils.between(x - componentBounds.right(), -sens, hwMargin)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.RIGHT, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.RIGHT, 0);
 						} else if (FormUtils.between(x - componentBounds.x, -sens, sens)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.LEFT, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.LEFT, 0);
 						}
 					}
 				}
@@ -675,7 +675,7 @@ SelectionEditPolicy {
 					}
 					if (cmd == null) {
 						if (hMargin > -1 && x < hMargin + layoutMarginLeft) {
-							cmd = new ResizeToMarginCommand(attachment, IPositionConstants.LEFT, hMargin);
+							cmd = new ResizeToMarginCommand(attachment, PositionConstants.LEFT, hMargin);
 						} else {
 							cmd =
 									new ResizeToOffsetCommand(attachment, parentWidth, FormUtils.snapGrid(x
@@ -689,10 +689,10 @@ SelectionEditPolicy {
 			compoundCommand.add(cmd);
 		}
 		// East
-		if (hasDirection(direction, IPositionConstants.EAST)) {
+		if (hasDirection(direction, PositionConstants.EAST)) {
 			int x = bounds.right();
 			Command cmd = null;
-			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.RIGHT);
+			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(PositionConstants.RIGHT);
 			if (useSnap()) {
 				if (hwMargin > -1) {
 					for (Iterator<C> I = sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
@@ -701,11 +701,11 @@ SelectionEditPolicy {
 						Rectangle componentBounds = getControlModelBounds(child);
 						if (FormUtils.between(componentBounds.x - hwMargin - x, 0, sens)) {
 							cmd =
-									new ResizeToControlCommand(attachment, child, IPositionConstants.LEFT, -hwMargin);
+									new ResizeToControlCommand(attachment, child, PositionConstants.LEFT, -hwMargin);
 						} else if (FormUtils.between(componentBounds.x - x, -sens, hwMargin)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.LEFT, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.LEFT, 0);
 						} else if (FormUtils.between(componentBounds.right() - x, -sens, sens)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.RIGHT, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.RIGHT, 0);
 						}
 					}
 				}
@@ -724,7 +724,7 @@ SelectionEditPolicy {
 					}
 					if (cmd == null) {
 						if (hMargin > -1 && x > parentWidth - hMargin + layoutMarginLeft) {
-							cmd = new ResizeToMarginCommand(attachment, IPositionConstants.RIGHT, hMargin);
+							cmd = new ResizeToMarginCommand(attachment, PositionConstants.RIGHT, hMargin);
 						} else {
 							cmd =
 									new ResizeToOffsetCommand(attachment, parentWidth, FormUtils.snapGrid(x
@@ -738,10 +738,10 @@ SelectionEditPolicy {
 			compoundCommand.add(cmd);
 		}
 		// North
-		if (hasDirection(direction, IPositionConstants.NORTH)) {
+		if (hasDirection(direction, PositionConstants.NORTH)) {
 			int y = bounds.y;
 			Command cmd = null;
-			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.TOP);
+			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(PositionConstants.TOP);
 			if (useSnap()) {
 				if (vwMargin > -1) {
 					for (Iterator<C> I = sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
@@ -750,11 +750,11 @@ SelectionEditPolicy {
 						Rectangle componentBounds = getControlModelBounds(child);
 						if (FormUtils.between(y - (componentBounds.bottom() + vwMargin), 0, sens)) {
 							cmd =
-									new ResizeToControlCommand(attachment, child, IPositionConstants.BOTTOM, vwMargin);
+									new ResizeToControlCommand(attachment, child, PositionConstants.BOTTOM, vwMargin);
 						} else if (FormUtils.between(y - componentBounds.bottom(), -sens, vwMargin)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.BOTTOM, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.BOTTOM, 0);
 						} else if (FormUtils.between(y - componentBounds.y, -sens, sens)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.TOP, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.TOP, 0);
 						}
 					}
 				}
@@ -773,7 +773,7 @@ SelectionEditPolicy {
 					}
 					if (cmd == null) {
 						if (vMargin > -1 && y < vMargin + layoutMarginTop) {
-							cmd = new ResizeToMarginCommand(attachment, IPositionConstants.TOP, vMargin);
+							cmd = new ResizeToMarginCommand(attachment, PositionConstants.TOP, vMargin);
 						} else {
 							cmd =
 									new ResizeToOffsetCommand(attachment, parentHeight, FormUtils.snapGrid(y
@@ -787,10 +787,10 @@ SelectionEditPolicy {
 			compoundCommand.add(cmd);
 		}
 		// South
-		if (hasDirection(direction, IPositionConstants.SOUTH)) {
+		if (hasDirection(direction, PositionConstants.SOUTH)) {
 			int y = bounds.bottom();
 			Command cmd = null;
-			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.BOTTOM);
+			IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(PositionConstants.BOTTOM);
 			if (useSnap()) {
 				if (vwMargin > -1) {
 					for (Iterator<C> I = sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
@@ -799,11 +799,11 @@ SelectionEditPolicy {
 						Rectangle componentBounds = getControlModelBounds(child);
 						if (FormUtils.between(componentBounds.y - vwMargin - y, 0, sens)) {
 							cmd =
-									new ResizeToControlCommand(attachment, child, IPositionConstants.TOP, -vwMargin);
+									new ResizeToControlCommand(attachment, child, PositionConstants.TOP, -vwMargin);
 						} else if (FormUtils.between(componentBounds.y - y, -sens, vwMargin)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.TOP, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.TOP, 0);
 						} else if (FormUtils.between(componentBounds.bottom() - y, -sens, sens)) {
-							cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.BOTTOM, 0);
+							cmd = new ResizeToControlCommand(attachment, child, PositionConstants.BOTTOM, 0);
 						}
 					}
 				}
@@ -822,7 +822,7 @@ SelectionEditPolicy {
 					}
 					if (cmd == null) {
 						if (vMargin > -1 && y > parentHeight - vMargin + layoutMarginTop) {
-							cmd = new ResizeToMarginCommand(attachment, IPositionConstants.BOTTOM, vMargin);
+							cmd = new ResizeToMarginCommand(attachment, PositionConstants.BOTTOM, vMargin);
 						} else {
 							cmd =
 									new ResizeToOffsetCommand(attachment, parentHeight, FormUtils.snapGrid(y
@@ -917,7 +917,7 @@ SelectionEditPolicy {
 				} else {
 					int thisY = bounds.getCenter().y;
 					addHorizontalFeedbackLine("W1", thisY, 0, bounds.x, offsetColor);
-					addLineEndFigure("W2", 0, thisY, IPositionConstants.LEFT, offsetColor);
+					addLineEndFigure("W2", 0, thisY, PositionConstants.LEFT, offsetColor);
 				}
 			} else if (!isLeft && percent == 100) {
 				if (offset == -sideMargin) {
@@ -925,7 +925,7 @@ SelectionEditPolicy {
 				} else {
 					int thisY = bounds.getCenter().y;
 					addHorizontalFeedbackLine("E1", thisY, bounds.right(), parentWidth, offsetColor);
-					addLineEndFigure("E2", parentWidth, thisY, IPositionConstants.RIGHT, offsetColor);
+					addLineEndFigure("E2", parentWidth, thisY, PositionConstants.RIGHT, offsetColor);
 				}
 			} else if (isHSnapPercent(percent)) {
 				int percentX;
@@ -969,7 +969,7 @@ SelectionEditPolicy {
 				} else {
 					int thisX = bounds.getCenter().x;
 					addVerticalFeedbackLine("N1", thisX, 0, bounds.y, offsetColor);
-					addLineEndFigure("N2", thisX, 0, IPositionConstants.TOP, offsetColor);
+					addLineEndFigure("N2", thisX, 0, PositionConstants.TOP, offsetColor);
 				}
 			} else if (!isTop && percent == 100) {
 				if (offset == -sideMargin) {
@@ -977,7 +977,7 @@ SelectionEditPolicy {
 				} else {
 					int thisX = bounds.getCenter().x;
 					addVerticalFeedbackLine("S1", thisX, bounds.bottom(), parentHeight, offsetColor);
-					addLineEndFigure("S2", thisX, parentHeight, IPositionConstants.BOTTOM, offsetColor);
+					addLineEndFigure("S2", thisX, parentHeight, PositionConstants.BOTTOM, offsetColor);
 				}
 			} else if (isVSnapPercent(percent)) {
 				int percentY;
@@ -1011,22 +1011,22 @@ SelectionEditPolicy {
 				parentWidth,
 				parentHeight,
 				bounds,
-				layoutImpl.getAttachment(control, IPositionConstants.LEFT));
+				layoutImpl.getAttachment(control, PositionConstants.LEFT));
 		addVerticalSideLinesFeedbacks(
 				parentWidth,
 				parentHeight,
 				bounds,
-				layoutImpl.getAttachment(control, IPositionConstants.RIGHT));
+				layoutImpl.getAttachment(control, PositionConstants.RIGHT));
 		addHorizontalSideLinesFeedbacks(
 				parentWidth,
 				parentHeight,
 				bounds,
-				layoutImpl.getAttachment(control, IPositionConstants.TOP));
+				layoutImpl.getAttachment(control, PositionConstants.TOP));
 		addHorizontalSideLinesFeedbacks(
 				parentWidth,
 				parentHeight,
 				bounds,
-				layoutImpl.getAttachment(control, IPositionConstants.BOTTOM));
+				layoutImpl.getAttachment(control, PositionConstants.BOTTOM));
 	}
 
 	/**

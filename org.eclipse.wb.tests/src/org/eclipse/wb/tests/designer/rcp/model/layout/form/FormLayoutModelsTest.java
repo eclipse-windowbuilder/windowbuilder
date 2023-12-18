@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.layout.form;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -102,7 +102,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).attachWidgetSequientially(
 				button2,
 				button,
-				IPositionConstants.LEFT,
+				PositionConstants.LEFT,
 				6);
 		assertEditor(
 				"public class Test extends Shell {",
@@ -125,10 +125,10 @@ public class FormLayoutModelsTest extends RcpModelTest {
 				"}");
 		assertTrue(((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).getAttachedToWidget(
 				button2,
-				IPositionConstants.LEFT) == button);
+				PositionConstants.LEFT) == button);
 		{
 			FormDataInfo formData = FormLayoutInfo.getFormData(button2);
-			FormAttachmentInfo attachment = formData.getAttachment(IPositionConstants.LEFT);
+			FormAttachmentInfo attachment = formData.getAttachment(PositionConstants.LEFT);
 			assertSame(button, attachment.getControl());
 			assertEquals(6, attachment.getOffset());
 			assertEquals(SWT.RIGHT, attachment.getAlignment());
@@ -156,10 +156,10 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		LayoutDataInfo layoutData = LayoutInfo.getLayoutData(buttonInfo);
 		assertInstanceOf(FormDataInfo.class, layoutData);
 		FormDataInfo formDataInfo = (FormDataInfo) layoutData;
-		assertNotNull(formDataInfo.getAttachment(IPositionConstants.LEFT));
-		assertNotNull(formDataInfo.getAttachment(IPositionConstants.RIGHT));
-		assertNotNull(formDataInfo.getAttachment(IPositionConstants.TOP));
-		assertNotNull(formDataInfo.getAttachment(IPositionConstants.BOTTOM));
+		assertNotNull(formDataInfo.getAttachment(PositionConstants.LEFT));
+		assertNotNull(formDataInfo.getAttachment(PositionConstants.RIGHT));
+		assertNotNull(formDataInfo.getAttachment(PositionConstants.TOP));
+		assertNotNull(formDataInfo.getAttachment(PositionConstants.BOTTOM));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		ControlInfo buttonInfo = shell.getChildrenControls().get(0);
 		FormDataInfo formDataInfo = (FormDataInfo) LayoutInfo.getLayoutData(buttonInfo);
 		// get left attachment
-		FormAttachmentInfo leftAttachment = formDataInfo.getAttachment(IPositionConstants.LEFT);
+		FormAttachmentInfo leftAttachment = formDataInfo.getAttachment(PositionConstants.LEFT);
 		// test
 		assertEquals(50, leftAttachment.getOffset());
 		assertEquals(0, leftAttachment.getNumerator());
@@ -221,7 +221,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		ControlInfo buttonInfo = shell.getChildrenControls().get(0);
 		ControlInfo button2Info = shell.getChildrenControls().get(1);
 		FormDataInfo formData2Info = (FormDataInfo) LayoutInfo.getLayoutData(button2Info);
-		FormAttachmentInfo leftAttachment2 = formData2Info.getAttachment(IPositionConstants.LEFT);
+		FormAttachmentInfo leftAttachment2 = formData2Info.getAttachment(PositionConstants.LEFT);
 		assertEquals(6, leftAttachment2.getOffset());
 		assertSame(buttonInfo, leftAttachment2.getControl());
 	}
@@ -248,10 +248,10 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		// tests
 		assertFalse(((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).isAttached(
 				buttonInfo,
-				IPositionConstants.RIGHT));
+				PositionConstants.RIGHT));
 		assertTrue(((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).isAttached(
 				buttonInfo,
-				IPositionConstants.LEFT));
+				PositionConstants.LEFT));
 	}
 
 	@Test
@@ -283,13 +283,13 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		// tests
 		assertFalse(((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).getAttachedToWidget(
 				buttonInfo,
-				IPositionConstants.LEFT) == button2Info);
+				PositionConstants.LEFT) == button2Info);
 		assertTrue(((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).getAttachedToWidget(
 				button2Info,
-				IPositionConstants.LEFT) == buttonInfo);
+				PositionConstants.LEFT) == buttonInfo);
 		assertFalse(((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).getAttachedToWidget(
 				button2Info,
-				IPositionConstants.RIGHT) == buttonInfo);
+				PositionConstants.RIGHT) == buttonInfo);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -357,7 +357,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		// detach
 		((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).detach(
 				buttonInfo,
-				IPositionConstants.LEFT);
+				PositionConstants.LEFT);
 		// test
 		assertEditor(
 				"public class Test extends Shell {",
@@ -393,10 +393,10 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		// detach
 		((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).detach(
 				buttonInfo,
-				IPositionConstants.LEFT);
+				PositionConstants.LEFT);
 		((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).attachAbsolute(
 				buttonInfo,
-				IPositionConstants.LEFT,
+				PositionConstants.LEFT,
 				10);
 		// test
 		assertEditor(
@@ -570,7 +570,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		ControlInfo button_2 = shell.getChildrenControls().get(1);
 		//
 		FormDataInfo formData = FormLayoutInfo.getFormData(button_2);
-		FormAttachmentInfo attachment = formData.getAttachment(IPositionConstants.LEFT);
+		FormAttachmentInfo attachment = formData.getAttachment(PositionConstants.LEFT);
 		assertSame(button_1, attachment.getControl());
 		assertEquals(5, attachment.getOffset());
 		assertEquals(SWT.RIGHT, attachment.getAlignment());
@@ -613,8 +613,8 @@ public class FormLayoutModelsTest extends RcpModelTest {
 		//
 		((FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl()).setExplicitSize(
 				button_2,
-				IPositionConstants.LEFT,
-				IPositionConstants.RIGHT,
+				PositionConstants.LEFT,
+				PositionConstants.RIGHT,
 				10);
 		assertEditor(
 				"public class Test extends Shell {",

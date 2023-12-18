@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.spring;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.Activator;
@@ -20,6 +19,7 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.junit.After;
@@ -728,7 +728,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_absoluteLeft() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.WEST).dragOn(-50, 0).endDrag();
+		canvas.beginResize(box, PositionConstants.WEST).dragOn(-50, 0).endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 100, SpringLayout.NORTH, this);",
 				"      layout.putConstraint(SpringLayout.WEST, box, 50, SpringLayout.WEST, this);",
@@ -738,7 +738,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_snapLeftOffset() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.WEST);
+		canvas.beginResize(box, PositionConstants.WEST);
 		canvas.target(panel).inX(12).drag().endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 100, SpringLayout.NORTH, this);",
@@ -749,7 +749,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_absoluteRight() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.EAST).dragOn(50, 0).endDrag();
+		canvas.beginResize(box, PositionConstants.EAST).dragOn(50, 0).endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 100, SpringLayout.NORTH, this);",
 				"      layout.putConstraint(SpringLayout.WEST, box, 100, SpringLayout.WEST, this);",
@@ -759,7 +759,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_snapRightOffset() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.EAST);
+		canvas.beginResize(box, PositionConstants.EAST);
 		canvas.target(panel).rightSide().inX(-12).drag().endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 100, SpringLayout.NORTH, this);",
@@ -770,7 +770,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_absoluteTop() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.NORTH).dragOn(0, -50).endDrag();
+		canvas.beginResize(box, PositionConstants.NORTH).dragOn(0, -50).endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 50, SpringLayout.NORTH, this);",
 				"      layout.putConstraint(SpringLayout.WEST, box, 100, SpringLayout.WEST, this);",
@@ -780,7 +780,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_snapTopOffset() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.NORTH);
+		canvas.beginResize(box, PositionConstants.NORTH);
 		canvas.target(panel).inY(12).drag().endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 10, SpringLayout.NORTH, this);",
@@ -791,7 +791,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_absoluteBottom() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, 50).endDrag();
+		canvas.beginResize(box, PositionConstants.SOUTH).dragOn(0, 50).endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 100, SpringLayout.NORTH, this);",
 				"      layout.putConstraint(SpringLayout.WEST, box, 100, SpringLayout.WEST, this);",
@@ -801,7 +801,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_RESIZE_singleTL_snapBottomOffset() throws Exception {
 		prepare_RESIZE_singleTL();
-		canvas.beginResize(box, IPositionConstants.SOUTH);
+		canvas.beginResize(box, PositionConstants.SOUTH);
 		canvas.target(panel).bottomSide().inY(-12).drag().endDrag();
 		assert_RESIZE_singleTL(
 				"      layout.putConstraint(SpringLayout.NORTH, box, 100, SpringLayout.NORTH, this);",

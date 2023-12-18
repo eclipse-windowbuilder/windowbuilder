@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutUtils;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -94,14 +94,14 @@ LayoutConstants {
 		List<Handle> handles = new ArrayList<>();
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		handles.add(moveHandle);
-		handles.add(createResizeHandle(IPositionConstants.NORTH));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH));
-		handles.add(createResizeHandle(IPositionConstants.WEST));
-		handles.add(createResizeHandle(IPositionConstants.EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.NORTH));
+		handles.add(createResizeHandle(PositionConstants.SOUTH));
+		handles.add(createResizeHandle(PositionConstants.WEST));
+		handles.add(createResizeHandle(PositionConstants.EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_EAST));
 		return handles;
 	}
 
@@ -245,18 +245,18 @@ LayoutConstants {
 
 	private int[] setupResizeEdges(int direction) {
 		int[] resizeEdges = new int[2];
-		int horiz = direction & (IPositionConstants.EAST | IPositionConstants.WEST);
-		if (horiz == IPositionConstants.WEST) {
+		int horiz = direction & (PositionConstants.EAST | PositionConstants.WEST);
+		if (horiz == PositionConstants.WEST) {
 			resizeEdges[HORIZONTAL] = LEADING;
-		} else if (horiz == IPositionConstants.EAST) {
+		} else if (horiz == PositionConstants.EAST) {
 			resizeEdges[HORIZONTAL] = TRAILING;
 		} else {
 			resizeEdges[HORIZONTAL] = DEFAULT;
 		}
-		int vert = direction & (IPositionConstants.NORTH | IPositionConstants.SOUTH);
-		if (vert == IPositionConstants.NORTH) {
+		int vert = direction & (PositionConstants.NORTH | PositionConstants.SOUTH);
+		if (vert == PositionConstants.NORTH) {
 			resizeEdges[VERTICAL] = LEADING;
-		} else if (vert == IPositionConstants.SOUTH) {
+		} else if (vert == PositionConstants.SOUTH) {
 			resizeEdges[VERTICAL] = TRAILING;
 		} else {
 			resizeEdges[VERTICAL] = DEFAULT;

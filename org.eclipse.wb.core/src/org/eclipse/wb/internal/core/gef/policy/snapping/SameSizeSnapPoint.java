@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -40,8 +40,8 @@ public class SameSizeSnapPoint extends SnapPoint {
 	public SameSizeSnapPoint(IVisualDataProvider visualDataProvider,
 			List<? extends IAbstractComponentInfo> components,
 			int side) {
-		super(visualDataProvider, side, side == IPositionConstants.LEFT
-				|| side == IPositionConstants.TOP ? PlacementInfo.LEADING : PlacementInfo.TRAILING);
+		super(visualDataProvider, side, side == PositionConstants.LEFT
+				|| side == PositionConstants.TOP ? PlacementInfo.LEADING : PlacementInfo.TRAILING);
 		m_allComponents = components;
 		m_snapDistance = 5;
 	}
@@ -99,7 +99,7 @@ public class SameSizeSnapPoint extends SnapPoint {
 	private boolean doSnapping(Rectangle transposedBounds, Dimension size) {
 		int beingSnappedPoint =
 				getSnapDirection() == PlacementInfo.LEADING ? transposedBounds.x : transposedBounds.right();
-		if (m_side == IPositionConstants.LEFT || m_side == IPositionConstants.TOP) {
+		if (m_side == PositionConstants.LEFT || m_side == PositionConstants.TOP) {
 			m_snapPoint = transposedBounds.right() - size.width;
 		} else {
 			m_snapPoint = transposedBounds.x + size.width;

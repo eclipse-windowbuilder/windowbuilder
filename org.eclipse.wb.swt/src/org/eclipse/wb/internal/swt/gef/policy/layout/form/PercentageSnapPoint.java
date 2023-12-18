@@ -12,13 +12,13 @@ package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IFeedbackProxy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.gef.policy.snapping.SnapPoint;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
@@ -46,8 +46,8 @@ final class PercentageSnapPoint<C extends IControlInfo> extends SnapPoint {
 			int side,
 			int percent,
 			boolean hasGap) {
-		super(visualDataProvider, side, side == IPositionConstants.LEFT
-				|| side == IPositionConstants.TOP ? PlacementInfo.LEADING : PlacementInfo.TRAILING);
+		super(visualDataProvider, side, side == PositionConstants.LEFT
+				|| side == PositionConstants.TOP ? PlacementInfo.LEADING : PlacementInfo.TRAILING);
 		m_visualDataProvider = visualDataProvider;
 		m_percent = percent;
 		m_hasGap = hasGap;

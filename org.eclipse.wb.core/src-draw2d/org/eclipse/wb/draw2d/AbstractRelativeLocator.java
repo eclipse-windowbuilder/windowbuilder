@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -20,13 +21,13 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * offset from that reference {@link Rectangle}. The values (0.0, 0.0) would indicate the top-left
  * corner, while the values (1.0, 1.0) would indicate the bottom-right corner.
  * <P>
- * Constants such as {@link IPositionConstants#NORTH NORTH} and {@link IPositionConstants#SOUTH
+ * Constants such as {@link PositionConstants#NORTH NORTH} and {@link PositionConstants#SOUTH
  * SOUTH} can be used to set the placement.
  *
  * @author scheglov_ke
  * @coverage gef.draw2d
  */
-public abstract class AbstractRelativeLocator implements ILocator, IPositionConstants {
+public abstract class AbstractRelativeLocator implements ILocator, PositionConstants {
 	private final double m_relativeX;
 	private final double m_relativeY;
 
@@ -45,11 +46,11 @@ public abstract class AbstractRelativeLocator implements ILocator, IPositionCons
 
 	/**
 	 * Constructs a {@link AbstractRelativeLocator} with the given relative location. The location is
-	 * a constant from {@link IPositionConstants} used as a convenient and readable way to set both
+	 * a constant from {@link PositionConstants} used as a convenient and readable way to set both
 	 * the relativeX and relativeY values.
 	 */
 	public AbstractRelativeLocator(int location) {
-		switch (location & NORTH_SOUTH) {
+		switch (location & PositionConstants.NORTH_SOUTH) {
 		case NORTH :
 			m_relativeY = 0;
 			break;

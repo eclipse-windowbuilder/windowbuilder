@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.top;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.top.WindowTopBoundsSupport;
 import org.eclipse.wb.tests.designer.Expectations;
@@ -19,6 +18,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
@@ -289,9 +289,9 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 		assertEquals(oldSize, canvas.getSize(frame));
 		waitEventLoop(50);
 		// change size
-		canvas.beginResize(frame, IPositionConstants.EAST);
+		canvas.beginResize(frame, PositionConstants.EAST);
 		canvas.dragTo(frame, resizeSize.width, 0).endDrag();
-		canvas.beginResize(frame, IPositionConstants.SOUTH);
+		canvas.beginResize(frame, PositionConstants.SOUTH);
 		canvas.dragTo(frame, 0, resizeSize.height).endDrag();
 		// check new size
 		assertEquals(newSize, canvas.getSize(frame));

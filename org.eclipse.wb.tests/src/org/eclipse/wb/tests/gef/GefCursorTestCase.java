@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
@@ -147,14 +147,14 @@ public abstract class GefCursorTestCase extends GefTestCase {
 					protected List<Handle> createSelectionHandles() {
 						List<Handle> handles = new ArrayList<>();
 						handles.add(new MoveHandle(getHost()));
-						handles.add(createResizeHandle(IPositionConstants.EAST));
-						handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
-						handles.add(createResizeHandle(IPositionConstants.SOUTH));
-						handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
-						handles.add(createResizeHandle(IPositionConstants.WEST));
-						handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
-						handles.add(createResizeHandle(IPositionConstants.NORTH));
-						handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
+						handles.add(createResizeHandle(PositionConstants.EAST));
+						handles.add(createResizeHandle(PositionConstants.SOUTH_EAST));
+						handles.add(createResizeHandle(PositionConstants.SOUTH));
+						handles.add(createResizeHandle(PositionConstants.SOUTH_WEST));
+						handles.add(createResizeHandle(PositionConstants.WEST));
+						handles.add(createResizeHandle(PositionConstants.NORTH_WEST));
+						handles.add(createResizeHandle(PositionConstants.NORTH));
+						handles.add(createResizeHandle(PositionConstants.NORTH_EAST));
 						return handles;
 					}
 

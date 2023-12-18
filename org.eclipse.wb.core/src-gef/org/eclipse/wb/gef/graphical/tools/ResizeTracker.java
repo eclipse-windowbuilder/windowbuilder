@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPartViewer;
@@ -242,17 +242,17 @@ public class ResizeTracker extends Tool {
 		Dimension resize = new Dimension();
 		Dimension dragMoveDelta = getDragMoveDelta();
 		// calculate vertical move and size delta
-		if ((m_direction & IPositionConstants.NORTH) != 0) {
+		if ((m_direction & PositionConstants.NORTH) != 0) {
 			corner.y += dragMoveDelta.height;
 			resize.height -= dragMoveDelta.height;
-		} else if ((m_direction & IPositionConstants.SOUTH) != 0) {
+		} else if ((m_direction & PositionConstants.SOUTH) != 0) {
 			resize.height += dragMoveDelta.height;
 		}
 		// calculate horizontal move and size delta
-		if ((m_direction & IPositionConstants.WEST) != 0) {
+		if ((m_direction & PositionConstants.WEST) != 0) {
 			corner.x += dragMoveDelta.width;
 			resize.width -= dragMoveDelta.width;
-		} else if ((m_direction & IPositionConstants.EAST) != 0) {
+		} else if ((m_direction & PositionConstants.EAST) != 0) {
 			resize.width += dragMoveDelta.width;
 		}
 		// set request data

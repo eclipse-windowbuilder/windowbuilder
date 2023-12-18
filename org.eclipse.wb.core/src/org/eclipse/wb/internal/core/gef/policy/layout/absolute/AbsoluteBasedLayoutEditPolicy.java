@@ -23,7 +23,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -45,6 +44,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -653,7 +653,7 @@ IPreferenceConstants {
 		// process placement
 		placementsSupport.drag(location, newWidget, widgetBounds, size == null
 				? 0
-						: IPositionConstants.SOUTH_EAST);
+						: PositionConstants.SOUTH_EAST);
 		widgetBounds = placementsSupport.getBounds();
 		Rectangle widgetModelBounds = widgetBounds.getCopy();
 		// store drag start location
@@ -888,13 +888,13 @@ IPreferenceConstants {
 			IAbstractComponentInfo component2,
 			int direction) {
 		switch (direction) {
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			return getPreferenceStore().getInt(P_COMPONENT_GAP_LEFT);
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			return getPreferenceStore().getInt(P_COMPONENT_GAP_RIGHT);
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			return getPreferenceStore().getInt(P_COMPONENT_GAP_TOP);
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			return getPreferenceStore().getInt(P_COMPONENT_GAP_BOTTOM);
 		}
 		return 6;
@@ -903,13 +903,13 @@ IPreferenceConstants {
 	@Override
 	public int getContainerGapValue(IAbstractComponentInfo component, int direction) {
 		switch (direction) {
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			return getPreferenceStore().getInt(P_CONTAINER_GAP_LEFT);
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			return getPreferenceStore().getInt(P_CONTAINER_GAP_RIGHT);
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			return getPreferenceStore().getInt(P_CONTAINER_GAP_TOP);
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			return getPreferenceStore().getInt(P_CONTAINER_GAP_BOTTOM);
 		}
 		return 10;
