@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolic
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swt.model.layout.grid.IGridDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -88,15 +88,15 @@ AbstractGridSelectionEditPolicy {
 		handlesList.add(createMoveHandle());
 		// add resize handles
 		{
-			handlesList.add(createSizeHandle(IPositionConstants.EAST, 0.25));
-			handlesList.add(createSizeHandle(IPositionConstants.SOUTH, 0.25));
+			handlesList.add(createSizeHandle(PositionConstants.EAST, 0.25));
+			handlesList.add(createSizeHandle(PositionConstants.SOUTH, 0.25));
 		}
 		// add span handles
 		{
-			handlesList.add(createSpanHandle(IPositionConstants.NORTH, 0.25));
-			handlesList.add(createSpanHandle(IPositionConstants.WEST, 0.25));
-			handlesList.add(createSpanHandle(IPositionConstants.EAST, 0.75));
-			handlesList.add(createSpanHandle(IPositionConstants.SOUTH, 0.75));
+			handlesList.add(createSpanHandle(PositionConstants.NORTH, 0.25));
+			handlesList.add(createSpanHandle(PositionConstants.WEST, 0.25));
+			handlesList.add(createSpanHandle(PositionConstants.EAST, 0.75));
+			handlesList.add(createSpanHandle(PositionConstants.SOUTH, 0.75));
 		}
 		//
 		return handlesList;

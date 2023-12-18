@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Insets;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public final class FormUtils {
 	public static <C extends IControlInfo> List<C> getAttachableControls(IFormLayoutInfo<C> layout,
 			C firstControl,
 			boolean horizontal) throws Exception {
-		int side = horizontal ? IPositionConstants.LEFT : IPositionConstants.TOP;
+		int side = horizontal ? PositionConstants.LEFT : PositionConstants.TOP;
 		FormLayoutInfoImplClassic<C> impl = (FormLayoutInfoImplClassic<C>) layout.getImpl();
 		return impl.getAlignControlInfos(firstControl, side);
 	}

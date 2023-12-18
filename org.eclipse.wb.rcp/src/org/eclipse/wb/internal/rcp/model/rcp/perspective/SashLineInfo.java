@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
-
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
@@ -70,8 +69,8 @@ public final class SashLineInfo {
 
 	/**
 	 * @return the position relative to {@link #getPart()}, one of the
-	 *         {@link IPositionConstants#NORTH}, {@link IPositionConstants#SOUTH},
-	 *         {@link IPositionConstants#WEST} or {@link IPositionConstants#EAST}.
+	 *         {@link PositionConstants#NORTH}, {@link PositionConstants#SOUTH},
+	 *         {@link PositionConstants#WEST} or {@link PositionConstants#EAST}.
 	 */
 	public int getPosition() {
 		return m_position;
@@ -82,7 +81,7 @@ public final class SashLineInfo {
 	 *         horizontal direction, i.e. left/right.
 	 */
 	public boolean isHorizontal() {
-		return m_position == IPositionConstants.WEST || m_position == IPositionConstants.EAST;
+		return m_position == PositionConstants.WEST || m_position == PositionConstants.EAST;
 	}
 
 	/**

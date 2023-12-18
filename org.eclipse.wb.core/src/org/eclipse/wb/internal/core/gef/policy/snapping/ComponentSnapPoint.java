@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -66,43 +66,43 @@ public class ComponentSnapPoint extends SnapPoint {
 				PlacementUtils.getTranslatedBounds(m_visualDataProvider, m_anchorComponent);
 		m_gap = 0;
 		switch (m_side) {
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			if (m_includeGap) {
 				m_gap =
 						m_visualDataProvider.getComponentGapValue(
 								m_nearestBeingSnapped,
 								m_anchorComponent,
-								IPositionConstants.LEFT);
+								PositionConstants.LEFT);
 			}
 			m_snapPoint = m_anchorChildBounds.x - m_gap;
 			break;
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			if (m_includeGap) {
 				m_gap =
 						m_visualDataProvider.getComponentGapValue(
 								m_nearestBeingSnapped,
 								m_anchorComponent,
-								IPositionConstants.RIGHT);
+								PositionConstants.RIGHT);
 			}
 			m_snapPoint = m_anchorChildBounds.right() + m_gap;
 			break;
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			if (m_includeGap) {
 				m_gap =
 						m_visualDataProvider.getComponentGapValue(
 								m_nearestBeingSnapped,
 								m_anchorComponent,
-								IPositionConstants.TOP);
+								PositionConstants.TOP);
 			}
 			m_snapPoint = m_anchorChildBounds.y - m_gap;
 			break;
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			if (m_includeGap) {
 				m_gap =
 						m_visualDataProvider.getComponentGapValue(
 								m_nearestBeingSnapped,
 								m_anchorComponent,
-								IPositionConstants.BOTTOM);
+								PositionConstants.BOTTOM);
 			}
 			m_snapPoint =
 					m_includeGap ? m_anchorChildBounds.bottom() + m_gap : m_anchorChildBounds.bottom();

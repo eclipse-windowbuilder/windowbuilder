@@ -11,8 +11,8 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -35,40 +35,40 @@ public final class PlacementUtils {
 	 */
 	public static int getOppositeSide(int side) {
 		switch (side) {
-		case IPositionConstants.LEFT :
-			return IPositionConstants.RIGHT;
-		case IPositionConstants.RIGHT :
-			return IPositionConstants.LEFT;
-		case IPositionConstants.TOP :
-			return IPositionConstants.BOTTOM;
-		case IPositionConstants.BOTTOM :
-			return IPositionConstants.TOP;
+		case PositionConstants.LEFT :
+			return PositionConstants.RIGHT;
+		case PositionConstants.RIGHT :
+			return PositionConstants.LEFT;
+		case PositionConstants.TOP :
+			return PositionConstants.BOTTOM;
+		case PositionConstants.BOTTOM :
+			return PositionConstants.TOP;
 		default :
 			throw new IllegalArgumentException("Invalid side requested: " + side);
 		}
 	}
 
 	public static boolean isTrailingSide(int side) {
-		return side == IPositionConstants.RIGHT || side == IPositionConstants.BOTTOM;
+		return side == PositionConstants.RIGHT || side == PositionConstants.BOTTOM;
 	}
 
 	/**
-	 * @return <code>true</code> if <code>side</code> either of {@link IPositionConstants#LEFT} or
-	 *         {@link IPositionConstants#TOP}
+	 * @return <code>true</code> if <code>side</code> either of {@link PositionConstants#LEFT} or
+	 *         {@link PositionConstants#TOP}
 	 */
 	public static boolean isLeadingSide(int side) {
-		return side == IPositionConstants.LEFT || side == IPositionConstants.TOP;
+		return side == PositionConstants.LEFT || side == PositionConstants.TOP;
 	}
 
 	public static boolean isHorizontalSide(int side) {
-		return side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT;
+		return side == PositionConstants.LEFT || side == PositionConstants.RIGHT;
 	}
 
 	public static int getSide(boolean isHorizontal, boolean isLeading) {
 		if (isLeading) {
-			return isHorizontal ? IPositionConstants.LEFT : IPositionConstants.TOP;
+			return isHorizontal ? PositionConstants.LEFT : PositionConstants.TOP;
 		} else {
-			return isHorizontal ? IPositionConstants.RIGHT : IPositionConstants.BOTTOM;
+			return isHorizontal ? PositionConstants.RIGHT : PositionConstants.BOTTOM;
 		}
 	}
 
@@ -76,8 +76,8 @@ public final class PlacementUtils {
 	 * Returns either of {@link PlacementInfo#LEADING} or {@link PlacementInfo#TRAILING}
 	 *
 	 * @param side
-	 *          the one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
-	 *          {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM}.
+	 *          the one of the {@link PositionConstants#LEFT}, {@link PositionConstants#RIGHT},
+	 *          {@link PositionConstants#TOP}, {@link PositionConstants#BOTTOM}.
 	 */
 	public static int getSidePosition(int side) {
 		return PlacementUtils.isTrailingSide(side) ? PlacementInfo.TRAILING : PlacementInfo.LEADING;
@@ -90,29 +90,29 @@ public final class PlacementUtils {
 	////////////////////////////////////////////////////////////////////////////
 	public static int extractResizingSide(boolean isHorizontal, int side) {
 		if (isHorizontal) {
-			if ((side & IPositionConstants.WEST) != 0) {
-				return IPositionConstants.LEFT;
-			} else if ((side & IPositionConstants.EAST) != 0) {
-				return IPositionConstants.RIGHT;
+			if ((side & PositionConstants.WEST) != 0) {
+				return PositionConstants.LEFT;
+			} else if ((side & PositionConstants.EAST) != 0) {
+				return PositionConstants.RIGHT;
 			}
 		} else {
-			if ((side & IPositionConstants.NORTH) != 0) {
-				return IPositionConstants.TOP;
-			} else if ((side & IPositionConstants.SOUTH) != 0) {
-				return IPositionConstants.BOTTOM;
+			if ((side & PositionConstants.NORTH) != 0) {
+				return PositionConstants.TOP;
+			} else if ((side & PositionConstants.SOUTH) != 0) {
+				return PositionConstants.BOTTOM;
 			}
 		}
 		throw new IllegalArgumentException("Wrong side value: " + side);
 	}
 
 	public static boolean hasHorizontalResizeSide(int resizeDirection) {
-		return (resizeDirection & IPositionConstants.WEST) != 0
-				|| (resizeDirection & IPositionConstants.EAST) != 0;
+		return (resizeDirection & PositionConstants.WEST) != 0
+				|| (resizeDirection & PositionConstants.EAST) != 0;
 	}
 
 	public static boolean hasVerticalResizeSide(int resizeDirection) {
-		return (resizeDirection & IPositionConstants.NORTH) != 0
-				|| (resizeDirection & IPositionConstants.SOUTH) != 0;
+		return (resizeDirection & PositionConstants.NORTH) != 0
+				|| (resizeDirection & PositionConstants.SOUTH) != 0;
 	}
 
 	public static int getSideSize(Dimension size, int side) {

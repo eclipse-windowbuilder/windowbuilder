@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.model.layout.form;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -769,10 +769,10 @@ FormLayoutInfoImpl<C> implements IAbsoluteLayoutCommands {
 	}
 
 	private void adjustMovedComponentSides(C component) throws Exception {
-		adjustMovedComponentSide(component, IPositionConstants.TOP);
-		adjustMovedComponentSide(component, IPositionConstants.LEFT);
-		adjustMovedComponentSide(component, IPositionConstants.BOTTOM);
-		adjustMovedComponentSide(component, IPositionConstants.RIGHT);
+		adjustMovedComponentSide(component, PositionConstants.TOP);
+		adjustMovedComponentSide(component, PositionConstants.LEFT);
+		adjustMovedComponentSide(component, PositionConstants.BOTTOM);
+		adjustMovedComponentSide(component, PositionConstants.RIGHT);
 	}
 
 	private void adjustMovedComponentSide(C component, int side) throws Exception {
@@ -789,10 +789,10 @@ FormLayoutInfoImpl<C> implements IAbsoluteLayoutCommands {
 	}
 
 	private void adjustAnchoredToMovedComponentSides(C component, C target) throws Exception {
-		adjustAnchoredToMovedComponentSide(component, target, IPositionConstants.TOP);
-		adjustAnchoredToMovedComponentSide(component, target, IPositionConstants.LEFT);
-		adjustAnchoredToMovedComponentSide(component, target, IPositionConstants.BOTTOM);
-		adjustAnchoredToMovedComponentSide(component, target, IPositionConstants.RIGHT);
+		adjustAnchoredToMovedComponentSide(component, target, PositionConstants.TOP);
+		adjustAnchoredToMovedComponentSide(component, target, PositionConstants.LEFT);
+		adjustAnchoredToMovedComponentSide(component, target, PositionConstants.BOTTOM);
+		adjustAnchoredToMovedComponentSide(component, target, PositionConstants.RIGHT);
 	}
 
 	private void adjustAnchoredToMovedComponentSide(C component, C anchor, int side) throws Exception {

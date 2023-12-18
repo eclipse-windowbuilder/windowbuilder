@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -19,6 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.palette.AbsoluteLayoutEntryInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
@@ -221,7 +221,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 						"}");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// resize SOUTH of "button"
-		canvas.toResizeHandle(button, "resize_size", IPositionConstants.SOUTH).beginDrag();
+		canvas.toResizeHandle(button, "resize_size", PositionConstants.SOUTH).beginDrag();
 		canvas.target(button).in(0, 50).drag();
 		canvas.endDrag();
 		assertEditor(

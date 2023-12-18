@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.model.layout.spring;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -147,7 +147,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 			offset = targetBaseline - baseline;
 		}
 		attachment.setAnchorComponent((ComponentInfo) attachedToWidget);
-		attachment.setAnchorSide(IPositionConstants.TOP);
+		attachment.setAnchorSide(PositionConstants.TOP);
 		attachment.setOffset(offset);
 		attachment.write();
 	}
@@ -227,27 +227,27 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	 * @return the {@link SpringAttachmentInfo} for side of component.
 	 *
 	 * @param side
-	 *          one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#TOP},
-	 *          {@link IPositionConstants#RIGHT}, {@link IPositionConstants#BOTTOM}.
+	 *          one of the {@link PositionConstants#LEFT}, {@link PositionConstants#TOP},
+	 *          {@link PositionConstants#RIGHT}, {@link PositionConstants#BOTTOM}.
 	 */
 	public final SpringAttachmentInfo getAttachment(IAbstractComponentInfo component, int side) {
 		return SpringAttachmentInfo.get(this, (ComponentInfo) component.getUnderlyingModel(), side);
 	}
 
 	public final SpringAttachmentInfo getAttachmentLeft(ComponentInfo component) {
-		return getAttachment(component, IPositionConstants.LEFT);
+		return getAttachment(component, PositionConstants.LEFT);
 	}
 
 	public final SpringAttachmentInfo getAttachmentRight(ComponentInfo component) {
-		return getAttachment(component, IPositionConstants.RIGHT);
+		return getAttachment(component, PositionConstants.RIGHT);
 	}
 
 	public final SpringAttachmentInfo getAttachmentTop(ComponentInfo component) {
-		return getAttachment(component, IPositionConstants.TOP);
+		return getAttachment(component, PositionConstants.TOP);
 	}
 
 	public final SpringAttachmentInfo getAttachmentBottom(ComponentInfo component) {
-		return getAttachment(component, IPositionConstants.BOTTOM);
+		return getAttachment(component, PositionConstants.BOTTOM);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -333,10 +333,10 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	}
 
 	private void adjustMovedComponentSides(ComponentInfo component) throws Exception {
-		adjustMovedComponentSide(component, IPositionConstants.TOP);
-		adjustMovedComponentSide(component, IPositionConstants.LEFT);
-		adjustMovedComponentSide(component, IPositionConstants.BOTTOM);
-		adjustMovedComponentSide(component, IPositionConstants.RIGHT);
+		adjustMovedComponentSide(component, PositionConstants.TOP);
+		adjustMovedComponentSide(component, PositionConstants.LEFT);
+		adjustMovedComponentSide(component, PositionConstants.BOTTOM);
+		adjustMovedComponentSide(component, PositionConstants.RIGHT);
 	}
 
 	private void adjustMovedComponentSide(ComponentInfo component, int side) throws Exception {
@@ -354,10 +354,10 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 
 	private void adjustAnchoredToMovedComponentSides(ComponentInfo component, ComponentInfo anchor)
 			throws Exception {
-		adjustAnchoredToMovedComponentSide(component, anchor, IPositionConstants.TOP);
-		adjustAnchoredToMovedComponentSide(component, anchor, IPositionConstants.LEFT);
-		adjustAnchoredToMovedComponentSide(component, anchor, IPositionConstants.BOTTOM);
-		adjustAnchoredToMovedComponentSide(component, anchor, IPositionConstants.RIGHT);
+		adjustAnchoredToMovedComponentSide(component, anchor, PositionConstants.TOP);
+		adjustAnchoredToMovedComponentSide(component, anchor, PositionConstants.LEFT);
+		adjustAnchoredToMovedComponentSide(component, anchor, PositionConstants.BOTTOM);
+		adjustAnchoredToMovedComponentSide(component, anchor, PositionConstants.RIGHT);
 	}
 
 	private void adjustAnchoredToMovedComponentSide(ComponentInfo component,
@@ -385,13 +385,13 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 			int y = componentBounds.y - parentAreaInsets.top;
 			int width = componentBounds.width;
 			int height = componentBounds.height;
-			setAttachmentOffset(component, IPositionConstants.LEFT, IPositionConstants.LEFT, x);
-			setAttachmentOffset(component, IPositionConstants.TOP, IPositionConstants.TOP, y);
+			setAttachmentOffset(component, PositionConstants.LEFT, PositionConstants.LEFT, x);
+			setAttachmentOffset(component, PositionConstants.TOP, PositionConstants.TOP, y);
 			if (width != preferredSize.width) {
-				setAttachmentOffset(component, IPositionConstants.RIGHT, IPositionConstants.LEFT, x + width);
+				setAttachmentOffset(component, PositionConstants.RIGHT, PositionConstants.LEFT, x + width);
 			}
 			if (height != preferredSize.height) {
-				setAttachmentOffset(component, IPositionConstants.BOTTOM, IPositionConstants.TOP, y
+				setAttachmentOffset(component, PositionConstants.BOTTOM, PositionConstants.TOP, y
 						+ height);
 			}
 		}
@@ -444,10 +444,10 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 
 	private Property[] createAttachmentsProperties(ComponentInfo component) throws Exception {
 		return new Property[]{
-				createAttachmentProperty(component, IPositionConstants.LEFT, "WEST"),
-				createAttachmentProperty(component, IPositionConstants.RIGHT, "EAST"),
-				createAttachmentProperty(component, IPositionConstants.TOP, "NORTH"),
-				createAttachmentProperty(component, IPositionConstants.BOTTOM, "SOUTH")};
+				createAttachmentProperty(component, PositionConstants.LEFT, "WEST"),
+				createAttachmentProperty(component, PositionConstants.RIGHT, "EAST"),
+				createAttachmentProperty(component, PositionConstants.TOP, "NORTH"),
+				createAttachmentProperty(component, PositionConstants.BOTTOM, "SOUTH")};
 	}
 
 	/**

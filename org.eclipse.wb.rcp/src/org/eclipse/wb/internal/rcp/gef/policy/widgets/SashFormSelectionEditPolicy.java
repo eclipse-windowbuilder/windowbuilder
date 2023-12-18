@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.ISashFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -78,14 +78,14 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 		if (!isLast) {
 			SideResizeHandle resizeHandle;
 			if (m_composite.isHorizontal()) {
-				resizeHandle = new SideResizeHandle(getHost(), IPositionConstants.RIGHT, 10, true);
+				resizeHandle = new SideResizeHandle(getHost(), PositionConstants.RIGHT, 10, true);
 				resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(),
-						IPositionConstants.EAST,
+						PositionConstants.EAST,
 						REQ_RESIZE));
 			} else {
-				resizeHandle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 10, true);
+				resizeHandle = new SideResizeHandle(getHost(), PositionConstants.BOTTOM, 10, true);
 				resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(),
-						IPositionConstants.SOUTH,
+						PositionConstants.SOUTH,
 						REQ_RESIZE));
 			}
 			handles.add(resizeHandle);

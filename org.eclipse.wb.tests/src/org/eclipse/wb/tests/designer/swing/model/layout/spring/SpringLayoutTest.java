@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.spring;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -217,10 +217,10 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
-		assertTrue(layout.isAttached(button, IPositionConstants.LEFT));
-		assertTrue(layout.isAttached(button, IPositionConstants.TOP));
-		assertFalse(layout.isAttached(button, IPositionConstants.RIGHT));
-		assertFalse(layout.isAttached(button, IPositionConstants.BOTTOM));
+		assertTrue(layout.isAttached(button, PositionConstants.LEFT));
+		assertTrue(layout.isAttached(button, PositionConstants.TOP));
+		assertFalse(layout.isAttached(button, PositionConstants.RIGHT));
+		assertFalse(layout.isAttached(button, PositionConstants.BOTTOM));
 	}
 
 	/**
@@ -254,17 +254,17 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// "button_1" attachments
 		{
-			assertSame(null, layout.getAttachedToWidget(button_1, IPositionConstants.LEFT));
-			assertSame(null, layout.getAttachedToWidget(button_1, IPositionConstants.TOP));
-			assertSame(null, layout.getAttachedToWidget(button_1, IPositionConstants.RIGHT));
-			assertSame(null, layout.getAttachedToWidget(button_1, IPositionConstants.BOTTOM));
+			assertSame(null, layout.getAttachedToWidget(button_1, PositionConstants.LEFT));
+			assertSame(null, layout.getAttachedToWidget(button_1, PositionConstants.TOP));
+			assertSame(null, layout.getAttachedToWidget(button_1, PositionConstants.RIGHT));
+			assertSame(null, layout.getAttachedToWidget(button_1, PositionConstants.BOTTOM));
 		}
 		// "button_2" attachments
 		{
-			assertSame(button_1, layout.getAttachedToWidget(button_2, IPositionConstants.LEFT));
-			assertSame(button_1, layout.getAttachedToWidget(button_2, IPositionConstants.TOP));
-			assertSame(null, layout.getAttachedToWidget(button_2, IPositionConstants.RIGHT));
-			assertSame(null, layout.getAttachedToWidget(button_2, IPositionConstants.BOTTOM));
+			assertSame(button_1, layout.getAttachedToWidget(button_2, PositionConstants.LEFT));
+			assertSame(button_1, layout.getAttachedToWidget(button_2, PositionConstants.TOP));
+			assertSame(null, layout.getAttachedToWidget(button_2, PositionConstants.RIGHT));
+			assertSame(null, layout.getAttachedToWidget(button_2, PositionConstants.BOTTOM));
 		}
 	}
 
@@ -293,13 +293,13 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		// LEFT
 		{
 			ComponentAttachmentInfo attachment =
-					layout.getComponentAttachmentInfo(button, IPositionConstants.LEFT);
+					layout.getComponentAttachmentInfo(button, PositionConstants.LEFT);
 			assertNull(attachment);
 		}
 		// TOP
 		{
 			ComponentAttachmentInfo attachment =
-					layout.getComponentAttachmentInfo(button, IPositionConstants.TOP);
+					layout.getComponentAttachmentInfo(button, PositionConstants.TOP);
 			assertNull(attachment);
 		}
 	}
@@ -332,23 +332,23 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		// LEFT
 		{
 			ComponentAttachmentInfo attachment =
-					layout.getComponentAttachmentInfo(button, IPositionConstants.LEFT);
+					layout.getComponentAttachmentInfo(button, PositionConstants.LEFT);
 			assertNotNull(attachment);
 			assertSame(targetButton, attachment.getTarget());
-			assertEquals(IPositionConstants.RIGHT, attachment.getAlignment());
+			assertEquals(PositionConstants.RIGHT, attachment.getAlignment());
 		}
 		// TOP
 		{
 			ComponentAttachmentInfo attachment =
-					layout.getComponentAttachmentInfo(button, IPositionConstants.TOP);
+					layout.getComponentAttachmentInfo(button, PositionConstants.TOP);
 			assertNotNull(attachment);
 			assertSame(targetButton, attachment.getTarget());
-			assertEquals(IPositionConstants.TOP, attachment.getAlignment());
+			assertEquals(PositionConstants.TOP, attachment.getAlignment());
 		}
 		// RIGHT
 		{
 			ComponentAttachmentInfo attachment =
-					layout.getComponentAttachmentInfo(button, IPositionConstants.RIGHT);
+					layout.getComponentAttachmentInfo(button, PositionConstants.RIGHT);
 			assertNull(attachment);
 		}
 	}
@@ -758,10 +758,10 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// attached initially
-		assertTrue(layout.isAttached(button, IPositionConstants.LEFT));
+		assertTrue(layout.isAttached(button, PositionConstants.LEFT));
 		// detach
-		layout.detach(button, IPositionConstants.LEFT);
-		assertFalse(layout.isAttached(button, IPositionConstants.LEFT));
+		layout.detach(button, PositionConstants.LEFT);
+		assertFalse(layout.isAttached(button, PositionConstants.LEFT));
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
@@ -775,8 +775,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"  }",
 				"}");
 		// detach again, no change
-		layout.detach(button, IPositionConstants.LEFT);
-		assertFalse(layout.isAttached(button, IPositionConstants.LEFT));
+		layout.detach(button, PositionConstants.LEFT);
+		assertFalse(layout.isAttached(button, PositionConstants.LEFT));
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
@@ -809,8 +809,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
-		layout.attachAbsolute(button, IPositionConstants.LEFT, 5);
-		layout.attachAbsolute(button, IPositionConstants.BOTTOM, 10);
+		layout.attachAbsolute(button, PositionConstants.LEFT, 5);
+		layout.attachAbsolute(button, PositionConstants.BOTTOM, 10);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
@@ -848,7 +848,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
-		layout.adjustAttachmentOffset(button, IPositionConstants.LEFT, 10);
+		layout.adjustAttachmentOffset(button, PositionConstants.LEFT, 10);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
@@ -896,7 +896,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
 		ComponentInfo buttonB = panel.getChildrenComponents().get(1);
 		//
-		layout.attachWidgetSequientially(buttonB, buttonA, IPositionConstants.LEFT, 5);
+		layout.attachWidgetSequientially(buttonB, buttonA, PositionConstants.LEFT, 5);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  private JButton buttonA;",
@@ -944,7 +944,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
 		ComponentInfo buttonB = panel.getChildrenComponents().get(1);
 		//
-		layout.attachWidgetSequientially(buttonB, buttonA, IPositionConstants.RIGHT, 5);
+		layout.attachWidgetSequientially(buttonB, buttonA, PositionConstants.RIGHT, 5);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  private JButton buttonA;",
@@ -997,7 +997,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
 		ComponentInfo buttonB = panel.getChildrenComponents().get(1);
 		//
-		layout.attachWidgetParallelly(buttonB, buttonA, IPositionConstants.LEFT, 5);
+		layout.attachWidgetParallelly(buttonB, buttonA, PositionConstants.LEFT, 5);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  private JButton buttonA;",
@@ -1045,7 +1045,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
 		ComponentInfo buttonB = panel.getChildrenComponents().get(1);
 		//
-		layout.attachWidgetParallelly(buttonB, buttonA, IPositionConstants.RIGHT, 5);
+		layout.attachWidgetParallelly(buttonB, buttonA, PositionConstants.RIGHT, 5);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  private JButton buttonA;",
@@ -1093,7 +1093,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.LEFT, IPositionConstants.LEFT, +10);
+		layout.setExplicitSize(button, PositionConstants.LEFT, PositionConstants.LEFT, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1135,7 +1135,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.LEFT, IPositionConstants.RIGHT, +10);
+		layout.setExplicitSize(button, PositionConstants.LEFT, PositionConstants.RIGHT, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1177,7 +1177,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.RIGHT, IPositionConstants.RIGHT, +10);
+		layout.setExplicitSize(button, PositionConstants.RIGHT, PositionConstants.RIGHT, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1219,7 +1219,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.RIGHT, IPositionConstants.LEFT, +10);
+		layout.setExplicitSize(button, PositionConstants.RIGHT, PositionConstants.LEFT, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1261,7 +1261,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.TOP, IPositionConstants.TOP, +10);
+		layout.setExplicitSize(button, PositionConstants.TOP, PositionConstants.TOP, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1303,7 +1303,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.TOP, IPositionConstants.BOTTOM, +10);
+		layout.setExplicitSize(button, PositionConstants.TOP, PositionConstants.BOTTOM, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1345,7 +1345,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.BOTTOM, IPositionConstants.BOTTOM, +10);
+		layout.setExplicitSize(button, PositionConstants.BOTTOM, PositionConstants.BOTTOM, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -1387,7 +1387,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// resize +10
-		layout.setExplicitSize(button, IPositionConstants.BOTTOM, IPositionConstants.TOP, +10);
+		layout.setExplicitSize(button, PositionConstants.BOTTOM, PositionConstants.TOP, +10);
 		panel.refresh();
 		assertEditor(
 				"public class Test extends JPanel {",

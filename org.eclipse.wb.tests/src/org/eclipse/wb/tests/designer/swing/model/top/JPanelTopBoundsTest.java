@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.top;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.top.JPanelTopBoundsSupport;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
@@ -132,9 +132,9 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 		assertEquals(oldSize, canvas.getSize(panel));
 		waitEventLoop(50);
 		// change size
-		canvas.beginResize(panel, IPositionConstants.EAST);
+		canvas.beginResize(panel, PositionConstants.EAST);
 		canvas.dragTo(panel, newSize.width, 0).endDrag();
-		canvas.beginResize(panel, IPositionConstants.SOUTH);
+		canvas.beginResize(panel, PositionConstants.SOUTH);
 		canvas.dragTo(panel, 0, newSize.height).endDrag();
 		// check new size
 		assertEquals(newSize, canvas.getSize(panel));

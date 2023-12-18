@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -48,14 +48,14 @@ SelectionEditPolicy {
 		List<Handle> handles = new ArrayList<>();
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		handles.add(moveHandle);
-		handles.add(createResizeHandle(IPositionConstants.NORTH));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH));
-		handles.add(createResizeHandle(IPositionConstants.WEST));
-		handles.add(createResizeHandle(IPositionConstants.EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.NORTH));
+		handles.add(createResizeHandle(PositionConstants.SOUTH));
+		handles.add(createResizeHandle(PositionConstants.WEST));
+		handles.add(createResizeHandle(PositionConstants.EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_EAST));
 		return handles;
 	}
 

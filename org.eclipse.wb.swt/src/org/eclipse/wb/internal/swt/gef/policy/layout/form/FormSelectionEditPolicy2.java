@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormLayout;
 
@@ -59,14 +59,14 @@ public final class FormSelectionEditPolicy2 extends SelectionEditPolicy {
 		MoveHandle moveHandle = new MoveHandle(getHost());
 		moveHandle.setBorder(new LineBorder(ColorConstants.lightBlue));
 		handles.add(moveHandle);
-		handles.add(createResizeHandle(IPositionConstants.NORTH));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH));
-		handles.add(createResizeHandle(IPositionConstants.WEST));
-		handles.add(createResizeHandle(IPositionConstants.EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
-		handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
-		handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.NORTH));
+		handles.add(createResizeHandle(PositionConstants.SOUTH));
+		handles.add(createResizeHandle(PositionConstants.WEST));
+		handles.add(createResizeHandle(PositionConstants.EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_EAST));
+		handles.add(createResizeHandle(PositionConstants.SOUTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_WEST));
+		handles.add(createResizeHandle(PositionConstants.NORTH_EAST));
 		return handles;
 	}
 

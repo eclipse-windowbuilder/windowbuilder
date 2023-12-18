@@ -13,10 +13,10 @@ package org.eclipse.wb.gef.graphical.handles;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ILocator;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
@@ -33,7 +33,7 @@ public class SideResizeHandle extends Handle {
 	////////////////////////////////////////////////////////////////////////////
 	public SideResizeHandle(GraphicalEditPart owner, int side, int width, boolean center) {
 		super(owner, new ResizeHandleLocator(owner.getFigure(), side, width, center));
-		if (side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT) {
+		if (side == PositionConstants.LEFT || side == PositionConstants.RIGHT) {
 			setCursor(Cursors.SIZEE);
 		} else {
 			setCursor(Cursors.SIZEN);
@@ -74,13 +74,13 @@ public class SideResizeHandle extends Handle {
 			FigureUtils.translateFigureToFigure(m_reference, target, bounds);
 			//
 			int locationOffset = m_center ? m_width / 2 : m_width;
-			if (m_side == IPositionConstants.LEFT) {
+			if (m_side == PositionConstants.LEFT) {
 				bounds.x -= locationOffset;
 				bounds.width = m_width;
-			} else if (m_side == IPositionConstants.RIGHT) {
+			} else if (m_side == PositionConstants.RIGHT) {
 				bounds.x = bounds.right() - locationOffset;
 				bounds.width = m_width;
-			} else if (m_side == IPositionConstants.TOP) {
+			} else if (m_side == PositionConstants.TOP) {
 				bounds.y -= locationOffset;
 				bounds.height = m_width;
 			} else {

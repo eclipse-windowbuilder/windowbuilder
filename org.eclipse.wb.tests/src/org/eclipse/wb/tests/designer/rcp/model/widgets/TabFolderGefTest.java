@@ -11,12 +11,12 @@
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.rcp.model.widgets.AbstractTabFolderInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.AbstractTabItemInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.TabFolderInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.widgets.TabItem;
 
 import org.junit.Test;
@@ -122,7 +122,7 @@ public class TabFolderGefTest extends RcpGefTest {
 		//
 		loadButton();
 		canvas.moveTo(item, 5, 100);
-		canvas.assertFeedbacks(canvas.getLinePredicate(item, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(item, PositionConstants.LEFT));
 		canvas.click();
 		assertEditor(
 				"public class Test extends TabFolder {",
@@ -336,7 +336,7 @@ public class TabFolderGefTest extends RcpGefTest {
 		//
 		loadCreationTool("org.eclipse.swt.widgets.TabItem");
 		canvas.moveTo(item, 5, 100);
-		canvas.assertFeedbacks(canvas.getLinePredicate(item, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(item, PositionConstants.LEFT));
 		canvas.click();
 		assertEditor(
 				"public class Test extends TabFolder {",
@@ -615,7 +615,7 @@ public class TabFolderGefTest extends RcpGefTest {
 		JavaInfo button = getJavaInfoByName("button");
 		//
 		canvas.beginMove(button).dragTo(item, 5, 100);
-		canvas.assertFeedbacks(canvas.getLinePredicate(item, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(item, PositionConstants.LEFT));
 		canvas.endDrag();
 		assertEditor(
 				"public class Test extends Shell {",

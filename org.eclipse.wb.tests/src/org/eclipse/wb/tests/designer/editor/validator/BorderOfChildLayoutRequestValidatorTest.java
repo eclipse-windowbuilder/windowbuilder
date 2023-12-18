@@ -11,12 +11,12 @@
 package org.eclipse.wb.tests.designer.editor.validator;
 
 import org.eclipse.wb.core.gef.policy.validator.BorderOfChildLayoutRequestValidator;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
 import org.junit.Test;
@@ -355,7 +355,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		button = mainPanel.getChildrenComponents().get(1);
 		// drag "button"
 		canvas.beginDrag(button, 10, 10).dragTo(panel_1, 1, 10);
-		canvas.assertFeedbacks(canvas.getLinePredicate(panel_1, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(panel_1, PositionConstants.LEFT));
 		canvas.assertCommandNotNull();
 		// done drag, so finish MOVE
 		canvas.endDrag();

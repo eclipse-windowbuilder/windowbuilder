@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.RowHeaderEditPart;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Point;
 
 import java.text.MessageFormat;
@@ -49,8 +49,8 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<R
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Handle createResizeHandle() {
-		Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, false);
-		handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
+		Handle handle = new SideResizeHandle(getHost(), PositionConstants.BOTTOM, 7, false);
+		handle.setDragTrackerTool(new ResizeTracker(getHost(), PositionConstants.SOUTH, REQ_RESIZE));
 		return handle;
 	}
 

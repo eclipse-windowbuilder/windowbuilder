@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
+import org.eclipse.draw2d.PositionConstants;
 
 import java.awt.Container;
 
@@ -37,9 +37,9 @@ public interface ILayoutStyleSupport {
 
 	/**
 	 * Calls appropriate LayoutStyle.getPreferredGap() method of LayoutStyle class using reflection.
-	 * Note, the <code>position</code> should be one of {@link IPositionConstants#LEFT},
-	 * {@link IPositionConstants#RIGHT}, {@link IPositionConstants#TOP},
-	 * {@link IPositionConstants#BOTTOM} (it would be converted to appropriate {@link SwingConstants}
+	 * Note, the <code>position</code> should be one of {@link PositionConstants#LEFT},
+	 * {@link PositionConstants#RIGHT}, {@link PositionConstants#TOP},
+	 * {@link PositionConstants#BOTTOM} (it would be converted to appropriate {@link SwingConstants}
 	 * values).
 	 */
 	int getPreferredGap(JComponent component1,
@@ -50,9 +50,9 @@ public interface ILayoutStyleSupport {
 
 	/**
 	 * Calls appropriate LayoutStyle.getContainerGap() method of LayoutStyle class using reflection.
-	 * Note, the <code>position</code> should be one of {@link IPositionConstants#LEFT},
-	 * {@link IPositionConstants#RIGHT}, {@link IPositionConstants#TOP},
-	 * {@link IPositionConstants#BOTTOM} (it would be converted to appropriate {@link SwingConstants}
+	 * Note, the <code>position</code> should be one of {@link PositionConstants#LEFT},
+	 * {@link PositionConstants#RIGHT}, {@link PositionConstants#TOP},
+	 * {@link PositionConstants#BOTTOM} (it would be converted to appropriate {@link SwingConstants}
 	 * values).
 	 */
 	int getContainerGap(JComponent component, int position, Container parent);

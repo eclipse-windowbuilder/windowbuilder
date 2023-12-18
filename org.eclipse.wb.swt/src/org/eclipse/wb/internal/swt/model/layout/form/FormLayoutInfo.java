@@ -14,7 +14,6 @@ import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.FormLayoutSupport;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -149,12 +149,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	private void doAutoSize(ControlInfo control) throws Exception {
 		// horizontal dimension
 		doAutoSize(
-				getAttachment(control, IPositionConstants.LEFT),
-				getAttachment(control, IPositionConstants.RIGHT));
+				getAttachment(control, PositionConstants.LEFT),
+				getAttachment(control, PositionConstants.RIGHT));
 		// vertical dimension
 		doAutoSize(
-				getAttachment(control, IPositionConstants.TOP),
-				getAttachment(control, IPositionConstants.BOTTOM));
+				getAttachment(control, PositionConstants.TOP),
+				getAttachment(control, PositionConstants.BOTTOM));
 		// clear FormData properties
 		FormDataInfo formData = getFormData(control);
 		formData.getPropertyByTitle("width").setValue(Property.UNKNOWN_VALUE);
@@ -216,13 +216,13 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 			if (!JavaInfoUtils.isImplicitlyCreated(control)) {
 				FormDataInfo formData = (FormDataInfo) getLayoutData(control);
 				final FormAttachmentClipboardInfo left =
-						formData.getAttachment(IPositionConstants.LEFT).getClipboardInfo();
+						formData.getAttachment(PositionConstants.LEFT).getClipboardInfo();
 				final FormAttachmentClipboardInfo right =
-						formData.getAttachment(IPositionConstants.RIGHT).getClipboardInfo();
+						formData.getAttachment(PositionConstants.RIGHT).getClipboardInfo();
 				final FormAttachmentClipboardInfo top =
-						formData.getAttachment(IPositionConstants.TOP).getClipboardInfo();
+						formData.getAttachment(PositionConstants.TOP).getClipboardInfo();
 				final FormAttachmentClipboardInfo bottom =
-						formData.getAttachment(IPositionConstants.BOTTOM).getClipboardInfo();
+						formData.getAttachment(PositionConstants.BOTTOM).getClipboardInfo();
 				final int index = i;
 				commands.add(new ComponentClipboardCommand<CompositeInfo>() {
 					private static final long serialVersionUID = 0L;
@@ -231,10 +231,10 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 					public void execute(CompositeInfo _thisComposite) throws Exception {
 						ControlInfo control = _thisComposite.getChildrenControls().get(index);
 						FormDataInfo _thisFormData = (FormDataInfo) getLayoutData(control);
-						_thisFormData.getAttachment(IPositionConstants.LEFT).applyClipboardInfo(control, left);
-						_thisFormData.getAttachment(IPositionConstants.RIGHT).applyClipboardInfo(control, right);
-						_thisFormData.getAttachment(IPositionConstants.TOP).applyClipboardInfo(control, top);
-						_thisFormData.getAttachment(IPositionConstants.BOTTOM).applyClipboardInfo(
+						_thisFormData.getAttachment(PositionConstants.LEFT).applyClipboardInfo(control, left);
+						_thisFormData.getAttachment(PositionConstants.RIGHT).applyClipboardInfo(control, right);
+						_thisFormData.getAttachment(PositionConstants.TOP).applyClipboardInfo(control, top);
+						_thisFormData.getAttachment(PositionConstants.BOTTOM).applyClipboardInfo(
 								control,
 								bottom);
 					}
@@ -259,13 +259,13 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 			int y = controlBounds.y - parentArea.y;
 			int width = controlBounds.width;
 			int height = controlBounds.height;
-			setAttachmentOffset(control, IPositionConstants.LEFT, x);
-			setAttachmentOffset(control, IPositionConstants.TOP, y);
+			setAttachmentOffset(control, PositionConstants.LEFT, x);
+			setAttachmentOffset(control, PositionConstants.TOP, y);
 			if (width != preferredSize.width) {
-				setAttachmentOffset(control, IPositionConstants.RIGHT, x + width);
+				setAttachmentOffset(control, PositionConstants.RIGHT, x + width);
 			}
 			if (height != preferredSize.height) {
-				setAttachmentOffset(control, IPositionConstants.BOTTOM, y + height);
+				setAttachmentOffset(control, PositionConstants.BOTTOM, y + height);
 			}
 		}
 		// install preference change listener to be able to re-parse on layout mode change (classic or auto)
@@ -331,20 +331,20 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	public void setQuickAnchors(ControlInfo widget, int sides, boolean relative) throws Exception {
 		setQuickAnchor(
 				widget,
-				IPositionConstants.LEFT,
+				PositionConstants.LEFT,
 				relative,
-				(sides & IPositionConstants.LEFT) != 0);
+				(sides & PositionConstants.LEFT) != 0);
 		setQuickAnchor(
 				widget,
-				IPositionConstants.RIGHT,
+				PositionConstants.RIGHT,
 				relative,
-				(sides & IPositionConstants.RIGHT) != 0);
-		setQuickAnchor(widget, IPositionConstants.TOP, relative, (sides & IPositionConstants.TOP) != 0);
+				(sides & PositionConstants.RIGHT) != 0);
+		setQuickAnchor(widget, PositionConstants.TOP, relative, (sides & PositionConstants.TOP) != 0);
 		setQuickAnchor(
 				widget,
-				IPositionConstants.BOTTOM,
+				PositionConstants.BOTTOM,
 				relative,
-				(sides & IPositionConstants.BOTTOM) != 0);
+				(sides & PositionConstants.BOTTOM) != 0);
 	}
 
 	private void setQuickAnchor(ControlInfo widget, int side, boolean relative, boolean hasSide)

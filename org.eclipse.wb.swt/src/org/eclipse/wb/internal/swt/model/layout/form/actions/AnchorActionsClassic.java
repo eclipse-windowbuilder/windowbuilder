@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.model.layout.form.actions;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.swt.Activator;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -50,13 +50,13 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	public void fillMenuHorizontal(final C widget, final int side, IMenuManager manager) {
 		ObjectInfo widgetModel = widget.getUnderlyingModel();
-		if (side == IPositionConstants.LEFT) {
+		if (side == PositionConstants.LEFT) {
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/left_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.LEFT);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.LEFT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -64,7 +64,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 							+ "h/menu/right_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.RIGHT);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.RIGHT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -80,7 +80,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 					Activator.getImageDescriptor(IMAGE_PREFIX + "h/menu/left_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.RIGHT);
+					m_layoutImpl.anchor_bindToControl(widget, side, PositionConstants.RIGHT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -91,13 +91,13 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 					m_layoutImpl.anchor_delete(widget, side);
 				}
 			});
-		} else if (side == IPositionConstants.RIGHT) {
+		} else if (side == PositionConstants.RIGHT) {
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "h/menu/right_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.RIGHT);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.RIGHT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -105,7 +105,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 							+ "h/menu/left_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.LEFT);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.LEFT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -121,7 +121,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 							+ "h/menu/right_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.LEFT);
+					m_layoutImpl.anchor_bindToControl(widget, side, PositionConstants.LEFT);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -137,13 +137,13 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 
 	public void fillMenuVertical(final C widget, final int side, IMenuManager manager) {
 		ObjectInfo widgetModel = widget.getUnderlyingModel();
-		if (side == IPositionConstants.TOP) {
+		if (side == PositionConstants.TOP) {
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImageDescriptor(IMAGE_PREFIX
 							+ "v/menu/top_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.TOP);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.TOP);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -151,7 +151,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 					Activator.getImageDescriptor(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.BOTTOM);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.BOTTOM);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -167,7 +167,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 					Activator.getImageDescriptor(IMAGE_PREFIX + "v/menu/top_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.BOTTOM);
+					m_layoutImpl.anchor_bindToControl(widget, side, PositionConstants.BOTTOM);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -178,13 +178,13 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 					m_layoutImpl.anchor_delete(widget, side);
 				}
 			});
-		} else if (side == IPositionConstants.BOTTOM) {
+		} else if (side == PositionConstants.BOTTOM) {
 			manager.add(new ObjectInfoAction(widgetModel,
 					ModelMessages.AnchorActionsClassic_attachToBottomAsOffset,
 					Activator.getImageDescriptor(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.BOTTOM);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.BOTTOM);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -192,7 +192,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 							+ "v/menu/top_parent.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.TOP);
+					m_layoutImpl.anchor_bindToParent(widget, side, PositionConstants.TOP);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -208,7 +208,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 							+ "v/menu/bottom_control.png")) {
 				@Override
 				protected void runEx() throws Exception {
-					m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.TOP);
+					m_layoutImpl.anchor_bindToControl(widget, side, PositionConstants.TOP);
 				}
 			});
 			manager.add(new ObjectInfoAction(widgetModel,
@@ -228,14 +228,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 
 	private ImageDescriptor getImageHorizontal0(C control, int side) throws Exception {
 		IFormAttachmentInfo<C> attachment = m_layoutImpl.getAttachment(control, side);
-		String imageName = side == IPositionConstants.LEFT ? "left_" : "right_";
+		String imageName = side == PositionConstants.LEFT ? "left_" : "right_";
 		if (attachment == null) {
 			imageName += "free";
 		} else if (m_layoutImpl.isControlAttachment(attachment)) {
 			imageName += "control";
 			int targetSide = FormLayoutUtils.convertSwtAlignment(attachment.getAlignment());
 			if (targetSide == side) {
-				imageName += targetSide == IPositionConstants.LEFT ? "_left" : "_right";
+				imageName += targetSide == PositionConstants.LEFT ? "_left" : "_right";
 			}
 		} else if (attachment.getNumerator() == 100) {
 			imageName = "right_parent";
@@ -253,14 +253,14 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 
 	private ImageDescriptor getImageVertical0(C control, int side) throws Exception {
 		IFormAttachmentInfo<C> attachment = m_layoutImpl.getAttachment(control, side);
-		String imageName = side == IPositionConstants.TOP ? "top_" : "bottom_";
+		String imageName = side == PositionConstants.TOP ? "top_" : "bottom_";
 		if (attachment == null) {
 			imageName += "free";
 		} else if (m_layoutImpl.isControlAttachment(attachment)) {
 			imageName += "control";
 			int targetSide = FormLayoutUtils.convertSwtAlignment(attachment.getAlignment());
 			if (targetSide == side) {
-				imageName += targetSide == IPositionConstants.TOP ? "_top" : "_bottom";
+				imageName += targetSide == PositionConstants.TOP ? "_top" : "_bottom";
 			}
 		} else if (attachment.getNumerator() == 100) {
 			imageName = "bottom_parent";

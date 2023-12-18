@@ -13,8 +13,8 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
@@ -139,16 +139,16 @@ public class SnapPoints {
 			if (m_verticalSnappedPoint == null) {
 				// apply grid. don't apply grid while resizing to every axis
 				if (resizeDirection == 0
-						|| (resizeDirection & IPositionConstants.WEST) != 0
-						|| (resizeDirection & IPositionConstants.EAST) != 0) {
+						|| (resizeDirection & PositionConstants.WEST) != 0
+						|| (resizeDirection & PositionConstants.EAST) != 0) {
 					applyGrid(snappedBounds, resizeDirection, true);
 				}
 			}
 			if (m_horizontalSnappedPoint == null) {
 				// apply grid. don't apply grid while resizing to every axis
 				if (resizeDirection == 0
-						|| (resizeDirection & IPositionConstants.NORTH) != 0
-						|| (resizeDirection & IPositionConstants.SOUTH) != 0) {
+						|| (resizeDirection & PositionConstants.NORTH) != 0
+						|| (resizeDirection & PositionConstants.SOUTH) != 0) {
 					applyGrid(snappedBounds, resizeDirection, false);
 				}
 			}
@@ -229,13 +229,13 @@ public class SnapPoints {
 				bounds.x = snapRight - bounds.width;
 			}
 		} else { // resizing
-			if ((resizeDirection & IPositionConstants.WEST) != 0
-					|| (resizeDirection & IPositionConstants.NORTH) != 0) {
+			if ((resizeDirection & PositionConstants.WEST) != 0
+					|| (resizeDirection & PositionConstants.NORTH) != 0) {
 				int snapX = applyGrid(bounds.x, gridStep);
 				bounds.width = bounds.right() - snapX;
 				bounds.x = snapX;
-			} else if ((resizeDirection & IPositionConstants.EAST) != 0
-					|| (resizeDirection & IPositionConstants.SOUTH) != 0) {
+			} else if ((resizeDirection & PositionConstants.EAST) != 0
+					|| (resizeDirection & PositionConstants.SOUTH) != 0) {
 				int snapRight = applyGrid(bounds.right(), gridStep);
 				bounds.width = snapRight - bounds.x;
 			}

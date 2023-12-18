@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.PasteTool;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import org.junit.After;
 import org.junit.Ignore;
@@ -549,13 +550,13 @@ public class MenuComplexTest extends RcpGefTest {
 		// move on upper part of "item_1": add before feedback
 		{
 			canvas.moveTo(itemPart_1, 1, 1);
-			menuTester.assertMenuLineFeedback(itemPart_1, IPositionConstants.TOP);
+			menuTester.assertMenuLineFeedback(itemPart_1, PositionConstants.TOP);
 			canvas.assertNullEditPart(menu_1);
 		}
 		// move on lower part of "item_1": add after feedback
 		{
 			canvas.moveTo(itemPart_1, 1, -1);
-			menuTester.assertMenuLineFeedback(itemPart_1, IPositionConstants.BOTTOM);
+			menuTester.assertMenuLineFeedback(itemPart_1, PositionConstants.BOTTOM);
 			canvas.assertNullEditPart(menu_1);
 		}
 		// move on center of "item_1": target feedback and menu_1/item_2 EditPart's
@@ -596,7 +597,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// move before "item": add before feedback
 		{
 			canvas.moveTo(item, 1, 1);
-			menuTester.assertMenuLineFeedback(item, IPositionConstants.LEFT);
+			menuTester.assertMenuLineFeedback(item, PositionConstants.LEFT);
 		}
 		// do click
 		canvas.click();
@@ -643,7 +644,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// move after "item": add after feedback
 		{
 			canvas.moveTo(itemPart, -1, 1);
-			menuTester.assertMenuLineFeedback(itemPart, IPositionConstants.RIGHT);
+			menuTester.assertMenuLineFeedback(itemPart, PositionConstants.RIGHT);
 		}
 		// do click
 		canvas.click();
@@ -697,7 +698,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// move before "item": add before feedback, "menu" still not visible
 		{
 			canvas.moveTo(itemPart, 1, 1);
-			menuTester.assertMenuLineFeedback(itemPart, IPositionConstants.LEFT);
+			menuTester.assertMenuLineFeedback(itemPart, PositionConstants.LEFT);
 			canvas.assertNullEditPart(menuInfo);
 		}
 		// move on middle part of "item": target feedback and "menu" becomes visible
@@ -800,7 +801,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// move before "item": add before feedback
 		{
 			canvas.moveTo(itemPart, 1, 1);
-			menuTester.assertMenuLineFeedback(itemPart, IPositionConstants.LEFT);
+			menuTester.assertMenuLineFeedback(itemPart, PositionConstants.LEFT);
 		}
 		// do click
 		canvas.click();
@@ -953,7 +954,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// move "item_2" before "item_1"
 		{
 			canvas.beginDrag(itemPart_2).dragTo(itemPart_1);
-			menuTester.assertFeedback_selection_line(itemPart_2, itemPart_1, IPositionConstants.LEFT);
+			menuTester.assertFeedback_selection_line(itemPart_2, itemPart_1, PositionConstants.LEFT);
 			// again just selection feedback
 			canvas.endDrag();
 			menuTester.assertFeedback_selection(itemPart_2);
@@ -1022,7 +1023,7 @@ public class MenuComplexTest extends RcpGefTest {
 		// move "item_2" before "item_1" on "bar"
 		{
 			canvas.beginDrag(itemPart_2).dragTo(itemPart_1);
-			menuTester.assertFeedback_selection_line(itemPart_2, itemPart_1, IPositionConstants.LEFT);
+			menuTester.assertFeedback_selection_line(itemPart_2, itemPart_1, PositionConstants.LEFT);
 			// again just selection feedback
 			canvas.endDrag();
 			itemPart_2 = canvas.getEditPart(item_2);

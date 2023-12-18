@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -39,8 +39,8 @@ public class ContainerSnapPoint extends SnapPoint {
 	}
 
 	public ContainerSnapPoint(IVisualDataProvider visualDataProvider, int side, boolean includeGap) {
-		super(visualDataProvider, side, side == IPositionConstants.LEFT
-				|| side == IPositionConstants.TOP ? PlacementInfo.LEADING : PlacementInfo.TRAILING);
+		super(visualDataProvider, side, side == PositionConstants.LEFT
+				|| side == PositionConstants.TOP ? PlacementInfo.LEADING : PlacementInfo.TRAILING);
 		m_includeGap = includeGap;
 	}
 
@@ -55,14 +55,14 @@ public class ContainerSnapPoint extends SnapPoint {
 		m_containerSize = m_visualDataProvider.getContainerSize();
 		int gapValue = m_visualDataProvider.getContainerGapValue(m_nearestBeingSnapped, m_side);
 		switch (m_side) {
-		case IPositionConstants.TOP :
-		case IPositionConstants.LEFT :
+		case PositionConstants.TOP :
+		case PositionConstants.LEFT :
 			m_snapPoint = m_includeGap ? gapValue : 0;
 			break;
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			m_snapPoint = m_includeGap ? m_containerSize.height - gapValue : m_containerSize.height;
 			break;
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			m_snapPoint = m_includeGap ? m_containerSize.width - gapValue : m_containerSize.width;
 			break;
 		default :

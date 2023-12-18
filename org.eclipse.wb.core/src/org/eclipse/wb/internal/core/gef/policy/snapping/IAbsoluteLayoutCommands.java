@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import javax.swing.LayoutStyle;
 
@@ -19,9 +20,9 @@ import javax.swing.LayoutStyle;
  * Intended for {@link PlacementsSupport} to operate with layout.
  *
  * For every method containing <code>side</code> argument the valid <code>side</code> is one of the
- * following: {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
- * {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM},
- * {@link IPositionConstants#BASELINE}.
+ * following: {@link PositionConstants#LEFT}, {@link PositionConstants#RIGHT},
+ * {@link PositionConstants#TOP}, {@link PositionConstants#BOTTOM},
+ * {@link PositionConstants#BASELINE}.
  *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping

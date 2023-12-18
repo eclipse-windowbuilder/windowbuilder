@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.tools.CreationTool;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.junit.After;
@@ -366,7 +366,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		// move on upper part of "item": add before feedback
 		{
 			canvas.moveTo(itemPart, 1, 1);
-			menuTester.assertMenuLineFeedback(itemPart, IPositionConstants.TOP);
+			menuTester.assertMenuLineFeedback(itemPart, PositionConstants.TOP);
 		}
 		// do click
 		canvas.click();
@@ -412,7 +412,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		// move on lower part of "item": add after feedback
 		{
 			canvas.moveTo(itemPart, 1, -1);
-			menuTester.assertMenuLineFeedback(itemPart, IPositionConstants.BOTTOM);
+			menuTester.assertMenuLineFeedback(itemPart, PositionConstants.BOTTOM);
 		}
 		// do click
 		canvas.click();

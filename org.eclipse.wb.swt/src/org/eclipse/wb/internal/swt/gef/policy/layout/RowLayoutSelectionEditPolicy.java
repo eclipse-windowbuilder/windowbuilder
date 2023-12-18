@@ -15,7 +15,6 @@ import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -65,9 +65,9 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
-		handles.add(createHandle(IPositionConstants.EAST));
-		handles.add(createHandle(IPositionConstants.SOUTH));
-		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
+		handles.add(createHandle(PositionConstants.EAST));
+		handles.add(createHandle(PositionConstants.SOUTH));
+		handles.add(createHandle(PositionConstants.SOUTH_EAST));
 		return handles;
 	}
 
@@ -127,10 +127,10 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 			@Override
 			protected void executeEdit() throws Exception {
 				IRowDataInfo rowData = m_layout.getRowData2(m_control);
-				if (PolicyUtils.hasDirection(resizeDirection, IPositionConstants.EAST)) {
+				if (PolicyUtils.hasDirection(resizeDirection, PositionConstants.EAST)) {
 					rowData.setWidth(newBounds.width);
 				}
-				if (PolicyUtils.hasDirection(resizeDirection, IPositionConstants.SOUTH)) {
+				if (PolicyUtils.hasDirection(resizeDirection, PositionConstants.SOUTH)) {
 					rowData.setHeight(newBounds.height);
 				}
 			}

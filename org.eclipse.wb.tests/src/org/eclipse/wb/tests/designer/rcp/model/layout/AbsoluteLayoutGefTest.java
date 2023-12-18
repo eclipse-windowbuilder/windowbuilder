@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.layout;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
 import org.junit.Ignore;
@@ -170,7 +170,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 						"}");
 		ControlInfo button = composite.getChildrenControls().get(0);
 		//
-		canvas.beginResize(button, IPositionConstants.SOUTH_EAST);
+		canvas.beginResize(button, PositionConstants.SOUTH_EAST);
 		canvas.dragTo(button, 150, 100).endDrag();
 		assertEditor(
 				"public class Test extends Composite {",

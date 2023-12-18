@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.ams;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
+
+import org.eclipse.draw2d.PositionConstants;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -106,7 +107,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 		panel.refresh();
 		ComponentInfo box = panel.getChildrenComponents().get(0);
 		// drag to non-default width
-		canvas.beginResize(box, IPositionConstants.EAST).dragOn(30, 0).endDrag();
+		canvas.beginResize(box, PositionConstants.EAST).dragOn(30, 0).endDrag();
 		assertEditor(
 				"import ams.zpointcs.components.*;",
 				"public class Test extends JPanel {",
@@ -119,7 +120,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				"  }",
 				"}");
 		// drag to default width
-		canvas.beginResize(box, IPositionConstants.EAST).dragOn(-30, 0).endDrag();
+		canvas.beginResize(box, PositionConstants.EAST).dragOn(-30, 0).endDrag();
 		assertEditor(
 				"import ams.zpointcs.components.*;",
 				"public class Test extends JPanel {",
@@ -151,7 +152,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 		panel.refresh();
 		ComponentInfo box = panel.getChildrenComponents().get(0);
 		// drag to non-default width
-		canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, 50).endDrag();
+		canvas.beginResize(box, PositionConstants.SOUTH).dragOn(0, 50).endDrag();
 		assertEditor(
 				"import ams.zpointcs.components.*;",
 				"public class Test extends JPanel {",
@@ -164,7 +165,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				"  }",
 				"}");
 		// drag to default width
-		canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, -50).endDrag();
+		canvas.beginResize(box, PositionConstants.SOUTH).dragOn(0, -50).endDrag();
 		assertEditor(
 				"import ams.zpointcs.components.*;",
 				"public class Test extends JPanel {",

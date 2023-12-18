@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -89,7 +89,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_NORTH() throws Exception {
-		setUp(IPositionConstants.NORTH, "__Resize_N_");
+		setUp(PositionConstants.NORTH, "__Resize_N_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -155,7 +155,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_SOUTH() throws Exception {
-		setUp(IPositionConstants.SOUTH, "__Resize_S_");
+		setUp(PositionConstants.SOUTH, "__Resize_S_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -217,7 +217,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_WEST() throws Exception {
-		setUp(IPositionConstants.WEST, "__Resize_E_");
+		setUp(PositionConstants.WEST, "__Resize_E_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -283,7 +283,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_EAST() throws Exception {
-		setUp(IPositionConstants.EAST, "__Resize_E_");
+		setUp(PositionConstants.EAST, "__Resize_E_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -345,7 +345,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_NORTH_EAST() throws Exception {
-		setUp(IPositionConstants.NORTH_EAST, "__Resize_NE_");
+		setUp(PositionConstants.NORTH_EAST, "__Resize_NE_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -387,7 +387,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_NORTH_WEST() throws Exception {
-		setUp(IPositionConstants.NORTH_WEST, "__Resize_NW_");
+		setUp(PositionConstants.NORTH_WEST, "__Resize_NW_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -429,7 +429,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_SOUTH_EAST() throws Exception {
-		setUp(IPositionConstants.SOUTH_EAST, "__Resize_SE_");
+		setUp(PositionConstants.SOUTH_EAST, "__Resize_SE_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -469,7 +469,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_Request_from_SOUTH_WEST() throws Exception {
-		setUp(IPositionConstants.SOUTH_WEST, "__Resize_SW_");
+		setUp(PositionConstants.SOUTH_WEST, "__Resize_SW_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle
@@ -511,7 +511,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_not_Request() throws Exception {
-		setUp(IPositionConstants.NORTH, "__Resize_N_");
+		setUp(PositionConstants.NORTH, "__Resize_N_");
 		// start drag process use invalid button
 		m_sender.startDrag(10, 18, 3);
 		m_actualLogger.assertEmpty();
@@ -531,7 +531,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	@Test
 	public void test_break_Request() throws Exception {
-		setUp(IPositionConstants.NORTH, "__Resize_N_");
+		setUp(PositionConstants.NORTH, "__Resize_N_");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		// start drag process of handle

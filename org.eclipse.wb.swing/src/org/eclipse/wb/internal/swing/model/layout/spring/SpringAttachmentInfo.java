@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.model.layout.spring;
 
 import org.eclipse.wb.core.controls.CCombo3;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
@@ -62,8 +62,8 @@ public final class SpringAttachmentInfo {
 	 * @return the {@link SpringAttachmentInfo} for side of component.
 	 *
 	 * @param side
-	 *          one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#TOP},
-	 *          {@link IPositionConstants#RIGHT}, {@link IPositionConstants#BOTTOM}.
+	 *          one of the {@link PositionConstants#LEFT}, {@link PositionConstants#TOP},
+	 *          {@link PositionConstants#RIGHT}, {@link PositionConstants#BOTTOM}.
 	 */
 	public static SpringAttachmentInfo get(SpringLayoutInfo layout, ComponentInfo component, int side) {
 		String key = getAttachmentKey(side);
@@ -158,38 +158,38 @@ public final class SpringAttachmentInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Converts {@link IPositionConstants} side into {@link SpringLayout} side.
+	 * Converts {@link PositionConstants} side into {@link SpringLayout} side.
 	 */
 	public static String getSpringSide(int side) {
 		switch (side) {
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			return SpringLayout.WEST;
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			return SpringLayout.NORTH;
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			return SpringLayout.EAST;
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			return SpringLayout.SOUTH;
 		}
 		throw new IllegalArgumentException(MessageFormat.format("Invalid side: {0}", side));
 	}
 
 	/**
-	 * Converts {@link IPositionConstants} side into source for {@link SpringLayout} side.
+	 * Converts {@link PositionConstants} side into source for {@link SpringLayout} side.
 	 */
 	public static String getSpringSideSource(int side) {
 		String springSideName;
 		switch (side) {
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			springSideName = "WEST";
 			break;
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			springSideName = "NORTH";
 			break;
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			springSideName = "EAST";
 			break;
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			springSideName = "SOUTH";
 			break;
 		default :
@@ -202,22 +202,22 @@ public final class SpringAttachmentInfo {
 	 * @param side
 	 *          the side from {@link SpringLayout}.
 	 *
-	 * @return the absolute framework side one of the {@link IPositionConstants#LEFT},
-	 *         {@link IPositionConstants#TOP}, {@link IPositionConstants#RIGHT},
-	 *         {@link IPositionConstants#BOTTOM}.
+	 * @return the absolute framework side one of the {@link PositionConstants#LEFT},
+	 *         {@link PositionConstants#TOP}, {@link PositionConstants#RIGHT},
+	 *         {@link PositionConstants#BOTTOM}.
 	 */
 	public static int getFrameworkSide(String side) {
 		if (SpringLayout.WEST.equals(side)) {
-			return IPositionConstants.LEFT;
+			return PositionConstants.LEFT;
 		}
 		if (SpringLayout.NORTH.equals(side)) {
-			return IPositionConstants.TOP;
+			return PositionConstants.TOP;
 		}
 		if (SpringLayout.EAST.equals(side)) {
-			return IPositionConstants.RIGHT;
+			return PositionConstants.RIGHT;
 		}
 		if (SpringLayout.SOUTH.equals(side)) {
-			return IPositionConstants.BOTTOM;
+			return PositionConstants.BOTTOM;
 		}
 		throw new IllegalArgumentException(MessageFormat.format("Invalid side: {0}", side));
 	}
@@ -362,10 +362,10 @@ public final class SpringAttachmentInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final int[] sides = {
-			IPositionConstants.TOP,
-			IPositionConstants.LEFT,
-			IPositionConstants.BOTTOM,
-			IPositionConstants.RIGHT};
+			PositionConstants.TOP,
+			PositionConstants.LEFT,
+			PositionConstants.BOTTOM,
+			PositionConstants.RIGHT};
 
 	private StatementTarget updateTargetToSortAttachments(StatementTarget target) {
 		Statement statement = target.getStatement();

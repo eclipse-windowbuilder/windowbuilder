@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -82,10 +82,10 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 			@Override
 			public void run() throws Exception {
 				IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
-				drawFeedbacks(widget, IPositionConstants.LEFT);
-				drawFeedbacks(widget, IPositionConstants.RIGHT);
-				drawFeedbacks(widget, IPositionConstants.TOP);
-				drawFeedbacks(widget, IPositionConstants.BOTTOM);
+				drawFeedbacks(widget, PositionConstants.LEFT);
+				drawFeedbacks(widget, PositionConstants.RIGHT);
+				drawFeedbacks(widget, PositionConstants.TOP);
+				drawFeedbacks(widget, PositionConstants.BOTTOM);
 			}
 		});
 		if (getHost().getSelected() == EditPart.SELECTED_PRIMARY) {
@@ -128,12 +128,12 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 			IAbstractComponentInfo neighborWidget,
 			int side,
 			int neighborSide) {
-		Assert.isTrue((side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT)
-				&& (neighborSide == IPositionConstants.LEFT || neighborSide == IPositionConstants.RIGHT)
-				|| (side == IPositionConstants.TOP || side == IPositionConstants.BOTTOM)
-				&& (neighborSide == IPositionConstants.TOP || neighborSide == IPositionConstants.BOTTOM)
-				|| side == IPositionConstants.CENTER
-				|| neighborSide == IPositionConstants.CENTER);
+		Assert.isTrue((side == PositionConstants.LEFT || side == PositionConstants.RIGHT)
+				&& (neighborSide == PositionConstants.LEFT || neighborSide == PositionConstants.RIGHT)
+				|| (side == PositionConstants.TOP || side == PositionConstants.BOTTOM)
+				&& (neighborSide == PositionConstants.TOP || neighborSide == PositionConstants.BOTTOM)
+				|| side == PositionConstants.CENTER
+				|| neighborSide == PositionConstants.CENTER);
 		// bounds, transposed
 		Transposer t = new Transposer(!PlacementUtils.isHorizontalSide(side));
 		Rectangle widgetBounds = t.t(widget.getModelBounds().getCopy());
@@ -203,9 +203,9 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 	private void addLineEndFeedback(Point point, boolean isHorizontal, boolean isTrailing) {
 		int alignment;
 		if (isHorizontal) {
-			alignment = isTrailing ? IPositionConstants.RIGHT : IPositionConstants.LEFT;
+			alignment = isTrailing ? PositionConstants.RIGHT : PositionConstants.LEFT;
 		} else {
-			alignment = isTrailing ? IPositionConstants.BOTTOM : IPositionConstants.TOP;
+			alignment = isTrailing ? PositionConstants.BOTTOM : PositionConstants.TOP;
 		}
 		LineEndFigure lineEndFigure = new LineEndFigure(alignment, AbsolutePolicyUtils.COLOR_FEEDBACK);
 		addMyFeedback(lineEndFigure);
@@ -362,8 +362,8 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 
 		@Override
 		protected ImageDescriptor getImageDescriptor() {
-			boolean isLeftAttached = isAttached(m_widget, IPositionConstants.LEFT);
-			boolean isRightAttached = isAttached(m_widget, IPositionConstants.RIGHT);
+			boolean isLeftAttached = isAttached(m_widget, PositionConstants.LEFT);
+			boolean isRightAttached = isAttached(m_widget, PositionConstants.RIGHT);
 			if (isLeftAttached && isRightAttached) {
 				return getActionImageDescriptor("h/both.gif");
 			} else if (isRightAttached) {
@@ -391,8 +391,8 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 
 		@Override
 		protected ImageDescriptor getImageDescriptor() {
-			boolean isTopAttached = isAttached(m_widget, IPositionConstants.TOP);
-			boolean isBottomAttached = isAttached(m_widget, IPositionConstants.BOTTOM);
+			boolean isTopAttached = isAttached(m_widget, PositionConstants.TOP);
+			boolean isBottomAttached = isAttached(m_widget, PositionConstants.BOTTOM);
 			if (isTopAttached && isBottomAttached) {
 				return getActionImageDescriptor("v/both.gif");
 			} else if (isBottomAttached) {

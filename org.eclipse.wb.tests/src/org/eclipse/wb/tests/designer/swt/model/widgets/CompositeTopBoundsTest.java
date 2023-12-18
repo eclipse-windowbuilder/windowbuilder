@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport;
@@ -18,6 +17,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
@@ -128,9 +128,9 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 		assertEquals(oldSize, canvas.getSize(composite));
 		waitEventLoop(50);
 		// change size
-		canvas.beginResize(composite, IPositionConstants.EAST);
+		canvas.beginResize(composite, PositionConstants.EAST);
 		canvas.dragTo(composite, resizeSize.width, 0).endDrag();
-		canvas.beginResize(composite, IPositionConstants.SOUTH);
+		canvas.beginResize(composite, PositionConstants.SOUTH);
 		canvas.dragTo(composite, 0, resizeSize.height).endDrag();
 		// check new size
 		assertEquals(newSize, canvas.getSize(composite));

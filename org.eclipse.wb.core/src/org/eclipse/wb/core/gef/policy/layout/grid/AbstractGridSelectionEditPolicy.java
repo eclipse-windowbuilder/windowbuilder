@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.AbstractRelativeLocator;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.ILocator;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.EditPart;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
@@ -372,8 +372,8 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		bounds.resize(request.getSizeDelta());
 		// create command
 		boolean isHorizontal =
-				request.getResizeDirection() == IPositionConstants.WEST
-				|| request.getResizeDirection() == IPositionConstants.EAST;
+				request.getResizeDirection() == PositionConstants.WEST
+				|| request.getResizeDirection() == PositionConstants.EAST;
 		m_sizeCommand = createSizeCommand(isHorizontal, bounds.getSize());
 		// show feedback
 		{
@@ -457,10 +457,10 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			bounds.resize(request.getSizeDelta());
 			// prepare direction
 			int direction = request.getResizeDirection();
-			boolean isWest = direction == IPositionConstants.WEST;
-			boolean isEast = direction == IPositionConstants.EAST;
-			boolean isNorth = direction == IPositionConstants.NORTH;
-			boolean isSouth = direction == IPositionConstants.SOUTH;
+			boolean isWest = direction == PositionConstants.WEST;
+			boolean isEast = direction == PositionConstants.EAST;
+			boolean isNorth = direction == PositionConstants.NORTH;
+			boolean isSouth = direction == PositionConstants.SOUTH;
 			// update cells
 			if (isWest || isEast) {
 				Interval[] columnIntervals = gridInfo.getColumnIntervals();
@@ -597,13 +597,13 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 */
 	protected final ILocator createComponentLocator(int direction, double percent) {
 		Figure reference = getHostFigure();
-		if (direction == IPositionConstants.WEST) {
+		if (direction == PositionConstants.WEST) {
 			return new RelativeLocator(reference, 0, percent);
-		} else if (direction == IPositionConstants.EAST) {
+		} else if (direction == PositionConstants.EAST) {
 			return new RelativeLocator(reference, 1, percent);
-		} else if (direction == IPositionConstants.NORTH) {
+		} else if (direction == PositionConstants.NORTH) {
 			return new RelativeLocator(reference, percent, percent);
-		} else if (direction == IPositionConstants.SOUTH) {
+		} else if (direction == PositionConstants.SOUTH) {
 			return new RelativeLocator(reference, percent, 1);
 		}
 		throw new IllegalArgumentException("Unknown direction: " + direction);
@@ -629,13 +629,13 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			}
 		}
 		//
-		if (direction == IPositionConstants.WEST) {
+		if (direction == PositionConstants.WEST) {
 			return new SideLocator(0, percent);
-		} else if (direction == IPositionConstants.EAST) {
+		} else if (direction == PositionConstants.EAST) {
 			return new SideLocator(1, percent);
-		} else if (direction == IPositionConstants.NORTH) {
+		} else if (direction == PositionConstants.NORTH) {
 			return new SideLocator(percent, 0);
-		} else if (direction == IPositionConstants.SOUTH) {
+		} else if (direction == PositionConstants.SOUTH) {
 			return new SideLocator(percent, 1);
 		}
 		throw new IllegalArgumentException("Unknown direction: " + direction);

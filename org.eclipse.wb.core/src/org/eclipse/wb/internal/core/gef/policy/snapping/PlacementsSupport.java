@@ -11,13 +11,13 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo.AttachmentTypes;
 import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
@@ -438,7 +438,7 @@ public final class PlacementsSupport {
 			m_layoutCommands.adjustAttachmentOffset(widget, oppositeSide, getMoveDelta(widget, isHorizontal));
 		} else {
 			if (AttachmentTypes.Baseline == placementInfo.getAttachmentType()) {
-				m_layoutCommands.detach(widget, IPositionConstants.BOTTOM);
+				m_layoutCommands.detach(widget, PositionConstants.BOTTOM);
 			} else {
 				m_layoutCommands.detach(widget, oppositeSide);
 			}
@@ -641,9 +641,9 @@ public final class PlacementsSupport {
 	 * effective alignment determines by the nearest component or parent boundary.
 	 */
 	private int findEffectiveAlignment(IAbstractComponentInfo widget, boolean isHorizontal) throws Exception {
-		boolean isLeading = isAlignedToSide(widget, isHorizontal ? IPositionConstants.LEFT : IPositionConstants.TOP);
+		boolean isLeading = isAlignedToSide(widget, isHorizontal ? PositionConstants.LEFT : PositionConstants.TOP);
 		boolean isTrailing = isAlignedToSide(widget,
-				isHorizontal ? IPositionConstants.RIGHT : IPositionConstants.BOTTOM);
+				isHorizontal ? PositionConstants.RIGHT : PositionConstants.BOTTOM);
 		if (!(isLeading ^ isTrailing)) {
 			// return direction to the nearest widget or parent boundary
 			PlacementInfo placementInfo = findNeighborsOfWidget(widget, isHorizontal);
@@ -772,19 +772,19 @@ public final class PlacementsSupport {
 		Rectangle sampleBounds = t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, sampleWidget));
 		Rectangle aligningBounds = t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget));
 		switch (side) {
-		case IPositionConstants.CENTER: {
+		case PositionConstants.CENTER: {
 			placementInfo.setAttachmentType(AttachmentTypes.ComponentWithOffset);
 			int distance = sampleBounds.width / 2 - aligningBounds.width / 2;
 			placementInfo.getDistances()[direction] = distance;
 			aligningBounds.x += distance;
 		}
 		break;
-		case IPositionConstants.LEFT:
-		case IPositionConstants.TOP:
+		case PositionConstants.LEFT:
+		case PositionConstants.TOP:
 			aligningBounds.x = sampleBounds.x;
 			break;
-		case IPositionConstants.RIGHT:
-		case IPositionConstants.BOTTOM:
+		case PositionConstants.RIGHT:
+		case PositionConstants.BOTTOM:
 			aligningBounds.x = sampleBounds.right() - aligningBounds.width;
 			break;
 		default:
@@ -1070,10 +1070,10 @@ public final class PlacementsSupport {
 			// check every remaining widget for to be attached in list of operating widget
 			for (IAbstractComponentInfo operatingWidget : m_operatingWidgets) {
 				// check every side
-				checkAttached(remainingWidget, operatingWidget, attached, IPositionConstants.LEFT);
-				checkAttached(remainingWidget, operatingWidget, attached, IPositionConstants.RIGHT);
-				checkAttached(remainingWidget, operatingWidget, attached, IPositionConstants.TOP);
-				checkAttached(remainingWidget, operatingWidget, attached, IPositionConstants.BOTTOM);
+				checkAttached(remainingWidget, operatingWidget, attached, PositionConstants.LEFT);
+				checkAttached(remainingWidget, operatingWidget, attached, PositionConstants.RIGHT);
+				checkAttached(remainingWidget, operatingWidget, attached, PositionConstants.TOP);
+				checkAttached(remainingWidget, operatingWidget, attached, PositionConstants.BOTTOM);
 			}
 		}
 		return attached;

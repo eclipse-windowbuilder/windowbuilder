@@ -11,11 +11,11 @@
 package org.eclipse.wb.tests.designer.core.model.generic;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
 import org.junit.Ignore;
@@ -106,7 +106,7 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 		JavaInfo newButton = loadCreationTool("javax.swing.JButton");
 		// move on "panel": feedback appears, command not null
 		canvas.moveTo(existingButton, 0, 0);
-		canvas.assertFeedbacks(canvas.getLinePredicate(existingButton, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(existingButton, PositionConstants.LEFT));
 		canvas.assertCommandNotNull();
 		// click, so finish creation
 		canvas.click();
@@ -159,7 +159,7 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 		ComponentInfo buttonB = panel.getChildrenComponents().get(1);
 		// drag "buttonB"
 		canvas.beginDrag(buttonB, 10, 10).dragTo(buttonA);
-		canvas.assertFeedbacks(canvas.getLinePredicate(buttonA, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(buttonA, PositionConstants.LEFT));
 		canvas.assertCommandNotNull();
 		// done drag, so finish MOVE
 		canvas.endDrag();
@@ -228,7 +228,7 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 		// move on "panel": feedback appears, command not null
 		canvas.moveTo(panel, 0, 0);
 		canvas.moveTo(existingButton, 0, 0);
-		canvas.assertFeedbacks(canvas.getLinePredicate(existingButton, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(existingButton, PositionConstants.LEFT));
 		canvas.assertCommandNotNull();
 		// click, so finish creation
 		canvas.click();
@@ -289,7 +289,7 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 		ComponentInfo rootButton = mainPanel.getChildrenComponents().get(1);
 		// drag "rootButton"
 		canvas.beginDrag(rootButton).dragTo(existingButton);
-		canvas.assertFeedbacks(canvas.getLinePredicate(existingButton, IPositionConstants.LEFT));
+		canvas.assertFeedbacks(canvas.getLinePredicate(existingButton, PositionConstants.LEFT));
 		canvas.assertCommandNotNull();
 		// done drag, so finish ADD
 		canvas.endDrag();

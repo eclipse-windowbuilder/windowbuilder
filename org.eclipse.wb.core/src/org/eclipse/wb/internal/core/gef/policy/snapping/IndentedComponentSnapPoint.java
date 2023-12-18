@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -38,7 +38,7 @@ public class IndentedComponentSnapPoint extends ComponentSnapPoint {
 	////////////////////////////////////////////////////////////////////////////
 	public IndentedComponentSnapPoint(IVisualDataProvider visualDataProvider,
 			IAbstractComponentInfo anchorComponent) {
-		super(visualDataProvider, anchorComponent, IPositionConstants.LEFT, PlacementInfo.LEADING);
+		super(visualDataProvider, anchorComponent, PositionConstants.LEFT, PlacementInfo.LEADING);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ public class IndentedComponentSnapPoint extends ComponentSnapPoint {
 				m_visualDataProvider.getComponentGapValue(
 						getNearestComponentToSide(beingSnappedList),
 						m_anchorComponent,
-						IPositionConstants.BOTTOM);
+						PositionConstants.BOTTOM);
 		//
 		m_snapPoint = m_anchorChildBounds.x + INDENT;
 	}

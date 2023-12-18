@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -127,25 +127,25 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 		// show alignment figures
 		{
 			{
-				Figure figure = createAlignmentFigure(widget, IPositionConstants.LEFT);
+				Figure figure = createAlignmentFigure(widget, PositionConstants.LEFT);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, true, true);
 				}
 			}
 			{
-				Figure figure = createAlignmentFigure(widget, IPositionConstants.RIGHT);
+				Figure figure = createAlignmentFigure(widget, PositionConstants.RIGHT);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, false, true);
 				}
 			}
 			{
-				Figure figure = createAlignmentFigure(widget, IPositionConstants.TOP);
+				Figure figure = createAlignmentFigure(widget, PositionConstants.TOP);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, true, false);
 				}
 			}
 			{
-				Figure figure = createAlignmentFigure(widget, IPositionConstants.BOTTOM);
+				Figure figure = createAlignmentFigure(widget, PositionConstants.BOTTOM);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, false, false);
 				}

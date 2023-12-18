@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -59,10 +59,10 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> handles = new ArrayList<>();
 		handles.add(new MoveHandle(getHost()));
-		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
-		handles.add(createHandle(IPositionConstants.SOUTH_WEST));
-		handles.add(createHandle(IPositionConstants.NORTH_WEST));
-		handles.add(createHandle(IPositionConstants.NORTH_EAST));
+		handles.add(createHandle(PositionConstants.SOUTH_EAST));
+		handles.add(createHandle(PositionConstants.SOUTH_WEST));
+		handles.add(createHandle(PositionConstants.NORTH_WEST));
+		handles.add(createHandle(PositionConstants.NORTH_EAST));
 		return handles;
 	}
 

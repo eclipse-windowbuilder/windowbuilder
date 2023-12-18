@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.SWT;
 
 import java.text.MessageFormat;
@@ -47,20 +47,20 @@ public final class FormLayoutUtils {
 
 	/**
 	 * @return converted SWT constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate constants from
-	 *         IPositionConstants.
+	 *         PositionConstants.
 	 */
 	public static int convertSwtAlignment(int alignment) {
 		switch (alignment) {
 		case SWT.LEFT :
-			return IPositionConstants.LEFT;
+			return PositionConstants.LEFT;
 		case SWT.RIGHT :
-			return IPositionConstants.RIGHT;
+			return PositionConstants.RIGHT;
 		case SWT.TOP :
-			return IPositionConstants.TOP;
+			return PositionConstants.TOP;
 		case SWT.BOTTOM :
-			return IPositionConstants.BOTTOM;
+			return PositionConstants.BOTTOM;
 		case SWT.CENTER :
-			return IPositionConstants.CENTER;
+			return PositionConstants.CENTER;
 		default :
 			throw new IllegalArgumentException(MessageFormat.format(
 					ModelMessages.FormLayoutUtils_invalidAlignment,
@@ -69,18 +69,18 @@ public final class FormLayoutUtils {
 	}
 
 	/**
-	 * @return converted IPositionConstants constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate
+	 * @return converted PositionConstants constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate
 	 *         constants from SWT.
 	 */
 	public static int convertGefSide(int side) {
 		switch (side) {
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			return SWT.LEFT;
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			return SWT.RIGHT;
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			return SWT.TOP;
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			return SWT.BOTTOM;
 		default :
 			throw new IllegalArgumentException(MessageFormat.format(

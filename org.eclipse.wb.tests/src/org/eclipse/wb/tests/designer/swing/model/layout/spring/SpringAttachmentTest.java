@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.spring;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringAttachmentInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.assertj.core.api.Assertions;
@@ -52,10 +52,10 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getSpringSide() throws Exception {
-		assertSame(SpringLayout.WEST, SpringAttachmentInfo.getSpringSide(IPositionConstants.LEFT));
-		assertSame(SpringLayout.EAST, SpringAttachmentInfo.getSpringSide(IPositionConstants.RIGHT));
-		assertSame(SpringLayout.NORTH, SpringAttachmentInfo.getSpringSide(IPositionConstants.TOP));
-		assertSame(SpringLayout.SOUTH, SpringAttachmentInfo.getSpringSide(IPositionConstants.BOTTOM));
+		assertSame(SpringLayout.WEST, SpringAttachmentInfo.getSpringSide(PositionConstants.LEFT));
+		assertSame(SpringLayout.EAST, SpringAttachmentInfo.getSpringSide(PositionConstants.RIGHT));
+		assertSame(SpringLayout.NORTH, SpringAttachmentInfo.getSpringSide(PositionConstants.TOP));
+		assertSame(SpringLayout.SOUTH, SpringAttachmentInfo.getSpringSide(PositionConstants.BOTTOM));
 		try {
 			SpringAttachmentInfo.getSpringSide(-1);
 			fail();
@@ -70,16 +70,16 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	public void test_getSpringSideSource() throws Exception {
 		assertEquals(
 				"javax.swing.SpringLayout.WEST",
-				SpringAttachmentInfo.getSpringSideSource(IPositionConstants.LEFT));
+				SpringAttachmentInfo.getSpringSideSource(PositionConstants.LEFT));
 		assertEquals(
 				"javax.swing.SpringLayout.EAST",
-				SpringAttachmentInfo.getSpringSideSource(IPositionConstants.RIGHT));
+				SpringAttachmentInfo.getSpringSideSource(PositionConstants.RIGHT));
 		assertEquals(
 				"javax.swing.SpringLayout.NORTH",
-				SpringAttachmentInfo.getSpringSideSource(IPositionConstants.TOP));
+				SpringAttachmentInfo.getSpringSideSource(PositionConstants.TOP));
 		assertEquals(
 				"javax.swing.SpringLayout.SOUTH",
-				SpringAttachmentInfo.getSpringSideSource(IPositionConstants.BOTTOM));
+				SpringAttachmentInfo.getSpringSideSource(PositionConstants.BOTTOM));
 		try {
 			SpringAttachmentInfo.getSpringSideSource(-1);
 			fail();
@@ -92,11 +92,11 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getFrameworkSide() throws Exception {
-		assertEquals(IPositionConstants.LEFT, SpringAttachmentInfo.getFrameworkSide(SpringLayout.WEST));
-		assertEquals(IPositionConstants.TOP, SpringAttachmentInfo.getFrameworkSide(SpringLayout.NORTH));
-		assertEquals(IPositionConstants.RIGHT, SpringAttachmentInfo.getFrameworkSide(SpringLayout.EAST));
+		assertEquals(PositionConstants.LEFT, SpringAttachmentInfo.getFrameworkSide(SpringLayout.WEST));
+		assertEquals(PositionConstants.TOP, SpringAttachmentInfo.getFrameworkSide(SpringLayout.NORTH));
+		assertEquals(PositionConstants.RIGHT, SpringAttachmentInfo.getFrameworkSide(SpringLayout.EAST));
 		assertEquals(
-				IPositionConstants.BOTTOM,
+				PositionConstants.BOTTOM,
 				SpringAttachmentInfo.getFrameworkSide(SpringLayout.SOUTH));
 		try {
 			SpringAttachmentInfo.getFrameworkSide("no such side");
@@ -158,22 +158,22 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		// LEFT
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentLeft(button);
-			assertEquals(IPositionConstants.LEFT, attachment.getSide());
+			assertEquals(PositionConstants.LEFT, attachment.getSide());
 		}
 		// TOP
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentTop(button);
-			assertEquals(IPositionConstants.TOP, attachment.getSide());
+			assertEquals(PositionConstants.TOP, attachment.getSide());
 		}
 		// RIGHT
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentRight(button);
-			assertEquals(IPositionConstants.RIGHT, attachment.getSide());
+			assertEquals(PositionConstants.RIGHT, attachment.getSide());
 		}
 		// BOTTOM
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentBottom(button);
-			assertEquals(IPositionConstants.BOTTOM, attachment.getSide());
+			assertEquals(PositionConstants.BOTTOM, attachment.getSide());
 		}
 	}
 
@@ -274,7 +274,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 				SpringAttachmentInfo attachment = layout.getAttachmentLeft(button_1);
 				assertFalse(attachment.isVirtual());
 				assertSame(panel, attachment.getAnchorComponent());
-				assertEquals(IPositionConstants.LEFT, attachment.getAnchorSide());
+				assertEquals(PositionConstants.LEFT, attachment.getAnchorSide());
 				assertEquals(5, attachment.getOffset());
 			}
 			// top
@@ -282,7 +282,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 				SpringAttachmentInfo attachment = layout.getAttachmentTop(button_1);
 				assertFalse(attachment.isVirtual());
 				assertSame(panel, attachment.getAnchorComponent());
-				assertEquals(IPositionConstants.TOP, attachment.getAnchorSide());
+				assertEquals(PositionConstants.TOP, attachment.getAnchorSide());
 				assertEquals(10, attachment.getOffset());
 			}
 		}
@@ -293,7 +293,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 				SpringAttachmentInfo attachment = layout.getAttachmentLeft(button_2);
 				assertFalse(attachment.isVirtual());
 				assertSame(button_1, attachment.getAnchorComponent());
-				assertEquals(IPositionConstants.RIGHT, attachment.getAnchorSide());
+				assertEquals(PositionConstants.RIGHT, attachment.getAnchorSide());
 				assertEquals(5, attachment.getOffset());
 			}
 			// top
@@ -301,7 +301,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 				SpringAttachmentInfo attachment = layout.getAttachmentTop(button_2);
 				assertFalse(attachment.isVirtual());
 				assertSame(button_1, attachment.getAnchorComponent());
-				assertEquals(IPositionConstants.TOP, attachment.getAnchorSide());
+				assertEquals(PositionConstants.TOP, attachment.getAnchorSide());
 				assertEquals(0, attachment.getOffset());
 			}
 		}
@@ -334,7 +334,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 			SpringAttachmentInfo attachment = layout.getAttachmentLeft(button);
 			assertFalse(attachment.isVirtual());
 			assertSame(panel, attachment.getAnchorComponent());
-			assertEquals(IPositionConstants.LEFT, attachment.getAnchorSide());
+			assertEquals(PositionConstants.LEFT, attachment.getAnchorSide());
 			assertEquals(5, attachment.getOffset());
 		}
 		// bottom
@@ -342,7 +342,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 			SpringAttachmentInfo attachment = layout.getAttachmentBottom(button);
 			assertFalse(attachment.isVirtual());
 			assertSame(panel, attachment.getAnchorComponent());
-			assertEquals(IPositionConstants.BOTTOM, attachment.getAnchorSide());
+			assertEquals(PositionConstants.BOTTOM, attachment.getAnchorSide());
 			assertEquals(-10, attachment.getOffset());
 		}
 	}
@@ -375,7 +375,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			assertFalse(attachment.isVirtual());
 			assertSame(panel, attachment.getAnchorComponent());
-			assertEquals(IPositionConstants.LEFT, attachment.getAnchorSide());
+			assertEquals(PositionConstants.LEFT, attachment.getAnchorSide());
 			assertEquals(5, attachment.getOffset());
 		}
 		// set offset
@@ -394,7 +394,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 				"  }",
 				"}");
 		// set anchor side
-		attachment.setAnchorSide(IPositionConstants.RIGHT);
+		attachment.setAnchorSide(PositionConstants.RIGHT);
 		attachment.write();
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -437,7 +437,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		}
 		// set offset
 		attachment.setAnchorComponent(panel);
-		attachment.setAnchorSide(IPositionConstants.LEFT);
+		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
 		assertEditor(
@@ -460,7 +460,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			assertFalse(attachment.isVirtual());
 			assertSame(panel, attachment.getAnchorComponent());
-			assertEquals(IPositionConstants.LEFT, attachment.getAnchorSide());
+			assertEquals(PositionConstants.LEFT, attachment.getAnchorSide());
 			assertEquals(5, attachment.getOffset());
 		}
 	}
@@ -499,7 +499,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		}
 		// set offset
 		attachment.setAnchorComponent(panel);
-		attachment.setAnchorSide(IPositionConstants.LEFT);
+		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
 		assertEditor(
@@ -529,7 +529,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			assertFalse(attachment.isVirtual());
 			assertSame(panel, attachment.getAnchorComponent());
-			assertEquals(IPositionConstants.LEFT, attachment.getAnchorSide());
+			assertEquals(PositionConstants.LEFT, attachment.getAnchorSide());
 			assertEquals(5, attachment.getOffset());
 		}
 	}
@@ -558,7 +558,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentTop(button);
 			attachment.setAnchorComponent(panel);
-			attachment.setAnchorSide(IPositionConstants.TOP);
+			attachment.setAnchorSide(PositionConstants.TOP);
 			attachment.setOffset(5);
 			attachment.write();
 			assertEditor(
@@ -578,7 +578,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentLeft(button);
 			attachment.setAnchorComponent(panel);
-			attachment.setAnchorSide(IPositionConstants.LEFT);
+			attachment.setAnchorSide(PositionConstants.LEFT);
 			attachment.setOffset(5);
 			attachment.write();
 			assertEditor(
@@ -599,7 +599,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentBottom(button);
 			attachment.setAnchorComponent(panel);
-			attachment.setAnchorSide(IPositionConstants.BOTTOM);
+			attachment.setAnchorSide(PositionConstants.BOTTOM);
 			attachment.setOffset(-5);
 			attachment.write();
 			assertEditor(
@@ -621,7 +621,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			SpringAttachmentInfo attachment = layout.getAttachmentRight(button);
 			attachment.setAnchorComponent(panel);
-			attachment.setAnchorSide(IPositionConstants.RIGHT);
+			attachment.setAnchorSide(PositionConstants.RIGHT);
 			attachment.setOffset(-5);
 			attachment.write();
 			assertEditor(
@@ -669,7 +669,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		}
 		// set offset
 		attachment.setAnchorComponent(panel);
-		attachment.setAnchorSide(IPositionConstants.RIGHT);
+		attachment.setAnchorSide(PositionConstants.RIGHT);
 		attachment.setOffset(-5);
 		attachment.write();
 		assertEditor(
@@ -688,7 +688,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		{
 			assertFalse(attachment.isVirtual());
 			assertSame(panel, attachment.getAnchorComponent());
-			assertEquals(IPositionConstants.RIGHT, attachment.getAnchorSide());
+			assertEquals(PositionConstants.RIGHT, attachment.getAnchorSide());
 			assertEquals(-5, attachment.getOffset());
 		}
 	}
@@ -721,7 +721,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		//
 		SpringAttachmentInfo attachment = layout.getAttachmentLeft(buttonB);
 		attachment.setAnchorComponent(buttonA);
-		attachment.setAnchorSide(IPositionConstants.LEFT);
+		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
 		assertEditor(
@@ -779,7 +779,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		//
 		SpringAttachmentInfo attachment = layout.getAttachmentLeft(buttonA);
 		attachment.setAnchorComponent(buttonB);
-		attachment.setAnchorSide(IPositionConstants.LEFT);
+		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
 		assertEditor(
@@ -827,7 +827,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		//
 		SpringAttachmentInfo attachment = layout.getAttachmentLeft(buttonB);
 		attachment.setAnchorComponent(buttonA);
-		attachment.setAnchorSide(IPositionConstants.LEFT);
+		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
 		assertEditor(
@@ -875,7 +875,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		//
 		SpringAttachmentInfo attachment = layout.getAttachmentLeft(buttonA);
 		attachment.setAnchorComponent(buttonB);
-		attachment.setAnchorSide(IPositionConstants.LEFT);
+		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
 		assertEditor(

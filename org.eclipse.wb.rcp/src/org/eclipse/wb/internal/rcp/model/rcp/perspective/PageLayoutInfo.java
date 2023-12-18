@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.core.model.broadcast.JavaInfoTreeAlmostComplete;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.IMoveTargetProvider;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
@@ -54,6 +53,7 @@ import org.eclipse.wb.internal.rcp.palette.PerspectivePerspectiveDropEntryInfo;
 import org.eclipse.wb.internal.rcp.palette.PerspectiveViewDropEntryInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
@@ -367,28 +367,28 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 					new SashLineInfo(part,
 							partBounds,
 							refBounds,
-							IPositionConstants.EAST,
+							PositionConstants.EAST,
 							new Rectangle(partBounds.right(), partBounds.y, sashSize, partBounds.height));
 		} else if (relation == IPageLayout.RIGHT) {
 			sashLine =
 					new SashLineInfo(part,
 							partBounds,
 							refBounds,
-							IPositionConstants.WEST,
+							PositionConstants.WEST,
 							new Rectangle(partBounds.x - sashSize, partBounds.y, sashSize, partBounds.height));
 		} else if (relation == IPageLayout.TOP) {
 			sashLine =
 					new SashLineInfo(part,
 							partBounds,
 							refBounds,
-							IPositionConstants.SOUTH,
+							PositionConstants.SOUTH,
 							new Rectangle(partBounds.x, partBounds.bottom(), partBounds.width, sashSize));
 		} else if (relation == IPageLayout.BOTTOM) {
 			sashLine =
 					new SashLineInfo(part,
 							partBounds,
 							refBounds,
-							IPositionConstants.NORTH,
+							PositionConstants.NORTH,
 							new Rectangle(partBounds.x, partBounds.y - sashSize, partBounds.width, sashSize));
 		}
 		// set line

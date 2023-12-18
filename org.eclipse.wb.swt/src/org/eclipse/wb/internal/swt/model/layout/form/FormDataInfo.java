@@ -14,7 +14,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaInfoTreeAlmostComplete;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.FormLayoutSupport;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.swt.layout.FormData;
@@ -131,9 +131,9 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @param side can be either of IPositionConstants.LEFT,
-	 *             IPositionConstants.RIGHT, IPositionConstants.TOP,
-	 *             IPositionConstants.BOTTOM
+	 * @param side can be either of PositionConstants.LEFT,
+	 *             PositionConstants.RIGHT, PositionConstants.TOP,
+	 *             PositionConstants.BOTTOM
 	 */
 	@Override
 	public FormAttachmentInfo getAttachment(int sideInt) throws Exception {
@@ -173,10 +173,10 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 	protected void refresh_finish() throws Exception {
 		super.refresh_finish();
 		ensureAttachmentProperties();
-		updateAttachmentPropertyText(IPositionConstants.LEFT, m_propertyLeft);
-		updateAttachmentPropertyText(IPositionConstants.RIGHT, m_propertyRight);
-		updateAttachmentPropertyText(IPositionConstants.TOP, m_propertyTop);
-		updateAttachmentPropertyText(IPositionConstants.BOTTOM, m_propertyBottom);
+		updateAttachmentPropertyText(PositionConstants.LEFT, m_propertyLeft);
+		updateAttachmentPropertyText(PositionConstants.RIGHT, m_propertyRight);
+		updateAttachmentPropertyText(PositionConstants.TOP, m_propertyTop);
+		updateAttachmentPropertyText(PositionConstants.BOTTOM, m_propertyBottom);
 	}
 
 	@Override
@@ -192,10 +192,10 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 
 	private void ensureAttachmentProperties() throws Exception {
 		if (m_propertyLeft == null) {
-			m_propertyLeft = createAttachmentProperty(IPositionConstants.LEFT, "left");
-			m_propertyRight = createAttachmentProperty(IPositionConstants.RIGHT, "right");
-			m_propertyTop = createAttachmentProperty(IPositionConstants.TOP, "top");
-			m_propertyBottom = createAttachmentProperty(IPositionConstants.BOTTOM, "bottom");
+			m_propertyLeft = createAttachmentProperty(PositionConstants.LEFT, "left");
+			m_propertyRight = createAttachmentProperty(PositionConstants.RIGHT, "right");
+			m_propertyTop = createAttachmentProperty(PositionConstants.TOP, "top");
+			m_propertyBottom = createAttachmentProperty(PositionConstants.BOTTOM, "bottom");
 		}
 	}
 

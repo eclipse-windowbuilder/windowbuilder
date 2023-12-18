@@ -12,9 +12,9 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
@@ -146,14 +146,14 @@ public abstract class SnapPoint {
 	protected boolean isValidResizeDirection(int resizeDirection) {
 		if (isHorizontal()) {
 			return m_snapDirection == PlacementInfo.LEADING
-					&& (resizeDirection & IPositionConstants.WEST) != 0
+					&& (resizeDirection & PositionConstants.WEST) != 0
 					|| m_snapDirection == PlacementInfo.TRAILING
-					&& (resizeDirection & IPositionConstants.EAST) != 0;
+					&& (resizeDirection & PositionConstants.EAST) != 0;
 		} else {
 			return m_snapDirection == PlacementInfo.LEADING
-					&& (resizeDirection & IPositionConstants.NORTH) != 0
+					&& (resizeDirection & PositionConstants.NORTH) != 0
 					|| m_snapDirection == PlacementInfo.TRAILING
-					&& (resizeDirection & IPositionConstants.SOUTH) != 0;
+					&& (resizeDirection & PositionConstants.SOUTH) != 0;
 		}
 	}
 
@@ -209,7 +209,7 @@ public abstract class SnapPoint {
 	 * @return true if this snap point is for horizontal dimension.
 	 */
 	protected boolean isHorizontal() {
-		return m_side == IPositionConstants.LEFT || m_side == IPositionConstants.RIGHT;
+		return m_side == PositionConstants.LEFT || m_side == PositionConstants.RIGHT;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -306,13 +306,13 @@ public abstract class SnapPoint {
 
 	private static String sideToString(int side) {
 		switch (side) {
-		case IPositionConstants.TOP :
+		case PositionConstants.TOP :
 			return "TOP";
-		case IPositionConstants.BOTTOM :
+		case PositionConstants.BOTTOM :
 			return "BOTTOM";
-		case IPositionConstants.LEFT :
+		case PositionConstants.LEFT :
 			return "LEFT";
-		case IPositionConstants.RIGHT :
+		case PositionConstants.RIGHT :
 			return "RIGHT";
 		default :
 			return Integer.toString(side);
@@ -351,8 +351,8 @@ public abstract class SnapPoint {
 
 	/**
 	 * @return the side of this {@link SnapPoint}. The possible values are
-	 *         {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM},
-	 *         {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT}.
+	 *         {@link PositionConstants#TOP}, {@link PositionConstants#BOTTOM},
+	 *         {@link PositionConstants#LEFT}, {@link PositionConstants#RIGHT}.
 	 */
 	public final int getSide() {
 		return m_side;
