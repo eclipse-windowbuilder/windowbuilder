@@ -13,8 +13,10 @@ package org.eclipse.wb.tests.draw2d;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.EventDispatcher;
 import org.eclipse.draw2d.GraphicsSource;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.SWTEventDispatcher;
 import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -24,6 +26,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  */
 public class TestCaseRootFigure extends RootFigure {
 	private final UpdateManager m_testManager;
+	private final EventDispatcher m_eventDispatcher;
 	private final TestLogger m_logger;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -67,6 +70,14 @@ public class TestCaseRootFigure extends RootFigure {
 				// Not relevant for testing...
 			}
 		};
+		m_eventDispatcher = new SWTEventDispatcher() {
+			@Override
+			public void updateCursor() {
+				if (m_logger != null) {
+					m_logger.log("updateCursor");
+				}
+			}
+		};
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -89,14 +100,12 @@ public class TestCaseRootFigure extends RootFigure {
 	}
 
 	@Override
-	protected void updateCursor() {
-		if (m_logger != null) {
-			m_logger.log("updateCursor");
-		}
+	public UpdateManager getUpdateManager() {
+		return m_testManager;
 	}
 
 	@Override
-	public UpdateManager getUpdateManager() {
-		return m_testManager;
+	public EventDispatcher internalGetEventDispatcher() {
+		return m_eventDispatcher;
 	}
 }

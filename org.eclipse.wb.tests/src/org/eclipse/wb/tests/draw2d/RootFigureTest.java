@@ -148,10 +148,6 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 			@Override
 			public void repaint(int x, int y, int width, int height) {
 			}
-
-			@Override
-			protected void updateCursor() {
-			}
 		};
 		testRoot.addLayer(layer1);
 		testRoot.addLayer(layer2);

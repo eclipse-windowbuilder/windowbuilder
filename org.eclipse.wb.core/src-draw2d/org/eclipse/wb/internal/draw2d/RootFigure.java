@@ -173,14 +173,6 @@ public class RootFigure extends Figure implements IRootFigure {
 	}
 
 	/**
-	 * Updates the cursor over {@link EventManager}.
-	 */
-	@Override
-	protected void updateCursor() {
-		m_eventManager.updateCursor();
-	}
-
-	/**
 	 * Sets capture figure over {@link EventManager}.
 	 */
 	@Override
