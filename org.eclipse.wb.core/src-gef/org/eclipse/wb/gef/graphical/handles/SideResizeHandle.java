@@ -12,10 +12,11 @@ package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -45,7 +46,7 @@ public class SideResizeHandle extends Handle {
 	// Locator
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static class ResizeHandleLocator implements ILocator {
+	private static class ResizeHandleLocator implements Locator {
 		private final Figure m_reference;
 		private final int m_side;
 		private final int m_width;
@@ -65,11 +66,11 @@ public class SideResizeHandle extends Handle {
 
 		////////////////////////////////////////////////////////////////////////////
 		//
-		// ILocator
+		// Locator
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public void relocate(Figure target) {
+		public void relocate(IFigure target) {
 			Rectangle bounds = m_reference.getBounds().getCopy();
 			FigureUtils.translateFigureToFigure(m_reference, target, bounds);
 			//

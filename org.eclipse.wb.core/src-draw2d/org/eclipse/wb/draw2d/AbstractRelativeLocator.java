@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -27,7 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author scheglov_ke
  * @coverage gef.draw2d
  */
-public abstract class AbstractRelativeLocator implements ILocator, PositionConstants {
+public abstract class AbstractRelativeLocator implements Locator, PositionConstants {
 	private final double m_relativeX;
 	private final double m_relativeY;
 
@@ -82,7 +84,7 @@ public abstract class AbstractRelativeLocator implements ILocator, PositionConst
 	 * Relocates the target using the relative offset locations.
 	 */
 	@Override
-	public final void relocate(Figure target) {
+	public final void relocate(IFigure target) {
 		// prepare reference
 		Rectangle reference = getReferenceRectangle();
 		FigureUtils.translateAbsoluteToFigure(target, reference);
