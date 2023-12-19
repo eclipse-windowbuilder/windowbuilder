@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.AbstractRelativeLocator;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.EditPart;
@@ -33,6 +32,8 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -128,9 +129,9 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 * @return the {@link MoveHandle} for host component.
 	 */
 	protected final MoveHandle createMoveHandle() {
-		MoveHandle moveHandle = new MoveHandle(getHost(), new ILocator() {
+		MoveHandle moveHandle = new MoveHandle(getHost(), new Locator() {
 			@Override
-			public void relocate(Figure target) {
+			public void relocate(IFigure target) {
 				try {
 					Rectangle bounds = getComponentCellBounds_atFeedback();
 					target.setBounds(bounds);
@@ -358,7 +359,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * @return the new resize {@link Handle} with given direction.
 	 */
-	protected final Handle createSizeHandle(int direction, ILocator locator) {
+	protected final Handle createSizeHandle(int direction, Locator locator) {
 		return new SizeHandle(direction, locator);
 	}
 
@@ -404,7 +405,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private class SizeHandle extends SquareHandle {
-		public SizeHandle(int direction, ILocator locator) {
+		public SizeHandle(int direction, Locator locator) {
 			super(getHost(), locator);
 			setCursor(Cursors.getDirectionalCursor(direction));
 			setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE_SIZE));
@@ -439,7 +440,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * @return the new span {@link Handle} with given direction.
 	 */
-	protected final Handle createSpanHandle(int direction, ILocator locator) {
+	protected final Handle createSpanHandle(int direction, Locator locator) {
 		return new SpanHandle(direction, locator);
 	}
 
@@ -570,7 +571,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private class SpanHandle extends SquareHandle {
-		public SpanHandle(int direction, ILocator locator) {
+		public SpanHandle(int direction, Locator locator) {
 			super(getHost(), locator);
 			setCursor(Cursors.getDirectionalCursor(direction));
 			setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE_SPAN));
@@ -593,9 +594,9 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return {@link ILocator} that positions handles on component side.
+	 * @return {@link Locator} that positions handles on component side.
 	 */
-	protected final ILocator createComponentLocator(int direction, double percent) {
+	protected final Locator createComponentLocator(int direction, double percent) {
 		Figure reference = getHostFigure();
 		if (direction == PositionConstants.WEST) {
 			return new RelativeLocator(reference, 0, percent);
@@ -610,9 +611,9 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	}
 
 	/**
-	 * @return {@link ILocator} that positions handles on component's cells side.
+	 * @return {@link Locator} that positions handles on component's cells side.
 	 */
-	protected final ILocator createCellLocator(int direction, double percent) {
+	protected final Locator createCellLocator(int direction, double percent) {
 		class SideLocator extends AbstractRelativeLocator {
 			public SideLocator(double relativeX, double relativeY) {
 				super(relativeX, relativeY);

@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Locator;
 
 /**
  * A Handle used to resize a {@link EditPart}s.
@@ -43,7 +43,7 @@ public class ResizeHandle extends SquareHandle {
 	 * Creates a new ResizeHandle for the given {@link GraphicalEditPart}. The <code>direction</code>
 	 * is the relative direction from the center of the owner figure.
 	 */
-	public ResizeHandle(GraphicalEditPart owner, int direction, ILocator locator) {
+	public ResizeHandle(GraphicalEditPart owner, int direction, Locator locator) {
 		super(owner, locator);
 		m_direction = direction;
 		setCursor(Cursors.getDirectionalCursor(direction));

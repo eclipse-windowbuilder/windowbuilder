@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
@@ -38,9 +38,9 @@ public abstract class SquareHandle extends Handle {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Creates a handle for the given <code>{@link GraphicalEditPart}</code> using the given
-	 * <code>{@link ILocator}</code>.
+	 * <code>{@link Locator}</code>.
 	 */
-	public SquareHandle(GraphicalEditPart owner, ILocator locator) {
+	public SquareHandle(GraphicalEditPart owner, Locator locator) {
 		super(owner, locator);
 		setSize(DEFAULT_HANDLE_SIZE, DEFAULT_HANDLE_SIZE);
 	}

@@ -12,8 +12,9 @@ package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.ILocator;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -24,7 +25,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class MoveHandleLocator implements ILocator {
+public class MoveHandleLocator implements Locator {
 	private final Figure m_reference;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -42,7 +43,7 @@ public class MoveHandleLocator implements ILocator {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// ILocator
+	// Locator
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
@@ -50,7 +51,7 @@ public class MoveHandleLocator implements ILocator {
 	 * {@link Insets}.
 	 */
 	@Override
-	public void relocate(Figure target) {
+	public void relocate(IFigure target) {
 		Rectangle bounds = m_reference.getBounds().getResized(-1, -1);
 		FigureUtils.translateFigureToFigure(m_reference, target, bounds);
 		//

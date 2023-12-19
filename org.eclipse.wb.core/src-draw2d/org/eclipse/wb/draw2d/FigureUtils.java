@@ -13,6 +13,7 @@ package org.eclipse.wb.draw2d;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
@@ -51,8 +52,7 @@ public class FigureUtils {
 	 * Translates given {@link Translatable} from <code>source</code> {@link Figure} bounds
 	 * coordinates to bounds coordinates from <code>target</code> {@link Figure}.
 	 */
-	public static final void translateFigureToFigure(Figure source,
-			Figure target,
+	public static final void translateFigureToFigure(IFigure source, IFigure target,
 			Translatable translatable) {
 		translateFigureToAbsolute(source, translatable);
 		translateAbsoluteToFigure(target, translatable);
@@ -73,8 +73,8 @@ public class FigureUtils {
 	 * Translates given {@link Translatable} from this {@link Figure} bounds coordinates to absolute (
 	 * {@link RootFigure} relative) coordinates.
 	 */
-	public static final void translateFigureToAbsolute(Figure figure, Translatable translatable) {
-		for (Figure parent = figure.getParent(); parent != null; parent = parent.getParent()) {
+	public static final void translateFigureToAbsolute(IFigure figure, Translatable translatable) {
+		for (IFigure parent = figure.getParent(); parent != null; parent = parent.getParent()) {
 			translatable.performTranslate(parent.getInsets());
 			translatable.performTranslate(parent.getLocation());
 		}
@@ -104,11 +104,11 @@ public class FigureUtils {
 	}
 
 	/**
-	 * Translates given {@link Translatable} from this absolute ({@link RootFigure} relative)
-	 * coordinates to bounds {@link Figure} coordinates.
+	 * Translates given {@link Translatable} from this absolute ({@link RootFigure}
+	 * relative) coordinates to bounds {@link IFigure} coordinates.
 	 */
-	public static final void translateAbsoluteToFigure(Figure figure, Translatable translatable) {
-		for (Figure parent = figure.getParent(); parent != null; parent = parent.getParent()) {
+	public static final void translateAbsoluteToFigure(IFigure figure, Translatable translatable) {
+		for (IFigure parent = figure.getParent(); parent != null; parent = parent.getParent()) {
 			translatable.performTranslate(parent.getLocation().negate());
 			translatable.performTranslate(parent.getInsets().getNegated());
 		}

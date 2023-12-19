@@ -11,12 +11,12 @@
 package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 
 /**
  * {@link Handle} will add an {@link IAncestorListener} to the owner's figure, and will
@@ -27,7 +27,7 @@ import org.eclipse.draw2d.IFigure;
  */
 public abstract class Handle extends Figure implements AncestorListener {
 	private final GraphicalEditPart m_owner;
-	private final ILocator m_locator;
+	private final Locator m_locator;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -36,9 +36,9 @@ public abstract class Handle extends Figure implements AncestorListener {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Creates a handle for the given <code>{@link GraphicalEditPart}</code> using the given
-	 * <code>{@link ILocator}</code>.
+	 * <code>{@link Locator}</code>.
 	 */
-	public Handle(GraphicalEditPart owner, ILocator locator) {
+	public Handle(GraphicalEditPart owner, Locator locator) {
 		m_owner = owner;
 		m_locator = locator;
 	}
@@ -111,9 +111,9 @@ public abstract class Handle extends Figure implements AncestorListener {
 	}
 
 	/**
-	 * Returns the <code>{@link ILocator}</code> used to position this handle.
+	 * Returns the <code>{@link Locator}</code> used to position this handle.
 	 */
-	protected final ILocator getLocator() {
+	protected final Locator getLocator() {
 		return m_locator;
 	}
 

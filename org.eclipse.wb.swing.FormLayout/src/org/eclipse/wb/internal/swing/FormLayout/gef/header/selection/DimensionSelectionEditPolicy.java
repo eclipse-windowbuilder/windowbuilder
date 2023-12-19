@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.selection;
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -28,6 +27,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -253,11 +254,11 @@ AbstractHeaderSelectionEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Implementation of {@link ILocator} to place handle directly on header.
+	 * Implementation of {@link Locator} to place handle directly on header.
 	 */
-	private class HeaderMoveHandleLocator implements ILocator {
+	private class HeaderMoveHandleLocator implements Locator {
 		@Override
-		public void relocate(Figure target) {
+		public void relocate(IFigure target) {
 			Figure reference = getHostFigure();
 			Rectangle bounds = reference.getBounds().getCopy();
 			FigureUtils.translateFigureToFigure(reference, target, bounds);

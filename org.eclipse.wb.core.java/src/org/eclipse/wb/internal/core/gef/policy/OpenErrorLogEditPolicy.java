@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -23,6 +22,8 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -104,9 +105,9 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
 	}
 
 	private void createFigure() {
-		ILocator locator = new ILocator() {
+		Locator locator = new Locator() {
 			@Override
-			public void relocate(Figure target) {
+			public void relocate(IFigure target) {
 				Figure componentFigure = m_editPart.getFigure();
 				Rectangle componentArea = componentFigure.getClientArea();
 				target.setBounds(new Rectangle(5, componentArea.bottom() - 5 - 16, 16, 16));

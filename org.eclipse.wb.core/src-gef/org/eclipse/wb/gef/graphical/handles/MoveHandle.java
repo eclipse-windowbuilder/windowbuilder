@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
@@ -18,6 +17,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Locator;
 
 /**
  * A Handle used for moving {@link EditPart}s.
@@ -41,9 +41,9 @@ public class MoveHandle extends Handle {
 
 	/**
 	 * Creates a handle for the given <code>{@link EditPart}</code> using the given
-	 * <code>{@link ILocator}</code>.
+	 * <code>{@link Locator}</code>.
 	 */
-	public MoveHandle(GraphicalEditPart owner, ILocator locator) {
+	public MoveHandle(GraphicalEditPart owner, Locator locator) {
 		super(owner, locator);
 		setBorder(new LineBorder(1));
 		setCursor(Cursors.SIZEALL);
