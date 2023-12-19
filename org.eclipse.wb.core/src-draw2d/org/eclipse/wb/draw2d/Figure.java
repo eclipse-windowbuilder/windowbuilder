@@ -20,7 +20,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Cursor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +37,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	private Figure m_parent;
 	private List<Figure> m_children;
 	private Border m_border;
-	private Cursor m_cursor;
 	private Object m_data;
 	private String m_toolTipText;
 	private ICustomTooltipProvider m_customTooltipProvider;
@@ -262,16 +260,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Updates the cursor.
-	 */
-	protected void updateCursor() {
-		Figure parent = getParent();
-		if (parent != null && isVisible()) {
-			parent.updateCursor();
-		}
-	}
-
-	/**
 	 * If the argument is <code>true</code>, causes the receiver to have all mouse events delivered to
 	 * it until the method is called with <code>false</code> as the argument.
 	 */
@@ -474,25 +462,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 				revalidate();
 				repaint();
 			}
-		}
-	}
-
-	/**
-	 * @return The Cursor used when the mouse is over this Figure
-	 */
-	@Override
-	public Cursor getCursor() {
-		return m_cursor;
-	}
-
-	/**
-	 * Sets the cursor.
-	 */
-	@Override
-	public void setCursor(Cursor cursor) {
-		if (m_cursor != cursor) {
-			m_cursor = cursor;
-			updateCursor();
 		}
 	}
 
