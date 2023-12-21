@@ -40,8 +40,8 @@ public class EventManager extends EventDispatcher {
 	private final RootFigure m_root;
 	private MouseEvent m_currentEvent;
 	private Figure m_cursorFigure;
-	private Figure m_captureFigure;
-	private Figure m_targetFigure;
+	private IFigure m_captureFigure;
+	private IFigure m_targetFigure;
 	private Cursor m_cursor;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -148,7 +148,7 @@ public class EventManager extends EventDispatcher {
 	 */
 	@Override
 	public void setCapture(IFigure captureFigure) {
-		m_captureFigure = (Figure) captureFigure;
+		m_captureFigure = captureFigure;
 	}
 
 	@Override
