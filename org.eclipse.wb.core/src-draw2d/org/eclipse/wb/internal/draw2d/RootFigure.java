@@ -36,7 +36,6 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	@Deprecated
 	private final UpdateManager m_updateManager;
-	private EventManager m_eventManager;
 	private Dimension m_preferredSize;
 	private Map<String, Layer> m_nameToLayer = new HashMap<>();
 	private IPreferredSizeProvider m_preferredSizeProvider;
@@ -77,13 +76,6 @@ public class RootFigure extends Figure implements IRootFigure {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Sets events handler.
-	 */
-	public void setEventManager(EventManager eventManager) {
-		m_eventManager = eventManager;
-		m_figureCanvas.getLightweightSystem().setEventDispatcher(eventManager);
-	}
 
 	/**
 	 * Sets figure preferred size provider.
@@ -170,14 +162,6 @@ public class RootFigure extends Figure implements IRootFigure {
 	public void invalidate() {
 		m_preferredSize = null;
 		super.invalidate();
-	}
-
-	/**
-	 * Sets capture figure over {@link EventManager}.
-	 */
-	@Override
-	public void setCapture(Figure figure) {
-		m_eventManager.setCapture(figure);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

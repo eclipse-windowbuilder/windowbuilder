@@ -90,7 +90,7 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	}
 
 	protected void setDefaultEventManager() {
-		m_rootFigure.setEventManager(new EventManager(this));
+		m_rootFigure.getFigureCanvas().getLightweightSystem().setEventDispatcher(new EventManager(this));
 	}
 
 	private void disposeBufferedImage() {

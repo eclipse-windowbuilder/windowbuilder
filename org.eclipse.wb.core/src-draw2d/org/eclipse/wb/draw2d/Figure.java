@@ -259,29 +259,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	// Figure
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * If the argument is <code>true</code>, causes the receiver to have all mouse events delivered to
-	 * it until the method is called with <code>false</code> as the argument.
-	 */
-	protected final void setCapture(boolean capture) {
-		if (capture) {
-			setCapture(this);
-		} else {
-			setCapture(null);
-		}
-	}
-
-	/**
-	 * Sets capture to the given figure.
-	 *
-	 * @noreference @nooverride
-	 */
-	public void setCapture(Figure figure) {
-		Figure parent = getParent();
-		if (parent != null) {
-			parent.setCapture(figure);
-		}
-	}
 
 	/**
 	 * Request of change bounds and repaints the rectangular area within this Figure. Rectangular area

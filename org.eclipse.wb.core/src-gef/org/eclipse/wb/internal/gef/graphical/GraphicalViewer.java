@@ -137,7 +137,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	public void setEditDomain(EditDomain domain) {
 		super.setEditDomain(domain);
 		m_eventManager = new EditEventManager(m_canvas, domain, this);
-		getRootFigureInternal().setEventManager(m_eventManager);
+		getRootFigureInternal().getFigureCanvas().getLightweightSystem().setEventDispatcher(m_eventManager);
 	}
 
 	/**
