@@ -3380,6 +3380,74 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	}
 
 	@Test
+	public void test_understandLambda() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    this.addMouseWheelListener((event) -> {});",
+						"  }",
+						"}");
+		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
+		// prepare properties
+		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
+		assertEquals("line 7", getPropertyText(propertyChangeProperty));
+	}
+
+	@Test
+	public void test_understandLambda_noBlock() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    this.addMouseWheelListener((event) -> System.out.println(event));",
+						"  }",
+						"}");
+		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
+		// prepare properties
+		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
+		assertEquals("line 7", getPropertyText(propertyChangeProperty));
+	}
+
+	@Test
+	public void test_understandLambda_doubleColon() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    this.addMouseWheelListener(System.out::println);",
+						"  }",
+						"}");
+		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
+		// prepare properties
+		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
+		assertEquals("line 7", getPropertyText(propertyChangeProperty));
+	}
+
+	@Test
+	public void test_understandLambda_factory() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    this.addMouseWheelListener(mouseWheelMovedAdapter((event) -> {}));",
+						"  }",
+						"  static MouseWheelListener mouseWheelMovedAdapter(java.util.function.Consumer<MouseWheelEvent> c) {",
+						"    return new MouseAdapter() {",
+						"      @Override",
+						"      public void mouseWheelMoved(MouseWheelEvent e) {",
+						"        c.accept(e);",
+						"      }",
+						"    };",
+						"  }",
+						"}");
+		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
+		// prepare properties
+		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
+		assertEquals("line 7", getPropertyText(propertyChangeProperty));
+	}
+
+	@Test
 	public void test_contextMenu() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

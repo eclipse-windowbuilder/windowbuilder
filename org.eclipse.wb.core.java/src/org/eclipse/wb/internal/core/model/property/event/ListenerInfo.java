@@ -17,6 +17,7 @@ import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -252,6 +253,9 @@ final class ListenerInfo {
 	 */
 	private boolean isListenerMethod(Method method) {
 		if (method.isBridge()) {
+			return false;
+		}
+		if (Modifier.isStatic(method.getModifiers())) {
 			return false;
 		}
 		if (ReflectionUtils.isAbstract(method)) {
