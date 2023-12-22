@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
+import org.eclipse.wb.internal.core.utils.ast.LambdaTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -47,10 +48,13 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.ExpressionMethodReference;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.InfixExpression;
+import org.eclipse.jdt.core.dom.LambdaExpression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
@@ -70,7 +74,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 
 /**
  * Implementation of {@link Property} for single {@link ListenerInfo}.
@@ -239,6 +245,27 @@ IListenerMethodProperty {
 			if (argument instanceof ThisExpression) {
 				return AstNodeUtils.getEnclosingType(argument);
 			}
+			// (event) -> {...}
+			if (argument instanceof LambdaExpression lambdaExpression) {
+				IMethodBinding methodBinding = lambdaExpression.resolveMethodBinding();
+				return LambdaTypeDeclaration.create(lambdaExpression, methodBinding);
+			}
+			// e.g. System.out::println, (event) -> System.out.println(event)
+			if (argument instanceof ExpressionMethodReference methodReference) {
+				IMethodBinding methodBinding = getListenerMethodBinding((MethodInvocation) methodReference.getParent());
+				if (methodBinding != null) {
+					return LambdaTypeDeclaration.create(methodReference, methodBinding);
+				}
+			}
+			// MouseListener.mouseDoubleClickAdapter(event -> {...})
+			if (argument instanceof MethodInvocation methodInvocation && isLambdaFactoryMethod(methodInvocation)) {
+				IMethodBinding methodBinding = getListenerMethodBinding(
+						(MethodInvocation) methodInvocation.getParent());
+				if (methodBinding != null) {
+					LambdaExpression lambdaExpression = (LambdaExpression) methodInvocation.arguments().get(0);
+					return LambdaTypeDeclaration.create(lambdaExpression, methodBinding);
+				}
+			}
 			// check for listener creation
 			if (argument instanceof ClassInstanceCreation creation) {
 				// check for anonymous class
@@ -251,6 +278,66 @@ IListenerMethodProperty {
 		}
 		// no listener found
 		return null;
+	}
+
+	/**
+	 * Returns the method binding matching this {@link #m_method}. The argument is
+	 * expected to the method invocation that adds a listener to this composite.
+	 * This method is expected to only contain the listener as a single
+	 * parameter.<br>
+	 * Example:
+	 *
+	 * <pre>
+	 * addHelpListener(...)
+	 * </pre>
+	 *
+	 * @param The method invocation that adds the listener to this composite.
+	 */
+	private IMethodBinding getListenerMethodBinding(MethodInvocation methodInvocation) {
+		IMethodBinding listenerMethod = AstNodeUtils.getMethodBinding(methodInvocation);
+		ITypeBinding[] parameters = listenerMethod.getParameterTypes();
+		if (parameters.length != 1) {
+			return null;
+		}
+		// Listener interface
+		ITypeBinding parameter = parameters[0];
+		if (AstNodeUtils.getFullyQualifiedName(parameter, false).equals(m_listener.getInterface().getName())) {
+			for (IMethodBinding methodBinding : parameter.getDeclaredMethods()) {
+				if (Objects.equals(methodBinding.getName(), m_method.getName())) {
+					return methodBinding;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Checks whether the given method invocation matches one of the expected
+	 * factory patterns for listeners. Those methods are used as an alternative to
+	 * the adapter classes, which allow the user to only implement a single method
+	 * of an interface, with the remaining methods being stubs.<br>
+	 * Example:
+	 *
+	 * <pre>
+	 * MouseListener.mouseDoubleClickAdapter(Consumer &lt; MouseEvent &gt; c)
+	 * </pre>
+	 *
+	 * The factory method is expected to only contain a single argument, usually a
+	 * {@link Consumer}. For the sake of simplicity, this {@link Consumer} is
+	 * expected to be expressed as a lambda expression.
+	 *
+	 * @param methodInvocation The method invocation to check.
+	 * @return {@code true}, if the method invocation matches the factory pattern.
+	 */
+	private boolean isLambdaFactoryMethod(MethodInvocation methodInvocation) {
+		IMethodBinding method = AstNodeUtils.getMethodBinding(methodInvocation);
+		String givenType = AstNodeUtils.getFullyQualifiedName(method.getReturnType(), false);
+		String expectedType = m_listener.getInterface().getName();
+		if (Objects.equals(givenType, expectedType)) {
+			List<Expression> arguments = DomGenerics.arguments(methodInvocation);
+			return arguments.size() == 1 && arguments.get(0) instanceof LambdaExpression;
+		}
+		return false;
 	}
 
 	/**

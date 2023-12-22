@@ -5,6 +5,27 @@ code.
 
 ## 1.15.0 (2024-03)
 
+### Support of lambda expressions for event Listeners
+
+It is now possible to use lambda expressions to implement (event) listeners,
+in addition to anonymous classes.
+
+Example:
+addHelpListener(e -> {
+   ...
+});
+
+With limited functionality, it is also possible to use factory methods
+used by e.g. SWT.
+
+The name of the factory method is expected to be of the form
+`&lt;method&gt;Adapter(Consumer&lt;Event&gt; c)`
+
+Example:
+addMouseListener(MouseListener.mouseUpAdapter(e -> {
+   ...
+}));
+
 ### Deprecation and removal of XWT editor
 
 The technology is effectively dead and the project no longer actively maintained.
