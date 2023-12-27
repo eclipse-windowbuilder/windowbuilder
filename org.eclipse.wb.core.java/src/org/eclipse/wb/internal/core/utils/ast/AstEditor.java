@@ -2428,8 +2428,8 @@ public final class AstEditor {
 			requiredHierarchy = requiredExceptionType.newSupertypeHierarchy(null);
 		}
 		// find last exception and check, may be required exception is already declared
-		Name lastName = null;
-		for (Name declaredTypeName : DomGenerics.thrownExceptions(method)) {
+		Type lastName = null;
+		for (Type declaredTypeName : DomGenerics.thrownExceptionTypes(method)) {
 			String declaredName = AstNodeUtils.getFullyQualifiedName(declaredTypeName, false);
 			IType declaredType = getJavaProject().findType(declaredName);
 			if (requiredHierarchy.contains(declaredType)) {
@@ -2450,19 +2450,20 @@ public final class AstEditor {
 			codePrefix = ", ";
 		}
 		// prepare new exception nodes
-		SimpleType newExceptionType;
-		Name newExceptionTypeName;
+		Type newExceptionType;
 		{
 			TypeLiteral typeLiteral =
 					(TypeLiteral) m_parser.parseExpression(pos, requiredException + ".class");
 			AstNodeUtils.moveNode(typeLiteral, pos + codePrefix.length());
-			newExceptionType = (SimpleType) typeLiteral.getType();
-			newExceptionTypeName = newExceptionType.getName();
-			newExceptionType.setName(typeLiteral.getAST().newSimpleName("filler"));
+			Type oldExceptionType = typeLiteral.getType();
+			// Properties are not copied by the clone() operation
+			Object typeBinding = oldExceptionType.getProperty(AstParser.KEY_TYPE_BINDING);
+			newExceptionType = (Type) ASTNode.copySubtree(typeLiteral.getAST(), oldExceptionType);
+			newExceptionType.setProperty(AstParser.KEY_TYPE_BINDING, typeBinding);
 		}
 		// update source/AST
 		replaceSubstring(pos, 0, codePrefix + requiredException);
-		DomGenerics.thrownExceptions(method).add(newExceptionTypeName);
+		DomGenerics.thrownExceptionTypes(method).add(newExceptionType);
 		// update ITypeBinding
 		{
 			ITypeBinding newExceptionBinding = AstNodeUtils.getTypeBinding(newExceptionType);

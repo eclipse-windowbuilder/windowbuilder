@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,7 +58,7 @@ public final class ArrayObjectInfo extends AbstractArrayObjectInfo {
 	public ArrayObjectInfo(AstEditor editor, String caption, ArrayCreation creation) throws Exception {
 		this(editor, caption, ReflectionUtils.getClassByName(
 				EditorState.get(editor).getEditorLoader(),
-				creation.getType().getComponentType().resolveBinding().getQualifiedName()), creation);
+				creation.getType().getElementType().resolveBinding().getQualifiedName()), creation);
 	}
 
 	public ArrayCreation getCreation() {

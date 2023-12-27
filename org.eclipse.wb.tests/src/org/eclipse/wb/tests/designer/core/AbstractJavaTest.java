@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Dimension;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
@@ -324,7 +325,9 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 				// check positions for parent/child
 				{
 					ASTNode parent = node.getParent();
-					if (parent != null) {
+					// TODO The source and length is lost for dimensions when cloned.
+					// See: https://github.com/eclipse-jdt/eclipse.jdt.core/issues/1786
+					if (parent != null && !(node instanceof Dimension)) {
 						int begin = AstNodeUtils.getSourceBegin(node);
 						int end = AstNodeUtils.getSourceEnd(node);
 						int parent_begin = AstNodeUtils.getSourceBegin(parent);

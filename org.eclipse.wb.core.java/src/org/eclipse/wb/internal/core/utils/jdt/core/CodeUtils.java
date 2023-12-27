@@ -101,7 +101,7 @@ public class CodeUtils {
 			IJavaProject javaProject,
 			String unitName) {
 		org.eclipse.jdt.core.dom.ASTParser parser =
-				org.eclipse.jdt.core.dom.ASTParser.newParser(AST.JLS3);
+				org.eclipse.jdt.core.dom.ASTParser.newParser(AST.getJLSLatest());
 		parser.setSource(source.toCharArray());
 		parser.setProject(javaProject);
 		parser.setCompilerOptions(ProjectUtils.getOptions(javaProject));
