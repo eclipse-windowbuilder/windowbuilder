@@ -189,7 +189,7 @@
 	<!-- Creation type -->
 	<xs:complexType name="Creation">
 		<xs:sequence>
-			<xs:element name="source" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="source" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<!-- invocation -->
 			<xs:element name="invocation" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType mixed="true">
