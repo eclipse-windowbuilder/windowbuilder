@@ -35,4 +35,8 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.eclipse.wb.core.databinding.xsd"
+         version="0.0.0"/>
+
 </feature>

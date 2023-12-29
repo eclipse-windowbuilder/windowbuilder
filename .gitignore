@@ -71,3 +71,6 @@ Java
 .tycho-consumer-pom.xml
 .polyglot*target
 
+# Eclipse
+*/src-gen
+

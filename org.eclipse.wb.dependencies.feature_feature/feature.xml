@@ -159,4 +159,20 @@
          id="org.burningwave.jvm-driver"
          version="0.0.0"/>
 
+   <plugin
+         id="jakarta.activation-api"
+         version="0.0.0"/>
+
+   <plugin
+         id="jakarta.xml.bind-api"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.sun.xml.bind.jaxb-core"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.sun.xml.bind.jaxb-impl"
+         version="0.0.0"/>
+
 </feature>

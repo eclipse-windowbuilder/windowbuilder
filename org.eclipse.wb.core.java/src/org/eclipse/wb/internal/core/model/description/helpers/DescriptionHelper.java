@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.description.IToolkitProvider;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -96,8 +96,10 @@ public final class DescriptionHelper {
 			// prepare Schema
 			if (m_wbpComponentSchema == null) {
 				SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				InputStream schemaStream = DesignerPlugin.getFile("schema/wbp-component.xsd");
-				m_wbpComponentSchema = factory.newSchema(new StreamSource(schemaStream));
+				BundleResourceProvider provider = BundleResourceProvider.get("org.eclipse.wb.core.databinding.xsd");
+				try (InputStream schemaStream = provider.getFile("schema/wbp-component.xsd")) {
+					m_wbpComponentSchema = factory.newSchema(new StreamSource(schemaStream));
+				}
 			}
 			// validate
 			InputStream contents = resource.getURL().openStream();
