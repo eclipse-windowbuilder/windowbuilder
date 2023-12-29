@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ import javax.xml.validation.Validator;
  */
 public final class ComponentDescriptionValidatorHandler implements BuilderHandler {
 	private static final String MARKER_TYPE = "org.eclipse.wb.dev.wbProblem";
-	private static final String WBP_COMPONENT_SCHEMA = "org.eclipse.wb.core/schema/wbp-component.xsd";
+	private static final String WBP_COMPONENT_SCHEMA = "org.eclipse.wb.core.databinding.xsd/schema/wbp-component.xsd";
 
 	////////////////////////////////////////////////////////////////////////////
 	//

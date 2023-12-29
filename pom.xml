@@ -19,6 +19,7 @@
 
 
   <properties>
+    <tycho.version>4.0.4</tycho.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-jarsigner-version>1.3.2</eclipse-jarsigner-version>
     <baseline.repo>https://download.eclipse.org/windowbuilder/updates/release/latest</baseline.repo>
@@ -286,6 +287,7 @@
     <!-- core bundles -->
     <module>org.eclipse.wb.core</module>
     <module>org.eclipse.wb.core.databinding</module>
+    <module>org.eclipse.wb.core.databinding.xsd</module>
     <module>org.eclipse.wb.core.java</module>
     <module>org.eclipse.wb.core.ui</module>
 
