@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
+import org.eclipse.wb.core.databinding.xsd.component.Component;
+import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
+import org.eclipse.wb.core.databinding.xsd.component.Creation;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.LibraryInfo;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
@@ -20,16 +23,14 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.apache.commons.digester3.Digester;
-import org.apache.commons.digester3.Rule;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.impl.NoOpLog;
-import org.xml.sax.Attributes;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * Description for layout manager existing in toolkit.
@@ -165,39 +166,17 @@ public final class LayoutDescription {
 					+ " in bundle " + m_toolkit.getId());
 			return;
 		}
-		Digester digester;
-		// prepare digester
-		{
-			digester = new Digester();
-			digester.setLogger(new NoOpLog());
-			digester.addRule("component/creation", new Rule() {
-				@Override
-				public void begin(String namespace, String name, Attributes attributes) throws Exception {
-					final String id = attributes.getValue("id");
-					digester.push(id != null ? id : StringUtils.EMPTY);
-				}
-
-				@Override
-				public void end(String namespace, String name) throws Exception {
-					digester.pop();
-				}
-			});
-			digester.addRule("component/creation/source", new Rule() {
-				@Override
-				public void body(String namespace, String name, String text) throws Exception {
-					final String id = (String) digester.peek();
-					if (id.equals(m_creationId)) {
-						m_source = text;
-					}
-				}
-			});
-		}
 		// do parse
-		InputStream is = resourceInfo.getURL().openStream();
-		try {
-			digester.parse(is);
-		} finally {
-			IOUtils.closeQuietly(is);
+		try (InputStream is = resourceInfo.getURL().openStream();) {
+			JAXBContext context = ContextFactory.createContext();
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Component component = (Component) unmarshaller.unmarshal(is);
+			List<Creation> creations = component.getCreation();
+			for (Creation creation : creations) {
+				if (m_creationId != null && m_creationId.equals(creation.getId())) {
+					m_source = creation.getSource();
+				}
+			}
 		}
 	}
 }
