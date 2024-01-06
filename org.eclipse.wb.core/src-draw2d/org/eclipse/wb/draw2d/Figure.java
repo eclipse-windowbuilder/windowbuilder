@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,7 +33,6 @@ import java.util.List;
 public class Figure extends org.eclipse.draw2d.Figure {
 	private Figure m_parent;
 	private List<Figure> m_children;
-	private Object m_data;
 	private String m_toolTipText;
 	private ICustomTooltipProvider m_customTooltipProvider;
 
@@ -344,19 +343,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Get user define data.
-	 */
-	public Object getData() {
-		return m_data;
-	}
-
-	/**
-	 * Set user define data.
-	 */
-	public void setData(Object data) {
-		m_data = data;
-	}
 
 	/**
 	 * Returns the receiver's tool tip text, or <code>null</code> if it has not been set.

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,9 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPartListener;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -43,12 +45,14 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_init() throws Exception {
 		TestEditPart templatePart = new TestEditPart();
+		IFigure templateFigure = templatePart.getFigure();
+		EditPartViewer templateViewer = templatePart.getViewer();
 		//
 		// check new EditPart
 		assertNull(templatePart.getParent());
 		assertTrue(templatePart.getChildren().isEmpty());
 		assertNotNull(templatePart.getFigure());
-		assertNull(templatePart.getFigure().getData());
+		assertNull(templateViewer.getVisualPartMap().get(templateFigure));
 		assertNull(templatePart.getFigure().getParent());
 		assertEquals(templatePart.getFigure(), templatePart.getContentPane());
 		assertEquals(org.eclipse.gef.EditPart.SELECTED_NONE, templatePart.getSelected());
@@ -99,6 +103,7 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_addChild() throws Exception {
 		TestEditPart templatePart = new TestEditPart();
+		IEditPartViewer templateViewer = templatePart.getViewer();
 		assertTrue(templatePart.getChildren().isEmpty());
 		/*
 		 * check add 'null' child EditPart
@@ -112,7 +117,7 @@ public class EditPartTest extends GefTestCase {
 		/*
 		 * check 'null' parent on new EditPart
 		 */
-		TestEditPart testPart1 = new TestEditPart();
+		TestEditPart testPart1 = new TestEditPart(templateViewer);
 		assertNull(testPart1.getParent());
 		/*
 		 * check add EditPart from wrong index (positive)
@@ -146,21 +151,21 @@ public class EditPartTest extends GefTestCase {
 		assertEquals(1, templatePart.getChildren().size());
 		assertEquals(templatePart.getChildren().get(0), testPart1);
 		assertEquals(templatePart.getFigure(), testPart1.getFigure().getParent());
-		assertEquals(testPart1, testPart1.getFigure().getData());
+		assertEquals(testPart1, templateViewer.getVisualPartMap().get(testPart1.getFigure()));
 		assertFalse(templatePart.isActive());
 		assertFalse(testPart1.isActive());
 		/*
 		 * check add EditPart after activate()
 		 */
 		templatePart.activate();
-		TestEditPart testPart2 = new TestEditPart();
+		TestEditPart testPart2 = new TestEditPart(templateViewer);
 		assertNull(testPart2.getParent());
 		templatePart.test_access_addChild(testPart2, -1);
 		assertSame(templatePart, testPart2.getParent());
 		assertEquals(2, templatePart.getChildren().size());
 		assertEquals(templatePart.getChildren().get(1), testPart2);
 		assertEquals(templatePart.getFigure(), testPart2.getFigure().getParent());
-		assertEquals(testPart2, testPart2.getFigure().getData());
+		assertEquals(testPart2, templateViewer.getVisualPartMap().get(testPart2.getFigure()));
 		assertTrue(templatePart.isActive());
 		assertTrue(testPart1.isActive());
 	}
@@ -168,6 +173,7 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_removeChild() throws Exception {
 		TestEditPart templatePart = new TestEditPart();
+		EditPartViewer templateViewer = templatePart.getViewer();
 		TestEditPart testPart1 = new TestEditPart();
 		//
 		// check remove EditPart before activate()
@@ -178,7 +184,7 @@ public class EditPartTest extends GefTestCase {
 		assertTrue(testPart1.isActive());
 		assertNull(testPart1.getParent());
 		assertNull(testPart1.getFigure().getParent());
-		assertNull(testPart1.getFigure().getData());
+		assertNull(templateViewer.getVisualPartMap().get(testPart1.getFigure()));
 		//
 		// check remove EditPart after activate()
 		templatePart.activate();
@@ -188,7 +194,7 @@ public class EditPartTest extends GefTestCase {
 		assertFalse(testPart1.isActive());
 		assertNull(testPart1.getParent());
 		assertNull(testPart1.getFigure().getParent());
-		assertNull(testPart1.getFigure().getData());
+		assertNull(templateViewer.getVisualPartMap().get(testPart1.getFigure()));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -831,7 +837,15 @@ public class EditPartTest extends GefTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static class TestEditPart extends GraphicalEditPart {
-		private final IEditPartViewer m_viewer = new EmptyEditPartViewer();
+		private final IEditPartViewer m_viewer;
+
+		private TestEditPart() {
+			this(new EmptyEditPartViewer());
+		}
+
+		private TestEditPart(IEditPartViewer viewer) {
+			m_viewer = viewer;
+		}
 
 		////////////////////////////////////////////////////////////////////////////
 		//

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 
 /**
@@ -67,7 +68,9 @@ public abstract class GraphicalEditPart extends EditPart {
 		if (!graphicalChildPart.addSelfVisual(index)) {
 			getContentPane().add(graphicalChildPart.getFigure(), index);
 		}
-		graphicalChildPart.getFigure().setData(childPart);
+		EditPartViewer graphicalChildViewer = graphicalChildPart.getViewer();
+		Figure graphicalChildFigure = graphicalChildPart.getFigure();
+		graphicalChildViewer.getVisualPartMap().put(graphicalChildFigure, childPart);
 	}
 
 	/**
@@ -88,7 +91,9 @@ public abstract class GraphicalEditPart extends EditPart {
 		if (!graphicalChildPart.removeSelfVisual()) {
 			getContentPane().remove(graphicalChildPart.getFigure());
 		}
-		graphicalChildPart.getFigure().setData(null);
+		EditPartViewer graphicalChildViewer = graphicalChildPart.getViewer();
+		Figure graphicalChildFigure = graphicalChildPart.getFigure();
+		graphicalChildViewer.getVisualPartMap().remove(graphicalChildFigure);
 	}
 
 	/**
