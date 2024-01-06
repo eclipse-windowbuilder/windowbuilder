@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,13 +13,15 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.menu.SubmenuAwareLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
+
+import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.EditPolicy;
 
 import java.util.Collections;
 import java.util.List;
@@ -61,8 +63,10 @@ public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
 		// The workaround is to override this method and forcibly
 		// add figure with default index.
 		GraphicalEditPart graphicalPart = (GraphicalEditPart) childPart;
-		getContentPane().add(graphicalPart.getFigure());
-		graphicalPart.getFigure().setData(childPart);
+		EditPartViewer graphicalViewer = graphicalPart.getViewer();
+		Figure graphicalFigure = graphicalPart.getFigure();
+		getContentPane().add(graphicalFigure);
+		graphicalViewer.getVisualPartMap().put(graphicalFigure, childPart);
 	}
 
 	/////////////////////////////////////////////////////////////////////

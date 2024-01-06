@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -179,7 +179,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 			final Collection<EditPart> exclude,
 			final IConditional conditional,
 			String layer) {
-		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y) {
+		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y, this) {
 			@Override
 			protected boolean acceptVisit(Figure figure) {
 				for (EditPart editPart : exclude) {
