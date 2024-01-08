@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -442,6 +442,7 @@ public class FactoryDescriptionHelper {
 	////////////////////////////////////////////////////////////////////////////
 	private static Digester prepareDigester(Class<?> factoryClass, EditorState state,
 			final Map<Integer, FactoryMethodDescription> textualDescriptions) {
+		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 		Digester digester = new Digester() {
 			private static final String DESCRIPTION_PATTERN = "factory/method/description";
 			private int m_descriptionIndex;
