@@ -168,11 +168,7 @@
          version="0.0.0"/>
 
    <plugin
-         id="com.sun.xml.bind.jaxb-core"
-         version="0.0.0"/>
-
-   <plugin
-         id="com.sun.xml.bind.jaxb-impl"
+         id="com.sun.xml.bind.jaxb-osgi"
          version="0.0.0"/>
 
 </feature>
