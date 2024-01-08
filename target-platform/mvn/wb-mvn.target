@@ -6,13 +6,7 @@
 			<dependencies>
 				<dependency>
 					<groupId>com.sun.xml.bind</groupId>
-					<artifactId>jaxb-core</artifactId>
-					<version>4.0.4</version>
-					<type>jar</type>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.xml.bind</groupId>
-					<artifactId>jaxb-impl</artifactId>
+					<artifactId>jaxb-osgi</artifactId>
 					<version>4.0.4</version>
 					<type>jar</type>
 				</dependency>
