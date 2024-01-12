@@ -15,6 +15,7 @@ import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRuleType;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRulesType;
+import org.eclipse.wb.core.databinding.xsd.component.MethodsOrderType;
 import org.eclipse.wb.core.databinding.xsd.component.MorphingType;
 import org.eclipse.wb.core.databinding.xsd.component.TagType;
 import org.eclipse.wb.core.databinding.xsd.component.TypeParameterType;
@@ -44,7 +45,6 @@ import org.eclipse.wb.internal.core.model.description.rules.ExposingRulesRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderDefaultRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodsRule;
-import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodsSignatureRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodPropertyRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodSinglePropertyRule;
@@ -632,12 +632,37 @@ public final class ComponentDescriptionHelper {
 		{
 			acceptSafe(componentDescription, component.getDescription(), ComponentDescription::setDescription);
 		}
+		// method order
+		{
+			MethodsOrderType methodsOrder = component.getMethodOrder();
+			if (methodsOrder != null) {
+				acceptSafe(componentDescription, methodsOrder.getDefault(), new MethodOrderDefaultRule());
+				for (MethodsOrderType.Method method : methodsOrder.getMethod()) {
+					acceptSafe(componentDescription, method, new MethodOrderMethodRule());
+				}
+				for (MethodsOrderType.Methods methods : methodsOrder.getMethods()) {
+					acceptSafe(componentDescription, methods, new MethodOrderMethodsRule());
+				}
+			}
+		}
 		// exposed children
 		{
 			if (component.getExposingRules() != null) {
 				ExposingRulesType exposingRules = component.getExposingRules();
 				for (JAXBElement<ExposingRuleType> exposingRule : exposingRules.getExcludeOrInclude()) {
 					acceptSafe(componentDescription, exposingRule, new ExposingRulesRule());
+				}
+			}
+		}
+		// methods-exclude, methods-include
+		{
+			Component.Methods methods = component.getMethods();
+			if (methods != null) {
+				for (Component.Methods.MethodsInclude methodsInclude : methods.getMethodsInclude()) {
+					acceptSafe(componentDescription, methodsInclude.getSignature(), new MethodsOperationRule(true));
+				}
+				for (Component.Methods.MethodsExclude methodsExclude : methods.getMethodsExclude()) {
+					acceptSafe(componentDescription, methodsExclude.getSignature(), new MethodsOperationRule(false));
 				}
 			}
 		}
@@ -683,19 +708,6 @@ public final class ComponentDescriptionHelper {
 					new SetListedPropertiesRule(new String[] { "order" }, new String[] { "orderSpecification" }));
 			digester.addRule(pattern + "/tag", new MethodTagRule());
 			addParametersRules(digester, pattern + "/parameter", state);
-		}
-		// method order
-		{
-			String pattern = "component/method-order";
-			digester.addRule(pattern + "/default", new MethodOrderDefaultRule());
-			digester.addRule(pattern + "/method", new MethodOrderMethodRule());
-			digester.addRule(pattern + "/methods", new MethodOrderMethodsRule());
-			digester.addRule(pattern + "/methods/s", new MethodOrderMethodsSignatureRule());
-		}
-		// methods-exclude, methods-include
-		{
-			digester.addRule("component/methods/methods-include", new MethodsOperationRule(true));
-			digester.addRule("component/methods/methods-exclude", new MethodsOperationRule(false));
 		}
 		// untyped parameters
 		{

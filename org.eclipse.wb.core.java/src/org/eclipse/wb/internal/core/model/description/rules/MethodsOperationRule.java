@@ -12,11 +12,11 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
-import org.xml.sax.Attributes;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class MethodsOperationRule extends AbstractDesignerRule {
+public final class MethodsOperationRule implements FailableBiConsumer<ComponentDescription, String, Exception> {
 	private final boolean m_include;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -47,12 +47,11 @@ public final class MethodsOperationRule extends AbstractDesignerRule {
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private ComponentDescription componentDescription;
+	private ComponentDescription m_componentDescription;
 
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		componentDescription = (ComponentDescription) getDigester().peek();
-		String signature = getRequiredAttribute(name, attributes, "signature");
+	public void accept(ComponentDescription componentDescription, String signature) throws Exception {
+		m_componentDescription = componentDescription;
 		if (isRegexpSignature(signature)) {
 			processRegexp(signature);
 		} else {
@@ -82,17 +81,17 @@ public final class MethodsOperationRule extends AbstractDesignerRule {
 	}
 
 	private void processInclude(Predicate<String> signaturePredicate) throws Exception {
-		Method[] methods = componentDescription.getComponentClass().getMethods();
+		Method[] methods = m_componentDescription.getComponentClass().getMethods();
 		for (Method method : methods) {
 			String methodSignature = ReflectionUtils.getMethodSignature(method);
 			if (signaturePredicate.test(methodSignature)) {
-				componentDescription.addMethod(method);
+				m_componentDescription.addMethod(method);
 			}
 		}
 	}
 
 	private void processExclude(Predicate<String> signaturePredicate) {
-		for (Iterator<MethodDescription> I = componentDescription.getMethods().iterator(); I.hasNext();) {
+		for (Iterator<MethodDescription> I = m_componentDescription.getMethods().iterator(); I.hasNext();) {
 			MethodDescription methodDescription = I.next();
 			String methodSignature = methodDescription.getSignature();
 			if (signaturePredicate.test(methodSignature)) {
