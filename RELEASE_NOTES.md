@@ -32,6 +32,13 @@ The technology is effectively dead and the project no longer actively maintained
 In prevent compilation errors inside the workspace, those components have been
 removed from the project.
 
+### Changes to wbp-component.xml schema
+
+All special characters in the description need to be properly encoded.
+
+Example:
+&lt;b&gt;...&lt;/b&gt;
+
 ## 1.14.0 (2023-12)
 
 ### Deprecation of SWTResourceManager

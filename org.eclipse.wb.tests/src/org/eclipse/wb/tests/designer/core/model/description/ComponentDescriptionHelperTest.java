@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -415,7 +415,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		setFileContent("wbp-meta/test/MyPanel.wbp-component.xml",
 				getSource("<?xml version='1.0' encoding='UTF-8'?>",
 						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <description>My <b>cool</b> description</description>", "</component>"));
+						"  <description>My &lt;b&gt;cool&lt;/b&gt; description</description>", "</component>"));
 		waitForAutoBuild();
 		// parse
 		ContainerInfo panel = parseContainer("// filler filler filler", "public class Test extends MyPanel {",
