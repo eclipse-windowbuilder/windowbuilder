@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,29 +10,29 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.Component.Toolkit;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 /**
- * The {@link Rule} that sets {@link ToolkitDescription} for {@link ComponentDescription}.
+ * The {@link FailableBiConsumer} that sets {@link ToolkitDescription} for
+ * {@link ComponentDescription}.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class ToolkitRule extends AbstractDesignerRule {
+public final class ToolkitRule implements FailableBiConsumer<ComponentDescription, Toolkit, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-		String toolkitId = getRequiredAttribute(name, attributes, "id");
-		componentDescription.setToolkit(DescriptionHelper.getToolkit(toolkitId));
+	public void accept(ComponentDescription componentDescription, Toolkit toolkit) throws Exception {
+		String toolkitId = toolkit.getId();
+		ToolkitDescription toolkitDescription = DescriptionHelper.getToolkit(toolkitId);
+		componentDescription.setToolkit(toolkitDescription);
 	}
 }

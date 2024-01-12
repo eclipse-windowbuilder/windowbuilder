@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
+import org.eclipse.wb.core.databinding.xsd.component.Component;
+import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.internal.core.model.description.AbstractInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescriptionKey;
@@ -104,6 +106,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * Helper for accessing descriptions of components -
@@ -377,6 +382,10 @@ public final class ComponentDescriptionHelper {
 					} finally {
 						IOUtils.closeQuietly(is);
 					}
+					JAXBContext jaxbContext = ContextFactory.createContext();
+					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+					Component component = (Component) jaxbUnmarshaller.unmarshal(resourceInfo.getURL());
+					process(componentDescription, component, editor);
 				}
 				// clear parts that can not be inherited
 				if (descriptionInfo.clazz == componentClass) {
@@ -579,13 +588,22 @@ public final class ComponentDescriptionHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
+	 * Fills the given {@link ComponentDescription} with the data from the given
+	 * {@link Component} model. The component corresponds to a single
+	 * {@link wbp-component.xml} file, which has been read via JAXB.
+	 */
+	private static void process(ComponentDescription componentDescription, Component component, AstEditor editor)
+			throws Exception {
+		acceptSafe(componentDescription, component.getToolkit(), new ToolkitRule());
+		acceptSafe(componentDescription, component.getModel(), new ModelClassRule());
+	}
+
+	/**
 	 * Adds {@link Rule}'s required for component description parsing.
 	 */
 	private static void addRules(Digester digester, AstEditor editor, Class<?> componentClass) {
 		EditorState state = EditorState.get(editor);
 		ILoadingContext context = EditorStateLoadingContext.get(state);
-		digester.addRule("component/toolkit", new ToolkitRule());
-		digester.addRule("component/model", new ModelClassRule());
 		// component order
 		{
 			String pattern = "component/order";
@@ -868,5 +886,27 @@ public final class ComponentDescriptionHelper {
 	public static List<IDescriptionProcessor> getDescriptionProcessors() {
 		return ExternalFactoriesHelper.getElementsInstances(IDescriptionProcessor.class,
 				"org.eclipse.wb.core.descriptionProcessors", "processor");
+	}
+
+	/**
+	 * Null-safe invocation of {@link FailableBiConsumer#accept(Object, Object)}, in
+	 * order to better handle optional model parameters. Does nothing if
+	 * {@code model} is {@code null}.
+	 */
+	private static <U, T> void acceptSafe(U description, T model, FailableBiConsumer<U, T, ?> consumer)
+			throws Exception {
+		if (model == null) {
+			return;
+		}
+		consumer.accept(description, model);
+	}
+
+	@Deprecated
+	@FunctionalInterface
+	/**
+	 * @deprecated Going to be removed by Commons Lang3 FailableBiConsumer
+	 */
+	public static interface FailableBiConsumer<T, U, E extends Exception> {
+		void accept(T t, U u) throws E;
 	}
 }
