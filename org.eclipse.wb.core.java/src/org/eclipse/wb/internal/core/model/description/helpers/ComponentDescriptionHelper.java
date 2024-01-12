@@ -71,7 +71,6 @@ import org.eclipse.wb.internal.core.model.description.rules.StandardBeanProperti
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertiesRule;
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertyTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.ToolkitRule;
-import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
@@ -391,9 +390,7 @@ public final class ComponentDescriptionHelper {
 					process(componentDescription, component, editor);
 				}
 				// clear parts that can not be inherited
-				if (descriptionInfo.clazz == componentClass) {
-					setDescriptionWithInnerTags(componentDescription, resourceInfo);
-				} else {
+				if (descriptionInfo.clazz != componentClass) {
 					componentDescription.clearCreations();
 					componentDescription.setDescription(null);
 				}
@@ -437,22 +434,6 @@ public final class ComponentDescriptionHelper {
 		} catch (SAXParseException e) {
 			throw new DesignerException(ICoreExceptionConstants.DESCRIPTION_LOAD_ERROR, e.getException(),
 					componentClass.getName());
-		}
-	}
-
-	/**
-	 * Usually XML parsers don't allow to get content of element with all inner
-	 * tags, but we want these tags for description. So, we need special way to get
-	 * description. Right now it is not very accurate, but may be will enough for
-	 * practical purposes.
-	 */
-	private static void setDescriptionWithInnerTags(ComponentDescription componentDescription,
-			ResourceInfo resourceInfo) throws Exception {
-		InputStream stream = resourceInfo.getURL().openStream();
-		String string = IOUtils2.readString(stream);
-		String description = StringUtils.substringBetween(string, "<description>", "</description>");
-		if (description != null) {
-			componentDescription.setDescription(description);
 		}
 	}
 
@@ -644,6 +625,10 @@ public final class ComponentDescriptionHelper {
 				}
 			}
 		}
+		// description text
+		{
+			acceptSafe(componentDescription, component.getDescription(), ComponentDescription::setDescription);
+		}
 	}
 
 	/**
@@ -670,12 +655,6 @@ public final class ComponentDescriptionHelper {
 		// public field properties
 		{
 			digester.addRule("component/public-field-properties", new PublicFieldPropertiesRule());
-		}
-		// description text
-		{
-			String pattern = "component/description";
-			digester.addCallMethod(pattern, "setDescription", 1);
-			digester.addCallParam(pattern, 0);
 		}
 		// constructors
 		{
