@@ -596,6 +596,10 @@ public final class ComponentDescriptionHelper {
 			throws Exception {
 		acceptSafe(componentDescription, component.getToolkit(), new ToolkitRule());
 		acceptSafe(componentDescription, component.getModel(), new ModelClassRule());
+		// component order
+		{
+			acceptSafe(componentDescription, component.getOrder(), ComponentDescription::setOrder);
+		}
 	}
 
 	/**
@@ -604,12 +608,6 @@ public final class ComponentDescriptionHelper {
 	private static void addRules(Digester digester, AstEditor editor, Class<?> componentClass) {
 		EditorState state = EditorState.get(editor);
 		ILoadingContext context = EditorStateLoadingContext.get(state);
-		// component order
-		{
-			String pattern = "component/order";
-			digester.addCallMethod(pattern, "setOrder", 1);
-			digester.addCallParam(pattern, 0);
-		}
 		// standard bean properties
 		{
 			digester.addRule("component/standard-bean-properties", new StandardBeanPropertiesRule());

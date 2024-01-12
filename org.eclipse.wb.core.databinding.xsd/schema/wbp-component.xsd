@@ -46,7 +46,7 @@
 					</xs:complexType>
 				</xs:element>
 				<!-- order -->
-				<xs:element name="order" minOccurs="0"/>
+				<xs:element name="order" minOccurs="0" type="xs:string" />
 				<!-- description -->
 				<xs:element name="description" minOccurs="0"/>
 				<!-- creation -->
