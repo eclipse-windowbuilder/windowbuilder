@@ -13,6 +13,8 @@ package org.eclipse.wb.internal.core.model.description.helpers;
 import org.eclipse.wb.core.databinding.xsd.component.Component;
 import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
+import org.eclipse.wb.core.databinding.xsd.component.ExposingRuleType;
+import org.eclipse.wb.core.databinding.xsd.component.ExposingRulesType;
 import org.eclipse.wb.core.databinding.xsd.component.MorphingType;
 import org.eclipse.wb.core.databinding.xsd.component.TagType;
 import org.eclipse.wb.core.databinding.xsd.component.TypeParameterType;
@@ -110,6 +112,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Unmarshaller;
 
 /**
@@ -629,6 +632,15 @@ public final class ComponentDescriptionHelper {
 		{
 			acceptSafe(componentDescription, component.getDescription(), ComponentDescription::setDescription);
 		}
+		// exposed children
+		{
+			if (component.getExposingRules() != null) {
+				ExposingRulesType exposingRules = component.getExposingRules();
+				for (JAXBElement<ExposingRuleType> exposingRule : exposingRules.getExcludeOrInclude()) {
+					acceptSafe(componentDescription, exposingRule, new ExposingRulesRule());
+				}
+			}
+		}
 	}
 
 	/**
@@ -679,12 +691,6 @@ public final class ComponentDescriptionHelper {
 			digester.addRule(pattern + "/method", new MethodOrderMethodRule());
 			digester.addRule(pattern + "/methods", new MethodOrderMethodsRule());
 			digester.addRule(pattern + "/methods/s", new MethodOrderMethodsSignatureRule());
-		}
-		// exposed children
-		{
-			String pattern = "component/exposing-rules";
-			digester.addRule(pattern + "/include", new ExposingRulesRule());
-			digester.addRule(pattern + "/exclude", new ExposingRulesRule());
 		}
 		// methods-exclude, methods-include
 		{
