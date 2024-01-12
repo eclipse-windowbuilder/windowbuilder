@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.description.helpers;
 import org.eclipse.wb.core.databinding.xsd.component.Component;
 import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
+import org.eclipse.wb.core.databinding.xsd.component.MorphingType;
 import org.eclipse.wb.core.databinding.xsd.component.TagType;
 import org.eclipse.wb.core.databinding.xsd.component.TypeParameterType;
 import org.eclipse.wb.core.databinding.xsd.component.TypeParametersType;
@@ -632,6 +633,17 @@ public final class ComponentDescriptionHelper {
 				componentDescription.setCreationDefault(creationDescription);
 			}
 		}
+		// morphing targets
+		{
+			MorphingType morphingTargets = component.getMorphTargets();
+			if (morphingTargets != null) {
+				MorphingType morphingType = component.getMorphTargets();
+				acceptSafe(componentDescription, morphingType.getNoInherit(), new MorphingNoInheritRule());
+				for (MorphingType.MorphTarget morphTarget : morphingType.getMorphTarget()) {
+					acceptSafe(componentDescription, morphTarget, new MorphingTargetRule(state));
+				}
+			}
+		}
 	}
 
 	/**
@@ -658,15 +670,6 @@ public final class ComponentDescriptionHelper {
 		// public field properties
 		{
 			digester.addRule("component/public-field-properties", new PublicFieldPropertiesRule());
-		}
-		// morphing targets
-		{
-			String pattern = "component/morphTargets/morphTarget";
-			digester.addRule(pattern, new MorphingTargetRule(state));
-		}
-		{
-			String pattern = "component/morphTargets/noInherit";
-			digester.addRule(pattern, new MorphingNoInheritRule());
 		}
 		// description text
 		{
