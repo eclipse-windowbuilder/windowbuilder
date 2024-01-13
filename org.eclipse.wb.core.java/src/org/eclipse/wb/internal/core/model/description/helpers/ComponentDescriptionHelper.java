@@ -666,6 +666,15 @@ public final class ComponentDescriptionHelper {
 				}
 			}
 		}
+		// untyped parameters
+		{
+			Component.Parameters parameters = component.getParameters();
+			if (parameters != null) {
+				for (Component.Parameters.Parameter parameter : parameters.getParameter()) {
+					componentDescription.addParameter(parameter.getName(), parameter.getValue());
+				}
+			}
+		}
 	}
 
 	/**
@@ -708,13 +717,6 @@ public final class ComponentDescriptionHelper {
 					new SetListedPropertiesRule(new String[] { "order" }, new String[] { "orderSpecification" }));
 			digester.addRule(pattern + "/tag", new MethodTagRule());
 			addParametersRules(digester, pattern + "/parameter", state);
-		}
-		// untyped parameters
-		{
-			String pattern = "component/parameters/parameter";
-			digester.addCallMethod(pattern, "addParameter", 2);
-			digester.addCallParam(pattern, 0, "name");
-			digester.addCallParam(pattern, 1);
 		}
 		addPropertiesRules(digester, state);
 		addConfigurablePropertiesRules(digester, state);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,12 +72,8 @@ public class InvocationChainCreationSupportTest extends SwingModelTest {
 						"<?xml version='1.0' encoding='UTF-8'?>",
 						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
 						"  <parameters>",
-						"    <parameter name='invocationChain: getWrapper().getButton()'>",
-						"      javax.swing.JButton",
-						"    </parameter>",
-						"    <parameter name='invocationChain: getWrapper().getButton_1()'>",
-						"      javax.swing.JButton",
-						"    </parameter>",
+						"    <parameter name='invocationChain: getWrapper().getButton()'>javax.swing.JButton</parameter>",
+						"    <parameter name='invocationChain: getWrapper().getButton_1()'>javax.swing.JButton</parameter>",
 						"    <parameter name='invocationChain: getWrapper().getButton_2()'/>",
 						"  </parameters>",
 						"</component>"));
