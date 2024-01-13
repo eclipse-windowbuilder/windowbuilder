@@ -12,6 +12,10 @@ package org.eclipse.wb.internal.core.model.description.helpers;
 
 import org.eclipse.wb.core.databinding.xsd.component.Component;
 import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
+import org.eclipse.wb.core.databinding.xsd.component.Creation;
+import org.eclipse.wb.core.databinding.xsd.component.TagType;
+import org.eclipse.wb.core.databinding.xsd.component.TypeParameterType;
+import org.eclipse.wb.core.databinding.xsd.component.TypeParametersType;
 import org.eclipse.wb.internal.core.model.description.AbstractInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescriptionKey;
@@ -89,14 +93,12 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.digester3.AbstractObjectCreationFactory;
 import org.apache.commons.digester3.Digester;
 import org.apache.commons.digester3.Rule;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.impl.NoOpLog;
 import org.osgi.framework.Bundle;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
 import java.io.InputStream;
@@ -594,11 +596,41 @@ public final class ComponentDescriptionHelper {
 	 */
 	private static void process(ComponentDescription componentDescription, Component component, AstEditor editor)
 			throws Exception {
+		EditorState state = EditorState.get(editor);
+		ILoadingContext context = EditorStateLoadingContext.get(state);
 		acceptSafe(componentDescription, component.getToolkit(), new ToolkitRule());
 		acceptSafe(componentDescription, component.getModel(), new ModelClassRule());
 		// component order
 		{
 			acceptSafe(componentDescription, component.getOrder(), ComponentDescription::setOrder);
+		}
+		// creations
+		{
+			for (Creation creation : component.getCreation()) {
+				CreationDescription creationDescription = getCreationDescription(componentDescription, creation,
+						context);
+				addCreationRules(creationDescription, creation);
+				for (TagType tagType : creation.getTag()) {
+					acceptSafe(creationDescription, tagType, new CreationTagRule());
+				}
+				TypeParametersType typeParameters = creation.getTypeParameters();
+				if (typeParameters != null) {
+					for (TypeParameterType typeParameter : typeParameters.getTypeParameter()) {
+						acceptSafe(creationDescription, typeParameter, new CreationTypeParametersRule());
+					}
+				}
+				componentDescription.addCreation(creationDescription);
+			}
+			Creation creationDefault = component.getCreationDefault();
+			if (creationDefault != null) {
+				CreationDescription creationDescription = getCreationDescription(componentDescription, creationDefault,
+						context);
+				addCreationRules(creationDescription, creationDefault);
+				for (TagType tagType : creationDefault.getTag()) {
+					acceptSafe(creationDescription, tagType, new CreationTagRule());
+				}
+				componentDescription.setCreationDefault(creationDescription);
+			}
 		}
 	}
 
@@ -607,7 +639,6 @@ public final class ComponentDescriptionHelper {
 	 */
 	private static void addRules(Digester digester, AstEditor editor, Class<?> componentClass) {
 		EditorState state = EditorState.get(editor);
-		ILoadingContext context = EditorStateLoadingContext.get(state);
 		// standard bean properties
 		{
 			digester.addRule("component/standard-bean-properties", new StandardBeanPropertiesRule());
@@ -627,14 +658,6 @@ public final class ComponentDescriptionHelper {
 		// public field properties
 		{
 			digester.addRule("component/public-field-properties", new PublicFieldPropertiesRule());
-		}
-		// creations
-		{
-			addCreationRules(digester, context, "component/creation", "addCreation");
-			digester.addRule("component/creation/tag", new CreationTagRule());
-			digester.addRule("component/creation/typeParameters/typeParameter", new CreationTypeParametersRule());
-			addCreationRules(digester, context, "component/creation-default", "setCreationDefault");
-			digester.addRule("component/creation-default/tag", new CreationTagRule());
 		}
 		// morphing targets
 		{
@@ -761,56 +784,31 @@ public final class ComponentDescriptionHelper {
 	/**
 	 * Adds {@link Rule}'s for parsing {@link CreationDescription}'s.
 	 */
-	private static void addCreationRules(Digester digester, final ILoadingContext context, String basePattern,
-			String setCreationMethod) {
-		digester.addFactoryCreate(basePattern, new AbstractObjectCreationFactory<>() {
-			@Override
-			public Object createObject(Attributes attributes) throws Exception {
-				ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-				// prepare creation
-				String id = attributes.getValue("id");
-				String name = attributes.getValue("name");
-				CreationDescription creation = new CreationDescription(componentDescription, id, name);
-				// set optional specific icon
-				if (id != null) {
-					Class<?> componentClass = componentDescription.getComponentClass();
-					String suffix = "_" + id;
-					creation.setIcon(DescriptionHelper.getIcon(context, componentClass, suffix));
-				}
-				// OK, configured creation
-				return creation;
-			}
-		});
-		digester.addSetNext(basePattern, setCreationMethod);
+	private static void addCreationRules(CreationDescription creationDescription, Creation creation) throws Exception {
 		// description
 		{
-			String pattern = basePattern + "/description";
-			digester.addCallMethod(pattern, "setDescription", 1);
-			digester.addCallParam(pattern, 0);
+			acceptSafe(creationDescription, creation.getDescription(), CreationDescription::setDescription);
 		}
 		// source
 		{
-			String pattern = basePattern + "/source";
-			digester.addCallMethod(pattern, "setSource", 1);
-			digester.addCallParam(pattern, 0);
+			acceptSafe(creationDescription, creation.getSource(), CreationDescription::setSource);
 		}
 		// invocation
 		{
-			String pattern = basePattern + "/invocation";
-			digester.addRule(pattern, new ObjectCreateRule(CreationInvocationDescription.class));
-			digester.addRule(pattern, new SetListedPropertiesRule(new String[] { "signature" }));
-			// arguments
-			digester.addCallMethod(pattern, "setArguments", 1);
-			digester.addCallParam(pattern, 0);
-			// add
-			digester.addSetNext(pattern, "addInvocation");
+			for (Creation.Invocation invocation : creation.getInvocation()) {
+				CreationInvocationDescription invocationDescription = new CreationInvocationDescription();
+				invocationDescription.setSignature(invocation.getSignature());
+				// arguments
+				invocationDescription.setArguments(invocation.getContent());
+				// add
+				creationDescription.addInvocation(invocationDescription);
+			}
 		}
 		// untyped parameters
 		{
-			String pattern = basePattern + "/parameter";
-			digester.addCallMethod(pattern, "addParameter", 2);
-			digester.addCallParam(pattern, 0, "name");
-			digester.addCallParam(pattern, 1);
+			for (Creation.Parameter parameter : creation.getParameter()) {
+				creationDescription.addParameter(parameter.getName(), parameter.getContent());
+			}
 		}
 	}
 
@@ -884,6 +882,22 @@ public final class ComponentDescriptionHelper {
 	public static List<IDescriptionProcessor> getDescriptionProcessors() {
 		return ExternalFactoriesHelper.getElementsInstances(IDescriptionProcessor.class,
 				"org.eclipse.wb.core.descriptionProcessors", "processor");
+	}
+
+	private static CreationDescription getCreationDescription(ComponentDescription componentDescription,
+			Creation creation, ILoadingContext context) throws Exception {
+		// prepare creation
+		String id = creation.getId();
+		String name = creation.getName();
+		CreationDescription creationDescription = new CreationDescription(componentDescription, id, name);
+		// set optional specific icon
+		if (id != null) {
+			Class<?> componentClass = componentDescription.getComponentClass();
+			String suffix = "_" + id;
+			creationDescription.setIcon(DescriptionHelper.getIcon(context, componentClass, suffix));
+		}
+		// OK, configured creation
+		return creationDescription;
 	}
 
 	/**
