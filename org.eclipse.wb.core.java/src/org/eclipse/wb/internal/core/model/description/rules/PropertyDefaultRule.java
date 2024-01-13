@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,21 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.PropertyConfiguration;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 /**
- * The {@link Rule} that sets the default value of current
+ * The {@link FailableBiConsumer} that sets the default value of current
  * {@link GenericPropertyDescription}. Right now it supports fairly limited set
  * of expressions: boolean literals.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class PropertyDefaultRule extends Rule {
+public final class PropertyDefaultRule
+		implements FailableBiConsumer<GenericPropertyDescription, PropertyConfiguration.DefaultValue, Exception> {
 	private final ClassLoader m_classLoader;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -42,9 +42,9 @@ public final class PropertyDefaultRule extends Rule {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) getDigester().peek();
-		String text = attributes.getValue("value");
+	public void accept(GenericPropertyDescription propertyDescription, PropertyConfiguration.DefaultValue defaultValue)
+			throws Exception {
+		String text = defaultValue.getValue();
 		propertyDescription.setDefaultValue(getValue(text));
 	}
 

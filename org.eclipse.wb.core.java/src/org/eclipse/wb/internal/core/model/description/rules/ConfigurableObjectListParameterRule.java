@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,19 +10,23 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.internal.AbstractConfigurableDescription;
+import org.eclipse.wb.internal.core.model.description.internal.PropertyEditorDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * The {@link Rule} that sets value of {@link AbstractConfigurableDescription} parameter.
+ * The {@link FailableBiConsumer} that sets value of
+ * {@link AbstractConfigurableDescription} parameter.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class ConfigurableObjectListParameterRule extends AbstractDesignerRule {
+public final class ConfigurableObjectListParameterRule extends AbstractDesignerRule
+		implements FailableBiConsumer<PropertyEditorDescription, ParameterBaseType.ParameterList, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
@@ -46,5 +50,14 @@ public final class ConfigurableObjectListParameterRule extends AbstractDesignerR
 	public void end(String namespace, String name) throws Exception {
 		AbstractConfigurableDescription description = (AbstractConfigurableDescription) getDigester().peek();
 		description.addListParameter(m_name, m_value);
+	}
+
+	@Override
+	public void accept(PropertyEditorDescription editorDescription, ParameterBaseType.ParameterList parameterList)
+			throws Exception {
+		String name = parameterList.getName();
+		String value = parameterList.getValue();
+		Assert.isNotNull(value, "Body text for <" + name + "> required.");
+		editorDescription.addListParameter(name, value);
 	}
 }

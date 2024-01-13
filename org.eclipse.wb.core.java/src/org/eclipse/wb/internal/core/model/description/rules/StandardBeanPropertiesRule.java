@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionPropertiesHelper;
 import org.eclipse.wb.internal.core.model.property.accessor.SetterAccessor;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
@@ -21,29 +22,25 @@ import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * The {@link Rule} that adds standard properties for <code>set/getXXX</code>
- * methods.
+ * The {@link FailableBiConsumer} that adds standard properties for
+ * <code>set/getXXX</code> methods.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class StandardBeanPropertiesRule extends Rule {
+public final class StandardBeanPropertiesRule implements FailableBiConsumer<ComponentDescription, Object, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+	public void accept(ComponentDescription componentDescription, Object object) throws Exception {
 		List<PropertyDescriptor> descriptors = ReflectionUtils
 				.getPropertyDescriptors(componentDescription.getBeanInfo(), componentDescription.getComponentClass());
 		componentDescription.setPropertyDescriptors(descriptors);
@@ -85,7 +82,7 @@ public final class StandardBeanPropertiesRule extends Rule {
 	/**
 	 * Adds single {@link GenericPropertyDescription} for given methods.
 	 */
-	static GenericPropertyDescription addSingleProperty(ComponentDescription componentDescription, String title,
+	public static GenericPropertyDescription addSingleProperty(ComponentDescription componentDescription, String title,
 			Method setMethod, Method getMethod) throws Exception {
 		// make setMethod() executable
 		MethodDescription methodDescription = componentDescription.addMethod(setMethod);

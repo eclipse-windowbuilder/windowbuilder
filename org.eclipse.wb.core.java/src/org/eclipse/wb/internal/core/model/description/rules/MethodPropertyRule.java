@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.Component.MethodProperty;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.MethodInvocationAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.MethodInvocationArgumentAccessor;
@@ -25,26 +27,23 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@link Rule} that adds {@link GenericPropertyDescription} for method with one or more
- * parameters.
+ * The {@link FailableBiConsumer} that adds {@link GenericPropertyDescription}
+ * for method with one or more parameters.
  * <p>
  * For example "Forms API" <code>FormText</code> has method
- * <code>setText(String,boolean,boolean)</code>. So, we need some way to describe in
- * <code>*.wbp-component.xml</code> that we need to create property for this method with
- * sub-properties for each parameter.
+ * <code>setText(String,boolean,boolean)</code>. So, we need some way to
+ * describe in <code>*.wbp-component.xml</code> that we need to create property
+ * for this method with sub-properties for each parameter.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class MethodPropertyRule extends AbstractDesignerRule {
+public final class MethodPropertyRule implements FailableBiConsumer<ComponentDescription, MethodProperty, Exception> {
 	private final IJavaProject m_javaProject;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -62,12 +61,11 @@ public final class MethodPropertyRule extends AbstractDesignerRule {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+	public void accept(ComponentDescription componentDescription, MethodProperty methodProperty) throws Exception {
 		Class<?> componentClass = componentDescription.getComponentClass();
 		// prepare method attributes
-		String propertyTitle = getRequiredAttribute(name, attributes, "title");
-		String methodSignature = getRequiredAttribute(name, attributes, "method");
+		String propertyTitle = methodProperty.getTitle();
+		String methodSignature = methodProperty.getMethod();
 		String propertyId = methodSignature;
 		// prepare Method
 		Method method = ReflectionUtils.getMethodBySignature(componentClass, methodSignature);

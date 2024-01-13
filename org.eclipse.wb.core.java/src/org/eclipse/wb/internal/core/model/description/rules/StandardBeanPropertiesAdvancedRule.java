@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,21 +10,26 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesAdvanced;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 /**
- * The {@link Rule} that sets {@link PropertyCategory#ADVANCED} for standard bean properties.
+ * The {@link FailableBiConsumer} that sets {@link PropertyCategory#ADVANCED}
+ * for standard bean properties.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
 public final class StandardBeanPropertiesAdvancedRule extends StandardBeanPropertiesFlaggedRule {
 	@Override
-	protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
+	protected void configure(GenericPropertyDescription propertyDescription) {
 		propertyDescription.setCategory(PropertyCategory.ADVANCED);
+	}
+
+	@Override
+	protected String getNames(Object properties) {
+		return ((PropertiesAdvanced) properties).getNames();
 	}
 }
