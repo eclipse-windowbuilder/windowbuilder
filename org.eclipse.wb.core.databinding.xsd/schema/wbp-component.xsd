@@ -145,9 +145,12 @@
 				<!-- method based property (single parameter) -->
 				<xs:element name="method-single-property" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
-						<xs:group ref="PropertyConfigurationElements"/>
-						<xs:attribute name="title" type="xs:string" use="required"/>
-						<xs:attribute name="method" type="xs:string" use="required"/>
+						<xs:complexContent>
+							<xs:extension base="PropertyConfigurationElements">
+								<xs:attribute name="title" type="xs:string" use="required"/>
+								<xs:attribute name="method" type="xs:string" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
 					</xs:complexType>
 				</xs:element>
 				<!-- method based property (multiple parameters) -->
@@ -263,28 +266,11 @@
 
 	<!-- PropertyEditor type -->
 	<xs:complexType name="PropertyEditor">
-		<xs:sequence>
-			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:string">
-							<xs:attribute name="name" type="xs:string" use="required"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="parameter-list" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:string">
-							<xs:attribute name="name" type="xs:string" use="required"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-		<!-- attributes -->
-		<xs:attribute name="id" type="EditorId" use="required"/>
+		<xs:complexContent>
+			<xs:extension base="ParameterBaseType">
+				<xs:attribute name="id" type="EditorId" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 
 
@@ -309,41 +295,26 @@
 
 	<!-- ConfigurableProperty type -->
 	<xs:complexType name="ConfigurablePropertyType">
-		<xs:sequence>
-			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:string">
-							<xs:attribute name="name" type="xs:string" use="required"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="parameter-list" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:string">
-							<xs:attribute name="name" type="xs:string" use="required"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-		<!-- attributes -->
-		<xs:attribute name="id" type="xs:string" use="required"/>
-		<xs:attribute name="title" type="xs:string" use="required"/>
+		<xs:complexContent>
+			<xs:extension base="ParameterBaseType">
+				<xs:attribute name="id" type="xs:string" use="required"/>
+				<xs:attribute name="title" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 
 
 
 	<!-- PropertyConfiguration type -->
 	<xs:complexType name="PropertyConfiguration">
-		<xs:group ref="PropertyConfigurationElements"/>
-		<!-- attributes -->
-		<xs:attribute name="id" type="PropertyId" use="required"/>
+		<xs:complexContent>
+			<xs:extension base="PropertyConfigurationElements">
+				<xs:attribute name="id" type="PropertyId" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 	
-	<xs:group name="PropertyConfigurationElements">
+	<xs:complexType name="PropertyConfigurationElements">
 		<xs:sequence>
 			<!-- category -->
 			<xs:element name="category" minOccurs="0">
@@ -373,7 +344,7 @@
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
-	</xs:group>
+	</xs:complexType>
 	
 
 	<!-- Tag type -->
@@ -475,6 +446,29 @@
 				<xs:complexType>
 					<xs:attribute name="class" type="ClassName" use="required"/>
 					<xs:attribute name="creationId" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ParameterBaseType">
+		<xs:sequence>
+			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="parameter-list" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

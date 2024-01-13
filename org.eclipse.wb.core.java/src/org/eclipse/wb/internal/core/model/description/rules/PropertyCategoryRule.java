@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,46 +10,45 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.PropertyConfiguration;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 /**
- * The {@link Rule} that sets {@link PropertyCategory} of current {@link GenericPropertyDescription}
- * .
+ * The {@link FailableBiConsumer} that sets {@link PropertyCategory} of current
+ * {@link GenericPropertyDescription} .
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class PropertyCategoryRule extends Rule {
+public final class PropertyCategoryRule
+		implements FailableBiConsumer<GenericPropertyDescription, PropertyConfiguration.Category, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+	public void accept(GenericPropertyDescription propertyDescription, PropertyConfiguration.Category category)
+			throws Exception {
 		// prepare category
-		PropertyCategory category;
+		PropertyCategory propertyCategory;
 		{
-			String categoryTitle = attributes.getValue("value");
+			String categoryTitle = category.getValue().value();
 			if ("preferred".equals(categoryTitle)) {
-				category = PropertyCategory.PREFERRED;
+				propertyCategory = PropertyCategory.PREFERRED;
 			} else if ("normal".equals(categoryTitle)) {
-				category = PropertyCategory.NORMAL;
+				propertyCategory = PropertyCategory.NORMAL;
 			} else if ("advanced".equals(categoryTitle)) {
-				category = PropertyCategory.ADVANCED;
+				propertyCategory = PropertyCategory.ADVANCED;
 			} else if ("hidden".equals(categoryTitle)) {
-				category = PropertyCategory.HIDDEN;
+				propertyCategory = PropertyCategory.HIDDEN;
 			} else {
 				throw new IllegalArgumentException("Unknown category " + categoryTitle);
 			}
 		}
 		// set category
-		GenericPropertyDescription propertyDescription =
-				(GenericPropertyDescription) getDigester().peek();
-		propertyDescription.setCategory(category);
+		propertyDescription.setCategory(propertyCategory);
 	}
 }

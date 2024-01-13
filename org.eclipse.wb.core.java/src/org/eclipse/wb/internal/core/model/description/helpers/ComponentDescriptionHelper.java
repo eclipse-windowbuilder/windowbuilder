@@ -11,12 +11,23 @@
 package org.eclipse.wb.internal.core.model.description.helpers;
 
 import org.eclipse.wb.core.databinding.xsd.component.Component;
+import org.eclipse.wb.core.databinding.xsd.component.Component.MethodProperty;
+import org.eclipse.wb.core.databinding.xsd.component.Component.MethodSingleProperty;
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesAdvanced;
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesHidden;
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesNoDefaultValue;
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesNormal;
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesPreferred;
+import org.eclipse.wb.core.databinding.xsd.component.Component.PropertyTag;
 import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRuleType;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRulesType;
 import org.eclipse.wb.core.databinding.xsd.component.MethodsOrderType;
 import org.eclipse.wb.core.databinding.xsd.component.MorphingType;
+import org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType;
+import org.eclipse.wb.core.databinding.xsd.component.PropertyConfiguration;
+import org.eclipse.wb.core.databinding.xsd.component.PropertyConfigurationElements;
 import org.eclipse.wb.core.databinding.xsd.component.TagType;
 import org.eclipse.wb.core.databinding.xsd.component.TypeParameterType;
 import org.eclipse.wb.core.databinding.xsd.component.TypeParametersType;
@@ -33,6 +44,7 @@ import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.internal.AbstractConfigurableDescription;
+import org.eclipse.wb.internal.core.model.description.internal.PropertyEditorDescription;
 import org.eclipse.wb.internal.core.model.description.resource.ClassResourceInfo;
 import org.eclipse.wb.internal.core.model.description.resource.ResourceInfo;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectListParameterRule;
@@ -47,7 +59,6 @@ import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodRul
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodsRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodPropertyRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodRule;
-import org.eclipse.wb.internal.core.model.description.rules.MethodSinglePropertyRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodsOperationRule;
 import org.eclipse.wb.internal.core.model.description.rules.ModelClassRule;
@@ -56,10 +67,8 @@ import org.eclipse.wb.internal.core.model.description.rules.MorphingTargetRule;
 import org.eclipse.wb.internal.core.model.description.rules.ObjectCreateRule;
 import org.eclipse.wb.internal.core.model.description.rules.ParameterEditorRule;
 import org.eclipse.wb.internal.core.model.description.rules.ParameterTagRule;
-import org.eclipse.wb.internal.core.model.description.rules.PropertyAccessRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyCategoryRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyDefaultRule;
-import org.eclipse.wb.internal.core.model.description.rules.PropertyEditorRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyGetterRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.PublicFieldPropertiesRule;
@@ -73,6 +82,7 @@ import org.eclipse.wb.internal.core.model.description.rules.StandardBeanProperti
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertiesRule;
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertyTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.ToolkitRule;
+import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
@@ -101,7 +111,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.impl.NoOpLog;
 import org.osgi.framework.Bundle;
-import org.xml.sax.SAXParseException;
 
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
@@ -434,8 +443,8 @@ public final class ComponentDescriptionHelper {
 			}
 			// well, we have result
 			return componentDescription;
-		} catch (SAXParseException e) {
-			throw new DesignerException(ICoreExceptionConstants.DESCRIPTION_LOAD_ERROR, e.getException(),
+		} catch (Exception e) {
+			throw new DesignerException(ICoreExceptionConstants.DESCRIPTION_LOAD_ERROR, e,
 					componentClass.getName());
 		}
 	}
@@ -585,6 +594,38 @@ public final class ComponentDescriptionHelper {
 		ILoadingContext context = EditorStateLoadingContext.get(state);
 		acceptSafe(componentDescription, component.getToolkit(), new ToolkitRule());
 		acceptSafe(componentDescription, component.getModel(), new ModelClassRule());
+		// standard bean properties
+		{
+			acceptSafe(componentDescription, component.getStandardBeanProperties(), new StandardBeanPropertiesRule());
+			for (PropertiesPreferred properties : component.getPropertiesPreferred()) {
+				acceptSafe(componentDescription, properties, new StandardBeanPropertiesPreferredRule());
+			}
+			for (PropertiesNormal properties : component.getPropertiesNormal()) {
+				acceptSafe(componentDescription, properties, new StandardBeanPropertiesNormalRule());
+			}
+			for (PropertiesAdvanced properties : component.getPropertiesAdvanced()) {
+				acceptSafe(componentDescription, properties, new StandardBeanPropertiesAdvancedRule());
+			}
+			for (PropertiesHidden properties : component.getPropertiesHidden()) {
+				acceptSafe(componentDescription, properties, new StandardBeanPropertiesHiddenRule());
+			}
+			for (PropertiesNoDefaultValue properties : component.getPropertiesNoDefaultValue()) {
+				acceptSafe(componentDescription, properties, new StandardBeanPropertiesNoDefaultValueRule());
+			}
+			for (PropertyTag propertyTag : component.getPropertyTag()) {
+				acceptSafe(componentDescription, propertyTag, new StandardBeanPropertyTagRule());
+			}
+			{
+				for (Component.MethodSingleProperty singleProperty : component.getMethodSingleProperty()) {
+					GenericPropertyDescription propertyDescription = getGenericPropertyDescription(componentDescription,
+							singleProperty);
+					addPropertyConfigurationRules(componentDescription, propertyDescription, singleProperty, state);
+				}
+			}
+			for (MethodProperty methodProperty : component.getMethodProperty()) {
+				acceptSafe(componentDescription, methodProperty, new MethodPropertyRule(editor.getJavaProject()));
+			}
+		}
 		// component order
 		{
 			acceptSafe(componentDescription, component.getOrder(), ComponentDescription::setOrder);
@@ -675,6 +716,7 @@ public final class ComponentDescriptionHelper {
 				}
 			}
 		}
+		addPropertiesRules(componentDescription, component, state);
 	}
 
 	/**
@@ -682,22 +724,6 @@ public final class ComponentDescriptionHelper {
 	 */
 	private static void addRules(Digester digester, AstEditor editor, Class<?> componentClass) {
 		EditorState state = EditorState.get(editor);
-		// standard bean properties
-		{
-			digester.addRule("component/standard-bean-properties", new StandardBeanPropertiesRule());
-			digester.addRule("component/properties-preferred", new StandardBeanPropertiesPreferredRule());
-			digester.addRule("component/properties-normal", new StandardBeanPropertiesNormalRule());
-			digester.addRule("component/properties-advanced", new StandardBeanPropertiesAdvancedRule());
-			digester.addRule("component/properties-hidden", new StandardBeanPropertiesHiddenRule());
-			digester.addRule("component/properties-noDefaultValue", new StandardBeanPropertiesNoDefaultValueRule());
-			digester.addRule("component/property-tag", new StandardBeanPropertyTagRule());
-			{
-				String pattern = "component/method-single-property";
-				digester.addRule(pattern, new MethodSinglePropertyRule());
-				addPropertyConfigurationRules(digester, state, pattern);
-			}
-			digester.addRule("component/method-property", new MethodPropertyRule(editor.getJavaProject()));
-		}
 		// public field properties
 		{
 			digester.addRule("component/public-field-properties", new PublicFieldPropertiesRule());
@@ -718,51 +744,58 @@ public final class ComponentDescriptionHelper {
 			digester.addRule(pattern + "/tag", new MethodTagRule());
 			addParametersRules(digester, pattern + "/parameter", state);
 		}
-		addPropertiesRules(digester, state);
 		addConfigurablePropertiesRules(digester, state);
 	}
 
 	/**
 	 * Adds {@link Rule}'s for changing {@link GenericPropertyDescription}'s.
 	 */
-	private static void addPropertiesRules(Digester digester, EditorState state) {
-		String propertyAccessPattern = "component/property";
-		digester.addRule(propertyAccessPattern, new PropertyAccessRule());
-		addPropertyConfigurationRules(digester, state, propertyAccessPattern);
+	private static void addPropertiesRules(ComponentDescription componentDescription, Component component,
+			EditorState state) throws Exception {
+		for (PropertyConfiguration property : component.getProperty()) {
+			String id = property.getId();
+			GenericPropertyDescription propertyDescription = componentDescription.getProperty(id);
+			addPropertyConfigurationRules(componentDescription, propertyDescription, property, state);
+		}
 	}
 
 	/**
 	 * Adds {@link Rule}'s for configuring {@link GenericPropertyDescription} on
 	 * stack.
 	 */
-	private static void addPropertyConfigurationRules(Digester digester, EditorState state,
-			String propertyAccessPattern) {
+	private static void addPropertyConfigurationRules(ComponentDescription componentDescription,
+			GenericPropertyDescription propertyDescription, PropertyConfigurationElements property, EditorState state)
+			throws Exception {
 		// category
 		{
-			String pattern = propertyAccessPattern + "/category";
-			digester.addRule(pattern, new PropertyCategoryRule());
+			acceptSafe(propertyDescription, property.getCategory(), new PropertyCategoryRule());
 		}
 		// editor
 		{
-			String pattern = propertyAccessPattern + "/editor";
-			digester.addRule(pattern, new PropertyEditorRule(state));
-			addConfigurableObjectParametersRules(digester, pattern);
+			org.eclipse.wb.core.databinding.xsd.component.PropertyEditor editorModel = property.getEditor();
+			if (editorModel != null) {
+				String id = editorModel.getId();
+				PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
+				PropertyEditorDescription editorDescription = new PropertyEditorDescription(state, editor);
+				addConfigurableObjectParametersRules(editorDescription, editorModel);
+				// prepare editor
+				editor = editorDescription.getConfiguredEditor();
+				// set editor for current property
+				propertyDescription.setEditor(editor);
+			}
 		}
 		// defaultValue
 		{
-			String pattern = propertyAccessPattern + "/defaultValue";
 			ClassLoader classLoader = state.getEditorLoader();
-			digester.addRule(pattern, new PropertyDefaultRule(classLoader));
+			acceptSafe(propertyDescription, property.getDefaultValue(), new PropertyDefaultRule(classLoader));
 		}
 		// getter
 		{
-			String pattern = propertyAccessPattern + "/getter";
-			digester.addRule(pattern, new PropertyGetterRule());
+			acceptSafe(propertyDescription, property.getGetter(), new PropertyGetterRule(componentDescription));
 		}
 		// tag
 		{
-			String pattern = propertyAccessPattern + "/tag";
-			digester.addRule(pattern, new PropertyTagRule());
+			acceptSafe(propertyDescription, property.getTag(), new PropertyTagRule());
 		}
 	}
 
@@ -772,13 +805,26 @@ public final class ComponentDescriptionHelper {
 	private static void addConfigurablePropertiesRules(Digester digester, EditorState state) {
 		String pattern = "component/add-property";
 		digester.addRule(pattern, new ConfigurablePropertyRule());
-		addConfigurableObjectParametersRules(digester, pattern);
+		addConfigurableObjectParametersRules2(digester, pattern);
 	}
 
 	/**
 	 * Adds {@link Rule}'s for configuring {@link AbstractConfigurableDescription}.
 	 */
-	private static void addConfigurableObjectParametersRules(Digester digester, String pattern) {
+	private static void addConfigurableObjectParametersRules(PropertyEditorDescription editorDescription,
+			org.eclipse.wb.core.databinding.xsd.component.PropertyEditor editor) throws Exception {
+		for (ParameterBaseType.Parameter parameter : editor.getParameter()) {
+			acceptSafe(editorDescription, parameter, new ConfigurableObjectParameterRule());
+		}
+		for (ParameterBaseType.ParameterList parameterList : editor.getParameterList()) {
+			acceptSafe(editorDescription, parameterList, new ConfigurableObjectListParameterRule());
+		}
+	}
+
+	/**
+	 * Adds {@link Rule}'s for configuring {@link AbstractConfigurableDescription}.
+	 */
+	private static void addConfigurableObjectParametersRules2(Digester digester, String pattern) {
 		digester.addRule(pattern + "/parameter", new ConfigurableObjectParameterRule());
 		digester.addRule(pattern + "/parameter-list", new ConfigurableObjectListParameterRule());
 	}
@@ -829,7 +875,7 @@ public final class ComponentDescriptionHelper {
 		{
 			String editorPattern = pattern + "/editor";
 			digester.addRule(editorPattern, new ParameterEditorRule(state));
-			addConfigurableObjectParametersRules(digester, editorPattern);
+			addConfigurableObjectParametersRules2(digester, editorPattern);
 		}
 		// tags
 		digester.addRule(pattern + "/tag", new ParameterTagRule());
@@ -900,6 +946,19 @@ public final class ComponentDescriptionHelper {
 		}
 		// OK, configured creation
 		return creationDescription;
+	}
+
+	private static GenericPropertyDescription getGenericPropertyDescription(ComponentDescription componentDescription,
+			MethodSingleProperty property) throws Exception {
+		Class<?> componentClass = componentDescription.getComponentClass();
+		// prepare method attributes
+		String propertyTitle = property.getTitle();
+		String methodSignature = property.getMethod();
+		// prepare method
+		Method method = ReflectionUtils.getMethodBySignature(componentClass, methodSignature);
+		Assert.isTrue(method.getParameterTypes().length == 1, "Method with single parameter expected: %s", method);
+		// add property
+		return StandardBeanPropertiesRule.addSingleProperty(componentDescription, propertyTitle, method, null);
 	}
 
 	/**

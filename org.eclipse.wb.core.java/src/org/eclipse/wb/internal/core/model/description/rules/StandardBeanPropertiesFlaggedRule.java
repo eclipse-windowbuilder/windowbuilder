@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,31 +12,31 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 
-import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
-import org.xml.sax.Attributes;
 
 /**
- * The {@link Rule} that allows to set options for standard bean properties.
+ * The {@link FailableBiConsumer} that allows to set options for standard bean
+ * properties.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public abstract class StandardBeanPropertiesFlaggedRule extends AbstractDesignerRule {
+public abstract class StandardBeanPropertiesFlaggedRule
+		implements FailableBiConsumer<ComponentDescription, Object, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final void begin(String namespace, String tagName, Attributes attributes)
+	public final void accept(ComponentDescription componentDescription, Object properties)
 			throws Exception {
-		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
 		// prepare names
 		String[] names;
 		{
-			String namesString = getRequiredAttribute(tagName, attributes, "names");
+			String namesString = getNames(properties);
 			names = StringUtils.split(namesString);
 		}
 		// check names
@@ -44,7 +44,7 @@ public abstract class StandardBeanPropertiesFlaggedRule extends AbstractDesigner
 			for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
 				String id = propertyDescription.getId();
 				if (matchPropertyId(id, name)) {
-					configure(propertyDescription, attributes);
+					configure(propertyDescription);
 				}
 			}
 		}
@@ -58,8 +58,12 @@ public abstract class StandardBeanPropertiesFlaggedRule extends AbstractDesigner
 	/**
 	 * Configures given {@link GenericPropertyDescription}.
 	 */
-	protected abstract void configure(GenericPropertyDescription propertyDescription,
-			Attributes attributes);
+	protected abstract void configure(GenericPropertyDescription propertyDescription);
+
+	/**
+	 * Extracts the names of the given property.
+	 */
+	protected abstract String getNames(Object properties);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
