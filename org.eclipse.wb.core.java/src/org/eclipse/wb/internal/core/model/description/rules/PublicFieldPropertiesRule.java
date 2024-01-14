@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,32 +12,30 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionPropertiesHelper;
 import org.eclipse.wb.internal.core.model.property.accessor.FieldAccessor;
 import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * The {@link Rule} that adds standard properties for <code>.xxxx</code> public fields.
+ * The {@link FailableBiConsumer} that adds standard properties for
+ * <code>.xxxx</code> public fields.
  *
  * @author lobas_av
  * @coverage core.model.description
  */
-public final class PublicFieldPropertiesRule extends Rule {
+public final class PublicFieldPropertiesRule implements FailableBiConsumer<ComponentDescription, Object, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+	public void accept(ComponentDescription componentDescription, Object object) throws Exception {
 		Class<?> componentClass = componentDescription.getComponentClass();
 		for (Field field : componentClass.getFields()) {
 			int modifiers = field.getModifiers();
