@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.internal.AbstractConfigurableDescription;
-import org.eclipse.wb.internal.core.model.description.internal.PropertyEditorDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.xml.sax.Attributes;
@@ -26,7 +25,7 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ConfigurableObjectParameterRule extends AbstractDesignerRule
-		implements FailableBiConsumer<PropertyEditorDescription, ParameterBaseType.Parameter, Exception> {
+		implements FailableBiConsumer<AbstractConfigurableDescription, ParameterBaseType.Parameter, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
@@ -53,7 +52,7 @@ public final class ConfigurableObjectParameterRule extends AbstractDesignerRule
 	}
 
 	@Override
-	public void accept(PropertyEditorDescription editorDescription, ParameterBaseType.Parameter parameter)
+	public void accept(AbstractConfigurableDescription editorDescription, ParameterBaseType.Parameter parameter)
 			throws Exception {
 		String name = parameter.getName();
 		String value = parameter.getValue();

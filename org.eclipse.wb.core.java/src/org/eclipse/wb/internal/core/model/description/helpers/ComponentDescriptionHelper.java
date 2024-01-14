@@ -20,6 +20,7 @@ import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesNoDefau
 import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesNormal;
 import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesPreferred;
 import org.eclipse.wb.core.databinding.xsd.component.Component.PropertyTag;
+import org.eclipse.wb.core.databinding.xsd.component.ConfigurablePropertyType;
 import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRuleType;
@@ -51,7 +52,6 @@ import org.eclipse.wb.internal.core.model.description.resource.ClassResourceInfo
 import org.eclipse.wb.internal.core.model.description.resource.ResourceInfo;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectListParameterRule;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectParameterRule;
-import org.eclipse.wb.internal.core.model.description.rules.ConfigurablePropertyRule;
 import org.eclipse.wb.internal.core.model.description.rules.CreationTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.CreationTypeParametersRule;
 import org.eclipse.wb.internal.core.model.description.rules.ExposingRulesRule;
@@ -740,6 +740,7 @@ public final class ComponentDescriptionHelper {
 			}
 		}
 		addPropertiesRules(componentDescription, component, state);
+		addConfigurablePropertiesRules(componentDescription, component);
 	}
 
 	/**
@@ -756,7 +757,6 @@ public final class ComponentDescriptionHelper {
 			digester.addRule(pattern + "/tag", new MethodTagRule());
 			addParametersRules2(digester, pattern + "/parameter", state);
 		}
-		addConfigurablePropertiesRules(digester, state);
 	}
 
 	/**
@@ -814,22 +814,25 @@ public final class ComponentDescriptionHelper {
 	/**
 	 * Adds {@link Rule}'s for adding {@link ConfigurablePropertyDescription}'s.
 	 */
-	private static void addConfigurablePropertiesRules(Digester digester, EditorState state) {
-		String pattern = "component/add-property";
-		digester.addRule(pattern, new ConfigurablePropertyRule());
-		addConfigurableObjectParametersRules2(digester, pattern);
+	private static void addConfigurablePropertiesRules(ComponentDescription componentDescription, Component component)
+			throws Exception {
+		for (ConfigurablePropertyType property : component.getAddProperty()) {
+			ConfigurablePropertyDescription propertyDescription = getConfigurablePropertyDescription(
+					componentDescription, property);
+			addConfigurableObjectParametersRules(propertyDescription, property);
+		}
 	}
 
 	/**
 	 * Adds {@link Rule}'s for configuring {@link AbstractConfigurableDescription}.
 	 */
-	private static void addConfigurableObjectParametersRules(PropertyEditorDescription editorDescription,
-			org.eclipse.wb.core.databinding.xsd.component.PropertyEditor editor) throws Exception {
-		for (ParameterBaseType.Parameter parameter : editor.getParameter()) {
-			acceptSafe(editorDescription, parameter, new ConfigurableObjectParameterRule());
+	private static void addConfigurableObjectParametersRules(AbstractConfigurableDescription configurableDescription,
+			org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType configurable) throws Exception {
+		for (ParameterBaseType.Parameter parameter : configurable.getParameter()) {
+			acceptSafe(configurableDescription, parameter, new ConfigurableObjectParameterRule());
 		}
-		for (ParameterBaseType.ParameterList parameterList : editor.getParameterList()) {
-			acceptSafe(editorDescription, parameterList, new ConfigurableObjectListParameterRule());
+		for (ParameterBaseType.ParameterList parameterList : configurable.getParameterList()) {
+			acceptSafe(configurableDescription, parameterList, new ConfigurableObjectListParameterRule());
 		}
 	}
 
@@ -1008,6 +1011,21 @@ public final class ComponentDescriptionHelper {
 		Assert.isTrue(method.getParameterTypes().length == 1, "Method with single parameter expected: %s", method);
 		// add property
 		return StandardBeanPropertiesRule.addSingleProperty(componentDescription, propertyTitle, method, null);
+	}
+
+	private static ConfigurablePropertyDescription getConfigurablePropertyDescription(
+			ComponentDescription componentDescription, ConfigurablePropertyType property) throws Exception {
+		String id = property.getId();
+		String title = property.getTitle();
+		// create property
+		ConfigurablePropertyDescription propertyDescription = new ConfigurablePropertyDescription();
+		propertyDescription.setId(id);
+		propertyDescription.setTitle(title);
+		// add property
+		{
+			componentDescription.addConfigurableProperty(propertyDescription);
+		}
+		return propertyDescription;
 	}
 
 	/**
