@@ -627,6 +627,10 @@ public final class ComponentDescriptionHelper {
 				acceptSafe(componentDescription, methodProperty, new MethodPropertyRule(editor.getJavaProject()));
 			}
 		}
+		// public field properties
+		{
+			acceptSafe(componentDescription, component.getPublicFieldProperties(), new PublicFieldPropertiesRule());
+		}
 		// component order
 		{
 			acceptSafe(componentDescription, component.getOrder(), ComponentDescription::setOrder);
@@ -743,10 +747,6 @@ public final class ComponentDescriptionHelper {
 	 */
 	private static void addRules(Digester digester, AstEditor editor, Class<?> componentClass) {
 		EditorState state = EditorState.get(editor);
-		// public field properties
-		{
-			digester.addRule("component/public-field-properties", new PublicFieldPropertiesRule());
-		}
 		// methods
 		{
 			String pattern = "component/methods/method";
