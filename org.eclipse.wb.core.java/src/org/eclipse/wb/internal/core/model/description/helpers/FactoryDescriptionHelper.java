@@ -508,7 +508,7 @@ public class FactoryDescriptionHelper {
 			digester.addSetProperties(pattern);
 			digester.addSetNext(pattern, "add");
 			digester.addCallMethod(pattern, "postProcess");
-			ComponentDescriptionHelper.addParametersRules(digester, pattern + "/parameter", state);
+			ComponentDescriptionHelper.addParametersRules2(digester, pattern + "/parameter", state);
 		}
 		// invocation
 		{

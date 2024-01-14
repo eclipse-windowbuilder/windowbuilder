@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.model.description.helpers;
 
 import org.eclipse.wb.core.databinding.xsd.component.Component;
+import org.eclipse.wb.core.databinding.xsd.component.Component.Constructors;
 import org.eclipse.wb.core.databinding.xsd.component.Component.MethodProperty;
 import org.eclipse.wb.core.databinding.xsd.component.Component.MethodSingleProperty;
 import org.eclipse.wb.core.databinding.xsd.component.Component.PropertiesAdvanced;
@@ -23,6 +24,7 @@ import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRuleType;
 import org.eclipse.wb.core.databinding.xsd.component.ExposingRulesType;
+import org.eclipse.wb.core.databinding.xsd.component.MethodParameter;
 import org.eclipse.wb.core.databinding.xsd.component.MethodsOrderType;
 import org.eclipse.wb.core.databinding.xsd.component.MorphingType;
 import org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType;
@@ -50,7 +52,6 @@ import org.eclipse.wb.internal.core.model.description.resource.ResourceInfo;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectListParameterRule;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectParameterRule;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurablePropertyRule;
-import org.eclipse.wb.internal.core.model.description.rules.ConstructorRule;
 import org.eclipse.wb.internal.core.model.description.rules.CreationTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.CreationTypeParametersRule;
 import org.eclipse.wb.internal.core.model.description.rules.ExposingRulesRule;
@@ -673,6 +674,24 @@ public final class ComponentDescriptionHelper {
 		{
 			acceptSafe(componentDescription, component.getDescription(), ComponentDescription::setDescription);
 		}
+		// constructors
+		{
+			Constructors constructors = component.getConstructors();
+			if (constructors != null) {
+				for (Constructors.Constructor constructor : constructors.getConstructor()) {
+					Class<?> componentClass = componentDescription.getComponentClass();
+					ConstructorDescription constructorDescription = new ConstructorDescription(componentClass);
+					for (MethodParameter parameter : constructor.getParameter()) {
+						addParametersRules(constructorDescription, parameter, state);
+					}
+					constructorDescription.postProcess();
+					// add constructor only if we are parsing final component class
+					if (componentDescription.getCurrentClass() == componentDescription.getComponentClass()) {
+						componentDescription.addConstructor(constructorDescription);
+					}
+				}
+			}
+		}
 		// method order
 		{
 			MethodsOrderType methodsOrder = component.getMethodOrder();
@@ -728,13 +747,6 @@ public final class ComponentDescriptionHelper {
 		{
 			digester.addRule("component/public-field-properties", new PublicFieldPropertiesRule());
 		}
-		// constructors
-		{
-			String pattern = "component/constructors/constructor";
-			digester.addRule(pattern, new ConstructorRule());
-			digester.addSetProperties(pattern);
-			addParametersRules(digester, pattern + "/parameter", state);
-		}
 		// methods
 		{
 			String pattern = "component/methods/method";
@@ -742,7 +754,7 @@ public final class ComponentDescriptionHelper {
 			digester.addRule(pattern,
 					new SetListedPropertiesRule(new String[] { "order" }, new String[] { "orderSpecification" }));
 			digester.addRule(pattern + "/tag", new MethodTagRule());
-			addParametersRules(digester, pattern + "/parameter", state);
+			addParametersRules2(digester, pattern + "/parameter", state);
 		}
 		addConfigurablePropertiesRules(digester, state);
 	}
@@ -863,7 +875,44 @@ public final class ComponentDescriptionHelper {
 	/**
 	 * Adds {@link Rule}'s for parsing {@link ParameterDescription}'s.
 	 */
-	static void addParametersRules(Digester digester, String pattern, EditorState state) {
+	static void addParametersRules(AbstractInvocationDescription methodDescription, MethodParameter parameter,
+			EditorState state) throws Exception {
+		ClassLoader classLoader = state.getEditorLoader();
+		//
+		ParameterDescription parameterDescription = new ParameterDescription();
+		acceptSafe(parameterDescription, parameter.getType(), new SetClassPropertyRule(classLoader));
+		acceptSafe(parameterDescription, parameter.getName(), ParameterDescription::setName);
+		acceptSafe(parameterDescription, parameter.getDefaultSource(), ParameterDescription::setDefaultSource);
+		acceptSafe(parameterDescription, parameter.isParent(), ParameterDescription::setParent);
+		acceptSafe(parameterDescription, parameter.isParent2(), ParameterDescription::setParent2);
+		acceptSafe(parameterDescription, parameter.isChild(), ParameterDescription::setChild);
+		acceptSafe(parameterDescription, parameter.isChild2(), ParameterDescription::setChild2);
+		acceptSafe(parameterDescription, parameter.getProperty(), ParameterDescription::setProperty);
+		methodDescription.addParameter(parameterDescription);
+		// editors
+		{
+			org.eclipse.wb.core.databinding.xsd.component.PropertyEditor editorModel = parameter.getEditor();
+			if (editorModel != null) {
+				String id = editorModel.getId();
+				PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
+				PropertyEditorDescription editorDescription = new PropertyEditorDescription(state, editor);
+				addConfigurableObjectParametersRules(editorDescription, editorModel);
+				// prepare editor
+				editor = editorDescription.getConfiguredEditor();
+				// set editor for current property
+				parameterDescription.setEditor(editor);
+			}
+		}
+		// tags
+		for (TagType tag : parameter.getTag()) {
+			acceptSafe(parameterDescription, tag, new ParameterTagRule());
+		}
+	}
+
+	/**
+	 * Adds {@link Rule}'s for parsing {@link ParameterDescription}'s.
+	 */
+	static void addParametersRules2(Digester digester, String pattern, EditorState state) {
 		ClassLoader classLoader = state.getEditorLoader();
 		//
 		digester.addRule(pattern, new ObjectCreateRule(ParameterDescription.class));
