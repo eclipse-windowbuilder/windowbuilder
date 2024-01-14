@@ -43,6 +43,7 @@ import org.eclipse.wb.internal.core.model.description.CreationDescription;
 import org.eclipse.wb.internal.core.model.description.CreationInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.model.description.IDescriptionProcessor;
+import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
@@ -59,7 +60,6 @@ import org.eclipse.wb.internal.core.model.description.rules.MethodOrderDefaultRu
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodsRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodPropertyRule;
-import org.eclipse.wb.internal.core.model.description.rules.MethodRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodsOperationRule;
 import org.eclipse.wb.internal.core.model.description.rules.ModelClassRule;
@@ -108,12 +108,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.digester3.Digester;
 import org.apache.commons.digester3.Rule;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.impl.NoOpLog;
 import org.osgi.framework.Bundle;
 
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -374,29 +371,12 @@ public final class ComponentDescriptionHelper {
 				// at last append additional description resource
 				descriptionInfos.addAll(additionalDescriptionInfos);
 			}
-			// prepare Digester
-			Digester digester;
-			{
-				System.setProperty("org.apache.commons.logging.LogFactory",
-						"org.apache.commons.logging.impl.LogFactoryImpl");
-				digester = new Digester();
-				digester.setLogger(new NoOpLog());
-				addRules(digester, editor, componentClass);
-			}
 			// read descriptions from generic to specific
 			for (ClassResourceInfo descriptionInfo : descriptionInfos) {
 				ResourceInfo resourceInfo = descriptionInfo.resource;
 				// read next description
 				{
 					componentDescription.setCurrentClass(descriptionInfo.clazz);
-					digester.push(componentDescription);
-					// do parse
-					InputStream is = resourceInfo.getURL().openStream();
-					try {
-						digester.parse(is);
-					} finally {
-						IOUtils.closeQuietly(is);
-					}
 					JAXBContext jaxbContext = ContextFactory.createContext();
 					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 					Component component = (Component) jaxbUnmarshaller.unmarshal(resourceInfo.getURL());
@@ -595,6 +575,32 @@ public final class ComponentDescriptionHelper {
 		ILoadingContext context = EditorStateLoadingContext.get(state);
 		acceptSafe(componentDescription, component.getToolkit(), new ToolkitRule());
 		acceptSafe(componentDescription, component.getModel(), new ModelClassRule());
+		// methods
+		{
+			Component.Methods methods = component.getMethods();
+			if (methods != null) {
+				for (Component.Methods.Method method : methods.getMethod()) {
+					Class<?> componentClass = componentDescription.getComponentClass();
+					MethodDescription methodDescription = new MethodDescription(componentClass);
+					methodDescription.setName(method.getName());
+					acceptSafe(methodDescription, method.getOrder(), MethodDescription::setOrderSpecification);
+					acceptSafe(methodDescription, method.isExecutable(), MethodDescription::setExecutable);
+					for (TagType tag : method.getTag()) {
+						acceptSafe(methodDescription, tag, new MethodTagRule());
+					}
+					for (MethodParameter parameter : method.getParameter()) {
+						addParametersRules(methodDescription, parameter, state);
+					}
+					methodDescription.postProcess();
+					String signature = methodDescription.getSignature();
+					Method javaMethod = ReflectionUtils.getMethodBySignature(componentClass, signature);
+					Assert.isNotNull2(javaMethod, "No such method {0}.{1} during parsing {2}", componentClass.getName(),
+							signature, componentDescription.getCurrentClass().getName());
+					methodDescription.setReturnClass(javaMethod.getReturnType());
+					componentDescription.addMethod(methodDescription);
+				}
+			}
+		}
 		// standard bean properties
 		{
 			acceptSafe(componentDescription, component.getStandardBeanProperties(), new StandardBeanPropertiesRule());
@@ -744,23 +750,8 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s required for component description parsing.
-	 */
-	private static void addRules(Digester digester, AstEditor editor, Class<?> componentClass) {
-		EditorState state = EditorState.get(editor);
-		// methods
-		{
-			String pattern = "component/methods/method";
-			digester.addRule(pattern, new MethodRule());
-			digester.addRule(pattern,
-					new SetListedPropertiesRule(new String[] { "order" }, new String[] { "orderSpecification" }));
-			digester.addRule(pattern + "/tag", new MethodTagRule());
-			addParametersRules2(digester, pattern + "/parameter", state);
-		}
-	}
-
-	/**
-	 * Adds {@link Rule}'s for changing {@link GenericPropertyDescription}'s.
+	 * Adds property configuration rules to the given
+	 * {@link GenericPropertyDescription}.
 	 */
 	private static void addPropertiesRules(ComponentDescription componentDescription, Component component,
 			EditorState state) throws Exception {

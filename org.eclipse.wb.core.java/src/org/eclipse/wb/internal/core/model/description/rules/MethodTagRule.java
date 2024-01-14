@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,28 +10,27 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
+import org.eclipse.wb.core.databinding.xsd.component.TagType;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
-
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
+import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 
 /**
- * The {@link Rule} that adds some tag for {@link MethodDescription}.
+ * The {@link FailableBiConsumer} that adds some tag for
+ * {@link MethodDescription}.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class MethodTagRule extends AbstractDesignerRule {
+public final class MethodTagRule implements FailableBiConsumer<MethodDescription, TagType, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		String tag = getRequiredAttribute(name, attributes, "name");
-		String value = getRequiredAttribute(name, attributes, "value");
-		MethodDescription methodDescription = (MethodDescription) getDigester().peek();
-		methodDescription.putTag(tag, value);
+	public void accept(MethodDescription methodDescription, TagType tag) throws Exception {
+		String name = tag.getName();
+		String value = tag.getValue();
+		methodDescription.putTag(name, value);
 	}
 }
