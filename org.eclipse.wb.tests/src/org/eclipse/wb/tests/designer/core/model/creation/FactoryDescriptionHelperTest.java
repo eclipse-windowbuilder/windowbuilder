@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -599,7 +599,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 						"<?xml version='1.0' encoding='UTF-8'?>",
 						"<factory>",
 						"  <method name='createButton'>",
-						"    <description>Some <b>HTML</b> description.</description>",
+						"    <description>Some &lt;b&gt;HTML&lt;/b&gt; description.</description>",
 						"  </method>",
 						"</factory>"));
 		waitForAutoBuild();
@@ -636,7 +636,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 						"<?xml version='1.0' encoding='UTF-8'?>",
 						"<factory>",
 						"  <method name='createButton'>",
-						"    <description>First. <p attr='value'/> Second.</description>",
+						"    <description>First. &lt;p attr='value'/&gt; Second.</description>",
 						"  </method>",
 						"</factory>"));
 		waitForAutoBuild();
@@ -689,7 +689,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// get FactoryMethodDescription
 		FactoryMethodDescription description =
 				getDescription("test.StaticFactory", "createButton()", true);
-		assertEquals("&#48;&#x31;", description.getDescription());
+		assertEquals("01", description.getDescription());
 	}
 
 	/**

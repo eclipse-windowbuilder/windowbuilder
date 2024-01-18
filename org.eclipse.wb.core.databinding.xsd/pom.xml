@@ -42,6 +42,7 @@
 				<configuration>
 					<sources>
 						<source>${basedir}/schema/wbp-component.xsd</source>
+						<source>${basedir}/schema/wbp-factory.xsd</source>
 					</sources>
 					<noGeneratedHeaderComments>true</noGeneratedHeaderComments>
 					<noPackageLevelAnnotations>true</noPackageLevelAnnotations>

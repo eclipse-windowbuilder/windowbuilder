@@ -68,6 +68,7 @@ public class Messages extends NLS {
 	public static String ExternalizeStringsContributionItem_defaultPackageMessage;
 	public static String ExternalizeStringsContributionItem_defaultPackageTitle;
 	public static String ExternalizeStringsContributionItem_externalizeToolTip;
+	public static String FactoryDescriptionHelper_deprecatedNamespace;
 	public static String FieldSourceNewComposite_fieldGroup;
 	public static String FieldSourceNewComposite_fieldNameLabel;
 	public static String FieldSourceNewComposite_title;

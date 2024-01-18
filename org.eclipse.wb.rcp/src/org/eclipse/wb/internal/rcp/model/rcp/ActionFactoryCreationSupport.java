@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -206,6 +206,7 @@ IActionIconProvider {
 	private static void copyActionProperty(Object action,
 			IWorkbenchAction sourceAction,
 			String propertyName) throws Exception {
+		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 		PropertyUtilsBean propertyUtils = new PropertyUtilsBean();
 		Object value = propertyUtils.getSimpleProperty(sourceAction, propertyName);
 		if (value instanceof String) {

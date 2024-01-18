@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<factory>
+
+<factory xmlns="http://www.eclipse.org/wb/WBPComponent">
 	<!-- createButton() -->
 	<method name="createButton">
 		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>

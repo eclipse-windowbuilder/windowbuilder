@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:jxb="https://jakarta.ee/xml/ns/jaxb" jxb:version="3.0"
+	targetNamespace="http://www.eclipse.org/wb/WBPComponent"
+	xmlns="http://www.eclipse.org/wb/WBPComponent" elementFormDefault="qualified">
+
+	<xs:annotation>
+		<xs:documentation>Schema for *.wbp-factory.xml descriptions.</xs:documentation>
+	</xs:annotation>
+	
+	<xs:include schemaLocation="wbp-component.xsd" />
+
+	<xs:element name="factory">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="allMethodsAreFactories" type="xs:boolean" nillable="true" />
+				<xs:element name="method" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="description" type="xs:string" minOccurs="0" />
+							<xs:element name="tag" type="TagType" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="name" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:appinfo>
+										<jxb:property name="presentationName"/>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="parameter" type="MethodParameter" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="parameters" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="parameter" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="name" type="xs:string" use="required"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="invocation" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType mixed="true">
+									<xs:attribute name="signature" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="name" type="xs:string" use="required"/>
+						<xs:attribute name="order" type="MethodOrderType"/>
+						<xs:attribute name="executable" type="xs:boolean"/>
+						<xs:attribute name="factory" type="xs:boolean"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

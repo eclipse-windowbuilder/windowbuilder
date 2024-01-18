@@ -65,8 +65,6 @@ import org.eclipse.wb.internal.core.model.description.rules.MethodsOperationRule
 import org.eclipse.wb.internal.core.model.description.rules.ModelClassRule;
 import org.eclipse.wb.internal.core.model.description.rules.MorphingNoInheritRule;
 import org.eclipse.wb.internal.core.model.description.rules.MorphingTargetRule;
-import org.eclipse.wb.internal.core.model.description.rules.ObjectCreateRule;
-import org.eclipse.wb.internal.core.model.description.rules.ParameterEditorRule;
 import org.eclipse.wb.internal.core.model.description.rules.ParameterTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyCategoryRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyDefaultRule;
@@ -74,7 +72,6 @@ import org.eclipse.wb.internal.core.model.description.rules.PropertyGetterRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.PublicFieldPropertiesRule;
 import org.eclipse.wb.internal.core.model.description.rules.SetClassPropertyRule;
-import org.eclipse.wb.internal.core.model.description.rules.SetListedPropertiesRule;
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertiesAdvancedRule;
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertiesHiddenRule;
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertiesNoDefaultValueRule;
@@ -106,7 +103,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.digester3.Digester;
 import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
@@ -828,14 +824,6 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s for configuring {@link AbstractConfigurableDescription}.
-	 */
-	private static void addConfigurableObjectParametersRules2(Digester digester, String pattern) {
-		digester.addRule(pattern + "/parameter", new ConfigurableObjectParameterRule());
-		digester.addRule(pattern + "/parameter-list", new ConfigurableObjectListParameterRule());
-	}
-
-	/**
 	 * Adds {@link Rule}'s for parsing {@link CreationDescription}'s.
 	 */
 	private static void addCreationRules(CreationDescription creationDescription, Creation creation) throws Exception {
@@ -901,27 +889,6 @@ public final class ComponentDescriptionHelper {
 		for (TagType tag : parameter.getTag()) {
 			acceptSafe(parameterDescription, tag, new ParameterTagRule());
 		}
-	}
-
-	/**
-	 * Adds {@link Rule}'s for parsing {@link ParameterDescription}'s.
-	 */
-	static void addParametersRules2(Digester digester, String pattern, EditorState state) {
-		ClassLoader classLoader = state.getEditorLoader();
-		//
-		digester.addRule(pattern, new ObjectCreateRule(ParameterDescription.class));
-		digester.addRule(pattern, new SetClassPropertyRule(classLoader, "type"));
-		digester.addRule(pattern, new SetListedPropertiesRule(
-				new String[] { "name", "defaultSource", "parent", "child", "property", "parent2", "child2" }));
-		digester.addSetNext(pattern, "addParameter");
-		// editors
-		{
-			String editorPattern = pattern + "/editor";
-			digester.addRule(editorPattern, new ParameterEditorRule(state));
-			addConfigurableObjectParametersRules2(digester, editorPattern);
-		}
-		// tags
-		digester.addRule(pattern + "/tag", new ParameterTagRule());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1024,7 +991,7 @@ public final class ComponentDescriptionHelper {
 	 * order to better handle optional model parameters. Does nothing if
 	 * {@code model} is {@code null}.
 	 */
-	private static <U, T> void acceptSafe(U description, T model, FailableBiConsumer<U, T, ?> consumer)
+	static <U, T> void acceptSafe(U description, T model, FailableBiConsumer<U, T, ?> consumer)
 			throws Exception {
 		if (model == null) {
 			return;
