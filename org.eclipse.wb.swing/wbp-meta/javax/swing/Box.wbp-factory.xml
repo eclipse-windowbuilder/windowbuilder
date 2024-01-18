@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<factory>
+
+<factory xmlns="http://www.eclipse.org/wb/WBPComponent">
 	<!-- Box -->
 	<method name="createHorizontalBox">
 		<description>Creates a Box that displays its components from left to right, using X_AXIS

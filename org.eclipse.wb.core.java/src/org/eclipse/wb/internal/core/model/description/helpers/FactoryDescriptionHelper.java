@@ -10,14 +10,18 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
+import static org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.acceptSafe;
+
+import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
+import org.eclipse.wb.core.databinding.xsd.component.Factory;
+import org.eclipse.wb.core.databinding.xsd.component.MethodParameter;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.description.CreationInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.resource.ResourceInfo;
-import org.eclipse.wb.internal.core.model.description.rules.ObjectCreateRule;
-import org.eclipse.wb.internal.core.model.description.rules.SetListedPropertiesRule;
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertiesRule;
-import org.eclipse.wb.internal.core.utils.IOUtils2;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -29,10 +33,8 @@ import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
-import org.eclipse.wb.internal.core.utils.xml.parser.QAttribute;
-import org.eclipse.wb.internal.core.utils.xml.parser.QHandlerAdapter;
-import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -42,25 +44,35 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.osgi.util.NLS;
 
-import org.apache.commons.digester3.Digester;
 import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.impl.NoOpLog;
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLFilter;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLFilterImpl;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
-import java.io.StringReader;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.UnmarshallerHandler;
 
 /**
  * Helper for accessing descriptions of factories -
@@ -70,6 +82,14 @@ import java.util.TreeMap;
  * @coverage core.model.description
  */
 public class FactoryDescriptionHelper {
+	/**
+	 * The URI that should be used for all *.wbp-factory.xml files. For backwards
+	 * compatibility, this namespace is used instead of any blank namespaces that
+	 * are found while parsing.
+	 */
+	@Deprecated(forRemoval = true)
+	private static final String DEFAULT_URI = "http://www.eclipse.org/wb/WBPComponent";
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -168,12 +188,55 @@ public class FactoryDescriptionHelper {
 			String descriptionName = factoryClassName.replace('.', '/') + ".wbp-factory.xml";
 			ResourceInfo resourceInfo = DescriptionHelper.getResourceInfo(context, factoryClass, descriptionName);
 			if (resourceInfo != null) {
-				Map<Integer, FactoryMethodDescription> textualDescriptions = new HashMap<>();
-				Digester digester = prepareDigester(factoryClass, state, textualDescriptions);
-				digester.push(allMethodsAreFactories);
-				digester.push(descriptions);
-				allMethodsAreFactories = (Boolean) digester.parse(resourceInfo.getURL());
-				readTextualDescriptions(resourceInfo, textualDescriptions);
+				JAXBContext jaxbContext = ContextFactory.createContext();
+				AtomicBoolean showDeprecationWarning = new AtomicBoolean();
+
+				// Create the XMLFilter
+				XMLFilter filter = new XMLFilterImpl() {
+					@Override
+					public void endElement(String uri, String localName, String qName) throws SAXException {
+						String realUri = uri;
+						if (realUri.isBlank()) {
+							showDeprecationWarning.set(true);
+							realUri = DEFAULT_URI;
+						}
+						super.endElement(realUri, localName, qName);
+					}
+
+					@Override
+					public void startElement(String uri, String localName, String qName, Attributes atts)
+							throws SAXException {
+						String realUri = uri;
+						if (realUri.isBlank()) {
+							showDeprecationWarning.set(true);
+							realUri = DEFAULT_URI;
+						}
+						super.startElement(realUri, localName, qName, atts);
+					}
+				};
+
+				// Set the parent XMLReader on the XMLFilter
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				SAXParser sp = spf.newSAXParser();
+				XMLReader xr = sp.getXMLReader();
+				filter.setParent(xr);
+
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				UnmarshallerHandler unmarshallerHandler = jaxbUnmarshaller.getUnmarshallerHandler();
+				filter.setContentHandler(unmarshallerHandler);
+
+				try (InputStream is = resourceInfo.getURL().openStream()) {
+					filter.parse(new InputSource(is));
+					Factory factory = (Factory) unmarshallerHandler.getResult();
+					descriptions = process(factory, state, factoryClass);
+					allMethodsAreFactories = factory.isAllMethodsAreFactories();
+				} finally {
+					if (showDeprecationWarning.get()) {
+						String message = NLS.bind(Messages.FactoryDescriptionHelper_deprecatedNamespace,
+								resourceInfo.getURL().getFile());
+						DesignerPlugin.log(Status.warning(message));
+					}
+				}
 			}
 		}
 		// prepare map: signature -> description
@@ -440,128 +503,71 @@ public class FactoryDescriptionHelper {
 	// Rules
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static Digester prepareDigester(Class<?> factoryClass, EditorState state,
-			final Map<Integer, FactoryMethodDescription> textualDescriptions) {
-		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
-		Digester digester = new Digester() {
-			private static final String DESCRIPTION_PATTERN = "factory/method/description";
-			private int m_descriptionIndex;
-
-			@Override
-			public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-				// description with HTML support
-				if (DESCRIPTION_PATTERN.equals(getMatch())) {
-					FactoryMethodDescription methodDescription = (FactoryMethodDescription) peek();
-					textualDescriptions.put(m_descriptionIndex, methodDescription);
-					m_descriptionIndex++;
-				}
-				// continue
-				super.endElement(namespaceURI, localName, qName);
-			}
-		};
-		digester.setLogger(new NoOpLog());
-		addRules(digester, state, factoryClass);
-		return digester;
-	}
 
 	/**
 	 * Adds {@link Rule}'s for factory description parsing.
 	 */
-	private static void addRules(Digester digester, EditorState state, final Class<?> declaringClass) {
+	private static List<FactoryMethodDescription> process(Factory factory, EditorState state, Class<?> declaringClass)
+			throws Exception {
+		List<FactoryMethodDescription> factoryMethodDescriptions = new ArrayList<>();
+		Boolean allMethodsAreFactories;
 		// allMethodsAreFactories flag
 		{
-			String pattern = "factory/allMethodsAreFactories";
-			digester.addRule(pattern, new Rule() {
-				@Override
-				public void body(String namespace, String name, String text) throws Exception {
-					Object list = getDigester().pop();
-					Boolean allMethodsAreFactories = (Boolean) getDigester().pop();
-					if ("true".equalsIgnoreCase(text)) {
-						allMethodsAreFactories = Boolean.TRUE;
-					}
-					if ("false".equalsIgnoreCase(text)) {
-						allMethodsAreFactories = Boolean.FALSE;
-					}
-					getDigester().push(allMethodsAreFactories);
-					getDigester().push(list);
-				}
-			});
+			allMethodsAreFactories = factory.isAllMethodsAreFactories();
+			if (allMethodsAreFactories == null) {
+				allMethodsAreFactories = true;
+			}
 		}
 		// methods
 		{
-			String pattern = "factory/method";
-			digester.addRule(pattern, new Rule() {
-				@Override
-				public void begin(String namespace, String name, Attributes attributes) throws Exception {
-					FactoryMethodDescription factoryMethodDescription = new FactoryMethodDescription(declaringClass);
-					Boolean allMethodsAreFactories = (Boolean) getDigester().peek(1);
-					factoryMethodDescription
-					.setFactory(allMethodsAreFactories != null ? allMethodsAreFactories.booleanValue() : true);
-					digester.push(factoryMethodDescription);
+			for (Factory.Method method : factory.getMethod()) {
+				FactoryMethodDescription factoryMethodDescription = new FactoryMethodDescription(declaringClass);
+				factoryMethodDescription.setFactory(allMethodsAreFactories);
+
+				acceptSafe(factoryMethodDescription, method.getName(), FactoryMethodDescription::setName);
+				acceptSafe(factoryMethodDescription, method.isExecutable(), FactoryMethodDescription::setExecutable);
+				acceptSafe(factoryMethodDescription, method.isFactory(), FactoryMethodDescription::setFactory);
+				acceptSafe(factoryMethodDescription, method.getOrder(),
+						FactoryMethodDescription::setOrderSpecification);
+
+				for (MethodParameter parameter : method.getParameter()) {
+					ComponentDescriptionHelper.addParametersRules(factoryMethodDescription, parameter, state);
 				}
 
-				@Override
-				public void end(String namespace, String name) throws Exception {
-					digester.pop();
-				}
-			});
-			digester.addSetProperties(pattern);
-			digester.addSetNext(pattern, "add");
-			digester.addCallMethod(pattern, "postProcess");
-			ComponentDescriptionHelper.addParametersRules2(digester, pattern + "/parameter", state);
-		}
-		// invocation
-		{
-			String pattern = "factory/method/invocation";
-			digester.addRule(pattern, new ObjectCreateRule(CreationInvocationDescription.class));
-			digester.addRule(pattern, new SetListedPropertiesRule(new String[] { "signature" }));
-			// arguments
-			digester.addCallMethod(pattern, "setArguments", 1);
-			digester.addCallParam(pattern, 0);
-			// add
-			digester.addSetNext(pattern, "addInvocation");
-		}
-		// name text
-		{
-			String pattern = "factory/method/name";
-			digester.addCallMethod(pattern, "setPresentationName", 1);
-			digester.addCallParam(pattern, 0);
-		}
-		// untyped parameters
-		{
-			String pattern = "factory/method/parameters/parameter";
-			digester.addCallMethod(pattern, "addParameter", 2);
-			digester.addCallParam(pattern, 0, "name");
-			digester.addCallParam(pattern, 1);
-		}
-	}
-
-	private static void readTextualDescriptions(ResourceInfo resourceInfo,
-			final Map<Integer, FactoryMethodDescription> descriptionIndexToMethod) throws Exception {
-		final String xmlText = IOUtils2.readString(resourceInfo.getURL().openStream());
-		QParser.parse(new StringReader(xmlText), new QHandlerAdapter() {
-			private int m_index = 0;
-			private int m_descriptionStart;
-
-			@Override
-			public void startElement(int offset, int length, String tag, Map<String, String> attributes,
-					List<QAttribute> attrList, boolean closed) throws Exception {
-				if ("description".equals(tag)) {
-					m_descriptionStart = offset + length;
-				}
-			}
-
-			@Override
-			public void endElement(int offset, int endOffset, String tag) throws Exception {
-				if ("description".equals(tag)) {
-					FactoryMethodDescription methodDescription = descriptionIndexToMethod.get(m_index);
-					if (methodDescription != null) {
-						methodDescription.setDescription(xmlText.substring(m_descriptionStart, offset));
+				// invocation
+				{
+					for (Factory.Method.Invocation invocation : method.getInvocation()) {
+						CreationInvocationDescription invocationDescription = new CreationInvocationDescription();
+						acceptSafe(invocationDescription, invocation.getSignature(),
+								CreationInvocationDescription::setSignature);
+						// arguments
+						acceptSafe(invocationDescription, invocation.getContent(),
+								CreationInvocationDescription::setArguments);
+						// add
+						factoryMethodDescription.addInvocation(invocationDescription);
 					}
-					m_index++;
 				}
+				// name text
+				{
+					acceptSafe(factoryMethodDescription, method.getPresentationName(),
+							FactoryMethodDescription::setPresentationName);
+				}
+				// untyped parameters
+				{
+					Factory.Method.Parameters parameters = method.getParameters();
+					if (parameters != null) {
+						for (Factory.Method.Parameters.Parameter parameter : parameters.getParameter()) {
+							factoryMethodDescription.addParameter(parameter.getName(), parameter.getValue());
+						}
+					}
+				}
+				// description with HTML support
+				acceptSafe(factoryMethodDescription, method.getDescription(), FactoryMethodDescription::setDescription);
+				factoryMethodDescription.postProcess();
+				factoryMethodDescriptions.add(factoryMethodDescription);
 			}
-		});
+		}
+		return factoryMethodDescriptions;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

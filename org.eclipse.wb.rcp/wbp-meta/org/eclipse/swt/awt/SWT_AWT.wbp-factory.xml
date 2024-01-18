@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<factory>
+
+<factory xmlns="http://www.eclipse.org/wb/WBPComponent">
 	<method name="new_Frame">
 		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
 		<description>Creates a new java.awt.Frame. This frame is the root for the AWT components
