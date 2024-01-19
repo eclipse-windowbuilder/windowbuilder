@@ -15,10 +15,6 @@ import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescripti
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.digester3.Rule;
-import org.xml.sax.Attributes;
-
 /**
  * The {@link FailableBiConsumer} that sets {@link Class} property with given
  * name.
@@ -26,8 +22,7 @@ import org.xml.sax.Attributes;
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class SetClassPropertyRule extends Rule
-		implements FailableBiConsumer<ParameterDescription, String, Exception> {
+public final class SetClassPropertyRule implements FailableBiConsumer<ParameterDescription, String, Exception> {
 	private final ClassLoader m_classLoader;
 	private final String m_attributeName;
 	private final String m_propertyName;
@@ -56,22 +51,6 @@ public final class SetClassPropertyRule extends Rule
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		// prepare class
-		Class<?> clazz;
-		{
-			String className = attributes.getValue(m_attributeName);
-			Assert.isNotNull(className);
-			clazz = ReflectionUtils.getClassByName(m_classLoader, className);
-		}
-		// set property
-		BeanUtilsBean.getInstance().getPropertyUtils().setProperty(
-				getDigester().peek(),
-				m_propertyName,
-				clazz);
-	}
-
 	@Override
 	public void accept(ParameterDescription parameterDescription, String className) throws Exception {
 		// prepare class

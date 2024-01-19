@@ -26,7 +26,6 @@ Require-Bundle: org.eclipse.ui,
  net.bytebuddy.byte-buddy;bundle-version="1.14.4",
  org.apache.commons.collections;bundle-version="3.2.2",
  org.apache.commons.commons-beanutils;bundle-version="1.9.4",
- org.apache.commons.digester;bundle-version="3.1.0",
  org.mvel2;bundle-version="2.4.15",
  org.objectweb.asm;bundle-version="9.0.0"
 Bundle-ActivationPolicy: lazy

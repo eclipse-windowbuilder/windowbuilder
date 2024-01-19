@@ -15,8 +15,6 @@ import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescripti
 import org.eclipse.wb.internal.core.model.description.internal.AbstractConfigurableDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.xml.sax.Attributes;
-
 /**
  * The {@link FailableBiConsumer} that sets value of
  * {@link AbstractConfigurableDescription} parameter.
@@ -24,32 +22,13 @@ import org.xml.sax.Attributes;
  * @author scheglov_ke
  * @coverage core.model.description
  */
-public final class ConfigurableObjectListParameterRule extends AbstractDesignerRule
+public final class ConfigurableObjectListParameterRule
 		implements FailableBiConsumer<AbstractConfigurableDescription, ParameterBaseType.ParameterList, Exception> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Rule
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private String m_name;
-	private String m_value;
-
-	@Override
-	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		m_name = getRequiredAttribute(name, attributes, "name");
-	}
-
-	@Override
-	public void body(String namespace, String name, String text) throws Exception {
-		m_value = text;
-		Assert.isNotNull(m_value, "Body text for <" + name + "> required.");
-	}
-
-	@Override
-	public void end(String namespace, String name) throws Exception {
-		AbstractConfigurableDescription description = (AbstractConfigurableDescription) getDigester().peek();
-		description.addListParameter(m_name, m_value);
-	}
 
 	@Override
 	public void accept(AbstractConfigurableDescription editorDescription, ParameterBaseType.ParameterList parameterList)

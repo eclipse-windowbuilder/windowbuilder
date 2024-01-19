@@ -46,7 +46,6 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
 
-import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.Attributes;
@@ -505,7 +504,8 @@ public class FactoryDescriptionHelper {
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Adds {@link Rule}'s for factory description parsing.
+	 * Creates the {@link FactoryMethodDescription}'s from the given
+	 * {@link Factory}.
 	 */
 	private static List<FactoryMethodDescription> process(Factory factory, EditorState state, Class<?> declaringClass)
 			throws Exception {

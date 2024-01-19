@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
@@ -24,8 +23,8 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 /**
- * The {@link Rule} for including/excluding methods. For example sometimes we want prevent execution
- * of some methods.
+ * The {@link FailableBiConsumer} for including/excluding methods. For example
+ * sometimes we want prevent execution of some methods.
  *
  * @author scheglov_ke
  * @coverage core.model.description
