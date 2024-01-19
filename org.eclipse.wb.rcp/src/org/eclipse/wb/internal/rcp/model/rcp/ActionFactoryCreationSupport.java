@@ -28,18 +28,12 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
-import static net.bytebuddy.matcher.ElementMatchers.named;
-import static net.bytebuddy.matcher.ElementMatchers.takesNoArguments;
-
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.implementation.FixedValue;
-
-import org.apache.commons.beanutils.PropertyUtilsBean;
 
 /**
  * {@link CreationSupport} for {@link Action} created from {@link ActionFactory}.
@@ -167,12 +161,11 @@ IActionIconProvider {
 	public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
 			throws Exception {
 		// create Action object
-		Object action;
+		IAction action;
 		{
 			ClassLoader editorLoader = context.getClassLoader();
-			Class<?> class_Action = editorLoader.loadClass("org.eclipse.jface.action.Action");
 			action = new ByteBuddy() //
-					.subclass(class_Action) //
+					.subclass(Action.class) //
 					.make() //
 					.load(editorLoader) //
 					.getLoaded() //
@@ -188,59 +181,15 @@ IActionIconProvider {
 		}
 		// configure Action object
 		try {
-			copyActionProperty(action, thisAction, "text");
-			copyActionProperty(action, thisAction, "description");
-			copyActionProperty(action, thisAction, "toolTipText");
-			copyActionProperty(action, thisAction, "imageDescriptor");
+			action.setText(thisAction.getText());
+			action.setDescription(thisAction.getDescription());
+			action.setToolTipText(thisAction.getToolTipText());
+			action.setImageDescriptor(thisAction.getImageDescriptor());
 		} finally {
 			thisAction.dispose();
 		}
 		// OK, we have Action object
 		return action;
-	}
-
-	/**
-	 * Copies value of property from "this" {@link IWorkbenchAction} into design {@link Action}
-	 * object.
-	 */
-	private static void copyActionProperty(Object action,
-			IWorkbenchAction sourceAction,
-			String propertyName) throws Exception {
-		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
-		PropertyUtilsBean propertyUtils = new PropertyUtilsBean();
-		Object value = propertyUtils.getSimpleProperty(sourceAction, propertyName);
-		if (value instanceof String) {
-			propertyUtils.setSimpleProperty(action, propertyName, value);
-		} else if (value != null
-				&& ReflectionUtils.isSuccessorOf(
-						value.getClass(),
-						"org.eclipse.jface.resource.ImageDescriptor")) {
-			ClassLoader classLoader = action.getClass().getClassLoader();
-			Object imageDescriptor = createID(classLoader, (ImageDescriptor) value);
-			propertyUtils.setSimpleProperty(action, propertyName, imageDescriptor);
-		}
-	}
-
-	/**
-	 * @return the implementation of {@link ImageDescriptor} that returns same {@link ImageData} as
-	 *         given source {@link ImageDescriptor}.
-	 */
-	private static Object createID(ClassLoader classLoader, ImageDescriptor sourceID)
-			throws Exception {
-		// prepare ImageData
-		final ImageData imageData = sourceID.getImageData();
-		// prepare ImageDescriptor
-		Class<?> imageDescriptorClass =
-				classLoader.loadClass("org.eclipse.jface.resource.ImageDescriptor");
-		return new ByteBuddy() //
-				.subclass(imageDescriptorClass) //
-				.method(named("getImageData").and(takesNoArguments())) //
-				.intercept(FixedValue.reference(imageData)) //
-				.make() //
-				.load(classLoader) //
-				.getLoaded() //
-				.getConstructor() //
-				.newInstance();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
