@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,9 +59,9 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
-import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -1191,23 +1191,23 @@ IPreferenceConstants {
 	// Manage general layout data.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	static final BidiMap m_horizontalAlignmentMap;
+	static final BidiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap;
 	static {
-		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.HorizontalAlignment, Integer> horizontalAlignmentMap = new DualHashBidiMap<>();
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, TableWrapData.LEFT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, TableWrapData.CENTER);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, TableWrapData.RIGHT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, TableWrapData.FILL);
-		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(horizontalAlignmentMap);
 	}
-	static final BidiMap m_verticalAlignmentMap;
+	static final BidiMap<GeneralLayoutData.VerticalAlignment, Integer> m_verticalAlignmentMap;
 	static {
-		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.VerticalAlignment, Integer> verticalAlignmentMap = new DualHashBidiMap<>();
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, TableWrapData.TOP);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, TableWrapData.CENTER);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, TableWrapData.BOTTOM);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, TableWrapData.FILL);
-		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(verticalAlignmentMap);
 	}
 
 	@Override

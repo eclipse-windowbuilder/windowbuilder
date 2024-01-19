@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.collections.map.LRUMap;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -47,12 +47,9 @@ public final class UndoManager {
 	private final DesignPage m_designPage;
 	private final IBuffer m_buffer;
 	private final IFile m_unitFile;
-	@SuppressWarnings("unchecked")
-	private final Map<String, int[][]> m_sourceToSelection = new LRUMap(32);
-	@SuppressWarnings("unchecked")
-	private final Map<String, int[][]> m_dumpToSelection = new LRUMap(32);
-	@SuppressWarnings("unchecked")
-	private final Map<String, int[][]> m_dumpToExpanded = new LRUMap(32);
+	private final Map<String, int[][]> m_sourceToSelection = new LRUMap<>(32);
+	private final Map<String, int[][]> m_dumpToSelection = new LRUMap<>(32);
+	private final Map<String, int[][]> m_dumpToExpanded = new LRUMap<>(32);
 	private IComponentsTree m_componentsTree;
 	private ISelectionProvider m_selectionProvider;
 	private ITreeContentProvider m_componentsProvider;

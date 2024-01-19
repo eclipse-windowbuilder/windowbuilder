@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,9 +33,9 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
-import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 import java.awt.EventQueue;
 import java.beans.PropertyChangeEvent;
@@ -62,9 +62,9 @@ import swingintegration.example.EmbeddedSwingComposite2;
  * @coverage swing.property.editor
  */
 public final class TableModelDialog extends ResizableDialog {
-	private static final BidiMap COLUMN_TYPES;
+	private static final BidiMap<String, Class<?>> COLUMN_TYPES;
 	static {
-		BidiMap columnTypes = new DualHashBidiMap();
+		BidiMap<String, Class<?>> columnTypes = new DualHashBidiMap<>();
 		columnTypes.put("Object", Object.class);
 		columnTypes.put("String", String.class);
 		columnTypes.put("Boolean", Boolean.class);
@@ -74,7 +74,7 @@ public final class TableModelDialog extends ResizableDialog {
 		columnTypes.put("Long", Long.class);
 		columnTypes.put("Float", Float.class);
 		columnTypes.put("Double", Double.class);
-		COLUMN_TYPES = UnmodifiableBidiMap.decorate(columnTypes);
+		COLUMN_TYPES = UnmodifiableBidiMap.unmodifiableBidiMap(columnTypes);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//

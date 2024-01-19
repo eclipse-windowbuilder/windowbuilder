@@ -24,7 +24,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.draw2d;bundle-version="3.13.0",
  org.eclipse.nebula.widgets.cdatetime;bundle-version="1.5.0",
  net.bytebuddy.byte-buddy;bundle-version="1.14.4",
- org.apache.commons.collections;bundle-version="3.2.2",
  org.mvel2;bundle-version="2.4.15",
  org.objectweb.asm;bundle-version="9.0.0"
 Bundle-ActivationPolicy: lazy
@@ -147,6 +146,9 @@ Export-Package: org.eclipse.wb.core.editor,
  org.eclipse.wb.internal.core.wizards
 Automatic-Module-Name: org.eclipse.wb.core.java
 Import-Package: jakarta.xml.bind;version="[4.0.1,5.0.0)",
+ org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.collections4.map;version="[4.4.0,5.0.0)",
+ org.apache.commons.collections4.multimap;version="[4.4.0,5.0.0)",
  org.apache.commons.io,
  org.apache.commons.lang,
  org.apache.commons.lang.exception,

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,8 @@ package org.eclipse.wb.core.model;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.collections.map.ReferenceMap;
+import org.apache.commons.collections4.map.AbstractReferenceMap.ReferenceStrength;
+import org.apache.commons.collections4.map.ReferenceMap;
 
 import java.util.Map;
 
@@ -38,10 +39,8 @@ public final class ObjectInfoUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static long m_lastObjectInfoID = 0;
-	@SuppressWarnings("unchecked")
-	private static Map<String, ObjectInfo> m_idToObjectInfo = new ReferenceMap(ReferenceMap.HARD, ReferenceMap.WEAK);
-	@SuppressWarnings("unchecked")
-	private static Map<ObjectInfo, String> m_objectInfoToId = new ReferenceMap(ReferenceMap.WEAK, ReferenceMap.HARD);
+	private static Map<String, ObjectInfo> m_idToObjectInfo = new ReferenceMap<>(ReferenceStrength.HARD, ReferenceStrength.WEAK);
+	private static Map<ObjectInfo, String> m_objectInfoToId = new ReferenceMap<>(ReferenceStrength.WEAK, ReferenceStrength.HARD);
 
 	/**
 	 * @return the {@link ObjectInfo} with corresponding ID.

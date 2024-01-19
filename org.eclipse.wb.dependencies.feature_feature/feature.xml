@@ -109,7 +109,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.apache.commons.collections"
+         id="org.apache.commons.commons-collections4"
          download-size="0"
          install-size="0"
          version="0.0.0"

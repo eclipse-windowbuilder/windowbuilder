@@ -17,7 +17,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.databinding,
  org.eclipse.core.databinding.beans,
  org.eclipse.jface.databinding,
- org.apache.commons.collections;bundle-version="3.2.2",
  org.objectweb.asm;bundle-version="9.0.0"
 Export-Package: org.eclipse.wb.internal.rcp.databinding,
  org.eclipse.wb.internal.rcp.databinding.model,
@@ -48,5 +47,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.databinding
-Import-Package: org.apache.commons.io,
+Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.io,
  org.apache.commons.lang

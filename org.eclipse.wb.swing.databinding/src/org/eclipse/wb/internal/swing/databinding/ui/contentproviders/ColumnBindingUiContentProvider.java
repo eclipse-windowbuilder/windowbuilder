@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.ArrayList;
@@ -292,9 +291,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private List<PropertyAdapter> getChoosenProperties() {
-		List<PropertyAdapter> properties = new ArrayList<>();
-		CollectionUtils.addAll(properties, treeViewer.getCheckedElements());
-		return properties;
+		return new ArrayList<>(List.of((PropertyAdapter[])treeViewer.getCheckedElements()));
 	}
 
 	private List<PropertyAdapter> getProperties(IGenericType objectType) throws Exception {

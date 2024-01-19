@@ -12,10 +12,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.swt,
  org.eclipse.wb.rcp,
  org.eclipse.wb.core.databinding,
- org.eclipse.wb.rcp.databinding,
- org.apache.commons.collections;bundle-version="3.2.2"
+ org.eclipse.wb.rcp.databinding
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.databinding.emf
-Import-Package: org.apache.commons.lang
+Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.lang

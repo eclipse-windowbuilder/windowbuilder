@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -61,9 +61,9 @@ import net.miginfocom.layout.IDEUtil;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
-import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 import java.awt.Container;
 import java.text.MessageFormat;
@@ -1483,25 +1483,25 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	//
 	////////////////////////////////////////////////////////////////////////////
 	//MigColumnInfo.Alignment
-	public static final BidiMap m_horizontalAlignmentMap;
+	public static final BidiMap<GeneralLayoutData.HorizontalAlignment, MigColumnInfo.Alignment> m_horizontalAlignmentMap;
 	static {
-		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.HorizontalAlignment, MigColumnInfo.Alignment> horizontalAlignmentMap = new DualHashBidiMap<>();
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, MigColumnInfo.Alignment.LEFT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, MigColumnInfo.Alignment.CENTER);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, MigColumnInfo.Alignment.RIGHT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, MigColumnInfo.Alignment.FILL);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.NONE, MigColumnInfo.Alignment.UNKNOWN);
-		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(horizontalAlignmentMap);
 	}
-	public static final BidiMap m_verticalAlignmentMap;
+	public static final BidiMap<GeneralLayoutData.VerticalAlignment, MigRowInfo.Alignment> m_verticalAlignmentMap;
 	static {
-		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.VerticalAlignment, MigRowInfo.Alignment> verticalAlignmentMap = new DualHashBidiMap<>();
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, MigRowInfo.Alignment.TOP);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, MigRowInfo.Alignment.CENTER);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, MigRowInfo.Alignment.BOTTOM);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, MigRowInfo.Alignment.FILL);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.NONE, MigRowInfo.Alignment.UNKNOWN);
-		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(verticalAlignmentMap);
 	}
 
 	@Override

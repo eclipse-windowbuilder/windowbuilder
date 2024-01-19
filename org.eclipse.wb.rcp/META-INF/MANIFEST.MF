@@ -107,8 +107,8 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.rcp
-Import-Package: org.apache.commons.collections,
- org.apache.commons.collections.bidimap;version="3.2.2",
+Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
  org.apache.commons.io,
  org.apache.commons.lang,
  org.eclipse.gef,

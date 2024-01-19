@@ -60,12 +60,13 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.java,
  org.eclipse.pde.core,
  org.eclipse.draw2d;bundle-version="3.13.0",
- net.bytebuddy.byte-buddy;bundle-version="1.14.4",
- org.apache.commons.collections;bundle-version="3.2.2"
+ net.bytebuddy.byte-buddy;bundle-version="1.14.4"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.swt
-Import-Package: org.apache.commons.io,
+Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
+ org.apache.commons.io,
  org.apache.commons.lang,
  org.apache.commons.lang.exception,
  org.eclipse.gef,

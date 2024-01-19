@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,8 @@ package org.eclipse.wb.internal.core.model.property.event;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.collections.map.MultiValueMap;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
@@ -21,8 +22,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -274,7 +273,7 @@ final class ListenerInfo {
 	////////////////////////////////////////////////////////////////////////////
 	static void useSimpleNamesWherePossible(List<ListenerInfo> listeners) {
 		// prepare map: simple name -> qualified names
-		MultiValueMap simplePropertyNames = MultiValueMap.decorate(new HashMap<>(), HashSet::new);
+		MultiValuedMap<String, String> simplePropertyNames = new HashSetValuedHashMap<>();
 		for (ListenerInfo listener : listeners) {
 			String qualifiedName = listener.getName();
 			String simpleName = getSimpleName(qualifiedName);
@@ -284,7 +283,7 @@ final class ListenerInfo {
 		for (ListenerInfo listener : listeners) {
 			String qualifiedName = listener.getName();
 			String simpleName = getSimpleName(qualifiedName);
-			if (simplePropertyNames.size(simpleName) == 1) {
+			if (simplePropertyNames.get(simpleName).size() == 1) {
 				listener.m_name = simpleName;
 			}
 		}
