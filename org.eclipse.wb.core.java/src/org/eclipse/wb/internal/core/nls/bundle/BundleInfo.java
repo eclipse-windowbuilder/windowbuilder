@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
 import org.eclipse.core.resources.IFile;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.support.AbstractSupport;
 
 import org.eclipse.swt.widgets.Table;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Implementation of {@link HierarchyProvider} for SWT items.

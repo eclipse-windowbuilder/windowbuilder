@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.propert
 
 import org.eclipse.swt.SWT;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

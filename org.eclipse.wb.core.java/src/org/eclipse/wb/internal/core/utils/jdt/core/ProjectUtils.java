@@ -49,7 +49,7 @@ import org.eclipse.swt.SWT;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.osgi.framework.Bundle;
 
 import java.io.FileInputStream;

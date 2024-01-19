@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodeInformation;
 import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;

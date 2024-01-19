@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
 import org.eclipse.jface.window.Window;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -13,8 +13,8 @@ package org.eclipse.wb.internal.swing.databinding.wizards.autobindings;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.PropertyAdapter;
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.AbstractDescriptor;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Swing component descriptor.

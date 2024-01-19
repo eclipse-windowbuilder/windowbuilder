@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,9 +29,9 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.XMLMemento;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
-import org.apache.commons.lang.text.StrSubstitutor;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringSubstitutor;
+import org.apache.commons.text.WordUtils;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -161,7 +161,7 @@ public final class NamesManager {
 			}
 			// use template
 			String template = preferences.getString(IPreferenceConstants.P_VARIABLE_TEXT_TEMPLATE);
-			name = StrSubstitutor.replace(template, valueMap);
+			name = StringSubstitutor.replace(template, valueMap);
 		}
 		// final modifications
 		name = StringUtils.uncapitalize(name);
@@ -187,7 +187,7 @@ public final class NamesManager {
 			valueMap.put("class_acronym", "");
 		}
 		// use template
-		String evaluated = StrSubstitutor.replace(template, valueMap);
+		String evaluated = StringSubstitutor.replace(template, valueMap);
 		if (evaluated.indexOf("$") != -1) {
 			return evaluated;
 		}

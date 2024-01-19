@@ -16,7 +16,7 @@ import org.eclipse.gef.requests.SelectionRequest;
 
 import junit.framework.Assert;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

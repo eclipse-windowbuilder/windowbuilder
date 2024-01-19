@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.emf.Activator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * Presentation for {@link EObjectBindableInfo}.

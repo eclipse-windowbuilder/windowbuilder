@@ -32,7 +32,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Abstract dialog for {@link ComponentEntryInfo}.

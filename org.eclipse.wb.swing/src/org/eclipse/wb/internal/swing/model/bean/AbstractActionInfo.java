@@ -37,7 +37,8 @@ import org.eclipse.wb.internal.swing.model.property.editor.icon.IconPropertyEdit
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class AbstractActionInfo extends ActionInfo {
 				"MNEMONIC_KEY",
 				null,
 				DisplayedMnemonicKeyPropertyEditor.INSTANCE));
-		if (SystemUtils.JAVA_VERSION_FLOAT >= 1.6) {
+		if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_6)) {
 			properties.add(createProperty(
 					"displayed mnemonic index",
 					"DISPLAYED_MNEMONIC_INDEX_KEY",

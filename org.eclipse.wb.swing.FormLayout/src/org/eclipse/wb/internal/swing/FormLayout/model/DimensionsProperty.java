@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEdit
 import org.eclipse.wb.internal.swing.FormLayout.model.ui.ColumnsDialog;
 import org.eclipse.wb.internal.swing.FormLayout.model.ui.RowsDialog;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

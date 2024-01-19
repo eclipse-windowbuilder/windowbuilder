@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 
 import org.eclipse.swt.widgets.Composite;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * General wizard page for Swing wizard's.

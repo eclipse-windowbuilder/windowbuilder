@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -65,8 +65,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.events.FocusListener;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.text.StrSubstitutor;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringSubstitutor;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -554,7 +554,7 @@ IListenerMethodProperty {
 		}
 		// generate base name
 		String template = m_preferences.getString(P_INNER_NAME_TEMPLATE);
-		String baseName = StrSubstitutor.replace(template, valueMap);
+		String baseName = StringSubstitutor.replace(template, valueMap);
 		// generate unique name
 		return m_javaInfo.getEditor().getUniqueTypeName(baseName);
 	}
@@ -986,7 +986,7 @@ IListenerMethodProperty {
 		}
 		//
 		String template = m_preferences.getString(P_STUB_NAME_TEMPLATE);
-		return StrSubstitutor.replace(template, valueMap);
+		return StringSubstitutor.replace(template, valueMap);
 	}
 
 	/**

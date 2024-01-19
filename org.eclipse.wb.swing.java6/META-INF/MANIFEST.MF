@@ -20,7 +20,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Activator: org.eclipse.wb.internal.swing.java6.Activator
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.swing.java6
-Import-Package: org.apache.commons.lang,
+Import-Package: org.apache.commons.lang3,
  org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts

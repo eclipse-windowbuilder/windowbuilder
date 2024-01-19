@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.gef.policy.DblClickRunScriptEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.FlipBooleanPropertyEditPolicy;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link IEditPartConfigurator} for any {@link EditPart}.

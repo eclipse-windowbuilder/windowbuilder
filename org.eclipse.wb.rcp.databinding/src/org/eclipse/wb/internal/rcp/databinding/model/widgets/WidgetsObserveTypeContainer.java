@@ -58,7 +58,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

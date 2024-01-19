@@ -33,7 +33,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBea
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.beans.PropertyDescriptor;
 import java.text.MessageFormat;

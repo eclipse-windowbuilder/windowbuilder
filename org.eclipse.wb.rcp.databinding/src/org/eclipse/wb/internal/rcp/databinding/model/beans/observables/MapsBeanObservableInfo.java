@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.KnownElementsObservableInfo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

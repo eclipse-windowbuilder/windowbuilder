@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.model;
 
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * Model for abstract objects or interfaces and objects that supported extends.

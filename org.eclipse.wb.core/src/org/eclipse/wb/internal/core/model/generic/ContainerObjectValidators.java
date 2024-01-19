@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IDescriptionHelper;
 import org.eclipse.wb.internal.core.utils.state.ILayoutRequestValidatorHelper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.TreeMap;

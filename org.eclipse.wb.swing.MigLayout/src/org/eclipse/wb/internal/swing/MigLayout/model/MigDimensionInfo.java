@@ -21,7 +21,7 @@ import net.miginfocom.layout.UnitValue;
 import net.miginfocom.swing.MigLayout;
 import net.miginfocom.swing.SwingContainerWrapper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Container;
 import java.beans.Beans;

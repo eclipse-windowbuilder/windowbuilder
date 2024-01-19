@@ -50,8 +50,8 @@ import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.TextElement;
 import org.eclipse.jdt.core.dom.ThisExpression;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.NotImplementedException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -647,7 +647,7 @@ public abstract class JavaInfoEvaluationHelper {
 	 * @return the root {@link JavaInfo}, possible {@link JavaInfo} for {@link ThisExpression}.
 	 */
 	protected JavaInfo getRootJavaInfo() {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	/**
@@ -655,7 +655,7 @@ public abstract class JavaInfoEvaluationHelper {
 	 * processed.
 	 */
 	protected void thisJavaInfoNodeProcessed(JavaInfo javaInfo, ASTNode node) throws Exception {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	/**

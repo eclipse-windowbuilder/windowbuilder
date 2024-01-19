@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.databinding.model.decorate;
 
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Collections;
 import java.util.Set;

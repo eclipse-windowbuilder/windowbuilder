@@ -51,7 +51,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.prefs.Preferences;
 
 import java.awt.Component;

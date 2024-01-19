@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Collection;
 

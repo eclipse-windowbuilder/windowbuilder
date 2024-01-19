@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.editor.palette.PaletteManager;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 
 import javax.swing.JPanel;

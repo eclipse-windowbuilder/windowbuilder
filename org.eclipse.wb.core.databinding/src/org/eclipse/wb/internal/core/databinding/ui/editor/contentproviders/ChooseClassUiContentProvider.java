@@ -22,8 +22,8 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
 
 import org.eclipse.swt.SWT;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Modifier;

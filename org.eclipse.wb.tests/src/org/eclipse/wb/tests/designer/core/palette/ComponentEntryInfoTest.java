@@ -50,7 +50,7 @@ import org.eclipse.swt.widgets.Text;
 
 import static org.assertj.core.data.MapEntry.entry;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.osgi.framework.Bundle;

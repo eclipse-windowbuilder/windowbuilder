@@ -51,7 +51,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowData;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

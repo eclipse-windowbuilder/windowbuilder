@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.laf.model.UserDefinedLafInfo;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.lang.reflect.Modifier;

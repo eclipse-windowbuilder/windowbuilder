@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.beans;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditorProvider;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.beans.PropertyEditorManager;
 

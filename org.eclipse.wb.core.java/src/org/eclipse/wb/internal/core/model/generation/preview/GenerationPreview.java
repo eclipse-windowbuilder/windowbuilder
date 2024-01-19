@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.generation.statement.StatementGenerato
 import org.eclipse.wb.internal.core.model.variable.description.VariableSupportDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementations of this class provide preview for code generation using combination of

@@ -22,7 +22,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.part.ViewPart;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

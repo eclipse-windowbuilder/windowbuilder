@@ -30,7 +30,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.swing.FormLayout
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
- org.apache.commons.lang,
+ org.apache.commons.lang3,
+ org.apache.commons.text;version="[1.11.0,2.0.0)",
  org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts,

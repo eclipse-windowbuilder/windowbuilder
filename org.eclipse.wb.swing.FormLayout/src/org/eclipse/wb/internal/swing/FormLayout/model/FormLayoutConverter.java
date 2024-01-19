@@ -26,7 +26,7 @@ import com.jgoodies.forms.layout.CellConstraints.Alignment;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormSpecs;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.HashSet;
 import java.util.List;

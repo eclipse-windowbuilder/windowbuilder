@@ -19,7 +19,7 @@ import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.DefaultUnitConverter;
 import com.jgoodies.forms.util.UnitConverter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Component;
 import java.lang.reflect.Method;

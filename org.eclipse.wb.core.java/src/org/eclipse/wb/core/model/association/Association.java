@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.swt.widgets.Control;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.awt.Container;
 import java.awt.GridBagLayout;
@@ -127,7 +127,7 @@ public abstract class Association {
 	 * @return the source code of this {@link Association}.
 	 */
 	public String getSource() {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ public abstract class Association {
 	 * May be {@link LazyVariableSupport} is only user of this operation.
 	 */
 	public void move(StatementTarget target) throws Exception {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	/**
@@ -203,7 +203,7 @@ public abstract class Association {
 	 *          <em>child</em> of Control, so we in this case we should use parent-parent.
 	 */
 	public void setParent(JavaInfo parent) throws Exception {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	/**
@@ -232,7 +232,7 @@ public abstract class Association {
 	 *           if this {@link Association} does not supports morphing.
 	 */
 	public Association getCopy() {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

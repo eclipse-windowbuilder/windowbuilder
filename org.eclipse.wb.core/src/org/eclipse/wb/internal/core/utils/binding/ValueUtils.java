@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.binding;
 
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
 

@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorInfo;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

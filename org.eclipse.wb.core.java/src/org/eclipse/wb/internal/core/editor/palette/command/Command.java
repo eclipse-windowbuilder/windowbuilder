@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -83,7 +83,7 @@ public abstract class Command {
 			m_stringBuffer.append(name);
 			m_stringBuffer.append("=\"");
 			//
-			value = StringEscapeUtils.escapeXml(value);
+			value = StringEscapeUtils.escapeXml10(value);
 			{
 				StringBuilder escaped = new StringBuilder();
 				for (int i = 0; i < value.length(); i++) {

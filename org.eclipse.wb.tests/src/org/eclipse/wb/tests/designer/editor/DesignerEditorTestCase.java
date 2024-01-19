@@ -60,7 +60,7 @@ import org.eclipse.ui.ide.IDE;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;
 import org.junit.Before;
 

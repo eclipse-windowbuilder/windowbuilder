@@ -28,5 +28,6 @@ Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.swing.databinding
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.io,
- org.apache.commons.lang,
- org.apache.commons.lang.math
+ org.apache.commons.lang3,
+ org.apache.commons.lang3.math,
+ org.apache.commons.text;version="[1.11.0,2.0.0)"

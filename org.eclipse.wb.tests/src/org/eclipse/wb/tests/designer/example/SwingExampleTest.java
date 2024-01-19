@@ -14,7 +14,7 @@ import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

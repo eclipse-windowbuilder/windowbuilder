@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 
 import org.eclipse.jdt.core.dom.Expression;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementation of {@link CreationSupport} for creating {@link ViewerColumnInfo} during creating

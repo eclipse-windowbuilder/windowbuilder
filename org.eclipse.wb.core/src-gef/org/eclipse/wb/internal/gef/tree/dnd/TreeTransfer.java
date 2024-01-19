@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.gef.tree.dnd;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.TransferData;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Implementation of {@link ByteArrayTransfer} for tree elements.

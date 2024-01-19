@@ -21,8 +21,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBea
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.AbstractViewerInputBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.ViewerObservableInfo;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collections;

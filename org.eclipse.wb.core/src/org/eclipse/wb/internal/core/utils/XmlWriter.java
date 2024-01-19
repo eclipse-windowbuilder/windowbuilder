@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.utils;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -169,7 +169,7 @@ public final class XmlWriter {
 		if (attrValue == null) {
 			attrValue = "";
 		}
-		attrValue = StringEscapeUtils.escapeXml(attrValue);
+		attrValue = StringEscapeUtils.escapeXml10(attrValue);
 		{
 			StringBuilder escaped = new StringBuilder();
 			for (int i = 0; i < attrValue.length(); i++) {
@@ -249,7 +249,7 @@ public final class XmlWriter {
 				throw new IllegalStateException("Current tag already have the value written.");
 			}
 			String valueToWrite = tagValue != null ? tagValue : "";
-			m_printWriter.print(StringEscapeUtils.escapeXml(valueToWrite));
+			m_printWriter.print(StringEscapeUtils.escapeXml10(valueToWrite));
 			addState(currentTag, TAG_STATE_HAS_VALUE);
 		} else {
 			throw new IllegalStateException("Can't write tag value when currently no tag open for writing tag value.");

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.creation;
 
 import org.eclipse.wb.core.model.JavaInfo;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Provides for {@link CreationSupport} delete/reorder/reparent permissions.

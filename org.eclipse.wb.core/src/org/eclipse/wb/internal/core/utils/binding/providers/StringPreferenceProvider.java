@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.binding.providers;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * @author lobas_av

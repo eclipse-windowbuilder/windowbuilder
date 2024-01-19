@@ -20,7 +20,7 @@ Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.swing.MigLayout
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
- org.apache.commons.lang,
+ org.apache.commons.lang3,
  org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts,

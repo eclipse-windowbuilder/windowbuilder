@@ -102,7 +102,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.apache.commons.lang"
+         id="org.apache.commons.lang3"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -148,6 +148,10 @@
 
    <plugin
          id="com.sun.xml.bind.jaxb-osgi"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.commons.text"
          version="0.0.0"/>
 
 </feature>

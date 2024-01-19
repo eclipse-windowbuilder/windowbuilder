@@ -28,8 +28,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.exception.NestableError;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -240,7 +238,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 			try {
 				return m_layoutImpl.getAnchorActions().getImageVertical(m_widget, m_side);
 			} catch (Throwable e) {
-				throw new NestableError(e);
+				throw new Error(e);
 			}
 		}
 

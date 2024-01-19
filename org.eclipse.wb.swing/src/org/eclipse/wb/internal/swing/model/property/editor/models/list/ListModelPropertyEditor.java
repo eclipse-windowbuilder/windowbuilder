@@ -23,8 +23,8 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jface.window.Window;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

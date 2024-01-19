@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.model.property.editor.style.actions.RadioSty
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * This class represent "enum" property implementation.

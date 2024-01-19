@@ -46,7 +46,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -926,7 +926,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 
 	@Override
 	public void setSelection(ISelection selection) {
-		throw new NotImplementedException(PropertyTable.class);
+		throw new NotImplementedException(PropertyTable.class.getName());
 	}
 
 	/**

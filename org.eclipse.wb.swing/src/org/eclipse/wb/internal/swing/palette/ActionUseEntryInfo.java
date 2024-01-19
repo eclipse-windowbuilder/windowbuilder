@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;

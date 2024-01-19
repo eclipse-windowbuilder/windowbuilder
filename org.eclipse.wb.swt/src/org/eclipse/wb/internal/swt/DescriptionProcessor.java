@@ -30,8 +30,8 @@ import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.beans.BeanInfo;
 import java.lang.reflect.Constructor;

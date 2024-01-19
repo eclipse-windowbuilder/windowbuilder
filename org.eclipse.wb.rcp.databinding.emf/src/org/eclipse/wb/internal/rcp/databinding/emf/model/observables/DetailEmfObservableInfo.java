@@ -28,8 +28,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentPro
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ChooseClassAndTreePropertiesUiContentProvider;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ObservableDetailUiContentProvider;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Description for single parameter of {@link MethodDescription}.

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * The key for caching {@link ComponentDescription}.

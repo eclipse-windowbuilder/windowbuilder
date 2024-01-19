@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.beans.PropertyDescriptor;
 

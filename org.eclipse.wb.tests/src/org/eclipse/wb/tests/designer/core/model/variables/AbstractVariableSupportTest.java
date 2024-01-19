@@ -18,7 +18,7 @@ import net.bytebuddy.ByteBuddy;
 
 import static org.mockito.Mockito.mock;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.junit.Test;
 
 import java.util.ArrayList;

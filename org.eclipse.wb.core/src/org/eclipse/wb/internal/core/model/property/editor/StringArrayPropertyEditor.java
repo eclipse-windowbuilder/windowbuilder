@@ -17,8 +17,8 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.StringsDialog;
 
 import org.eclipse.jface.window.Window;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link PropertyEditor} for array of {@link String}'s.

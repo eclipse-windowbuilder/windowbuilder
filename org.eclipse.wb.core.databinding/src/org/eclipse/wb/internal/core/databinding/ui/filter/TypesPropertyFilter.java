@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Filter for {@link IObserveInfo} properties over {@link Class} type.

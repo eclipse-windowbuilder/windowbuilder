@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.Statement;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.text.StrSubstitutor;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringSubstitutor;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -222,7 +222,7 @@ public final class TemplateUtils {
 			Map<String, String> templateVariables) throws Exception {
 		// replace template variables
 		if (templateVariables != null) {
-			source = StrSubstitutor.replace(source, templateVariables);
+			source = StringSubstitutor.replace(source, templateVariables);
 		}
 		// replace template expressions
 		while (true) {
