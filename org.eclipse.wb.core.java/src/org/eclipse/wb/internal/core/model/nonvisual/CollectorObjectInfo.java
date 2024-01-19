@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;

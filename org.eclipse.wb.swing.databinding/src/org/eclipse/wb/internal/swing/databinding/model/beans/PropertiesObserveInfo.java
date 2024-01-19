@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.databinding.ui.contentproviders.PropertiesU
 
 import org.eclipse.jface.viewers.IDecoration;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 

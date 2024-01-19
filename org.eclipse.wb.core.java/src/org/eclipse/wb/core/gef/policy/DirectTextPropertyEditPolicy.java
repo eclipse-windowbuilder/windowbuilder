@@ -35,7 +35,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link EditPolicy} that support direct editing for text {@link Property}.

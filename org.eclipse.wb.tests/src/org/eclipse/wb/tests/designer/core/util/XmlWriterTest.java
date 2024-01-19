@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -139,7 +139,7 @@ public class XmlWriterTest extends DesignerTestCase {
 		writer.close();
 		assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 				+ lineSeparator
-				+ "<tag attr=\"abc&#10;&#1040;&lt;&gt;&apos;&amp;\"/>"
+				+ "<tag attr=\"abc&#10;А&lt;&gt;&apos;&amp;\"/>"
 				+ lineSeparator, stringWriter.toString());
 	}
 

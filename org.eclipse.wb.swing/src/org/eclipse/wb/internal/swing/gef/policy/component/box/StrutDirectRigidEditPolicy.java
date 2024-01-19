@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.property.converter.DimensionConverter
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementation of {@link DirectTextEditPolicy} for {@link BoxRigidAreaEditPart} that allows to

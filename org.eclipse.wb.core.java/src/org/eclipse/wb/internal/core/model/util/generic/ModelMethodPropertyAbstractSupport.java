@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.List;

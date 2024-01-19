@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Specific sub-class of {@link EmptyVariableSupport} that adds new {@link JavaInfo} using just

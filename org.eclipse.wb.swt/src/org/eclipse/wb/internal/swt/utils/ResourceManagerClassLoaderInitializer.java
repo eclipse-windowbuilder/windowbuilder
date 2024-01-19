@@ -29,7 +29,7 @@ import net.bytebuddy.implementation.InvocationHandlerAdapter;
 import net.bytebuddy.matcher.ElementMatchers;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Method;

@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.AbstractViewe
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.ViewerInputBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.CheckedElementsObservableInfo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.List;

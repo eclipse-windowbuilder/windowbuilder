@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Layout assistant for {@link java.awt.GridBagConstraints}.

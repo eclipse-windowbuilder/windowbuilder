@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.xml;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Node for text inside of some XML element.

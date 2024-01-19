@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.model;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Model for objects with generic parameters.

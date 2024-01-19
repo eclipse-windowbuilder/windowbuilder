@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.Shell;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
 

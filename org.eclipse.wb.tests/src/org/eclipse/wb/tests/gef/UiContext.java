@@ -35,9 +35,8 @@ import org.eclipse.swt.widgets.Widget;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.NestableException;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -672,7 +671,7 @@ public class UiContext {
 			if (checkException[0] instanceof AssertionFailedError error) {
 				throw error;
 			}
-			throw new NestableException("Exception during running 'check' UIRunnable.", checkException[0]);
+			throw new Exception("Exception during running 'check' UIRunnable.", checkException[0]);
 		}
 	}
 

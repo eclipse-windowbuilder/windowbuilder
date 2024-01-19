@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;

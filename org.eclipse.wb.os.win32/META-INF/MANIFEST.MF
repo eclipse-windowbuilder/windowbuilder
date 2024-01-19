@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.os.win32;singleton:=true
-Bundle-Version: 1.9.3.qualifier
+Bundle-Version: 1.9.400.qualifier
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.core.runtime,
@@ -11,6 +11,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32))
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Import-Package: org.apache.commons.lang,
+Import-Package: org.apache.commons.lang3,
  org.eclipse.wb.os
 Automatic-Module-Name: org.eclipse.wb.os.win32

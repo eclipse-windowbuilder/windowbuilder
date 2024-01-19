@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.io.InputStream;

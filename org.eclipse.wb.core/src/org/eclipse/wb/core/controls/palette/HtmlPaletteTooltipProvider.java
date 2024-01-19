@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * Standard palette tooltip: bold header and multi line details.
@@ -37,7 +37,7 @@ public final class HtmlPaletteTooltipProvider implements ICustomTooltipProvider 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public HtmlPaletteTooltipProvider(String header, String details) {
-		m_header = StringEscapeUtils.escapeHtml(header);
+		m_header = StringEscapeUtils.escapeHtml4(header);
 		m_details = details;
 	}
 

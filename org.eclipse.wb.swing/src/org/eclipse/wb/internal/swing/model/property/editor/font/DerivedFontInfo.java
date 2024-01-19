@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.font;
 
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Font;
 import java.text.MessageFormat;

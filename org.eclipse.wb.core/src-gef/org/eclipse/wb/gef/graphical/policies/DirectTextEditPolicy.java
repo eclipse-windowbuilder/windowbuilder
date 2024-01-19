@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link GraphicalEditPolicy} that supports direct edit for some {@link String} using {@link Text}

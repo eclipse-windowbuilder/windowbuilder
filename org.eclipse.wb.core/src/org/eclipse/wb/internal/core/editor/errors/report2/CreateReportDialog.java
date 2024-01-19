@@ -49,7 +49,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;

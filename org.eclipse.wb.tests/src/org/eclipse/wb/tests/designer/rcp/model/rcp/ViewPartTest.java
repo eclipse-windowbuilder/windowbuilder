@@ -30,7 +30,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.part.ViewPart;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;

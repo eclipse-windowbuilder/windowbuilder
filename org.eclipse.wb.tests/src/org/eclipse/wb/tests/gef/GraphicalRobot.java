@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Text;
 
 import junit.framework.Assert;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 

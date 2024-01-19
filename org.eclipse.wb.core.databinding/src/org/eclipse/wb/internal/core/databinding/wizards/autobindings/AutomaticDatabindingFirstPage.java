@@ -25,8 +25,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

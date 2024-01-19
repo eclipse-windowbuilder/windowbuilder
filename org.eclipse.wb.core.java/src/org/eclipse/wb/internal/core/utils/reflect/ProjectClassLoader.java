@@ -25,7 +25,7 @@ import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.objectweb.asm.ClassReader;
 
 import java.io.File;

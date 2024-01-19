@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.font.NullFontInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.font.UiManagerFontInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;

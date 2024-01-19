@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.util.Calendar;
 import java.util.Date;

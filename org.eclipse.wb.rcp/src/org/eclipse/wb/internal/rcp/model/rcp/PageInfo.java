@@ -21,7 +21,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.ui.part.Page;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

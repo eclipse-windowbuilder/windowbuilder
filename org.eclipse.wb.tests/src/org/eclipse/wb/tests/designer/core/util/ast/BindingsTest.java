@@ -37,7 +37,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Implementation of {@link AbstractFontPage} for constructing {@link Font} using family, style and

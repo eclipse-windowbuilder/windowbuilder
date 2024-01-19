@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.designer.core.eval.other;
 
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

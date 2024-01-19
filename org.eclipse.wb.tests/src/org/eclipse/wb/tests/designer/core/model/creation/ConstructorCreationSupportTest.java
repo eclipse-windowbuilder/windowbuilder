@@ -43,7 +43,7 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;

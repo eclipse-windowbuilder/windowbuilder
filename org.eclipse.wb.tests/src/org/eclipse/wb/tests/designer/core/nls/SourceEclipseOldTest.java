@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 

@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaModelException;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.osgi.framework.Bundle;
 

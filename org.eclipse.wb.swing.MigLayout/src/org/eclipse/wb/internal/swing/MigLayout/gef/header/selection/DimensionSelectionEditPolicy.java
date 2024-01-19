@@ -41,7 +41,7 @@ import org.eclipse.gef.commands.Command;
 
 import net.miginfocom.layout.UnitValue;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

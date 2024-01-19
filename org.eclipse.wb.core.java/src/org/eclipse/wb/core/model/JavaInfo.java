@@ -87,7 +87,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

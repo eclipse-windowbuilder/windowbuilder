@@ -37,8 +37,6 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import org.apache.commons.lang.exception.NestableError;
-
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -280,12 +278,12 @@ LafSupport.ILookAndFeelsChangeListener {
 	/**
 	 * Handles the possibly thrown {@link Throwable} during refresh.
 	 */
-	private void handleException(Throwable ex) throws NestableError {
+	private void handleException(Throwable ex) throws Error {
 		IDesignPageSite site = IDesignPageSite.Helper.getSite(m_componentInfo);
 		if (site != null) {
 			site.handleException(ex);
 		} else {
-			throw new NestableError(MessageFormat.format(
+			throw new Error(MessageFormat.format(
 					ModelMessages.LafSelectionItem_noDesignPage,
 					m_componentInfo), ex);
 		}

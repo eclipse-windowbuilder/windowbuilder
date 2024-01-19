@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenConte
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 

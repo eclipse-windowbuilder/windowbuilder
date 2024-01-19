@@ -53,7 +53,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Menu;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -586,7 +586,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 	 * @return default object used for "virtual" {@link LayoutDataInfo}.
 	 */
 	protected Object getDefaultVirtualDataObject() throws Exception {
-		throw new NotImplementedException(getClass());
+		throw new NotImplementedException(getClass().getName());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

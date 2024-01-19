@@ -28,7 +28,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Model for {@link FieldLayoutPreferencePage}.

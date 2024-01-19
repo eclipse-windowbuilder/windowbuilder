@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.awt.Component;
 import java.beans.BeanDescriptor;

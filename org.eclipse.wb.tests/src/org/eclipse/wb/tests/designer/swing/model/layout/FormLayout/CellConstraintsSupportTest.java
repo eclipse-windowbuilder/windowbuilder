@@ -25,7 +25,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

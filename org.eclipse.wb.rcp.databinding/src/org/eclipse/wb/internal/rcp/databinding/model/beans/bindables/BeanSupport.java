@@ -35,7 +35,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;

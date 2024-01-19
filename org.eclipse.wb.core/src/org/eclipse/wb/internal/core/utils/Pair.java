@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Pair of two objects.

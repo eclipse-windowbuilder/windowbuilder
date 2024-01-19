@@ -21,7 +21,8 @@ import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -1892,7 +1893,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		Map<String, PropertyDescriptor> descriptors = getPropertyDescriptorNames(SpecificClass.class);
 		// check "foo(java.lang.Object)"
 		PropertyDescriptor propertyDescriptor;
-		if (SystemUtils.JAVA_VERSION_FLOAT < 1.7f) {
+		if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_6)) {
 			propertyDescriptor = descriptors.get("foo(java.lang.Object)");
 		} else {
 			propertyDescriptor = descriptors.get("foo");

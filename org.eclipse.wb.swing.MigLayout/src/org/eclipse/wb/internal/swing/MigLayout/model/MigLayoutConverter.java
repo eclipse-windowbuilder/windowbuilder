@@ -23,7 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.HashSet;
 import java.util.List;

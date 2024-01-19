@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.swing.databinding.model.generic.GenericUtils;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

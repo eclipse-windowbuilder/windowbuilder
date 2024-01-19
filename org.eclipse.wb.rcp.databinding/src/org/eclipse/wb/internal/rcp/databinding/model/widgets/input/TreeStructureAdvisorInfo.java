@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.SimpleClassObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.SimpleClassUiContentProvider;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 

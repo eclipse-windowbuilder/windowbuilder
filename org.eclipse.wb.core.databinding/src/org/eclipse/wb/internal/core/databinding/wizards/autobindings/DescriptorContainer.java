@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

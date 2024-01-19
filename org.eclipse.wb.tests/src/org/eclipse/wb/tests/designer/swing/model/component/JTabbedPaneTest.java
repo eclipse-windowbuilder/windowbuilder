@@ -32,7 +32,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

@@ -23,7 +23,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 

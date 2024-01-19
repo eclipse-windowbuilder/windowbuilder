@@ -37,7 +37,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;

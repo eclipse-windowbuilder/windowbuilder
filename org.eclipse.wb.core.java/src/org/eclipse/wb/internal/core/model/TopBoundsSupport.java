@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementations of this class support different modes for size of top level

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.utils.binding.editors;
 import org.eclipse.wb.internal.core.utils.binding.IDataEditor;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * @author lobas_av

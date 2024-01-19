@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Text;
 
 import net.miginfocom.layout.UnitValue;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
 

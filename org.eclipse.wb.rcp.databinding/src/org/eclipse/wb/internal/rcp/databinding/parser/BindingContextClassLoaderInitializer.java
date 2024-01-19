@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;

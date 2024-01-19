@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

@@ -40,8 +40,8 @@ import org.eclipse.swt.widgets.Display;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;

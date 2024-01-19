@@ -42,8 +42,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import java.awt.GridBagConstraints;
 import java.util.List;

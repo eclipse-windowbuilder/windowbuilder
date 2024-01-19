@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;

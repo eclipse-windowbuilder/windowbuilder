@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.ToolkitProvider;
 
 import org.eclipse.swt.widgets.Composite;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * General wizard page for RCP wizard's.

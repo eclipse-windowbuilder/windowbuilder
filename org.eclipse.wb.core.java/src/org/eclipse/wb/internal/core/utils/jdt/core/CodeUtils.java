@@ -53,7 +53,7 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.osgi.service.resolver.BundleDescription;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;

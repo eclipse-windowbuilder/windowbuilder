@@ -35,8 +35,8 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

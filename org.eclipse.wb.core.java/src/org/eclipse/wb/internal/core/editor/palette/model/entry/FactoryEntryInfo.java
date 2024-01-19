@@ -29,7 +29,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Abstract {@link EntryInfo} for static/instance "factory-method" contribution.

@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Interval;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

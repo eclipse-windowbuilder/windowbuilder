@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.xml.parser.QHandlerAdapter;
 import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;

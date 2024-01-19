@@ -29,7 +29,7 @@ import org.eclipse.jdt.core.dom.Comment;
 import org.eclipse.jdt.core.dom.LineComment;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

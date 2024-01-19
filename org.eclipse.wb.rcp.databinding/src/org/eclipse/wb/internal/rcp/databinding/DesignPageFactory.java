@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IImportDeclaration;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,9 +17,9 @@ import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.text.StrSubstitutor;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringSubstitutor;
 
 import java.util.Map;
 
@@ -102,7 +102,7 @@ public abstract class SyncParentChildVariableNameSupport<T extends JavaInfo> {
 			return null;
 		}
 		// use template
-		return StrSubstitutor.replace(template, getValueMap());
+		return StringSubstitutor.replace(template, getValueMap());
 	}
 
 	/**

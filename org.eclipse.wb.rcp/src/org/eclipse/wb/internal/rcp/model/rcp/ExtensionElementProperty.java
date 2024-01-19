@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.pde.core.plugin.IPluginElement;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.function.Function;
 

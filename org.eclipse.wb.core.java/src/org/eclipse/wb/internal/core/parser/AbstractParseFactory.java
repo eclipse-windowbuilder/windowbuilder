@@ -77,7 +77,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mvel2.MVEL;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;

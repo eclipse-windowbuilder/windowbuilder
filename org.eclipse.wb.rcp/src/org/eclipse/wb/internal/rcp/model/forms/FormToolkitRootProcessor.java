@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
 
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

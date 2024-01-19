@@ -88,7 +88,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;

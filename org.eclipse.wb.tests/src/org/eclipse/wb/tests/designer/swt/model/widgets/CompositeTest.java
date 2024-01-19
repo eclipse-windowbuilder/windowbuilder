@@ -60,7 +60,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

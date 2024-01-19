@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.utils.xml;
 import org.eclipse.wb.internal.core.utils.xml.parser.QAttribute;
 import org.eclipse.wb.internal.core.utils.xml.parser.QHandlerAdapter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;

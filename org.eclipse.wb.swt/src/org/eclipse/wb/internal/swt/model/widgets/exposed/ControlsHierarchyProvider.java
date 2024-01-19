@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.MenuSupport;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * {@link HierarchyProvider} for SWT controls.

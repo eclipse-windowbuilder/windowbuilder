@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.List;
 

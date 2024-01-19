@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.direct.DirectObservab
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.viewers.IDecoration;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

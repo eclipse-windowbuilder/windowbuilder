@@ -34,7 +34,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * {@link EditPart} for {@link RowInfo} header of {@link AbstractGridBagLayoutInfo}.

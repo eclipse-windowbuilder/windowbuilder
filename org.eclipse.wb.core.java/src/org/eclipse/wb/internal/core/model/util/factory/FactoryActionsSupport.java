@@ -29,8 +29,8 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.Separator;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 import java.util.List;

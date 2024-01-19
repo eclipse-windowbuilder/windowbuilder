@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.category;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Describes category of {@link Property}.

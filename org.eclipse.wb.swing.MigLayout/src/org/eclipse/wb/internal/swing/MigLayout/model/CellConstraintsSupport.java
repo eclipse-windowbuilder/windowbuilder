@@ -44,7 +44,7 @@ import net.miginfocom.layout.DimConstraint;
 import net.miginfocom.layout.IDEUtil;
 import net.miginfocom.swing.MigLayout;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Component;
 import java.awt.Container;

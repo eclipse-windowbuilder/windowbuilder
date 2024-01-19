@@ -37,8 +37,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

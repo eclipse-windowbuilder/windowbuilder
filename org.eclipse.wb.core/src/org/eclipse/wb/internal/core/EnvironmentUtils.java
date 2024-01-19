@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,9 +12,10 @@ package org.eclipse.wb.internal.core;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 
+import java.lang.Runtime.Version;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Locale;
@@ -140,7 +141,13 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 		if (m_forcedJavaVersion != null) {
 			return m_forcedJavaVersion;
 		}
-		return SystemUtils.JAVA_VERSION_FLOAT;
+		Version version = Runtime.version();
+		String versionString = String.format("%d.%d%d%d", //
+				version.feature(), //
+				version.interim(), //
+				version.update(), //
+				version.patch());
+		return Float.valueOf(versionString);
 	}
 
 	/**

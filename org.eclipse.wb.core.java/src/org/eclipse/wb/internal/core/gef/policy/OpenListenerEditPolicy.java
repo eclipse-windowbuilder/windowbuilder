@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link EditPolicy} which adds listener code by handling "Open" request (double-clicking on its

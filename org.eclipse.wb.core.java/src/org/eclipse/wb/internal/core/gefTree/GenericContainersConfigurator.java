@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainerFactory;
 import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

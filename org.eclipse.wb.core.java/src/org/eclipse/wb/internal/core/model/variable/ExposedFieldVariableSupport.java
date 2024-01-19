@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.Statement;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 

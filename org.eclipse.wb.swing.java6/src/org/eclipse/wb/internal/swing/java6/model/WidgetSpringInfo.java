@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.java6.model;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.GroupLayout.Alignment;
 

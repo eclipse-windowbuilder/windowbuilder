@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
 import org.eclipse.jface.action.Separator;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import java.util.ArrayList;
 import java.util.List;

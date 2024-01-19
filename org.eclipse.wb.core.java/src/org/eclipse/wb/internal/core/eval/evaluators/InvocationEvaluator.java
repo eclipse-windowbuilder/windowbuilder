@@ -49,8 +49,8 @@ import net.bytebuddy.implementation.Implementation;
 import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

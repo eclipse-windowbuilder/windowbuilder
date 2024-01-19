@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.configurable.StringsAddProper
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 /**

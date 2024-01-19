@@ -49,7 +49,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

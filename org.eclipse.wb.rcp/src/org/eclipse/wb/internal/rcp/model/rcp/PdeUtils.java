@@ -46,8 +46,8 @@ import org.eclipse.pde.internal.ui.util.PDEModelUtility;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.part.EditorPart;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;

@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;

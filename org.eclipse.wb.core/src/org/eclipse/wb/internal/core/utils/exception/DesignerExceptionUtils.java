@@ -44,9 +44,9 @@ import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.apache.commons.collections4.map.AbstractReferenceMap.ReferenceStrength;
 import org.apache.commons.collections4.map.ReferenceMap;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.osgi.framework.Bundle;
 
 import java.io.InputStream;
@@ -85,20 +85,20 @@ public final class DesignerExceptionUtils {
 			// for DesignerException get description
 			if (rootException instanceof DesignerException designerException) {
 				String description = getErrorEntry(designerException).getDescription();
-				html += StringEscapeUtils.escapeHtml(description);
+				html += StringEscapeUtils.escapeHtml4(description);
 			}
 			// add stack trace
 			{
 				html += Messages.DesignerExceptionUtils_stackTraceLabel;
 				html += "<pre>";
-				html += StringEscapeUtils.escapeHtml(ExceptionUtils.getStackTrace(rootException));
+				html += StringEscapeUtils.escapeHtml4(ExceptionUtils.getStackTrace(rootException));
 				html += "</pre>";
 			}
 			// add full stack trace
 			{
 				html += Messages.DesignerExceptionUtils_fullStackTraceLabel;
 				html += "<pre>";
-				html += StringEscapeUtils.escapeHtml(ExceptionUtils.getStackTrace(e));
+				html += StringEscapeUtils.escapeHtml4(ExceptionUtils.getStackTrace(e));
 				html += "</pre>";
 			}
 		} else {
@@ -146,7 +146,7 @@ public final class DesignerExceptionUtils {
 
 	private static String includeStackTrace(String html, String searchString, Throwable e) {
 		String stackTrace = ExceptionUtils.getStackTrace(e);
-		String stackTraceEscaped = StringEscapeUtils.escapeHtml(stackTrace);
+		String stackTraceEscaped = StringEscapeUtils.escapeHtml4(stackTrace);
 		return StringUtils.replace(html, searchString, stackTraceEscaped);
 	}
 
@@ -412,7 +412,7 @@ public final class DesignerExceptionUtils {
 	}
 
 	private static String includeExceptionParameter(String html, String searchString, String message) {
-		String messageEscaped = StringEscapeUtils.escapeHtml(message);
+		String messageEscaped = StringEscapeUtils.escapeHtml4(message);
 		return StringUtils.replace(html, searchString, messageEscaped);
 	}
 

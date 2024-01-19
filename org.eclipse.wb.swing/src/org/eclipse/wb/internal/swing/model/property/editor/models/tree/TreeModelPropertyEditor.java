@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModel
 
 import org.eclipse.jface.window.Window;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

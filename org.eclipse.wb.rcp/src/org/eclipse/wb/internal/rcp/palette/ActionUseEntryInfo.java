@@ -22,7 +22,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Implementation of {@link EntryInfo} that is contributed to palette for each {@link IAction}

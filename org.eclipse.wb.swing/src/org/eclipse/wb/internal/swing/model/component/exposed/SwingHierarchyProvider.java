@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.model.component.exposed;
 
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.HierarchyProvider;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.Component;
 import java.awt.Container;

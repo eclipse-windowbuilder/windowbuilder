@@ -43,7 +43,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;

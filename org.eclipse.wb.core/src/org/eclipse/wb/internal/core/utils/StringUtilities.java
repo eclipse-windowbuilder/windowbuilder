@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Locale;
 
@@ -320,10 +320,7 @@ public class StringUtilities {
 	 * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.)
 	 */
 	public static String escapeJava(String s) {
-		String escaped = StringEscapeUtils.escapeJava(s);
-		// TODO remove after fix https://issues.apache.org/jira/browse/LANG-421  (probably in version 3.0)
-		escaped = StringUtils.replace(escaped, "\\/", "/");
-		return escaped;
+		return StringEscapeUtils.escapeJava(s);
 	}
 
 	/**

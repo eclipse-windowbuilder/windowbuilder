@@ -81,7 +81,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

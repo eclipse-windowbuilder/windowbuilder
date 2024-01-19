@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mvel2.MVEL;
 import org.mvel2.ParserContext;
 

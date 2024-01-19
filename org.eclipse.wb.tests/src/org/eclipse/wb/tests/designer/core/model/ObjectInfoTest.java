@@ -26,7 +26,7 @@ import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.InOrder;

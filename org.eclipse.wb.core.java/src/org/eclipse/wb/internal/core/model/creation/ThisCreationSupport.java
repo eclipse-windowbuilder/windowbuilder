@@ -75,8 +75,8 @@ import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import net.bytebuddy.implementation.bind.annotation.This;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

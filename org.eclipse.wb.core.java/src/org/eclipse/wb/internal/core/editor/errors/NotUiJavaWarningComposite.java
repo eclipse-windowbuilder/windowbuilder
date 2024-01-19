@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * {@link JavaWarningComposite} for {@link ICoreExceptionConstants#PARSER_NOT_GUI}.

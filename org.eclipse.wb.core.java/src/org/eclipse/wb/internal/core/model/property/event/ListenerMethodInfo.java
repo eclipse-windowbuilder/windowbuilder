@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;

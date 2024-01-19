@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

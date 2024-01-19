@@ -16,6 +16,6 @@ Bundle-Activator: org.eclipse.wb.internal.os.linux.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Import-Package: org.apache.commons.io,
- org.apache.commons.lang,
+ org.apache.commons.lang3,
  org.eclipse.wb.os
 Automatic-Module-Name: org.eclipse.wb.os.linux

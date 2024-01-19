@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IExecutableExtensionFactory;
 import org.eclipse.jface.preference.PreferencePage;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Constructor;
 

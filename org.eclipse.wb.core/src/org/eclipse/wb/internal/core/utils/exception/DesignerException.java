@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.exception;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Exception class that should be used each time when Designer wants to throw "expected" exception,

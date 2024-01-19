@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Reader;
 import java.util.List;

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.CheckedElementsUiContentProvider;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.text.MessageFormat;
 import java.util.List;

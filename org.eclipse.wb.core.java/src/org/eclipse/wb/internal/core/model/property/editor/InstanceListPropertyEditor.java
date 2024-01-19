@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.util.Map;
 

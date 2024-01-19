@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.designer.tests;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;

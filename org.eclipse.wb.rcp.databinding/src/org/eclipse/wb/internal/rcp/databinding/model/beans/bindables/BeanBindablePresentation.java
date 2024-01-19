@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvid
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * Presentation for {@link BeanBindableInfo} models.

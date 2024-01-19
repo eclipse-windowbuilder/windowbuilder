@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.java6.model;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Base class for all GroupLayout elements.

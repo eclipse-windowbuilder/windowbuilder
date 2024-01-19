@@ -29,8 +29,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetBin
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ChooseClassAndTreePropertiesUiContentProvider2;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

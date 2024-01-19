@@ -44,7 +44,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.text.MessageFormat;
 import java.util.List;

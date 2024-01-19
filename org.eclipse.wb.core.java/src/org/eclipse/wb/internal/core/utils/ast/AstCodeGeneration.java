@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.formatter.DefaultCodeFormatterConstants;
 import org.eclipse.jface.text.Document;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.Set;

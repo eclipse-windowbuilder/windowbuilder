@@ -103,7 +103,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Constructor;

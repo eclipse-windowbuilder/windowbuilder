@@ -23,7 +23,7 @@ import net.miginfocom.layout.IDEUtil;
 import net.miginfocom.layout.UnitValue;
 import net.miginfocom.swing.MigLayout;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.List;

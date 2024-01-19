@@ -12,7 +12,7 @@ package org.eclipse.wb.core.editor.palette.model;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

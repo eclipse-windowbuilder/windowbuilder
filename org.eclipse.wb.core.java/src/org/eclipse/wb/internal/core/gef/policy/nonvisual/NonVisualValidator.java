@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

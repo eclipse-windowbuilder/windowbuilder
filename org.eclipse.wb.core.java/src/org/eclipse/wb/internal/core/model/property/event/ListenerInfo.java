@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

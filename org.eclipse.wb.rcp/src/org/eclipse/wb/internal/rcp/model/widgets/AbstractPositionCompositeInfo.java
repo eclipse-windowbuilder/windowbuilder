@@ -28,7 +28,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.widgets.Composite;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;

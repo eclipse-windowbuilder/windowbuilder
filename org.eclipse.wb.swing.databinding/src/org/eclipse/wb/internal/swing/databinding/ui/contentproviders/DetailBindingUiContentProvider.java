@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.DetailBindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

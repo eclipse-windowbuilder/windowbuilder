@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;

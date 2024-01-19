@@ -34,7 +34,7 @@ import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
