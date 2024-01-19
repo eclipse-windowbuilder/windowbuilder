@@ -59,12 +59,6 @@
 					<type>jar</type>
 				</dependency>
 				<dependency>
-					<groupId>org.apache.commons</groupId>
-					<artifactId>commons-digester3</artifactId>
-					<version>3.1</version>
-					<type>jar</type>
-				</dependency>
-				<dependency>
 					<groupId>org.burningwave</groupId>
 					<artifactId>core</artifactId>
 					<version>12.64.3</version>

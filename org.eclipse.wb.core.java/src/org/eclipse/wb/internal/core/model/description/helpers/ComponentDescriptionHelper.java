@@ -103,7 +103,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 
@@ -759,8 +758,8 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s for configuring {@link GenericPropertyDescription} on
-	 * stack.
+	 * Initializes the given {@link GenericPropertyDescription} with the values from
+	 * {@code property}.
 	 */
 	private static void addPropertyConfigurationRules(ComponentDescription componentDescription,
 			GenericPropertyDescription propertyDescription, PropertyConfigurationElements property, EditorState state)
@@ -799,7 +798,8 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s for adding {@link ConfigurablePropertyDescription}'s.
+	 * Initializes the given {@link ComponentDescription} with the values from
+	 * {@code component}.
 	 */
 	private static void addConfigurablePropertiesRules(ComponentDescription componentDescription, Component component)
 			throws Exception {
@@ -811,10 +811,11 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s for configuring {@link AbstractConfigurableDescription}.
+	 * Initializes the given {@link AbstractConfigurableDescription} with the values
+	 * from {code configurable}.
 	 */
 	private static void addConfigurableObjectParametersRules(AbstractConfigurableDescription configurableDescription,
-			org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType configurable) throws Exception {
+			ParameterBaseType configurable) throws Exception {
 		for (ParameterBaseType.Parameter parameter : configurable.getParameter()) {
 			acceptSafe(configurableDescription, parameter, new ConfigurableObjectParameterRule());
 		}
@@ -824,7 +825,8 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s for parsing {@link CreationDescription}'s.
+	 * Initializes the given {@link CreationDescription} with the values from {code
+	 * creation}.
 	 */
 	private static void addCreationRules(CreationDescription creationDescription, Creation creation) throws Exception {
 		// description
@@ -855,7 +857,8 @@ public final class ComponentDescriptionHelper {
 	}
 
 	/**
-	 * Adds {@link Rule}'s for parsing {@link ParameterDescription}'s.
+	 * Creates and adds a new {@link ParameterDescription} to the given
+	 * {@code methodDescription}, using the values from {@code parameter}.
 	 */
 	static void addParametersRules(AbstractInvocationDescription methodDescription, MethodParameter parameter,
 			EditorState state) throws Exception {
