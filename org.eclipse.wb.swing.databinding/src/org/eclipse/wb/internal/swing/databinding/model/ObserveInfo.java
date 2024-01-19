@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,8 +18,6 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
-
-import org.apache.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -138,9 +136,7 @@ public abstract class ObserveInfo implements IObserveInfo {
 		if (m_bindingDecorationCorner != 0) {
 			IObservePresentation presentation = getPresentation();
 			if (presentation instanceof IObservePresentationDecorator presentationDecorator) {
-				presentationDecorator.setBindingDecorator(CollectionUtils.isEmpty(m_bindings)
-						? 0
-								: m_bindingDecorationCorner);
+				presentationDecorator.setBindingDecorator(getBindings().isEmpty() ? 0 : m_bindingDecorationCorner);
 			}
 		}
 	}

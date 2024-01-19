@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
-import org.apache.commons.collections.map.ReferenceMap;
+import org.apache.commons.collections4.map.AbstractReferenceMap.ReferenceStrength;
+import org.apache.commons.collections4.map.ReferenceMap;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -198,8 +199,7 @@ public final class DesignerExceptionUtils {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@SuppressWarnings("unchecked")
-	private static Map<Throwable, Integer> m_exceptionPositions = new ReferenceMap(ReferenceMap.WEAK, ReferenceMap.HARD);
+	private static Map<Throwable, Integer> m_exceptionPositions = new ReferenceMap<>(ReferenceStrength.WEAK, ReferenceStrength.HARD);
 
 	/**
 	 * See {@link ExceptionUtils#getRootCause(Throwable)}, but returns {@link Throwable} itself if no

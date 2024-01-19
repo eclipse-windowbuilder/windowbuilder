@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.ui.texteditor.ChainedPreferenceStore;
 
-import org.apache.commons.collections.map.MultiKeyMap;
+import org.apache.commons.collections4.map.MultiKeyMap;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -68,7 +68,7 @@ public final class GenerationSettings {
 	private final Map<String, StatementGeneratorDescription> m_idToStatement = new TreeMap<>();
 	private final List<VariableSupportDescription> m_variables = new ArrayList<>();
 	private final Map<VariableSupportDescription, StatementGeneratorDescription[]> m_variableToStatements = new HashMap<>();
-	private final MultiKeyMap/* <variable + statement -> GenerationPreview> */ m_previewMap = new MultiKeyMap();
+	private final MultiKeyMap<Object, GenerationPreview> m_previewMap = new MultiKeyMap<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -331,7 +331,7 @@ public final class GenerationSettings {
 	 *         <code>null</code> if no preview registered for this combination.
 	 */
 	public GenerationPreview getPreview(VariableSupportDescription variable, StatementGeneratorDescription statement) {
-		return (GenerationPreview) m_previewMap.get(variable, statement);
+		return m_previewMap.get(variable, statement);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

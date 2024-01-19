@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,9 +25,9 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
-import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -298,10 +298,10 @@ public class TemplateUtilsTest extends SwingModelTest {
 		ComponentInfo label = panel.getChildrenComponents().get(0);
 		ComponentInfo button = panel.getChildrenComponents().get(1);
 		// good variables
-		BidiMap bidi = new DualHashBidiMap();
+		BidiMap<String, String> bidi = new DualHashBidiMap<>();
 		bidi.put("1", "foo");
 		bidi.put("2", "bar");
-		assertEquals("foo bar", evaluate("${1} ${2}", null, UnmodifiableBidiMap.decorate(bidi)));
+		assertEquals("foo bar", evaluate("${1} ${2}", null, UnmodifiableBidiMap.unmodifiableBidiMap(bidi)));
 		// good expressions
 		{
 			String expected = "a " + getExpression(button) + " b";

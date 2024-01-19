@@ -24,7 +24,7 @@
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-03"/>
 			<unit id="assertj-core" version="0.0.0"/>
-			<unit id="org.apache.commons.collections" version="0.0.0"/>
+			<unit id="org.apache.commons.commons-collections4" version="0.0.0"/>
 			<unit id="org.mockito.mockito-core" version="0.0.0"/>
 		</location>
 	</locations>

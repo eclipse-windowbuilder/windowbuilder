@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -185,12 +185,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 	public String performSubstitutions(String code, ImportsManager imports) throws Exception {
 		// prepare properties
 		final List<PropertyAdapter> properties = new ArrayList<>();
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
-			}
-		});
+		Display.getDefault().syncExec(() -> CollectionUtils.addAll(properties, (PropertyAdapter[]) m_propertiesViewer.getCheckedElements()));
 		//
 		if (m_firstPage.isCreateControlClass()) {
 			return ControllerSupport.automaticWizardPerformSubstitutions(

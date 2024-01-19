@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,9 +33,9 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
-import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 import java.util.List;
 
@@ -152,15 +152,15 @@ IColumnLayoutInfo<ControlInfo> {
 	// Manage general layout data.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final BidiMap m_horizontalAlignmentMap;
+	public static final BidiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap;
 	static {
-		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.HorizontalAlignment, Integer> horizontalAlignmentMap = new DualHashBidiMap<>();
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, ColumnLayoutData.LEFT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, ColumnLayoutData.CENTER);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, ColumnLayoutData.RIGHT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, ColumnLayoutData.FILL);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.NONE, 0);
-		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(horizontalAlignmentMap);
 	}
 
 	@Override

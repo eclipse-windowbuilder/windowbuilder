@@ -80,7 +80,9 @@ Export-Package: org.eclipse.wb.internal.swing,
  org.eclipse.wb.internal.swing.wizards.frame,
  org.eclipse.wb.internal.swing.wizards.panel,
  swingintegration.example
-Import-Package: org.apache.commons.io,
+Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
+ org.apache.commons.io,
  org.apache.commons.lang,
  org.apache.commons.lang.exception,
  org.apache.commons.lang.time,
@@ -96,8 +98,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.ui;visibility:=reexport,
  org.eclipse.wb.core.java;visibility:=reexport,
  org.eclipse.draw2d;bundle-version="3.13.0",
- org.eclipse.nebula.widgets.cdatetime;bundle-version="1.5.0",
- org.apache.commons.collections;bundle-version="3.2.2"
+ org.eclipse.nebula.widgets.cdatetime;bundle-version="1.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.swing

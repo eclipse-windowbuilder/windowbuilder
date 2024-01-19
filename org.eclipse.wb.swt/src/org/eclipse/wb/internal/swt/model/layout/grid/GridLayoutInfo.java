@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -52,9 +52,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
-import org.apache.commons.collections.bidimap.UnmodifiableBidiMap;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1324,23 +1324,23 @@ IGridLayoutInfo<ControlInfo> {
 	// Manage general layout data
 	//
 	////////////////////////////////////////////////////////////////////////////
-	static final BidiMap m_horizontalAlignmentMap;
+	static final BidiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap;
 	static {
-		BidiMap horizontalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.HorizontalAlignment, Integer> horizontalAlignmentMap = new DualHashBidiMap<>();
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.LEFT, SWT.LEFT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.CENTER, SWT.CENTER);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.RIGHT, SWT.RIGHT);
 		horizontalAlignmentMap.put(GeneralLayoutData.HorizontalAlignment.FILL, SWT.FILL);
-		m_horizontalAlignmentMap = UnmodifiableBidiMap.decorate(horizontalAlignmentMap);
+		m_horizontalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(horizontalAlignmentMap);
 	}
-	static final BidiMap m_verticalAlignmentMap;
+	static final BidiMap<GeneralLayoutData.VerticalAlignment, Integer> m_verticalAlignmentMap;
 	static {
-		BidiMap verticalAlignmentMap = new DualHashBidiMap();
+		BidiMap<GeneralLayoutData.VerticalAlignment, Integer> verticalAlignmentMap = new DualHashBidiMap<>();
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.TOP, SWT.TOP);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.CENTER, SWT.CENTER);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.BOTTOM, SWT.BOTTOM);
 		verticalAlignmentMap.put(GeneralLayoutData.VerticalAlignment.FILL, SWT.FILL);
-		m_verticalAlignmentMap = UnmodifiableBidiMap.decorate(verticalAlignmentMap);
+		m_verticalAlignmentMap = UnmodifiableBidiMap.unmodifiableBidiMap(verticalAlignmentMap);
 	}
 
 	@Override

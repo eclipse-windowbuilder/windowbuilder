@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.collections.map.MultiKeyMap;
+import org.apache.commons.collections4.map.MultiKeyMap;
 
 import java.beans.PropertyEditorManager;
 import java.util.ArrayList;
@@ -499,8 +499,7 @@ public final class EditorState {
 	// Static FactoryMethodDescription's cache
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final MultiKeyMap/*<Class,boolean,Map<String, FactoryMethodDescription>>*/m_staticSignatures =
-			new MultiKeyMap();
+	private final MultiKeyMap<Object, Map<String, FactoryMethodDescription>> m_staticSignatures = new MultiKeyMap<>();
 
 	/**
 	 * @return the cached map: signature -> {@link FactoryMethodDescription}.
@@ -508,10 +507,9 @@ public final class EditorState {
 	 * @param factoryClass
 	 *          the name of class that contains factory method
 	 */
-	@SuppressWarnings("unchecked")
 	public Map<String, FactoryMethodDescription> getFactorySignatures(Class<?> factoryClass,
 			boolean forStatic) {
-		return (Map<String, FactoryMethodDescription>) m_staticSignatures.get(factoryClass, forStatic);
+		return m_staticSignatures.get(factoryClass, forStatic);
 	}
 
 	/**
