@@ -12,10 +12,10 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;

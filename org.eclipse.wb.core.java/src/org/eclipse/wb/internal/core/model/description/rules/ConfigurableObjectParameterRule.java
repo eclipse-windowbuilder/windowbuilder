@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.core.databinding.xsd.component.ParameterBaseType;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.internal.AbstractConfigurableDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 /**
  * The {@link FailableBiConsumer} that sets value of

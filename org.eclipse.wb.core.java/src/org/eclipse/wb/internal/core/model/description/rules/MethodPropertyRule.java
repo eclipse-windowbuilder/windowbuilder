@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.MethodInvocationAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.MethodInvocationArgumentAccessor;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

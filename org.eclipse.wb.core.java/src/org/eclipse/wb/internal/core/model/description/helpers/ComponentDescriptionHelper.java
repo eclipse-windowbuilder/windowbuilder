@@ -53,19 +53,15 @@ import org.eclipse.wb.internal.core.model.description.resource.ClassResourceInfo
 import org.eclipse.wb.internal.core.model.description.resource.ResourceInfo;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectListParameterRule;
 import org.eclipse.wb.internal.core.model.description.rules.ConfigurableObjectParameterRule;
-import org.eclipse.wb.internal.core.model.description.rules.CreationTagRule;
-import org.eclipse.wb.internal.core.model.description.rules.CreationTypeParametersRule;
 import org.eclipse.wb.internal.core.model.description.rules.ExposingRulesRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderDefaultRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodOrderMethodsRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodPropertyRule;
-import org.eclipse.wb.internal.core.model.description.rules.MethodTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.MethodsOperationRule;
 import org.eclipse.wb.internal.core.model.description.rules.ModelClassRule;
 import org.eclipse.wb.internal.core.model.description.rules.MorphingNoInheritRule;
 import org.eclipse.wb.internal.core.model.description.rules.MorphingTargetRule;
-import org.eclipse.wb.internal.core.model.description.rules.ParameterTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyCategoryRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyDefaultRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyGetterRule;
@@ -104,6 +100,7 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Constructor;
@@ -581,7 +578,7 @@ public final class ComponentDescriptionHelper {
 					acceptSafe(methodDescription, method.getOrder(), MethodDescription::setOrderSpecification);
 					acceptSafe(methodDescription, method.isExecutable(), MethodDescription::setExecutable);
 					for (TagType tag : method.getTag()) {
-						acceptSafe(methodDescription, tag, new MethodTagRule());
+						methodDescription.putTag(tag.getName(), tag.getValue());
 					}
 					for (MethodParameter parameter : method.getParameter()) {
 						addParametersRules(methodDescription, parameter, state);
@@ -617,12 +614,10 @@ public final class ComponentDescriptionHelper {
 			for (PropertyTag propertyTag : component.getPropertyTag()) {
 				acceptSafe(componentDescription, propertyTag, new StandardBeanPropertyTagRule());
 			}
-			{
-				for (Component.MethodSingleProperty singleProperty : component.getMethodSingleProperty()) {
-					GenericPropertyDescription propertyDescription = getGenericPropertyDescription(componentDescription,
-							singleProperty);
-					addPropertyConfigurationRules(componentDescription, propertyDescription, singleProperty, state);
-				}
+			for (Component.MethodSingleProperty singleProperty : component.getMethodSingleProperty()) {
+				GenericPropertyDescription propertyDescription = getGenericPropertyDescription(componentDescription,
+						singleProperty);
+				addPropertyConfigurationRules(componentDescription, propertyDescription, singleProperty, state);
 			}
 			for (MethodProperty methodProperty : component.getMethodProperty()) {
 				acceptSafe(componentDescription, methodProperty, new MethodPropertyRule(editor.getJavaProject()));
@@ -643,12 +638,15 @@ public final class ComponentDescriptionHelper {
 						context);
 				addCreationRules(creationDescription, creation);
 				for (TagType tagType : creation.getTag()) {
-					acceptSafe(creationDescription, tagType, new CreationTagRule());
+					creationDescription.putTag(tagType.getName(), tagType.getValue());
 				}
 				TypeParametersType typeParameters = creation.getTypeParameters();
 				if (typeParameters != null) {
 					for (TypeParameterType typeParameter : typeParameters.getTypeParameter()) {
-						acceptSafe(creationDescription, typeParameter, new CreationTypeParametersRule());
+						String name = typeParameter.getName();
+						String type = typeParameter.getType();
+						String description = typeParameter.getTitle();
+						creationDescription.setTypeParameter(name, type, description);
 					}
 				}
 				componentDescription.addCreation(creationDescription);
@@ -659,7 +657,7 @@ public final class ComponentDescriptionHelper {
 						context);
 				addCreationRules(creationDescription, creationDefault);
 				for (TagType tagType : creationDefault.getTag()) {
-					acceptSafe(creationDescription, tagType, new CreationTagRule());
+					creationDescription.putTag(tagType.getName(), tagType.getValue());
 				}
 				componentDescription.setCreationDefault(creationDescription);
 			}
@@ -890,7 +888,7 @@ public final class ComponentDescriptionHelper {
 		}
 		// tags
 		for (TagType tag : parameter.getTag()) {
-			acceptSafe(parameterDescription, tag, new ParameterTagRule());
+			parameterDescription.putTag(tag.getName(), tag.getValue());
 		}
 	}
 
@@ -994,20 +992,11 @@ public final class ComponentDescriptionHelper {
 	 * order to better handle optional model parameters. Does nothing if
 	 * {@code model} is {@code null}.
 	 */
-	static <U, T> void acceptSafe(U description, T model, FailableBiConsumer<U, T, ?> consumer)
+	static <U, T> void acceptSafe(U description, T model, FailableBiConsumer<U, T, ? extends Exception> consumer)
 			throws Exception {
 		if (model == null) {
 			return;
 		}
 		consumer.accept(description, model);
-	}
-
-	@Deprecated
-	@FunctionalInterface
-	/**
-	 * @deprecated Going to be removed by Commons Lang3 FailableBiConsumer
-	 */
-	public static interface FailableBiConsumer<T, U, E extends Exception> {
-		void accept(T t, U u) throws E;
 	}
 }

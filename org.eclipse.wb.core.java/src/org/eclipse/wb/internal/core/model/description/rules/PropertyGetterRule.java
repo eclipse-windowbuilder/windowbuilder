@@ -13,10 +13,11 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.core.databinding.xsd.component.PropertyConfiguration;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.SetterAccessor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 import java.lang.reflect.Method;
 

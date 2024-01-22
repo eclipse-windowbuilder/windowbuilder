@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 /**
  * The {@link FailableBiConsumer} that sets {@link Class} property with given
@@ -24,8 +25,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
  */
 public final class SetClassPropertyRule implements FailableBiConsumer<ParameterDescription, String, Exception> {
 	private final ClassLoader m_classLoader;
-	private final String m_attributeName;
-	private final String m_propertyName;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -33,17 +32,7 @@ public final class SetClassPropertyRule implements FailableBiConsumer<ParameterD
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public SetClassPropertyRule(ClassLoader classLoader) {
-		this(classLoader, null, null);
-	}
-
-	public SetClassPropertyRule(ClassLoader classLoader, String propertyName) {
-		this(classLoader, propertyName, propertyName);
-	}
-
-	public SetClassPropertyRule(ClassLoader classLoader, String attributeName, String propertyName) {
 		m_classLoader = classLoader;
-		m_attributeName = attributeName;
-		m_propertyName = propertyName;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
