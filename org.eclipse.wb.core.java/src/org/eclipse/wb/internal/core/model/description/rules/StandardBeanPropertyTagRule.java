@@ -13,7 +13,8 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.core.databinding.xsd.component.Component.PropertyTag;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 /**
  * The {@link FailableBiConsumer} that adds some tag for standard bean property,

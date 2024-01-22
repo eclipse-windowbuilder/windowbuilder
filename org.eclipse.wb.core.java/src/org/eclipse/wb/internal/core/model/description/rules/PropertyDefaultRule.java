@@ -12,8 +12,9 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.core.databinding.xsd.component.PropertyConfiguration;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 /**
  * The {@link FailableBiConsumer} that sets the default value of current

@@ -13,8 +13,9 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.core.databinding.xsd.component.DefaultMethodOrderType;
 import org.eclipse.wb.core.databinding.xsd.component.MethodsOrderType;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.order.MethodOrder;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 /**
  * The {@link FailableBiConsumer} that sets

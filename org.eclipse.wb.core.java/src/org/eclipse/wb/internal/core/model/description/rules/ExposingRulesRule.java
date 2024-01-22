@@ -15,7 +15,8 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ExposingMethodRule;
 import org.eclipse.wb.internal.core.model.description.ExposingPackageRule;
 import org.eclipse.wb.internal.core.model.description.ExposingRule;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 import jakarta.xml.bind.JAXBElement;
 

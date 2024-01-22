@@ -12,8 +12,9 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.core.databinding.xsd.component.Component.Model;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper.FailableBiConsumer;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 /**
  * The {@link FailableBiConsumer} that sets model class for
