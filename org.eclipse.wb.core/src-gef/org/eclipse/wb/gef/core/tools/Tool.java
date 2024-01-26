@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -241,7 +241,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	protected boolean movedPastThreshold() {
 		if (!getFlag(FLAG_PAST_THRESHOLD)) {
 			Point start = getStartLocation();
-			Point end = getCurrentInput().getMouseLocation();
+			Point end = getLocation();
 			setFlag(FLAG_PAST_THRESHOLD, Math.abs(start.x - end.x) > DRAG_THRESHOLD || Math.abs(start.y - end.y) > DRAG_THRESHOLD);
 		}
 		return getFlag(FLAG_PAST_THRESHOLD);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.RangeModel;
+import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -29,6 +31,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 	private Object m_type;
 	private RequestsLogger m_actualLogger;
 	private RequestTestCaseEditPart m_editPart;
+	private Viewport m_viewport;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -45,12 +48,18 @@ public class ResizeTrackerTest extends RequestTestCase {
 		m_editPart = new RequestTestCaseEditPart("editPart", m_actualLogger);
 		m_editPart.activate();
 		m_viewer.select(m_editPart);
+		m_viewport = m_viewer.getControl().getViewport();
 	}
 
 	private void setUp(int direction, Object type) {
 		m_direction = direction;
 		m_type = type;
 		m_domain.setActiveTool(new ResizeTracker(direction, type));
+	}
+
+	private void setUp(RangeModel rangeModel, int min, int extent, int max, int value) {
+		rangeModel.setAll(min, extent, max);
+		rangeModel.setValue(value);
 	}
 
 	private ChangeBoundsRequest createEmptyRequest() {
@@ -507,6 +516,71 @@ public class ResizeTrackerTest extends RequestTestCase {
 		}
 		//
 		commonEndTest();
+	}
+
+	/**
+	 * Verifies that resizing is using the correct coordinates, when the view has
+	 * been slightly scrolled down (by 100px).
+	 */
+	@Test
+	public void test_Request_with_horizontal_scrolling() throws Exception {
+		setUp(PositionConstants.SOUTH, "__Resize_S_");
+		setUp(m_viewport.getHorizontalRangeModel(), 0, 100, 500, 100);
+		//
+		RequestsLogger expectedLogger = new RequestsLogger();
+		// start drag process of handle
+		{
+			m_sender.startDrag(10, 10, 1);
+			m_actualLogger.assertEmpty();
+		}
+		// drag handle
+		{
+			m_sender.dragTo(10, 17);
+			//
+			ChangeBoundsRequest request = createEmptyRequest();
+			//
+			expectedLogger.log(m_editPart, "getTargetEditPart", request);
+			//
+			request.addEditPart(m_editPart);
+			request.setLocation(new Point(10, 17));
+			request.setSizeDelta(new Dimension(0, 7));
+			//
+			expectedLogger.log(m_editPart, new String[] { "showSourceFeedback", "getCommand" }, request);
+			assertLoggers(expectedLogger, m_actualLogger);
+		}
+	}
+
+	/**
+	 * Verifies that resizing is using the correct coordinates, when the view has
+	 * been slightly scrolled to the right (by 100px).
+	 */
+	@Test
+	public void test_Request_with_vertical_scrolling() throws Exception {
+		setUp(PositionConstants.NORTH, "__Resize_N_");
+		setUp(m_viewport.getVerticalRangeModel(), 0, 100, 400, 100);
+		//
+		RequestsLogger expectedLogger = new RequestsLogger();
+		// start drag process of handle
+		{
+			m_sender.startDrag(10, 18, 1);
+			m_actualLogger.assertEmpty();
+		}
+		// drag handle
+		{
+			m_sender.dragTo(10, 11);
+			//
+			ChangeBoundsRequest request = createEmptyRequest();
+			//
+			expectedLogger.log(m_editPart, "getTargetEditPart", request);
+			//
+			request.addEditPart(m_editPart);
+			request.setLocation(new Point(10, 11));
+			request.setSizeDelta(new Dimension(0, 7));
+			request.setMoveDelta(new Point(0, -7));
+			//
+			expectedLogger.log(m_editPart, new String[] { "showSourceFeedback", "getCommand" }, request);
+			assertLoggers(expectedLogger, m_actualLogger);
+		}
 	}
 
 	@Test
