@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -200,7 +200,8 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 			IAnnotationBinding[] annotations = method.resolveBinding().getAnnotations();
 			for (IAnnotationBinding annotation : annotations) {
 				String annotationName = annotation.getAnnotationType().getQualifiedName();
-				if ("javax.annotation.PostConstruct".equals(annotationName)) {
+				if ("jakarta.annotation.PostConstruct".equals(annotationName)
+						|| "javax.annotation.PostConstruct".equals(annotationName)) {
 					for (SingleVariableDeclaration parameter : DomGenerics.parameters(method)) {
 						if (AstNodeUtils.isSuccessorOf(
 								parameter.getType().resolveBinding(),
