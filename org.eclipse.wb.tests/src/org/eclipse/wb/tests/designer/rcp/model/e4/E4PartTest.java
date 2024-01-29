@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 Google, Inc.
+ * Copyright (c) 2012, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -32,18 +32,24 @@ public class E4PartTest extends RcpModelTest {
 		System.exit(0);
 	}
 
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		m_testProject.addPlugin("jakarta.annotation-api");
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_0() throws Exception {
 		E4PartInfo part =
 				parseJavaInfo(
-						"import javax.annotation.PostConstruct;",
-						"import javax.annotation.PreDestroy;",
+						"import jakarta.annotation.PostConstruct;",
+						"import jakarta.annotation.PreDestroy;",
 						"public class Test {",
 						"  public Test() {",
 						"  }",
