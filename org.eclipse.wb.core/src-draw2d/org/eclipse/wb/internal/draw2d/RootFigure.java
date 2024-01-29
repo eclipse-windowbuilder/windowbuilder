@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
+import org.eclipse.draw2d.EventDispatcher;
 import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -82,6 +83,11 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	public void setPreferredSizeProvider(IPreferredSizeProvider provider) {
 		m_preferredSizeProvider = provider;
+	}
+
+	@Override
+	public EventDispatcher internalGetEventDispatcher() {
+		return m_figureCanvas.getLightweightSystem().getRootFigure().internalGetEventDispatcher();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
