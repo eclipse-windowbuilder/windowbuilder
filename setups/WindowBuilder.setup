@@ -98,6 +98,8 @@
       <repository
           url="https://download.eclipse.org/windowbuilder/updates/nightly/latest/"/>
       <repository
+          url="https://download.eclipse.org/technology/m2e/releases/latest/"/>
+      <repository
           url="https://spotbugs.github.io/eclipse-latest/"/>
       <description>Install the tools needed in the IDE to work with the source code for Window Builder</description>
     </setupTask>
