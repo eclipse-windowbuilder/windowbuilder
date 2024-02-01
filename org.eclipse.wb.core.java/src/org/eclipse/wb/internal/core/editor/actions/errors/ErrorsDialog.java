@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
-import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableTitleAreaDialog;
 
 import org.eclipse.core.resources.IProject;
@@ -51,6 +50,7 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
 	private final ObjectInfo m_rootObject;
 	private final List<IErrorPage> m_pages;
 	private final Dialog m_dialog;
+	private final Image m_screenshot;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -62,16 +62,15 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
 		m_rootObject = rootObject;
 		m_pages = pages;
 		//
-		Image screenshot = DesignerExceptionUtils.makeScreenshot();
+		m_screenshot = DesignerExceptionUtils.makeScreenshot();
 		JavaInfo rootObjectJava = m_rootObject instanceof JavaInfo ? (JavaInfo) m_rootObject : null;
 		ICompilationUnit unit = rootObject != null ? rootObjectJava.getEditor().getModelUnit() : null;
 		IProject project = unit != null ? unit.getJavaProject().getProject() : null;
 		ZipFileErrorReport errorReport =
-				new ZipFileErrorReport(screenshot,
+				new ZipFileErrorReport(m_screenshot,
 						project,
 						JavaExceptionComposite.getSourceFileReport(unit));
-		m_dialog = new CreateReportDialog(DesignerPlugin.getShell(), screenshot, errorReport);
-		ImageDisposer.add(m_dialog, "ContactSupportDialog_screenshot", screenshot);
+		m_dialog = new CreateReportDialog(DesignerPlugin.getShell(), m_screenshot, errorReport);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -147,5 +146,14 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
 	 */
 	private void handleContactSupport() {
 		m_dialog.open();
+	}
+
+	@Override
+	public boolean close() {
+		boolean success = super.close();
+		if (success && m_screenshot != null) {
+			m_screenshot.dispose();
+		}
+		return success;
 	}
 }
