@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * Implementation of {@link ExposingRule} that checks package of {@link Class} declaring given
@@ -42,20 +43,20 @@ public final class ExposingPackageRule extends ExposingRule {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Boolean filter(Method method) {
+	public Optional<Boolean> filter(Method method) {
 		String packageName = CodeUtils.getPackage(method.getDeclaringClass().getName());
 		if (packageName.equals(m_packageName)) {
-			return m_include;
+			return Optional.of(m_include);
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	@Override
-	public Boolean filter(Field field) {
+	public Optional<Boolean> filter(Field field) {
 		String packageName = CodeUtils.getPackage(field.getDeclaringClass().getName());
 		if (packageName.equals(m_packageName)) {
-			return m_include;
+			return Optional.of(m_include);
 		}
-		return null;
+		return Optional.empty();
 	}
 }
