@@ -147,6 +147,7 @@ Export-Package: org.eclipse.wb.core.editor,
 Automatic-Module-Name: org.eclipse.wb.core.java
 Import-Package: jakarta.xml.bind;version="[4.0.1,5.0.0)",
  org.apache.commons.collections4;version="[4.4.0,5.0.0)",
+ org.apache.commons.collections4.keyvalue;version="[4.4.0,5.0.0]",
  org.apache.commons.collections4.map;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.multimap;version="[4.4.0,5.0.0)",
  org.apache.commons.io,

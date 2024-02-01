@@ -32,7 +32,6 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -231,13 +230,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 			}
 		};
 		Collection<?> selectedProperties = CollectionUtils.select(Arrays.asList(attachment.getProperties()),
-				new Predicate() {
-			@Override
-			public boolean evaluate(Object object) {
-				Property property = (Property) object;
-				return !property.getTitle().equals("Class") && !property.getTitle().equals("Constructor");
-			}
-		});
+				property -> !property.getTitle().equals("Class") && !property.getTitle().equals("Constructor"));
 		attachmentProperty.setProperties(selectedProperties.toArray(new Property[selectedProperties.size()]));
 		return attachmentProperty;
 	}

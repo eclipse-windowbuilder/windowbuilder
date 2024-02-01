@@ -27,7 +27,6 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import org.apache.commons.collections4.MapIterator;
 import org.apache.commons.collections4.map.MultiKeyMap;
 
 import java.util.ArrayList;
@@ -47,8 +46,8 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 	private final List<IEditableSource> m_newEditableSources = new ArrayList<>();
 	private final Map<AbstractSource, IEditableSource> m_sourceToEditable = new HashMap<>();
 	private final Map<IEditableSource, AbstractSource> m_editableToSource = new HashMap<>();
-	private final MultiKeyMap/*<IEditableSource, String, List<StringPropertyInfo>>*/m_externalizedProperties =
-			new MultiKeyMap();
+	private final MultiKeyMap</* IEditableSource, String */ Object, StringPropertyInfo> m_externalizedProperties =
+			new MultiKeyMap<>();
 	private final Map<JavaInfo, List<StringPropertyInfo>> m_componentToPropertyList =
 			new HashMap<>();
 
@@ -100,7 +99,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 
 			@Override
 			public void keyRenamed(String oldKey, String newKey) {
-				Object propertyInfo = m_externalizedProperties.remove(editableSource, oldKey);
+				StringPropertyInfo propertyInfo = m_externalizedProperties.removeMultiKey(editableSource, oldKey);
 				if (propertyInfo != null) {
 					m_externalizedProperties.put(editableSource, newKey, propertyInfo);
 				}
@@ -367,11 +366,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
 		List<StringPropertyInfo> componentProperties = m_componentToPropertyList.get(component);
 		externalizableProperties.addAll(componentProperties);
 		// remove already externalized properties
-		for (MapIterator I = m_externalizedProperties.mapIterator(); I.hasNext();) {
-			I.next();
-			StringPropertyInfo propertyInfo = (StringPropertyInfo) I.getValue();
-			externalizableProperties.remove(propertyInfo);
-		}
+		m_externalizedProperties.forEach((key, propertyInfo) -> externalizableProperties.remove(propertyInfo));
 		// return rest properties
 		return externalizableProperties;
 	}

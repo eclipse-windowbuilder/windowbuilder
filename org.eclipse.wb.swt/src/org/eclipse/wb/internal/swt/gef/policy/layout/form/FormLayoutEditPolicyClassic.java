@@ -65,7 +65,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1333,19 +1332,16 @@ implements IHeadersProvider {
 			throws Exception {
 		List<C> attachableControls = control != null ? FormUtils.getAttachableControls(layout, control, horizontal)
 				: FormUtils.getAttachableControls(layout);
-		CollectionUtils.filter(attachableControls, new Predicate() {
-			@Override
-			public boolean evaluate(Object input) {
-				try {
-					EditPart part = (EditPart) getHost().getViewer().getEditPartRegistry().get(input);
-					if (!includeSelected && part.getSelected() != EditPart.SELECTED_NONE) {
-						return false;
-					}
-				} catch (Throwable e) {
+		CollectionUtils.filter(attachableControls, input -> {
+			try {
+				EditPart part = (EditPart) getHost().getViewer().getEditPartRegistry().get(input);
+				if (!includeSelected && part.getSelected() != EditPart.SELECTED_NONE) {
 					return false;
 				}
-				return true;
+			} catch (Throwable e) {
+				return false;
 			}
+			return true;
 		});
 		return attachableControls;
 	}

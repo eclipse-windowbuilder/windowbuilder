@@ -42,13 +42,12 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Transformer;
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 import org.netbeans.modules.form.layoutdesign.LayoutDesigner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Policy implementing manipulations with GroupLayout.
@@ -487,14 +486,10 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 			@Override
 			protected void executeEdit() throws Exception {
 				List<EditPart> editParts = request.getEditParts();
-				@SuppressWarnings("unchecked")
-				List<AbstractComponentInfo> models = (List<AbstractComponentInfo>) CollectionUtils.collect(editParts,
-						new Transformer() {
-					@Override
-					public Object transform(Object input) {
-						return ((EditPart) input).getModel();
-					}
-				});
+				List<AbstractComponentInfo> models = editParts.stream() //
+						.map(EditPart::getModel) //
+						.map(AbstractComponentInfo.class::cast)//
+						.collect(Collectors.toCollection(ArrayList::new));
 				m_layout.command_add(models);
 			}
 		};

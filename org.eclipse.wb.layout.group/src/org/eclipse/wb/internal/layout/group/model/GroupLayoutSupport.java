@@ -32,7 +32,6 @@ import org.eclipse.wb.internal.layout.group.model.assistant.LayoutAssistantSuppo
 import org.eclipse.jface.action.IMenuManager;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 import org.netbeans.modules.form.layoutdesign.LayoutDesigner;
@@ -258,16 +257,10 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
 	 */
 	@SuppressWarnings("unchecked")
 	public final List<AbstractComponentInfo> getLayoutChildren() {
-		return (List<AbstractComponentInfo>) CollectionUtils.select(getComponents(), new Predicate() {
-			@Override
-			public boolean evaluate(Object object) {
-				JavaInfo javaInfo = (JavaInfo) object;
-				return !javaInfo.isDeleted() && !javaInfo.isDeleting();
-			}
-		});
+		return (List<AbstractComponentInfo>) CollectionUtils.select(getComponents(), javaInfo -> !javaInfo.isDeleted() && !javaInfo.isDeleting());
 	}
 
-	protected abstract List<?> getComponents();
+	protected abstract List<? extends AbstractComponentInfo> getComponents();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
