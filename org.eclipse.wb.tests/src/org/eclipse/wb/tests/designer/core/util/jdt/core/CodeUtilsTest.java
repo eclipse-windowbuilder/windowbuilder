@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -326,7 +326,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 		// remove "src"
 		{
 			IClasspathEntry[] rawClasspath = m_javaProject.getRawClasspath();
-			rawClasspath = (IClasspathEntry[]) ArrayUtils.remove(rawClasspath, rawClasspath.length - 1);
+			rawClasspath = ArrayUtils.remove(rawClasspath, rawClasspath.length - 1);
 			m_javaProject.setRawClasspath(rawClasspath, new NullProgressMonitor());
 		}
 		// add ""
@@ -534,14 +534,14 @@ public class CodeUtilsTest extends AbstractJavaTest {
 			// remove "src"
 			{
 				IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
-				rawClasspath = (IClasspathEntry[]) ArrayUtils.remove(rawClasspath, rawClasspath.length - 1);
+				rawClasspath = ArrayUtils.remove(rawClasspath, rawClasspath.length - 1);
 				javaProject.setRawClasspath(rawClasspath, new NullProgressMonitor());
 			}
 			// add ""
 			{
 				IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
 				rawClasspath =
-						(IClasspathEntry[]) ArrayUtils.add(
+						ArrayUtils.add(
 								rawClasspath,
 								JavaCore.newSourceEntry(new Path("/TestProject")));
 				javaProject.setRawClasspath(rawClasspath, new NullProgressMonitor());

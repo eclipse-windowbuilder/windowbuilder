@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -241,7 +241,7 @@ public final class JdtUiUtils {
 	 */
 	public static AbstractUIPlugin getBundleActivator(String bundleName) throws Exception {
 		Bundle bundle = Platform.getBundle(bundleName);
-		String pluginActivatorClassName = (String) bundle.getHeaders().get(Constants.BUNDLE_ACTIVATOR);
+		String pluginActivatorClassName = bundle.getHeaders().get(Constants.BUNDLE_ACTIVATOR);
 		Class<?> pluginClass = bundle.loadClass(pluginActivatorClassName);
 		// get the it's instance using "getDefault" method. Possibly it is the usage of internal API :)
 		Method getDefaultMethod = pluginClass.getMethod("getDefault", new Class[0]);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,13 +74,13 @@ public final class NewProjectPalettePage extends WizardPage {
 			IJavaElement javaElement = null;
 			Object selectedElement = selection.getFirstElement();
 			if (selectedElement instanceof IAdaptable adaptable) {
-				javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
+				javaElement = adaptable.getAdapter(IJavaElement.class);
 				if (javaElement == null) {
-					IResource resource = (IResource) adaptable.getAdapter(IResource.class);
+					IResource resource = adaptable.getAdapter(IResource.class);
 					if (resource != null && resource.getType() != IResource.ROOT) {
 						while (javaElement == null && resource.getType() != IResource.PROJECT) {
 							resource = resource.getParent();
-							javaElement = (IJavaElement) resource.getAdapter(IJavaElement.class);
+							javaElement = resource.getAdapter(IJavaElement.class);
 						}
 						if (javaElement == null) {
 							javaElement = JavaCore.create(resource);

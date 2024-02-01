@@ -428,7 +428,7 @@ public final class TableModelDialog extends ResizableDialog {
 				@Override
 				public void run(int row, int column) {
 					String typeTitle = m_columnPropertyType.getText();
-					Class<?> type = (Class<?>) COLUMN_TYPES.get(typeTitle);
+					Class<?> type = COLUMN_TYPES.get(typeTitle);
 					m_model.setColumnType(column, type);
 				}
 			});
@@ -657,7 +657,7 @@ public final class TableModelDialog extends ResizableDialog {
 			if (!m_columnPropertyTitle.getText().equals(columnDescription.m_name)) {
 				m_columnPropertyTitle.setText(columnDescription.m_name);
 			}
-			m_columnPropertyType.setText((String) COLUMN_TYPES.inverseBidiMap().get(columnDescription.m_class));
+			m_columnPropertyType.setText(COLUMN_TYPES.inverseBidiMap().get(columnDescription.m_class));
 			m_columnPropertyPrefWidth.setSelection(columnDescription.m_preferredWidth);
 			m_columnPropertyMinWidth.setSelection(columnDescription.m_minWidth);
 			m_columnPropertyMaxWidth.setSelection(columnDescription.m_maxWidth);

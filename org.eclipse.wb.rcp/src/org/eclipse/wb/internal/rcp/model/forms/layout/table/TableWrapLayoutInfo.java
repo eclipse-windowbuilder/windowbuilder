@@ -1223,7 +1223,7 @@ IPreferenceConstants {
 		generalLayoutData.horizontalGrab =
 				(Boolean) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "grabHorizontal");
 		generalLayoutData.verticalGrab =
-				(Boolean) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "grabVertical");;
+				(Boolean) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "grabVertical");
 				// alignments
 				generalLayoutData.horizontalAlignment =
 						GeneralLayoutData.getGeneralValue(

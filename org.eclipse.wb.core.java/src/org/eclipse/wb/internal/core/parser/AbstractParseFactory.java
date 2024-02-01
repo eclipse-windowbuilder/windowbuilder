@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -762,7 +762,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 		// add class loader for ByteBuddy enhancement
 		parentClassLoader.add(
 				new BundleClassLoader("org.eclipse.wb.core.java"),
-				List.of("net.bytebuddy.", "org.eclipse.wb.internal.core.model.creation"));;
+				List.of("net.bytebuddy.", "org.eclipse.wb.internal.core.model.creation"));
 				// add class loader for MVEL2 (issue 533)
 				// MVEL is internally using this class-loader to construct an
 				// instance of Accessor, even though it was executed from within

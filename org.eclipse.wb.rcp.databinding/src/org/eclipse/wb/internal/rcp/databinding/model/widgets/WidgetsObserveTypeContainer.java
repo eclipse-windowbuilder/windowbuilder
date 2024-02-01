@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -160,7 +160,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
 		WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.size()", "org.eclipse.swt.widgets.Control");
 		WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.tooltipText()", "org.eclipse.swt.widgets.Widget");
 		WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.visible()", "org.eclipse.swt.widgets.Widget");
-	};
+	}
 	private static final String ITEMS_WIDGET_PROPERTY =
 			"org.eclipse.jface.databinding.swt.typed.WidgetProperties.items()";
 	private static final String[] TEXT_WIDGET_PROPERTIES = {

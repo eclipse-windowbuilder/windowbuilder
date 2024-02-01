@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -186,11 +186,11 @@ public final class FactoryActionsSupport {
 	static void addPreviousTypeName(JavaInfo component, String typeName) throws CoreException {
 		String[] typeNames = getPreviousTypeNames(component);
 		// move element into head
-		typeNames = (String[]) ArrayUtils.removeElement(typeNames, typeName);
-		typeNames = (String[]) ArrayUtils.add(typeNames, 0, typeName);
+		typeNames = ArrayUtils.removeElement(typeNames, typeName);
+		typeNames = ArrayUtils.add(typeNames, 0, typeName);
 		// limit history size
 		if (typeNames.length > MAX_PREVIOUS_FACTORIES) {
-			typeNames = (String[]) ArrayUtils.remove(typeNames, typeNames.length - 1);
+			typeNames = ArrayUtils.remove(typeNames, typeNames.length - 1);
 		}
 		// set new type names
 		IProject project = component.getEditor().getJavaProject().getProject();

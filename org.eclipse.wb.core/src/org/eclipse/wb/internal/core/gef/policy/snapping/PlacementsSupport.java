@@ -675,7 +675,6 @@ public final class PlacementsSupport {
 	/**
 	 * @return the list of the components which should not be affected by operation.
 	 */
-	@SuppressWarnings("unchecked")
 	private List<IAbstractComponentInfo> getRemainingWidgets() {
 		return (List<IAbstractComponentInfo>) CollectionUtils.subtract(m_allWidgets, m_operatingWidgets);
 	}

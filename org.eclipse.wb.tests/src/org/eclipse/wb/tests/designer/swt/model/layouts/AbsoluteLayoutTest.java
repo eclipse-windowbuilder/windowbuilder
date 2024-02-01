@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -480,17 +480,17 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 						"  }",
 		"}"};
 		// prepare initial code
-		String[] initialLines = (String[]) ArrayUtils.clone(initialCode);
+		String[] initialLines = ArrayUtils.clone(initialCode);
 		for (int i = 0; i < initial.length; i++) {
 			if (!StringUtils.isEmpty(initial[i])) {
-				initialLines = (String[]) ArrayUtils.add(initialLines, 4 + i, initial[i]);
+				initialLines = ArrayUtils.add(initialLines, 4 + i, initial[i]);
 			}
 		}
 		// prepare expected code
-		String[] expectedLines = (String[]) ArrayUtils.clone(initialCode);
+		String[] expectedLines = ArrayUtils.clone(initialCode);
 		for (int i = 0; i < expected.length; i++) {
 			if (!StringUtils.isEmpty(expected[i])) {
-				expectedLines = (String[]) ArrayUtils.add(expectedLines, 4 + i, expected[i]);
+				expectedLines = ArrayUtils.add(expectedLines, 4 + i, expected[i]);
 			}
 		}
 		// prepare model

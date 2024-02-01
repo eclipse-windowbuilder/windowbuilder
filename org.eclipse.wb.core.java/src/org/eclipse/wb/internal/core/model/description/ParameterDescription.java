@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,7 +63,7 @@ public final class ParameterDescription extends AbstractDescription {
 	 * Joins this {@link ParameterDescription} with given one.
 	 */
 	public void join(ParameterDescription description) {
-		m_name = (String) ObjectUtils.defaultIfNull(m_name, description.m_name);
+		m_name = ObjectUtils.defaultIfNull(m_name, description.m_name);
 		// editor/converter
 		if (description.m_editor != null) {
 			m_converter = description.m_converter;

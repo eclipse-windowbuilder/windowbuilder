@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ final class GtkBaseline extends Baseline {
 						setTextMethod.invoke(control, "a");
 						// wait for deferred Gtk events to complete
 						while (Display.getDefault().readAndDispatch()) {
-							;
+							// noop
 						}
 					}
 				}
