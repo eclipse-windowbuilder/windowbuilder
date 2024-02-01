@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
+ * Copyright (c) 2007, 2024 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  *
@@ -92,6 +92,7 @@ import javax.swing.RootPaneContainer;
  * Of course, as in single-toolkit environments, long-running tasks should be offloaded from either
  * UI thread to a background thread. The Eclipse jobs API can be used for this purpose.
  */
+@SuppressWarnings("removal")
 public abstract class EmbeddedSwingComposite2 extends Composite {
 	private static class AwtContext {
 		private final Frame frame;
