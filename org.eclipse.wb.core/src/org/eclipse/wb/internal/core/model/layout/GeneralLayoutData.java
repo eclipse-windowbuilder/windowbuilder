@@ -152,9 +152,8 @@ public final class GeneralLayoutData {
 	 *
 	 * @return the real value that corresponds given generic one, may be <code>null</code>.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <K, T> T getRealValue(BidiMap map, K generic) {
-		return generic == null ? null : (T) map.get(generic);
+	public static <K, T> T getRealValue(BidiMap<K, T> map, K generic) {
+		return generic == null ? null : map.get(generic);
 	}
 
 	/**
@@ -163,8 +162,7 @@ public final class GeneralLayoutData {
 	 *
 	 * @return the generic value that corresponds given real one, may be <code>null</code>.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <K, T> K getGeneralValue(BidiMap map, T real) {
-		return real == null ? null : (K) map.inverseBidiMap().get(real);
+	public static <K, T> K getGeneralValue(BidiMap<K, T> map, T real) {
+		return real == null ? null : map.inverseBidiMap().get(real);
 	}
 }

@@ -80,7 +80,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.GridBagConstraints;
@@ -463,7 +462,6 @@ IPreferenceConstants {
 	/**
 	 * Deletes (or permanently hide) LAF and store LAF list into persistence.
 	 */
-	@SuppressWarnings("unchecked")
 	private void handleDelete() {
 		List<Object> selection = getSelectedEntries();
 		if (selection.contains(m_defaultLAF)) {
@@ -472,12 +470,7 @@ IPreferenceConstants {
 					Messages.LafPreferencePage_deleteWarningTitle,
 					Messages.LafPreferencePage_deleteWarningMessage);
 			// filter out default LAF
-			selection = (List<Object>) CollectionUtils.select(selection, new Predicate() {
-				@Override
-				public boolean evaluate(Object object) {
-					return object != m_defaultLAF;
-				}
-			});
+			selection = (List<Object>) CollectionUtils.select(selection, object -> object != m_defaultLAF);
 		}
 		if (!selection.isEmpty()) {
 			if (MessageDialog.openConfirm(
@@ -1059,12 +1052,7 @@ IPreferenceConstants {
 				}
 			}
 			// filter out SeparatorLAFInfo
-			resultList = (List<Object>) CollectionUtils.select(resultList, new Predicate() {
-				@Override
-				public boolean evaluate(Object object) {
-					return !(object instanceof SeparatorLafInfo);
-				}
-			});
+			resultList = (List<Object>) CollectionUtils.select(resultList, object -> !(object instanceof SeparatorLafInfo));
 			return resultList.toArray(new Object[resultList.size()]);
 		}
 
