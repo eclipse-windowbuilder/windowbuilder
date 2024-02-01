@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import javax.swing.JApplet;
  * @author lobas_av
  * @coverage swing.wizards.ui
  */
+@SuppressWarnings("removal")
 public final class NewJAppletWizard extends SwingWizard {
 	////////////////////////////////////////////////////////////////////////////
 	//
