@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -233,8 +233,8 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 		}
 		// hint
 		{
-			widthHint = ReflectionUtils.getFieldInt(object, "widthHint");;
-			heightHint = ReflectionUtils.getFieldInt(object, "heightHint");;
+			widthHint = ReflectionUtils.getFieldInt(object, "widthHint");
+			heightHint = ReflectionUtils.getFieldInt(object, "heightHint");
 		}
 		// fix "width", if GridData uses invalid value
 		{

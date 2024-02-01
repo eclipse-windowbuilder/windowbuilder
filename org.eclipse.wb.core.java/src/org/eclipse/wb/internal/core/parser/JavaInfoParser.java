@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -843,11 +843,11 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 									}
 								} else if (parameterIndex == parameterDescriptions.size() - 1) {
 									// ellipsis support
-									Expression[] arrayArguments = (Expression[]) ArrayUtils.subarray(
+									Expression[] arrayArguments = ArrayUtils.subarray(
 											arguments,
 											parameterIndex,
 											arguments.length);
-									JavaInfo[] arrayArgumentInfos = (JavaInfo[]) ArrayUtils.subarray(
+									JavaInfo[] arrayArgumentInfos = ArrayUtils.subarray(
 											argumentInfos,
 											parameterIndex,
 											argumentInfos.length);
@@ -952,7 +952,6 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 			}
 		}
 
-		@SuppressWarnings("cast")
 		private void bindChild_MethodInvocationParameter_ArrayEllipsis(MethodInvocation invocation,
 				MethodDescription methodDescription,
 				JavaInfo expressionInfo,

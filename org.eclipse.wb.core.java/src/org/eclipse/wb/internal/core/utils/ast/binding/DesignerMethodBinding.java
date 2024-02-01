@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,8 +89,8 @@ public final class DesignerMethodBinding implements IMethodBinding {
 	 * Removes parameter type with given index.
 	 */
 	public void removeParameterType(int index) {
-		m_parameterTypes = (ITypeBinding[]) ArrayUtils.remove(m_parameterTypes, index);
-		m_parameterNames = (String[]) ArrayUtils.remove(m_parameterNames, index);
+		m_parameterTypes = ArrayUtils.remove(m_parameterTypes, index);
+		m_parameterNames = ArrayUtils.remove(m_parameterNames, index);
 		if (m_methodDeclaration != this) {
 			m_methodDeclaration.removeParameterType(index);
 		}
@@ -100,7 +100,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
 	 * Adds new {@link ITypeBinding} into throws exceptions.
 	 */
 	public void addExceptionType(ITypeBinding newException) {
-		m_exceptionTypes = (ITypeBinding[]) ArrayUtils.add(m_exceptionTypes, newException);
+		m_exceptionTypes = ArrayUtils.add(m_exceptionTypes, newException);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

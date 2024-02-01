@@ -205,7 +205,6 @@ public final class DesignerExceptionUtils {
 	 * See {@link ExceptionUtils#getRootCause(Throwable)}, but returns {@link Throwable} itself if no
 	 * causes.
 	 */
-	@SuppressWarnings("unchecked")
 	public static Throwable getRootCause(Throwable throwable) {
 		List<Throwable> list = ExceptionUtils.getThrowableList(throwable);
 		return GenericsUtils.getLastOrNull(list);

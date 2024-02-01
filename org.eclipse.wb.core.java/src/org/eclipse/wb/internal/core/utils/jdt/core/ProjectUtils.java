@@ -368,7 +368,7 @@ public final class ProjectUtils {
 	public static void addClasspathEntry(IJavaProject javaProject, IClasspathEntry entry)
 			throws CoreException {
 		IClasspathEntry[] entries = javaProject.getRawClasspath();
-		entries = (IClasspathEntry[]) ArrayUtils.add(entries, entry);
+		entries = ArrayUtils.add(entries, entry);
 		javaProject.setRawClasspath(entries, null);
 	}
 
@@ -462,7 +462,7 @@ public final class ProjectUtils {
 	public static void requireProject(IJavaProject project, IJavaProject requiredProject)
 			throws JavaModelException {
 		IClasspathEntry[] rawClasspath = project.getRawClasspath();
-		rawClasspath = (IClasspathEntry[]) ArrayUtils.add(
+		rawClasspath = ArrayUtils.add(
 				rawClasspath,
 				JavaCore.newProjectEntry(requiredProject.getPath()));
 		project.setRawClasspath(rawClasspath, null);

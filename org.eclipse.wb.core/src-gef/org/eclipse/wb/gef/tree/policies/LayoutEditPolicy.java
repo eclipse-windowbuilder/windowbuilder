@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -381,7 +381,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 		Tree tree = getTree();
 		TreeItem[] selection = tree.getSelection();
 		if (!ArrayUtils.contains(selection, widget)) {
-			selection = (TreeItem[]) ArrayUtils.add(selection, widget);
+			selection = ArrayUtils.add(selection, widget);
 			tree.setSelection(selection);
 		}
 	}
@@ -394,7 +394,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 		Tree tree = getTree();
 		TreeItem[] selection = tree.getSelection();
 		if (ArrayUtils.contains(selection, widget)) {
-			selection = (TreeItem[]) ArrayUtils.removeElement(selection, widget);
+			selection = ArrayUtils.removeElement(selection, widget);
 			tree.setSelection(selection);
 		}
 	}

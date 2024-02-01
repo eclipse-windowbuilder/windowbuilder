@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -545,7 +545,7 @@ public final class ThisCreationSupport extends CreationSupport {
 	private Object visitMethod_validator(java.lang.reflect.Method method, Object[] args, Object result)
 			throws Exception {
 		Class<?>[] validatorParameterTypes =
-				(Class<?>[]) ArrayUtils.add(method.getParameterTypes(), Object.class);
+				ArrayUtils.add(method.getParameterTypes(), Object.class);
 		String validatorName = method.getName() + "_validator";
 		Method validator =
 				ReflectionUtils.getMethod(m_javaInfo.getClass(), validatorName, validatorParameterTypes);

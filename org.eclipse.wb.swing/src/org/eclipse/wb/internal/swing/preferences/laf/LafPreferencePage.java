@@ -1041,7 +1041,6 @@ IPreferenceConstants {
 	 */
 	private static class LAFItemsContentProvider implements ITreeContentProvider {
 		@Override
-		@SuppressWarnings("unchecked")
 		public Object[] getElements(Object inputElement) {
 			List<Object> resultList = new ArrayList<>();
 			for (CategoryInfo category : LafSupport.getLAFCategoriesList()) {

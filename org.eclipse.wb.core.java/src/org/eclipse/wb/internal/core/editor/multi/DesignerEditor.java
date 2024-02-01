@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -92,7 +92,7 @@ IDesignCompositeProvider {
 	 * Activates context of our Java editor.
 	 */
 	private void activateEditorContext() {
-		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
+		IContextService contextService = getSite().getService(IContextService.class);
 		if (contextService != null) {
 			contextService.activateContext(CONTEXT_ID);
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -391,8 +391,8 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 	}
 
 	private static String[] getLines_twoButtons_typical(String[] constraints_1, String[] constraints_2) {
-		constraints_1 = (String[]) ArrayUtils.clone(constraints_1);
-		constraints_2 = (String[]) ArrayUtils.clone(constraints_2);
+		constraints_1 = ArrayUtils.clone(constraints_1);
+		constraints_2 = ArrayUtils.clone(constraints_2);
 		for (int i = 0; i < constraints_1.length; i++) {
 			constraints_1[i] = "        data_1." + constraints_1[i];
 		}
@@ -410,9 +410,9 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 						"      button_1 = new Button(this, SWT.NONE);",
 						"      {",
 		"        FormData data_1 = new FormData();"};
-		lines = (String[]) ArrayUtils.addAll(lines, constraints_1);
+		lines = ArrayUtils.addAll(lines, constraints_1);
 		lines =
-				(String[]) ArrayUtils.addAll(lines, new String[]{
+				ArrayUtils.addAll(lines, new String[]{
 						"        button_1.setLayoutData(data_1);",
 						"      }",
 						"    }",
@@ -420,9 +420,9 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 						"      button_2 = new Button(this, SWT.NONE);",
 						"      {",
 				"        FormData data_2 = new FormData();"});
-		lines = (String[]) ArrayUtils.addAll(lines, constraints_2);
+		lines = ArrayUtils.addAll(lines, constraints_2);
 		lines =
-				(String[]) ArrayUtils.addAll(lines, new String[]{
+				ArrayUtils.addAll(lines, new String[]{
 						"        button_2.setLayoutData(data_2);",
 						"      }",
 						"    }",
