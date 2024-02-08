@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -27,6 +26,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DropRequest;
@@ -81,7 +81,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 	 * @return the {@link List} of {@link EditPart}'s that can be used as references.
 	 */
 	private List<EditPart> getReferenceChildren(Request request) {
-		List<EditPart> allChildren = getHost().getChildren();
+		List<? extends EditPart> allChildren = getHost().getChildren();
 		ArrayList<EditPart> referenceChildren = new ArrayList<>();
 		//
 		for (EditPart editPart : allChildren) {
@@ -469,7 +469,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 		if (request instanceof AbstractCreateRequest) {
 			return reference;
 		} else {
-			List<EditPart> selectedEditParts = getHost().getViewer().getSelectedEditParts();
+			List<? extends EditPart> selectedEditParts = getHost().getViewer().getSelectedEditParts();
 			int index = children.indexOf(reference);
 			while (selectedEditParts.contains(reference)) {
 				if (index == children.size() - 1) {
