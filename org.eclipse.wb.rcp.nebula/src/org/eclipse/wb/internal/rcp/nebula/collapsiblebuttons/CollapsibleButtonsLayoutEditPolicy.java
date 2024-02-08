@@ -67,7 +67,7 @@ public final class CollapsibleButtonsLayoutEditPolicy extends AbstractFlowLayout
 	////////////////////////////////////////////////////////////////////////////
 	private static final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
 		@Override
-		public boolean validateMoveRequest(org.eclipse.wb.gef.core.EditPart host, ChangeBoundsRequest request) {
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
 			return true;
 		}
 	};

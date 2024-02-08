@@ -133,17 +133,17 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
 
 	private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
 		@Override
-		public boolean validateCreateRequest(org.eclipse.wb.gef.core.EditPart host, CreateRequest request) {
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
 			return m_policy.validateCreate(request.getNewObject());
 		}
 
 		@Override
-		public boolean validatePasteRequest(org.eclipse.wb.gef.core.EditPart host, PasteRequest request) {
+		public boolean validatePasteRequest(EditPart host, PasteRequest request) {
 			return m_policy.validatePaste(request.getMemento());
 		}
 
 		@Override
-		public boolean validateMoveRequest(org.eclipse.wb.gef.core.EditPart host, ChangeBoundsRequest request) {
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
 			for (EditPart editPart : request.getEditParts()) {
 				if (!m_policy.validateMove(editPart.getModel())) {
 					return false;
@@ -153,7 +153,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
 		}
 
 		@Override
-		public boolean validateAddRequest(org.eclipse.wb.gef.core.EditPart host, ChangeBoundsRequest request) {
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
 			return validateMoveRequest(host, request);
 		}
 	};
