@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.flow.AbstractFlowLayoutEditPolicy;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -70,7 +70,7 @@ public final class DialogButtonBarLayoutEditPolicy extends AbstractFlowLayoutEdi
 	private static final ILayoutRequestValidator VALIDATOR =
 			new ILayoutRequestValidator.LayoutRequestValidatorStubFalse() {
 		@Override
-		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		public boolean validateMoveRequest(org.eclipse.wb.gef.core.EditPart host, ChangeBoundsRequest request) {
 			return true;
 		}
 	};

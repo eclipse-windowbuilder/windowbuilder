@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.part.JTabbedPaneTabEditPart;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentFlowLayoutEditPolicy;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
