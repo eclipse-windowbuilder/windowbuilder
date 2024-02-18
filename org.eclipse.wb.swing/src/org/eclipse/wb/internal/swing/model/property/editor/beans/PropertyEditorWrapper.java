@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,11 +23,11 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang3.StringUtils;
@@ -132,13 +132,13 @@ public final class PropertyEditorWrapper {
 		return m_presentation;
 	}
 
-	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+	public void paint(Property property, Graphics graphics, int x, int y, int width, int height) throws Exception {
 		configure(property);
 		m_propertyEditor.setValue(property.getValue());
 		// paint
 		if (m_propertyEditor.isPaintable()) {
-			Image image = paintValue(gc, width, height).createImage();
-			gc.drawImage(image, x, y);
+			Image image = paintValue(graphics, width, height).createImage();
+			graphics.drawImage(image, x, y);
 			image.dispose();
 			return;
 		}
@@ -146,18 +146,18 @@ public final class PropertyEditorWrapper {
 		{
 			String text = m_propertyEditor.getAsText();
 			if (!StringUtils.isEmpty(text)) {
-				DrawUtils.drawStringCV(gc, text, x, y, width, height);
+				DrawUtils.drawStringCV(graphics, text, x, y, width, height);
 			}
 		}
 	}
 
-	private ImageDescriptor paintValue(GC gc, int width, int height) throws Exception {
+	private ImageDescriptor paintValue(Graphics graphics, int width, int height) throws Exception {
 		// create AWT graphics
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics2D = (Graphics2D) image.getGraphics();
 		// prepare color's
-		Color background = gc.getBackground();
-		Color foreground = gc.getForeground();
+		Color background = graphics.getBackgroundColor();
+		Color foreground = graphics.getForegroundColor();
 		// fill graphics
 		graphics2D.setColor(SwingUtils.getAWTColor(background));
 		graphics2D.fillRect(0, 0, width, height);
@@ -165,7 +165,7 @@ public final class PropertyEditorWrapper {
 		graphics2D.setBackground(SwingUtils.getAWTColor(background));
 		graphics2D.setColor(SwingUtils.getAWTColor(foreground));
 		// set font
-		FontData[] fontData = gc.getFont().getFontData();
+		FontData[] fontData = graphics.getFont().getFontData();
 		String name = fontData.length > 0 ? fontData[0].getName() : "Arial";
 		graphics2D.setFont(new java.awt.Font(name,
 				java.awt.Font.PLAIN,

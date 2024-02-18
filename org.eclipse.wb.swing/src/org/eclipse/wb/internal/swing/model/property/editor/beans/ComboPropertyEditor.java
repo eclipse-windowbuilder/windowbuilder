@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.property.editor.IValueSourcePropertyEd
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
 
-import org.eclipse.swt.graphics.GC;
+import org.eclipse.draw2d.Graphics;
 
 /**
  * The {@link PropertyEditor} wrapper for tag's based AWT {@link java.beans.PropertyEditor}.
@@ -88,8 +88,8 @@ IValueSourcePropertyEditor {
 	}
 
 	@Override
-	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
-		m_editorWrapper.paint(property, gc, x, y, width, height);
+	public void paint(Property property, Graphics graphics, int x, int y, int width, int height) throws Exception {
+		m_editorWrapper.paint(property, graphics, x, y, width, height);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

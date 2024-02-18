@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2021 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
@@ -42,7 +43,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
@@ -93,7 +93,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
 	}
 
 	@Override
-	public void paint(Property property, GC gc, int x, int y, int width, int height)
+	public void paint(Property property, Graphics graphics, int x, int y, int width, int height)
 			throws Exception {
 		Object value = property.getValue();
 		if (value instanceof java.awt.Color) {
@@ -103,8 +103,8 @@ public final class ColorPropertyEditor extends PropertyEditor {
 				Color swtColor =
 						new Color(null, awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
 				//
-				Color oldBackground = gc.getBackground();
-				Color oldForeground = gc.getForeground();
+				Color oldBackground = graphics.getBackgroundColor();
+				Color oldForeground = graphics.getForegroundColor();
 				try {
 					int width_c = SAMPLE_SIZE;
 					int height_c = SAMPLE_SIZE;
@@ -118,22 +118,22 @@ public final class ColorPropertyEditor extends PropertyEditor {
 					}
 					// fill
 					{
-						gc.setBackground(swtColor);
-						gc.fillRectangle(x_c, y_c, width_c, height_c);
+						graphics.setBackgroundColor(swtColor);
+						graphics.fillRectangle(x_c, y_c, width_c, height_c);
 					}
 					// draw line
-					gc.setForeground(ColorConstants.gray);
-					gc.drawRectangle(x_c, y_c, width_c, height_c);
+					graphics.setForegroundColor(ColorConstants.gray);
+					graphics.drawRectangle(x_c, y_c, width_c, height_c);
 				} finally {
-					gc.setBackground(oldBackground);
-					gc.setForeground(oldForeground);
+					graphics.setBackgroundColor(oldBackground);
+					graphics.setForegroundColor(oldForeground);
 					swtColor.dispose();
 				}
 			}
 			// draw color text
 			{
 				String text = getText(property);
-				DrawUtils.drawStringCV(gc, text, x, y, width, height);
+				DrawUtils.drawStringCV(graphics, text, x, y, width, height);
 			}
 		}
 	}

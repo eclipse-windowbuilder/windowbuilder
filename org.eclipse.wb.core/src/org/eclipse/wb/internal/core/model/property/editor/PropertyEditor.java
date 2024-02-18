@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyE
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.GC;
@@ -45,7 +46,7 @@ public abstract class PropertyEditor implements IAdaptable {
 	/**
 	 * Paints given {@link Property} given rectangle <code>(x, y, width, height)</code> of {@link GC}.
 	 */
-	public abstract void paint(Property property, GC gc, int x, int y, int width, int height)
+	public abstract void paint(Property property, Graphics graphics, int x, int y, int width, int height)
 			throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////

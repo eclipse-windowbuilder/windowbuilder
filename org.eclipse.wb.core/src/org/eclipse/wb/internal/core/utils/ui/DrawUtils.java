@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,9 @@
 package org.eclipse.wb.internal.core.utils.ui;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.FigureUtilities;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -19,7 +22,6 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 
 import org.apache.commons.io.IOUtils;
@@ -43,16 +45,35 @@ public class DrawUtils {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Draws given text clipped horizontally and centered vertically.
+	 *
+	 * @deprecated Use {@link #drawStringCV(Graphics, String, int, int, int, int)}
+	 *             instead.
 	 */
+	@Deprecated
 	public static final void drawStringCV(GC gc, String text, int x, int y, int width, int height) {
-		Rectangle oldClipping = gc.getClipping();
+		org.eclipse.swt.graphics.Rectangle oldClipping = gc.getClipping();
 		try {
-			gc.setClipping(new Rectangle(x, y, width, height));
+			gc.setClipping(new org.eclipse.swt.graphics.Rectangle(x, y, width, height));
 			//
 			int textStartY = y + (height - gc.getFontMetrics().getHeight()) / 2;
 			gc.drawString(clipString(gc, text, width), x, textStartY, true);
 		} finally {
 			gc.setClipping(oldClipping);
+		}
+	}
+
+	/**
+	 * Draws given text clipped horizontally and centered vertically.
+	 */
+	public static final void drawStringCV(Graphics graphics, String text, int x, int y, int width, int height) {
+		try {
+			graphics.pushState();
+			graphics.setClip(new Rectangle(x, y, width, height));
+			//
+			int textStartY = y + (height - graphics.getFontMetrics().getHeight()) / 2;
+			graphics.drawString(clipString(graphics, text, width), x, textStartY);
+		} finally {
+			graphics.popState();
 		}
 	}
 
@@ -72,11 +93,24 @@ public class DrawUtils {
 
 	/**
 	 * Draws image at given <code>x</code> and centered vertically.
+	 *
+	 * @deprecated Use {@link #drawImageCV(Graphics, Image, int, int, int)} instead.
 	 */
+	@Deprecated
 	public static final void drawImageCV(GC gc, Image image, int x, int y, int height) {
 		if (image != null) {
-			Rectangle imageBounds = image.getBounds();
+			org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
 			gc.drawImage(image, x, y + (height - imageBounds.height) / 2);
+		}
+	}
+
+	/**
+	 * Draws image at given <code>x</code> and centered vertically.
+	 */
+	public static final void drawImageCV(Graphics graphics, Image image, int x, int y, int height) {
+		if (image != null) {
+			org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
+			graphics.drawImage(image, x, y + (height - imageBounds.height) / 2);
 		}
 	}
 
@@ -85,7 +119,7 @@ public class DrawUtils {
 	 */
 	public static final void drawImageCHCV(GC gc, Image image, int x, int y, int width, int height) {
 		if (image != null) {
-			Rectangle imageBounds = image.getBounds();
+			org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
 			int centerX = (width - imageBounds.width) / 2;
 			int centerY = y + (height - imageBounds.height) / 2;
 			gc.drawImage(image, x + centerX, centerY);
@@ -97,7 +131,7 @@ public class DrawUtils {
 	 * bigger that {@link Rectangle}, {@link Image} will be scaled down as needed with keeping
 	 * proportions.
 	 */
-	public static void drawScaledImage(GC gc, Image image, Rectangle targetRectangle) {
+	public static void drawScaledImage(GC gc, Image image, org.eclipse.swt.graphics.Rectangle targetRectangle) {
 		int imageWidth = image.getBounds().width;
 		int imageHeight = image.getBounds().height;
 		// prepare scaled image size
@@ -126,7 +160,10 @@ public class DrawUtils {
 
 	/**
 	 * @return the string clipped to have width less than given. Clipping is done as trailing "...".
+	 *
+	 * @deprecated Use {@link #clipString(Graphics, String, int)} instead.
 	 */
+	@Deprecated
 	public static String clipString(GC gc, String text, int width) {
 		if (width <= 0) {
 			return "";
@@ -148,6 +185,36 @@ public class DrawUtils {
 			}
 		}
 		return text.substring(0, count) + DOTS;
+	}
+
+	/**
+	 * @return the string clipped to have width less than given. Clipping is done as trailing "...".
+	 */
+	public static String clipString(Graphics graphics, String text, int width) {
+		if (width <= 0) {
+			return "";
+		}
+		// check if text already fits in given width
+		if (getStringWidth(graphics, text) <= width) {
+			return text;
+		}
+		// use average count of characters as base
+		int count = Math.min(width / graphics.getFontMetrics().getAverageCharWidth(), text.length());
+		if (getStringWidth(graphics, text.substring(0, count) + DOTS) > width) {
+			while (count > 0 && getStringWidth(graphics, text.substring(0, count) + DOTS) > width) {
+				count--;
+			}
+		} else {
+			while (count < text.length() - 1
+					&& getStringWidth(graphics, text.substring(0, count + 1) + DOTS) < width) {
+				count++;
+			}
+		}
+		return text.substring(0, count) + DOTS;
+	}
+
+	private static int getStringWidth(Graphics graphics, String text) {
+		return FigureUtilities.getTextWidth(text, graphics.getFont());
 	}
 
 	/**
@@ -227,7 +294,7 @@ public class DrawUtils {
 			int minHeight,
 			int maxWidth,
 			int maxHeight) {
-		Rectangle imageBounds = image.getBounds();
+		org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
 		int imageWidth = imageBounds.width;
 		int imageHeight = imageBounds.height;
 		if (imageWidth < minWidth && imageHeight < minHeight) {
@@ -269,7 +336,7 @@ public class DrawUtils {
 	 * Returns a new Image part of original Image location to given bounds and with given alpha.
 	 */
 	public static Image createTransparentPart(Image original,
-			org.eclipse.draw2d.geometry.Rectangle bounds,
+			Rectangle bounds,
 			int alpha) {
 		// prepare image
 		Image image = new Image(null, bounds.width, bounds.height);
