@@ -20,10 +20,13 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -1214,7 +1217,14 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				int x = m_splitter + 4;
 				int w = width - x - MARGIN_RIGHT;
 				// paint value
-				property.getEditor().paint(property, gc, x, y, w, height);
+				Graphics graphics = new SWTGraphics(gc);
+				try {
+					property.getEditor().paint(property, graphics, x, y, w, height);
+				} finally {
+					// update clipping
+					ReflectionUtils.invokeMethod(graphics, "checkGC()");
+					graphics.dispose();
+				}
 			}
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);

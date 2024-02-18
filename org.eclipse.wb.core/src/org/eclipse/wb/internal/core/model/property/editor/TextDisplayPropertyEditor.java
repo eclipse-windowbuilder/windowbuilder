@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
-import org.eclipse.swt.graphics.GC;
+import org.eclipse.draw2d.Graphics;
 
 /**
  * Abstract {@link PropertyEditor} for displaying text as {@link Property} value in
@@ -31,10 +31,10 @@ public abstract class TextDisplayPropertyEditor extends PropertyEditor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+	public void paint(Property property, Graphics graphics, int x, int y, int width, int height) throws Exception {
 		String text = getText(property);
 		if (text != null) {
-			DrawUtils.drawStringCV(gc, text, x, y, width, height);
+			DrawUtils.drawStringCV(graphics, text, x, y, width, height);
 		}
 	}
 

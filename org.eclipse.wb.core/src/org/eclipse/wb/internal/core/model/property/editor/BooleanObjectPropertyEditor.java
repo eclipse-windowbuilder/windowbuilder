@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
-import org.eclipse.swt.graphics.GC;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 
@@ -45,25 +45,25 @@ public final class BooleanObjectPropertyEditor extends PropertyEditor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+	public void paint(Property property, Graphics graphics, int x, int y, int width, int height) throws Exception {
 		Object value = property.getValue();
 		if (value instanceof Boolean) {
 			boolean booleanValue = ((Boolean) value).booleanValue();
 			Image image = booleanValue ? m_trueImage : m_falseImage;
 			String text = Boolean.toString(booleanValue);
-			paint(gc, x, y, width, height, text, image);
+			paint(graphics, x, y, width, height, text, image);
 		}
 		if (value == null) {
 			Image image = m_nullImage;
 			String text = "null";
-			paint(gc, x, y, width, height, text, image);
+			paint(graphics, x, y, width, height, text, image);
 		}
 	}
 
-	private void paint(GC gc, int x, int y, int width, int height, String text, Image image) {
+	private void paint(Graphics graphics, int x, int y, int width, int height, String text, Image image) {
 		// draw image
 		{
-			DrawUtils.drawImageCV(gc, image, x, y, height);
+			DrawUtils.drawImageCV(graphics, image, x, y, height);
 			// prepare new position/width
 			int imageWidth = image.getBounds().width + 2;
 			x += imageWidth;
@@ -71,7 +71,7 @@ public final class BooleanObjectPropertyEditor extends PropertyEditor {
 		}
 		// draw text
 		{
-			DrawUtils.drawStringCV(gc, text, x, y, width, height);
+			DrawUtils.drawStringCV(graphics, text, x, y, width, height);
 		}
 	}
 
