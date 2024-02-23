@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -1019,7 +1018,14 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				if (m_properties == null) {
 					drawEmptyContent(bufferedGC);
 				} else {
-					drawContent(bufferedGC);
+					Graphics graphics = new SWTGraphics(bufferedGC);
+					try {
+						drawContent(graphics);
+					} catch (Exception e) {
+						DesignerPlugin.log(e);
+					} finally {
+						graphics.dispose();
+					}
 				}
 			} finally {
 				// flush image
@@ -1046,10 +1052,10 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	/**
 	 * Draws all {@link PropertyInfo}'s, separators, etc.
 	 */
-	private void drawContent(GC gc) {
+	private void drawContent(Graphics graphics) {
 		Rectangle clientArea = getClientArea();
 		// prepare fonts
-		m_baseFont = gc.getFont();
+		m_baseFont = graphics.getFont();
 		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
 		m_italicFont = DrawUtils.getItalicFont(m_baseFont);
 		// show presentations
@@ -1070,22 +1076,22 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				// draw single property
 				{
 					PropertyInfo propertyInfo = m_properties.get(i);
-					drawProperty(gc, propertyInfo, y + 1, m_rowHeight - 1, clientArea.width - presentationsWidth[i]);
+					drawProperty(graphics, propertyInfo, y + 1, m_rowHeight - 1, clientArea.width - presentationsWidth[i]);
 					y += m_rowHeight;
 				}
 				// draw row separator
-				gc.setForeground(COLOR_LINE);
-				gc.drawLine(0, y, clientArea.width, y);
+				graphics.setForegroundColor(COLOR_LINE);
+				graphics.drawLine(0, y, clientArea.width, y);
 			}
 		}
 		// draw expand line
-		drawExpandLines(gc, clientArea);
+		drawExpandLines(graphics, clientArea);
 		// draw rectangle around table
-		gc.setForeground(COLOR_LINE);
-		gc.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
+		graphics.setForegroundColor(COLOR_LINE);
+		graphics.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
 		// draw splitter
-		gc.setForeground(COLOR_LINE);
-		gc.drawLine(m_splitter, 0, m_splitter, clientArea.height);
+		graphics.setForegroundColor(COLOR_LINE);
+		graphics.drawLine(m_splitter, 0, m_splitter, clientArea.height);
 		// dispose font
 		m_boldFont.dispose();
 		m_italicFont.dispose();
@@ -1121,13 +1127,13 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	/**
 	 * Draws lines from expanded complex property to its last sub-property.
 	 */
-	private void drawExpandLines(GC gc, Rectangle clientArea) {
+	private void drawExpandLines(Graphics graphics, Rectangle clientArea) {
 		int height = m_rowHeight - 1;
 		int xOffset = m_plusImage.getBounds().width / 2;
 		int yOffset = (height - m_plusImage.getBounds().width) / 2;
 		//
 		int y = clientArea.y - m_selection * m_rowHeight;
-		gc.setForeground(COLOR_COMPLEX_LINE);
+		graphics.setForegroundColor(COLOR_COMPLEX_LINE);
 		for (int i = 0; i < m_properties.size(); i++) {
 			PropertyInfo propertyInfo = m_properties.get(i);
 			//
@@ -1147,8 +1153,8 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 					int x = getTitleX(propertyInfo) + xOffset;
 					int y1 = y + height - yOffset;
 					int y2 = y + m_rowHeight * (index2 - index) + m_rowHeight / 2;
-					gc.drawLine(x, y1, x, y2);
-					gc.drawLine(x, y2, x + m_rowHeight / 3, y2);
+					graphics.drawLine(x, y1, x, y2);
+					graphics.drawLine(x, y2, x + m_rowHeight / 3, y2);
 				}
 			}
 			//
@@ -1159,10 +1165,10 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	/**
 	 * Draws single {@link PropertyInfo} in specified rectangle.
 	 */
-	private void drawProperty(GC gc, PropertyInfo propertyInfo, int y, int height, int width) {
+	private void drawProperty(Graphics graphics, PropertyInfo propertyInfo, int y, int height, int width) {
 		// remember colors
-		Color oldBackground = gc.getBackground();
-		Color oldForeground = gc.getForeground();
+		Color oldBackground = graphics.getBackgroundColor();
+		Color oldForeground = graphics.getForegroundColor();
 		// draw property
 		try {
 			Property property = propertyInfo.getProperty();
@@ -1170,68 +1176,61 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 			// set background
 			{
 				if (isActiveProperty) {
-					gc.setBackground(COLOR_PROPERTY_BG_SELECTED);
+					graphics.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
 				} else {
 					if (property.isModified()) {
-						gc.setBackground(COLOR_PROPERTY_BG_MODIFIED);
+						graphics.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
 					} else {
-						gc.setBackground(COLOR_PROPERTY_BG);
+						graphics.setBackgroundColor(COLOR_PROPERTY_BG);
 					}
 				}
-				gc.fillRectangle(0, y, width, height);
+				graphics.fillRectangle(0, y, width, height);
 			}
 			// draw state image
 			if (propertyInfo.isShowComplex()) {
 				Image stateImage = propertyInfo.isExpanded() ? m_minusImage : m_plusImage;
-				DrawUtils.drawImageCV(gc, stateImage, getTitleX(propertyInfo), y, height);
+				DrawUtils.drawImageCV(graphics, stateImage, getTitleX(propertyInfo), y, height);
 			}
 			// draw title
 			{
 				// configure GC
 				{
-					gc.setForeground(COLOR_PROPERTY_FG_TITLE);
+					graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
 					// check category
 					if (getCategory(property).isAdvanced()) {
-						gc.setForeground(COLOR_PROPERTY_FG_ADVANCED);
-						gc.setFont(m_italicFont);
+						graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
+						graphics.setFont(m_italicFont);
 					} else if (getCategory(property).isPreferred() || getCategory(property).isSystem()) {
-						gc.setFont(m_boldFont);
+						graphics.setFont(m_boldFont);
 					}
 					// check for active
 					if (isActiveProperty) {
-						gc.setForeground(COLOR_PROPERTY_FG_SELECTED);
+						graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
 					}
 				}
 				// paint title
 				int x = getTitleTextX(propertyInfo);
-				DrawUtils.drawStringCV(gc, property.getTitle(), x, y, m_splitter - x, height);
+				DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, m_splitter - x, height);
 			}
 			// draw value
 			{
 				// configure GC
-				gc.setFont(m_baseFont);
+				graphics.setFont(m_baseFont);
 				if (!isActiveProperty) {
-					gc.setForeground(COLOR_PROPERTY_FG_VALUE);
+					graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
 				}
 				// prepare value rectangle
 				int x = m_splitter + 4;
 				int w = width - x - MARGIN_RIGHT;
 				// paint value
-				Graphics graphics = new SWTGraphics(gc);
-				try {
-					property.getEditor().paint(property, graphics, x, y, w, height);
-				} finally {
-					// update clipping
-					ReflectionUtils.invokeMethod(graphics, "checkGC()");
-					graphics.dispose();
-				}
+				property.getEditor().paint(property, graphics, x, y, w, height);
 			}
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
 		} finally {
 			// restore colors
-			gc.setBackground(oldBackground);
-			gc.setForeground(oldForeground);
+			graphics.setBackgroundColor(oldBackground);
+			graphics.setForegroundColor(oldForeground);
 		}
 	}
 
