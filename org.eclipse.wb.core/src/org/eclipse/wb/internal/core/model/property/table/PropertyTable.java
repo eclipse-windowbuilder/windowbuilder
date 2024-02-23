@@ -24,8 +24,10 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -1075,7 +1077,9 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				// draw single property
 				{
 					PropertyInfo propertyInfo = m_properties.get(i);
-					drawProperty(graphics, propertyInfo, y + 1, m_rowHeight - 1, clientArea.width - presentationsWidth[i]);
+					PropertyFigure propertyFigure = new PropertyFigure(propertyInfo);
+					propertyFigure.setBounds(new Rectangle(0, y + 1, clientArea.width - presentationsWidth[i], m_rowHeight - 1));
+					propertyFigure.paint(graphics);
 					y += m_rowHeight;
 				}
 				// draw row separator
@@ -1161,78 +1165,6 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		}
 	}
 
-	/**
-	 * Draws single {@link PropertyInfo} in specified rectangle.
-	 */
-	private void drawProperty(Graphics graphics, PropertyInfo propertyInfo, int y, int height, int width) {
-		// remember colors
-		Color oldBackground = graphics.getBackgroundColor();
-		Color oldForeground = graphics.getForegroundColor();
-		// draw property
-		try {
-			Property property = propertyInfo.getProperty();
-			boolean isActiveProperty = m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
-			// set background
-			{
-				if (isActiveProperty) {
-					graphics.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
-				} else {
-					if (property.isModified()) {
-						graphics.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
-					} else {
-						graphics.setBackgroundColor(COLOR_PROPERTY_BG);
-					}
-				}
-				graphics.fillRectangle(0, y, width, height);
-			}
-			// draw state image
-			if (propertyInfo.isShowComplex()) {
-				Image stateImage = propertyInfo.isExpanded() ? m_minusImage : m_plusImage;
-				DrawUtils.drawImageCV(graphics, stateImage, getTitleX(propertyInfo), y, height);
-			}
-			// draw title
-			{
-				// configure GC
-				{
-					graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
-					// check category
-					if (getCategory(property).isAdvanced()) {
-						graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
-						graphics.setFont(m_italicFont);
-					} else if (getCategory(property).isPreferred() || getCategory(property).isSystem()) {
-						graphics.setFont(m_boldFont);
-					}
-					// check for active
-					if (isActiveProperty) {
-						graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
-					}
-				}
-				// paint title
-				int x = getTitleTextX(propertyInfo);
-				DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, m_splitter - x, height);
-			}
-			// draw value
-			{
-				// configure GC
-				graphics.setFont(m_baseFont);
-				if (!isActiveProperty) {
-					graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
-				}
-				// prepare value rectangle
-				int x = m_splitter + 4;
-				int w = width - x - MARGIN_RIGHT;
-				// paint value
-				property.getEditor().paint(property, graphics, x, y, w, height);
-			}
-		} catch (Throwable e) {
-			DesignerPlugin.log(e);
-		} finally {
-			// restore colors
-			graphics.setBackgroundColor(oldBackground);
-			graphics.setForegroundColor(oldForeground);
-		}
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// PropertyCategory
@@ -1254,6 +1186,86 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 */
 	private PropertyCategory getCategory(Property property) {
 		return m_propertyCategoryProvider.getCategory(property);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyFigure
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	private final class PropertyFigure extends Figure {
+		private final PropertyInfo m_propertyInfo;
+
+		public PropertyFigure(PropertyInfo propertyInfo) {
+			m_propertyInfo = propertyInfo;
+		}
+
+		@Override
+		protected void paintFigure(Graphics graphics) {
+			int width = bounds.width();
+			int height = bounds.height();
+			int y = bounds.y();
+			// draw property
+			try {
+				Property property = m_propertyInfo.getProperty();
+				boolean isActiveProperty = m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
+				// set background
+				{
+					if (isActiveProperty) {
+						graphics.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
+					} else {
+						if (property.isModified()) {
+							graphics.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
+						} else {
+							graphics.setBackgroundColor(COLOR_PROPERTY_BG);
+						}
+					}
+					graphics.fillRectangle(0, y, width, height);
+				}
+				// draw state image
+				if (m_propertyInfo.isShowComplex()) {
+					Image stateImage = m_propertyInfo.isExpanded() ? m_minusImage : m_plusImage;
+					DrawUtils.drawImageCV(graphics, stateImage, getTitleX(m_propertyInfo), y, height);
+				}
+				// draw title
+				{
+					// configure GC
+					{
+						graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
+						// check category
+						if (getCategory(property).isAdvanced()) {
+							graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
+							graphics.setFont(m_italicFont);
+						} else if (getCategory(property).isPreferred() || getCategory(property).isSystem()) {
+							graphics.setFont(m_boldFont);
+						}
+						// check for active
+						if (isActiveProperty) {
+							graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
+						}
+					}
+					// paint title
+					int x = getTitleTextX(m_propertyInfo);
+					DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, m_splitter - x, height);
+				}
+				// draw value
+				{
+					// configure GC
+					graphics.setFont(m_baseFont);
+					if (!isActiveProperty) {
+						graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
+					}
+					// prepare value rectangle
+					int x = m_splitter + 4;
+					int w = width - x - MARGIN_RIGHT;
+					// paint value
+					property.getEditor().paint(property, graphics, x, y, w, height);
+				}
+			} catch (Throwable e) {
+				DesignerPlugin.log(e);
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
