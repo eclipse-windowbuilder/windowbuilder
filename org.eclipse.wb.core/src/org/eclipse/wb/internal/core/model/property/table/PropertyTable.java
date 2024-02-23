@@ -41,7 +41,6 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -217,7 +216,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 			m_selection = verticalBar.getSelection();
 			// redraw (but not include vertical bar to avoid flashing)
 			{
-				Rectangle clientArea = getClientArea();
+				org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
 				redraw(clientArea.x, clientArea.y, clientArea.width, clientArea.height, false);
 			}
 		}
@@ -277,7 +276,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 */
 	public boolean navigate(KeyEvent e) {
 		int index = m_properties.indexOf(m_activePropertyInfo);
-		Rectangle clientArea = getClientArea();
+		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
 		//
 		int newIndex = index;
 		if (e.keyCode == SWT.HOME) {
@@ -533,14 +532,14 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				deactivateEditor(true);
 			} else {
 				// prepare bounds for editor
-				Rectangle bounds;
+				org.eclipse.swt.graphics.Rectangle bounds;
 				{
-					Rectangle clientArea = getClientArea();
+					org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
 					int x = m_splitter + 1;
 					int width = clientArea.width - x - MARGIN_RIGHT;
 					int y = m_rowHeight * (index - m_selection) + 1;
 					int height = m_rowHeight - 1;
-					bounds = new Rectangle(x, y, width, height);
+					bounds = new org.eclipse.swt.graphics.Rectangle(x, y, width, height);
 				}
 				// update bounds using presentation
 				{
@@ -639,7 +638,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Checks horizontal splitter value to boundary values.
 	 */
 	private void configureSplitter() {
-		Rectangle clientArea = getClientArea();
+		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
 		// check title width
 		if (m_splitter < MIN_COLUMN_WIDTH) {
 			m_splitter = MIN_COLUMN_WIDTH;
@@ -1010,7 +1009,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				}
 				// fill client area
 				{
-					Rectangle clientArea = getClientArea();
+					org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
 					bufferedGC.setBackground(COLOR_BACKGROUND);
 					bufferedGC.fillRectangle(clientArea);
 				}
@@ -1043,7 +1042,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Draws content when there are no properties.
 	 */
 	private void drawEmptyContent(GC gc) {
-		Rectangle area = getClientArea();
+		org.eclipse.swt.graphics.Rectangle area = getClientArea();
 		// draw message
 		gc.setForeground(COLOR_NO_PROPERTIES);
 		DrawUtils.drawStringCHCV(gc, ModelMessages.PropertyTable_noProperties, 0, 0, area.width, area.height);
@@ -1053,7 +1052,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Draws all {@link PropertyInfo}'s, separators, etc.
 	 */
 	private void drawContent(Graphics graphics) {
-		Rectangle clientArea = getClientArea();
+		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
 		// prepare fonts
 		m_baseFont = graphics.getFont();
 		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
@@ -1105,7 +1104,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * @return the array of width for each {@link PropertyEditorPresentation}'s,
 	 *         consumed on the right.
 	 */
-	private int[] showPresentations(Rectangle clientArea) {
+	private int[] showPresentations(org.eclipse.swt.graphics.Rectangle clientArea) {
 		int[] presentationsWidth = new int[m_properties.size()];
 		// prepare value rectangle
 		int x = m_splitter + 4;
@@ -1127,7 +1126,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	/**
 	 * Draws lines from expanded complex property to its last sub-property.
 	 */
-	private void drawExpandLines(Graphics graphics, Rectangle clientArea) {
+	private void drawExpandLines(Graphics graphics, org.eclipse.swt.graphics.Rectangle clientArea) {
 		int height = m_rowHeight - 1;
 		int xOffset = m_plusImage.getBounds().width / 2;
 		int yOffset = (height - m_plusImage.getBounds().width) / 2;
