@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.NamingConventions;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
@@ -127,10 +127,8 @@ public final class FieldUniqueVariableSupport extends FieldVariableSupport {
 				m_utils.convertName(
 						assignment.getStartPosition(),
 						getName(),
-						JavaCore.CODEASSIST_FIELD_PREFIXES,
-						JavaCore.CODEASSIST_FIELD_SUFFIXES,
-						JavaCore.CODEASSIST_LOCAL_PREFIXES,
-						JavaCore.CODEASSIST_LOCAL_SUFFIXES,
+						NamingConventions.VK_INSTANCE_FIELD,
+						NamingConventions.VK_LOCAL,
 						m_declaration);
 		setName(localName);
 		// replace "this.fieldName" with "localName"
