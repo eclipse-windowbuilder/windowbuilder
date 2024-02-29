@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,15 +12,12 @@ package org.eclipse.wb.internal.core.model.variable;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.NamingConventions;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Map;
 
 /**
  * Utils for using in {@link VariableSupport} implementations.
@@ -52,10 +49,8 @@ public final class VariableUtils {
 		return convertName(
 				-1,
 				localName,
-				JavaCore.CODEASSIST_LOCAL_PREFIXES,
-				JavaCore.CODEASSIST_LOCAL_SUFFIXES,
-				JavaCore.CODEASSIST_FIELD_PREFIXES,
-				JavaCore.CODEASSIST_FIELD_SUFFIXES,
+				NamingConventions.VK_LOCAL,
+				NamingConventions.VK_INSTANCE_FIELD,
 				excludedVariable);
 	}
 
@@ -64,10 +59,8 @@ public final class VariableUtils {
 	 */
 	public String convertName(int position,
 			String name,
-			String keyPrefixes_source,
-			String keySuffixes_source,
-			String keyPrefixes_target,
-			String keySuffixes_target,
+			int variableKind_source,
+			int variableKind_target,
 			VariableDeclaration excludedVariable) {
 		// remove possible _NNN from base name
 		{
@@ -80,9 +73,9 @@ public final class VariableUtils {
 			}
 		}
 		// remove source prefix/suffix
-		name = stripPrefixSuffix(name, keyPrefixes_source, keySuffixes_source);
+		name = stripPrefixSuffix(name, variableKind_source);
 		// add target prefix/suffix
-		name = addPrefixSuffix(name, keyPrefixes_target, keySuffixes_target);
+		name = addPrefixSuffix(name, variableKind_target);
 		// generate unique name
 		return m_javaInfo.getEditor().getUniqueVariableName(position, name, excludedVariable);
 	}
@@ -90,78 +83,36 @@ public final class VariableUtils {
 	/**
 	 * @return the name with added prefix/suffix.
 	 *
-	 * @param keyPrefixes
-	 *          the key of prefixes in {@link IJavaProject} options.
-	 * @param keySuffixes
-	 *          the key of suffixes in {@link IJavaProject} options.
+	 * @param variableKind specifies what type the variable is:
+	 *                     {@link NamingConventions#VK_LOCAL},
+	 *                     {@link NamingConventions#VK_PARAMETER},
+	 *                     {@link NamingConventions#VK_STATIC_FIELD},
+	 *                     {@link NamingConventions#VK_INSTANCE_FIELD} or
+	 *                     {@link NamingConventions#VK_STATIC_FINAL_FIELD}.
 	 */
-	public String addPrefixSuffix(String name, String keyPrefixes, String keySuffixes) {
-		// add prefix
-		{
-			String[] prefixes = getVariablesPrefixSuffixOptions(keyPrefixes);
-			if (prefixes.length != 0) {
-				String prefix = prefixes[0];
-				if (!name.startsWith(prefix)) {
-					name = prefix + name;
-				}
-			}
-		}
-		// add suffix
-		{
-			String[] suffixes = getVariablesPrefixSuffixOptions(keySuffixes);
-			if (suffixes.length != 0) {
-				String suffix = suffixes[0];
-				if (!name.endsWith(suffix)) {
-					name = name + suffix;
-				}
-			}
-		}
-		// return result
-		return name;
+	public String addPrefixSuffix(String name, int variableKind) {
+		Assert.isNotNull(name);
+		IJavaProject javaProject = m_javaInfo.getEditor().getJavaProject();
+		String[] variableNames = NamingConventions.suggestVariableNames(variableKind, NamingConventions.BK_NAME, name,
+				javaProject, 0, null, true);
+		// The first entry contains the combination prefix + name + suffix
+		return variableNames[0];
 	}
 
 	/**
 	 * @return the name with removed prefix/suffix.
 	 *
-	 * @param keyPrefixes
-	 *          the key of prefixes in {@link IJavaProject} options.
-	 * @param keySuffixes
-	 *          the key of suffixes in {@link IJavaProject} options.
+	 * @param variableKind specifies what type the variable is:
+	 *                     {@link NamingConventions#VK_LOCAL},
+	 *                     {@link NamingConventions#VK_PARAMETER},
+	 *                     {@link NamingConventions#VK_STATIC_FIELD},
+	 *                     {@link NamingConventions#VK_INSTANCE_FIELD} or
+	 *                     {@link NamingConventions#VK_STATIC_FINAL_FIELD}.
 	 */
-	public String stripPrefixSuffix(String name, String keyPrefixes, String keySuffixes) {
+	public String stripPrefixSuffix(String name, int variableKind) {
 		Assert.isNotNull(name);
-		Assert.isNotNull(keyPrefixes);
-		Assert.isNotNull(keySuffixes);
-		// remove prefix
-		{
-			String[] prefixes = getVariablesPrefixSuffixOptions(keyPrefixes);
-			for (String prefix : prefixes) {
-				if (name.startsWith(prefix)) {
-					name = name.substring(prefix.length());
-					break;
-				}
-			}
-		}
-		// remove suffix
-		{
-			String[] suffixes = getVariablesPrefixSuffixOptions(keySuffixes);
-			for (String suffix : suffixes) {
-				if (name.endsWith(suffix)) {
-					name = name.substring(0, name.length() - suffix.length());
-					break;
-				}
-			}
-		}
-		// return result
-		return name;
-	}
-
-	/**
-	 * @return the array of prefixes or suffixes for given key.
-	 */
-	private String[] getVariablesPrefixSuffixOptions(String key) {
 		IJavaProject javaProject = m_javaInfo.getEditor().getJavaProject();
-		Map<String, String> javaOptions = ProjectUtils.getOptions(javaProject);
-		return StringUtils.split(javaOptions.get(key), ",");
+		String baseName = NamingConventions.getBaseName(variableKind, name, javaProject);
+		return baseName;
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.NamingConventions;
 import org.eclipse.jdt.core.dom.Statement;
 
 import org.apache.commons.lang3.StringUtils;
@@ -74,8 +74,7 @@ public final class ExposedFieldVariableSupport extends AbstractNoNameVariableSup
 		name =
 				new VariableUtils(m_javaInfo).stripPrefixSuffix(
 						name,
-						JavaCore.CODEASSIST_FIELD_PREFIXES,
-						JavaCore.CODEASSIST_FIELD_SUFFIXES);
+						NamingConventions.VK_INSTANCE_FIELD);
 		name = StringUtils.capitalize(name);
 		return m_hostJavaInfo.getVariableSupport().getComponentName() + name;
 	}

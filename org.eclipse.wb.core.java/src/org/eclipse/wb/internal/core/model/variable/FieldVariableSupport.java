@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.NamingConventions;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
@@ -60,8 +60,7 @@ public abstract class FieldVariableSupport extends AbstractSimpleVariableSupport
 	public String getComponentName() {
 		return m_utils.stripPrefixSuffix(
 				getName(),
-				JavaCore.CODEASSIST_FIELD_PREFIXES,
-				JavaCore.CODEASSIST_FIELD_SUFFIXES);
+				NamingConventions.VK_INSTANCE_FIELD);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -118,8 +117,7 @@ public abstract class FieldVariableSupport extends AbstractSimpleVariableSupport
 	String decorateTextName(String newName) {
 		return m_utils.addPrefixSuffix(
 				newName,
-				JavaCore.CODEASSIST_FIELD_PREFIXES,
-				JavaCore.CODEASSIST_FIELD_SUFFIXES);
+				NamingConventions.VK_INSTANCE_FIELD);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
