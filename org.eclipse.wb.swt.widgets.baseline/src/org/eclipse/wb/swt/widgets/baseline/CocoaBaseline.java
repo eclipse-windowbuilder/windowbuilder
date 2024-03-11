@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,13 +19,13 @@ import java.lang.reflect.Field;
  *
  * @author mitin_aa
  */
-public class CocoaBaseline extends Baseline {
+final class CocoaBaseline extends Baseline {
 	static {
 		Library.loadLibrary("baseline-cocoa");
 	}
 
 	@Override
-	int fetchBaseline(Control control, int width, int height) {
+	public int fetchBaseline(Control control, int width, int height) {
 		try {
 			int baseline = _fetchBaseline(getID(control, "view"));
 			if (baseline != -1) {

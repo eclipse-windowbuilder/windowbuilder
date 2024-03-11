@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,8 @@ import java.lang.reflect.Method;
  *
  * @author mitin_aa
  */
-public class Baseline {
+public sealed class Baseline implements IBaseline
+		permits CarbonBaseline, CocoaBaseline, DefaultBaseline, GtkBaseline, WindowsBaseline {
 	// spinner class may not exist in early versions of SWT
 	protected static Class<?> spinnerClass = null;
 	protected static Class<?> datetimeClass = null;
@@ -46,36 +47,8 @@ public class Baseline {
 			// ignore all
 		}
 	}
-	/**
-	 * Constant used for widgets which have no baseline or their baseline can't be determined
-	 */
-	public static final int NO_BASELINE = -1;
-	/**
-	 * No resize behavior
-	 */
-	public static final int BRB_NONE = 0;
-	/**
-	 * Baseline resize behavior constant. Indicates as the size of the component changes the baseline
-	 * remains a fixed distance from the top of the component.
-	 */
-	public static final int BRB_CONSTANT_ASCENT = 1;
-	/**
-	 * Baseline resize behavior constant. Indicates as the size of the component changes the baseline
-	 * remains a fixed distance from the bottom of the component.
-	 */
-	public static final int BRB_CONSTANT_DESCENT = 2;
-	/**
-	 * Baseline resize behavior constant. Indicates as the size of the component changes the baseline
-	 * remains a fixed distance from the center of the component.
-	 */
-	public static final int BRB_CENTER_OFFSET = 3;
-	/**
-	 * Baseline resize behavior constant. Indicates as the size of the component changes the baseline
-	 * can not be determined using one of the other constants.
-	 */
-	public static final int BRB_OTHER = 4;
 	// private instance of Baseline
-	private static Baseline m_instance;
+	private static IBaseline m_instance;
 
 	// protected ctor
 	protected Baseline() {
@@ -103,7 +76,7 @@ public class Baseline {
 	}
 
 	//
-	private static Baseline getInstance() {
+	private static synchronized IBaseline getInstance() {
 		if (m_instance == null) {
 			String platform = SWT.getPlatform();
 			if ("win32".equalsIgnoreCase(platform)) {
@@ -159,7 +132,8 @@ public class Baseline {
 	 * seen bottom alignment)) then does baseline adjustments. This is very approximate value of
 	 * baseline we get in this method.
 	 */
-	int fetchBaseline(Control control, int width, int height) {
+	@Override
+	public int fetchBaseline(Control control, int width, int height) {
 		int baseline = NO_BASELINE;
 		GC gc = new GC(control);
 		Font font = control.getFont();
