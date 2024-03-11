@@ -32,7 +32,7 @@ final class GtkBaseline extends Baseline {
 	private native static int fetchBaselineFromLayout(long layoutHandle);
 
 	@Override
-	int fetchBaseline(Control control, int width, int height) {
+	public int fetchBaseline(Control control, int width, int height) {
 		int baseline = NO_BASELINE;
 		try {
 			// we need to check if any text set for widget. If no text set we will set
