@@ -13,6 +13,7 @@
 	<artifactId>org.eclipse.wb.core.databinding.xsd</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>[bundle] WindowBuilder XSD Core</name>
+	<version>1.0.100-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.eclipse.wb</groupId>
@@ -49,6 +50,32 @@
 					<packageName>org.eclipse.wb.core.databinding.xsd.component</packageName>
 					<outputDirectory>${basedir}/src-gen</outputDirectory>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.glassfish.jaxb</groupId>
+						<artifactId>jaxb-xjc</artifactId>
+						<version>4.0.5</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<!-- Obsolete once https://github.com/eclipse-ee4j/jaxb-ri/pull/1796 is merged-->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>replace-timestamp</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<replaceregexp file="${basedir}/src-gen/META-INF/JAXB/episode_xjc.xjb" flags="m" match="^Generated on:.*$" replace="Generated on: [replaced by maven-antrun-plugin]"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
