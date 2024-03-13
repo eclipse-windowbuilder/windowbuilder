@@ -3,8 +3,7 @@
 <target name="wb">
 	<locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/releases/2024-03/"/>
-			<repository location="https://download.eclipse.org/eclipse/updates/4.31-I-builds/"/>
+			<repository location="https://download.eclipse.org/releases/2024-06/"/>
 			<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
@@ -22,7 +21,7 @@
 		</location>
 		<location type="Target" uri="file:${project_loc:/target-platform}/mvn/wb-mvn.target"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-03"/>
+			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-06"/>
 			<unit id="assertj-core" version="0.0.0"/>
 			<unit id="org.apache.commons.commons-collections4" version="0.0.0"/>
 			<unit id="org.apache.commons.lang3" version="0.0.0"/>
