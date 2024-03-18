@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,9 +48,7 @@ import org.eclipse.swt.widgets.Composite;
  * @author scheglov_ke
  * @coverage swt.property.editor
  */
-public final class ImageDescriptorPropertyEditor extends TextDialogPropertyEditor
-implements
-IClipboardSourceProvider {
+public final class ImageDescriptorPropertyEditor extends TextDialogPropertyEditor implements IClipboardSourceProvider {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance
@@ -164,11 +162,7 @@ IClipboardSourceProvider {
 					String symbolicName = StringConverter.INSTANCE.toJavaSource(javaInfo, imageValue[0]);
 					String pathSource = StringConverter.INSTANCE.toJavaSource(javaInfo, imageValue[1]);
 					//
-					return "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor("
-					+ symbolicName
-					+ ", "
-					+ pathSource
-					+ ")";
+					return ImageEvaluator.getPluginDescriptorInvocationSource(symbolicName, pathSource);
 				}
 			}
 		}
@@ -234,12 +228,7 @@ IClipboardSourceProvider {
 						String symbolicName = StringConverter.INSTANCE.toJavaSource(javaInfo, data[0]);
 						String pathSource = StringConverter.INSTANCE.toJavaSource(javaInfo, data[1]);
 						//
-						source =
-								"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor("
-										+ symbolicName
-										+ ", "
-										+ pathSource
-										+ ")";
+						source = ImageEvaluator.getPluginDescriptorInvocationSource(symbolicName, pathSource);
 					}
 				}
 			}

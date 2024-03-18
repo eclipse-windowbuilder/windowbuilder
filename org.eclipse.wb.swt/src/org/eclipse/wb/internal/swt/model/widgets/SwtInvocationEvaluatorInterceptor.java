@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.widgets;
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.InvocationEvaluatorInterceptor;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.util.PlaceholderUtils;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -24,13 +25,27 @@ import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.swt.widgets.Control;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.osgi.framework.Bundle;
 
 import java.awt.Component;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,6 +62,64 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
 	// InvocationEvaluatorInterceptor
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public Object evaluate(EvaluationContext context,
+			MethodInvocation invocation,
+			IMethodBinding methodBinding,
+			Class<?> clazz,
+			Method method,
+			Object[] argumentValues) {
+		if ("org.eclipse.ui.plugin.AbstractUIPlugin".equals(clazz.getName())
+				&& "imageDescriptorFromPlugin".equals(method.getName())) {
+			try {
+				URL entry = getEntry((String) argumentValues[0], (String) argumentValues[1]);
+				if (entry != null) {
+					return ImageDescriptor.createFromURL(entry);
+				}
+			} catch (Exception e) {
+				DesignerPlugin.log(e);
+			}
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
+
+	/**
+	 * @return the {@link URL} for resource in plugin.
+	 */
+	public static URL getEntry(String symbolicName, String fullPath) throws Exception {
+		// try target platform
+		{
+			IPluginModelBase modelBase = PluginRegistry.findModel(symbolicName);
+			String installLocation = modelBase.getInstallLocation();
+			if (!StringUtils.isEmpty(installLocation) && installLocation.toLowerCase().endsWith(".jar")) {
+				String urlPath = "jar:file:/" + installLocation + "!/" + fullPath;
+				urlPath = FilenameUtils.normalize(urlPath, true);
+				return new URL(urlPath);
+			}
+		}
+		// try workspace plugin
+		{
+			IPluginModelBase pluginModel = PluginRegistry.findModel(symbolicName);
+			if (pluginModel != null) {
+				IResource underlyingResource = pluginModel.getUnderlyingResource();
+				if (underlyingResource != null) {
+					IProject project = underlyingResource.getProject();
+					return project.getFile(new Path(fullPath)).getLocationURI().toURL();
+				}
+			}
+		}
+		// try runtime plugin
+		{
+			Bundle bundle = Platform.getBundle(symbolicName);
+			if (bundle != null) {
+				return bundle.getEntry(fullPath);
+			}
+		}
+		// not found
+		return null;
+	}
+
 	@Override
 	public Object evaluate(EvaluationContext context,
 			ClassInstanceCreation expression,

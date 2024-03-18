@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -71,6 +71,23 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void test_ThisPluginImage_Eclipse_workspace() throws Exception {
+		assert_getText_getClipboardSource_forSource(
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"TestProject\", \"icons/1.png\")",
+				"Plugin: TestProject icons/1.png",
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"TestProject\", \"icons/1.png\")");
+	}
+
+	@Test
+	public void test_PluginImage_Eclipse() throws Exception {
+		assert_getText_getClipboardSource_forSource(
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")",
+				"Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.png",
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
+	}
+
 	@Test
 	public void test_ThisPluginImage_OLD() throws Exception {
 		ensureManagers();
@@ -78,7 +95,7 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
 		assert_getText_getClipboardSource_forSource(
 				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(testplugin.Activator.getDefault(), \"icons/1.png\")",
 				"Plugin: TestProject icons/1.png",
-				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"TestProject\", \"icons/1.png\")");
 	}
 
 	@Test
@@ -88,7 +105,7 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
 		assert_getText_getClipboardSource_forSource(
 				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")",
 				"Plugin: TestProject icons/1.png",
-				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"TestProject\", \"icons/1.png\")");
 	}
 
 	@Test
@@ -98,14 +115,15 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
 		assert_getText_getClipboardSource_forSource(
 				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")",
 				"Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.png",
-				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
+				"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
 	}
 
 	@Test
 	public void test_ThisPlugin_Value() throws Exception {
 		ensureManagers();
 		GenericProperty property =
-				createImageDescriptorPropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
+				createImageDescriptorPropertyForSource(
+						"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"TestProject\", \"icons/1.png\")");
 		assertNotNull(property);
 		assertNotNull(property.getValue());
 		//
@@ -121,7 +139,7 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
 		ensureManagers();
 		GenericProperty property =
 				createImageDescriptorPropertyForSource(
-						"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
+						"org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
 		assertNotNull(property);
 		assertNotNull(property.getValue());
 		//

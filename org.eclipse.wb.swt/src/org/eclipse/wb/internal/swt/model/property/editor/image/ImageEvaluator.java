@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import java.io.InputStream;
 import java.util.List;
@@ -46,6 +47,8 @@ public class ImageEvaluator implements IExpressionEvaluator {
 	private static final String[] IMAGE_SIGNATURES_NEW = {
 			"getPluginImage(java.lang.String,java.lang.String)",
 	"getPluginImageDescriptor(java.lang.String,java.lang.String)"};
+	private static final String[] IMAGE_SIGNATURES_ABSTRACTUI = {
+			"imageDescriptorFromPlugin(java.lang.String,java.lang.String)" };
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -58,10 +61,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
 			ITypeBinding typeBinding,
 			String typeQualifiedName) throws Exception {
 		// check for old version ResourceManager
-		if (AstNodeUtils.isMethodInvocation(
-				expression,
-				"org.eclipse.wb.swt.ResourceManager",
-				IMAGE_SIGNATURES_OLD)) {
+		if (isOldResourceManager(expression)) {
 			MethodInvocation invocation = (MethodInvocation) expression;
 			List<Expression> arguments = DomGenerics.arguments(invocation);
 			IProject project = getProjectOverActivator(arguments.get(0));
@@ -136,16 +136,13 @@ public class ImageEvaluator implements IExpressionEvaluator {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return <code>[symbolic name, image path]</code> for image property if is't set as
-	 *         <code>ResourceManager.getPluginImageXXX()</code> or <code>null</code> otherwise.
+	 * @return {@code [symbolic name, image path]} for image property if it's set as
+	 *         {@link AbstractUIPlugin#imageDescriptorFromPlugin(String,String)} or
+	 *         {@code null} otherwise.
 	 */
 	public static String[] getPluginImageValue(Property property) throws Exception {
 		Expression expression = ((GenericProperty) property).getExpression();
-		// check for new version ResourceManager
-		if (AstNodeUtils.isMethodInvocation(
-				expression,
-				"org.eclipse.wb.swt.ResourceManager",
-				IMAGE_SIGNATURES_NEW)) {
+		if (isAbstractUiPlugin(expression) || isNewResourceManager(expression)) {
 			MethodInvocation invocation = (MethodInvocation) expression;
 			List<Expression> arguments = DomGenerics.arguments(invocation);
 			String symbolicName = (String) JavaInfoEvaluationHelper.getValue(arguments.get(0));
@@ -153,10 +150,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
 			return new String[]{symbolicName, imagePath};
 		}
 		// check for old version ResourceManager
-		if (AstNodeUtils.isMethodInvocation(
-				expression,
-				"org.eclipse.wb.swt.ResourceManager",
-				IMAGE_SIGNATURES_OLD)) {
+		if (isOldResourceManager(expression)) {
 			MethodInvocation invocation = (MethodInvocation) expression;
 			List<Expression> arguments = DomGenerics.arguments(invocation);
 			IProject project = getProjectOverActivator(arguments.get(0));
@@ -190,4 +184,26 @@ public class ImageEvaluator implements IExpressionEvaluator {
 		}
 		return null;
 	}
+
+	private static boolean isOldResourceManager(Expression expression) {
+		return AstNodeUtils.isMethodInvocation(expression, "org.eclipse.wb.swt.ResourceManager", IMAGE_SIGNATURES_OLD);
+	}
+
+	private static boolean isNewResourceManager(Expression expression) {
+		return AstNodeUtils.isMethodInvocation(expression, "org.eclipse.wb.swt.ResourceManager", IMAGE_SIGNATURES_NEW);
+	}
+
+	private static boolean isAbstractUiPlugin(Expression expression) {
+		return AstNodeUtils.isMethodInvocation(expression, "org.eclipse.ui.plugin.AbstractUIPlugin",
+				IMAGE_SIGNATURES_ABSTRACTUI);
+	}
+
+	/* package */ static String getPluginDescriptorInvocationSource(String symbolicName, String pathSource) {
+		return "org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin("
+				+ symbolicName
+				+ ", "
+				+ pathSource
+				+ ")";
+	}
+
 }
