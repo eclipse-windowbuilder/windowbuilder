@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
-import org.eclipse.wb.internal.rcp.swtawt.Activator;
 import org.eclipse.wb.internal.rcp.swtawt.Messages;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
@@ -46,7 +45,8 @@ import javax.swing.JRootPane;
  * @coverage rcp.editor.palette
  */
 public final class SwingCompositeEntryInfo extends ToolEntryInfo {
-	private static final ImageDescriptor ICON = Activator.getImageDescriptor("info/SWT_AWT/Composite_SWT_AWT.png");
+	private static final ImageDescriptor ICON = ImageDescriptor.createFromFile(SwingCompositeEntryInfo.class,
+			"/icons/info/SWT_AWT/Composite_SWT_AWT.png");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
