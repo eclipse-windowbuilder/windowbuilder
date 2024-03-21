@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
 			Point location) throws Exception {
 		// create Text
 		{
-			m_textControl = new Text(propertyTable, SWT.NONE);
+			m_textControl = new Text(propertyTable.getControl(), SWT.NONE);
 			new TextControlActionsManager(m_textControl);
 			m_textControl.setEditable(isEditable());
 			m_textControl.setFocus();
