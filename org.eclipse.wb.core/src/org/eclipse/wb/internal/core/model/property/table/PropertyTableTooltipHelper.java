@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 	////////////////////////////////////////////////////////////////////////////
 	public PropertyTableTooltipHelper(PropertyTable table) {
 		m_table = table;
-		m_table.addListener(SWT.MouseHover, new Listener() {
+		m_table.getControl().addListener(SWT.MouseHover, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				if (event.stateMask == 0) {
@@ -48,7 +48,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 				}
 			}
 		});
-		m_table.addListener(SWT.MouseExit, new Listener() {
+		m_table.getControl().addListener(SWT.MouseExit, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				// check, may be cursor is now on tooltip, so ignore this MouseExit
@@ -148,7 +148,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 		}
 		// create Shell
 		{
-			m_tooltip = new Shell(m_table.getShell(), SWT.NO_FOCUS | SWT.ON_TOP | SWT.TOOL | SWT.SINGLE);
+			m_tooltip = new Shell(m_table.getControl().getShell(), SWT.NO_FOCUS | SWT.ON_TOP | SWT.TOOL | SWT.SINGLE);
 			configureColors(m_tooltip);
 			GridLayoutFactory.create(m_tooltip).noMargins();
 		}
@@ -163,9 +163,9 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 			// prepare tooltip location
 			Point tooltipLocation;
 			if (provider.getTooltipPosition() == PropertyTooltipProvider.ON) {
-				tooltipLocation = m_table.toDisplay(new Point(startX, m_y));
+				tooltipLocation = m_table.getControl().toDisplay(new Point(startX, m_y));
 			} else {
-				tooltipLocation = m_table.toDisplay(new Point(startX, m_y + m_rowHeight));
+				tooltipLocation = m_table.getControl().toDisplay(new Point(startX, m_y + m_rowHeight));
 			}
 			// set location/size and open
 			m_tooltip.setLocation(tooltipLocation.x, tooltipLocation.y);

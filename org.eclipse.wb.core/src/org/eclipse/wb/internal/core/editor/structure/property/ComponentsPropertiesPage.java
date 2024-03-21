@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -111,7 +111,7 @@ public final class ComponentsPropertiesPage implements IPage {
 		}
 		// show "properties" table
 		{
-			m_stackLayout.topControl = m_propertyTable;
+			m_stackLayout.topControl = m_propertyTable.getControl();
 			m_container.layout();
 		}
 		// actions
@@ -237,7 +237,7 @@ public final class ComponentsPropertiesPage implements IPage {
 				}
 			}
 		});
-		m_propertyTable.setMenu(manager.createContextMenu(m_propertyTable));
+		m_propertyTable.getControl().setMenu(manager.createContextMenu(m_propertyTable.getControl()));
 	}
 
 	/**
@@ -419,7 +419,7 @@ public final class ComponentsPropertiesPage implements IPage {
 		@Override
 		public void run() {
 			PropertyManager.setCategory(m_activeProperty, m_category);
-			m_propertyTable.redraw();
+			m_propertyTable.getControl().redraw();
 		}
 
 		private void update() {
@@ -482,9 +482,9 @@ public final class ComponentsPropertiesPage implements IPage {
 				refreshProperties();
 				// set focus
 				if (m_showEvents) {
-					m_eventsTable.setFocus();
+					m_eventsTable.getControl().setFocus();
 				} else {
-					m_propertyTable.setFocus();
+					m_propertyTable.getControl().setFocus();
 				}
 			}
 		};
@@ -534,7 +534,7 @@ public final class ComponentsPropertiesPage implements IPage {
 		m_eventsTable.setInput(properties);
 		// show "events" table
 		{
-			m_stackLayout.topControl = m_eventsTable;
+			m_stackLayout.topControl = m_eventsTable.getControl();
 			m_container.layout();
 		}
 	}
@@ -553,7 +553,7 @@ public final class ComponentsPropertiesPage implements IPage {
 		}
 		// show "property" table
 		{
-			m_stackLayout.topControl = m_propertyTable;
+			m_stackLayout.topControl = m_propertyTable.getControl();
 			m_container.layout();
 		}
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -108,7 +108,7 @@ public class LayoutAssistantSupport {
 		constraintsProperty.setEditorPresentation(new ButtonPropertyEditorPresentation() {
 			@Override
 			protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
-				m_constraintsDialog = new ConstraintsDialog(propertyTable.getShell(), m_layout, component);
+				m_constraintsDialog = new ConstraintsDialog(propertyTable.getControl().getShell(), m_layout, component);
 				m_constraintsDialog.create();
 				m_constraintsDialog.getShell().addDisposeListener(new DisposeListener() {
 					@Override

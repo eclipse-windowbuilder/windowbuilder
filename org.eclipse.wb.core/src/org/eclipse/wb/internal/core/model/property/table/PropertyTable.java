@@ -25,12 +25,13 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -64,7 +65,7 @@ import java.util.TreeSet;
  * @author lobas_av
  * @coverage core.model.property.table
  */
-public class PropertyTable extends Canvas implements ISelectionProvider {
+public class PropertyTable extends GraphicalViewerImpl {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Colors
@@ -122,19 +123,17 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public PropertyTable(Composite parent, int style) {
-		super(parent, style | SWT.V_SCROLL | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE);
+		setControl(new Canvas(parent, style | SWT.V_SCROLL | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE));
 		hookControlEvents();
 		// calculate sizes
-		{
-			GC gc = new GC(this);
-			try {
-				m_rowHeight = 1 + gc.getFontMetrics().getHeight() + 1;
-			} finally {
-				gc.dispose();
-			}
-		}
+		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
 		// install tooltip helper
 		m_tooltipHelper = new PropertyTableTooltipHelper(this);
+	}
+
+	@Override
+	public Canvas getControl() {
+		return (Canvas) super.getControl();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -146,14 +145,14 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Adds listeners for events.
 	 */
 	private void hookControlEvents() {
-		addListener(SWT.Dispose, event -> disposeBufferedImage());
-		addListener(SWT.Resize, event -> handleResize());
-		addListener(SWT.Paint, event -> handlePaint(event.gc, event.x, event.y, event.width, event.height));
-		getVerticalBar().addListener(SWT.Selection, event -> handleVerticalScrolling());
-		addMouseListener(new MouseAdapter() {
+		getControl().addListener(SWT.Dispose, event -> disposeBufferedImage());
+		getControl().addListener(SWT.Resize, event -> handleResize());
+		getControl().addListener(SWT.Paint, event -> handlePaint(event.gc, event.x, event.y, event.width, event.height));
+		getControl().getVerticalBar().addListener(SWT.Selection, event -> handleVerticalScrolling());
+		getControl().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent event) {
-				forceFocus();
+				getControl().forceFocus();
 				handleMouseDown(event);
 			}
 
@@ -167,9 +166,9 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				handleMouseDoubleClick(event);
 			}
 		});
-		addMouseMoveListener(event -> handleMouseMove(event));
+		getControl().addMouseMoveListener(event -> handleMouseMove(event));
 		// keyboard
-		addKeyListener(new KeyAdapter() {
+		getControl().addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				handleKeyDown(e);
@@ -202,7 +201,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		{
 			// set default value for splitter
 			if (m_splitter <= MIN_COLUMN_WIDTH) {
-				m_splitter = Math.max((int) (getClientArea().width * 0.4), MIN_COLUMN_WIDTH);
+				m_splitter = Math.max((int) (getControl().getClientArea().width * 0.4), MIN_COLUMN_WIDTH);
 			}
 			configureSplitter();
 		}
@@ -212,14 +211,14 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Handles {@link SWT#Selection} event for vertical {@link ScrollBar}.
 	 */
 	private void handleVerticalScrolling() {
-		ScrollBar verticalBar = getVerticalBar();
+		ScrollBar verticalBar = getControl().getVerticalBar();
 		if (verticalBar.getEnabled()) {
 			// update selection
 			m_selection = verticalBar.getSelection();
 			// redraw (but not include vertical bar to avoid flashing)
 			{
-				org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
-				redraw(clientArea.x, clientArea.y, clientArea.width, clientArea.height, false);
+				org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
+				getControl().redraw(clientArea.x, clientArea.y, clientArea.width, clientArea.height, false);
 			}
 		}
 	}
@@ -278,7 +277,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 */
 	public boolean navigate(KeyEvent e) {
 		int index = m_properties.indexOf(m_activePropertyInfo);
-		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
+		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
 		//
 		int newIndex = index;
 		if (e.keyCode == SWT.HOME) {
@@ -307,7 +306,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				configureScrolling();
 			}
 			// repaint
-			redraw();
+			getControl().redraw();
 			return true;
 		}
 		// no navigation change
@@ -343,7 +342,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 			Property property = m_activePropertyInfo.getProperty();
 			// de-activate current editor
 			deactivateEditor(true);
-			redraw();
+			getControl().redraw();
 			// activate editor
 			if (isLocationValue(event.x)) {
 				activateEditor(property, getValueRelativeLocation(event.x, event.y));
@@ -362,7 +361,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				return;
 			}
 			// if out of bounds, then ignore
-			if (!getClientArea().contains(event.x, event.y)) {
+			if (!getControl().getClientArea().contains(event.x, event.y)) {
 				return;
 			}
 			// update
@@ -389,7 +388,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Handles {@link SWT#MouseDoubleClick} event.
 	 */
 	private void handleMouseDoubleClick(MouseEvent event) {
-		if (System.currentTimeMillis() - m_lastExpandCollapseTime > getDisplay().getDoubleClickTime()) {
+		if (System.currentTimeMillis() - m_lastExpandCollapseTime > getControl().getDisplay().getDoubleClickTime()) {
 			try {
 				if (m_activePropertyInfo != null) {
 					if (m_activePropertyInfo.isComplex()) {
@@ -415,20 +414,20 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		if (m_splitterResizing) {
 			m_splitter = x;
 			configureSplitter();
-			redraw();
+			getControl().redraw();
 			return;
 		}
 		// if out of bounds, then ignore
-		if (!getClientArea().contains(event.x, event.y)) {
+		if (!getControl().getClientArea().contains(event.x, event.y)) {
 			return;
 		}
 		// update
 		if (m_properties != null) {
 			// update cursor
 			if (isLocationSplitter(x)) {
-				setCursor(Cursors.SIZEWE);
+				getControl().setCursor(Cursors.SIZEWE);
 			} else {
-				setCursor(null);
+				getControl().setCursor(null);
 			}
 			// update tooltip helper
 			updateTooltip(event);
@@ -461,7 +460,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 			{
 				int valueX = m_splitter + 3;
 				if (x > valueX) {
-					m_tooltipHelper.update(property, false, true, valueX, getClientArea().width, y, m_rowHeight);
+					m_tooltipHelper.update(property, false, true, valueX, getControl().getClientArea().width, y, m_rowHeight);
 				}
 			}
 		} else {
@@ -536,7 +535,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				// prepare bounds for editor
 				org.eclipse.swt.graphics.Rectangle bounds;
 				{
-					org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
+					org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
 					int x = m_splitter + 1;
 					int width = clientArea.width - x - MARGIN_RIGHT;
 					int y = m_rowHeight * (index - m_selection) + 1;
@@ -589,11 +588,11 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Configures vertical {@link ScrollBar}.
 	 */
 	private void configureScrolling() {
-		ScrollBar verticalBar = getVerticalBar();
+		ScrollBar verticalBar = getControl().getVerticalBar();
 		if (m_properties == null) {
 			verticalBar.setEnabled(false);
 		} else {
-			m_page = getClientArea().height / m_rowHeight;
+			m_page = getControl().getClientArea().height / m_rowHeight;
 			m_selection = Math.max(0, Math.min(m_properties.size() - m_page, m_selection));
 			verticalBar.setValues(m_selection, 0, m_properties.size(), m_page, 1, m_page);
 			// enable/disable scrolling
@@ -605,7 +604,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 		}
 		// redraw, we reconfigure scrolling only if list of properties was changed, so
 		// we should redraw
-		redraw();
+		getControl().redraw();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -640,7 +639,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Checks horizontal splitter value to boundary values.
 	 */
 	private void configureSplitter() {
-		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
+		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
 		// check title width
 		if (m_splitter < MIN_COLUMN_WIDTH) {
 			m_splitter = MIN_COLUMN_WIDTH;
@@ -961,7 +960,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 			listener.selectionChanged(selectionEvent);
 		}
 		// re-draw
-		redraw();
+		getControl().redraw();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -980,7 +979,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	private void handlePaint(GC gc, int x, int y, int width, int height) {
 		// sometimes we disable Eclipse Shell to prevent user actions, but we do this
 		// for short time
-		if (!isEnabled()) {
+		if (!getControl().isEnabled()) {
 			return;
 		}
 		// prevent recursion
@@ -993,7 +992,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 			setActiveEditorBounds();
 			// prepare buffered image
 			if (m_bufferedImage == null || m_bufferedImage.isDisposed()) {
-				Point size = getSize();
+				Point size = getControl().getSize();
 				m_bufferedImage = new Image(DesignerPlugin.getStandardDisplay(), size.x, size.y);
 			}
 			// prepare buffered GC
@@ -1011,7 +1010,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 				}
 				// fill client area
 				{
-					org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
+					org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
 					bufferedGC.setBackground(COLOR_BACKGROUND);
 					bufferedGC.fillRectangle(clientArea);
 				}
@@ -1044,7 +1043,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Draws content when there are no properties.
 	 */
 	private void drawEmptyContent(GC gc) {
-		org.eclipse.swt.graphics.Rectangle area = getClientArea();
+		org.eclipse.swt.graphics.Rectangle area = getControl().getClientArea();
 		// draw message
 		gc.setForeground(COLOR_NO_PROPERTIES);
 		DrawUtils.drawStringCHCV(gc, ModelMessages.PropertyTable_noProperties, 0, 0, area.width, area.height);
@@ -1054,7 +1053,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	 * Draws all {@link PropertyInfo}'s, separators, etc.
 	 */
 	private void drawContent(Graphics graphics) {
-		org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
+		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
 		// prepare fonts
 		m_baseFont = graphics.getFont();
 		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
