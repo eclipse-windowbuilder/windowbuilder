@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -92,7 +92,7 @@ public class ImportantPropertiesDialog extends ResizableDialog {
 	private final ObjectEventListener m_refreshListener = new ObjectEventListener() {
 		@Override
 		public void refreshed() throws Exception {
-			m_propertyTable.redraw();
+			m_propertyTable.getControl().redraw();
 		}
 	};
 
@@ -102,7 +102,7 @@ public class ImportantPropertiesDialog extends ResizableDialog {
 		area.setLayout(new GridLayout());
 		//
 		m_propertyTable = new PropertyTable(area, SWT.BORDER);
-		GridDataFactory.create(m_propertyTable).grab().fill().hintC(55, 20);
+		GridDataFactory.create(m_propertyTable.getControl()).grab().fill().hintC(55, 20);
 		// install refresh listener
 		m_javaInfo.addBroadcastListener(m_refreshListener);
 		// show important properties

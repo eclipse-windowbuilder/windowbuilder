@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
 	public final boolean activate(final PropertyTable propertyTable,
 			final Property property,
 			Point location) throws Exception {
-		m_combo = new CComboBox(propertyTable, SWT.NONE);
+		m_combo = new CComboBox(propertyTable.getControl(), SWT.NONE);
 		// initialize
 		addItems(property, m_combo);
 		selectItem(property, m_combo);

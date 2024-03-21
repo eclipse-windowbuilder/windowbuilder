@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ final class ButtonPropertyEditorPresentationImplMac extends ButtonPropertyEditor
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected final Control createControlImpl(final PropertyTable propertyTable, Property property) {
-		CFlatButton button = new CFlatButton(propertyTable, SWT.NONE);
+		CFlatButton button = new CFlatButton(propertyTable.getControl(), SWT.NONE);
 		button.setImage(getPresentation().getImage());
 		button.setToolTipText(getPresentation().getTooltip());
 		return button;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,7 +85,7 @@ public class TableTest1 {
 		PropertyTable table = new PropertyTable(shell, SWT.NONE);
 		//PropertyTable2 table = new PropertyTable2(shell, SWT.NONE);
 		//table.setFont(new Font(null, "", 12, SWT.NONE));
-		table.setLayoutData(new GridData(GridData.FILL_BOTH));
+		table.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		//table.setInput(null);
 		if (true) {
 			table.setInput(new Property[]{
