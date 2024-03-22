@@ -30,7 +30,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.core.utils.ast.LambdaTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -42,6 +41,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -73,6 +73,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 
@@ -132,21 +133,22 @@ IListenerMethodProperty {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean isModified() throws Exception {
-		MethodDeclaration listenerMethod = findListenerMethod();
-		if (listenerMethod != null) {
-			if (hasStubRouting(listenerMethod)) {
-				return findStubMethod_orNull(listenerMethod) != null;
-			}
-			return true;
+		ListenerTypeDeclaration listenerType = findListenerType();
+		if (listenerType == null) {
+			return false;
 		}
-		// no listener method
-		return false;
+		return listenerType.isModified();
 	}
 
 	@Override
 	public void setValue(Object value) throws Exception {
 		Assert.isTrue(value == UNKNOWN_VALUE, "Unsupported value |%s|.", value);
-		ExecutionUtils.run(m_javaInfo, this::removeListenerMethod);
+		ExecutionUtils.run(m_javaInfo, () -> {
+			ListenerTypeDeclaration listenerType = findListenerType();
+			if (listenerType != null) {
+				listenerType.removeListenerMethod();
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -168,58 +170,22 @@ IListenerMethodProperty {
 		return m_method;
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Remove support
-	//
-	////////////////////////////////////////////////////////////////////////////
+	Optional<Integer> getStartPosition() {
+		ListenerTypeDeclaration listenerType = findListenerType();
+		if (listenerType != null) {
+			return listenerType.getStartPosition();
+		}
+		return Optional.empty();
+	}
+
 	/**
-	 * Removes stub/handler for this listener method.
+	 * Removes the listener {@link TypeDeclaration} with all its methods and stubs
+	 * (if enabled).
 	 */
-	private void removeListenerMethod() throws Exception {
-		// prepare listener type
-		TypeDeclaration listenerType = findListenerType();
-		if (listenerType == null) {
-			return;
-		}
-		// prepare listener method
-		MethodDeclaration listenerMethod = findListenerMethod();
-		if (listenerMethod == null) {
-			return;
-		}
-		// if "listenerType" is "this" type, then we implement interface, so remove only stub
-		if (listenerType == JavaInfoUtils.getTypeDeclaration(m_javaInfo)) {
-			removeStubMethod(listenerMethod);
-			return;
-		}
-		// check that listener has adapter and adapter is used
-		if (m_listener.hasAdapter()
-				&& AstNodeUtils.isSuccessorOf(
-						AstNodeUtils.getTypeBinding(listenerType),
-						m_listener.getAdapter())) {
-			// ask confirmation about method remove
-			if (!MessageDialog.openConfirm(
-					DesignerPlugin.getShell(),
-					ModelMessages.ListenerMethodProperty_deleteMethodTitle,
-					MessageFormat.format(
-							ModelMessages.ListenerMethodProperty_deleteMethodMessage,
-							m_method.getName()))) {
-				return;
-			}
-			// remove method
-			removeListenerMethod(listenerType, listenerMethod);
-		} else {
-			// ask confirmation about listener remove
-			if (!MessageDialog.openConfirm(
-					DesignerPlugin.getShell(),
-					ModelMessages.ListenerMethodProperty_deleteListenerTitle,
-					MessageFormat.format(
-							ModelMessages.ListenerMethodProperty_deleteListenerMessage,
-							m_listener.getName()))) {
-				return;
-			}
-			// remove listener
-			removeListener();
+	void removeListener() throws Exception {
+		ListenerTypeDeclaration listenerType = findListenerType();
+		if (listenerType != null) {
+			listenerType.removeListener();
 		}
 	}
 
@@ -228,26 +194,27 @@ IListenerMethodProperty {
 	// Listener type support
 	//
 	////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * @return the {@link TypeDeclaration} that handles this event listener.
 	 */
-	TypeDeclaration findListenerType() {
+	ListenerTypeDeclaration findListenerType() {
 		Expression argument = getListenerExpression();
 		if (argument != null) {
 			// check for "this"
 			if (argument instanceof ThisExpression) {
-				return AstNodeUtils.getEnclosingType(argument);
+				return new StandardListenerTypeDeclaration(AstNodeUtils.getEnclosingType(argument));
 			}
 			// (event) -> {...}
 			if (argument instanceof LambdaExpression lambdaExpression) {
 				IMethodBinding methodBinding = lambdaExpression.resolveMethodBinding();
-				return LambdaTypeDeclaration.create(lambdaExpression, methodBinding);
+				return new LambdaListenerTypeDeclaration(lambdaExpression, methodBinding);
 			}
 			// e.g. System.out::println, (event) -> System.out.println(event)
 			if (argument instanceof ExpressionMethodReference methodReference) {
 				IMethodBinding methodBinding = getListenerMethodBinding((MethodInvocation) methodReference.getParent());
 				if (methodBinding != null) {
-					return LambdaTypeDeclaration.create(methodReference, methodBinding);
+					return new LambdaListenerTypeDeclaration(methodReference, methodBinding);
 				}
 			}
 			// MouseListener.mouseDoubleClickAdapter(event -> {...})
@@ -256,17 +223,17 @@ IListenerMethodProperty {
 						(MethodInvocation) methodInvocation.getParent());
 				if (methodBinding != null) {
 					LambdaExpression lambdaExpression = (LambdaExpression) methodInvocation.arguments().get(0);
-					return LambdaTypeDeclaration.create(lambdaExpression, methodBinding);
+					return new LambdaListenerTypeDeclaration(lambdaExpression, methodBinding);
 				}
 			}
 			// check for listener creation
 			if (argument instanceof ClassInstanceCreation creation) {
 				// check for anonymous class
 				if (creation.getAnonymousClassDeclaration() != null) {
-					return AnonymousTypeDeclaration.create(creation.getAnonymousClassDeclaration());
+					return new StandardListenerTypeDeclaration(AnonymousTypeDeclaration.create(creation.getAnonymousClassDeclaration()));
 				}
 				// find inner type
-				return AstNodeUtils.getTypeDeclaration(creation);
+				return new StandardListenerTypeDeclaration(AstNodeUtils.getTypeDeclaration(creation));
 			}
 		}
 		// no listener found
@@ -371,76 +338,6 @@ IListenerMethodProperty {
 		}
 		// no listener found
 		return null;
-	}
-
-	/**
-	 * Removes the listener {@link TypeDeclaration} with all its methods and stubs (if enabled).
-	 */
-	void removeListener() throws Exception {
-		// prepare listener TypeDeclaration now, when we have so reference on it via addXXXListener()
-		TypeDeclaration listenerType = findListenerType();
-		// delete inner or "simple"
-		if (listenerType != null && listenerType.getParent() instanceof TypeDeclaration) {
-			removeListener_inner(listenerType);
-		} else {
-			// remove stubs
-			if (m_preferences.getBoolean(P_DELETE_STUB)) {
-				removeListenerStubs();
-			}
-			// remove addXXXListener()
-			m_javaInfo.removeMethodInvocations(m_listener.getMethodSignature());
-		}
-		// refresh
-		ExecutionUtils.refresh(m_javaInfo);
-	}
-
-	/**
-	 * Implementation of {@link #removeListener()} for inner type.
-	 */
-	private void removeListener_inner(TypeDeclaration listenerType) throws Exception {
-		List<ClassInstanceCreation> listenerCreations =
-				AstNodeUtils.getClassInstanceCreations(listenerType);
-		boolean removeAllListenerArtifacts = true;
-		if (listenerCreations.size() > 1) {
-			if (m_javaInfo.isDeleting()) {
-				removeAllListenerArtifacts = false;
-			} else {
-				String message = MessageFormat.format(
-						ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesMessage,
-						m_listener.getName());
-				if (!MessageDialog.openQuestion(
-						DesignerPlugin.getShell(),
-						ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesTitle,
-						message)) {
-					removeAllListenerArtifacts = false;
-				}
-			}
-		}
-		// remove stubs
-		if (m_preferences.getBoolean(P_DELETE_STUB) && removeAllListenerArtifacts) {
-			removeListenerStubs();
-		}
-		// remove addXXXListener()
-		m_javaInfo.removeMethodInvocations(m_listener.getMethodSignature());
-		// remove also "inner" type
-		if (removeAllListenerArtifacts) {
-			for (ClassInstanceCreation classInstanceCreation : listenerCreations) {
-				m_javaInfo.getEditor().removeEnclosingStatement(classInstanceCreation);
-			}
-			m_javaInfo.getEditor().removeBodyDeclaration(listenerType);
-		}
-	}
-
-	/**
-	 * Removes stubs for this {@link ListenerInfo}.
-	 */
-	private void removeListenerStubs() throws Exception {
-		for (ListenerMethodProperty property : m_siblings) {
-			MethodDeclaration listenerMethod = property.findListenerMethod();
-			if (listenerMethod != null) {
-				property.removeStubMethod(listenerMethod);
-			}
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -567,11 +464,14 @@ IListenerMethodProperty {
 	/**
 	 * @return the listener method. If there are no such method, creates it.
 	 */
-	private MethodDeclaration ensureListenerMethod() throws Exception {
-		MethodDeclaration listenerMethod = findListenerMethod();
+	private ASTNode ensureListenerMethod() throws Exception {
+		ASTNode listenerMethod = findListenerMethod();
 		if (listenerMethod == null) {
 			// ensure listener type
-			TypeDeclaration listenerType = findListenerType();
+			TypeDeclaration listenerType = null;
+			if (findListenerType() instanceof StandardListenerTypeDeclaration type) {
+				listenerType = type.getActualType();
+			}
 			if (listenerType == null) {
 				boolean implementInterfaceMethods = !m_listener.hasAdapter();
 				int eventCodeType = m_preferences.getInt(P_CODE_TYPE);
@@ -580,7 +480,7 @@ IListenerMethodProperty {
 					String source = "new " + getListenerTypeNameSource() + "() {\n}";
 					// add listener and get added listener type
 					m_javaInfo.addMethodInvocation(m_listener.getMethodSignature(), source);
-					listenerType = findListenerType();
+					listenerType = ((StandardListenerTypeDeclaration) findListenerType()).getActualType();
 				} else if (eventCodeType == V_CODE_INNER_CLASS) {
 					// add listener inner class
 					listenerType = addListenerInnerClassDeclaration();
@@ -732,22 +632,6 @@ IListenerMethodProperty {
 	}
 
 	/**
-	 * Removes listener method, can be used only if listener has adapter.
-	 */
-	private void removeListenerMethod(TypeDeclaration typeDeclaration,
-			MethodDeclaration listenerMethod) throws Exception {
-		AstEditor editor = m_javaInfo.getEditor();
-		// remove stub, called from listener method
-		removeStubMethod(listenerMethod);
-		// remove listener method itself
-		editor.removeBodyDeclaration(listenerMethod);
-		// remove listener if we don't have methods
-		if (typeDeclaration.bodyDeclarations().isEmpty()) {
-			removeListener();
-		}
-	}
-
-	/**
 	 * Removes stub method for given listener method.
 	 * <p>
 	 * When we use {@link IPreferenceConstants#V_CODE_INTERFACE} code style, we can not remove
@@ -784,10 +668,10 @@ IListenerMethodProperty {
 	/**
 	 * @return the listener method in event listener.
 	 */
-	private MethodDeclaration findListenerMethod() {
-		TypeDeclaration listenerType = findListenerType();
+	private ASTNode findListenerMethod() {
+		ListenerTypeDeclaration listenerType = findListenerType();
 		if (listenerType != null) {
-			return AstNodeUtils.getMethodBySignature(listenerType, m_method.getSignatureAST());
+			return listenerType.findListenerMethod();
 		}
 		return null;
 	}
@@ -805,8 +689,12 @@ IListenerMethodProperty {
 	 */
 	@Override
 	public void openStubMethod() throws Exception {
+		ListenerTypeDeclaration listenerType = findListenerType();
+		ASTNode method = null;
+		if (listenerType != null) {
+			method = listenerType.findStubMethod();
+		}
 		// prepare method as listener method or stub method
-		MethodDeclaration method = findStubMethod();
 		if (method == null) {
 			method = ExecutionUtils.runObject(m_javaInfo, this::ensureStubMethod);
 		}
@@ -818,13 +706,13 @@ IListenerMethodProperty {
 	 * @return the stub method (if enabled), or listener method. If there are no such method, creates
 	 *         it.
 	 */
-	private MethodDeclaration ensureStubMethod() throws Exception {
-		MethodDeclaration listenerMethod = ensureListenerMethod();
+	private ASTNode ensureStubMethod() throws Exception {
+		ASTNode listenerMethod = ensureListenerMethod();
 		// create stub, if needed
-		if (m_preferences.getBoolean(P_CREATE_STUB)) {
-			MethodDeclaration stubMethod = findStubMethod_orNull(listenerMethod);
+		if (m_preferences.getBoolean(P_CREATE_STUB) && listenerMethod instanceof MethodDeclaration methodDeclaration) {
+			MethodDeclaration stubMethod = findStubMethod_orNull(methodDeclaration);
 			if (stubMethod == null) {
-				stubMethod = addStubMethod(m_method, listenerMethod);
+				stubMethod = addStubMethod(m_method, methodDeclaration);
 			}
 			return stubMethod;
 		}
@@ -924,7 +812,7 @@ IListenerMethodProperty {
 		for (final SingleVariableDeclaration parameter : parameters) {
 			// try to load ComponentDescription for listener method parameter
 			ComponentDescription eventClassDescription =
-					ExecutionUtils.runObjectIgnore(() -> { 
+					ExecutionUtils.runObjectIgnore(() -> {
 						ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
 						String parameterTypeName =
 								AstNodeUtils.getFullyQualifiedName(parameter.getType(), true);
@@ -972,27 +860,6 @@ IListenerMethodProperty {
 		//
 		String template = m_preferences.getString(P_STUB_NAME_TEMPLATE);
 		return StringSubstitutor.replace(template, valueMap);
-	}
-
-	/**
-	 * @return the stub method.
-	 */
-	MethodDeclaration findStubMethod() {
-		MethodDeclaration listenerMethod = findListenerMethod();
-		return findStubMethod(listenerMethod);
-	}
-
-	/**
-	 * @return the stub method for given listener method.
-	 */
-	private MethodDeclaration findStubMethod(MethodDeclaration listenerMethod) {
-		// try to find stub method
-		MethodDeclaration stubMethod = findStubMethod_orNull(listenerMethod);
-		if (stubMethod != null) {
-			return stubMethod;
-		}
-		// use listener method, if no stub
-		return listenerMethod;
 	}
 
 	/**
@@ -1064,20 +931,324 @@ IListenerMethodProperty {
 	}
 
 	/**
-	 * @return <code>true</code> if given listener method has {@link IfStatement} that routes
-	 *         execution flow into some stub method.
+	 * Container for the actual JDT {@link ASTNode}.
 	 */
-	private static boolean hasStubRouting(MethodDeclaration listenerMethod) {
-		List<Statement> statements = DomGenerics.statements(listenerMethod.getBody());
-		if (!statements.isEmpty() && statements.get(0) instanceof IfStatement) {
-			IfStatement ifStatement = (IfStatement) statements.get(0);
-			if (ifStatement.getExpression() instanceof InfixExpression) {
-				InfixExpression condition = (InfixExpression) ifStatement.getExpression();
-				if (condition.getOperator() == InfixExpression.Operator.EQUALS) {
-					return true;
+	/* package */static interface ListenerTypeDeclaration {
+		/**
+		 * Removes the listener {@link TypeDeclaration} with all its methods and stubs
+		 * (if enabled).
+		 */
+		void removeListener() throws Exception;
+
+		/**
+		 * Removes stub/handler for this listener method.
+		 */
+		void removeListenerMethod() throws Exception;
+
+		/**
+		 * Might either return the stub or the actual listener method, depending on
+		 * whether {@code P_CREATE_STUB} is set. Might be {@code null}.
+		 *
+		 * @return The method and/or stub invocation matching this property.
+		 */
+		ASTNode findStubMethod();
+
+		/**
+		 * Might be {@code null}.
+		 *
+		 * @return The method invocation defined in the listener interface.
+		 */
+		ASTNode findListenerMethod();
+
+		/**
+		 * Returns {@link Optional#empty()} in case the method doesn't exist.
+		 *
+		 * @return The starting position of the listener method.
+		 */
+		Optional<Integer> getStartPosition();
+
+		/**
+		 * @return {@code true} if this property has a non-default value
+		 */
+		boolean isModified();
+	}
+
+	/**
+	 * Abstract base class with shared logic among all listener declarations.
+	 *
+	 * @param <T> The expression describing the listener method. For example
+	 *            {@link TypeDeclaration}.
+	 */
+	private static abstract class AbstractListenerTypeDeclaration<T extends ASTNode>
+			implements ListenerTypeDeclaration {
+		private final T m_node;
+
+		public AbstractListenerTypeDeclaration(T node) {
+			m_node = node;
+		}
+
+		public T getActualType() {
+			return m_node;
+		}
+
+		@Override
+		public Optional<Integer> getStartPosition() {
+			ASTNode stubMethod = findStubMethod();
+			return Optional.ofNullable(stubMethod).map(ASTNode::getStartPosition);
+		}
+	}
+
+	/**
+	 * The "default" type declaration. Example:
+	 *
+	 * <pre>
+	 * private class KeyListener_this extends KeyAdapter {
+	 * 	public void keyPressed(KeyEvent e) {
+	 * 	}
+	 * }
+	 *
+	 * public Test() {
+	 * 	addKeyListener(new KeyListener_this());
+	 * }
+	 * </pre>
+	 */
+	private final class StandardListenerTypeDeclaration extends AbstractListenerTypeDeclaration<TypeDeclaration> {
+		public StandardListenerTypeDeclaration(TypeDeclaration typeDeclaration) {
+			super(typeDeclaration);
+		}
+
+		@Override
+		public boolean isModified() {
+			MethodDeclaration listenerMethod = findListenerMethod();
+			if (listenerMethod != null) {
+				if (hasStubRouting(listenerMethod)) {
+					return findStubMethod_orNull(listenerMethod) != null;
+				}
+				return true;
+			}
+			// no listener method
+			return false;
+		}
+
+		/**
+		 * @return <code>true</code> if given listener method has {@link IfStatement}
+		 *         that routes execution flow into some stub method.
+		 */
+		private static boolean hasStubRouting(MethodDeclaration listenerMethod) {
+			List<Statement> statements = DomGenerics.statements(listenerMethod.getBody());
+			if (!statements.isEmpty() && statements.get(0) instanceof IfStatement) {
+				IfStatement ifStatement = (IfStatement) statements.get(0);
+				if (ifStatement.getExpression() instanceof InfixExpression) {
+					InfixExpression condition = (InfixExpression) ifStatement.getExpression();
+					if (condition.getOperator() == InfixExpression.Operator.EQUALS) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Removes the listener {@link TypeDeclaration} with all its methods and stubs
+		 * (if enabled).
+		 */
+		@Override
+		public void removeListener() throws Exception {
+			// prepare listener TypeDeclaration now, when we have so reference on it via
+			// addXXXListener()
+			TypeDeclaration listenerType = getActualType();
+			// delete inner or "simple"
+			if (listenerType != null && listenerType.getParent() instanceof TypeDeclaration) {
+				removeListener_inner(listenerType);
+			} else {
+				// remove stubs
+				if (m_preferences.getBoolean(P_DELETE_STUB)) {
+					removeListenerStubs();
+				}
+				// remove addXXXListener()
+				m_javaInfo.removeMethodInvocations(m_listener.getMethodSignature());
+			}
+			// refresh
+			ExecutionUtils.refresh(m_javaInfo);
+		}
+
+		/**
+		 * Implementation of {@link #removeListener()} for inner type.
+		 */
+		private void removeListener_inner(TypeDeclaration listenerType) throws Exception {
+			List<ClassInstanceCreation> listenerCreations =
+					AstNodeUtils.getClassInstanceCreations(listenerType);
+			boolean removeAllListenerArtifacts = true;
+			if (listenerCreations.size() > 1) {
+				if (m_javaInfo.isDeleting()) {
+					removeAllListenerArtifacts = false;
+				} else {
+					String message = MessageFormat.format(
+							ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesMessage,
+							m_listener.getName());
+					if (!MessageDialog.openQuestion(
+							DesignerPlugin.getShell(),
+							ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesTitle,
+							message)) {
+						removeAllListenerArtifacts = false;
+					}
+				}
+			}
+			// remove stubs
+			if (m_preferences.getBoolean(P_DELETE_STUB) && removeAllListenerArtifacts) {
+				removeListenerStubs();
+			}
+			// remove addXXXListener()
+			m_javaInfo.removeMethodInvocations(m_listener.getMethodSignature());
+			// remove also "inner" type
+			if (removeAllListenerArtifacts) {
+				for (ClassInstanceCreation classInstanceCreation : listenerCreations) {
+					m_javaInfo.getEditor().removeEnclosingStatement(classInstanceCreation);
+				}
+				m_javaInfo.getEditor().removeBodyDeclaration(listenerType);
+			}
+		}
+
+		/**
+		 * Removes stubs for this {@link ListenerInfo}.
+		 */
+		private void removeListenerStubs() throws Exception {
+			for (ListenerMethodProperty property : m_siblings) {
+				if (property.findListenerMethod() instanceof MethodDeclaration listenerMethod) {
+					property.removeStubMethod(listenerMethod);
 				}
 			}
 		}
-		return false;
+
+		@Override
+		public void removeListenerMethod() throws Exception {
+			// prepare listener type
+			TypeDeclaration listenerType = getActualType();
+			if (listenerType == null) {
+				return;
+			}
+			// prepare listener method
+			MethodDeclaration listenerMethod = findListenerMethod();
+			if (listenerMethod == null) {
+				return;
+			}
+			// if "listenerType" is "this" type, then we implement interface, so remove only stub
+			if (listenerType == JavaInfoUtils.getTypeDeclaration(m_javaInfo)) {
+				removeStubMethod(listenerMethod);
+				return;
+			}
+			// check that listener has adapter and adapter is used
+			if (m_listener.hasAdapter()
+					&& AstNodeUtils.isSuccessorOf(
+							AstNodeUtils.getTypeBinding(listenerType),
+							m_listener.getAdapter())) {
+				// ask confirmation about method remove
+				if (!MessageDialog.openConfirm(
+						DesignerPlugin.getShell(),
+						ModelMessages.ListenerMethodProperty_deleteMethodTitle,
+						MessageFormat.format(
+								ModelMessages.ListenerMethodProperty_deleteMethodMessage,
+								m_method.getName()))) {
+					return;
+				}
+				// remove method
+				removeListenerMethod(listenerType, listenerMethod);
+			} else {
+				// ask confirmation about listener remove
+				if (!MessageDialog.openConfirm(
+						DesignerPlugin.getShell(),
+						ModelMessages.ListenerMethodProperty_deleteListenerTitle,
+						MessageFormat.format(
+								ModelMessages.ListenerMethodProperty_deleteListenerMessage,
+								m_listener.getName()))) {
+					return;
+				}
+				// remove listener
+				removeListener();
+			}
+		}
+
+		/**
+		 * Removes listener method, can be used only if listener has adapter.
+		 */
+		private void removeListenerMethod(TypeDeclaration typeDeclaration, MethodDeclaration listenerMethod)
+				throws Exception {
+			AstEditor editor = m_javaInfo.getEditor();
+			// remove stub, called from listener method
+			removeStubMethod(listenerMethod);
+			// remove listener method itself
+			editor.removeBodyDeclaration(listenerMethod);
+			// remove listener if we don't have methods
+			if (typeDeclaration.bodyDeclarations().isEmpty()) {
+				removeListener();
+			}
+		}
+
+		@Override
+		public MethodDeclaration findListenerMethod() {
+			return AstNodeUtils.getMethodBySignature(getActualType(), m_method.getSignatureAST());
+		}
+
+		@Override
+		public MethodDeclaration findStubMethod() {
+			MethodDeclaration listenerMethod = findListenerMethod();
+			return findStubMethod(listenerMethod);
+		}
+
+		/**
+		 * @return the stub method for given listener method.
+		 */
+		private MethodDeclaration findStubMethod(MethodDeclaration listenerMethod) {
+			// try to find stub method
+			MethodDeclaration stubMethod = findStubMethod_orNull(listenerMethod);
+			if (stubMethod != null) {
+				return stubMethod;
+			}
+			// use listener method, if no stub
+			return listenerMethod;
+		}
+	}
+
+	/**
+	 * Type declarations via lambda expressions.
+	 *
+	 * Example:
+	 *
+	 * <pre>
+	 * addListener(event -> {...});
+	 * </pre>
+	 */
+	private final class LambdaListenerTypeDeclaration extends AbstractListenerTypeDeclaration<Expression> {
+		public LambdaListenerTypeDeclaration(Expression expression, IMethodBinding methodBinding) {
+			super(expression);
+		}
+
+		@Override
+		public boolean isModified() {
+			return true;
+		}
+
+		@Override
+		public void removeListener() throws Exception {
+			// remove addXXXListener()
+			m_javaInfo.removeMethodInvocations(m_listener.getMethodSignature());
+			// refresh
+			ExecutionUtils.refresh(m_javaInfo);
+		}
+
+		@Override
+		public void removeListenerMethod() throws Exception {
+			removeListener();
+		}
+
+		@Override
+		public final Expression findListenerMethod() {
+			return getActualType();
+		}
+
+		@Override
+		public final Expression findStubMethod() {
+			return findListenerMethod();
+		}
 	}
 }

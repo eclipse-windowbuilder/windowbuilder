@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,11 +16,10 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
+import org.eclipse.wb.internal.core.model.property.event.ListenerMethodProperty.ListenerTypeDeclaration;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -118,7 +117,7 @@ final class ListenerProperty extends AbstractListenerProperty {
 				// prepare listener menu image
 				Image image;
 				{
-					TypeDeclaration listenerType = methodProperty.findListenerType();
+					ListenerTypeDeclaration listenerType = methodProperty.findListenerType();
 					if (listenerType != null) {
 						if (listenerInfo.hasAdapter()) {
 							image = EventsPropertyUtils.EXISTING_CLASS_IMAGE;
@@ -159,20 +158,19 @@ final class ListenerProperty extends AbstractListenerProperty {
 		IAction[] actions = new IAction[2];
 		// try to find existing stub method
 		{
-			MethodDeclaration stubMethod = property.findStubMethod();
-			if (stubMethod != null) {
+			property.getStartPosition().ifPresent(startPosition -> {
 				actions[0] = new ObjectInfoAction(m_javaInfo) {
 					@Override
 					protected void runEx() throws Exception {
 						property.openStubMethod();
 					}
 				};
-				int line = m_javaInfo.getEditor().getLineNumber(stubMethod.getStartPosition());
+				int line = m_javaInfo.getEditor().getLineNumber(startPosition);
 				actions[0].setText(property.getMethod().getName()
 						+ ModelMessages.ListenerProperty_line
 						+ line);
 				actions[0].setImageDescriptor(EventsPropertyUtils.LISTENER_METHOD_IMAGE_DESCRIPTOR);
-			}
+			});
 		}
 		// in any case prepare action for creating new stub method
 		{
