@@ -62,12 +62,6 @@
 								<id>org.eclipse.wb.os.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
-						<!-- Required for JDT fragment to workk-->
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.eclipse.wb.jdt.fragment</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
 						</extraRequirements>
 					</dependency-resolution>
 				</configuration>
