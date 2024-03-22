@@ -34,8 +34,6 @@ import org.eclipse.wb.internal.core.utils.ast.LambdaTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -148,12 +146,7 @@ IListenerMethodProperty {
 	@Override
 	public void setValue(Object value) throws Exception {
 		Assert.isTrue(value == UNKNOWN_VALUE, "Unsupported value |%s|.", value);
-		ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				removeListenerMethod();
-			}
-		});
+		ExecutionUtils.run(m_javaInfo, this::removeListenerMethod);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -815,12 +808,7 @@ IListenerMethodProperty {
 		// prepare method as listener method or stub method
 		MethodDeclaration method = findStubMethod();
 		if (method == null) {
-			method = ExecutionUtils.runObject(m_javaInfo, new RunnableObjectEx<MethodDeclaration>() {
-				@Override
-				public MethodDeclaration runObject() throws Exception {
-					return ensureStubMethod();
-				}
-			});
+			method = ExecutionUtils.runObject(m_javaInfo, this::ensureStubMethod);
 		}
 		// open method
 		JavaInfoUtils.scheduleOpenNode(m_javaInfo, method);
@@ -936,16 +924,13 @@ IListenerMethodProperty {
 		for (final SingleVariableDeclaration parameter : parameters) {
 			// try to load ComponentDescription for listener method parameter
 			ComponentDescription eventClassDescription =
-					ExecutionUtils.runObjectIgnore(new RunnableObjectEx<ComponentDescription>() {
-						@Override
-						public ComponentDescription runObject() throws Exception {
-							ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
-							String parameterTypeName =
-									AstNodeUtils.getFullyQualifiedName(parameter.getType(), true);
-							Class<?> parameterType =
-									ReflectionUtils.getClassByName(editorLoader, parameterTypeName);
-							return ComponentDescriptionHelper.getDescription(editor, parameterType);
-						}
+					ExecutionUtils.runObjectIgnore(() -> { 
+						ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
+						String parameterTypeName =
+								AstNodeUtils.getFullyQualifiedName(parameter.getType(), true);
+						Class<?> parameterType =
+								ReflectionUtils.getClassByName(editorLoader, parameterTypeName);
+						return ComponentDescriptionHelper.getDescription(editor, parameterType);
 					}, null);
 			// invoke stub only if we can check for our component
 			if (eventClassDescription != null) {
