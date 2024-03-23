@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -99,12 +99,12 @@ public abstract class PropertyTooltipProvider {
 				// convert location from tooltip to table
 				Point p = new Point(event.x, event.y);
 				p = tooltipControl.toDisplay(p);
-				p = table.toControl(p);
+				p = table.getControl().toControl(p);
 				// send MouseDown to table
 				Event newEvent = new Event();
 				newEvent.x = p.x;
 				newEvent.y = p.y;
-				table.notifyListeners(SWT.MouseDown, newEvent);
+				table.getControl().notifyListeners(SWT.MouseDown, newEvent);
 				// hide tooltip
 				m_site.hideTooltip();
 				break;

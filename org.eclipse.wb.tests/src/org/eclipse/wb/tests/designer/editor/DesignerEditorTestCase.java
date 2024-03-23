@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
+import org.eclipse.wb.internal.core.editor.structure.DesignComponentsComposite;
 import org.eclipse.wb.internal.core.editor.structure.components.IComponentsTree;
 import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -257,7 +258,9 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 		{
 			UiContext uiContext = new UiContext();
 			uiContext.useShell(DesignerPlugin.getShell().getText());
-			m_propertyTable = uiContext.findFirstWidget(PropertyTable.class);
+			Object componentComposite = uiContext.findFirstWidget(DesignComponentsComposite.class);
+			Object componentPropertyPage = ReflectionUtils.getFieldObject(componentComposite, "m_propertiesPage");
+			m_propertyTable = (PropertyTable) ReflectionUtils.getFieldObject(componentPropertyPage, "m_propertyTable");
 		}
 		// DesignPageSite
 		{

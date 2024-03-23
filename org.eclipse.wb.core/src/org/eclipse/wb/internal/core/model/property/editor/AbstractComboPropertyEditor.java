@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
 			throws Exception {
 		// create combo
 		{
-			m_combo = new CCombo3(propertyTable, SWT.NONE);
+			m_combo = new CCombo3(propertyTable.getControl(), SWT.NONE);
 			m_doDropDown = true;
 			// add items
 			addItems(property, m_combo);

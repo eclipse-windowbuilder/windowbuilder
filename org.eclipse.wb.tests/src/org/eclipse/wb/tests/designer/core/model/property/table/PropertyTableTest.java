@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -100,16 +100,16 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	@Test
 	public void test_cursor() throws Exception {
 		m_sender.moveTo(10, 10);
-		assertNull(m_propertyTable.getCursor());
+		assertNull(m_propertyTable.getControl().getCursor());
 		//
 		int splitter = m_propertyTable.forTests_getSplitter();
 		for (int x = splitter - 1; x <= splitter + 1; x++) {
 			m_sender.moveTo(x, 10);
-			assertSame(Cursors.SIZEWE, m_propertyTable.getCursor());
+			assertSame(Cursors.SIZEWE, m_propertyTable.getControl().getCursor());
 		}
 		//
 		m_sender.moveTo(splitter + 2, 10);
-		assertNull(m_propertyTable.getCursor());
+		assertNull(m_propertyTable.getControl().getCursor());
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	 */
 	@Test
 	public void test_splitter() throws Exception {
-		int width = m_propertyTable.getClientArea().width;
+		int width = m_propertyTable.getControl().getClientArea().width;
 		// check initial position
 		int splitter = (int) (width * 0.4);
 		assertEquals(splitter, m_propertyTable.forTests_getSplitter());

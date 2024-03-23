@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -529,7 +529,7 @@ public final class CellConstraintsSupport {
 			m_complexProperty.setEditorPresentation(new ButtonPropertyEditorPresentation() {
 				@Override
 				protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
-					new CellEditDialog(propertyTable.getShell(), m_layout, m_this).open();
+					new CellEditDialog(propertyTable.getControl().getShell(), m_layout, m_this).open();
 				}
 			});
 			// grid properties

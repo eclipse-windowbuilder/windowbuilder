@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 			m_shell.setBounds(10000, 0, 300, 500);
 			//
 			m_propertyTable = new PropertyTable(m_shell, SWT.NONE);
-			m_sender = new EventSender(m_propertyTable);
+			m_sender = new EventSender(m_propertyTable.getControl());
 			//
 			m_shell.setVisible(true);
 			waitEventLoop(1);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -103,7 +103,7 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
 			propertyTable.setActiveProperty(property);
 		});
 		// return focus on propertyTable after click
-		control.addListener(SWT.MouseUp, event -> propertyTable.forceFocus());
+		control.addListener(SWT.MouseUp, event -> propertyTable.getControl().forceFocus());
 		// handle selection
 		control.addListener(SWT.Selection, event -> {
 			try {
@@ -120,7 +120,7 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
 	 * Creates the {@link Control} instance. By default, {@link Button} instance created.
 	 */
 	protected Control createControlImpl(final PropertyTable propertyTable, final Property property) {
-		Button button = new Button(propertyTable, getPresentation().getStyle());
+		Button button = new Button(propertyTable.getControl(), getPresentation().getStyle());
 		button.setImage(getPresentation().getImage());
 		button.setToolTipText(getPresentation().getTooltip());
 		return button;
