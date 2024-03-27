@@ -318,7 +318,6 @@
     <module>org.eclipse.wb.swing.databinding</module>
     <module>org.eclipse.wb.swing.doc.user</module>
     <module>org.eclipse.wb.swing.FormLayout</module>
-    <module>org.eclipse.wb.swing.FormLayout.lib</module>
     <module>org.eclipse.wb.swing.java6</module>
     <module>org.eclipse.wb.swing.jsr296</module>
     <module>org.eclipse.wb.swing.MigLayout</module>

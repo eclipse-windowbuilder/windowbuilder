@@ -21,8 +21,10 @@
 		</location>
 		<location type="Target" uri="file:${project_loc:/target-platform}/mvn/wb-mvn.target"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-06"/>
+			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/nightly/latest/"/>
 			<unit id="assertj-core" version="0.0.0"/>
+			<unit id="com.jgoodies.common" version="0.0.0"/>
+			<unit id="com.jgoodies.forms" version="0.0.0"/>
 			<unit id="org.apache.commons.commons-collections4" version="0.0.0"/>
 			<unit id="org.apache.commons.lang3" version="0.0.0"/>
 			<unit id="org.mockito.mockito-core" version="0.0.0"/>

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,15 +23,12 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.osgi.framework.Bundle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1006,11 +1003,8 @@ public class SurroundSupportTest extends SwingModelTest {
 	private ContainerInfo parseTestSourceJGFL(String[] lines) throws Exception {
 		// ensure FormLayout
 		{
-			Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
-			m_testProject.addExternalJar(FileLocator.toFileURL(
-					libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
-			m_testProject.addExternalJar(FileLocator.toFileURL(
-					libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
+			m_testProject.addPlugin("com.jgoodies.common");
+			m_testProject.addPlugin("com.jgoodies.forms");
 		}
 		// do parse
 		lines =
