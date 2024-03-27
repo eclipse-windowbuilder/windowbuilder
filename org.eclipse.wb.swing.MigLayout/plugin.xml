@@ -11,14 +11,15 @@
 			<resourcePrefixes>
 				<resourcePrefix>net.miginfocom.</resourcePrefix>
 			</resourcePrefixes>
-			<classLoader-bundle bundle="org.eclipse.wb.swing.MigLayout.lib"
+			<classLoader-bundle bundle="org.eclipse.wb.swing.MigLayout"
 				namespaces="net.miginfocom"/>
 			<palette>
 				<component class="net.miginfocom.swing.MigLayout"
 					category="org.eclipse.wb.swing.layouts">
-					<library type="net.miginfocom.swing.MigLayout"
-						bundle="org.eclipse.wb.swing.MigLayout.lib" jar="miglayout15-swing.jar"
-						src="miglayout-src.zip"/>
+					<bundle-library type="net.miginfocom.swing.MigLayout"
+						symbolicName="com.miglayout.swing"/>
+					<bundle-library type="net.miginfocom.layout.LayoutUtil"
+						symbolicName="com.miglayout.core"/>
 				</component>
 			</palette>
 		</toolkit>
@@ -35,9 +36,10 @@
 	<extension point="org.eclipse.wb.core.layoutManagers">
 		<layout toolkit="org.eclipse.wb.swing" id="MigLayout" name="MigLayout"
 			class="net.miginfocom.swing.MigLayout">
-			<library type="net.miginfocom.swing.MigLayout"
-				bundle="org.eclipse.wb.swing.MigLayout.lib" jar="miglayout15-swing.jar"
-				src="miglayout-src.zip"/>
+			<bundle-library type="net.miginfocom.swing.MigLayout"
+				symbolicName="com.miglayout.swing"/>
+			<bundle-library type="net.miginfocom.layout.LayoutUtil"
+				symbolicName="com.miglayout.core"/>
 		</layout>
 	</extension>
 

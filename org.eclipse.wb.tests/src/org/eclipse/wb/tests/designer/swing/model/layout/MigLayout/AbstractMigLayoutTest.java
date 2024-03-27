@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,11 +17,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
-
 import org.junit.Before;
-import org.osgi.framework.Bundle;
 
 /**
  * Test for {@link MigLayoutInfo}.
@@ -41,9 +37,8 @@ public abstract class AbstractMigLayoutTest extends AbstractLayoutTest {
 	}
 
 	static void do_configureNewProject() throws Exception {
-		Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.MigLayout.lib");
-		String path = FileLocator.toFileURL(libBundle.getEntry("/miglayout15-swing.jar")).getPath();
-		m_testProject.addExternalJar(path);
+		m_testProject.addPlugin("com.miglayout.core");
+		m_testProject.addPlugin("com.miglayout.swing");
 	}
 
 	@Override
