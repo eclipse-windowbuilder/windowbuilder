@@ -154,4 +154,12 @@
          id="org.apache.commons.text"
          version="0.0.0"/>
 
+   <plugin
+         id="com.miglayout.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.miglayout.swing"
+         version="0.0.0"/>
+
 </feature>
