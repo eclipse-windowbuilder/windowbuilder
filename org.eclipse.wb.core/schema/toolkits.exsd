@@ -266,6 +266,7 @@ In Designer itself entries usually defined directly in &quot;category&quot;, so 
       <complexType>
          <choice minOccurs="0" maxOccurs="1">
             <element ref="library" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="bundle-library" minOccurs="0" maxOccurs="unbounded"/>
          </choice>
          <attribute name="id" type="string">
             <annotation>
@@ -556,6 +557,25 @@ By default &quot;id&quot; of is name of factory class signature of method.
          <sequence>
             <element ref="resourcePrefix" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
+      </complexType>
+   </element>
+
+   <element name="bundle-library">
+      <complexType>
+         <attribute name="symbolicName" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Fully qualified name of the bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="type" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of type to check, if bundle is already in classpath.
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

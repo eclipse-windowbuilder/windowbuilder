@@ -39,6 +39,7 @@ We use them later:
       <complexType>
          <sequence minOccurs="0" maxOccurs="unbounded">
             <element ref="library"/>
+            <element ref="bundle-library"/>
          </sequence>
          <attribute name="toolkit" type="string" use="required">
             <annotation>
@@ -121,6 +122,25 @@ Don&apos;t know yet what to do with absolute/null layout manager.
             <annotation>
                <documentation>
                   Path to optional source ZIP.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="bundle-library">
+      <complexType>
+         <attribute name="symbolicName" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Fully qualified name of the bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="type" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of type to check, if bundle is already in classpath.
                </documentation>
             </annotation>
          </attribute>

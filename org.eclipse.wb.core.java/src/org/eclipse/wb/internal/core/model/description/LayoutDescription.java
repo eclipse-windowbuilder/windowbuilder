@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ import org.eclipse.wb.core.databinding.xsd.component.Component;
 import org.eclipse.wb.core.databinding.xsd.component.ContextFactory;
 import org.eclipse.wb.core.databinding.xsd.component.Creation;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.palette.model.entry.BundleLibraryInfo;
+import org.eclipse.wb.internal.core.editor.palette.model.entry.JarLibraryInfo;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.LibraryInfo;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.model.description.resource.ResourceInfo;
@@ -139,7 +141,10 @@ public final class LayoutDescription {
 	 */
 	private void addLibraries(IConfigurationElement componentElement) {
 		for (IConfigurationElement libraryElement : componentElement.getChildren("library")) {
-			m_libraries.add(new LibraryInfo(libraryElement));
+			m_libraries.add(new JarLibraryInfo(libraryElement));
+		}
+		for (IConfigurationElement libraryElement : componentElement.getChildren("bundle-library")) {
+			m_libraries.add(new BundleLibraryInfo(libraryElement));
 		}
 	}
 
