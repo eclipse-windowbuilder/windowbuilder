@@ -60,6 +60,11 @@ public final class BundleLibraryInfo implements LibraryInfo {
 		symbolicName = ExternalFactoriesHelper.getRequiredAttribute(element, "symbolicName");
 	}
 
+	public BundleLibraryInfo(String symbolicName, String typeName) {
+		this.typeName = typeName;
+		this.symbolicName = symbolicName;
+	}
+
 	@Override
 	public void ensure(IJavaProject javaProject) throws Exception {
 		IType type = javaProject.findType(typeName);

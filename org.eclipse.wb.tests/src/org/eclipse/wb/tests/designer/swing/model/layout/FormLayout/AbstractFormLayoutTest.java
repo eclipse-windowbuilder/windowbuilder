@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,13 +14,9 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.laf.LafSupport;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
-
 import com.jgoodies.forms.layout.FormLayout;
 
 import org.junit.Before;
-import org.osgi.framework.Bundle;
 
 /**
  * Abstract test for {@link FormLayout}.
@@ -49,11 +45,8 @@ public abstract class AbstractFormLayoutTest extends AbstractLayoutTest {
 	}
 
 	static void do_configureNewProject() throws Exception {
-		Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
-		m_testProject.addExternalJar(FileLocator.toFileURL(
-				libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
-		m_testProject.addExternalJar(FileLocator.toFileURL(
-				libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
+		m_testProject.addPlugin("com.jgoodies.common");
+		m_testProject.addPlugin("com.jgoodies.forms");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
