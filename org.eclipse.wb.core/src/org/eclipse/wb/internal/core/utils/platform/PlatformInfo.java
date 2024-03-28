@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.platform;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.PluginVersionIdentifier;
 
 import org.osgi.framework.Version;
 
@@ -36,9 +35,7 @@ public class PlatformInfo {
 	/**
 	 * Constant representing unknown version of Eclipse or IDE
 	 */
-	public static final PluginVersionIdentifier UNKNOWN_VERSION = new PluginVersionIdentifier(100,
-			1,
-			4);
+	public static final Version UNKNOWN_VERSION = new Version(100, 1, 4);
 	/**
 	 * Constant representing unknown version string of Eclipse or IDE
 	 */
