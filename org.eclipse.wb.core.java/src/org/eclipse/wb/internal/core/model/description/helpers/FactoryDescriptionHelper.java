@@ -48,12 +48,9 @@ import org.eclipse.osgi.util.NLS;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLFilter;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLFilterImpl;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
@@ -64,14 +61,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.dom.DOMSource;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
-import jakarta.xml.bind.UnmarshallerHandler;
 
 /**
  * Helper for accessing descriptions of factories -
@@ -187,50 +184,27 @@ public class FactoryDescriptionHelper {
 			String descriptionName = factoryClassName.replace('.', '/') + ".wbp-factory.xml";
 			ResourceInfo resourceInfo = DescriptionHelper.getResourceInfo(context, factoryClass, descriptionName);
 			if (resourceInfo != null) {
-				JAXBContext jaxbContext = ContextFactory.createContext();
-				AtomicBoolean showDeprecationWarning = new AtomicBoolean();
-
-				// Create the XMLFilter
-				XMLFilter filter = new XMLFilterImpl() {
-					@Override
-					public void endElement(String uri, String localName, String qName) throws SAXException {
-						String realUri = uri;
-						if (realUri.isBlank()) {
-							showDeprecationWarning.set(true);
-							realUri = DEFAULT_URI;
-						}
-						super.endElement(realUri, localName, qName);
-					}
-
-					@Override
-					public void startElement(String uri, String localName, String qName, Attributes atts)
-							throws SAXException {
-						String realUri = uri;
-						if (realUri.isBlank()) {
-							showDeprecationWarning.set(true);
-							realUri = DEFAULT_URI;
-						}
-						super.startElement(realUri, localName, qName, atts);
-					}
-				};
-
-				// Set the parent XMLReader on the XMLFilter
-				SAXParserFactory spf = SAXParserFactory.newInstance();
-				SAXParser sp = spf.newSAXParser();
-				XMLReader xr = sp.getXMLReader();
-				filter.setParent(xr);
-
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				UnmarshallerHandler unmarshallerHandler = jaxbUnmarshaller.getUnmarshallerHandler();
-				filter.setContentHandler(unmarshallerHandler);
+				boolean showDeprecationWarning = false;
 
 				try (InputStream is = resourceInfo.getURL().openStream()) {
-					filter.parse(new InputSource(is));
-					Factory factory = (Factory) unmarshallerHandler.getResult();
+					DocumentBuilderFactory documentBuildFactory = DocumentBuilderFactory.newInstance();
+					documentBuildFactory.setNamespaceAware(true);
+					DocumentBuilder documentBuilder = documentBuildFactory.newDocumentBuilder();
+					Document document = documentBuilder.parse(is);
+
+					Element rootElement = document.getDocumentElement();
+					if (rootElement.getAttribute(XMLConstants.XMLNS_ATTRIBUTE).isBlank()) {
+						showDeprecationWarning = true;
+						fixNamespace(document, rootElement);
+					}
+
+					JAXBContext jaxbContext = ContextFactory.createContext();
+					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+					Factory factory = (Factory) jaxbUnmarshaller.unmarshal(new DOMSource(document));
 					descriptions = process(factory, state, factoryClass);
 					allMethodsAreFactories = factory.isAllMethodsAreFactories();
 				} finally {
-					if (showDeprecationWarning.get()) {
+					if (showDeprecationWarning) {
 						String message = NLS.bind(Messages.FactoryDescriptionHelper_deprecatedNamespace,
 								resourceInfo.getURL().getFile());
 						DesignerPlugin.log(Status.warning(message));
@@ -374,6 +348,16 @@ public class FactoryDescriptionHelper {
 		// remember descriptions in cache
 		state.putFactorySignatures(factoryClass, forStatic, signaturesMap);
 		return signaturesMap;
+	}
+
+	private static void fixNamespace(Document document, Element element) {
+		document.renameNode(element, DEFAULT_URI, element.getNodeName());
+		NodeList children = element.getChildNodes();
+		for (int i = 0; i < children.getLength(); ++i) {
+			if (children.item(i) instanceof Element child) {
+				fixNamespace(document, child);
+			}
+		}
 	}
 
 	/**
