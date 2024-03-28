@@ -27,19 +27,19 @@
 			<resourcePrefixes>
 				<resourcePrefix>com.jgoodies.</resourcePrefix>
 			</resourcePrefixes>
-			<classLoader-bundle bundle="org.eclipse.wb.swing.FormLayout.lib"
+			<classLoader-bundle bundle="org.eclipse.wb.swing.FormLayout"
 				namespaces="com.jgoodies.forms"/>
 			<palette>
 				<component class="com.jgoodies.forms.layout.FormLayout"
 					category="org.eclipse.wb.swing.layouts">
-					<library type="com.jgoodies.forms.layout.FormLayout"
-						bundle="org.eclipse.wb.swing.FormLayout.lib" jar="jgoodies-forms-1.8.0.jar"
-						src="jgoodies-forms-1.8.0-sources.jar"/>
-					<library
-           				bundle="org.eclipse.wb.swing.FormLayout.lib" jar="jgoodies-common-1.8.0.jar"
-           				src="jgoodies-common-1.8.0-sources.jar"
-           				type="com.jgoodies.forms.layout.FormLayout">
-    				</library>	
+					<bundle-library
+						symbolicName="com.jgoodies.forms"
+						type="com.jgoodies.forms.layout.FormLayout">
+					</bundle-library>
+					<bundle-library
+						symbolicName="com.jgoodies.common"
+						type="com.jgoodies.common.base.Objects">
+					</bundle-library>
 				</component>
 				<category id="org.eclipse.wb.swing.JGoodies" name="JGoodies" optional="true"
 					description="JGoodies components">
@@ -64,9 +64,14 @@
 	<extension point="org.eclipse.wb.core.layoutManagers">
 		<layout toolkit="org.eclipse.wb.swing" id="JGoodies.FormLayout"
 			name="JGoodies FormLayout" class="com.jgoodies.forms.layout.FormLayout">
-			<library type="com.jgoodies.forms.layout.FormLayout"
-				bundle="org.eclipse.wb.swing.FormLayout.lib" jar="jgoodies-forms-1.8.0.jar"
-				src="jgoodies-forms-1.8.0-sources.jar"/>
+			<bundle-library
+				symbolicName="com.jgoodies.forms"
+				type="com.jgoodies.forms.layout.FormLayout">
+			</bundle-library>
+			<bundle-library
+				symbolicName="com.jgoodies.common"
+				type="com.jgoodies.common.base.Objects">
+			</bundle-library>
 		</layout>
 	</extension>
 

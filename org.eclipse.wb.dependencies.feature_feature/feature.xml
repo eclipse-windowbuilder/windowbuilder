@@ -162,4 +162,12 @@
          id="com.miglayout.swing"
          version="0.0.0"/>
 
+   <plugin
+         id="com.jgoodies.common"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.jgoodies.forms"
+         version="0.0.0"/>
+
 </feature>
