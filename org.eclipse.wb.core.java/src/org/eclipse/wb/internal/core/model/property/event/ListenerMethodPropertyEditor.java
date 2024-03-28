@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
-import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.swt.graphics.Point;
 
 /**
@@ -46,13 +45,11 @@ final class ListenerMethodPropertyEditor extends TextDisplayPropertyEditor {
 	@Override
 	protected String getText(Property property) throws Exception {
 		ListenerMethodProperty methodProperty = (ListenerMethodProperty) property;
-		MethodDeclaration method = methodProperty.findStubMethod();
-		if (method != null) {
+		return methodProperty.getStartPosition().map(startPosition -> {
 			JavaInfo javaInfo = methodProperty.getJavaInfo();
-			int line = javaInfo.getEditor().getLineNumber(method.getStartPosition());
+			int line = javaInfo.getEditor().getLineNumber(startPosition);
 			return "line " + line;
-		}
-		return null;
+		}).orElse(null);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

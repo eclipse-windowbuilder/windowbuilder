@@ -295,7 +295,6 @@
 
     <module>org.eclipse.wb.dev</module>
     <module>org.eclipse.wb.doc.user</module>
-    <module>org.eclipse.wb.jdt.fragment</module>
     <module>org.eclipse.wb.layout.group</module>
 
     <!-- OS specific bundles-->
