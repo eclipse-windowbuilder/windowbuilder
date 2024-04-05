@@ -13,11 +13,19 @@ package org.eclipse.wb.internal.swing.model.component;
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.InvocationEvaluatorInterceptor;
+import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
 import org.eclipse.wb.internal.core.model.util.PlaceholderUtils;
+import org.eclipse.wb.internal.core.parser.JavaInfoParser;
+import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
@@ -29,6 +37,7 @@ import java.awt.Component;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -55,6 +64,19 @@ public final class SwingInvocationEvaluatorInterceptor extends InvocationEvaluat
 			Class<?> clazz,
 			Constructor<?> actualConstructor,
 			Object[] arguments) throws Exception {
+		// ignore nested root nodes
+		// https://github.com/eclipse-windowbuilder/windowbuilder/issues/741
+		if (isSwingWindow(clazz)) {
+			AstEditor editor = (AstEditor) context.getArbitraryValue(JavaInfoEvaluationHelper.KEY_EDITOR);
+			JavaInfo javaInfo = EditorState.getActiveJavaInfo();
+			@SuppressWarnings("unchecked")
+			List<JavaInfo> components = (List<JavaInfo>) editor.getGlobalValue(JavaInfoParser.KEY_COMPONENTS);
+			Assert.isTrue(!components.isEmpty(), "Components should have at least one JavaInfo.");
+			if (components.indexOf(javaInfo) != 0) {
+				DesignerPlugin.log(Status.info(ModelMessages.SwingInvocationEvaluatorInterceptor_nestedRootNode));
+				return createPlaceholder(clazz);
+			}
+		}
 		if (isSwingComponent(clazz)) {
 			return evaluateSwing(context, expression, clazz, actualConstructor, arguments);
 		}
@@ -155,6 +177,10 @@ public final class SwingInvocationEvaluatorInterceptor extends InvocationEvaluat
 	////////////////////////////////////////////////////////////////////////////
 	private static boolean isSwingComponent(Class<?> clazz) {
 		return ReflectionUtils.isSuccessorOf(clazz, "java.awt.Component");
+	}
+
+	private static boolean isSwingWindow(Class<?> clazz) {
+		return ReflectionUtils.isSuccessorOf(clazz, "java.awt.Window");
 	}
 
 	/**
