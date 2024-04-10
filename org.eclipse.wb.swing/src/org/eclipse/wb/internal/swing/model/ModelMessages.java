@@ -238,7 +238,6 @@ public class ModelMessages extends NLS {
 	public static String SpinnerModelDialog_preview;
 	public static String SpinnerModelDialog_test;
 	public static String SpinnerModelDialog_title;
-	public static String SwingInvocationEvaluatorInterceptor_nestedRootNode;
 	public static String SwingInvocationEvaluatorInterceptor_placeholderMessage;
 	public static String SwingTopBoundsSupport_wrapperTitle;
 	public static String SystemColorWarning;

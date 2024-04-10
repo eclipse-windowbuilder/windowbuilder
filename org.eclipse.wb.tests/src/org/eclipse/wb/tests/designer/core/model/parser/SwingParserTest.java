@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1473,36 +1473,5 @@ public class SwingParserTest extends SwingModelTest {
 		assertEquals(1, panel.getRelatedNodes().size());
 		ASTNode relatedNode = panel.getRelatedNodes().get(0);
 		assertTrue(m_lastEditor.getSource(relatedNode).contains("addKeyListener"));
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Window
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * We should ignore the creation of modal dialogs inside a widget.
-	 *
-	 * @see https://github.com/eclipse-windowbuilder/windowbuilder/issues/741
-	 */
-	@Test
-	public void test_Window_modal() throws Exception {
-		ContainerInfo panel = parseContainer("""
-				public class Test extends JPanel {
-					public Test() {
-						new MyDialog();
-					}
-
-					public static class MyDialog extends JDialog {
-						public MyDialog() {
-							setModal(true);
-							setVisible(true);
-						}
-					}
-				}
-				""");
-		panel.refresh();
-		assertNoErrors(panel);
 	}
 }
