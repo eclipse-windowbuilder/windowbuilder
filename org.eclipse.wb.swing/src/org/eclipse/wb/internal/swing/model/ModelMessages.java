@@ -45,7 +45,6 @@ public class ModelMessages extends NLS {
 	public static String CardLayoutAssistantPage_verticalGap;
 	public static String ColorField_reset;
 	public static String ColorField_select;
-	public static String ColorPreferenceChooser_Include;
 	public static String ColumnEditDialog_aCenter;
 	public static String ColumnEditDialog_aFill;
 	public static String ColumnEditDialog_aLeft;
