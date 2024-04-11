@@ -215,4 +215,25 @@ public class JDialogTest extends SwingModelTest {
 				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}",
 				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
 	}
+
+	/**
+	 * @see https://github.com/eclipse-windowbuilder/windowbuilder/issues/743
+	 */
+	@Test
+	public void test_rewrite_owner() throws Exception {
+		JDialogInfo dialog = (JDialogInfo) parseContainer("""
+				public class Test extends JDialog {
+					public Test() {
+						super(new JFrame());
+					}
+				}
+				""");
+		assertHierarchy(
+				"{this: javax.swing.JDialog} {this} {}",
+				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}",
+				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		// refresh()
+		dialog.refresh();
+		assertNoErrors(dialog);
+	}
 }

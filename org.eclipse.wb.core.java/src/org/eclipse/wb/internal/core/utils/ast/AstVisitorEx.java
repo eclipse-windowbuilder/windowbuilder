@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
+import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -80,6 +81,15 @@ public class AstVisitorEx extends ASTVisitor {
 
 	@Override
 	public final void endVisit(SuperMethodInvocation node) {
+		try {
+			endVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
+
+	@Override
+	public void endVisit(SuperConstructorInvocation node) {
 		try {
 			endVisitEx(node);
 		} catch (Throwable e) {
@@ -157,5 +167,11 @@ public class AstVisitorEx extends ASTVisitor {
 	 * Implementation of {@link #endVisit(TryStatement)}.
 	 */
 	public void endVisitEx(TryStatement node) throws Exception {
+	}
+
+	/**
+	 * Implementation of {@link #endVisit(SuperConstructorInvocation)}.
+	 */
+	public void endVisitEx(SuperConstructorInvocation node) throws Exception {
 	}
 }

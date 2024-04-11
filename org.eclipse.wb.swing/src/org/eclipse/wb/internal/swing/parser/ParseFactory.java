@@ -207,7 +207,7 @@ public class ParseFactory extends AbstractParseFactory {
 			}
 		}
 		// Swing object
-		if (isSwingObject(editor, typeBinding)) {
+		if (isValidSwingObject(editor, typeBinding)) {
 			// prepare class of component
 			Class<?> componentClass = getClass(editor, typeBinding);
 			if (componentClass == null) {
@@ -260,7 +260,7 @@ public class ParseFactory extends AbstractParseFactory {
 
 	@Override
 	public boolean isToolkitObject(AstEditor editor, ITypeBinding typeBinding) throws Exception {
-		return isSwingObject(editor, typeBinding);
+		return isValidSwingObject(editor, typeBinding);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -287,8 +287,9 @@ public class ParseFactory extends AbstractParseFactory {
 	/**
 	 * @return <code>true</code> if given {@link ITypeBinding} is Swing/AWT object.
 	 */
-	private static boolean isSwingObject(AstEditor editor, ITypeBinding typeBinding) throws Exception {
-		if (typeBinding == null) {
+	private static boolean isValidSwingObject(AstEditor editor, ITypeBinding typeBinding) throws Exception {
+		// https://github.com/eclipse-windowbuilder/windowbuilder/issues/741
+		if (typeBinding == null || isSwingWindow(typeBinding)) {
 			return false;
 		}
 		if (AstNodeUtils.isSuccessorOf(
@@ -318,6 +319,10 @@ public class ParseFactory extends AbstractParseFactory {
 		}
 		//
 		return false;
+	}
+
+	private static boolean isSwingWindow(ITypeBinding typeBinding) {
+		return AstNodeUtils.isSuccessorOf(typeBinding, "java.awt.Window");
 	}
 
 	/**

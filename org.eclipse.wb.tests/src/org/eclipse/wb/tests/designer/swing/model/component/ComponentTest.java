@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.SwingToolkitDescription;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
@@ -330,5 +331,30 @@ public class ComponentTest extends SwingModelTest {
 				"{this: javax.swing.JPanel} {this} {/add(getButton2())/ /add(getButton2())/}",
 				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
 				"  {new: javax.swing.JButton empty} {lazy: button2 getButton2()} {/new JButton()/ /add(getButton2())/ /button2.setName('button2')/}");
+	}
+
+	/**
+	 * @see https://github.com/eclipse-windowbuilder/windowbuilder/issues/741
+	 */
+	@Test
+	public void test_modal() throws Exception {
+		JPanelInfo dialog = (JPanelInfo) parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						new MyDialog();
+					}
+					public static class MyDialog extends JDialog {
+						public MyDialog() {
+							setModal(true);
+							setVisible(true);
+						}
+					}
+				}
+				""");
+		assertHierarchy(
+				"{this: javax.swing.JPanel} {this} {}",
+				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		dialog.refresh();
+		assertNoErrors(dialog);
 	}
 }

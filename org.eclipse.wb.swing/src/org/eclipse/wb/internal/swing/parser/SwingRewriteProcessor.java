@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,11 +16,13 @@ import org.eclipse.wb.internal.core.utils.ast.AstVisitorEx;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
+import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.ThisExpression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -101,6 +103,17 @@ public final class SwingRewriteProcessor {
 
 	private void rewrite_RootPaneContainer() {
 		typeDeclaration.accept(new AstVisitorEx() {
+			@Override
+			public void endVisitEx(SuperConstructorInvocation node) throws Exception {
+				for (Expression argument : DomGenerics.arguments(node)) {
+					if (argument instanceof ClassInstanceCreation && isRootPaneContainer(argument)) {
+						ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(argument);
+						String newExpression = "(" + typeBinding.getQualifiedName() + ")null";
+						editor.replaceExpression(argument, newExpression);
+					}
+				}
+			}
+
 			@Override
 			public void endVisitEx(MethodInvocation node) throws Exception {
 				if (isInterestingMethod(node)) {
