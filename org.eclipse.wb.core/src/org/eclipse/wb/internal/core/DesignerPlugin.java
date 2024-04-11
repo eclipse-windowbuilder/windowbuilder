@@ -38,8 +38,6 @@ import static org.burningwave.core.assembler.StaticComponentContainer.Modules;
 import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -68,7 +66,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
 		exportAllModulesToAllModules();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void exportAllModulesToAllModules() {
 		try {
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -78,19 +75,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
 			} finally {
 				Thread.currentThread().setContextClassLoader(ccl);
 			}
-			Class<?> bootClassLoaderClass =
-					Class.forName("jdk.internal.loader.ClassLoaders$BootClassLoader");
-			Constructor<? extends ClassLoader> constructor =
-					(Constructor<? extends ClassLoader>) Class.forName(
-							"jdk.internal.loader.ClassLoaders$PlatformClassLoader").getDeclaredConstructor(
-									bootClassLoaderClass);
-			constructor.setAccessible(true);
-			Class<?> classLoadersClass = Class.forName("jdk.internal.loader.ClassLoaders");
-			Method bootClassLoaderRetriever = classLoadersClass.getDeclaredMethod("bootLoader");
-			bootClassLoaderRetriever.setAccessible(true);
-			ClassLoader newBuiltinclassLoader =
-					constructor.newInstance(bootClassLoaderRetriever.invoke(classLoadersClass));
-			System.out.println(newBuiltinclassLoader + " instantiated");
 		} catch (Exception exc) {
 			log(exc);
 		}
