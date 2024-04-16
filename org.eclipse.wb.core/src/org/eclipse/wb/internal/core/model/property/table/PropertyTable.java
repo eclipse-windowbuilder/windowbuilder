@@ -35,6 +35,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
@@ -116,6 +117,9 @@ public class PropertyTable extends GraphicalViewerImpl {
 	private int m_selection;
 	private int m_page;
 	private int m_splitter = -1;
+	private Font m_baseFont;
+	private Font m_boldFont;
+	private Font m_italicFont;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -129,6 +133,15 @@ public class PropertyTable extends GraphicalViewerImpl {
 		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
 		// install tooltip helper
 		m_tooltipHelper = new PropertyTableTooltipHelper(this);
+		m_baseFont = parent.getFont();
+		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
+		m_italicFont = DrawUtils.getItalicFont(m_baseFont);
+	}
+
+	@Override
+	protected void handleDispose(DisposeEvent e) {
+		m_boldFont.dispose();
+		m_italicFont.dispose();
 	}
 
 	@Override
@@ -969,9 +982,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private boolean m_painting;
-	private Font m_baseFont;
-	private Font m_boldFont;
-	private Font m_italicFont;
 
 	/**
 	 * Handles {@link SWT#Paint} event.
@@ -1054,10 +1064,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 */
 	private void drawContent(Graphics graphics) {
 		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
-		// prepare fonts
-		m_baseFont = graphics.getFont();
-		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
-		m_italicFont = DrawUtils.getItalicFont(m_baseFont);
 		// show presentations
 		int[] presentationsWidth = showPresentations(clientArea);
 		// draw properties
@@ -1094,9 +1100,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 		// draw splitter
 		graphics.setForegroundColor(COLOR_LINE);
 		graphics.drawLine(m_splitter, 0, m_splitter, clientArea.height);
-		// dispose font
-		m_boldFont.dispose();
-		m_italicFont.dispose();
 	}
 
 	/**
