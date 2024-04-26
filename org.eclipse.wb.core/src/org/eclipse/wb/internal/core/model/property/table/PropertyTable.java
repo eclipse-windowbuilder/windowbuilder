@@ -35,7 +35,6 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -645,19 +644,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 	// ISelectionProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<ISelectionChangedListener> m_selectionListeners = new ArrayList<>();
-
-	@Override
-	public void addSelectionChangedListener(ISelectionChangedListener listener) {
-		if (!m_selectionListeners.contains(listener)) {
-			m_selectionListeners.add(listener);
-		}
-	}
-
-	@Override
-	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
-		m_selectionListeners.add(listener);
-	}
 
 	@Override
 	public ISelection getSelection() {
@@ -697,10 +683,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 			}
 		}
 		// send events
-		SelectionChangedEvent selectionEvent = new SelectionChangedEvent(this, getSelection());
-		for (ISelectionChangedListener listener : m_selectionListeners) {
-			listener.selectionChanged(selectionEvent);
-		}
+		fireSelectionChanged();
 		// re-draw
 		getControl().redraw();
 	}
