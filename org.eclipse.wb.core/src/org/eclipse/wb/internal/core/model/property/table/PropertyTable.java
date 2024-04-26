@@ -25,14 +25,26 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.SWTGraphics;
+import org.eclipse.draw2d.GridData;
+import org.eclipse.draw2d.GridLayout;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.SeparatorBorder;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -42,17 +54,15 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.ScrollBar;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -65,7 +75,7 @@ import java.util.TreeSet;
  * @author lobas_av
  * @coverage core.model.property.table
  */
-public class PropertyTable extends GraphicalViewerImpl {
+public class PropertyTable extends ScrollingGraphicalViewer {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Colors
@@ -92,6 +102,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 	private static final int MIN_COLUMN_WIDTH = 75;
 	private static final int MARGIN_LEFT = 2;
 	private static final int MARGIN_RIGHT = 1;
+	private static final int MARGIN_BOTTOM = 1;
 	private static final int STATE_IMAGE_MARGIN_RIGHT = 4;
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -110,10 +121,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 	private Property[] m_rawProperties;
 	private List<PropertyInfo> m_properties;
 	private final Set<String> m_expandedIds = new TreeSet<>();
-	private Image m_bufferedImage;
 	private int m_rowHeight;
-	private int m_selection;
-	private int m_page;
 	private int m_splitter = -1;
 	private Font m_baseFont;
 	private Font m_boldFont;
@@ -125,14 +133,17 @@ public class PropertyTable extends GraphicalViewerImpl {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public PropertyTable(Composite parent, int style) {
-		setControl(new Canvas(parent, style | SWT.V_SCROLL | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE));
+		createControl(parent);
+		setEditPartFactory(new PropertyEditPartFactory());
 		setEditDomain(new PropertyEditDomain());
-		hookControlEvents();
+		getControl().addListener(SWT.Resize, event -> handleResize());
 		// calculate sizes
 		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
 		m_baseFont = parent.getFont();
 		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
 		m_italicFont = DrawUtils.getItalicFont(m_baseFont);
+		// Initialize with <No Properties>
+		setInput(null);
 	}
 
 	@Override
@@ -142,8 +153,8 @@ public class PropertyTable extends GraphicalViewerImpl {
 	}
 
 	@Override
-	public Canvas getControl() {
-		return (Canvas) super.getControl();
+	public FigureCanvas getControl() {
+		return (FigureCanvas) super.getControl();
 	}
 
 	@Override
@@ -153,40 +164,14 @@ public class PropertyTable extends GraphicalViewerImpl {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Events
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Adds listeners for events.
-	 */
-	private void hookControlEvents() {
-		getControl().addListener(SWT.Dispose, event -> disposeBufferedImage());
-		getControl().addListener(SWT.Resize, event -> handleResize());
-		getControl().addListener(SWT.Paint, event -> handlePaint(event.gc, event.x, event.y, event.width, event.height));
-		getControl().getVerticalBar().addListener(SWT.Selection, event -> handleVerticalScrolling());
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Events: dispose, resize, scroll
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Disposes image used for double buffered painting.
-	 */
-	private void disposeBufferedImage() {
-		if (m_bufferedImage != null) {
-			m_bufferedImage.dispose();
-			m_bufferedImage = null;
-		}
-	}
 
 	/**
 	 * Handles {@link SWT#Resize} event.
 	 */
 	private void handleResize() {
-		disposeBufferedImage();
-		configureScrolling();
 		// splitter
 		{
 			// set default value for splitter
@@ -194,22 +179,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 				m_splitter = Math.max((int) (getControl().getClientArea().width * 0.4), MIN_COLUMN_WIDTH);
 			}
 			configureSplitter();
-		}
-	}
-
-	/**
-	 * Handles {@link SWT#Selection} event for vertical {@link ScrollBar}.
-	 */
-	private void handleVerticalScrolling() {
-		ScrollBar verticalBar = getControl().getVerticalBar();
-		if (verticalBar.getEnabled()) {
-			// update selection
-			m_selection = verticalBar.getSelection();
-			// redraw (but not include vertical bar to avoid flashing)
-			{
-				org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
-				getControl().redraw(clientArea.x, clientArea.y, clientArea.width, clientArea.height, false);
-			}
 		}
 	}
 
@@ -276,11 +245,12 @@ public class PropertyTable extends GraphicalViewerImpl {
 				// prepare bounds for editor
 				org.eclipse.swt.graphics.Rectangle bounds;
 				{
-					org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
+					PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(m_activePropertyInfo);
+					Rectangle figureBounds = getAbsoluteBounds(editPart);
 					int x = m_splitter + 1;
-					int width = clientArea.width - x - MARGIN_RIGHT;
-					int y = m_rowHeight * (index - m_selection) + 1;
-					int height = m_rowHeight - 1;
+					int y = figureBounds.top();
+					int width = getControl().getClientArea().width - x - MARGIN_RIGHT;
+					int height = figureBounds.height() - MARGIN_BOTTOM;
 					bounds = new org.eclipse.swt.graphics.Rectangle(x, y, width, height);
 				}
 				// update bounds using presentation
@@ -322,34 +292,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Scrolling
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Configures vertical {@link ScrollBar}.
-	 */
-	private void configureScrolling() {
-		ScrollBar verticalBar = getControl().getVerticalBar();
-		if (m_properties == null) {
-			verticalBar.setEnabled(false);
-		} else {
-			m_page = getControl().getClientArea().height / m_rowHeight;
-			m_selection = Math.max(0, Math.min(m_properties.size() - m_page, m_selection));
-			verticalBar.setValues(m_selection, 0, m_properties.size(), m_page, 1, m_page);
-			// enable/disable scrolling
-			if (m_properties.size() <= m_page) {
-				verticalBar.setEnabled(false);
-			} else {
-				verticalBar.setEnabled(true);
-			}
-		}
-		// redraw, we reconfigure scrolling only if list of properties was changed, so
-		// we should redraw
-		getControl().redraw();
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Location/size utils
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -367,6 +309,17 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 */
 	private int getTitleTextX(PropertyInfo propertyInfo) {
 		return getTitleX(propertyInfo) + getLevelIndent();
+	}
+
+	/**
+	 * @return the bounds of the given edit part relative to the top right corner of
+	 *         the viewport.
+	 */
+	private static Rectangle getAbsoluteBounds(PropertyEditPart editPart) {
+		IFigure figure = editPart.getFigure();
+		Rectangle bounds = figure.getBounds().getCopy();
+		figure.translateToAbsolute(bounds);
+		return bounds;
 	}
 
 	/**
@@ -389,14 +342,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 		if (clientArea.width - m_splitter < MIN_COLUMN_WIDTH) {
 			m_splitter = clientArea.width - MIN_COLUMN_WIDTH;
 		}
-	}
-
-	/**
-	 * @return the index in {@link #m_properties} corresponding given <code>y</code>
-	 *         location.
-	 */
-	private int getPropertyIndex(int y) {
-		return m_selection + y / m_rowHeight;
 	}
 
 	/**
@@ -430,7 +375,8 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 * @return the location relative to the value part of property.
 	 */
 	private Point getValueRelativeLocation(int x, int y) {
-		return new Point(x - (m_splitter + 2), y - m_rowHeight * getPropertyIndex(y));
+		PropertyEditPart editPart = (PropertyEditPart) findObjectAt(new Point(x, y));
+		return new Point(x - (m_splitter + 2), getAbsoluteBounds(editPart).top());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -513,8 +459,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 			// set new PropertyInfo
 			setActivePropertyInfo(newActivePropertyInfo);
 		}
-		// update scroll bar
-		configureScrolling();
+		setContents(m_properties);
 	}
 
 	/**
@@ -590,9 +535,9 @@ public class PropertyTable extends GraphicalViewerImpl {
 	public org.eclipse.swt.graphics.Point forTests_getStateLocation(Property property) {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
-			int index = m_properties.indexOf(propertyInfo);
+			PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(propertyInfo);
 			int x = getTitleX(propertyInfo);
-			int y = m_rowHeight * (index - m_selection) + 1;
+			int y = getAbsoluteBounds(editPart).y();
 			return new org.eclipse.swt.graphics.Point(x, y);
 		}
 		return null;
@@ -604,9 +549,9 @@ public class PropertyTable extends GraphicalViewerImpl {
 	public org.eclipse.swt.graphics.Point forTests_getValueLocation(Property property) {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
-			int index = m_properties.indexOf(propertyInfo);
+			PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(propertyInfo);
 			int x = m_splitter + 5;
-			int y = m_rowHeight * (index - m_selection) + 1;
+			int y = getAbsoluteBounds(editPart).y();
 			return new org.eclipse.swt.graphics.Point(x, y);
 		}
 		return null;
@@ -674,209 +619,13 @@ public class PropertyTable extends GraphicalViewerImpl {
 			m_activePropertyId = m_activePropertyInfo.m_id;
 		}
 		// make sure that active property is visible
-		if (m_activePropertyInfo != null) {
-			int row = m_properties.indexOf(m_activePropertyInfo);
-			if (m_selection <= row && row < m_selection + m_page) {
-			} else {
-				m_selection = row;
-				configureScrolling();
-			}
+		if (getEditPartRegistry().get(m_activePropertyInfo) instanceof PropertyEditPart editPart) {
+			reveal(editPart);
 		}
 		// send events
 		fireSelectionChanged();
 		// re-draw
 		getControl().redraw();
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Painting
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private boolean m_painting;
-
-	/**
-	 * Handles {@link SWT#Paint} event.
-	 */
-	private void handlePaint(GC gc, int x, int y, int width, int height) {
-		// sometimes we disable Eclipse Shell to prevent user actions, but we do this
-		// for short time
-		if (!getControl().isEnabled()) {
-			return;
-		}
-		// prevent recursion
-		if (m_painting) {
-			return;
-		}
-		m_painting = true;
-		//
-		try {
-			setActiveEditorBounds();
-			// prepare buffered image
-			if (m_bufferedImage == null || m_bufferedImage.isDisposed()) {
-				org.eclipse.swt.graphics.Point size = getControl().getSize();
-				m_bufferedImage = new Image(DesignerPlugin.getStandardDisplay(), size.x, size.y);
-			}
-			// prepare buffered GC
-			GC bufferedGC = null;
-			try {
-				// perform some drawing
-				{
-					bufferedGC = new GC(m_bufferedImage);
-					bufferedGC.setClipping(x, y, width, height);
-					bufferedGC.setBackground(gc.getBackground());
-					bufferedGC.setForeground(gc.getForeground());
-					bufferedGC.setFont(gc.getFont());
-					bufferedGC.setLineStyle(gc.getLineStyle());
-					bufferedGC.setLineWidth(gc.getLineWidth());
-				}
-				// fill client area
-				{
-					org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
-					bufferedGC.setBackground(COLOR_BACKGROUND);
-					bufferedGC.fillRectangle(clientArea);
-				}
-				// draw content
-				if (m_properties == null) {
-					drawEmptyContent(bufferedGC);
-				} else {
-					Graphics graphics = new SWTGraphics(bufferedGC);
-					try {
-						drawContent(graphics);
-					} catch (Exception e) {
-						DesignerPlugin.log(e);
-					} finally {
-						graphics.dispose();
-					}
-				}
-			} finally {
-				// flush image
-				if (bufferedGC != null) {
-					bufferedGC.dispose();
-				}
-			}
-			gc.drawImage(m_bufferedImage, 0, 0);
-		} finally {
-			m_painting = false;
-		}
-	}
-
-	/**
-	 * Draws content when there are no properties.
-	 */
-	private void drawEmptyContent(GC gc) {
-		org.eclipse.swt.graphics.Rectangle area = getControl().getClientArea();
-		// draw message
-		gc.setForeground(COLOR_NO_PROPERTIES);
-		DrawUtils.drawStringCHCV(gc, ModelMessages.PropertyTable_noProperties, 0, 0, area.width, area.height);
-	}
-
-	/**
-	 * Draws all {@link PropertyInfo}'s, separators, etc.
-	 */
-	private void drawContent(Graphics graphics) {
-		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
-		// show presentations
-		int[] presentationsWidth = showPresentations(clientArea);
-		// draw properties
-		{
-			int y = clientArea.y - m_rowHeight * m_selection;
-			for (int i = 0; i < m_properties.size(); i++) {
-				// skip, if not visible yet
-				if (y + m_rowHeight < 0) {
-					y += m_rowHeight;
-					continue;
-				}
-				// stop, if already invisible
-				if (y > clientArea.height) {
-					break;
-				}
-				// draw single property
-				{
-					PropertyInfo propertyInfo = m_properties.get(i);
-					PropertyFigure propertyFigure = new PropertyFigure(propertyInfo);
-					propertyFigure.setBounds(new Rectangle(0, y + 1, clientArea.width - presentationsWidth[i], m_rowHeight - 1));
-					propertyFigure.paint(graphics);
-					y += m_rowHeight;
-				}
-				// draw row separator
-				graphics.setForegroundColor(COLOR_LINE);
-				graphics.drawLine(0, y, clientArea.width, y);
-			}
-		}
-		// draw expand line
-		drawExpandLines(graphics, clientArea);
-		// draw rectangle around table
-		graphics.setForegroundColor(COLOR_LINE);
-		graphics.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
-		// draw splitter
-		graphics.setForegroundColor(COLOR_LINE);
-		graphics.drawLine(m_splitter, 0, m_splitter, clientArea.height);
-	}
-
-	/**
-	 * Shows {@link PropertyEditorPresentation}'s for all {@link Property}'s, i.e.
-	 * updates also their bounds. So, some {@link PropertyEditorPresentation}'s
-	 * become invisible because they are moved above or below visible client area.
-	 *
-	 * @return the array of width for each {@link PropertyEditorPresentation}'s,
-	 *         consumed on the right.
-	 */
-	private int[] showPresentations(org.eclipse.swt.graphics.Rectangle clientArea) {
-		int[] presentationsWidth = new int[m_properties.size()];
-		// prepare value rectangle
-		int x = m_splitter + 4;
-		int w = clientArea.width - x - MARGIN_RIGHT;
-		// show presentation's for all properties
-		int y = clientArea.y - m_rowHeight * m_selection;
-		for (int i = 0; i < m_properties.size(); i++) {
-			PropertyInfo propertyInfo = m_properties.get(i);
-			Property property = propertyInfo.getProperty();
-			PropertyEditorPresentation presentation = property.getEditor().getPresentation();
-			if (presentation != null) {
-				presentationsWidth[i] = presentation.show(this, property, x, y + 1, w, m_rowHeight - 1);
-			}
-			y += m_rowHeight;
-		}
-		return presentationsWidth;
-	}
-
-	/**
-	 * Draws lines from expanded complex property to its last sub-property.
-	 */
-	private void drawExpandLines(Graphics graphics, org.eclipse.swt.graphics.Rectangle clientArea) {
-		int height = m_rowHeight - 1;
-		int xOffset = m_plusImage.getBounds().width / 2;
-		int yOffset = (height - m_plusImage.getBounds().width) / 2;
-		//
-		int y = clientArea.y - m_selection * m_rowHeight;
-		graphics.setForegroundColor(COLOR_COMPLEX_LINE);
-		for (int i = 0; i < m_properties.size(); i++) {
-			PropertyInfo propertyInfo = m_properties.get(i);
-			//
-			if (propertyInfo.isExpanded()) {
-				int index = m_properties.indexOf(propertyInfo);
-				// prepare index of last sub-property
-				int index2 = index;
-				for (; index2 < m_properties.size(); index2++) {
-					PropertyInfo nextPropertyInfo = m_properties.get(index2);
-					if (nextPropertyInfo != propertyInfo && nextPropertyInfo.getLevel() <= propertyInfo.getLevel()) {
-						break;
-					}
-				}
-				index2--;
-				// draw line if there are children
-				if (index2 > index) {
-					int x = getTitleX(propertyInfo) + xOffset;
-					int y1 = y + height - yOffset;
-					int y2 = y + m_rowHeight * (index2 - index) + m_rowHeight / 2;
-					graphics.drawLine(x, y1, x, y2);
-					graphics.drawLine(x, y2, x + m_rowHeight / 3, y2);
-				}
-			}
-			//
-			y += m_rowHeight;
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -928,13 +677,9 @@ public class PropertyTable extends GraphicalViewerImpl {
 		public void mouseDown(MouseEvent event, EditPartViewer viewer) {
 			m_splitterResizing = event.button == 1 && m_properties != null && isLocationSplitter(event.x);
 			// click in property
-			if (!m_splitterResizing && m_properties != null) {
-				int propertyIndex = getPropertyIndex(event.y);
-				if (propertyIndex >= m_properties.size()) {
-					return;
-				}
+			if (!m_splitterResizing && findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
 				// prepare property
-				setActivePropertyInfo(m_properties.get(propertyIndex));
+				setActivePropertyInfo(editPart.getModel());
 				Property property = m_activePropertyInfo.getProperty();
 				// de-activate current editor
 				deactivateEditor(true);
@@ -959,19 +704,15 @@ public class PropertyTable extends GraphicalViewerImpl {
 					return;
 				}
 				// update
-				if (m_properties != null) {
-					int index = getPropertyIndex(event.y);
-					if (index < m_properties.size()) {
-						PropertyInfo propertyInfo = m_properties.get(index);
-						// check for expand/collapse
-						if (isLocationState(propertyInfo, event.x)) {
-							try {
-								m_lastExpandCollapseTime = System.currentTimeMillis();
-								propertyInfo.flip();
-								configureScrolling();
-							} catch (Throwable e) {
-								DesignerPlugin.log(e);
-							}
+				if (findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
+					PropertyInfo propertyInfo = editPart.getModel();
+					// check for expand/collapse
+					if (isLocationState(propertyInfo, event.x)) {
+						try {
+							m_lastExpandCollapseTime = System.currentTimeMillis();
+							propertyInfo.flip();
+						} catch (Throwable e) {
+							DesignerPlugin.log(e);
 						}
 					}
 				}
@@ -986,7 +727,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 					if (m_activePropertyInfo != null) {
 						if (m_activePropertyInfo.isComplex()) {
 							m_activePropertyInfo.flip();
-							configureScrolling();
 						} else {
 							Property property = m_activePropertyInfo.getProperty();
 							property.getEditor().doubleClick(property, getValueRelativeLocation(event.x, event.y));
@@ -1005,7 +745,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 				return;
 			}
 			// update
-			if (m_properties != null) {
+			if (findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart) {
 				// update cursor
 				if (isLocationSplitter(event.x)) {
 					getControl().setCursor(Cursors.SIZEWE);
@@ -1034,12 +774,11 @@ public class PropertyTable extends GraphicalViewerImpl {
 		 */
 		private void updateTooltip(MouseEvent event) {
 			int x = event.x;
-			int propertyIndex = getPropertyIndex(event.y);
 			//
-			if (propertyIndex < m_properties.size()) {
-				PropertyInfo propertyInfo = m_properties.get(propertyIndex);
+			if (findObjectAt(new Point(x, event.y)) instanceof PropertyEditPart editPart) {
+				PropertyInfo propertyInfo = editPart.getModel();
 				Property property = propertyInfo.getProperty();
-				int y = (propertyIndex - m_selection) * m_rowHeight;
+				int y = getAbsoluteBounds(editPart).bottom();
 				// check for title
 				{
 					int titleX = getTitleTextX(propertyInfo);
@@ -1082,12 +821,10 @@ public class PropertyTable extends GraphicalViewerImpl {
 						if (!m_activePropertyInfo.isExpanded()
 								&& (e.character == '+' || e.keyCode == SWT.ARROW_RIGHT)) {
 							m_activePropertyInfo.expand();
-							configureScrolling();
 							return;
 						}
 						if (m_activePropertyInfo.isExpanded() && (e.character == '-' || e.keyCode == SWT.ARROW_LEFT)) {
 							m_activePropertyInfo.collapse();
-							configureScrolling();
 							return;
 						}
 					}
@@ -1120,7 +857,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 		 */
 		public boolean navigate(KeyEvent e) {
 			int index = m_properties.indexOf(m_activePropertyInfo);
-			org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
+			int page = getControl().getClientArea().height / m_rowHeight;
 			//
 			int newIndex = index;
 			if (e.keyCode == SWT.HOME) {
@@ -1128,9 +865,9 @@ public class PropertyTable extends GraphicalViewerImpl {
 			} else if (e.keyCode == SWT.END) {
 				newIndex = m_properties.size() - 1;
 			} else if (e.keyCode == SWT.PAGE_UP) {
-				newIndex = Math.max(index - m_page + 1, 0);
+				newIndex = Math.max(index - page + 1, 0);
 			} else if (e.keyCode == SWT.PAGE_DOWN) {
-				newIndex = Math.min(index + m_page - 1, m_properties.size() - 1);
+				newIndex = Math.min(index + page - 1, m_properties.size() - 1);
 			} else if (e.keyCode == SWT.ARROW_UP) {
 				newIndex = Math.max(index - 1, 0);
 			} else if (e.keyCode == SWT.ARROW_DOWN) {
@@ -1139,17 +876,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 			// activate new property
 			if (newIndex != index && newIndex < m_properties.size()) {
 				setActivePropertyInfo(m_properties.get(newIndex));
-				// check for scrolling
-				int y = m_rowHeight * (newIndex - m_selection);
-				if (y < 0) {
-					m_selection = newIndex;
-					configureScrolling();
-				} else if (y + m_rowHeight > clientArea.height) {
-					m_selection = newIndex - m_page + 1;
-					configureScrolling();
-				}
-				// repaint
-				getControl().redraw();
 				return true;
 			}
 			// no navigation change
@@ -1163,11 +889,183 @@ public class PropertyTable extends GraphicalViewerImpl {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
+	public class PropertyEditPartFactory implements EditPartFactory {
+		@Override
+		@SuppressWarnings("unchecked")
+		public EditPart createEditPart(EditPart context, Object model) {
+			if (model instanceof List properties) {
+				if (properties.isEmpty()) {
+					return new NoPropertyEditPart();
+				}
+				return new PropertyRootEditPart((List<PropertyInfo>) model);
+			}
+			return new PropertyEditPart((PropertyInfo) model);
+		}
+	}
+
+	private static class NoPropertyEditPart extends AbstractGraphicalEditPart {
+
+		@Override
+		protected IFigure createFigure() {
+			Label label = new Label();
+			label.setBackgroundColor(COLOR_BACKGROUND);
+			label.setForegroundColor(COLOR_NO_PROPERTIES);
+			label.setText(ModelMessages.PropertyTable_noProperties);
+			label.setOpaque(true);
+			return label;
+		}
+
+		@Override
+		protected void createEditPolicies() {
+			// Nothing to do
+		}
+
+	}
+
+	private final class PropertyRootEditPart extends AbstractGraphicalEditPart {
+		public PropertyRootEditPart(List<PropertyInfo> model) {
+			setModel(model);
+		}
+
+		@Override
+		protected IFigure createFigure() {
+			GridLayout gridLayout = new GridLayout();
+			gridLayout.marginHeight = 0;
+			gridLayout.marginWidth = 0;
+			gridLayout.horizontalSpacing = 0;
+			gridLayout.verticalSpacing = 0;
+
+			LineBorder border = new LineBorder(COLOR_LINE) {
+				@Override
+				public void paint(IFigure f, Graphics g, Insets i) {
+					// draw rectangle around figure
+					super.paint(f, g, i);
+					// draw expand line
+					tempRect = getPaintRectangle(f, i);
+					drawExpandLines(g, tempRect);
+					// draw splitter
+					tempRect = getPaintRectangle(f, i);
+					g.drawLine(m_splitter, 0, m_splitter, tempRect.height);
+				}
+
+				////////////////////////////////////////////////////////////////////////////
+				//
+				// Painting
+				//
+				////////////////////////////////////////////////////////////////////////////
+
+				/**
+				 * Draws lines from expanded complex property to its last sub-property.
+				 */
+				private void drawExpandLines(Graphics graphics, Rectangle clientArea) {
+					int height = m_rowHeight - MARGIN_BOTTOM;
+					int xOffset = m_plusImage.getBounds().width / 2;
+					int yOffset = (height - m_plusImage.getBounds().width) / 2;
+					//
+					graphics.setForegroundColor(COLOR_COMPLEX_LINE);
+					for (int i = 0; i < m_properties.size(); i++) {
+						PropertyInfo propertyInfo = m_properties.get(i);
+						//
+						if (propertyInfo.isExpanded()) {
+							int index = m_properties.indexOf(propertyInfo);
+							// prepare index of last sub-property
+							int index2 = index;
+							for (; index2 < m_properties.size(); index2++) {
+								PropertyInfo nextPropertyInfo = m_properties.get(index2);
+								if (nextPropertyInfo != propertyInfo
+										&& nextPropertyInfo.getLevel() <= propertyInfo.getLevel()) {
+									break;
+								}
+							}
+							index2--;
+							// draw line if there are children
+							if (index2 > index
+									&& getEditPartRegistry().get(propertyInfo) instanceof PropertyEditPart editPart) {
+								int y = editPart.getFigure().getBounds().top();
+								int x = getTitleX(propertyInfo) + xOffset;
+								int y1 = y + height - yOffset;
+								int y2 = y + m_rowHeight * (index2 - index) + m_rowHeight / 2;
+								graphics.drawLine(x, y1, x, y2);
+								graphics.drawLine(x, y2, x + m_rowHeight / 3, y2);
+							}
+						}
+						//
+					}
+				}
+			};
+			//
+			figure = new Figure();
+			figure.setBorder(border);
+			figure.setBackgroundColor(COLOR_BACKGROUND);
+			figure.setLayoutManager(gridLayout);
+			figure.setOpaque(true);
+			return figure;
+		}
+
+		@Override
+		protected void createEditPolicies() {
+			// Nothing to do
+		}
+
+		@Override
+		@SuppressWarnings("unchecked")
+		public List<PropertyInfo> getModel() {
+			return (List<PropertyInfo>) super.getModel();
+		}
+
+		@Override
+		protected List<PropertyInfo> getModelChildren() {
+			List<PropertyInfo> model = getModel();
+			if (model == null) {
+				return Collections.emptyList();
+			}
+			return Collections.unmodifiableList(model);
+		}
+	}
+
+	private final class PropertyEditPart extends AbstractGraphicalEditPart {
+		public PropertyEditPart(PropertyInfo propertyInfo) {
+			setModel(propertyInfo);
+		}
+
+		@Override
+		public PropertyInfo getModel() {
+			return (PropertyInfo) super.getModel();
+		}
+
+		@Override
+		protected IFigure createFigure() {
+			SeparatorBorder border = new SeparatorBorder(new Insets(0, 0, MARGIN_BOTTOM, 1), PositionConstants.BOTTOM);
+			border.setColor(COLOR_LINE);
+			figure = new PropertyFigure(getModel());
+			figure.setBorder(border);
+			return figure;
+		}
+
+		@Override
+		protected void createEditPolicies() {
+			// Nothing to do
+		}
+	}
+
 	private final class PropertyFigure extends Figure {
 		private final PropertyInfo m_propertyInfo;
 
 		public PropertyFigure(PropertyInfo propertyInfo) {
 			m_propertyInfo = propertyInfo;
+		}
+
+		@Override
+		public void setParent(IFigure parent) {
+			super.setParent(parent);
+			if (parent != null) {
+				parent.setConstraint(this, new GridData(SWT.FILL, SWT.FILL, true, false));
+			}
+		}
+
+		@Override
+		public Dimension getPreferredSize(int wHint, int hHint) {
+			return new Dimension(wHint, m_rowHeight);
 		}
 
 		@Override
@@ -1179,10 +1077,23 @@ public class PropertyTable extends GraphicalViewerImpl {
 			try {
 				Property property = m_propertyInfo.getProperty();
 				boolean isActiveProperty = m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
+				int presentationWidth = 0;
+				PropertyEditorPresentation presentation = property.getEditor().getPresentation();
+				if (presentation != null) {
+					Point p = new Point(m_splitter + 4, y);
+					translateToAbsolute(p);
+					//
+					int w = width - p.x() - MARGIN_RIGHT;
+					int h = height - MARGIN_BOTTOM;
+					//
+					presentationWidth = presentation.show(PropertyTable.this, property, p.x(), p.y(), w, h);
+				}
 				// set background
 				{
 					if (isActiveProperty) {
 						graphics.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
+						// Might've been moved due to resizing the table
+						setActiveEditorBounds();
 					} else {
 						if (property.isModified()) {
 							graphics.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
@@ -1190,7 +1101,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 							graphics.setBackgroundColor(COLOR_PROPERTY_BG);
 						}
 					}
-					graphics.fillRectangle(0, y, width, height);
+					graphics.fillRectangle(0, y, width - presentationWidth, height);
 				}
 				// draw state image
 				if (m_propertyInfo.isShowComplex()) {
@@ -1227,13 +1138,23 @@ public class PropertyTable extends GraphicalViewerImpl {
 					}
 					// prepare value rectangle
 					int x = m_splitter + 4;
-					int w = width - x - MARGIN_RIGHT;
+					int w = getControl().getClientArea().width - x - MARGIN_RIGHT;
 					// paint value
-					property.getEditor().paint(property, graphics, x, y, w, height);
+					property.getEditor().paint(property, graphics, x, y, w - presentationWidth, height);
 				}
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
+		}
+
+		@Override
+		public void erase() {
+			Property property = m_propertyInfo.getProperty();
+			PropertyEditorPresentation presentation = property.getEditor().getPresentation();
+			if (presentation != null) {
+				presentation.hide(PropertyTable.this, property);
+			}
+			super.erase();
 		}
 	}
 
@@ -1343,6 +1264,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 			//
 			int index = m_properties.indexOf(this);
 			addChildren(index + 1);
+			setContents(m_properties);
 		}
 
 		/**
@@ -1358,6 +1280,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 			//
 			int index = m_properties.indexOf(this);
 			removeChildren(index + 1);
+			setContents(m_properties);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
