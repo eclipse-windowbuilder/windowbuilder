@@ -30,6 +30,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -37,9 +39,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -107,7 +107,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 	// Instance fields
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final PropertyTableTooltipHelper m_tooltipHelper;
 	private boolean m_showAdvancedProperties;
 	private Property[] m_rawProperties;
 	private List<PropertyInfo> m_properties;
@@ -128,11 +127,10 @@ public class PropertyTable extends GraphicalViewerImpl {
 	////////////////////////////////////////////////////////////////////////////
 	public PropertyTable(Composite parent, int style) {
 		setControl(new Canvas(parent, style | SWT.V_SCROLL | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE));
+		setEditDomain(new PropertyEditDomain());
 		hookControlEvents();
 		// calculate sizes
 		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
-		// install tooltip helper
-		m_tooltipHelper = new PropertyTableTooltipHelper(this);
 		m_baseFont = parent.getFont();
 		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
 		m_italicFont = DrawUtils.getItalicFont(m_baseFont);
@@ -149,6 +147,11 @@ public class PropertyTable extends GraphicalViewerImpl {
 		return (Canvas) super.getControl();
 	}
 
+	@Override
+	public PropertyEditDomain getEditDomain() {
+		return (PropertyEditDomain) super.getEditDomain();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Events
@@ -162,31 +165,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 		getControl().addListener(SWT.Resize, event -> handleResize());
 		getControl().addListener(SWT.Paint, event -> handlePaint(event.gc, event.x, event.y, event.width, event.height));
 		getControl().getVerticalBar().addListener(SWT.Selection, event -> handleVerticalScrolling());
-		getControl().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent event) {
-				getControl().forceFocus();
-				handleMouseDown(event);
-			}
-
-			@Override
-			public void mouseUp(MouseEvent event) {
-				handleMouseUp(event);
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent event) {
-				handleMouseDoubleClick(event);
-			}
-		});
-		getControl().addMouseMoveListener(event -> handleMouseMove(event));
-		// keyboard
-		getControl().addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				handleKeyDown(e);
-			}
-		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -234,255 +212,6 @@ public class PropertyTable extends GraphicalViewerImpl {
 				getControl().redraw(clientArea.x, clientArea.y, clientArea.width, clientArea.height, false);
 			}
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Keyboard
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Handles {@link SWT#KeyDown} event.
-	 */
-	private void handleKeyDown(KeyEvent e) {
-		if (m_activePropertyInfo != null) {
-			try {
-				Property property = m_activePropertyInfo.getProperty();
-				// expand/collapse
-				if (m_activePropertyInfo.isComplex()) {
-					if (!m_activePropertyInfo.isExpanded() && (e.character == '+' || e.keyCode == SWT.ARROW_RIGHT)) {
-						m_activePropertyInfo.expand();
-						configureScrolling();
-						return;
-					}
-					if (m_activePropertyInfo.isExpanded() && (e.character == '-' || e.keyCode == SWT.ARROW_LEFT)) {
-						m_activePropertyInfo.collapse();
-						configureScrolling();
-						return;
-					}
-				}
-				// navigation
-				if (navigate(e)) {
-					return;
-				}
-				// editor activation
-				if (e.character == ' ' || e.character == SWT.CR) {
-					activateEditor(property, null);
-					return;
-				}
-				// DEL
-				if (e.keyCode == SWT.DEL) {
-					e.doit = false;
-					property.setValue(Property.UNKNOWN_VALUE);
-					return;
-				}
-				// send to editor
-				property.getEditor().keyDown(this, property, e);
-			} catch (Throwable ex) {
-				DesignerPlugin.log(ex);
-			}
-		}
-	}
-
-	/**
-	 * @return <code>true</code> if given {@link KeyEvent} was navigation event, so
-	 *         new {@link PropertyInfo} was selected.
-	 */
-	public boolean navigate(KeyEvent e) {
-		int index = m_properties.indexOf(m_activePropertyInfo);
-		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
-		//
-		int newIndex = index;
-		if (e.keyCode == SWT.HOME) {
-			newIndex = 0;
-		} else if (e.keyCode == SWT.END) {
-			newIndex = m_properties.size() - 1;
-		} else if (e.keyCode == SWT.PAGE_UP) {
-			newIndex = Math.max(index - m_page + 1, 0);
-		} else if (e.keyCode == SWT.PAGE_DOWN) {
-			newIndex = Math.min(index + m_page - 1, m_properties.size() - 1);
-		} else if (e.keyCode == SWT.ARROW_UP) {
-			newIndex = Math.max(index - 1, 0);
-		} else if (e.keyCode == SWT.ARROW_DOWN) {
-			newIndex = Math.min(index + 1, m_properties.size() - 1);
-		}
-		// activate new property
-		if (newIndex != index && newIndex < m_properties.size()) {
-			setActivePropertyInfo(m_properties.get(newIndex));
-			// check for scrolling
-			int y = m_rowHeight * (newIndex - m_selection);
-			if (y < 0) {
-				m_selection = newIndex;
-				configureScrolling();
-			} else if (y + m_rowHeight > clientArea.height) {
-				m_selection = newIndex - m_page + 1;
-				configureScrolling();
-			}
-			// repaint
-			getControl().redraw();
-			return true;
-		}
-		// no navigation change
-		return false;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Events: mouse
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private boolean m_splitterResizing;
-	/**
-	 * We do expand/collapse on to events: click on state sign and on double click.
-	 * But when we double click on state sign, we will have <em>two</em> events, so
-	 * we should ignore double click.
-	 */
-	private long m_lastExpandCollapseTime;
-
-	/**
-	 * Handles {@link SWT#MouseDown} event.
-	 */
-	private void handleMouseDown(MouseEvent event) {
-		m_splitterResizing = event.button == 1 && m_properties != null && isLocationSplitter(event.x);
-		// click in property
-		if (!m_splitterResizing && m_properties != null) {
-			int propertyIndex = getPropertyIndex(event.y);
-			if (propertyIndex >= m_properties.size()) {
-				return;
-			}
-			// prepare property
-			setActivePropertyInfo(m_properties.get(propertyIndex));
-			Property property = m_activePropertyInfo.getProperty();
-			// de-activate current editor
-			deactivateEditor(true);
-			getControl().redraw();
-			// activate editor
-			if (isLocationValue(event.x)) {
-				activateEditor(property, getValueRelativeLocation(event.x, event.y));
-			}
-		}
-	}
-
-	/**
-	 * Handles {@link SWT#MouseUp} event.
-	 */
-	private void handleMouseUp(MouseEvent event) {
-		if (event.button == 1) {
-			// resize splitter
-			if (m_splitterResizing) {
-				m_splitterResizing = false;
-				return;
-			}
-			// if out of bounds, then ignore
-			if (!getControl().getClientArea().contains(event.x, event.y)) {
-				return;
-			}
-			// update
-			if (m_properties != null) {
-				int index = getPropertyIndex(event.y);
-				if (index < m_properties.size()) {
-					PropertyInfo propertyInfo = m_properties.get(index);
-					// check for expand/collapse
-					if (isLocationState(propertyInfo, event.x)) {
-						try {
-							m_lastExpandCollapseTime = System.currentTimeMillis();
-							propertyInfo.flip();
-							configureScrolling();
-						} catch (Throwable e) {
-							DesignerPlugin.log(e);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Handles {@link SWT#MouseDoubleClick} event.
-	 */
-	private void handleMouseDoubleClick(MouseEvent event) {
-		if (System.currentTimeMillis() - m_lastExpandCollapseTime > getControl().getDisplay().getDoubleClickTime()) {
-			try {
-				if (m_activePropertyInfo != null) {
-					if (m_activePropertyInfo.isComplex()) {
-						m_activePropertyInfo.flip();
-						configureScrolling();
-					} else {
-						Property property = m_activePropertyInfo.getProperty();
-						property.getEditor().doubleClick(property, getValueRelativeLocation(event.x, event.y));
-					}
-				}
-			} catch (Throwable e) {
-				handleException(e);
-			}
-		}
-	}
-
-	/**
-	 * Handles {@link SWT#MouseMove} event.
-	 */
-	private void handleMouseMove(MouseEvent event) {
-		int x = event.x;
-		// resize splitter
-		if (m_splitterResizing) {
-			m_splitter = x;
-			configureSplitter();
-			getControl().redraw();
-			return;
-		}
-		// if out of bounds, then ignore
-		if (!getControl().getClientArea().contains(event.x, event.y)) {
-			return;
-		}
-		// update
-		if (m_properties != null) {
-			// update cursor
-			if (isLocationSplitter(x)) {
-				getControl().setCursor(Cursors.SIZEWE);
-			} else {
-				getControl().setCursor(null);
-			}
-			// update tooltip helper
-			updateTooltip(event);
-		} else {
-			updateTooltipNoProperty();
-		}
-	}
-
-	/**
-	 * Updates {@link PropertyTableTooltipHelper}.
-	 */
-	private void updateTooltip(MouseEvent event) {
-		int x = event.x;
-		int propertyIndex = getPropertyIndex(event.y);
-		//
-		if (propertyIndex < m_properties.size()) {
-			PropertyInfo propertyInfo = m_properties.get(propertyIndex);
-			Property property = propertyInfo.getProperty();
-			int y = (propertyIndex - m_selection) * m_rowHeight;
-			// check for title
-			{
-				int titleX = getTitleTextX(propertyInfo);
-				int titleRight = m_splitter - 2;
-				if (titleX <= x && x < titleRight) {
-					m_tooltipHelper.update(property, true, false, titleX, titleRight, y, m_rowHeight);
-					return;
-				}
-			}
-			// check for value
-			{
-				int valueX = m_splitter + 3;
-				if (x > valueX) {
-					m_tooltipHelper.update(property, false, true, valueX, getControl().getClientArea().width, y, m_rowHeight);
-				}
-			}
-		} else {
-			updateTooltipNoProperty();
-		}
-	}
-
-	private void updateTooltipNoProperty() {
-		m_tooltipHelper.update(null, false, false, 0, 0, 0, 0);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1188,6 +917,261 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 */
 	private PropertyCategory getCategory(Property property) {
 		return m_propertyCategoryProvider.getCategory(property);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	public class PropertyEditDomain extends EditDomain {
+		private final PropertyTableTooltipHelper m_tooltipHelper = new PropertyTableTooltipHelper(PropertyTable.this);
+		private boolean m_splitterResizing;
+		/**
+		 * We do expand/collapse on to events: click on state sign and on double click.
+		 * But when we double click on state sign, we will have <em>two</em> events, so
+		 * we should ignore double click.
+		 */
+		private long m_lastExpandCollapseTime;
+
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Events: mouse
+		//
+		////////////////////////////////////////////////////////////////////////////
+
+		@Override
+		public void mouseDown(MouseEvent event, EditPartViewer viewer) {
+			m_splitterResizing = event.button == 1 && m_properties != null && isLocationSplitter(event.x);
+			// click in property
+			if (!m_splitterResizing && m_properties != null) {
+				int propertyIndex = getPropertyIndex(event.y);
+				if (propertyIndex >= m_properties.size()) {
+					return;
+				}
+				// prepare property
+				setActivePropertyInfo(m_properties.get(propertyIndex));
+				Property property = m_activePropertyInfo.getProperty();
+				// de-activate current editor
+				deactivateEditor(true);
+				getControl().redraw();
+				// activate editor
+				if (isLocationValue(event.x)) {
+					activateEditor(property, getValueRelativeLocation(event.x, event.y));
+				}
+			}
+		}
+
+		@Override
+		public void mouseUp(MouseEvent event, EditPartViewer viewer) {
+			if (event.button == 1) {
+				// resize splitter
+				if (m_splitterResizing) {
+					m_splitterResizing = false;
+					return;
+				}
+				// if out of bounds, then ignore
+				if (!getControl().getClientArea().contains(event.x, event.y)) {
+					return;
+				}
+				// update
+				if (m_properties != null) {
+					int index = getPropertyIndex(event.y);
+					if (index < m_properties.size()) {
+						PropertyInfo propertyInfo = m_properties.get(index);
+						// check for expand/collapse
+						if (isLocationState(propertyInfo, event.x)) {
+							try {
+								m_lastExpandCollapseTime = System.currentTimeMillis();
+								propertyInfo.flip();
+								configureScrolling();
+							} catch (Throwable e) {
+								DesignerPlugin.log(e);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		@Override
+		public void mouseDoubleClick(MouseEvent event, EditPartViewer viewer) {
+			if (System.currentTimeMillis() - m_lastExpandCollapseTime > getControl().getDisplay()
+					.getDoubleClickTime()) {
+				try {
+					if (m_activePropertyInfo != null) {
+						if (m_activePropertyInfo.isComplex()) {
+							m_activePropertyInfo.flip();
+							configureScrolling();
+						} else {
+							Property property = m_activePropertyInfo.getProperty();
+							property.getEditor().doubleClick(property, getValueRelativeLocation(event.x, event.y));
+						}
+					}
+				} catch (Throwable e) {
+					handleException(e);
+				}
+			}
+		}
+
+		@Override
+		public void mouseMove(MouseEvent event, EditPartViewer viewer) {
+			// if out of bounds, then ignore
+			if (!getControl().getClientArea().contains(event.x, event.y)) {
+				return;
+			}
+			// update
+			if (m_properties != null) {
+				// update cursor
+				if (isLocationSplitter(event.x)) {
+					getControl().setCursor(Cursors.SIZEWE);
+				} else {
+					getControl().setCursor(null);
+				}
+				// update tooltip helper
+				updateTooltip(event);
+			} else {
+				updateTooltipNoProperty();
+			}
+		}
+
+		@Override
+		public void mouseDrag(MouseEvent event, EditPartViewer viewer) {
+			// resize splitter
+			if (m_splitterResizing) {
+				m_splitter = event.x;
+				configureSplitter();
+				getControl().redraw();
+			}
+		}
+
+		/**
+		 * Updates {@link PropertyTableTooltipHelper}.
+		 */
+		private void updateTooltip(MouseEvent event) {
+			int x = event.x;
+			int propertyIndex = getPropertyIndex(event.y);
+			//
+			if (propertyIndex < m_properties.size()) {
+				PropertyInfo propertyInfo = m_properties.get(propertyIndex);
+				Property property = propertyInfo.getProperty();
+				int y = (propertyIndex - m_selection) * m_rowHeight;
+				// check for title
+				{
+					int titleX = getTitleTextX(propertyInfo);
+					int titleRight = m_splitter - 2;
+					if (titleX <= x && x < titleRight) {
+						m_tooltipHelper.update(property, true, false, titleX, titleRight, y, m_rowHeight);
+						return;
+					}
+				}
+				// check for value
+				{
+					int valueX = m_splitter + 3;
+					if (x > valueX) {
+						m_tooltipHelper.update(property, false, true, valueX, getControl().getClientArea().width, y,
+								m_rowHeight);
+					}
+				}
+			} else {
+				updateTooltipNoProperty();
+			}
+		}
+
+		private void updateTooltipNoProperty() {
+			m_tooltipHelper.update(null, false, false, 0, 0, 0, 0);
+		}
+
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Keyboard
+		//
+		////////////////////////////////////////////////////////////////////////////
+
+		@Override
+		public void keyDown(KeyEvent e, EditPartViewer viewer) {
+			if (m_activePropertyInfo != null) {
+				try {
+					Property property = m_activePropertyInfo.getProperty();
+					// expand/collapse
+					if (m_activePropertyInfo.isComplex()) {
+						if (!m_activePropertyInfo.isExpanded()
+								&& (e.character == '+' || e.keyCode == SWT.ARROW_RIGHT)) {
+							m_activePropertyInfo.expand();
+							configureScrolling();
+							return;
+						}
+						if (m_activePropertyInfo.isExpanded() && (e.character == '-' || e.keyCode == SWT.ARROW_LEFT)) {
+							m_activePropertyInfo.collapse();
+							configureScrolling();
+							return;
+						}
+					}
+					// navigation
+					if (navigate(e)) {
+						return;
+					}
+					// editor activation
+					if (e.character == ' ' || e.character == SWT.CR) {
+						activateEditor(property, null);
+						return;
+					}
+					// DEL
+					if (e.keyCode == SWT.DEL) {
+						e.doit = false;
+						property.setValue(Property.UNKNOWN_VALUE);
+						return;
+					}
+					// send to editor
+					property.getEditor().keyDown(PropertyTable.this, property, e);
+				} catch (Throwable ex) {
+					DesignerPlugin.log(ex);
+				}
+			}
+		}
+
+		/**
+		 * @return <code>true</code> if given {@link KeyEvent} was navigation event, so
+		 *         new {@link PropertyInfo} was selected.
+		 */
+		public boolean navigate(KeyEvent e) {
+			int index = m_properties.indexOf(m_activePropertyInfo);
+			org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
+			//
+			int newIndex = index;
+			if (e.keyCode == SWT.HOME) {
+				newIndex = 0;
+			} else if (e.keyCode == SWT.END) {
+				newIndex = m_properties.size() - 1;
+			} else if (e.keyCode == SWT.PAGE_UP) {
+				newIndex = Math.max(index - m_page + 1, 0);
+			} else if (e.keyCode == SWT.PAGE_DOWN) {
+				newIndex = Math.min(index + m_page - 1, m_properties.size() - 1);
+			} else if (e.keyCode == SWT.ARROW_UP) {
+				newIndex = Math.max(index - 1, 0);
+			} else if (e.keyCode == SWT.ARROW_DOWN) {
+				newIndex = Math.min(index + 1, m_properties.size() - 1);
+			}
+			// activate new property
+			if (newIndex != index && newIndex < m_properties.size()) {
+				setActivePropertyInfo(m_properties.get(newIndex));
+				// check for scrolling
+				int y = m_rowHeight * (newIndex - m_selection);
+				if (y < 0) {
+					m_selection = newIndex;
+					configureScrolling();
+				} else if (y + m_rowHeight > clientArea.height) {
+					m_selection = newIndex - m_page + 1;
+					configureScrolling();
+				}
+				// repaint
+				getControl().redraw();
+				return true;
+			}
+			// no navigation change
+			return false;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

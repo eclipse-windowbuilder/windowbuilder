@@ -15,7 +15,6 @@ import org.eclipse.wb.core.controls.CComboBox;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
@@ -74,15 +73,12 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
 		});
 		m_combo.setFocus();
 		// schedule showing drop-down, because we don't have bounds yet
-		ExecutionUtils.runAsync(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_combo.comboDropDown(true);
-				if (m_dropDelayedText != null) {
-					m_combo.setEditText(m_dropDelayedText);
-					m_combo.setEditSelection(m_dropDelayedText.length(), m_dropDelayedText.length());
-					m_dropDelayedText = null;
-				}
+		ExecutionUtils.runAsync(() -> {
+			m_combo.comboDropDown(true);
+			if (m_dropDelayedText != null) {
+				m_combo.setEditText(m_dropDelayedText);
+				m_combo.setEditSelection(m_dropDelayedText.length(), m_dropDelayedText.length());
+				m_dropDelayedText = null;
 			}
 		});
 		// keep editor active
@@ -95,7 +91,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
 		} else if (e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN) {
 			e.doit = false;
 			propertyTable.deactivateEditor(true);
-			propertyTable.navigate(e);
+			propertyTable.getEditDomain().navigate(e);
 		}
 	}
 

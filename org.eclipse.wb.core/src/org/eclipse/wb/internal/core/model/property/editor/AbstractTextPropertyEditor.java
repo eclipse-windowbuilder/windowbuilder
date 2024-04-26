@@ -143,7 +143,7 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
 			}
 			// OK, deactivate and navigate
 			propertyTable.deactivateEditor(true);
-			propertyTable.navigate(e);
+			propertyTable.getEditDomain().navigate(e);
 		}
 	}
 
