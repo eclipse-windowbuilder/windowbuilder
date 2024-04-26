@@ -20,6 +20,9 @@ import org.apache.commons.collections4.map.ReferenceMap;
 import org.mvel2.MVEL;
 import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
+import org.mvel2.optimizers.OptimizerFactory;
+import org.mvel2.optimizers.dynamic.DynamicClassLoader;
+import org.mvel2.optimizers.impl.asm.ASMAccessorOptimizer;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
@@ -168,6 +171,9 @@ public final class ScriptUtils {
 			public void run() throws Exception {
 				clearCaches(org.mvel2.util.ParseTools.class);
 				clearCaches(org.mvel2.PropertyAccessor.class);
+				if (ASMAccessorOptimizer.getMVELClassLoader() instanceof DynamicClassLoader) {
+					OptimizerFactory.setDefaultOptimizer(OptimizerFactory.DYNAMIC);
+				}
 			}
 
 			private void clearCaches(Class<?> clazz) throws Exception {
