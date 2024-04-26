@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.tests;
 
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.DesignContextMenuProvider;
@@ -24,6 +25,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.e4.ui.css.core.utils.ClassUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -66,6 +68,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -102,6 +105,15 @@ public abstract class DesignerTestCase extends Assert {
 	@Before
 	public void setUp() throws Exception {
 		configureFirstTime();
+	}
+
+	@After
+	public void clearMemoryLeaks() throws Exception {
+		// ObjectInfoUtils
+		((Map<?, ?>) ReflectionUtils.getFieldObject(ObjectInfoUtils.class, "m_idToObjectInfo")).clear();
+		((Map<?, ?>) ReflectionUtils.getFieldObject(ObjectInfoUtils.class, "m_objectInfoToId")).clear();
+		// ClassUtils
+		((Map<?, ?>) ReflectionUtils.getFieldObject(ClassUtils.class, "simpleNames")).clear();
 	}
 
 	private void configureFirstTime() {

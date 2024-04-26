@@ -60,6 +60,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -468,8 +470,19 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 	// Combo property editor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Shell TEST_COMBO_SHELL = new Shell();
-	private static final CCombo3 TEST_COMBO = new CCombo3(TEST_COMBO_SHELL, SWT.NONE);
+	private static Shell TEST_COMBO_SHELL;
+	private static CCombo3 TEST_COMBO;
+
+	@BeforeClass
+	public static void setUpAll() {
+		TEST_COMBO_SHELL = new Shell();
+		TEST_COMBO = new CCombo3(TEST_COMBO_SHELL, SWT.NONE);
+	}
+
+	@AfterClass
+	public static void tearDownAll() {
+		TEST_COMBO_SHELL.dispose();
+	}
 
 	/**
 	 * Fill combo with items.
