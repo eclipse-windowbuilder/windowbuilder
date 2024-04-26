@@ -44,7 +44,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -500,7 +499,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 * @param location the mouse location, if editor is activated using mouse click,
 	 *                 or <code>null</code> if it is activated using keyboard.
 	 */
-	public void activateEditor(Property property, Point location) {
+	public void activateEditor(Property property, org.eclipse.swt.graphics.Point location) {
 		try {
 			// de-activate old editor
 			deactivateEditor(true);
@@ -701,8 +700,8 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 *
 	 * @return the location relative to the value part of property.
 	 */
-	private Point getValueRelativeLocation(int x, int y) {
-		return new Point(x - (m_splitter + 2), y - m_rowHeight * getPropertyIndex(y));
+	private org.eclipse.swt.graphics.Point getValueRelativeLocation(int x, int y) {
+		return new org.eclipse.swt.graphics.Point(x - (m_splitter + 2), y - m_rowHeight * getPropertyIndex(y));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -859,13 +858,13 @@ public class PropertyTable extends GraphicalViewerImpl {
 	/**
 	 * @return the location of state image (plus/minus) for given {@link Property}.
 	 */
-	public Point forTests_getStateLocation(Property property) {
+	public org.eclipse.swt.graphics.Point forTests_getStateLocation(Property property) {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
 			int index = m_properties.indexOf(propertyInfo);
 			int x = getTitleX(propertyInfo);
 			int y = m_rowHeight * (index - m_selection) + 1;
-			return new Point(x, y);
+			return new org.eclipse.swt.graphics.Point(x, y);
 		}
 		return null;
 	}
@@ -873,13 +872,13 @@ public class PropertyTable extends GraphicalViewerImpl {
 	/**
 	 * @return the location of state image (plus/minus) for given {@link Property}.
 	 */
-	public Point forTests_getValueLocation(Property property) {
+	public org.eclipse.swt.graphics.Point forTests_getValueLocation(Property property) {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
 			int index = m_properties.indexOf(propertyInfo);
 			int x = m_splitter + 5;
 			int y = m_rowHeight * (index - m_selection) + 1;
-			return new Point(x, y);
+			return new org.eclipse.swt.graphics.Point(x, y);
 		}
 		return null;
 	}
@@ -1002,7 +1001,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 			setActiveEditorBounds();
 			// prepare buffered image
 			if (m_bufferedImage == null || m_bufferedImage.isDisposed()) {
-				Point size = getControl().getSize();
+				org.eclipse.swt.graphics.Point size = getControl().getSize();
 				m_bufferedImage = new Image(DesignerPlugin.getStandardDisplay(), size.x, size.y);
 			}
 			// prepare buffered GC
