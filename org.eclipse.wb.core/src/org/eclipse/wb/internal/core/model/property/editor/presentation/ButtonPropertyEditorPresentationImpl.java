@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.Pair;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
@@ -171,11 +172,14 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
 		control.setData("oldWidth", newWidth);
 		control.setData("oldHeight", newHeight);
 		// check, may be same size
-		if (oldWidthObject != null) {
+		if (oldWidthObject != null && oldHeightObject != null) {
 			int oldWidth = oldWidthObject.intValue();
 			int oldHeight = oldHeightObject.intValue();
 			if (oldWidth == newWidth && oldHeight == newHeight) {
-				control.setLocation(newX, newY);
+				Point newLocation = new Point(newX, newY);
+				if (!newLocation.equals(control.getLocation())) {
+					control.setLocation(newLocation);
+				}
 				return;
 			}
 		}
