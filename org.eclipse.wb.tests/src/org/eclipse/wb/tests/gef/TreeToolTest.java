@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.SelectionRequest;
@@ -156,7 +156,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	}
 
 	protected static interface ILayoutEditPolicy {
-		boolean isGoodReferenceChild(Request request, EditPart editPart);
+		boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -191,7 +191,7 @@ public abstract class TreeToolTest extends GefTestCase {
 			if (m_ipolicy != null) {
 				installEditPolicy(EditPolicy.LAYOUT_ROLE, new LayoutEditPolicy() {
 					@Override
-					protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+					protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
 						return m_ipolicy.isGoodReferenceChild(request, editPart);
 					}
 
@@ -202,7 +202,7 @@ public abstract class TreeToolTest extends GefTestCase {
 					}
 
 					@Override
-					protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+					protected Command getMoveCommand(List<? extends EditPart> moveParts, Object referenceObject) {
 						m_logger.log(RequestTreeEditPart.this, "getMoveCommand(parts="
 								+ moveParts
 								+ ", next="
@@ -222,7 +222,7 @@ public abstract class TreeToolTest extends GefTestCase {
 					}
 
 					@Override
-					protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+					protected Command getAddCommand(List<? extends EditPart> addParts, Object referenceObject) {
 						m_logger.log(RequestTreeEditPart.this, "getAddCommand(parts="
 								+ addParts
 								+ ", next="
@@ -235,7 +235,7 @@ public abstract class TreeToolTest extends GefTestCase {
 		}
 
 		@Override
-		public EditPart getTargetEditPart(Request request) {
+		public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
 			if (request instanceof SelectionRequest) {
 				return this;
 			}

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.tree.policies;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -124,7 +124,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	 *         {@link Request#REQ_PASTE}, {@link Request#REQ_MOVE} or {@link Request#REQ_ADD}.
 	 */
 	@Override
-	public EditPart getTargetEditPart(Request request) {
+	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
 		if (isRequestCondition(request)) {
 			// if target item is host, then check for before/after locations
 			{
@@ -156,7 +156,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 			return null;
 		}
 		// prepare children
-		List<EditPart> children = getReferenceChildren(request);
+		List<org.eclipse.wb.gef.core.EditPart> children = getReferenceChildren(request);
 		// calculate next reference
 		Object referenceObject = null;
 		if (targetItem == getHostWidget()) {
@@ -189,18 +189,18 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	/**
 	 * Checks that given {@link EditPart} can be used as reference child.
 	 */
-	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+	protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
 		return false;
 	}
 
 	/**
 	 * @return the {@link List} of {@link EditPart}'s that can be used as references.
 	 */
-	private List<EditPart> getReferenceChildren(Request request) {
-		List<EditPart> allChildren = getHost().getChildren();
-		List<EditPart> referenceChildren = new ArrayList<>();
+	private List<org.eclipse.wb.gef.core.EditPart> getReferenceChildren(Request request) {
+		List<org.eclipse.wb.gef.core.EditPart> allChildren = getHost().getChildren();
+		List<org.eclipse.wb.gef.core.EditPart> referenceChildren = new ArrayList<>();
 		//
-		for (EditPart editPart : allChildren) {
+		for (org.eclipse.wb.gef.core.EditPart editPart : allChildren) {
 			if (isGoodReferenceChild(request, editPart)) {
 				referenceChildren.add(editPart);
 			}
@@ -255,14 +255,14 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	/**
 	 * @return the {@link Command} for {@link Request#REQ_MOVE}.
 	 */
-	protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+	protected Command getMoveCommand(List<? extends EditPart> moveParts, Object referenceObject) {
 		return null;
 	}
 
 	/**
 	 * @return the {@link Command} for {@link Request#REQ_ADD}.
 	 */
-	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+	protected Command getAddCommand(List<? extends EditPart> addParts, Object referenceObject) {
 		return null;
 	}
 
