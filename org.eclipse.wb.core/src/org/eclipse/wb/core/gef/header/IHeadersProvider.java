@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.header;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.gef.graphical.HeaderGraphicalViewer;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IMenuManager;
 
 import java.util.List;
