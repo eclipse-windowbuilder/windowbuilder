@@ -55,7 +55,7 @@ public final class PerspectiveShortcutContainerLayoutEditPolicy extends LayoutEd
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
 		return editPart.getModel() instanceof PerspectiveShortcutInfo;
 	}
 

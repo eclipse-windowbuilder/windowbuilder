@@ -156,7 +156,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	}
 
 	protected static interface ILayoutEditPolicy {
-		boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart);
+		boolean isGoodReferenceChild(Request request, EditPart editPart);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -191,7 +191,7 @@ public abstract class TreeToolTest extends GefTestCase {
 			if (m_ipolicy != null) {
 				installEditPolicy(EditPolicy.LAYOUT_ROLE, new LayoutEditPolicy() {
 					@Override
-					protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
+					protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
 						return m_ipolicy.isGoodReferenceChild(request, editPart);
 					}
 

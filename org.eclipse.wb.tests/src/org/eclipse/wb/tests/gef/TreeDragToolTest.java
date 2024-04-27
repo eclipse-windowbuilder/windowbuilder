@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.Request;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;
@@ -52,12 +50,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	public void test_DoubleClick() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
-		ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
-			@Override
-			public boolean isGoodReferenceChild(Request request, EditPart editPart) {
-				return true;
-			}
-		};
+		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		//
@@ -97,12 +90,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	public void test_Drag_1() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
-		ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
-			@Override
-			public boolean isGoodReferenceChild(Request request, EditPart editPart) {
-				return true;
-			}
-		};
+		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
 		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
@@ -204,12 +192,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	public void test_Drag_2() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
-		ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
-			@Override
-			public boolean isGoodReferenceChild(Request request, EditPart editPart) {
-				return true;
-			}
-		};
+		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
 		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, null);
@@ -257,20 +240,9 @@ public class TreeDragToolTest extends TreeToolTest {
 	public void test_Drag_3() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
-		ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
-			@Override
-			public boolean isGoodReferenceChild(Request request, EditPart editPart) {
-				return true;
-			}
-		};
+		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent =
-				addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, new ILayoutEditPolicy() {
-					@Override
-					public boolean isGoodReferenceChild(Request request, EditPart editPart) {
-						return !"child1".equals(editPart.getModel());
-					}
-				});
+		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, (request, editPart) -> !"child1".equals(editPart.getModel()));
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
