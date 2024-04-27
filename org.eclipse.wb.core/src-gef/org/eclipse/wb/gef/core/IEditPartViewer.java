@@ -17,12 +17,7 @@ import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.RootEditPart;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Menu;
 
 import java.util.Collection;
 import java.util.List;
@@ -104,10 +99,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the SWT <code>Control</code> for this viewer.
-	 */
-	Control getControl();
 
 	/**
 	 * @return viewer horizontal scroll offset.
@@ -120,11 +111,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	int getVOffset();
 
 	/**
-	 * Returns root {@link EditPart}.
-	 */
-	RootEditPart getRootEditPart();
-
-	/**
 	 * Returns root {@link Figure} use for access to {@link Layer}'s.
 	 */
 	IRootFigure getRootFigure();
@@ -133,11 +119,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * Returns the layer identified by the <code>name</code> given in the input.
 	 */
 	Layer getLayer(String name);
-
-	/**
-	 * Get factory for creating new EditParts.
-	 */
-	IEditPartFactory getEditPartFactory();
 
 	/**
 	 * Register given {@link EditPart} into this viewer.
@@ -153,27 +134,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
 	 */
 	EditDomain getEditDomain();
-
-	/**
-	 * Set the Cursor.
-	 */
-	void setCursor(Cursor cursor);
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Context menu
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the context {@link MenuManager} for this viewer.
-	 */
-	MenuManager getContextMenu();
-
-	/**
-	 * Sets the context {@link MenuManager} for this viewer. The {@link MenuManager} will be asked to
-	 * create a {@link Menu}, which will be used as the context menu for this viewer's control.
-	 */
-	void setContextMenu(MenuManager manager);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -209,11 +169,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * {@link EditPart#SELECTED_PRIMARY primary}.
 	 */
 	void deselect(List<EditPart> editParts);
-
-	/**
-	 * Deselects all EditParts.
-	 */
-	void deselectAll();
 
 	/**
 	 * Returns an unmodifiable <code>List</code> containing zero or more selected editparts. This list
