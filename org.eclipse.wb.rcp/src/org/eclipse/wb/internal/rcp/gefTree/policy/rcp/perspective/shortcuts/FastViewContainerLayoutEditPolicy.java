@@ -54,7 +54,7 @@ public final class FastViewContainerLayoutEditPolicy extends LayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
 		return editPart.getModel() instanceof FastViewInfo;
 	}
 

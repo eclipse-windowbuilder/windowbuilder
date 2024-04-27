@@ -189,7 +189,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	/**
 	 * Checks that given {@link EditPart} can be used as reference child.
 	 */
-	protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
 		return false;
 	}
 

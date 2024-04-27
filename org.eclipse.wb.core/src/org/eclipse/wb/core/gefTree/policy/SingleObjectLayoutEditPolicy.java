@@ -41,7 +41,7 @@ public abstract class SingleObjectLayoutEditPolicy<C> extends ObjectLayoutEditPo
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected final boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
+	protected final boolean isGoodReferenceChild(Request request, EditPart editPart) {
 		return false;
 	}
 
