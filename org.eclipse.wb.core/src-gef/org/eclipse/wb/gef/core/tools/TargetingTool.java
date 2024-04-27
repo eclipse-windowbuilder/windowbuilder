@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -31,7 +31,7 @@ import java.util.Collections;
  * @coverage gef.core
  */
 public abstract class TargetingTool extends Tool {
-	private EditPart m_target;
+	private org.eclipse.wb.gef.core.EditPart m_target;
 	private Request m_request;
 	private boolean m_isLockTarget;
 
@@ -57,7 +57,7 @@ public abstract class TargetingTool extends Tool {
 	/**
 	 * Returns the current target {@link EditPart}.
 	 */
-	protected EditPart getTargetEditPart() {
+	protected org.eclipse.wb.gef.core.EditPart getTargetEditPart() {
 		return m_target;
 	}
 
@@ -66,7 +66,7 @@ public abstract class TargetingTool extends Tool {
 	 * {@link #handleExitingEditPart()} for the previous target if not <code>null</code>, and
 	 * {@link #handleEnteredEditPart()} for the new target, if not <code>null</code>.
 	 */
-	protected void setTargetEditPart(EditPart target) {
+	protected void setTargetEditPart(org.eclipse.wb.gef.core.EditPart target) {
 		if (m_target != target) {
 			if (m_target != null) {
 				handleExitingEditPart();
@@ -120,7 +120,7 @@ public abstract class TargetingTool extends Tool {
 	 * Locks-in the given editpart as the target. Updating of the target will not occur until
 	 * {@link #unlockTargetEditPart()} is called.
 	 */
-	protected void lockTargetEditPart(EditPart editpart) {
+	protected void lockTargetEditPart(org.eclipse.wb.gef.core.EditPart editpart) {
 		if (editpart == null) {
 			unlockTargetEditPart();
 		} else {
@@ -141,7 +141,7 @@ public abstract class TargetingTool extends Tool {
 	/**
 	 * Returns a List of objects that should be excluded as potential targets for the operation.
 	 */
-	protected Collection<EditPart> getExclusionSet() {
+	protected Collection<org.eclipse.wb.gef.core.EditPart> getExclusionSet() {
 		return Collections.emptyList();
 	}
 
@@ -152,13 +152,10 @@ public abstract class TargetingTool extends Tool {
 	 * {@link EditPart#getTargetEditPart(Request)}. If <code>null</code> is returned, then the
 	 * conditional fails, and the search continues.
 	 */
-	protected IConditional getTargetingConditional() {
-		return new IConditional() {
-			@Override
-			public boolean evaluate(EditPart target) {
-				updateTargetRequest(target);
-				return target.getTargetEditPart(getTargetRequest()) != null;
-			}
+	protected Conditional getTargetingConditional() {
+		return target -> {
+			updateTargetRequest(target);
+			return target.getTargetEditPart(getTargetRequest()) != null;
 		};
 	}
 
@@ -168,7 +165,7 @@ public abstract class TargetingTool extends Tool {
 	 */
 	protected void updateTargetUnderMouse() {
 		if (!m_isLockTarget) {
-			EditPart editPart =
+			org.eclipse.wb.gef.core.EditPart editPart =
 					getCurrentViewer().findTargetEditPart(
 							getCurrentInput().getMouseLocation().x,
 							getCurrentInput().getMouseLocation().y,

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,15 +10,15 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -43,7 +43,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public DragEditPartTracker(EditPart sourceEditPart) {
+	public DragEditPartTracker(org.eclipse.wb.gef.core.EditPart sourceEditPart) {
 		super(sourceEditPart);
 		setDefaultCursor(SharedCursors.CURSOR_MOVE);
 		setDisabledCursor(SharedCursors.CURSOR_NO);
@@ -107,13 +107,13 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	// Handling operations
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Collection<EditPart> m_exclusionSet;
+	private Collection<org.eclipse.wb.gef.core.EditPart> m_exclusionSet;
 
 	/**
 	 * Returns a list of all the edit parts in the {@link Tool#getOperationSet() operation set}.
 	 */
 	@Override
-	protected Collection<EditPart> getExclusionSet() {
+	protected Collection<org.eclipse.wb.gef.core.EditPart> getExclusionSet() {
 		if (m_exclusionSet == null) {
 			m_exclusionSet = new ArrayList<>(getOperationSet());
 		}
@@ -121,17 +121,12 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	}
 
 	/**
-	 * Returns "all ignore" {@link IConditional} if <code>OperationSet</code> is empty.
+	 * Returns "all ignore" {@link Conditional} if <code>OperationSet</code> is empty.
 	 */
 	@Override
-	protected IConditional getTargetingConditional() {
+	protected Conditional getTargetingConditional() {
 		if (!getCurrentViewer().getSelectedEditParts().isEmpty() && getOperationSet().isEmpty()) {
-			return new IConditional() {
-				@Override
-				public boolean evaluate(EditPart editPart) {
-					return false;
-				}
-			};
+			return editPart -> false;
 		}
 		return super.getTargetingConditional();
 	}
@@ -146,9 +141,9 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 * target request.
 	 */
 	@Override
-	protected List<EditPart> createOperationSet() {
+	protected List<org.eclipse.wb.gef.core.EditPart> createOperationSet() {
 		// extract OperationSet from selection
-		List<EditPart> operationSet = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
+		List<org.eclipse.wb.gef.core.EditPart> operationSet = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
 		// check understandsRequest() from parent
 		// FIXME Kosta.20071115 I don't understand, why we should ask parent _here_
 		// Yes, if parent does not support move, we should not allow operation.
@@ -170,7 +165,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		// check permission for move and reparenting
 		{
 			DragPermissionRequest request = new DragPermissionRequest();
-			for (EditPart editPart : operationSet) {
+			for (org.eclipse.wb.gef.core.EditPart editPart : operationSet) {
 				editPart.performRequest(request);
 			}
 			m_canMove = request.canMove();
@@ -210,7 +205,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	protected void updateTargetRequest(EditPart target) {
 		super.updateTargetRequest(target);
 		ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
-		List<EditPart> editParts = request.getEditParts();
+		List<org.eclipse.wb.gef.core.EditPart> editParts = request.getEditParts();
 		if (!editParts.isEmpty()) {
 			if (editParts.get(0).getParent() == target) {
 				request.setType(RequestConstants.REQ_MOVE);
@@ -238,7 +233,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 */
 	private List<Object> getOperationSetModels() {
 		List<Object> models = new ArrayList<>();
-		for (EditPart part : getOperationSet()) {
+		for (org.eclipse.wb.gef.core.EditPart part : getOperationSet()) {
 			models.add(part.getModel());
 		}
 		return models;
@@ -251,9 +246,9 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		if (models != null) {
 			IEditPartViewer viewer = getCurrentViewer();
 			// prepare new EditPart's
-			List<EditPart> newEditParts = new ArrayList<>();
+			List<org.eclipse.wb.gef.core.EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
-				EditPart newEditPart = (EditPart) viewer.getEditPartRegistry().get(model);
+				org.eclipse.wb.gef.core.EditPart newEditPart = (org.eclipse.wb.gef.core.EditPart) viewer.getEditPartRegistry().get(model);
 				if (newEditPart != null) {
 					newEditParts.add(newEditPart);
 				}
@@ -266,23 +261,23 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	@Override
 	protected Command getCommand() {
 		Request request = getTargetRequest();
-		List<EditPart> operationSet = getOperationSet();
+		List<org.eclipse.wb.gef.core.EditPart> operationSet = getOperationSet();
 		//
 		if (isMove()) {
 			if (m_canMove && !operationSet.isEmpty()) {
 				// if move get command from parent
-				EditPart firstPart = operationSet.get(0);
+				org.eclipse.wb.gef.core.EditPart firstPart = operationSet.get(0);
 				//
 				return firstPart.getParent().getCommand(request);
 			}
 		} else if (m_canReparent) {
 			// if change parent get command from new parent and notify old parent for orphans
-			EditPart targetEditPart = getTargetEditPart();
+			org.eclipse.wb.gef.core.EditPart targetEditPart = getTargetEditPart();
 			//
 			if (targetEditPart != null) {
 				CompoundCommand compoundCommand = targetEditPart.createCompoundCommand();
 				if (!operationSet.isEmpty()) {
-					EditPart firstPart = operationSet.get(0);
+					org.eclipse.wb.gef.core.EditPart firstPart = operationSet.get(0);
 					GroupRequest orphanRequest = new GroupRequest(RequestConstants.REQ_ORPHAN);
 					orphanRequest.setEditParts(operationSet);
 					compoundCommand.add(firstPart.getParent().getCommand(orphanRequest));
