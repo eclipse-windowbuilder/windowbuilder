@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,13 +14,13 @@ import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.core.gef.header.IHeadersProvider;
 import org.eclipse.wb.core.gef.policy.selection.EmptySelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -174,9 +174,9 @@ IHeaderMenuProvider {
 	 */
 	private IHeadersProvider getHeadersProvider() {
 		// prepare selected EditPart
-		EditPart selectedEditPart;
+		org.eclipse.wb.gef.core.EditPart selectedEditPart;
 		{
-			List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+			List<org.eclipse.wb.gef.core.EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 			if (selectedEditParts.size() != 1) {
 				return null;
 			}
@@ -187,7 +187,7 @@ IHeaderMenuProvider {
 		}
 		// get provider from container of selected EditPart
 		{
-			EditPart containerEditPart = selectedEditPart.getParent();
+			org.eclipse.wb.gef.core.EditPart containerEditPart = selectedEditPart.getParent();
 			if (containerEditPart != null) {
 				IHeadersProvider headersProvider = getHeadersProvider(containerEditPart);
 				if (headersProvider != null) {
@@ -210,7 +210,7 @@ IHeaderMenuProvider {
 	 * @return the {@link IHeadersProvider} implemented by one of the {@link EditPolicy} of given
 	 *         {@link EditPart}.
 	 */
-	private static IHeadersProvider getHeadersProvider(EditPart editPart) {
+	private static IHeadersProvider getHeadersProvider(org.eclipse.wb.gef.core.EditPart editPart) {
 		// find policy that implements IHeadersProvider
 		for (EditPolicy editPolicy : editPart.getEditPolicies()) {
 			if (editPolicy instanceof IHeadersProvider headersProvider && headersProvider.isActive()) {
