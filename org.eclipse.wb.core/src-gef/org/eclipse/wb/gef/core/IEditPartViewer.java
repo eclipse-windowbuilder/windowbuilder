@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -240,7 +240,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	EditPart findTargetEditPart(int x,
 			int y,
 			final Collection<EditPart> exclude,
-			final IConditional conditional);
+			final Conditional conditional);
 
 	/**
 	 * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location on
@@ -249,7 +249,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	EditPart findTargetEditPart(int x,
 			int y,
 			final Collection<EditPart> exclude,
-			final IConditional conditional,
+			final Conditional conditional,
 			String layer);
 
 	/**
@@ -262,20 +262,4 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * <code>null</code> if no handle exists at the given location <code>(x, y)</code>.
 	 */
 	Handle findTargetHandle(int x, int y);
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Finding Inner class
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * An object which evaluates an {@link EditPart} for an arbitrary property. Conditionals are used
-	 * when querying a viewer for an {@link EditPart}.
-	 */
-	interface IConditional {
-		/**
-		 * Returns <code>true</code> if the editPart meets this condition.
-		 */
-		boolean evaluate(EditPart editPart);
-	}
 }

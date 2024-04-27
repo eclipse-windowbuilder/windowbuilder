@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.gef.graphical.tools;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -22,6 +21,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.RootEditPart;
@@ -224,11 +224,11 @@ public class SelectionTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Returns a new {@link IConditional} that evaluates to <code>true</code> if the queried edit
+	 * Returns a new {@link Conditional} that evaluates to <code>true</code> if the queried edit
 	 * part's {@link EditPart#isSelectable()} method returns <code>true</code>.
 	 */
 	@Override
-	protected IConditional getTargetingConditional() {
+	protected Conditional getTargetingConditional() {
 		return editPart -> editPart.isSelectable();
 	}
 

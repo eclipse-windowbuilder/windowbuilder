@@ -161,7 +161,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	public EditPart findTargetEditPart(int x,
 			int y,
 			final Collection<EditPart> exclude,
-			final IConditional conditional) {
+			final Conditional conditional) {
 		EditPart editPart = findTargetEditPart(x, y, exclude, conditional, MENU_PRIMARY_LAYER);
 		if (editPart == null) {
 			editPart = findTargetEditPart(x, y, exclude, conditional, PRIMARY_LAYER);
@@ -177,7 +177,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	public EditPart findTargetEditPart(int x,
 			int y,
 			final Collection<EditPart> exclude,
-			final IConditional conditional,
+			final Conditional conditional,
 			String layer) {
 		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y, this) {
 			@Override

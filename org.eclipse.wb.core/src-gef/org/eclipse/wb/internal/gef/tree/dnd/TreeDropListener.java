@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,10 +12,10 @@ package org.eclipse.wb.internal.gef.tree.dnd;
 
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.IEditPartViewer.IConditional;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -238,13 +238,8 @@ public class TreeDropListener implements DropTargetListener {
 	 * {@link EditPart#getTargetEditPart(Request)}. If <code>null</code> is returned, then the
 	 * conditional fails, and the search continues.
 	 */
-	private IConditional getTargetingConditional() {
-		return new IEditPartViewer.IConditional() {
-			@Override
-			public boolean evaluate(EditPart editPart) {
-				return editPart.getTargetEditPart(getTargetRequest()) != null;
-			}
-		};
+	private Conditional getTargetingConditional() {
+		return editPart -> editPart.getTargetEditPart(getTargetRequest()) != null;
 	}
 
 	private static List<EditPart> includeChildren(List<EditPart> parts) {
