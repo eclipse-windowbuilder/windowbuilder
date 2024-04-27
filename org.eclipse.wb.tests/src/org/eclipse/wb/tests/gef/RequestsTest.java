@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -80,8 +80,7 @@ public class RequestsTest extends Assert {
 				return null;
 			}
 		};
-		request.addEditPart(editPart1);
-		request.addEditPart(editPart2);
+		request.setEditParts(List.of(editPart1, editPart2));
 		//
 		// check type and add EditPart
 		assertEquals("zzz", request.getType());
@@ -118,7 +117,7 @@ public class RequestsTest extends Assert {
 		Dimension sizeDelta = new Dimension(20, 10);
 		//
 		request = new ChangeBoundsRequest("sss");
-		request.addEditPart(editPart);
+		request.setEditParts(editPart);
 		request.setLocation(location);
 		request.setMoveDelta(moveDelta);
 		request.setSizeDelta(sizeDelta);

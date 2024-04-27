@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -66,10 +66,7 @@ public class GroupRequest extends Request {
 	/**
 	 * Add {@link EditPart} to this {@link Request}.
 	 */
-	public void addEditPart(EditPart editPart) {
-		if (m_editParts == null) {
-			m_editParts = new ArrayList<>();
-		}
-		m_editParts.add(editPart);
+	public void setEditParts(EditPart editPart) {
+		m_editParts = new ArrayList<>(List.of(editPart));
 	}
 }
