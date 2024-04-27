@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -171,7 +171,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
-			request.addEditPart(childEditPart);
+			request.setEditParts(childEditPart);
 			//
 			expectedLogger.log(childEditPart, "performRequest", new DragPermissionRequest());
 			//
@@ -199,7 +199,7 @@ public class SelectionToolTest extends RequestTestCase {
 			assertFalse(tracker.isActive());
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
-			request.addEditPart(childEditPart);
+			request.setEditParts(childEditPart);
 			request.setLocation(new Point(150, 150));
 			request.setMoveDelta(new Point(15, 25));
 			//
@@ -253,7 +253,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
-			request.addEditPart(childEditPart);
+			request.setEditParts(childEditPart);
 			//
 			expectedLogger.log(childEditPart, "performRequest", new DragPermissionRequest());
 			//
@@ -281,7 +281,7 @@ public class SelectionToolTest extends RequestTestCase {
 			assertFalse(handle.getDragTrackerTool().isActive());
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
-			request.addEditPart(childEditPart);
+			request.setEditParts(childEditPart);
 			request.setLocation(new Point(150, 150));
 			request.setMoveDelta(new Point(50, 50));
 			//

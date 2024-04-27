@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -70,7 +70,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	private ChangeBoundsRequest createRequest() {
 		ChangeBoundsRequest request = createEmptyRequest();
-		request.addEditPart(m_editPart);
+		request.setEditParts(m_editPart);
 		return request;
 	}
 
@@ -114,7 +114,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(10, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -180,7 +180,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(10, 17));
 			request.setSizeDelta(new Dimension(0, 7));
 			//
@@ -242,7 +242,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(11, 10));
 			request.setSizeDelta(new Dimension(7, 0));
 			request.setMoveDelta(new Point(-7, 0));
@@ -308,7 +308,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(17, 10));
 			request.setSizeDelta(new Dimension(7, 0));
 			//
@@ -370,7 +370,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(25, 11));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -412,7 +412,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(11, 11));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(-7, -7));
@@ -454,7 +454,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(18, 18));
 			request.setSizeDelta(new Dimension(7, 7));
 			//
@@ -494,7 +494,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(11, 25));
 			request.setSizeDelta(new Dimension(7, 7));
 			request.setMoveDelta(new Point(-7, 0));
@@ -541,7 +541,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(10, 17));
 			request.setSizeDelta(new Dimension(0, 7));
 			//
@@ -573,7 +573,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(10, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
@@ -621,7 +621,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 			//
 			expectedLogger.log(m_editPart, "getTargetEditPart", request);
 			//
-			request.addEditPart(m_editPart);
+			request.setEditParts(m_editPart);
 			request.setLocation(new Point(10, 11));
 			request.setSizeDelta(new Dimension(0, 7));
 			request.setMoveDelta(new Point(0, -7));
