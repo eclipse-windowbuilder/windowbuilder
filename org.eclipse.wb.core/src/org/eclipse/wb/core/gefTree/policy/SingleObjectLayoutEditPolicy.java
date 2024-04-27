@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,9 +11,9 @@
 package org.eclipse.wb.core.gefTree.policy;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -41,7 +41,7 @@ public abstract class SingleObjectLayoutEditPolicy<C> extends ObjectLayoutEditPo
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected final boolean isGoodReferenceChild(Request request, EditPart editPart) {
+	protected final boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
 		return false;
 	}
 
@@ -64,12 +64,12 @@ public abstract class SingleObjectLayoutEditPolicy<C> extends ObjectLayoutEditPo
 	}
 
 	@Override
-	protected final Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+	protected final Command getMoveCommand(List<? extends EditPart> moveParts, Object referenceObject) {
 		return null;
 	}
 
 	@Override
-	protected final Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+	protected final Command getAddCommand(List<? extends EditPart> addParts, Object referenceObject) {
 		if (addParts.size() != 1) {
 			return null;
 		}

@@ -84,7 +84,7 @@ public class MenuItemLayoutEditPolicy extends LayoutEditPolicy {
 	}
 
 	@Override
-	protected Command getMoveCommand(final List<org.eclipse.wb.gef.core.EditPart> moveParts, final Object referenceObject) {
+	protected Command getMoveCommand(final List<? extends EditPart> moveParts, final Object referenceObject) {
 		return new EditCommand(m_itemInfo) {
 			@Override
 			public void executeEdit() throws Exception {
@@ -96,7 +96,7 @@ public class MenuItemLayoutEditPolicy extends LayoutEditPolicy {
 	}
 
 	@Override
-	protected Command getAddCommand(List<org.eclipse.wb.gef.core.EditPart> addParts, Object referenceObject) {
+	protected Command getAddCommand(List<? extends EditPart> addParts, Object referenceObject) {
 		return getMoveCommand(addParts, referenceObject);
 	}
 

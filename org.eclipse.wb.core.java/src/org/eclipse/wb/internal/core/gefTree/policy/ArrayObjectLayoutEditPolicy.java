@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,11 +13,11 @@ package org.eclipse.wb.internal.core.gefTree.policy;
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -49,7 +49,7 @@ public final class ArrayObjectLayoutEditPolicy extends LayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+	protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
 		return m_validator.isValidModel(editPart.getModel());
 	}
 
@@ -76,7 +76,7 @@ public final class ArrayObjectLayoutEditPolicy extends LayoutEditPolicy {
 	}
 
 	@Override
-	protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+	protected Command getMoveCommand(List<? extends EditPart> moveParts, Object referenceObject) {
 		CompoundEditCommand command = new CompoundEditCommand(m_arrayInfo);
 		for (EditPart editPart : moveParts) {
 			final JavaInfo item = (JavaInfo) editPart.getModel();
@@ -92,7 +92,7 @@ public final class ArrayObjectLayoutEditPolicy extends LayoutEditPolicy {
 	}
 
 	@Override
-	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+	protected Command getAddCommand(List<? extends EditPart> addParts, Object referenceObject) {
 		return getMoveCommand(addParts, referenceObject);
 	}
 }

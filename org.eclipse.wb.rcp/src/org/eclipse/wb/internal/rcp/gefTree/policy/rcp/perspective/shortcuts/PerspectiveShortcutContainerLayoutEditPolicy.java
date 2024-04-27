@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.gefTree.policy.rcp.perspective.shortcuts;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveShortcutContainerInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveShortcutInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -55,7 +55,7 @@ public final class PerspectiveShortcutContainerLayoutEditPolicy extends LayoutEd
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+	protected boolean isGoodReferenceChild(Request request, org.eclipse.wb.gef.core.EditPart editPart) {
 		return editPart.getModel() instanceof PerspectiveShortcutInfo;
 	}
 
@@ -102,7 +102,7 @@ public final class PerspectiveShortcutContainerLayoutEditPolicy extends LayoutEd
 	}
 
 	@Override
-	protected Command getMoveCommand(final List<EditPart> moveParts, Object referenceObject) {
+	protected Command getMoveCommand(final List<? extends EditPart> moveParts, Object referenceObject) {
 		final PerspectiveShortcutInfo nextItem = (PerspectiveShortcutInfo) referenceObject;
 		return new EditCommand(m_page) {
 			@Override
@@ -116,7 +116,7 @@ public final class PerspectiveShortcutContainerLayoutEditPolicy extends LayoutEd
 	}
 
 	@Override
-	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+	protected Command getAddCommand(List<? extends EditPart> addParts, Object referenceObject) {
 		return getMoveCommand(addParts, referenceObject);
 	}
 }
