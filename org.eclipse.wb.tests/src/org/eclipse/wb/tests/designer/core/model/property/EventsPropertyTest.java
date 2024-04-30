@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -2285,9 +2285,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// open "keyPressed" method
 		{
 			PropertyEditor keyPressedEditor = keyPressedProperty.getEditor();
-			ReflectionUtils.invokeMethod(keyPressedEditor, "doubleClick("
-					+ Property.class.getName()
-					+ ",org.eclipse.swt.graphics.Point)", new Object[]{keyPressedProperty, null});
+			keyPressedEditor.doubleClick(keyPressedProperty, null);
 			assertEditor(
 					"class Test extends JPanel {",
 					"  Test() {",
@@ -2305,7 +2303,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	/**
 	 * Create listener method using
-	 * {@link PropertyEditor#activate(PropertyTable, Property, org.eclipse.swt.graphics.Point)}.
+	 * {@link PropertyEditor#activate(PropertyTable, Property, org.eclipse.draw2d.geometry.Point)}.
 	 */
 	@Test
 	public void test_ListenerMethodPropertyEditor_activate() throws Exception {
@@ -2324,11 +2322,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// open "keyPressed" method
 		{
 			PropertyEditor keyPressedEditor = keyPressedProperty.getEditor();
-			ReflectionUtils.invokeMethod(keyPressedEditor, "activate("
-					+ PropertyTable.class.getName()
-					+ ","
-					+ Property.class.getName()
-					+ ",org.eclipse.swt.graphics.Point)", new Object[]{null, keyPressedProperty, null});
+			keyPressedEditor.activate(null, keyPressedProperty, null);
 			assertEditor(
 					"class Test extends JPanel {",
 					"  Test() {",

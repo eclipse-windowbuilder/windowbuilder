@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,9 +24,9 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.graphics.Point;
 
 /**
  * {@link PropertyEditor} for installing sorter of {@link TableViewer} by column.

@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyE
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * The {@link PropertyEditor} wrapper for text based AWT {@link java.beans.PropertyEditor}.

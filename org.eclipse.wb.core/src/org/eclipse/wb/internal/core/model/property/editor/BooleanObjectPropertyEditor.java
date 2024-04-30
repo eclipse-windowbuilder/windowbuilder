@@ -16,8 +16,8 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 
 /**
  * The {@link PropertyEditor} for <code>Boolean</code>.
