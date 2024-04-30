@@ -28,6 +28,7 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
 import org.eclipse.jface.viewers.ISelection;
@@ -499,7 +500,7 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 * @param location the mouse location, if editor is activated using mouse click,
 	 *                 or <code>null</code> if it is activated using keyboard.
 	 */
-	public void activateEditor(Property property, org.eclipse.swt.graphics.Point location) {
+	public void activateEditor(Property property, Point location) {
 		try {
 			// de-activate old editor
 			deactivateEditor(true);
@@ -700,8 +701,8 @@ public class PropertyTable extends GraphicalViewerImpl {
 	 *
 	 * @return the location relative to the value part of property.
 	 */
-	private org.eclipse.swt.graphics.Point getValueRelativeLocation(int x, int y) {
-		return new org.eclipse.swt.graphics.Point(x - (m_splitter + 2), y - m_rowHeight * getPropertyIndex(y));
+	private Point getValueRelativeLocation(int x, int y) {
+		return new Point(x - (m_splitter + 2), y - m_rowHeight * getPropertyIndex(y));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
