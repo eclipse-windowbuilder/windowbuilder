@@ -25,7 +25,6 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.e4.ui.css.core.utils.ClassUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -112,8 +111,6 @@ public abstract class DesignerTestCase extends Assert {
 		// ObjectInfoUtils
 		((Map<?, ?>) ReflectionUtils.getFieldObject(ObjectInfoUtils.class, "m_idToObjectInfo")).clear();
 		((Map<?, ?>) ReflectionUtils.getFieldObject(ObjectInfoUtils.class, "m_objectInfoToId")).clear();
-		// ClassUtils
-		((Map<?, ?>) ReflectionUtils.getFieldObject(ClassUtils.class, "simpleNames")).clear();
 	}
 
 	private void configureFirstTime() {

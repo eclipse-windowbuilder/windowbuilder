@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,6 +33,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.Version;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,6 +45,8 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
+	private static Version MINIMUM_VERSION = new Version(3, 126, 0);
+
 	static {
 		System.loadLibrary("wbp3");
 	}
@@ -132,10 +137,16 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 			// prepare
 			_begin_shot(getShellHandle(shell));
 			try {
+				Version currentVersion = FrameworkUtil.getBundle(SWT.class).getVersion();
 				// Bug/feature is SWT: since the widget is already shown, the Shell.setVisible() invocation
 				// has no effect, so we've end up with wrong shell trimming.
 				// The workaround is to call adjustTrim() explicitly.
-				ReflectionUtils.invokeMethod(shell, "adjustTrim()", new Object[0]);
+				if (currentVersion.compareTo(MINIMUM_VERSION) < 0) {
+					ReflectionUtils.invokeMethod(shell, "adjustTrim()", new Object[0]);
+				} else {
+					ReflectionUtils.invokeMethod(shell, "adjustTrim(int,int)",
+							new Object[] { SWT.DEFAULT, SWT.DEFAULT });
+				}
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
