@@ -43,6 +43,7 @@ import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.viewers.ISelection;
@@ -315,7 +316,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 * @return the bounds of the given edit part relative to the top right corner of
 	 *         the viewport.
 	 */
-	private static Rectangle getAbsoluteBounds(PropertyEditPart editPart) {
+	private static Rectangle getAbsoluteBounds(GraphicalEditPart editPart) {
 		IFigure figure = editPart.getFigure();
 		Rectangle bounds = figure.getBounds().getCopy();
 		figure.translateToAbsolute(bounds);
@@ -375,7 +376,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 * @return the location relative to the value part of property.
 	 */
 	private Point getValueRelativeLocation(int x, int y) {
-		PropertyEditPart editPart = (PropertyEditPart) findObjectAt(new Point(x, y));
+		GraphicalEditPart editPart = (GraphicalEditPart) findObjectAt(new Point(x, y));
 		return new Point(x - (m_splitter + 2), getAbsoluteBounds(editPart).top());
 	}
 
