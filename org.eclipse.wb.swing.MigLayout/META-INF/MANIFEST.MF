@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.wb.core;bundle-version="1.12.0",
  org.eclipse.wb.swing,
- org.eclipse.draw2d;bundle-version="3.13.0"
+ org.eclipse.draw2d;bundle-version="3.16.0",
+ org.eclipse.gef;bundle-version="3.18.0"
 Export-Package: org.eclipse.wb.internal.swing.MigLayout,
  org.eclipse.wb.internal.swing.MigLayout.model
 Bundle-Localization: plugin
@@ -21,9 +22,4 @@ Import-Package: net.miginfocom.layout;version="[11.3.0,12.0.0]",
  net.miginfocom.swing;version="[11.3.0,12.0.0]",
  org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
- org.apache.commons.lang3,
- org.eclipse.gef,
- org.eclipse.gef.commands,
- org.eclipse.gef.editparts,
- org.eclipse.gef.editpolicies,
- org.eclipse.gef.requests
+ org.apache.commons.lang3
