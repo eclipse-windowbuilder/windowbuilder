@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.os.macosx;singleton:=true
-Bundle-Version: 1.9.400.qualifier
+Bundle-Version: 1.9.500.qualifier
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Eclipse-PlatformFilter: (osgi.os=macosx)
@@ -10,12 +10,12 @@ Require-Bundle: org.eclipse.swt,
  org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui,
+ org.eclipse.draw2d;bundle-version="3.16.0",
  org.eclipse.wb.core,
  org.eclipse.wb.swt
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Import-Package: org.apache.commons.lang3,
- org.eclipse.draw2d,
  org.eclipse.wb.os
 Automatic-Module-Name: org.eclipse.wb.os.macosx
 
