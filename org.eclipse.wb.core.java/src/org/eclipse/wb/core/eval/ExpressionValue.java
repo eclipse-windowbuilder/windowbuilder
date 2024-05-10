@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
+
+import org.eclipse.wb.core.model.JavaInfo;
 
 import org.eclipse.jdt.core.dom.Expression;
 
@@ -20,7 +22,7 @@ import org.eclipse.jdt.core.dom.Expression;
  */
 public final class ExpressionValue {
 	private final Expression m_expression;
-	private Object m_model;
+	private JavaInfo m_model;
 	private Object m_object = AstEvaluationEngine.UNKNOWN;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -69,11 +71,11 @@ public final class ExpressionValue {
 		return m_model != null;
 	}
 
-	public Object getModel() {
+	public JavaInfo getModel() {
 		return m_model;
 	}
 
-	public void setModel(Object object) {
+	public void setModel(JavaInfo object) {
 		m_model = object;
 	}
 

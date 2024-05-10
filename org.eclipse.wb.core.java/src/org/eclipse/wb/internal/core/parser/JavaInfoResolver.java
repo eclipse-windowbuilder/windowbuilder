@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -178,7 +178,7 @@ public final class JavaInfoResolver {
 			ExpressionValue value = ExecutionFlowUtils2.getValue(flowDescription, expression);
 			if (value != null) {
 				// may be bound JavaInfo creation/access
-				JavaInfo javaInfo = (JavaInfo) value.getModel();
+				JavaInfo javaInfo = value.getModel();
 				if (javaInfo != null) {
 					boolean expressionPartOfCasted =
 							javaInfo.getCreationSupport() instanceof CastedSuperInvocationCreationSupport

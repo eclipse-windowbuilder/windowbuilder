@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -375,7 +375,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 				if (node instanceof Expression expression) {
 					ExpressionValue value = ExecutionFlowUtils2.getValue0(expression);
 					if (value != null) {
-						JavaInfo model = (JavaInfo) value.getModel();
+						JavaInfo model = value.getModel();
 						if (model != null && !root.isItOrParentOf(model)) {
 							ExecutionFlowUtils2.clearPermanentValue(expression);
 						}
