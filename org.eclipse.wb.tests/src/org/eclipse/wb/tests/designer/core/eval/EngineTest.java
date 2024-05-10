@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -552,6 +552,83 @@ public class EngineTest extends AbstractEngineTest {
 		ExpressionStatement statement = (ExpressionStatement) statements.get(2);
 		Object result = AstEvaluationEngine.evaluate(context, statement.getExpression());
 		assertEquals(5, result);
+	}
+
+	/**
+	 * Checks when array is initialized with values.
+	 */
+	@Test
+	public void test_assignment_array1() throws Exception {
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+				  public int[] foo() {
+				    int[] a = new int[] { 5 };
+				    return a;
+				  }
+				}""");
+		waitForAutoBuild();
+		//
+		int[] result = (int[]) evaluateSingleMethod(typeDeclaration, "foo()");
+		assertArrayEquals(new int[] { 5 }, result);
+	}
+
+	/**
+	 * Checks when array is initialized with values, but later updated.
+	 */
+	@Test
+	public void test_assignment_array2() throws Exception {
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+				  public int[] foo() {
+				    int[] a = new int[] { 1 };
+				    a[0] = 5;
+				    return a;
+				  }
+				}""");
+		waitForAutoBuild();
+		//
+		int[] result = (int[]) evaluateSingleMethod(typeDeclaration, "foo()");
+		assertArrayEquals(new int[] { 5 }, result);
+	}
+
+	/**
+	 * Checks when array is initialized but values set later.
+	 */
+	@Test
+	public void test_assignment_array3() throws Exception {
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+				  public int[] foo() {
+				    int[] a = new int[1];
+				    a[0] = 5;
+				    return a;
+				  }
+				}""");
+		waitForAutoBuild();
+		//
+		int[] result = (int[]) evaluateSingleMethod(typeDeclaration, "foo()");
+		assertArrayEquals(new int[] { 5 }, result);
+	}
+
+	/**
+	 * Checks when values are assigned multiple times, the last is used.
+	 */
+	@Test
+	public void test_assignment_array4() throws Exception {
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+				  public int[] foo() {
+				    int[] a = new int[1];
+				    a[0] = 1;
+				    a = new int[1];
+				    a[0] = 5;
+				    return a;
+				  }
+				}""");
+		waitForAutoBuild();
+		//
+		int[] result = (int[]) evaluateSingleMethod(typeDeclaration, "foo()");
+		assertArrayEquals(new int[] { 5 }, result);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
