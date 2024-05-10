@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.ArrayAccess;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.CastExpression;
 import org.eclipse.jdt.core.dom.Expression;
@@ -36,6 +37,8 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -69,6 +72,7 @@ public final class ExecutionFlowUtils2 {
 	private static final String KEY_VALUE = "ExecutionFlowUtils2.ExpressionValue";
 	private static final String KEY_VALUE_PREV = "ExecutionFlowUtils2.ExpressionValue.prev";
 	private static final String KEY_VALUE_PERMANENT = "ExecutionFlowUtils2.ExpressionValue.permanent";
+	private static final String KEY_VALUE_ASSIGNMENT = "ExecutionFlowUtils2.ExpressionValue.assigmnent";
 
 	/**
 	 * Sets the {@link ExpressionValue}.
@@ -93,6 +97,35 @@ public final class ExecutionFlowUtils2 {
 	 */
 	public static void setPermanentValue0(Expression expression, ExpressionValue value) {
 		expression.setProperty(KEY_VALUE_PERMANENT, value);
+	}
+
+	/**
+	 * Returns a list of all assignment that needs to be processed when this
+	 * expression is evaluated. Never {@code null}. This is important when handling
+	 * e.g. arrays, as the entries might be modified after the array has been
+	 * constructed.
+	 *
+	 * Example:
+	 *
+	 * <pre>
+	 * int[] array = new int[1];
+	 * array[0] = 5;
+	 * return array;
+	 * </pre>
+	 *
+	 * The second line of this example must be contained by the returned list and
+	 * must be processed, when calculating the value of {@code array}.
+	 *
+	 * @return an unmodifiable list of all assignments that need to be processed
+	 *         while evaluation the given expression..
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<Assignment> getAssignmentValue0(Expression expression) {
+		List<Assignment> assignments = (List<Assignment>) expression.getProperty(KEY_VALUE_ASSIGNMENT);
+		if (assignments == null) {
+			return Collections.emptyList();
+		}
+		return Collections.unmodifiableList(assignments);
 	}
 
 	/**
@@ -374,6 +407,16 @@ public final class ExecutionFlowUtils2 {
 						m_typeFrame.setValue(identifier, value);
 					}
 					leftFieldAccess.setProperty(KEY_VALUE, value);
+				}
+			}
+			if (leftSide instanceof ArrayAccess leftFieldAccess) {
+				Expression array = leftFieldAccess.getArray();
+				ExpressionValue value = getValue0(array);
+				if (value != null) {
+					Expression initializer = value.getExpression();
+					List<Assignment> assignments = new ArrayList<>(getAssignmentValue0(initializer));
+					assignments.add(node);
+					initializer.setProperty(KEY_VALUE_ASSIGNMENT, assignments);
 				}
 			}
 		}
