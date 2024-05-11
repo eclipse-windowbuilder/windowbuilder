@@ -1017,8 +1017,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	}
 
 	private final class PropertyEditPart extends AbstractGraphicalEditPart {
+		private PropertyFigure propertyFigure;
+
 		public PropertyEditPart(PropertyInfo propertyInfo) {
 			setModel(propertyInfo);
+			addSelectionChangedListener(event -> refreshVisuals());
 		}
 
 		@Override
@@ -1047,8 +1050,9 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			figure.setLayoutManager(gridLayout);
 			figure.setBorder(border);
 			//
-			IFigure propertyFigure = new PropertyFigure(getModel());
+			propertyFigure = new PropertyFigure(getModel());
 			propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, m_rowHeight));
+			propertyFigure.setOpaque(true);
 			figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
 			//
 			if (getModel().getProperty().getEditor().getPresentation() != null) {
@@ -1062,6 +1066,24 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		protected void createEditPolicies() {
 			// Nothing to do
 		}
+
+		@Override
+		protected void refreshVisuals() {
+			if (propertyFigure.isActiveProperty()) {
+				propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
+			} else {
+				Property property = getModel().getProperty();
+				try {
+					if (property.isModified()) {
+						propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
+					} else {
+						propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG);
+					}
+				} catch (Exception e) {
+					DesignerPlugin.log(e);
+				}
+			}
+		}
 	}
 
 	private final class PropertyFigure extends Figure {
@@ -1072,28 +1094,14 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 
 		@Override
-		protected void paintFigure(Graphics graphics) {
-			int width = bounds.width();
+		protected void paintClientArea(Graphics graphics) {
 			int height = bounds.height();
 			int y = bounds.y();
 			// draw property
 			try {
 				Property property = m_propertyInfo.getProperty();
-				boolean isActiveProperty = m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
-				// set background
-				{
-					if (isActiveProperty) {
-						graphics.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
-						// Might've been moved due to resizing the table
-						setActiveEditorBounds();
-					} else {
-						if (property.isModified()) {
-							graphics.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
-						} else {
-							graphics.setBackgroundColor(COLOR_PROPERTY_BG);
-						}
-					}
-					graphics.fillRectangle(0, y, width, height);
+				if (isActiveProperty()) {
+					setActiveEditorBounds();
 				}
 				// draw state image
 				if (m_propertyInfo.isShowComplex()) {
@@ -1113,7 +1121,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							graphics.setFont(m_boldFont);
 						}
 						// check for active
-						if (isActiveProperty) {
+						if (isActiveProperty()) {
 							graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
 						}
 					}
@@ -1125,7 +1133,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				{
 					// configure GC
 					graphics.setFont(m_baseFont);
-					if (!isActiveProperty) {
+					if (!isActiveProperty()) {
 						graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
 					}
 					// prepare value rectangle
@@ -1137,6 +1145,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
+		}
+
+		public boolean isActiveProperty() {
+			Property property = m_propertyInfo.getProperty();
+			return m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
 		}
 	}
 
