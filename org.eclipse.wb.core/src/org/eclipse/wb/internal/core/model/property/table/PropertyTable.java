@@ -972,14 +972,21 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							}
 							index2--;
 							// draw line if there are children
-							if (index2 > index
-									&& getEditPartRegistry().get(propertyInfo) instanceof PropertyEditPart editPart) {
-								int y = editPart.getFigure().getBounds().top();
-								int x = getTitleX(propertyInfo) + xOffset;
-								int y1 = y + height - yOffset;
-								int y2 = y + m_rowHeight * (index2 - index) + m_rowHeight / 2;
-								graphics.drawLine(x, y1, x, y2);
-								graphics.drawLine(x, y2, x + m_rowHeight / 3, y2);
+							if (index2 > index) {
+								PropertyInfo nextPropertyInfo = m_properties.get(index2);
+								GraphicalEditPart editPart = (GraphicalEditPart) getEditPartRegistry()
+										.get(propertyInfo);
+								GraphicalEditPart nextEditPart = (GraphicalEditPart) getEditPartRegistry()
+										.get(nextPropertyInfo);
+								if (editPart != null && nextEditPart != null) {
+									Rectangle bounds = editPart.getFigure().getBounds();
+									Rectangle nextBounds = nextEditPart.getFigure().getBounds();
+									int x = getTitleX(propertyInfo) + xOffset;
+									int y1 = bounds.top() + height - yOffset;
+									int y2 = nextBounds.top() + m_rowHeight / 2;
+									graphics.drawLine(x, y1, x, y2);
+									graphics.drawLine(x, y2, x + m_rowHeight / 3, y2);
+								}
 							}
 						}
 						//
