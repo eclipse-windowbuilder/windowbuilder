@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.Pair;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -57,7 +58,7 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
 	}
 
 	@Override
-	public final int show(PropertyTable propertyTable,
+	public final void show(PropertyTable propertyTable,
 			Property property,
 			int x,
 			int y,
@@ -72,7 +73,11 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
 		final int controlWidth = height;
 		final int controlX = x + width - controlWidth;
 		setBounds(control, controlX, y, controlWidth, height);
-		return controlWidth;
+	}
+
+	@Override
+	public Dimension getSize(int wHint, int hHint) {
+		return new Dimension(hHint, hHint);
 	}
 
 	/**

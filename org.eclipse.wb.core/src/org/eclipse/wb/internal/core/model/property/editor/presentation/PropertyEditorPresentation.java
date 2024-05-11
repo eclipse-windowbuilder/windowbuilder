@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
+import org.eclipse.draw2d.geometry.Dimension;
+
 /**
  * Implementations of {@link PropertyEditorPresentation} are used to show some presentation for
  * visible, but not activated yet {@link PropertyEditor}.
@@ -27,7 +29,7 @@ public abstract class PropertyEditorPresentation {
 	 *
 	 * @return the width that this presentation occupies on the right of given rectangle.
 	 */
-	public abstract int show(PropertyTable propertyTable,
+	public abstract void show(PropertyTable propertyTable,
 			Property property,
 			int x,
 			int y,
@@ -38,4 +40,11 @@ public abstract class PropertyEditorPresentation {
 	 * Hides presentation.
 	 */
 	public abstract void hide(PropertyTable propertyTable, Property property);
+
+	/**
+	 * @param wHint a width hint
+	 * @param hHint a height hint
+	 * @return The size of this presentation.
+	 */
+	public abstract Dimension getSize(int wHint, int hHint);
 }

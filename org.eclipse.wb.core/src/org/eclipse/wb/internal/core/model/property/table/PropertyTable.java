@@ -65,6 +65,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -253,15 +254,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 					int width = getControl().getClientArea().width - x - MARGIN_RIGHT;
 					int height = figureBounds.height() - MARGIN_BOTTOM;
 					bounds = new org.eclipse.swt.graphics.Rectangle(x, y, width, height);
-				}
-				// update bounds using presentation
-				{
-					PropertyEditorPresentation presentation = m_activeEditor.getPresentation();
-					if (presentation != null) {
-						int presentationWidth = presentation.show(this, m_activePropertyInfo.m_property, bounds.x,
-								bounds.y, bounds.width, bounds.height);
-						bounds.width -= presentationWidth;
-					}
 				}
 				// set editor bounds
 				m_activeEditor.setBounds(bounds);
@@ -1038,8 +1030,31 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		protected IFigure createFigure() {
 			SeparatorBorder border = new SeparatorBorder(new Insets(0, 0, MARGIN_BOTTOM, 1), PositionConstants.BOTTOM);
 			border.setColor(COLOR_LINE);
-			figure = new PropertyFigure(getModel());
+			GridLayout gridLayout = new GridLayout();
+			gridLayout.marginHeight = 0;
+			gridLayout.marginWidth = 0;
+			gridLayout.horizontalSpacing = 0;
+			gridLayout.verticalSpacing = 0;
+			figure = new Figure() {
+				@Override
+				public void setParent(IFigure parent) {
+					super.setParent(parent);
+					if (parent != null) {
+						parent.setConstraint(this, new GridData(SWT.FILL, SWT.FILL, true, false));
+					}
+				}
+			};
+			figure.setLayoutManager(gridLayout);
 			figure.setBorder(border);
+			//
+			IFigure propertyFigure = new PropertyFigure(getModel());
+			propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, m_rowHeight));
+			figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
+			//
+			if (getModel().getProperty().getEditor().getPresentation() != null) {
+				gridLayout.numColumns++;
+				figure.add(new PresentationFigure(getModel()));
+			}
 			return figure;
 		}
 
@@ -1057,19 +1072,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 
 		@Override
-		public void setParent(IFigure parent) {
-			super.setParent(parent);
-			if (parent != null) {
-				parent.setConstraint(this, new GridData(SWT.FILL, SWT.FILL, true, false));
-			}
-		}
-
-		@Override
-		public Dimension getPreferredSize(int wHint, int hHint) {
-			return new Dimension(wHint, m_rowHeight);
-		}
-
-		@Override
 		protected void paintFigure(Graphics graphics) {
 			int width = bounds.width();
 			int height = bounds.height();
@@ -1078,17 +1080,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			try {
 				Property property = m_propertyInfo.getProperty();
 				boolean isActiveProperty = m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
-				int presentationWidth = 0;
-				PropertyEditorPresentation presentation = property.getEditor().getPresentation();
-				if (presentation != null) {
-					Point p = new Point(m_splitter + 4, y);
-					translateToAbsolute(p);
-					//
-					int w = width - p.x() - MARGIN_RIGHT;
-					int h = height - MARGIN_BOTTOM;
-					//
-					presentationWidth = presentation.show(PropertyTable.this, property, p.x(), p.y(), w, h);
-				}
 				// set background
 				{
 					if (isActiveProperty) {
@@ -1102,7 +1093,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							graphics.setBackgroundColor(COLOR_PROPERTY_BG);
 						}
 					}
-					graphics.fillRectangle(0, y, width - presentationWidth, height);
+					graphics.fillRectangle(0, y, width, height);
 				}
 				// draw state image
 				if (m_propertyInfo.isShowComplex()) {
@@ -1141,20 +1132,36 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 					int x = m_splitter + 4;
 					int w = getControl().getClientArea().width - x - MARGIN_RIGHT;
 					// paint value
-					property.getEditor().paint(property, graphics, x, y, w - presentationWidth, height);
+					property.getEditor().paint(property, graphics, x, y, w, height);
 				}
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
 		}
+	}
+
+	private final class PresentationFigure extends Figure {
+		private final PropertyEditorPresentation m_presentation;
+		private final Property m_property;
+
+		public PresentationFigure(PropertyInfo propertyInfo) {
+			m_property = propertyInfo.getProperty();
+			m_presentation = m_property.getEditor().getPresentation();
+			Objects.requireNonNull(m_presentation, "Property must have a presentation");
+			setPreferredSize(m_presentation.getSize(SWT.DEFAULT, m_rowHeight));
+		}
+
+		@Override
+		public void paintFigure(Graphics graphics) {
+			Rectangle absoluteBounds = bounds.getCopy();
+			translateToAbsolute(absoluteBounds);
+			m_presentation.show(PropertyTable.this, m_property, absoluteBounds.x, absoluteBounds.y,
+					absoluteBounds.width, absoluteBounds.height);
+		}
 
 		@Override
 		public void erase() {
-			Property property = m_propertyInfo.getProperty();
-			PropertyEditorPresentation presentation = property.getEditor().getPresentation();
-			if (presentation != null) {
-				presentation.hide(PropertyTable.this, property);
-			}
+			m_presentation.hide(PropertyTable.this, m_property);
 			super.erase();
 		}
 	}

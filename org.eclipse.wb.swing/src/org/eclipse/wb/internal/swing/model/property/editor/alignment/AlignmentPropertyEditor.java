@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -87,20 +87,19 @@ abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
 	private final CompoundPropertyEditorPresentation m_presentation =
 			new CompoundPropertyEditorPresentation() {
 		@Override
-		public int show(final PropertyTable propertyTable,
+		public void show(final PropertyTable propertyTable,
 				final Property property,
 				int x,
 				int y,
 				int width,
 				int height) {
-			int presentationWidth = super.show(propertyTable, property, x, y, width, height);
+			super.show(propertyTable, property, x, y, width, height);
 			ExecutionUtils.runLog(new RunnableEx() {
 				@Override
 				public void run() throws Exception {
 					selectButtonByValue(propertyTable, property);
 				}
 			});
-			return presentationWidth;
 		}
 	};
 
