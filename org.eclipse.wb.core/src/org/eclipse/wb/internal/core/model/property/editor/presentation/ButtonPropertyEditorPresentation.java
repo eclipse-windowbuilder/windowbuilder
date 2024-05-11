@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
@@ -65,18 +66,23 @@ public abstract class ButtonPropertyEditorPresentation extends PropertyEditorPre
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final int show(final PropertyTable propertyTable,
+	public final void show(final PropertyTable propertyTable,
 			final Property property,
 			final int x,
 			final int y,
 			final int width,
 			final int height) {
-		return m_impl.show(propertyTable, property, x, y, width, height);
+		m_impl.show(propertyTable, property, x, y, width, height);
 	}
 
 	@Override
 	public final void hide(PropertyTable propertyTable, Property property) {
 		m_impl.hide(propertyTable, property);
+	}
+
+	@Override
+	public Dimension getSize(int wHint, int hHint) {
+		return m_impl.getSize(wHint, hHint);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

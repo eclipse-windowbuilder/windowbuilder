@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.core.model.property.editor.presentation;
 
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,19 +47,17 @@ public class CompoundPropertyEditorPresentation extends PropertyEditorPresentati
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public int show(PropertyTable propertyTable,
+	public void show(PropertyTable propertyTable,
 			Property property,
 			int x,
 			int y,
 			int width,
 			int height) {
-		int sumWidth = 0;
 		for (PropertyEditorPresentation presentation : m_presentations) {
-			int presentationWidth = presentation.show(propertyTable, property, x, y, width, height);
-			sumWidth += presentationWidth;
-			width -= presentationWidth;
+			presentation.show(propertyTable, property, x, y, width, height);
+			Dimension size = presentation.getSize(width, height);
+			width -= size.width;
 		}
-		return sumWidth;
 	}
 
 	@Override
@@ -65,5 +65,20 @@ public class CompoundPropertyEditorPresentation extends PropertyEditorPresentati
 		for (PropertyEditorPresentation presentation : m_presentations) {
 			presentation.hide(propertyTable, property);
 		}
+	}
+
+	@Override
+	public Dimension getSize(int wHint, int hHint) {
+		Dimension compositeSize = new Dimension(0, 0);
+		for (int i = 0; i < m_presentations.size(); ++i) {
+			PropertyEditorPresentation presentation = m_presentations.get(i);
+			if (i == 0) {
+				compositeSize = presentation.getSize(wHint, hHint);
+			} else {
+				Dimension size = presentation.getSize(wHint, hHint);
+				compositeSize.width += size.width;
+			}
+		}
+		return compositeSize;
 	}
 }
