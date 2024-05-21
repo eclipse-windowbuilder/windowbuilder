@@ -100,13 +100,6 @@ public final class SwingScreenshotMaker {
 			}
 			frame.pack();
 		}
-		// When the size of the frame exceeds the size of the screen, then the frame
-		// will be maximized instead. As a result, the edges of the frame outside the
-		// visible area won't be captured. This behavior can be explicitly disabled by
-		// simply clearing the "resizable" flag.
-		if (m_window instanceof Frame frame) {
-			frame.setResizable(false);
-		}
 		// Just clearing the "resizable" flag doesn't seem to be sufficient on Windows
 		// and the edges are still cut off when they are larger than the screen. I've
 		// traced the problem back to a native call to
@@ -130,6 +123,15 @@ public final class SwingScreenshotMaker {
 		final int componentWidth = Math.max(1, m_component.getWidth());
 		final int componentHeight = Math.max(1, m_component.getHeight());
 		m_oldComponentLocation = m_component.getLocation();
+		boolean isResizable = false;
+		// When the size of the frame exceeds the size of the screen, then the frame
+		// will be maximized instead. As a result, the edges of the frame outside the
+		// visible area won't be captured. This behavior can be explicitly disabled by
+		// simply clearing the "resizable" flag.
+		if (m_window instanceof Frame frame) {
+			isResizable = frame.isResizable();
+			frame.setResizable(false);
+		}
 		SwingImageUtils.prepareForPrinting(m_window);
 		fixJLabelWithHTML(m_component);
 		// prepare empty image
@@ -196,6 +198,9 @@ public final class SwingScreenshotMaker {
 			if (oldImage != null) {
 				oldImage.dispose();
 			}
+		}
+		if (m_window instanceof Frame frame) {
+			frame.setResizable(isResizable);
 		}
 		// set images
 		m_root.accept(new ObjectInfoVisitor() {
