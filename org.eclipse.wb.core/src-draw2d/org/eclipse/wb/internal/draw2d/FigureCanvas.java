@@ -14,6 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -33,7 +34,6 @@ import org.eclipse.swt.widgets.Composite;
 public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	private RootFigure m_rootFigure;
 	private final Dimension m_rootPreferredSize = new Dimension();
-	private CachedUpdateManager m_updateManager;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -41,7 +41,7 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public FigureCanvas(Composite parent, int style) {
-		super(parent, style | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE);
+		super(parent, style | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE, createLightweightSystem());
 		// create root figure
 		createRootFigure();
 	}
@@ -62,13 +62,20 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 		setContents(m_rootFigure);
 	}
 
+	// TODO ptziegler - It should be possible to change the update manager after the
+	// figure canvas has been created.
+	private static LightweightSystem createLightweightSystem() {
+		LightweightSystem lws = new LightweightSystem();
+		lws.setUpdateManager(new CachedUpdateManager());
+		return lws;
+	}
+
 	protected void setDefaultEventManager() {
 		m_rootFigure.getFigureCanvas().getLightweightSystem().setEventDispatcher(new EventManager(this));
 	}
 
 	protected void setDefaultUpdateManager() {
-		m_updateManager = new CachedUpdateManager(this);
-		m_rootFigure.getFigureCanvas().getLightweightSystem().setUpdateManager(m_updateManager);
+		getUpdateManager().setControl(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -88,7 +95,11 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	 * Sets draw cached mode.
 	 */
 	public void setDrawCached(boolean value) {
-		m_updateManager.m_drawCached = value;
+		getUpdateManager().m_drawCached = value;
+	}
+
+	private CachedUpdateManager getUpdateManager() {
+		return (CachedUpdateManager) getLightweightSystem().getUpdateManager();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -140,7 +151,7 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 		private Image m_bufferedImage;
 		private boolean m_drawCached;
 
-		public CachedUpdateManager(FigureCanvas canvas) {
+		private void setControl(FigureCanvas canvas) {
 			m_canvas = canvas;
 			m_canvas.addControlListener(ControlListener.controlResizedAdapter(event -> disposeImage()));
 		}
