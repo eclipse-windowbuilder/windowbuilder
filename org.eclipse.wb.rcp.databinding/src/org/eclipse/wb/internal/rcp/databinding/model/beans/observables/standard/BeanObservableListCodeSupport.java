@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,20 +40,15 @@ public class BeanObservableListCodeSupport extends ObservableCodeSupport {
 					observable.getBindableProperty().getReference(),
 					"ObserveList"));
 		}
-		// calculate observable method
-		String observeMethod =
-				observable.isPojoBindable()
-				? " = "
-				+ DataBindingsCodeUtils.getPojoObservablesClass()
-				+ ".observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), "
-				: " = org.eclipse.core.databinding.beans.BeansObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), ";
 		// add code
 		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
 				+ observable.getVariableIdentifier()
-				+ observeMethod
-				+ observable.getBindableObject().getReference()
-				+ ", "
+				+ " = "
+				+ DataBindingsCodeUtils.getObservableClass(observable)
+				+ ".list("
 				+ observable.getBindableProperty().getReference()
+				+ ").observe("
+				+ observable.getBindableObject().getReference()
 				+ ");");
 	}
 }
