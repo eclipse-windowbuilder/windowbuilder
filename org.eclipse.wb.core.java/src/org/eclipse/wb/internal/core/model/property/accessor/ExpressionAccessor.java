@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
 	/**
 	 * @return the {@link Expression} for given {@link JavaInfo}.
 	 */
-	public abstract Expression getExpression(JavaInfo javaInfo) throws Exception;
+	public abstract Expression getExpression(JavaInfo javaInfo);
 
 	/**
 	 * Sets new expression with given source to the given {@link JavaInfo}.
@@ -87,7 +87,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
 	 * @return optional default value for this property or {@link Property#UNKNOWN_VALUE} if default
 	 *         value is unknown.
 	 */
-	public Object getDefaultValue(JavaInfo javaInfo) throws Exception {
+	public Object getDefaultValue(JavaInfo javaInfo) {
 		return Property.UNKNOWN_VALUE;
 	}
 }

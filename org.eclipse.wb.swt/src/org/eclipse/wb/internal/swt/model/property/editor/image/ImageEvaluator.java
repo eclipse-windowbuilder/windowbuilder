@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -140,7 +140,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
 	 *         {@link AbstractUIPlugin#imageDescriptorFromPlugin(String,String)} or
 	 *         {@code null} otherwise.
 	 */
-	public static String[] getPluginImageValue(Property property) throws Exception {
+	public static String[] getPluginImageValue(Property property) {
 		Expression expression = ((GenericProperty) property).getExpression();
 		if (isAbstractUiPlugin(expression) || isNewResourceManager(expression)) {
 			MethodInvocation invocation = (MethodInvocation) expression;
@@ -171,7 +171,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
 	// Workspace utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static IProject getProjectOverActivator(Expression activatorAccessNode) throws Exception {
+	private static IProject getProjectOverActivator(Expression activatorAccessNode) {
 		if (activatorAccessNode instanceof MethodInvocation pluginAccessInvocation) {
 			String activatorClass =
 					AstNodeUtils.getFullyQualifiedName(pluginAccessInvocation.getExpression(), false);

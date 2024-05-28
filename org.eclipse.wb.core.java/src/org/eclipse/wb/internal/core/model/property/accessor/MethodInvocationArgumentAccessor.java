@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,7 +62,7 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Expression getExpression(JavaInfo javaInfo) throws Exception {
+	public Expression getExpression(JavaInfo javaInfo) {
 		MethodInvocation invocation = getMethodInvocation(javaInfo);
 		return getArgumentExpression(invocation);
 	}
@@ -114,7 +114,7 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
 	/**
 	 * @return the {@link MethodInvocation} of this setter for given {@link JavaInfo}.
 	 */
-	private MethodInvocation getMethodInvocation(JavaInfo javaInfo) throws Exception {
+	private MethodInvocation getMethodInvocation(JavaInfo javaInfo) {
 		return javaInfo.getMethodInvocation(m_methodSignature);
 	}
 

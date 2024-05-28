@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -99,7 +99,7 @@ public final class FieldAccessor extends ExpressionAccessor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Expression getExpression(JavaInfo javaInfo) throws Exception {
+	public Expression getExpression(JavaInfo javaInfo) {
 		Assignment assignment = getFieldAssignment(javaInfo);
 		return getExpression(assignment);
 	}
@@ -140,7 +140,7 @@ public final class FieldAccessor extends ExpressionAccessor {
 	}
 
 	@Override
-	public Object getDefaultValue(JavaInfo javaInfo) throws Exception {
+	public Object getDefaultValue(JavaInfo javaInfo) {
 		return javaInfo.getArbitraryValue(this);
 	}
 
@@ -196,7 +196,7 @@ public final class FieldAccessor extends ExpressionAccessor {
 	/**
 	 * @return the {@link Assignment} of this field accessor for given {@link JavaInfo}.
 	 */
-	private Assignment getFieldAssignment(JavaInfo javaInfo) throws Exception {
+	private Assignment getFieldAssignment(JavaInfo javaInfo) {
 		return javaInfo.getFieldAssignment(m_fieldName);
 	}
 
