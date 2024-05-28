@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,7 +36,6 @@ IPreferenceConstants {
 		store.setDefault(ADD_INVOKE_INITDB_TO_GUI, true);
 		store.setDefault(ADD_INITDB_TO_FIELD, true);
 		store.setDefault(ADD_INVOKE_INITDB_TO_COMPOSITE_CONSTRUCTOR, true);
-		store.setDefault(DONT_USE_DEPRECATED_METHODS, true);
 		store.setDefault(INITDB_TRY_CATCH, false);
 		store.setDefault(GENERATE_CODE_FOR_VERSION_1_3, true);
 		store.setDefault(USE_VIEWER_SUPPORT, false);

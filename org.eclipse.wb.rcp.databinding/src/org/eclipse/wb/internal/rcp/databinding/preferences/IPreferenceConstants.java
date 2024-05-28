@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,10 +42,6 @@ public interface IPreferenceConstants {
 	 * <code>public/protected/private/package private</code>.
 	 */
 	String INITDB_GENERATE_ACCESS = "INITDB_GENERATE_ACCESS";
-	/**
-	 * When {@code true}, code generator don't use deprecated method for create observables.
-	 */
-	String DONT_USE_DEPRECATED_METHODS = "DONT_USE_DEPRECATED_METHODS";
 	/**
 	 * When {@code true}, code generator wrap body of <code>initDataBindings()</code> into try/catch
 	 * block.
