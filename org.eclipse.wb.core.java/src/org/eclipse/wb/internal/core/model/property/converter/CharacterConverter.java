@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ public final class CharacterConverter extends ExpressionConverter {
 	// Instance
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final ExpressionConverter INSTANCE = new CharacterConverter();
+	public static final CharacterConverter INSTANCE = new CharacterConverter();
 
 	private CharacterConverter() {
 	}
@@ -35,7 +35,7 @@ public final class CharacterConverter extends ExpressionConverter {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
 		return "'" + ((Character) value).charValue() + "'";
 	}
 }

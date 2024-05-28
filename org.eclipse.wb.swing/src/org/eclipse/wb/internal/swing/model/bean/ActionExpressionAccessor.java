@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -67,7 +67,7 @@ public final class ActionExpressionAccessor extends ExpressionAccessor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Expression getExpression(JavaInfo javaInfo) throws Exception {
+	public Expression getExpression(JavaInfo javaInfo) {
 		for (Block block : m_actionInfo.getInitializationBlocks()) {
 			for (Statement statement : DomGenerics.statements(block)) {
 				Expression expression = null;
@@ -87,8 +87,7 @@ public final class ActionExpressionAccessor extends ExpressionAccessor {
 		return null;
 	}
 
-	private Expression getExpression_SuperConstructorInvocation(SuperConstructorInvocation invocation)
-			throws Exception {
+	private Expression getExpression_SuperConstructorInvocation(SuperConstructorInvocation invocation) {
 		// prepare description
 		ConstructorDescription constructor = m_actionInfo.getConstructorDescription();
 		// analyze arguments

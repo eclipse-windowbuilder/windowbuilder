@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -249,9 +249,9 @@ public final class ComponentDescriptionHelper {
 	 *
 	 * @return the {@link ComponentDescription} of component with given
 	 *         {@link Class}.
-	 * @throws Exception if no {@link ComponentDescription} can be found.
+	 * @throws DesignerException if no {@link ComponentDescription} can be found.
 	 */
-	public static ComponentDescription getDescription(AstEditor editor, Class<?> componentClass) throws Exception {
+	public static ComponentDescription getDescription(AstEditor editor, Class<?> componentClass) {
 		ComponentDescription description = m_getDescription_Class.get(componentClass);
 		if (description == null) {
 			description = getDescription0(editor, componentClass);
@@ -263,7 +263,7 @@ public final class ComponentDescriptionHelper {
 	/**
 	 * Implementation for {@link #getDescription(AstEditor, Class)}.
 	 */
-	private static ComponentDescription getDescription0(AstEditor editor, Class<?> componentClass) throws Exception {
+	private static ComponentDescription getDescription0(AstEditor editor, Class<?> componentClass) {
 		// we should use component class that can be loaded, for example ignore
 		// anonymous classes
 		for (;; componentClass = componentClass.getSuperclass()) {
@@ -339,10 +339,10 @@ public final class ComponentDescriptionHelper {
 	 *
 	 * @return the {@link ComponentDescription} of component with given
 	 *         {@link Class}.
-	 * @throws Exception if no {@link ComponentDescription} can be found.
+	 * @throws DesignerException if no {@link ComponentDescription} can be found.
 	 */
 	private static ComponentDescription getDescription0(AstEditor editor, ComponentDescriptionKey key,
-			List<ClassResourceInfo> additionalDescriptionInfos) throws Exception {
+			List<ClassResourceInfo> additionalDescriptionInfos) {
 		EditorState state = EditorState.get(editor);
 		ILoadingContext context = EditorStateLoadingContext.get(state);
 		Class<?> componentClass = key.getComponentClass();

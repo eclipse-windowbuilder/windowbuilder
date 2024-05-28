@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ public class GenericPropertyNoValue extends GenericProperty {
 	}
 
 	@Override
-	public Object getDefaultValue() throws Exception {
+	public Object getDefaultValue() {
 		return UNKNOWN_VALUE;
 	}
 
@@ -66,7 +66,7 @@ public class GenericPropertyNoValue extends GenericProperty {
 	}
 
 	@Override
-	public Expression getExpression() throws Exception {
+	public Expression getExpression() {
 		return null;
 	}
 

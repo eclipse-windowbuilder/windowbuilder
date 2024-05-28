@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,7 +105,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean isModified() throws Exception {
+	public boolean isModified() {
 		return getExpressionInfo() != null;
 	}
 
@@ -184,7 +184,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 	}
 
 	@Override
-	public Object getDefaultValue() throws Exception {
+	public Object getDefaultValue() {
 		// if has forced default value from property, use it
 		if (m_defaultValue != UNKNOWN_VALUE) {
 			return m_defaultValue;
@@ -265,7 +265,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Expression getExpression() throws Exception {
+	public Expression getExpression() {
 		ExpressionInfo expressionInfo = getExpressionInfo();
 		return expressionInfo != null ? expressionInfo.m_expression : null;
 	}
@@ -391,7 +391,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 	 *
 	 * @return the current {@link ExpressionAccessor}'s.
 	 */
-	public List<ExpressionAccessor> getAccessors() throws Exception {
+	public List<ExpressionAccessor> getAccessors() {
 		List<ExpressionAccessor> accessors = new ArrayList<>();
 		// add "static" accessors
 		Collections.addAll(accessors, m_accessors);
@@ -416,7 +416,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 	 * @return the {@link ExpressionInfo} for existing property {@link Expression} or
 	 *         <code>null</code> if not {@link Expression} was found.
 	 */
-	private ExpressionInfo getExpressionInfo() throws Exception {
+	private ExpressionInfo getExpressionInfo() {
 		for (ExpressionAccessor accessor : getAccessors()) {
 			Expression expression = accessor.getExpression(m_javaInfo);
 			if (expression != null) {

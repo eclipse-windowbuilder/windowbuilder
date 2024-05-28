@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -353,7 +353,7 @@ ILiveCreationSupport {
 
 	@Override
 	public void addAccessors(GenericPropertyDescription propertyDescription,
-			List<ExpressionAccessor> accessors) throws Exception {
+			List<ExpressionAccessor> accessors) {
 		// add accessors for parameters bound to given property
 		List<ParameterDescription> parameters = m_description.getParameters();
 		for (ParameterDescription parameter : parameters) {

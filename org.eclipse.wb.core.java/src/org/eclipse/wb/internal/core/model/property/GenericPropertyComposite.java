@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,7 +117,7 @@ public final class GenericPropertyComposite extends GenericProperty {
 	}
 
 	@Override
-	public Object getDefaultValue() throws Exception {
+	public Object getDefaultValue() {
 		Object value = NO_VALUE;
 		for (GenericProperty property : m_properties) {
 			Object propertyValue = property.getDefaultValue();
@@ -172,7 +172,7 @@ public final class GenericPropertyComposite extends GenericProperty {
 	 * @return {@link Expression} if all properties have {@link Expression}'s with same source.
 	 */
 	@Override
-	public Expression getExpression() throws Exception {
+	public Expression getExpression() {
 		Expression commonExpression = null;
 		String commonSource = null;
 		for (GenericProperty property : m_properties) {

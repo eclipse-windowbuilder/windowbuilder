@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -247,7 +247,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public Expression getExpression(JavaInfo javaInfo) throws Exception {
+		public Expression getExpression(JavaInfo javaInfo) {
 			MethodInvocation invocation = getInvocation();
 			if (invocation != null) {
 				return DomGenerics.arguments(invocation).get(0);
