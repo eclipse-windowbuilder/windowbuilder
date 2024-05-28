@@ -35,18 +35,16 @@ public class BeanObservableDetailListCodeSupport extends BeanObservableDetailCod
 			CodeGenerationSupport generationSupport,
 			DetailBeanObservableInfo observable,
 			ObservableInfo masterObservable) throws Exception {
-		String observeMethod =
-				observable.isPojoBindable0()
-				? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeDetailList("
-						: " = org.eclipse.core.databinding.beans.BeansObservables.observeDetailList(";
 		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
 				+ observable.getVariableIdentifier()
-				+ observeMethod
-				+ masterObservable.getVariableIdentifier()
+				+ " = "
+				+ DataBindingsCodeUtils.getObservableClass(observable)
+				+ ".list("
+				+ observable.getDetailPropertyReference()
 				+ ", "
-						+ observable.getDetailPropertyReference()
-						+ ", "
-						+ CoreUtils.getClassName(observable.getDetailPropertyType())
-						+ ".class);");
+				+ CoreUtils.getClassName(observable.getDetailPropertyType())
+				+ ".class).observeDetail("
+				+ masterObservable.getVariableIdentifier()
+				+ ");");
 	}
 }

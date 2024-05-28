@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
@@ -59,7 +60,18 @@ public final class DataBindingsCodeUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static String getPojoObservablesClass() {
-		return "org.eclipse.core.databinding.beans.PojoObservables";
+		return "org.eclipse.core.databinding.beans.typed.PojoProperties";
+	}
+
+	public static String getBeanObservablesClass() {
+		return "org.eclipse.core.databinding.beans.typed.BeanProperties";
+	}
+
+	public static String getObservableClass(ObservableInfo observable) {
+		if (observable instanceof DetailBeanObservableInfo detailObservable) {
+			return detailObservable.isPojoBindable0() ? getPojoObservablesClass() : getBeanObservablesClass();
+		}
+		return observable.isPojoBindable() ? getPojoObservablesClass() : getBeanObservablesClass();
 	}
 
 	/**
