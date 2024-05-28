@@ -57,7 +57,6 @@ public class Messages extends NLS {
 	public static String DbCodeGenerationPreferencePage_dbMethodAccess;
 	public static String DbCodeGenerationPreferencePage_defaultValueStrategyGroup;
 	public static String DbCodeGenerationPreferencePage_defaultValueStrategyLabel;
-	public static String DbCodeGenerationPreferencePage_dontUseDeprecatedBeansObservables;
 	public static String DbCodeGenerationPreferencePage_encloseIntoTryCatch;
 	public static String DbCodeGenerationPreferencePage_generate13Observables;
 	public static String DbCodeGenerationPreferencePage_preview;

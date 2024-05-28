@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,7 +58,6 @@ IPreferenceConstants {
 	private Button m_addInvokeButton;
 	private Button m_assignToFieldButton;
 	private Button m_addToCompositeConstructorButton;
-	private Button m_dontUseDeprecatedMethodsButton;
 	private Button m_addTryCatch;
 	private Button m_generateCodeForVersion13Button;
 	private Button m_useViewerSupportButton;
@@ -89,10 +88,6 @@ IPreferenceConstants {
 		m_addToCompositeConstructorButton = new Button(container, SWT.CHECK);
 		GridDataFactory.create(m_addToCompositeConstructorButton).fillH().grabH();
 		m_addToCompositeConstructorButton.setText(Messages.DbCodeGenerationPreferencePage_addDbIntoComposite);
-		//
-		m_dontUseDeprecatedMethodsButton = new Button(container, SWT.CHECK);
-		GridDataFactory.create(m_dontUseDeprecatedMethodsButton).fillH().grabH();
-		m_dontUseDeprecatedMethodsButton.setText(Messages.DbCodeGenerationPreferencePage_dontUseDeprecatedBeansObservables);
 		//
 		m_addTryCatch = new Button(container, SWT.CHECK);
 		GridDataFactory.create(m_addTryCatch).fillH().grabH();
@@ -175,9 +170,6 @@ IPreferenceConstants {
 		m_bindManager.bind(
 				new CheckButtonEditor(m_addToCompositeConstructorButton),
 				new BooleanPreferenceProvider(m_store, ADD_INVOKE_INITDB_TO_COMPOSITE_CONSTRUCTOR));
-		m_bindManager.bind(
-				new CheckButtonEditor(m_dontUseDeprecatedMethodsButton),
-				new BooleanPreferenceProvider(m_store, DONT_USE_DEPRECATED_METHODS));
 		m_bindManager.bind(new CheckButtonEditor(m_addTryCatch), new BooleanPreferenceProvider(m_store,
 				INITDB_TRY_CATCH));
 		m_bindManager.bind(

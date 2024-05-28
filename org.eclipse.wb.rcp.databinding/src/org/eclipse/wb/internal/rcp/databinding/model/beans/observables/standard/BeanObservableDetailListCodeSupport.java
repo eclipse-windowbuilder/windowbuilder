@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,11 +12,9 @@ package org.eclipse.wb.internal.rcp.databinding.model.beans.observables.standard
 
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
-import org.eclipse.wb.internal.rcp.databinding.Activator;
 import org.eclipse.wb.internal.rcp.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
-import org.eclipse.wb.internal.rcp.databinding.preferences.IPreferenceConstants;
 
 import java.util.List;
 
@@ -37,12 +35,6 @@ public class BeanObservableDetailListCodeSupport extends BeanObservableDetailCod
 			CodeGenerationSupport generationSupport,
 			DetailBeanObservableInfo observable,
 			ObservableInfo masterObservable) throws Exception {
-		boolean dontUseDeprecatedMethods =
-				Activator.getStore().getBoolean(IPreferenceConstants.DONT_USE_DEPRECATED_METHODS);
-		String realmCode =
-				dontUseDeprecatedMethods
-				? ""
-						: "org.eclipse.core.databinding.observable.Realm.getDefault(), ";
 		String observeMethod =
 				observable.isPojoBindable0()
 				? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeDetailList("
@@ -50,7 +42,6 @@ public class BeanObservableDetailListCodeSupport extends BeanObservableDetailCod
 		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
 				+ observable.getVariableIdentifier()
 				+ observeMethod
-				+ realmCode
 				+ masterObservable.getVariableIdentifier()
 				+ ", "
 						+ observable.getDetailPropertyReference()
