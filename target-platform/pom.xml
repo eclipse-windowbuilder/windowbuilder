@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.wb</groupId>
+		<artifactId>org.eclipse.wb.root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>wb</artifactId>
+	<packaging>eclipse-target-definition</packaging>
+	<name>[target] wb</name>
+	
+	<properties>
+		<!-- https://github.com/eclipse-tycho/tycho/pull/3916 -->
+		<cyclonedx.skip>true</cyclonedx.skip>
+	</properties>
+</project>
+ 
