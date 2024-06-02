@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -131,7 +131,38 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 						layoutCombo.add(layoutDescription.getName());
 					}
 				}
+				new Label(this, SWT.NONE).setText(UiMessages.LayoutsPreferencePage_availableLayouts);
+				m_table = CheckboxTableViewer.newCheckList(this, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+				m_table.setContentProvider(ArrayContentProvider.getInstance());
+				m_table.setLabelProvider(
+						ColumnLabelProvider.createTextProvider(o -> ((LayoutDescription) o).getName()));
+				m_table.setCheckStateProvider(new ICheckStateProvider() {
+					@Override
+					public boolean isChecked(Object element) {
+						return m_layoutPreferences.getBoolean(((LayoutDescription) element).getLayoutClassName(), true);
+					}
+
+					@Override
+					public boolean isGrayed(Object element) {
+						return false;
+					}
+				});
+				m_table.setInput(layouts);
+				m_table.addCheckStateListener(event -> {
+					LayoutDescription layout = (LayoutDescription) event.getElement();
+					m_layoutPreferences.putBoolean(layout.getLayoutClassName(), event.getChecked());
+					// If default was set to a layout that is de-selected from available layouts.
+					// The default layout is set back to implicit layout
+					List<Object> input = getLayoutItems();
+					Object selection = layoutCombo.getStructuredSelection().getFirstElement();
+					layoutCombo.setInput(input);
+					if (!input.contains(selection)) {
+						layoutCombo.setSelection(implicitLayoutSelection);
+					}
+				});
+				GridDataFactory.create(m_table.getTable()).fillH().spanH(gridLayoutColumns);
 				// bind
+				layoutCombo.setInput(getLayoutItems());
 				m_bindManager.bind(new IDataEditor() {
 					@Override
 					public void setValue(Object value) {
@@ -155,42 +186,11 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 						if (layoutCombo.getStructuredSelection()
 								.getFirstElement() instanceof LayoutDescription layout) {
 							return layout.getId();
-						}
+					}
 						// implicit layout
 						return null;
 					}
-				},
-						new StringPreferenceProvider(m_preferences, IPreferenceConstants.P_LAYOUT_DEFAULT), true);
-				new Label(this, SWT.NONE).setText(UiMessages.LayoutsPreferencePage_availableLayouts);
-				m_table = CheckboxTableViewer.newCheckList(this, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-				m_table.setContentProvider(ArrayContentProvider.getInstance());
-				m_table.setLabelProvider(ColumnLabelProvider.createTextProvider(o -> ((LayoutDescription)o).getName()));
-				m_table.setCheckStateProvider(new ICheckStateProvider() {
-					@Override
-					public boolean isChecked(Object element) {
-						return m_layoutPreferences.getBoolean(((LayoutDescription) element).getLayoutClassName(), true);
-					}
-
-					@Override
-					public boolean isGrayed(Object element) {
-						return false;
-					}
-				});
-				m_table.setInput(layouts);
-				m_table.addCheckStateListener(event -> {
-					LayoutDescription layout = (LayoutDescription) event.getElement();
-					m_layoutPreferences.putBoolean(layout.getLayoutClassName(), event.getChecked());
-					// If default was set to a layout that is de-selected from available layouts.
-					// The default layout is set back to implicit layout
-					List<Object> layoutItems = new ArrayList<>();
-					layoutItems.add(UiMessages.LayoutsPreferencePage_implicitLayout);
-					layoutItems.addAll(List.of(m_table.getCheckedElements()));
-					layoutCombo.setInput(layoutItems.toArray());
-					if (layoutCombo.getStructuredSelection().isEmpty()) {
-						layoutCombo.setSelection(implicitLayoutSelection);
-					}
-				});
-				GridDataFactory.create(m_table.getTable()).fillH().spanH(gridLayoutColumns);
+				}, new StringPreferenceProvider(m_preferences, IPreferenceConstants.P_LAYOUT_DEFAULT), true);
 			}
 			// boolean preferences
 			checkButton(
@@ -198,6 +198,13 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 					2,
 					UiMessages.LayoutsPreferencePage_inheritLayout,
 					IPreferenceConstants.P_LAYOUT_OF_PARENT);
+		}
+
+		private List<Object> getLayoutItems() {
+			List<Object> layoutItems = new ArrayList<>();
+			layoutItems.add(UiMessages.LayoutsPreferencePage_implicitLayout);
+			layoutItems.addAll(List.of(m_table.getCheckedElements()));
+			return Collections.unmodifiableList(layoutItems);
 		}
 	}
 }
