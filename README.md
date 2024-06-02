@@ -61,3 +61,10 @@ If you also want to execute all tests, use the following command:
 Please note that executing the entire test suite may take between 30min and 1h,
 depending on your system. Getting all tests to pass may also require a specific
 screen resolution or additional fonts to be installed on your system.
+
+### Software Bill-of-Materials
+
+A Software Bill-of-Materials (SBOM) is automatically created as part of the
+build. A separate SBOM is created for each plugin/feature. The SBOM containing 
+the dependencies for the entire project are contained in
+`org.eclipse.wb.releng.updatesite`.
