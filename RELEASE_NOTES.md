@@ -4,6 +4,13 @@
 
 Provisional support for Windows ARM64 has been hadded.
 
+### New extension point for Swing/SWT image processing
+
+It is now possible to contribute custom image processors using the
+`org.eclipse.wb.core.java.imageProcessor` extension point. Those
+contributes are used by the property table to generate the Java code responsible
+for setting the image of a composite.
+
 ## 1.15.0 (2024-03)
 
 ### Support of lambda expressions for event Listeners

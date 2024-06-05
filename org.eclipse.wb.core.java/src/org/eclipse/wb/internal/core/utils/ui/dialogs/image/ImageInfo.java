@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image;
 
+import org.eclipse.wb.core.model.IImageInfo;
+
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -18,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
  * @author scheglov_ke
  * @coverage core.ui
  */
-public final class ImageInfo {
+public final class ImageInfo implements IImageInfo {
 	private final String m_pageId;
 	private final Object m_data;
 	private final Image m_image;
@@ -41,30 +43,22 @@ public final class ImageInfo {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the id of page that provided this {@link ImageInfo}.
-	 */
+	@Override
 	public String getPageId() {
 		return m_pageId;
 	}
 
-	/**
-	 * @return the page specific data abound image, usually string with path.
-	 */
+	@Override
 	public Object getData() {
 		return m_data;
 	}
 
-	/**
-	 * @return the SWT {@link Image} of this {@link ImageInfo}.
-	 */
+	@Override
 	public Image getImage() {
 		return m_image;
 	}
 
-	/**
-	 * @return the size of image in bytes.
-	 */
+	@Override
 	public long getSize() {
 		return m_size;
 	}

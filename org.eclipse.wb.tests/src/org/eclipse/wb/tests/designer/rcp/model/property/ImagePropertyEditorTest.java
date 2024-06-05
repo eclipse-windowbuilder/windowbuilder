@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.property;
 
+import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.property.editor.image.ImagePropertyEditor;
@@ -35,7 +36,7 @@ public abstract class ImagePropertyEditorTest extends RcpModelTest {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	protected final Property createImagePropertyForSource(String imageSource) throws Exception {
+	protected final GenericProperty createImagePropertyForSource(String imageSource) throws Exception {
 		m_waitForAutoBuild = true;
 		CompositeInfo shell =
 				parseComposite(
@@ -53,7 +54,7 @@ public abstract class ImagePropertyEditorTest extends RcpModelTest {
 			assertNotNull(image);
 		}
 		//
-		return shell.getPropertyByTitle("image");
+		return (GenericProperty) shell.getPropertyByTitle("image");
 	}
 
 	/**

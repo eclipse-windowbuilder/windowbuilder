@@ -22,6 +22,8 @@
         schema="schema/rootProcessors.exsd"/>
     <extension-point id="unknownParameterEvaluators" name="Evaluators for unknown method parameters"
         schema="schema/unknownParameterEvaluators.exsd"/>
+    <extension-point id="imageProcessor" name="Processor for widget icons and images"
+        schema="schema/imageProcessor.exsd"/>
 
 
     <!-- ======================================================== -->

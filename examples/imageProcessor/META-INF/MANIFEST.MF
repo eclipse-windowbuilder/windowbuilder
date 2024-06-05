@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: imageProcessor;singleton:=true
+Bundle-Vendor: %providerName
+Bundle-Version: 1.0.0.qualifier
+Export-Package: imageProcessor
+Require-Bundle: org.eclipse.wb.core.java
+Automatic-Module-Name: imageProcessor
+Bundle-RequiredExecutionEnvironment: JavaSE-17

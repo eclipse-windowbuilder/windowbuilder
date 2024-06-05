@@ -1,0 +1,72 @@
+= Icon / Image Editor
+
+image:images/property_editor_image1.png[image,width=306,height=18] 
+image:images/property_editor_image2.png[image,width=282,height=18]
+
+Click the image:images/ellipses.png[image] button to access the *Image
+Chooser* and select an icon or image.
+
+The *Image Chooser* has options for selecting images defined in the
+*Classpath* or at an *Absolute path in the file system*. Options are
+also provided to set the image to *null* or remove any generated image.
+A preview of the selected image is shown on the right.
+
+image:images/property_editor_image3.png[image,width=879,height=736]
+
+== User Extensions
+
+The processors that the transformation from and to Java code are contributed
+via the `org.eclipse.wb.core.java.imageProcessor` extension point
+and contains the following fields:
+
+* _class_ - Your custom image processor. This class should either extend
+            `org.eclipse.wb.core.editor.icon.AbstractClasspathImageProcessor` or 
+            `org.eclipse.wb.core.editor.icon.AbstractFileImageProcessor`.
+* _type_ - The image type that is managed by this processor. Currently supported
+           types are:
+           ** Swing
+              *** `java.awt.Image`
+              *** `javax.swing.Icon`
+           ** SWT
+              *** `org.eclipse.swt.graphics.Image`
+              *** `org.eclipse.jface.resource.ImageDescriptor`
+* _priority_ - Determines the order in which the processors are executed. The
+               higher the priority, the earlier this contributed is handled.
+               All internal WindowBuilder contributions have a priority of _0_.
+               When a processor was able to handle an image, all remaining
+               processors are skipped.
+
+image:images/property_editor_image4.png[image]
+
+The `process` method of the image processor class is used to transform the
+expression in the Java code to a humanly-readable string. This string is
+then displayed in the property table. The `postOpen` method is used to convert
+the path that was selected in the image editor to valid Java code. The class
+(SwingImageIcon in the following example) must be in the classpath of the
+current project.
+
+[java]
+---- 
+public class SwingImageProcessor extends AbstractClasspathImageProcessor {
+	@Override
+	public boolean process(IGenericProperty property, String[] value) {
+		JavaInfo javaInfo = property.getJavaInfo();
+		Expression expression = getFinalExpression(javaInfo, property.getExpression());
+		if (expression instanceof ClassInstanceCreation creation) {
+			if (AstNodeUtils.isCreation(creation, "imageProcessor.SwingImageIcon", "<init>(java.lang.String)" )) {
+				StringLiteral resourceLiteral = (StringLiteral) creation.arguments().get(0);
+				value[0] = prefix + resourceLiteral.getLiteralValue();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean postOpen(IGenericProperty property, String path, String[] value) {
+		String pathSource = StringConverter.INSTANCE.toJavaSource(property.getJavaInfo(), path);
+		value[0] = "new imageProcessor.SwingImageIcon(" + pathSource + ")";
+		return true;
+	}
+}
+----

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property;
 
+import org.eclipse.wb.core.model.IGenericProperty;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter;
@@ -24,7 +25,7 @@ import org.eclipse.jdt.core.dom.Expression;
  * @author scheglov_ke
  * @coverage core.model.property
  */
-public abstract class GenericProperty extends JavaProperty implements ITypedProperty {
+public abstract class GenericProperty extends JavaProperty implements ITypedProperty, IGenericProperty {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -59,11 +60,6 @@ public abstract class GenericProperty extends JavaProperty implements ITypedProp
 	// Expression
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the {@link Expression} that was used for calculating value of this
-	 *         {@link GenericProperty}.
-	 */
-	public abstract Expression getExpression();
 
 	/**
 	 * Changes value using Java source and (optional) value.

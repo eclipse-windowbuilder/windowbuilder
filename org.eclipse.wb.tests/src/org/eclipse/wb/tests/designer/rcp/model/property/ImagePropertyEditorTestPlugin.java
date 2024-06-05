@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.property;
 
-import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
@@ -122,7 +122,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	@Test
 	public void test_ThisPlugin_Value() throws Exception {
 		ensureResourceManagers();
-		Property property =
+		GenericProperty property =
 				createImagePropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImage(\"TestProject\", \"icons/1.png\")");
 		assertNotNull(property);
 		assertNotNull(property.getValue());
@@ -137,7 +137,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	@Test
 	public void test_Plugin_Value() throws Exception {
 		ensureResourceManagers();
-		Property property =
+		GenericProperty property =
 				createImagePropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
 		assertNotNull(property);
 		assertNotNull(property.getValue());

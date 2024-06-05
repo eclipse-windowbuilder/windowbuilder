@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.wb.core.java.imageProcessor">
+      <processor
+            class="imageProcessor.SwingImageProcessor"
+            priority="100"
+            type="java.awt.Image">
+      </processor>
+      <processor
+            class="imageProcessor.SwingImageProcessor"
+            priority="100"
+            type="javax.swing.Icon">
+      </processor>
+   </extension>
+
+</plugin>

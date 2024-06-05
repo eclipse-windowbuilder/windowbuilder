@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.core.java;singleton:=true
-Bundle-Version: 1.11.200.qualifier
+Bundle-Version: 1.12.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.core.java.Activator
 Bundle-Vendor: %providerName
@@ -30,6 +30,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.core.editor,
+ org.eclipse.wb.core.editor.icon,
  org.eclipse.wb.core.editor.palette,
  org.eclipse.wb.core.editor.palette.model,
  org.eclipse.wb.core.editor.palette.model.entry,
@@ -48,6 +49,7 @@ Export-Package: org.eclipse.wb.core.editor,
  org.eclipse.wb.internal.core.editor.actions.errors,
  org.eclipse.wb.internal.core.editor.errors,
  org.eclipse.wb.internal.core.editor.errors.report2.logs,
+ org.eclipse.wb.internal.core.editor.icon,
  org.eclipse.wb.internal.core.editor.multi,
  org.eclipse.wb.internal.core.editor.palette,
  org.eclipse.wb.internal.core.editor.palette.command,
