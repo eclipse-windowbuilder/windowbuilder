@@ -13,9 +13,8 @@ package org.eclipse.wb.internal.swt.model.property.editor.image;
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.IExpressionEvaluator;
+import org.eclipse.wb.core.model.IGenericProperty;
 import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
-import org.eclipse.wb.internal.core.model.property.GenericProperty;
-import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -140,8 +139,8 @@ public class ImageEvaluator implements IExpressionEvaluator {
 	 *         {@link AbstractUIPlugin#imageDescriptorFromPlugin(String,String)} or
 	 *         {@code null} otherwise.
 	 */
-	public static String[] getPluginImageValue(Property property) {
-		Expression expression = ((GenericProperty) property).getExpression();
+	public static String[] getPluginImageValue(IGenericProperty property) {
+		Expression expression = property.getExpression();
 		if (isAbstractUiPlugin(expression) || isNewResourceManager(expression)) {
 			MethodInvocation invocation = (MethodInvocation) expression;
 			List<Expression> arguments = DomGenerics.arguments(invocation);

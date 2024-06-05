@@ -527,4 +527,39 @@
 			<description>Create a Swing application window</description>
 		</wizard>
 	</extension>
+ <extension
+       point="org.eclipse.wb.core.java.imageProcessor">
+    <processor
+          class="org.eclipse.wb.internal.core.editor.icon.DefaultImageProcessor"
+          type="javax.swing.Icon">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.core.editor.icon.NullImageProcessor"
+          type="javax.swing.Icon">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.swing.model.property.editor.icon.FileIconProcessor"
+          type="javax.swing.Icon">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.swing.model.property.editor.icon.ClasspathIconProcessor"
+          type="javax.swing.Icon">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.core.editor.icon.DefaultImageProcessor"
+          type="java.awt.Image">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.core.editor.icon.NullImageProcessor"
+          type="java.awt.Image">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.swing.model.property.editor.icon.FileImageProcessor"
+          type="java.awt.Image">
+    </processor>
+    <processor
+          class="org.eclipse.wb.internal.swing.model.property.editor.icon.ClasspathImageProcessor"
+          type="java.awt.Image">
+    </processor>
+ </extension>
 </plugin>

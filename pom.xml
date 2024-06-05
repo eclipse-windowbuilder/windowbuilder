@@ -147,6 +147,38 @@
           <artifactId>tycho-baseline-plugin</artifactId>
           <version>${tycho.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.asciidoctor</groupId>
+          <artifactId>asciidoctor-maven-plugin</artifactId>
+          <version>2.2.6</version>
+          <dependencies>
+            <!-- Required for source-code highlighting -->
+            <dependency>
+              <groupId>org.jruby</groupId>
+              <artifactId>jruby</artifactId>
+              <version>9.4.7.0</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <doctype>book</doctype>
+            <attributes>
+              <stylesheet>${project.basedir}/book.css</stylesheet>
+              <nofooter/>
+            </attributes>
+            <sourceDirectory>html-src</sourceDirectory>
+            <outputDirectory>html</outputDirectory>
+            <preserveDirectories>true</preserveDirectories>
+          </configuration>
+          <executions>
+            <execution>
+              <id>asciidoc-to-html</id>
+              <phase>generate-resources</phase>
+              <goals>
+                <goal>process-asciidoc</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
