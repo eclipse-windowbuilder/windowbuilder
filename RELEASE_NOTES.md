@@ -1,7 +1,8 @@
-# Eclipse WindowBuilder: Migration Guide
+# Eclipse WindowBuilder: Release Notes
 
-This page describes all changes introduced by each release which may impact user
-code.
+## 1.17.0 (2024-09)
+
+Provisional support for Windows ARM64 has been hadded.
 
 ## 1.15.0 (2024-03)
 
