@@ -139,6 +139,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		setEditPartFactory(new PropertyEditPartFactory());
 		setEditDomain(new PropertyEditDomain());
 		getControl().addListener(SWT.Resize, event -> handleResize());
+		getControl().setScrollbarsMode(SWT.NONE);
 		// calculate sizes
 		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
 		m_baseFont = parent.getFont();
