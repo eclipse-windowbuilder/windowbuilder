@@ -1,0 +1,101 @@
+= What's New - v7.1.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v7.1.0* |*SWT Designer v7.1.0*
+|*Swing Designer v7.1.0* |*GWT Designer v7.1.0*
+|===
+
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#NLS[Enhanced NLS support]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v700.html[v7.0.0]
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+a|
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* EMF Data Binding support
+* Support for new Eclipse 3.5 coding style
+* Support for Eclipse 3.5 nested property bindings
+
+[#GWT]
+== Enhanced GWT support
+
+* General support for GWT 1.6.4
+* Support for new GWT project structure
+* Support for Google GWT plugin
+* Support for GWT 1.6 DatePicker, DateBox and LazyPanel
+* Context menu action "Open Command" for GWT MenuItem
+* Support for RootPanel.get(String)
+* Show special message for NPE in GWT Mail sample
+
+[#SWT]
+== Enhanced SWT support
+
+* New "Set minimal size" action for Composite
+* Support for non-standard SWT constructors
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Support for IViewSite.getWorkbenchWindow()
+* New "Expose viewer..." action
+
+[#Swing]
+== Enhanced Swing support
+
+* Improved Swing Data Binding support
+
+[#NLS]
+== Enhanced NLS support
+
+* New "Add key/value" in NLS dialog
+* Sort *.properties files by key
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Various parsing and speed optimizations
+* Improved error messages for common cases
+* Ask for main entry point if multiple detected
+* Various advanced parser enhancements
+* Support for factory inheritance
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Support for Eclipse 3.5
+* Support for OSX Cocoa
+* Support for BeanInfo inheritance
+* Support for "setComponent(SomeType)" properties
+* Support for Object properties in custom components
+* Show better message when bad custom component fails
+* Check for JDK compatibility

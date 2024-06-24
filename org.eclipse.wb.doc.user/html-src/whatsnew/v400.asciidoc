@@ -1,0 +1,99 @@
+= What's New - v4.0.0
+
+* link:#SWT_AWT[Support for the SWT_AWT bridge allowing SWT and Swing to be mixed]
+* link:#JGFL[Support for JGoodies FormLayout]
+* link:#SWT_31[Support for new Eclipse 3.1 SWT elements]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace support]
+* link:#Swing[Enhanced Swing support]
+* link:#NLS[Enhanced NLS support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+* link:#CodeParsing[Code Parsing Enhancements]
+
+* link:v300.html[v3.0.0]
+
+[#SWT_AWT]
+== Support for the SWT_AWT bridge allowing SWT and Swing to be mixed
+
+* New SWT_AWT palette
+* Embed any Swing widget into an SWT or RCP window
+
+[#JGFL]
+== Support for JGoodies FormLayout
+
+* Graphically manage JGFL columns and rows
+* Graphically manage cell alignment and column/row spanning
+* Graphically reorder and resize columns and rows
+* Automatically handle gap columns and rows
+* Intelligently convert existing layouts to JGFL
+* Support for different units like pixels and dialog units
+* Support for all predefined FormLayout types
+* Support for grouping and ungrouping columns
+* Color highlighting for grouped columns and rows
+* Floating layout assistant for cells, columns and rows
+* Intelligently merge and split columns and rows
+
+[#SWT_31]
+== Support for new Eclipse 3.1 SWT elements
+
+* Support for the SWT Spinner & Link control
+* Support for the SWT TreeColumns
+* Support for virtual tables
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for SWT DragSource & DropTarget
+* Support for SWT TableItems & TreeItems
+* Support for SWT toggle buttons
+* Support for SWT Cursor property
+* Support for strikeout and underline properties for SWT fonts (Windows-only)
+* Support for new 3.0 SWT RowLayout properties
+* Enhanced SWT FormLayout support
+* Support for SWT color constants sources
+* Support for custom SWT drag/drop transfer classes
+
+[#JFace]
+== Enhanced JFace support
+
+* Support for ApplicationWindow coolbars
+* Style property support for JFace Action
+* Icon support for SWT Dialogs, TitleAreaDialogs and ApplicationWindows
+* Support for Shell events in ApplicationWindow
+* Support for JFace action accelerator property
+
+[#Swing]
+== Enhanced Swing support
+
+* Support for custom Swing properties and editors
+* Support for custom Swing widget customizers
+* Support for superclasses in Swing JFrame wizard
+* Support for instantiating custom JTable/JTree/JComboBox models
+* Added support for parsing and editing JTable columns
+* Tooltips for GBL selection handles, with option on preference page
+* Keyboard navigation support for all Swing layouts
+* Support for GridBagConstraints subclasses with custom defaults
+* Support for static method factory for GridBagConstraints
+* Support for custom component icons in tree and palette
+
+[#NLS]
+== Enhanced NLS support
+
+* Added flag for copying default values in all locales
+* Added flag in "New Local" dialog to copy default values to new properties file
+* Added ability to auto-externalize strings for newly added widgets
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Use Ctrl key to add custom widgets by name
+* Automatically add to Custom Controls palette via Choose Bean
+* Added tooltips for most component properties
+* Support for mouse wheel in property table when design canvas is active
+* Support for copy/paste (Ctrl+C/X/V) in text property editors
+
+[#CodeParsing]
+== Code Parsing Enhancements
+
+* Support for code hiding
+* Support for default string property value when expression can not be converted

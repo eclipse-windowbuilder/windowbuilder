@@ -1,0 +1,75 @@
+= What's New - v3.0.0
+
+* link:#EclipseForms[Support for Eclipse Forms]
+* link:#SwingVisualInheritance[Support for Swing Visual Inheritance]
+* link:#CustomSwingPanels[Enhanced support for custom Swing panels]
+* link:#EventHandlers[New event handler code generation options]
+* link:#SWT[Enhanced SWT support]
+* link:#Swing[Enhanced Swing support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[#EclipseForms]
+== Support for Eclipse Forms
+
+* Create "flat look" user interfaces
+* New wizards for FormPages, DetailPages and MasterDetailsBlocks
+* New Eclipse Forms palette supporting all Eclipse Forms widgets
+* Support for ColumnLayout and TableWrapLayout
+* New Forms API preferences to optionally generate paintBordersFor()
+
+[#SwingVisualInheritance]
+== Support for Swing Visual Inheritance
+
+* Inherit from any JFrame, JDialog, JApplet or JPanel subclass
+* All inherited widgets are visible
+* Access inherited widgets exposed via public or protected accessor
+* Inherited widgets appear in tree with "i" decorators
+
+[#CustomSwingPanels]
+== Enhanced support for custom Swing panels
+
+* New "Expose component" command to generate accessor
+* Subcomponents appear in tree with special decorator
+* Access subcomponents exposed via public accessors
+* Add new children to subcomponent containers
+* Automatically recognize custom bean properties
+
+[#EventHandlers]
+== New event handler code generation options
+
+* Create anonymous class
+* Create inner class
+* Implement listener interface in parent class
+
+[#SWT]
+== Enhanced SWT support
+
+* New SWT Shell wizard
+* New Eclipse EditorPart wizard
+* New SWT > PreferencePage preferences
+* Added support for Eclipse 3.0 Browser widget
+* Added option to highlight borderless Composites
+* Support for SWT Shell.defaultButton property
+* Support for top right control in CTabFolder
+* Enhanced FieldEditor support
+* Keyboard support for FormLayout
+* SWT custom widget support for String[], Font and Color properties
+* SWT custom Item support
+
+[#Swing]
+== Enhanced Swing support
+
+* New Swing Application wizard
+* Support for JSpinner models (number, list and date)
+* Support for JLabel.setLabelFor()
+* Keyboard support for SpringLayout
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Added Replicate Width and Replicate Height commands to toolbar
+* Preference to control when to use layout grid
+* Enhanced visual feedback for null layout move and size operations
+* Placed wizards into categories
+* Support for source code hint for events
+* Support for arrow key movement in various layouts

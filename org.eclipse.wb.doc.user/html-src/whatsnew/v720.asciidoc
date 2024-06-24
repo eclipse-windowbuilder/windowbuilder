@@ -1,0 +1,123 @@
+= What's New - v7.2.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v7.2.0* |*SWT Designer v7.2.0*
+|*Swing Designer v7.2.0* |*GWT Designer v7.2.0*
+|===
+
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v710.html[v7.1.0]
+* link:v700.html[v7.0.0]
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+a|
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* Added visual marker for model beans
+* Support for nested viewer bindings
+* Support for ObservableMapCellLabelProvider
+* Support for SWT DateTime
+* Support for Table Cell Editing
+* Enclose SWT DB code in try/catch blocks
+* Optionally generate Eclipse 3.5-only code (no deprecated code)
+* Set defaults for new strategy objects
+* Support for external controller objects
+* Support for new Eclipse 3.5 coding style
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for Ext GWT (GXT) 2.0.1
+* Support for GWT 1.7 and IE8
+* New multi-page CSS Style Editor
+* Enhanced CSS Style Editor Dialog
+* Enhanced CSS Style Name property
+* Support for "new Viewport(panel)"
+* Improved hosted mode start up error handling
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for Cursor property type
+* Support for TrayItem
+* Support for Nebula RadioGroup & RadioItem
+* Support for "live baseline"
+* Support for "BeanInfo.getIcon(kind)" in SWT
+* New "Remove setSize()" context menu command for Shells
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Support for CellEditors as viewers
+* Support for "visual inheritance" in EditorPart
+* Added Forms API pref page
+* Improved Riena support
+
+[#Swing]
+== Enhanced Swing support
+
+* Improved MiGLayout support
+* Improved GroupLayout support
+* Support for editing cell constraints
+* Improved GridBagLayout support
+* Support for dropping Actions from factories in lazy mode
+* Support for "live baseline"
+* Support for configurable column/row gap
+* Use Double.MIN_VALUE as weight for filler column/row
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Various parsing and speed optimizations
+* Support for parameterized/generic events
+* Support for FormToolkit in parameter of constructor
+* Support for "IBeanAttributes.SWT_STYLE" bean parameter
+* Support for UTF-8 *.properties files
+* Support for "lazy" code generation for NVOs
+* Support for "wbp-meta/ConfigureClassLoader.mvel" scripts
+* Support for "EventQueue.invokeAndWait" and "SwingUtilities.invokeAndWait"
+* Include source code into parsing exceptions
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Use place holders for broken custom components
+* Significant performance optimizations
+* New "Extract as view" command in Palette and Structure views
+* Show better message when unable to load "super" class
+* Added Undo/Redo actions to editor toolbar
+* Show warning when trying to drop abstract components
+* Added Usage Profiler for tracking product feature usage
+* Auto-rename template validation
+* Use full HTMl for property pane & palette tooltips
+* API support for customizing properties
+* API support for reading palette files from JARs

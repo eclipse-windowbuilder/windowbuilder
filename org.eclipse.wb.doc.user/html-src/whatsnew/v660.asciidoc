@@ -1,0 +1,88 @@
+= What's New - v6.6.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.6.0* |*SWT Designer v6.6.0*
+|*Swing Designer v6.6.0* |*GWT Designer v4.0.0*
+|===
+
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+a|
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* Support DataBindingContext assigned to a field
+* Custom Label Provider support for JFace Data Bindings
+* Preferences for controlling code generation
+* Added support for initializeContext(DataBindingContext context) method
+* Support for SWTObservables.observeDelayedValue()
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 1.4.61
+* Create GWT JUnit Test Cases
+* JUnit GWT Application launch configuration
+* Preference for generating Async interfaces for RemoteServices
+* Preference to Check for Composite default constructors
+* Preference to check for client-side compilation issues
+* Preference to set the GWT tests source folder
+* Search for *.gwt.xml modules in all source folders
+* Improved support MyGWT and GWT-EXT
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for OSX 10.5 Leopard using Eclipse 3.3.2
+* Support for CmtComponent as value for custom SWT property editor
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Support for one argument constructor in SectionPart
+
+[#Swing]
+== Enhanced Swing support
+
+* Support for adding Document events in JTextComponent
+* Support for generating/parsing TableModel with cells
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Improved JBuilder 2006 code generation compatibility
+* Optionally add "throws Exception" to widget definition method
+* Generate "fields with initializer" directly on top of type
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Improved error reporting
+* Support for EXPLICIT_PROPERTY_CHANGE tag of BeanDescriptor
+* Copy/paste for properties with custom PropertyEditors
+* Show window decorations by default under Linux and OSX

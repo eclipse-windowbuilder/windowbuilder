@@ -1,0 +1,91 @@
+= What's New - v6.4.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.4.0* |*SWT Designer v6.4.0*
+|*Swing Designer v6.4.0* |*GWT Designer v2.0.0*
+|===
+
+* link:#DataBinding[Support for SWT/JFace Data Bindings]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#NLS[Enhanced NLS support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+a|
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Support for SWT/JFace Data Bindings
+
+* Support SWT Data bindings
+* Support JFace Data bindings
+* Icon decorator for bound components
+* Data Binding menu
+* Property pane support for "binding" property
+* Create Data Binding wizard
+* Choose Bean targets, models and inputs
+* Choose Widget targets and models
+* Choose selection targets, models and inputs
+* Choose collection inputs
+* Filter targets and models
+* Filter properties
+* Specify SWT binding properties
+* Specify JFace binding properties
+* Edit and Delete existing bindings
+* Generate initDataBindings() method
+
+[#GWT]
+== Enhanced GWT support
+
+* Improved support for OSX
+* Support for GWT 1.4.10
+* Support for ImageBundle from 1.4.10
+* Support for new GWT 1.4.10 widgets
+* Use Label as placeholder for bad widgets
+* Support for alignment of widgets in cells of Grid and FlexTable
+
+[#SWT]
+== Enhanced SWT support
+
+* Suppress AbsoluteLayout location/size hints preference
+* Enable editing custom absolute layouts preference
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Suppress AbsoluteLayout location/size hints preference
+* Enable editing custom absolute layouts preference
+
+[#Swing]
+== Enhanced Swing support
+
+* Support for JGoodies forms 1.1.0
+
+[#NLS]
+== Enhanced NLS support
+
+* Enhanced support for singleton and instance factories
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Optional decoration of components with events
+* Remember last selection and expansion state on refresh
+* Work around preventing preview window flickering on Metacity

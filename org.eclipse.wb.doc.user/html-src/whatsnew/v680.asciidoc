@@ -1,0 +1,85 @@
+= What's New - v6.8.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.8.0* |*SWT Designer v6.8.0*
+|*Swing Designer v6.8.0* |*GWT Designer v5.1.0*
+|===
+
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#NLS[Enhanced NLS support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+a|
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* Added new JFace Automatic Data Binding wizard
+* Support for master/details binding
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 1.5
+* Added Decorated* widgets to palette
+* Added MicrosoftMap and YahooMap to GWT-Ext palette
+* Support for HTML id property
+* Use "Standard" GWT theme for GWT 1.5
+* Automatically add "-Xmx128m" for new GWT launch configurations
+* Improved Web Project support
+* Support for RemoteServiceRelativePath annotation
+* Separate templates for different GWT versions
+* Don't show properties for Composite without widget
+* Support for renamed gwt-user.jar files
+
+[#SWT]
+== Enhanced JFace & RCP support
+
+* Support for exposing JFace Dialog button
+* Support for "helpAvailable" property in TitleAreaDialog
+
+[#Swing]
+== Enhanced Swing support
+
+* Support for JLayeredPane
+* Support for rendering custom JTable models
+* Improved JBuilder-generated code rendering
+* Improved JSR-296 (AppFramework) wizard
+
+[#NLS]
+== Enhanced NLS support
+
+* Support for more languages and countries
+* Support for properties of "workbench" actions
+* Prefix NLS key with type name for Modern Eclipse style
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Issue auto-build warning, if no .class file detected
+* Show value even for non-modified CustomBeanInfoProperty
+* Filter out "variable" property for "this" Swing container
+* Show "visible" property

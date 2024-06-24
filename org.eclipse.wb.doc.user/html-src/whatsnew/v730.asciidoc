@@ -1,0 +1,120 @@
+= What's New - v7.3.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v7.3.0* |*SWT Designer v7.3.0*
+|*Swing Designer v7.3.0* |*GWT Designer v7.3.0*
+|===
+
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v720.html[v7.2.0]
+* link:v710.html[v7.1.0]
+* link:v700.html[v7.0.0]
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+a|
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* Support for virtual bindings
+* Support for sub properties of observeDetails()
+* Show all Composites in Beans list
+* Improved EMF DataBinding support
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 2.0 (Java API only)
+* Support for new GWT layout panels
+* Support for Ext GWT (GXT) 2.1.0
+* Simplify adding GXT and GWT-Ext to project at creation time
+* Show "GXT UI" actions in context menu if configured
+* Support for generic components and their event listeners
+* Support for alignment actions for GXT "AbsoluteLayout"
+* Support for GXT "Component.setContextMenu()"
+* Include "EnvironmentTab" into GWT launch
+* Support for untyped GXT events
+* Support for VerticalPanel Cell properties
+* Added "SuggestBox" to palette
+* New GXT "LayoutContainer" Wizard
+* Show GWT 2.0 "strict mode" widgets on palette only in "strict mode"
+* Support for "CaptionPanel" (any not abstract Composite) as non-this
+root
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for "TextViewer"
+* Support for Nebula CButton & TableCombo
+* Special warning when user attempts to parse SWT UI without configuring project for SWT
+* Support for rendering "FilteredItemsSelectionDialog"
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Support for "SectionPart" constructor with "FormPage"
+* Generate and use "TableViewerColumnSorter" for sorting by "TableViewerColumn"
+* Support for "org.eclipse.ui.splash.AbstractSplashHandler"
+* New code generation preference for FieldEditors
+* Support for "DoubleFieldEditor"
+
+[#Swing]
+== Enhanced Swing support
+
+* New "Automatically change insets to generate column/row gaps" preference
+* Support for parsing custom "ButtonGroup"
+* Step up to Substance-5.3 LAFs
+* Support for copy/paste panels with "GribBagLayout"
+* Execute any "Container.add(Component+[,...])" methods
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Various parsing and speed optimizations
+* Support for "@wbp.nls.resourceBundle" tag to support user-specific ResourceBundle
+* Support for "local type" as listener type
+* Support for "v++" and "v--" expressions
+* Support for "string + int" and "string + null"
+* Support for evaluating "import static" methods
+* New template preferences for Layout and LayoutData
+* New template preference for inner event handler classes
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Support for "Integer" (as object) property editor
+* In "split mode", when delay is -1, then reparse on save
+* Option to highlight visited/evaluated lines in source
+* Support "Rename..." action for "lazy" variable
+* Support for creation flow in absolute layouts
+* Show "unknown" boolean values
+* Hide JFace widgets when not on path
+* Improved Linux GTK support
+* New "Go To Problem in Source" Button on error page

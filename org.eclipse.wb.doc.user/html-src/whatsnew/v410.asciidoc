@@ -1,0 +1,95 @@
+= What's New - v4.1.0
+
+* link:#FlyoutPanes[New Dockable Flyout Palette & Property Editor]
+* link:#PropertyManager[Added new Property Manager]
+* link:#RenameVariables[Automatically rename variables based on text property]
+* link:#NLS[Enhanced NLS support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
+ 
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+
+[#FlyoutPanes]
+== New Dockable Flyout Palette & Property Editor
+
+* Dock the Property Editor to the top, bottom, left or right of the design view
+* Dock the Palette to the left or right of the design view
+* Palette & Property Editor may be easily collapsed and expanded
+* Palette & Property Editor available as separate views
+
+[#PropertyManager]
+== Added new Property Manager
+
+* Important properties are highlighted in bold and sorted to the top of the list
+* Hidden properties are removed from the property list
+* Hidden properties may be toggled on and off
+* New preference page for configuring properties
+
+[#RenameVariables]
+== Automatically rename variables based on text property
+
+* Rename always, never or only for defaults
+* Specify renaming patterns using text, classname and acronym
+* Use the first n elements of the text value
+* New preference page for configuring variable names
+
+[#NLS]
+== Enhanced NLS support
+
+* Added flag icons for all locales
+* Support for ResourceBundle.getBundle("name").getString("key")
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for setting SWT tab order within a container
+* Added BIDI (RIGHT_TO_LEFT) support for SWT GridLayout, FlowLayout and RowLayout
+* Added an Eclipse Forms Composite wizard
+* Added an SWT Dialog wizard
+* Support for direct edit/double click for ToolItem
+* Support for drop down toolbar items and menus
+* Support for ColorRegistry & FontRegistry
+* Support for Eclipse 3.1 GridLayout enhancements
+* New Autosize widget command for null layout
+* Added tooltips for FormLayout popup figures
+* Support for Forms borders/adapt for SWT frames
+* Enhanced support for FormLayout
+* Keyboard navigation for menus
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Support for adding existing actions for ApplicationWindow/ViewPart
+* Enhanced display of ViewParts and EditorParts
+
+[#Swing]
+== Enhanced Swing support
+
+* Added icons for borders and an option to show them in control tree
+* Show position in title for BorderLayout, JScrollPane, JSplitPane
+* Added support for JGoodies Component Factory and widgets
+* Added JTable on JScrollPane palette entry
+* Support for JMenuBar for JApplet
+* Enhanced support for JTable columns
+* New Autosize Widget command for null layout
+* Added tooltips for SpringLayout popup figures
+* Resize JFrame using content pane handles
+* Improved support for custom Swing widgets and customizers
+* Support for object properties
+* Enhanced support for SpringLayout
+* Support for AbstractButton.setMnemonic(char)
+* Keyboard navigation for menus
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* New toolbar options to evenly distribute controls
+* New Rename command to rename multiple widgets at once
+* New Set Layout command on the context menu
+* New Change Style command on the context menu
+* Option to highlight borderless containers (with dotted outline)
+* Added read-only "class" property
+* Use the Esc key to cancel an add operation

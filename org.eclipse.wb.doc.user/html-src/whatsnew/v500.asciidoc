@@ -1,0 +1,119 @@
+= What's New - v5.0.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v5.0.0* |*SWT Designer v5.0.0*
+|*Swing Designer v5.0.0* | 
+|===
+
+* link:#GroupLayout[Support for Swing & SWT GroupLayout]
+* link:#ActionBarAdvisors[Support for creating and editing RCP ActionBarAdvisors]
+* link:#PaletteManager[New Palette Manager]
+* link:#NLS[Enhanced NLS support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGeneration[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
+ 
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+
+[#GroupLayout]
+== Support for Swing & SWT GroupLayout
+
+* Select GroupLayout from the Swing Layouts or SWT Layouts palette
+* Position and size widgets using GroupLayout constraints
+* Align widgets horizontally and vertically
+* Indent widgets intelligently
+* Insert widgets intelligently
+* Align widgets along text baselines
+* Align widgets to margins
+* Anchor widgets to the left, right or both sides
+* Anchor widgets to the top, bottom or both sides
+* Set anchors via popup context menus
+* Set widget anchoring and resizing via context menu
+* Align and center widgets using toolbar
+* Set alignment, size and spacing using floating layout assistant
+* Preferences to control feedback colors, popup alignment menus and code generation
+* Ported SWT GroupLayout from Swing GroupLayout
+
+[#ActionBarAdvisors]
+== Support for creating and editing RCP ActionBarAdvisors
+
+* New wizard for creating ActionBarAdvisor classes
+* ActionBarAdvisor palette includes common and local actions
+* Create toolbars and buttons with drag/drop
+* Edit Coolbar and Menus with Actions tab
+* Actions list prepopulated with actions defined in ActionFactory class
+* Drag menu category to create a fully populated menu
+* Update associated WorkbenchWindowAdvisor class
+* Support for ToolBarManager style property
+
+[#PaletteManager]
+== New Palette Manager
+
+* Configure palette categories and entries with Palette Manager dialog
+* Add categories, entries and separators using palette menu
+* Import multiple widgets from JAR archives
+* Rearrange items using drag/drop
+* Revert to default palette
+* New palette extension points for Swing and SWT
+
+[#NLS]
+== Enhanced NLS support
+
+* Ask about using old or new value when renaming key to existing one
+* Improved support for default locale
+* Support for VA Java NLS pattern
+
+[#SWT]
+== Enhanced SWT support
+
+* Enhanced snapping feedback for absolute / null layout
+* Support for Eclipse 3.2 ExpandBar & ExpandItem
+* Support for "Expose control" for menu items
+* Support for the GridLayout(cols, equal) constructor
+* Enhanced GridData code generation
+* Support for Accessibility properties & AccessibleListener
+* Support for adding Forms API Toolkits to any window
+* Automatically add Forms API JAR to .classpath and plugin manifest
+* Added Superclass field to Shell and Composite wizards
+* Basic support for custom static factories
+* Morphing Composite/Group to SashForm
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Support for StructuredViewer
+* Enhanced parsing of JFace dialogs
+* Support for viewers in static factories
+
+[#Swing]
+== Enhanced Swing support
+
+* Enhanced snapping feedback for absolute / null layout
+* Support for default GridBagLayout insets
+* Support for LAF read/change in main() method
+* Option for displaying grid in SpringLayout
+* Support for "Expose component" for menu items
+* Support for JGoodies Forms version 1.0.6
+* dded Superclass field to JPanel wizard
+
+[#CodeGeneration]
+== Code Generation & Parsing enhancements
+
+* Option to set variable name in widget: setData("name", "widget-name")
+* Ignore code in "if (!Beans.isDesignTime())" during parsing
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Option for maximizing editor on "Design" page activation
+* Option for formatting source code on editor save
+* Show "<No Properties>" message when there is no selection in editor
+* Select images from source folders and referenced projects in classpath mode
+* Save property table column widths in Designer preferences
