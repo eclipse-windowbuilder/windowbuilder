@@ -1,0 +1,38 @@
+= Reproducible Test Cases
+
+The key to a high-bandwidth interaction with the support team is the
+effective communication of the issue you are experiencing. The best way
+to communicate issues with the tool is through a test case that we can
+run on our end that demonstrates the problem. Once we can _feel your
+pain_ we can more easily diagnose and address it.
+
+== What defines a good test case?
+
+There are a few ingredients that make up a good test case. Good test
+cases are:
+
+* *Isolated* -- the test should be runnable in isolation. Tests that
+expect the environment to be in a particular state when run violate this
+premise.
+* *Standalone* -- the test should be as stand-alone as possible. Ideally
+the test should be a single class (or package) that can be imported into
+a developer's workspace. If necessary, the test might also be parceled
+up in a new project.
+* *Lean* -- the test should be as minimal as possible. This means:
+** it should be as simple as possible and
+** it should introduce a minimal set of dependencies (ideally none).
+
+If your test case triggers a specific exception, please include your
+entire Eclipse ".log" file (found in your <workspace>/.metadata
+directory) and not just the exception itself as important clues may
+appear earlier in the log. Also include your complete Eclipse
+configuration from "Help > About > Installation Details >
+Configuration".
+
+== This goes for Features Too!
+
+In addition to communicating about bugs, this is also an effective way
+to communicate about feature ideas too. Feature requests that are
+fleshed out with reproducible examples are much easier for developers to
+dig into, assess and estimate. They also provide a good shared language
+for exchanging ideas.

@@ -1,0 +1,33 @@
+= Accessibility
+
+The tool provides the following accessibility features:
+
+* Keyboard equivalents for most actions. For example, widgets may be
+moved in any free form layout using the arrow keys. Likewise, the
+palette and property pane can be traversed using the arrow keys.
+
+* Visual focus indicators are provided for selected widgets in the
+component tree and design view as well as for the currently selected
+property.
+
+____
+image:userinterface/images/single_selection.png[image]
+____
+
+* Color preferences are provided to control feedback for most layout
+managers.
+
+* Color is used as an enhancement to various feedbacks in the design
+view.
+
+____
+image:userinterface/images/feedback_drag_grid1.png[image,width=229,height=124] 
+image:userinterface/images/feedback_drag_grid2.png[image,width=229,height=124] 
+image:userinterface/images/feedback_drag_grid3.png[image,width=229,height=124]
+____
+
+* System high contrast settings are respected
+* System fonts, colors and sizes are inherited
+* Blinking text or objects are avoided
+* Documentation is provided in an accessible format
+* No audio alerts are used

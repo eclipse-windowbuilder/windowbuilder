@@ -1,0 +1,117 @@
+= Context Menu
+
+The *Context Menu* provides access to commands commonly used in the
+*link:design_view.html[Design View]* and
+*link:component_tree.html[Component Tree].*
+
+[width="100%",cols="10%,20%,70%",]
+|===
+a|
+=== Icon
+a|
+=== Menu Name
+a|
+=== Description
+
+|image:images/cut_edit.gif[image]
+|*Cut*
+|Copy the selected components to the clipboard and remove them from the
+*link:design_view.html[Design View]*.
+
+|image:images/copy_edit.gif[image]
+|*Copy*
+|Copy the selected components to the clipboard.
+
+|image:images/paste_edit.gif[image]
+|*Paste* 
+|Paste the selected components from the clipboard.
+
+|image:images/delete.gif[image,width=16,height=16]
+|*Delete*
+|Delete the selected components from the *link:design_view.html[Design View]*.
+
+|image:images/test.png[image]
+|*Test/Preview*
+|Preview the window using a quick test mode. This is ideal for testing the
+layout and resizing behavior of your components.
+
+|image:images/editor_refresh.png[image]
+|*Refresh*
+|Re-parse the current source and refresh the *link:design_view.html[Design View]*.
+
+|
+|* Add event handler >*
+|Implement an link:../features/event_handling.html[event handler] for an
+event triggered by the selected component.
+
++++
+<p>
+  <img src="images/evant_handler_swing.png">
+  <img src="images/evant_handler_swt.png" align="top">
+</p>
++++
+
+|
+|* Style >*
+| Change the style of the selected components.
+
++++
+<p>
+  <img src="images/change_style1.png">
+  <img src="images/change_style2.png" align="top">
+  <img src="images/change_style3.png" align="top">
+</p>
++++
+
+|
+|*Set Layout >*
+| Change the layout of the selected container.
+
+image:images/set_layout_swt.png[image]
+
+|
+|* Order >*
+| Change the relative z-order of the selected component. Bring the widget
+to the front, send it to the back, bring it forward or send it backward.
+The command applies to absolute/null layout only.
+
+image:images/order_menu.png[image]
+
+|image:images/exposeComponent.gif[image,width=16,height=16]
+|* Expose Component...*
+| Add a public or protected accessor for the selected component. Components
+exposed in link:../features/visual_inheritance.html[superclasses] or in
+link:../features/custom_composites.html[embedded panels] can be selected
+and edited by the user.
+
+image:images/expose_component.png[image]
+
+|image:images/morph2.gif[image,width=16,height=16]
+|* Morph >*
+| link:../features/morphing.html[Morph] the selected components into
+another type. Similar component types are listed. Direct subclasses of
+the select component may also be selected as can any other arbitrary
+class.
+
+
++++
+<p>
+  <img src="images/morph_menu1.png" align="top">
+  <img src="images/morph_menu2.png" align="top">
+</p>
++++
+
+|image:images/factory.gif[image,width=16,height=16]
+|* Factory >*
+| Create a link:../features/factories.html[factory] from the selected
+component or apply a factory to the selected component.
+
+image:images/factory_menu.png[image,width=159,height=58]
+
+|image:images/rename_convert2.gif[image,width=16,height=16]
+|* Rename...*
+| Rename the selected components and/or convert them to fields or local
+variables.
+
+image:images/rename_convert.png[image]
+|===

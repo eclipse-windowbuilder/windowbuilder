@@ -1,0 +1,135 @@
+= Preferences - WindowBuilder
+
+image:images/preferences_windowbuilder.png[image]
+
+Here is the list of core preference pages:
+
+* *link:preferences_code_parsing.html[Code Parsing]*
+
+Preferences maybe link:preferences_export.html[exported and imported]
+using the Eclipse Preference Export/Import facility.
+
+== General Comments
+
+The positions of the *link:../userinterface/palette.html[Palette]* and
+*link:../userinterface/structure_view.html[Structure View]* may be
+configured via drag and drop or by right-clicking on the header and
+selecting the *Dock On* command. The
+*link:../userinterface/palette.html[Palette]* may be docked to either
+the left or right side of the
+*link:../userinterface/design_view.html[Design View]*.
+
+++++
+<p>
+  <img src="images/flyout_palette1.png">
+  <img src="../userinterface/images/palette_dock_on.gif" align="top">
+</p>
+++++
+
+The *link:../userinterface/structure_view.html[Structure View]* may be
+docked to the top, bottom, left or right of the
+*link:../userinterface/design_view.html[Design View]*.
+
+++++
+<p>
+  <img src="images/dock_left.png">
+  <img src="images/dock_top.png" align="top">
+  <img src="../userinterface/images/structure_view_dock_on.gif" align="top">
+</p>
+++++
+
+The *link:../userinterface/palette.html[Palette]* and
+*link:../userinterface/structure_view.html[Structure View]* are also
+available as standalone views. Use the *Window > Show View > Other...*
+command and open the *WindowBuilder* category or right-click on the
+header and select the *Extract as view* command. Closing the view will
+make it reappear as embedded view within the editor.
+
+++++
+<p>
+  <img src="images/windowbuilder_views.png">
+  <img src="images/palette_view.png" align="top">
+  <img src="images/structure_view.png" align="top">
+  <img src="../userinterface/images/palette_extract_as_view.gif" align="top">
+  <img src="../userinterface/images/structure_extract_as_view.gif" align="top">
+</p>
+++++
+
+== Editor Layout
+
+This preference controls the position of the
+*link:../userinterface/source_view.html[Source View]* relative to the
+*link:../userinterface/design_view.html[Design View]*. By default, they
+are "on separate notebook tabs" labeled *Source* and *Design* (you can
+select which page is first). Additional options are provided to show the
+*link:../userinterface/source_view.html[Source View]* and
+*link:../userinterface/design_view.html[Design View]* side by side or
+one above the other.
+
+image:../userinterface/images/source_view_right.png[image,width=902,height=305]
+
+image:../userinterface/images/source_view_bottom.png[image,width=545,height=456] 
+image:../userinterface/images/source_view.png[image,width=442,height=456]
+
+== Sync Delay (ms)
+
+When the *link:../userinterface/source_view.html[Source View]* and
+*link:../userinterface/design_view.html[Design View]* are both visible,
+this preference determines the delay used to synchronize the two panes.
+If the user types in the *link:../userinterface/source_view.html[Source
+View]*, the source will be re-parsed and the
+*link:../userinterface/design_view.html[Design View]* will be updated
+after a period specified by the sync delay. Use "-1" to synchronize only
+on save.
+
+== Associate WindowBuilder editor with automatically recognized Java GUI files
+
+This preference determines whether *WindowBuilder Pro* will attempt to
+automatically recognize GUI files and associate the *WindowBuilder*
+editor with them.
+
+== Maximize editor on "Design" page activation
+
+This preference determines whether the *WindowBuilder* editor will be
+automatically maximized when switching to the
+*link:../userinterface/design_view.html[Design View]*.
+
+== Format source code (and reparse) on editor save
+
+This preference determines whether the generated source code will be
+formatted using your Eclipse code formatting preferences whenever the
+*WindowBuilder* editor is saved.
+
+== Go to component definition in source on selection
+
+This preference controls whether the source definition of a component is
+highlighted any time a component is selected in the
+*link:../userinterface/design_view.html[Design View]*.
+
+== Automatically add to palette when using Choose Component
+
+This preference controls the whether beans selected using the *Choose
+Component* command are automatically added to the *Custom Controls*
+palette.
+
+== Accept drop non-visual beans to design canvas
+
+This preference controls whether non-visual beans may be dropped on the
+design canvas.
+
+== Show debug information on console
+
+This preference controls whether debugging info is written to the Java
+console window.
+
+== Show warning for incompatible Eclipse/WindowBuilder versions
+
+This preference controls whether the tool shows a version warning when
+there is a mismatch between the version of the tool you are using and
+the version of Eclipse you are using. In general, a version of the tool
+built for Eclipse 3.4 will not work with Eclipse 3.7 and vice versa. In
+some situations, a newer milestone or integration build will work with
+the latest build, so this preference gives you the ability to suppress
+the unnecessary and distracting warning in those cases. Be warned,
+however, that using the tool  in a mismatched Eclipse version may result
+in unpredictable behavior.

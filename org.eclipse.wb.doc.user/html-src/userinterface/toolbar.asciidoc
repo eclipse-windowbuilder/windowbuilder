@@ -1,0 +1,118 @@
+= Toolbar
+
+The *Toolbar* provides access to commands commonly used in the
+*link:design_view.html[Design View]* and
+*link:component_tree.html[Component Tree].*
+
+[width="100%",cols="10%,20%,70%"]
+|===
+a|
+=== Icon
+a|
+=== Command Name
+a|
+=== Description
+
+|image:images/test.png[image]
+|*Test/Preview*
+|Preview the window using a quick test mode. This is ideal for testing the
+layout and resizing behavior of your components.
+
+|image:images/editor_refresh.png[image]
+|*Refresh/Reparse*
+|Re-parse the current source and refresh the design view.
+
+| 
+|*Look & Feel*
+|Choose the Look & Feel to display the current widgets (Swing only).
+
+|image:images/cut_edit.gif[image]
+|*Cut*
+|Copy the selected components to the clipboard and remove them from the
+*link:design_view.html[DesignView]*.
+
+|image:images/copy_edit.gif[image]
+|*Copy*
+|Copy the selected components to the clipboard.
+
+|image:images/paste_edit.gif[image]
+|*Paste*
+|Paste the selected components from the clipboard.
+
+|image:images/delete.gif[image,width=16,height=16]
+|*Delete*
+|Delete the selected components from the *link:design_view.html[Design View]*.
+
+|image:images/assistant.gif[image]
+|*Layout Assistant*
+| Open the layout assistant for the layout manager associated with the
+selected container.
+
+image:images/layout_assistant.png[image]
+
+|image:images/align_h_left.gif[image]
+|*Align Left*
+|Align the selected components along their left edges.
+
+|image:images/align_h_centers.gif[image]
+|*Align Center*
+|Align the selected components along their horizontal centers.
+
+|image:images/align_h_right.gif[image]
+|*Align Right*
+|Align the selected components along their right edges.
+
+|image:images/align_v_top.gif[image]
+|*Align Top*
+|Align the selected components along their top edges.
+
+|image:images/align_v_centers.gif[image]
+|*Align Middle*
+|Align the selected components along their vertical centers.
+
+|image:images/align_v_bottom.gif[image]
+|*Align Bottom*
+|Align the selected components along their bottom edges.
+
+|image:images/align_width.gif[image]
+|*Replicate Width*
+|Replicate the width of the selected components.
+
+|image:images/align_height.gif[image]
+|*Replicate Height*
+|Replicate the height of the selected components..
+
+|image:images/align_h_space.gif[image]
+|*Distribute Width*
+|Distribute the extra horizontal width equally for the selected components.
+If the Ctrl key is down, the left-most and right-most widgets will act as
+anchors.
+
+|image:images/align_v_space.gif[image]
+|*Distribute Height*
+|Distribute the extra horizontal height equally for the selected components.
+If the Ctrl key is down, the top-most and bottom-most widgets will act as
+anchors.
+
+|image:images/align_h_center.gif[image]
+|*Center Horizontally*
+|Center the selected components horizontally in the window.
+
+|image:images/align_v_center.gif[image]
+|*Center Vertically*
+|Center the selected components vertically in the window.
+
+|image:images/globe3.png[image]
+|*Externalize Strings*
+| Opens the *link:../features/internationalization.html[Externalize
+Strings]* dialog.
+
+image:../features/images/nls_externalize_strings5.png[image,width=463,height=326]
+
+|
+|*Choose Locale*
+| Choose the *link:../features/internationalization.html[Locale]* to
+display the current widgets.
+
+image:images/choose_locale.gif[image]
+|===

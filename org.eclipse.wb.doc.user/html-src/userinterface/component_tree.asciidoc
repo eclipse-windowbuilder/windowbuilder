@@ -1,0 +1,50 @@
+= Component Tree
+
+image:images/component_tree.png[image,width=289,height=303]
+
+The *Component Tree* shows the hierarchical relationship between all of
+the components in the *link:design_view.html[Design View]*.
+
+Each component in the tree shows is icon (with potential decorators),
+its variable name and text label. Components may be represented as local
+variables or fields, and variable names must be unique within the scope
+in which the component is defined.
+
+image:images/event_icon_decorator.png[image]
+
+Icon decorators (see table below) are used to indicate whether a component
+defines and events or is exposed as a public component of a custom container.
+
+Expand the components in the tree using the *Expand All*
+image:images/expand_all.gif[image,width=16,height=16] button, and
+collapse them using the *Collapse All*
+image:images/collapse_all.gif[image,width=16,height=16] button.
+
+Right-click on an entry in the tree to access the same
+link:context_menu.html[context menu] available in the
+*link:design_view.html[Design View]*. Components may be re-arranged in
+the tree via drag/drop and deleted using the *Delete* key.
+
+Multiple components may be selected in the tree by holding down the
+*Ctrl* key to add individual selections or the *Shift* key to add
+contiguous selections.
+
+== Decorators
+
+[width="100%",cols="10%,20%,70%"]
+|===
+a|
+=== Icon
+a|
+=== Decorator Name
+a|
+=== Description
+
+|image:images/exposed_decorator.gif[image]
+|*Exposed*
+|Child widgets exposed in a custom container.
+
+|image:images/event_decorator.gif[image,width=7,height=7]
+|*Event* 
+|Components with one or more event handlers defined.
+|===

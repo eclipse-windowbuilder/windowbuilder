@@ -1,0 +1,27 @@
+= Editing Existing Windows
+
+To open a file that has not been created by the tool or that is
+currently edited by a different editor (such as the standard *Java
+Editor*), simply right-click on the file and select *Open With >
+WindowBuilder Editor*.
+
+image:images/open_with.gif[image]
+
+This will open the file in the *WindowBuilder* Editor in the
+*link:../userinterface/source_view.html[Source View]* by default (the
+editor layout may be easily customized if you prefer the
+*link:../userinterface/design_view.html[Design View]* to appear first or
+if you want the *link:../userinterface/source_view.html[Source View]*
+and *link:../userinterface/design_view.html[Design View]* to appear at
+the same time). There are two tabs at the bottom of the editor window
+labeled *Source* and *Design* as shown below. If you click on the
+*Design* tab or hit *F12*, the file will be displayed in the
+*link:../userinterface/design_view.html[Design View]* and you will be
+able to visually design your GUI.
+
+image:images/source_design.png[image,width=252,height=70]
+
+*Note:* If a file was last opened in the *WindowBuilder* Editor , it
+will continue to open in that editor until a different editor is
+selected to edit the file. If you do not see the *Source* and *Design*
+tabs, this means that you are not using the *WindowBuilder* Editor.
