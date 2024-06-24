@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -154,10 +155,12 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 					// If default was set to a layout that is de-selected from available layouts.
 					// The default layout is set back to implicit layout
 					List<Object> input = getLayoutItems();
-					Object selection = layoutCombo.getStructuredSelection().getFirstElement();
+					IStructuredSelection selection = layoutCombo.getStructuredSelection();
 					layoutCombo.setInput(input);
-					if (!input.contains(selection)) {
+					if (!input.contains(selection.getFirstElement())) {
 						layoutCombo.setSelection(implicitLayoutSelection);
+					} else {
+						layoutCombo.setSelection(selection);
 					}
 				});
 				GridDataFactory.create(m_table.getTable()).fillH().spanH(gridLayoutColumns);
