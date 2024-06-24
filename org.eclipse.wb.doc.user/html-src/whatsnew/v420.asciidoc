@@ -1,0 +1,126 @@
+= What's New - v4.2.0
+
+* link:#SWT_VisualInheritance[Support for SWT Visual Inheritance]
+* link:#FreeCellMode[New "Free cell mode" edit policy for SWT GridLayout]
+* link:#NonVisualBeans[Support for non-visual beans]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGeneration[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
+ 
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+
+[#SWT_VisualInheritance]
+== Support for SWT Visual Inheritance
+
+* Inherit from any Composite or Shell subclass
+* All inherited widgets are visible
+* Access inherited widgets exposed via public or protected accessors
+* Inherited widgets appear in tree with "i" decorator
+
+[#FreeCellMode]
+== New "Free cell mode" edit policy for SWT GridLayout
+
+* Position widgets freely in any open cell
+* Insert new rows and columns between existing cells
+* Rearrange rows and columns via drag/drop
+* Double-click or right-click on header to set/clear horizontal/vertical grab
+* Interactive column and row spanning feedback
+* Right-click on the header area to access the popup header menu
+* Right-click to delete rows and columns
+* Filler labels automatically managed
+* Option for Text widgets to automatically grab horizontally
+* Option to automatically right-align label widgets to the left of text
+widgets
+
+[#NonVisualBeans]
+== Support for non-visual beans
+
+* Non-visual beans placed in a "(non-visual beans)" category
+* Marked in source with "// @wb:location=X,Y" tag
+* Option for creating non-visual beans as fields
+* Reorder non-visual beans via drag/drop
+
+[#SWT]
+== Enhanced SWT support
+
+* Enhanced support for custom SWT widgets
+* Option to generate Eclipse 3.0-style GridData
+* New "Set tab order" command on container context menu
+* Automatically autosize widgets in null and FormLayout
+* New "Autosize widget" command for FormLayout
+* Reparenting support for Forms ExpandableComposite and Section
+* Enhanced layout assistants for FillLayout & GridLayout
+* Support for protected properties in SWT
+* Support for SWT Point property
+* Support for 3.2 CoolBar vertical style
+* Support for 3.2 sortColumn/sortDirection properties
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Show events for label and main controls for field editors in popup
+* Support for name/icon properties for views/editors
+* Support for view category editing and creation
+* Support for toolbar/coolbar managers on design canvas
+* Create ID field for new ViewPart
+* Wizard for ViewPart adds view declaration in plugin.xml
+* Wizard for EditorPart adds editor declaration in plugin.xml
+* Create view/editor extensions when needed
+* Automatically adapt non-form control
+* Add/remove paintBorders/adapt using popup menu
+* "Adapt control" popup items for Forms API
+* Support for clientVerticalSpacing/marginWidth/marginHeight properties
+for ExpandableComposite/Section
+
+[#Swing]
+== Enhanced Swing support
+
+* Show value feedback for insets/padding in GridBagLayout
+* Support for focus traversal policy for Swing
+* New "Set tab order" command on container context menu
+* Automatically autosize widgets in null and SpringLayout
+* New "Flatten Hierarchy" action for Swing container
+* Option for changing size to preferred on move in absolute layout
+* New "Autosize widget" command for SpringLayout
+* Don't show sub-components when "isContainer == FALSE" in bean descriptor
+* Support for custom layout managers
+* Support for JBuilder XYLayout and XYConstraints
+* Support for Swing components from fields
+* Mark container as focus cycle root when setting focus policy
+
+[#CodeGeneration]
+== Code Generation & Parsing enhancements
+
+* Option for specifying default code generation method
+* Option to to surround method invocation code with try\{}catch\{}
+* Support for "this" prefix before field
+* Option for disabling complex expressions evaluations
+* Option for enable/disable reparse after custom component change
+* Support for options for position of event handler inner class
+* Option for removing "real" event handlers during component remove
+* Provide JDK 1.5 versions of ResourceManager as needed
+* Ignore during parsing methods that have single argument subclass of
+EventObject
+* Support for components from static factories
+* Support for borders from static factories
+* Understand SWT code for controls with more than two arguments in
+constructor
+* Support for adding new controls with complex constructors
+* Support for constructor arguments for SWT controls
+* Support for enumeration properties
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Option for automatically drop down combo property editors on activation
+* "Expose property..." item added to property table popup menu
+* Option to automatically direct edit new widgets
+* Support for editing layout properties with multi-selection
+* Refresh custom components palette after receiving focus
+* Support for preferred property descriptors
+* Remember expansion state in image selection dialog
+* Group constructor properties in complex "constructor" property

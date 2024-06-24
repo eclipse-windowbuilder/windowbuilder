@@ -1,0 +1,103 @@
+= What's New - v6.5.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.5.0* |*SWT Designer v6.5.0*
+|*Swing Designer v6.5.0* |*GWT Designer v3.0.0*
+|===
+
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#NLS[Enhanced NLS support]
+* link:#Parsing[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+a|
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* Support for update strategy converters and validators
+* Support for binding to exposed controls
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 1.4.60
+* Optionally create EntryPoint and public resources
+* Support for new GWT bootstrap process
+* Support for GWT KitchenSink example
+* Support for GWT Mail example
+* Add warning for Composite without default constructor
+* Improved support for Linux
+* Improved support for SplitPanels
+* Support for custom TabPanels
+* Automatically add missing default constructor for Composite
+* Support for @gwt.resource in ImageBundle
+* Support for images in CustomButton.Face
+* Support for String[] return type for Constants
+* Support for RemoteServices during design time
+
+[#SWT]
+== Enhanced SWT support
+
+* Add "Show Headers" option to Table context menu
+* Removed dispose() method from Composite template
+* Improved ResourceManager class
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Added TableColumn to JFace Viewers palette category
+* Added FilteredList to JFace Viewers palette category
+
+[#Swing]
+== Enhanced Swing support
+
+* Added "unspecified" LAF selection item
+* Render glue elements in menubar at design time
+* Enhanced GridBagLayout support
+* Support for GBL gap columns/rows
+* Show placeholders for bad widgets
+
+[#NLS]
+== Enhanced NLS support
+
+* Support for ResourceBundle.getBundle(name,Locale)
+
+[#Parsing]
+== Code Generation & Parsing enhancements
+
+* Preference to control visibility of Swing widget accessor methods
+* Support for modifier of accessor method
+* Improved error reporting during parsing
+* Improved support for non-visual beans
+* Automatically create JavaDoc for new widget definition methods
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Show window sizing feedback
+* Support for exporting Designer preferences
+* Support for importing Designer preferences
+* Preference to enable/disable determining GUI content type
+* Clear cached images on refresh

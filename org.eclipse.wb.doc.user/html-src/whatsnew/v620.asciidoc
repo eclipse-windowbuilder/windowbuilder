@@ -1,0 +1,63 @@
+= What's New - v6.2.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.2.0* |*SWT Designer v6.2.0*
+|*Swing Designer v6.2.0* |*GWT Designer v1.6.1*
+|===
+
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#Swing[Enhanced Swing support]
+* link:#Parsing[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+a|
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 1.3.3
+* New EntryPoint wizard
+* Enhanced CSS Style Selection dialog
+* Added HTML option to GWT launch configuration
+* Support for I18N Messages at design time
+* Support for HTMLTable.getRowFormatter().xxx() methods
+
+[#SWT]
+== Enhanced SWT support
+
+* Improved GroupLayout support
+* Baseline support for DateTime widget
+
+[#Swing]
+== Enhanced Swing support
+
+* Support for OSX using Eclipse 3.3 & JDK 1.5 Release 5 Developer Preview 2
+* Support for Java 6 GroupLayout
+* New Swing color dialog
+* Improved SpringLayout support
+
+[#Parsing]
+== Code Generation & Parsing enhancements
+
+* Enhanced support for singleton and instance factories
+* Generate name of LayoutData based on name of Control
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Enhanced Palette Manager to support badly defined widget jars

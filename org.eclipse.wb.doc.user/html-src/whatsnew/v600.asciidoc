@@ -1,0 +1,62 @@
+= What's New - v6.0.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.0.0* |*SWT Designer v6.0.0*
+|*Swing Designer v6.0.0* |*GWT Designer v1.0.0*
+|===
+
+* link:#GWT[New GWT Designer Product]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
+ 
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+
+[#GWT]
+== New GWT Designer Product
+
+* Bi-direction code generation for Google Web Toolkit API
+* GWT Java Project, Module and RemoteService wizards
+* Composite, DialogBox and PopupPanel wizards
+* Support for all standard GWT panels and widgets
+* Support for custom composites, panels and widgets
+* Rich editing for all panel types
+* Matisse-style snapping feedback for AbsolutePanels
+* Graphically layout Grids and FlexTables
+* Graphically layout TabPanels
+* Integrated CSS support (create, edit and render new CSS styles)
+* GWT Launch Configuration and launch shortcut
+* Builder for automatic creation of "async" parts of a RemoteService
+* Intelligent refactoring support for renaming modules and services
+* Internationalization support using GWT-specific patterns
+* One-click WAR file build and deployment support
+* Extremely fast due to using ASM for fast bytecode modification
+
+[#SWT]
+== Enhanced SWT support
+
+* Enhanced menu support
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Support for SourceViewer
+
+[#Swing]
+== Enhanced Swing support
+
+* Enhanced menu support
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Added "Refresh" button to toolbar
+* Enhanced usability of property pane

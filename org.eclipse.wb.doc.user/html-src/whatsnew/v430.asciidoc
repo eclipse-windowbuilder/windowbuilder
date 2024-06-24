@@ -1,0 +1,103 @@
+= What's New - v4.3.0
+
+* link:#Perspectives[Support for creating and editing RCP Perspectives]
+* link:#VisualTabOrderEditing[Support for visual tab order editing]
+* link:#NLS[Enhanced NLS support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGeneration[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
+ 
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+
+[#Perspectives]
+== Support for creating and editing RCP Perspectives
+
+* New wizard for creating Perspective Factories
+* Perspective declaration added to plugin.xml
+* Perspective palette includes common and local views
+* Change view locations and sizes with drag/drop
+* Create folders by stacking views
+* Manage placeholder & fast views and view & perspective shortcuts
+
+[#VisualTabOrderEditing]
+== Support for visual tab order editing
+
+* Clicking "Tab Order" button places editor into tab order mode
+* Click on components in desired tab order
+* Ctrl+click a component to move its tab position to another
+* Shift+click to add/remove a tab stop from a component
+
+[#NLS]
+== Enhanced NLS support
+
+* Show widget icons in locale table
+* Added "Internalize key..." & "Remove locale..." actions in locale table
+* Show tooltip with components in locale table
+* Use Enter and Tab to navigate locale table
+* Support for ClassName.class.getName() as BUNDLE_NAME in NLS
+* Automatically sort keys in properties files
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for alignment to any control in FormLayout
+* Enhanced attachment feedback in FormLayout
+* Show warning when change number of columns in GridLayout
+* Support for scrollbars events of ScrolledComposite
+* Support for icons of custom SWT controls
+* Support for custom SWT property editors
+* Support for SWT customizers
+* Support for cross-parent alignment for SWT absolute layout
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Support for SectionParts
+* Support for properties of buttons on JFace Dialogs
+* Support for "parent" argument of ViewPart.createPartControl(Composite parent)
+* Support for custom FormToolkit's
+
+[#Swing]
+== Enhanced Swing support
+
+* Support for alignment to any control in SpringLayout
+* Enhanced constraint feedback in SpringLayout
+* Support for morphing to subclass/other
+* Support for "Insets" argument of EmptyBorder
+* Added "Set frame size" menu for frames
+
+[#CodeGeneration]
+== Code Generation & Parsing enhancements
+
+* Major performance enhancements (windows open 2X-3X faster)
+* Option for creating Swing components fields in initializers
+* Option for adding 'final' to event handlers parameters
+* Support for "$\{default_name}" in variable name template
+* Ignore 'null' assignments in field declarations
+* Support for parents passed as arguments
+* Support for parsing refactored methods in any order
+* Enhanced support for factories
+* Support for static methods from current class
+* Don't create default constructors until needed
+* Support for public/protected/default static fields in superclasses
+* Check that variable name is not reserved Java identifier
+* Support for Java5 enum properties and EnumSet
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Support for required properties
+* Preference for highlight/ignore required properties
+* Show class hierarchy tooltip and double click to open
+* New tree-based image selection dialog
+* Support for selecting images from classpath jar's
+* Option for enabling/disabling "Test" action
+* Enable copy, but prevent cut for top level components
+* Minimal support for JBuilder OpenTools API
+* Use better plus/minus images for property table
+* Support for selecting images in projects with multiple source folders

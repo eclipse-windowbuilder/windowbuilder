@@ -1,0 +1,112 @@
+= What's New - v7.0.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v7.0.0* |*SWT Designer v7.0.0*
+|*Swing Designer v7.0.0* |*GWT Designer v7.0.0*
+|===
+
+* link:#Factories[New support for UI Factories]
+* link:#DataBinding[Enhanced SWT/JFace Data Bindings support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#NLS[Enhanced NLS support]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+a|
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#Factories]
+== New support for UI Factories
+
+* Create UI Factory classes from selected widgets
+* Add UI Factories to palette
+
+[#DataBinding]
+== Enhanced SWT/JFace Data Binding support
+
+* New Data Binding Editor Tab
+* SWT & JFace bindings merged into a single UI
+
+[#GWT]
+== Enhanced GWT support
+
+* ImageBundle support
+* Improved FlexTable & Grid support
+* Full support for GWT-Ext (widgets & layouts)
+
+[#SWT]
+== Enhanced SWT support
+
+* Improved Accelerator Editor
+* Improved FormLayout support
+* Improved GridLayout & TableWrapLayout support
+* Nebula widgets
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* TableViewerColumn & TreeViewerColumn support
+* TableColumnLayout & TreeColumnLayout support
+* Wizard & MultiPageEditorPart wizards
+* ControlDecoration support
+* Visual Menu Editing for ViewParts & ActionsBarAdvisors
+* Improved RCP Action support
+
+[#Swing]
+== Enhanced Swing support
+
+* JSR 295, Swing Data Binding
+* MIG Layout
+* Border Editor
+* Improved Swing Action support
+* Improved Swing Model support (List, Tree, Table, Combo)
+* Improved KeyStroke Editor
+* Improved Font Editor
+* Improved ButtonGroup support
+* Improved SpringLayout support
+* Improved Look-n-Feel support
+
+[#NLS]
+== Enhanced NLS support
+
+* Type keys into text properties by name
+* Select key in String Editor
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Improved parsing using binary execution flow
+* Improved code generation preferences with preview
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Improved error reporting
+* New "Surround With" support
+* Improved property table & editors
+* Improved widget palette
+* New customization API

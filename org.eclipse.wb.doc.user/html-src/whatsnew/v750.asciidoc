@@ -1,0 +1,71 @@
+= What's New - v7.5.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v7.5.0* |*SWT Designer v7.5.0*
+|*Swing Designer v7.5.0* |*GWT Designer v7.5.0*
+|===
+
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace[Enhanced JFace & RCP support]
+* link:#NLS[Enhanced NLS support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v740.html[v7.4.0]
+* link:v730.html[v7.3.0]
+* link:v720.html[v7.2.0]
+* link:v710.html[v7.1.0]
+* link:v700.html[v7.0.0]
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+a|
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 2.0.3
+* Support for SmartGWT
+* Support for Ext GWT (GWT) Data Binding
+* Support for xulrunner-1.9.2
+
+[#SWT]
+== Enhanced SWT support
+
+* Improved FormLayout support
+
+[#JFace]
+== Enhanced JFace & RCP support
+
+* Call "FormToolkit.dispose()" in templates for "Composite" and "ViewPart"
+
+[#NLS]
+== Enhanced NLS support
+
+* Support for "always visible locales"
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* New property editors for "Double", "Byte", "Short" and "Long"
+* Support "condition" for "palette" and "category" elements
+* Support for "topBounds.pack" parameter

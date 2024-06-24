@@ -1,0 +1,74 @@
+= What's New - v6.1.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.1.0* |*SWT Designer v6.1.0*
+|*Swing Designer v6.1.0* |*GWT Designer v1.5.0*
+|===
+
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Parsing[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+a|
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for IE7 and GWT 1.2.11, 1.2.22 & 1.3.1
+* Support for Linux and Mozilla
+* Support for visual inheritance
+* Support for cut, copy and paste
+* Compiler checks for valid GWT Java code
+* Support for "compiler style" option during deployment & launching
+* Deployment dialog option for setting maximum GWT compiler memory
+* Support for all GWTShell flags in launch configuration
+* Support for renaming CSS rules
+* Support for sorting CSS rules
+* Support for adding Widget's as items in Tree
+* Improved support for GWT KitchenSink example
+* Automatically add missing RootPanel references
+* Added action for converting a Java project into a GWT project
+* Remove "@gwt.typeArgs" JavaDoc tags during "Async" generation
+* Deployment adds jars for all required (referenced) projects
+* Support for accessing Java object fields from JavaScript
+* Support for linked source folders
+* Support for complex constructors
+* Enhanced FormPanel support
+* Support for Hidden widget
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for new Eclipse 3.3 DateTime widget
+* Improved SWTResourceManager support for Java 5
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Enhanced FieldPreferencePage code generation
+
+[#Parsing]
+== Code Generation & Parsing enhancements
+
+* Basic support for singleton and instance factories
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Setting font color now changes widget foreground color
+* Support for adding any beans as "non-visual"

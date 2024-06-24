@@ -1,0 +1,94 @@
+= What's New - v8.1.1
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v8.1.1* |*SWT Designer v8.1.1*
+|*Swing Designer v8.1.1* |*GWT Designer v8.1.1*
+|===
+
+* link:#GWT[Enhanced GWT support]
+* link:#XWT[Enhanced XWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#Swing[Enhanced Swing support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+
+[cols="34%,33%,33%"]
+|===
+a|
+* link:v810.html[v8.1.0]
+* link:v800.html[v8.0.0]
+* link:v760.html[v7.6.0]
+* link:v750.html[v7.5.0]
+* link:v740.html[v7.4.0]
+* link:v730.html[v7.3.0]
+* link:v720.html[v7.2.0]
+* link:v710.html[v7.1.0]
+* link:v700.html[v7.0.0]
+a|
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0] 
+a|
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 2.1.1
+* Improved support for GWT UiBinder
+* Support for @UiField(provided) and @UiFactory
+* Support for @UiTemplate annotation
+* Support for @UiConstructor properties
+* Support for UiBinder Grid
+* Support for Cell Widgets
+* Improved GXT support
+* Improved SmartGWT support
+* Improved Maven support
+* WebKit rendering for 32-bit Windows
+
+[#XWT]
+== Enhanced XWT support
+
+* Improved XWT data binding support
+* Improved XWT FormLayout support
+* Support for "object" selection property editor
+
+[#SWT]
+== Enhanced SWT support
+
+* Better detection of "style" constructor argument in "Composite"
+
+[#Swing]
+== Enhanced Swing support
+
+* Improved support for for "addSeparator()" and "JPopupMenu"
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Provide better error messages for common cases
+* Support for using "Ctrl+PageUp/PageDown" in editors
+* New "Select" sub-menu in context menu
+* Deleting a root now just clears its children
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Ignore errors in CompilationUnit when parsing UiBinder
+* Better support for parsing generics
+* Reparse automatically after "ui.xml" file change

@@ -1,0 +1,79 @@
+= What's New - v6.3.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v6.3.0* |*SWT Designer v6.3.0*
+|*Swing Designer v6.3.0* |*GWT Designer v1.7.0*
+|===
+
+* link:#Web[Support for Web Projects]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#Swing[Enhanced Swing support]
+* link:#Parsing[Code Generation & Parsing enhancements]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+a|
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#Web]
+== Support for Web Projects
+
+* New wizard for creating Web Projects
+* New wizards for creating Applets, HTML pages, JSP pages & Servlets
+* Set Web Project Deployment properties
+* Set Web Project GWT properties
+* New Web Project Deployment command
+* Web Project > Project preferences
+* Web Project > Deployment preferences
+* HTML Templates preferences
+* JSP Templates preferences
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for OSX
+* Support for "Parameters" in GWT launch configuration
+* Support for "URL" in GWT launch configuration
+* Enhanced Compiler checks for valid GWT Java code
+* Automatic project recompilation triggered by gwt.xml file changes
+* QuickFix for adding <inherits name="the.module.name"/>
+* Use main module URL during remote services deployment
+
+[#SWT]
+== Enhanced SWT support
+
+* Suppress AbsoluteLayout location/size hints preference
+
+[#Swing]
+== Enhanced Swing support
+
+* Suppress AbsoluteLayout location/size hints preference
+* Enable editing custom absolute layouts preference
+
+[#Parsing]
+== Code Generation & Parsing enhancements
+
+* Enhanced support for singleton and instance factories
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Widget ordering support for AbsoluteLayout
+* Allow Swing property editors for SWT controls
+* Support for SWT property editors for non-visual beans
+* Support for widget resizing by keyboard
+* Linux preview window offset preferences

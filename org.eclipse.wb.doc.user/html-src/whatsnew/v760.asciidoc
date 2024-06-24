@@ -1,0 +1,78 @@
+= What's New - v7.6.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v7.6.0* |*SWT Designer v7.6.0*
+|*Swing Designer v7.6.0* |*GWT Designer v7.6.0*
+|===
+
+* link:#XWT[XWT (XML Window Toolkit) support]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+* link:#Swing[Enhanced Swing support]
+* link:#CodeGen[Code Generation & Parsing enhancements]
+
+[cols="50%,50%"]
+|===
+a|
+* link:v750.html[v7.5.0]
+* link:v740.html[v7.4.0]
+* link:v730.html[v7.3.0]
+* link:v720.html[v7.2.0]
+* link:v710.html[v7.1.0]
+* link:v700.html[v7.0.0]
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+a|
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+* link:v610.html[v6.1.0]
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#XWT]
+== XWT (XML Window Toolkit) support
+
+* Wizards for creating XWT Applications and Composites
+* Wizards for creating XWT Forms Applications and Composites
+* Support for all SWT and JFace components and properties
+* Support for all standard SWT layout managers like GridLayout and FormLayout
+* Support for SWT event handlingSupport for xulrunner-1.9.2
+* Bi-directional editing between the design view and the XML source code
+
+[#GWT]
+== Enhanced GWT support
+
+* Improved support for SmartGWT
+* Support for dropping any "Widget" on "Tree"
+* GWT wizards are context sensitive
+* Improved GWT-Ext table support
+* Improved GXT column model support
+* Ignore invalid "web.xml" file when search HTML file
+
+[#SWT]
+== Enhanced SWT support
+
+* Rendering support for GridLayoutFactory and GridDataFactory
+
+[#Swing]
+== Enhanced Swing support
+
+* Major performance improvements in OSX
+* General speed improvements under all platforms
+
+[#CodeGen]
+== Code Generation & Parsing enhancements
+
+* Evaluate generic method invocations

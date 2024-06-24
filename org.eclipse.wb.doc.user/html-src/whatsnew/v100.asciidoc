@@ -1,0 +1,76 @@
+= What's New - v1.0.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v1.0.0* | *SWT Designer v1.0.0*
+|*Swing Designer v1.0.0* | *GWT Designer v2.4.0*
+|===
+
+* link:#EclipseProject[WindowBuilder Project at Eclipse.org]
+* link:#GWT[Enhanced GWT support]
+* link:#SWT[Enhanced SWT support]
+
+[cols="34%,33%,33%"]
+|===
+a|
+* link:v811.html[v8.1.1]
+* link:v810.html[v8.1.0]
+* link:v800.html[v8.0.0]
+* link:v760.html[v7.6.0]
+* link:v750.html[v7.5.0]
+* link:v740.html[v7.4.0]
+* link:v730.html[v7.3.0]
+* link:v720.html[v7.2.0]
+* link:v710.html[v7.1.0]
+a|
+* link:v700.html[v7.0.0]
+* link:v690.html[v6.9.0]
+* link:v680.html[v6.8.0]
+* link:v670.html[v6.7.0]
+* link:v660.html[v6.6.0]
+* link:v650.html[v6.5.0]
+* link:v640.html[v6.4.0]
+* link:v630.html[v6.3.0]
+* link:v620.html[v6.2.0]
+a|
+* link:v610.html[v6.1.0] 
+* link:v600.html[v6.0.0]
+* link:v510.html[v5.1.0]
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+|===
+
+[#EclipseProject]
+== WindowBuilder Project at Eclipse.org
+
+* Code namespace changed to org.eclipse.wb.*
+* Eclipse.org copyright header added to all files
+* New *Create Report* option for error window
+* New auto-discovery mechanism for easily loading new UI Toolkits
+* Externalized all strings for localization/internationalization
+* Established initial public API
+* Version numbers reset to 1.0.0
+* New WindowBuilder forum at Eclipse.org
+* All IP reviewed and non-conforming pieces moved to Eclipse Labs
+
+[#GWT]
+== Enhanced GWT support
+
+* Support for GWT 2.2, 2.3 and 2.4
+* Change GWT Designer version to 2.4.0
+* Improved support for GWT UiBinder
+* Use unmodified GWT distribution
+* Support for @UiChild
+* Support for SmartGWT 2.4
+* Enhanced GXT data binding
+
+[#SWT]
+== Enhanced SWT support
+
+* Support for "Name" property in Viewer
+* Data binding support for DateTime
+* Enhanced XWT data binding

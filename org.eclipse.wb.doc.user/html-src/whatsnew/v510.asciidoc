@@ -1,0 +1,70 @@
+= What's New - v5.1.0
+
+[cols="50%,50%"]
+|===
+|*WindowBuilder Pro v5.1.0* |*SWT Designer v5.1.0*
+|*Swing Designer v5.1.0* | 
+|===
+
+* link:#NLS[Enhanced NLS support]
+* link:#GridBagLayout[Enhanced Swing GridBagLayout support]
+* link:#PaletteManager[Enhanced Palette Manager]
+* link:#SWT[Enhanced SWT support]
+* link:#JFace_RCP[Enhanced JFace & RCP support]
+* link:#Swing[Enhanced Swing support]
+* link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
+ 
+* link:v500.html[v5.0.0]
+* link:v430.html[v4.3.0]
+* link:v420.html[v4.2.0]
+* link:v410.html[v4.1.0]
+* link:v400.html[v4.0.0]
+* link:v300.html[v3.0.0]
+
+[#NLS]
+== Enhanced NLS support
+
+* Support for multiple sources
+* Support for configuring Eclipse Message classes
+* Support for configuring resource bundle usage
+* Support for the new, modern Eclipse internationalization format
+* Update Design view when text in a property file changes
+
+[#GridBagLayout]
+== Enhanced Swing GridBagLayout support
+
+* Show column and row headers
+* Rearrange rows and columns via drag/drop
+* Double-click header to set/clear horizontal/vertical fill
+* Right-click on the header area to access the popup header menu
+* Preserve GridBagLayout constraints during move
+
+[#PaletteManager]
+== Enhanced Palette Manager
+
+* Added Widget Palette Plug-in Wizard
+* Convert widget JARs into Eclipse widget plug-ins
+
+[#SWT]
+== Enhanced SWT support
+
+* Added SWT GroupLayout preferences
+
+[#JFace_RCP]
+== Enhanced JFace & RCP support
+
+* Support for adding CompositeSeparator to Section in tree
+
+[#Swing]
+== Enhanced Swing support
+
+* Baseline snapping support for SpringLayout
+* New preference to use old-style component creation without "live" feedbacks
+* Generate new GridLayout(rows, columns) by default
+
+[#Editor_PropertyPane]
+== Editor & Property Pane Enhancements
+
+* Added editor content type detection
+* Show problems decorator for Designer editor icon
+* Use separate preferences to control auto size on text/image change
