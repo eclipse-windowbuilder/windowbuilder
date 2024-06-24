@@ -1,0 +1,19 @@
+= Font Editor
+
+image:images/property_editor_font1.png[image,width=235,height=18] 
+image:images/property_editor_font2.png[image,width=235,height=18]
+
+Click the image:images/ellipses.png[image] button to access the *Font
+Chooser* and select a font.
+
+The *Font Chooser* allows a font to be constructed by selecting a font
+family, a style and a size. The currently selected font is shown at the
+top of the page.
+
+image:images/property_editor_font_construction.png[image]
+
+When designing Swing windows, two other pages are available: *Derived*
+and *Swing fonts*.
+
+image:images/property_editor_font_derived.png[image] 
+image:images/property_editor_font_swing.png[image]

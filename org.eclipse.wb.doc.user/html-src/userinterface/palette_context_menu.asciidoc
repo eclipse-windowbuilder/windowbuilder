@@ -1,0 +1,136 @@
+= Palette Context Menu
+
+The link:palette.html[palette] may be customized by right-clicking
+anywhere in the palette to access the palette context menu.
+
+[width="100%",cols="10%,20%,70%"]
+|===
+a|
+=== Icon
+a|
+=== Menu Name
+a|
+=== Description
+
+|image:images/add_category.gif[image,width=16,height=16]
+|*Add category...*
+| Create a new category to contain palette entries. The category may have
+a name, a description and an initial state of *visible* and/or *opened
+by default*. The category can be inserted before any existing category
+or inserted at the end of the list.
+
+image:images/new_palette_category.png[image]
+
+|image:images/add_component.gif[image,width=16,height=16]
+|*Add component...*
+| Create a new palette entry representing a user-specified component. The
+entry must have a name, class, and a description (visible as hover help
+in the palette). If the widget defines its own icon in its bean info,
+that icon will be used by default. The component may be initially
+*visible* or not and may be added to any available category.
+
+image:images/add_component_dialog.png[image]
+
+|
+|*Add static factory >*
+| image:images/add_factory_menu.png[image]Add components from a static
+link:../features/factories.html[factory]. Single factory components may
+be added or multiple factory components may be added at the same time.
+
+To add a single link:../features/factories.html[factory] item, give it a
+name, select the factory class and method signature, and give it a
+description. The component may be initially *visible* or not and may be
+added to any available category.
+
+image:images/add_static_factory_dialog.png[image]
+
+To add a multiple link:../features/factories.html[factory] items at the
+same time, select the factory class and method signatures. The component
+name and description will be given default values. The components will
+be initially *visible* and may be added to any available category.
+
+image:images/add_static_factories_dialog.png[image]
+
+|
+|*Add instance factory >*
+| image:images/add_factory_menu.png[image]Add components from an instance
+factory. Single factory components may be added or multiple factory
+components may be added at the same time.
+
+To add a single factory item, give it a name, select the factory class
+and method signature, and give it a description. The component may be
+initially *visible* or not and may be added to any available category.
+
+image:images/add_instance_factory_dialog.png[image]
+
+To add a multiple factory items at the same time, select the factory
+class and method signatures. The component name and description will be
+given default values. The components will be initially *visible* and may
+be added to any available category.
+
+image:images/add_instance_factories_dialog.png[image]
+
+|image:images/import_jar.png[image] 
+|*Import Jar...*
+| Create multiple new palette entries using widget classes from a JAR file
+(selected from the classpath, workspace or from disk). Optionally create
+a new category to add the entries to. The category name defaults to the
+name of the JAR.
+
++++
+<p>
+  <img src="images/palette_import_jar_archive_dialog.gif">
+  <img src="images/palette_workspace_jar_selection_dialog.png" align="top">
+</p>
++++
+
+_If no widgets appear when you select a jar file, this is usually an
+indication that the jar file does not provide a proper JavaBean manifest
+readable by Sun's JavaBean manifest reader. Please contact the jar
+provider for a correction. As long as the jar is on your project path,
+you should be able to add individual widgets to the palette manually by
+using the *Add Component...* command._
+
+|
+|*Edit...*
+| Edit the selected category or component.
+
+image:images/edit_palette_category.png[image,width=394,height=249]
+
+image:images/edit_palette_component.png[image,width=415,height=235]
+
+|image:images/delete.gif[image,width=16,height=16] |*Delete* |Delete the
+selected category or entry.
+
+|
+|*Restore default palette...*
+|Restore the palette to its default state (and custom widgets will be removed).
+
+|image:images/manager.gif[image,width=16,height=16] |*Palette
+manager...* |The *link:palette_manager.html[Palette Manager]* dialog
+allows the toolkit-specific palette to be fully configured. Categories,
+and entries may be added, edited and removed and JAR files imported.
+Items may be rearranged using the *Up* and *Down* buttons or via drag
+and drop. The *Collapse All* and *Expand All* buttons show or hide all
+of the elements in the list.
+
+|image:images/import_palette.gif[image,width=16,height=15]
+|*Import palette...*
+| Import the current palette in XML format.
+
+image:images/import_palette_dialog.png[image,width=428,height=326]
+
+|image:images/export_palette.gif[image,width=16,height=15] |*Export
+palette...* a|
+Export the current palette in XML format.
+
+image:images/export_palette_dialog.png[image,width=428,height=131]
+
+|image:images/settings.gif[image,width=16,height=16] |*Settings...* a|
+The palette entries may be configured to appear in one to five columns.
+By default, each entry is shown with an icon and class name. Optionally,
+each entry can be shown with an icon only. Category and entry fonts may
+also be selected.
+
+image:images/palette_settings.png[image,width=394,height=252]
+|===

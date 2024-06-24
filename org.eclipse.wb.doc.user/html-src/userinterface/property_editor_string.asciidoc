@@ -1,0 +1,24 @@
+= String Editor
+
+image:images/property_editor_string1.png[image,width=235,height=18]
+
+Enter single-line strings directly into the property pane or click the
+image:images/ellipses.png[image] button to access the *String Editor*
+and enter multi-line strings.
+
+Multi-line strings may be entered in the *String Editor*, or values may
+be selected from existing resource bundles. To use a value from a
+resource bundle, check the *Use existing NLS source/key* checkbox and
+click the *Browse* button. The *Choose Key* dialog will open where you
+can select a String source and a key/value pair. You can filter the list
+of key/value pairs that is shown by entering a string in the *Search
+string* field. By default, key names are searched but you can also
+search values or both keys and values by selecting the appropriate radio
+button at the bottom of the dialog.
+
+++++
+<p>
+  <img src="images/property_editor_string2.png">
+  <img src="images/property_editor_string3.png" align="top">
+</p>
+++++

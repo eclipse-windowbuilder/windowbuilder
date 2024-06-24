@@ -1,0 +1,9 @@
+= String Array Editor
+
+image:images/property_editor_string_array1.png[image,width=253,height=18]
+
+Click the image:images/ellipses.png[image] button to access the *String
+Array Editor* and enter multiple strings. Each line is treated as a
+separate string.
+
+image:images/property_editor_string_array2.png[image,width=247,height=232]

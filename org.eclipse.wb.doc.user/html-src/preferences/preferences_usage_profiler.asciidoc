@@ -1,0 +1,18 @@
+= Preferences - Usage Profiler
+
+image:images/preferences_usage_profiler.png[image]
+
+This page is used to control various *Usage Profiler* options.
+
+The tool can log the use of its features and will periodically transmit
+this information to our servers. The data is anonymized and not shared
+with third parties. We use the compiled data to determine where to
+direct our future efforts.
+
+== Enable usage profiling
+
+The Usage Profiler may be enabled with automatic data uploading, enabled
+with prompting prior to uploading (approximately once per week), or
+disabled.
+
+image:images/enable_usage_profiling.png[image,width=250,height=70]

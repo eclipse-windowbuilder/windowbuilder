@@ -1,0 +1,21 @@
+= Preferences - Export / Import
+
+Preferences may be exported using the Eclipse *File > Export > General >
+Preferences* command. Choose the *WindowBuilder Preferences* category,
+enter an export file name, and click Finish.
+
+++++
+<p>
+  <img src="images/export_preferences1.png">
+  <img src="images/export_preferences2.png" align="top">
+</p>
+++++
+
+Preferences are exported in Eclipse preference format.
+
+image:images/designer_epf.png[image] +
+
+Preferences may be imported using the Eclipse *File > Import > General >
+Preferences* command. +
+
+image:images/import_preferences.png[image]

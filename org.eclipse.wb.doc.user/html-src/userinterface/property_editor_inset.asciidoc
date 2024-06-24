@@ -1,0 +1,8 @@
+= Inset Editor
+
+image:images/property_editor_inset1.png[image,width=247,height=18]
+
+Click the image:images/ellipses.png[image] button to access the *Inset
+Editor* and enter paired top, left, bottom & right values.
+
+image:images/property_editor_inset2.png[image,width=237,height=150]

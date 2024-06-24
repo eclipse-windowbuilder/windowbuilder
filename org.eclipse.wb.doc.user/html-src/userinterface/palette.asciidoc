@@ -1,0 +1,126 @@
+= Palette
+
+++++
+<p>
+  <img src="images/palette_swt.png" align="top">
+  <img src="images/palette_swing.png" align="top">
+</p>
+++++
+
+The *Palette* provides quick access to toolkit-specific components as
+well as any custom components installed by the user. The *Palette* is
+organized into categories which may be expanded, collapsed or hidden.
+
+To add a components to the *link:design_view.html[Design View]*, you
+can:
+
+* Select it in the palette and drop it on the
+*link:design_view.html[Design View]* or
+*link:component_tree.html[Component Tree]* by clicking in the desired location.
+* Use the *Choose Component* command to select the widget type from *Choose Component* dialog.
+
+Multiple widgets of the same type may be added to the
+*link:design_view.html[Design View]* by holding down the *Ctrl* key when
+selecting the widget in the *Palette*.
+
+The palette may be customized by right-clicking anywhere in the palette
+to access the link:palette_context_menu.html[palette context menu] or by
+opening the *link:palette_manager.html[Palette Manager]* dialog..
+
+The following commands are common to every palette:
+
+* Selection
+* Marquee
+* Choose component
+* Tab Order
+
+ 
+
+image:images/palette_context_menu.png[image]
+
+=== Common Palette Commands
+
+[width="100%",cols="10%,20%,70%"]
+|===
+a|
+=== Icon
+a|
+=== Menu Name
+a|
+=== Description
+
+|image:images/SelectionTool.gif[image,width=16,height=16]
+|*Selection*
+| Select one or more widgets. Hold the *Shift* or *Ctrl* key down to
+select multiple widgets.
+
+image:images/single_selection.png[image]
+
+|image:images/MarqueeSelectionTool.gif[image,width=16,height=16]
+|*Marquee*
+| Rubber band select multiple widgets. Hold the *Alt* key and start
+dragging to automatically activate the *Marquee* tool.
+
+image:images/marquee_select.png[image]
+
+|image:images/ChooseComponent.gif[image,width=16,height=16]
+|*Choose component*
+| Adds a component to the editor. Enter the name of the class or select it
+from the history list. You can right-click on an item in the list to
+*Remove from History*.
+
++++
+<p>
+  <img src="images/choose_component_dialog.png" align="top">
+  <img src="images/remove_from_history.png" align="top">
+</p>
++++
+
+|image:images/tab_order.gif[image,width=16,height=16]
+|*Tab Order*
+| Set the tab order of the components.
+
+. Start by selecting the top-level container (such as the JFrame).
+. Activate the Tab Order tool.
+. Click the components in the desired order.
+
+Click a component more than once to increment its index.
+
+Shift+Click to exclude a component.
+
+Ctrl+Click to move the selected  index to another component.
+. Deactivate the Tab Order tool by choosing another tool (such as
+*Selection*).
+
+image:images/set_tab_order.png[image,width=296,height=137]
+|===
+
+The position of the *Palette* may be configured via drag and drop or by
+right-clicking on the *Palette* header and selecting the *Dock On*
+command. The *Palette* may be docked to either the left or right side of
+the *link:design_view.html[Design View]*.
+
+++++
+<p>
+  <img src="../preferences/images/flyout_palette1.png" align="top">
+  <img src="images/palette_dock_on.gif" align="top">
+</p>
+++++
+
+The *Palette* may also be collapse and expanded on demand.
+
+image:../preferences/images/flyout_palette2.png[image] 
+
+The *Palette* is also available as a standalone view. Use the *Window >
+Show View > Other...* command and open the *WindowBuilder > Palette*
+view or right-click on the *Palette* and select the *Extract as view*
+command. Closing the *Palette* view will make the *Palette* reappear as
+embedded view within the editor.
+
+++++
+<p>
+  <img src="../preferences/images/windowbuilder_views.png" align="top">
+  <img src="../preferences/images/palette_view.png" align="top">
+  <img src="images/palette_extract_as_view.gif" align="top">
+</p>
+++++

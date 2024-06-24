@@ -1,0 +1,31 @@
+= Swing Designer Quick Start
+
+image:userinterface/images/userinterface.png[image] +
+ 
+
+. *Use a Swing Designer link:wizards/index.html[class wizard] to create
+your first GUI window or link:features/editing_existing_window.html[edit
+an existing window].* +
+ 
+. *Choose an appropriate link:layoutmanagers/index.html[layout manager]
+for your window. +
+ *
+. *Add various components from the
+link:userinterface/palette.html[Palette] and edit their properties using
+the link:userinterface/property_pane.html[Property Pane].* +
+ 
+. *Visually create and edit your window's
+link:features/menu_editing.html[menubar].* +
+ 
+. *Add link:features/event_handling.html[event handlers] to various
+widgets to provide behavior. +
+ *
+. *If you create a new link:features/custom_composites.html[JPanel], you
+can embed it in another window using the
+link:userinterface/palette.html[Choose Component] command. +
+ *
+. *You can test launch your window by right-clicking on it and selecting
+Run As > Java Application. +
+ *
+. *link:features/internationalization.html[Internationalize] your
+application and manage multiple locales.*

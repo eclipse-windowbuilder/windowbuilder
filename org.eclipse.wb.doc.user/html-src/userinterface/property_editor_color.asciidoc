@@ -1,0 +1,25 @@
+= Color Editor
+
+image:images/property_editor_color1.png[image,width=235,height=18] 
+image:images/property_editor_color2.png[image,width=235,height=18]
+
+Click the image:images/ellipses.png[image] button to access the *Color
+Chooser* and select a color.
+
+The *Color Chooser* has multiple pages where colors may be selected. The
+current color property value is shown at the top and the currently
+selected color is shown below that. Standard color pages include *System
+colors*, *Named colors*, and *Web safe colors*. *Named colors* and *Web
+safe colors* may be sorted by *Tone*, *Hue*, *Saturation* or
+*Lightness*.
+
+image:images/property_editor_color_system.png[image] 
+image:images/property_editor_color_named.png[image]
+
+image:images/property_editor_color_websafe.png[image]
+
+When designing Swing windows, two other pages are available: *AWT
+colors* and *Swing colors*.
+
+image:images/property_editor_color_awt.png[image] 
+image:images/property_editor_color_swing.png[image]
