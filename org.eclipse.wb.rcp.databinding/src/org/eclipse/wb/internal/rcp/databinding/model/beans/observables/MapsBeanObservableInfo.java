@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,12 +18,10 @@ import org.eclipse.wb.internal.rcp.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.KnownElementsObservableInfo;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 
 /**
- * Model for observable object <code>BeansObservables.observeMaps(...)</code>.
+ * Model for observable object {@code BeanProperties.value(...).observeDetail(...)}.
  *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
@@ -111,36 +109,35 @@ public class MapsBeanObservableInfo extends ObservableInfo {
 		KnownElementsObservableInfo domainObservable = (KnownElementsObservableInfo) m_domainObservable;
 		//
 		if (m_properties.length == 1) {
-			String observeMethod =
-					isPojoBean(m_elementType)
-					? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeMap("
-							: " = org.eclipse.core.databinding.beans.BeansObservables.observeMap(";
 			// add code
 			lines.add("org.eclipse.core.databinding.observable.map.IObservableMap "
 					+ getVariableIdentifier()
-					+ observeMethod
-					+ domainObservable.getSourceCode()
-					+ ", "
-					+ CoreUtils.getClassName(m_elementType)
-					+ ".class, \""
-					+ m_properties[0]
-							+ "\");");
+					+ getAssignment(m_properties[0], domainObservable));
 		} else {
-			String observeMethod =
-					isPojoBean(m_elementType)
-					? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeMaps("
-							: " = org.eclipse.core.databinding.beans.BeansObservables.observeMaps(";
 			// add code
 			lines.add("org.eclipse.core.databinding.observable.map.IObservableMap[] "
 					+ getVariableIdentifier()
-					+ observeMethod
-					+ domainObservable.getSourceCode()
-					+ ", "
-					+ CoreUtils.getClassName(m_elementType)
-					+ ".class, new java.lang.String[]{\""
-					+ StringUtils.join(m_properties, "\", \"")
-					+ "\"});");
+					+ " = new org.eclipse.core.databinding.observable.map.IObservableMap[" + m_properties.length + "];");
+			for (int i = 0 ; i < m_properties.length; ++i) {
+				lines.add(getVariableIdentifier() + "[" + i + "]"
+						+ getAssignment(m_properties[i], domainObservable));
+			}
 		}
+	}
+
+	private final String getAssignment(String property, KnownElementsObservableInfo domainObservable) throws Exception {
+		String observeMethod = isPojoBean(m_elementType)
+				? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".value("
+				: " = " + DataBindingsCodeUtils.getBeanObservablesClass() + ".value(";
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(observeMethod);
+		stringBuilder.append(CoreUtils.getClassName(m_elementType));
+		stringBuilder.append(".class, \"");
+		stringBuilder.append(property);
+		stringBuilder.append("\").observeDetail(");
+		stringBuilder.append(domainObservable.getSourceCode());
+		stringBuilder.append(");");
+		return stringBuilder.toString();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
