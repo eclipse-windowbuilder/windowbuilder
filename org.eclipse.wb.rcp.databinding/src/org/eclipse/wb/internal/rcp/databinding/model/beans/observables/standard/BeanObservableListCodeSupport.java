@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import java.util.List;
 
 /**
- * Model for observable object {@code BeansObservables.observeList(...)}.
+ * Model for observable object {@code BeanProperties.list(...).observe(...)}.
  *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans

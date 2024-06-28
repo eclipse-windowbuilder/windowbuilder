@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindabl
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanPropertyBindableInfo;
 
 /**
- * Model for observable object <code>BeansObservables.observeSet(...)</code>.
+ * Model for observable object {@code BeanProperties.set(...).observe(...)}.
  *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
