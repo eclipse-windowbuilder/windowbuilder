@@ -7,13 +7,13 @@
 				<dependency>
 					<groupId>com.miglayout</groupId>
 					<artifactId>miglayout-core</artifactId>
-					<version>11.3</version>
+					<version>11.4</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
 					<groupId>com.miglayout</groupId>
 					<artifactId>miglayout-swing</artifactId>
-					<version>11.3</version>
+					<version>11.4</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
