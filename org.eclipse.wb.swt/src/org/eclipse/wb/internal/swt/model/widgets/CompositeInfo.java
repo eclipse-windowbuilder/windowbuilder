@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc. and others
+ * Copyright (c) 2011, 2024 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -734,7 +734,6 @@ IThisMethodParameterEvaluator {
 		Class<?> preferenceDefaultlayoutClass = null;
 		IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
 		String layoutId = preferences.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
-		CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
 		if (layoutId != "") {
 			// handle the case that "Implicit" is specified in the preferences
 			//handle the case that another layout has been specified as default
@@ -748,7 +747,7 @@ IThisMethodParameterEvaluator {
 						.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(layoutClassName, true)) {
 					return layoutInfo = AbsoluteLayoutInfo.createExplicit(this);
 				}
-
+				CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
 				layoutInfo = (LayoutInfo) JavaInfoUtils.createJavaInfo(
 						getEditor(),
 						preferenceDefaultlayoutClass,
