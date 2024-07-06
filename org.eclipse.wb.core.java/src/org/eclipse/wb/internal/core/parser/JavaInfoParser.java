@@ -175,6 +175,14 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	private static void checkJavaVersion(ICompilationUnit unit) {
 		IJavaProject javaProject = unit.getJavaProject();
 		float projectVersion = ProjectUtils.getJavaVersion(javaProject);
+		if (projectVersion < EnvironmentUtils.getMinimumJavaVersion()) {
+			NumberFormat format = new DecimalFormat("#.###", new DecimalFormatSymbols(Locale.ENGLISH));
+			String projectVersionString = format.format(projectVersion);
+			String minimumVersionString = format.format(EnvironmentUtils.getMinimumJavaVersion());
+			throw new DesignerException(ICoreExceptionConstants.PARSER_UNSUPPORTED_JAVA_VERSION,
+					projectVersionString,
+					minimumVersionString);
+		}
 		float eclipseVersion = EnvironmentUtils.getJavaVersion();
 		if (eclipseVersion < projectVersion) {
 			NumberFormat format = new DecimalFormat("#.###", new DecimalFormatSymbols(Locale.ENGLISH));

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -172,39 +172,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Test for {@link ProjectUtils#isJDK15(IJavaProject)}.
-	 */
-	@Test
-	public void test_isJDK15() throws Exception {
-		// initially has 1.5 compliance
-		assertTrue(ProjectUtils.isJDK15(m_javaProject));
-		// set temporary 1.3 compliance
-		{
-			String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
-			try {
-				m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.3");
-				assertFalse(ProjectUtils.isJDK15(m_javaProject));
-			} finally {
-				m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
-			}
-		}
-		// set "null", so default compliance, we use Java 6 (or may be 5), so 1.5 is default
-		{
-			String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
-			try {
-				m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, null);
-				assertTrue(ProjectUtils.isJDK15(m_javaProject));
-			} finally {
-				m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
-			}
-		}
-		// check that again 1.5 compliance
-		assertTrue(ProjectUtils.isJDK15(m_javaProject));
-		// invalid project
-		assertFalse(ProjectUtils.isJDK15(null));
-	}
-
-	/**
 	 * Test for {@link ProjectUtils#getOptions(IJavaProject)}.
 	 */
 	@Test
@@ -241,83 +208,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 		ProjectUtils.waitForAutoBuild();
 		// now Test.class can be loaded
 		classLoader.loadClass("test.Test");
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Resource
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
-	 */
-	@DisposeProjectAfter
-	@Test
-	public void test_ensureResourceType_14() throws Exception {
-		String managerClassName = "pkg.MyManager";
-		// use test Bundle
-		TestBundle testBundle = new TestBundle();
-		try {
-			String managerSource =
-					getSource(
-							"package test;",
-							"public class MyManager {",
-							"  // 1.4",
-							"  // filler filler filler",
-							"}");
-			testBundle.setFile("resources/1.4/pkg/MyManager.java", managerSource);
-			testBundle.install();
-			// IJavaProject has 1.4 compliance
-			m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
-			assertFalse(ProjectUtils.isJDK15(m_javaProject));
-			// no "manager" initially
-			assertTrue(m_javaProject.findType(managerClassName) == null);
-			// add "manager" from test bundle
-			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
-			assertTrue(m_javaProject.findType(managerClassName) != null);
-			assertEquals(managerSource, getFileContentSrc("pkg/MyManager.java"));
-			// second "ensure" does not break anything
-			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
-			assertTrue(m_javaProject.findType(managerClassName) != null);
-		} finally {
-			testBundle.dispose();
-		}
-	}
-
-	/**
-	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
-	 */
-	@DisposeProjectAfter
-	@Ignore
-	@Test
-	public void test_ensureResourceType_15() throws Exception {
-		String managerClassName = "pkg.MyManager";
-		// IJavaProject has 1.5 compliance
-		assertTrue(ProjectUtils.isJDK15(m_javaProject));
-		// no "manager" initially
-		assertTrue(m_javaProject.findType(managerClassName) == null);
-		// add "manager" from test bundle
-		TestBundle testBundle = new TestBundle();
-		try {
-			String managerSource =
-					getSource(
-							"package test;",
-							"public class MyManager {",
-							"  // 1.5",
-							"  // filler filler filler",
-							"}");
-			testBundle.setFile("resources/1.5/pkg/MyManager.java", managerSource);
-			testBundle.install();
-			// do ensure
-			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
-			assertTrue(m_javaProject.findType(managerClassName) != null);
-			assertEquals(managerSource, getFileContentSrc("pkg/MyManager.java"));
-			// second "ensure" does not break anything
-			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
-			assertTrue(m_javaProject.findType(managerClassName) != null);
-		} finally {
-			testBundle.dispose();
-		}
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -98,13 +98,6 @@ public final class ProjectUtils {
 	 */
 	public static String getJavaVersionString(IJavaProject javaProject) {
 		return javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
-	}
-
-	/**
-	 * @return <code>true</code> if the project has JDK 1.5 or higher compiler compliance turned on.
-	 */
-	public static boolean isJDK15(IJavaProject project) {
-		return isAtLeastJDKVersion(project, 1.5f);
 	}
 
 	/**
@@ -207,13 +200,7 @@ public final class ProjectUtils {
 	}
 
 	private static String getVersionString(IJavaProject javaProject) {
-		String versionString = "1.5";
-		if (!isJDK15(javaProject)) {
-			versionString = "1.4";
-		} else if (isAtLeastJDKVersion(javaProject, 1.8f)) {
-			versionString = "1.8";
-		}
-		return versionString;
+		return "1.8";
 	}
 
 	private static void createCompilationUnitWithType(IJavaProject javaProject,

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -295,23 +295,6 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("true", converter.toJavaSource(panel, true));
 	}
 
-	@DisposeProjectAfter
-	@Test
-	public void test_BooleanObjectConverter_forJava4() throws Exception {
-		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
-		ExpressionConverter converter = BooleanObjectConverter.INSTANCE;
-		assertEquals("(Boolean) null", converter.toJavaSource(panel, null));
-		assertEquals("Boolean.FALSE", converter.toJavaSource(panel, false));
-		assertEquals("Boolean.TRUE", converter.toJavaSource(panel, true));
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Byte as object
@@ -349,22 +332,6 @@ public class StandardConvertersTest extends SwingModelTest {
 	@Test
 	public void test_ByteObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
-		ExpressionConverter converter = ByteObjectConverter.INSTANCE;
-		assertEquals("Byte.valueOf((byte) 1)", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
-		assertEquals("Byte.valueOf((byte) -1)", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
-	}
-
-	@DisposeProjectAfter
-	@Test
-	public void test_ByteObjectConverter_forJava4() throws Exception {
-		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
 		ContainerInfo panel =
 				parseContainer(
 						"// filler filler filler",
@@ -472,22 +439,6 @@ public class StandardConvertersTest extends SwingModelTest {
 		assertEquals("Long.valueOf(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
 	}
 
-	@DisposeProjectAfter
-	@Test
-	public void test_LongObjectConverter_forJava4() throws Exception {
-		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
-		ExpressionConverter converter = LongObjectConverter.INSTANCE;
-		assertEquals("Long.valueOf(1L)", converter.toJavaSource(panel, Long.valueOf(1)));
-		assertEquals("Long.valueOf(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Double as object
@@ -527,22 +478,6 @@ public class StandardConvertersTest extends SwingModelTest {
 	@Test
 	public void test_DoubleObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
-		ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
-		assertEquals("Double.valueOf(1.2)", converter.toJavaSource(panel, Double.valueOf(1.2)));
-		assertEquals("Double.valueOf(-1.2)", converter.toJavaSource(panel, Double.valueOf(-1.2)));
-	}
-
-	@DisposeProjectAfter
-	@Test
-	public void test_DoubleObjectConverter_forJava4() throws Exception {
-		m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
 		ContainerInfo panel =
 				parseContainer(
 						"// filler filler filler",

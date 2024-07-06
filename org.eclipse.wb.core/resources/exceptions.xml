@@ -94,6 +94,10 @@
 				<br/>Use button <b>Show UI Toolkits</b> to install new toolkit.</li>
 		</ul>
 	</exception>
+	<exception id="112" title="Unsupported Java versions" warning="true"> WindowsBuilder requires {1}, but
+		this Java project has a {0} Java compliance level. Raise the compiler compliance to at least {1} or
+		use an older version of WindowBuilder.
+	</exception>
 	<!-- ======================================================== -->
 	<!-- ASTEditor -->
 	<!-- ======================================================== -->

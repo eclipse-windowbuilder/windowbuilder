@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
-
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -65,7 +62,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
 	}
 
 	private static void load0(Properties properties, InputStream is, String charset) throws Exception {
-		if (charset.equals("UTF-8") && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_6)) {
+		if (charset.equals("UTF-8")) {
 			Method loadMethod = Properties.class.getMethod("load", Reader.class);
 			Reader reader = new InputStreamReader(is, charset);
 			loadMethod.invoke(properties, reader);
@@ -76,7 +73,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
 
 	private static void store0(Properties properties, OutputStream os, String charset, String comments)
 			throws Exception {
-		if (charset.equals("UTF-8") && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_6)) {
+		if (charset.equals("UTF-8")) {
 			Method loadMethod = Properties.class.getMethod("store", Writer.class, String.class);
 			Writer reader = new OutputStreamWriter(os, charset);
 			loadMethod.invoke(properties, reader, comments);

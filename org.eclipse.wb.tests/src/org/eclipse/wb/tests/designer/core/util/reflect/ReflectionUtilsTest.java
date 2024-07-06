@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,8 +21,6 @@ import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -1893,11 +1891,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		Map<String, PropertyDescriptor> descriptors = getPropertyDescriptorNames(SpecificClass.class);
 		// check "foo(java.lang.Object)"
 		PropertyDescriptor propertyDescriptor;
-		if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_6)) {
-			propertyDescriptor = descriptors.get("foo(java.lang.Object)");
-		} else {
-			propertyDescriptor = descriptors.get("foo");
-		}
+		propertyDescriptor = descriptors.get("foo");
 		assertNotNull(propertyDescriptor);
 		assertSame(Object.class, propertyDescriptor.getPropertyType());
 	}
