@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -629,13 +629,13 @@ public class ContainerInfo extends ComponentInfo {
 		Class<?> preferenceDefaultLayoutClass = null;
 		IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
 		String layoutId = preferences.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
-		CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
 		if (layoutId != "") {
 			LayoutDescription ldescription = LayoutDescriptionHelper.get(getDescription().getToolkit(), layoutId);
 			if (ldescription != null) {
 				String layoutClassName = ldescription.getLayoutClassName();
 				ClassLoader editorLoader = EditorState.get(getEditor()).getEditorLoader();
 				preferenceDefaultLayoutClass = editorLoader.loadClass(layoutClassName);
+				CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
 				layoutInf = (LayoutInfo) JavaInfoUtils.createJavaInfo(getEditor(), preferenceDefaultLayoutClass,
 						creationSupport);
 			}
