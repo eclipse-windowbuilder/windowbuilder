@@ -1143,36 +1143,6 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	}
 
 	@Test
-	public void test_ensureListenerMethod_addListenerMethod_Java14() throws Exception {
-		String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
-		try {
-			m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
-			ContainerInfo panel =
-					parseContainer(
-							"class Test extends JPanel {",
-							"  Test() {",
-							"    addKeyListener(new KeyAdapter() {",
-							"    });",
-							"  }",
-							"}");
-			//
-			Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
-			ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
-		} finally {
-			m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
-		}
-	}
-
-	@Test
 	public void test_ensureListenerMethod_addListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

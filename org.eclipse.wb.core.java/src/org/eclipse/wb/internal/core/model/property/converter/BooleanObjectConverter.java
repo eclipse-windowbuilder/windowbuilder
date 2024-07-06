@@ -11,9 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.converter;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
-
-import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * The {@link ExpressionConverter} for {@link Boolean}.
@@ -46,10 +43,7 @@ public final class BooleanObjectConverter extends ExpressionConverter {
 		boolean b = ((Boolean) value).booleanValue();
 		// may be use auto-boxing
 		if (javaInfo != null) {
-			IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
-			if (ProjectUtils.isJDK15(javaProject)) {
-				return Boolean.toString(b);
-			}
+			return Boolean.toString(b);
 		}
 		// use explicit boxing
 		if (b) {

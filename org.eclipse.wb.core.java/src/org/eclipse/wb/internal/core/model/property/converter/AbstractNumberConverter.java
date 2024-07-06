@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.converter;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -36,10 +35,6 @@ public abstract class AbstractNumberConverter extends ExpressionConverter {
 			return false;
 		}
 		IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
-		// we need Java 5+
-		if (!ProjectUtils.isJDK15(javaProject)) {
-			return false;
-		}
 		// ...auto-boxing enabled?
 		String option = javaProject.getOption(JavaCore.COMPILER_PB_AUTOBOXING, true);
 		if (!"ignore".equals(option)) {

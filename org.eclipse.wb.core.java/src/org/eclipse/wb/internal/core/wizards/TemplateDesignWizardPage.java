@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionH
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -133,9 +132,7 @@ public abstract class TemplateDesignWizardPage extends AbstractDesignWizardPage 
 				}
 				// add method or constructor
 				if (isMethod && method != null) {
-					if (ProjectUtils.isJDK15(newType.getJavaProject()) || !line.trim().equals("@Override")) {
-						method.append(line + AstEditor.DEFAULT_END_OF_LINE);
-					}
+					method.append(line + AstEditor.DEFAULT_END_OF_LINE);
 				} else if (isConstructor && constructor != null) {
 					constructor.append(line + AstEditor.DEFAULT_END_OF_LINE);
 				}

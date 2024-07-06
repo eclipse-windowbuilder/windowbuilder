@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,6 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
-import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
@@ -602,9 +601,8 @@ IListenerMethodProperty {
 	 */
 	private boolean shouldAppendOverride(TypeDeclaration type, ListenerMethodInfo method)
 			throws Exception {
-		IJavaProject javaProject = m_javaInfo.getEditor().getJavaProject();
 		ListenerInfo listener = method.getListener();
-		if (ProjectUtils.isJDK15(javaProject) && listener.hasAdapter()) {
+		if (listener.hasAdapter()) {
 			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(type);
 			ITypeBinding superTypeBinding = typeBinding.getSuperclass();
 			return AstNodeUtils.isSuccessorOf(superTypeBinding, listener.getAdapter());

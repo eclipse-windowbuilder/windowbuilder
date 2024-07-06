@@ -118,14 +118,12 @@ public class AbstractActionInfo extends ActionInfo {
 				"MNEMONIC_KEY",
 				null,
 				DisplayedMnemonicKeyPropertyEditor.INSTANCE));
-		if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_6)) {
-			properties.add(createProperty(
-					"displayed mnemonic index",
-					"DISPLAYED_MNEMONIC_INDEX_KEY",
-					IntegerConverter.INSTANCE,
-					IntegerPropertyEditor.INSTANCE));
-			properties.add(createIconProperty("large icon", "LARGE_ICON_KEY"));
-		}
+		properties.add(createProperty(
+				"displayed mnemonic index",
+				"DISPLAYED_MNEMONIC_INDEX_KEY",
+				IntegerConverter.INSTANCE,
+				IntegerPropertyEditor.INSTANCE));
+		properties.add(createIconProperty("large icon", "LARGE_ICON_KEY"));
 		// remove null-s
 		properties.removeIf(Objects::isNull);
 		return properties;
