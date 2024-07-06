@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.tests.designer.core.model.ModelTests;
 import org.eclipse.wb.tests.designer.core.nls.NlsTests;
 import org.eclipse.wb.tests.designer.core.palette.PaletteTests;
 import org.eclipse.wb.tests.designer.core.util.UtilTests;
-import org.eclipse.wb.tests.designer.core.util.VersionTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -31,7 +30,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	BundleResourceProviderTest.class,
 	DesignerPluginTest.class,
 	EnvironmentUtilsTest.class,
-	VersionTest.class,
 	UtilTests.class,
 	AstEvaluationEngineTests.class,
 	ModelTests.class,
