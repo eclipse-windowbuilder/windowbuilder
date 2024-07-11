@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -70,30 +70,6 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 */
 	public void setEditPartFactory(IEditPartFactory factory) {
 		m_factory = factory;
-	}
-
-	/**
-	 * Register given {@link EditPart} into this viewer.
-	 */
-	@Override
-	public void registerEditPart(EditPart editPart) {
-		getEditPartRegistry().put(editPart.getModel(), editPart);
-	}
-
-	/**
-	 * Unregister given {@link EditPart} into this viewer.
-	 */
-	@Override
-	public void unregisterEditPart(EditPart editPart) {
-		Object model = editPart.getModel();
-		Object registerPart = getEditPartRegistry().get(model);
-		/*
-		 * check editPart because during refreshChildren firstly add new child,
-		 * example (old model, new EditPart) after remove old child (old model, old EditPart)
-		 */
-		if (registerPart == editPart) {
-			getEditPartRegistry().remove(model);
-		}
 	}
 
 	/**
