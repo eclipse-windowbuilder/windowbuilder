@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc. and Others.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
+import org.eclipse.wb.core.controls.palette.DesignerEntry;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalette;
@@ -240,8 +241,8 @@ public class DesignerPalette {
 	private final Map<String, Boolean> m_openCategories = new HashMap<>();
 	private final Set<EntryInfo> m_knownEntryInfos = new HashSet<>();
 	private final Set<EntryInfo> m_goodEntryInfos = new HashSet<>();
-	private final Map<EntryInfo, IEntry> m_entryInfoToVisual = new HashMap<>();
-	private final Map<IEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
+	private final Map<EntryInfo, DesignerEntry> m_entryInfoToVisual = new HashMap<>();
+	private final Map<DesignerEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
 
 	/**
 	 * Clears all caches for {@link EntryInfo}, {@link IEntry}, etc.
@@ -257,14 +258,14 @@ public class DesignerPalette {
 	}
 
 	/**
-	 * @return the {@link IEntry} for given {@link EntryInfo}.
+	 * @return the {@link DesignerEntry} for given {@link EntryInfo}.
 	 */
-	private IEntry getVisualEntry(final EntryInfo entryInfo) {
-		IEntry entry = m_entryInfoToVisual.get(entryInfo);
+	private DesignerEntry getVisualEntry(final EntryInfo entryInfo) {
+		DesignerEntry entry = m_entryInfoToVisual.get(entryInfo);
 		if (entry == null && !m_knownEntryInfos.contains(entryInfo)) {
 			m_knownEntryInfos.add(entryInfo);
 			if (entryInfo.initialize(m_editPartViewer, m_rootJavaInfo)) {
-				entry = new IEntry() {
+				entry = new DesignerEntry(entryInfo.getName(), entryInfo.getDescription(), entryInfo.getIcon()) {
 					////////////////////////////////////////////////////////////////////////////
 					//
 					// Access
@@ -273,21 +274,6 @@ public class DesignerPalette {
 					@Override
 					public boolean isEnabled() {
 						return entryInfo.isEnabled();
-					}
-
-					@Override
-					public ImageDescriptor getIcon() {
-						return entryInfo.getIcon();
-					}
-
-					@Override
-					public String getText() {
-						return entryInfo.getName();
-					}
-
-					@Override
-					public String getToolTipText() {
-						return entryInfo.getDescription();
 					}
 
 					////////////////////////////////////////////////////////////////////////////

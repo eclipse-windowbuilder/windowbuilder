@@ -14,6 +14,7 @@ package org.eclipse.wb.core.controls.test;
 import org.eclipse.wb.core.controls.flyout.FlyoutControlComposite;
 import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.MemoryFlyoutPreferences;
+import org.eclipse.wb.core.controls.palette.DesignerEntry;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalette;
@@ -254,10 +255,8 @@ public class PaletteTest implements ColorConstants {
 	// Entry implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final class EntryImpl implements IEntry {
+	private static final class EntryImpl extends DesignerEntry {
 		private final boolean m_enabled;
-		private final ImageDescriptor m_icon;
-		private final String m_text;
 
 		////////////////////////////////////////////////////////////////////////////
 		//
@@ -265,9 +264,8 @@ public class PaletteTest implements ColorConstants {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public EntryImpl(boolean enabled, ImageDescriptor icon, String text) {
+			super(text, null, icon);
 			m_enabled = enabled;
-			m_icon = icon;
-			m_text = text;
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -278,21 +276,6 @@ public class PaletteTest implements ColorConstants {
 		@Override
 		public boolean isEnabled() {
 			return m_enabled;
-		}
-
-		@Override
-		public ImageDescriptor getIcon() {
-			return m_icon;
-		}
-
-		@Override
-		public String getText() {
-			return m_text;
-		}
-
-		@Override
-		public String getToolTipText() {
-			return null;
 		}
 
 		////////////////////////////////////////////////////////////////////////////
