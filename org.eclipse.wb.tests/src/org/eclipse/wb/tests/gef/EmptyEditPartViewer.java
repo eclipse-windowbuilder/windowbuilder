@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -116,10 +116,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public void registerEditPart(EditPart editPart) {
-	}
-
-	@Override
 	public void select(EditPart part) {
 	}
 
@@ -138,10 +134,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 
 	@Override
 	public void setSelection(List<EditPart> editParts) {
-	}
-
-	@Override
-	public void unregisterEditPart(EditPart editPart) {
 	}
 
 	@Override

@@ -12,10 +12,8 @@ package org.eclipse.wb.gef.core;
 
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 
@@ -36,92 +34,6 @@ import java.util.Map;
  * @coverage gef.core
  */
 public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPart {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Activate/Deactivate
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Activates the {@link EditPart}. EditParts that observe a dynamic model or support editing must
-	 * be <i>active</i>. Called by the managing {@link EditPart}, or the Viewer in the case of the
-	 * {@link RootEditPart}. This method may be called again once {@link #deactivate()} has been
-	 * called.
-	 * <P>
-	 * During activation the receiver should:
-	 * <UL>
-	 * <LI>begin to observe its model if appropriate, and should continue the observation until
-	 * {@link #deactivate()} is called.
-	 * <LI>activate all of its EditPolicies. EditPolicies may also observe the model, although this is
-	 * rare. But it is common for EditPolicies to contribute additional visuals, such as selection
-	 * handles or feedback during interactions. Therefore it is necessary to tell the EditPolicies
-	 * when to start doing this, and when to stop.
-	 * <LI>call activate() on the EditParts it manages. This includes its children.
-	 * </UL>
-	 */
-	@Override
-	public void activate() {
-		setFlag(FLAG_ACTIVE, true);
-		activateEditPolicies();
-		for (EditPart childPart : getChildren()) {
-			childPart.activate();
-		}
-	}
-
-	/**
-	 * Deactivates the {@link EditPart}. EditParts that observe a dynamic model or support editing
-	 * must be <i>active</i>. <code>deactivate()</code> is guaranteed to be called when an EditPart
-	 * will no longer be used. Called by the managing EditPart, or the Viewer in the case of the
-	 * {@link RootEditPart}. This method may be called multiple times.
-	 * <P>
-	 * During deactivation the receiver should:
-	 * <UL>
-	 * <LI>remove all listeners that were added in {@link #activate}
-	 * <LI>deactivate all of its EditPolicies. EditPolicies may be contributing additional visuals,
-	 * such as selection handles or feedback during interactions. Therefore it is necessary to tell
-	 * the EditPolicies when to start doing this, and when to stop.
-	 * <LI>call deactivate() on the EditParts it manages. This includes its children.
-	 * </UL>
-	 */
-	@Override
-	public void deactivate() {
-		for (EditPart childPart : getChildren()) {
-			childPart.deactivate();
-		}
-		deactivateEditPolicies();
-		setFlag(FLAG_ACTIVE, false);
-	}
-
-	/**
-	 * Called <em>after</em> the {@link EditPart} has been added to its parent. This is used to
-	 * indicate to the {@link EditPart} that it should refresh itself for the first time.
-	 */
-	@Override
-	public void addNotify() {
-		getViewer().registerEditPart(this);
-		createEditPolicies();
-		for (EditPart childPart : getChildren()) {
-			childPart.addNotify();
-		}
-		refresh();
-	}
-
-	/**
-	 * Called when the {@link EditPart} is being permanently removed from its {@link EditPartViewer}.
-	 * This indicates that the {@link EditPart} will no longer be in the Viewer, and therefore should
-	 * remove itself from the Viewer. This method is <EM>not</EM> called when a Viewer is disposed. It
-	 * is only called when the EditPart is removed from its parent. This method is the inverse of
-	 * {@link #addNotify()}
-	 */
-	@Override
-	public void removeNotify() {
-		if (getSelected() != SELECTED_NONE) {
-			getViewer().deselect(this);
-		}
-		for (EditPart childPart : getChildren()) {
-			childPart.removeNotify();
-		}
-		getViewer().unregisterEditPart(this);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -246,9 +158,9 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 				}
 			} else {
 				if (model != childPart.getModel()) {
-					getViewer().unregisterEditPart(childPart);
+					childPart.unregister();
 					childPart.setModel(model);
-					getViewer().registerEditPart(childPart);
+					childPart.register();
 					childPart.updateModel();
 				}
 				// reorder child EditPart

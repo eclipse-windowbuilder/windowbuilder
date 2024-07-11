@@ -121,16 +121,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	Layer getLayer(String name);
 
 	/**
-	 * Register given {@link EditPart} into this viewer.
-	 */
-	void registerEditPart(EditPart editPart);
-
-	/**
-	 * Unregister given {@link EditPart} into this viewer.
-	 */
-	void unregisterEditPart(EditPart editPart);
-
-	/**
 	 * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
 	 */
 	EditDomain getEditDomain();
