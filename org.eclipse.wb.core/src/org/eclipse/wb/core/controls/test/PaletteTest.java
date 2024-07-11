@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.core.controls.test;
 import org.eclipse.wb.core.controls.flyout.FlyoutControlComposite;
 import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.MemoryFlyoutPreferences;
+import org.eclipse.wb.core.controls.palette.DesignerContainer;
 import org.eclipse.wb.core.controls.palette.DesignerEntry;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
@@ -108,26 +109,26 @@ public class PaletteTest implements ColorConstants {
 			{
 				CategoryImpl category = new CategoryImpl("First category", true);
 				palette.addCategory(category);
-				category.addEntry(new EntryImpl(true, createIcon(red), "AAAAAAAAAAA"));
-				category.addEntry(new EntryImpl(false, createIcon(green), "BBBBB"));
-				category.addEntry(new EntryImpl(true, createIcon(blue), "CCCCCCCCCCCCCCC"));
-				category.addEntry(new EntryImpl(true, createIcon(yellow), "DDDDDDDDD"));
-				category.addEntry(new EntryImpl(false, createIcon(orange), "EEEEEEEEEEE"));
-				category.addEntry(new EntryImpl(true, createIcon(cyan), "FFFFF"));
+				category.add(new EntryImpl(true, createIcon(red), "AAAAAAAAAAA"));
+				category.add(new EntryImpl(false, createIcon(green), "BBBBB"));
+				category.add(new EntryImpl(true, createIcon(blue), "CCCCCCCCCCCCCCC"));
+				category.add(new EntryImpl(true, createIcon(yellow), "DDDDDDDDD"));
+				category.add(new EntryImpl(false, createIcon(orange), "EEEEEEEEEEE"));
+				category.add(new EntryImpl(true, createIcon(cyan), "FFFFF"));
 			}
 			{
 				CategoryImpl category = new CategoryImpl("Second category", false);
 				palette.addCategory(category);
-				category.addEntry(new EntryImpl(true, createIcon(red), "0123456789"));
-				category.addEntry(new EntryImpl(true, createIcon(green), "012345"));
-				category.addEntry(new EntryImpl(true, createIcon(blue), "0123456789123"));
+				category.add(new EntryImpl(true, createIcon(red), "0123456789"));
+				category.add(new EntryImpl(true, createIcon(green), "012345"));
+				category.add(new EntryImpl(true, createIcon(blue), "0123456789123"));
 			}
 			{
 				CategoryImpl category = new CategoryImpl("Third category", true);
 				palette.addCategory(category);
-				category.addEntry(new EntryImpl(true, createIcon(red), "0123456789"));
-				category.addEntry(new EntryImpl(true, createIcon(green), "012345"));
-				category.addEntry(new EntryImpl(true, createIcon(blue), "0123456789123"));
+				category.add(new EntryImpl(true, createIcon(red), "0123456789"));
+				category.add(new EntryImpl(true, createIcon(green), "012345"));
+				category.add(new EntryImpl(true, createIcon(blue), "0123456789123"));
 			}
 		}
 		// set palette
@@ -196,10 +197,8 @@ public class PaletteTest implements ColorConstants {
 	// Category implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final class CategoryImpl implements ICategory {
-		private final String m_text;
+	private static final class CategoryImpl extends DesignerContainer {
 		private boolean m_open;
-		private final List<IEntry> m_entries = new ArrayList<>();
 
 		////////////////////////////////////////////////////////////////////////////
 		//
@@ -207,17 +206,8 @@ public class PaletteTest implements ColorConstants {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public CategoryImpl(String text, boolean open) {
-			m_text = text;
+			super(text, null);
 			m_open = open;
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-		//
-		// Access
-		//
-		////////////////////////////////////////////////////////////////////////////
-		public void addEntry(IEntry entry) {
-			m_entries.add(entry);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -225,15 +215,6 @@ public class PaletteTest implements ColorConstants {
 		// ICategory
 		//
 		////////////////////////////////////////////////////////////////////////////
-		@Override
-		public String getText() {
-			return m_text;
-		}
-
-		@Override
-		public String getToolTipText() {
-			return null;
-		}
 
 		@Override
 		public boolean isOpen() {
@@ -243,11 +224,6 @@ public class PaletteTest implements ColorConstants {
 		@Override
 		public void setOpen(boolean b) {
 			m_open = b;
-		}
-
-		@Override
-		public List<IEntry> getEntries() {
-			return m_entries;
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////

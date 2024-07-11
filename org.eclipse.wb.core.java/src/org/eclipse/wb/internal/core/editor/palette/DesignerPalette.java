@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
+import org.eclipse.wb.core.controls.palette.DesignerContainer;
 import org.eclipse.wb.core.controls.palette.DesignerEntry;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
@@ -236,8 +237,8 @@ public class DesignerPalette {
 	// Palette displaying
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<CategoryInfo, ICategory> m_categoryInfoToVisual = new HashMap<>();
-	private final Map<ICategory, CategoryInfo> m_visualToCategoryInfo = new HashMap<>();
+	private final Map<CategoryInfo, DesignerContainer> m_categoryInfoToVisual = new HashMap<>();
+	private final Map<DesignerContainer, CategoryInfo> m_visualToCategoryInfo = new HashMap<>();
 	private final Map<String, Boolean> m_openCategories = new HashMap<>();
 	private final Set<EntryInfo> m_knownEntryInfos = new HashSet<>();
 	private final Set<EntryInfo> m_goodEntryInfos = new HashSet<>();
@@ -303,15 +304,15 @@ public class DesignerPalette {
 	/**
 	 * @return the {@link ICategory} for given {@link CategoryInfo}.
 	 */
-	private ICategory getVisualCategory(final CategoryInfo categoryInfo) {
-		ICategory category = m_categoryInfoToVisual.get(categoryInfo);
+	private DesignerContainer getVisualCategory(final CategoryInfo categoryInfo) {
+		DesignerContainer category = m_categoryInfoToVisual.get(categoryInfo);
 		if (category == null) {
 			final String categoryId = categoryInfo.getId();
-			category = new ICategory() {
+			category = new DesignerContainer(categoryInfo.getName(), categoryInfo.getDescription()) {
 				private boolean m_open;
 
 				@Override
-				public List<IEntry> getEntries() {
+				public List<DesignerEntry> getEntries() {
 					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
 					ExecutionUtils.runIgnore(new RunnableEx() {
@@ -321,7 +322,7 @@ public class DesignerPalette {
 						}
 					});
 					// convert EntryInfo's into IEntry's
-					List<IEntry> entries = new ArrayList<>();
+					List<DesignerEntry> entries = new ArrayList<>();
 					for (EntryInfo entryInfo : entryInfoList) {
 						if (entryInfo.isVisible()) {
 							if (categoryId.equals(ENTRYINFO_CATEGORY)) {
@@ -329,13 +330,13 @@ public class DesignerPalette {
 										IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
 												entryInfo.getId().substring(entryInfo.getId().indexOf(' ') + 1),
 												true)) {
-									IEntry entry = getVisualEntry(entryInfo);
+									DesignerEntry entry = getVisualEntry(entryInfo);
 									if (entry != null) {
 										entries.add(entry);
 									}
 								}
 							} else {
-								IEntry entry = getVisualEntry(entryInfo);
+								DesignerEntry entry = getVisualEntry(entryInfo);
 								if (entry != null) {
 									entries.add(entry);
 								}
@@ -343,16 +344,6 @@ public class DesignerPalette {
 						}
 					}
 					return entries;
-				}
-
-				@Override
-				public String getText() {
-					return categoryInfo.getName();
-				}
-
-				@Override
-				public String getToolTipText() {
-					return categoryInfo.getDescription();
 				}
 
 				@Override

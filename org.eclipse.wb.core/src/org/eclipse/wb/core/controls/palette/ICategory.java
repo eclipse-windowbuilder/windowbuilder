@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,10 @@ import java.util.List;
  *
  * @author scheglov_ke
  * @coverage core.control.palette
+ * @deprecated Use {@link DesignerContainer} instead.
  */
+//TODO GEF
+@Deprecated(since = "1.17.0", forRemoval = true)
 public interface ICategory {
 	/**
 	 * @return the title text of category.
@@ -42,5 +45,5 @@ public interface ICategory {
 	/**
 	 * @return the {@link List} of {@link IEntry}'s.
 	 */
-	List<IEntry> getEntries();
+	List<? extends IEntry> getEntries();
 }
