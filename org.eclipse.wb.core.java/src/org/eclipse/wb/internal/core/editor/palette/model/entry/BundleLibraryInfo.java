@@ -72,6 +72,11 @@ public final class BundleLibraryInfo implements LibraryInfo {
 
 		if (type != null) {
 			IResource bundleFile = type.getResource();
+			if (bundleFile == null) {
+				// Added as external library to the classpath
+				return;
+			}
+
 			Version bundleVersion = getBundleVersion(bundleFile);
 
 			if (bundleVersion == null || bundleVersion.compareTo(bundle.getVersion()) < 0) {
