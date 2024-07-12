@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -328,13 +327,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * @return new instance of {@link CompoundCommand} for further wrapping commands usage.
-	 */
-	public CompoundCommand createCompoundCommand() {
-		return new CompoundCommand();
 	}
 
 	/**
