@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -37,6 +36,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -85,7 +85,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		if (m_layout.isRelatedComponent((JavaInfo) child.getModel())) {
 			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new GroupSelectionEditPolicy2(m_layout));
 		}
@@ -219,7 +219,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		}
 		m_feedbacksDrawer.removeFeedbacks();
 		// prepare
-		List<EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		LayoutDesigner layoutDesigner = m_layout.getLayoutDesigner();
 		LayoutComponent[] layoutComponents = new LayoutComponent[editParts.size()];
 		String id = getContainerId();
@@ -297,7 +297,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void showMoveFeedback(ChangeBoundsRequest request) {
-		final List<EditPart> editParts = request.getEditParts();
+		final List<? extends EditPart> editParts = request.getEditParts();
 		if (editParts.size() == 0) {
 			return;
 		}
@@ -485,7 +485,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		return new EditCommand(getJavaInfo()) {
 			@Override
 			protected void executeEdit() throws Exception {
-				List<EditPart> editParts = request.getEditParts();
+				List<? extends EditPart> editParts = request.getEditParts();
 				List<AbstractComponentInfo> models = editParts.stream() //
 						.map(EditPart::getModel) //
 						.map(AbstractComponentInfo.class::cast)//

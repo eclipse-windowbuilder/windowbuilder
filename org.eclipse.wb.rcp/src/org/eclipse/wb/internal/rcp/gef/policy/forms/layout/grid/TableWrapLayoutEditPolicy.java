@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IMenuManager;
 
@@ -109,7 +109,7 @@ AbstractGridLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		Object model = child.getModel();
 		if (isControl(model)) {
 			C control = toControl(model);
@@ -424,7 +424,7 @@ AbstractGridLayoutEditPolicy {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public EditPart createHeaderEditPart(boolean horizontal, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean horizontal, Object model) {
 		if (horizontal) {
 			return new ColumnHeaderEditPart<>(m_layout, (TableWrapColumnInfo<C>) model, getHostFigure());
 		} else {

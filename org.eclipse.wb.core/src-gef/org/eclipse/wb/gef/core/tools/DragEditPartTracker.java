@@ -13,7 +13,6 @@ package org.eclipse.wb.gef.core.tools;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
-import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
@@ -24,6 +23,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.requests.GroupRequest;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -206,7 +206,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	protected void updateTargetRequest(EditPart target) {
 		super.updateTargetRequest(target);
 		ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
-		List<org.eclipse.wb.gef.core.EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		if (!editParts.isEmpty()) {
 			if (editParts.get(0).getParent() == target) {
 				request.setType(RequestConstants.REQ_MOVE);
@@ -273,7 +273,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 			}
 		} else if (m_canReparent) {
 			// if change parent get command from new parent and notify old parent for orphans
-			org.eclipse.wb.gef.core.EditPart targetEditPart = getTargetEditPart();
+			EditPart targetEditPart = getTargetEditPart();
 			//
 			if (targetEditPart != null) {
 				CompoundCommand compoundCommand = new CompoundCommand();

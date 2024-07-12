@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.gef.policy.nonvisual;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
@@ -200,7 +200,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void showMoveFeedback(ChangeBoundsRequest request) {
-		List<EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		// check create feedback's
 		if (m_moveFeedbackFigures == null) {
 			m_moveFeedbackFigures = new Figure[editParts.size()];

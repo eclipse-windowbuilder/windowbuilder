@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -118,7 +118,7 @@ public final class SimpleContainerLayoutEditPolicy extends LayoutEditPolicy {
 
 	@Override
 	protected Command getAddCommand(ChangeBoundsRequest request) {
-		final List<EditPart> parts = request.getEditParts();
+		final List<? extends EditPart> parts = request.getEditParts();
 		if (parts.size() == 1) {
 			return new EditCommand(m_model) {
 				@Override

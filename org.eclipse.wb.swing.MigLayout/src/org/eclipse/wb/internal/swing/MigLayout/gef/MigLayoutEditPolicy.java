@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -41,6 +40,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -109,13 +109,13 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	 * different {@link SelectionEditPolicy}.
 	 */
 	private void decorateChildren() {
-		for (EditPart child : getHost().getChildren()) {
+		for (org.eclipse.wb.gef.core.EditPart child : getHost().getChildren()) {
 			decorateChild(child);
 		}
 	}
 
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		if (child.getModel() instanceof ComponentInfo) {
 			ComponentInfo component = (ComponentInfo) child.getModel();
 			CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(component);
@@ -488,7 +488,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	}
 
 	@Override
-	public EditPart createHeaderEditPart(boolean horizontal, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean horizontal, Object model) {
 		if (horizontal) {
 			return new ColumnHeaderEditPart(m_layout, (MigColumnInfo) model, getHostFigure());
 		} else {

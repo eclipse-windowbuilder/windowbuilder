@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -56,6 +55,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.draw2d.geometry.Transposer;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -118,7 +118,7 @@ implements IHeadersProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		if (layout.getControls().contains(child.getModel())) {
 			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new FormSelectionEditPolicyClassic<>(layout));
 		}
@@ -1580,7 +1580,7 @@ implements IHeadersProvider {
 	private FormHeaderLayoutEditPolicy<C> headersPolicyVertical;
 
 	@Override
-	public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
 		return new FormHeaderEditPart<>(layout, model, isHorizontal, getHostFigure());
 	}
 

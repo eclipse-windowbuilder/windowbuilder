@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -46,6 +45,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IMenuManager;
@@ -83,7 +83,7 @@ IHeadersProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		if (m_layout.getControls().contains(child.getModel())) {
 			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new FormSelectionEditPolicy2(m_layout));
 		}
@@ -252,7 +252,7 @@ IHeadersProvider {
 		// is this edit parts moved by using a keyboard
 		boolean isKeyboardMoving = isKeyboardMoving();
 		// some preparations
-		List<EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		List<IAbstractComponentInfo> modelList = new ArrayList<>();
 		Rectangle[] relativeBounds = new Rectangle[editParts.size()];
 		Rectangle widgetBounds;
@@ -445,7 +445,7 @@ IHeadersProvider {
 	private FormHeaderLayoutEditPolicy<?> m_headersPolicyVertical;
 
 	@Override
-	public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
 		return new FormHeaderEditPart<>(m_layout, model, isHorizontal, getHostFigure());
 	}
 
