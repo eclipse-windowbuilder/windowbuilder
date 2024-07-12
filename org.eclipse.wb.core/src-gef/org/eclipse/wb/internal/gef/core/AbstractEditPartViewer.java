@@ -93,7 +93,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 */
 	public void setInput(Object model) {
 		RootEditPart rootEditPart = getRootEditPart();
-		EditPart contentEditPart = m_factory.createEditPart((EditPart) rootEditPart, model);
+		EditPart contentEditPart = m_factory.createEditPart(rootEditPart, model);
 		rootEditPart.setContents(contentEditPart);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,11 +26,5 @@ public interface IEditPartFactory extends org.eclipse.gef.EditPartFactory {
 	 * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
 	 */
 	@Override
-	default org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
-		return createEditPart((EditPart) context, model);
-	}
-	/**
-	 * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
-	 */
-	EditPart createEditPart(EditPart context, Object model);
+	EditPart createEditPart(org.eclipse.gef.EditPart context, Object model);
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,11 +11,12 @@
 package org.eclipse.wb.internal.core.gef;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuReference;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
+
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart createEditPart(EditPart context, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 		if (model == null) {
 			return null;
 		}
@@ -67,7 +68,7 @@ public final class EditPartFactory implements IEditPartFactory {
 		//    }
 		// check each external factory
 		for (IEditPartFactory factory : getFactories()) {
-			EditPart editPart = factory.createEditPart(context, model);
+			org.eclipse.wb.gef.core.EditPart editPart = factory.createEditPart(context, model);
 			if (editPart != null) {
 				configureEditPart(context, editPart);
 				return editPart;
@@ -101,7 +102,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	/**
 	 * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
 	 */
-	public static void configureEditPart(EditPart context, EditPart editPart) {
+	public static void configureEditPart(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
 		List<IEditPartConfigurator> configurators =
 				ExternalFactoriesHelper.getElementsInstances(
 						IEditPartConfigurator.class,

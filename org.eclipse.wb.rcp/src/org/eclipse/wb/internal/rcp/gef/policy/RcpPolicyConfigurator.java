@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,12 +12,13 @@ package org.eclipse.wb.internal.rcp.gef.policy;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
 import org.eclipse.wb.core.gef.part.menu.IMenuObjectEditPart;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.jface.ControlDecorationDropLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.jface.FieldEditorDropRequestProcessor;
 import org.eclipse.wb.internal.rcp.gef.policy.jface.action.ActionDropRequestProcessor;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Configures RCP related {@link EditPart}'s.
@@ -27,7 +28,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  */
 public final class RcpPolicyConfigurator implements IEditPartConfigurator {
 	@Override
-	public void configure(EditPart context, EditPart editPart) {
+	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
 		editPart.addRequestProcessor(FieldEditorDropRequestProcessor.INSTANCE);
 		// allow drop Action on MenuManager
 		if (editPart instanceof IMenuObjectEditPart menuEditPart) {
