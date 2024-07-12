@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.draw2d.EventManager;
+import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
@@ -48,7 +49,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gef
  */
-public abstract class AbstractComponentEditPart extends GraphicalEditPart {
+public abstract class AbstractComponentEditPart extends GraphicalEditPart implements IObjectInfoEditPart {
 	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
 			? new Point(20, 28)
 					: new Point(20, 20);

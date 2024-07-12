@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.GroupRequest;
+import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -275,7 +276,10 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 			org.eclipse.wb.gef.core.EditPart targetEditPart = getTargetEditPart();
 			//
 			if (targetEditPart != null) {
-				CompoundCommand compoundCommand = targetEditPart.createCompoundCommand();
+				CompoundCommand compoundCommand = new CompoundCommand();
+				if (targetEditPart instanceof IObjectInfoEditPart objectInfoEditPart) {
+					compoundCommand = objectInfoEditPart.createCompoundCommand();
+				}
 				if (!operationSet.isEmpty()) {
 					org.eclipse.wb.gef.core.EditPart firstPart = operationSet.get(0);
 					GroupRequest orphanRequest = new GroupRequest(RequestConstants.REQ_ORPHAN);
