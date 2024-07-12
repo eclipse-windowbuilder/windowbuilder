@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.gef;
 
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
@@ -21,6 +20,8 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
+
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart createEditPart(EditPart context, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 		// menu
 		{
 			if (model instanceof MenuInfo menu) {
@@ -71,7 +72,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private EditPart createMenuEditPart(Object model, IMenuInfo menuInfo) {
+	private org.eclipse.wb.gef.core.EditPart createMenuEditPart(Object model, IMenuInfo menuInfo) {
 		return EnvironmentUtils.IS_MAC
 				? MenuEditPartFactory.createMenuMac(model, menuInfo)
 						: MenuEditPartFactory.createMenu(model, menuInfo);

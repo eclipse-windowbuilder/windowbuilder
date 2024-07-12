@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.gefTree;
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gefTree.policy.generic.FlowContainerLayoutEditPolicy;
@@ -24,6 +23,8 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainerFactory;
 import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
+
+import org.eclipse.gef.EditPart;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,7 +43,7 @@ public final class GenericContainersConfigurator implements IEditPartConfigurato
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void configure(EditPart context, EditPart editPart) {
+	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
 		if (editPart.getModel() instanceof JavaInfo) {
 			JavaInfo component = (JavaInfo) editPart.getModel();
 			configureComponent(editPart, component);

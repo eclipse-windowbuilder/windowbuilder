@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.core.gef.EditPartFactory;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Implementations of {@link IEditPartConfigurator} are used by {@link EditPartFactory} to configure
@@ -33,5 +34,5 @@ public interface IEditPartConfigurator {
 	/**
 	 * Configures given {@link EditPart}.
 	 */
-	void configure(EditPart context, EditPart editPart);
+	void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart);
 }

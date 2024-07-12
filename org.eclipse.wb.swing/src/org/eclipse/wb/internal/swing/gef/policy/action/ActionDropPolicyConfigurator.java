@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,10 +11,11 @@
 package org.eclipse.wb.internal.swing.gef.policy.action;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+
+import org.eclipse.gef.EditPart;
 
 import javax.swing.AbstractButton;
 
@@ -26,7 +27,7 @@ import javax.swing.AbstractButton;
  */
 public final class ActionDropPolicyConfigurator implements IEditPartConfigurator {
 	@Override
-	public void configure(EditPart context, EditPart editPart) {
+	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
 		// drop ActionInfo on javax.swing.AbstractButton
 		if (editPart.getModel() instanceof ComponentInfo) {
 			ComponentInfo component = (ComponentInfo) editPart.getModel();

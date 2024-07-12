@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,8 +11,9 @@
 package org.eclipse.wb.internal.rcp.nebula.gef;
 
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
+
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart createEditPart(EditPart context, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 		return MATCHING_FACTORY.createEditPart(context, model);
 	}
 }

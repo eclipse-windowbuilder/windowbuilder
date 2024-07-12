@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef;
 
 import org.eclipse.wb.core.gef.MatchingEditPartFactory;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreationSupport;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
@@ -43,6 +42,8 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 
+import org.eclipse.gef.EditPart;
+
 import java.util.List;
 
 import javax.swing.Box;
@@ -67,9 +68,9 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart createEditPart(EditPart context, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 		for (IEditPartFactory factory : FACTORIES) {
-			EditPart editPart = factory.createEditPart(null, model);
+			org.eclipse.wb.gef.core.EditPart editPart = factory.createEditPart(null, model);
 			if (editPart != null) {
 				return editPart;
 			}
@@ -84,7 +85,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	////////////////////////////////////////////////////////////////////////////
 	private static final IEditPartFactory MENU_FACTORY = new IEditPartFactory() {
 		@Override
-		public EditPart createEditPart(EditPart context, Object model) {
+		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof JMenuBarInfo menu) {
 				IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menu);
 				return MenuEditPartFactory.createMenu(model, menuObject);
@@ -109,7 +110,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	};
 	private static final IEditPartFactory SPECIAL_FACTORY = new IEditPartFactory() {
 		@Override
-		public EditPart createEditPart(EditPart context, Object model) {
+		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof JSplitPaneInfo) {
 				return new JSplitPaneEditPart((JSplitPaneInfo) model);
 			}
@@ -127,7 +128,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	};
 	private static final IEditPartFactory BOX_FACTORY = new IEditPartFactory() {
 		@Override
-		public EditPart createEditPart(EditPart context, Object model) {
+		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof ComponentInfo component) {
 				if (component.getCreationSupport() instanceof StaticFactoryCreationSupport) {
 					StaticFactoryCreationSupport factoryCreationSupport =
@@ -143,7 +144,7 @@ public final class EditPartFactory implements IEditPartFactory {
 			return null;
 		}
 
-		private EditPart createEditPart(ComponentInfo component, String signature) {
+		private org.eclipse.wb.gef.core.EditPart createEditPart(ComponentInfo component, String signature) {
 			// glue
 			if (signature.equals("createGlue()")) {
 				return new BoxGlueEditPart(component);
@@ -173,7 +174,7 @@ public final class EditPartFactory implements IEditPartFactory {
 					List.of("org.eclipse.wb.internal.swing.gef.part"));
 	private static final IEditPartFactory GENERIC_FACTORY = new IEditPartFactory() {
 		@Override
-		public EditPart createEditPart(EditPart context, Object model) {
+		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof ContainerInfo) {
 				return new ContainerEditPart((ContainerInfo) model);
 			}

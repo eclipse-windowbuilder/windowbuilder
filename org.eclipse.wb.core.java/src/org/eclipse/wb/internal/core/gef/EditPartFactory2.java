@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,13 +12,14 @@ package org.eclipse.wb.internal.core.gef;
 
 import org.eclipse.wb.core.model.IWrapper;
 import org.eclipse.wb.core.model.IWrapperInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.internal.core.gef.part.AbstractWrapperEditPart;
 import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.ArrayObjectEditPart;
 import org.eclipse.wb.internal.core.model.DesignRootObject;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Generic implementation of {@link IEditPartFactory} that redirects {@link EditPart}'s creation to
@@ -44,7 +45,7 @@ public final class EditPartFactory2 implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart createEditPart(EditPart context, Object model) {
+	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
 		if (model == null) {
 			return null;
 		}
