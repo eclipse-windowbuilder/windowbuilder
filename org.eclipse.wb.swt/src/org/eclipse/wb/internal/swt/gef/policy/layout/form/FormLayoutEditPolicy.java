@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.TabFolder;
@@ -88,7 +88,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		if (layout.getControls().contains(child.getModel())) {
 			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new FormSelectionEditPolicy<>(layout));
 		}
@@ -190,7 +190,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 
 	@Override
 	protected Command getAddCommand(ChangeBoundsRequest request) {
-		final List<EditPart> editParts = request.getEditParts();
+		final List<? extends EditPart> editParts = request.getEditParts();
 		//
 		return new EditCommand(layout) {
 			@SuppressWarnings("unchecked")

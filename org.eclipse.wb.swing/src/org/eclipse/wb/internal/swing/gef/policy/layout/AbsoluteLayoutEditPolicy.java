@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.SelectionActionsSuppo
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(EditPart child) {
+	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
 		Object childModel = child.getModel();
 		if (childModel instanceof ComponentInfo) {
 			EditPolicy policy = new AbsoluteLayoutSelectionEditPolicy<ComponentInfo>();
@@ -184,7 +184,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getMoveCommand(ChangeBoundsRequest request) {
-		final List<EditPart> editParts = request.getEditParts();
+		final List<? extends EditPart> editParts = request.getEditParts();
 		//
 		return new EditCommand(m_layout) {
 			@Override
@@ -204,7 +204,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 
 	@Override
 	protected Command getAddCommand(ChangeBoundsRequest request) {
-		final List<EditPart> editParts = request.getEditParts();
+		final List<? extends EditPart> editParts = request.getEditParts();
 		//
 		return new EditCommand(m_layout) {
 			@Override

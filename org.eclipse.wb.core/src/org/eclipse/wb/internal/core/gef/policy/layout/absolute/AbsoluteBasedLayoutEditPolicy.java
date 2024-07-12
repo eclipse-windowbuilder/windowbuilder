@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,11 +26,9 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -49,10 +47,12 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -377,7 +377,7 @@ IPreferenceConstants {
 			}
 		}
 		// some preparations
-		List<EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		List<IAbstractComponentInfo> modelList = new ArrayList<>();
 		Rectangle[] relativeBounds = new Rectangle[editParts.size()];
 		Rectangle widgetBounds;
@@ -482,7 +482,7 @@ IPreferenceConstants {
 		}
 		getPlacementsSupport().cleanup();
 		// prepare
-		List<EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		List<IAbstractComponentInfo> modelList = new ArrayList<>();
 		Rectangle[] relativeBounds = new Rectangle[editParts.size()];
 		Rectangle widgetBounds;
@@ -865,7 +865,7 @@ IPreferenceConstants {
 
 	@Override
 	protected Command getOrphanCommand(GroupRequest request) {
-		List<EditPart> editParts = request.getEditParts();
+		List<? extends EditPart> editParts = request.getEditParts();
 		final List<IAbstractComponentInfo> widgets = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			widgets.add((IAbstractComponentInfo) editPart.getModel());

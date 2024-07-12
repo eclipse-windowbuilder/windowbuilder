@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
@@ -22,6 +21,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.swt.SWT;
@@ -57,7 +57,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 			default :
 				return;
 			}
-			List<EditPart> editParts = ToolUtilities.getSelectionWithoutDependants(getViewer());
+			List<? extends EditPart> editParts = ToolUtilities.getSelectionWithoutDependants(getViewer());
 			// check selection
 			if (!editParts.isEmpty()) {
 				for (EditPart editPart : editParts) {
@@ -86,7 +86,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 	/**
 	 * Key pressed handler, generating GEF change bounds request
 	 */
-	private void handleKeyPressed(KeyRequest request, List<EditPart> editParts) {
+	private void handleKeyPressed(KeyRequest request, List<? extends EditPart> editParts) {
 		synchronized (m_changeBoundsRequest) {
 			if (m_keyDragTimer != null) {
 				return;
@@ -167,7 +167,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
 						public void run() {
 							synchronized (m_changeBoundsRequest) {
 								try {
-									List<EditPart> editParts = m_changeBoundsRequest.getEditParts();
+									List<? extends EditPart> editParts = m_changeBoundsRequest.getEditParts();
 									//
 									if (editParts != null && !editParts.isEmpty()) {
 										// Create command
