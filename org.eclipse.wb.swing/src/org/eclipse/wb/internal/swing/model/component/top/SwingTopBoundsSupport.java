@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
@@ -172,39 +171,36 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 	 */
 	private static Window prepareWindow(final Component component, final Rectangle clientArea)
 			throws Exception {
-		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Window>() {
-			@Override
-			public Window runObject() throws Exception {
-				final Window window;
-				if (component instanceof Window) {
-					window = (Window) component;
-				} else {
-					JFrame frame = new JFrame();
-					window = frame;
-					// add component on frame
-					component.setPreferredSize(component.getSize());
-					frame.getContentPane().add(component, BorderLayout.CENTER);
-					// configure frame
-					frame.setTitle(ModelMessages.SwingTopBoundsSupport_wrapperTitle);
-					frame.pack();
-				}
-				// set window location
-				{
-					int x = clientArea.x + (clientArea.width - window.getWidth()) / 2;
-					int y = clientArea.y + (clientArea.height - window.getHeight()) / 2;
-					window.setLocation(x, y);
-				}
-				// configure special windows
-				{
-					if (window instanceof Dialog) {
-						((Dialog) window).setModal(false);
-					}
-					if (window instanceof JFrame) {
-						((JFrame) window).setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					}
-				}
-				return window;
+		return SwingUtils.runObjectLaterAndWait(() -> {
+			final Window window;
+			if (component instanceof Window) {
+				window = (Window) component;
+			} else {
+				JFrame frame = new JFrame();
+				window = frame;
+				// add component on frame
+				component.setPreferredSize(component.getSize());
+				frame.getContentPane().add(component, BorderLayout.CENTER);
+				// configure frame
+				frame.setTitle(ModelMessages.SwingTopBoundsSupport_wrapperTitle);
+				frame.pack();
 			}
+			// set window location
+			{
+				int x = clientArea.x + (clientArea.width - window.getWidth()) / 2;
+				int y = clientArea.y + (clientArea.height - window.getHeight()) / 2;
+				window.setLocation(x, y);
+			}
+			// configure special windows
+			{
+				if (window instanceof Dialog) {
+					((Dialog) window).setModal(false);
+				}
+				if (window instanceof JFrame) {
+					((JFrame) window).setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				}
+			}
+			return window;
 		});
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.os.OSSupport;
@@ -33,6 +32,7 @@ import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.IllegalComponentStateException;
 import java.awt.Point;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JFrame;
@@ -109,10 +109,10 @@ public final class SwingUtils {
 
 	/**
 	 * Same as {@link #runLaterAndWait(RunnableEx)} but returns the result of execution. See
-	 * {@link ExecutionUtils#runObject(RunnableObjectEx)}.
+	 * {@link ExecutionUtils#runObject(Callable)}.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T runObjectLaterAndWait(final RunnableObjectEx<T> runnableEx) throws Exception {
+	public static <T> T runObjectLaterAndWait(final Callable<T> runnableEx) throws Exception {
 		final AtomicBoolean done = new AtomicBoolean();
 		final Throwable ex[] = new Throwable[1];
 		final Object[] result = new Object[1];
@@ -120,7 +120,7 @@ public final class SwingUtils {
 			@Override
 			public void run() {
 				try {
-					result[0] = runnableEx.runObject();
+					result[0] = runnableEx.call();
 				} catch (Throwable e) {
 					ex[0] = e;
 				} finally {
@@ -300,12 +300,7 @@ public final class SwingUtils {
 	 */
 	public static Point getScreenLocation(final Component component) throws Exception {
 		try {
-			return runObjectLaterAndWait(new RunnableObjectEx<Point>() {
-				@Override
-				public Point runObject() throws Exception {
-					return component.getLocationOnScreen();
-				}
-			});
+			return runObjectLaterAndWait(() -> component.getLocationOnScreen());
 		} catch (IllegalComponentStateException e) {
 			return new Point();
 		}
