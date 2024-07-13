@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
@@ -225,12 +224,7 @@ public class ObjectEditPart extends TreeEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<?> getModelChildren() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-			@Override
-			public List<?> runObject() throws Exception {
-				return m_object.getPresentation().getChildrenTree();
-			}
-		}, Collections.emptyList());
+		return ExecutionUtils.runObjectLog(() -> m_object.getPresentation().getChildrenTree(), Collections.emptyList());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

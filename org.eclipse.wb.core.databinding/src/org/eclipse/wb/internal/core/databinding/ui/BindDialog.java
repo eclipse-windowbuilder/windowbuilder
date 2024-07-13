@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.UiContentProviderComposite;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableTitleAreaDialog;
 
@@ -81,13 +80,8 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
 				new ScrolledComposite((Composite) super.createDialogArea(parent), SWT.BORDER | SWT.V_SCROLL);
 		container.setExpandHorizontal(true);
 		//
-		List<IUiContentProvider> providers =
-				ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
-					@Override
-					public List<IUiContentProvider> runObject() throws Exception {
-						return m_databindingsProvider.getContentProviders(m_binding, BindDialog.this);
-					}
-				}, Collections.<IUiContentProvider>emptyList());
+		List<IUiContentProvider> providers = ExecutionUtils.runObjectLog(
+				() -> m_databindingsProvider.getContentProviders(m_binding, BindDialog.this), Collections.emptyList());
 		m_providerComposite = new UiContentProviderComposite(this, providers, container, SWT.NONE);
 		container.setContent(m_providerComposite);
 		container.addControlListener(new ControlAdapter() {

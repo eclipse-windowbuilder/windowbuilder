@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.databinding.ui.providers;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -72,12 +71,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
 			final IObjectPresentation presentation = info.getPresentation();
 			if (presentation != null) {
 				// check children
-				return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-					@Override
-					public Boolean runObject() throws Exception {
-						return presentation.isVisible() && !presentation.getChildrenTree().isEmpty();
-					}
-				}, false);
+				return ExecutionUtils.runObjectLog(() -> presentation.isVisible() && !presentation.getChildrenTree().isEmpty(), false);
 			}
 		}
 		return false;
@@ -90,12 +84,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
 			final IObjectPresentation presentation = info.getPresentation();
 			if (presentation != null) {
 				// get children
-				return ExecutionUtils.runObjectLog(new RunnableObjectEx<Object[]>() {
-					@Override
-					public Object[] runObject() throws Exception {
-						return presentation.getChildrenTree().toArray();
-					}
-				}, ArrayUtils.EMPTY_OBJECT_ARRAY);
+				return ExecutionUtils.runObjectLog(() -> presentation.getChildrenTree().toArray(), ArrayUtils.EMPTY_OBJECT_ARRAY);
 			}
 		}
 		return ArrayUtils.EMPTY_OBJECT_ARRAY;

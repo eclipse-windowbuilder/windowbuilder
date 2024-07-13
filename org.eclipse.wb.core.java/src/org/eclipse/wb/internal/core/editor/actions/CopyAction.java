@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMementoTransfer;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -107,47 +106,38 @@ public class CopyAction extends Action {
 	 * @return <code>true</code> if given {@link JavaInfo}'s can be copy/pasted.
 	 */
 	static boolean hasMementos(final List<EditPart> editParts) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				// selection required
-				if (editParts.isEmpty()) {
-					return false;
-				}
-				// check that JavaInfoMemento's can be created
-				for (EditPart editPart : editParts) {
-					// prepare model
-					JavaInfo javaInfo;
-					{
-						Object model = editPart.getModel();
-						if (model instanceof JavaInfo) {
-							javaInfo = (JavaInfo) model;
-						} else {
-							return false;
-						}
-					}
-					// check for memento
-					if (!JavaInfoMemento.hasMemento(javaInfo)) {
+		return ExecutionUtils.runObjectLog(() -> {
+			// selection required
+			if (editParts.isEmpty()) {
+				return false;
+			}
+			// check that JavaInfoMemento's can be created
+			for (EditPart editPart : editParts) {
+				// prepare model
+				JavaInfo javaInfo;
+				{
+					Object model = editPart.getModel();
+					if (model instanceof JavaInfo) {
+						javaInfo = (JavaInfo) model;
+					} else {
 						return false;
 					}
 				}
-				// OK
-				return true;
+				// check for memento
+				if (!JavaInfoMemento.hasMemento(javaInfo)) {
+					return false;
+				}
 			}
+			// OK
+			return true;
 		}, false);
 	}
 
 	/**
 	 * @return the {@link JavaInfoMemento}'s with copy/paste information for given {@link JavaInfo}'s.
 	 */
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	static List<JavaInfoMemento> getMementos(final List<EditPart> editParts) {
-		return (List<JavaInfoMemento>) ExecutionUtils.runObjectLog(new RunnableObjectEx() {
-			@Override
-			public Object runObject() throws Exception {
-				return getMemento0(editParts);
-			}
-		}, null);
+		return ExecutionUtils.runObjectLog(() -> getMemento0(editParts), null);
 	}
 
 	private static List<JavaInfoMemento> getMemento0(List<EditPart> editParts) throws Exception {

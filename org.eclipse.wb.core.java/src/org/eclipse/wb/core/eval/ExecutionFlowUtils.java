@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,6 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -393,16 +392,13 @@ public final class ExecutionFlowUtils {
 	 * there are special cases, such as <code>EventQueue.invokeLater(Runnable)</code> in Swing.
 	 */
 	private static boolean shouldVisitAnonymousClassDeclaration(final AnonymousClassDeclaration anonymous) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
-					if (provider.shouldVisit(anonymous)) {
-						return true;
-					}
+		return ExecutionUtils.runObjectLog(() -> {
+			for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
+				if (provider.shouldVisit(anonymous)) {
+					return true;
 				}
-				return false;
 			}
+			return false;
 		}, false);
 	}
 

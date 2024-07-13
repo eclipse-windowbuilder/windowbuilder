@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.UiContentProviderAdapter;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.TableFactory;
@@ -266,28 +265,13 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
 			switch (column) {
 			case 0 :
 				// Viewer column
-				return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-					@Override
-					public String runObject() throws Exception {
-						return editingSupport.getViewerColumn().getPresentation().getText();
-					}
-				}, null);
+				return ExecutionUtils.runObjectLog(() -> editingSupport.getViewerColumn().getPresentation().getText(), null);
 			case 1 :
 				// CellEditor
-				return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-					@Override
-					public String runObject() throws Exception {
-						return editingSupport.getCellEditorPresentationText();
-					}
-				}, null);
+				return ExecutionUtils.runObjectLog(() -> editingSupport.getCellEditorPresentationText(), null);
 			case 2 :
 				// Element property
-				return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-					@Override
-					public String runObject() throws Exception {
-						return editingSupport.getElementPropertyPresentationText();
-					}
-				}, null);
+				return ExecutionUtils.runObjectLog(() -> editingSupport.getElementPropertyPresentationText(), null);
 			}
 			return null;
 		}
@@ -297,12 +281,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
 			if (column == 0) {
 				// Viewer column
 				final VirtualEditingSupportInfo editingSupport = (VirtualEditingSupportInfo) element;
-				return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-					@Override
-					public Image runObject() throws Exception {
-						return m_resourceManager.createImage(editingSupport.getViewerColumn().getPresentation().getImageDescriptor());
-					}
-				}, null);
+				return ExecutionUtils.runObjectLog(() -> m_resourceManager.createImage(editingSupport.getViewerColumn().getPresentation().getImageDescriptor()), null);
 			}
 			return null;
 		}

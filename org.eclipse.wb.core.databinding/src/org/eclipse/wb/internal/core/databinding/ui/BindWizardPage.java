@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.UiContentProviderCompo
 import org.eclipse.wb.internal.core.databinding.ui.property.Context;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.wizard.IWizardContainer;
 import org.eclipse.jface.wizard.WizardPage;
@@ -101,13 +100,10 @@ public class BindWizardPage extends WizardPage implements IPageListener {
 			m_providerComposite = null;
 		}
 		List<IUiContentProvider> providers =
-				ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
-					@Override
-					public List<IUiContentProvider> runObject() throws Exception {
-						m_binding = m_firstPage.getBinding();
-						return m_context.provider.getContentProviders(m_binding, BindWizardPage.this);
-					}
-				}, Collections.<IUiContentProvider>emptyList());
+				ExecutionUtils.runObjectLog(() -> {
+					m_binding = m_firstPage.getBinding();
+					return m_context.provider.getContentProviders(m_binding, BindWizardPage.this);
+				}, Collections.emptyList());
 		m_providerComposite = new UiContentProviderComposite(this, providers, m_composite, SWT.NONE);
 		// initial state
 		ExecutionUtils.runLog(new RunnableEx() {

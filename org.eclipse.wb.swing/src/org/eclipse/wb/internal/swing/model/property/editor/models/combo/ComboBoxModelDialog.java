@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.model.property.editor.models.combo;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -266,24 +265,21 @@ public class ComboBoxModelDialog extends ResizableDialog {
 	 * @return the edited items.
 	 */
 	public String[] getItems() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
-			@Override
-			public String[] runObject() throws Exception {
-				List<String> strings = new ArrayList<>();
-				String stringItems =
-						itemsText != null && !itemsText.isDisposed()
-						? itemsText.getText()
-								: ComboBoxModelDialog.this.stringItems;
-				BufferedReader br = new BufferedReader(new StringReader(stringItems));
-				while (true) {
-					String s = br.readLine();
-					if (s == null) {
-						break;
-					}
-					strings.add(s);
+		return ExecutionUtils.runObjectLog(() -> {
+			List<String> strings = new ArrayList<>();
+			String stringItems =
+					itemsText != null && !itemsText.isDisposed()
+					? itemsText.getText()
+							: ComboBoxModelDialog.this.stringItems;
+			BufferedReader br = new BufferedReader(new StringReader(stringItems));
+			while (true) {
+				String s = br.readLine();
+				if (s == null) {
+					break;
 				}
-				return strings.toArray(new String[strings.size()]);
+				strings.add(s);
 			}
+			return strings.toArray(new String[strings.size()]);
 		}, ArrayUtils.EMPTY_STRING_ARRAY);
 	}
 }

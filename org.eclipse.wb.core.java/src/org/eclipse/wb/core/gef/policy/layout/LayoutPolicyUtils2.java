@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.gef.commands.Command;
 
@@ -44,36 +43,33 @@ public class LayoutPolicyUtils2 {
 			final IPasteProcessor<T> processor) {
 		@SuppressWarnings("unchecked")
 		final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Command>() {
-			@Override
-			public Command runObject() throws Exception {
-				// prepare models
-				final List<JavaInfo> components;
-				{
-					components = new ArrayList<>();
-					for (JavaInfoMemento memento : mementos) {
-						JavaInfo javaInfo = memento.create(existingHierarchyObject);
-						if (componentClass.isAssignableFrom(javaInfo.getClass())) {
-							components.add(javaInfo);
-						} else {
-							return null;
-						}
+		return ExecutionUtils.runObjectLog(() -> {
+			// prepare models
+			final List<JavaInfo> components;
+			{
+				components = new ArrayList<>();
+				for (JavaInfoMemento memento : mementos) {
+					JavaInfo javaInfo = memento.create(existingHierarchyObject);
+					if (componentClass.isAssignableFrom(javaInfo.getClass())) {
+						components.add(javaInfo);
+					} else {
+						return null;
 					}
-					// set objects for selection
-					request.setObjects(components);
 				}
-				// create command
-				return new EditCommand(existingHierarchyObject) {
-					@Override
-					@SuppressWarnings("unchecked")
-					protected void executeEdit() throws Exception {
-						for (int i = 0; i < components.size(); i++) {
-							processor.process((T) components.get(i));
-							mementos.get(i).apply();
-						}
-					}
-				};
+				// set objects for selection
+				request.setObjects(components);
 			}
+			// create command
+			return new EditCommand(existingHierarchyObject) {
+				@Override
+				@SuppressWarnings("unchecked")
+				protected void executeEdit() throws Exception {
+					for (int i = 0; i < components.size(); i++) {
+						processor.process((T) components.get(i));
+						mementos.get(i).apply();
+					}
+				}
+			};
 		}, null);
 	}
 	/**

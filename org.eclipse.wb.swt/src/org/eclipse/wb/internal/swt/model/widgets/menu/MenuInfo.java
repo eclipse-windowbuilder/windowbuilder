@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,6 @@ import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuLiveManager;
@@ -446,18 +445,15 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		@Override
 		@SuppressWarnings("unchecked")
 		public boolean validatePaste(final Object mementoObject) {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-				@Override
-				public Boolean runObject() throws Exception {
-					List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) mementoObject;
-					for (JavaInfoMemento memento : mementos) {
-						JavaInfo component = memento.create(m_this);
-						if (!(component instanceof MenuItemInfo)) {
-							return false;
-						}
+			return ExecutionUtils.runObjectLog(() -> {
+				List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) mementoObject;
+				for (JavaInfoMemento memento : mementos) {
+					JavaInfo component = memento.create(m_this);
+					if (!(component instanceof MenuItemInfo)) {
+						return false;
 					}
-					return true;
 				}
+				return true;
 			}, false);
 		}
 
