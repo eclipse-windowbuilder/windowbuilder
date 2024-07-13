@@ -160,7 +160,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<EditPart> exclude,
+			final Collection<? extends org.eclipse.gef.EditPart> exclude,
 			final Conditional conditional) {
 		EditPart editPart = findTargetEditPart(x, y, exclude, conditional, MENU_PRIMARY_LAYER);
 		if (editPart == null) {
@@ -176,13 +176,13 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<EditPart> exclude,
+			final Collection<? extends org.eclipse.gef.EditPart> exclude,
 			final Conditional conditional,
 			String layer) {
 		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y, this) {
 			@Override
 			protected boolean acceptVisit(Figure figure) {
-				for (EditPart editPart : exclude) {
+				for (org.eclipse.gef.EditPart editPart : exclude) {
 					GraphicalEditPart graphicalPart = (GraphicalEditPart) editPart;
 					if (ObjectUtils.equals(figure, graphicalPart.getFigure())) {
 						return false;

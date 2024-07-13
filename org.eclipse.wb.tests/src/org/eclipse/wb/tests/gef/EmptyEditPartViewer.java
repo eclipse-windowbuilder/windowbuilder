@@ -56,7 +56,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			Collection<EditPart> exclude,
+			Collection<? extends org.eclipse.gef.EditPart> exclude,
 			Conditional conditional) {
 		return null;
 	}
@@ -64,7 +64,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			Collection<EditPart> exclude,
+			Collection<? extends org.eclipse.gef.EditPart> exclude,
 			Conditional conditional,
 			String layer) {
 		return null;

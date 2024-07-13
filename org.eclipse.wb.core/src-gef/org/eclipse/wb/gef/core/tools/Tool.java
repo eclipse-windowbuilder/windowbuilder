@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
@@ -128,14 +128,14 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	// OperationSet
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private List<EditPart> m_operationSet;
+	private List<? extends EditPart> m_operationSet;
 
 	/**
 	 * Lazily creates and returns the list of {@link EditPart}'s on which the tool operates. The list
 	 * is initially <code>null</code>, in which case {@link #createOperationSet()} is called, and its
 	 * results cached until the tool is deactivated.
 	 */
-	protected final List<EditPart> getOperationSet() {
+	protected final List<? extends EditPart> getOperationSet() {
 		if (m_operationSet == null) {
 			m_operationSet = createOperationSet();
 		}
@@ -149,7 +149,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	 * By default, the operations set is the current viewer's entire selection. Subclasses may
 	 * override this method to filter or alter the operation set as necessary.
 	 */
-	protected List<EditPart> createOperationSet() {
+	protected List<? extends EditPart> createOperationSet() {
 		return new ArrayList<>(getCurrentViewer().getSelectedEditParts());
 	}
 
