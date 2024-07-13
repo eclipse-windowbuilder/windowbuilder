@@ -131,47 +131,11 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Appends the specified <code>{@link EditPart}</code> to the viewer's <i>selection</i>. The
-	 * {@link EditPart} becomes the new primary selection.
-	 */
-	void appendSelection(EditPart part);
-
-	/**
-	 * Replaces the current selection with the specified <code>{@link EditPart EditParts}</code>.
-	 */
-	void setSelection(List<EditPart> editParts);
-
-	/**
-	 * Replaces the current selection with the specified <code>{@link EditPart}</code>. That part
-	 * becomes the primary selection.
-	 */
-	void select(EditPart part);
-
-	/**
-	 * Removes the specified <code>{@link EditPart}</code> from the current selection. The last
-	 * EditPart in the new selection is made {@link EditPart#SELECTED_PRIMARY primary}.
-	 */
-	void deselect(EditPart part);
-
-	/**
 	 * Removes the specified <code>{@link List}</code> of <code>{@link EditPart}</code>'s from the
 	 * current selection. The last EditPart in the new selection is made
 	 * {@link EditPart#SELECTED_PRIMARY primary}.
 	 */
-	void deselect(List<EditPart> editParts);
-
-	/**
-	 * Returns an unmodifiable <code>List</code> containing zero or more selected editparts. This list
-	 * may be empty. This list can be modified indirectly by calling other methods on the viewer.
-	 */
-	List<EditPart> getSelectedEditParts();
-
-	/**
-	 * Returns the {@link EditPart} which is being selected during selection listeners firing. IOW,
-	 * this will allow to track where the selection goes during deselecting another EditPart. After
-	 * all selection listeners fired this method returns <code>null</code>.
-	 */
-	EditPart getSelectingEditPart();
+	void deselect(List<? extends org.eclipse.gef.EditPart> editParts);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

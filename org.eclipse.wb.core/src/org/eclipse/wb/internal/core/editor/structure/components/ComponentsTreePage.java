@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.editor.structure.components;
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
@@ -35,6 +35,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -140,7 +141,7 @@ public final class ComponentsTreePage implements IPage {
 	 * .
 	 */
 	private void selectTreeViewer() {
-		List<EditPart> selectedEditParts = m_graphicalViewer.getSelectedEditParts();
+		List<? extends EditPart> selectedEditParts = m_graphicalViewer.getSelectedEditParts();
 		setSelection(m_viewer, m_selectionListener_Tree, selectedEditParts);
 		showComponentDefinition(selectedEditParts);
 	}
@@ -149,7 +150,7 @@ public final class ComponentsTreePage implements IPage {
 	 * Selects {@link EditPart}'s in {@link #m_graphicalViewer} using selection in {@link #m_viewer}.
 	 */
 	private void selectGraphicalViewer() {
-		final List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+		final List<? extends EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 		// refresh if necessary
 		ExecutionUtils.runLog(new RunnableEx() {
 			@Override
@@ -196,7 +197,7 @@ public final class ComponentsTreePage implements IPage {
 	 */
 	private static void setSelection(IEditPartViewer targetViewer,
 			ISelectionChangedListener selectionListener,
-			List<EditPart> sourceEditParts) {
+			List<? extends EditPart> sourceEditParts) {
 		// prepare EditPart's in target viewer
 		List<EditPart> targetEditParts = new ArrayList<>();
 		for (EditPart sourceEditPart : sourceEditParts) {
@@ -212,7 +213,7 @@ public final class ComponentsTreePage implements IPage {
 		// set selection
 		targetViewer.removeSelectionChangedListener(selectionListener);
 		try {
-			targetViewer.setSelection(targetEditParts);
+			targetViewer.setSelection(new StructuredSelection(targetEditParts));
 		} finally {
 			targetViewer.addSelectionChangedListener(selectionListener);
 		}
@@ -221,7 +222,7 @@ public final class ComponentsTreePage implements IPage {
 	/**
 	 * Shows definition in source for primary selected {@link EditPart} with {@link ObjectInfo} model.
 	 */
-	private static void showComponentDefinition(List<EditPart> sourceEditParts) {
+	private static void showComponentDefinition(List<? extends EditPart> sourceEditParts) {
 		IPreferenceStore preferences = DesignerPlugin.getPreferences();
 		if (preferences.getBoolean(IPreferenceConstants.P_EDITOR_GOTO_DEFINITION_ON_SELECTION)
 				&& !sourceEditParts.isEmpty()) {

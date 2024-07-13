@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,11 +13,13 @@ package org.eclipse.wb.tests.designer.core.palette;
 import org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.core.gef.tools.TabOrderTool;
 
+import org.eclipse.gef.EditPart;
+
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -89,7 +91,7 @@ public class TabOrderToolEntryInfoTest extends AbstractPaletteTest {
 			//
 			when(selectedEditPart.getViewer()).thenReturn(viewer);
 			when(selectedEditPart.getEditPolicy(TabOrderContainerEditPolicy.TAB_CONTAINER_ROLE)).thenReturn(tabContainerRole);
-			when(viewer.getSelectedEditParts()).thenReturn(List.of(selectedEditPart));
+			doReturn(List.of(selectedEditPart)).when(viewer).getSelectedEditParts();
 		}
 		// check tool
 		assertTrue(entry.initialize(viewer, panel));

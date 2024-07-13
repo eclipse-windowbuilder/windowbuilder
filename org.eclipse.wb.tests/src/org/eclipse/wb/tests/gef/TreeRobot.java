@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
@@ -24,7 +23,9 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;
@@ -219,7 +220,7 @@ public final class TreeRobot {
 	public TreeRobot select(Object... models) {
 		TreeEditPart[] editParts = getEditParts(models);
 		m_justSelectedEditParts = editParts;
-		m_viewer.setSelection(List.of(editParts));
+		m_viewer.setSelection(new StructuredSelection(editParts));
 		DesignerTestCase.waitEventLoop(100, 0);
 		return this;
 	}
@@ -416,7 +417,7 @@ public final class TreeRobot {
 	 * Asserts that selection is empty, i.e. no {@link EditPart} selected.
 	 */
 	public TreeRobot assertSelectedEmpty() {
-		List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+		List<? extends EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 		Assertions.assertThat(selectedEditParts).isEmpty();
 		return this;
 	}

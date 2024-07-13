@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.editor;
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
@@ -32,6 +31,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourceAttributes;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.ui.JavaUI;
@@ -194,7 +194,7 @@ public class UndoManagerTest extends SwingGefTest {
 			openDesignPage();
 			// "contentPane" should be selected, despite reparsing
 			{
-				List<EditPart> selectedEditParts = m_viewerCanvas.getSelectedEditParts();
+				List<? extends EditPart> selectedEditParts = m_viewerCanvas.getSelectedEditParts();
 				assertEquals(1, selectedEditParts.size());
 				EditPart selectedEditPart = selectedEditParts.get(0);
 				assertEquals(contentPane.toString(), selectedEditPart.getModel().toString());

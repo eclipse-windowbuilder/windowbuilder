@@ -38,7 +38,7 @@ import java.util.List;
 public final class TabOrderTool extends TargetingTool {
 	private final TabOrderContainerRequest m_containerRequest =
 			new TabOrderContainerRequest(TabOrderContainerEditPolicy.REQ_CONTAINER_TAB_ORDER);
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private EditPolicy m_containerPolicy;
 	private int m_currentIndex;
 	private boolean m_saveTabOrder;
@@ -49,7 +49,7 @@ public final class TabOrderTool extends TargetingTool {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public TabOrderTool(org.eclipse.wb.gef.core.EditPart part) {
+	public TabOrderTool(EditPart part) {
 		setDefaultCursor(Cursors.ARROW);
 		m_viewer = part.getViewer();
 		m_viewer.addSelectionChangedListener(m_selectionListener);

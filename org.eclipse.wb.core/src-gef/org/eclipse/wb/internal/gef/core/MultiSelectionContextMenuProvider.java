@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
@@ -43,7 +43,7 @@ public abstract class MultiSelectionContextMenuProvider extends ContextMenuProvi
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected final void buildContextMenu() {
-		List<EditPart> editParts = m_viewer.getSelectedEditParts();
+		List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
 		preprocessSelection(editParts);
 		// check empty
 		if (editParts.isEmpty()) {
@@ -70,7 +70,7 @@ public abstract class MultiSelectionContextMenuProvider extends ContextMenuProvi
 	 * Notifies that given {@link EditPart}'s are selected and we are going to call later
 	 * {@link #buildContextMenu(EditPart, IMenuManager)} for each of them.
 	 */
-	protected void preprocessSelection(List<EditPart> editParts) {
+	protected void preprocessSelection(List<? extends EditPart> editParts) {
 	}
 
 	/**

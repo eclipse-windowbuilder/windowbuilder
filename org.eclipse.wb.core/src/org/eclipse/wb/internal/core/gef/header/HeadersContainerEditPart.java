@@ -174,9 +174,9 @@ IHeaderMenuProvider {
 	 */
 	private IHeadersProvider getHeadersProvider() {
 		// prepare selected EditPart
-		org.eclipse.wb.gef.core.EditPart selectedEditPart;
+		EditPart selectedEditPart;
 		{
-			List<org.eclipse.wb.gef.core.EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+			List<? extends EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 			if (selectedEditParts.size() != 1) {
 				return null;
 			}
@@ -187,7 +187,7 @@ IHeaderMenuProvider {
 		}
 		// get provider from container of selected EditPart
 		{
-			org.eclipse.wb.gef.core.EditPart containerEditPart = selectedEditPart.getParent();
+			EditPart containerEditPart = selectedEditPart.getParent();
 			if (containerEditPart != null) {
 				IHeadersProvider headersProvider = getHeadersProvider(containerEditPart);
 				if (headersProvider != null) {
@@ -210,9 +210,9 @@ IHeaderMenuProvider {
 	 * @return the {@link IHeadersProvider} implemented by one of the {@link EditPolicy} of given
 	 *         {@link EditPart}.
 	 */
-	private static IHeadersProvider getHeadersProvider(org.eclipse.wb.gef.core.EditPart editPart) {
+	private static IHeadersProvider getHeadersProvider(EditPart editPart) {
 		// find policy that implements IHeadersProvider
-		for (EditPolicy editPolicy : editPart.getEditPolicies()) {
+		for (EditPolicy editPolicy : ((org.eclipse.wb.gef.core.EditPart) editPart).getEditPolicies()) {
 			if (editPolicy instanceof IHeadersProvider headersProvider && headersProvider.isActive()) {
 				return headersProvider;
 			}

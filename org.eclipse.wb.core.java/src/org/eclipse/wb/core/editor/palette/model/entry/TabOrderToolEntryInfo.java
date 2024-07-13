@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,12 @@
 package org.eclipse.wb.core.editor.palette.model.entry;
 
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.gef.tools.TabOrderTool;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public final class TabOrderToolEntryInfo extends ToolEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Tool createTool() throws Exception {
-		List<EditPart> selectedParts = m_editPartViewer.getSelectedEditParts();
+		List<? extends EditPart> selectedParts = m_editPartViewer.getSelectedEditParts();
 		if (selectedParts.size() == 1) {
 			EditPart editPart = selectedParts.get(0);
 			if (TabOrderTool.hasContainerRole(editPart)) {
