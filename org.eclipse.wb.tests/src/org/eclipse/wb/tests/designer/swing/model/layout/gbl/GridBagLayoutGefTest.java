@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -217,5 +217,68 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 				"    }",
 				"  }",
 				"}");
+	}
+
+	@Test
+	public void test_DELETE_afterSelect() throws Exception {
+		final ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+				  public Test() {
+				    setSize(50, 50);
+				    GridBagLayout gridBagLayout = new GridBagLayout();
+				    setLayout(gridBagLayout);
+
+				    JPanel panel = new JPanel();
+				    GridBagConstraints gbc_panel = new GridBagConstraints();
+				    gbc_panel.ipady = 10;
+				    gbc_panel.ipadx = 10;
+				    gbc_panel.fill = GridBagConstraints.BOTH;
+				    gbc_panel.gridx = 0;
+				    gbc_panel.gridy = 0;
+				    add(panel, gbc_panel);
+				    panel.setLayout(null);
+
+				    JPanel panel_1 = new JPanel();
+				    GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				    gbc_panel_1.ipady = 10;
+				    gbc_panel_1.ipadx = 10;
+				    gbc_panel_1.fill = GridBagConstraints.BOTH;
+				    gbc_panel_1.gridx = 1;
+				    gbc_panel_1.gridy = 1;
+				    add(panel_1, gbc_panel_1);
+				    panel_1.setLayout(null);
+				  }
+				}
+				""");
+		panel.refresh();
+		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+		assertEquals(2, layout.getColumns().size());
+		assertEquals(2, layout.getRows().size());
+		// do select
+		canvas.select(panel.getChildrenComponents().get(1));
+		// do delete
+		panel.getChildrenComponents().get(1).delete();
+		// check result
+		assertEquals(1, layout.getColumns().size());
+		assertEquals(1, layout.getRows().size());
+		assertEditor("""
+				public class Test extends JPanel {
+				  public Test() {
+				    setSize(50, 50);
+				    GridBagLayout gridBagLayout = new GridBagLayout();
+				    setLayout(gridBagLayout);
+
+				    JPanel panel = new JPanel();
+				    GridBagConstraints gbc_panel = new GridBagConstraints();
+				    gbc_panel.ipady = 10;
+				    gbc_panel.ipadx = 10;
+				    gbc_panel.fill = GridBagConstraints.BOTH;
+				    gbc_panel.gridx = 0;
+				    gbc_panel.gridy = 0;
+				    add(panel, gbc_panel);
+				    panel.setLayout(null);
+				  }
+				}
+				""");
 	}
 }
