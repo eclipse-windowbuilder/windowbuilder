@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.util.predicate.AlwaysPredicate;
 import org.eclipse.wb.internal.core.model.util.predicate.ExpressionPredicate;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -66,12 +65,8 @@ public final class FlowContainerFactory {
 	}
 
 	public List<FlowContainerConfiguration> getConfigurations() {
-		return ExecutionUtils.runObject(new RunnableObjectEx<List<FlowContainerConfiguration>>() {
-			@Override
-			public List<FlowContainerConfiguration> runObject() throws Exception {
-				return getConfigurationsEx();
-			}
-		}, "Exception during reading flow container configurations for %s", m_javaInfo);
+		return ExecutionUtils.runObject(() -> getConfigurationsEx(),
+				"Exception during reading flow container configurations for %s", m_javaInfo);
 	}
 
 	private List<FlowContainerConfiguration> getConfigurationsEx() {

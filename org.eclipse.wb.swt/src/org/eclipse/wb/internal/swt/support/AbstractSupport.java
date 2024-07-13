@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.support;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
@@ -44,11 +43,6 @@ public class AbstractSupport {
 	 * @return the {@link Class} with given name loaded from active editor {@link ClassLoader}.
 	 */
 	protected static Class<?> loadClass(final String name) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<Class<?>>() {
-			@Override
-			public Class<?> runObject() throws Exception {
-				return GlobalState.getClassLoader().loadClass(name);
-			}
-		});
+		return ExecutionUtils.runObject(() -> GlobalState.getClassLoader().loadClass(name));
 	}
 }

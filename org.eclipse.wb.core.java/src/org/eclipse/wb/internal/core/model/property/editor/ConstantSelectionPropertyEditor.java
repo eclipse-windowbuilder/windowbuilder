@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -673,15 +672,12 @@ IConfigurablePropertyObject {
 		private class TypeContentProvider implements IStructuredContentProvider {
 			@Override
 			public Object[] getElements(Object inputElement) {
-				return ExecutionUtils.runObject(new RunnableObjectEx<Object[]>() {
-					@Override
-					public Object[] runObject() throws Exception {
-						Set<IType> types = new HashSet<>();
-						types.addAll(m_additionalTypes);
-						types.addAll(getUsedTypes(m_javaInfo));
-						types.addAll(getLocalTypes(m_javaInfo));
-						return types.toArray();
-					}
+				return ExecutionUtils.runObject(() -> {
+					Set<IType> types = new HashSet<>();
+					types.addAll(m_additionalTypes);
+					types.addAll(getUsedTypes(m_javaInfo));
+					types.addAll(getLocalTypes(m_javaInfo));
+					return types.toArray();
 				});
 			}
 
@@ -702,12 +698,7 @@ IConfigurablePropertyObject {
 			@Override
 			public Object[] getElements(Object inputElement) {
 				final IType type = (IType) inputElement;
-				return ExecutionUtils.runObject(new RunnableObjectEx<Object[]>() {
-					@Override
-					public Object[] runObject() throws Exception {
-						return getFields(type).toArray();
-					}
-				});
+				return ExecutionUtils.runObject(() -> getFields(type).toArray());
 			}
 
 			@Override

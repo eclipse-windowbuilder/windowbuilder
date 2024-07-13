@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.jdt.ui;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.SubtypesScope;
 
 import org.eclipse.core.runtime.Platform;
@@ -93,12 +92,7 @@ public final class JdtUiUtils {
 	 */
 	private static AbstractUIPlugin getJavaPlugin() {
 		if (m_javaPlugin == null) {
-			m_javaPlugin = ExecutionUtils.runObject(new RunnableObjectEx<AbstractUIPlugin>() {
-				@Override
-				public AbstractUIPlugin runObject() throws Exception {
-					return getJavaPlugin0();
-				}
-			});
+			m_javaPlugin = ExecutionUtils.runObject(() -> getJavaPlugin0());
 		}
 		return m_javaPlugin;
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import com.jgoodies.forms.layout.FormSpec;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -80,19 +79,16 @@ public class FormDimensionUtils {
 	 *         or <code>null</code> if there are not such field.
 	 */
 	public static Field getFormFactoryTemplate(final FormSpec o) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<Field>() {
-			@Override
-			public Field runObject() throws Exception {
-				Field[] templateFields = getTemplateFields();
-				for (int i = 0; i < templateFields.length; i++) {
-					Field field = templateFields[i];
-					if (FormDimensionUtils.equals((FormSpec) field.get(null), o)) {
-						return field;
-					}
+		return ExecutionUtils.runObject(() -> {
+			Field[] templateFields = getTemplateFields();
+			for (int i = 0; i < templateFields.length; i++) {
+				Field field = templateFields[i];
+				if (FormDimensionUtils.equals((FormSpec) field.get(null), o)) {
+					return field;
 				}
-				// no field found
-				return null;
 			}
+			// no field found
+			return null;
 		});
 	}
 }

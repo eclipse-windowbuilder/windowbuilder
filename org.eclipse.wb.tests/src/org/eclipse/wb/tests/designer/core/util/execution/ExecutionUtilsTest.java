@@ -28,6 +28,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.beans.Beans;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -320,36 +321,21 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_object_rethrow_noException() throws Exception {
-		Object result = ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				return null;
-			}
-		});
+		Object result = ExecutionUtils.runObject(() -> null);
 		assertNull(result);
 	}
 
 	@Test
 	public void test_object_rethrow_noException2() throws Exception {
 		final Object myResult = new Object();
-		Object result = ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				return myResult;
-			}
-		});
+		Object result = ExecutionUtils.runObject(() -> myResult);
 		assertSame(myResult, result);
 	}
 
 	@Test
 	public void test_object_rethrow_noException3() throws Exception {
 		final Integer myResult = 12345;
-		Integer result = ExecutionUtils.runObject(new RunnableObjectEx<Integer>() {
-			@Override
-			public Integer runObject() throws Exception {
-				return myResult;
-			}
-		});
+		Integer result = ExecutionUtils.runObject(() -> myResult);
 		assertSame(myResult, result);
 	}
 
@@ -357,12 +343,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	public void test_object_rethrow_withException() throws Exception {
 		final Exception exception = new Exception();
 		try {
-			ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					throw exception;
-				}
-			});
+			ExecutionUtils.runObject(() -> { throw exception; });
 		} catch (Throwable e) {
 			assertSame(exception, e);
 		}
@@ -375,12 +356,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		}
 		final MyError myError = new MyError();
 		try {
-			ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					throw myError;
-				}
-			});
+			ExecutionUtils.runObject(() -> { throw myError; });
 			fail();
 		} catch (MyError e) {
 			assertSame(myError, e);
@@ -393,32 +369,22 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Test for {@link ExecutionUtils#runObject(RunnableObjectEx, String, Object...)}.
+	 * Test for {@link ExecutionUtils#runObject(Callable, String, Object...)}.
 	 */
 	@Test
 	public void test_object_rethrowMessage_noException() throws Exception {
-		Object result = ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				return null;
-			}
-		}, "Error message '%s' for %d.", "Not found", 42);
+		Object result = ExecutionUtils.runObject(() -> null, "Error message '%s' for %d.", "Not found", 42);
 		assertNull(result);
 	}
 
 	/**
-	 * Test for {@link ExecutionUtils#runObject(RunnableObjectEx, String, Object...)}.
+	 * Test for {@link ExecutionUtils#runObject(Callable, String, Object...)}.
 	 */
 	@Test
 	public void test_object_rethrowMessage_withException() throws Exception {
 		final Exception exception = new Exception();
 		try {
-			ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					throw exception;
-				}
-			}, "Error message '%s' for %d.", "Not found", 42);
+			ExecutionUtils.runObject(() -> { throw exception; }, "Error message '%s' for %d.", "Not found", 42);
 		} catch (Error e) {
 			assertEquals("Error message 'Not found' for 42.", e.getMessage());
 			assertSame(exception, e.getCause());
@@ -606,12 +572,9 @@ public class ExecutionUtilsTest extends SwingModelTest {
 			@Override
 			public void run() {
 				final Object myResult = new Object();
-				Object result = ExecutionUtils.runObjectUI(new RunnableObjectEx<Object>() {
-					@Override
-					public Object runObject() throws Exception {
-						assertNotNull(Display.getCurrent());
-						return myResult;
-					}
+				Object result = ExecutionUtils.runObjectUI(() -> { 
+					assertNotNull(Display.getCurrent());
+					return myResult;
 				});
 				assertSame(myResult, result);
 			}
@@ -785,12 +748,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		};
 		// do edit
 		final String result = "expected";
-		String actual = ExecutionUtils.runObject(object, new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				return result;
-			}
-		});
+		String actual = ExecutionUtils.runObject(object, () -> result);
 		// has expected result
 		assertSame(result, actual);
 		// refresh happened

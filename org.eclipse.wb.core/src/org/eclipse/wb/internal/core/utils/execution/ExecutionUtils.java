@@ -211,17 +211,13 @@ public class ExecutionUtils {
 	}
 
 	/**
-	 * Runs given {@link RunnableEx} inside of UI thread, using {@link Display#syncExec(Runnable)}.
+	 * Runs given {@link Callable} inside of UI thread, using
+	 * {@link Display#syncExec(Runnable)}.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T runObjectUI(final RunnableObjectEx<T> runnable) {
+	public static <T> T runObjectUI(final Callable<T> runnable) {
 		final Object[] result = new Object[1];
-		runRethrowUI(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				result[0] = runObject(runnable);
-			}
-		});
+		runRethrowUI(() -> result[0] = runObject(runnable));
 		return (T) result[0];
 	}
 
@@ -244,13 +240,13 @@ public class ExecutionUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Runs given {@link RunnableEx} and re-throws exceptions using {@link RuntimeException}.
+	 * Runs given {@link Callable} and re-throws exceptions using {@link RuntimeException}.
 	 *
-	 * @return the {@link Object} returned by {@link RunnableEx#run()}.
+	 * @return the {@link Object} returned by {@link Callable#call()}.
 	 */
-	public static <T> T runObject(RunnableObjectEx<T> runnable) {
+	public static <T> T runObject(Callable<T> runnable) {
 		try {
-			return runnable.runObject();
+			return runnable.call();
 		} catch (Throwable e) {
 			throw ReflectionUtils.propagate(e);
 		}
@@ -259,28 +255,28 @@ public class ExecutionUtils {
 	/**
 	 * Runs given {@link RunnableEx} and re-throws exceptions using {@link RuntimeException}.
 	 *
-	 * @return the {@link Object} returned by {@link RunnableObjectEx#run()}.
+	 * @return the {@link Object} returned by {@link Callable#run()}.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T runObject(ObjectInfo object, final RunnableObjectEx<T> runnable) {
+	public static <T> T runObject(ObjectInfo object, final Callable<T> runnable) {
 		final Object[] result = {null};
 		run(object, new RunnableEx() {
 			@Override
 			public void run() throws Exception {
-				result[0] = runnable.runObject();
+				result[0] = runnable.call();
 			}
 		});
 		return (T) result[0];
 	}
 
 	/**
-	 * Runs given {@link RunnableEx} and re-throws exceptions using {@link RuntimeException}.
+	 * Runs given {@link Callable} and re-throws exceptions using {@link RuntimeException}.
 	 *
-	 * @return the {@link Object} returned by {@link RunnableEx#run()}.
+	 * @return the {@link Object} returned by {@link Callable#call()}.
 	 */
-	public static <T> T runObject(RunnableObjectEx<T> runnable, String format, Object... args) {
+	public static <T> T runObject(Callable<T> runnable, String format, Object... args) {
 		try {
-			return runnable.runObject();
+			return runnable.call();
 		} catch (Throwable e) {
 			String message = String.format(format, args);
 			throw new Error(message, e);

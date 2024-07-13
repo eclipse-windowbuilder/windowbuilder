@@ -62,7 +62,6 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -391,12 +390,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	 * @return the {@link JavaEventListener} for hierarchy.
 	 */
 	public final JavaEventListener getBroadcastJava() {
-		return ExecutionUtils.runObject(new RunnableObjectEx<JavaEventListener>() {
-			@Override
-			public JavaEventListener runObject() throws Exception {
-				return getBroadcast(JavaEventListener.class);
-			}
-		});
+		return ExecutionUtils.runObject(() -> getBroadcast(JavaEventListener.class));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -15,7 +15,6 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -193,15 +192,12 @@ public final class TreeRobot {
 	}
 
 	private static Event createDNDEvent() {
-		return ExecutionUtils.runObject(new RunnableObjectEx<Event>() {
-			@Override
-			public Event runObject() throws Exception {
-				Class<?> dndClass =
-						ReflectionUtils.getClassByName(
-								TreeRobot.class.getClassLoader(),
-								"org.eclipse.swt.dnd.DNDEvent");
-				return (Event) ReflectionUtils.getConstructorBySignature(dndClass, "<init>()").newInstance();
-			}
+		return ExecutionUtils.runObject(() -> {
+			Class<?> dndClass =
+					ReflectionUtils.getClassByName(
+							TreeRobot.class.getClassLoader(),
+							"org.eclipse.swt.dnd.DNDEvent");
+			return (Event) ReflectionUtils.getConstructorBySignature(dndClass, "<init>()").newInstance();
 		});
 	}
 

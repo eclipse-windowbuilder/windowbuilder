@@ -54,7 +54,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
@@ -338,22 +337,19 @@ IThisMethodParameterEvaluator {
 	@Override
 	protected TopBoundsSupport createTopBoundsSupport() {
 		// return implementation from eRCP or RCP bundles
-		return ExecutionUtils.runObject(new RunnableObjectEx<TopBoundsSupport>() {
-			@Override
-			public TopBoundsSupport runObject() throws Exception {
-				// prepare "impl" class
-				Class<?> implClass;
-				{
-					Bundle bundle = getDescription().getToolkit().getBundle();
-					String implClassName =
-							bundle.getSymbolicName() + ".model.widgets.CompositeTopBoundsSupport";
-					implClassName = StringUtils.replace(implClassName, ".wb.", ".wb.internal.");
-					implClass = bundle.loadClass(implClassName);
-				}
-				// create instance
-				Constructor<?> constructor = implClass.getConstructor(CompositeInfo.class);
-				return (TopBoundsSupport) constructor.newInstance(m_this);
+		return ExecutionUtils.runObject(() -> {
+			// prepare "impl" class
+			Class<?> implClass;
+			{
+				Bundle bundle = getDescription().getToolkit().getBundle();
+				String implClassName =
+						bundle.getSymbolicName() + ".model.widgets.CompositeTopBoundsSupport";
+				implClassName = StringUtils.replace(implClassName, ".wb.", ".wb.internal.");
+				implClass = bundle.loadClass(implClassName);
 			}
+			// create instance
+			Constructor<?> constructor = implClass.getConstructor(CompositeInfo.class);
+			return (TopBoundsSupport) constructor.newInstance(m_this);
 		});
 	}
 

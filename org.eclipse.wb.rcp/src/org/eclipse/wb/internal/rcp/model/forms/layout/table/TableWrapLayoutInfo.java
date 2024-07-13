@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,7 +36,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.actions.SelectionActionsSupport;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
@@ -299,13 +298,10 @@ IPreferenceConstants {
 	 * @return {@link TableWrapDataInfo} association with given {@link ControlInfo}.
 	 */
 	public TableWrapDataInfo getTableWrapData(final ControlInfo control) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<TableWrapDataInfo>() {
-			@Override
-			public TableWrapDataInfo runObject() throws Exception {
-				TableWrapDataInfo layoutData = (TableWrapDataInfo) getLayoutData(control);
-				layoutData.initialize(TableWrapLayoutInfo.this, control);
-				return layoutData;
-			}
+		return ExecutionUtils.runObject(() -> {
+			TableWrapDataInfo layoutData = (TableWrapDataInfo) getLayoutData(control);
+			layoutData.initialize(TableWrapLayoutInfo.this, control);
+			return layoutData;
 		});
 	}
 
