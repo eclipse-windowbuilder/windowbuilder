@@ -302,24 +302,14 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	@Test
 	public void test_object_ignore_noException() throws Exception {
 		final Object myResult = new Object();
-		Object result = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				return myResult;
-			}
-		}, null);
+		Object result = ExecutionUtils.runObjectIgnore(() -> myResult, null);
 		assertSame(myResult, result);
 	}
 
 	@Test
 	public void test_object_ignore_withException() throws Exception {
 		final Object myResult = new Object();
-		Object result = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				throw new Exception();
-			}
-		}, myResult);
+		Object result = ExecutionUtils.runObjectIgnore(() -> { throw new Exception(); }, myResult);
 		assertSame(myResult, result);
 	}
 

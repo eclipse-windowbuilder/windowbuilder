@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.model.property.converter;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.core.resources.IFile;
 
@@ -61,19 +60,16 @@ public final class StringConverter extends ExpressionConverter {
 	}
 
 	private static String toJavaSource_UTF(final JavaInfo javaInfo, final String valueString) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				if (javaInfo != null) {
-					IFile file = (IFile) javaInfo.getEditor().getModelUnit().getUnderlyingResource();
-					String charset = file.getCharset();
-					if (charset.equals("UTF-8") || charset.equals("UTF-16")) {
-						String escaped = StringUtilities.escapeForJavaSource(valueString);
-						return '"' + escaped + '"';
-					}
+		return ExecutionUtils.runObjectIgnore(() -> {
+			if (javaInfo != null) {
+				IFile file = (IFile) javaInfo.getEditor().getModelUnit().getUnderlyingResource();
+				String charset = file.getCharset();
+				if (charset.equals("UTF-8") || charset.equals("UTF-16")) {
+					String escaped = StringUtilities.escapeForJavaSource(valueString);
+					return '"' + escaped + '"';
 				}
-				return null;
 			}
+			return null;
 		}, null);
 	}
 }

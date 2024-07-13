@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -89,12 +88,7 @@ public final class SetterAccessor extends ExpressionAccessor {
 
 	private Object askDefaultValue(final JavaInfo javaInfo) throws Exception {
 		if (m_getter != null && isDefaultEnabled(javaInfo)) {
-			return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					return m_getter.invoke(javaInfo.getObject());
-				}
-			}, Property.UNKNOWN_VALUE);
+			return ExecutionUtils.runObjectIgnore(() -> m_getter.invoke(javaInfo.getObject()), Property.UNKNOWN_VALUE);
 		} else {
 			return Property.UNKNOWN_VALUE;
 		}

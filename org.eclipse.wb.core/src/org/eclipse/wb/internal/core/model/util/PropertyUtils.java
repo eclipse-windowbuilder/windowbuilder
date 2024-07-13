@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
@@ -70,16 +69,11 @@ public final class PropertyUtils {
 	 * @return the text presentation of {@link Property} value, may be <code>null</code>.
 	 */
 	public static String getText(final Property property) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				return (String) ReflectionUtils.invokeMethod2(
-						property.getEditor(),
-						"getText",
-						Property.class,
-						property);
-			}
-		}, null);
+		return ExecutionUtils.runObjectIgnore(() -> (String) ReflectionUtils.invokeMethod2(
+				property.getEditor(),
+				"getText",
+				Property.class,
+				property), null);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//

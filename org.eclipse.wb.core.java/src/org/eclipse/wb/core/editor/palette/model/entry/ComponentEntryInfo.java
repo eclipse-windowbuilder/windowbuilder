@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,7 +38,6 @@ import org.eclipse.wb.internal.core.model.description.helpers.ComponentPresentat
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -296,12 +295,9 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	public boolean isEnabled() {
 		// try "enabled"
 		if (m_enabledScript != null) {
-			boolean enabled = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-				@Override
-				public Boolean runObject() throws Exception {
-					ClassLoader classLoader = JavaInfoUtils.getClassLoader(m_rootJavaInfo);
-					return (Boolean) ScriptUtils.evaluate(classLoader, m_enabledScript);
-				}
+			boolean enabled = ExecutionUtils.runObjectIgnore(() -> {
+				ClassLoader classLoader = JavaInfoUtils.getClassLoader(m_rootJavaInfo);
+				return (Boolean) ScriptUtils.evaluate(classLoader, m_enabledScript);
 			}, false);
 			if (!enabled) {
 				return false;
