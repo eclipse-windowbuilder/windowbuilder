@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.Assignment;
@@ -84,12 +83,9 @@ public final class FieldAccessor extends ExpressionAccessor {
 	 * <code>GridLayout</code> and its <code>GridLayout2</code>.
 	 */
 	private Object getFieldValue(final JavaInfo javaInfo) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				Object object = javaInfo.getObject();
-				return ReflectionUtils.getFieldObject(object, m_fieldName);
-			}
+		return ExecutionUtils.runObjectIgnore(() -> {
+			Object object = javaInfo.getObject();
+			return ReflectionUtils.getFieldObject(object, m_fieldName);
 		}, Property.UNKNOWN_VALUE);
 	}
 

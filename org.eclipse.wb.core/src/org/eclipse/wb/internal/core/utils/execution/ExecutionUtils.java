@@ -288,14 +288,14 @@ public class ExecutionUtils {
 	}
 
 	/**
-	 * Runs given {@link RunnableEx} and ignores exceptions.
+	 * Runs given {@link Callable} and ignores exceptions.
 	 *
-	 * @return the {@link Object} returned by {@link RunnableEx#run()} or <code>defaultValue</code> if
+	 * @return the {@link Object} returned by {@link Callable#call()} or <code>defaultValue</code> if
 	 *         exception happened.
 	 */
-	public static <T> T runObjectIgnore(RunnableObjectEx<T> runnable, T defaultValue) {
+	public static <T> T runObjectIgnore(Callable<T> runnable, T defaultValue) {
 		try {
-			return runnable.runObject();
+			return runnable.call();
 		} catch (Throwable e) {
 			return defaultValue;
 		}

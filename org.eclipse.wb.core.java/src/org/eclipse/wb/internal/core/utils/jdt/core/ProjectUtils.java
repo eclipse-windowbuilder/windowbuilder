@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.NoOpProgressMonitor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -247,12 +246,7 @@ public final class ProjectUtils {
 	 * @return <code>true</code> if {@link IJavaProject} has type with given name.
 	 */
 	public static boolean hasType(final IJavaProject project, final String className) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				return project.findType(className) != null;
-			}
-		}, false);
+		return ExecutionUtils.runObjectIgnore(() -> project.findType(className) != null, false);
 	}
 
 	/**
@@ -515,12 +509,7 @@ public final class ProjectUtils {
 	 * @return <code>true</code> if {@link IProject} has nature.
 	 */
 	public static boolean hasNature(final IProject project, final String natureId) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				return project.hasNature(natureId);
-			}
-		}, false);
+		return ExecutionUtils.runObjectIgnore(() -> project.hasNature(natureId), false);
 	}
 
 	/**

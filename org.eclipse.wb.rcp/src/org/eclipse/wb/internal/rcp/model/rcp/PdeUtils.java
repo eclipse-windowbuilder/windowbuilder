@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.Activator;
@@ -643,50 +642,47 @@ public final class PdeUtils {
 	public static ImageDescriptor getElementIcon(final IPluginElement element,
 			final String attribute,
 			ImageDescriptor defaultIcon) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<ImageDescriptor>() {
-			@Override
-			public ImageDescriptor runObject() throws Exception {
-				String iconPath = getAttribute(element, attribute);
-				Assert.isNotNull(iconPath, "No attribute 'icon' in %s.", element);
-				IPluginModelBase pluginModel = element.getPluginModel();
-				IResource underlyingResource = pluginModel.getUnderlyingResource();
-				if (underlyingResource != null) {
-					IProject project = underlyingResource.getProject();
-					String key = project.getName() + "/" + iconPath;
-					// get icon from cache, or fill cache
-					ImageDescriptor icon = m_projectIcons.get(key);
-					if (icon == null) {
-						IFile iconFile = project.getFile(new Path(iconPath));
-						Assert.isTrue(iconFile.exists(), "Image " + key + " does not exists.");
-						icon = ImageDescriptor.createFromURL(iconFile.getLocationURI().toURL());
-						// remember icon in cache
-						m_projectIcons.put(key, icon);
-					}
-					// OK, we should have icon
-					return icon;
-				} else {
-					String bundleId = pluginModel.getBundleDescription().getSymbolicName();
-					String key = bundleId + "/" + iconPath;
-					// get icon from cache, or fill cache
-					ImageDescriptor icon = m_bundleIcons.get(key);
-					if (icon == null) {
-						// prepare entry from Bundle
-						URL entry;
-						{
-							Bundle bundle = Platform.getBundle(bundleId);
-							entry = FileLocator.find(bundle, new Path(iconPath), null);
-							Assert.isNotNull(entry, key);
-						}
-						// load Image from entry
-						{
-							icon = ImageDescriptor.createFromURL(entry);
-						}
-						// remember icon in cache
-						m_bundleIcons.put(key, icon);
-					}
-					// OK, we should have icon
-					return icon;
+		return ExecutionUtils.runObjectIgnore(() -> {
+			String iconPath = getAttribute(element, attribute);
+			Assert.isNotNull(iconPath, "No attribute 'icon' in %s.", element);
+			IPluginModelBase pluginModel = element.getPluginModel();
+			IResource underlyingResource = pluginModel.getUnderlyingResource();
+			if (underlyingResource != null) {
+				IProject project = underlyingResource.getProject();
+				String key = project.getName() + "/" + iconPath;
+				// get icon from cache, or fill cache
+				ImageDescriptor icon = m_projectIcons.get(key);
+				if (icon == null) {
+					IFile iconFile = project.getFile(new Path(iconPath));
+					Assert.isTrue(iconFile.exists(), "Image " + key + " does not exists.");
+					icon = ImageDescriptor.createFromURL(iconFile.getLocationURI().toURL());
+					// remember icon in cache
+					m_projectIcons.put(key, icon);
 				}
+				// OK, we should have icon
+				return icon;
+			} else {
+				String bundleId = pluginModel.getBundleDescription().getSymbolicName();
+				String key = bundleId + "/" + iconPath;
+				// get icon from cache, or fill cache
+				ImageDescriptor icon = m_bundleIcons.get(key);
+				if (icon == null) {
+					// prepare entry from Bundle
+					URL entry;
+					{
+						Bundle bundle = Platform.getBundle(bundleId);
+						entry = FileLocator.find(bundle, new Path(iconPath), null);
+						Assert.isNotNull(entry, key);
+					}
+					// load Image from entry
+					{
+						icon = ImageDescriptor.createFromURL(entry);
+					}
+					// remember icon in cache
+					m_bundleIcons.put(key, icon);
+				}
+				// OK, we should have icon
+				return icon;
 			}
 		}, defaultIcon);
 	}

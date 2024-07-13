@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -536,18 +535,13 @@ public final class SpringAttachmentInfo {
 		if (isVirtual()) {
 			return "<none>";
 		} else {
-			return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
-				@Override
-				public String runObject() throws Exception {
-					return "("
-							+ getOffset()
-							+ ", "
-							+ CodeUtils.getShortClass(getSpringSideSource(getAnchorSide()))
-							+ ", "
-							+ getAnchorComponent().getPresentation().getText()
-							+ ")";
-				}
-			},
+			return ExecutionUtils.runObjectIgnore(() -> "("
+					+ getOffset()
+					+ ", "
+					+ CodeUtils.getShortClass(getSpringSideSource(getAnchorSide()))
+					+ ", "
+					+ getAnchorComponent().getPresentation().getText()
+					+ ")",
 					"<exception>");
 		}
 	}

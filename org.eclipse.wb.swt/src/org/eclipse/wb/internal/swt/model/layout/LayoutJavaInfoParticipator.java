@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddAfter;
 import org.eclipse.wb.internal.core.model.util.surround.SurroundSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -116,12 +115,9 @@ public class LayoutJavaInfoParticipator implements IJavaInfoInitializationPartic
 		Class<?> layoutClass = layout.getClass();
 		for (; layoutClass != null; layoutClass = layoutClass.getSuperclass()) {
 			final Class<?> finalLayoutClass = layoutClass;
-			boolean success = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-				@Override
-				public Boolean runObject() throws Exception {
-					run(layout, processor, finalLayoutClass);
-					return true;
-				}
+			boolean success = ExecutionUtils.runObjectIgnore(() -> {
+				run(layout, processor, finalLayoutClass);
+				return true;
 			}, false);
 			if (success) {
 				return;

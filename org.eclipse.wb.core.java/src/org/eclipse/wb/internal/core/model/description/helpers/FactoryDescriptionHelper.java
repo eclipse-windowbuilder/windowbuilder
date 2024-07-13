@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.JavaDocUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
@@ -61,6 +60,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.Callable;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -446,14 +446,11 @@ public class FactoryDescriptionHelper {
 	 * @return <code>true</code> if class has factory methods.
 	 */
 	public static boolean isFactoryClass(final AstEditor editor, final String typeName) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				ClassLoader classLoader = EditorState.get(editor).getEditorLoader();
-				Class<?> clazz = classLoader.loadClass(typeName);
-				return !getDescriptionsMap(editor, clazz, true).isEmpty()
-						|| !getDescriptionsMap(editor, clazz, false).isEmpty();
-			}
+		return ExecutionUtils.runObjectIgnore(() -> {
+			ClassLoader classLoader = EditorState.get(editor).getEditorLoader();
+			Class<?> clazz = classLoader.loadClass(typeName);
+			return !getDescriptionsMap(editor, clazz, true).isEmpty()
+					|| !getDescriptionsMap(editor, clazz, false).isEmpty();
 		}, false);
 	}
 
@@ -462,9 +459,9 @@ public class FactoryDescriptionHelper {
 	 *         factory.
 	 */
 	public static boolean isFactoryInvocation(final AstEditor editor, final MethodInvocation invocation) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+		return ExecutionUtils.runObjectIgnore(new Callable<>() {
 			@Override
-			public Boolean runObject() throws Exception {
+			public Boolean call() throws Exception {
 				IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(invocation);
 				Class<?> factoryClass = getFactoryClass(methodBinding);
 				String signature = AstNodeUtils.getMethodSignature(methodBinding);

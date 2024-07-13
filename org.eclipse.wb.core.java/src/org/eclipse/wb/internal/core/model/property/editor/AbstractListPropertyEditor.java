@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import java.util.List;
 import java.util.Map;
@@ -119,13 +118,10 @@ IClipboardSourceProvider {
 
 	private static Object evaluateExpression(final GenericProperty genericProperty,
 			final String expression) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				JavaInfo javaInfo = genericProperty.getJavaInfo();
-				ClassLoader classLoader = JavaInfoUtils.getClassLoader(javaInfo);
-				return ScriptUtils.evaluate(classLoader, expression);
-			}
+		return ExecutionUtils.runObjectIgnore(() -> {
+			JavaInfo javaInfo = genericProperty.getJavaInfo();
+			ClassLoader classLoader = JavaInfoUtils.getClassLoader(javaInfo);
+			return ScriptUtils.evaluate(classLoader, expression);
 		}, Property.UNKNOWN_VALUE);
 	}
 
