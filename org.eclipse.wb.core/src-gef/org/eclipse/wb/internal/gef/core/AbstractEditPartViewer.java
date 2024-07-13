@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
@@ -19,11 +18,11 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -146,7 +145,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	@Override
 	public ISelection getSelection() {
 		if (m_selectionList.isEmpty()) {
-			EditPart content = (EditPart) getRootEditPart().getContents();
+			EditPart content = getRootEditPart().getContents();
 			if (content != null) {
 				return new StructuredSelection(content);
 			}
@@ -155,13 +154,6 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public void setSelection(ISelection selection) {
-		if (selection instanceof IStructuredSelection structuredSelection) {
-			setSelection(structuredSelection.toList());
-		}
-	}
-
 	protected void fireSelectionChanged() {
 		Iterator<ISelectionChangedListener> listeners = getListeners(ISelectionChangedListener.class);
 		if (listeners != null) {
@@ -205,8 +197,10 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 * Replaces the current selection with the specified <code>{@link EditPart EditParts}</code>.
 	 */
 	@Override
-	public void setSelection(List<EditPart> editParts) {
+	public void setSelection(ISelection selection) {
 		try {
+			@SuppressWarnings("unchecked")
+			List<EditPart> editParts = ((StructuredSelection) selection).toList();
 			if (!editParts.isEmpty()) {
 				m_selecting = editParts.get(0);
 			}
@@ -274,7 +268,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 * {@link EditPart#SELECTED_PRIMARY primary}.
 	 */
 	@Override
-	public void deselect(List<EditPart> editParts) {
+	public void deselect(List<? extends EditPart> editParts) {
 		for (EditPart part : editParts) {
 			Assert.isNotNull(part);
 			m_selectionList.remove(part);
@@ -312,16 +306,8 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 * viewer.
 	 */
 	@Override
-	public List<EditPart> getSelectedEditParts() {
+	public List<? extends EditPart> getSelectedEditParts() {
 		return m_selectionList;
-	}
-
-	/**
-	 * @return The EditPart which is being selected in selection process.
-	 */
-	@Override
-	public EditPart getSelectingEditPart() {
-		return m_selecting;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -352,7 +338,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart findObjectAtExcluding(Point location, Collection<IFigure> exclusionSet, Conditional conditional) {
+	public org.eclipse.wb.gef.core.EditPart findObjectAtExcluding(Point location, Collection<IFigure> exclusionSet, Conditional conditional) {
 		return null;
 	}
 

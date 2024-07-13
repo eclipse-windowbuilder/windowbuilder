@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Event;
@@ -114,7 +115,7 @@ public class ObjectEditPart extends TreeEditPart {
 					if (editParts == null) {
 						return false;
 					}
-					viewer.setSelection(editParts);
+					viewer.setSelection(new StructuredSelection(editParts));
 					return true;
 				}
 

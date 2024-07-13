@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+
+import org.eclipse.gef.EditPart;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +33,7 @@ public class ToolUtilities {
 		List<EditPart> operationSet = new ArrayList<>();
 		// add selected EditPart's only if their parent is not added yet
 		{
-			List<EditPart> selectedParts = viewer.getSelectedEditParts();
+			List<? extends EditPart> selectedParts = viewer.getSelectedEditParts();
 			for (EditPart part : selectedParts) {
 				if (!isAncestorContainedIn(selectedParts, part)) {
 					operationSet.add(part);
@@ -62,7 +63,7 @@ public class ToolUtilities {
 	/**
 	 * @return <code>true</code> if <code>containers</code> contains parent of given {@link EditPart}.
 	 */
-	private static boolean isAncestorContainedIn(List<EditPart> container, EditPart part) {
+	private static boolean isAncestorContainedIn(List<? extends EditPart> container, EditPart part) {
 		EditPart parent = part.getParent();
 		while (parent != null) {
 			if (container.contains(parent)) {

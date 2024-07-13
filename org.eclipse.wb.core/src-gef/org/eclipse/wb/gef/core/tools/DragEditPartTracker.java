@@ -24,6 +24,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.GroupRequest;
+import org.eclipse.jface.viewers.StructuredSelection;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -142,9 +143,9 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 * target request.
 	 */
 	@Override
-	protected List<org.eclipse.wb.gef.core.EditPart> createOperationSet() {
+	protected List<? extends EditPart> createOperationSet() {
 		// extract OperationSet from selection
-		List<org.eclipse.wb.gef.core.EditPart> operationSet = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
+		List<EditPart> operationSet = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
 		// check understandsRequest() from parent
 		// FIXME Kosta.20071115 I don't understand, why we should ask parent _here_
 		// Yes, if parent does not support move, we should not allow operation.
@@ -166,7 +167,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		// check permission for move and reparenting
 		{
 			DragPermissionRequest request = new DragPermissionRequest();
-			for (org.eclipse.wb.gef.core.EditPart editPart : operationSet) {
+			for (EditPart editPart : operationSet) {
 				editPart.performRequest(request);
 			}
 			m_canMove = request.canMove();
@@ -247,15 +248,15 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		if (models != null) {
 			IEditPartViewer viewer = getCurrentViewer();
 			// prepare new EditPart's
-			List<org.eclipse.wb.gef.core.EditPart> newEditParts = new ArrayList<>();
+			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
-				org.eclipse.wb.gef.core.EditPart newEditPart = (org.eclipse.wb.gef.core.EditPart) viewer.getEditPartRegistry().get(model);
+				EditPart newEditPart = (EditPart) viewer.getEditPartRegistry().get(model);
 				if (newEditPart != null) {
 					newEditParts.add(newEditPart);
 				}
 			}
 			// set new selection
-			viewer.setSelection(newEditParts);
+			viewer.setSelection(new StructuredSelection(newEditParts));
 		}
 	}
 

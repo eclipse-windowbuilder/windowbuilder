@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -64,7 +64,7 @@ public class CutAction extends Action {
 			public void run() throws Exception {
 				// copy
 				{
-					List<EditPart> editParts = m_viewer.getSelectedEditParts();
+					List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
 					List<JavaInfoMemento> m_mementos = CopyAction.getMementos(editParts);
 					CopyAction.doCopy(m_mementos);
 				}
@@ -76,7 +76,7 @@ public class CutAction extends Action {
 
 	@Override
 	public boolean isEnabled() {
-		List<EditPart> editParts = m_viewer.getSelectedEditParts();
+		List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
 		m_command = DeleteAction.getCommand(editParts);
 		return CopyAction.hasMementos(editParts) && m_command != null;
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc and others
+ * Copyright (c) 2011, 2024 Google, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.editor;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
 import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 
@@ -83,7 +83,7 @@ IContextMenuConstants {
 	private List<ObjectInfo> m_selectedObjects;
 
 	@Override
-	protected void preprocessSelection(List<EditPart> editParts) {
+	protected void preprocessSelection(List<? extends EditPart> editParts) {
 		super.preprocessSelection(editParts);
 		// prepare selected ObjectInfo's
 		m_selectedObjects = new ArrayList<>();

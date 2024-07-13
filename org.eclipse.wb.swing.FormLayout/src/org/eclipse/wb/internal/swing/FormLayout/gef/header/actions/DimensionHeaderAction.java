@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.actions;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.DimensionHeaderEditPart;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public abstract class DimensionHeaderAction<T extends FormDimensionInfo> extends
 		// prepare selection
 		List<T> dimensions = new ArrayList<>();
 		{
-			List<EditPart> editParts = m_viewer.getSelectedEditParts();
+			List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
 			for (EditPart editPart : editParts) {
 				if (editPart instanceof DimensionHeaderEditPart) {
 					@SuppressWarnings("unchecked")

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -288,11 +288,11 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	 * Asserts that {@link EditPart}'s selected in GEF viewer has given models.
 	 */
 	protected final void assertSelectionModels(Object... models) {
-		List<org.eclipse.wb.gef.core.EditPart> editParts = m_viewerCanvas.getSelectedEditParts();
+		List<? extends EditPart> editParts = m_viewerCanvas.getSelectedEditParts();
 		assertEquals(models.length, editParts.size());
 		for (int i = 0; i < models.length; i++) {
 			Object model = models[i];
-			org.eclipse.wb.gef.core.EditPart editPart = editParts.get(i);
+			EditPart editPart = editParts.get(i);
 			assertSame(model, editPart.getModel());
 		}
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -31,7 +30,9 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
@@ -132,7 +133,7 @@ public final class GraphicalRobot {
 	 */
 	public void select(Object... models) {
 		EditPart[] editParts = getEditParts(models);
-		m_viewer.setSelection(List.of(editParts));
+		m_viewer.setSelection(new StructuredSelection(editParts));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -904,7 +905,7 @@ public final class GraphicalRobot {
 	 * Asserts that selection is empty, i.e. no {@link EditPart} selected.
 	 */
 	public GraphicalRobot assertSelectedEmpty() {
-		List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+		List<? extends EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 		Assertions.assertThat(selectedEditParts).isEmpty();
 		return this;
 	}
@@ -918,7 +919,8 @@ public final class GraphicalRobot {
 	 * Assert that selection contains exactly given {@link EditPart}s.
 	 */
 	public void assertSelection(Object... objects) {
-		List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+		@SuppressWarnings("unchecked")
+		List<EditPart> selectedEditParts = (List<EditPart>) m_viewer.getSelectedEditParts();
 		GraphicalEditPart[] editParts = getEditParts(objects);
 		Assertions.assertThat(selectedEditParts).containsExactly(editParts);
 	}

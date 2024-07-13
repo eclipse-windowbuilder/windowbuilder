@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
@@ -46,7 +46,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public void deselect(List<EditPart> editParts) {
+	public void deselect(List<? extends EditPart> editParts) {
 	}
 
 	@Override
@@ -54,17 +54,17 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public EditPart findTargetEditPart(int x,
+	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
 			int y,
-			Collection<? extends org.eclipse.gef.EditPart> exclude,
+			Collection<? extends EditPart> exclude,
 			Conditional conditional) {
 		return null;
 	}
 
 	@Override
-	public EditPart findTargetEditPart(int x,
+	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
 			int y,
-			Collection<? extends org.eclipse.gef.EditPart> exclude,
+			Collection<? extends EditPart> exclude,
 			Conditional conditional,
 			String layer) {
 		return null;
@@ -106,12 +106,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public List<EditPart> getSelectedEditParts() {
-		return null;
-	}
-
-	@Override
-	public EditPart getSelectingEditPart() {
+	public List<org.eclipse.wb.gef.core.EditPart> getSelectedEditParts() {
 		return null;
 	}
 
@@ -130,10 +125,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 
 	@Override
 	public void setContextMenu(MenuManager manager) {
-	}
-
-	@Override
-	public void setSelection(List<EditPart> editParts) {
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 
 import org.eclipse.gef.Request;
+import org.eclipse.jface.viewers.StructuredSelection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,6 @@ public class PasteTool extends AbstractCreationTool {
 			}
 		}
 		// select EditPart's
-		viewer.setSelection(editParts);
+		viewer.setSelection(new StructuredSelection(editParts));
 	}
 }

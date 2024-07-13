@@ -11,13 +11,13 @@
 package org.eclipse.wb.internal.core.editor.actions;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMementoTransfer;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -68,7 +68,7 @@ public class CopyAction extends Action {
 		ExecutionUtils.runLog(new RunnableEx() {
 			@Override
 			public void run() throws Exception {
-				List<EditPart> editParts = m_viewer.getSelectedEditParts();
+				List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
 				m_mementos = getMementos(editParts);
 				doCopy(m_mementos);
 			}
@@ -77,7 +77,7 @@ public class CopyAction extends Action {
 
 	@Override
 	public boolean isEnabled() {
-		List<EditPart> editParts = m_viewer.getSelectedEditParts();
+		List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
 		return hasMementos(editParts);
 	}
 
@@ -105,7 +105,7 @@ public class CopyAction extends Action {
 	/**
 	 * @return <code>true</code> if given {@link JavaInfo}'s can be copy/pasted.
 	 */
-	static boolean hasMementos(final List<EditPart> editParts) {
+	static boolean hasMementos(final List<? extends EditPart> editParts) {
 		return ExecutionUtils.runObjectLog(() -> {
 			// selection required
 			if (editParts.isEmpty()) {
@@ -136,11 +136,11 @@ public class CopyAction extends Action {
 	/**
 	 * @return the {@link JavaInfoMemento}'s with copy/paste information for given {@link JavaInfo}'s.
 	 */
-	static List<JavaInfoMemento> getMementos(final List<EditPart> editParts) {
+	static List<JavaInfoMemento> getMementos(final List<? extends EditPart> editParts) {
 		return ExecutionUtils.runObjectLog(() -> getMemento0(editParts), null);
 	}
 
-	private static List<JavaInfoMemento> getMemento0(List<EditPart> editParts) throws Exception {
+	private static List<JavaInfoMemento> getMemento0(List<? extends EditPart> editParts) throws Exception {
 		// prepare objects
 		List<JavaInfo> objects = new ArrayList<>();
 		for (EditPart editPart : editParts) {

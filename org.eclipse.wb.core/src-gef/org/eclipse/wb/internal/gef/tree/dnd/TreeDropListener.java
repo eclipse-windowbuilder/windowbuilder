@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,15 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.dnd;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetEvent;
@@ -120,11 +121,11 @@ public class TreeDropListener implements DropTargetListener {
 		m_target = null;
 	}
 
-	private List<EditPart> getDragSource() {
+	private List<? extends EditPart> getDragSource() {
 		return m_viewer.getSelectedEditParts();
 	}
 
-	private List<Object> getModels(List<EditPart> editParts) {
+	private List<Object> getModels(List<? extends EditPart> editParts) {
 		List<Object> models = new ArrayList<>();
 		for (EditPart editPart : editParts) {
 			models.add(editPart.getModel());
@@ -144,7 +145,7 @@ public class TreeDropListener implements DropTargetListener {
 				newEditParts.add(newEditPart);
 			}
 			// set new selection
-			m_viewer.setSelection(newEditParts);
+			m_viewer.setSelection(new StructuredSelection(newEditParts));
 		}
 	}
 
@@ -242,7 +243,7 @@ public class TreeDropListener implements DropTargetListener {
 		return editPart -> editPart.getTargetEditPart(getTargetRequest()) != null;
 	}
 
-	private static List<EditPart> includeChildren(List<EditPart> parts) {
+	private static List<? extends EditPart> includeChildren(List<? extends EditPart> parts) {
 		List<EditPart> result = new ArrayList<>();
 		for (EditPart editPart : parts) {
 			result.add(editPart);

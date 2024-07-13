@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.gef.graphical.tools;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -21,8 +20,10 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -177,10 +178,10 @@ public class MarqueeSelectionTool extends Tool {
 				}
 			}
 			//
-			viewer.setSelection(selected);
+			viewer.setSelection(new StructuredSelection(selected));
 		} else {
 			// replace selection to all new selection elements
-			viewer.setSelection(newSelections);
+			viewer.setSelection(new StructuredSelection(newSelections));
 		}
 	}
 
@@ -291,7 +292,7 @@ public class MarqueeSelectionTool extends Tool {
 	private List<EditPart> getAllChildren() {
 		if (m_allChildren == null || m_allChildren.isEmpty()) {
 			m_allChildren = new ArrayList<>();
-			getAllChildren(m_allChildren, (EditPart) getCurrentViewer().getRootEditPart());
+			getAllChildren(m_allChildren, getCurrentViewer().getRootEditPart());
 		}
 		return m_allChildren;
 	}

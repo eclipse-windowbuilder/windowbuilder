@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.editor.actions;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -23,8 +22,10 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IDescriptionHelper;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -188,7 +189,7 @@ public final class SelectSupport {
 	private void doBeforeSelect() {
 		m_selectingSet.clear();
 		m_selectedObjects.clear();
-		List<EditPart> selectedEditParts = m_graphicalViewer.getSelectedEditParts();
+		List<? extends EditPart> selectedEditParts = m_graphicalViewer.getSelectedEditParts();
 		for (EditPart editPart : selectedEditParts) {
 			Object model = editPart.getModel();
 			if (model instanceof ObjectInfo) {
@@ -208,7 +209,7 @@ public final class SelectSupport {
 				editParts.add(editPart);
 			}
 		}
-		m_graphicalViewer.setSelection(editParts);
+		m_graphicalViewer.setSelection(new StructuredSelection(editParts));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
