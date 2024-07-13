@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanContainerInfo;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -208,12 +207,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 				NonVisualBeanEditPart part = (NonVisualBeanEditPart) editParts.get(i);
 				final JavaInfo info = part.getNonVisualInfo().getJavaInfo();
 				BeanFigure figure = new BeanFigure(info.getDescription().getIcon());
-				String text = ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-					@Override
-					public String runObject() throws Exception {
-						return info.getVariableSupport().getTitle();
-					}
-				}, null);
+				String text = ExecutionUtils.runObjectLog(() -> info.getVariableSupport().getTitle(), null);
 				figure.update(text, request.getLocation());
 				//
 				m_moveFeedbackFigures[i] = figure;

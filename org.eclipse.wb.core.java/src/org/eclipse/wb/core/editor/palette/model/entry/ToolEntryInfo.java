@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.core.editor.palette.model.entry;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 /**
@@ -30,22 +29,19 @@ public abstract class ToolEntryInfo extends EntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public final boolean activate(final boolean reload) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				// prepare tool
-				Tool tool;
-				{
-					tool = createTool();
-					if (tool == null) {
-						return false;
-					}
-					tool.setUnloadWhenFinished(!reload);
+		return ExecutionUtils.runObjectLog(() -> {
+			// prepare tool
+			Tool tool;
+			{
+				tool = createTool();
+				if (tool == null) {
+					return false;
 				}
-				// OK
-				m_editPartViewer.getEditDomain().setActiveTool(tool);
-				return true;
+				tool.setUnloadWhenFinished(!reload);
 			}
+			// OK
+			m_editPartViewer.getEditDomain().setActiveTool(tool);
+			return true;
 		}, false);
 	}
 

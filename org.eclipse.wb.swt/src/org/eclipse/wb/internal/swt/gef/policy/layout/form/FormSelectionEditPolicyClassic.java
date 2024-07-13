@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUti
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.LineEndFigure;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormDataInfo;
@@ -598,12 +597,7 @@ SelectionEditPolicy {
 	@Override
 	public Command getCommand(final Request request) {
 		if (AbsoluteBasedSelectionEditPolicy.REQ_RESIZE.equals(request.getType())) {
-			return ExecutionUtils.<Command>runObjectLog(new RunnableObjectEx<Command>() {
-				@Override
-				public Command runObject() throws Exception {
-					return getResizeCommand((ChangeBoundsRequest) request);
-				}
-			}, null);
+			return ExecutionUtils.runObjectLog(() -> getResizeCommand((ChangeBoundsRequest) request), null);
 		}
 		return null;
 	}

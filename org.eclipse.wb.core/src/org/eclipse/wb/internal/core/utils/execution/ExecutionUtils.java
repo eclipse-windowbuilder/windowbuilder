@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.swt.widgets.Display;
 
 import java.beans.Beans;
+import java.util.concurrent.Callable;
 
 /**
  * Utilities for executing actions, such as {@link RunnableEx}.
@@ -301,14 +302,14 @@ public class ExecutionUtils {
 	}
 
 	/**
-	 * Runs given {@link RunnableEx} and logs exceptions using {@link DesignerPlugin#log(Throwable)}.
+	 * Runs given {@link Callable} and logs exceptions using {@link DesignerPlugin#log(Throwable)}.
 	 *
-	 * @return the {@link Object} returned by {@link RunnableEx#run()} or <code>defaultValue</code> if
+	 * @return the {@link Object} returned by {@link Callable#call()} or <code>defaultValue</code> if
 	 *         exception was logged.
 	 */
-	public static <T> T runObjectLog(RunnableObjectEx<T> runnable, T defaultValue) {
+	public static <T> T runObjectLog(Callable<T> runnable, T defaultValue) {
 		try {
-			return runnable.runObject();
+			return runnable.call();
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
 			return defaultValue;

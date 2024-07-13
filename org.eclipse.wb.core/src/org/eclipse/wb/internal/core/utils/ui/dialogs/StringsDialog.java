@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.ui.dialogs;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -60,20 +59,17 @@ public class StringsDialog extends TextDialog {
 	 * @return the edited items.
 	 */
 	public String[] getItems() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
-			@Override
-			public String[] runObject() throws Exception {
-				List<String> strings = new ArrayList<>();
-				BufferedReader br = new BufferedReader(new StringReader(getText()));
-				while (true) {
-					String s = br.readLine();
-					if (s == null) {
-						break;
-					}
-					strings.add(s);
+		return ExecutionUtils.runObjectLog(() -> {
+			List<String> strings = new ArrayList<>();
+			BufferedReader br = new BufferedReader(new StringReader(getText()));
+			while (true) {
+				String s = br.readLine();
+				if (s == null) {
+					break;
 				}
-				return strings.toArray(new String[strings.size()]);
+				strings.add(s);
 			}
+			return strings.toArray(new String[strings.size()]);
 		}, ArrayUtils.EMPTY_STRING_ARRAY);
 	}
 }

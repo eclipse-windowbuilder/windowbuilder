@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -168,13 +168,10 @@ public final class TreeRobot {
 	 * @return the currently active command in {@link TreeViewer} drag listener.
 	 */
 	private Command getDragCommand() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Command>() {
-			@Override
-			public Command runObject() throws Exception {
-				Object eventManager = ReflectionUtils.getFieldObject(m_viewer, "m_eventManager");
-				Object dropListener = ReflectionUtils.getFieldObject(eventManager, "m_dropListener");
-				return (Command) ReflectionUtils.getFieldObject(dropListener, "m_command");
-			}
+		return ExecutionUtils.runObjectLog(() -> {
+			Object eventManager = ReflectionUtils.getFieldObject(m_viewer, "m_eventManager");
+			Object dropListener = ReflectionUtils.getFieldObject(eventManager, "m_dropListener");
+			return (Command) ReflectionUtils.getFieldObject(dropListener, "m_command");
 		}, null);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.gef.EditPart;
 
@@ -61,12 +60,9 @@ final class NonVisualValidator implements ILayoutRequestValidator {
 		}
 		final Object newObject = request.getNewObject();
 		if (newObject instanceof JavaInfo) {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-				@Override
-				public Boolean runObject() throws Exception {
-					JavaInfo newInfo = (JavaInfo) newObject;
-					return validateJavaInfo(newInfo);
-				}
+			return ExecutionUtils.runObjectLog(() -> {
+				JavaInfo newInfo = (JavaInfo) newObject;
+				return validateJavaInfo(newInfo);
 			}, false);
 		}
 		return false;
@@ -77,17 +73,14 @@ final class NonVisualValidator implements ILayoutRequestValidator {
 		if (!acceptDropNonVisualBeans()) {
 			return false;
 		}
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-			@Override
+		return ExecutionUtils.runObjectLog(() -> {
 			@SuppressWarnings("unchecked")
-			public Boolean runObject() throws Exception {
-				List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-				if (mementos.size() == 1) {
-					JavaInfo newInfo = mementos.get(0).create(m_infoForMemento);
-					return validateJavaInfo(newInfo);
-				}
-				return false;
+			List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
+			if (mementos.size() == 1) {
+				JavaInfo newInfo = mementos.get(0).create(m_infoForMemento);
+				return validateJavaInfo(newInfo);
 			}
+			return false;
 		}, false);
 	}
 

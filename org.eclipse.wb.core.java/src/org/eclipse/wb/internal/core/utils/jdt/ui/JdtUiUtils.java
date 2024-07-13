@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -155,13 +155,10 @@ public final class JdtUiUtils {
 	public static IType selectSubType(final Shell shell,
 			final IJavaProject javaProject,
 			final String superTypeName) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<IType>() {
-			@Override
-			public IType runObject() throws Exception {
-				IType actionType = javaProject.findType(superTypeName);
-				SubtypesScope scope = new SubtypesScope(actionType);
-				return JdtUiUtils.selectType(DesignerPlugin.getShell(), scope);
-			}
+		return ExecutionUtils.runObjectLog(() -> {
+			IType actionType = javaProject.findType(superTypeName);
+			SubtypesScope scope = new SubtypesScope(actionType);
+			return JdtUiUtils.selectType(DesignerPlugin.getShell(), scope);
 		}, null);
 	}
 

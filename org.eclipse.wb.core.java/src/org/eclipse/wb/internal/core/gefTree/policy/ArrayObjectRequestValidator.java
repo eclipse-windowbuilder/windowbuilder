@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.gef.EditPart;
@@ -85,14 +84,11 @@ public final class ArrayObjectRequestValidator implements ILayoutRequestValidato
 	////////////////////////////////////////////////////////////////////////////
 	public boolean isValidModel(final Object objectModel) {
 		if (objectModel instanceof JavaInfo) {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-				@Override
-				public Boolean runObject() throws Exception {
-					JavaInfo info = (JavaInfo) objectModel;
-					return ReflectionUtils.isSuccessorOf(
-							info.getDescription().getComponentClass(),
-							m_arrayInfo.getItemClass().getCanonicalName());
-				}
+			return ExecutionUtils.runObjectLog(() -> {
+				JavaInfo info = (JavaInfo) objectModel;
+				return ReflectionUtils.isSuccessorOf(
+						info.getDescription().getComponentClass(),
+						m_arrayInfo.getItemClass().getCanonicalName());
 			}, false);
 		}
 		return false;

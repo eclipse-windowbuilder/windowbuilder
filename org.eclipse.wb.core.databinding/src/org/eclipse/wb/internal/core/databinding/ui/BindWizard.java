@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.property.Context;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.wizard.Wizard;
 
@@ -59,12 +58,9 @@ public class BindWizard extends Wizard {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean performFinish() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				m_context.provider.addBinding(m_secondPage.performFinish());
-				return true;
-			}
+		return ExecutionUtils.runObjectLog(() -> {
+			m_context.provider.addBinding(m_secondPage.performFinish());
+			return true;
 		}, true);
 	}
 }

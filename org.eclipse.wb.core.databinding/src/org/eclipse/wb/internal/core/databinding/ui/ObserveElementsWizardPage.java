@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.property.Context;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -103,16 +102,13 @@ public class ObserveElementsWizardPage extends WizardPage {
 				.createFont(null);
 		valueLabel.setFont(boldFont);
 		valueLabel.addDisposeListener(event -> boldFont.dispose());
-		valueLabel.setText(ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				String text = m_context.observeObject.getPresentation().getTextForBinding();
-				String propertyText = m_observeProperty.getPresentation().getTextForBinding();
-				if (propertyText.length() > 0) {
-					text += "." + propertyText;
-				}
-				return text;
+		valueLabel.setText(ExecutionUtils.runObjectLog(() -> {
+			String text = m_context.observeObject.getPresentation().getTextForBinding();
+			String propertyText = m_observeProperty.getPresentation().getTextForBinding();
+			if (propertyText.length() > 0) {
+				text += "." + propertyText;
 			}
+			return text;
 		}, "<exception, see log>"));
 		//
 		ISelectionChangedListener listener = new ISelectionChangedListener() {

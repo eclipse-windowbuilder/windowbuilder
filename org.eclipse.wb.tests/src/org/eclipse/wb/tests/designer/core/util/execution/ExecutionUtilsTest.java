@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -443,12 +443,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	@Test
 	public void test_object_log_noException() throws Exception {
 		final Object myResult = new Object();
-		Object result = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				return myResult;
-			}
-		}, null);
+		Object result = ExecutionUtils.runObjectLog(() -> myResult, null);
 		assertSame(myResult, result);
 	}
 
@@ -459,12 +454,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		Object result;
 		try {
 			DesignerPlugin.setDisplayExceptionOnConsole(false);
-			result = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					throw new Exception();
-				}
-			}, myResult);
+			result = ExecutionUtils.runObjectLog(() -> { throw new Exception(); }, myResult);
 		} finally {
 			DesignerPlugin.setDisplayExceptionOnConsole(true);
 		}

@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 
@@ -198,12 +197,7 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart implem
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected List<?> getModelChildren() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-			@Override
-			public List<?> runObject() throws Exception {
-				return m_component.getPresentation().getChildrenGraphical();
-			}
-		}, Collections.emptyList());
+		return ExecutionUtils.runObjectLog(() -> m_component.getPresentation().getChildrenGraphical(), Collections.emptyList());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

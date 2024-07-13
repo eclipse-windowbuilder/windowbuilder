@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -180,20 +179,17 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		 */
 		protected final Object getValue() {
 			prepareProperties();
-			m_currentValue = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					Object commonValue = NO_VALUE;
-					for (Property property : m_propertyList) {
-						Object value = property.getValue();
-						if (commonValue == NO_VALUE) {
-							commonValue = value;
-						} else if (!ObjectUtils.equals(commonValue, value)) {
-							return Property.UNKNOWN_VALUE;
-						}
+			m_currentValue = ExecutionUtils.runObjectLog(() -> {
+				Object commonValue = NO_VALUE;
+				for (Property property : m_propertyList) {
+					Object value = property.getValue();
+					if (commonValue == NO_VALUE) {
+						commonValue = value;
+					} else if (!ObjectUtils.equals(commonValue, value)) {
+						return Property.UNKNOWN_VALUE;
 					}
-					return commonValue;
 				}
+				return commonValue;
 			}, null);
 			return m_currentValue;
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.databinding.ui.providers;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
@@ -52,21 +51,11 @@ public class ObserveLabelProvider extends LabelProvider {
 
 	@Override
 	public String getText(final Object element) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				return getPresentation(element).getText();
-			}
-		}, "<exception, see log>");
+		return ExecutionUtils.runObjectLog(() -> getPresentation(element).getText(), "<exception, see log>");
 	}
 
 	@Override
 	public Image getImage(final Object element) {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-			@Override
-			public Image runObject() throws Exception {
-				return m_resourceManager.createImage(getPresentation(element).getImageDescriptor());
-			}
-		}, null);
+		return ExecutionUtils.runObjectLog(() -> m_resourceManager.createImage(getPresentation(element).getImageDescriptor()), null);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.databinding.ui.filter.PropertyFilter;
 import org.eclipse.wb.internal.core.databinding.ui.providers.ObserveLabelProvider;
 import org.eclipse.wb.internal.core.databinding.ui.providers.ObserveTreeContentProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -332,12 +331,7 @@ final class ObserveElementsComposite extends SashForm {
 			StringBuffer buffer = new StringBuffer();
 			final IObserveInfo[] observe = {(IObserveInfo) selection.getFirstElement()};
 			while (true) {
-				buffer.insert(0, ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-					@Override
-					public String runObject() throws Exception {
-						return observe[0].getPresentation().getTextForBinding();
-					}
-				}, "<error>"));
+				buffer.insert(0, ExecutionUtils.runObjectLog(() -> observe[0].getPresentation().getTextForBinding(), "<error>"));
 				observe[0] = observe[0].getParent();
 				if (observe[0] == null) {
 					break;
@@ -490,12 +484,7 @@ final class ObserveElementsComposite extends SashForm {
 					return true;
 				}
 			}
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-				@Override
-				public Boolean runObject() throws Exception {
-					return m_matcher.matches(observe.getPresentation().getText());
-				}
-			}, Boolean.FALSE);
+			return ExecutionUtils.runObjectLog(() -> m_matcher.matches(observe.getPresentation().getText()), Boolean.FALSE);
 		}
 	}
 

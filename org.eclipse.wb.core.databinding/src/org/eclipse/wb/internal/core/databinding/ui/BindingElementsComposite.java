@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.TableFactory;
@@ -461,22 +460,18 @@ public final class BindingElementsComposite extends Composite {
 			final IBindingInfo binding,
 			Shell shell) {
 		// prepare message
-		String message = ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				String message = databindingsProvider.getBindingPresentationText(binding);
-				if (message == null) {
-					message =
-							"Binding["
-									+ UiUtils.getPresentationText(binding.getTarget(), binding.getTargetProperty())
-									+ " : "
-									+ UiUtils.getPresentationText(binding.getModel(), binding.getModelProperty())
-									+ "]";
-				}
-				return message;
+		String message = ExecutionUtils.runObjectLog(() -> {
+			String bindingMessage = databindingsProvider.getBindingPresentationText(binding);
+			if (bindingMessage == null) {
+				bindingMessage =
+						"Binding["
+								+ UiUtils.getPresentationText(binding.getTarget(), binding.getTargetProperty())
+								+ " : "
+								+ UiUtils.getPresentationText(binding.getModel(), binding.getModelProperty())
+								+ "]";
 			}
-		},
-				"<exception, see log>");
+			return bindingMessage;
+		}, "<exception, see log>");
 		// open confirm
 		boolean canDelete =
 				MessageDialog.openConfirm(

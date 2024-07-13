@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.nls.edit.StringPropertyInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -395,17 +394,14 @@ public final class PropertiesComposite extends Composite {
 	ITreeContentProvider {
 		@Override
 		public Object[] getElements(Object inputElement) {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Object[]>() {
-				@Override
-				public Object[] runObject() throws Exception {
-					JavaInfo root = m_support.getRoot();
-					// show root only if there are properties
-					if (m_support.hasPropertiesInTree(root)) {
-						return new Object[]{root};
-					}
-					// else, show empty tree
-					return ArrayUtils.EMPTY_OBJECT_ARRAY;
+			return ExecutionUtils.runObjectLog(() -> {
+				JavaInfo root = m_support.getRoot();
+				// show root only if there are properties
+				if (m_support.hasPropertiesInTree(root)) {
+					return new Object[]{root};
 				}
+				// else, show empty tree
+				return ArrayUtils.EMPTY_OBJECT_ARRAY;
 			}, ArrayUtils.EMPTY_OBJECT_ARRAY);
 		}
 
@@ -472,31 +468,25 @@ public final class PropertiesComposite extends Composite {
 
 		@Override
 		public String getText(final Object element) {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-				@Override
-				public String runObject() throws Exception {
-					if (element instanceof JavaInfo component) {
-						return component.getPresentation().getText();
-					} else {
-						Assert.instanceOf(StringPropertyInfo.class, element);
-						StringPropertyInfo propertyInfo = (StringPropertyInfo) element;
-						return propertyInfo.getTitle();
-					}
+			return ExecutionUtils.runObjectLog(() -> {
+				if (element instanceof JavaInfo component) {
+					return component.getPresentation().getText();
+				} else {
+					Assert.instanceOf(StringPropertyInfo.class, element);
+					StringPropertyInfo propertyInfo = (StringPropertyInfo) element;
+					return propertyInfo.getTitle();
 				}
 			}, null);
 		}
 
 		@Override
 		public Image getImage(final Object element) {
-			ImageDescriptor imageDescriptor = ExecutionUtils.runObjectLog(new RunnableObjectEx<ImageDescriptor>() {
-				@Override
-				public ImageDescriptor runObject() throws Exception {
-					if (element instanceof JavaInfo component) {
-						return component.getPresentation().getIcon();
-					} else {
-						Assert.instanceOf(StringPropertyInfo.class, element);
-						return DesignerPlugin.getImageDescriptor("nls/property.gif");
-					}
+			ImageDescriptor imageDescriptor = ExecutionUtils.runObjectLog(() -> {
+				if (element instanceof JavaInfo component) {
+					return component.getPresentation().getIcon();
+				} else {
+					Assert.instanceOf(StringPropertyInfo.class, element);
+					return DesignerPlugin.getImageDescriptor("nls/property.gif");
 				}
 			}, null);
 			return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
