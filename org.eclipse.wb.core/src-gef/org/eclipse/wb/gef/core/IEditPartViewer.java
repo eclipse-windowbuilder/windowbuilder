@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -184,7 +184,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 */
 	EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<EditPart> exclude,
+			final Collection<? extends org.eclipse.gef.EditPart> exclude,
 			final Conditional conditional);
 
 	/**
@@ -193,7 +193,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 */
 	EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<EditPart> exclude,
+			final Collection<? extends org.eclipse.gef.EditPart> exclude,
 			final Conditional conditional,
 			String layer);
 

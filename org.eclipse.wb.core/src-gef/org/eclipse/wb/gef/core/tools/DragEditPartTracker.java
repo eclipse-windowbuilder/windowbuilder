@@ -108,13 +108,13 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	// Handling operations
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Collection<org.eclipse.wb.gef.core.EditPart> m_exclusionSet;
+	private Collection<EditPart> m_exclusionSet;
 
 	/**
 	 * Returns a list of all the edit parts in the {@link Tool#getOperationSet() operation set}.
 	 */
 	@Override
-	protected Collection<org.eclipse.wb.gef.core.EditPart> getExclusionSet() {
+	protected Collection<EditPart> getExclusionSet() {
 		if (m_exclusionSet == null) {
 			m_exclusionSet = new ArrayList<>(getOperationSet());
 		}
@@ -234,7 +234,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 */
 	private List<Object> getOperationSetModels() {
 		List<Object> models = new ArrayList<>();
-		for (org.eclipse.wb.gef.core.EditPart part : getOperationSet()) {
+		for (EditPart part : getOperationSet()) {
 			models.add(part.getModel());
 		}
 		return models;
@@ -262,12 +262,12 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	@Override
 	protected Command getCommand() {
 		Request request = getTargetRequest();
-		List<org.eclipse.wb.gef.core.EditPart> operationSet = getOperationSet();
+		List<? extends EditPart> operationSet = getOperationSet();
 		//
 		if (isMove()) {
 			if (m_canMove && !operationSet.isEmpty()) {
 				// if move get command from parent
-				org.eclipse.wb.gef.core.EditPart firstPart = operationSet.get(0);
+				EditPart firstPart = operationSet.get(0);
 				//
 				return firstPart.getParent().getCommand(request);
 			}
@@ -281,7 +281,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 					compoundCommand = objectInfoEditPart.createCompoundCommand();
 				}
 				if (!operationSet.isEmpty()) {
-					org.eclipse.wb.gef.core.EditPart firstPart = operationSet.get(0);
+					EditPart firstPart = operationSet.get(0);
 					GroupRequest orphanRequest = new GroupRequest(RequestConstants.REQ_ORPHAN);
 					orphanRequest.setEditParts(operationSet);
 					compoundCommand.add(firstPart.getParent().getCommand(orphanRequest));

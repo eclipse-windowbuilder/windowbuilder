@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -232,7 +232,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			Collection<EditPart> exclude,
+			Collection<? extends org.eclipse.gef.EditPart> exclude,
 			Conditional conditional) {
 		// simple check location
 		Rectangle clientArea = m_tree.getClientArea();
@@ -260,7 +260,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			Collection<EditPart> exclude,
+			Collection<? extends org.eclipse.gef.EditPart> exclude,
 			Conditional conditional,
 			String layer) {
 		return null;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -19,6 +18,7 @@ import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -195,12 +195,12 @@ public class ResizeTracker extends Tool {
 	 * Returns all selected parts which understand resizing.
 	 */
 	@Override
-	protected List<EditPart> createOperationSet() {
+	protected List<? extends EditPart> createOperationSet() {
 		if (m_operationSet != null) {
 			return m_operationSet;
 		}
 		// find target EditPart's that agree to process current request
-		List<EditPart> operationSet = super.createOperationSet();
+		List<EditPart> operationSet = new ArrayList<>(super.createOperationSet());
 		for (ListIterator<EditPart> I = operationSet.listIterator(); I.hasNext();) {
 			EditPart part = I.next();
 			// find target for current EditPart

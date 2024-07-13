@@ -141,7 +141,7 @@ public abstract class TargetingTool extends Tool {
 	/**
 	 * Returns a List of objects that should be excluded as potential targets for the operation.
 	 */
-	protected Collection<org.eclipse.wb.gef.core.EditPart> getExclusionSet() {
+	protected Collection<? extends EditPart> getExclusionSet() {
 		return Collections.emptyList();
 	}
 
