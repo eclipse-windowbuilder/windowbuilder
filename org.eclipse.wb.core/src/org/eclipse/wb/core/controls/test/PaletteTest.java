@@ -16,9 +16,9 @@ import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.MemoryFlyoutPreferences;
 import org.eclipse.wb.core.controls.palette.DesignerContainer;
 import org.eclipse.wb.core.controls.palette.DesignerEntry;
+import org.eclipse.wb.core.controls.palette.DesignerRoot;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
-import org.eclipse.wb.core.controls.palette.IPalette;
 import org.eclipse.wb.core.controls.palette.PaletteComposite;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
@@ -33,9 +33,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Application for testing {@link PaletteComposite}.
@@ -108,7 +105,7 @@ public class PaletteTest implements ColorConstants {
 			palette = new PaletteImpl();
 			{
 				CategoryImpl category = new CategoryImpl("First category", true);
-				palette.addCategory(category);
+				palette.add(category);
 				category.add(new EntryImpl(true, createIcon(red), "AAAAAAAAAAA"));
 				category.add(new EntryImpl(false, createIcon(green), "BBBBB"));
 				category.add(new EntryImpl(true, createIcon(blue), "CCCCCCCCCCCCCCC"));
@@ -118,14 +115,14 @@ public class PaletteTest implements ColorConstants {
 			}
 			{
 				CategoryImpl category = new CategoryImpl("Second category", false);
-				palette.addCategory(category);
+				palette.add(category);
 				category.add(new EntryImpl(true, createIcon(red), "0123456789"));
 				category.add(new EntryImpl(true, createIcon(green), "012345"));
 				category.add(new EntryImpl(true, createIcon(blue), "0123456789123"));
 			}
 			{
 				CategoryImpl category = new CategoryImpl("Third category", true);
-				palette.addCategory(category);
+				palette.add(category);
 				category.add(new EntryImpl(true, createIcon(red), "0123456789"));
 				category.add(new EntryImpl(true, createIcon(green), "012345"));
 				category.add(new EntryImpl(true, createIcon(blue), "0123456789123"));
@@ -153,22 +150,7 @@ public class PaletteTest implements ColorConstants {
 	// Palette implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final class PaletteImpl implements IPalette {
-		private final List<ICategory> m_categories = new ArrayList<>();
-
-		////////////////////////////////////////////////////////////////////////////
-		//
-		// Access
-		//
-		////////////////////////////////////////////////////////////////////////////
-		public void addCategory(ICategory category) {
-			m_categories.add(category);
-		}
-
-		@Override
-		public List<ICategory> getCategories() {
-			return m_categories;
-		}
+	private static final class PaletteImpl extends DesignerRoot {
 
 		/** {@inheritDoc} */
 		@Override

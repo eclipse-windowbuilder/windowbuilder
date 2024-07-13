@@ -23,6 +23,8 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.control.palette
  */
+//TODO GEF
+@Deprecated(since = "1.17.0", forRemoval = true)
 public interface IPalette {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -32,7 +34,7 @@ public interface IPalette {
 	/**
 	 * @return the {@link List} of {@link ICategory}'s to display as roots of palette.
 	 */
-	List<ICategory> getCategories();
+	List<? extends ICategory> getCategories();
 
 	/**
 	 * Adds {@link Action}'s to the popup menu.
