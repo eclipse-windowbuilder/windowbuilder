@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -78,6 +77,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.WeakHashMap;
+import java.util.concurrent.Callable;
 
 /**
  * Contains different read-only AST operations.
@@ -517,12 +517,9 @@ public class AstNodeUtils {
 	public static String getFullyQualifiedName(final TypeDeclaration typeDeclaration,
 			final boolean runtime) {
 		String key = "getFullyQualifiedName_TypeDeclaration";
-		return getValue(typeDeclaration, key, new RunnableObjectEx<String>() {
-			@Override
-			public String runObject() throws Exception {
-				ITypeBinding binding = getTypeBinding(typeDeclaration);
-				return getFullyQualifiedName(binding, runtime);
-			}
+		return getValue(typeDeclaration, key, () -> {
+			ITypeBinding binding = getTypeBinding(typeDeclaration);
+			return getFullyQualifiedName(binding, runtime);
 		});
 	}
 
@@ -1070,17 +1067,14 @@ public class AstNodeUtils {
 		{
 			ASTNode unit = invocation.getRoot();
 			String key = "getLocalMethodDeclaration.allMethods";
-			Set<String> allNames = getValue(unit, key, new RunnableObjectEx<Set<String>>() {
-				@Override
-				public Set<String> runObject() throws Exception {
-					Set<String> names = new TreeSet<>();
-					TypeDeclaration typeDeclaration = getEnclosingType(invocation);
-					MethodDeclaration[] methods = typeDeclaration.getMethods();
-					for (MethodDeclaration method : methods) {
-						names.add(method.getName().getIdentifier());
-					}
-					return names;
+			Set<String> allNames = getValue(unit, key, () -> {
+				Set<String> names = new TreeSet<>();
+				TypeDeclaration typeDeclaration = getEnclosingType(invocation);
+				MethodDeclaration[] methods = typeDeclaration.getMethods();
+				for (MethodDeclaration method : methods) {
+					names.add(method.getName().getIdentifier());
 				}
+				return names;
 			});
 			if (!allNames.contains(invocation.getName().getIdentifier())) {
 				return null;
@@ -1088,12 +1082,7 @@ public class AstNodeUtils {
 		}
 		// perform precise search
 		String key = "getLocalMethodDeclaration";
-		return getValue(invocation, key, new RunnableObjectEx<MethodDeclaration>() {
-			@Override
-			public MethodDeclaration runObject() throws Exception {
-				return getLocalMethodDeclaration0(invocation);
-			}
-		});
+		return getValue(invocation, key, () -> getLocalMethodDeclaration0(invocation));
 	}
 
 	/**
@@ -1138,12 +1127,7 @@ public class AstNodeUtils {
 	 */
 	public static List<MethodInvocation> getMethodInvocations(final MethodDeclaration methodDeclaration) {
 		String key = "getMethodInvocations";
-		return getValue(methodDeclaration, key, new RunnableObjectEx<List<MethodInvocation>>() {
-			@Override
-			public List<MethodInvocation> runObject() throws Exception {
-				return getMethodInvocations0(methodDeclaration);
-			}
-		});
+		return getValue(methodDeclaration, key, () -> getMethodInvocations0(methodDeclaration));
 	}
 
 	/**
@@ -1312,12 +1296,7 @@ public class AstNodeUtils {
 	 */
 	public static MethodDeclaration getLocalConstructorDeclaration(final ClassInstanceCreation creation) {
 		String key = "getLocalConstructorDeclaration";
-		return getValue(creation, key, new RunnableObjectEx<MethodDeclaration>() {
-			@Override
-			public MethodDeclaration runObject() throws Exception {
-				return getLocalConstructorDeclaration0(creation);
-			}
-		});
+		return getValue(creation, key, () -> getLocalConstructorDeclaration0(creation));
 	}
 
 	/**
@@ -1345,12 +1324,7 @@ public class AstNodeUtils {
 	 */
 	public static List<ConstructorInvocation> getConstructorInvocations(final MethodDeclaration methodDeclaration) {
 		String key = "getConstructorInvocations";
-		return getValue(methodDeclaration, key, new RunnableObjectEx<List<ConstructorInvocation>>() {
-			@Override
-			public List<ConstructorInvocation> runObject() throws Exception {
-				return getConstructorInvocations0(methodDeclaration);
-			}
-		});
+		return getValue(methodDeclaration, key, () -> getConstructorInvocations0(methodDeclaration));
 	}
 
 	/**
@@ -2439,7 +2413,7 @@ public class AstNodeUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@SuppressWarnings("unchecked")
-	private static <T> T getValue(ASTNode node, String key, RunnableObjectEx<T> evaluator) {
+	private static <T> T getValue(ASTNode node, String key, Callable<T> evaluator) {
 		// if "null", don't use caching
 		if (node == null) {
 			return ExecutionUtils.runObject(evaluator);

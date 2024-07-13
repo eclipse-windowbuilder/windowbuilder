@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.util.IJavaInfoRendering;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
@@ -52,12 +51,7 @@ public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRende
 	@Override
 	Object getShell() {
 		if (m_shell == null) {
-			return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-				@Override
-				public Object runObject() throws Exception {
-					return ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
-				}
-			});
+			return ExecutionUtils.runObject(() -> ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()"));
 		}
 		return super.getShell();
 	}

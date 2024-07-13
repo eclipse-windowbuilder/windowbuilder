@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -64,37 +63,34 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 	}
 
 	public static GridBagConstraintsInfo getConstraintsFor(final ComponentInfo component) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<GridBagConstraintsInfo>() {
-			@Override
-			public GridBagConstraintsInfo runObject() throws Exception {
-				// prepare constraints
-				GridBagConstraintsInfo constraints;
-				{
-					List<GridBagConstraintsInfo> constraintsList =
-							component.getChildren(GridBagConstraintsInfo.class);
-					if (constraintsList.size() > 1) {
-						throw new DesignerException(IExceptionConstants.MORE_THAN_ONE_CONSTRAINTS,
-								component.toString(),
-								constraintsList.toString(),
-								component.getVariableSupport().getComponentName());
-					}
-					if (constraintsList.size() == 1) {
-						constraints = constraintsList.get(0);
-					} else {
-						constraints =
-								(GridBagConstraintsInfo) JavaInfoUtils.createJavaInfo(
-										component.getEditor(),
-										GridBagConstraints.class,
-										new VirtualConstraintsCreationSupport(component));
-						constraints.setVariableSupport(new VirtualConstraintsVariableSupport(constraints));
-						constraints.setAssociation(new EmptyAssociation());
-						component.addChild(constraints);
-					}
+		return ExecutionUtils.runObject(() -> {
+			// prepare constraints
+			GridBagConstraintsInfo constraints;
+			{
+				List<GridBagConstraintsInfo> constraintsList =
+						component.getChildren(GridBagConstraintsInfo.class);
+				if (constraintsList.size() > 1) {
+					throw new DesignerException(IExceptionConstants.MORE_THAN_ONE_CONSTRAINTS,
+							component.toString(),
+							constraintsList.toString(),
+							component.getVariableSupport().getComponentName());
 				}
-				// initialize and return
-						constraints.init();
-				return constraints;
+				if (constraintsList.size() == 1) {
+					constraints = constraintsList.get(0);
+				} else {
+					constraints =
+							(GridBagConstraintsInfo) JavaInfoUtils.createJavaInfo(
+									component.getEditor(),
+									GridBagConstraints.class,
+									new VirtualConstraintsCreationSupport(component));
+					constraints.setVariableSupport(new VirtualConstraintsVariableSupport(constraints));
+					constraints.setAssociation(new EmptyAssociation());
+					component.addChild(constraints);
+				}
 			}
+			// initialize and return
+					constraints.init();
+			return constraints;
 		});
 	}
 

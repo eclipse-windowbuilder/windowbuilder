@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.databinding;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -66,12 +65,8 @@ public class Activator extends AbstractUIPlugin {
 	 * @return the {@link InputStream} for file from plugin directory.
 	 */
 	public static InputStream getFile(final String path) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<InputStream>() {
-			@Override
-			public InputStream runObject() throws Exception {
-				return m_plugin.getBundle().getEntry(path).openStream();
-			}
-		}, "Unable to open plugin file %s", path);
+		return ExecutionUtils.runObject(() -> m_plugin.getBundle().getEntry(path).openStream(),
+				"Unable to open plugin file %s", path);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

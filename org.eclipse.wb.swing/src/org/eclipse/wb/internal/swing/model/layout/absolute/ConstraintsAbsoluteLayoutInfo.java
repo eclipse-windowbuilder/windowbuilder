@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
@@ -65,57 +64,54 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
 	 * @return the {@link ConstraintsAbsoluteLayoutDataInfo} for given {@link ComponentInfo}.
 	 */
 	public static ConstraintsAbsoluteLayoutDataInfo getConstraints(final ComponentInfo component) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<ConstraintsAbsoluteLayoutDataInfo>() {
-			@Override
-			public ConstraintsAbsoluteLayoutDataInfo runObject() throws Exception {
-				// prepare constraints
-				ConstraintsAbsoluteLayoutDataInfo constraints;
-				{
-					List<ConstraintsAbsoluteLayoutDataInfo> constraintsList =
-							component.getChildren(ConstraintsAbsoluteLayoutDataInfo.class);
-					Assert.isLegal(constraintsList.size() <= 1);
-					if (constraintsList.size() == 1) {
-						constraints = constraintsList.get(0);
-					} else {
-						String constraintsClassName;
-						{
-							ContainerInfo container = (ContainerInfo) component.getParent();
-							LayoutInfo layout = container.getLayout();
-							constraintsClassName =
-									JavaInfoUtils.getParameter(layout, "absoluteLayout.constraintsClass");
-						}
-						constraints =
-								(ConstraintsAbsoluteLayoutDataInfo) JavaInfoUtils.createJavaInfo(
-										component.getEditor(),
-										constraintsClassName,
-										new ConstructorCreationSupport());
-						// prepare add() invocation
-						InvocationChildAssociation association =
-								(InvocationChildAssociation) component.getAssociation();
-						MethodInvocation invocation = association.getInvocation();
-						// ensure LayoutData expression
-						Expression expression;
-						{
-							String source = constraints.getDescription().getCreation(null).getSource();
-							expression = constraints.getEditor().addInvocationArgument(invocation, 1, source);
-						}
-						// set CreationSupport
-						{
-							constraints.setCreationSupport(new ConstructorCreationSupport((ClassInstanceCreation) expression));
-							constraints.addRelatedNode(expression);
-						}
-						// set Association
-						constraints.setAssociation(new InvocationSecondaryAssociation(invocation));
-						// set VariableSupport
-						VariableSupport variableSupport = new EmptyVariableSupport(constraints, expression);
-						constraints.setVariableSupport(variableSupport);
-						// add
-						component.addChild(constraints);
+		return ExecutionUtils.runObject(() -> {
+			// prepare constraints
+			ConstraintsAbsoluteLayoutDataInfo constraints;
+			{
+				List<ConstraintsAbsoluteLayoutDataInfo> constraintsList =
+						component.getChildren(ConstraintsAbsoluteLayoutDataInfo.class);
+				Assert.isLegal(constraintsList.size() <= 1);
+				if (constraintsList.size() == 1) {
+					constraints = constraintsList.get(0);
+				} else {
+					String constraintsClassName;
+					{
+						ContainerInfo container = (ContainerInfo) component.getParent();
+						LayoutInfo layout = container.getLayout();
+						constraintsClassName =
+								JavaInfoUtils.getParameter(layout, "absoluteLayout.constraintsClass");
 					}
+					constraints =
+							(ConstraintsAbsoluteLayoutDataInfo) JavaInfoUtils.createJavaInfo(
+									component.getEditor(),
+									constraintsClassName,
+									new ConstructorCreationSupport());
+					// prepare add() invocation
+					InvocationChildAssociation association =
+							(InvocationChildAssociation) component.getAssociation();
+					MethodInvocation invocation = association.getInvocation();
+					// ensure LayoutData expression
+					Expression expression;
+					{
+						String source = constraints.getDescription().getCreation(null).getSource();
+						expression = constraints.getEditor().addInvocationArgument(invocation, 1, source);
+					}
+					// set CreationSupport
+					{
+						constraints.setCreationSupport(new ConstructorCreationSupport((ClassInstanceCreation) expression));
+						constraints.addRelatedNode(expression);
+					}
+					// set Association
+					constraints.setAssociation(new InvocationSecondaryAssociation(invocation));
+					// set VariableSupport
+					VariableSupport variableSupport = new EmptyVariableSupport(constraints, expression);
+					constraints.setVariableSupport(variableSupport);
+					// add
+					component.addChild(constraints);
 				}
-				// initialize and return
-				return constraints;
 			}
+			// initialize and return
+			return constraints;
 		});
 	}
 

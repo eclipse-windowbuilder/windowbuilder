@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -130,11 +130,11 @@ public final class BundleResourceProvider {
 	}
 
 	private InputStream getFile0(final String path) {
-		return ExecutionUtils.runObject((RunnableObjectEx<InputStream>) () -> getFile1(path).openStream(), "Unable to open file %s from %s", path, m_id);
+		return ExecutionUtils.runObject(() -> getFile1(path).openStream(), "Unable to open file %s from %s", path, m_id);
 	}
 
 	private URL getFile1(final String path) {
-		return ExecutionUtils.runObject((RunnableObjectEx<URL>) () -> m_bundle.getEntry(path), "Unable to open file %s from %s", path, m_id);
+		return ExecutionUtils.runObject(() -> m_bundle.getEntry(path), "Unable to open file %s from %s", path, m_id);
 	}
 
 	private static String normalizePath(String path) {

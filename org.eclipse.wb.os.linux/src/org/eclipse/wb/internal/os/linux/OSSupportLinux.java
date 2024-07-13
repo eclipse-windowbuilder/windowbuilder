@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
@@ -210,15 +209,12 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	}
 
 	private boolean bindImage(final Control control, final Image image) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
-			@Override
-			public Boolean runObject() throws Exception {
-				if (control.getData(WBP_NEED_IMAGE) != null && control.getData(WBP_IMAGE) == null) {
-					control.setData(WBP_IMAGE, image);
-					return true;
-				}
-				return false;
+		return ExecutionUtils.runObject(() -> {
+			if (control.getData(WBP_NEED_IMAGE) != null && control.getData(WBP_IMAGE) == null) {
+				control.setData(WBP_IMAGE, image);
+				return true;
 			}
+			return false;
 		});
 	}
 

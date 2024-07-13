@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
 import org.eclipse.wb.internal.core.parser.JavaInfoResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -261,31 +260,28 @@ final class GroupLayoutParserVisitor2 extends ASTVisitor implements LayoutConsta
 	////////////////////////////////////////////////////////////////////////////
 	private LayoutInterval addChild(final AbstractComponentInfo widget,
 			final Expression associationExpression) {
-		return ExecutionUtils.runObject(new RunnableObjectEx<LayoutInterval>() {
-			@Override
-			public LayoutInterval runObject() throws Exception {
-				// widget may be already added to parent using previous dimension parsing
-				if (widget.getParent() == null && !m_container.getChildren().contains(widget)) {
-					m_container.addChild(widget);
-				}
-				// remember last association expression
-				widget.putArbitraryValue(
-						GroupLayoutCodeSupport.ASSOCIATION_EXPRESSION_KEY,
-						associationExpression);
-				//
-				String id = ObjectInfoUtils.getId(widget);
-				LayoutComponent layoutComponent = m_layoutModel.getLayoutComponent(id);
-				if (layoutComponent == null) {
-					layoutComponent = new LayoutComponent(id, false);
-				}
-				if (layoutComponent.getParent() == null) {
-					LayoutComponent root =
-							m_layoutModel.getLayoutComponent(ObjectInfoUtils.getId(m_container));
-					m_layoutModel.addComponent(layoutComponent, root, -1);
-				}
-				m_codeSupport.checkComponent(widget, m_dimension);
-				return layoutComponent.getLayoutInterval(m_dimension);
+		return ExecutionUtils.runObject(() -> {
+			// widget may be already added to parent using previous dimension parsing
+			if (widget.getParent() == null && !m_container.getChildren().contains(widget)) {
+				m_container.addChild(widget);
 			}
+			// remember last association expression
+			widget.putArbitraryValue(
+					GroupLayoutCodeSupport.ASSOCIATION_EXPRESSION_KEY,
+					associationExpression);
+			//
+			String id = ObjectInfoUtils.getId(widget);
+			LayoutComponent layoutComponent = m_layoutModel.getLayoutComponent(id);
+			if (layoutComponent == null) {
+				layoutComponent = new LayoutComponent(id, false);
+			}
+			if (layoutComponent.getParent() == null) {
+				LayoutComponent root =
+						m_layoutModel.getLayoutComponent(ObjectInfoUtils.getId(m_container));
+				m_layoutModel.addComponent(layoutComponent, root, -1);
+			}
+			m_codeSupport.checkComponent(widget, m_dimension);
+			return layoutComponent.getLayoutInterval(m_dimension);
 		});
 	}
 
