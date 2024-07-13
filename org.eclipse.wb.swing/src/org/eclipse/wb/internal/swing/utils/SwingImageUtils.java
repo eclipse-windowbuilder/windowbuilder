@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.wb.internal.swing.Activator;
@@ -197,22 +196,14 @@ public class SwingImageUtils {
 	}
 
 	private static Insets getWindowInsets(final Window window) throws Exception {
-		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<Insets>() {
-			@Override
-			public Insets runObject() throws Exception {
-				return window.getInsets();
-			}
-		});
+		return SwingUtils.runObjectLaterAndWait(() -> window.getInsets());
 	}
 
 	private static String getWindowTitle(final Window window) {
 		try {
-			return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<String>() {
-				@Override
-				public String runObject() throws Exception {
-					String title = (String) ReflectionUtils.invokeMethod(window, "getTitle()");
-					return title != null ? title : "";
-				}
+			return SwingUtils.runObjectLaterAndWait(() -> {
+				String title = (String) ReflectionUtils.invokeMethod(window, "getTitle()");
+				return title != null ? title : "";
 			});
 		} catch (Throwable e) {
 			// ignore and return empty string
@@ -522,24 +513,21 @@ public class SwingImageUtils {
 	 * Converts AWT image into SWT one. Yours, C.O. ;-)
 	 */
 	public static ImageDescriptor convertImage_AWT_to_SWT(final java.awt.Image image) throws Exception {
-		return SwingUtils.runObjectLaterAndWait(new RunnableObjectEx<ImageDescriptor>() {
-			@Override
-			public ImageDescriptor runObject() throws Exception {
-				BufferedImage bufferedImage = (BufferedImage) image;
-				int imageWidth = bufferedImage.getWidth();
-				int imageHeight = bufferedImage.getHeight();
-				Image swtImage = new Image(null, imageWidth, imageHeight);
-				final ImageData swtImageData = swtImage.getImageData();
-				try {
-					ImageProducer source = image.getSource();
-					source.startProduction(new AwtToSwtImageConverter(bufferedImage, swtImageData));
-					return ImageDescriptor.createFromImageDataProvider(zoom -> zoom == 100 ? swtImageData : null);
-				} catch (Throwable e) {
-					// fallback to ImageIO.
-					return ImageUtils.convertToSWT(image);
-				} finally {
-					swtImage.dispose();
-				}
+		return SwingUtils.runObjectLaterAndWait(() -> {
+			BufferedImage bufferedImage = (BufferedImage) image;
+			int imageWidth = bufferedImage.getWidth();
+			int imageHeight = bufferedImage.getHeight();
+			Image swtImage = new Image(null, imageWidth, imageHeight);
+			final ImageData swtImageData = swtImage.getImageData();
+			try {
+				ImageProducer source = image.getSource();
+				source.startProduction(new AwtToSwtImageConverter(bufferedImage, swtImageData));
+				return ImageDescriptor.createFromImageDataProvider(zoom -> zoom == 100 ? swtImageData : null);
+			} catch (Throwable e) {
+				// fallback to ImageIO.
+				return ImageUtils.convertToSWT(image);
+			} finally {
+				swtImage.dispose();
 			}
 		});
 	}
