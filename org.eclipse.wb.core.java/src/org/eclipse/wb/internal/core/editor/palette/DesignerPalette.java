@@ -13,9 +13,9 @@ package org.eclipse.wb.internal.core.editor.palette;
 
 import org.eclipse.wb.core.controls.palette.DesignerContainer;
 import org.eclipse.wb.core.controls.palette.DesignerEntry;
+import org.eclipse.wb.core.controls.palette.DesignerRoot;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
-import org.eclipse.wb.core.controls.palette.IPalette;
 import org.eclipse.wb.core.controls.palette.PaletteComposite;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
@@ -61,7 +61,6 @@ import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -69,7 +68,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -375,38 +373,7 @@ public class DesignerPalette {
 	private void showPalette() {
 		clearEntryCaches();
 		// set IPalette
-		IPalette palette = new IPalette() {
-			@Override
-			public List<ICategory> getCategories() {
-				// check for skipping palette during tests
-				if (System.getProperty(FLAG_NO_PALETTE) != null) {
-					return Collections.emptyList();
-				}
-				// get categories for palette model
-				final List<CategoryInfo> categoryInfoList;
-				{
-					List<CategoryInfo> pristineCategories = m_manager.getPalette().getCategories();
-					categoryInfoList = new ArrayList<>(pristineCategories);
-				}
-				// add new CategoryInfo's using broadcast
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						getBroadcastPalette().categories(categoryInfoList);
-						getBroadcastPalette().categories2(categoryInfoList);
-					}
-				});
-				// convert CategoryInfo's into ICategory's
-				List<ICategory> categories = new ArrayList<>();
-				for (CategoryInfo categoryInfo : categoryInfoList) {
-					if (shouldBeDisplayed(categoryInfo)) {
-						ICategory category = getVisualCategory(categoryInfo);
-						categories.add(category);
-					}
-				}
-				return categories;
-			}
-
+		DesignerRoot palette = new DesignerRoot() {
 			@Override
 			public void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
 				new DesignerPalettePopupActions(getOperations()).addPopupActions(
@@ -435,6 +402,28 @@ public class DesignerPalette {
 				commands_addWrite(new EntryMoveCommand(entry, category, nextEntry));
 			}
 		};
+
+		// check for skipping palette during tests
+		if (System.getProperty(FLAG_NO_PALETTE) == null) {
+			// get categories for palette model
+			final List<CategoryInfo> categoryInfoList;
+			{
+				List<CategoryInfo> pristineCategories = m_manager.getPalette().getCategories();
+				categoryInfoList = new ArrayList<>(pristineCategories);
+			}
+			// add new CategoryInfo's using broadcast
+			ExecutionUtils.runLog(() -> {
+				getBroadcastPalette().categories(categoryInfoList);
+				getBroadcastPalette().categories2(categoryInfoList);
+			});
+			// convert CategoryInfo's into ICategory's
+			for (CategoryInfo categoryInfo : categoryInfoList) {
+				if (shouldBeDisplayed(categoryInfo)) {
+					DesignerContainer category = getVisualCategory(categoryInfo);
+					palette.add(category);
+				}
+			}
+		}
 		m_paletteComposite.setPalette(palette);
 		configure_EditDomain_DefaultTool();
 	}
