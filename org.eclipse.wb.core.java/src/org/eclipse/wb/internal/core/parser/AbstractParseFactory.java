@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,7 +50,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.BundleClassLoader;
@@ -88,6 +87,7 @@ import java.net.URLClassLoader;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * Abstract implementation of {@link IParseFactory}.
@@ -175,13 +175,10 @@ public abstract class AbstractParseFactory implements IParseFactory {
 					createInstance(
 							editor,
 							typeBinding,
-							new RunnableObjectEx<AbstractInvocationDescription>() {
-								@Override
-								public AbstractInvocationDescription runObject() throws Exception {
-									ComponentDescription description =
-											ComponentDescriptionHelper.getDescription(editor, creationClass);
-									return description.getConstructor(methodBinding);
-								}
+							() -> {
+								ComponentDescription description =
+										ComponentDescriptionHelper.getDescription(editor, creationClass);
+								return description.getConstructor(methodBinding);
 							},
 							argumentInfos,
 							new ConstructorCreationSupport(creation));
@@ -490,7 +487,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 	////////////////////////////////////////////////////////////////////////////
 	private JavaInfo createInstance(AstEditor editor,
 			ITypeBinding typeBinding,
-			RunnableObjectEx<AbstractInvocationDescription> methodDescriptionProvider,
+			Callable<AbstractInvocationDescription> methodDescriptionProvider,
 			JavaInfo[] argumentInfos,
 			CreationSupport creationSupport) throws Exception {
 		Class<?> objectClass = getClass(editor, typeBinding);
@@ -509,7 +506,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 		if (WrapperMethodInfo.isWrapper(editor, objectClass)) {
 			WrapperMethodInfo wrapperJavaInfo =
 					(WrapperMethodInfo) JavaInfoUtils.createJavaInfo(editor, objectClass, creationSupport);
-			AbstractInvocationDescription methodDescription = methodDescriptionProvider.runObject();
+			AbstractInvocationDescription methodDescription = methodDescriptionProvider.call();
 			wrapperJavaInfo.getWrapper().configureWrapper(methodDescription, argumentInfos);
 			wrapperJavaInfo.setAssociation(new ConstructorParentAssociation());
 			return wrapperJavaInfo;

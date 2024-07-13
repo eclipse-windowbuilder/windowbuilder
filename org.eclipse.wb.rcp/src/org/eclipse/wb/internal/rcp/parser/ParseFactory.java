@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. abd others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.BundleClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.CompositeClassLoader;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -253,15 +253,10 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 							editor,
 							creationClass,
 							new ConstructorCreationSupport(creation));
-			AbstractInvocationDescription methodDescription =
-					new RunnableObjectEx<AbstractInvocationDescription>() {
-				@Override
-				public AbstractInvocationDescription runObject() throws Exception {
-					ComponentDescription description =
-							ComponentDescriptionHelper.getDescription(editor, creationClass);
-					return description.getConstructor(methodBinding);
-				}
-			}.runObject();
+			AbstractInvocationDescription methodDescription = ExecutionUtils.runObject(() -> {
+				ComponentDescription description = ComponentDescriptionHelper.getDescription(editor, creationClass);
+				return description.getConstructor(methodBinding);
+			});
 			javaInfo.getWrapper().configureWrapper(methodDescription, argumentInfos);
 			javaInfo.setAssociation(new ConstructorParentAssociation());
 			return javaInfo;
