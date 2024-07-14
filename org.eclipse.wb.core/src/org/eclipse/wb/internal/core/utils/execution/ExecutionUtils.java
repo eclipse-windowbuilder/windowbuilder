@@ -152,13 +152,13 @@ public class ExecutionUtils {
 
 	/**
 	 * Ensures that {@link Beans#isDesignTime()} returns <code>true</code> and runs given
-	 * {@link RunnableEx}.
+	 * {@link Callable}.
 	 */
-	public static <T> T runDesignTime(RunnableObjectEx<T> runnable) throws Exception {
+	public static <T> T runDesignTime(Callable<T> runnable) throws Exception {
 		boolean old_designTime = Beans.isDesignTime();
 		try {
 			Beans.setDesignTime(true);
-			return runnable.runObject();
+			return runnable.call();
 		} finally {
 			Beans.setDesignTime(old_designTime);
 		}
