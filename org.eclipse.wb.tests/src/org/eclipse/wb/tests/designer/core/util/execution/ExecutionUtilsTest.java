@@ -280,17 +280,14 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	}
 
 	/**
-	 * Test for {@link ExecutionUtils#runDesignTime(RunnableObjectEx)}.
+	 * Test for {@link ExecutionUtils#runDesignTime(Callable)}.
 	 */
 	@Test
 	public void test_void_runDesignTime_Object() throws Exception {
 		final Object o = new Object();
-		Object result = ExecutionUtils.runDesignTime(new RunnableObjectEx<Object>() {
-			@Override
-			public Object runObject() throws Exception {
-				assertTrue(Beans.isDesignTime());
-				return o;
-			}
+		Object result = ExecutionUtils.runDesignTime(() -> {
+			assertTrue(Beans.isDesignTime());
+			return o;
 		});
 		assertSame(o, result);
 	}

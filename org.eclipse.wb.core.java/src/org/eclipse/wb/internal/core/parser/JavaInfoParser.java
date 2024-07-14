@@ -70,7 +70,6 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.NoEntryPointError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -146,12 +145,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	public static JavaInfo parse(ICompilationUnit modelUnit) throws Exception {
 		checkJavaVersion(modelUnit);
 		final JavaInfoParser parser = new JavaInfoParser(modelUnit);
-		return ExecutionUtils.runDesignTime(new RunnableObjectEx<JavaInfo>() {
-			@Override
-			public JavaInfo runObject() throws Exception {
-				return parser.parse();
-			}
-		});
+		return ExecutionUtils.runDesignTime(() -> parser.parse());
 	}
 
 	/**
@@ -160,12 +154,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	public static JavaInfo parse(AstEditor editor, MethodDeclaration rootMethod) throws Exception {
 		final JavaInfoParser parser = new JavaInfoParser(editor);
 		parser.m_editorState.setFlowDescription(new ExecutionFlowDescription(rootMethod));
-		return ExecutionUtils.runDesignTime(new RunnableObjectEx<JavaInfo>() {
-			@Override
-			public JavaInfo runObject() throws Exception {
-				return parser.parseRootMethods();
-			}
-		});
+		return ExecutionUtils.runDesignTime(() -> parser.parseRootMethods());
 	}
 
 	/**
