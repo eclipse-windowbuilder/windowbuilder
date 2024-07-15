@@ -44,13 +44,9 @@ import java.util.List;
  *
  */
 public class FigureTest extends Draw2dFigureTestCase {
-	private static final String ERROR_MESSAGE_CYCLE =
-			"IWAG0002E Figure.add(...) Cycle created in figure heirarchy";
-	private static final String ERROR_MESSAGE_EMPTY_PARENT = "This parent is empty";
-	private static final String ERROR_MESSAGE_WRONG_PARENT =
-			"IWAG0003E Figure is not a child of this parent";
-	private static final String ERROR_MESSAGE_INVALID_INDEX =
-			"IWAG0001E Figure.add(...) invalid index";
+	private static final String ERROR_MESSAGE_CYCLE = "Figure being added introduces cycle";
+	private static final String ERROR_MESSAGE_EMPTY_PARENT = "Figure is not a child";
+	private static final String ERROR_MESSAGE_INVALID_INDEX = "Index does not exist";
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -95,9 +91,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.add(parentFigure);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_CYCLE.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 	}
 
@@ -146,9 +140,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.add(parentFigure, 2);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_CYCLE.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 		/*
 		 * === assert wrong index ===
@@ -157,17 +149,13 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.add(new Figure(), -2);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			if (!ERROR_MESSAGE_INVALID_INDEX.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
 		try {
 			parentFigure.add(new Figure(), parentFigure.getChildren().size() + 1);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			if (!ERROR_MESSAGE_INVALID_INDEX.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
 	}
 
@@ -211,9 +199,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.add(parentFigure, null);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_CYCLE.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 		/*
 		 * === assert add with bounds ===
@@ -276,9 +262,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.add(parentFigure, null, 2);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_CYCLE.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 		/*
 		 * === assert wrong index ===
@@ -287,17 +271,13 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.add(new Figure(), null, -2);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			if (!ERROR_MESSAGE_INVALID_INDEX.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
 		try {
 			parentFigure.add(new Figure(), null, parentFigure.getChildren().size() + 1);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			if (!ERROR_MESSAGE_INVALID_INDEX.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
 		/*
 		 * === assert add with bounds ===
@@ -320,31 +300,20 @@ public class FigureTest extends Draw2dFigureTestCase {
 		/*
 		 * === assert remove from empty parent ===
 		 */
-		try {
-			parentFigure.remove(null);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EMPTY_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		assertThrows(NullPointerException.class, () -> parentFigure.remove(null));
 		//
 		try {
 			parentFigure.remove(new Figure());
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EMPTY_PARENT.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		// assert remove itself
 		try {
 			parentFigure.remove(parentFigure);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EMPTY_PARENT.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		/*
 		 * === assert remove figure ===
@@ -363,9 +332,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.remove(childFigure);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_WRONG_PARENT.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		/*
 		 * === assert remove wrong child ===
@@ -376,18 +343,14 @@ public class FigureTest extends Draw2dFigureTestCase {
 			parentFigure.remove(wrongChildFigure);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_WRONG_PARENT.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		// assert remove itself
 		try {
 			parentFigure.remove(parentFigure);
 			fail();
 		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_WRONG_PARENT.equals(e.getMessage())) {
-				fail();
-			}
+			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 	}
 

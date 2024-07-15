@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -161,7 +161,7 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
 		Rectangle hostBounds;
 		{
 			hostBounds = getHostFigure().getBounds().getCopy();
-			FigureUtils.translateFigureToCanvas(getHostFigure().getParent(), hostBounds);
+			FigureUtils.translateFigureToCanvas((Figure) getHostFigure().getParent(), hostBounds);
 		}
 		// prepare text size
 		org.eclipse.swt.graphics.Point textSize;

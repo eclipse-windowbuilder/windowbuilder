@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -153,7 +154,7 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public Rectangle getBounds() {
-			Figure parentFigure = getParent();
+			IFigure parentFigure = getParent();
 			if (parentFigure != null) {
 				return new Rectangle(new Point(), parentFigure.getSize());
 			}

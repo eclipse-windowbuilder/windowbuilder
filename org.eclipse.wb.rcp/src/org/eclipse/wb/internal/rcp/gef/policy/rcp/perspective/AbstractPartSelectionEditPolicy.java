@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.SashLineInfo;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -85,7 +86,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 				bounds.expand(0, 6);
 			}
 			// set bounds relative to layer
-			Figure pageFigure = getHostFigure().getParent();
+			IFigure pageFigure = getHostFigure().getParent();
 			FigureUtils.translateFigureToAbsolute2(pageFigure, bounds);
 			target.setBounds(bounds);
 		}) {

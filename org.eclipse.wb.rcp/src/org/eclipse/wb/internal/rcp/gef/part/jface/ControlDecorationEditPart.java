@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.model.jface.ControlDecorationInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -51,7 +52,7 @@ public final class ControlDecorationEditPart extends AbstractComponentEditPart {
 	protected void refreshVisuals() {
 		Figure figure = getFigure();
 		Figure controlFigure = getControlFigure();
-		Figure controlParentFigure = controlFigure.getParent();
+		IFigure controlParentFigure = controlFigure.getParent();
 		// ensure that decoration is located on _parent_ of Control
 		if (figure.getParent() != controlParentFigure) {
 			m_originalControlFigure = controlFigure;
