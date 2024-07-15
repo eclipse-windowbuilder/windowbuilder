@@ -95,7 +95,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		// check reset state during add child figure with empty bounds
 		testFigure.add(new Figure());
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(10, 11, 0, 0)");
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during add(Figure) child figure with not empty bounds
@@ -103,13 +103,13 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		testChildFigure.setBounds(new Rectangle(1, 2, 3, 4));
 		testFigure.add(testChildFigure);
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(11, 13, 3, 4)");
+		expectedLogger.log("repaint(1, 2, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during add(Figure, Rectangle) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4));
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
+		expectedLogger.log("repaint(0, 0, 0, 0)"); // erase
 		m_actualLogger.assertEquals(expectedLogger);
 		testFigure.getLayoutManager().layout(testFigure);
 		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
@@ -119,7 +119,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		// check reset state during add(Figure, Rectangle, int) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4), -1);
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
+		expectedLogger.log("repaint(0, 0, 0, 0)"); // erase
 		m_actualLogger.assertEquals(expectedLogger);
 		testFigure.getLayoutManager().layout(testFigure);
 		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
@@ -140,14 +140,14 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during remove child figure
 		testFigure.remove(testChildFigure);
-		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(31, 28, 25, 24)");
+		expectedLogger.log("invalidate");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during remove all children figures
 		testFigure.removeAll();
+		expectedLogger.log("repaint(10, 11, 0, 0)"); // empty figure is erased
 		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(10, 11, 50, 78)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check no reset state during remove if not childrens

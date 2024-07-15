@@ -256,8 +256,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		// check work removeLayer(Layer)
 		testRoot.removeLayer(layer0);
 		//
-		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertNull(layer0.getParent());
@@ -267,8 +267,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		// check work removeLayer(String)
 		testRoot.removeLayer("feedback");
 		//
-		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertNull(layer0.getParent());
@@ -297,8 +297,10 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		// check reset state during removeAll()
 		testRoot.removeAll();
 		//
+		expectedLogger.log("repaint(0, 0, 0, 0)");
 		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
+		expectedLogger.log("invalidate");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertNull(layer0.getParent());

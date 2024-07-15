@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
@@ -59,11 +58,11 @@ public class FigureUtils {
 	}
 
 	/**
-	 * Translates given {@link Translatable} from <code>source</code> {@link Figure} local coordinates
-	 * to local coordinates from <code>target</code> {@link Figure}.
+	 * Translates given {@link Translatable} from <code>source</code> {@link IFigure} local coordinates
+	 * to local coordinates from <code>target</code> {@link IFigure}.
 	 */
-	public static final void translateFigureToFigure2(Figure source,
-			Figure target,
+	public static final void translateFigureToFigure2(IFigure source,
+			IFigure target,
 			Translatable translatable) {
 		translateFigureToAbsolute2(source, translatable);
 		translateAbsoluteToFigure2(target, translatable);
@@ -81,10 +80,10 @@ public class FigureUtils {
 	}
 
 	/**
-	 * Translates given {@link Translatable} from this {@link Figure} local coordinates to absolute (
+	 * Translates given {@link Translatable} from this {@link IFigure} local coordinates to absolute (
 	 * {@link RootFigure} relative) coordinates.
 	 */
-	public static final void translateFigureToAbsolute2(Figure figure, Translatable translatable) {
+	public static final void translateFigureToAbsolute2(IFigure figure, Translatable translatable) {
 		for (; figure != null; figure = figure.getParent()) {
 			translatable.performTranslate(figure.getInsets());
 			translatable.performTranslate(figure.getLocation());
@@ -116,24 +115,13 @@ public class FigureUtils {
 
 	/**
 	 * Translates given {@link Translatable} from this absolute ({@link RootFigure} relative)
-	 * coordinates to local {@link Figure} coordinates.
+	 * coordinates to local {@link IFigure} coordinates.
 	 */
-	public static final void translateAbsoluteToFigure2(Figure figure, Translatable translatable) {
+	public static final void translateAbsoluteToFigure2(IFigure figure, Translatable translatable) {
 		for (; figure != null; figure = figure.getParent()) {
 			translatable.performTranslate(figure.getLocation().negate());
 			translatable.performTranslate(figure.getInsets().getNegated());
 		}
-	}
-
-	/**
-	 * @return the bounds of given {@link Figure} on screen.
-	 */
-	public static Rectangle getScreenBounds(Figure figure) {
-		FigureCanvas figureCanvas = figure.getFigureCanvas();
-		Rectangle bounds = figure.getBounds();
-		translateFigureToCanvas(figure.getParent(), bounds);
-		org.eclipse.swt.graphics.Point location = figureCanvas.toDisplay(bounds.x, bounds.y);
-		return new Rectangle(location.x, location.y, bounds.width, bounds.height);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

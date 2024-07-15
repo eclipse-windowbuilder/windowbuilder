@@ -18,8 +18,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,8 +29,6 @@ import java.util.List;
  * @coverage gef.draw2d
  */
 public class Figure extends org.eclipse.draw2d.Figure {
-	private Figure m_parent;
-	private List<Figure> m_children;
 	private String m_toolTipText;
 	private ICustomTooltipProvider m_customTooltipProvider;
 
@@ -47,26 +43,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	@Override
 	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return super.getListeners(listenerClass);
-	}
-
-	/**
-	 * Called after the receiver's parent has been set and it has been added to its parent.
-	 */
-	@Override
-	public void addNotify() {
-		for (Figure childFigure : getChildren()) {
-			childFigure.addNotify();
-		}
-	}
-
-	/**
-	 * Called prior to this figure's removal from its parent.
-	 */
-	@Override
-	public void removeNotify() {
-		for (Figure childFigure : getChildren()) {
-			childFigure.removeNotify();
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -102,112 +78,14 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	// Parent/Children
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Adds the given Figure as a child of this Figure.
-	 */
-	public void add(Figure childFigure) {
-		add(childFigure, null, -1);
-	}
-
-	/**
-	 * Adds the given Figure as a child of this Figure at the given index.
-	 */
-	public void add(Figure childFigure, int index) {
-		add(childFigure, null, index);
-	}
-
-	/**
-	 * Adds the given Figure as a child of this Figure with the given bounds.
-	 */
-	public void add(Figure childFigure, Rectangle bounds) {
-		add(childFigure, bounds, -1);
-	}
-
-	/**
-	 * Adds the child Figure using the specified index and bounds.
-	 */
-	public void add(Figure childFigure, Rectangle bounds, int index) {
-		// check figure
-		for (Figure f = this; f != null; f = f.getParent()) {
-			if (childFigure == f) {
-				throw new IllegalArgumentException("IWAG0002E Figure.add(...) Cycle created in figure heirarchy");
-			}
-		}
-		// check container
-		if (m_children == null) {
-			m_children = new ArrayList<>();
-		}
-		// detach the child from previous parent
-		if (childFigure.getParent() != null) {
-			childFigure.getParent().remove(childFigure);
-		}
-		// check index
-		if (index < -1 || index > m_children.size()) {
-			throw new IndexOutOfBoundsException("IWAG0001E Figure.add(...) invalid index");
-		}
-		// add to child list
-		if (index == -1) {
-			m_children.add(childFigure);
-		} else {
-			m_children.add(index, childFigure);
-		}
-		// set parent
-		childFigure.setParent(this);
-		// notify child of change
-		childFigure.addNotify();
-		// set bounds
-		if (getLayoutManager() != null) {
-			getLayoutManager().setConstraint(childFigure, bounds);
-		}
-		// notify of change
-		resetState(childFigure);
-	}
 
 	/**
 	 * @return the {@link List} of children {@link Figure}'s.
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Figure> getChildren() {
-		return m_children == null ? Collections.<Figure>emptyList() : m_children;
-	}
-
-	/**
-	 * Removes the given child Figure from this Figure's hierarchy.
-	 */
-	public void remove(Figure childFigure) {
-		// check child
-		if (m_children == null || m_children.isEmpty()) {
-			throw new IllegalArgumentException("This parent is empty");
-		}
-		if (childFigure.getParent() != this || !m_children.contains(childFigure)) {
-			throw new IllegalArgumentException("IWAG0003E Figure is not a child of this parent");
-		}
-		// notify child of change
-		childFigure.removeNotify();
-		// remove child
-		m_children.remove(childFigure);
-		childFigure.setParent(null);
-		// notify of change
-		resetState(childFigure);
-	}
-
-	/**
-	 * Removes all children from this Figure.
-	 */
-	@Override
-	public void removeAll() {
-		// remove all children
-		for (Figure childFigure : getChildren()) {
-			childFigure.removeNotify();
-			childFigure.setParent(null);
-		}
-		// notify of change
-		if (m_children != null && !m_children.isEmpty() && isVisible()) {
-			revalidate();
-			repaint();
-		}
-		// reset container
-		m_children = null;
+		return (List<Figure>) super.getChildren();
 	}
 
 	/**
@@ -215,26 +93,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * @noreference @nooverride
 	 */
 	public FigureCanvas getFigureCanvas() {
-		return m_parent.getFigureCanvas();
-	}
-
-	/**
-	 * Returns the Figure that is the current parent of this Figure or <code>null</code> if there is
-	 * no parent.
-	 */
-	@Override
-	public Figure getParent() {
-		return m_parent;
-	}
-
-	/**
-	 * Sets this Figure's parent.
-	 */
-	public void setParent(Figure parent) {
-		Figure oldParent = m_parent;
-		m_parent = parent;
-		// send reparent event
-		firePropertyChange("parent", oldParent, parent);//$NON-NLS-1$
+		return ((Figure) getParent()).getFigureCanvas();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -242,24 +101,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	// Figure
 	//
 	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Request of change bounds and repaints the rectangular area within this Figure. Rectangular area
-	 * <code>childFigure</code>'s bounds. Use into {@link #add(Figure, Rectangle, int)} and
-	 * {@link #remove(Figure)}.
-	 */
-	protected final void resetState(Figure childFigure) {
-		if (isVisible() && childFigure.isVisible()) {
-			Rectangle bounds = getBounds();
-			Insets insets = getInsets();
-			Rectangle childBounds = childFigure.getBounds();
-			revalidate();
-			repaint(bounds.x + insets.left + childBounds.x,
-					bounds.y + insets.top + childBounds.y,
-					childBounds.width,
-					childBounds.height);
-		}
-	}
 
 	/**
 	 * Paints this Figure and its children.

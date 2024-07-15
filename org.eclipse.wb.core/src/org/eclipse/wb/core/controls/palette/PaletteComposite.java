@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
@@ -491,7 +492,7 @@ public final class PaletteComposite extends Composite {
 			move_eraseFeedback();
 			m_moveCommand = null;
 			// prepare target figure
-			Figure targetFigure = getTargetFigure(this, p);
+			IFigure targetFigure = getTargetFigure(this, p);
 			if (targetFigure instanceof EntryFigure) {
 				targetFigure = targetFigure.getParent();
 			}
@@ -501,8 +502,8 @@ public final class PaletteComposite extends Composite {
 				final ICategory category_1 = ((CategoryFigure) targetFigure).m_category;
 				final ICategory category_2;
 				{
-					List<Figure> siblings = targetFigure.getParent().getChildren();
-					Figure nextFigure = GenericsUtils.getNextOrNull(siblings, targetFigure);
+					List<? extends IFigure> siblings = targetFigure.getParent().getChildren();
+					IFigure nextFigure = GenericsUtils.getNextOrNull(siblings, targetFigure);
 					category_2 = nextFigure != null ? ((CategoryFigure) nextFigure).m_category : null;
 				}
 				// prepare feedback location
@@ -674,6 +675,7 @@ public final class PaletteComposite extends Composite {
 		 */
 		private Rectangle getTitleRectangle() {
 			Rectangle r = getClientArea().getCopy();
+			translateToRelative(r);
 			r.height = m_titleHeight;
 			return r;
 		}
