@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.MigLayout.model;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swing.MigLayout.Activator;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -36,23 +36,35 @@ import java.util.List;
  */
 public final class MigColumnInfo extends MigDimensionInfo {
 	public enum Alignment {
-		UNKNOWN, DEFAULT, LEFT, CENTER, RIGHT, FILL, LEADING, TRAILING;
+		UNKNOWN(SwingImages.ALIGNMENT_H_SMALL_UNKNOWN, SwingImages.ALIGNMENT_H_MENU_UNKNOWN),
+		DEFAULT(SwingImages.ALIGNMENT_H_SMALL_DEFAULT, SwingImages.ALIGNMENT_H_MENU_DEFAULT),
+		LEFT(SwingImages.ALIGNMENT_H_SMALL_LEFT, SwingImages.ALIGNMENT_H_MENU_LEFT),
+		CENTER(SwingImages.ALIGNMENT_H_SMALL_CENTER, SwingImages.ALIGNMENT_H_MENU_CENTER),
+		RIGHT(SwingImages.ALIGNMENT_H_SMALL_RIGHT, SwingImages.ALIGNMENT_H_MENU_RIGHT),
+		FILL(SwingImages.ALIGNMENT_H_SMALL_FILL, SwingImages.ALIGNMENT_H_MENU_FILL),
+		LEADING(SwingImages.ALIGNMENT_H_SMALL_LEADING, SwingImages.ALIGNMENT_H_MENU_LEADING),
+		TRAILING(SwingImages.ALIGNMENT_H_SMALL_TRAILING, SwingImages.ALIGNMENT_H_MENU_TRAILING);
+
+		private final ImageDescriptor smallDescriptor;
+		private final ImageDescriptor menuDescriptor;
+
+		private Alignment(ImageDescriptor smallDescriptor, ImageDescriptor menuDescriptor) {
+			this.smallDescriptor = smallDescriptor;
+			this.menuDescriptor = menuDescriptor;
+		}
+
 		/**
-		 * @return the small image (5x9) to display current alignment to user.
+		 * @return the small image (9x5) to display current alignment to user.
 		 */
 		public ImageDescriptor getSmallImageDescriptor() {
-			String pattern = "alignment/h/small/{0}.gif";
-			String path = MessageFormat.format(pattern, name().toLowerCase());
-			return Activator.getImageDescriptor(path);
+			return smallDescriptor;
 		}
 
 		/**
 		 * @return the big image (16x16) to display for user in menu.
 		 */
 		public ImageDescriptor getMenuImageDescriptor() {
-			String pattern = "alignment/h/menu/{0}.gif";
-			String path = MessageFormat.format(pattern, name().toLowerCase());
-			return Activator.getImageDescriptor(path);
+			return menuDescriptor;
 		}
 
 		/**
