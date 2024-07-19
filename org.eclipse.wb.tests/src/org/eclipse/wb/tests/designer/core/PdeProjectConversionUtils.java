@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,12 +30,12 @@ import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.core.plugin.IPluginImport;
 import org.eclipse.pde.core.plugin.IPluginLibrary;
 import org.eclipse.pde.core.plugin.IPluginModelFactory;
+import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.internal.core.TargetPlatformHelper;
 import org.eclipse.pde.internal.core.WorkspaceModelManager;
 import org.eclipse.pde.internal.core.build.WorkspaceBuildModel;
 import org.eclipse.pde.internal.core.bundle.WorkspaceBundlePluginModel;
 import org.eclipse.pde.internal.core.ibundle.IBundlePluginModelBase;
-import org.eclipse.pde.internal.core.natures.PDE;
 import org.eclipse.pde.internal.core.util.CoreUtility;
 import org.eclipse.pde.internal.core.util.IdUtil;
 import org.eclipse.pde.internal.ui.util.ModelModification;
@@ -113,7 +113,7 @@ public class PdeProjectConversionUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void convertProject(IProject project, IProgressMonitor monitor) throws CoreException {
-		CoreUtility.addNatureToProject(project, PDE.PLUGIN_NATURE, monitor);
+		CoreUtility.addNatureToProject(project, IBundleProjectDescription.PLUGIN_NATURE, monitor);
 		//
 		loadClasspathEntries(project, monitor);
 		loadLibraryName(project);
