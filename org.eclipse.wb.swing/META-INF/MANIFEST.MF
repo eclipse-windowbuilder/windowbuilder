@@ -79,6 +79,7 @@ Export-Package: org.eclipse.wb.internal.swing,
  org.eclipse.wb.internal.swing.wizards.dialog,
  org.eclipse.wb.internal.swing.wizards.frame,
  org.eclipse.wb.internal.swing.wizards.panel,
+ org.eclipse.wb.swing,
  swingintegration.example
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",

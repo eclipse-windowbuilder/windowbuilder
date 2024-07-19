@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.java
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
-Export-Package: org.eclipse.wb.internal.core.preferences,
+Export-Package: org.eclipse.wb.core.ui,
+ org.eclipse.wb.internal.core.preferences,
  org.eclipse.wb.internal.core.wizards.actions,
  org.eclipse.wb.internal.core.wizards.palette
 Automatic-Module-Name: org.eclipse.wb.core.ui
