@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,9 +11,9 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
+import org.eclipse.wb.core.ui.CoreImages;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport.DockSide;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+import org.eclipse.wb.swing.SwingImages;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
@@ -30,6 +31,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Text;
 
 import net.miginfocom.layout.LC;
@@ -816,40 +818,40 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_alignmentImageHorizontal_UNKNOWN() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.UNKNOWN, "default.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.UNKNOWN, CoreImages.ALIGNMENT_H_SMALL_DEFAULT);
 	}
 
 	@Test
 	public void test_alignmentImageHorizontal_LEFT() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.LEFT, "left.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.LEFT, CoreImages.ALIGNMENT_H_SMALL_LEFT);
 	}
 
 	@Test
 	public void test_alignmentImageHorizontal_CENTER() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.CENTER, "center.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.CENTER, CoreImages.ALIGNMENT_H_SMALL_CENTER);
 	}
 
 	@Test
 	public void test_alignmentImageHorizontal_RIGHT() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.RIGHT, "right.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.RIGHT, CoreImages.ALIGNMENT_H_SMALL_RIGHT);
 	}
 
 	@Test
 	public void test_alignmentImageHorizontal_FILL() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.FILL, "fill.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.FILL, CoreImages.ALIGNMENT_H_SMALL_FILL);
 	}
 
 	@Test
 	public void test_alignmentImageHorizontal_LEADING() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.LEADING, "leading.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.LEADING, CoreImages.ALIGNMENT_H_SMALL_LEADING);
 	}
 
 	@Test
 	public void test_alignmentImageHorizontal_TRAILING() throws Exception {
-		check_alignmentImageHorizontal(MigColumnInfo.Alignment.TRAILING, "trailing.gif");
+		check_alignmentImageHorizontal(MigColumnInfo.Alignment.TRAILING, CoreImages.ALIGNMENT_H_SMALL_TRAILING);
 	}
 
-	private void check_alignmentImageHorizontal(MigColumnInfo.Alignment alignment, String imageName)
+	private void check_alignmentImageHorizontal(MigColumnInfo.Alignment alignment, ImageDescriptor descriptor)
 			throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -866,9 +868,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		if (alignment != MigColumnInfo.Alignment.UNKNOWN) {
 			constraints.setHorizontalAlignment(alignment);
 		}
-		assertSame(
-				Activator.getImageDescriptor("alignment/h/small/" + imageName),
-				constraints.getSmallAlignmentImageDescriptor(true));
+		assertSame(descriptor, constraints.getSmallAlignmentImageDescriptor(true));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -878,35 +878,35 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_alignmentImageVertical_UNKNOWN() throws Exception {
-		check_alignmentImageVertical(MigRowInfo.Alignment.UNKNOWN, "default.gif");
+		check_alignmentImageVertical(MigRowInfo.Alignment.UNKNOWN, CoreImages.ALIGNMENT_V_SMALL_DEFAULT);
 	}
 
 	@Test
 	public void test_alignmentImageVertical_TOP() throws Exception {
-		check_alignmentImageVertical(MigRowInfo.Alignment.TOP, "top.gif");
+		check_alignmentImageVertical(MigRowInfo.Alignment.TOP, CoreImages.ALIGNMENT_V_SMALL_TOP);
 	}
 
 	@Test
 	public void test_alignmentImageVertical_CENTER() throws Exception {
-		check_alignmentImageVertical(MigRowInfo.Alignment.CENTER, "center.gif");
+		check_alignmentImageVertical(MigRowInfo.Alignment.CENTER, CoreImages.ALIGNMENT_V_SMALL_CENTER);
 	}
 
 	@Test
 	public void test_alignmentImageVertical_BOTTOM() throws Exception {
-		check_alignmentImageVertical(MigRowInfo.Alignment.BOTTOM, "bottom.gif");
+		check_alignmentImageVertical(MigRowInfo.Alignment.BOTTOM, CoreImages.ALIGNMENT_V_SMALL_BOTTOM);
 	}
 
 	@Test
 	public void test_alignmentImageVertical_FILL() throws Exception {
-		check_alignmentImageVertical(MigRowInfo.Alignment.FILL, "fill.gif");
+		check_alignmentImageVertical(MigRowInfo.Alignment.FILL, CoreImages.ALIGNMENT_V_SMALL_FILL);
 	}
 
 	@Test
 	public void test_alignmentImageVertical_BASELINE() throws Exception {
-		check_alignmentImageVertical(MigRowInfo.Alignment.BASELINE, "baseline.gif");
+		check_alignmentImageVertical(MigRowInfo.Alignment.BASELINE, SwingImages.ALIGNMENT_V_SMALL_BASELINE);
 	}
 
-	private void check_alignmentImageVertical(MigRowInfo.Alignment alignment, String imageName)
+	private void check_alignmentImageVertical(MigRowInfo.Alignment alignment, ImageDescriptor descriptor)
 			throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -923,9 +923,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		if (alignment != MigRowInfo.Alignment.UNKNOWN) {
 			constraints.setVerticalAlignment(alignment);
 		}
-		assertSame(
-				Activator.getImageDescriptor("alignment/v/small/" + imageName),
-				constraints.getSmallAlignmentImageDescriptor(false));
+		assertSame(descriptor, constraints.getSmallAlignmentImageDescriptor(false));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

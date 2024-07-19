@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.MigLayout.model;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swing.MigLayout.Activator;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -36,23 +36,33 @@ import java.util.List;
  */
 public final class MigRowInfo extends MigDimensionInfo {
 	public enum Alignment {
-		UNKNOWN, DEFAULT, TOP, CENTER, BOTTOM, FILL, BASELINE;
+		UNKNOWN(SwingImages.ALIGNMENT_V_SMALL_UNKNOWN, SwingImages.ALIGNMENT_V_MENU_UNKNOWN),
+		DEFAULT(SwingImages.ALIGNMENT_V_SMALL_DEFAULT, SwingImages.ALIGNMENT_V_MENU_DEFAULT),
+		TOP(SwingImages.ALIGNMENT_V_SMALL_TOP, SwingImages.ALIGNMENT_V_MENU_TOP),
+		CENTER(SwingImages.ALIGNMENT_V_SMALL_CENTER, SwingImages.ALIGNMENT_V_MENU_CENTER),
+		BOTTOM(SwingImages.ALIGNMENT_V_SMALL_BOTTOM, SwingImages.ALIGNMENT_V_MENU_BOTTOM),
+		FILL(SwingImages.ALIGNMENT_V_SMALL_FILL, SwingImages.ALIGNMENT_V_MENU_FILL),
+		BASELINE(SwingImages.ALIGNMENT_V_SMALL_BASELINE, SwingImages.ALIGNMENT_V_MENU_BASELINE);
+
+		private final ImageDescriptor smallDescriptor;
+		private final ImageDescriptor menuDescriptor;
+
+		private Alignment(ImageDescriptor smallDescriptor, ImageDescriptor menuDescriptor) {
+			this.smallDescriptor = smallDescriptor;
+			this.menuDescriptor = menuDescriptor;
+		}
 		/**
 		 * @return the small image (5x9) to display current alignment to user.
 		 */
 		public ImageDescriptor getSmallImageDescriptor() {
-			String pattern = "alignment/v/small/{0}.gif";
-			String path = MessageFormat.format(pattern, name().toLowerCase());
-			return Activator.getImageDescriptor(path);
+			return smallDescriptor;
 		}
 
 		/**
 		 * @return the big image (16x16) to display for user in menu.
 		 */
 		public ImageDescriptor getMenuImageDescriptor() {
-			String pattern = "alignment/v/menu/{0}.gif";
-			String path = MessageFormat.format(pattern, name().toLowerCase());
-			return Activator.getImageDescriptor(path);
+			return menuDescriptor;
 		}
 
 		/**

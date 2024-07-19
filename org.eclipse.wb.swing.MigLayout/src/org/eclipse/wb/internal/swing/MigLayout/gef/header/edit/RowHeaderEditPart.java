@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.edit;
 
+import org.eclipse.wb.core.ui.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.SetAlignmentRowAction;
@@ -33,6 +33,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -42,8 +43,6 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.MigLayout.header
  */
 public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
-	private static final String GROW_SMALL_PATH = "alignment/v/small/grow.gif";
-	private static final String GROW_MENU_PATH = "alignment/v/menu/grow.gif";
 	private static final String PREF_TITLE = "[pref!]";
 	private static final String PREF_CODE = "pref!";
 	////////////////////////////////////////////////////////////////////////////
@@ -105,7 +104,8 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 				// draw grow indicator
 				if (m_dimension.hasGrow()) {
 					if (titleBottom + 3 + 7 + 3 < r.bottom()) {
-						Image image = getImage(GROW_SMALL_PATH);
+						ImageDescriptor descriptor = CoreImages.ALIGNMENT_V_SMALL_GROW;
+						Image image = getViewer().getResourceManager().get(descriptor);
 						drawCentered(graphics, image, r.bottom() - 3 - image.getBounds().height);
 					}
 				}
@@ -210,7 +210,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 			manager.add(new Separator());
 			manager.add(new SetGrowAction<>(this,
 					GefMessages.RowHeaderEditPart_grow,
-					Activator.getImageDescriptor(GROW_MENU_PATH)));
+					CoreImages.ALIGNMENT_V_MENU_GROW));
 		}
 		// size
 		{
