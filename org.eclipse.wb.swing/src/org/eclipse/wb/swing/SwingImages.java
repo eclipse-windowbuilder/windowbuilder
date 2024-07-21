@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.swing;
 
-import org.eclipse.wb.core.ui.CoreImages;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 

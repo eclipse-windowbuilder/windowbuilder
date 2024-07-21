@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.core.ui.CoreImages;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport;

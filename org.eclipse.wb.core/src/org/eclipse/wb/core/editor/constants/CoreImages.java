@@ -8,7 +8,7 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.core.ui;
+package org.eclipse.wb.core.editor.constants;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
