@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapColumnInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDataInfo;
-import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutImages;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapRowInfo;
 import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
@@ -56,17 +55,6 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	public void _test_exit() throws Exception {
 		System.exit(0);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Test
-	public void test_images() throws Exception {
-		assertNotNull(TableWrapLayoutImages.getImage("h/left.gif"));
-		assertNotNull(TableWrapLayoutImages.getImageDescriptor("v/top.gif"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

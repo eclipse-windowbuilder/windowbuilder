@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDataInfo;
-import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutImages;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -71,12 +71,22 @@ public class TableWrapDataTest extends AbstractFormsTest {
 					TableWrapData.LEFT,
 					TableWrapData.CENTER,
 					TableWrapData.RIGHT,
-					TableWrapData.FILL}, new String[]{"left.gif", "center.gif", "right.gif", "fill.gif"});
+					TableWrapData.FILL },
+					new ImageDescriptor[] {
+							CoreImages.ALIGNMENT_H_SMALL_LEFT,
+							CoreImages.ALIGNMENT_H_SMALL_CENTER,
+							CoreImages.ALIGNMENT_H_SMALL_RIGHT,
+							CoreImages.ALIGNMENT_H_SMALL_FILL });
 			check_getSmallAlignmentImage(layoutData, false, new int[]{
 					TableWrapData.TOP,
 					TableWrapData.MIDDLE,
 					TableWrapData.BOTTOM,
-					TableWrapData.FILL}, new String[]{"top.gif", "middle.gif", "bottom.gif", "fill.gif"});
+					TableWrapData.FILL},
+					new ImageDescriptor[] {
+							CoreImages.ALIGNMENT_V_SMALL_TOP,
+							CoreImages.ALIGNMENT_V_SMALL_CENTER,
+							CoreImages.ALIGNMENT_V_SMALL_BOTTOM,
+							CoreImages.ALIGNMENT_V_SMALL_FILL });
 		} finally {
 			shell.refresh_dispose();
 		}
@@ -85,16 +95,15 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	private static void check_getSmallAlignmentImage(TableWrapDataInfo layoutData,
 			boolean horizontal,
 			int[] alignments,
-			String[] paths) throws Exception {
+			ImageDescriptor[] icons) throws Exception {
 		for (int i = 0; i < alignments.length; i++) {
 			int alignment = alignments[i];
-			ImageDescriptor expectedImage = TableWrapLayoutImages.getImageDescriptor((horizontal ? "/h/" : "/v/") + paths[i]);
 			if (horizontal) {
 				layoutData.setHorizontalAlignment(alignment);
 			} else {
 				layoutData.setVerticalAlignment(alignment);
 			}
-			assertSame(expectedImage, layoutData.getSmallAlignmentImageDescriptor(horizontal));
+			assertSame(icons[i], layoutData.getSmallAlignmentImageDescriptor(horizontal));
 		}
 	}
 

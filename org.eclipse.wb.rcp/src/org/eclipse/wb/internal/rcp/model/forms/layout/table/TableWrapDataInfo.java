@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -449,26 +450,26 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 		if (horizontal) {
 			switch (horizontalAlignment) {
 			case TableWrapData.LEFT :
-				return TableWrapLayoutImages.getImageDescriptor("h/left.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_LEFT;
 			case TableWrapData.CENTER :
-				return TableWrapLayoutImages.getImageDescriptor("h/center.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_CENTER;
 			case TableWrapData.RIGHT :
-				return TableWrapLayoutImages.getImageDescriptor("h/right.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_RIGHT;
 			default :
 				Assert.isTrue(horizontalAlignment == TableWrapData.FILL);
-				return TableWrapLayoutImages.getImageDescriptor("h/fill.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_FILL;
 			}
 		} else {
 			switch (verticalAlignment) {
 			case TableWrapData.TOP :
-				return TableWrapLayoutImages.getImageDescriptor("v/top.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_TOP;
 			case TableWrapData.MIDDLE :
-				return TableWrapLayoutImages.getImageDescriptor("v/middle.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_CENTER;
 			case TableWrapData.BOTTOM :
-				return TableWrapLayoutImages.getImageDescriptor("v/bottom.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_BOTTOM;
 			default :
 				Assert.isTrue(verticalAlignment == TableWrapData.FILL);
-				return TableWrapLayoutImages.getImageDescriptor("v/fill.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_FILL;
 			}
 		}
 	}
@@ -488,7 +489,8 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 					new MenuManager(ModelMessages.TableWrapDataInfo_managerHorizontalAlignment);
 			manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
 			//
-			manager2.add(new SetGrabAction(this, ModelMessages.TableWrapDataInfo_haGrab, "grow.gif", true));
+			manager2.add(new SetGrabAction(this, ModelMessages.TableWrapDataInfo_haGrab,
+					CoreImages.ALIGNMENT_H_MENU_GROW, true));
 			manager2.add(new Separator());
 			//
 			fillHorizontalAlignmentMenu(manager2);
@@ -501,7 +503,7 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 			//
 			manager2.add(new SetGrabAction(this,
 					ModelMessages.TableWrapDataInfo_vaGrab,
-					"grow.gif",
+					CoreImages.ALIGNMENT_V_MENU_GROW,
 					false));
 			manager2.add(new Separator());
 			//
@@ -513,22 +515,22 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 	public void fillHorizontalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_haLeft,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				true,
 				TableWrapData.LEFT));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_haCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				true,
 				TableWrapData.CENTER));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_haRight,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				true,
 				TableWrapData.RIGHT));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_haFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				true,
 				TableWrapData.FILL));
 	}
@@ -537,22 +539,22 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 	public void fillVerticalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_vaTop,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				false,
 				TableWrapData.TOP));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_vaMiddle,
-				"middle.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				false,
 				TableWrapData.MIDDLE));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_vaBottom,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				false,
 				TableWrapData.BOTTOM));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.TableWrapDataInfo_vaGill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				false,
 				TableWrapData.FILL));
 	}

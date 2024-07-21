@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.rcp.model.forms.layout.table.actions;
 
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
-import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapDataInfo;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Abstract {@link Action} for modifying horizontal/vertical part of {@link ITableWrapDataInfo}.
@@ -34,15 +34,11 @@ abstract class AbstractAction extends ObjectInfoAction {
 	public AbstractAction(ITableWrapDataInfo layoutData,
 			String text,
 			int style,
-			String iconPath,
+			ImageDescriptor icon,
 			boolean horizontal) {
 		super(layoutData.getUnderlyingModel(), text, style);
 		m_layoutData = layoutData;
 		m_horizontal = horizontal;
-		// set image
-		if (iconPath != null) {
-			String path = "info/layout/TableWrapLayout/" + (horizontal ? "h" : "v") + "/menu/" + iconPath;
-			setImageDescriptor(Activator.getImageDescriptor(path));
-		}
+		setImageDescriptor(icon);
 	}
 }
