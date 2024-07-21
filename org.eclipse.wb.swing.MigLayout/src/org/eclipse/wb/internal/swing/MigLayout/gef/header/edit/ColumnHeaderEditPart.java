@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.edit;
 
-import org.eclipse.wb.core.ui.CoreImages;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
