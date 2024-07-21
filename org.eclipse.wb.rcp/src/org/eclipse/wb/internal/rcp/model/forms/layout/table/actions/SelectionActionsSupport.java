@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,16 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table.actions;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
-import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapDataInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import java.util.ArrayList;
@@ -75,28 +76,28 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 				actions,
 				dataInfos,
 				true,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				ModelMessages.SelectionActionsSupport_haLeft,
 				TableWrapData.LEFT);
 		addAlignmentAction(
 				actions,
 				dataInfos,
 				true,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				ModelMessages.SelectionActionsSupport_haCenter,
 				TableWrapData.CENTER);
 		addAlignmentAction(
 				actions,
 				dataInfos,
 				true,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				ModelMessages.SelectionActionsSupport_haRight,
 				TableWrapData.RIGHT);
 		addAlignmentAction(
 				actions,
 				dataInfos,
 				true,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_haFill,
 				TableWrapData.FILL);
 		// create vertical actions
@@ -105,28 +106,28 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 				actions,
 				dataInfos,
 				false,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				ModelMessages.SelectionActionsSupport_vaTop,
 				TableWrapData.TOP);
 		addAlignmentAction(
 				actions,
 				dataInfos,
 				false,
-				"middle.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				ModelMessages.SelectionActionsSupport_vaMiddle,
 				TableWrapData.MIDDLE);
 		addAlignmentAction(
 				actions,
 				dataInfos,
 				false,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				ModelMessages.SelectionActionsSupport_vaBottom,
 				TableWrapData.BOTTOM);
 		addAlignmentAction(
 				actions,
 				dataInfos,
 				false,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_vaFill,
 				TableWrapData.FILL);
 		// create grab actions
@@ -135,20 +136,20 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 				actions,
 				dataInfos,
 				true,
-				"grow.gif",
+				CoreImages.ALIGNMENT_H_MENU_GROW,
 				ModelMessages.SelectionActionsSupport_haGrab);
 		addGrabAction(
 				actions,
 				dataInfos,
 				false,
-				"grow.gif",
+				CoreImages.ALIGNMENT_V_MENU_GROW,
 				ModelMessages.SelectionActionsSupport_vaGrab);
 	}
 
 	private void addAlignmentAction(List<Object> actions,
 			List<ITableWrapDataInfo> dataInfos,
 			boolean horizontal,
-			String iconPath,
+			ImageDescriptor icon,
 			String tooltip,
 			int alignment) {
 		boolean isChecked = true;
@@ -168,14 +169,14 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 		}
 		// create action
 		AlignmentAction action =
-				new AlignmentAction(dataInfos, horizontal, iconPath, tooltip, isChecked, alignment);
+				new AlignmentAction(dataInfos, horizontal, icon, tooltip, isChecked, alignment);
 		actions.add(action);
 	}
 
 	private void addGrabAction(List<Object> actions,
 			List<ITableWrapDataInfo> dataInfos,
 			boolean horizontal,
-			String iconPath,
+			ImageDescriptor icon,
 			String tooltip) {
 		boolean isChecked = true;
 		// prepare select current value
@@ -194,7 +195,7 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 		}
 		// create action
 		GrabAction action =
-				new GrabAction(dataInfos, horizontal, iconPath, tooltip, isChecked, !isChecked);
+				new GrabAction(dataInfos, horizontal, icon, tooltip, isChecked, !isChecked);
 		actions.add(action);
 	}
 
@@ -215,15 +216,13 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 		public AbstractAction(int style,
 				List<ITableWrapDataInfo> dataInfos,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked) {
 			super(m_layout.getUnderlyingModel(), "", style);
 			m_dataInfos = dataInfos;
 			m_horizontal = horizontal;
-			String path =
-					"info/layout/TableWrapLayout/" + (m_horizontal ? "h" : "v") + "/menu/" + iconPath;
-			setImageDescriptor(Activator.getImageDescriptor(path));
+			setImageDescriptor(icon);
 			setToolTipText(tooltip);
 			setChecked(checked);
 		}
@@ -258,11 +257,11 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 		////////////////////////////////////////////////////////////////////////////
 		public AlignmentAction(List<ITableWrapDataInfo> dataInfos,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked,
 				int alignment) {
-			super(AS_RADIO_BUTTON, dataInfos, horizontal, iconPath, tooltip, checked);
+			super(AS_RADIO_BUTTON, dataInfos, horizontal, icon, tooltip, checked);
 			m_alignment = alignment;
 		}
 
@@ -291,11 +290,11 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
 		////////////////////////////////////////////////////////////////////////////
 		public GrabAction(List<ITableWrapDataInfo> dataInfos,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked,
 				boolean grab) {
-			super(AS_CHECK_BOX, dataInfos, horizontal, iconPath, tooltip, checked);
+			super(AS_CHECK_BOX, dataInfos, horizontal, icon, tooltip, checked);
 			m_grab = grab;
 		}
 
