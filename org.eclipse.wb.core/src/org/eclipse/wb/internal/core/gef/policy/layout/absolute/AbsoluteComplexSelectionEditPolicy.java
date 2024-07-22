@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
@@ -359,17 +360,17 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 			boolean isLeftAttached = isAttached(m_widget, PositionConstants.LEFT);
 			boolean isRightAttached = isAttached(m_widget, PositionConstants.RIGHT);
 			if (isLeftAttached && isRightAttached) {
-				return getActionImageDescriptor("h/both.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_FILL;
 			} else if (isRightAttached) {
-				return getActionImageDescriptor("h/right.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_RIGHT;
 			} else {
-				return getActionImageDescriptor("h/left.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_LEFT;
 			}
 		}
 
 		@Override
 		protected void fillMenu(IMenuManager manager) {
-			new AnchorsActionsSupport(getPlacementsSupport(), AbsoluteComplexSelectionEditPolicy.this).fillAnchorsActions(
+			new AnchorsActionsSupport(getPlacementsSupport()).fillAnchorsActions(
 					manager,
 					m_widget,
 					true);
@@ -388,17 +389,17 @@ AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
 			boolean isTopAttached = isAttached(m_widget, PositionConstants.TOP);
 			boolean isBottomAttached = isAttached(m_widget, PositionConstants.BOTTOM);
 			if (isTopAttached && isBottomAttached) {
-				return getActionImageDescriptor("v/both.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_FILL;
 			} else if (isBottomAttached) {
-				return getActionImageDescriptor("v/bottom.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_BOTTOM;
 			} else {
-				return getActionImageDescriptor("v/top.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_TOP;
 			}
 		}
 
 		@Override
 		protected void fillMenu(IMenuManager manager) {
-			new AnchorsActionsSupport(getPlacementsSupport(), AbsoluteComplexSelectionEditPolicy.this).fillAnchorsActions(
+			new AnchorsActionsSupport(getPlacementsSupport()).fillAnchorsActions(
 					manager,
 					m_widget,
 					false);

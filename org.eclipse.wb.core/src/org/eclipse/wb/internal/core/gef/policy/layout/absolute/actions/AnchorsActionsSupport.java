@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
@@ -17,15 +18,13 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IContributionManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 public class AnchorsActionsSupport {
 	private final PlacementsSupport m_placementsSupport;
-	private final IActionImageProvider m_imageProvider;
 
-	public AnchorsActionsSupport(PlacementsSupport placementsSupport,
-			IActionImageProvider imageProvider) {
+	public AnchorsActionsSupport(PlacementsSupport placementsSupport) {
 		m_placementsSupport = placementsSupport;
-		m_imageProvider = imageProvider;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -39,28 +38,28 @@ public class AnchorsActionsSupport {
 		if (isHorizontal) {
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_leftAlignment,
-					"h/menu/left.gif",
+					CoreImages.ALIGNMENT_H_MENU_LEFT,
 					PositionConstants.LEFT));
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_rightAlignment,
-					"h/menu/right.gif",
+					CoreImages.ALIGNMENT_H_MENU_RIGHT,
 					PositionConstants.RIGHT));
 			manager.add(new MakeResizeableAction(widget,
 					GefMessages.AnchorsActionsSupport_makeResizableHorizontal,
-					"h/menu/both.gif",
+					CoreImages.ALIGNMENT_H_MENU_FILL,
 					isHorizontal));
 		} else {
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_topAlignment,
-					"v/menu/top.gif",
+					CoreImages.ALIGNMENT_V_MENU_TOP,
 					PositionConstants.TOP));
 			manager.add(new SetAlignmentAction(widget,
 					GefMessages.AnchorsActionsSupport_bottomAlignment,
-					"v/menu/bottom.gif",
+					CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 					PositionConstants.BOTTOM));
 			manager.add(new MakeResizeableAction(widget,
 					GefMessages.AnchorsActionsSupport_makeResizableVertical,
-					"v/menu/both.gif",
+					CoreImages.ALIGNMENT_V_MENU_FILL,
 					isHorizontal));
 		}
 	}
@@ -71,9 +70,9 @@ public class AnchorsActionsSupport {
 
 		private SetAlignmentAction(IAbstractComponentInfo widget,
 				String text,
-				String imageName,
+				ImageDescriptor icon,
 				int alignment) {
-			super(widget.getUnderlyingModel(), text, m_imageProvider.getActionImageDescriptor(imageName));
+			super(widget.getUnderlyingModel(), text, icon);
 			m_widget = widget;
 			m_alignment = alignment;
 		}
@@ -89,9 +88,9 @@ public class AnchorsActionsSupport {
 
 		private MakeResizeableAction(IAbstractComponentInfo widget,
 				String text,
-				String imageName,
+				ImageDescriptor icon,
 				boolean isHorizontal) {
-			super(widget.getUnderlyingModel(), text, m_imageProvider.getActionImageDescriptor(imageName));
+			super(widget.getUnderlyingModel(), text, icon);
 			m_widget = widget;
 			m_isHorizontal = isHorizontal;
 		}
