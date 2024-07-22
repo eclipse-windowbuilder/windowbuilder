@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.gef;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
@@ -29,7 +30,6 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
-import org.eclipse.wb.internal.core.model.layout.absolute.IImageProvider;
 import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutUtils;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
@@ -413,16 +413,15 @@ LayoutConstants {
 		@Override
 		protected ImageDescriptor getImageDescriptor() {
 			int anchors = m_anchorsSupport.getCurrentAnchors(m_component, true);
-			IImageProvider imageProvider = getImageProvider();
 			switch (anchors) {
 			case AnchorsSupport.RESIZABLE :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/both.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_FILL;
 			case LEADING :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/left.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_LEFT;
 			case TRAILING :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/right.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_RIGHT;
 			default :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/h/default.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_DEFAULT;
 			}
 		}
 
@@ -442,16 +441,15 @@ LayoutConstants {
 		@Override
 		protected ImageDescriptor getImageDescriptor() {
 			int anchors = m_anchorsSupport.getCurrentAnchors(m_component, false);
-			IImageProvider imageProvider = getImageProvider();
 			switch (anchors) {
 			case AnchorsSupport.RESIZABLE :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/both.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_FILL;
 			case LEADING :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/top.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_TOP;
 			case TRAILING :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/bottom.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_BOTTOM;
 			default :
-				return imageProvider.getImageDescriptor("info/layout/groupLayout/v/default.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_DEFAULT;
 			}
 		}
 
@@ -459,14 +457,5 @@ LayoutConstants {
 		protected void fillMenu(IMenuManager manager) {
 			m_anchorsSupport.fillContributionManager(m_component, manager, false);
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Misc
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private IImageProvider getImageProvider() {
-		return m_layout.getAdapter(IImageProvider.class);
 	}
 }
