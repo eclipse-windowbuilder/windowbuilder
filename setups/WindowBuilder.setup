@@ -63,6 +63,14 @@
     </annotation>
     <setupTask
         xsi:type="setup:CompoundTask"
+        name="org.eclipse.jdt.ui">
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.jdt.ui/spelling_user_dictionary"
+          value="${git.clone.windowbuilder.location/org.eclipse.wb.core/dictionary.txt}"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:CompoundTask"
         name="org.eclipse.oomph.setup.ui">
       <setupTask
           xsi:type="setup:PreferenceTask"
