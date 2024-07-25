@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.utils.ui.PixelConverter;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.LocationAdapter;
 import org.eclipse.swt.browser.LocationEvent;
+import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.ProgressAdapter;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.graphics.Color;
@@ -123,23 +123,6 @@ public final class HtmlTooltipHelper {
 		// prepare Browser
 		final Browser browser = new Browser(parent, SWT.NONE);
 		browser.setText(wrappedHtml);
-		// open URLs in new window
-		browser.addLocationListener(new LocationAdapter() {
-			@Override
-			public void changing(LocationEvent event) {
-				event.doit = false;
-				hideTooltip((Browser) event.widget);
-				if (!"about:blank".equals(event.location)) {
-					try {
-						IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
-						IWebBrowser browserSupport = support.createBrowser("wbp.browser");
-						browserSupport.openURL(new URL(event.location));
-					} catch (Throwable e) {
-						DesignerPlugin.log(e);
-					}
-				}
-			}
-		});
 		// set size
 		{
 			int textLength = getTextLength(html);
@@ -161,10 +144,31 @@ public final class HtmlTooltipHelper {
 				browser.removeProgressListener(this);
 				tweakBrowserSize(browser, heightLimitChars);
 				browser.getShell().setVisible(true);
+				// open URLs in new window
+				browser.addLocationListener(LocationListener.changedAdapter(HtmlTooltipHelper::openUrl));
 			}
 		});
 		// done
 		return browser;
+	}
+
+	/**
+	 * Utility method used by the {@code location listener} to respond to any
+	 * hyperlink that has been clicked. When doing so, the tooltip is closed and the
+	 * URL is opened in the native web browser.
+	 */
+	private static void openUrl(LocationEvent event) {
+		event.doit = false;
+		hideTooltip((Browser) event.widget);
+		if (!"about:blank".equals(event.location)) {
+			try {
+				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
+				IWebBrowser browserSupport = support.createBrowser("wbp.browser");
+				browserSupport.openURL(new URL(event.location));
+			} catch (Throwable e) {
+				DesignerPlugin.log(e);
+			}
+		}
 	}
 	private static void tweakBrowserSize(Browser browser, int heightLimitChars) {
 		GridDataFactory.create(browser).grab().fill();
