@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,19 +45,6 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	public void _test_exit() throws Exception {
 		System.exit(0);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Test for {@link SpringLayoutInfo#getImageDescriptor(String)}.
-	 */
-	@Test
-	public void test_getImage() throws Exception {
-		assertNotNull(SpringLayoutInfo.getImageDescriptor("h/left.gif"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

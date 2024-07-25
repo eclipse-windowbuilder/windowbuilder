@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
@@ -31,7 +30,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -278,10 +276,6 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	@Override
 	public boolean isAttached(IAbstractComponentInfo widget, int side) throws Exception {
 		return !getAttachment(widget, side).isVirtual();
-	}
-
-	public static ImageDescriptor getImageDescriptor(String imageName) {
-		return Activator.getImageDescriptor("info/layout/springLayout/" + imageName);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
