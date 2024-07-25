@@ -21,7 +21,6 @@ import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AnchorsActionsSupport;
-import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.IActionImageProvider;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
@@ -49,8 +48,7 @@ import java.util.List;
  * @author mitin_aa
  */
 public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComponentInfo>
-extends
-AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
+		extends AbsoluteBasedSelectionEditPolicy<C> {
 	// constants
 	private static final int MIN_LEFT_SPACE = 10;
 	private static final int INITIAL_RIGHT_SPACE = 10;

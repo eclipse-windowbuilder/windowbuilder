@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.layout.FormLayout;
 
 /**
@@ -44,10 +43,6 @@ public final class SpringSelectionEditPolicy extends AbsoluteComplexSelectionEdi
 	// Overrides
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public ImageDescriptor getActionImageDescriptor(String imageName) {
-		return SpringLayoutInfo.getImageDescriptor(imageName);
-	}
 
 	@Override
 	protected ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,

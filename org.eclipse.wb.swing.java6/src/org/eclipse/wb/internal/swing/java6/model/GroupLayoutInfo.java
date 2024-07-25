@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,12 +19,10 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
-import org.eclipse.wb.internal.swing.java6.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -153,15 +151,6 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
 	public final void command_MOVE(ComponentInfo component, ComponentInfo nextComponent)
 			throws Exception {
 		move(component, null, nextComponent);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Misc
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public static ImageDescriptor getImageDescriptor(String imageName) {
-		return Activator.getImageDescriptor("info/layout/groupLayout/" + imageName);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
