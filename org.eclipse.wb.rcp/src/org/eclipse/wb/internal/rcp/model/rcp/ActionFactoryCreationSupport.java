@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
-import org.eclipse.wb.internal.rcp.model.jface.action.IActionIconProvider;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
@@ -41,9 +40,7 @@ import net.bytebuddy.ByteBuddy;
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
-public final class ActionFactoryCreationSupport extends CreationSupport
-implements
-IActionIconProvider {
+public final class ActionFactoryCreationSupport extends CreationSupport {
 	private MethodInvocation m_invocation;
 	private final String m_name;
 
@@ -137,15 +134,10 @@ IActionIconProvider {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// IActionIconProvider
+	// Action Icon
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static final ImageDescriptor DEFAULT_ICON = Activator.getImageDescriptor("info/Action/workbench_action.gif");
-
-	@Override
-	public ImageDescriptor getActionIcon() {
-		return DEFAULT_ICON;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

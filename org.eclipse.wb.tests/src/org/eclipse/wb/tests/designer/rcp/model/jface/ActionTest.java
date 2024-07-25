@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -38,8 +37,8 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ContributionManagerActionC
 import org.eclipse.wb.internal.rcp.model.jface.action.ContributionManagerInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.CoolBarManagerInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.GroupMarkerInfo;
-import org.eclipse.wb.internal.rcp.model.jface.action.IActionIconProvider;
 import org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.ActionFactoryCreationSupport;
 import org.eclipse.wb.internal.rcp.palette.ActionExternalEntryInfo;
 import org.eclipse.wb.internal.rcp.palette.ActionNewEntryInfo;
 import org.eclipse.wb.internal.rcp.palette.ActionUseEntryInfo;
@@ -61,10 +60,6 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.ApplicationWindow;
-
-import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.implementation.FixedValue;
-import net.bytebuddy.matcher.ElementMatchers;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -223,7 +218,7 @@ public class ActionTest extends RcpModelTest {
 	}
 
 	/**
-	 * Presentation for {@link ActionInfo} should also try to use {@link IActionIconProvider}.
+	 * Presentation for {@link ActionInfo} should also try to use {@link ActionFactoryCreationSupport}.
 	 */
 	@Test
 	public void test_iconImage_2() throws Exception {
@@ -256,19 +251,10 @@ public class ActionTest extends RcpModelTest {
 							m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
 			assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
 		}
-		// set CreationSupport with IActionIconProvider
-		final ImageDescriptor expectedImage = DesignerPlugin.getImageDescriptor("test.png");
+		// set ActionFactoryCreationSupport
+		final ImageDescriptor expectedImage = ActionFactoryCreationSupport.DEFAULT_ICON;
 		{
-			CreationSupport creationSupport = new ByteBuddy() //
-					.subclass(CreationSupport.class) //
-					.implement(IActionIconProvider.class) //
-					.method(ElementMatchers.named("getActionIcon")) //
-					.intercept(FixedValue.reference(expectedImage)) //
-					.make() //
-					.load(IActionIconProvider.class.getClassLoader()) //
-					.getLoaded() //
-					.getConstructor() //
-					.newInstance();
+			CreationSupport creationSupport = new ActionFactoryCreationSupport(null, null);
 			action.setCreationSupport(creationSupport);
 		}
 		// now "expectedImage"
