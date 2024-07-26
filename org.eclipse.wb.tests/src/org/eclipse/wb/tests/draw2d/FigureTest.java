@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,8 +45,6 @@ import java.util.List;
 public class FigureTest extends Draw2dFigureTestCase {
 	private static final String ERROR_MESSAGE_CYCLE =
 			"IWAG0002E Figure.add(...) Cycle created in figure heirarchy";
-	private static final String ERROR_MESSAGE_EXIST_PARENT =
-			"Figure.add(...) Figure already added to parent";
 	private static final String ERROR_MESSAGE_EMPTY_PARENT = "This parent is empty";
 	private static final String ERROR_MESSAGE_WRONG_PARENT =
 			"IWAG0003E Figure is not a child of this parent";
@@ -79,30 +77,18 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertSame(childFigure0, parentFigure.getChildren().get(0));
 		assertSame(childFigure1, parentFigure.getChildren().get(1));
 		/*
-		 * === assert add alredy added figure ===
+		 * === assert add already added figure ===
 		 */
-		try {
-			parentFigure.add(childFigure1);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(childFigure1);
+		assertEquals(parentFigure, childFigure1.getParent());
 		/*
 		 * === assert add wrong child's ===
 		 */
 		Figure wrongChildFigure = new Figure();
 		new Figure().add(wrongChildFigure);
 		//
-		try {
-			parentFigure.add(wrongChildFigure);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(wrongChildFigure);
+		assertEquals(parentFigure, wrongChildFigure.getParent());
 		// assert add itself
 		try {
 			parentFigure.add(parentFigure);
@@ -142,30 +128,18 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertSame(childFigure1, parentFigure.getChildren().get(1));
 		assertSame(childFigure2, parentFigure.getChildren().get(2));
 		/*
-		 * === assert add alredy added figure ===
+		 * === assert add already added figure ===
 		 */
-		try {
-			parentFigure.add(childFigure2, 1);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(childFigure2, 1);
+		assertEquals(parentFigure, childFigure2.getParent());
 		/*
 		 * === assert add wrong child's ===
 		 */
 		Figure wrongChildFigure = new Figure();
 		new Figure().add(wrongChildFigure, 0);
 		//
-		try {
-			parentFigure.add(wrongChildFigure, 2);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(wrongChildFigure, 2);
+		assertEquals(parentFigure, wrongChildFigure.getParent());
 		// assert add itself
 		try {
 			parentFigure.add(parentFigure, 2);
@@ -217,30 +191,19 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertSame(childFigure0, parentFigure.getChildren().get(0));
 		assertSame(childFigure1, parentFigure.getChildren().get(1));
 		/*
-		 * === assert add alredy added figure ===
+		 * === assert add already added figure ===
 		 */
-		try {
-			parentFigure.add(childFigure1, null);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(childFigure1, null);
+		assertEquals(parentFigure, childFigure1.getParent());
 		/*
 		 * === assert add wrong child's ===
 		 */
 		Figure wrongChildFigure = new Figure();
 		new Figure().add(wrongChildFigure, null);
 		//
-		try {
-			parentFigure.add(wrongChildFigure, null);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(wrongChildFigure, null);
+		assertEquals(parentFigure, wrongChildFigure.getParent());
+
 		// assert add itself
 		try {
 			parentFigure.add(parentFigure, null);
@@ -293,30 +256,18 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertSame(childFigure1, parentFigure.getChildren().get(1));
 		assertSame(childFigure2, parentFigure.getChildren().get(2));
 		/*
-		 * === assert add alredy added figure ===
+		 * === assert add already added figure ===
 		 */
-		try {
-			parentFigure.add(childFigure2, null, 1);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(childFigure2, null, 1);
+		assertEquals(parentFigure, childFigure2.getParent());
 		/*
 		 * === assert add wrong child's ===
 		 */
 		Figure wrongChildFigure = new Figure();
 		new Figure().add(wrongChildFigure, null, 0);
 		//
-		try {
-			parentFigure.add(wrongChildFigure, null, 2);
-			fail();
-		} catch (IllegalArgumentException e) {
-			if (!ERROR_MESSAGE_EXIST_PARENT.equals(e.getMessage())) {
-				fail();
-			}
-		}
+		parentFigure.add(wrongChildFigure, null, 2);
+		assertEquals(parentFigure, wrongChildFigure.getParent());
 		// assert add itself
 		try {
 			parentFigure.add(parentFigure, null, 2);
