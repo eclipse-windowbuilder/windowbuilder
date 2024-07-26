@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertySetValue;
@@ -35,6 +36,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentHorizontalAction;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentVerticalAction;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetGrowAction;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.action.Action;
@@ -569,24 +571,24 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
 	public void fillHorizontalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentHorizontalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_haLeft,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				ColumnInfo.Alignment.LEFT));
 		manager.add(new SetAlignmentHorizontalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_haCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				ColumnInfo.Alignment.CENTER));
 		manager.add(new SetAlignmentHorizontalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_haRight,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				ColumnInfo.Alignment.RIGHT));
 		manager.add(new SetAlignmentHorizontalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_haFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				ColumnInfo.Alignment.FILL));
 		manager.add(new Separator());
 		manager.add(new SetGrowAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_haGrow,
-				"grow.gif",
+				CoreImages.ALIGNMENT_H_MENU_GROW,
 				true));
 	}
 
@@ -596,38 +598,38 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
 	public void fillVerticalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentVerticalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_vaTop,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				RowInfo.Alignment.TOP));
 		manager.add(new SetAlignmentVerticalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_vaCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				RowInfo.Alignment.CENTER));
 		manager.add(new SetAlignmentVerticalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_vaBottom,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				RowInfo.Alignment.BOTTOM));
 		manager.add(new SetAlignmentVerticalAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_vaFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				RowInfo.Alignment.FILL));
 		if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
 			manager.add(new SetAlignmentVerticalAction(this,
 					ModelMessages.AbstractGridBagConstraintsInfo_vaBaseline,
-					"baseline.gif",
+					SwingImages.ALIGNMENT_V_MENU_BASELINE,
 					RowInfo.Alignment.BASELINE));
 			manager.add(new SetAlignmentVerticalAction(this,
 					ModelMessages.AbstractGridBagConstraintsInfo_vaAboveBaseline,
-					"baseline_above.gif",
+					SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
 					RowInfo.Alignment.BASELINE_ABOVE));
 			manager.add(new SetAlignmentVerticalAction(this,
 					ModelMessages.AbstractGridBagConstraintsInfo_vaBelowBaseline,
-					"baseline_below.gif",
+					SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
 					RowInfo.Alignment.BASELINE_BELOW));
 		}
 		manager.add(new Separator());
 		manager.add(new SetGrowAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_vaGrow,
-				"grow.gif",
+				CoreImages.ALIGNMENT_V_MENU_GROW,
 				false));
 	}
 

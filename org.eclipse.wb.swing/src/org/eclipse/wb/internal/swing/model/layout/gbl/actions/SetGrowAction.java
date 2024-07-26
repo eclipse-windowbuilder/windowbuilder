@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagConstraints
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for that sets weight for {@link DimensionInfo}.
@@ -31,9 +32,9 @@ public final class SetGrowAction extends AbstractAction {
 	////////////////////////////////////////////////////////////////////////////
 	public SetGrowAction(AbstractGridBagConstraintsInfo constraints,
 			String text,
-			String iconPath,
+			ImageDescriptor icon,
 			boolean horizontal) {
-		super(constraints, text, AS_CHECK_BOX, iconPath, horizontal);
+		super(constraints, text, AS_CHECK_BOX, icon, horizontal);
 		m_dimension = horizontal ? constraints.getColumn() : constraints.getRow();
 		setChecked(m_dimension.hasWeight());
 	}

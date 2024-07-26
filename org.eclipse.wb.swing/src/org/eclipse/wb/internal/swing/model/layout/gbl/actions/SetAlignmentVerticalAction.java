@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagConstraints
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for modifying vertical alignment.
@@ -31,9 +32,9 @@ public final class SetAlignmentVerticalAction extends AbstractAction {
 	////////////////////////////////////////////////////////////////////////////
 	public SetAlignmentVerticalAction(AbstractGridBagConstraintsInfo constraints,
 			String text,
-			String iconPath,
+			ImageDescriptor icon,
 			RowInfo.Alignment alignment) {
-		super(constraints, text, AS_RADIO_BUTTON, iconPath, false);
+		super(constraints, text, AS_RADIO_BUTTON, icon, false);
 		m_alignment = alignment;
 		// set check for current alignment
 		setChecked(constraints.getVerticalAlignment() == m_alignment);

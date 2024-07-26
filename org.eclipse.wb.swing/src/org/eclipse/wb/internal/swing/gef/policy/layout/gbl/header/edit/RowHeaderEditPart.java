@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -22,6 +23,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo.Alignment;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ui.RowEditDialog;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
@@ -94,19 +96,19 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 					Image image = null;
 					Alignment alignment = m_dimension.getAlignment();
 					if (alignment == RowInfo.Alignment.TOP) {
-						image = getImage("top.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_TOP);
 					} else if (alignment == RowInfo.Alignment.BOTTOM) {
-						image = getImage("bottom.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_BOTTOM);
 					} else if (alignment == RowInfo.Alignment.CENTER) {
-						image = getImage("center.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_CENTER);
 					} else if (alignment == RowInfo.Alignment.FILL) {
-						image = getImage("fill.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_FILL);
 					} else if (alignment == RowInfo.Alignment.BASELINE) {
-						image = getImage("baseline.gif");
+						image = getViewer().getResourceManager().get(SwingImages.ALIGNMENT_V_SMALL_BASELINE);
 					} else if (alignment == RowInfo.Alignment.BASELINE_ABOVE) {
-						image = getImage("baseline_above.gif");
+						image = getViewer().getResourceManager().get(SwingImages.ALIGNMENT_V_SMALL_BASELINE_ABOVE);
 					} else if (alignment == RowInfo.Alignment.BASELINE_BELOW) {
-						image = getImage("baseline_below.gif");
+						image = getViewer().getResourceManager().get(SwingImages.ALIGNMENT_V_SMALL_BASELINE_BELOW);
 					}
 					if (image != null) {
 						int y = r.y + 2;
@@ -116,14 +118,10 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 				// draw grow indicator
 				if (m_dimension.hasWeight()) {
 					if (titleBottom + 3 + 7 + 3 < r.bottom()) {
-						Image image = getImage("grow.gif");
+						Image image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_GROW);
 						drawCentered(graphics, image, r.bottom() - 3 - image.getBounds().height);
 					}
 				}
-			}
-
-			private Image getImage(String name) {
-				return AbstractGridBagLayoutInfo.getImage("headers/v/alignment/" + name);
 			}
 
 			private void drawCentered(Graphics graphics, Image image, int y) {
@@ -179,7 +177,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 				}
 			});
 			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_deleteRow,
-					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/delete.gif")) {
+					CoreImages.ALIGNMENT_V_MENU_DELETE) {
 				@Override
 				protected void run(RowInfo row) throws Exception {
 					m_layout.getRowOperations().delete(row.getIndex());
@@ -204,32 +202,32 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 			manager.add(new Separator());
 			manager.add(new SetAlignmentRowAction(this,
 					GefMessages.RowHeaderEditPart_vaTop,
-					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/top.gif"),
+					CoreImages.ALIGNMENT_V_MENU_TOP,
 					RowInfo.Alignment.TOP));
 			manager.add(new SetAlignmentRowAction(this,
 					GefMessages.RowHeaderEditPart_vaCenter,
-					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/center.gif"),
+					CoreImages.ALIGNMENT_V_MENU_CENTER,
 					RowInfo.Alignment.CENTER));
 			manager.add(new SetAlignmentRowAction(this,
 					GefMessages.RowHeaderEditPart_vaBottom,
-					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/bottom.gif"),
+					CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 					RowInfo.Alignment.BOTTOM));
 			manager.add(new SetAlignmentRowAction(this,
 					GefMessages.RowHeaderEditPart_vaFill,
-					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/fill.gif"),
+					CoreImages.ALIGNMENT_V_MENU_FILL,
 					RowInfo.Alignment.FILL));
 			if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
 				manager.add(new SetAlignmentRowAction(this,
 						GefMessages.RowHeaderEditPart_vaBaseline,
-						AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline.gif"),
+						SwingImages.ALIGNMENT_V_MENU_BASELINE,
 						RowInfo.Alignment.BASELINE));
 				manager.add(new SetAlignmentRowAction(this,
 						GefMessages.RowHeaderEditPart_vaAboveBaseline,
-						AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline_above.gif"),
+						SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
 						RowInfo.Alignment.BASELINE_ABOVE));
 				manager.add(new SetAlignmentRowAction(this,
 						GefMessages.RowHeaderEditPart_vaBelowBaseline,
-						AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline_below.gif"),
+						SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
 						RowInfo.Alignment.BASELINE_BELOW));
 			}
 		}
@@ -238,7 +236,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 			manager.add(new Separator());
 			manager.add(new SetGrowAction<>(this,
 					GefMessages.RowHeaderEditPart_grow,
-					AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/grow.gif")));
+					CoreImages.ALIGNMENT_V_MENU_GROW));
 		}
 		// properties
 		{
