@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
-import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.SetTemplateAction;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
@@ -29,11 +28,9 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} for column/row header of {@link FormLayoutInfo}.
@@ -139,19 +136,6 @@ GraphicalEditPart implements IHeaderMenuProvider {
 				}
 			}
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	protected Image getImage(String name) {
-		return Activator.getImage(name);
-	}
-
-	protected ImageDescriptor getImageDescriptor(String name) {
-		return Activator.getImageDescriptor(name);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

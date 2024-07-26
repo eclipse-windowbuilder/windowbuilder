@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
@@ -22,7 +23,6 @@ import org.eclipse.wb.internal.core.model.property.editor.StaticFieldPropertyEdi
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
-import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -527,25 +527,25 @@ public final class CellConstraintsSupport {
 	public ImageDescriptor getSmallAlignmentImageDescriptor(boolean horizontal) {
 		if (horizontal) {
 			if (alignH == CellConstraints.LEFT) {
-				return Activator.getImageDescriptor("alignment/h/left.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_LEFT;
 			} else if (alignH == CellConstraints.CENTER) {
-				return Activator.getImageDescriptor("alignment/h/center.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_CENTER;
 			} else if (alignH == CellConstraints.RIGHT) {
-				return Activator.getImageDescriptor("alignment/h/right.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_RIGHT;
 			} else if (alignH == CellConstraints.FILL) {
-				return Activator.getImageDescriptor("alignment/h/fill.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_FILL;
 			} else {
 				return null;
 			}
 		} else {
 			if (alignV == CellConstraints.TOP) {
-				return Activator.getImageDescriptor("alignment/v/top.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_TOP;
 			} else if (alignV == CellConstraints.CENTER) {
-				return Activator.getImageDescriptor("alignment/v/center.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_CENTER;
 			} else if (alignV == CellConstraints.BOTTOM) {
-				return Activator.getImageDescriptor("alignment/v/bottom.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_BOTTOM;
 			} else if (alignV == CellConstraints.FILL) {
-				return Activator.getImageDescriptor("alignment/v/fill.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_FILL;
 			} else {
 				return null;
 			}
@@ -582,23 +582,23 @@ public final class CellConstraintsSupport {
 	 */
 	public void fillHorizontalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haDefault,
-				"default.gif",
+				CoreImages.ALIGNMENT_H_MENU_DEFAULT,
 				true,
 				CellConstraints.DEFAULT));
 		manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haLeft,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				true,
 				CellConstraints.LEFT));
 		manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				true,
 				CellConstraints.CENTER));
 		manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haRight,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				true,
 				CellConstraints.RIGHT));
 		manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				true,
 				CellConstraints.FILL));
 	}
@@ -608,23 +608,23 @@ public final class CellConstraintsSupport {
 	 */
 	public void fillVerticalAlignmentMenu(IMenuManager manager2) {
 		manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaDefault,
-				"default.gif",
+				CoreImages.ALIGNMENT_V_MENU_DEFAULT,
 				false,
 				CellConstraints.DEFAULT));
 		manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaTop,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				false,
 				CellConstraints.TOP));
 		manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				false,
 				CellConstraints.CENTER));
 		manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaBottom,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				false,
 				CellConstraints.BOTTOM));
 		manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				false,
 				CellConstraints.FILL));
 	}
@@ -646,12 +646,9 @@ public final class CellConstraintsSupport {
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public SetAlignmentAction(String text, String iconPath, boolean horizontal, Alignment alignment) {
+		public SetAlignmentAction(String text, ImageDescriptor icon, boolean horizontal, Alignment alignment) {
 			super(m_layout, text, AS_RADIO_BUTTON);
-			if (iconPath != null) {
-				String path = "alignment/" + (horizontal ? "h" : "v") + "/menu/" + iconPath;
-				setImageDescriptor(Activator.getImageDescriptor(path));
-			}
+			setImageDescriptor(icon);
 			// remember values
 			m_horizontal = horizontal;
 			m_alignment = alignment;
