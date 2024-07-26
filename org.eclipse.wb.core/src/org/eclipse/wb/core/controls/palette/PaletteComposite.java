@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -308,17 +308,6 @@ public final class PaletteComposite extends Composite {
 
 		////////////////////////////////////////////////////////////////////////////
 		//
-		// Figure
-		//
-		////////////////////////////////////////////////////////////////////////////
-		@Override
-		public void setBounds(Rectangle bounds) {
-			super.setBounds(bounds);
-			layout();
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-		//
 		// Internal
 		//
 		////////////////////////////////////////////////////////////////////////////
@@ -330,6 +319,7 @@ public final class PaletteComposite extends Composite {
 				CategoryFigure categoryFigure = (CategoryFigure) I.next();
 				categoryFigure.onPreferencesUpdate();
 			}
+			revalidate();
 			layout();
 		}
 
@@ -346,7 +336,6 @@ public final class PaletteComposite extends Composite {
 				CategoryFigure categoryFigure = (CategoryFigure) I.next();
 				y += categoryFigure.layout(y, width);
 			}
-			revalidate();
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////
@@ -453,6 +442,7 @@ public final class PaletteComposite extends Composite {
 							}
 						} else if (m_mouseOnTitle) {
 							m_category.setOpen(!m_category.isOpen());
+							m_paletteFigure.revalidate();
 							m_paletteFigure.layout();
 						}
 					}
