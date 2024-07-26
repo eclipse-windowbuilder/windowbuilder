@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swt.model.layout.grid;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValue;
@@ -482,26 +483,26 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 		if (horizontal) {
 			switch (horizontalAlignment) {
 			case SWT.LEFT :
-				return GridImages.getImageDescriptor("h/left.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_LEFT;
 			case SWT.CENTER :
-				return GridImages.getImageDescriptor("h/center.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_CENTER;
 			case SWT.RIGHT :
-				return GridImages.getImageDescriptor("h/right.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_RIGHT;
 			case SWT.FILL :
-				return GridImages.getImageDescriptor("h/fill.gif");
+				return CoreImages.ALIGNMENT_H_SMALL_FILL;
 			default :
 				return null;
 			}
 		} else {
 			switch (verticalAlignment) {
 			case SWT.TOP :
-				return GridImages.getImageDescriptor("v/top.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_TOP;
 			case SWT.CENTER :
-				return GridImages.getImageDescriptor("v/center.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_CENTER;
 			case SWT.BOTTOM :
-				return GridImages.getImageDescriptor("v/bottom.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_BOTTOM;
 			case SWT.FILL :
-				return GridImages.getImageDescriptor("v/fill.gif");
+				return CoreImages.ALIGNMENT_V_SMALL_FILL;
 			default :
 				return null;
 			}
@@ -524,7 +525,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 			//
 			manager2.add(new SetGrabAction(this,
 					ModelMessages.GridDataInfo_grabExcessSpace,
-					"grow.gif",
+					CoreImages.ALIGNMENT_H_MENU_GROW,
 					true));
 			if (getWidthHint() != SWT.DEFAULT) {
 				manager2.add(new ClearHintAction(this, ModelMessages.GridDataInfo_clearHint, true));
@@ -540,7 +541,7 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 			//
 			manager2.add(new SetGrabAction(this,
 					ModelMessages.GridDataInfo_grabExcessSpace,
-					"grow.gif",
+					CoreImages.ALIGNMENT_V_MENU_GROW,
 					false));
 			if (getHeightHint() != SWT.DEFAULT) {
 				manager2.add(new ClearHintAction(this, ModelMessages.GridDataInfo_clearHint, false));
@@ -555,22 +556,22 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	public void fillHorizontalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_horLeft,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				true,
 				SWT.LEFT));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_horCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				true,
 				SWT.CENTER));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_horRight,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				true,
 				SWT.RIGHT));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_horFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				true,
 				SWT.FILL));
 	}
@@ -579,22 +580,22 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
 	public void fillVerticalAlignmentMenu(IMenuManager manager) {
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_verTop,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				false,
 				SWT.TOP));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_verCenter,
-				"center.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				false,
 				SWT.CENTER));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_verBottom,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				false,
 				SWT.BOTTOM));
 		manager.add(new SetAlignmentAction(this,
 				ModelMessages.GridDataInfo_verFill,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				false,
 				SWT.FILL));
 	}

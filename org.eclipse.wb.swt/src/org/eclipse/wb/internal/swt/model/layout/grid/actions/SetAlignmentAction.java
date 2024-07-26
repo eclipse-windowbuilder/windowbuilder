@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.layout.grid.actions;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridDataInfo;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for modifying horizontal/vertical alignment.
@@ -30,10 +31,10 @@ public final class SetAlignmentAction extends AbstractAction {
 	////////////////////////////////////////////////////////////////////////////
 	public SetAlignmentAction(IGridDataInfo gridData,
 			String text,
-			String iconPath,
+			ImageDescriptor icon,
 			boolean horizontal,
 			int alignment) {
-		super(gridData, text, AS_RADIO_BUTTON, iconPath, horizontal);
+		super(gridData, text, AS_RADIO_BUTTON, icon, horizontal);
 		m_alignment = alignment;
 		// set check for current alignment
 		int currentAlignment =

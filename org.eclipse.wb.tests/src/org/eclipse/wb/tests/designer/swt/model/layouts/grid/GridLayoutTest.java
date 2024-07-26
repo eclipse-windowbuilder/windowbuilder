@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridColumnInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDataInfo;
-import org.eclipse.wb.internal.swt.model.layout.grid.GridImages;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridRowInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -60,17 +59,6 @@ public class GridLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	public void _test_exit() throws Exception {
 		System.exit(0);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Test
-	public void test_images() throws Exception {
-		assertNotNull(GridImages.getImage("h/left.gif"));
-		assertNotNull(GridImages.getImageDescriptor("v/top.gif"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

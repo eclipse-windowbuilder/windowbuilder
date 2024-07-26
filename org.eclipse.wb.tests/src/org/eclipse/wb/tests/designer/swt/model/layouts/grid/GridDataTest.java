@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,10 +12,10 @@ package org.eclipse.wb.tests.designer.swt.model.layouts.grid;
 
 import static org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo.getGridData;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDataInfo;
-import org.eclipse.wb.internal.swt.model.layout.grid.GridImages;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -266,12 +266,22 @@ public class GridDataTest extends RcpModelTest {
 					SWT.LEFT,
 					SWT.CENTER,
 					SWT.RIGHT,
-					SWT.FILL}, new String[]{"left.gif", "center.gif", "right.gif", "fill.gif"});
+					SWT.FILL},
+					new ImageDescriptor[] {
+							CoreImages.ALIGNMENT_H_SMALL_LEFT,
+							CoreImages.ALIGNMENT_H_SMALL_CENTER,
+							CoreImages.ALIGNMENT_H_SMALL_RIGHT,
+							CoreImages.ALIGNMENT_H_SMALL_FILL});
 			check_getSmallAlignmentImage(gridData, false, new int[]{
 					SWT.TOP,
 					SWT.CENTER,
 					SWT.BOTTOM,
-					SWT.FILL}, new String[]{"top.gif", "center.gif", "bottom.gif", "fill.gif"});
+					SWT.FILL},
+					new ImageDescriptor[] {
+							CoreImages.ALIGNMENT_V_SMALL_TOP,
+							CoreImages.ALIGNMENT_V_SMALL_CENTER,
+							CoreImages.ALIGNMENT_V_SMALL_BOTTOM,
+							CoreImages.ALIGNMENT_V_SMALL_FILL});
 		} finally {
 			shell.refresh_dispose();
 		}
@@ -280,10 +290,10 @@ public class GridDataTest extends RcpModelTest {
 	private static void check_getSmallAlignmentImage(GridDataInfo gridData,
 			boolean horizontal,
 			int[] alignments,
-			String[] paths) throws Exception {
+			ImageDescriptor[] icons) throws Exception {
 		for (int i = 0; i < alignments.length; i++) {
 			int alignment = alignments[i];
-			ImageDescriptor expectedImage = GridImages.getImageDescriptor((horizontal ? "h/" : "v/") + paths[i]);
+			ImageDescriptor expectedImage = icons[i];
 			if (horizontal) {
 				gridData.setHorizontalAlignment(alignment);
 			} else {
