@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -127,10 +127,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * Adds the child Figure using the specified index and bounds.
 	 */
 	public void add(Figure childFigure, Rectangle bounds, int index) {
-		// check figure parent
-		if (childFigure.getParent() != null) {
-			throw new IllegalArgumentException("Figure.add(...) Figure already added to parent");
-		}
 		// check figure
 		for (Figure f = this; f != null; f = f.getParent()) {
 			if (childFigure == f) {
@@ -140,6 +136,10 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		// check container
 		if (m_children == null) {
 			m_children = new ArrayList<>();
+		}
+		// detach the child from previous parent
+		if (childFigure.getParent() != null) {
+			childFigure.getParent().remove(childFigure);
 		}
 		// check index
 		if (index < -1 || index > m_children.size()) {
