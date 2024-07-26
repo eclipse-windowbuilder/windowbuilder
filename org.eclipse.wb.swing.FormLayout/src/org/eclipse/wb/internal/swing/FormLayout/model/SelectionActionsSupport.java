@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
-import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import com.jgoodies.forms.layout.CellConstraints;
 
@@ -67,35 +68,35 @@ public class SelectionActionsSupport extends ObjectEventListener {
 				actions,
 				constraints,
 				true,
-				"default.gif",
+				CoreImages.ALIGNMENT_H_MENU_DEFAULT,
 				ModelMessages.SelectionActionsSupport_haDefault,
 				CellConstraints.DEFAULT);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				ModelMessages.SelectionActionsSupport_haLeft,
 				CellConstraints.LEFT);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				ModelMessages.SelectionActionsSupport_haCenter,
 				CellConstraints.CENTER);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				ModelMessages.SelectionActionsSupport_haRight,
 				CellConstraints.RIGHT);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_haFill,
 				CellConstraints.FILL);
 		// create vertical actions
@@ -104,35 +105,35 @@ public class SelectionActionsSupport extends ObjectEventListener {
 				actions,
 				constraints,
 				false,
-				"default.gif",
+				CoreImages.ALIGNMENT_V_MENU_DEFAULT,
 				ModelMessages.SelectionActionsSupport_vaDefault,
 				CellConstraints.DEFAULT);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				ModelMessages.SelectionActionsSupport_haTop,
 				CellConstraints.TOP);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"center.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				ModelMessages.SelectionActionsSupport_vaCenter,
 				CellConstraints.CENTER);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				ModelMessages.SelectionActionsSupport_vaBottom,
 				CellConstraints.BOTTOM);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_vaFill,
 				CellConstraints.FILL);
 	}
@@ -140,7 +141,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
 	private void addAlignmentAction(List<Object> actions,
 			List<CellConstraintsSupport> constraints,
 			boolean horizontal,
-			String iconPath,
+			ImageDescriptor icon,
 			String tooltip,
 			CellConstraints.Alignment alignment) {
 		boolean isChecked = true;
@@ -160,7 +161,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		}
 		// create action
 		AlignmentAction action =
-				new AlignmentAction(constraints, horizontal, iconPath, tooltip, isChecked, alignment);
+				new AlignmentAction(constraints, horizontal, icon, tooltip, isChecked, alignment);
 		actions.add(action);
 	}
 
@@ -181,14 +182,13 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		public AbstractAction(int style,
 				List<CellConstraintsSupport> constraints,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked) {
 			super(m_layout, "", style);
 			m_constraints = constraints;
 			m_horizontal = horizontal;
-			String path = "alignment/" + (m_horizontal ? "h" : "v") + "/menu/" + iconPath;
-			setImageDescriptor(Activator.getImageDescriptor(path));
+			setImageDescriptor(icon);
 			setToolTipText(tooltip);
 			setChecked(checked);
 		}
@@ -224,11 +224,11 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		////////////////////////////////////////////////////////////////////////////
 		public AlignmentAction(List<CellConstraintsSupport> constraints,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked,
 				CellConstraints.Alignment alignment) {
-			super(AS_RADIO_BUTTON, constraints, horizontal, iconPath, tooltip, checked);
+			super(AS_RADIO_BUTTON, constraints, horizontal, icon, tooltip, checked);
 			m_alignment = alignment;
 		}
 

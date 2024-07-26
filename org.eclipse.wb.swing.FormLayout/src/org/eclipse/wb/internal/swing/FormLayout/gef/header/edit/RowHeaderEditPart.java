@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.edit;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
-import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.SetAlignmentAction;
@@ -93,13 +93,13 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 				if (titleTop - r.y > 3 + 7 + 3) {
 					Image image;
 					if (m_dimension.getAlignment() == RowSpec.TOP) {
-						image = getImage("top.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_TOP);
 					} else if (m_dimension.getAlignment() == RowSpec.BOTTOM) {
-						image = getImage("bottom.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_BOTTOM);
 					} else if (m_dimension.getAlignment() == RowSpec.CENTER) {
-						image = getImage("center.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_CENTER);
 					} else {
-						image = getImage("fill.gif");
+						image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_FILL);
 					}
 					//
 					int y = r.y + 2;
@@ -108,14 +108,10 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 				// draw grow indicator
 				if (m_dimension.hasGrow()) {
 					if (titleBottom + 3 + 7 + 3 < r.bottom()) {
-						Image image = getImage("grow.gif");
+						Image image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_GROW);
 						drawCentered(graphics, image, r.bottom() - 3 - image.getBounds().height);
 					}
 				}
-			}
-
-			private Image getImage(String name) {
-				return RowHeaderEditPart.this.getImage("alignment/v/" + name);
 			}
 
 			private void drawCentered(Graphics graphics, Image image, int y) {
@@ -206,19 +202,19 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 			manager.add(new Separator());
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaTop,
-					Activator.getImageDescriptor("alignment/v/menu/top.gif"),
+					CoreImages.ALIGNMENT_V_MENU_TOP,
 					RowSpec.TOP));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaCenter,
-					Activator.getImageDescriptor("alignment/v/menu/center.gif"),
+					CoreImages.ALIGNMENT_V_MENU_CENTER,
 					RowSpec.CENTER));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaBottom,
-					Activator.getImageDescriptor("alignment/v/menu/bottom.gif"),
+					CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 					RowSpec.BOTTOM));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_vaFill,
-					Activator.getImageDescriptor("alignment/v/menu/fill.gif"),
+					CoreImages.ALIGNMENT_V_MENU_FILL,
 					RowSpec.FILL));
 		}
 		// grow
@@ -226,7 +222,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
 			manager.add(new Separator());
 			manager.add(new SetGrowAction<>(this,
 					GefMessages.RowHeaderEditPart_grow,
-					Activator.getImageDescriptor("alignment/h/menu/grow.gif")));
+					CoreImages.ALIGNMENT_V_MENU_GROW));
 		}
 		// templates
 		{
