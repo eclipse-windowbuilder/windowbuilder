@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy;
@@ -28,6 +29,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -119,13 +121,13 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 				protected ImageDescriptor getImageDescriptor() {
 					switch (constraints.getHorizontalAlignment()) {
 					case LEFT :
-						return getImage2("h/alignment/left.gif");
+						return CoreImages.ALIGNMENT_H_SMALL_LEFT;
 					case CENTER :
-						return getImage2("h/alignment/center.gif");
+						return CoreImages.ALIGNMENT_H_SMALL_CENTER;
 					case RIGHT :
-						return getImage2("h/alignment/right.gif");
+						return CoreImages.ALIGNMENT_H_SMALL_RIGHT;
 					case FILL :
-						return getImage2("h/alignment/fill.gif");
+						return CoreImages.ALIGNMENT_H_SMALL_FILL;
 					}
 					return null;
 				}
@@ -141,19 +143,19 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 				protected ImageDescriptor getImageDescriptor() {
 					switch (constraints.getVerticalAlignment()) {
 					case TOP :
-						return getImage2("v/alignment/top.gif");
+						return CoreImages.ALIGNMENT_V_SMALL_TOP;
 					case CENTER :
-						return getImage2("v/alignment/center.gif");
+						return CoreImages.ALIGNMENT_V_SMALL_CENTER;
 					case BOTTOM :
-						return getImage2("v/alignment/bottom.gif");
+						return CoreImages.ALIGNMENT_V_SMALL_BOTTOM;
 					case FILL :
-						return getImage2("v/alignment/fill.gif");
+						return CoreImages.ALIGNMENT_V_SMALL_FILL;
 					case BASELINE :
-						return getImage2("v/alignment/baseline.gif");
+						return SwingImages.ALIGNMENT_V_SMALL_BASELINE;
 					case BASELINE_ABOVE :
-						return getImage2("v/alignment/baseline_above.gif");
+						return SwingImages.ALIGNMENT_V_SMALL_BASELINE_ABOVE;
 					case BASELINE_BELOW :
-						return getImage2("v/alignment/baseline_below.gif");
+						return SwingImages.ALIGNMENT_V_SMALL_BASELINE_BELOW;
 					}
 					return null;
 				}
@@ -164,18 +166,6 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 				}
 			};
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the {@link ImageDescriptor} for {@link AbstractGridBagLayoutInfo}.
-	 */
-	protected final ImageDescriptor getImage2(String name) {
-		return AbstractGridBagLayoutInfo.getImageDescriptor("headers/" + name);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

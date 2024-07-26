@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.actions;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -19,8 +20,10 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagConstraints
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang3.SystemUtils;
 
@@ -73,28 +76,28 @@ public class SelectionActionsSupport extends ObjectEventListener {
 				actions,
 				constraints,
 				true,
-				"left.gif",
+				CoreImages.ALIGNMENT_H_MENU_LEFT,
 				ModelMessages.SelectionActionsSupport_haLeft,
 				ColumnInfo.Alignment.LEFT);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"center.gif",
+				CoreImages.ALIGNMENT_H_MENU_CENTER,
 				ModelMessages.SelectionActionsSupport_haCenter,
 				ColumnInfo.Alignment.CENTER);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"right.gif",
+				CoreImages.ALIGNMENT_H_MENU_RIGHT,
 				ModelMessages.SelectionActionsSupport_haRight,
 				ColumnInfo.Alignment.RIGHT);
 		addAlignmentAction(
 				actions,
 				constraints,
 				true,
-				"fill.gif",
+				CoreImages.ALIGNMENT_H_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_haFill,
 				ColumnInfo.Alignment.FILL);
 		// create vertical actions
@@ -103,28 +106,28 @@ public class SelectionActionsSupport extends ObjectEventListener {
 				actions,
 				constraints,
 				false,
-				"top.gif",
+				CoreImages.ALIGNMENT_V_MENU_TOP,
 				ModelMessages.SelectionActionsSupport_vaTop,
 				RowInfo.Alignment.TOP);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"center.gif",
+				CoreImages.ALIGNMENT_V_MENU_CENTER,
 				ModelMessages.SelectionActionsSupport_vaCenter,
 				RowInfo.Alignment.CENTER);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"bottom.gif",
+				CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 				ModelMessages.SelectionActionsSupport_vaBottom,
 				RowInfo.Alignment.BOTTOM);
 		addAlignmentAction(
 				actions,
 				constraints,
 				false,
-				"fill.gif",
+				CoreImages.ALIGNMENT_V_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_vaFill,
 				RowInfo.Alignment.FILL);
 		if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
@@ -132,21 +135,21 @@ public class SelectionActionsSupport extends ObjectEventListener {
 					actions,
 					constraints,
 					false,
-					"baseline.gif",
+					SwingImages.ALIGNMENT_V_MENU_BASELINE,
 					ModelMessages.SelectionActionsSupport_vaBaseline,
 					RowInfo.Alignment.BASELINE);
 			addAlignmentAction(
 					actions,
 					constraints,
 					false,
-					"baseline_above.gif",
+					SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
 					ModelMessages.SelectionActionsSupport_vaAboveBaseline,
 					RowInfo.Alignment.BASELINE_ABOVE);
 			addAlignmentAction(
 					actions,
 					constraints,
 					false,
-					"baseline_below.gif",
+					SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
 					ModelMessages.SelectionActionsSupport_vaBelowBaseline,
 					RowInfo.Alignment.BASELINE_BELOW);
 		}
@@ -156,20 +159,20 @@ public class SelectionActionsSupport extends ObjectEventListener {
 				actions,
 				constraints,
 				true,
-				"grow.gif",
+				CoreImages.ALIGNMENT_H_MENU_GROW,
 				ModelMessages.SelectionActionsSupport_haGrow);
 		addGrowAction(
 				actions,
 				constraints,
 				false,
-				"grow.gif",
+				CoreImages.ALIGNMENT_V_MENU_GROW,
 				ModelMessages.SelectionActionsSupport_vaGrow);
 	}
 
 	private void addAlignmentAction(List<Object> actions,
 			List<AbstractGridBagConstraintsInfo> constraints,
 			boolean horizontal,
-			String iconPath,
+			ImageDescriptor icon,
 			String tooltip,
 			Object alignment) {
 		boolean isChecked = true;
@@ -189,14 +192,14 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		}
 		// create action
 		AlignmentAction action =
-				new AlignmentAction(constraints, horizontal, iconPath, tooltip, isChecked, alignment);
+				new AlignmentAction(constraints, horizontal, icon, tooltip, isChecked, alignment);
 		actions.add(action);
 	}
 
 	private void addGrowAction(List<Object> actions,
 			List<AbstractGridBagConstraintsInfo> constraints,
 			boolean horizontal,
-			String iconPath,
+			ImageDescriptor icon,
 			String tooltip) {
 		boolean isChecked = true;
 		// prepare select current value
@@ -215,7 +218,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		}
 		// create action
 		GrowAction action =
-				new GrowAction(constraints, horizontal, iconPath, tooltip, isChecked, !isChecked);
+				new GrowAction(constraints, horizontal, icon, tooltip, isChecked, !isChecked);
 		actions.add(action);
 	}
 
@@ -236,14 +239,13 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		public AbstractAction(int style,
 				List<AbstractGridBagConstraintsInfo> constraints,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked) {
 			super(m_layout, "", style);
 			m_constraints = constraints;
 			m_horizontal = horizontal;
-			String path = "headers/" + (m_horizontal ? "h" : "v") + "/menu/" + iconPath;
-			setImageDescriptor(AbstractGridBagLayoutInfo.getImageDescriptor(path));
+			setImageDescriptor(icon);
 			setToolTipText(tooltip);
 			setChecked(checked);
 		}
@@ -280,11 +282,11 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		////////////////////////////////////////////////////////////////////////////
 		public AlignmentAction(List<AbstractGridBagConstraintsInfo> constraints,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked,
 				Object alignment) {
-			super(AS_RADIO_BUTTON, constraints, horizontal, iconPath, tooltip, checked);
+			super(AS_RADIO_BUTTON, constraints, horizontal, icon, tooltip, checked);
 			m_alignment = alignment;
 		}
 
@@ -313,11 +315,11 @@ public class SelectionActionsSupport extends ObjectEventListener {
 		////////////////////////////////////////////////////////////////////////////
 		public GrowAction(List<AbstractGridBagConstraintsInfo> constraints,
 				boolean horizontal,
-				String iconPath,
+				ImageDescriptor icon,
 				String tooltip,
 				boolean checked,
 				boolean grow) {
-			super(AS_CHECK_BOX, constraints, horizontal, iconPath, tooltip, checked);
+			super(AS_CHECK_BOX, constraints, horizontal, icon, tooltip, checked);
 			m_grow = grow;
 		}
 
