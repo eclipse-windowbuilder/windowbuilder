@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333335"
+   version="1.1"
+   id="svg5"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       xlink:href="#linearGradient4749"
+       id="linearGradient4755"
+       x1="4.5"
+       y1="1042.047"
+       x2="4.5"
+       y2="1046.4902"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.26458333,0,0,0.26458333,4.3656193,-274.20416)" />
+    <linearGradient
+       id="linearGradient4749">
+      <stop
+         style="stop-color:#ffffee;stop-opacity:1"
+         offset="0"
+         id="stop4751" />
+      <stop
+         style="stop-color:#ffecad;stop-opacity:1"
+         offset="1"
+         id="stop4753" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient4741"
+       id="linearGradient4747"
+       x1="11.0625"
+       y1="1038.5497"
+       x2="11.0625"
+       y2="1049.912"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.26458333,0,0,0.26458333,4.3656193,-274.20416)" />
+    <linearGradient
+       id="linearGradient4741">
+      <stop
+         style="stop-color:#ba7f0d;stop-opacity:1"
+         offset="0"
+         id="stop4743" />
+      <stop
+         style="stop-color:#a2660b;stop-opacity:1"
+         offset="1"
+         id="stop4745" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1"
+     transform="rotate(90,2.1828068,2.1166665)">
+    <path
+       style="display:inline;fill:url(#linearGradient4755);fill-opacity:1;stroke:url(#linearGradient4747);stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 2.116661,0.66145816 V 1.4552082 h 1.5296224 c 0.1767065,0 0.3224609,0.1457589 0.3224609,0.3224741 v 0.6779948 c 0,0.1766888 -0.1457544,0.3224477 -0.3224609,0.3224477 H 2.116661 v 0.79375 H 1.8520777 L 0.39686935,2.1166665 1.8520777,0.66145816 Z"
+       id="rect3968" />
+  </g>
+</svg>

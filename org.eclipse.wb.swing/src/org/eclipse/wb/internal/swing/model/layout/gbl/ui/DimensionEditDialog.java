@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,8 +23,12 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
+import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -214,6 +218,7 @@ ResizableDialog {
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridDataFactory.create(composite).grabH().fill();
 		GridLayoutFactory.create(composite).noMargins().columns(4);
+		LocalResourceManager resourceManager = JFaceResources.managerFor(composite);
 		// index
 		{
 			new Label(composite, SWT.NONE).setText(m_dimensionName + ":");
@@ -228,9 +233,8 @@ ResizableDialog {
 				m_prevButton.setToolTipText(MessageFormat.format(
 						ModelMessages.DimensionEditDialog_previousButton,
 						m_dimensionName));
-				m_prevButton.setImage(m_horizontal
-						? AbstractGridBagLayoutInfo.getImage("navigation/left.gif")
-								: AbstractGridBagLayoutInfo.getImage("navigation/up.gif"));
+				ImageDescriptor descriptor = m_horizontal ? SwingImages.NAVIGATION_LEFT : SwingImages.NAVIGATION_UP;
+				m_prevButton.setImage(resourceManager.create(descriptor));
 				m_prevButton.addListener(SWT.Selection, new Listener() {
 					@Override
 					public void handleEvent(Event event) {
@@ -245,9 +249,8 @@ ResizableDialog {
 				m_nextButton.setToolTipText(MessageFormat.format(
 						ModelMessages.DimensionEditDialog_nextButton,
 						m_dimensionName));
-				m_nextButton.setImage(m_horizontal
-						? AbstractGridBagLayoutInfo.getImage("navigation/right.gif")
-								: AbstractGridBagLayoutInfo.getImage("navigation/down.gif"));
+				ImageDescriptor descriptor = m_horizontal ? SwingImages.NAVIGATION_RIGHT : SwingImages.NAVIGATION_DOWN;
+				m_nextButton.setImage(resourceManager.create(descriptor));
 				m_nextButton.addListener(SWT.Selection, new Listener() {
 					@Override
 					public void handleEvent(Event event) {

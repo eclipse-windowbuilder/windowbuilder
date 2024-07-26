@@ -33,6 +33,11 @@ public class SwingImages extends CoreImages {
 	public static ImageDescriptor ALIGNMENT_V_SMALL_BASELINE_BELOW = of("alignment/v/small/baseline_below.png");
 	public static ImageDescriptor ALIGNMENT_V_SMALL_BASELINE = of("alignment/v/small/baseline.png");
 
+	public static ImageDescriptor NAVIGATION_UP = of("navigation/up.png");
+	public static ImageDescriptor NAVIGATION_DOWN = of("navigation/down.png");
+	public static ImageDescriptor NAVIGATION_LEFT = of("navigation/left.png");
+	public static ImageDescriptor NAVIGATION_RIGHT = of("navigation/right.png");
+
 	private static ImageDescriptor of(String fileName) {
 		return of(FrameworkUtil.getBundle(SwingImages.class), fileName);
 	}
