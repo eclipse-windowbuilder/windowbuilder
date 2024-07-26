@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.edit;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
@@ -21,7 +22,6 @@ import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetAlig
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetGrabAction;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridColumnInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDimensionInfo;
-import org.eclipse.wb.internal.swt.model.layout.grid.GridImages;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
@@ -94,13 +94,13 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 							int alignment = alignmentValue.intValue();
 							Image image;
 							if (alignment == SWT.LEFT) {
-								image = getImage("left.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_H_SMALL_LEFT);
 							} else if (alignment == SWT.CENTER) {
-								image = getImage("center.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_H_SMALL_CENTER);
 							} else if (alignment == SWT.RIGHT) {
-								image = getImage("right.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_H_SMALL_RIGHT);
 							} else {
-								image = getImage("fill.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_H_SMALL_FILL);
 							}
 							//
 							int x = r.x + 2;
@@ -110,17 +110,13 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 					// draw grow indicator
 					if (m_dimension.getGrab()) {
 						if (titleRight + 3 + 7 + 3 < r.right()) {
-							Image image = getImage("grow.gif");
+							Image image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_H_SMALL_GROW);
 							drawCentered(graphics, image, r.right() - 3 - image.getBounds().width);
 						}
 					}
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
-			}
-
-			private Image getImage(String name) {
-				return GridImages.getImage("h/" + name);
 			}
 
 			private void drawCentered(Graphics graphics, Image image, int x) {
@@ -177,33 +173,33 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
 		{
 			manager.add(new SetGrabAction<>(this,
 					GefMessages.ColumnHeaderEditPart_grabExcessSpace,
-					GridImages.getImageDescriptor("h/menu/grow.gif")));
+					CoreImages.ALIGNMENT_H_MENU_GROW));
 		}
 		// alignment
 		{
 			manager.add(new Separator());
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_left,
-					GridImages.getImageDescriptor("h/menu/left.gif"),
+					CoreImages.ALIGNMENT_H_MENU_LEFT,
 					SWT.LEFT));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_center,
-					GridImages.getImageDescriptor("h/menu/center.gif"),
+					CoreImages.ALIGNMENT_H_MENU_CENTER,
 					SWT.CENTER));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_right,
-					GridImages.getImageDescriptor("h/menu/right.gif"),
+					CoreImages.ALIGNMENT_H_MENU_RIGHT,
 					SWT.RIGHT));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.ColumnHeaderEditPart_fill,
-					GridImages.getImageDescriptor("h/menu/fill.gif"),
+					CoreImages.ALIGNMENT_H_MENU_FILL,
 					SWT.FILL));
 		}
 		// operations
 		{
 			manager.add(new Separator());
 			manager.add(new DimensionHeaderAction<>(this, GefMessages.ColumnHeaderEditPart_delete,
-					GridImages.getImageDescriptor("h/menu/delete.gif")) {
+					CoreImages.ALIGNMENT_H_MENU_DELETE) {
 				@Override
 				protected void run(GridDimensionInfo<C> dimension) throws Exception {
 					m_layout.command_deleteColumn(dimension.getIndex(), true);

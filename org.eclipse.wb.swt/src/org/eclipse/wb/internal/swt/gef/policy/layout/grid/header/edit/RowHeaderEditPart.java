@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.edit;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
@@ -19,7 +20,6 @@ import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.Dimensi
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetAlignmentAction;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetGrabAction;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDimensionInfo;
-import org.eclipse.wb.internal.swt.model.layout.grid.GridImages;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridRowInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
@@ -91,13 +91,13 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 							int alignment = alignmentValue.intValue();
 							Image image;
 							if (alignment == SWT.TOP) {
-								image = getImage("top.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_TOP);
 							} else if (alignment == SWT.CENTER) {
-								image = getImage("center.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_CENTER);
 							} else if (alignment == SWT.BOTTOM) {
-								image = getImage("bottom.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_BOTTOM);
 							} else {
-								image = getImage("fill.gif");
+								image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_FILL);
 							}
 							//
 							int y = r.y + 2;
@@ -107,17 +107,13 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 					// draw grow indicator
 					if (m_dimension.getGrab()) {
 						if (titleBottom + 3 + 7 + 3 < r.bottom()) {
-							Image image = getImage("grow.gif");
+							Image image = getViewer().getResourceManager().get(CoreImages.ALIGNMENT_V_SMALL_GROW);
 							drawCentered(graphics, image, r.bottom() - 3 - image.getBounds().height);
 						}
 					}
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
-			}
-
-			private Image getImage(String name) {
-				return GridImages.getImage("v/" + name);
 			}
 
 			private void drawCentered(Graphics graphics, Image image, int y) {
@@ -166,33 +162,33 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 		{
 			manager.add(new SetGrabAction<>(this,
 					GefMessages.RowHeaderEditPart_grabExcessSpace,
-					GridImages.getImageDescriptor("v/menu/grow.gif")));
+					CoreImages.ALIGNMENT_V_MENU_GROW));
 		}
 		// alignment
 		{
 			manager.add(new Separator());
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_top,
-					GridImages.getImageDescriptor("v/menu/top.gif"),
+					CoreImages.ALIGNMENT_V_MENU_TOP,
 					SWT.TOP));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_center,
-					GridImages.getImageDescriptor("v/menu/center.gif"),
+					CoreImages.ALIGNMENT_V_MENU_CENTER,
 					SWT.CENTER));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_bottom,
-					GridImages.getImageDescriptor("v/menu/bottom.gif"),
+					CoreImages.ALIGNMENT_V_MENU_BOTTOM,
 					SWT.BOTTOM));
 			manager.add(new SetAlignmentAction<>(this,
 					GefMessages.RowHeaderEditPart_fill,
-					GridImages.getImageDescriptor("h/menu/fill.gif"),
+					CoreImages.ALIGNMENT_V_MENU_FILL,
 					SWT.FILL));
 		}
 		// operations
 		{
 			manager.add(new Separator());
 			manager.add(new DimensionHeaderAction<>(this, GefMessages.RowHeaderEditPart_delete,
-					GridImages.getImageDescriptor("v/menu/delete.gif")) {
+					CoreImages.ALIGNMENT_V_MENU_DELETE) {
 				@Override
 				protected void run(GridDimensionInfo<C> dimension) throws Exception {
 					m_layout.command_deleteRow(dimension.getIndex(), true);
