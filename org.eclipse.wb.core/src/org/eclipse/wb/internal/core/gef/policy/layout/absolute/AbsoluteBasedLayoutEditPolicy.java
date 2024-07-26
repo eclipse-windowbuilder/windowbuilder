@@ -395,7 +395,7 @@ IPreferenceConstants {
 				modelList.add(model);
 				//
 				m_moveFeedback.add(new OutlineImageFigure(model.getImage(),
-						AbsolutePolicyUtils.COLOR_OUTLINE), bounds);
+						AbsolutePolicyUtils.COLOR_OUTLINE, bounds));
 			}
 			//
 			List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
@@ -500,7 +500,7 @@ IPreferenceConstants {
 				modelList.add(model);
 				//
 				m_resizeFeedback.add(new OutlineImageFigure(model.getImage(),
-						AbsolutePolicyUtils.COLOR_OUTLINE), bounds);
+						AbsolutePolicyUtils.COLOR_OUTLINE, bounds));
 			}
 			//
 			List<Figure> moveFeedbackFigures = m_resizeFeedback.getChildren();
@@ -749,7 +749,7 @@ IPreferenceConstants {
 							new Rectangle(bounds.x - offsetX, bounds.y - offsetY, bounds.width, bounds.height);
 					widgetBounds.union(relativeBounds[i]);
 					m_createFeedback.add(new OutlineImageFigure(pastedComponent.getComponent().getImage(),
-							AbsolutePolicyUtils.COLOR_OUTLINE), relativeBounds[i]);
+							AbsolutePolicyUtils.COLOR_OUTLINE, relativeBounds[i]));
 					pastedComponent.setBounds(relativeBounds[i]);
 					i++;
 				}

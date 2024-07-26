@@ -270,7 +270,7 @@ IHeadersProvider {
 				modelList.add(model);
 				//
 				m_moveFeedback.add(new OutlineImageFigure(model.getImage(),
-						AbsolutePolicyUtils.COLOR_OUTLINE), bounds);
+						AbsolutePolicyUtils.COLOR_OUTLINE, bounds));
 			}
 			//
 			List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();

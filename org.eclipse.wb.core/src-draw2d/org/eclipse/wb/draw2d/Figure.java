@@ -156,8 +156,8 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		// notify child of change
 		childFigure.addNotify();
 		// set bounds
-		if (bounds != null) {
-			childFigure.setBounds(bounds);
+		if (getLayoutManager() != null) {
+			getLayoutManager().setConstraint(childFigure, bounds);
 		}
 		// notify of change
 		resetState(childFigure);

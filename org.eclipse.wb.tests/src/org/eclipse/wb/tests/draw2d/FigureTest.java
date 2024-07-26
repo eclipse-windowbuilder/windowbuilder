@@ -23,6 +23,7 @@ import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -173,6 +174,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	@Test
 	public void test_add_Figure_Rectangle() throws Exception {
 		Figure parentFigure = new Figure();
+		parentFigure.setLayoutManager(new XYLayout());
 		/*
 		 * === assert add figure's ===
 		 */
@@ -225,12 +227,13 @@ public class FigureTest extends Draw2dFigureTestCase {
 		// assert set bounds during add(...)
 		Figure childFigure3 = new Figure();
 		parentFigure.add(childFigure3, bounds);
-		assertEquals(bounds, childFigure3.getBounds());
+		assertEquals(bounds, parentFigure.getLayoutManager().getConstraint(childFigure3));
 	}
 
 	@Test
 	public void test_add_Figure_Rectangle_int() throws Exception {
 		Figure parentFigure = new Figure();
+		parentFigure.setLayoutManager(new XYLayout());
 		/*
 		 * === assert add figure's ===
 		 */
@@ -308,7 +311,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		// assert set bounds during add(...)
 		Figure childFigure4 = new Figure();
 		parentFigure.add(childFigure4, bounds, 0);
-		assertEquals(bounds, childFigure4.getBounds());
+		assertEquals(bounds, parentFigure.getLayoutManager().getConstraint(childFigure4));
 	}
 
 	@Test

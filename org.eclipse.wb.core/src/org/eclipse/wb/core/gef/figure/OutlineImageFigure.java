@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
@@ -40,8 +41,15 @@ public final class OutlineImageFigure extends Figure {
 	}
 
 	public OutlineImageFigure(Image image, Color borderColor) {
+		this(image, borderColor, null);
+	}
+
+	public OutlineImageFigure(Image image, Color borderColor, Rectangle bounds) {
 		m_image = image;
 		setForegroundColor(borderColor);
+		if (bounds != null) {
+			setBounds(bounds);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

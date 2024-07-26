@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,16 +74,18 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 				detailsSize.width = headerSize.width + 10;
 			}
 		}
-		// create container figure
-		Figure tooltipFigure = new Figure();
-		tooltipFigure.add(headerFigure, new Rectangle(detailsSize.width / 2 - headerSize.width / 2,
+		headerFigure.setBounds(new Rectangle(detailsSize.width / 2 - headerSize.width / 2,
 				0,
 				headerSize.width,
 				headerSize.height));
-		tooltipFigure.add(detailsFigure, new Rectangle(0,
+		detailsFigure.setBounds(new Rectangle(0,
 				headerSize.height,
 				detailsSize.width,
 				detailsSize.height));
+		// create container figure
+		Figure tooltipFigure = new Figure();
+		tooltipFigure.add(headerFigure);
+		tooltipFigure.add(detailsFigure);
 		tooltipFigure.setBounds(new Rectangle(0, 0, detailsSize.width, headerSize.height
 				+ detailsSize.height));
 		//

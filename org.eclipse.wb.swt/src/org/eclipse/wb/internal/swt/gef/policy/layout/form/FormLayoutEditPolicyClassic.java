@@ -511,8 +511,8 @@ implements IHeadersProvider {
 				relativeBounds[i] = new Rectangle(modelBounds.x - offsetX, modelBounds.y - offsetY, modelBounds.width,
 						modelBounds.height);
 				bounds.union(relativeBounds[i]);
-				moveFeedback.add(new OutlineImageFigure(control.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
-						relativeBounds[i]);
+				moveFeedback.add(new OutlineImageFigure(control.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE,
+						relativeBounds[i]));
 			}
 		} else {
 			C model = getControlFromList(pastingComponents, 0);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,12 +56,14 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		//
 		Layer layer0 = new Layer("Main");
 		Figure figure0 = new Figure();
-		layer0.add(figure0, new Rectangle(10, 10, 100, 200));
+		figure0.setBounds(new Rectangle(10, 10, 100, 200));
+		layer0.add(figure0);
 		testRoot.addLayer(layer0);
 		//
 		Layer layer1 = new Layer("Feedback");
 		Figure figure1 = new Figure();
-		layer1.add(figure1, new Rectangle(50, 70, 120, 90));
+		figure1.setBounds(new Rectangle(50, 70, 120, 90));
+		layer1.add(figure1);
 		testRoot.addLayer(layer1);
 		//
 		actualLogger.clear();
