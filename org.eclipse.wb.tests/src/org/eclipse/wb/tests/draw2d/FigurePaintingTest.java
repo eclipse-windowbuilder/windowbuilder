@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -55,7 +56,9 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 
 	private Figure addFigure(int x, int y, int width, int height) {
 		Figure figure = new Figure();
-		m_root.add(figure, new Rectangle(x, y, width, height));
+		figure.setBounds(new Rectangle(x, y, width, height));
+		figure.setLayoutManager(new XYLayout());
+		m_root.add(figure);
 		m_actualLogger.clear();
 		return figure;
 	}
@@ -105,18 +108,22 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		//
 		// check reset state during add(Figure, Rectangle) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4));
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
+		m_actualLogger.assertEquals(expectedLogger);
+		testFigure.getLayoutManager().layout(testFigure);
 		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
 		expectedLogger.log("repaint(1, 2, 3, 4)");
-		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
 		//
 		// check reset state during add(Figure, Rectangle, int) child figure with not empty bounds
 		testFigure.add(new Figure(), new Rectangle(1, 2, 3, 4), -1);
+		expectedLogger.log("invalidate");
+		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
+		m_actualLogger.assertEquals(expectedLogger);
+		testFigure.getLayoutManager().layout(testFigure);
 		expectedLogger.log("repaint(10, 11, 0, 0)"); // erase
 		expectedLogger.log("repaint(1, 2, 3, 4)");
-		expectedLogger.log("invalidate");
-		expectedLogger.log("repaint(11, 13, 3, 4)");
 		m_actualLogger.assertEquals(expectedLogger);
 	}
 
@@ -128,6 +135,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 		Figure testChildFigure = new Figure();
 		testFigure.add(testChildFigure, new Rectangle(21, 17, 25, 24));
 		testFigure.add(new Figure());
+		testFigure.getLayoutManager().layout(testFigure);
 		m_actualLogger.clear();
 		//
 		// check reset state during remove child figure

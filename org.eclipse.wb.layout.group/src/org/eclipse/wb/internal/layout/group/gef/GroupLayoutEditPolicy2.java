@@ -260,8 +260,8 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 				for (EditPart editPart : editParts) {
 					AbstractComponentInfo model = (AbstractComponentInfo) editPart.getModel();
 					Rectangle bounds = ((GraphicalEditPart) editPart).getFigure().getBounds();
-					m_dragFeedback.add(new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
-							bounds);
+					m_dragFeedback.add(new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE,
+							bounds));
 				}
 				// set bounds of nested figures
 				List<Figure> moveFeedbackFigures = m_dragFeedback.getChildren();
@@ -329,8 +329,8 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 				for (EditPart editPart : editParts) {
 					AbstractComponentInfo model = (AbstractComponentInfo) editPart.getModel();
 					Rectangle bounds = ((GraphicalEditPart) editPart).getFigure().getBounds();
-					m_dragFeedback.add(new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
-							bounds);
+					m_dragFeedback.add(new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE,
+							bounds));
 				}
 				//
 				List<Figure> moveFeedbackFigures = m_dragFeedback.getChildren();
@@ -406,8 +406,8 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 					java.awt.Rectangle bounds = GroupLayoutUtils.getBoundsInLayout(m_layout, model);
 					movingBounds[i] = new java.awt.Rectangle(bounds.x - offsetX, bounds.y - offsetY, bounds.width,
 							bounds.height);
-					m_dragFeedback.add(new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
-							GroupLayoutUtils.get(movingBounds[i]));
+					m_dragFeedback.add(new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE,
+							GroupLayoutUtils.get(movingBounds[i])));
 					// prepare bounds for dragging
 					movedBounds[i] = new java.awt.Rectangle();
 					movedBounds[i].width = movingBounds[i].width;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -106,7 +106,8 @@ public class LayerTest extends Draw2dFigureTestCase {
 	public void test_containsPoint() throws Exception {
 		Layer layer = new Layer("test");
 		Figure figure = new Figure();
-		layer.add(figure, new Rectangle(10, 10, 100, 100));
+		figure.setBounds(new Rectangle(10, 10, 100, 100));
+		layer.add(figure);
 		layer.setBounds(new Rectangle(0, 0, 200, 200));
 		//
 		// check contains point (0, 0)

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,14 +73,16 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 				return "figure11";
 			}
 		};
-		layer1.add(figure11, new Rectangle(10, 10, 200, 150));
+		figure11.setBounds(new Rectangle(10, 10, 200, 150));
+		layer1.add(figure11);
 		Figure figure12 = new Figure() {
 			@Override
 			public String toString() {
 				return "figure12";
 			}
 		};
-		layer1.add(figure12, new Rectangle(400, 300, 50, 70));
+		figure12.setBounds(new Rectangle(400, 300, 50, 70));
+		layer1.add(figure12);
 		//
 		Layer layer2 = new Layer("2");
 		Figure figure21 = new Figure() {
@@ -89,14 +91,16 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 				return "figure21";
 			}
 		};
-		layer2.add(figure21, new Rectangle(50, 50, 90, 60));
+		figure21.setBounds(new Rectangle(50, 50, 90, 60));
+		layer2.add(figure21);
 		Figure figure22 = new Figure() {
 			@Override
 			public String toString() {
 				return "figure22";
 			}
 		};
-		layer2.add(figure22, new Rectangle(150, 250, 190, 120));
+		figure22.setBounds(new Rectangle(150, 250, 190, 120));
+		layer2.add(figure22);
 		//
 		TestLogger actualLogger = new TestLogger();
 		//
