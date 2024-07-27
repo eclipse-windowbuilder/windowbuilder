@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.function.Predicate;
@@ -46,7 +46,7 @@ public final class MenuFeedbackTester {
 	/**
 	 * @return the {@link Predicate} that checks if feedback is {@link MenuSelectionEditPolicy}.
 	 */
-	private static Predicate<Figure> getSelectionPredicate(GraphicalEditPart part) {
+	private static Predicate<IFigure> getSelectionPredicate(GraphicalEditPart part) {
 		// prepare "part" Figure bounds in absolute
 		final Rectangle partBounds;
 		{
@@ -57,7 +57,7 @@ public final class MenuFeedbackTester {
 		return feedback -> partBounds.equals(feedback.getBounds());
 	}
 
-	private Predicate<Figure> getSelectionPredicate(Object object) {
+	private Predicate<IFigure> getSelectionPredicate(Object object) {
 		return getSelectionPredicate(canvas.getEditPart(object));
 	}
 
@@ -69,20 +69,20 @@ public final class MenuFeedbackTester {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void assertMenuFeedbacks(Predicate<Figure> p) {
+	public void assertMenuFeedbacks(Predicate<IFigure> p) {
 		assertMenuFeedbacks(new Predicate[]{p});
 	}
 
 	@SuppressWarnings("unchecked")
-	public void assertMenuFeedbacks(Predicate<Figure> p1, Predicate<Figure> p2) {
+	public void assertMenuFeedbacks(Predicate<IFigure> p1, Predicate<IFigure> p2) {
 		assertMenuFeedbacks(new Predicate[]{p1, p2});
 	}
 
 	/**
-	 * Asserts that {@link IEditPartViewer#MENU_FEEDBACK_LAYER} has feedback {@link Figure}'s that
+	 * Asserts that {@link IEditPartViewer#MENU_FEEDBACK_LAYER} has feedback {@link IFigure}'s that
 	 * satisfy to given {@link Predicate}'s.
 	 */
-	public void assertMenuFeedbacks(Predicate<Figure>... predicates) {
+	public void assertMenuFeedbacks(Predicate<IFigure>... predicates) {
 		canvas.assertFigures(IEditPartViewer.MENU_FEEDBACK_LAYER, predicates);
 	}
 
@@ -91,23 +91,23 @@ public final class MenuFeedbackTester {
 	}
 
 	public void assertFeedback_selection_line(Object selection, Object lineObject, int location) {
-		Predicate<Figure> linePredicate = canvas.getLinePredicate(lineObject, location);
-		Predicate<Figure> selectionPredicate = getSelectionPredicate(selection);
+		Predicate<IFigure> linePredicate = canvas.getLinePredicate(lineObject, location);
+		Predicate<IFigure> selectionPredicate = getSelectionPredicate(selection);
 		assertMenuFeedbacks(selectionPredicate, linePredicate);
 	}
 
 	public void assertFeedback_selection_target(Object selection, Object targetObject) {
-		Predicate<Figure> targetPredicate = canvas.getTargetPredicate(targetObject);
-		Predicate<Figure> selectionPredicate = getSelectionPredicate(selection);
+		Predicate<IFigure> targetPredicate = canvas.getTargetPredicate(targetObject);
+		Predicate<IFigure> selectionPredicate = getSelectionPredicate(selection);
 		assertMenuFeedbacks(selectionPredicate, targetPredicate);
 	}
 
 	public void assertFeedback_selection_emptyFlow(Object selection,
 			Object hostObject,
 			boolean horizontal) {
-		Predicate<Figure> targetPredicate =
+		Predicate<IFigure> targetPredicate =
 				canvas.getEmptyFlowContainerPredicate(hostObject, horizontal);
-		Predicate<Figure> flowPredicate = getSelectionPredicate(selection);
+		Predicate<IFigure> flowPredicate = getSelectionPredicate(selection);
 		assertMenuFeedbacks(flowPredicate, targetPredicate);
 	}
 

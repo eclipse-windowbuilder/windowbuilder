@@ -42,6 +42,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -398,9 +399,9 @@ IPreferenceConstants {
 						AbsolutePolicyUtils.COLOR_OUTLINE, bounds));
 			}
 			//
-			List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
+			List<? extends IFigure> moveFeedbackFigures = m_moveFeedback.getChildren();
 			for (int i = 0; i < moveFeedbackFigures.size(); ++i) {
-				Figure figure = moveFeedbackFigures.get(i);
+				IFigure figure = moveFeedbackFigures.get(i);
 				figure.getBounds().performTranslate(-widgetBounds.x, -widgetBounds.y);
 				relativeBounds[i] = figure.getBounds().getCopy();
 			}
@@ -503,9 +504,9 @@ IPreferenceConstants {
 						AbsolutePolicyUtils.COLOR_OUTLINE, bounds));
 			}
 			//
-			List<Figure> moveFeedbackFigures = m_resizeFeedback.getChildren();
+			List<? extends IFigure> moveFeedbackFigures = m_resizeFeedback.getChildren();
 			for (int i = 0; i < moveFeedbackFigures.size(); ++i) {
-				Figure figure = moveFeedbackFigures.get(i);
+				IFigure figure = moveFeedbackFigures.get(i);
 				figure.getBounds().performTranslate(-widgetBounds.x, -widgetBounds.y);
 				relativeBounds[i] = figure.getBounds().getCopy();
 			}

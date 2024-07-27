@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.draw2d.Layer;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.draw2d.EventDispatcher;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -120,7 +121,7 @@ public class RootFigure extends Figure implements IRootFigure {
 			// layer's loop
 			for (Layer layer : getLayers()) {
 				// figure's loop
-				for (Figure figure : layer.getChildren()) {
+				for (IFigure figure : layer.getChildren()) {
 					if (figure.isVisible()) {
 						if (figure instanceof IPreferredSizeProvider provider) {
 							Dimension figurePreferredSize = provider.getPreferredSize(null);
@@ -207,7 +208,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	@Override
 	public List<Layer> getLayers() {
 		List<Layer> layers = new ArrayList<>();
-		for (Figure childFigure : getChildren()) {
+		for (IFigure childFigure : getChildren()) {
 			layers.add((Layer) childFigure);
 		}
 		return layers;

@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutUtils;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -264,9 +265,9 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 							bounds));
 				}
 				// set bounds of nested figures
-				List<Figure> moveFeedbackFigures = m_dragFeedback.getChildren();
+				List<? extends IFigure> moveFeedbackFigures = m_dragFeedback.getChildren();
 				for (j = 0; j < moveFeedbackFigures.size(); ++j) {
-					Figure figure = moveFeedbackFigures.get(j);
+					IFigure figure = moveFeedbackFigures.get(j);
 					figure.getBounds().performTranslate(-firstPartBounds.x, -firstPartBounds.y);
 				}
 			} else {
@@ -333,9 +334,9 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 							bounds));
 				}
 				//
-				List<Figure> moveFeedbackFigures = m_dragFeedback.getChildren();
+				List<? extends IFigure> moveFeedbackFigures = m_dragFeedback.getChildren();
 				for (int j = 0; j < moveFeedbackFigures.size(); ++j) {
-					Figure figure = moveFeedbackFigures.get(j);
+					IFigure figure = moveFeedbackFigures.get(j);
 					figure.getBounds().performTranslate(-firstPartBounds.x, -firstPartBounds.y);
 				}
 			} else {

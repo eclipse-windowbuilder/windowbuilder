@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
@@ -25,6 +24,7 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -766,7 +766,7 @@ public final class GraphicalRobot {
 	 * @return bounds of {@link GraphicalEditPart}'s figure in absolute coordinates.
 	 */
 	public static Rectangle getAbsoluteBounds(GraphicalEditPart editPart) {
-		Figure figure = editPart.getFigure();
+		IFigure figure = editPart.getFigure();
 		Rectangle bounds = figure.getBounds().getCopy();
 		FigureUtils.translateFigureToAbsolute(figure, bounds);
 		return bounds;
@@ -821,7 +821,7 @@ public final class GraphicalRobot {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Description of {@link Figure}.
+	 * Description of {@link IFigure}.
 	 */
 	public static final class FigureDescription {
 		private final Class<?> m_class;
@@ -853,9 +853,9 @@ public final class GraphicalRobot {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		/**
-		 * @return <code>true</code> if given {@link Figure} matches this {@link FigureDescription}.
+		 * @return <code>true</code> if given {@link IFigure} matches this {@link FigureDescription}.
 		 */
-		public boolean match(Figure figure) {
+		public boolean match(IFigure figure) {
 			boolean match = true;
 			match &= m_class.isAssignableFrom(figure.getClass());
 			if (m_absoluteBounds != null) {
@@ -866,9 +866,9 @@ public final class GraphicalRobot {
 	}
 
 	/**
-	 * @return the list of {@link Figure}'s on feedback {@link Layer}.
+	 * @return the list of {@link IFigure}'s on feedback {@link Layer}.
 	 */
-	public List<Figure> getFeedbackFigures() {
+	public List<? extends IFigure> getFeedbackFigures() {
 		return m_viewer.getLayer(IEditPartViewer.FEEDBACK_LAYER).getChildren();
 	}
 
@@ -931,19 +931,19 @@ public final class GraphicalRobot {
 	}
 
 	/**
-	 * Asserts that {@link Layer} has {@link Figure}'s that satisfy to given {@link Predicate} .
+	 * Asserts that {@link Layer} has {@link IFigure}'s that satisfy to given {@link Predicate} .
 	 */
 	@SuppressWarnings("unchecked")
-	public void assertFigures(String layerName, Predicate<Figure> predicate) {
+	public void assertFigures(String layerName, Predicate<IFigure> predicate) {
 		assertFigures(layerName, new Predicate[]{predicate});
 	}
 
 	/**
-	 * Asserts that {@link Layer} has {@link Figure}'s that satisfy to given {@link Predicate} 's.
+	 * Asserts that {@link Layer} has {@link IFigure}'s that satisfy to given {@link Predicate} 's.
 	 */
-	public void assertFigures(String layerName, Predicate<Figure>... predicates) {
+	public void assertFigures(String layerName, Predicate<IFigure>... predicates) {
 		// prepare feedback's
-		List<Figure> feedbacks;
+		List<? extends IFigure> feedbacks;
 		{
 			Layer feedbackLayer = m_viewer.getLayer(layerName);
 			feedbacks = feedbackLayer.getChildren();
@@ -952,8 +952,8 @@ public final class GraphicalRobot {
 		}
 		// check all feedback's
 		for (int i = 0; i < predicates.length; i++) {
-			Predicate<Figure> predicate = predicates[i];
-			Figure feedback = feedbacks.get(i);
+			Predicate<IFigure> predicate = predicates[i];
+			IFigure feedback = feedbacks.get(i);
 			Assertions.assertThat(predicate.test(feedback)).describedAs("Predicate [" + i + "] failed.").isTrue();
 		}
 	}
@@ -970,39 +970,39 @@ public final class GraphicalRobot {
 	 * {@link IEditPartViewer#FEEDBACK_LAYER}.
 	 */
 	public void assertEmptyFlowContainerFeedback(Object host, boolean horizontal) {
-		Predicate<Figure> predicate = getEmptyFlowContainerPredicate(host, horizontal);
+		Predicate<IFigure> predicate = getEmptyFlowContainerPredicate(host, horizontal);
 		assertFeedbacks(predicate);
 	}
 
 	/**
-	 * Asserts that {@link IEditPartViewer#FEEDBACK_LAYER} has feedback {@link Figure}'s that satisfy
+	 * Asserts that {@link IEditPartViewer#FEEDBACK_LAYER} has feedback {@link IFigure}'s that satisfy
 	 * to given {@link Predicate}'s.
 	 */
 	@SuppressWarnings("unchecked")
-	public void assertFeedbacks(Predicate<Figure> predicate_1) {
+	public void assertFeedbacks(Predicate<IFigure> predicate_1) {
 		assertFeedbacks0(predicate_1);
 	}
 
 	/**
-	 * Asserts that {@link IEditPartViewer#FEEDBACK_LAYER} has feedback {@link Figure}'s that satisfy
+	 * Asserts that {@link IEditPartViewer#FEEDBACK_LAYER} has feedback {@link IFigure}'s that satisfy
 	 * to given {@link Predicate}'s.
 	 */
-	private void assertFeedbacks0(Predicate<Figure>... predicates) {
+	private void assertFeedbacks0(Predicate<IFigure>... predicates) {
 		assertFigures(IEditPartViewer.FEEDBACK_LAYER, predicates);
 	}
 
 	/**
-	 * Asserts that feedback layer contains exactly same {@link Figure}'s as described.
+	 * Asserts that feedback layer contains exactly same {@link IFigure}'s as described.
 	 */
 	public void assertFeedbackFigures(FigureDescription... descriptions) {
-		HashSet<Figure> feedbackFigures = new HashSet<>(getFeedbackFigures());
+		HashSet<IFigure> feedbackFigures = new HashSet<>(getFeedbackFigures());
 		//
 		for (int i = 0; i < descriptions.length; i++) {
 			FigureDescription description = descriptions[i];
 			// try to find figure for current description
 			boolean figureFound = false;
-			for (Iterator<Figure> I = feedbackFigures.iterator(); I.hasNext();) {
-				Figure figure = I.next();
+			for (Iterator<IFigure> I = feedbackFigures.iterator(); I.hasNext();) {
+				IFigure figure = I.next();
 				if (description.match(figure)) {
 					I.remove();
 					figureFound = true;
@@ -1015,7 +1015,7 @@ public final class GraphicalRobot {
 		// all figure should be matched
 		if (!feedbackFigures.isEmpty()) {
 			String message = "Following figures are not matched:";
-			for (Figure figure : feedbackFigures) {
+			for (IFigure figure : feedbackFigures) {
 				message +=
 						"\n\t"
 								+ figure.getClass().getName()
@@ -1029,14 +1029,14 @@ public final class GraphicalRobot {
 	}
 
 	/**
-	 * Asserts that there are no {@link Figure}'s on feedback {@link Layer}.
+	 * Asserts that there are no {@link IFigure}'s on feedback {@link Layer}.
 	 */
 	public void assertNoFeedbackFigures() {
 		Assertions.assertThat(getFeedbackFigures().isEmpty()).describedAs("Feedback layer should be empty.").isTrue();
 	}
 
 	/**
-	 * Asserts that there are exactly given count of {@link Figure}'s on feedback {@link Layer}.
+	 * Asserts that there are exactly given count of {@link IFigure}'s on feedback {@link Layer}.
 	 */
 	public void assertFeedbackFigures(int count) {
 		Assertions.assertThat(getFeedbackFigures()).hasSize(count);
@@ -1073,7 +1073,7 @@ public final class GraphicalRobot {
 	/**
 	 * @return the {@link Predicate} that checks if feedback is line used for empty flow container.
 	 */
-	public final Predicate<Figure> getEmptyFlowContainerPredicate(Object hostModel, boolean horizontal) {
+	public final Predicate<IFigure> getEmptyFlowContainerPredicate(Object hostModel, boolean horizontal) {
 		GraphicalEditPart host = getEditPart(hostModel);
 		// prepare "host" Figure bounds in absolute
 		Rectangle bounds;
@@ -1144,7 +1144,7 @@ public final class GraphicalRobot {
 	 *          {@link PositionConstants#BOTTOM} , {@link PositionConstants#LEFT},
 	 *          {@link PositionConstants#RIGHT}.
 	 */
-	public static final Predicate<Figure> getLinePredicate(GraphicalEditPart part, final int location) {
+	public static final Predicate<IFigure> getLinePredicate(GraphicalEditPart part, final int location) {
 		// prepare "part" Figure bounds in absolute
 		final Rectangle partBounds;
 		{
@@ -1199,7 +1199,7 @@ public final class GraphicalRobot {
 		};
 	}
 
-	public final Predicate<Figure> getLinePredicate(Object object, final int location) {
+	public final Predicate<IFigure> getLinePredicate(Object object, final int location) {
 		return getLinePredicate(getEditPart(object), location);
 	}
 
@@ -1207,7 +1207,7 @@ public final class GraphicalRobot {
 	 * @return the {@link Predicate} that checks if feedback is "border target" around given
 	 *         {@link GraphicalEditPart}.
 	 */
-	public static final Predicate<Figure> getTargetPredicate(GraphicalEditPart part) {
+	public static final Predicate<IFigure> getTargetPredicate(GraphicalEditPart part) {
 		// prepare "part" Figure bounds in absolute
 		final Rectangle partBounds;
 		{
@@ -1219,7 +1219,7 @@ public final class GraphicalRobot {
 		return feedback -> partBounds.equals(feedback.getBounds());
 	}
 
-	public final Predicate<Figure> getTargetPredicate(Object object) {
+	public final Predicate<IFigure> getTargetPredicate(Object object) {
 		return getTargetPredicate(getEditPart(object));
 	}
 }

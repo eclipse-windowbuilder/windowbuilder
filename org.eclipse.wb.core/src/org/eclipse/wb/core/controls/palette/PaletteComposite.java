@@ -316,7 +316,7 @@ public final class PaletteComposite extends Composite {
 		 * This method is invoked when {@link IPalettePreferences} changes.
 		 */
 		private void onPreferencesUpdate() {
-			for (Iterator<Figure> I = getChildren().iterator(); I.hasNext();) {
+			for (Iterator<? extends IFigure> I = getChildren().iterator(); I.hasNext();) {
 				CategoryFigure categoryFigure = (CategoryFigure) I.next();
 				categoryFigure.onPreferencesUpdate();
 			}
@@ -333,7 +333,7 @@ public final class PaletteComposite extends Composite {
 			width -= getInsets().getWidth();
 			//
 			int y = 0;
-			for (Iterator<Figure> I = getChildren().iterator(); I.hasNext();) {
+			for (Iterator<? extends IFigure> I = getChildren().iterator(); I.hasNext();) {
 				CategoryFigure categoryFigure = (CategoryFigure) I.next();
 				y += categoryFigure.layout(y, width);
 			}
@@ -394,7 +394,7 @@ public final class PaletteComposite extends Composite {
 		public void onPreferencesUpdate() {
 			FontDescriptor fontDescriptor = m_preferences.getCategoryFontDescriptor();
 			setFont(fontDescriptor == null ? null : m_resourceManager.createFont(fontDescriptor));
-			for (Iterator<Figure> I = getChildren().iterator(); I.hasNext();) {
+			for (Iterator<? extends IFigure> I = getChildren().iterator(); I.hasNext();) {
 				EntryFigure entryFigure = (EntryFigure) I.next();
 				entryFigure.onPreferencesUpdate();
 			}
@@ -568,7 +568,7 @@ public final class PaletteComposite extends Composite {
 				int maxWidth = 0;
 				int maxHeight = 0;
 				boolean onlyIcons = m_preferences.getLayoutType() == ONLY_ICONS_TYPE;
-				for (Figure child : getChildren()) {
+				for (IFigure child : getChildren()) {
 					EntryFigure entryFigure = (EntryFigure) child;
 					// update size
 					Dimension entrySize =
@@ -592,7 +592,7 @@ public final class PaletteComposite extends Composite {
 				{
 					int column = 0;
 					int entryY = height;
-					for (Figure child : getChildren()) {
+					for (IFigure child : getChildren()) {
 						EntryFigure entryFigure = (EntryFigure) child;
 						// relocate entry
 						if (onlyIcons) {
