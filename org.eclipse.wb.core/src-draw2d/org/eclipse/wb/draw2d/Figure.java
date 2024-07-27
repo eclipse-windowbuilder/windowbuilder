@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -55,7 +56,8 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 */
 	public final void accept(FigureVisitor visitor, boolean forward) {
 		if (visitor.visit(this)) {
-			List<Figure> children = getChildren();
+			@SuppressWarnings("unchecked")
+			List<Figure> children = (List<Figure>) getChildren();
 			int size = children.size();
 			//
 			if (forward) {
@@ -78,15 +80,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	// Parent/Children
 	//
 	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * @return the {@link List} of children {@link Figure}'s.
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Figure> getChildren() {
-		return (List<Figure>) super.getChildren();
-	}
 
 	/**
 	 * @return the {@link FigureCanvas} that contains this {@link Figure}.
@@ -149,7 +142,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 
 	@Override
 	protected void paintChildren(Graphics graphics) {
-		List<Figure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty()) {
 			return;
 		}
@@ -158,7 +151,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		graphics.translate(insets.left, insets.top);
 		graphics.pushState();
 		// paint all
-		for (Figure childFigure : children) {
+		for (IFigure childFigure : children) {
 			if (childFigure.isVisible() && childFigure.intersects(graphics.getClip(new Rectangle()))) {
 				Rectangle childBounds = childFigure.getBounds();
 				graphics.clipRect(childBounds);

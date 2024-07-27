@@ -42,6 +42,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
@@ -273,9 +274,9 @@ IHeadersProvider {
 						AbsolutePolicyUtils.COLOR_OUTLINE, bounds));
 			}
 			//
-			List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
+			List<? extends IFigure> moveFeedbackFigures = m_moveFeedback.getChildren();
 			for (int i = 0; i < moveFeedbackFigures.size(); ++i) {
-				Figure figure = moveFeedbackFigures.get(i);
+				IFigure figure = moveFeedbackFigures.get(i);
 				figure.getBounds().performTranslate(-widgetBounds.x, -widgetBounds.y);
 				relativeBounds[i] = figure.getBounds().getCopy();
 			}

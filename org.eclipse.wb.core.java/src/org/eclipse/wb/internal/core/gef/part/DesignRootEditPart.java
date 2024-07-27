@@ -169,7 +169,7 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 		@Override
 		public Dimension getPreferredSize(Dimension originalPreferredSize) {
 			Rectangle preferred = new Rectangle();
-			for (Figure figure : getChildren()) {
+			for (IFigure figure : getChildren()) {
 				if (figure.isVisible()) {
 					preferred.union(figure.getBounds());
 				}
