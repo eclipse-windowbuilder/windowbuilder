@@ -307,6 +307,25 @@ public final class SwingUtils {
 	}
 
 	/**
+	 * @return location of given {@code child} {@link Component} relative to the
+	 *         {@code parent} {@link Component}.
+	 */
+	public static Point getRelativeLocation(final Component parentComponent, final Component childComponent)
+			throws Exception {
+		try {
+			return runObjectLaterAndWait(() -> {
+				Point parentLocation = getScreenLocation(parentComponent);
+				Point childLocation = getScreenLocation(childComponent);
+				int relX = childLocation.x - parentLocation.x;
+				int relY = childLocation.y - parentLocation.y;
+				return new Point(relX, relY);
+			});
+		} catch (IllegalComponentStateException e) {
+			return new Point();
+		}
+	}
+
+	/**
 	 * Convert SWT color to AWT color.
 	 */
 	public static java.awt.Color getAWTColor(org.eclipse.swt.graphics.Color color) {
