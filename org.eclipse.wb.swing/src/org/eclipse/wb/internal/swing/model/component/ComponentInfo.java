@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -165,10 +165,9 @@ public class ComponentInfo extends AbstractComponentInfo {
 					AbstractComponentInfo parentModel = (AbstractComponentInfo) model.getParent();
 					Object parentObject = parentModel.getComponentObject();
 					if (parentObject instanceof Component parentComponent) {
-						java.awt.Point p_component = SwingUtils.getScreenLocation(component);
-						java.awt.Point p_parent = SwingUtils.getScreenLocation(parentComponent);
-						bounds.x = p_component.x - p_parent.x;
-						bounds.y = p_component.y - p_parent.y;
+						java.awt.Point relativeLocation = SwingUtils.getRelativeLocation(parentComponent, component);
+						bounds.x = relativeLocation.x;
+						bounds.y = relativeLocation.y;
 					}
 				}
 				// remember bounds
