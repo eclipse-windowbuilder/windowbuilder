@@ -314,8 +314,8 @@ public final class SwingUtils {
 			throws Exception {
 		try {
 			return runObjectLaterAndWait(() -> {
-				Point parentLocation = getScreenLocation(parentComponent);
-				Point childLocation = getScreenLocation(childComponent);
+				Point parentLocation = parentComponent.getLocationOnScreen();
+				Point childLocation = childComponent.getLocationOnScreen();
 				int relX = childLocation.x - parentLocation.x;
 				int relY = childLocation.y - parentLocation.y;
 				return new Point(relX, relY);
