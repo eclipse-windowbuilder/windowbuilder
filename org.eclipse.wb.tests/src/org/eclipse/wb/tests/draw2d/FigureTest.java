@@ -300,7 +300,12 @@ public class FigureTest extends Draw2dFigureTestCase {
 		/*
 		 * === assert remove from empty parent ===
 		 */
-		assertThrows(NullPointerException.class, () -> parentFigure.remove(null));
+		try {
+			parentFigure.remove(null);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
+		}
 		//
 		try {
 			parentFigure.remove(new Figure());
