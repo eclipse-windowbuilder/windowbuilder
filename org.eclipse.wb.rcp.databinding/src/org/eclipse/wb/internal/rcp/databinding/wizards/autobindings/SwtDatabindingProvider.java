@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -225,15 +225,14 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 		//
 		String observeMethod = null;
 		if (automaticWizardStub == null) {
+			String className;
 			if (ObservableInfo.isPojoBean(m_beanClass)) {
-				String pojoClass = DataBindingsCodeUtils.getPojoObservablesClass();
-				observeMethod =
-						"ObserveValue = " + ClassUtils.getShortClassName(pojoClass) + ".observeValue(";
-				importList.add(pojoClass);
+				className = DataBindingsCodeUtils.getPojoObservablesClass();
 			} else {
-				observeMethod = "ObserveValue = BeansObservables.observeValue(";
-				importList.add("org.eclipse.core.databinding.beans.BeansObservables");
+				className = DataBindingsCodeUtils.getBeanObservablesClass();
 			}
+			observeMethod = "ObserveValue = " + ClassUtils.getShortClassName(className) + ".value(";
+			importList.add(className);
 		} else {
 			automaticWizardStub.addImports(importList);
 		}
