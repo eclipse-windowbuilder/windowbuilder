@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.rcp.databinding;
 
-import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.beans.typed.BeanProperties;
 import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.databinding.observable.Realm;
 
@@ -37,6 +37,6 @@ public class BeansListObservableFactory extends BeansObservableFactory {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected IObservable createBeanObservable(Object target) {
-		return BeansObservables.observeList(Realm.getDefault(), target, m_propertyName);
+		return BeanProperties.list(m_propertyName).observe(Realm.getDefault());
 	}
 }

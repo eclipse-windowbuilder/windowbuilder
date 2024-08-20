@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,7 @@ import org.apache.commons.lang3.ClassUtils;
 import java.util.List;
 
 /**
- * Abstract model for factory observable object <code>BeansObservables.XXXFactory(...)</code>.
+ * Abstract model for factory observable object <code>BeanProperties.XXX(...).XXXFactory()</code>.
  *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
@@ -122,18 +122,22 @@ public abstract class AbstractFactoryInfo extends BeansObservableFactoryInfo {
 		String beansClassName =
 				m_isPojoBindable
 				? DataBindingsCodeUtils.getPojoObservablesClass()
-						: "org.eclipse.core.databinding.beans.BeansObservables";
+						: DataBindingsCodeUtils.getBeanObservablesClass();
 		lines.add("org.eclipse.core.databinding.observable.masterdetail.IObservableFactory "
 				+ getVariableIdentifier()
 				+ " = "
 				+ beansClassName
 				+ "."
 				+ m_method
-				+ "(org.eclipse.core.databinding.observable.Realm.getDefault(), "
+				+ "("
 				+ m_propertyName
 				+ ", "
 				+ CoreUtils.getClassName(m_elementType)
 				+ ".class"
-				+ ");");
+				+ ")"
+				+ "."
+				+ m_method
+				+ "Factory(org.eclipse.core.databinding.observable.Realm.getDefault())"
+				+ ";");
 	}
 }

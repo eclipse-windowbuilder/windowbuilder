@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
 /**
- * Model for observable object <code>BeansObservables.setFactory(...)</code>.
+ * Model for observable object <code>BeanProperties.set(...).setFactory(...)</code>.
  *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
@@ -23,6 +23,6 @@ public class BeansObservableSetFactoryInfo extends AbstractFactoryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public BeansObservableSetFactoryInfo() {
-		super("setFactory");
+		super("set");
 	}
 }

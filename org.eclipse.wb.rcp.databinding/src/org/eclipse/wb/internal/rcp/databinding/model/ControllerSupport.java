@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -315,15 +315,14 @@ public class ControllerSupport {
 		//
 		String observeMethod = null;
 		if (automaticWizardStub == null) {
+			String className;
 			if (ObservableInfo.isPojoBean(beanClass)) {
-				String pojoClassName = DataBindingsCodeUtils.getPojoObservablesClass();
-				observeMethod =
-						"ObserveValue = " + ClassUtils.getShortClassName(pojoClassName) + ".observeValue(";
-				controllerImportList.add(pojoClassName);
+				className = DataBindingsCodeUtils.getPojoObservablesClass();
 			} else {
-				observeMethod = "ObserveValue = BeansObservables.observeValue(";
-				controllerImportList.add("org.eclipse.core.databinding.beans.BeansObservables");
+				className = DataBindingsCodeUtils.getBeanObservablesClass();
 			}
+			observeMethod = "ObserveValue = " + ClassUtils.getShortClassName(className) + ".value(";
+			controllerImportList.add(className);
 		} else {
 			automaticWizardStub.addImports(controllerImportList);
 		}
