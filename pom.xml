@@ -179,6 +179,61 @@
             </execution>
           </executions>
         </plugin>
+
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>build-native-binaries</id>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <target>
+                  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+                  <echo>Generating native binaries for os=${os.name}</echo>
+                  <if><equals arg1="${os.name}" arg2="Linux" />
+                    <then>
+                      <property name="gtk.so.file" value="libwbp3.so"/>
+                      <property name="gtk.src.dir" value="${project.basedir}/org.eclipse.wb.os.linux/"/>
+                      <property name="gtk.build.dir" value="${project.build.directory}/gtk-tmp"/>
+                      <property name="gtk3.build.dir" value="${gtk.build.dir}/gtk3"/>
+                      <copy todir="${gtk.build.dir}">
+                        <fileset dir="${gtk.src.dir}/native/gtk"/>
+                      </copy>
+                      <echo>Create build files</echo>
+                      <exec dir="${gtk3.build.dir}" executable="cmake" failonerror="true">
+                        <arg line="."/>
+                      </exec>
+                      <echo>Create "shared object" file</echo>
+                      <exec dir="${gtk3.build.dir}" executable="make" failonerror="true" />
+                      <echo>Copy "shared object" to fragment</echo>
+                      <copy todir="${gtk.src.dir}/os/linux/amd64">
+                        <fileset dir="${gtk3.build.dir}" includes="${gtk.so.file}"/>
+                      </copy>
+                      <copy todir="${gtk.src.dir}/os/linux/x86_64">
+                        <fileset dir="${gtk3.build.dir}" includes="${gtk.so.file}"/>
+                      </copy>
+                    </then>
+                  </if>
+                </target>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>ant-contrib</groupId>
+              <artifactId>ant-contrib</artifactId>
+              <version>1.0b3</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>ant</groupId>
+                  <artifactId>ant</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+          </dependencies>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
