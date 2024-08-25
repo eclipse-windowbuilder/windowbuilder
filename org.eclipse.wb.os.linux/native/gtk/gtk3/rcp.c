@@ -96,6 +96,18 @@ JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1gtk_1widget_1get_1window)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
 	return (JHANDLE) gtk_widget_get_window((GtkWidget*)(CHANDLE) widgetHandle);
 }
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1gtk_1widget_1is_1composited)
+		(JNIEnv *envir, jobject that, JHANDLE jhandle) {
+	return gtk_widget_is_composited((GtkWidget*)(CHANDLE) jhandle);
+}
+JNIEXPORT jdouble JNICALL OS_NATIVE(_1gtk_1widget_1get_1opacity)
+		(JNIEnv *envir, jobject that, JHANDLE jhandle) {
+	return (jdouble) (gtk_widget_get_opacity((GtkWidget*)(CHANDLE) jhandle));
+}
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1set_1opacity)
+		(JNIEnv *envir, jobject that, JHANDLE jhandle, jdouble jalpha) {
+	gtk_widget_set_opacity((GtkWidget*)(CHANDLE) jhandle, (double)jalpha);
+}
 JNIEXPORT void JNICALL OS_NATIVE(_1gdk_1window_1process_1updates)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle, jboolean update_children) {
 	gdk_window_process_updates((GdkWindow*)(CHANDLE) widgetHandle, update_children);
@@ -127,9 +139,6 @@ JNIEXPORT void JNICALL OS_NATIVE(_1getWidgetBounds)
 	getWidgetBounds((GtkWidget*)(CHANDLE) jhandle, envir, jsizes);
 }
 // other
-static int isValidVersion() {
-	return gtk_major_version == 3 && gtk_minor_version >= 0;
-}
 static jboolean isPlusMinusTreeClick(GtkTreeView *tree, gint x, gint y) {
 	gint cell_x;
 	gint cell_y;
@@ -148,28 +157,6 @@ static jboolean isPlusMinusTreeClick(GtkTreeView *tree, gint x, gint y) {
 	}
 	return JNI_FALSE;
 
-}
-JNIEXPORT void JNICALL OS_NATIVE(_1setAlpha)
-		(JNIEnv *envir, jobject that, JHANDLE jshellHandle, jint jalpha) {
-	if (isValidVersion()) {
-		GtkWidget *shell = (GtkWidget*)(CHANDLE) jshellHandle;
-		if (gtk_widget_is_composited(shell)) {
-			int alpha = (int)jalpha;
-			alpha &= 0xFF;
-			gtk_widget_set_opacity(shell, alpha / 255.0);
-		}
-	}
-}
-
-JNIEXPORT jint JNICALL OS_NATIVE(_1getAlpha)
-		(JNIEnv *envir, jobject that, JHANDLE jshellHandle) {
-	if (isValidVersion()) {
-		GtkWidget *shell = (GtkWidget*)(CHANDLE) jshellHandle;
-		if (gtk_widget_is_composited(shell)) {
-			return (jint) (gtk_widget_get_opacity(shell) * 255);
-		}
-	}
-    return 255;
 }
 JNIEXPORT jboolean JNICALL OS_NATIVE(_1isPlusMinusTreeClick)
 		(JNIEnv *envir, jobject that, JHANDLE jhandle, jint jx, jint jy) {
