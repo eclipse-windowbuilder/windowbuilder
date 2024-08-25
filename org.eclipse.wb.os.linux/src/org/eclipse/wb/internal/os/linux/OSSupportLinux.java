@@ -43,7 +43,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-public abstract class OSSupportLinux<H extends Number> extends OSSupport {
+public abstract class OSSupportLinux extends OSSupport {
 	private static Version MINIMUM_VERSION = new Version(3, 126, 0);
 
 	static {
@@ -61,7 +61,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	// Screen shot
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Map<H, Control> m_controlsRegistry;
+	private Map<Long, Control> m_controlsRegistry;
 	private boolean m_eclipseToggledOnTop;
 	private Shell m_eclipseShell;
 
@@ -110,8 +110,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * exists, fills <code>m_needsImage</code>.
 	 */
 	private void registerByHandle(Control control, String handleName) throws Exception {
-		H handle = getHandleValue(control, handleName);
-		if (handle != null) {
+		long handle = getHandleValue(control, handleName);
+		if (handle != 0) {
 			m_controlsRegistry.put(handle, control);
 		}
 	}
@@ -247,7 +247,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 *                 model. Can be <code>null</code>.
 	 * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
 	 */
-	protected abstract Image makeShot(Shell shell, BiConsumer<H, Image> callback) throws Exception;
+	protected abstract Image makeShot(Shell shell, BiConsumer<Long, Image> callback) throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -261,7 +261,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * @return the widget's bounds as {@link Rectangle}.
 	 */
 	private Rectangle getWidgetBounds(Object widget) {
-		H widgetHandle = getHandleValue(widget, "handle");
+		long widgetHandle = getHandleValue(widget, "handle");
 		int[] sizes = new int[4];
 		_getWidgetBounds(widgetHandle, sizes);
 		return new Rectangle(sizes[0], sizes[1], sizes[2], sizes[3]);
@@ -270,9 +270,9 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	/**
 	 * @return the handle value of the {@link Shell} using reflection.
 	 */
-	protected H getShellHandle(Shell shell) {
-		H widgetHandle = getHandleValue(shell, "fixedHandle");
-		if (widgetHandle == null) {
+	protected long getShellHandle(Shell shell) {
+		long widgetHandle = getHandleValue(shell, "fixedHandle");
+		if (widgetHandle == 0) {
 			// may be null, roll back to "shellHandle"
 			widgetHandle = getHandleValue(shell, "shellHandle");
 		}
@@ -346,18 +346,18 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	}
 
 	/**
-	 * @return the H extends Number value as native pointer for native handles. Note: returns
-	 *         <code>null</code> if handle is 0 or cannot be obtained.
+	 * @return the widget as native pointer for native handles. Note: returns
+	 *         0 if handle cannot be obtained.
 	 */
-	protected abstract H getHandleValue(Object widget, String fieldName);
+	protected abstract long getHandleValue(Object widget, String fieldName);
 
 	/**
 	 * @return the Image instance created by SWT internal method Image.gtk_new which uses external
 	 *         GtkPixmap* or cairo_surface_t* pointer.
 	 */
-	protected abstract Image createImage0(H imageHandle) throws Exception;
+	protected abstract Image createImage0(long imageHandle) throws Exception;
 
-	private Image createImage(H imageHandle) throws Exception {
+	private Image createImage(long imageHandle) throws Exception {
 		Image image = createImage0(imageHandle);
 		// BUG in SWT: Image instance is not fully initialized
 		// See https://bugs.eclipse.org/bugs/show_bug.cgi?id=382175
@@ -366,8 +366,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		return newImage;
 	}
 
-	private Image createImage(H windowHandle, int width, int height) throws Exception {
-		H imageHandle = _getImageSurface(windowHandle, width, height);
+	private Image createImage(long windowHandle, int width, int height) throws Exception {
+		long imageHandle = _getImageSurface(windowHandle, width, height);
 		return createImage(imageHandle);
 	}
 
@@ -502,7 +502,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	/**
 	 * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus sign.
 	 */
-	private static native <H extends Number> boolean _isPlusMinusTreeClick(H handle, int x, int y);
+	private static native boolean _isPlusMinusTreeClick(long handle, int x, int y);
 
 	/**
 	 * Sets the <code>alpha</code> value for given <code>shell</code>.
@@ -512,7 +512,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * @param alpha
 	 *          the value of alpha, 0-255, not validated.
 	 */
-	private static native <H extends Number> void _setAlpha(H shellHandle, int alpha);
+	private static native void _setAlpha(long shellHandle, int alpha);
 
 	/**
 	 * Returns the current alpha value for given <code>shellHandle</code>.
@@ -521,7 +521,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 *          the handle of {@link Shell}.
 	 * @return the alpha value.
 	 */
-	private static native <H extends Number> int _getAlpha(H shellHandle);
+	private static native int _getAlpha(long shellHandle);
 
 	/**
 	 * Fills the given array of int with bounds as x, y, width, height sequence.
@@ -531,7 +531,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * @param bounds
 	 *          the array of integer with size 4.
 	 */
-	private static native <H extends Number> void _getWidgetBounds(H widgetHandle, int[] bounds);
+	private static native void _getWidgetBounds(long widgetHandle, int[] bounds);
 
 	/**
 	 * Paints the surface of the given window onto a image. The image is created
@@ -544,7 +544,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * @param height       The height of the window.
 	 * @return The memory address of the image handle.
 	 */
-	private static native <H extends Number> H _getImageSurface(H windowHandle, int width, int height);
+	private static native long _getImageSurface(long windowHandle, int width, int height);
 
 	/**
 	 * Toggles the "above" X Window property. If <code>forceToggle</code> is <code>false</code> then
@@ -556,18 +556,18 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 *          if <code>true</code> then toggling occurred without paying attention to current state.
 	 * @return <code>true</code> if toggling occurred.
 	 */
-	private static native <H extends Number> boolean _toggle_above(H windowHandle,
+	private static native boolean _toggle_above(long windowHandle,
 			boolean forceToggle);
 
 	/**
 	 * Prepares the preview window to screen shot.
 	 */
-	private static native <H extends Number> boolean _begin_shot(H windowHandle);
+	private static native boolean _begin_shot(long windowHandle);
 
 	/**
 	 * Finalizes the process of screen shot.
 	 */
-	private static native <H extends Number> boolean _end_shot(H windowHandle);
+	private static native boolean _end_shot(long windowHandle);
 
 	/**
 	 * <p>Sends one or more expose events to window. The areas in each expose event
@@ -579,24 +579,21 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * an idle handler). Occasionally this is useful to produce nicer scrolling
 	 * behavior, for example.</p>
 	 *
-	 * @param <H>             {@link Long} on a 64bit system, otherwise
-	 *                        {@link Integer}.
 	 * @param window          cast = (GdkWindow*).
 	 * @param update_children Whether to also process updates for child windows.
 	 * @deprecated Deprecated since: 3.22
 	 */
 	@Deprecated
-	private static native <H extends Number> void _gdk_window_process_updates(H window, boolean update_children);
+	private static native void _gdk_window_process_updates(long window, boolean update_children);
 
 	/**
 	 * Checks whether the window has been mapped (with gdk_window_show() or
 	 * gdk_window_show_unraised()).
 	 *
-	 * @param <H>    {@link Long} on a 64bit system, otherwise {@link Integer}.
 	 * @param window cast = (GdkWindow*).
 	 * @return {@code true} if the window is mapped.
 	 */
-	private static native <H extends Number> boolean _gdk_window_is_visible(H window);
+	private static native boolean _gdk_window_is_visible(long window);
 
 	/**
 	 * <p>Any of the return location arguments to this function may be {@code null},
@@ -619,25 +616,23 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * functions support the full 32-bit coordinate space, whereas
 	 * gdk_window_get_geometry() is restricted to the 16-bit coordinates of X11.</p>
 	 *
-	 * @param <H>    {@link Long} on a 64bit system, otherwise {@link Integer}.
 	 * @param window cast = (GdkWindow*)
 	 * @param x      cast = (gint*)
 	 * @param y      cast = (gint*)
 	 * @param width  cast = (gint*)
 	 * @param height cast = (gint*)
 	 */
-	private static native <H extends Number> void _gdk_window_get_geometry(H window, int[] x, int[] y, int[] width,
+	private static native void _gdk_window_get_geometry(long window, int[] x, int[] y, int[] width,
 			int[] height);
 
 	/**
 	 * <p>Returns the widget’s window if it is realized, {@code null} otherwise.</p>
 	 *
-	 * @param <H>    {@link Long} on a 64bit system, otherwise {@link Integer}.
 	 * @param widget cast = (GtkWidget*)
 	 * @return {@code widget}'s window. The data is owned by the instance. The
 	 *         return value can be {@code null}.
 	 */
-	private static native <H extends Number> H _gtk_widget_get_window(H widget);
+	private static native long _gtk_widget_get_window(long widget);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -651,8 +646,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * Windows and MacOS and thus would result in compile errors, if this workspace
 	 * is checked out on those systems.</p>
 	 *
-	 * @param <H>             {@link Long} on a 64bit system, otherwise
-	 *                        {@link Integer}.
 	 * @param methodSignature method signature. e.g. {@code gdk_window_show(long)}.
 	 * @param args            method arguments.
 	 * @return method return value. {@code null} for {@code void}.
@@ -667,8 +660,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * Windows and MacOS and thus would result in compile errors, if this workspace
 	 * is checked out on those systems.</p>
 	 *
-	 * @param <H>             {@link Long} on a 64bit system, otherwise
-	 *                        {@link Integer}.
 	 * @param methodSignature method signature. e.g. {@code g_object_unref(long)}.
 	 * @param args            method arguments.
 	 * @return method return value. {@code null} for {@code void}.
@@ -684,8 +675,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * is checked out on those systems.</p>
 	 * <p>The classes are loaded using the {@link OSSupportLinux} classloader.</p>
 	 *
-	 * @param <H>             {@link Long} on a 64bit system, otherwise
-	 *                        {@link Integer}.
 	 * @param fullClassName   fully qualified class name.
 	 * @param methodSignature method signature. e.g. {@code g_object_unref(long)}.
 	 * @param args            method arguments.
@@ -703,16 +692,12 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	// Implementations
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final class Impl64 extends OSSupportLinux<Long> {
+	private static final class Impl64 extends OSSupportLinux {
 		private final VisualDataMockupProvider mockupProvider = new VisualDataMockupProvider();
 
 		@Override
-		protected Long getHandleValue(Object widget, String fieldName) {
-			long value = ReflectionUtils.getFieldLong(widget, fieldName);
-			if (value != 0) {
-				return value;
-			}
-			return null;
+		protected long getHandleValue(Object widget, String fieldName) {
+			return ReflectionUtils.getFieldLong(widget, fieldName);
 		}
 
 		@Override
@@ -721,7 +706,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		}
 
 		@Override
-		protected Image createImage0(Long imageHandle) throws Exception {
+		protected Image createImage0(long imageHandle) throws Exception {
 			return (Image) ReflectionUtils.invokeMethod2(
 					Image.class,
 					"gtk_new",
@@ -731,11 +716,11 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 					long.class,
 					null,
 					SWT.BITMAP,
-					imageHandle.longValue(),
+					imageHandle,
 					0);
 		}
 
-		protected Image getImageSurface(Long window, BiConsumer<Long, Image> callback) throws Exception {
+		protected Image getImageSurface(long window, BiConsumer<Long, Image> callback) throws Exception {
 			if (!_gdk_window_is_visible(window)) {
 				// don't deal with unmapped windows
 				return null;
@@ -758,7 +743,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 			return image;
 		}
 
-		private Image traverse(Long window, BiConsumer<Long, Image> callback) throws Exception {
+		private Image traverse(long window, BiConsumer<Long, Image> callback) throws Exception {
 			Image image = getImageSurface(window, callback);
 			if (image == null) {
 				return null;
