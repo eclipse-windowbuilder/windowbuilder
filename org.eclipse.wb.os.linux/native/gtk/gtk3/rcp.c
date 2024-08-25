@@ -67,13 +67,11 @@ static cairo_surface_t* copyImageSurface(GdkWindow *sourceWindow, gint width, gi
 // JNI
 //
 ////////////////////////////////////////////////////////////////////////////
-JNIEXPORT jboolean JNICALL 
-	OS_NATIVE(_1gdk_1window_1is_1visible)
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1gdk_1window_1is_1visible)
 		(JNIEnv *envir, jobject that, JHANDLE windowHandle) {
 	return gdk_window_is_visible((GdkWindow*)unwrap_pointer(envir, windowHandle));
 }
-JNIEXPORT void JNICALL 
-	OS_NATIVE(_1gdk_1window_1get_1geometry)
+JNIEXPORT void JNICALL OS_NATIVE(_1gdk_1window_1get_1geometry)
 		(JNIEnv *envir, jobject that, JHANDLE windowHandle, jintArray x, jintArray y, jintArray width, jintArray height) {
 	jint x1;
 	jint y1;
@@ -93,44 +91,38 @@ JNIEXPORT void JNICALL
 		(*envir) -> SetIntArrayRegion(envir, height, 0, 1, &height1);
 	}
 }
-JNIEXPORT JHANDLE JNICALL 
-	OS_NATIVE(_1gtk_1widget_1get_1window)
+JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1gtk_1widget_1get_1window)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
 	return (JHANDLE)wrap_pointer(envir, gtk_widget_get_window((GtkWidget*)unwrap_pointer(envir, widgetHandle)));
 }
-JNIEXPORT JHANDLE JNICALL 
-	OS_NATIVE(_1gdk_1window_1process_1updates)
+JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1gdk_1window_1process_1updates)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle, jboolean update_children) {
 	gdk_window_process_updates((GdkWindow*)unwrap_pointer(envir, widgetHandle), update_children);
 }
-JNIEXPORT jboolean JNICALL 
-	OS_NATIVE(_1toggle_1above)
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1toggle_1above)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle, jboolean forceToggle) {
 	// NOT IMPLEMENTED
 	return JNI_TRUE;
 }
-JNIEXPORT jboolean JNICALL 
-	OS_NATIVE(_1begin_1shot)
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1begin_1shot)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
 	// just show it
 	gtk_widget_show_now((GtkWidget*)unwrap_pointer(envir, widgetHandle));
 	return JNI_TRUE;
 }
-JNIEXPORT jboolean JNICALL 
-	OS_NATIVE(_1end_1shot)
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1end_1shot)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
 	// hide then
 	gtk_widget_hide((GtkWidget*)unwrap_pointer(envir, widgetHandle));
 	return JNI_TRUE;
 }
-JNIEXPORT JHANDLE JNICALL 
-	OS_NATIVE(_1getImageSurface)
+JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1getImageSurface)
 		(JNIEnv *envir, jobject that, JHANDLE windowHandle, jint width, jint height) {
 	return (JHANDLE)wrap_pointer(envir, copyImageSurface((GdkWindow*)unwrap_pointer(envir, windowHandle), width, height));
 }
 // tab item bounds
-JNIEXPORT void JNICALL OS_NATIVE(_1getWidgetBounds)(
-			JNIEnv *envir, jobject that, JHANDLE jhandle, jintArray jsizes) {
+JNIEXPORT void JNICALL OS_NATIVE(_1getWidgetBounds)
+		(JNIEnv *envir, jobject that, JHANDLE jhandle, jintArray jsizes) {
 	getWidgetBounds((GtkWidget*)unwrap_pointer(envir, jhandle), envir, jsizes);
 }
 // other
@@ -156,8 +148,8 @@ static jboolean isPlusMinusTreeClick(GtkTreeView *tree, gint x, gint y) {
 	return JNI_FALSE;
 
 }
-JNIEXPORT void JNICALL OS_NATIVE(_1setAlpha)(
-			JNIEnv *envir, jobject that, JHANDLE jshellHandle, jint jalpha) {
+JNIEXPORT void JNICALL OS_NATIVE(_1setAlpha)
+		(JNIEnv *envir, jobject that, JHANDLE jshellHandle, jint jalpha) {
 	if (isValidVersion()) {
 		GtkWidget *shell = (GtkWidget*)unwrap_pointer(envir, jshellHandle);
 		if (gtk_widget_is_composited(shell)) {
@@ -168,8 +160,8 @@ JNIEXPORT void JNICALL OS_NATIVE(_1setAlpha)(
 	}
 }
 
-JNIEXPORT jint JNICALL OS_NATIVE(_1getAlpha)(
-			JNIEnv *envir, jobject that, JHANDLE jshellHandle) {
+JNIEXPORT jint JNICALL OS_NATIVE(_1getAlpha)
+		(JNIEnv *envir, jobject that, JHANDLE jshellHandle) {
 	if (isValidVersion()) {
 		GtkWidget *shell = (GtkWidget*)unwrap_pointer(envir, jshellHandle);
 		if (gtk_widget_is_composited(shell)) {
@@ -178,8 +170,8 @@ JNIEXPORT jint JNICALL OS_NATIVE(_1getAlpha)(
 	}
     return 255;
 }
-JNIEXPORT jboolean JNICALL OS_NATIVE(_1isPlusMinusTreeClick)(
-			JNIEnv *envir, jobject that, JHANDLE jhandle, jint jx, jint jy) {
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1isPlusMinusTreeClick)
+		(JNIEnv *envir, jobject that, JHANDLE jhandle, jint jx, jint jy) {
 	return isPlusMinusTreeClick((GtkTreeView*)unwrap_pointer(envir, jhandle), (gint)jx, (gint)jy);
 }
 
