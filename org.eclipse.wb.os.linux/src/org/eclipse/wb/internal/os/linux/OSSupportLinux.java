@@ -429,12 +429,17 @@ public abstract class OSSupportLinux extends OSSupport {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void setAlpha(Shell shell, int alpha) {
-		_setAlpha(getShellHandle(shell), alpha);
+		if (_gtk_widget_is_composited(getShellHandle(shell))) {
+			_gtk_widget_set_opacity(getShellHandle(shell), alpha / 255.0);
+		}
 	}
 
 	@Override
 	public int getAlpha(Shell shell) {
-		return _getAlpha(getShellHandle(shell));
+		if (_gtk_widget_is_composited(getShellHandle(shell))) {
+			return (int) (_gtk_widget_get_opacity(getShellHandle(shell)) * 255);
+		}
+		return 255;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -503,25 +508,6 @@ public abstract class OSSupportLinux extends OSSupport {
 	 * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus sign.
 	 */
 	private static native boolean _isPlusMinusTreeClick(long handle, int x, int y);
-
-	/**
-	 * Sets the <code>alpha</code> value for given <code>shell</code>.
-	 *
-	 * @param shellHandle
-	 *          the handle of {@link Shell}.
-	 * @param alpha
-	 *          the value of alpha, 0-255, not validated.
-	 */
-	private static native void _setAlpha(long shellHandle, int alpha);
-
-	/**
-	 * Returns the current alpha value for given <code>shellHandle</code>.
-	 *
-	 * @param shellHandle
-	 *          the handle of {@link Shell}.
-	 * @return the alpha value.
-	 */
-	private static native int _getAlpha(long shellHandle);
 
 	/**
 	 * Fills the given array of int with bounds as x, y, width, height sequence.
@@ -633,6 +619,49 @@ public abstract class OSSupportLinux extends OSSupport {
 	 *         return value can be {@code null}.
 	 */
 	private static native long _gtk_widget_get_window(long widget);
+
+	/**
+	 * Whether {@code widget} can rely on having its alpha channel drawn correctly.
+	 * On X11 this function returns whether a compositing manager is running for
+	 * {@code widget} screen.
+	 *
+	 * Please note that the semantics of this call will change in the future if used
+	 * on a widget that has a composited window in its hierarchy (as set by
+	 * gdk_window_set_composited()).
+	 *
+	 * @return {@code true} if the widget can rely on its alpha channel being drawn
+	 *         correctly.
+	 * @deprecated Deprecated by {@code gdk_screen_is_composited()}
+	 */
+	@Deprecated(since = "GTK 3.22")
+	private static native boolean _gtk_widget_is_composited(long widget);
+
+	/**
+	 * Fetches the requested opacity for this widget. See
+	 * {@link #_gtk_widget_set_opacity(Number, int)}.
+	 *
+	 * @return The requested opacity for this widget.
+	 */
+	private static native double _gtk_widget_get_opacity(long widget);
+
+	/**
+	 * Request the {@code widget} to be rendered partially transparent, with opacity
+	 * 0 being fully transparent and 1 fully opaque. (Opacity values are clamped to
+	 * the [0,1] range.). This works on both toplevel widget, and child widgets,
+	 * although there are some limitations:
+	 *
+	 * For toplevel widgets this depends on the capabilities of the windowing
+	 * system. On X11 this has any effect only on X screens with a compositing
+	 * manager running. See gtk_widget_is_composited(). On Windows it should work
+	 * always, although setting a window’s opacity after the window has been shown
+	 * causes it to flicker once on Windows.
+	 *
+	 * For child widgets it doesn’t work if any affected widget has a native window,
+	 * or disables double buffering.
+	 *
+	 * @param alpha Desired opacity, between 0 and 1.
+	 */
+	private static native void _gtk_widget_set_opacity(long widget, double alpha);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
