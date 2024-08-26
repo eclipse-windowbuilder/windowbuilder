@@ -1,15 +1,11 @@
-= What's New - v1.5.0
+= What's New - v1.17.0
 
-* General support for running in e4
-* Support for editing e4 parts
-* New e4 ViewPart wizard
-* Morphing support for XML-based UIs
-* New GoTo Definition action for XML-based UIs
-* Split editor layout support for XML-based UIs
-* New i18n "Rename keys on component variable change" preference
-* Support for mappings/data binding with java enumerations
-* Support for JComponent "border" copy/paste
-* Exclude properties incompatible with the project JVM
-* Support for externalizing "TitleBorder.title"
+* Provisional support for Windows aarch64
+* Continuous migration towards the new Observables API
+* Continuous migration towards the latest GEF Classic version
+* Support dropped for projects using < Java 8
+* Initial contribution of high-DPI variants for WB icons
 
-What's new - link:v100.html[*v1.0.0*]
+For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/9[1.17.0] milestone.
+
+What's new - link:v150.html[*v1.5.0*]

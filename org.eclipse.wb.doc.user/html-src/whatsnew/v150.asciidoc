@@ -1,0 +1,15 @@
+= What's New - v1.5.0
+
+* General support for running in e4
+* Support for editing e4 parts
+* New e4 ViewPart wizard
+* Morphing support for XML-based UIs
+* New GoTo Definition action for XML-based UIs
+* Split editor layout support for XML-based UIs
+* New i18n "Rename keys on component variable change" preference
+* Support for mappings/data binding with java enumerations
+* Support for JComponent "border" copy/paste
+* Exclude properties incompatible with the project JVM
+* Support for externalizing "TitleBorder.title"
+
+What's new - link:pro/v100.html[*v1.0.0*]
