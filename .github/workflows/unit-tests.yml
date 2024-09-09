@@ -29,7 +29,7 @@ jobs:
            done
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@567cc7f8dcea3eba5da355f6ebc95663310d8a07
+        uses: EnricoMi/publish-unit-test-result-action@82082dac68ad6a19d980f8ce817e108b9f496c2a
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           files: "artifacts/**/*.xml"
