@@ -21,8 +21,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-jarsigner-version>1.3.2</eclipse-jarsigner-version>
-    <baseline.repo>https://download.eclipse.org/releases/2024-06</baseline.repo>
-    <eclipse.repo>https://download.eclipse.org/releases/2024-09</eclipse.repo>
+    <baseline.repo>https://download.eclipse.org/releases/2024-09</baseline.repo>
+    <eclipse.repo>https://download.eclipse.org/releases/2024-12</eclipse.repo>
     <tycho.sbom.url>${eclipse.repo}</tycho.sbom.url>
   </properties>
 
