@@ -18,7 +18,7 @@
   </parent>
   <groupId>org.eclipse.wb</groupId>
   <artifactId>org.eclipse.wb.tests</artifactId>
-  <version>1.4.100-SNAPSHOT</version>
+  <version>1.5.0-SNAPSHOT</version>
   <packaging>eclipse-test-plugin</packaging>
 
  
@@ -70,15 +70,39 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<!-- Overwrites default goal! -->
+						<id>default-test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>**/org.eclipse.wb.tests.designer.WindowBuilderTests.java</include>
+							</includes>
+							<useUIHarness>true</useUIHarness>
+							<useUIThread>true</useUIThread>
+						</configuration>
+					</execution>
+					<execution>
+						<id>swtbot-test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>**/org.eclipse.wb.tests.swtbot.designer.WindowBuilderTests.java</include>
+							</includes>
+							<useUIHarness>true</useUIHarness>
+							<useUIThread>false</useUIThread>
+						</configuration>
+					</execution>
+				</executions>
 				<configuration>
 					<argLine>${ui.test.vmargs}</argLine>
 					<appArgLine>-nl de -clearPersistedState -consoleLog</appArgLine>
-					<useUIHarness>true</useUIHarness>
-					<useUIThread>true</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
-          			<includes>
-						<include>**/org.eclipse.wb.tests.designer.WindowBuilderTests.java</include>
-          			</includes>
 					<dependencies>
 					   <!-- required for PlatformAdmin to work-->
 						<dependency>
