@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WindowBuilder Tests
 Bundle-SymbolicName: org.eclipse.wb.tests;singleton:=true
-Bundle-Version: 1.4.100.qualifier
+Bundle-Version: 1.5.0.qualifier
 Bundle-Activator: org.eclipse.wb.tests.designer.tests.Activator
 Bundle-Vendor: Google
 Bundle-RequiredExecutionEnvironment: JavaSE-17
@@ -27,6 +27,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.nebula.widgets.ganttchart,
  org.eclipse.nebula.widgets.grid,
  org.eclipse.nebula.widgets.pshelf,
+ org.eclipse.swtbot.eclipse.finder;bundle-version="4.2.1",
  org.eclipse.wb.core;bundle-version="1.12.0",
  org.eclipse.wb.core.java,
  org.eclipse.wb.swing,
@@ -159,6 +160,7 @@ Import-Package: com.jgoodies.forms.factories;version="[1.9.0,2.0.0]",
  org.assertj.core.api,
  org.assertj.core.data;version="3.24.2",
  org.assertj.core.description;version="3.24.2",
- org.assertj.core.util;version="3.24.2"
+ org.assertj.core.util;version="3.24.2",
+ org.slf4j;version="[1.7.0,2.0.0)"
 Automatic-Module-Name: org.eclipse.wb.tests
 

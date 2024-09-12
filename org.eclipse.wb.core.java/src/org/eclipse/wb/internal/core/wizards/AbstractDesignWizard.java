@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IModuleDescription;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 
 import java.io.ByteArrayInputStream;
@@ -162,10 +161,9 @@ public abstract class AbstractDesignWizard extends DesignerNewElementWizard {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the {@link IJavaProject} of selection, may be <code>null</code>.
+	 * @return the {@link IJavaProject} of main page, may be <code>null</code>.
 	 */
 	protected final IJavaProject getJavaProject() {
-		IStructuredSelection selection = getSelection();
-		return WizardUtils.getJavaProject(selection);
+		return m_mainPage.getJavaProject();
 	}
 }

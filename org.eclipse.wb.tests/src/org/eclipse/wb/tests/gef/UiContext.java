@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,7 +47,12 @@ import java.util.function.Predicate;
  * Helper for testing SWT UI.
  *
  * @author scheglov_ke
+ * @deprecated Using the UiContext is inherently unsafe as any exceptions thrown
+ *             inside the runnables are likely to cause deadlocks. Consider
+ *             using the SWTBot instead, for a test execution outside the UI
+ *             thread.
  */
+@Deprecated(forRemoval = true)
 public class UiContext {
 	private final Display m_display;
 	private Shell m_shell;

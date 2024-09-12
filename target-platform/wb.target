@@ -7,6 +7,7 @@
 			<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.swtbot.ide.feature.group" version="0.0.0"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://archive.eclipse.org/nebula/releases/3.1.1/"/>
