@@ -85,29 +85,6 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
-    <!-- Minor version increases in required plugins/features require a major
-         version increase in the WindowBuilder feature. We don't want that! -->
-    <profile>
-      <id>skip-feature-baseline-check</id>
-      <activation>
-        <file>
-            <exists>feature.xml</exists>
-        </file>
-      </activation>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.eclipse.tycho</groupId>
-              <artifactId>tycho-baseline-plugin</artifactId>
-              <configuration>
-                <skip>true</skip>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
   </profiles>
 
   <build>
@@ -342,7 +319,6 @@
           <ignores>
             <ignore>META-INF/ECLIPSE_.RSA</ignore>
             <ignore>META-INF/ECLIPSE_.SF</ignore>
-            <ignore>META-INF/maven/**/*</ignore>
           </ignores>
           <baselines>
             <repository>
