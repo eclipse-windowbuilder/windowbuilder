@@ -30,7 +30,8 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-					<configuration>
+				<version>3.4.0</version>
+				<configuration>
 						<filesets>
 							<fileset>
 								<directory>${basedir}/src-gen</directory>
