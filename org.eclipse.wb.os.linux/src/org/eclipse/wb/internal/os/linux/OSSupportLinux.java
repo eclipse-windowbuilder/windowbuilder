@@ -261,10 +261,10 @@ public abstract class OSSupportLinux extends OSSupport {
 	 * @return the widget's bounds as {@link Rectangle}.
 	 */
 	private Rectangle getWidgetBounds(Object widget) {
+		GtkAllocation rect = new GtkAllocation();
 		long widgetHandle = getHandleValue(widget, "handle");
-		int[] sizes = new int[4];
-		_getWidgetBounds(widgetHandle, sizes);
-		return new Rectangle(sizes[0], sizes[1], sizes[2], sizes[3]);
+		_gtk_widget_get_allocation(widgetHandle, rect);
+		return new Rectangle(rect.x, rect.y, rect.width, rect.height);
 	}
 
 	/**
@@ -510,14 +510,27 @@ public abstract class OSSupportLinux extends OSSupport {
 	private static native boolean _isPlusMinusTreeClick(long handle, int x, int y);
 
 	/**
-	 * Fills the given array of int with bounds as x, y, width, height sequence.
 	 *
-	 * @param widgetHandle
-	 *          the handle (GtkWidget*) of widget.
-	 * @param bounds
-	 *          the array of integer with size 4.
+	 * Retrieves the widget’s allocation.
+	 *
+	 * Note, when implementing a GtkContainer: a widget’s allocation will be its
+	 * “adjusted” allocation, that is, the widget’s parent container typically calls
+	 * gtk_widget_size_allocate() with an allocation, and that allocation is then
+	 * adjusted (to handle margin and alignment for example) before assignment to
+	 * the widget. gtk_widget_get_allocation() returns the adjusted allocation that
+	 * was actually assigned to the widget. The adjusted allocation is guaranteed to
+	 * be completely contained within the gtk_widget_size_allocate() allocation,
+	 * however. So a GtkContainer is guaranteed that its children stay inside the
+	 * assigned bounds, but not that they have exactly the bounds the container
+	 * assigned. There is no way to get the original allocation assigned by
+	 * gtk_widget_size_allocate(), since it isn’t stored; if a container
+	 * implementation needs that information it will have to track it itself.
+	 *
+	 *
+	 * @param widgetHandle the handle (GtkWidget*) of widget.
+	 * @param rect         A pointer to a GtkAllocation to copy to.
 	 */
-	private static native void _getWidgetBounds(long widgetHandle, int[] bounds);
+	private static native void _gtk_widget_get_allocation(long widgetHandle, GtkAllocation rect);
 
 	/**
 	 * Paints the surface of the given window onto a image. The image is created

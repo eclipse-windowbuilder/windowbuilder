@@ -16,23 +16,44 @@
 
 ////////////////////////////////////////////////////////////////////////////
 //
-// Widget bounds
+// GtkAllocation
 //
 ////////////////////////////////////////////////////////////////////////////
-static void getWidgetBounds(GtkWidget* widget, JNIEnv *envir, jintArray jsizes) {
-	GtkAllocation a;
-	// prepare buffer
-	jsize sizesSize = (*envir)->GetArrayLength(envir, jsizes);
-	jint *sizes = malloc(sizesSize * sizeof(jint));
-	memset(&a, 0, sizeof(GtkAllocation));
-	gtk_widget_get_allocation(widget, &a);
-	*(sizes + 0) = a.x;
-	*(sizes + 1) = a.y;
-	*(sizes + 2) = a.width;
-	*(sizes + 3) = a.height;
-	// copy dimensions into java array
-	(*envir)->SetIntArrayRegion(envir, jsizes, 0, sizesSize, sizes);
-	free(sizes);
+
+typedef struct JGtkAllocation {
+	jclass clazz;
+	jfieldID x;
+	jfieldID y;
+	jfieldID width;
+	jfieldID height;
+} JGtkAllocation;
+JGtkAllocation GTK_ALLOCATION = { .clazz = NULL};
+
+static void init_gtk_allocation(JNIEnv *envir, jobject jallocation) {
+	if (GTK_ALLOCATION.clazz != NULL) {
+		return;
+	}
+	GTK_ALLOCATION.clazz = (*envir)->GetObjectClass(envir, jallocation);
+	GTK_ALLOCATION.x = (*envir)->GetFieldID(envir, GTK_ALLOCATION.clazz, "x", "I");
+	GTK_ALLOCATION.y = (*envir)->GetFieldID(envir, GTK_ALLOCATION.clazz, "y", "I");
+	GTK_ALLOCATION.width = (*envir)->GetFieldID(envir, GTK_ALLOCATION.clazz, "width", "I");
+	GTK_ALLOCATION.height = (*envir)->GetFieldID(envir, GTK_ALLOCATION.clazz, "height", "I");
+}
+
+static void get_gtk_allocation(JNIEnv *envir, jobject jallocation, GtkAllocation *allocation) {
+	init_gtk_allocation(envir, jallocation);
+	allocation->x = (*envir)->GetIntField(envir, jallocation, GTK_ALLOCATION.x);
+	allocation->y = (*envir)->GetIntField(envir, jallocation, GTK_ALLOCATION.y);
+	allocation->width = (*envir)->GetIntField(envir, jallocation, GTK_ALLOCATION.width);
+	allocation->height = (*envir)->GetIntField(envir, jallocation, GTK_ALLOCATION.height);
+}
+
+static void set_gtk_allocation(JNIEnv *envir, jobject jallocation, GtkAllocation *allocation) {
+	init_gtk_allocation(envir, jallocation);
+	(*envir)->SetIntField(envir, jallocation, GTK_ALLOCATION.x, (jint)allocation->x);
+	(*envir)->SetIntField(envir, jallocation, GTK_ALLOCATION.y, (jint)allocation->y);
+	(*envir)->SetIntField(envir, jallocation, GTK_ALLOCATION.width, (jint)allocation->width);
+	(*envir)->SetIntField(envir, jallocation, GTK_ALLOCATION.height, (jint)allocation->height);
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -132,9 +153,11 @@ JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1getImageSurface)
 	return (JHANDLE) copyImageSurface((GdkWindow*)(CHANDLE) windowHandle, width, height);
 }
 // tab item bounds
-JNIEXPORT void JNICALL OS_NATIVE(_1getWidgetBounds)
-		(JNIEnv *envir, jobject that, JHANDLE jhandle, jintArray jsizes) {
-	getWidgetBounds((GtkWidget*)(CHANDLE) jhandle, envir, jsizes);
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1get_1allocation)
+		(JNIEnv *envir, jobject that, JHANDLE jhandle, jobject jallocation) {
+	GtkAllocation allocation;
+	gtk_widget_get_allocation((GtkWidget*)(CHANDLE) jhandle, &allocation);
+	set_gtk_allocation(envir, jallocation, &allocation);
 }
 // other
 static jboolean isPlusMinusTreeClick(GtkTreeView *tree, gint x, gint y) {
