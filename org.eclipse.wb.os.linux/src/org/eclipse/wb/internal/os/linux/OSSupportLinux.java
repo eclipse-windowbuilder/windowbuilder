@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.Version;
@@ -449,7 +448,29 @@ public abstract class OSSupportLinux extends OSSupport {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean isPlusMinusTreeClick(Tree tree, int x, int y) {
-		return _isPlusMinusTreeClick(getHandleValue(tree, "handle"), x, y);
+		int[] cell_x = new int[1];
+		int[] cell_y = new int[1];
+		long[] /* GtkTreePath */ path = new long[1];
+		long[] /* GtkTreeViewColumn */ column = new long[1];
+		long /* GtkTreeView */ tree_view = getHandleValue(tree, "handle");
+		//
+		try {
+			if (_gtk_tree_view_get_path_at_pos(tree_view, x, y, path, column, cell_x, cell_y)) {
+				long expanderColumn = _gtk_tree_view_get_expander_column(tree_view);
+				if (expanderColumn == column[0]) {
+					GdkRectangle rect = new GdkRectangle();
+					_gtk_tree_view_get_cell_area(tree_view, path[0], column[0], rect);
+					if (x < rect.x) {
+						return true;
+					}
+				}
+			}
+			return false;
+		} finally {
+			if (path[0] != 0) {
+				_gtk_tree_path_free(path[0]);
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -504,10 +525,6 @@ public abstract class OSSupportLinux extends OSSupport {
 	// Native
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus sign.
-	 */
-	private static native boolean _isPlusMinusTreeClick(long handle, int x, int y);
 
 	/**
 	 *
@@ -679,6 +696,52 @@ public abstract class OSSupportLinux extends OSSupport {
 	 * @param alpha Desired opacity, between 0 and 1.
 	 */
 	private static native void _gtk_widget_set_opacity(long widget, double alpha);
+
+	/**
+	 * Returns the column that is the current expander column. This column has the
+	 * expander arrow drawn next to it.
+	 */
+	private static native long _gtk_tree_view_get_expander_column(long tree_view);
+
+	/**
+	 * Fills the bounding rectangle in bin_window coordinates for the cell at the
+	 * row specified by {@code path} and the column specified by {@code column}. If
+	 * {@code path} is {@code NULL}, or points to a path not currently displayed,
+	 * the {@code y} and {@code height} fields of the rectangle will be filled with
+	 * 0. If column is {@code NULL}, the {@code x} and {@code width} fields will be
+	 * filled with 0. The sum of all cell rects does not cover the entire tree;
+	 * there are extra pixels in between rows, for example. The returned rectangle
+	 * is equivalent to the {@code cell_area} passed to gtk_cell_renderer_render().
+	 * This function is only valid if {@code tree_view} is realized.
+	 */
+	private static native void _gtk_tree_view_get_cell_area(long tree_view, long path, long column, GdkRectangle rect);
+
+	/**
+	 * Finds the path at the point ({@code x}, {@code y}), relative to bin_window
+	 * coordinates (please see gtk_tree_view_get_bin_window()). That is, {@code x}
+	 * and {@code y} are relative to an events coordinates. {@code x} and {@code y}
+	 * must come from an event on the {@code tree_view} only where
+	 * {@code event->window == gtk_tree_view_get_bin_window ()}. It is primarily for
+	 * things like popup menus. If {@code path} is non-{@code NULL}, then it will be
+	 * filled with the {@code GtkTreePath} at that point. This path should be freed
+	 * with {@link #_gtk_tree_path_free()}. If {@code column} is non-{@code NULL},
+	 * then it will be filled with the column at that point. {@code cell_x} and
+	 * {@code cell_y} return the coordinates relative to the cell background (i.e.
+	 * the {@code background_area} passed to gtk_cell_renderer_render()). This
+	 * function is only meaningful if {@code tree_view} is realized. Therefore this
+	 * function will always return FALSE if tree_view is not realized or does not
+	 * have a model.<br>
+	 * For converting widget coordinates (eg. the ones you get from
+	 * GtkWidget::query-tooltip), please see
+	 * gtk_tree_view_convert_widget_to_bin_window_coords().
+	 */
+	private static native boolean _gtk_tree_view_get_path_at_pos(long tree_view, int x, int y, long[] path,
+			long[] column, int[] cell_x, int[] cell_y);
+
+	/**
+	 * Frees {@code path}. If {@code path} is {@code NULL}, it simply returns.
+	 */
+	private static native void _gtk_tree_path_free(long path);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
