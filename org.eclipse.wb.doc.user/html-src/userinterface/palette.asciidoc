@@ -38,7 +38,7 @@ The following commands are common to every palette:
 
 image:images/palette_context_menu.png[image]
 
-=== Common Palette Commands
+== Common Palette Commands
 
 [width="100%",cols="10%,20%,70%"]
 |===

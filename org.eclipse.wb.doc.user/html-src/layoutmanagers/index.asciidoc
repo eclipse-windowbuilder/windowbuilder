@@ -10,11 +10,9 @@ for the layout of your UI in a way that will be portable.
 
 [cols="34%,33%,33%"]
 |===
-image:../userinterface/images/feedback_drag_grid1.png[image,width=229,height=124] 
-|
-image:../userinterface/images/feedback_drag_xy.png[image,width=229,height=124] 
-|
-image:../userinterface/images/feedback_size_xy.png[image,width=229,height=124]
+|image:../userinterface/images/feedback_drag_grid1.png[image,width=229,height=124] 
+|image:../userinterface/images/feedback_drag_xy.png[image,width=229,height=124] 
+|image:../userinterface/images/feedback_size_xy.png[image,width=229,height=124]
 |===
 
 Layout managers can provide the following advantages:

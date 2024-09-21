@@ -45,7 +45,7 @@ the path that was selected in the image editor to valid Java code. The class
 (SwingImageIcon in the following example) must be in the classpath of the
 current project.
 
-[java]
+[source,java]
 ---- 
 public class SwingImageProcessor extends AbstractClasspathImageProcessor {
 	@Override
