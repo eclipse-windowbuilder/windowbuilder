@@ -20,18 +20,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <eclipse-jarsigner-version>1.3.2</eclipse-jarsigner-version>
     <baseline.repo>https://download.eclipse.org/releases/2024-09</baseline.repo>
     <eclipse.repo>https://download.eclipse.org/releases/2024-12</eclipse.repo>
     <tycho.sbom.url>${eclipse.repo}</tycho.sbom.url>
   </properties>
-
-  <pluginRepositories>
-    <pluginRepository>
-        <id>tycho-snapshots</id>
-        <url>https://repo.eclipse.org/content/repositories/tycho-snapshots/</url>
-    </pluginRepository>
-  </pluginRepositories>
 
   <profiles>
     <profile>
@@ -93,7 +85,7 @@
         <plugin>
           <groupId>org.eclipse.cbi.maven.plugins</groupId>
           <artifactId>eclipse-jarsigner-plugin</artifactId>
-          <version>${eclipse-jarsigner-version}</version>
+          <version>1.5.0</version>
         </plugin>
         <plugin>
           <groupId>org.eclipse.tycho</groupId>
