@@ -134,7 +134,7 @@ public abstract class OSSupportLinux extends OSSupport {
 		// setup key title to be used by compiz WM (if enabled)
 		if (!isWorkaroundsDisabled()) {
 			// prepare
-			_begin_shot(getShellHandle(shell));
+			_gtk_widget_show_now(getShellHandle(shell));
 			try {
 				Version currentVersion = FrameworkUtil.getBundle(SWT.class).getVersion();
 				// Bug/feature is SWT: since the widget is already shown, the Shell.setVisible() invocation
@@ -165,7 +165,7 @@ public abstract class OSSupportLinux extends OSSupport {
 		super.endShot(controlObject);
 		Shell shell = getShell(controlObject);
 		if (!isWorkaroundsDisabled()) {
-			_end_shot(getShellHandle(shell));
+			_gtk_widget_hide(getShellHandle(shell));
 			if (m_eclipseShell != null) {
 				_toggle_above(getShellHandle(m_eclipseShell), m_eclipseToggledOnTop);
 			}
@@ -546,14 +546,18 @@ public abstract class OSSupportLinux extends OSSupport {
 			boolean forceToggle);
 
 	/**
-	 * Prepares the preview window to screen shot.
+	 * Shows a {@code widget}. If the {@code widget} is an unmapped toplevel widget
+	 * (i.e. a GtkWindow that has not yet been shown), enter the main loop and wait
+	 * for the window to actually be mapped. Be careful; because the main loop is
+	 * running, anything can happen during this function.
 	 */
-	private static native boolean _begin_shot(long windowHandle);
+	private static native boolean _gtk_widget_show_now(long windowHandle);
 
 	/**
-	 * Finalizes the process of screen shot.
+	 * Reverses the effects of {@link #_gtk_widget_show_now(Number)}, causing the
+	 * {@code widget} to be hidden (invisible to the user).
 	 */
-	private static native boolean _end_shot(long windowHandle);
+	private static native boolean _gtk_widget_hide(long windowHandle);
 
 	/**
 	 * <p>Sends one or more expose events to window. The areas in each expose event

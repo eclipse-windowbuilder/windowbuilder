@@ -117,17 +117,15 @@ JNIEXPORT jboolean JNICALL OS_NATIVE(_1toggle_1above)
 	// NOT IMPLEMENTED
 	return JNI_TRUE;
 }
-JNIEXPORT jboolean JNICALL OS_NATIVE(_1begin_1shot)
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1show_1now)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
 	// just show it
 	gtk_widget_show_now((GtkWidget*)(CHANDLE) widgetHandle);
-	return JNI_TRUE;
 }
-JNIEXPORT jboolean JNICALL OS_NATIVE(_1end_1shot)
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1hide)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
 	// hide then
 	gtk_widget_hide((GtkWidget*)(CHANDLE) widgetHandle);
-	return JNI_TRUE;
 }
 JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1getImageSurface)
 		(JNIEnv *envir, jobject that, JHANDLE windowHandle, jint width, jint height) {
