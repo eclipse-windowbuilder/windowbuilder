@@ -583,5 +583,3 @@ Here are the steps to follow:
 . Save your work and close any application you are working with.
 . End your session (or press Ctrl-Alt-Delete to restart the x-server) and log in again.
 . You are done!
-
-|===
