@@ -21,6 +21,7 @@
 #endif /*__LP64__*/
 
 #define JHANDLE jlong
+#define JHANDLEARRAY jlongArray
 #ifdef WBP_ARCH64
 	#define CHANDLE jlong
 #else

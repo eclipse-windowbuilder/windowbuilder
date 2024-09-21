@@ -58,6 +58,48 @@ static void set_gtk_allocation(JNIEnv *envir, jobject jallocation, GtkAllocation
 
 ////////////////////////////////////////////////////////////////////////////
 //
+// GdkRectangle
+//
+////////////////////////////////////////////////////////////////////////////
+
+typedef struct JGdkRectangle {
+	jclass clazz;
+	jfieldID x;
+	jfieldID y;
+	jfieldID width;
+	jfieldID height;
+} JGdkRectangle;
+JGdkRectangle GDK_RECTANGLE = { .clazz = NULL};
+
+static void init_gdk_rectangle(JNIEnv *envir, jobject jrectangle) {
+	if (GDK_RECTANGLE.clazz != NULL) {
+		return;
+	}
+	GDK_RECTANGLE.clazz = (*envir)->GetObjectClass(envir, jrectangle);
+	GDK_RECTANGLE.x = (*envir)->GetFieldID(envir, GDK_RECTANGLE.clazz, "x", "I");
+	GDK_RECTANGLE.y = (*envir)->GetFieldID(envir, GDK_RECTANGLE.clazz, "y", "I");
+	GDK_RECTANGLE.width = (*envir)->GetFieldID(envir, GDK_RECTANGLE.clazz, "width", "I");
+	GDK_RECTANGLE.height = (*envir)->GetFieldID(envir, GDK_RECTANGLE.clazz, "height", "I");
+}
+
+static void get_gdk_rectangle(JNIEnv *envir, jobject jrectangle, GdkRectangle *rectangle) {
+	init_gdk_rectangle(envir, jrectangle);
+	rectangle->x = (*envir)->GetIntField(envir, jrectangle, GDK_RECTANGLE.x);
+	rectangle->y = (*envir)->GetIntField(envir, jrectangle, GDK_RECTANGLE.y);
+	rectangle->width = (*envir)->GetIntField(envir, jrectangle, GDK_RECTANGLE.width);
+	rectangle->height = (*envir)->GetIntField(envir, jrectangle, GDK_RECTANGLE.height);
+}
+
+static void set_gdk_rectangle(JNIEnv *envir, jobject jrectangle, GdkRectangle *rectangle) {
+	init_gdk_rectangle(envir, jrectangle);
+	(*envir)->SetIntField(envir, jrectangle, GDK_RECTANGLE.x, (jint)rectangle->x);
+	(*envir)->SetIntField(envir, jrectangle, GDK_RECTANGLE.y, (jint)rectangle->y);
+	(*envir)->SetIntField(envir, jrectangle, GDK_RECTANGLE.width, (jint)rectangle->width);
+	(*envir)->SetIntField(envir, jrectangle, GDK_RECTANGLE.height, (jint)rectangle->height);
+}
+
+////////////////////////////////////////////////////////////////////////////
+//
 // Screenshot
 //
 ////////////////////////////////////////////////////////////////////////////
@@ -152,34 +194,49 @@ JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1getImageSurface)
 		(JNIEnv *envir, jobject that, JHANDLE windowHandle, jint width, jint height) {
 	return (JHANDLE) copyImageSurface((GdkWindow*)(CHANDLE) windowHandle, width, height);
 }
+// tree items
+JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1gtk_1tree_1view_1get_1expander_1column)
+		(JNIEnv *envir, jobject that, JHANDLE tree_view) {
+	return (JHANDLE) gtk_tree_view_get_expander_column((GtkTreeView*)(CHANDLE) tree_view);
+}
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1tree_1view_1get_1cell_1area)
+		(JNIEnv *envir, jobject that, JHANDLE tree_view, JHANDLE path, JHANDLE column, jobject jrect) {
+	GdkRectangle rect;
+	gtk_tree_view_get_cell_area((GtkTreeView*)(CHANDLE) tree_view, (GtkTreePath*)(CHANDLE) path, (GtkTreeViewColumn*)(CHANDLE) column, &rect);
+	set_gdk_rectangle(envir, jrect, &rect);
+}
+JNIEXPORT jboolean JNICALL OS_NATIVE(_1gtk_1tree_1view_1get_1path_1at_1pos)
+		(JNIEnv *envir, jobject that, JHANDLE tree_view, jint x, jint y, JHANDLEARRAY path, JHANDLEARRAY column, jintArray cell_x, jintArray cell_y) {
+	jint cell_x1;
+	jint cell_y1;
+	JHANDLE path1;
+	JHANDLE column1;
+
+	jboolean result = gtk_tree_view_get_path_at_pos((GtkTreeView*)(CHANDLE) tree_view, x, y, (GtkTreePath**) &path1, (GtkTreeViewColumn**) &column1, &cell_x1, &cell_y1);
+	
+	if (path != NULL) {
+		(*envir) -> SetLongArrayRegion(envir, path, 0, 1, &path1);
+	}
+	if (column != NULL) {
+		(*envir) -> SetLongArrayRegion(envir, column, 0, 1, &column1);
+	}
+	if (cell_x != NULL) {
+		(*envir) -> SetIntArrayRegion(envir, cell_x, 0, 1, &cell_x1);
+	}
+	if (cell_x != NULL) {
+		(*envir) -> SetIntArrayRegion(envir, cell_y, 0, 1, &cell_y1);
+	}
+
+	return result;
+}
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1tree_1path_1free)
+		(JNIEnv *envir, jobject that, JHANDLE path) {
+	gtk_tree_path_free((GtkTreePath*)(CHANDLE) path);
+}
 // tab item bounds
 JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1get_1allocation)
 		(JNIEnv *envir, jobject that, JHANDLE jhandle, jobject jallocation) {
 	GtkAllocation allocation;
 	gtk_widget_get_allocation((GtkWidget*)(CHANDLE) jhandle, &allocation);
 	set_gtk_allocation(envir, jallocation, &allocation);
-}
-// other
-static jboolean isPlusMinusTreeClick(GtkTreeView *tree, gint x, gint y) {
-	gint cell_x;
-	gint cell_y;
-	GtkTreePath *path;
-	GtkTreeViewColumn *column;
-	//
-	if (gtk_tree_view_get_path_at_pos(tree, x, y, &path, &column, &cell_x, &cell_y)) {
-		GtkTreeViewColumn *expanderColumn = gtk_tree_view_get_expander_column(tree);
-		if (expanderColumn == column) {
-			GdkRectangle rect;
-			gtk_tree_view_get_cell_area(tree, path, column, &rect);
-			if (x < rect.x) {
-				return JNI_TRUE;
-			}
-		}
-	}
-	return JNI_FALSE;
-
-}
-JNIEXPORT jboolean JNICALL OS_NATIVE(_1isPlusMinusTreeClick)
-		(JNIEnv *envir, jobject that, JHANDLE jhandle, jint jx, jint jy) {
-	return isPlusMinusTreeClick((GtkTreeView*)(CHANDLE) jhandle, (gint)jx, (gint)jy);
 }
