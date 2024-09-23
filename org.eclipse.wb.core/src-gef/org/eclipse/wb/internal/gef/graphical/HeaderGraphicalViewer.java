@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.gef.graphical;
 
 import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
 
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.RangeModel;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
@@ -35,20 +36,9 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
 	}
 
 	public HeaderGraphicalViewer(Composite parent, int style, boolean horizontal) {
-		super(parent, checkStyles(style));
+		super(parent, style);
+		getControl().setScrollBarVisibility(FigureCanvas.NEVER);
 		m_horizontal = horizontal;
-	}
-
-	private static final int checkStyles(int styles) {
-		// ignore horizontal scroll style
-		if ((styles & SWT.H_SCROLL) != 0) {
-			styles |= ~SWT.H_SCROLL;
-		}
-		// ignore vertical scroll style
-		if ((styles & SWT.V_SCROLL) != 0) {
-			styles |= ~SWT.V_SCROLL;
-		}
-		return styles;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
