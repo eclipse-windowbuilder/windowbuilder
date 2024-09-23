@@ -365,9 +365,26 @@ public abstract class OSSupportLinux extends OSSupport {
 		return newImage;
 	}
 
-	private Image createImage(long windowHandle, int width, int height) throws Exception {
-		long imageHandle = _getImageSurface(windowHandle, width, height);
-		return createImage(imageHandle);
+	private Image createImage(long sourceWindow, int width, int height) throws Exception {
+		// Create the Cairo surface on which the snapshot is drawn on
+		long /*cairo_surface_t*/ targetSurface = _cairo_image_surface_create(_CAIRO_FORMAT_ARGB32(), width, height);
+		long /*cairo_t*/ cr = _cairo_create(targetSurface);
+		// Get the visible region of the window
+		// Wayland: Trying to take a screenshot of a partially unmapped widget
+		// results in a SIGFAULT.
+		long /* cairo_region_t */ visibleRegion = _gdk_window_get_visible_region(sourceWindow);
+		// Set the visible region as the clip for the Cairo context
+		_gdk_cairo_region(cr, visibleRegion);
+		_cairo_clip(cr);
+		// Paint the surface
+		_gdk_cairo_set_source_window(cr, sourceWindow, 0, 0);
+		_cairo_set_operator(cr, _CAIRO_OPERATOR_SOURCE());
+		_cairo_paint(cr);
+		// Cleanup
+		_cairo_destroy(cr);
+		_cairo_surface_flush(targetSurface);
+		_cairo_region_destroy(visibleRegion);
+		return createImage(targetSurface);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -550,19 +567,6 @@ public abstract class OSSupportLinux extends OSSupport {
 	private static native void _gtk_widget_get_allocation(long widgetHandle, GtkAllocation rect);
 
 	/**
-	 * Paints the surface of the given window onto a image. The image is created
-	 * within the native C code and its handle returned by this method. The caller
-	 * of this method needs to ensure that this handle is disposed properly. The
-	 * size of the image matches {@code width} and {@code height}.
-	 *
-	 * @param windowHandle The memory address of the window to capture.
-	 * @param width        The width of the window.
-	 * @param height       The height of the window.
-	 * @return The memory address of the image handle.
-	 */
-	private static native long _getImageSurface(long windowHandle, int width, int height);
-
-	/**
 	 * Toggles the "above" X Window property. If <code>forceToggle</code> is <code>false</code> then
 	 * no toggling if window already has the "above" property set.
 	 *
@@ -742,6 +746,167 @@ public abstract class OSSupportLinux extends OSSupport {
 	 * Frees {@code path}. If {@code path} is {@code NULL}, it simply returns.
 	 */
 	private static native void _gtk_tree_path_free(long path);
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GDK
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 *
+	 *
+	 * Computes the region of the {@code window} that is potentially visible. This
+	 * does not necessarily take into account if the window is obscured by other
+	 * windows, but no area outside of this region is visible.
+	 *
+	 * @return A {@code cairo_region_t}. This must be freed with
+	 *         cairo_region_destroy() when you are done.
+	 */
+	private static native long _gdk_window_get_visible_region(long window);
+
+	/**
+	 * Adds the given region to the current path of {@code cr}.
+	 */
+	private static native void _gdk_cairo_region(long cr, long region);
+
+	/**
+	 *
+	 *
+	 * Sets the given window as the source pattern for {@code cr}.
+	 *
+	 * The pattern has an extend mode of {@code CAIRO_EXTEND_NONE} and is aligned so
+	 * that the origin of {@code window} is {@code x}, {@code y}. The window
+	 * contains all its subwindows when rendering.
+	 *
+	 * Note that the contents of {@code window} are undefined outside of the visible
+	 * part of {@code window}, so use this function with care.
+	 */
+	private static native void _gdk_cairo_set_source_window(long cr, long window, double x, double y);
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Cairo
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	private static native int _CAIRO_FORMAT_ARGB32();
+
+	private static native int _CAIRO_OPERATOR_SOURCE();
+
+	/**
+	 * Creates a new cairo_t with all graphics state parameters set to default
+	 * values and with {@code target} as a target surface. The target surface should
+	 * be constructed with a backend-specific function such as
+	 * {@link #_cairo_image_surface_create()} (or any other
+	 * cairo_backend_surface_create() variant).
+	 *
+	 * This function references {@code target} , so you can immediately call
+	 * {@link _cairo_surface_destroy()} on it if you don't need to maintain a
+	 * separate reference to it.
+	 *
+	 * @param target target surface for the context
+	 * @return a newly allocated {@code cairo_t} with a reference count of 1. The
+	 *         initial reference count should be released with
+	 *         {@link #_cairo_destroy()} when you are done using the
+	 *         {@code cairo_t}. This function never returns {@code NULL}. If memory
+	 *         cannot be allocated, a special {@code cairo_t} object will be
+	 *         returned on which {@link #_cairo_status()} returns
+	 *         {@code CAIRO_STATUS_NO_MEMORY}. If you attempt to target a surface
+	 *         which does not support writing (such as cairo_mime_surface_t) then a
+	 *         {@code CAIRO_STATUS_WRITE_ERROR} will be raised. You can use this
+	 *         object normally, but no drawing will be done.
+	 */
+	private static native long _cairo_create(long target);
+
+	/**
+	 * Creates an image surface of the specified format and dimensions. Initially
+	 * the surface contents are set to 0. (Specifically, within each pixel, each
+	 * color or alpha channel belonging to format will be 0. The contents of bits
+	 * within a pixel, but not belonging to the given format are undefined).
+	 *
+	 * @param format format of pixels in the surface to create
+	 * @param width  width of the surface, in pixels
+	 * @param height height of the surface, in pixels
+	 * @return a pointer to the newly created surface. The caller owns the surface
+	 *         and should call {@link #_cairo_surface_destroy()} when done with it.
+	 *
+	 *         This function always returns a valid pointer, but it will return a
+	 *         pointer to a "nil" surface if an error such as out of memory occurs.
+	 *         You can use {@link #_cairo_surface_status()} to check for this.
+	 */
+	private static native long _cairo_image_surface_create(int format, int width, int height);
+
+	/**
+	 * Establishes a new clip region by intersecting the current clip region with
+	 * the current path as it would be filled by {@link _cairo_fill()} and according
+	 * to the current fill rule (see {@link #_cairo_set_fill_rule()}).
+	 *
+	 * After {@link #_cairo_clip()}, the current path will be cleared from the cairo
+	 * context.
+	 *
+	 * The current clip region affects all drawing operations by effectively masking
+	 * out any changes to the surface that are outside the current clip region.
+	 *
+	 * Calling {@link #_cairo_clip()} can only make the clip region smaller, never
+	 * larger. But the current clip is part of the graphics state, so a temporary
+	 * restriction of the clip region can be achieved by calling
+	 * {@link #_cairo_clip()} within a
+	 * {@link #_cairo_save()}/{@link #_cairo_restore()} pair. The only other means
+	 * of increasing the size of the clip region is {@link _cairo_reset_clip()}.
+	 *
+	 * @param cr a cairo context
+	 */
+	private static native void _cairo_clip(long cr);
+
+	/**
+	 * A drawing operator that paints the current source everywhere within the
+	 * current clip region.
+	 *
+	 * @param cr a cairo context
+	 */
+	private static native void _cairo_paint(long cr);
+
+	/**
+	 * Sets the compositing operator to be used for all drawing operations. See
+	 * {@code cairo_operator_t} for details on the semantics of each available
+	 * compositing operator.
+	 *
+	 * The default operator is {@code CAIRO_OPERATOR_OVER}.
+	 *
+	 * @param cr a cairo_t
+	 * @param op a compositing operator, specified as a cairo_operator_t
+	 */
+	private static native void _cairo_set_operator(long cr, int op);
+
+	/**
+	 * Decreases the reference count on {@code cr} by one. If the result is zero,
+	 * then {@code cr} and all associated resources are freed. See
+	 * {@link #_cairo_reference()}.
+	 *
+	 * @param cr a cairo_t
+	 */
+	private static native void _cairo_destroy(long cr);
+
+	/**
+	 * Do any pending drawing for the surface and also restore any temporary
+	 * modifications cairo has made to the surface's state. This function must be
+	 * called before switching from drawing on the surface with cairo to drawing on
+	 * it directly with native APIs, or accessing its memory outside of Cairo. If
+	 * the surface doesn't support direct access, then this function does nothing.
+	 *
+	 * @param surface a cairo_surface_t
+	 */
+	private static native void _cairo_surface_flush(long surface);
+
+	/**
+	 * Destroys a {@code cairo_region_t} object created with
+	 * {@link #_cairo_region_create()}, {@link #_cairo_region_copy()}, or or
+	 * {@link #_cairo_region_create_rectangle()}.
+	 *
+	 * @param region a cairo_region_t
+	 */
+	private static native void _cairo_region_destroy(long region);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
