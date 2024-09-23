@@ -151,7 +151,7 @@ public abstract class OSSupportLinux extends OSSupport {
 			m_eclipseShell = DesignerPlugin.getShell();
 			// sometimes can be null, don't know why.
 			if (m_eclipseShell != null) {
-				m_eclipseToggledOnTop = _toggle_above(getShellHandle(m_eclipseShell), false);
+				_gtk_window_set_keep_above(getShellHandle(m_eclipseShell), true);
 			}
 		}
 		shell.setLocation(10000, 10000);
@@ -166,7 +166,7 @@ public abstract class OSSupportLinux extends OSSupport {
 		if (!isWorkaroundsDisabled()) {
 			_gtk_widget_hide(getShellHandle(shell));
 			if (m_eclipseShell != null) {
-				_toggle_above(getShellHandle(m_eclipseShell), m_eclipseToggledOnTop);
+				_gtk_window_set_keep_above(getShellHandle(m_eclipseShell), false);
 			}
 		}
 	}
@@ -567,16 +567,30 @@ public abstract class OSSupportLinux extends OSSupport {
 	private static native void _gtk_widget_get_allocation(long widgetHandle, GtkAllocation rect);
 
 	/**
-	 * Toggles the "above" X Window property. If <code>forceToggle</code> is <code>false</code> then
-	 * no toggling if window already has the "above" property set.
 	 *
-	 * @param windowHandle
-	 *          the handle (GtkWidget*) of root gtk widget of {@link Shell}.
-	 * @param forceToggle
-	 *          if <code>true</code> then toggling occurred without paying attention to current state.
-	 * @return <code>true</code> if toggling occurred.
+	 * Asks to keep {@code window} above, so that it stays on top. Note that you
+	 * shouldn’t assume the window is definitely above afterward, because other
+	 * entities (e.g. the user or [window manager][gtk-X11-arch]) could not keep it
+	 * above, and not all window managers support keeping windows above. But
+	 * normally the window will end kept above. Just don’t write code that crashes
+	 * if not.
+	 *
+	 * It’s permitted to call this function before showing a window, in which case
+	 * the window will be kept above when it appears onscreen initially.
+	 *
+	 * You can track the above state via the “window-state-event” signal on
+	 * GtkWidget.
+	 *
+	 * Note that, according to the Extended Window Manager Hints Specification, the
+	 * above state is mainly meant for user preferences and should not be used by
+	 * applications e.g. for drawing attention to their dialogs.
+	 *
+	 * @param windowHandle the handle (GtkWidget*) of root gtk widget of
+	 *                     {@link Shell}.
+	 * @param forceToggle  if <code>true</code> then toggling occurred without
+	 *                     paying attention to current state.
 	 */
-	private static native boolean _toggle_above(long windowHandle,
+	private static native void _gtk_window_set_keep_above(long windowHandle,
 			boolean forceToggle);
 
 	/**

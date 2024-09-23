@@ -77,10 +77,9 @@ JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1set_1opacity)
 		(JNIEnv *envir, jobject that, JHANDLE jhandle, jdouble jalpha) {
 	gtk_widget_set_opacity((GtkWidget*)(CHANDLE) jhandle, (double)jalpha);
 }
-JNIEXPORT jboolean JNICALL OS_NATIVE(_1toggle_1above)
-		(JNIEnv *envir, jobject that, JHANDLE widgetHandle, jboolean forceToggle) {
-	// NOT IMPLEMENTED
-	return JNI_TRUE;
+JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1window_1set_1keep_1above)
+		(JNIEnv *envir, jobject that, JHANDLE window, jboolean setting) {
+	gtk_window_set_keep_above((GtkWindow*)(CHANDLE) window, (gboolean) setting);
 }
 JNIEXPORT void JNICALL OS_NATIVE(_1gtk_1widget_1show_1now)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
