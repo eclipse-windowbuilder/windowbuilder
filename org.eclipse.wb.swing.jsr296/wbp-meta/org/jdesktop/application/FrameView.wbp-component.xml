@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<component xmlns="http://www.eclipse.org/wb/WBPComponent">
-	<toolkit id="org.eclipse.wb.swing"/>
-	<model class="org.eclipse.wb.internal.swing.jsr296.model.FrameViewInfo"/>
-</component>

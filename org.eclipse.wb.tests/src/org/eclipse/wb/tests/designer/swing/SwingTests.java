@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing;
 
 import org.eclipse.wb.tests.designer.swing.ams.AmsTests;
-import org.eclipse.wb.tests.designer.swing.jsr296.ApplicationFrameworkTests;
 import org.eclipse.wb.tests.designer.swing.laf.LookAndFeelTest;
 import org.eclipse.wb.tests.designer.swing.model.ModelTests;
 import org.eclipse.wb.tests.designer.swing.swingx.SwingXTests;
@@ -31,7 +30,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	ModelTests.class,
 	AmsTests.class,
 	SwingXTests.class,
-	ApplicationFrameworkTests.class,
 	//  WaitForMemoryProfilerTest.class,
 })
 public class SwingTests {

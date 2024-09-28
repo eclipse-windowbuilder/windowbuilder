@@ -52,13 +52,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wb.swing.jsr296"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 	
    <plugin
          id="org.eclipse.wb.swing.java6"

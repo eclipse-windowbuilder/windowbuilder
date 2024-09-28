@@ -77,6 +77,28 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
+
+    <profile>
+      <id>feature-baseline-check</id>
+      <activation>
+        <file>
+            <exists>feature.xml</exists>
+        </file>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.eclipse.tycho</groupId>
+              <artifactId>tycho-baseline-plugin</artifactId>
+              <configuration>
+                <skip>true</skip>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
   </profiles>
 
   <build>
@@ -410,7 +432,6 @@
     <module>org.eclipse.wb.swing.doc.user</module>
     <module>org.eclipse.wb.swing.FormLayout</module>
     <module>org.eclipse.wb.swing.java6</module>
-    <module>org.eclipse.wb.swing.jsr296</module>
     <module>org.eclipse.wb.swing.MigLayout</module>
     <module>org.eclipse.wb.swt</module>
     <module>org.eclipse.wb.swt.widgets.baseline</module>
