@@ -1,12 +1,7 @@
-= What's New - v1.17.0
+= What's New - v1.18.0
 
-* Provisional support for Windows aarch64
-* Continuous migration towards the new Observables API
-* Continuous migration towards the latest GEF Classic version
-* Support dropped for projects using < Java 8
-* Initial contribution of high-DPI variants for WB icons
-* New _org.eclipse.wb.core.java.imageProcessor_ extension point for Swing/SWT image processing
+* Dropped support for JSR296 (Swing Application Framework)
 
-For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/9[1.17.0] milestone.
+For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/10[1.18.0] milestone.
 
-What's new - link:v150.html[*v1.5.0*]
+What's new - link:v117.html[*v1.17.0*]
