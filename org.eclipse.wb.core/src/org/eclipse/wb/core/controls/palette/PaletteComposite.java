@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
-import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
@@ -127,7 +126,6 @@ public final class PaletteComposite extends Composite {
 	////////////////////////////////////////////////////////////////////////////
 	private IPalettePreferences m_preferences;
 	private final FigureCanvas m_figureCanvas;
-	private final EventManager m_eventManager;
 	private final PaletteFigure m_paletteFigure;
 	private final Layer m_feedbackLayer;
 	private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
@@ -153,7 +151,6 @@ public final class PaletteComposite extends Composite {
 			m_figureCanvas = new FigureCanvas(this, SWT.V_SCROLL);
 			m_figureCanvas.getRootFigure().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
 			m_figureCanvas.getRootFigure().setForegroundColor(COLOR_TEXT_ENABLED);
-			m_eventManager = (EventManager) m_figureCanvas.getRootFigure().internalGetEventDispatcher();
 		}
 		// add palette figure (layer)
 		m_paletteFigure = new PaletteFigure();
@@ -437,7 +434,7 @@ public final class PaletteComposite extends Composite {
 					if (event.button == 1) {
 						if (m_mouseOnTitle) {
 							m_mouseDown = true;
-							m_eventManager.setCapture(CategoryFigure.this);
+							event.consume();
 							m_downPoint = new Point(event.x, event.y);
 						}
 					}
@@ -447,7 +444,6 @@ public final class PaletteComposite extends Composite {
 				public void mouseReleased(MouseEvent event) {
 					if (event.button == 1) {
 						m_mouseDown = false;
-						m_eventManager.setCapture(null);
 						//
 						if (m_moving) {
 							m_moving = false;
@@ -767,7 +763,7 @@ public final class PaletteComposite extends Composite {
 						m_mouseDown = true;
 						m_mouseInside = true;
 						// track moving
-						m_eventManager.setCapture(EntryFigure.this);
+						event.consume();
 						m_downPoint = new Point(event.x, event.y);
 						m_moving = false;
 						//
@@ -779,7 +775,6 @@ public final class PaletteComposite extends Composite {
 				public void mouseReleased(MouseEvent event) {
 					if (event.button == 1 && m_mouseDown) {
 						m_mouseDown = false;
-						m_eventManager.setCapture(null);
 						//
 						if (m_moving) {
 							move_eraseFeedback();
