@@ -129,6 +129,7 @@ public class DesignerPalette {
 			final JavaInfo rootJavaInfo,
 			String toolkitId) {
 		m_editPartViewer = editPartViewer;
+		m_editPartViewer.getEditDomain().setPaletteViewer(m_paletteComposite.getPaletteViewer());
 		m_rootJavaInfo = rootJavaInfo;
 		//
 		if (m_rootJavaInfo != null) {
@@ -425,6 +426,7 @@ public class DesignerPalette {
 			}
 		}
 		m_paletteComposite.setPalette(palette);
+		m_editPartViewer.getEditDomain().setPaletteRoot(palette);
 		configure_EditDomain_DefaultTool();
 	}
 
