@@ -18,10 +18,9 @@ import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
-import org.eclipse.wb.internal.draw2d.FigureCanvas;
-import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -31,7 +30,11 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -48,10 +51,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The palette control.
@@ -124,17 +125,17 @@ public final class PaletteComposite extends Composite {
 	// Instance fields
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private IPalettePreferences m_preferences;
+	private DesignerPaletteViewerPreferences m_preferences;
 	private final FigureCanvas m_figureCanvas;
 	private final PaletteFigure m_paletteFigure;
 	private final Layer m_feedbackLayer;
-	private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
 	private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
 	private MenuManager m_menuManager;
 	private IPalette m_palette;
 	private IEntry m_selectedEntry;
 	private Object m_forcedTargetObject;
 	private int m_layoutType;
+	private final PaletteViewer m_paletteViewer;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -148,13 +149,20 @@ public final class PaletteComposite extends Composite {
 		setLayout(new FillLayout());
 		// prepare draw2d FigureCanvas
 		{
-			m_figureCanvas = new FigureCanvas(this, SWT.V_SCROLL);
-			m_figureCanvas.getRootFigure().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
-			m_figureCanvas.getRootFigure().setForegroundColor(COLOR_TEXT_ENABLED);
+			m_paletteViewer = new PaletteViewer();
+			m_paletteViewer.addPaletteListener((palette, tool) -> {
+				// TODO Keep entry selected when CTRL key is pressed
+				selectEntry((IEntry) tool, false);
+			});
+			m_paletteViewer.enableVerticalScrollbar(true);
+			m_figureCanvas = (FigureCanvas) m_paletteViewer.createControl(this);
+			m_figureCanvas.setHorizontalScrollBarVisibility(FigureCanvas.NEVER);
+			m_figureCanvas.setScrollbarsMode(SWT.NONE);
+			m_figureCanvas.getLightweightSystem().getRootFigure().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
+			m_figureCanvas.getLightweightSystem().getRootFigure().setForegroundColor(COLOR_TEXT_ENABLED);
 		}
 		// add palette figure (layer)
 		m_paletteFigure = new PaletteFigure();
-		m_figureCanvas.getRootFigure().add(m_paletteFigure);
 		// set menu
 		{
 			m_menuManager = new MenuManager();
@@ -165,7 +173,7 @@ public final class PaletteComposite extends Composite {
 		// add feedback layer
 		{
 			m_feedbackLayer = new Layer("feedback");
-			m_figureCanvas.getRootFigure().add(m_feedbackLayer);
+			m_figureCanvas.getLightweightSystem().getRootFigure().add(m_feedbackLayer);
 		}
 		m_layoutType = m_preferences.getLayoutType();
 	}
@@ -179,10 +187,8 @@ public final class PaletteComposite extends Composite {
 		{
 			org.eclipse.swt.graphics.Point cursorLocation = getDisplay().getCursorLocation();
 			cursorLocation = m_figureCanvas.toControl(cursorLocation);
-			TargetFigureFindVisitor visitor =
-					new TargetFigureFindVisitor(m_figureCanvas, cursorLocation.x, cursorLocation.y);
-			m_figureCanvas.getRootFigure().accept(visitor, false);
-			targetFigure = visitor.getTargetFigure();
+			targetFigure = (Figure) ((GraphicalEditPart) m_paletteViewer.findObjectAt(new Point(cursorLocation)))
+					.getFigure();
 		}
 		// prepare target object
 		Object targetObject = null;
@@ -222,6 +228,7 @@ public final class PaletteComposite extends Composite {
 	@SuppressWarnings("removal")
 	public void setPalette(IPalette palette) {
 		m_palette = palette;
+		m_paletteViewer.setPaletteRoot((PaletteRoot) palette);
 		refreshPalette();
 	}
 
@@ -236,7 +243,7 @@ public final class PaletteComposite extends Composite {
 	 * Sets new {@link IPalettePreferences}.
 	 */
 	public void setPreferences(IPalettePreferences preferences) {
-		m_preferences = preferences;
+		m_preferences = (DesignerPaletteViewerPreferences) preferences;
 		m_layoutType = m_preferences.getLayoutType();
 		m_paletteFigure.onPreferencesUpdate();
 	}
@@ -250,6 +257,9 @@ public final class PaletteComposite extends Composite {
 	 */
 	@SuppressWarnings("removal")
 	public void selectEntry(IEntry selectedEntry, boolean reload) {
+		if (m_selectedEntry == selectedEntry) {
+			return;
+		}
 		// activate new entry
 		m_selectedEntry = selectedEntry;
 		if (m_selectedEntry != null) {
@@ -259,6 +269,7 @@ public final class PaletteComposite extends Composite {
 				m_palette.selectDefault();
 			}
 		}
+		m_paletteViewer.setActiveTool((ToolEntry) selectedEntry);
 		// display updated state
 		m_paletteFigure.repaint();
 	}
@@ -268,7 +279,7 @@ public final class PaletteComposite extends Composite {
 	 */
 	@SuppressWarnings("removal")
 	public Figure getCategoryFigure(ICategory category) {
-		return m_categoryFigures.get(category);
+		return ((CategoryEditPart) m_paletteViewer.getEditPartForModel(category)).getFigure();
 	}
 
 	/**
@@ -276,8 +287,7 @@ public final class PaletteComposite extends Composite {
 	 */
 	@SuppressWarnings("removal")
 	public Figure getEntryFigure(ICategory category, IEntry entry) {
-		CategoryFigure categoryFigure = m_categoryFigures.get(category);
-		return categoryFigure.m_entryFigures.get(entry);
+		return ((EntryEditPart) m_paletteViewer.getEditPartForModel(entry)).getFigure();
 	}
 
 	/**
@@ -292,6 +302,13 @@ public final class PaletteComposite extends Composite {
 	 */
 	public PaletteFigure getPaletteFigure() {
 		return m_paletteFigure;
+	}
+
+	/**
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
+	public PaletteViewer getPaletteViewer() {
+		return m_paletteViewer;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -322,12 +339,10 @@ public final class PaletteComposite extends Composite {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public void refresh() {
-			m_categoryFigures.clear();
 			removeAll();
 			// add new CategoryFigure's
 			for (ICategory category : m_palette.getCategories()) {
 				CategoryFigure categoryFigure = new CategoryFigure(category);
-				m_categoryFigures.put(category, categoryFigure);
 				add(categoryFigure);
 			}
 			// do initial layout
@@ -388,7 +403,6 @@ public final class PaletteComposite extends Composite {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		private final ICategory m_category;
-		private final Map<IEntry, EntryFigure> m_entryFigures = new HashMap<>();
 		private int m_columns;
 		private int m_titleHeight;
 
@@ -407,7 +421,6 @@ public final class PaletteComposite extends Composite {
 				IEntry entry = (IEntry) element;
 				// add figure
 				EntryFigure entryFigure = new EntryFigure(entry);
-				m_entryFigures.put(entry, entryFigure);
 				add(entryFigure);
 			}
 		}
@@ -1014,7 +1027,7 @@ public final class PaletteComposite extends Composite {
 			Rectangle r = getClientArea().getCopy().shrink(1, 1);
 			// draw background
 			graphics.pushState();
-			boolean isSelected = m_entry == m_selectedEntry;
+			boolean isSelected = m_entry == m_paletteViewer.getActiveTool();
 			if (isSelected || m_mouseDown) {
 				if (isSelected) {
 					graphics.setBackgroundColor(COLOR_ENTRY_SELECTED);
@@ -1204,10 +1217,7 @@ public final class PaletteComposite extends Composite {
 		Point absoluteLocation = p.getCopy();
 		FigureUtils.translateFigureToCanvas(source, absoluteLocation);
 		// do search
-		TargetFigureFindVisitor visitor =
-				new TargetFigureFindVisitor(m_figureCanvas, absoluteLocation.x, absoluteLocation.y);
-		m_figureCanvas.getRootFigure().accept(visitor, false);
-		return visitor.getTargetFigure();
+		return (Figure) ((GraphicalEditPart) m_paletteViewer.findObjectAt(new Point(absoluteLocation))).getFigure();
 	}
 
 	/**
