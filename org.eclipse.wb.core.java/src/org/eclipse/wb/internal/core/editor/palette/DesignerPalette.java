@@ -282,7 +282,7 @@ public class DesignerPalette {
 					////////////////////////////////////////////////////////////////////////////
 					@Override
 					public boolean activate(boolean reload) {
-						return entryInfo.activate(reload);
+						return entryInfo.createTool(reload) != null;
 					}
 				};
 				m_goodEntryInfos.add(entryInfo);
