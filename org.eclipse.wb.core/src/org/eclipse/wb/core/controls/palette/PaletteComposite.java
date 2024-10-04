@@ -32,6 +32,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -180,21 +181,10 @@ public final class PaletteComposite extends Composite {
 	 * Adds {@link Action}'s to the popup menu.
 	 */
 	private void addPopupActions(IMenuManager menuManager) {
-		// prepare target figure
-		Figure targetFigure;
-		{
-			org.eclipse.swt.graphics.Point cursorLocation = getDisplay().getCursorLocation();
-			cursorLocation = m_figureCanvas.toControl(cursorLocation);
-			targetFigure = (Figure) ((GraphicalEditPart) m_paletteViewer.findObjectAt(new Point(cursorLocation)))
-					.getFigure();
-		}
+		// prepare target edit-part
+		EditPart targetPart = m_paletteViewer.getSelectedEditParts().get(0);
 		// prepare target object
-		Object targetObject = null;
-		if (targetFigure instanceof CategoryFigure) {
-			targetObject = ((CategoryFigure) targetFigure).m_category;
-		} else if (targetFigure instanceof EntryFigure) {
-			targetObject = ((EntryFigure) targetFigure).m_entry;
-		}
+		Object targetObject = targetPart.getModel();
 		// may be replace with forced
 		if (m_forcedTargetObject != null) {
 			targetObject = m_forcedTargetObject;
