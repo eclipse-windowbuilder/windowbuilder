@@ -131,6 +131,7 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	/**
 	 * Loads the default {@link Tool}.
 	 */
+	@Override
 	public void loadDefaultTool() {
 		if (m_defaultToolProvider != null) {
 			m_defaultToolProvider.loadDefaultTool();
@@ -143,6 +144,7 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	 * Returns the default tool for this edit domain. This will be a {@link SelectionTool} unless
 	 * specifically replaced using {@link #setDefaultTool(Tool)}.
 	 */
+	@Override
 	public Tool getDefaultTool() {
 		if (m_defaultTool == null) {
 			m_defaultTool = new SelectionTool();
@@ -153,13 +155,15 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	/**
 	 * Sets the default {@link Tool}.
 	 */
-	public void setDefaultTool(Tool defaultTool) {
-		m_defaultTool = defaultTool;
+	@Override
+	public void setDefaultTool(org.eclipse.gef.Tool defaultTool) {
+		m_defaultTool = (Tool) defaultTool;
 	}
 
 	/**
 	 * Returns the active {@link Tool}.
 	 */
+	@Override
 	public Tool getActiveTool() {
 		return m_activeTool;
 	}
@@ -168,12 +172,13 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	 * Sets the active {@link Tool} for this {@link EditDomain}. If a current {@link Tool} is active,
 	 * it is deactivated. The new {@link Tool} is told its {@link EditDomain}, and is activated.
 	 */
-	public void setActiveTool(Tool activeTool) {
+	@Override
+	public void setActiveTool(org.eclipse.gef.Tool activeTool) {
 		if (m_activeTool != null) {
 			m_activeTool.deactivate();
 		}
 		//
-		m_activeTool = activeTool;
+		m_activeTool = (Tool) activeTool;
 		//
 		if (m_activeTool != null) {
 			m_activeTool.setEditDomain(this);
