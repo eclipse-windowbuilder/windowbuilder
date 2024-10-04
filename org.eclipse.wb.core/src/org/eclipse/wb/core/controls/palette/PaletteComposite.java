@@ -249,11 +249,13 @@ public final class PaletteComposite extends Composite {
 	/**
 	 * Sets the selected {@link IEntry}.
 	 *
-	 * @param reload
-	 *          is <code>true</code> if after first using this {@link IEntry} should be loaded again,
-	 *          not switched to default entry (usually selection).
+	 * @param reload is {@code true} if after first using this {@link IEntry} should
+	 *               be loaded again, not switched to default entry (usually
+	 *               selection).
+	 * @deprecated Use {@link PaletteViewer#setActiveTool(ToolEntry)} instead and
+	 *             get the {@code reload} flag by using a custom {@link EditDomain}.
 	 */
-	@SuppressWarnings("removal")
+	@Deprecated(forRemoval = true, since = "1.18.0")
 	public void selectEntry(IEntry selectedEntry, boolean reload) {
 		if (m_selectedEntry == selectedEntry) {
 			return;
@@ -812,9 +814,6 @@ public final class PaletteComposite extends Composite {
 								} catch (Throwable e) {
 								}
 							}
-						} else if (m_mouseInside) {
-							boolean reload = (event.getState() & SWT.CTRL) != 0;
-							selectEntry(m_entry, reload);
 						}
 					}
 					repaint();

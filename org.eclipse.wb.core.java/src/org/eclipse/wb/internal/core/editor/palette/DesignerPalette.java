@@ -52,15 +52,16 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntr
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentPresentationHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -94,6 +95,7 @@ public class DesignerPalette {
 	private JavaInfo m_rootJavaInfo;
 	private PaletteManager m_manager;
 	private DesignerRoot m_palette;
+	private DesignerPaletteEditDomain m_editDomain;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -104,7 +106,9 @@ public class DesignerPalette {
 		m_isMainPalette = isMainPalette;
 		m_operations = new DesignerPaletteOperations();
 		m_preferences = new PluginPalettePreferences();
+		m_editDomain = new DesignerPaletteEditDomain();
 		m_paletteComposite = new PaletteComposite(parent, SWT.NONE);
+		m_paletteComposite.getPaletteViewer().setEditDomain(m_editDomain);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -282,14 +286,7 @@ public class DesignerPalette {
 
 					@Override
 					public Tool createTool() {
-						if (entryInfo instanceof ToolEntryInfo toolInfo) {
-							// TODO Keep entry selected when CTRL key is pressed
-							return SafeRunner.run(toolInfo::createTool);
-						}
-						// SwingPaletteEntryInfo
-						// TODO double-check
-						entryInfo.activate(false);
-						return null;
+						return entryInfo.createTool(m_editDomain.m_reload);
 					}
 				};
 				m_goodEntryInfos.add(entryInfo);
@@ -460,6 +457,22 @@ public class DesignerPalette {
 	 */
 	private void refreshVisualPalette() {
 		m_paletteComposite.refreshPalette();
+	}
+
+	private static class DesignerPaletteEditDomain extends EditDomain {
+		private boolean m_reload;
+
+		@Override
+		public void mouseDown(MouseEvent mouseEvent, EditPartViewer viewer) {
+			m_reload = (mouseEvent.stateMask & SWT.CTRL) != 0;
+			super.mouseDown(mouseEvent, viewer);
+		}
+
+		@Override
+		public void mouseUp(MouseEvent mouseEvent, EditPartViewer viewer) {
+			super.mouseUp(mouseEvent, viewer);
+			m_reload = false;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
