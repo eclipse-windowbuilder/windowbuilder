@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,7 +72,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean activate(boolean reload) {
+	public final Tool createTool(boolean reload) {
 		Display display = Display.getCurrent();
 		// create Shell with Swing palette
 		final Shell shell = new Shell(DesignerPlugin.getShell(), SWT.ON_TOP | SWT.NO_FOCUS);
@@ -118,7 +118,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 		addClosePaletteListeners(shell);
 		// show Shell
 		shell.setVisible(true);
-		return false;
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

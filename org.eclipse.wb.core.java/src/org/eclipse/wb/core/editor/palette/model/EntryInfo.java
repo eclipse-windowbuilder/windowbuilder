@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wb.core.editor.palette.model;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
@@ -72,12 +73,27 @@ public abstract class EntryInfo extends AbstractElementInfo {
 	/**
 	 * Performs operation when user selects this entry on palette.
 	 *
-	 * @param reload
-	 *          is <code>true</code> if entry should be automatically reloaded after successful using.
+	 * @param reload is {@code true} if entry should be automatically reloaded after
+	 *               successful using.
 	 *
 	 * @return <code>true</code> if entry was successfully activated.
+	 * @deprecated Use {@link #createTool(boolean)} instead and check the returned
+	 *             {@link Tool} for {@code null}.
 	 */
-	public abstract boolean activate(boolean reload);
+	@Deprecated(forRemoval=true, since="1.12.100")
+	public boolean activate(boolean reload) {
+		return createTool(reload) != null;
+	}
+
+	/**
+	 * Performs operation when user selects this entry on palette.
+	 *
+	 * @param reload is {@code true} if entry should be automatically reloaded after
+	 *               successful using.
+	 * @return the {@link Tool} that should be set on activation, or {@code null} if
+	 *         no {@link Tool} can be activated.
+	 */
+	public abstract Tool createTool(boolean reload);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

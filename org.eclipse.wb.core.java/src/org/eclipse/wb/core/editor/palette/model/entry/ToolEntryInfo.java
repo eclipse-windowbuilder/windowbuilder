@@ -28,21 +28,21 @@ public abstract class ToolEntryInfo extends EntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final boolean activate(final boolean reload) {
+	public final Tool createTool(final boolean reload) {
 		return ExecutionUtils.runObjectLog(() -> {
 			// prepare tool
 			Tool tool;
 			{
 				tool = createTool();
 				if (tool == null) {
-					return false;
+					return null;
 				}
 				tool.setUnloadWhenFinished(!reload);
 			}
 			// OK
 			m_editPartViewer.getEditDomain().setActiveTool(tool);
-			return true;
-		}, false);
+			return tool;
+		}, null);
 	}
 
 	/**
