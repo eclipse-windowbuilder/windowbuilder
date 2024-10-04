@@ -8,7 +8,12 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.core.controls.palette;
+package org.eclipse.wb.internal.core.editor.palette;
+
+import org.eclipse.wb.core.controls.palette.ICategory;
+import org.eclipse.wb.core.controls.palette.IEntry;
+import org.eclipse.wb.core.controls.palette.IPalette;
+import org.eclipse.wb.core.controls.palette.PaletteComposite;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.palette.PaletteEditPartFactory;

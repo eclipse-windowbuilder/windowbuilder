@@ -8,39 +8,50 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.core.controls.palette;
+package org.eclipse.wb.internal.core.editor.palette;
 
-import org.eclipse.wb.core.controls.palette.PaletteComposite.EntryFigure;
+import org.eclipse.wb.core.controls.palette.ICategory;
+import org.eclipse.wb.core.controls.palette.IEntry;
+import org.eclipse.wb.core.controls.palette.PaletteComposite;
+import org.eclipse.wb.core.controls.palette.PaletteComposite.CategoryFigure;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
+import java.util.List;
+
 /**
  * @noreference This class is not intended to be referenced by clients.
  */
-public class EntryEditPart extends AbstractGraphicalEditPart {
+public class CategoryEditPart extends AbstractGraphicalEditPart {
 	private final PaletteComposite composite;
 
 	@SuppressWarnings("removal")
-	public EntryEditPart(PaletteComposite composite, IEntry category) {
+	public CategoryEditPart(PaletteComposite composite, ICategory category) {
 		this.composite = composite;
 		setModel(category);
 	}
 
 	@Override
 	@SuppressWarnings("removal")
-	public IEntry getModel() {
-		return (IEntry) super.getModel();
+	public ICategory getModel() {
+		return (ICategory) super.getModel();
 	}
 
 	@Override
-	public EntryFigure getFigure() {
-		return (EntryFigure) super.getFigure();
+	public CategoryFigure getFigure() {
+		return (CategoryFigure) super.getFigure();
+	}
+
+	@Override
+	@SuppressWarnings("removal")
+	protected List<? extends IEntry> getModelChildren() {
+		return getModel().getEntries();
 	}
 
 	@Override
 	protected IFigure createFigure() {
-		return composite.new EntryFigure(getModel());
+		return composite.new CategoryFigure(getModel());
 	}
 
 	@Override

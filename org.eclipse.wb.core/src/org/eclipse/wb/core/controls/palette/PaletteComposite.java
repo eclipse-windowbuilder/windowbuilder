@@ -15,6 +15,8 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
+import org.eclipse.wb.internal.core.editor.palette.CategoryEditPart;
+import org.eclipse.wb.internal.core.editor.palette.EntryEditPart;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -319,7 +321,7 @@ public final class PaletteComposite extends Composite {
 	 * @noreference This class is not intended to be referenced by clients.
 	 */
 	@SuppressWarnings("removal")
-	/* package */ final class PaletteFigure extends Layer {
+	public final class PaletteFigure extends Layer {
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// Constructor
@@ -389,7 +391,7 @@ public final class PaletteComposite extends Composite {
 	 * @noreference This class is not intended to be referenced by clients.
 	 */
 	@SuppressWarnings("removal")
-	/* package */ final class CategoryFigure extends Figure {
+	public final class CategoryFigure extends Figure {
 		private static final int IMAGE_SPACE_LEFT = 4;
 		private static final int IMAGE_SPACE_RIGHT = 4;
 		private static final int MARGIN_HEIGHT = 2;
@@ -729,7 +731,7 @@ public final class PaletteComposite extends Composite {
 	 * @noreference This class is not intended to be referenced by clients.
 	 */
 	@SuppressWarnings("removal")
-	/* package */ final class EntryFigure extends Figure {
+	public final class EntryFigure extends Figure {
 		private static final int IMAGE_SPACE_RIGHT = 2;
 		private static final int MARGIN_WIDTH_1 = 3;
 		private static final int MARGIN_WIDTH_2 = 6;
