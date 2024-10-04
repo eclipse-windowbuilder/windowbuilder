@@ -28,6 +28,7 @@ import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryMoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryRemoveCommand;
@@ -53,6 +54,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -276,6 +278,18 @@ public class DesignerPalette {
 					@Override
 					public boolean activate(boolean reload) {
 						return entryInfo.createTool(reload) != null;
+					}
+
+					@Override
+					public Tool createTool() {
+						if (entryInfo instanceof ToolEntryInfo toolInfo) {
+							// TODO Keep entry selected when CTRL key is pressed
+							return SafeRunner.run(toolInfo::createTool);
+						}
+						// SwingPaletteEntryInfo
+						// TODO double-check
+						entryInfo.activate(false);
+						return null;
 					}
 				};
 				m_goodEntryInfos.add(entryInfo);

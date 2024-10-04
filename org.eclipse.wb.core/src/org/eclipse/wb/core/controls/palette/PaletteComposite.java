@@ -150,10 +150,6 @@ public final class PaletteComposite extends Composite {
 		// prepare draw2d FigureCanvas
 		{
 			m_paletteViewer = new PaletteViewer();
-			m_paletteViewer.addPaletteListener((palette, tool) -> {
-				// TODO Keep entry selected when CTRL key is pressed
-				selectEntry((IEntry) tool, false);
-			});
 			m_paletteViewer.enableVerticalScrollbar(true);
 			m_figureCanvas = (FigureCanvas) m_paletteViewer.createControl(this);
 			m_figureCanvas.setHorizontalScrollBarVisibility(FigureCanvas.NEVER);
