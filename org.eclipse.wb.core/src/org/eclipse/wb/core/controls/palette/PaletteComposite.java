@@ -234,6 +234,7 @@ public final class PaletteComposite extends Composite {
 		m_preferences = (DesignerPaletteViewerPreferences) preferences;
 		m_layoutType = m_preferences.getLayoutType();
 		m_paletteFigure.onPreferencesUpdate();
+		m_paletteViewer.setPaletteViewerPreferences(m_preferences);
 	}
 
 	/**
