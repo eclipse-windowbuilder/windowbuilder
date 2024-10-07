@@ -310,7 +310,7 @@ public class DesignerPalette {
 				private boolean m_open;
 
 				@Override
-				public List<DesignerEntry> getEntries() {
+				public List<DesignerEntry> getChildren() {
 					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
 					ExecutionUtils.runIgnore(new RunnableEx() {
