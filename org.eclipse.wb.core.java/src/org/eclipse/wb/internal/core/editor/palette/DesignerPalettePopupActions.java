@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc and Others.
+ * Copyright (c) 2011, 2024 Google, Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -59,8 +60,6 @@ final class DesignerPalettePopupActions {
 	private static final ImageDescriptor ID_SELECTED = getImageDescription("selected.gif");
 	// field
 	private final DesignerPaletteOperations m_operations;
-	private final PluginPalettePreferences m_preferences =
-			new PluginPalettePreferences(DesignerPlugin.getPreferences());
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -122,46 +121,46 @@ final class DesignerPalettePopupActions {
 			// single
 			{
 				ImageDescriptor image = null;
-				if (type == DesignerPalette.COLUMN_ICONS_TYPE) {
+				if (type == PaletteViewerPreferences.LAYOUT_COLUMNS) {
 					image = ID_SELECTED;
 				}
 				Action columnAction = new Action("Columns", image) {
 					@Override
 					public void run() {
-						m_operations.setIconsType(DesignerPalette.COLUMN_ICONS_TYPE);
+						m_operations.setIconsType(PaletteViewerPreferences.LAYOUT_COLUMNS);
 					}
 				};
 				layoutMenuManager.add(columnAction);
 				image = null;
-				if (type == DesignerPalette.LIST_ICONS_TYPE) {
+				if (type == PaletteViewerPreferences.LAYOUT_LIST) {
 					image = ID_SELECTED;
 				}
 				Action listAction = new Action("List", image) {
 					@Override
 					public void run() {
-						m_operations.setIconsType(DesignerPalette.LIST_ICONS_TYPE);
+						m_operations.setIconsType(PaletteViewerPreferences.LAYOUT_LIST);
 					}
 				};
 				layoutMenuManager.add(listAction);
 				image = null;
-				if (type == DesignerPalette.ONLY_ICONS_TYPE) {
+				if (type == PaletteViewerPreferences.LAYOUT_ICONS) {
 					image = ID_SELECTED;
 				}
 				Action onlyIconAction = new Action("Icons Only", image) {
 					@Override
 					public void run() {
-						m_operations.setIconsType(DesignerPalette.ONLY_ICONS_TYPE);
+						m_operations.setIconsType(PaletteViewerPreferences.LAYOUT_ICONS);
 					}
 				};
 				layoutMenuManager.add(onlyIconAction);
 				image = null;
-				if (type == DesignerPalette.DETAIL_ICONS_TYPE) {
+				if (type == PaletteViewerPreferences.LAYOUT_DETAILS) {
 					image = ID_SELECTED;
 				}
 				Action detailAction = new Action("Detail", image) {
 					@Override
 					public void run() {
-						m_operations.setIconsType(DesignerPalette.DETAIL_ICONS_TYPE);
+						m_operations.setIconsType(PaletteViewerPreferences.LAYOUT_DETAILS);
 					}
 				};
 				layoutMenuManager.add(detailAction);
