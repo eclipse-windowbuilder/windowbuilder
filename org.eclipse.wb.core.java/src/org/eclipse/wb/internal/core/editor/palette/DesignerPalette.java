@@ -129,6 +129,7 @@ public class DesignerPalette {
 			final JavaInfo rootJavaInfo,
 			String toolkitId) {
 		m_editPartViewer = editPartViewer;
+		m_editPartViewer.getEditDomain().setPaletteViewer(m_paletteComposite.getPaletteViewer());
 		m_rootJavaInfo = rootJavaInfo;
 		//
 		if (m_rootJavaInfo != null) {
@@ -310,7 +311,7 @@ public class DesignerPalette {
 				private boolean m_open;
 
 				@Override
-				public List<DesignerEntry> getEntries() {
+				public List<DesignerEntry> getChildren() {
 					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
 					ExecutionUtils.runIgnore(new RunnableEx() {
@@ -425,6 +426,7 @@ public class DesignerPalette {
 			}
 		}
 		m_paletteComposite.setPalette(palette);
+		m_editPartViewer.getEditDomain().setPaletteRoot(palette);
 		configure_EditDomain_DefaultTool();
 	}
 
