@@ -29,7 +29,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryMoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryRemoveCommand;
@@ -82,10 +81,6 @@ import java.util.Set;
  */
 public class DesignerPalette {
 	public static final String FLAG_NO_PALETTE = "FLAG_NO_PALETTE"; // Don't load palette during testing
-	public static final int COLUMN_ICONS_TYPE = 0;
-	public static final int LIST_ICONS_TYPE = 1;
-	public static final int ONLY_ICONS_TYPE = 2;
-	public static final int DETAIL_ICONS_TYPE = 3;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance fields
@@ -109,7 +104,7 @@ public class DesignerPalette {
 	public DesignerPalette(Composite parent, int style, boolean isMainPalette) {
 		m_isMainPalette = isMainPalette;
 		m_operations = new DesignerPaletteOperations();
-		m_preferences = new PluginPalettePreferences(DesignerPlugin.getPreferences());
+		m_preferences = new PluginPalettePreferences();
 		m_paletteComposite = new PaletteComposite(parent, SWT.NONE);
 	}
 
@@ -519,7 +514,7 @@ public class DesignerPalette {
 
 		public void setIconsType(int iconsType) {
 			m_paletteComposite.setLayoutType(iconsType);
-			m_preferences.setLayoutType(iconsType);
+			m_preferences.setLayoutSetting(iconsType);
 			m_paletteComposite.setPreferences(m_preferences);
 			m_paletteComposite.refreshComposite();
 		}

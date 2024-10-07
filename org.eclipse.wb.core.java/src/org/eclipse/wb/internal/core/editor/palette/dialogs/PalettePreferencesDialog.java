@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,9 +19,13 @@ import org.eclipse.wb.internal.core.utils.dialogfields.LayoutDialogFieldGroup;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
+import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 /**
  * Dialog for modifying palette settings.
@@ -31,6 +35,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public final class PalettePreferencesDialog extends AbstractPaletteDialog {
 	private final PluginPalettePreferences m_preferences;
+	private final BidiMap<Integer, Integer> m_index2layout;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -44,6 +49,11 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
 				null,
 				Messages.PalettePreferencesDialog_message);
 		m_preferences = preferences;
+		m_index2layout = new DualHashBidiMap<>();
+		m_index2layout.put(0, PaletteViewerPreferences.LAYOUT_COLUMNS);
+		m_index2layout.put(1, PaletteViewerPreferences.LAYOUT_LIST);
+		m_index2layout.put(2, PaletteViewerPreferences.LAYOUT_ICONS);
+		m_index2layout.put(3, PaletteViewerPreferences.LAYOUT_DETAILS);
 		setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 	}
 
@@ -59,7 +69,7 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
 		m_preferences.setMinColumns(1 + m_minColumnsField.getSelection()[0]);
 		m_preferences.setCategoryFont(m_categoryFontField.getFontDataArray());
 		m_preferences.setEntryFont(m_entryFontField.getFontDataArray());
-		m_preferences.setLayoutType(m_layoutDialogField.getSelection()[0]);
+		m_preferences.setLayoutSetting(m_index2layout.get(m_layoutDialogField.getSelection()[0]));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -117,7 +127,7 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
 		m_minColumnsField.setSelection(new int[]{m_preferences.getMinColumns() - 1});
 		m_categoryFontField.setFontDataArray(m_preferences.getCategoryFontDescriptor().getFontData());
 		m_entryFontField.setFontDataArray(m_preferences.getEntryFontDescriptor().getFontData());
-		m_layoutDialogField.setSelection(new int[]{m_preferences.getLayoutType()});
+		m_layoutDialogField.setSelection(new int[] { m_index2layout.getKey(m_preferences.getLayoutType()) });
 	}
 
 	////////////////////////////////////////////////////////////////////////////
