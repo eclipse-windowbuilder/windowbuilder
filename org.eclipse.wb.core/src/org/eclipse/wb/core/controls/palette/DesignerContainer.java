@@ -75,7 +75,7 @@ public abstract class DesignerContainer extends PaletteDrawer implements ICatego
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<DesignerEntry> getEntries() {
-		return (List<DesignerEntry>) super.getChildren();
+		return (List<DesignerEntry>) getChildren();
 	}
 
 }
