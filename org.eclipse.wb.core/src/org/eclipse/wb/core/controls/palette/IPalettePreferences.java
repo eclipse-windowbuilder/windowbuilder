@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
+import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.resource.FontDescriptor;
 
 /**
@@ -18,7 +19,9 @@ import org.eclipse.jface.resource.FontDescriptor;
  *
  * @author scheglov_ke
  * @coverage core.control.palette
+ * @deprecated Replaced by {@link DesignPaletteViewerPreferences}.
  */
+@Deprecated(forRemoval = true, since = "1.18.0")
 public interface IPalettePreferences {
 	/**
 	 * @return the {@link FontDescriptor} for {@link ICategory}.
@@ -31,8 +34,11 @@ public interface IPalettePreferences {
 	FontDescriptor getEntryFontDescriptor();
 
 	/**
-	 * @return <code>true</code> if only icons should be displayed for {@link IEntry}'s.
+	 * @return {@code true} if only icons should be displayed for {@link IEntry}'s.
+	 * @deprecated Use {@link PaletteViewerPreferences#getLayoutSetting} instead and
+	 *             compare with {@link PaletteViewerPreferences#LAYOUT_ICONS}.
 	 */
+	@Deprecated(forRemoval = true, since = "1.18.0")
 	boolean isOnlyIcons();
 
 	/**
@@ -40,5 +46,9 @@ public interface IPalettePreferences {
 	 */
 	int getMinColumns();
 
+	/**
+	 * @deprecated Use {@link PaletteViewerPreferences#getLayoutSetting} instead.
+	 */
+	@Deprecated(forRemoval = true, since = "1.18.0")
 	int getLayoutType();
 }

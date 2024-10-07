@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
+import org.eclipse.wb.core.controls.palette.DesignerPaletteViewerPreferences;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalettePreferences;
@@ -27,19 +28,9 @@ import org.eclipse.swt.widgets.Display;
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */
-public final class PluginPalettePreferences implements IPalettePreferences {
-	private final IPreferenceStore m_store;
+public final class PluginPalettePreferences extends DesignerPaletteViewerPreferences {
 	private FontDescriptor m_categoryFont;
 	private FontDescriptor m_entryFont;
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public PluginPalettePreferences(IPreferenceStore store) {
-		m_store = store;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -48,9 +39,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	////////////////////////////////////////////////////////////////////////////
 	private String m_categoryFontKey;
 	private String m_entryFontKey;
-	private String m_onlyIconsKey;
 	private String m_minColumnsKey;
-	private String m_layoutsKey;
 
 	/**
 	 * Sets the prefix for preference keys.
@@ -59,25 +48,34 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 		// prepare keys
 		m_categoryFontKey = prefix + ".category.font";
 		m_entryFontKey = prefix + ".entry.font";
-		m_onlyIconsKey = prefix + ".onlyIcons";
 		m_minColumnsKey = prefix + ".columns.min";
-		m_layoutsKey = prefix + ".layouts.type";
 		// set default values
 		{
 			{
 				FontData defaultFontData = Display.getDefault().getSystemFont().getFontData()[0];
 				FontData boldFontData =
 						new FontData(defaultFontData.getName(), defaultFontData.getHeight(), SWT.BOLD);
-				PreferenceConverter.setDefault(m_store, m_categoryFontKey, boldFontData);
+				PreferenceConverter.setDefault(getPreferenceStore(), m_categoryFontKey, boldFontData);
 			}
 			{
 				FontData[] defaultFontData = Display.getDefault().getSystemFont().getFontData();
-				PreferenceConverter.setDefault(m_store, m_entryFontKey, defaultFontData);
+				PreferenceConverter.setDefault(getPreferenceStore(), m_entryFontKey, defaultFontData);
 			}
 		}
-		m_store.setDefault(m_onlyIconsKey, false);
-		m_store.setDefault(m_minColumnsKey, 2);
-		m_store.setDefault(m_layoutsKey, DesignerPalette.LIST_ICONS_TYPE);
+		getPreferenceStore().setDefault(m_minColumnsKey, 2);
+	}
+
+	@Override
+	protected void handlePreferenceStorePropertyChanged(String property) {
+		if (property.equals(m_categoryFontKey)) {
+			firePropertyChanged(property, getCategoryFontDescriptor());
+		} else if (property.equals(m_entryFontKey)) {
+			firePropertyChanged(property, getEntryFontDescriptor());
+		} else if (property.equals(m_minColumnsKey)) {
+			firePropertyChanged(property, getMinColumns());
+		} else {
+			super.handlePreferenceStorePropertyChanged(property);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -88,7 +86,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	@Override
 	public FontDescriptor getCategoryFontDescriptor() {
 		if (m_categoryFont == null) {
-			FontData[] fontDataArray = PreferenceConverter.getFontDataArray(m_store, m_categoryFontKey);
+			FontData[] fontDataArray = PreferenceConverter.getFontDataArray(getPreferenceStore(), m_categoryFontKey);
 			m_categoryFont = FontDescriptor.createFrom(fontDataArray);
 		}
 		return m_categoryFont;
@@ -97,25 +95,15 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	@Override
 	public FontDescriptor getEntryFontDescriptor() {
 		if (m_entryFont == null) {
-			FontData[] fontDataArray = PreferenceConverter.getFontDataArray(m_store, m_entryFontKey);
+			FontData[] fontDataArray = PreferenceConverter.getFontDataArray(getPreferenceStore(), m_entryFontKey);
 			m_entryFont = FontDescriptor.createFrom(fontDataArray);
 		}
 		return m_entryFont;
 	}
 
 	@Override
-	public boolean isOnlyIcons() {
-		return m_store.getBoolean(m_onlyIconsKey);
-	}
-
-	@Override
 	public int getMinColumns() {
-		return m_store.getInt(m_minColumnsKey);
-	}
-
-	@Override
-	public int getLayoutType() {
-		return m_store.getInt(m_layoutsKey);
+		return getPreferenceStore().getInt(m_minColumnsKey);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -127,7 +115,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	 * Sets the {@link FontData} for {@link ICategory}.
 	 */
 	public void setCategoryFont(FontData[] fontDataArray) {
-		PreferenceConverter.setValue(m_store, m_categoryFontKey, fontDataArray);
+		PreferenceConverter.setValue(getPreferenceStore(), m_categoryFontKey, fontDataArray);
 		m_categoryFont = null;
 	}
 
@@ -135,28 +123,14 @@ public final class PluginPalettePreferences implements IPalettePreferences {
 	 * Sets the {@link FontData} for {@link IEntry}.
 	 */
 	public void setEntryFont(FontData[] fontDataArray) {
-		PreferenceConverter.setValue(m_store, m_entryFontKey, fontDataArray);
+		PreferenceConverter.setValue(getPreferenceStore(), m_entryFontKey, fontDataArray);
 		m_entryFont = null;
-	}
-
-	/**
-	 * Specifies if only icons should be displayed for {@link IEntry}'s.
-	 */
-	public void setOnlyIcons(boolean onlyIcons) {
-		m_store.setValue(m_onlyIconsKey, onlyIcons);
 	}
 
 	/**
 	 * Sets the minimal number of columns for {@link ICategory}.
 	 */
 	public void setMinColumns(int minColumns) {
-		m_store.setValue(m_minColumnsKey, minColumns);
-	}
-
-	/**
-	 * Sets the minimal number of columns for {@link ICategory}.
-	 */
-	public void setLayoutType(int layoutTypes) {
-		m_store.setValue(m_layoutsKey, layoutTypes);
+		getPreferenceStore().setValue(m_minColumnsKey, minColumns);
 	}
 }

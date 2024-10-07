@@ -33,6 +33,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -60,10 +61,26 @@ import java.util.Map;
  * @coverage core.control.palette
  */
 public final class PaletteComposite extends Composite {
-	public static int COLUMN_ICONS_TYPE = 0;
-	public static int LIST_ICONS_TYPE = 1;
-	public static int ONLY_ICONS_TYPE = 2;
-	public static int DETAIL_ICONS_TYPE = 3;
+	/**
+	 * @deprecated Use {@link PaletteViewerPreferences#LAYOUT_COLUMNS} instead.
+	 */
+	@Deprecated(forRemoval = true, since = "1.18.0")
+	public static int COLUMN_ICONS_TYPE = PaletteViewerPreferences.LAYOUT_COLUMNS;
+	/**
+	 * @deprecated Use {@link PaletteViewerPreferences#LAYOUT_LIST} instead.
+	 */
+	@Deprecated(forRemoval = true, since = "1.18.0")
+	public static int LIST_ICONS_TYPE = PaletteViewerPreferences.LAYOUT_LIST;
+	/**
+	 * @deprecated Use {@link PaletteViewerPreferences#LAYOUT_ICONS} instead.
+	 */
+	@Deprecated(forRemoval = true, since = "1.18.0")
+	public static int ONLY_ICONS_TYPE = PaletteViewerPreferences.LAYOUT_ICONS;
+	/**
+	 * @deprecated Use {@link PaletteViewerPreferences#LAYOUT_DETAILS} instead.
+	 */
+	@Deprecated(forRemoval = true, since = "1.18.0")
+	public static int DETAIL_ICONS_TYPE = PaletteViewerPreferences.LAYOUT_DETAILS;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Colors
@@ -128,7 +145,7 @@ public final class PaletteComposite extends Composite {
 	////////////////////////////////////////////////////////////////////////////
 	public PaletteComposite(Composite parent, int style) {
 		super(parent, style);
-		m_preferences = new DefaultPalettePreferences();
+		m_preferences = new DesignerPaletteViewerPreferences();
 		//
 		setLayout(new FillLayout());
 		// prepare draw2d FigureCanvas
