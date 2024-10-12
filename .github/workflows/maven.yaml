@@ -8,6 +8,15 @@ on:
     branches:
       - master
 jobs:
+  event_file:
+    name: "Event File"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Upload
+      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      with:
+        name: Event File
+        path: ${{ github.event_path }}
   check-dash-licenses:
     uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@90ebdf14dff066293b65b9d3ca99c8fb90d5222b # 1.1.0
     with:
