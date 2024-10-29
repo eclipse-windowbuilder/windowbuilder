@@ -10,15 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.swtbot.designer.rcp.wizard;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * A collection of all SWTBot-based RCP Wizard tests.
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		Eclipse4WizardTest.class,
 		JFaceWizardTest.class,
 		RcpWizardTest.class,

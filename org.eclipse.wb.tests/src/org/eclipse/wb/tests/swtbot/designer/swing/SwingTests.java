@@ -12,15 +12,14 @@ package org.eclipse.wb.tests.swtbot.designer.swing;
 
 import org.eclipse.wb.tests.swtbot.designer.swing.wizard.SwingNewWizardTest;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * A collection of all SWTBot-based Swing tests.
  */
-@RunWith(Suite.class)
-@SuiteClasses(SwingNewWizardTest.class)
+@Suite
+@SelectClasses(SwingNewWizardTest.class)
 public class SwingTests {
 
 }

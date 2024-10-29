@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.swtbot.designer.rcp.wizard;
 
 import org.eclipse.wb.tests.swtbot.designer.AbstractWizardTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SwtWizardTest extends AbstractWizardTest {
 	@Test
