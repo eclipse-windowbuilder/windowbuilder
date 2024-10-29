@@ -12,9 +12,9 @@ package org.eclipse.wb.tests.swtbot.designer.swing.wizard;
 
 import org.eclipse.wb.tests.swtbot.designer.AbstractWizardTest;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SwingNewWizardTest extends AbstractWizardTest {
 

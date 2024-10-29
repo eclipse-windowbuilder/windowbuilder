@@ -13,9 +13,9 @@ package org.eclipse.wb.tests.swtbot.designer;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 import java.util.Arrays;
 
@@ -27,7 +27,7 @@ public abstract class AbstractWizardTest extends AbstractSWTBotTest {
 	private SWTBotShell shell;
 	protected SWTBot editor;
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		bot.resetWorkbench();
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractWizardTest extends AbstractSWTBotTest {
 	}
 
 	private void createTemplate(String... fullPath) {
-		assertTrue("path requires at least one argument (template name)", fullPath.length > 1);
+		assertTrue(fullPath.length > 1, "path requires at least one argument (template name)");
 		String[] path = Arrays.copyOf(fullPath, fullPath.length - 1);
 		String name = fullPath[fullPath.length - 1];
 		String fileName = name.replaceAll(" ", "_");

@@ -10,16 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.swtbot.designer;
 
+import org.eclipse.wb.tests.swtbot.designer.AbstractSWTBotTest.LoggerExtension;
 import org.eclipse.wb.tests.swtbot.designer.bot.WindowBuilderWorkbenchBot;
 
 import org.eclipse.swt.widgets.Display;
 
 import static org.assertj.core.api.Assertions.fail;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -28,11 +34,12 @@ import java.util.logging.Logger;
  * test project. After each test run, all created Java files are removed from
  * the project.
  */
+@ExtendWith(LoggerExtension.class)
 public abstract class AbstractSWTBotTest {
-	protected final Logger logger = Logger.getLogger(getClass().getSimpleName());
+	protected static final Logger LOGGER = Logger.getLogger(AbstractSWTBotTest.class.getSimpleName());
 	protected WindowBuilderWorkbenchBot bot;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		if (Display.getCurrent() != null) {
 			fail("""
@@ -44,9 +51,18 @@ public abstract class AbstractSWTBotTest {
 		bot = new WindowBuilderWorkbenchBot();
 	}
 
-	@Rule
-	public TestRule loggerRule = (base, description) -> {
-		logger.info(description.getClassName() + ':' + description.getMethodName());
-		return base;
-	};
+	static {
+		try (InputStream is = AbstractSWTBotTest.class.getResourceAsStream("WindowBuilder SWTBot Logging.properties")) {
+			LogManager.getLogManager().readConfiguration(is);
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
+		}
+	}
+
+	public static class LoggerExtension implements BeforeTestExecutionCallback {
+		@Override
+		public void beforeTestExecution(ExtensionContext context) throws Exception {
+			LOGGER.info(context.getRequiredTestClass().getSimpleName() + ':' + context.getDisplayName());
+		}
+	}
 }

@@ -49,7 +49,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.mockito.mockito-core;bundle-version="5.3.1",
  org.objectweb.asm;bundle-version="9.0.0",
  org.objenesis,
- net.bytebuddy.byte-buddy;bundle-version="1.14.4"
+ net.bytebuddy.byte-buddy;bundle-version="1.14.4",
+ junit-jupiter-api;bundle-version="[5.11.3,6.0.0)",
+ junit-platform-suite-api;bundle-version="[1.11.3,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wb.tests.designer,
  org.eclipse.wb.tests.designer.core,

@@ -12,15 +12,14 @@ package org.eclipse.wb.tests.swtbot.designer;
 
 import org.eclipse.wb.tests.swtbot.designer.rcp.RcpTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Executes all SWTBot-based WindowBuilder tests
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	RcpTests.class,
 })
 public class WindowBuilderTests {
