@@ -14,6 +14,8 @@ import org.eclipse.wb.tests.swtbot.designer.AbstractWizardTest;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 public class JFaceWizardTest extends AbstractWizardTest {

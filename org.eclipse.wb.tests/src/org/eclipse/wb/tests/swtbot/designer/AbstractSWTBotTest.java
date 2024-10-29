@@ -10,26 +10,29 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.swtbot.designer;
 
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.rcp.wizards.project.NewProjectWizard;
-import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
+import org.eclipse.wb.tests.swtbot.designer.bot.WindowBuilderWorkbenchBot;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
-import org.eclipse.ui.PlatformUI;
+
+import static org.assertj.core.api.Assertions.fail;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+
+import java.util.logging.Logger;
 
 /**
  * Abstract base class for all JUnit tests using the SWTBot. This class
  * initializes the workspace with the {@code Resource} perspective and an empty
- * test project. After each test run, all Java files are removed from the
- * project again.
+ * test project. After each test run, all created Java files are removed from
+ * the project.
  */
-public abstract class AbstractSWTBotTest extends AbstractJavaProjectTest {
-	protected SWTWorkbenchBot bot;
+public abstract class AbstractSWTBotTest {
+	protected final Logger logger = Logger.getLogger(getClass().getSimpleName());
+	protected WindowBuilderWorkbenchBot bot;
 
-	@Override
+	@Before
 	public void setUp() throws Exception {
 		if (Display.getCurrent() != null) {
 			fail("""
@@ -37,37 +40,13 @@ public abstract class AbstractSWTBotTest extends AbstractJavaProjectTest {
 					Make sure that "Run in UI thread" is unchecked in your launch configuration or that useUIThread is set to false in the pom.xml
 					""");
 		}
-		PlatformUI.getWorkbench().getDisplay().syncCall(this::doSetUp);
 
-		bot = new SWTWorkbenchBot();
-		bot.perspectiveByLabel("Resource").activate();
+		bot = new WindowBuilderWorkbenchBot();
 	}
 
-	protected Void doSetUp() throws Exception {
-		super.setUp();
-		if (m_testProject == null) {
-			do_projectCreate();
-			ReflectionUtils.getMethod(NewProjectWizard.class, "addRequiredLibraries", IJavaProject.class) //
-					.invoke(null, m_javaProject);
-		}
-		return null;
-	}
-
-	@Override
-	public void tearDown() throws Exception {
-		PlatformUI.getWorkbench().getDisplay().syncCall(this::doTearDown);
-	}
-
-	protected Void doTearDown() throws Exception {
-		if (m_testProject != null) {
-			m_testProject.getProject().accept(resource -> {
-				if (resource instanceof IFile file && "java".equals(file.getFileExtension())) {
-					resource.delete(true, null);
-					return false;
-				}
-				return true;
-			});
-		}
-		return null;
-	}
+	@Rule
+	public TestRule loggerRule = (base, description) -> {
+		logger.info(description.getClassName() + ':' + description.getMethodName());
+		return base;
+	};
 }

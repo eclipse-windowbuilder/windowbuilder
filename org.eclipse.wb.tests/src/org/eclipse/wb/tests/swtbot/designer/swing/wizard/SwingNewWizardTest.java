@@ -12,6 +12,8 @@ package org.eclipse.wb.tests.swtbot.designer.swing.wizard;
 
 import org.eclipse.wb.tests.swtbot.designer.AbstractWizardTest;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 
 public class SwingNewWizardTest extends AbstractWizardTest {
@@ -48,13 +50,13 @@ public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test
 	public void testCreateWithJavaModules() throws Exception {
-		setFileContentSrc("module-info.java", """
+		bot.setFileContent("module-info.java", """
 				module test {
 				}""");
 		//
 		testTemplateViaProjectExplorer("WindowBuilder", "Swing Designer", "JFrame");
 		// We can't use code blocks as they don't consider carriage-returns
-		assertArrayEquals(getFileContentSrc("module-info.java").split(System.lineSeparator()),
+		assertArrayEquals(bot.getFileContent("module-info.java").split(System.lineSeparator()),
 				new String[] {
 						"module test {",
 						"	requires java.desktop;",
@@ -94,13 +96,13 @@ public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test
 	public void testCreateWithJavaModulesNoSelection() throws Exception {
-		setFileContentSrc("module-info.java", """
+		bot.setFileContent("module-info.java", """
 				module test {
 				}""");
 		//
 		testTemplateViaMenu("WindowBuilder", "Swing Designer", "JFrame");
 		// We can't use code blocks as they don't consider carriage-returns
-		assertArrayEquals(getFileContentSrc("module-info.java").split(System.lineSeparator()),
+		assertArrayEquals(bot.getFileContent("module-info.java").split(System.lineSeparator()),
 				new String[] {
 						"module test {",
 						"	requires java.desktop;",
