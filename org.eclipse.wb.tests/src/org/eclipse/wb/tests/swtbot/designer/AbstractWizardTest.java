@@ -12,10 +12,10 @@ package org.eclipse.wb.tests.swtbot.designer;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.ui.PlatformUI;
+
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
-import org.junit.Before;
 
 import java.util.Arrays;
 
@@ -27,44 +27,18 @@ public abstract class AbstractWizardTest extends AbstractSWTBotTest {
 	private SWTBotShell shell;
 	protected SWTBot editor;
 
-	@Before
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		// Initialize "Resource" perspective
-		bot.perspectiveByLabel("Resource").activate();
-	}
-
 	@After
-	@Override
-	public void tearDown() throws Exception {
-		// Clear "Resource" perspective and close all open editors
-		bot.perspectiveByLabel("Resource").close();
-		if (shell != null) {
-			PlatformUI.getWorkbench().getDisplay().syncExec(shell.widget::dispose);
-		}
-		super.tearDown();
-	}
-
-	protected final SWTBotShell openNewWizardViaProjectExplorer() {
-		String project = m_javaProject.getElementName();
-		SWTBot packageExplorer = bot.viewByPartName("Project Explorer").bot();
-		packageExplorer.tree().getTreeItem(project).contextMenu().menu("New", "Other...").click();
-		return bot.shell("Select a wizard");
-	}
-
-	protected final SWTBotShell openNewWizardViaMenu() {
-		bot.menu("File").menu("New", "Other...").click();
-		return bot.shell("Select a wizard");
+	public void tearDown() {
+		bot.resetWorkbench();
 	}
 
 	protected final void testTemplateViaProjectExplorer(String... fullPath) {
-		shell = openNewWizardViaProjectExplorer();
+		shell = bot.getProjectExplorer().openNewWizard();
 		createTemplate(fullPath);
 	}
 
 	protected final void testTemplateViaMenu(String... fullPath) {
-		shell = openNewWizardViaMenu();
+		shell = bot.openNewWizard();
 		createTemplate(fullPath);
 	}
 
@@ -81,6 +55,8 @@ public abstract class AbstractWizardTest extends AbstractSWTBotTest {
 		newWizard.text(2).setText(fileName);
 		newWizard.button("Finish").click();
 
+		// The created Java file needs to be deleted after the test concluded
+		bot.addFile("test", fileName + ".java");
 		editor = bot.editorByTitle(fileName + ".java").bot();
 		editor.cTabItem("Design").activate();
 	}
