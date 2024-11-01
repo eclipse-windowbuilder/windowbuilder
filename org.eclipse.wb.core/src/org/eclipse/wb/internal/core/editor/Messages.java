@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Google, Inc. - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
 import org.eclipse.osgi.util.NLS;
@@ -60,6 +70,7 @@ public class Messages extends NLS {
 	public static String ComponentsTreePage_expandAllAction;
 	public static String DesignComponentsComposite_componentsTitle;
 	public static String DesignComponentsComposite_propertiesTitle;
+	public static String DesignerMethodBinding_unknownArgumentNames;
 	public static String DesignerPalettePopupActions_addCategoryAction;
 	public static String DesignerPalettePopupActions_addComponentAction;
 	public static String DesignerPalettePopupActions_addInstanceFactoryAction;
