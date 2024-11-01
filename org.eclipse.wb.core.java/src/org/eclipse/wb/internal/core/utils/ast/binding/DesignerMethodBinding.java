@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,12 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast.binding;
 
+import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
+
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IVariableBinding;
+import org.eclipse.osgi.util.NLS;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -36,6 +41,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
 	private final boolean m_varargs;
 	private final ITypeBinding m_declaringClass;
 	private final ITypeBinding m_returnType;
+	private final String m_key;
 	private ITypeBinding[] m_parameterTypes;
 	private String[] m_parameterNames;
 	private ITypeBinding[] m_exceptionTypes;
@@ -47,6 +53,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	DesignerMethodBinding(BindingContext context, IMethodBinding binding) {
+		m_key = binding.getKey();
 		m_name = binding.getName();
 		m_modifiers = binding.getModifiers();
 		m_constructor = binding.isConstructor();
@@ -90,7 +97,14 @@ public final class DesignerMethodBinding implements IMethodBinding {
 	 */
 	public void removeParameterType(int index) {
 		m_parameterTypes = ArrayUtils.remove(m_parameterTypes, index);
-		m_parameterNames = ArrayUtils.remove(m_parameterNames, index);
+		// When using a JDK 8, JDT is unable to calculate the parameter names, leading
+		// to a mismatch with the number of parameter types
+		if (index < m_parameterNames.length) {
+			m_parameterNames = ArrayUtils.remove(m_parameterNames, index);
+		} else {
+			String message = NLS.bind(Messages.DesignerMethodBinding_unknownArgumentNames, m_key);
+			DesignerPlugin.log(Status.warning(message));
+		}
 		if (m_methodDeclaration != this) {
 			m_methodDeclaration.removeParameterType(index);
 		}
@@ -235,7 +249,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
 
 	@Override
 	public String getKey() {
-		throw new IllegalArgumentException();
+		return m_key;
 	}
 
 	@Override
