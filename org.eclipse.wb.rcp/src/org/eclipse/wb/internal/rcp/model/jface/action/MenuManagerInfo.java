@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
 import org.eclipse.wb.internal.core.model.menu.JavaMenuMenuObject;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
-import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -47,10 +47,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
-public final class MenuManagerInfo extends ContributionManagerInfo
-implements
-IContributionItemInfo,
-IAdaptable {
+public final class MenuManagerInfo extends ContributionManagerInfo implements IContributionItemInfo, IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
