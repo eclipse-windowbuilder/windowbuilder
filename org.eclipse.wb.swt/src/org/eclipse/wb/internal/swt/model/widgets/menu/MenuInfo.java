@@ -37,7 +37,6 @@ import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.variable.EmptyPureVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
-import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -48,6 +47,7 @@ import org.eclipse.wb.internal.swt.support.MenuSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;

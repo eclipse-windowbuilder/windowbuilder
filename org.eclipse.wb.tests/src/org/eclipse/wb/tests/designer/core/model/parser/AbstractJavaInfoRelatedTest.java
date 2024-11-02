@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,7 +38,6 @@ import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.model.variable.description.LocalUniqueVariableDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -50,6 +49,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
