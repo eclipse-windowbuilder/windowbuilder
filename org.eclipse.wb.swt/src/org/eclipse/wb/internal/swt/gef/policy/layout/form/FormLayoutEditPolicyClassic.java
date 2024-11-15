@@ -1334,7 +1334,7 @@ implements IHeadersProvider {
 				: FormUtils.getAttachableControls(layout);
 		CollectionUtils.filter(attachableControls, input -> {
 			try {
-				EditPart part = (EditPart) getHost().getViewer().getEditPartRegistry().get(input);
+				EditPart part = getHost().getViewer().getEditPartRegistry().get(input);
 				if (!includeSelected && part.getSelected() != EditPart.SELECTED_NONE) {
 					return false;
 				}

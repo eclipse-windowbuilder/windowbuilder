@@ -205,7 +205,7 @@ public final class ComponentsTreePage implements IPage {
 			if (model instanceof ObjectReferenceInfo) {
 				model = ((ObjectReferenceInfo) model).getObject();
 			}
-			EditPart targetEditPart = (EditPart) targetViewer.getEditPartRegistry().get(model);
+			EditPart targetEditPart = targetViewer.getEditPartRegistry().get(model);
 			if (targetEditPart != null) {
 				targetEditParts.add(targetEditPart);
 			}

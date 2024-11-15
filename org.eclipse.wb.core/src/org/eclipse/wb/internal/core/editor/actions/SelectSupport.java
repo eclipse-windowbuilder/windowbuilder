@@ -204,7 +204,7 @@ public final class SelectSupport {
 	private void selectByModels() {
 		List<EditPart> editParts = new ArrayList<>();
 		for (ObjectInfo object : m_selectingSet) {
-			EditPart editPart = (EditPart) m_graphicalViewer.getEditPartRegistry().get(object);
+			EditPart editPart = m_graphicalViewer.getEditPartRegistry().get(object);
 			if (editPart != null) {
 				editParts.add(editPart);
 			}

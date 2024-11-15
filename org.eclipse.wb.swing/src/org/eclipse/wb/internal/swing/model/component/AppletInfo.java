@@ -27,7 +27,6 @@ import javax.swing.JApplet;
  * @author scheglov_ke
  * @coverage swing.model
  */
-@SuppressWarnings("removal")
 public final class AppletInfo extends ContainerInfo implements IJavaInfoRendering {
 	////////////////////////////////////////////////////////////////////////////
 	//

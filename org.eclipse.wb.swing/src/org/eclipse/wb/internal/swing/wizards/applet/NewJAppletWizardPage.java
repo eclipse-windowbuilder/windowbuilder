@@ -30,7 +30,6 @@ import javax.swing.JApplet;
  * @author lobas_av
  * @coverage swing.wizards.ui
  */
-@SuppressWarnings("removal")
 public final class NewJAppletWizardPage extends SwingWizardPage {
 	////////////////////////////////////////////////////////////////////////////
 	//

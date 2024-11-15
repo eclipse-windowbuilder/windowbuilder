@@ -155,7 +155,7 @@ public final class FactoryApplyAction extends Action {
 			{
 				GenericPropertyImpl property = getGenericProperty(parameter.getProperty());
 				if (property != null) {
-					Expression expression = ((GenericProperty) property).getExpression();
+					Expression expression = property.getExpression();
 					// argument of creation
 					if (oldArguments.contains(expression)) {
 						arguments.add(m_editor.getSource(expression));

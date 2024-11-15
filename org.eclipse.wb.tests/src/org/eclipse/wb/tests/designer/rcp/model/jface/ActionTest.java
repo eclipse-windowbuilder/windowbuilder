@@ -288,7 +288,7 @@ public class ActionTest extends RcpModelTest {
 		window.refresh();
 		// check "action"
 		ActionInfo action = ActionContainerInfo.getActions(window).get(0);
-		((GenericProperty) action.getPropertyByTitle("text")).setValue("The text");
+		action.getPropertyByTitle("text").setValue("The text");
 		((GenericProperty) action.getPropertyByTitle("imageDescriptor")).setExpression(
 				"null",
 				Property.UNKNOWN_VALUE);

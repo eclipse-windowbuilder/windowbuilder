@@ -301,7 +301,7 @@ public class FormToolkitTest extends AbstractFormsTest {
 		shell.refresh();
 		//
 		ControlInfo newComposite = createJavaInfo("org.eclipse.swt.widgets.Composite");
-		((FillLayoutInfo) shell.getLayout()).command_CREATE(newComposite, null);
+		shell.getLayout().command_CREATE(newComposite, null);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  private final FormToolkit m_toolkit = new FormToolkit(Display.getDefault());",
@@ -329,7 +329,7 @@ public class FormToolkitTest extends AbstractFormsTest {
 		shell.refresh();
 		//
 		ControlInfo newButton = BTestUtils.createButton();
-		((FillLayoutInfo) shell.getLayout()).command_CREATE(newButton, null);
+		shell.getLayout().command_CREATE(newButton, null);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  private final FormToolkit m_toolkit = new FormToolkit(Display.getDefault());",

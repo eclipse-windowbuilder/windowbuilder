@@ -73,7 +73,7 @@ public final class MigLayoutSplitEditPolicy extends ComponentFlowLayoutEditPolic
 			Figure targetFigure;
 			{
 				ComponentInfo targetComponent = m_components.get(0);
-				EditPart targetEditPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(targetComponent);
+				EditPart targetEditPart = getHost().getViewer().getEditPartRegistry().get(targetComponent);
 				targetFigure = ((GraphicalEditPart) targetEditPart).getFigure();
 			}
 			// prepare location in target component's Figure
