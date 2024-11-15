@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
 import org.eclipse.wb.internal.swt.model.layout.ILayoutDataInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -23,7 +24,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
-public interface ITableWrapDataInfo extends ILayoutDataInfo {
+public interface ITableWrapDataInfo extends ILayoutDataInfo<ControlInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Location

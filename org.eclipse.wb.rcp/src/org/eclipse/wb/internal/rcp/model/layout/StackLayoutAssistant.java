@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,8 +11,8 @@
 package org.eclipse.wb.internal.rcp.model.layout;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
-import org.eclipse.wb.internal.swt.model.layout.ILayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.LayoutAssistantSupport;
+import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -29,7 +29,7 @@ public final class StackLayoutAssistant extends LayoutAssistantSupport {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public StackLayoutAssistant(ILayoutInfo<?> layout) {
+	public StackLayoutAssistant(LayoutInfo layout) {
 		super(layout);
 	}
 

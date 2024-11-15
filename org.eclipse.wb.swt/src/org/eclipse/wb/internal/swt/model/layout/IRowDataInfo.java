@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
 import org.eclipse.swt.layout.RowData;
 
 /**
@@ -18,7 +20,7 @@ import org.eclipse.swt.layout.RowData;
  * @author scheglov_ke
  * @coverage swt.model.layout
  */
-public interface IRowDataInfo extends ILayoutDataInfo {
+public interface IRowDataInfo extends ILayoutDataInfo<ControlInfo> {
 	/**
 	 * Sets width.
 	 */
