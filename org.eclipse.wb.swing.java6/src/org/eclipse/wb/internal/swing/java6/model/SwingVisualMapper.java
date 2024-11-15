@@ -182,7 +182,7 @@ public class SwingVisualMapper implements VisualMapper {
 		} else if (component == null) {
 			return false;
 		} else {
-			return ((JComponent) component).isPreferredSizeSet();
+			return component.isPreferredSizeSet();
 		}
 	}
 

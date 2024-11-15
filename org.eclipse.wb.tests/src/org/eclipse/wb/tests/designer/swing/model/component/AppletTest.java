@@ -31,7 +31,6 @@ import javax.swing.JFrame;
  *
  * @author scheglov_ke
  */
-@SuppressWarnings("removal")
 public class AppletTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

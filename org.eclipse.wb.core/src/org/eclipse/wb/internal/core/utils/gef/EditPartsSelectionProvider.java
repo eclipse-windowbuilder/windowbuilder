@@ -70,7 +70,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
 		List<EditPart> editParts = new ArrayList<>();
 		for (Iterator<?> I = ((StructuredSelection) selection).iterator(); I.hasNext();) {
 			Object model = I.next();
-			EditPart editPart = (EditPart) m_viewer.getEditPartRegistry().get(model);
+			EditPart editPart = m_viewer.getEditPartRegistry().get(model);
 			if (editPart != null) {
 				editParts.add(editPart);
 			}

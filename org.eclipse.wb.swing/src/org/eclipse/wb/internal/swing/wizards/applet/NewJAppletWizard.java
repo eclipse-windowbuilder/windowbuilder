@@ -24,7 +24,6 @@ import javax.swing.JApplet;
  * @author lobas_av
  * @coverage swing.wizards.ui
  */
-@SuppressWarnings("removal")
 public final class NewJAppletWizard extends SwingWizard {
 	////////////////////////////////////////////////////////////////////////////
 	//

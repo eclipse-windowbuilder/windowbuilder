@@ -440,7 +440,7 @@ public class ViewFormTest extends RcpModelTest {
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
 		//
-		((FillLayoutInfo) shell.getLayout()).command_MOVE(button, null);
+		shell.getLayout().command_MOVE(button, null);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",

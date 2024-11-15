@@ -171,7 +171,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 		CompositeInfo group = (CompositeInfo) composite.getContent();
 		//
 		ControlInfo button = BTestUtils.createButton();
-		((RowLayoutInfo) group.getLayout()).command_CREATE(button, null);
+		group.getLayout().command_CREATE(button, null);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  private Group group;",
@@ -251,7 +251,7 @@ public class ScrolledCompositeTest extends RcpModelTest {
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = composite.getContent();
 		//
-		((FillLayoutInfo) shell.getLayout()).command_MOVE(button, null);
+		shell.getLayout().command_MOVE(button, null);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  private Button button;",

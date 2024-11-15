@@ -141,7 +141,7 @@ public class TreeDropListener implements DropTargetListener {
 			// prepare new EditPart's
 			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
-				EditPart newEditPart = (EditPart) m_viewer.getEditPartRegistry().get(model);
+				EditPart newEditPart = m_viewer.getEditPartRegistry().get(model);
 				newEditParts.add(newEditPart);
 			}
 			// set new selection

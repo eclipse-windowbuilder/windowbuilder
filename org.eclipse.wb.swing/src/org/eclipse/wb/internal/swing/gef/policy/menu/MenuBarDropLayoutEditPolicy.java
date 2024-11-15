@@ -42,7 +42,6 @@ import javax.swing.JFrame;
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */
-@SuppressWarnings("removal")
 public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 	private final ContainerInfo m_container;
 

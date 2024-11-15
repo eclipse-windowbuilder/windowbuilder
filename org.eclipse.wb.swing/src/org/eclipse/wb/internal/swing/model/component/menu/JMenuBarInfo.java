@@ -47,7 +47,6 @@ import javax.swing.LookAndFeel;
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
-@SuppressWarnings("removal")
 public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 	//

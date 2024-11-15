@@ -557,7 +557,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		int liveBaseline = newButton.getBaseline();
 		Assertions.assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
 		// drop Button
-		((RowLayoutInfo) shell.getLayout()).command_CREATE(newButton, null);
+		shell.getLayout().command_CREATE(newButton, null);
 		assertEditor(
 				"class Test extends Shell {",
 				"  public Test() {",
