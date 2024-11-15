@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,9 +12,9 @@ package org.eclipse.wb.internal.swt.model.layout.grid;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.swt.model.layout.ILayoutDataInfo;
-import org.eclipse.wb.internal.swt.model.layout.ILayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.LayoutAssistantSupport;
+import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
+import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -33,7 +33,7 @@ public final class GridLayoutAssistant extends LayoutAssistantSupport {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public GridLayoutAssistant(ILayoutInfo<?> layout) {
+	public GridLayoutAssistant(LayoutInfo layout) {
 		super(layout);
 	}
 
@@ -49,7 +49,7 @@ public final class GridLayoutAssistant extends LayoutAssistantSupport {
 
 	@Override
 	protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
-		List<ILayoutDataInfo> dataList = getDataList(objects);
+		List<LayoutDataInfo> dataList = getDataList(objects);
 		return new GridLayoutDataAssistantPage(parent, dataList);
 	}
 }

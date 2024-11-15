@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@ import java.util.Map;
  * @author lobas_av
  * @coverage swt.model.layout
  */
-public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo {
+public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo<ControlInfo> {
 	final LayoutDataInfo m_this = this;
 
 	////////////////////////////////////////////////////////////////////////////

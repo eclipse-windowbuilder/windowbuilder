@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,7 @@ import org.eclipse.swt.layout.FormLayout;
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
-public interface IFormDataInfo<C extends IControlInfo> extends ILayoutDataInfo {
+public interface IFormDataInfo<C extends IControlInfo> extends ILayoutDataInfo<C> {
 	/**
 	 * @return the IFormAttachmentInfo instance according given <code>side</code> parameter. May not
 	 *         return <code>null</code>, in case of non-existent attachment the returned

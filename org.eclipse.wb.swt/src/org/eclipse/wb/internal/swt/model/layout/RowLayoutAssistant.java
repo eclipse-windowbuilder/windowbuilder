@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public final class RowLayoutAssistant extends LayoutAssistantSupport {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RowLayoutAssistant(ILayoutInfo<?> layout) {
+	public RowLayoutAssistant(LayoutInfo layout) {
 		super(layout);
 	}
 
@@ -46,7 +46,7 @@ public final class RowLayoutAssistant extends LayoutAssistantSupport {
 
 	@Override
 	protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
-		List<ILayoutDataInfo> dataList = getDataList(objects);
+		List<LayoutDataInfo> dataList = getDataList(objects);
 		return new RowLayoutDataAssistantPage(parent, dataList);
 	}
 }

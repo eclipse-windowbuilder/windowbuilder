@@ -631,7 +631,6 @@ SelectionEditPolicy {
 		//
 		int parentWidth = layoutInfo.getContainerSize().width;
 		int parentHeight = layoutInfo.getContainerSize().height;
-		@SuppressWarnings("unchecked")
 		IFormDataInfo<C> formDataInfo = (IFormDataInfo<C>) layoutInfo.getLayoutData2(control);
 		// West
 		if (hasDirection(direction, PositionConstants.WEST)) {
