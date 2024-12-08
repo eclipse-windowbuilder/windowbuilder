@@ -3,7 +3,7 @@
 <target name="wb">
 	<locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/staging/2024-12/"/>
+			<repository location="https://download.eclipse.org/releases/2024-12/"/>
 			<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
@@ -17,7 +17,7 @@
 		</location>
 		<location type="Target" uri="file:${project_loc:/target-platform}/mvn/wb-mvn.target"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/nightly/latest"/>
+			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-12"/>
 			<unit id="assertj-core" version="0.0.0"/>
 			<unit id="com.jgoodies.common" version="0.0.0"/>
 			<unit id="com.jgoodies.forms" version="0.0.0"/>
