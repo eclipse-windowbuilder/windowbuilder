@@ -61,6 +61,29 @@ public final class SwingUtils {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Runs the {@link RunnableEx} in the AWT event dispatching thread using
+	 * {@link SwingUtilities#invokeLater(Runnable)} and waits for it to get done
+	 * with SWT message pumping. Due to SWT principles this means pumping system
+	 * message loop. Using {@link SwingUtilities#invokeAndWait(Runnable)} is not
+	 * acceptable because it could produce deadlocks between SWT and AWT dispatch
+	 * threads. Any exceptions that are thrown are logged using
+	 * {@link DesignerPlugin#log(Throwable)}.
+	 *
+	 * Note: must be invoked from SWT UI thread.
+	 *
+	 * @return {@code true} if execution was finished without exception.
+	 */
+	public static boolean runLog(final RunnableEx runnable) {
+		try {
+			runLaterAndWait(runnable);
+			return true;
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+			return false;
+		}
+	}
+
+	/**
+	 * Runs the {@link RunnableEx} in the AWT event dispatching thread using
 	 * {@link SwingUtilities#invokeLater(Runnable)} and waits for it to get done with SWT message
 	 * pumping. Due to SWT principles this means pumping system message loop. Using
 	 * {@link SwingUtilities#invokeAndWait(Runnable)} is not acceptable because it could produce

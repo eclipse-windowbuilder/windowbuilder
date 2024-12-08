@@ -35,6 +35,7 @@ import org.eclipse.wb.internal.swing.laf.model.SeparatorLafInfo;
 import org.eclipse.wb.internal.swing.laf.ui.AddCustomLookAndFeelDialog;
 import org.eclipse.wb.internal.swing.laf.ui.EditCustomLookAndFeelDialog;
 import org.eclipse.wb.internal.swing.preferences.Messages;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -615,13 +616,7 @@ IPreferenceConstants {
 	 * Restores the {@link LookAndFeel} used before preview changed it.
 	 */
 	private void restoreLookAndFeel() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				UIManager.put("ClassLoader", m_currentLookAndFeel.getClass().getClassLoader());
-				UIManager.setLookAndFeel(m_currentLookAndFeel);
-			}
-		});
+		configureLAF(m_currentLookAndFeel);
 	}
 
 	/**
@@ -667,8 +662,7 @@ IPreferenceConstants {
 						}
 						LookAndFeel lookAndFeel = selectedLAF.getLookAndFeelInstance();
 						m_previewGroup.getParent().layout(true);
-						UIManager.put("ClassLoader", lookAndFeel.getClass().getClassLoader());
-						UIManager.setLookAndFeel(lookAndFeel);
+						configureLAF(lookAndFeel);
 						createPreviewArea(m_previewGroup);
 						m_previewGroup.getParent().layout(true);
 					} finally {
@@ -793,8 +787,7 @@ IPreferenceConstants {
 			};
 			awtComposite.populate();
 			// restore current laf
-			UIManager.put("ClassLoader", currentLookAndFeel.getClass().getClassLoader());
-			UIManager.setLookAndFeel(currentLookAndFeel);
+			configureLAF(currentLookAndFeel);
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
 		}
@@ -931,6 +924,16 @@ IPreferenceConstants {
 		};
 		dropAdapter.setScrollExpandEnabled(false);
 		m_lafTree.addDropSupport(DND.DROP_MOVE, transfers, dropAdapter);
+	}
+
+	// The Look and Feel must be updated in the AWT event dispatcher to avoid
+	// deadlocks when called from within the SWT UI thread. See:
+	// https://github.com/eclipse-windowbuilder/windowbuilder/discussions/937
+	private static void configureLAF(LookAndFeel lookAndFeel) {
+		SwingUtils.runLog(() -> {
+			UIManager.put("ClassLoader", lookAndFeel.getClass().getClassLoader());
+			UIManager.setLookAndFeel(lookAndFeel);
+		});
 	}
 
 	/**

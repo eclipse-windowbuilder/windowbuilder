@@ -8,6 +8,7 @@
 package swingintegration.example;
 
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -504,8 +505,10 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		getDisplay().removeFilter(SWT.Show, menuListener);
 		// dispose frame to avoid lock down in EventQueue.invokeAndWait() later
 		if (awtContext != null) {
-			Frame oldFrame = awtContext.getFrame();
-			oldFrame.dispose();
+			SwingUtils.runLog(() -> {
+				Frame oldFrame = awtContext.getFrame();
+				oldFrame.dispose();
+			});
 		}
 	}
 }

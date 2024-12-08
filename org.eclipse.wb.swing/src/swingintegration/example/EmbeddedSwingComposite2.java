@@ -9,6 +9,7 @@ package swingintegration.example;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -427,9 +428,13 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 		// remove listeners
 		getDisplay().removeFilter(SWT.Show, menuListener);
 		// dispose frame to avoid lock down in EventQueue.invokeAndWait() later
+		// must be done in the AWT even thread. See:
+		// https://github.com/eclipse-windowbuilder/windowbuilder/discussions/937
 		if (awtContext != null) {
-			Frame oldFrame = awtContext.getFrame();
-			oldFrame.dispose();
+			SwingUtils.runLog(() -> {
+				Frame oldFrame = awtContext.getFrame();
+				oldFrame.dispose();
+			});
 		}
 	}
 
