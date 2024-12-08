@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -30,7 +31,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.Version;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -40,6 +44,7 @@ import java.util.List;
  * @coverage os.win32
  */
 public abstract class OSSupportWin32<H extends Number> extends OSSupport {
+	private static Version SWT_VERSION = FrameworkUtil.getBundle(SWT.class).getVersion();
 	static {
 		System.loadLibrary("wbp");
 	}
@@ -379,6 +384,18 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 		@Override
 		protected Long getHandleField(Object object) {
 			return ReflectionUtils.getFieldLong(object, "handle");
+		}
+
+		@Override
+		public Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception {
+			// With 3.129.0, the single "handle" field has been removed from the Image class
+			// to better handle displays with different zoom levels
+			if (SWT_VERSION.compareTo(new Version(3, 129, 0)) >= 0) {
+				Long handle = _fetchPopupMenuVisualData(getHandleField(menu.getShell()), getHandleField(menu), bounds);
+				Method method = ReflectionUtils.getMethod(Image.class, "win32_new", Device.class, int.class, long.class);
+				return (Image) method.invoke(null, Display.getCurrent(), SWT.BITMAP, handle);
+			}
+			return super.getMenuPopupVisualData(menu, bounds);
 		}
 	}
 }
