@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.utils;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.wb.internal.swing.Activator;
@@ -100,12 +99,7 @@ public class SwingImageUtils {
 			// Linux only: it seems that printAll() should be invoked in AWT dispatch thread
 			// to prevent deadlocks between main thread and AWT event queue.
 			// See also SwingUtils.invokeLaterAndWait().
-			runInDispatchThread(new Runnable() {
-				@Override
-				public void run() {
-					component.printAll(componentImage.getGraphics());
-				}
-			});
+			runInDispatchThread(() -> component.printAll(componentImage.getGraphics()));
 		} finally {
 			shotConfigurator.dispose();
 		}
@@ -297,17 +291,14 @@ public class SwingImageUtils {
 	 * Disposes given Window with trying to restore it's focusable state.
 	 */
 	public static void disposeWindow(final Window window) throws Exception {
-		SwingUtils.runLaterAndWait(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// restore focusable state
-				Boolean focusable = m_fosucableStates.get(window);
-				if (focusable == null) {
-					focusable = true;
-				}
-				window.setFocusableWindowState(focusable);
-				window.dispose();
+		SwingUtils.runLaterAndWait(() -> {
+			// restore focusable state
+			Boolean focusable = m_fosucableStates.get(window);
+			if (focusable == null) {
+				focusable = true;
 			}
+			window.setFocusableWindowState(focusable);
+			window.dispose();
 		});
 	}
 
@@ -321,14 +312,11 @@ public class SwingImageUtils {
 	 */
 	static void setVisible(final Component component, final boolean visible) throws Exception {
 		// set "visible" property in AWT Queue
-		SwingUtils.runLaterAndWait(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				component.setVisible(visible);
-				if (!visible) {
-					if (EnvironmentUtils.IS_LINUX) {
-						component.removeNotify();
-					}
+		SwingUtils.runLaterAndWait(() -> {
+			component.setVisible(visible);
+			if (!visible) {
+				if (EnvironmentUtils.IS_LINUX) {
+					component.removeNotify();
 				}
 			}
 		});

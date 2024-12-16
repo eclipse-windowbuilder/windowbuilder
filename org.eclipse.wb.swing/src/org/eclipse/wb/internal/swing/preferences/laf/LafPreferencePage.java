@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.Activator;
@@ -43,14 +42,9 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.jface.window.Window;
@@ -62,8 +56,6 @@ import org.eclipse.swt.dnd.DragSourceListener;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -71,7 +63,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Label;
@@ -177,26 +168,11 @@ IPreferenceConstants {
 				GridDataFactory.create(tree).grab().fill();
 				m_lafTree.setContentProvider(new LAFItemsContentProvider());
 				m_lafTree.setLabelProvider(new LAFItemsLabelProvider());
-				m_lafTree.addSelectionChangedListener(new ISelectionChangedListener() {
-					@Override
-					public void selectionChanged(SelectionChangedEvent event) {
-						handleLAFSelectionChanged();
-					}
-				});
-				m_lafTree.addDoubleClickListener(new IDoubleClickListener() {
-					@Override
-					public void doubleClick(DoubleClickEvent event) {
-						handleSetDefaultLAF();
-					}
-				});
+				m_lafTree.addSelectionChangedListener(event -> handleLAFSelectionChanged());
+				m_lafTree.addDoubleClickListener(event -> handleSetDefaultLAF());
 				m_lafTree.setInput(new Object[0]);
 				refreshViewer();
-				m_lafTree.addCheckStateListener(new ICheckStateListener() {
-					@Override
-					public void checkStateChanged(CheckStateChangedEvent event) {
-						handleChangeVisibility(event);
-					}
-				});
+				m_lafTree.addCheckStateListener(event -> handleChangeVisibility(event));
 				configureDND();
 			}
 			// buttons
@@ -211,14 +187,11 @@ IPreferenceConstants {
 			m_previewGroup.setLayout(new FillLayout());
 		}
 		// return back LAF
-		container.addDisposeListener(new DisposeListener() {
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				// cancel preview updating
-				cancelPreviewUpdate();
-				m_previewTimer.cancel();
-				restoreLookAndFeel();
-			}
+		container.addDisposeListener(e -> {
+			// cancel preview updating
+			cancelPreviewUpdate();
+			m_previewTimer.cancel();
+			restoreLookAndFeel();
 		});
 		return container;
 	}
@@ -231,72 +204,27 @@ IPreferenceConstants {
 		GridDataFactory.create(buttonsComposite).grabV().fill();
 		GridLayoutFactory.create(buttonsComposite).noMargins();
 		//
-		createButton(buttonsComposite, Messages.LafPreferencePage_addButton, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				handleAddUserDefinedLAF();
-			}
-		});
-		createButton(buttonsComposite, Messages.LafPreferencePage_addCategoryButton, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				handleAddCategory();
-			}
-		});
+		createButton(buttonsComposite, Messages.LafPreferencePage_addButton, event -> handleAddUserDefinedLAF());
+		createButton(buttonsComposite, Messages.LafPreferencePage_addCategoryButton, event -> handleAddCategory());
 		//
 		createButtonSeparator(buttonsComposite);
 		m_setDefaultButton =
-				createButton(buttonsComposite, Messages.LafPreferencePage_setDefaultButton, new Listener() {
-					@Override
-					public void handleEvent(Event event) {
-						handleSetDefaultLAF();
-					}
-				});
+				createButton(buttonsComposite, Messages.LafPreferencePage_setDefaultButton, event -> handleSetDefaultLAF());
 		createButtonSeparator(buttonsComposite);
 		m_editButton =
-				createButton(buttonsComposite, Messages.LafPreferencePage_editButton, new Listener() {
-					@Override
-					public void handleEvent(Event event) {
-						handleEdit();
-					}
-				});
+				createButton(buttonsComposite, Messages.LafPreferencePage_editButton, event -> handleEdit());
 		m_deleteButton =
-				createButton(buttonsComposite, Messages.LafPreferencePage_removeButton, new Listener() {
-					@Override
-					public void handleEvent(Event event) {
-						handleDelete();
-					}
-				});
+				createButton(buttonsComposite, Messages.LafPreferencePage_removeButton, event -> handleDelete());
 		//
 		createButtonSeparator(buttonsComposite);
 		m_moveUpButton =
-				createButton(buttonsComposite, Messages.LafPreferencePage_upButton, new Listener() {
-					@Override
-					public void handleEvent(Event event) {
-						handleMove(-1);
-					}
-				});
+				createButton(buttonsComposite, Messages.LafPreferencePage_upButton, event -> handleMove(-1));
 		m_moveDownButton =
-				createButton(buttonsComposite, Messages.LafPreferencePage_downButton, new Listener() {
-					@Override
-					public void handleEvent(Event event) {
-						handleMove(+2);
-					}
-				});
+				createButton(buttonsComposite, Messages.LafPreferencePage_downButton, event -> handleMove(+2));
 		//
 		createButtonSeparator(buttonsComposite);
-		createButton(buttonsComposite, Messages.LafPreferencePage_collapseAllButton, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				m_lafTree.collapseAll();
-			}
-		});
-		createButton(buttonsComposite, Messages.LafPreferencePage_expandAllButton, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				m_lafTree.expandAll();
-			}
-		});
+		createButton(buttonsComposite, Messages.LafPreferencePage_collapseAllButton, event -> m_lafTree.collapseAll());
+		createButton(buttonsComposite, Messages.LafPreferencePage_expandAllButton, event -> m_lafTree.expandAll());
 		// update buttons
 		updateButtons();
 	}
@@ -627,12 +555,7 @@ IPreferenceConstants {
 		m_previewTimerTask = new TimerTask() {
 			@Override
 			public void run() {
-				DesignerPlugin.getStandardDisplay().syncExec(new Runnable() {
-					@Override
-					public void run() {
-						updatePreview0();
-					}
-				});
+				DesignerPlugin.getStandardDisplay().syncExec(() -> updatePreview0());
 			}
 		};
 		m_previewTimer.schedule(m_previewTimerTask, 200);
@@ -647,27 +570,24 @@ IPreferenceConstants {
 		}
 		m_updatingPreview = true;
 		try {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					try {
-						m_previewGroup.getParent().setRedraw(false);
-						for (Control control : m_previewGroup.getChildren()) {
-							control.dispose();
-						}
-						LafInfo selectedLAF = getSelectedLAF();
-						if (selectedLAF == null) {
-							// nothing selected
-							return;
-						}
-						LookAndFeel lookAndFeel = selectedLAF.getLookAndFeelInstance();
-						m_previewGroup.getParent().layout(true);
-						configureLAF(lookAndFeel);
-						createPreviewArea(m_previewGroup);
-						m_previewGroup.getParent().layout(true);
-					} finally {
-						m_previewGroup.getParent().setRedraw(true);
+			ExecutionUtils.runLog(() -> {
+				try {
+					m_previewGroup.getParent().setRedraw(false);
+					for (Control control : m_previewGroup.getChildren()) {
+						control.dispose();
 					}
+					LafInfo selectedLAF = getSelectedLAF();
+					if (selectedLAF == null) {
+						// nothing selected
+						return;
+					}
+					LookAndFeel lookAndFeel = selectedLAF.getLookAndFeelInstance();
+					m_previewGroup.getParent().layout(true);
+					configureLAF(lookAndFeel);
+					createPreviewArea(m_previewGroup);
+					m_previewGroup.getParent().layout(true);
+				} finally {
+					m_previewGroup.getParent().setRedraw(true);
 				}
 			});
 		} finally {
