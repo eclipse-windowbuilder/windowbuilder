@@ -22,7 +22,6 @@ import org.eclipse.wb.os.OSSupport;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Synchronizer;
@@ -94,16 +93,13 @@ public final class SwingUtils {
 	public static void runLaterAndWait(final RunnableEx runnableEx) throws Exception {
 		final AtomicBoolean done = new AtomicBoolean();
 		final Throwable ex[] = new Throwable[1];
-		invokeLaterAndWait(done, new Runnable() {
-			@Override
-			public void run() {
-				try {
-					runnableEx.run();
-				} catch (Throwable e) {
-					ex[0] = e;
-				} finally {
-					done.set(true);
-				}
+		invokeLaterAndWait(done, () -> {
+			try {
+				runnableEx.run();
+			} catch (Throwable e) {
+				ex[0] = e;
+			} finally {
+				done.set(true);
 			}
 		});
 		propagateIfNotNull(ex[0]);
@@ -118,12 +114,7 @@ public final class SwingUtils {
 			return;
 		}
 		final AtomicBoolean done = new AtomicBoolean();
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				done.set(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> done.set(true));
 		// wait and pump SWT message loop
 		while (!done.get()) {
 			ExecutionUtils.waitEventLoop(0);
@@ -139,16 +130,13 @@ public final class SwingUtils {
 		final AtomicBoolean done = new AtomicBoolean();
 		final Throwable ex[] = new Throwable[1];
 		final Object[] result = new Object[1];
-		invokeLaterAndWait(done, new Runnable() {
-			@Override
-			public void run() {
-				try {
-					result[0] = runnableEx.call();
-				} catch (Throwable e) {
-					ex[0] = e;
-				} finally {
-					done.set(true);
-				}
+		invokeLaterAndWait(done, () -> {
+			try {
+				result[0] = runnableEx.call();
+			} catch (Throwable e) {
+				ex[0] = e;
+			} finally {
+				done.set(true);
 			}
 		});
 		propagateIfNotNull(ex[0]);
@@ -219,12 +207,7 @@ public final class SwingUtils {
 	 * {@link SWT#MouseDoubleClick} because it is sent event when {@link Shell} is disabled on
 	 * {@link SWT#MouseUp}.
 	 */
-	private static final Listener m_disableEventFilter = new Listener() {
-		@Override
-		public void handleEvent(Event event) {
-			event.type = SWT.None;
-		}
-	};
+	private static final Listener m_disableEventFilter = event -> event.type = SWT.None;
 
 	/**
 	 * We should disable main Eclipse {@link Shell} during running SWT events loop to prevent user
@@ -280,35 +263,22 @@ public final class SwingUtils {
 	 * should clear not only for text components, but even when we make Swing screen shot.
 	 */
 	public static void clearSwingTree(final Container container) throws Exception {
-		runLaterAndWait(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (container != null) {
-					// even if this container can not be effectively cleared, we will clear children,
-					// so minimize potential memory as much as possible
-					for (Component child : container.getComponents()) {
-						if (child instanceof Container) {
-							clearSwingTree((Container) child);
-						}
+		runLaterAndWait(() -> {
+			if (container != null) {
+				// even if this container can not be effectively cleared, we will clear children,
+				// so minimize potential memory as much as possible
+				for (Component child : container.getComponents()) {
+					if (child instanceof Container) {
+						clearSwingTree((Container) child);
 					}
-					// remove all children Component's
-					ExecutionUtils.runIgnore(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							container.removeAll();
-						}
-					});
-					// "tab order" property may install our FocusTraversalOnArray, so clear it
-					container.setFocusTraversalPolicy(null);
-					// remove layout manager: under JVM < 1.5 JFrame.setLayout() throws exception that
-					// JFrame.getContentPane().setLayout() should be used, so do this safely
-					ExecutionUtils.runIgnore(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							container.setLayout(null);
-						}
-					});
 				}
+				// remove all children Component's
+				ExecutionUtils.runIgnore(() -> container.removeAll());
+				// "tab order" property may install our FocusTraversalOnArray, so clear it
+				container.setFocusTraversalPolicy(null);
+				// remove layout manager: under JVM < 1.5 JFrame.setLayout() throws exception that
+				// JFrame.getContentPane().setLayout() should be used, so do this safely
+				ExecutionUtils.runIgnore(() -> container.setLayout(null));
 			}
 		});
 	}
