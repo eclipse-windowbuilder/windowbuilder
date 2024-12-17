@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,11 +14,11 @@ import org.eclipse.wb.core.model.IRootProcessor;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.swt.support.AbstractSupport;
-import org.eclipse.wb.internal.swt.support.DisplaySupport;
 
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.ResourceRegistry;
@@ -99,7 +99,7 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
 		try {
 			GlobalStateJava.activate(javaInfo);
 			if (AbstractSupport.is_SWT()) {
-				Object display = DisplaySupport.getDefault();
+				Display display = DesignerPlugin.getStandardDisplay();
 				Runnable[] disposeList = (Runnable[]) ReflectionUtils.getFieldObject(display, "disposeList");
 				if (disposeList != null) {
 					// Step 1: Get all listeners called once the display is disposed

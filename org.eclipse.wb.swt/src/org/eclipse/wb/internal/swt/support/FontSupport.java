@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.swt.graphics.Font;
@@ -59,7 +60,7 @@ public class FontSupport extends AbstractSupport {
 		return ReflectionUtils.getConstructorBySignature(
 				getFontClass(),
 				"<init>(org.eclipse.swt.graphics.Device,org.eclipse.swt.graphics.FontData[])").newInstance(
-						DisplaySupport.getCurrent(),
+						DesignerPlugin.getStandardDisplay(),
 						fontDataArray);
 	}
 
@@ -88,7 +89,7 @@ public class FontSupport extends AbstractSupport {
 		Collections.addAll(families, ToolkitSupport.getFontFamilies(false));
 		Collections.addAll(families, ToolkitSupport.getFontFamilies(true));
 		// add default font
-		families.add(getFontName(getFontData(DisplaySupport.getSystemFont())));
+		families.add(getFontName(getFontData(DesignerPlugin.getStandardDisplay().getSystemFont())));
 		// sort names
 		String[] sortFamilies = families.toArray(new String[families.size()]);
 		Arrays.sort(sortFamilies);

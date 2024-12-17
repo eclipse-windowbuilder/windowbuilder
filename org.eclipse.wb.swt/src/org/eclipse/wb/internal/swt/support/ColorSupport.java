@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 
@@ -121,7 +122,7 @@ public class ColorSupport {
 	 */
 	public static ColorInfo createInfo(Field field) throws Exception {
 		String name = field.getName();
-		Object color = DisplaySupport.getSystemColor(field.get(null));
+		Color color = DesignerPlugin.getStandardDisplay().getSystemColor((int) field.get(null));
 		ColorInfo colorInfo = createInfo(name, color);
 		colorInfo.setData("org.eclipse.swt.SWT." + name);
 		return colorInfo;
