@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,10 +13,10 @@ package org.eclipse.wb.internal.swt.model.widgets;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.swt.support.TreeSupport;
 
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.List;
 
@@ -61,6 +61,11 @@ public final class TreeItemInfo extends ItemInfo {
 		return getChildren(TreeItemInfo.class);
 	}
 
+	@Override
+	protected TreeItem getWidget() {
+		return (TreeItem) super.getWidget();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Refresh
@@ -69,7 +74,7 @@ public final class TreeItemInfo extends ItemInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Rectangle bounds = TreeSupport.getBounds(getObject());
+			Rectangle bounds = new Rectangle(getWidget().getBounds());
 			setModelBounds(bounds);
 			// apply Tree client area insets
 			if (getParent() instanceof TreeItemInfo) {
