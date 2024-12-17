@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.model.property.converter;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -40,10 +39,7 @@ public final class RectangleConverter extends ExpressionConverter {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-		if (value == null) {
-			return "(org.eclipse.swt.graphics.Rectangle) null";
-		} else {
-			Rectangle rectangle = RectangleSupport.getRectangle(value);
+		if (value instanceof Rectangle rectangle) {
 			return "new org.eclipse.swt.graphics.Rectangle("
 			+ rectangle.x
 			+ ", "
@@ -54,5 +50,6 @@ public final class RectangleConverter extends ExpressionConverter {
 			+ rectangle.height
 			+ ")";
 		}
+		return "(org.eclipse.swt.graphics.Rectangle) null";
 	}
 }

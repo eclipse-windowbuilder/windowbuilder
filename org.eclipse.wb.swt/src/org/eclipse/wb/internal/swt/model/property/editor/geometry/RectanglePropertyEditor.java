@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,9 +15,9 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.geometry.AbstractGeometryDialog;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.graphics.Rectangle;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link org.eclipse.swt.graphics.Rectangle}.
@@ -43,12 +43,11 @@ public final class RectanglePropertyEditor extends TextDialogPropertyEditor {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected String getText(Property property) throws Exception {
-		Object value = property.getValue();
-		if (value == Property.UNKNOWN_VALUE) {
-			// unknown value
-			return null;
+		if (property.getValue() instanceof Rectangle rect) {
+			return "(%d, %d, %d, %d)".formatted(rect.x, rect.y, rect.width, rect.height);
 		}
-		return RectangleSupport.toString(value);
+		// unknown value
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -59,13 +58,12 @@ public final class RectanglePropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected void openDialog(Property property) throws Exception {
 		// prepare Rectangle to edit
-		Object rectangle;
+		Rectangle rectangle;
 		{
-			Object value = property.getValue();
-			if (value == Property.UNKNOWN_VALUE) {
-				rectangle = RectangleSupport.newRectangle(0, 0, 0, 0);
+			if (property.getValue() instanceof Rectangle oldRectangle) {
+				rectangle = oldRectangle;
 			} else {
-				rectangle = value;
+				rectangle = new Rectangle(0, 0, 0, 0);
 			}
 		}
 		// prepare dialog

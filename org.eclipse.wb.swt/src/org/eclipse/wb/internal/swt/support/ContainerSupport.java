@@ -221,9 +221,9 @@ public class ContainerSupport extends AbstractSupport {
 	 */
 	public static Rectangle computeTrim(Object composite, int x, int y, int width, int height)
 			throws Exception {
-		Object rectangle =
-				ReflectionUtils.invokeMethod(composite, "computeTrim(int,int,int,int)", x, y, width, height);
-		return RectangleSupport.getRectangle(rectangle);
+		org.eclipse.swt.graphics.Rectangle rectangle = (org.eclipse.swt.graphics.Rectangle) ReflectionUtils
+				.invokeMethod(composite, "computeTrim(int,int,int,int)", x, y, width, height);
+		return new Rectangle(rectangle);
 	}
 
 	/**
@@ -231,8 +231,9 @@ public class ContainerSupport extends AbstractSupport {
 	 */
 	public static Rectangle getClientArea(final Object composite) {
 		return ExecutionUtils.runObject(() -> {
-			Object rectangle = ReflectionUtils.invokeMethod(composite, "getClientArea()");
-			return RectangleSupport.getRectangle(rectangle);
+			org.eclipse.swt.graphics.Rectangle rectangle = (org.eclipse.swt.graphics.Rectangle) ReflectionUtils
+					.invokeMethod(composite, "getClientArea()");
+			return new Rectangle(rectangle);
 		});
 	}
 }

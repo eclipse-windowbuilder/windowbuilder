@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,13 +21,12 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Control;
 
 /**
  * Model for {@link org.eclipse.jface.fieldassist.ControlDecoration}.
@@ -57,6 +56,23 @@ public final class ControlDecorationInfo extends AbstractComponentInfo {
 	 */
 	public ControlInfo getControl() {
 		return (ControlInfo) getParent();
+	}
+
+	/**
+	 * Convenience class that returns the {@link ControlDecoration} contained by
+	 * this {@link ControlDecorationInfo}.
+	 */
+	protected ControlDecoration getDecoration() {
+		return (ControlDecoration) getObject();
+	}
+
+	/**
+	 * Convenience method that calls the protected method
+	 * {@code getDecorationRectangle(Control)} of {@link ControlDecoration}.
+	 */
+	protected org.eclipse.swt.graphics.Rectangle getDecorationRectangle() throws Exception {
+		return (org.eclipse.swt.graphics.Rectangle) ReflectionUtils.invokeMethod(getDecoration(),
+				"getDecorationRectangle(org.eclipse.swt.widgets.Control)", getDecoration().getControl());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -100,13 +116,10 @@ public final class ControlDecorationInfo extends AbstractComponentInfo {
 	protected void refresh_afterCreate() throws Exception {
 		super.refresh_afterCreate();
 		// prepare "real" image
-		m_decorationImage = (Image) ReflectionUtils.invokeMethod(getObject(), "getImage()");
+		m_decorationImage = getDecoration().getImage();
 		// if no "real" image, set default one
 		if (m_decorationImage == null) {
-			ReflectionUtils.invokeMethod(
-					getObject(),
-					"setImage(org.eclipse.swt.graphics.Image)",
-					Activator.getImage("info/ControlDecoration/default.gif"));
+			getDecoration().setImage(Activator.getImage("info/ControlDecoration/default.gif"));
 		}
 	}
 
@@ -114,12 +127,7 @@ public final class ControlDecorationInfo extends AbstractComponentInfo {
 	protected void refresh_fetch() throws Exception {
 		// bounds
 		{
-			Control targetControl = (Control) ReflectionUtils.invokeMethod(getObject(), "getControl()");
-			Rectangle decorationRectangle =
-					RectangleSupport.getRectangle(ReflectionUtils.invokeMethod(
-							getObject(),
-							"getDecorationRectangle(org.eclipse.swt.widgets.Control)",
-							targetControl));
+			Rectangle decorationRectangle = new Rectangle(getDecorationRectangle());
 			setModelBounds(decorationRectangle);
 		}
 		// image icon

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,10 +14,9 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.ganttchart.GanttEvent;
 
 /**
  * Model {@link GanttEvent}.
@@ -39,14 +38,26 @@ public final class GanttEventInfo extends AbstractComponentInfo {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Convenience method that returns the actual type contained of this
+	 * {@link GanttEventInfo}.
+	 */
+	protected GanttEvent getEvent() {
+		return (GanttEvent) getObject();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
-			Rectangle bounds = RectangleSupport.getRectangle(swtBounds);
+			Rectangle bounds = new Rectangle(getEvent().getBounds());
 			setModelBounds(bounds);
 		}
 		// continue in super()

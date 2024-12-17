@@ -28,7 +28,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		RowLayoutSupportTest.class,
 		ControlSupportTest.class,
 		ContainerSupportTest.class,
-		RectangleSupportTest.class,
 		TableSupportTest.class
 })
 public class SupportTests {

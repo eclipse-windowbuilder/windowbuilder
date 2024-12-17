@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,9 +15,9 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.grid.GridColumn;
 
 /**
  * Model {@link GridColumn}.
@@ -39,18 +39,33 @@ public final class GridColumnInfo extends ItemInfo {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected GridColumn getWidget() {
+		return (GridColumn) super.getWidget();
+	}
+
+	/**
+	 * Convenience method that calls the package-private {@code getBounds()} method
+	 * of the {@link GridColumn}.
+	 */
+	protected org.eclipse.swt.graphics.Rectangle getSwtBounds() throws Exception {
+		return (org.eclipse.swt.graphics.Rectangle) ReflectionUtils.invokeMethod(getWidget(), "getBounds()");
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
-			Rectangle bounds = RectangleSupport.getRectangle(swtBounds);
-			if (getParent() instanceof GridColumnGroupInfo) {
-				GridColumnGroupInfo parent = (GridColumnGroupInfo) getParent();
-				Object swtParentBounds = ReflectionUtils.invokeMethod(parent.getObject(), "getBounds()");
-				Rectangle parentBounds = RectangleSupport.getRectangle(swtParentBounds);
+			Rectangle bounds = new Rectangle(getSwtBounds());
+			if (getParent() instanceof GridColumnGroupInfo parent) {
+				Rectangle parentBounds = new Rectangle(parent.getSwtBounds());
 				bounds.performTranslate(-parentBounds.x, -parentBounds.y);
 			}
 			setModelBounds(bounds);

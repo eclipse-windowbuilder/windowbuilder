@@ -16,12 +16,12 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -47,6 +47,33 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Convenience method that returns the {@link ToolBar} contained by this
+	 * {@link ToolBarManagerInfo}. Note: We can't override
+	 * {@link #getComponentObject()}, as it may return either a {@link ToolBar} or a
+	 * {@link ToolBarManager}.
+	 */
+	protected ToolBar getToolBar() {
+		if (getComponentObject() instanceof ToolBar toolBar) {
+			return toolBar;
+		}
+		return null;
+	}
+	/**
+	 * Convenience method that returns the {@link ToolBarManager} contained by this
+	 * {@link ToolBarManagerInfo}. Note: We assume that {@link IToolBarManager} is
+	 * always implemented by a {@link ToolBarManager}.
+	 */
+	protected ToolBarManager getManager() {
+		return (ToolBarManager) getObject();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -54,7 +81,7 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
 	protected void refresh_afterCreate() throws Exception {
 		super.refresh_afterCreate();
 		{
-			ToolBar toolBar = (ToolBar) ReflectionUtils.invokeMethod2(getObject(), "getControl");
+			ToolBar toolBar = getManager().getControl();
 			// if no any items, create one
 			if (toolBar.getItemCount() == 0) {
 				addEmptyAction();
@@ -69,7 +96,7 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
 		// prepare bounds of underlying ToolBar
 		ControlInfo.refresh_fetch(this, null);
 		// prepare bounds of IContributionItem's
-		ToolItem[] toolItems = ((ToolBar) getComponentObject()).getItems();
+		ToolItem[] toolItems = getToolBar().getItems();
 		for (AbstractComponentInfo contributionItem : getItems()) {
 			Object contributionItemObject = contributionItem.getObject();
 			for (ToolItem toolItem : toolItems) {
@@ -105,11 +132,11 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
 				emptyText,
 				"IToolBarManager should have parameter 'emptyText' with text to show when there are no Action's.");
 		// prepare Action
-		Object action;
+		Action action;
 		{
 			ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
 			Class<?> actionClass = editorLoader.loadClass("org.eclipse.jface.action.Action");
-			action = new ByteBuddy() //
+			action = (Action) new ByteBuddy() //
 					.subclass(actionClass) //
 					.make() //
 					.load(editorLoader) //
@@ -118,7 +145,7 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
 					.newInstance(emptyText);
 		}
 		// append Action and update
-		ReflectionUtils.invokeMethod(getObject(), "add(org.eclipse.jface.action.IAction)", action);
-		ReflectionUtils.invokeMethod2(getObject(), "update", boolean.class, true);
+		getManager().add(action);
+		getManager().update(true);
 	}
 }
