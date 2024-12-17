@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -99,8 +99,9 @@ public class ControlSupport extends AbstractSupport {
 	 * Invoke method <code>Point Control.toDisplay(int, int)</code> for control.
 	 */
 	public static Point toDisplay(Object control, int x, int y) throws Exception {
-		Object location = ReflectionUtils.invokeMethod(control, "toDisplay(int,int)", x, y);
-		return PointSupport.getPoint(location);
+		org.eclipse.swt.graphics.Point location = (org.eclipse.swt.graphics.Point) ReflectionUtils.invokeMethod(control,
+				"toDisplay(int,int)", x, y);
+		return new Point(location);
 	}
 
 	/**
@@ -132,14 +133,9 @@ public class ControlSupport extends AbstractSupport {
 	 * Invoke method <code>Control.computeSize(SWT.DEFAULT, SWT.DEFAULT)</code> for control.
 	 */
 	public static Dimension getPreferredSize(Object control) throws Exception {
-		Object size =
-				ReflectionUtils.invokeMethod(
-						control,
-						"computeSize(int,int)",
-						SwtSupport.DEFAULT,
-						SwtSupport.DEFAULT);
-		Point pointSize = PointSupport.getPoint(size);
-		return new Dimension(pointSize.x, pointSize.y);
+		org.eclipse.swt.graphics.Point size = (org.eclipse.swt.graphics.Point) ReflectionUtils.invokeMethod(control,
+				"computeSize(int,int)", SwtSupport.DEFAULT, SwtSupport.DEFAULT);
+		return new Dimension(size);
 	}
 
 	/**

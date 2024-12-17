@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerPopupInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
-import org.eclipse.wb.internal.swt.support.PointSupport;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -187,7 +186,7 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
 		{
 			m_menuToolItemBounds = RectangleSupport.getRectangle(m_menuToolItem.getBounds());
 			Point menuToolItemDisplayLocation =
-					PointSupport.getPoint(m_menuToolItem.getParent().toDisplay(
+					new Point(m_menuToolItem.getParent().toDisplay(
 							m_menuToolItemBounds.x,
 							m_menuToolItemBounds.y));
 			// convert into "shot"

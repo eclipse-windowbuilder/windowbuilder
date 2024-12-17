@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,9 +14,10 @@ import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter
 import org.eclipse.wb.internal.swt.model.property.converter.PointConverter;
 import org.eclipse.wb.internal.swt.model.property.converter.RectangleConverter;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.PointSupport;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+
+import org.eclipse.swt.graphics.Point;
 
 import org.junit.After;
 import org.junit.Before;
@@ -75,6 +76,6 @@ public class ConvertersTest extends RcpModelTest {
 		assertEquals("(org.eclipse.swt.graphics.Point) null", converter.toJavaSource(shell, null));
 		assertEquals(
 				"new org.eclipse.swt.graphics.Point(1, 2)",
-				converter.toJavaSource(shell, PointSupport.newPoint(1, 2)));
+				converter.toJavaSource(shell, new Point(1, 2)));
 	}
 }

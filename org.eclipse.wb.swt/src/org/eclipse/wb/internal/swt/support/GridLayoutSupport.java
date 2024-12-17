@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,11 +42,12 @@ public class GridLayoutSupport extends AbstractSupport {
 	 * @return the {@link Point} with column/row for given {@link org.eclipse.swt.widgets.Control} and
 	 *         {@link org.eclipse.swt.layout.GridLayout} objects.
 	 */
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked" })
 	public static Point getXY(Object layout, Object control) {
-		Map<Object, Object> map = (Map) ReflectionUtils.getFieldObject(layout, "m_controlToXY");
-		Object point = map.get(control);
-		return point != null ? PointSupport.getPoint(point) : null;
+		Map<Object, org.eclipse.swt.graphics.Point> map = (Map<Object, org.eclipse.swt.graphics.Point>) ReflectionUtils
+				.getFieldObject(layout, "m_controlToXY");
+		org.eclipse.swt.graphics.Point point = map.get(control);
+		return point != null ? new Point(point) : null;
 	}
 
 	/**

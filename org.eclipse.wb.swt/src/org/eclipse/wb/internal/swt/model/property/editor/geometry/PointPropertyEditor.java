@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,12 +15,12 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.geometry.AbstractGeometryDialog;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.PointSupport;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.graphics.Point;
 
 /**
- * Implementation of {@link PropertyEditor} for {@link org.eclipse.swt.graphics.Point}.
+ * Implementation of {@link PropertyEditor} for {@link Point}.
  *
  * @author lobas_av
  * @coverage swt.property.editor
@@ -43,13 +43,11 @@ public final class PointPropertyEditor extends TextDialogPropertyEditor {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected String getText(Property property) throws Exception {
-		Object value = property.getValue();
-		if (value == Property.UNKNOWN_VALUE) {
-			// unknown value
-			return null;
+		if (property.getValue() instanceof Point point) {
+			return "(%d, %d)".formatted(point.x, point.y);
 		}
-		//
-		return PointSupport.toString(value);
+		// unknown value
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -60,13 +58,12 @@ public final class PointPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected void openDialog(Property property) throws Exception {
 		// prepare Point to edit
-		Object point;
+		Point point;
 		{
-			Object value = property.getValue();
-			if (value == Property.UNKNOWN_VALUE) {
-				point = PointSupport.newPoint(0, 0);
+			if (property.getValue() instanceof Point oldPoint) {
+				point = new Point(oldPoint.x, oldPoint.y);
 			} else {
-				point = PointSupport.getPointCopy(value);
+				point = new Point(0, 0);
 			}
 		}
 		// prepare dialog
