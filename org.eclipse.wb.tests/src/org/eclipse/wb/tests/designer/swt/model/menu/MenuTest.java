@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,7 +32,6 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuStylePresentation;
-import org.eclipse.wb.internal.swt.support.MenuSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Control;
@@ -595,7 +594,7 @@ public class MenuTest extends RcpModelTest {
 		final MenuInfo newMenuBar =
 				(MenuInfo) JavaInfoUtils.createJavaInfo(
 						m_lastEditor,
-						MenuSupport.getMenuClass(),
+						Menu.class,
 						new ConstructorCreationSupport("bar", true));
 		// add to shell
 		ExecutionUtils.run(shell, new RunnableEx() {
@@ -651,7 +650,7 @@ public class MenuTest extends RcpModelTest {
 		final MenuInfo newMenuPopup =
 				(MenuInfo) JavaInfoUtils.createJavaInfo(
 						m_lastEditor,
-						MenuSupport.getMenuClass(),
+						Menu.class,
 						new ConstructorCreationSupport());
 		// add to shell
 		ExecutionUtils.run(shell, new RunnableEx() {
@@ -1030,8 +1029,8 @@ public class MenuTest extends RcpModelTest {
 		// no "item" models
 		assertEquals(0, menuInfo.getChildrenItems().size());
 		// even empty "menu" has "item" object
-		Object menuObject = menuInfo.getObject();
-		Object[] items = MenuSupport.getItems(menuObject);
+		Menu menuObject = (Menu) menuInfo.getObject();
+		MenuItem[] items = menuObject.getItems();
 		assertEquals(1, items.length);
 	}
 
