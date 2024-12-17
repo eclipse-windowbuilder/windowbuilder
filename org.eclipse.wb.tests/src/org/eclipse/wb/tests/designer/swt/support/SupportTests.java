@@ -30,7 +30,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		ContainerSupportTest.class,
 		PointSupportTest.class,
 		RectangleSupportTest.class,
-		LabelSupportTest.class,
 		TableSupportTest.class
 })
 public class SupportTests {

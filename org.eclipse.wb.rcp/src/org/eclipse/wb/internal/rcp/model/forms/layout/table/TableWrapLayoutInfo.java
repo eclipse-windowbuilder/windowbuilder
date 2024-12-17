@@ -44,7 +44,6 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.VirtualLayoutDataStatementGenerator;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.LabelSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -54,6 +53,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
@@ -171,7 +171,7 @@ IPreferenceConstants {
 				for (int row = 0; row < grid.length; row++) {
 					ControlInfo control = grid[row][column];
 					if (control != null && isFiller(control)) {
-						LabelSupport.setText(control.getObject(), "      ");
+						((Label) control.getObject()).setText("      ");
 					}
 				}
 			}
@@ -833,7 +833,7 @@ IPreferenceConstants {
 		ControlInfo filler =
 				(ControlInfo) JavaInfoUtils.createJavaInfo(
 						getEditor(),
-						LabelSupport.getLabelClass(),
+						Label.class,
 						creationSupport);
 		// add filler
 		ControlInfo reference = getReferenceControl(row, column, null);
