@@ -16,10 +16,10 @@ import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.action.CoolBarManager;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
@@ -58,6 +58,15 @@ public final class CoolBarManagerInfo extends ContributionManagerInfo {
 		return getChildren(ToolBarManagerInfo.class);
 	}
 
+	/**
+	 * Convenience method that returns the {@link CoolBarManager} contained by this
+	 * {@link CoolBarManagerInfo}. Note: We assume that {@link ICoolBarManager} is
+	 * always implemented by a {@link CoolBarManager}.
+	 */
+	protected CoolBarManager getManager() {
+		return (CoolBarManager) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Refresh
@@ -67,10 +76,10 @@ public final class CoolBarManagerInfo extends ContributionManagerInfo {
 	protected void refresh_afterCreate() throws Exception {
 		super.refresh_afterCreate();
 		// force update for CoolBarManager, to ensure that CoolBar widget is create and filled (re-filled)
-		ReflectionUtils.invokeMethod2(getObject(), "update", boolean.class, true);
+		getManager().update(true);
 		// prepare CoolBar widget
 		{
-			CoolBar coolBar = (CoolBar) ReflectionUtils.invokeMethod2(getObject(), "getControl");
+			CoolBar coolBar = getManager().getControl();
 			// if no any items, create one
 			if (coolBar.getItemCount() == 0) {
 				CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);
@@ -105,11 +114,10 @@ public final class CoolBarManagerInfo extends ContributionManagerInfo {
 	 * convenient to use bounds of {@link CoolItem} with this {@link ToolBar}.
 	 */
 	private void tweakToolBarManagerBounds() throws Exception {
-		CoolBar coolBar = (CoolBar) ReflectionUtils.invokeMethod(getObject(), "getControl()");
+		CoolBar coolBar = getManager().getControl();
 		CoolItem[] coolItems = coolBar.getItems();
 		for (ToolBarManagerInfo toolBarManager : getChildren(ToolBarManagerInfo.class)) {
-			ToolBar toolBar =
-					(ToolBar) ReflectionUtils.invokeMethod(toolBarManager.getObject(), "getControl()");
+			ToolBar toolBar = toolBarManager.getManager().getControl();
 			for (CoolItem coolItem : coolItems) {
 				if (coolItem.getControl() == toolBar) {
 					Rectangle newBounds = new Rectangle(coolItem.getBounds());

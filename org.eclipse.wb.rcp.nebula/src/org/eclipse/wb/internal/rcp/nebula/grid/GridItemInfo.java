@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,9 +15,10 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.grid.Grid;
+import org.eclipse.nebula.widgets.grid.GridItem;
 
 import java.util.List;
 
@@ -37,6 +38,16 @@ public final class GridItemInfo extends ItemInfo {
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected GridItem getWidget() {
+		return (GridItem) super.getWidget();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -75,15 +86,14 @@ public final class GridItemInfo extends ItemInfo {
 	}
 
 	private Rectangle getComponentCellsBounds() throws Exception {
-		Object grid = ReflectionUtils.invokeMethod(getObject(), "getParent()");
-		int columnCount = (Integer) ReflectionUtils.invokeMethod(grid, "getColumnCount()");
+		Grid grid = getWidget().getParent();
+		int columnCount = grid.getColumnCount();
 		Rectangle bounds = null;
 		for (int i = 0; i < columnCount; i++) {
-			Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds(int)", i);
 			if (bounds == null) {
-				bounds = RectangleSupport.getRectangle(swtBounds);
+				bounds = new Rectangle(getWidget().getBounds(i));
 			} else {
-				bounds.union(RectangleSupport.getRectangle(swtBounds));
+				bounds.union(new Rectangle(getWidget().getBounds(i)));
 			}
 		}
 		return bounds;

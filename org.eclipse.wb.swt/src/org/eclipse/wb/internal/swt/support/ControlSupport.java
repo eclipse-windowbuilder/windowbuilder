@@ -91,8 +91,9 @@ public class ControlSupport extends AbstractSupport {
 	 * Invoke method <code>Rectangle Control.getBounds()</code> for control.
 	 */
 	public static Rectangle getBounds(Object control) throws Exception {
-		Object bounds = ReflectionUtils.invokeMethod(control, "getBounds()");
-		return RectangleSupport.getRectangle(bounds);
+		org.eclipse.swt.graphics.Rectangle bounds = (org.eclipse.swt.graphics.Rectangle) ReflectionUtils
+				.invokeMethod(control, "getBounds()");
+		return new Rectangle(bounds);
 	}
 
 	/**

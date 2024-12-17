@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,11 +14,10 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.gallery.GalleryItem;
 
 /**
  * Model {@link GalleryItem}.
@@ -36,6 +35,16 @@ public final class GalleryItemInfo extends ItemInfo {
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected GalleryItem getWidget() {
+		return (GalleryItem) super.getWidget();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -73,8 +82,7 @@ public final class GalleryItemInfo extends ItemInfo {
 	}
 
 	private Rectangle getComponentBounds() throws Exception {
-		Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
-		return RectangleSupport.getRectangle(swtBounds);
+		return new Rectangle(getWidget().getBounds());
 	}
 
 	public boolean isGroupItem() {

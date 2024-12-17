@@ -18,6 +18,10 @@
 				<resourcePrefix>org.eclipse.nebula.</resourcePrefix>
 				<resourcePrefix>org.eclipse.swt.nebula.</resourcePrefix>
 			</resourcePrefixes>
+			<classLoader-bundle
+				bundle="org.eclipse.wb.rcp.nebula"
+				namespaces="org.eclipse.nebula">
+			</classLoader-bundle>
 			<palette condition="!(isdef isXWT)">
 				<category id="org.eclipse.wb.rcp.nebula" name="Nebula"
 					description="Nebula custom widgets" next="org.eclipse.wb.internal.rcp.FormsAPI"

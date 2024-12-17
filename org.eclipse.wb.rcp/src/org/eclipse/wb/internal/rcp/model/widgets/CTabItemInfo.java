@@ -37,6 +37,16 @@ public final class CTabItemInfo extends AbstractTabItemInfo {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected CTabItem getWidget() {
+		return (CTabItem) super.getWidget();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -45,7 +55,7 @@ public final class CTabItemInfo extends AbstractTabItemInfo {
 		super.refresh_fetch();
 		// set bounds
 		{
-			CTabItem item = (CTabItem) getObject();
+			CTabItem item = getWidget();
 			setModelBounds(new Rectangle(item.getBounds()));
 		}
 	}
