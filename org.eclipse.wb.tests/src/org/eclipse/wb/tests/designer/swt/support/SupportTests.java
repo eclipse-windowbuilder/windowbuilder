@@ -25,7 +25,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		ColorSupportTest.class,
 		FontSupportTest.class,
 		ImageSupportTest.class,
-		FillLayoutSupportTest.class,
 		RowLayoutSupportTest.class,
 		ControlSupportTest.class,
 		ContainerSupportTest.class,
