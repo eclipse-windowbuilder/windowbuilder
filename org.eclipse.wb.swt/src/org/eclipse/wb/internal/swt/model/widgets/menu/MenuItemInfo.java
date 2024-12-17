@@ -37,12 +37,12 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuItemLiveManager;
-import org.eclipse.wb.internal.swt.support.MenuSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Menu;
 
 import java.util.Collections;
 import java.util.List;
@@ -143,7 +143,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 			JavaInfo menu =
 					JavaInfoUtils.createJavaInfo(
 							getEditor(),
-							MenuSupport.getMenuClass(),
+							Menu.class,
 							new ConstructorCreationSupport());
 			AssociationObject association =
 					AssociationObjects.invocationChild("%parent%.setMenu(%child%)", true);

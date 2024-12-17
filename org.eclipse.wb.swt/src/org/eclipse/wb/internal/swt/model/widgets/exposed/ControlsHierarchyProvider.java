@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,8 @@ package org.eclipse.wb.internal.swt.model.widgets.exposed;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.HierarchyProvider;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
-import org.eclipse.wb.internal.swt.support.MenuSupport;
+
+import org.eclipse.swt.widgets.Menu;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -26,7 +27,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public final class ControlsHierarchyProvider extends HierarchyProvider {
 	@Override
 	public Object getParentObject(Object object) throws Exception {
-		if (ControlSupport.isControl(object) || MenuSupport.isMenu(object)) {
+		if (ControlSupport.isControl(object) || object instanceof Menu) {
 			return ControlSupport.getParent(object);
 		}
 		return null;

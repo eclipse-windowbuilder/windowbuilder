@@ -43,7 +43,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuLiveManager;
-import org.eclipse.wb.internal.swt.support.MenuSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
@@ -52,6 +51,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
@@ -84,6 +84,17 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		super(editor, description, creationSupport);
 		putPopupAboveOtherChildren();
 		addClipboardSupport();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Accessors
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	protected Menu getWidget() {
+		return (Menu) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -146,9 +157,10 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	@Override
 	protected void refresh_afterCreate() throws Exception {
 		// add a placeholder
-		Object[] items = MenuSupport.getItems(getObject());
+		MenuItem[] items = getWidget().getItems();
 		if (items.length == 0) {
-			MenuSupport.addPlaceholder(getObject());
+			MenuItem placeholder = new MenuItem(getWidget(), SWT.NONE);
+			placeholder.setText(IMenuInfo.NO_ITEMS_TEXT);
 		}
 		super.refresh_afterCreate();
 	}
