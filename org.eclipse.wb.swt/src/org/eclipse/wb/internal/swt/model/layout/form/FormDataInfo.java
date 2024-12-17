@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,11 +23,11 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.FormLayoutSupport;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 
@@ -114,8 +114,8 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 
 	private FormAttachmentInfo addVirtualAttachment(FormSide side) throws Exception {
 		FormAttachmentInfo attachment = (FormAttachmentInfo) JavaInfoUtils.createJavaInfo(getEditor(),
-				FormLayoutSupport.getFormAttachmentClass(),
-				new VirtualFormAttachmentCreationSupport(this, FormLayoutSupport.createFormAttachment()));
+				FormAttachment.class,
+				new VirtualFormAttachmentCreationSupport(this, new FormAttachment(0, 0)));
 		// configure
 		attachment.setSide(side);
 		attachment.setVariableSupport(new VirtualFormAttachmentVariableSupport(attachment, side));

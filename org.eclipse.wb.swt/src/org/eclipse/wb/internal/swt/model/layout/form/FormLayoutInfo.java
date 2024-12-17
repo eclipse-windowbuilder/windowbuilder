@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,7 +33,6 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormAttachmentInfo.FormAtta
 import org.eclipse.wb.internal.swt.model.layout.form.actions.PredefinedAnchorsActions;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.FormLayoutSupport;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.PositionConstants;
@@ -45,6 +44,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 
 import java.util.List;
@@ -103,8 +103,8 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 	}
 
 	@Override
-	protected Object getDefaultVirtualDataObject() throws Exception {
-		return FormLayoutSupport.createFormData();
+	protected FormData getDefaultVirtualDataObject() throws Exception {
+		return new FormData();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
