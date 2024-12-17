@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.swt.support.DisplaySupport;
 import org.eclipse.wb.internal.swt.support.FontSupport;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -106,7 +105,7 @@ IClipboardSourceProvider {
 			}
 			// default font
 			if (value == null) {
-				value = DisplaySupport.getSystemFont();
+				value = DesignerPlugin.getStandardDisplay().getSystemFont();
 			}
 			// use font.toString()
 			return getText(value);
@@ -209,7 +208,7 @@ IClipboardSourceProvider {
 		{
 			Object value = property.getValue();
 			if (value == null || value == Property.UNKNOWN_VALUE) {
-				value = DisplaySupport.getSystemFont();
+				value = DesignerPlugin.getStandardDisplay().getSystemFont();
 			}
 			// prepare font value
 			Object[] registryValue = getRegistryValue(property);
