@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,6 +51,21 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
 		rememberVariableNameAsNameData();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Accessors
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * May be overridden by subclasses to cast the widget to its explicit type.
+	 *
+	 * @return the {@link Widget} created for this {@link WidgetInfo}.
+	 */
+	protected Widget getWidget() {
+		return (Widget) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
