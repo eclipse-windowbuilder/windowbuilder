@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,8 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.FillLayoutSupport;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 
 import java.util.List;
@@ -42,11 +42,21 @@ public final class FillLayoutInfo extends GenericFlowLayoutInfo {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Accessors
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	protected FillLayout getLayout() {
+		return (FillLayout) super.getObject();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Styles
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public boolean isHorizontal() {
-		return FillLayoutSupport.isHorizontal(getObject());
+		return getLayout().type == SWT.HORIZONTAL;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
