@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,9 +11,8 @@
 package org.eclipse.wb.internal.swing.customize;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.awt.SWT_AWT;
@@ -21,14 +20,12 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Panel;
 
@@ -115,36 +112,7 @@ public final class AwtComponentDialog extends ResizableDialog {
 
 	@Override
 	public boolean close() {
-		dispose(m_frame);
+		SwingUtils.runLog(() -> m_frame.dispose());
 		return super.close();
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Swing utils
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Disposes {@link Frame} safely, I hope that it will not lock.
-	 */
-	private static void dispose(final Frame frame) {
-		// schedule dispose
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				frame.dispose();
-			}
-		});
-		// run SWT event loop to wait for scheduled AWT operation
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				for (int i = 0; i < 1000; i++) {
-					while (Display.getCurrent().readAndDispatch()) {
-					}
-					Thread.sleep(0);
-				}
-			}
-		});
 	}
 }
