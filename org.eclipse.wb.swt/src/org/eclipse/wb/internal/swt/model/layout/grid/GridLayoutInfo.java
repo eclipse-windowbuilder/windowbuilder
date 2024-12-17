@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,7 +39,6 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.GridLayoutSupport;
-import org.eclipse.wb.internal.swt.support.LabelSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -51,6 +50,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
@@ -208,7 +208,7 @@ IGridLayoutInfo<ControlInfo> {
 				for (int row = 0; row < grid.length; row++) {
 					ControlInfo control = grid[row][column];
 					if (control != null && isFiller(control)) {
-						LabelSupport.setText(control.getObject(), "      ");
+						((Label) control.getObject()).setText("      ");
 					}
 				}
 			}
@@ -974,7 +974,7 @@ IGridLayoutInfo<ControlInfo> {
 		// prepare filler
 		ControlInfo filler = (ControlInfo) JavaInfoUtils.createJavaInfo(
 				getEditor(),
-				LabelSupport.getLabelClass(),
+				Label.class,
 				creationSupport);
 		// add filler
 		ControlInfo reference = getReferenceControl(row, column, null);
