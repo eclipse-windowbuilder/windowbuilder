@@ -13,6 +13,8 @@ package org.eclipse.wb.internal.swt.support;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.swt.SWT;
+
 /**
  * Stub class for using SWT {@link org.eclipse.swt.layout.RowLayout}'s in another
  * {@link ClassLoader}.
@@ -37,13 +39,13 @@ public class RowLayoutSupport extends AbstractSupport {
 	 * @return value of field <code>type</code>.
 	 */
 	public static int getType(final Object layout) {
-		return ExecutionUtils.runObjectLog(() -> ReflectionUtils.getFieldInt(layout, "type"), SwtSupport.HORIZONTAL);
+		return ExecutionUtils.runObjectLog(() -> ReflectionUtils.getFieldInt(layout, "type"), SWT.HORIZONTAL);
 	}
 
 	/**
 	 * @return <code>true</code> if this layout is horizontal (type == SWT.HORIZONTAL).
 	 */
 	public static boolean isHorizontal(Object layout) {
-		return getType(layout) == SwtSupport.HORIZONTAL;
+		return getType(layout) == SWT.HORIZONTAL;
 	}
 }

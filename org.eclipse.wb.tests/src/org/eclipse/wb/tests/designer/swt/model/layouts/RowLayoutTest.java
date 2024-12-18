@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,9 +21,10 @@ import org.eclipse.wb.internal.swt.model.layout.RowDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+
+import org.eclipse.swt.SWT;
 
 import org.junit.Test;
 
@@ -62,7 +63,7 @@ public class RowLayoutTest extends RcpModelTest {
 		GenericProperty typeProperty = (GenericProperty) layout.getPropertyByTitle("type");
 		// set "type" to HORIZONTAL
 		{
-			typeProperty.setExpression("org.eclipse.swt.SWT.HORIZONTAL", SwtSupport.HORIZONTAL);
+			typeProperty.setExpression("org.eclipse.swt.SWT.HORIZONTAL", SWT.HORIZONTAL);
 			assertEditor(
 					"class Test extends Shell {",
 					"  Test() {",
@@ -73,7 +74,7 @@ public class RowLayoutTest extends RcpModelTest {
 		}
 		// set "type" to VERTICAL
 		{
-			typeProperty.setExpression("org.eclipse.swt.SWT.VERTICAL", SwtSupport.VERTICAL);
+			typeProperty.setExpression("org.eclipse.swt.SWT.VERTICAL", SWT.VERTICAL);
 			assertEditor(
 					"class Test extends Shell {",
 					"  Test() {",
@@ -118,7 +119,7 @@ public class RowLayoutTest extends RcpModelTest {
 		// set vertical
 		Property property = layoutInfo.getPropertyByTitle("type");
 		assertNotNull(property);
-		property.setValue(SwtSupport.getFlag("VERTICAL"));
+		property.setValue(SWT.VERTICAL);
 		// check isHorizontal == false
 		assertFalse(layoutInfo.isHorizontal());
 	}

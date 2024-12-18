@@ -43,7 +43,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuLiveManager;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -216,14 +215,14 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	 * @return <code>true</code> if this {@link MenuInfo} is bar menu.
 	 */
 	public boolean isBar() {
-		return (getStyle() & SwtSupport.BAR) != 0;
+		return (getStyle() & SWT.BAR) != 0;
 	}
 
 	/**
 	 * @return <code>true</code> if this {@link MenuInfo} is popup menu.
 	 */
 	public boolean isPopup() {
-		return (getStyle() & SwtSupport.POP_UP) != 0;
+		return (getStyle() & SWT.POP_UP) != 0;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -487,7 +486,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		public void commandCreate(Object newObject, Object nextObject) throws Exception {
 			MenuItemInfo newItem = (MenuItemInfo) newObject;
 			MenuItemInfo nextItem = (MenuItemInfo) nextObject;
-			if ((newItem.getStyle() & SwtSupport.SEPARATOR) != 0) {
+			if ((newItem.getStyle() & SWT.SEPARATOR) != 0) {
 				VariableSupport variableSupport = new EmptyPureVariableSupport(newItem);
 				StatementGenerator statementGenerator = GenerationUtils.getStatementGenerator(newItem);
 				JavaInfoUtils.add(newItem, variableSupport, statementGenerator, null, m_this, nextItem);
