@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.editor.AbstractComboPropertyE
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -157,9 +156,7 @@ IClipboardSourceProvider {
 	 */
 	private static List<Field> getCursorFields() throws Exception {
 		List<Field> cursorFields = new ArrayList<>();
-		Class<?> class_SWT = SwtSupport.getSwtClass();
-		Field[] fields = class_SWT.getFields();
-		for (Field field : fields) {
+		for (Field field : SWT.class.getFields()) {
 			if (field.getName().startsWith("CURSOR_")) {
 				cursorFields.add(field);
 			}

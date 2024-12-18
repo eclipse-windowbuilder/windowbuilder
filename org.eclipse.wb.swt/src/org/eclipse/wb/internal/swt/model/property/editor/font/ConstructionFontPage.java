@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.FontSupport;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -41,10 +40,10 @@ import org.apache.commons.lang3.ArrayUtils;
 public final class ConstructionFontPage extends AbstractFontPage {
 	private static final String[] m_styleTitles = {"NORMAL", "BOLD", "ITALIC", "BOLD | ITALIC"};
 	private static final int[] m_styleValues = {
-			SwtSupport.NORMAL,
-			SwtSupport.BOLD,
-			SwtSupport.ITALIC,
-			SwtSupport.BOLD_ITALIC};
+			SWT.NORMAL,
+			SWT.BOLD,
+			SWT.ITALIC,
+			SWT.BOLD | SWT.ITALIC };
 	//
 	private final String[] m_families;
 	//

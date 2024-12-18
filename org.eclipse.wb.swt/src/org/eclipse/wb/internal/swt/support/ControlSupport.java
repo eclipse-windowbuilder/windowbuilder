@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.widgets.Control} in another {@link ClassLoader}.
@@ -126,8 +127,8 @@ public class ControlSupport extends AbstractSupport {
 		return ReflectionUtils.invokeMethod(
 				control,
 				"computeSize(int,int)",
-				SwtSupport.DEFAULT,
-				SwtSupport.DEFAULT);
+				SWT.DEFAULT,
+				SWT.DEFAULT);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class ControlSupport extends AbstractSupport {
 	 */
 	public static Dimension getPreferredSize(Object control) throws Exception {
 		org.eclipse.swt.graphics.Point size = (org.eclipse.swt.graphics.Point) ReflectionUtils.invokeMethod(control,
-				"computeSize(int,int)", SwtSupport.DEFAULT, SwtSupport.DEFAULT);
+				"computeSize(int,int)", SWT.DEFAULT, SWT.DEFAULT);
 		return new Dimension(size);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,7 +40,6 @@ import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.swt.support.ColorSupport;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.ColorConstants;
@@ -250,7 +249,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 	private static String getColorFieldName(Expression idExpression) throws Exception {
 		int id = (Integer) JavaInfoEvaluationHelper.getValue(idExpression);
 		// find SWT.COLOR_XXX field
-		for (Field field : SwtSupport.getSwtClass().getFields()) {
+		for (Field field : SWT.class.getFields()) {
 			String fieldName = field.getName();
 			if (fieldName.startsWith("COLOR_") && field.getInt(null) == id) {
 				return fieldName;

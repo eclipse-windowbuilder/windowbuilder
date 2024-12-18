@@ -37,11 +37,11 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuItemLiveManager;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 
 import java.util.Collections;
@@ -184,8 +184,8 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
 				Object[] value,
 				final boolean[] shouldSet) throws Exception {
 			if (property.getJavaInfo() == m_this && "Style".equals(property.getTitle())) {
-				final boolean wasCascade = ((Integer) property.getValue() & SwtSupport.CASCADE) != 0;
-				final boolean wasSeparator = ((Integer) property.getValue() & SwtSupport.SEPARATOR) != 0;
+				final boolean wasCascade = ((Integer) property.getValue() & SWT.CASCADE) != 0;
+				final boolean wasSeparator = ((Integer) property.getValue() & SWT.SEPARATOR) != 0;
 				String src = source[0];
 				final boolean becomesCascade = src != null && src.indexOf("SWT.CASCADE") != -1;
 				final boolean becomesSeparator = src != null && src.indexOf("SWT.SEPARATOR") != -1;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.ColorSupport;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -205,9 +204,8 @@ public class ControlTest extends RcpModelTest {
 		Class<?> swtClass = m_lastLoader.loadClass("org.eclipse.swt.SWT");
 		assertNotNull(swtClass);
 		//
-		assertEquals(swtClass.getField("BORDER").get(null), SwtSupport.getFlag("BORDER"));
-		assertEquals(swtClass.getField("BORDER").getInt(null), SwtSupport.getIntFlag("BORDER"));
-		assertEquals(swtClass.getField("BORDER").getInt(null), SwtSupport.BORDER);
+		assertEquals(swtClass.getField("BORDER").get(null), SWT.BORDER);
+		assertEquals(swtClass.getField("BORDER").getInt(null), SWT.BORDER);
 		//
 		Class<?> shellClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Shell");
 		assertNotNull(shellClass);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,9 +20,10 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+
+import org.eclipse.swt.SWT;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.Test;
@@ -81,7 +82,7 @@ public class FillLayoutTest extends RcpModelTest {
 		// set vertical
 		Property property = layoutInfo.getPropertyByTitle("type");
 		assertNotNull(property);
-		property.setValue(SwtSupport.getFlag("VERTICAL"));
+		property.setValue(SWT.VERTICAL);
 		// check isHorizontal == false
 		assertFalse(layoutInfo.isHorizontal());
 	}

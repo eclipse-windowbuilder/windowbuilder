@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.swt.model.widgets.menu;
 
 import org.eclipse.wb.internal.swt.model.widgets.StylePresentation;
-import org.eclipse.wb.internal.swt.support.SwtSupport;
+
+import org.eclipse.swt.SWT;
 
 /**
  * Presentation for SWT menu with style: <code>SWT.POP_UP</code>, <code>SWT.DROP_DOWN</code>,
@@ -38,8 +39,8 @@ public final class MenuStylePresentation extends StylePresentation {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void initImages() throws Exception {
-		addImage(SwtSupport.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
-		addImage(SwtSupport.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
-		addImage(SwtSupport.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");
+		addImage(SWT.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
+		addImage(SWT.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
+		addImage(SWT.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");
 	}
 }

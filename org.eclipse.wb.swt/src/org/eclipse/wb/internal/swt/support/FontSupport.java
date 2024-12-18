@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.support;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 
 import java.lang.reflect.Array;
@@ -135,8 +136,8 @@ public class FontSupport extends AbstractSupport {
 	 */
 	public static String getFontStyleSource(Object fontData) throws Exception {
 		int style = getFontStyle(fontData);
-		boolean bold = (style & SwtSupport.BOLD) != 0;
-		boolean italic = (style & SwtSupport.ITALIC) != 0;
+		boolean bold = (style & SWT.BOLD) != 0;
+		boolean italic = (style & SWT.ITALIC) != 0;
 		if (bold && italic) {
 			return "org.eclipse.swt.SWT.BOLD | org.eclipse.swt.SWT.ITALIC";
 		}
@@ -154,8 +155,8 @@ public class FontSupport extends AbstractSupport {
 	 */
 	public static String getFontStyleText(Object fontData) throws Exception {
 		int style = getFontStyle(fontData);
-		boolean bold = (style & SwtSupport.BOLD) != 0;
-		boolean italic = (style & SwtSupport.ITALIC) != 0;
+		boolean bold = (style & SWT.BOLD) != 0;
+		boolean italic = (style & SWT.ITALIC) != 0;
 		if (bold && italic) {
 			return "BOLD ITALIC";
 		}
