@@ -19,7 +19,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 @SuppressWarnings("removal")
 public abstract class DesignerEntry extends ToolEntry implements IEntry {
 	public DesignerEntry(String label, String shortDescription, ImageDescriptor iconSmall) {
-		super(label, shortDescription, iconSmall, null);
+		super(label, shortDescription, iconSmall, iconSmall);
 	}
 
 	/**

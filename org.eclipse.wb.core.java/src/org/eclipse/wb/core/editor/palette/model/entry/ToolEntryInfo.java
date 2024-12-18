@@ -40,7 +40,6 @@ public abstract class ToolEntryInfo extends EntryInfo {
 				tool.setUnloadWhenFinished(!reload);
 			}
 			// OK
-			m_editPartViewer.getEditDomain().setActiveTool(tool);
 			return tool;
 		}, null);
 	}
