@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swt.model.widgets.TableColumnInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
-import org.eclipse.wb.internal.swt.support.TableSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Insets;
@@ -219,7 +218,7 @@ public class TableTest extends RcpModelTest {
 			// "model" bounds
 			Rectangle modelBounds = column_1.getModelBounds();
 			if (!EnvironmentUtils.IS_WINDOWS) {
-				modelBounds.y += TableSupport.getHeaderHeight(table.getObject());
+				modelBounds.y += ((Table) table.getObject()).getHeaderHeight();
 			}
 			assertNotNull(modelBounds);
 			assertEquals(0, modelBounds.x);
@@ -229,7 +228,7 @@ public class TableTest extends RcpModelTest {
 			// "shot" bounds
 			Rectangle bounds = column_1.getBounds();
 			if (!EnvironmentUtils.IS_WINDOWS) {
-				bounds.y += TableSupport.getHeaderHeight(table.getObject());
+				bounds.y += ((Table) table.getObject()).getHeaderHeight();
 			}
 			assertEquals(tableInsets.left, bounds.x);
 			assertEquals(tableInsets.top, bounds.y);
@@ -240,7 +239,7 @@ public class TableTest extends RcpModelTest {
 			// "model" bounds
 			Rectangle modelBounds = column_2.getModelBounds();
 			if (!EnvironmentUtils.IS_WINDOWS) {
-				modelBounds.y += TableSupport.getHeaderHeight(table.getObject());
+				modelBounds.y += ((Table) table.getObject()).getHeaderHeight();
 			}
 			assertNotNull(modelBounds);
 			assertEquals(50, modelBounds.x);
