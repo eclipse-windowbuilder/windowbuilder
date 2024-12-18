@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,8 @@ package org.eclipse.wb.internal.swt.model.widgets;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+
+import org.eclipse.swt.widgets.TableColumn;
 
 /**
  * Model for SWT table column {@link org.eclipse.swt.widgets.TableColumn}.
@@ -30,6 +32,16 @@ public final class TableColumnInfo extends ItemInfo implements ITableColumnInfo 
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TableColumn getWidget() {
+		return (TableColumn) super.getWidget();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

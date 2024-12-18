@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,9 +19,9 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.swt.support.TableSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.widgets.Table;
 
 import java.util.List;
 
@@ -41,6 +41,16 @@ public class TableInfo extends CompositeInfo {
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Table getWidget() {
+		return (Table) super.getWidget();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -84,14 +94,14 @@ public class TableInfo extends CompositeInfo {
 	protected void refresh_fetch() throws Exception {
 		super.refresh_fetch();
 		// prepare metrics
-		Object table = getObject();
-		int headerHeight = TableSupport.getHeaderHeight(table);
-		int itemHeight = TableSupport.getItemHeight(table);
+		Table table = getWidget();
+		int headerHeight = table.getHeaderHeight();
+		int itemHeight = table.getItemHeight();
 		// prepare columns bounds
 		int x = 0;
 		{
 			for (TableColumnInfo column : getColumns()) {
-				int columnWidth = TableSupport.getColumnWidth(column.getObject());
+				int columnWidth = column.getWidget().getWidth();
 				int y = 0;
 				if (!EnvironmentUtils.IS_WINDOWS) {
 					// SWT Cocoa && Linux GTK excludes column headers from client area, so insets.top is header height.
