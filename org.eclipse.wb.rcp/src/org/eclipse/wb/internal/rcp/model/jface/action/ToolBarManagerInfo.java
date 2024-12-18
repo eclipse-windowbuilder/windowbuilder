@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
@@ -75,8 +74,7 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
 			Object contributionItemObject = contributionItem.getObject();
 			for (ToolItem toolItem : toolItems) {
 				if (toolItem.getData() == contributionItemObject) {
-					Object itemBoundsObject = ReflectionUtils.invokeMethod2(toolItem, "getBounds");
-					Rectangle itemBounds = RectangleSupport.getRectangle(itemBoundsObject);
+					Rectangle itemBounds = new Rectangle(toolItem.getBounds());
 					contributionItem.setModelBounds(itemBounds);
 					break;
 				}

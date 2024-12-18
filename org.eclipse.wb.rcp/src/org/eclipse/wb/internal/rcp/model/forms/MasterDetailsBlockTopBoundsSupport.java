@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.model.forms;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -52,8 +51,7 @@ public final class MasterDetailsBlockTopBoundsSupport extends TopBoundsSupport {
 			Dimension size = getResourceSize();
 			Shell shell = m_block.getShell();
 			// "size" is size of _content_ for "shell", so calculate trim
-			Rectangle trim =
-					RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
+			Rectangle trim = new Rectangle(shell.computeTrim(0, 0, size.width, size.height));
 			// OK, set size from trim
 			ControlSupport.setSize(shell, trim.width, trim.height);
 		}

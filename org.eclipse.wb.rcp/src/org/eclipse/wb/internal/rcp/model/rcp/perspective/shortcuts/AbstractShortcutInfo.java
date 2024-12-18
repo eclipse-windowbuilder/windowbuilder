@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.IRenderableInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutAddCreationSupport;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
@@ -157,7 +156,7 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
 		{
 			Composite composite = m_container.getComposite();
 			Rectangle toolBarBounds = CoordinateUtils.getBounds(composite, m_container.getToolBar());
-			Rectangle itemBounds = RectangleSupport.getRectangle(m_item.getBounds());
+			Rectangle itemBounds = new Rectangle(m_item.getBounds());
 			itemBounds.performTranslate(toolBarBounds.x, toolBarBounds.y);
 			setModelBounds(itemBounds);
 		}
