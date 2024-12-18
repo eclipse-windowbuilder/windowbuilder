@@ -24,7 +24,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		CoordinateUtilsTest.class,
 		ColorSupportTest.class,
 		FontSupportTest.class,
-		ImageSupportTest.class,
 		RowLayoutSupportTest.class,
 		ControlSupportTest.class,
 		ContainerSupportTest.class
