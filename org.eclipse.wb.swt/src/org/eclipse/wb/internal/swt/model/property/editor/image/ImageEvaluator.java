@@ -14,12 +14,11 @@ import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.IExpressionEvaluator;
 import org.eclipse.wb.core.model.IGenericProperty;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.property.editor.image.plugin.WorkspacePluginInfo;
-import org.eclipse.wb.internal.swt.support.ImageSupport;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -27,6 +26,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import java.io.InputStream;
@@ -98,14 +99,14 @@ public class ImageEvaluator implements IExpressionEvaluator {
 		// prepare image path
 		String imagePath = (String) AstEvaluationEngine.evaluate(context, arguments.get(1));
 		// load image
-		Object image;
+		Image image;
 		try {
 			InputStream stream = provider.getInputStream(imagePath);
 			if (stream == null) {
 				return null;
 			}
 			try {
-				image = ImageSupport.createImage(stream);
+				image = new Image(DesignerPlugin.getStandardDisplay(), stream);
 			} finally {
 				stream.close();
 			}
@@ -117,12 +118,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
 			return image;
 		}
 		// handle for ResourceManager.getPluginImageDescriptor()
-		Class<?> imageDescriptorClass =
-				context.getClassLoader().loadClass("org.eclipse.jface.resource.ImageDescriptor");
-		return ReflectionUtils.invokeMethod(
-				imageDescriptorClass,
-				"createFromImage(org.eclipse.swt.graphics.Image)",
-				image);
+		return ImageDescriptor.createFromImage(image);
 	}
 
 	private static interface InputStreamProvider {
