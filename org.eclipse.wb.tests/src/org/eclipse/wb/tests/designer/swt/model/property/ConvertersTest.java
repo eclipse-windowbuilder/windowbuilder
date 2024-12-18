@@ -14,9 +14,9 @@ import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter
 import org.eclipse.wb.internal.swt.model.property.converter.PointConverter;
 import org.eclipse.wb.internal.swt.model.property.converter.RectangleConverter;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Point;
 
 import org.junit.After;
@@ -67,7 +67,7 @@ public class ConvertersTest extends RcpModelTest {
 		assertEquals("(org.eclipse.swt.graphics.Rectangle) null", converter.toJavaSource(shell, null));
 		assertEquals(
 				"new org.eclipse.swt.graphics.Rectangle(1, 2, 3, 4)",
-				converter.toJavaSource(shell, RectangleSupport.newRectangle(1, 2, 3, 4)));
+				converter.toJavaSource(shell, new Rectangle(1, 2, 3, 4)));
 	}
 
 	@Test

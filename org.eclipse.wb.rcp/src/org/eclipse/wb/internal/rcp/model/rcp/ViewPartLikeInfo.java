@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerPopupInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -184,7 +183,7 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
 		super.refresh_fetch();
 		// fetch bounds of menu drop-down
 		{
-			m_menuToolItemBounds = RectangleSupport.getRectangle(m_menuToolItem.getBounds());
+			m_menuToolItemBounds = new Rectangle(m_menuToolItem.getBounds());
 			Point menuToolItemDisplayLocation =
 					new Point(m_menuToolItem.getParent().toDisplay(
 							m_menuToolItemBounds.x,

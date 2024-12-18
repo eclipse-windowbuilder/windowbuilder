@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,8 +13,8 @@ package org.eclipse.wb.internal.rcp.model.widgets;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.custom.CTabItem;
 
 /**
@@ -46,7 +46,7 @@ public final class CTabItemInfo extends AbstractTabItemInfo {
 		// set bounds
 		{
 			CTabItem item = (CTabItem) getObject();
-			setModelBounds(RectangleSupport.getRectangle(item.getBounds()));
+			setModelBounds(new Rectangle(item.getBounds()));
 		}
 	}
 }
