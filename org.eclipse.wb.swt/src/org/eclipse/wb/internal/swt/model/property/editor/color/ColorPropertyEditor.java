@@ -38,7 +38,6 @@ import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.swt.support.ColorSupport;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.ColorConstants;
@@ -126,9 +125,8 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 	@Override
 	public void paint(Property property, Graphics graphics, int x, int y, int width, int height)
 			throws Exception {
-		Object value = property.getValue();
-		if (value != Property.UNKNOWN_VALUE && value != null) {
-			Color color = ColorSupport.getColor(value);
+		if (property.getValue() instanceof Color orig) {
+			Color color = new Color(orig.getRGB());
 			// draw color sample
 			{
 				Color oldBackground = graphics.getBackgroundColor();
@@ -170,8 +168,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 	 * @return the text for current color value.
 	 */
 	private String getText(Property property) throws Exception {
-		Object value = property.getValue();
-		if (value != Property.UNKNOWN_VALUE) {
+		if (property.getValue() instanceof Color color) {
 			Expression expression = ((GenericProperty) property).getExpression();
 			// Display.getSystemColor(int key)
 			if (AstNodeUtils.isMethodInvocation(
@@ -230,7 +227,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 				}
 			}
 			// use RGB
-			return ColorSupport.toString(value);
+			return "%d, %d, %d".formatted(color.getRed(), color.getGreen(), color.getBlue());
 		}
 		return null;
 	}
@@ -271,11 +268,11 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 		// prepare RGB based ColorInfo
 		ColorInfo colorInfo;
 		{
-			Object value = property.getValue();
-			if (value == Property.UNKNOWN_VALUE) {
+			if (property.getValue() instanceof Color color) {
+				colorInfo = createInfo(color);
+			} else {
 				return null;
 			}
-			colorInfo = ColorSupport.createInfo(value);
 		}
 		// special cases
 		{
@@ -333,9 +330,8 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 		ColorDialog colorDialog = new ColorDialog(genericProperty.getJavaInfo());
 		// set initial color
 		{
-			Object value = property.getValue();
-			if (value != Property.UNKNOWN_VALUE && value != null) {
-				colorDialog.setColorInfo(ColorSupport.createInfo(value));
+			if (property.getValue() instanceof Color color) {
+				colorDialog.setColorInfo(createInfo(color));
 			}
 		}
 		// open dialog
@@ -501,8 +497,8 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 					if (keyInfo.value == null) {
 						keyInfo.value = registry.get(keyInfo.keyValue);
 					}
-					if (keyInfo.value != null) {
-						ColorInfo colorInfo = ColorSupport.createInfo(keyInfo.keyName, keyInfo.value);
+					if (keyInfo.value instanceof Color color) {
+						ColorInfo colorInfo = createInfo(keyInfo.keyName, color);
 						colorInfo.setData(new Object[]{registryInfo, keyInfo});
 						infos.add(colorInfo);
 					}
@@ -517,5 +513,31 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 				colorsGrid.setColumns(2);
 			}
 		}
+	}
+
+	/**
+	 * @return new {@link ColorInfo} using color RGB.
+	 */
+	public static ColorInfo createInfo(Color color) throws Exception {
+		return new ColorInfo(color.getRed(), color.getGreen(), color.getBlue());
+	}
+
+	/**
+	 * @return new {@link ColorInfo} using color RGB.
+	 */
+	public static ColorInfo createInfo(String name, Color color) throws Exception {
+		return new ColorInfo(name, color.getRed(), color.getGreen(), color.getBlue());
+	}
+
+	/**
+	 * @return new {@link ColorInfo} using <code>Display.getSystemColor()</code>
+	 *         key.
+	 */
+	public static ColorInfo createInfo(Field field) throws Exception {
+		String name = field.getName();
+		Color color = DesignerPlugin.getStandardDisplay().getSystemColor((int) field.get(null));
+		ColorInfo colorInfo = createInfo(name, color);
+		colorInfo.setData("org.eclipse.swt.SWT." + name);
+		return colorInfo;
 	}
 }

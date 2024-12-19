@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,7 +74,7 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 	public void test_getText_constructor_ints() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Color(null, 1, 2, 3)",
-				"1,2,3",
+				"1, 2, 3",
 				ColorPropertyEditor.getInvocationSource(shell(), 1, 2, 3));
 	}
 
@@ -85,7 +85,7 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 	public void test_getText_constructor_RGB() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Color(null, new RGB(1, 2, 3))",
-				"1,2,3",
+				"1, 2, 3",
 				ColorPropertyEditor.getInvocationSource(shell(), 1, 2, 3));
 	}
 
