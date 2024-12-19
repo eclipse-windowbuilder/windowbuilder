@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,9 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.RowLayoutSupport;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 
 import java.util.List;
@@ -42,13 +43,18 @@ IRowLayoutInfo<ControlInfo> {
 		new RowLayoutAssistant(this);
 	}
 
+	@Override
+	public RowLayout getLayout() {
+		return (RowLayout) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Styles
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public boolean isHorizontal() {
-		return RowLayoutSupport.isHorizontal(getObject());
+		return getLayout().type == SWT.HORIZONTAL;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -58,7 +64,7 @@ IRowLayoutInfo<ControlInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Object getDefaultVirtualDataObject() throws Exception {
-		return RowLayoutSupport.createRowData();
+		return new RowData();
 	}
 
 	/**
