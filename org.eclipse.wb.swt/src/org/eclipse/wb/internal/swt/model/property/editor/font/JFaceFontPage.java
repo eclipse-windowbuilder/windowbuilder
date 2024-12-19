@@ -15,11 +15,11 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.FontSupport;
 
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -82,10 +82,10 @@ public final class JFaceFontPage extends AbstractFontPage {
 				TableItem tableItem = new TableItem(m_fontTable, SWT.NONE);
 				tableItem.setText(0, fontInfo.getName());
 				try {
-					Object fontData = FontSupport.getFontData(fontInfo.getFont());
+					FontData fontData = fontInfo.getFont().getFontData()[0];
 					tableItem.setText(
 							1,
-							"" + FontSupport.getFontName(fontData) + " " + FontSupport.getFontSize(fontData));
+							"" + fontData.getName() + " " + fontData.getHeight());
 				} catch (Throwable e) {
 					tableItem.setText(1, "???");
 				}
@@ -147,7 +147,7 @@ public final class JFaceFontPage extends AbstractFontPage {
 				continue;
 		}
 			// create font info
-			Object font = method.invoke(null);
+			Font font = (Font) method.invoke(null);
 			jfaceFonts.add(
 					new FontInfo(name + "()", font, "org.eclipse.jface.resource.JFaceResources." + name + "()", false));
 	}

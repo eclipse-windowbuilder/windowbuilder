@@ -23,7 +23,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 		CoordinateUtilsTest.class,
 		ColorSupportTest.class,
-		FontSupportTest.class,
 		RowLayoutSupportTest.class,
 		ControlSupportTest.class,
 		ContainerSupportTest.class

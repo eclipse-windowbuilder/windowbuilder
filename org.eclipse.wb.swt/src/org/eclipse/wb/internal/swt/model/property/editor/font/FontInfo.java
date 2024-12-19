@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,10 +9,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.font;
-
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.swt.graphics.Font;
 
@@ -24,7 +20,7 @@ import org.eclipse.swt.graphics.Font;
  */
 public final class FontInfo {
 	private final String m_name;
-	private final Object m_font;
+	private final Font m_font;
 	private final String m_sourceCode;
 	private final boolean m_doDispose;
 	private Object m_data;
@@ -35,7 +31,7 @@ public final class FontInfo {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public FontInfo(String name, Object font, String sourceCode, boolean doDispose) {
+	public FontInfo(String name, Font font, String sourceCode, boolean doDispose) {
 		m_name = name;
 		m_font = font;
 		m_sourceCode = sourceCode;
@@ -48,14 +44,9 @@ public final class FontInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void dispose() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (m_doDispose) {
-					ReflectionUtils.invokeMethod(m_font, "dispose()");
-				}
-			}
-		});
+		if (m_doDispose) {
+			m_font.dispose();
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -73,7 +64,7 @@ public final class FontInfo {
 	/**
 	 * @return the inner {@link Font}.
 	 */
-	public Object getFont() {
+	public Font getFont() {
 		return m_font;
 	}
 

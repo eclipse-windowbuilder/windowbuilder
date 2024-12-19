@@ -17,10 +17,11 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.FontSupport;
+import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -29,6 +30,11 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Implementation of {@link AbstractFontPage} for constructing {@link Font} using family, style and
@@ -93,7 +99,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
 				// add items
 				String[] families;
 				try {
-					families = FontSupport.getFontFamilies();
+					families = getFontFamilies();
 				} catch (Throwable e) {
 					DesignerPlugin.log(e);
 					families = ArrayUtils.EMPTY_STRING_ARRAY;
@@ -156,7 +162,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
 	private void updateFont() {
 		String family = m_familyText.getText();
 		// prepare style
-		Object style = m_styleValues[0];
+		int style = m_styleValues[0];
 		{
 			int index = m_styleList.getSelectionIndex();
 			if (index != -1) {
@@ -172,7 +178,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
 		}
 		//
 		try {
-			Object font = FontSupport.createFont(family, size, style);
+			Font font = new Font(DesignerPlugin.getStandardDisplay(), family, size, style);
 			m_fontDialog.setFontInfo(new FontInfo(null, font, null, true));
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
@@ -190,17 +196,17 @@ public final class ConstructionFontPage extends AbstractFontPage {
 			ExecutionUtils.runLog(new RunnableEx() {
 				@Override
 				public void run() throws Exception {
-					Object font = fontInfo.getFont();
-					Object fontData = FontSupport.getFontData(font);
+					Font font = fontInfo.getFont();
+					FontData fontData = font.getFontData()[0];
 					// family
 					{
-						String family = FontSupport.getFontName(fontData);
+						String family = fontData.getName();
 						m_familyList.setSelection(new String[]{family});
 						m_familyText.setText(family);
 					}
 					// style
 					{
-						int style = FontSupport.getFontStyle(fontData);
+						int style = fontData.getStyle();
 						for (int i = 0; i < m_styleValues.length; i++) {
 							if (style == m_styleValues[i]) {
 								m_styleList.select(i);
@@ -210,12 +216,28 @@ public final class ConstructionFontPage extends AbstractFontPage {
 					}
 					// size
 					{
-						String text = "" + FontSupport.getFontSize(fontData);
+						String text = "" + fontData.getHeight();
 						m_sizeList.setSelection(new String[]{text});
 						m_sizeText.setText(text);
 					}
 				}
 			});
 		}
+	}
+
+	/**
+	 * @return names of all fonts into system.
+	 */
+	public static String[] getFontFamilies() throws Exception {
+		Set<String> families = new TreeSet<>();
+		// add all font families
+		Collections.addAll(families, ToolkitSupport.getFontFamilies(false));
+		Collections.addAll(families, ToolkitSupport.getFontFamilies(true));
+		// add default font
+		families.add(DesignerPlugin.getStandardDisplay().getSystemFont().getFontData()[0].getName());
+		// sort names
+		String[] sortFamilies = families.toArray(new String[families.size()]);
+		Arrays.sort(sortFamilies);
+		return sortFamilies;
 	}
 }

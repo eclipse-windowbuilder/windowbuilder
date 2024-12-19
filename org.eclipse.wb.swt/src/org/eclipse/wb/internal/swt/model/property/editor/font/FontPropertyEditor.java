@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.swt.support.FontSupport;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -35,6 +34,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 
 import java.util.List;
@@ -88,6 +89,7 @@ IClipboardSourceProvider {
 	protected String getText(Property property) throws Exception {
 		Object value = property.getValue();
 		if (value != Property.UNKNOWN_VALUE) {
+			Font font = (Font) value;
 			Expression expression = ((GenericProperty) property).getExpression();
 			if (expression instanceof MethodInvocation invocation) {
 				// JFaceResource.getXXXFont()
@@ -104,26 +106,26 @@ IClipboardSourceProvider {
 				}
 			}
 			// default font
-			if (value == null) {
-				value = DesignerPlugin.getStandardDisplay().getSystemFont();
+			if (font == null) {
+				font = DesignerPlugin.getStandardDisplay().getSystemFont();
 			}
 			// use font.toString()
-			return getText(value);
+			return getText(font);
 		}
 		return null;
 	}
 
-	private static String getText(Object font) throws Exception {
-		return getText((FontData) FontSupport.getFontData(font));
+	private static String getText(Font font) throws Exception {
+		return getText(font.getFontData()[0]);
 	}
 
 	private static String getText(FontData fontData) throws Exception {
 		StringBuilder buffer = new StringBuilder();
-		buffer.append(FontSupport.getFontName(fontData));
+		buffer.append(fontData.getName());
 		buffer.append(" ");
-		buffer.append(FontSupport.getFontSize(fontData));
+		buffer.append(fontData.getHeight());
 		{
-			String styleText = FontSupport.getFontStyleText(fontData);
+			String styleText = getFontStyleText(fontData);
 			if (styleText.length() != 0) {
 				buffer.append(" ");
 				buffer.append(styleText);
@@ -166,11 +168,11 @@ IClipboardSourceProvider {
 		// FondData based FontInfo
 		FontInfo fontInfo;
 		{
-			Object value = property.getValue();
-			if (value == Property.UNKNOWN_VALUE) {
+			if (property.getValue() instanceof Font font) {
+				fontInfo = new FontInfo(null, font, null, false);
+			} else {
 				return null;
 			}
-			fontInfo = new FontInfo(null, value, null, false);
 		}
 		// JFaceResource.getXXXFont()
 		{
@@ -206,8 +208,10 @@ IClipboardSourceProvider {
 				new FontDialog(DesignerPlugin.getShell(), genericProperty.getJavaInfo());
 		// set initial value
 		{
-			Object value = property.getValue();
-			if (value == null || value == Property.UNKNOWN_VALUE) {
+			Font value;
+			if (property.getValue() instanceof Font font) {
+				value = font;
+			} else {
 				value = DesignerPlugin.getStandardDisplay().getSystemFont();
 			}
 			// prepare font value
@@ -245,7 +249,7 @@ IClipboardSourceProvider {
 		if (fontInfo.getSourceCode() != null) {
 			source = fontInfo.getSourceCode();
 		} else {
-			Object fontData = FontSupport.getFontData(fontInfo.getFont());
+			FontData fontData = fontInfo.getFont().getFontData()[0];
 			// prepare prefix
 			String prefix;
 			String suffix = "";
@@ -266,11 +270,11 @@ IClipboardSourceProvider {
 			source =
 					prefix
 					+ "\""
-					+ FontSupport.getFontName(fontData)
+					+ fontData.getName()
 					+ "\", "
-					+ FontSupport.getFontSize(fontData)
+					+ fontData.getHeight()
 					+ ", "
-					+ FontSupport.getFontStyleSource(fontData)
+					+ getFontStyleSource(fontData)
 					+ ")"
 					+ suffix;
 		}
@@ -409,5 +413,43 @@ IClipboardSourceProvider {
 			return getText(new FontData(name, height, style));
 		}
 		return null;
+	}
+
+	/**
+	 * @return source code of style: e.x., <code>SWT.BOLD</code>.
+	 */
+	public static String getFontStyleSource(FontData fontData) throws Exception {
+		int style = fontData.getStyle();
+		boolean bold = (style & SWT.BOLD) != 0;
+		boolean italic = (style & SWT.ITALIC) != 0;
+		if (bold && italic) {
+			return "org.eclipse.swt.SWT.BOLD | org.eclipse.swt.SWT.ITALIC";
+		}
+		if (bold) {
+			return "org.eclipse.swt.SWT.BOLD";
+		}
+		if (italic) {
+			return "org.eclipse.swt.SWT.ITALIC";
+		}
+		return "org.eclipse.swt.SWT.NORMAL";
+	}
+
+	/**
+	 * @return text for style: e.x., <code>BOLD</code>.
+	 */
+	public static String getFontStyleText(FontData fontData) throws Exception {
+		int style = fontData.getStyle();
+		boolean bold = (style & SWT.BOLD) != 0;
+		boolean italic = (style & SWT.ITALIC) != 0;
+		if (bold && italic) {
+			return "BOLD ITALIC";
+		}
+		if (bold) {
+			return "BOLD";
+		}
+		if (italic) {
+			return "ITALIC";
+		}
+		return "";
 	}
 }
