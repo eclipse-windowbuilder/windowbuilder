@@ -46,8 +46,8 @@ public final class GridItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected GridItem getWidget() {
-		return (GridItem) super.getWidget();
+	public GridItem getObject() {
+		return (GridItem) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -86,14 +86,14 @@ public final class GridItemInfo extends ItemInfo {
 	}
 
 	private Rectangle getComponentCellsBounds() throws Exception {
-		Grid grid = getWidget().getParent();
+		Grid grid = getObject().getParent();
 		int columnCount = grid.getColumnCount();
 		Rectangle bounds = null;
 		for (int i = 0; i < columnCount; i++) {
 			if (bounds == null) {
-				bounds = new Rectangle(getWidget().getBounds(i));
+				bounds = new Rectangle(getObject().getBounds(i));
 			} else {
-				bounds.union(new Rectangle(getWidget().getBounds(i)));
+				bounds.union(new Rectangle(getObject().getBounds(i)));
 			}
 		}
 		return bounds;

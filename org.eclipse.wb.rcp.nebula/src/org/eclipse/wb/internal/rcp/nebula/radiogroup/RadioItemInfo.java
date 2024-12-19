@@ -43,8 +43,8 @@ public final class RadioItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected RadioItem getWidget() {
-		return (RadioItem) super.getWidget();
+	public RadioItem getObject() {
+		return (RadioItem) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ public final class RadioItemInfo extends ItemInfo {
 	 * Get bounds from inner {@link Button} widget.
 	 */
 	private void fixBodyBounds() throws Exception {
-		Rectangle bounds = new Rectangle(getWidget().getButton().getBounds());
+		Rectangle bounds = new Rectangle(getObject().getButton().getBounds());
 		setModelBounds(bounds);
 	}
 }

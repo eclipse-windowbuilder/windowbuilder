@@ -149,8 +149,8 @@ public final class ToolItemInfo extends ItemInfo {
 	}
 
 	@Override
-	protected ToolItem getWidget() {
-		return (ToolItem) super.getWidget();
+	public ToolItem getObject() {
+		return (ToolItem) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -161,7 +161,7 @@ public final class ToolItemInfo extends ItemInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Rectangle bounds = new Rectangle(getWidget().getBounds());
+			Rectangle bounds = new Rectangle(getObject().getBounds());
 			setModelBounds(bounds);
 		}
 		super.refresh_fetch();

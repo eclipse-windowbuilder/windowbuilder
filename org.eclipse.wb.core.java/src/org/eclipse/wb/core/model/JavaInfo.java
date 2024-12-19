@@ -1260,9 +1260,13 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	}
 
 	/**
+	 * <b>Important</b> This method should only be overridden to cast the
+	 * {@link Object} contained by this {@link JavaInfo} to a specific type. It
+	 * should <i>never</i> return a different object.
+	 *
 	 * @return the {@link Object} created for this {@link JavaInfo}.
 	 */
-	public final Object getObject() {
+	public Object getObject() {
 		return m_object;
 	}
 

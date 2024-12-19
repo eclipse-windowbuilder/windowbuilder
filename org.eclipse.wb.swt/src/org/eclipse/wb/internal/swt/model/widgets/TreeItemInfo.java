@@ -62,8 +62,8 @@ public final class TreeItemInfo extends ItemInfo {
 	}
 
 	@Override
-	protected TreeItem getWidget() {
-		return (TreeItem) super.getWidget();
+	public TreeItem getObject() {
+		return (TreeItem) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ public final class TreeItemInfo extends ItemInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Rectangle bounds = new Rectangle(getWidget().getBounds());
+			Rectangle bounds = new Rectangle(getObject().getBounds());
 			setModelBounds(bounds);
 			// apply Tree client area insets
 			if (getParent() instanceof TreeItemInfo) {

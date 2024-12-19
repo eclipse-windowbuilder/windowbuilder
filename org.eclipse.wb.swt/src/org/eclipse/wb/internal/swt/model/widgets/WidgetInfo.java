@@ -64,8 +64,9 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
 	 *
 	 * @return the {@link Widget} created for this {@link WidgetInfo}.
 	 */
-	protected Widget getWidget() {
-		return (Widget) getObject();
+	@Override
+	public Widget getObject() {
+		return (Widget) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

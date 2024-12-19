@@ -679,6 +679,11 @@ IThisMethodParameterEvaluator {
 		return ContainerSupport.isRTL(getObject());
 	}
 
+	@Override
+	public Composite getObject() {
+		return (Composite) super.getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Clipboard

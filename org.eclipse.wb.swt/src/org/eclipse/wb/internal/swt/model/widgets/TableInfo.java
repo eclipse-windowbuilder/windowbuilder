@@ -49,8 +49,8 @@ public class TableInfo extends CompositeInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Table getWidget() {
-		return (Table) super.getWidget();
+	public Table getObject() {
+		return (Table) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -94,14 +94,14 @@ public class TableInfo extends CompositeInfo {
 	protected void refresh_fetch() throws Exception {
 		super.refresh_fetch();
 		// prepare metrics
-		Table table = getWidget();
+		Table table = getObject();
 		int headerHeight = table.getHeaderHeight();
 		int itemHeight = table.getItemHeight();
 		// prepare columns bounds
 		int x = 0;
 		{
 			for (TableColumnInfo column : getColumns()) {
-				int columnWidth = column.getWidget().getWidth();
+				int columnWidth = column.getObject().getWidth();
 				int y = 0;
 				if (!EnvironmentUtils.IS_WINDOWS) {
 					// SWT Cocoa && Linux GTK excludes column headers from client area, so insets.top is header height.
