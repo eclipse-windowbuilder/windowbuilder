@@ -1029,7 +1029,7 @@ public class MenuTest extends RcpModelTest {
 		// no "item" models
 		assertEquals(0, menuInfo.getChildrenItems().size());
 		// even empty "menu" has "item" object
-		Menu menuObject = (Menu) menuInfo.getObject();
+		Menu menuObject = menuInfo.getWidget();
 		MenuItem[] items = menuObject.getItems();
 		assertEquals(1, items.length);
 	}

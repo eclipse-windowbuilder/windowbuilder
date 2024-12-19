@@ -19,10 +19,10 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.ActionFactoryCreationSupport;
 import org.eclipse.wb.internal.rcp.palette.ActionUseEntryInfo;
 
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -55,6 +55,10 @@ public final class ActionInfo extends JavaInfo {
 		});
 	}
 
+	public Action getAction() {
+		return (Action) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Refresh
@@ -71,7 +75,7 @@ public final class ActionInfo extends JavaInfo {
 	protected void refresh_fetch() throws Exception {
 		super.refresh_fetch();
 		// update ImageDescriptor
-		m_icon = (ImageDescriptor) ReflectionUtils.invokeMethod2(getObject(), "getImageDescriptor");
+		m_icon = getAction().getImageDescriptor();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

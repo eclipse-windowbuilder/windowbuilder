@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.CoolBarInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.CoolItemInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
@@ -108,8 +107,8 @@ public class CoolBarTest extends RcpModelTest {
 		CoolItemInfo item_0 = items.get(0);
 		CoolItemInfo item_1 = items.get(1);
 		// text
-		assertEquals("000", ReflectionUtils.invokeMethod2(item_0.getObject(), "getText"));
-		assertEquals("111", ReflectionUtils.invokeMethod2(item_1.getObject(), "getText"));
+		assertEquals("000", item_0.getWidget().getText());
+		assertEquals("111", item_1.getWidget().getText());
 		// bounds
 		{
 			Rectangle modelBounds = item_0.getModelBounds();

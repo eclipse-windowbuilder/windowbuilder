@@ -43,8 +43,8 @@ public final class GalleryItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected GalleryItem getWidget() {
-		return (GalleryItem) super.getWidget();
+	public GalleryItem getWidget() {
+		return (GalleryItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

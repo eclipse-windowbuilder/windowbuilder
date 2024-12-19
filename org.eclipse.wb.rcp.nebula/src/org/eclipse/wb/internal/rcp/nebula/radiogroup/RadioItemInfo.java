@@ -43,8 +43,8 @@ public final class RadioItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected RadioItem getWidget() {
-		return (RadioItem) super.getWidget();
+	public RadioItem getWidget() {
+		return (RadioItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

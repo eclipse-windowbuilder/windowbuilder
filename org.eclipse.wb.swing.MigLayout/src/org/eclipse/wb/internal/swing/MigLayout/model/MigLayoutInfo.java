@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -220,13 +220,18 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 * @return the {@link LC} (parsed if needed) for this {@link MigLayout} instance.
 	 */
 	LC getLC() {
-		MigLayout layout = (MigLayout) getObject();
+		MigLayout layout = getLayoutManager();
 		Object layoutConstraints = layout.getLayoutConstraints();
 		if (layoutConstraints instanceof LC) {
 			return (LC) layoutConstraints;
 		} else {
 			return ConstraintParser.parseLayoutConstraint((String) layoutConstraints);
 		}
+	}
+	
+	@Override
+	public MigLayout getLayoutManager() {
+		return (MigLayout) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -399,7 +404,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 * Writes columns/rows to the source.
 	 */
 	public void writeDimensions() throws Exception {
-		MigLayout layout = (MigLayout) getObject();
+		MigLayout layout = getLayoutManager();
 		// prepare source for LC
 		String layoutConstraintsSource;
 		{

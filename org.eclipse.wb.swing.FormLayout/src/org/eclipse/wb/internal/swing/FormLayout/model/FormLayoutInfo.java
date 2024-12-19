@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,6 +102,11 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 		super(editor, description, creationSupport);
 	}
 
+	@Override
+	public FormLayout getLayoutManager() {
+		return (FormLayout) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Initialize
@@ -112,7 +117,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 		super.initialize();
 		// create initial columns/rows
 		if (m_columns.isEmpty() && m_rows.isEmpty()) {
-			FormLayout layout = (FormLayout) getObject();
+			FormLayout layout = getLayoutManager();
 			// create columns
 			{
 				int columnCount = layout.getColumnCount();
@@ -134,7 +139,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 		addBroadcastListener(new ObjectInfoTreeComplete() {
 			@Override
 			public void invoke() throws Exception {
-				FormLayout layout = (FormLayout) getObject();
+				FormLayout layout = getLayoutManager();
 				fillDimensionGroups(layout.getColumnGroups(), m_columns, m_columnGroups);
 				fillDimensionGroups(layout.getRowGroups(), m_rows, m_rowGroups);
 			}
@@ -1437,7 +1442,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	@Override
 	protected void refresh_afterCreate2() throws Exception {
 		super.refresh_afterCreate2();
-		FormLayout layout = (FormLayout) getObject();
+		FormLayout layout = getLayoutManager();
 		Container container = getContainer().getContainer();
 		// prepare origins
 		int[] columnOrigins;
@@ -1517,7 +1522,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 			int[] columnOrigins;
 			int[] rowOrigins;
 			{
-				FormLayout layout = (FormLayout) getObject();
+				FormLayout layout = getLayoutManager();
 				Container container = getContainer().getContainer();
 				com.jgoodies.forms.layout.FormLayout.LayoutInfo layoutInfo =
 						layout.getLayoutInfo(container);

@@ -46,7 +46,8 @@ public final class FillLayoutInfo extends GenericFlowLayoutInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	protected FillLayout getLayout() {
+	@Override
+	public FillLayout getLayout() {
 		return (FillLayout) super.getObject();
 	}
 

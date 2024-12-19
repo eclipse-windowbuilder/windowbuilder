@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import org.eclipse.wb.core.model.association.EmptyAssociation;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo;
@@ -81,10 +80,10 @@ public class ActionFactoryTest extends RcpModelTest {
 				"    {ActionFactory.SAVE} {field-unique: m_saveAction} {/ActionFactory.SAVE.create(window)/ /register(m_saveAction)/ /menuBar.add(m_saveAction)/}");
 		// check Action properties
 		ActionInfo action = ActionContainerInfo.getActions(advisor).get(0);
-		assertEquals("&Save", ReflectionUtils.invokeMethod(action.getObject(), "getText()"));
-		assertEquals("Save", ReflectionUtils.invokeMethod(action.getObject(), "getDescription()"));
-		assertEquals("Save", ReflectionUtils.invokeMethod(action.getObject(), "getToolTipText()"));
-		assertNotNull(ReflectionUtils.invokeMethod(action.getObject(), "getImageDescriptor()"));
+		assertEquals("&Save", action.getAction().getText());
+		assertEquals("Save", action.getAction().getDescription());
+		assertEquals("Save", action.getAction().getToolTipText());
+		assertNotNull(action.getAction().getImageDescriptor());
 	}
 
 	/**
@@ -158,15 +157,11 @@ public class ActionFactoryTest extends RcpModelTest {
 		advisor.refresh();
 		// check Action properties
 		ActionInfo action = ActionContainerInfo.getActions(advisor).get(0);
-		assertEquals("E&xit", ReflectionUtils.invokeMethod(action.getObject(), "getText()"));
-		assertEquals(
-				"Exit Workbench",
-				ReflectionUtils.invokeMethod(action.getObject(), "getDescription()"));
-		assertEquals(
-				"Exit Workbench",
-				ReflectionUtils.invokeMethod(action.getObject(), "getToolTipText()"));
+		assertEquals("E&xit", action.getAction().getText());
+		assertEquals("Exit Workbench", action.getAction().getDescription());
+		assertEquals("Exit Workbench", action.getAction().getToolTipText());
 		// no "imageDescriptor" property for Action, but presentation still has icon
-		assertNull(ReflectionUtils.invokeMethod(action.getObject(), "getImageDescriptor()"));
+		assertNull(action.getAction().getImageDescriptor());
 		{
 			ImageDescriptor icon = action.getPresentation().getIcon();
 			assertNotNull(icon);

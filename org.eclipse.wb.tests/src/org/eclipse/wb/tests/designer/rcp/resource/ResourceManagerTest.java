@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,8 +14,8 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
+import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
@@ -120,9 +120,9 @@ public class ResourceManagerTest extends RcpModelTest {
 						"}");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
-		ControlInfo button = myComposite.getChildrenControls().get(0);
+		ButtonInfo button = (ButtonInfo) myComposite.getChildrenControls().get(0);
 		// "image" should be set for Button
-		Image image = (Image) ReflectionUtils.invokeMethod(button.getObject(), "getImage()");
+		Image image = button.getWidget().getImage();
 		assertNotNull(image);
 		assertEquals(10, image.getBounds().width);
 		assertEquals(20, image.getBounds().height);
@@ -152,7 +152,7 @@ public class ResourceManagerTest extends RcpModelTest {
 						"  }",
 						"}");
 		shell.refresh();
-		ControlInfo button = shell.getChildrenControls().get(0);
+		ButtonInfo button = (ButtonInfo) shell.getChildrenControls().get(0);
 		// test property
 		{
 			Property property = button.getPropertyByTitle("image");
@@ -160,7 +160,7 @@ public class ResourceManagerTest extends RcpModelTest {
 			assertEquals("Plugin: TestProject icons/2.png", getPropertyText(property));
 		}
 		// "image" should be set for Button
-		Image image = (Image) ReflectionUtils.invokeMethod(button.getObject(), "getImage()");
+		Image image = button.getWidget().getImage();
 		assertNotNull(image);
 		assertEquals(10, image.getBounds().width);
 		assertEquals(20, image.getBounds().height);

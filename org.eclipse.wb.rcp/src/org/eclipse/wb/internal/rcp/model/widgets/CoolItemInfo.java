@@ -132,8 +132,8 @@ public final class CoolItemInfo extends ItemInfo {
 	}
 
 	@Override
-	protected CoolItem getWidget() {
-		return (CoolItem) super.getWidget();
+	public CoolItem getWidget() {
+		return (CoolItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

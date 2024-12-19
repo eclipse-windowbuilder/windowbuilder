@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
 
 import java.util.List;
 
@@ -54,6 +53,16 @@ public final class CTabFolderInfo extends AbstractTabFolderInfo {
 		return "org.eclipse.swt.custom.CTabItem";
 	}
 
+	@Override
+	public CTabFolder getWidget() {
+		return (CTabFolder) getObject();
+	}
+
+	@Override
+	public CTabItemInfo getSelectedItem() {
+		return (CTabItemInfo) super.getSelectedItem();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Refresh
@@ -66,10 +75,10 @@ public final class CTabFolderInfo extends AbstractTabFolderInfo {
 	}
 
 	private void selectItem() {
-		AbstractTabItemInfo selectedItem = getSelectedItem();
+		CTabItemInfo selectedItem = getSelectedItem();
 		if (selectedItem != null) {
-			CTabFolder tabFolder = (CTabFolder) getObject();
-			tabFolder.setSelection((CTabItem) selectedItem.getObject());
+			CTabFolder tabFolder = getWidget();
+			tabFolder.setSelection(selectedItem.getWidget());
 		}
 	}
 }

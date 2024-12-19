@@ -62,9 +62,12 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
 	/**
 	 * May be overridden by subclasses to cast the widget to its explicit type.
 	 *
+	 * <b>Important</b> This method should <i>always</i> return a the same object as
+	 * {@link #getObject()}.
+	 *
 	 * @return the {@link Widget} created for this {@link WidgetInfo}.
 	 */
-	protected Widget getWidget() {
+	public Widget getWidget() {
 		return (Widget) getObject();
 	}
 

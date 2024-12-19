@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.nebula;
 
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.nebula.grid.GridColumnGroupInfo;
 import org.eclipse.wb.internal.rcp.nebula.grid.GridColumnInfo;
 import org.eclipse.wb.internal.rcp.nebula.grid.GridInfo;
@@ -78,14 +77,12 @@ public class GridTest extends AbstractNebulaTest {
 		// refresh() also should be successful
 		shell.refresh();
 		// info
-		CompositeInfo grid = shell.getChildren(CompositeInfo.class).get(0);
+		GridInfo grid = (GridInfo) shell.getChildren(CompositeInfo.class).get(0);
 		assertEquals(2, grid.getChildren().size());
 		assertEquals(1, grid.getChildren(GridColumnGroupInfo.class).size());
 		assertEquals(1, grid.getChildren(GridItemInfo.class).size());
-		int headerHeight =
-				(Integer) ReflectionUtils.invokeMethod(grid.getObject(), "getHeaderHeight()");
-		int groupHeaderHeight =
-				(Integer) ReflectionUtils.invokeMethod(grid.getObject(), "getGroupHeaderHeight()");
+		int headerHeight = grid.getWidget().getHeaderHeight();
+		int groupHeaderHeight = grid.getWidget().getGroupHeaderHeight();
 		// column group
 		GridColumnGroupInfo group = grid.getChildren(GridColumnGroupInfo.class).get(0);
 		{

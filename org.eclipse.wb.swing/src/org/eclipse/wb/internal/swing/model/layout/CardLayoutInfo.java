@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -71,10 +71,8 @@ public final class CardLayoutInfo extends LayoutInfo {
 	// CardLayout
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the AWT {@link CardLayout} object for this model.
-	 */
-	private CardLayout getLayout() {
+	@Override
+	public CardLayout getLayoutManager() {
 		return (CardLayout) getObject();
 	}
 
@@ -136,7 +134,7 @@ public final class CardLayoutInfo extends LayoutInfo {
 		ComponentInfo currentComponent = getCurrentComponent();
 		if (currentComponent != null) {
 			// prepare swing objects
-			CardLayout layout = getLayout();
+			CardLayout layout = getLayoutManager();
 			Component component = currentComponent.getComponent();
 			Container container = component.getParent();
 			// show current component

@@ -12,9 +12,8 @@ package org.eclipse.wb.tests.designer.rcp.model.property;
 
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.property.editor.image.ImagePropertyEditor;
-import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.wb.tests.designer.swt.model.property.PropertyEditorTestUtils;
 
@@ -38,8 +37,7 @@ public abstract class ImagePropertyEditorTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	protected final GenericProperty createImagePropertyForSource(String imageSource) throws Exception {
 		m_waitForAutoBuild = true;
-		CompositeInfo shell =
-				parseComposite(
+		ShellInfo shell = (ShellInfo) parseComposite(
 						"// filler filler filler",
 						"public class Test extends Shell {",
 						"  public Test() {",
@@ -50,7 +48,7 @@ public abstract class ImagePropertyEditorTest extends RcpModelTest {
 		assertNoErrors(shell);
 		// we should have value for "image"
 		{
-			Object image = ReflectionUtils.invokeMethod(shell.getObject(), "getImage()");
+			Image image = shell.getWidget().getImage();
 			assertNotNull(image);
 		}
 		//

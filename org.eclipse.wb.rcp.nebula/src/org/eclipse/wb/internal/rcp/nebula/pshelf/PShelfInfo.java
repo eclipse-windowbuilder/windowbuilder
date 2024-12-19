@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.pshelf.PShelf;
+import org.eclipse.nebula.widgets.pshelf.PShelfItem;
 
 import java.util.List;
 
@@ -51,6 +53,11 @@ public final class PShelfInfo extends CompositeInfo {
 	////////////////////////////////////////////////////////////////////////////
 	public List<PShelfItemInfo> getItems() {
 		return getChildren(PShelfItemInfo.class);
+	}
+
+	@Override
+	public PShelf getWidget() {
+		return (PShelf) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -108,10 +115,7 @@ public final class PShelfInfo extends CompositeInfo {
 			}
 		}
 		if (m_selectedItem != null) {
-			ReflectionUtils.invokeMethod(
-					getObject(),
-					"setSelection(org.eclipse.nebula.widgets.pshelf.PShelfItem)",
-					m_selectedItem.getObject());
+			getWidget().setSelection(m_selectedItem.getWidget());
 		}
 	}
 
@@ -124,15 +128,15 @@ public final class PShelfInfo extends CompositeInfo {
 	private void setItemsBounds() throws Exception {
 		int y1 = 0;
 		int y2 = 0;
-		Object[] itemObjects = (Object[]) ReflectionUtils.invokeMethod(getObject(), "getItems()");
-		for (Object itemObject : itemObjects) {
+		PShelfItem[] itemObjects = getWidget().getItems();
+		for (PShelfItem itemObject : itemObjects) {
 			y2 += getItemHeight(itemObject);
 			setItemBounds(itemObject, y1, y2);
 			y1 = y2;
 		}
 	}
 
-	private void setItemBounds(Object itemObject, int y1, int y2) {
+	private void setItemBounds(PShelfItem itemObject, int y1, int y2) {
 		for (PShelfItemInfo item : getItems()) {
 			if (item.getObject() == itemObject) {
 				Rectangle shelfBounds = getModelBounds();
@@ -142,7 +146,7 @@ public final class PShelfInfo extends CompositeInfo {
 		}
 	}
 
-	private int getItemHeight(Object itemObject) throws Exception {
+	private int getItemHeight(PShelfItem itemObject) throws Exception {
 		int itemHeaderHeight = ReflectionUtils.getFieldInt(getObject(), "itemHeight");
 		int height = itemHeaderHeight;
 		if (m_selectedItem != null && itemObject == m_selectedItem.getObject()) {

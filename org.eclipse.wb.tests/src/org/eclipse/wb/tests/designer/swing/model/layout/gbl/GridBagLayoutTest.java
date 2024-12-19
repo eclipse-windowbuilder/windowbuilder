@@ -120,7 +120,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		assertVisible(gbc, false);
 		// check execution - assignment to field
 		{
-			GridBagConstraints gbcObject = (GridBagConstraints) gbc.getObject();
+			GridBagConstraints gbcObject = gbc.getGridBagConstraints();
 			assertEquals(1, gbcObject.gridx);
 			assertEquals(2, gbcObject.gridy);
 		}

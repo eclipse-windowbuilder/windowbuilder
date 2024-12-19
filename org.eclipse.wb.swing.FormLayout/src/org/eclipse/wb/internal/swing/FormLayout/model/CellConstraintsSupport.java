@@ -108,7 +108,7 @@ public final class CellConstraintsSupport {
 		m_layout = layoutInfo;
 		m_component = componentInfo;
 		// fetch values
-		FormLayout layout = (FormLayout) m_layout.getObject();
+		FormLayout layout = m_layout.getLayoutManager();
 		if (layout != null
 				&& m_component.getComponent() != null
 				&& m_component.getComponent().getParent() == m_layout.getContainer().getContainer()) {

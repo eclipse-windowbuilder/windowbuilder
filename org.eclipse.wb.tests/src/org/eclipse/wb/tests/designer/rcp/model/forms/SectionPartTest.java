@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,12 @@
 package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.forms.SectionInfo;
 import org.eclipse.wb.internal.rcp.model.forms.SectionPartInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.ui.forms.widgets.Section;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -118,10 +118,10 @@ public class SectionPartTest extends AbstractFormsTest {
 		assertNoErrors(part);
 		//
 		SectionInfo sectionInfo = part.getChildren(SectionInfo.class).get(0);
-		Object sectionObject = sectionInfo.getObject();
+		Section sectionObject = sectionInfo.getWidget();
 		// "font" from Section
 		{
-			Font font = (Font) ReflectionUtils.invokeMethod2(sectionObject, "getFont");
+			Font font = sectionObject.getFont();
 			assertFalse(font.isDisposed());
 		}
 		// "font" property of Section (default value)

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,9 +37,14 @@ public final class FontRegistryInfo extends ResourceRegistryInfo {
 
 	@Override
 	public Runnable getDisposeRunnable() {
-		if (getObject() instanceof FontRegistry registry) {
-			return (Runnable) ReflectionUtils.getFieldObject(registry, "displayRunnable");
+		if (getObject() != null) {
+			return (Runnable) ReflectionUtils.getFieldObject(getObject(), "displayRunnable");
 		}
 		return null;
+	}
+
+	@Override
+	public FontRegistry getResourceRegistry() {
+		return (FontRegistry) super.getObject();
 	}
 }

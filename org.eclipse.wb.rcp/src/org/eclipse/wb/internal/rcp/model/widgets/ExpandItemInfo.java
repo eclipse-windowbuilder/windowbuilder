@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,7 +102,12 @@ public final class ExpandItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private boolean isExpanded() throws Exception {
-		return (Boolean) ReflectionUtils.invokeMethod(getObject(), "getExpanded()");
+		return getWidget().getExpanded();
+	}
+
+	@Override
+	public ExpandItem getWidget() {
+		return (ExpandItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -139,10 +144,10 @@ public final class ExpandItemInfo extends ItemInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Object object = getObject();
-			int headerHeight = (Integer) ReflectionUtils.invokeMethod2(object, "getHeaderHeight");
+			ExpandItem object = getWidget();
+			int headerHeight = object.getHeaderHeight();
 			int width = ReflectionUtils.getFieldInt(object, "width");
-			int height = ReflectionUtils.getFieldInt(object, "height");
+			int height = object.getHeight();
 			if (isExpanded()) {
 				height += headerHeight;
 			} else {

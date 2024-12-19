@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -139,7 +139,7 @@ public class TabFolderTest extends RcpModelTest {
 		item_2.doSelect();
 		// check that "item_2" is selected in model and in GUI
 		assertSame(item_2, tabFolder.getSelectedItem());
-		Assertions.<Object>assertThat(((TabFolder) tabFolder.getObject()).getSelection()).containsOnly(item_2.getObject());
+		Assertions.<Object>assertThat(tabFolder.getWidget().getSelection()).containsOnly(item_2.getObject());
 		// check tree/graphical children
 		{
 			List<ObjectInfo> children = tabFolder.getPresentation().getChildrenTree();
@@ -329,7 +329,7 @@ public class TabFolderTest extends RcpModelTest {
 		item_2.doSelect();
 		// check that "item_2" is selected in model and in GUI
 		assertSame(item_2, tabFolder.getSelectedItem());
-		Assertions.<Object>assertThat(((TabFolder) tabFolder.getObject()).getSelection()).containsOnly(item_2.getObject());
+		Assertions.<Object>assertThat(tabFolder.getWidget().getSelection()).containsOnly(item_2.getObject());
 		// ...so, "button_2" is in graphical children and "button_1" is not
 		{
 			List<ObjectInfo> childrenGraphical = tabFolder.getPresentation().getChildrenGraphical();
@@ -374,8 +374,8 @@ public class TabFolderTest extends RcpModelTest {
 		TabItemInfo item_0 = items.get(0);
 		TabItemInfo item_1 = items.get(1);
 		// text
-		assertEquals("000", ReflectionUtils.invokeMethod2(item_0.getObject(), "getText"));
-		assertEquals("111", ReflectionUtils.invokeMethod2(item_1.getObject(), "getText"));
+		assertEquals("000", item_0.getWidget().getText());
+		assertEquals("111", item_1.getWidget().getText());
 		// bounds for "item_0"
 		{
 			Rectangle modelBounds_0 = item_0.getModelBounds();

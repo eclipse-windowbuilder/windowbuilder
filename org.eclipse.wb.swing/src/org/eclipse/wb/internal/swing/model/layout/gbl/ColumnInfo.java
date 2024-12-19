@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import java.awt.GridBagLayout;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -78,8 +78,8 @@ public final class ColumnInfo extends DimensionInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected int initialize_getMinimumSize(int index) {
-		Object layoutObject = m_layout.getObject();
-		int[] widths = (int[]) ReflectionUtils.getFieldObject(layoutObject, "columnWidths");
+		GridBagLayout layoutObject = m_layout.getLayoutManager();
+		int[] widths = layoutObject.columnWidths;
 		if (widths != null && widths.length > index) {
 			return widths[index];
 		} else {
@@ -89,8 +89,8 @@ public final class ColumnInfo extends DimensionInfo {
 
 	@Override
 	protected double initialize_getWeight(int index) {
-		Object layoutObject = m_layout.getObject();
-		double[] weights = (double[]) ReflectionUtils.getFieldObject(layoutObject, "columnWeights");
+		GridBagLayout layoutObject = m_layout.getLayoutManager();
+		double[] weights = layoutObject.columnWeights;
 		if (weights != null && weights.length > index) {
 			return weights[index];
 		} else {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,7 +62,7 @@ org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo {
 	 * {@link GridData2}.
 	 */
 	private void replaceGridLayout() throws Exception {
-		Composite composite = (Composite) getComposite().getObject();
+		Composite composite = getComposite().getWidget();
 		// update GridLayout
 		{
 			GridLayout2 newGridLayout = GridLayout2.replaceGridLayout(composite);
@@ -72,7 +72,7 @@ org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo {
 		composite.layout();
 		// update GridDataInfo's
 		for (ControlInfo controlInfo : getControls()) {
-			Control control = (Control) controlInfo.getObject();
+			Control control = controlInfo.getWidget();
 			GridData2 gridDataObject = GridLayout2.getLayoutData2(control);
 			if (gridDataObject != null) {
 				GridDataInfo gridDataInfo = getGridData(controlInfo);
