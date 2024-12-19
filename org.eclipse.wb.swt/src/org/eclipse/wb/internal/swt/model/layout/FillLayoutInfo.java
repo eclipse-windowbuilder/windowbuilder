@@ -46,7 +46,8 @@ public final class FillLayoutInfo extends GenericFlowLayoutInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	protected FillLayout getLayout() {
+	@Override
+	public FillLayout getObject() {
 		return (FillLayout) super.getObject();
 	}
 
@@ -56,7 +57,7 @@ public final class FillLayoutInfo extends GenericFlowLayoutInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public boolean isHorizontal() {
-		return getLayout().type == SWT.HORIZONTAL;
+		return getObject().type == SWT.HORIZONTAL;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

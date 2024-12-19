@@ -43,8 +43,8 @@ public final class GalleryItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected GalleryItem getWidget() {
-		return (GalleryItem) super.getWidget();
+	public GalleryItem getObject() {
+		return (GalleryItem) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ public final class GalleryItemInfo extends ItemInfo {
 	}
 
 	private Rectangle getComponentBounds() throws Exception {
-		return new Rectangle(getWidget().getBounds());
+		return new Rectangle(getObject().getBounds());
 	}
 
 	public boolean isGroupItem() {

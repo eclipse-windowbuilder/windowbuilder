@@ -132,8 +132,8 @@ public final class CoolItemInfo extends ItemInfo {
 	}
 
 	@Override
-	protected CoolItem getWidget() {
-		return (CoolItem) super.getWidget();
+	public CoolItem getObject() {
+		return (CoolItem) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ public final class CoolItemInfo extends ItemInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		{
-			Rectangle bounds = new Rectangle(getWidget().getBounds());
+			Rectangle bounds = new Rectangle(getObject().getBounds());
 			setModelBounds(bounds);
 		}
 		super.refresh_fetch();

@@ -92,8 +92,8 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	protected Menu getWidget() {
-		return (Menu) getObject();
+	public Menu getObject() {
+		return (Menu) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -156,9 +156,9 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	@Override
 	protected void refresh_afterCreate() throws Exception {
 		// add a placeholder
-		MenuItem[] items = getWidget().getItems();
+		MenuItem[] items = getObject().getItems();
 		if (items.length == 0) {
-			MenuItem placeholder = new MenuItem(getWidget(), SWT.NONE);
+			MenuItem placeholder = new MenuItem(getObject(), SWT.NONE);
 			placeholder.setText(IMenuInfo.NO_ITEMS_TEXT);
 		}
 		super.refresh_afterCreate();

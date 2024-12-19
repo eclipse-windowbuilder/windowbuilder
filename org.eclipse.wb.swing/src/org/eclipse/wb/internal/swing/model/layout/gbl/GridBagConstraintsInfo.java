@@ -52,7 +52,7 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 	public void getCurrentObjectFields(boolean init) throws Exception {
 		GridBagConstraints constraints;
 		if (init) {
-			constraints = (GridBagConstraints) getObject();
+			constraints = getObject();
 			// location
 			x = constraints.gridx;
 			y = constraints.gridy;
@@ -87,6 +87,10 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 		fill = constraints.fill;
 	}
 
+	public GridBagConstraints getObject() {
+		return (GridBagConstraints) super.getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access: location
@@ -94,7 +98,7 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void materializeLocation() throws Exception {
-		GridBagConstraints constraints = (GridBagConstraints) getObject();
+		GridBagConstraints constraints = getObject();
 		if (constraints.gridy == GridBagConstraints.RELATIVE) {
 			constraints.gridy = y;
 			setY(y);
