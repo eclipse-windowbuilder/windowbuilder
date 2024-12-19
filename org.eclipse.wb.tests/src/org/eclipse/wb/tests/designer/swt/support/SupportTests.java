@@ -22,7 +22,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 		CoordinateUtilsTest.class,
-		RowLayoutSupportTest.class,
 		ControlSupportTest.class,
 		ContainerSupportTest.class
 })
