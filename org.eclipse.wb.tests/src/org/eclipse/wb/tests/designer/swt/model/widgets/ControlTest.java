@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ColorSupport;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
@@ -35,6 +34,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -355,9 +355,9 @@ public class ControlTest extends RcpModelTest {
 		Property backgroundProperty = shell.getPropertyByTitle("background");
 		// check default value
 		{
-			Object backgroundValue = backgroundProperty.getValue();
-			assertEquals("org.eclipse.swt.graphics.Color", backgroundValue.getClass().getName());
-			assertFalse(ColorSupport.isDisposed(backgroundValue));
+			Color backgroundValue = (Color) backgroundProperty.getValue();
+			assertNotNull(backgroundValue);
+			assertFalse(backgroundValue.isDisposed());
 		}
 	}
 

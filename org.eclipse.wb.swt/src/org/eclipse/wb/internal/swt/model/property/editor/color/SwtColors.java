@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swt.model.property.editor.color;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
-import org.eclipse.wb.internal.swt.support.ColorSupport;
 
 import org.eclipse.swt.SWT;
 
@@ -42,7 +41,7 @@ public final class SwtColors {
 			try {
 				for (Field field : SWT.class.getFields()) {
 					if (field.getName().startsWith("COLOR_")) {
-						colors.add(ColorSupport.createInfo(field));
+						colors.add(ColorPropertyEditor.createInfo(field));
 					}
 				}
 			} catch (Throwable e) {
