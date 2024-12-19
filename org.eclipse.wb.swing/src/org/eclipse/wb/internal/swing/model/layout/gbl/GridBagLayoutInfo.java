@@ -102,7 +102,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 			constraints = new GridBagConstraints();
 		} else {
 			// component is bound to parent, get constraints from layout
-			GridBagLayout layout = (GridBagLayout) getObject();
+			GridBagLayout layout = getLayoutManager();
 			constraints = layout.getConstraints(component);
 		}
 		return constraints;
@@ -139,7 +139,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 	@Override
 	protected boolean afterRefreshFilled() throws Exception {
 		boolean shouldPerformLayout = super.afterRefreshFilled();
-		GridBagLayout layout = (GridBagLayout) getObject();
+		GridBagLayout layout = getLayoutManager();
 		int columnCount = getColumns().size();
 		int rowCount = getRows().size();
 		int[][] dimensions = getLayoutDimensions();
@@ -185,13 +185,13 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected int[][] getLayoutDimensions() throws Exception {
-		GridBagLayout layout = (GridBagLayout) getObject();
+		GridBagLayout layout = getLayoutManager();
 		return layout.getLayoutDimensions();
 	}
 
 	@Override
 	protected Point getLayoutOrigin() throws Exception {
-		GridBagLayout layout = (GridBagLayout) getObject();
+		GridBagLayout layout = getLayoutManager();
 		return layout.getLayoutOrigin();
 	}
 
@@ -202,7 +202,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Interval[] checkColumnIntervals(Interval[] columnIntervals) {
-		GridBagLayout layout = (GridBagLayout) getObject();
+		GridBagLayout layout = getLayoutManager();
 		final int lastIndex = columnIntervals.length - 1;
 		if (columnIntervals.length > 0
 				&& layout.columnWeights != null
@@ -217,7 +217,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
 
 	@Override
 	protected Interval[] checkRowIntervals(Interval[] rowIntervals) {
-		GridBagLayout layout = (GridBagLayout) getObject();
+		GridBagLayout layout = getLayoutManager();
 		int lastIndex = rowIntervals.length - 1;
 		if (rowIntervals.length > 0
 				&& layout.rowWeights != null

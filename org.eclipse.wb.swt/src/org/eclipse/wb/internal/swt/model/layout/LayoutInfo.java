@@ -331,6 +331,18 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 		return false;
 	}
 
+	/**
+	 * May be overridden by subclasses to cast the layout to its explicit type.
+	 *
+	 * <b>Important</b> This method should <i>always</i> return a the same object as
+	 * {@link #getObject()}.
+	 *
+	 * @return the {@link Layout} created for this {@link LayoutInfo}.
+	 */
+	public Layout getLayout() {
+		return (Layout) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// "Layout" property

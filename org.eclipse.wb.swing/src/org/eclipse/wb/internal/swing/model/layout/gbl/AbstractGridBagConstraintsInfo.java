@@ -200,6 +200,14 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
 		return getPropertyByTitle(title);
 	}
 
+	/**
+	 * @return the {@link GridBagConstraints} created for this
+	 *         {@link AbstractGridBagConstraintsInfo}.
+	 */
+	public final GridBagConstraints getGridBagConstraints() {
+		return (GridBagConstraints) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access: location

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Tree;
@@ -42,6 +41,11 @@ public final class TreeInfo extends org.eclipse.wb.internal.swt.model.widgets.Tr
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
 		contributeToClipboardCopy();
+	}
+
+	@Override
+	public Tree getWidget() {
+		return (Tree) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -87,15 +91,14 @@ public final class TreeInfo extends org.eclipse.wb.internal.swt.model.widgets.Tr
 		// prepare metrics
 		int headerHeight;
 		{
-			Object tree = getObject();
-			headerHeight = (Integer) ReflectionUtils.invokeMethod(tree, "getHeaderHeight()");
+			headerHeight = getWidget().getHeaderHeight();
 		}
 		// prepare columns bounds
 		int x = BORDER_WIDTH;
 		int y = BORDER_WIDTH;
 		{
 			for (TreeColumnInfo column : getColumns()) {
-				int columnWidth = (Integer) ReflectionUtils.invokeMethod(column.getObject(), "getWidth()");
+				int columnWidth = column.getWidget().getWidth();
 				Rectangle bounds = new Rectangle(x, y, columnWidth, headerHeight);
 				column.setModelBounds(bounds);
 				column.setBounds(bounds);

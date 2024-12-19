@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,8 +13,9 @@ package org.eclipse.wb.internal.rcp.nebula.radiogroup;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+
+import org.eclipse.nebula.widgets.radiogroup.RadioGroup;
 
 /**
  * Model for {@link RadioGroup}.
@@ -34,12 +35,8 @@ public final class RadioGroupInfo extends CompositeInfo {
 		super(editor, description, creationSupport);
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Orientation
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public boolean isHorizontal() throws Exception {
-		return !ReflectionUtils.getFieldBoolean(getObject(), "vertical");
+	@Override
+	public RadioGroup getWidget() {
+		return (RadioGroup) getObject();
 	}
 }

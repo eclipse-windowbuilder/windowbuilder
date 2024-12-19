@@ -186,7 +186,7 @@ public class ActionTest extends SwingModelTest {
 			action = actions.get(0);
 			assertNotNull(action.getAssociation());
 			// check values
-			Action actionObject = (Action) action.getObject();
+			Action actionObject = action.getAction();
 			assertEquals("My name", actionObject.getValue(Action.NAME));
 			assertEquals("My short description", actionObject.getValue(Action.SHORT_DESCRIPTION));
 		}
@@ -709,7 +709,7 @@ public class ActionTest extends SwingModelTest {
 			ActionInfo actionInfo = actions.get(0);
 			// check values
 			{
-				Action action = (Action) actionInfo.getObject();
+				Action action = actionInfo.getAction();
 				assertEquals("My name", action.getValue(Action.NAME));
 				assertEquals("My short description", action.getValue(Action.SHORT_DESCRIPTION));
 			}
@@ -750,7 +750,7 @@ public class ActionTest extends SwingModelTest {
 		ActionInfo actionInfo = ActionContainerInfo.getActions(panel).get(0);
 		// check values
 		{
-			Action action = (Action) actionInfo.getObject();
+			Action action = actionInfo.getAction();
 			assertEquals("My name", action.getValue(Action.NAME));
 		}
 	}
@@ -783,7 +783,7 @@ public class ActionTest extends SwingModelTest {
 		ActionInfo actionInfo = ActionContainerInfo.getActions(panel).get(0);
 		// check values
 		{
-			Action action = (Action) actionInfo.getObject();
+			Action action = actionInfo.getAction();
 			assertEquals("My name", action.getValue(Action.NAME));
 		}
 		// check "name" property
@@ -1140,7 +1140,7 @@ public class ActionTest extends SwingModelTest {
 		ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
 		// check that "Name" is applied to Action object
 		{
-			Action actionObject = (Action) action.getObject();
+			Action actionObject = action.getAction();
 			assertEquals("My name", actionObject.getValue(Action.NAME));
 		}
 		// prepare Action_1 constructor
@@ -1310,7 +1310,7 @@ public class ActionTest extends SwingModelTest {
 		ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
 		// check that NAME is applied
 		{
-			Action actionObject = (Action) action.getObject();
+			Action actionObject = action.getAction();
 			assertEquals("My name", actionObject.getValue(Action.NAME));
 		}
 		// check "name" property
@@ -1428,7 +1428,7 @@ public class ActionTest extends SwingModelTest {
 			ActionInfo actionInfo = actions.get(0);
 			// check values
 			{
-				Action action = (Action) actionInfo.getObject();
+				Action action = actionInfo.getAction();
 				assertEquals("My name", action.getValue(Action.NAME));
 			}
 		}

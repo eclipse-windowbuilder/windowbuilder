@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.util.StackContainerSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -94,7 +93,7 @@ public final class StackLayoutInfo extends LayoutInfo implements IStackLayoutInf
 		{
 			ControlInfo topControl = getActiveControl();
 			if (topControl != null) {
-				ReflectionUtils.setField(getObject(), "topControl", topControl.getObject());
+				getLayout().topControl = topControl.getWidget();
 			}
 		}
 	}
@@ -121,6 +120,11 @@ public final class StackLayoutInfo extends LayoutInfo implements IStackLayoutInf
 	@Override
 	public void show(ControlInfo control) {
 		m_stackContainer.setActive(control);
+	}
+
+	@Override
+	public StackLayout getLayout() {
+		return (StackLayout) super.getObject();
 	}
 
 	//////////////////////////////////////////////////////////////////////////

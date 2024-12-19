@@ -218,7 +218,7 @@ public class TableTest extends RcpModelTest {
 			// "model" bounds
 			Rectangle modelBounds = column_1.getModelBounds();
 			if (!EnvironmentUtils.IS_WINDOWS) {
-				modelBounds.y += ((Table) table.getObject()).getHeaderHeight();
+				modelBounds.y += table.getWidget().getHeaderHeight();
 			}
 			assertNotNull(modelBounds);
 			assertEquals(0, modelBounds.x);
@@ -228,7 +228,7 @@ public class TableTest extends RcpModelTest {
 			// "shot" bounds
 			Rectangle bounds = column_1.getBounds();
 			if (!EnvironmentUtils.IS_WINDOWS) {
-				bounds.y += ((Table) table.getObject()).getHeaderHeight();
+				bounds.y += table.getWidget().getHeaderHeight();
 			}
 			assertEquals(tableInsets.left, bounds.x);
 			assertEquals(tableInsets.top, bounds.y);
@@ -239,7 +239,7 @@ public class TableTest extends RcpModelTest {
 			// "model" bounds
 			Rectangle modelBounds = column_2.getModelBounds();
 			if (!EnvironmentUtils.IS_WINDOWS) {
-				modelBounds.y += ((Table) table.getObject()).getHeaderHeight();
+				modelBounds.y += table.getWidget().getHeaderHeight();
 			}
 			assertNotNull(modelBounds);
 			assertEquals(50, modelBounds.x);

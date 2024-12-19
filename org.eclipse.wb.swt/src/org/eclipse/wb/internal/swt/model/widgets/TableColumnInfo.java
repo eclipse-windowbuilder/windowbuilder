@@ -40,8 +40,8 @@ public final class TableColumnInfo extends ItemInfo implements ITableColumnInfo 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected TableColumn getWidget() {
-		return (TableColumn) super.getWidget();
+	public TableColumn getWidget() {
+		return (TableColumn) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

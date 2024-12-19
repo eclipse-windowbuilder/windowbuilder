@@ -92,7 +92,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 	////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	protected Menu getWidget() {
+	public Menu getWidget() {
 		return (Menu) getObject();
 	}
 

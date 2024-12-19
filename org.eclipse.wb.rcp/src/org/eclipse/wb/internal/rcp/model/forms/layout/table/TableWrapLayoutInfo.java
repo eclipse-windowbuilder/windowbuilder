@@ -199,7 +199,7 @@ IPreferenceConstants {
 	 * {@link TableWrapLayout2} and {@link TableWrapData2}.
 	 */
 	private void replaceLayoutObjects() throws Exception {
-		Composite composite = (Composite) getComposite().getObject();
+		Composite composite = getComposite().getWidget();
 		Layout layout = composite.getLayout();
 		// update TableWrapLayout
 		if (layout.getClass().getName().equals("org.eclipse.ui.forms.widgets.TableWrapLayout")) {
@@ -224,7 +224,7 @@ IPreferenceConstants {
 		composite.layout();
 		// update TableWrapDataInfo's
 		for (ControlInfo controlInfo : getComposite().getChildrenControls()) {
-			Control control = (Control) controlInfo.getObject();
+			Control control = controlInfo.getWidget();
 			Object layoutData = control.getLayoutData();
 			if (layoutData != null) {
 				TableWrapDataInfo layoutDataInfo = getTableWrapData(controlInfo);

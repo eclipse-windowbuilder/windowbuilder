@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -326,7 +326,7 @@ public class DialogTest extends RcpModelTest {
 		{
 			CompositeInfo parent = dialog.getChildren(CompositeInfo.class).get(0);
 			CompositeInfo container = parent.getChildren(CompositeInfo.class).get(0);
-			Composite containerObject = (Composite) container.getObject();
+			Composite containerObject = container.getWidget();
 			Assertions.assertThat(containerObject.getChildren()).hasSize(2);
 		}
 	}
@@ -670,7 +670,7 @@ public class DialogTest extends RcpModelTest {
 						"}");
 		dialog.refresh();
 		CompositeInfo buttonBar = dialog.getButtonBar();
-		Composite buttonBarObject = (Composite) buttonBar.getObject();
+		Composite buttonBarObject = buttonBar.getWidget();
 		Assertions.assertThat(buttonBarObject.getChildren()).hasSize(1);
 	}
 

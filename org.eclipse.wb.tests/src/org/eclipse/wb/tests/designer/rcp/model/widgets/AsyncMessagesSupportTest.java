@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.utils.AsyncMessagesSupport;
@@ -57,7 +58,7 @@ public class AsyncMessagesSupportTest extends RcpModelTest {
 						"  }",
 						"}");
 		shell.refresh();
-		ControlInfo button = shell.getChildrenControls().get(0);
+		ButtonInfo button = (ButtonInfo) shell.getChildrenControls().get(0);
 		assertEquals(0, ReflectionUtils.invokeMethod(button.getObject(), "getValue()"));
 	}
 

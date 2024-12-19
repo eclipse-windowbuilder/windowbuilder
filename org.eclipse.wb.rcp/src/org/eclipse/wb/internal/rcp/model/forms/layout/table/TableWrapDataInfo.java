@@ -148,7 +148,24 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
 		horizontalAlignment = ReflectionUtils.getFieldInt(object, "align");
 		verticalAlignment = ReflectionUtils.getFieldInt(object, "valign");
 		heightHint = ReflectionUtils.getFieldInt(object, "heightHint");
+//		TODO
+//		https://github.com/eclipse-windowbuilder/windowbuilder/issues/963
+//		TableWrapData object = getObject();
+//		width = object.colspan;
+//		height = object.rowspan;
+//		horizontalGrab = object.grabHorizontal;
+//		verticalGrab = object.grabVertical;
+//		horizontalAlignment = object.align;
+//		verticalAlignment = object.valign;
+//		heightHint = object.heightHint;
 	}
+
+//	TODO
+//	https://github.com/eclipse-windowbuilder/windowbuilder/issues/963
+//	@Override
+//	public TableWrapData getObject() {
+//		return (TableWrapData) super.getObject();
+//	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

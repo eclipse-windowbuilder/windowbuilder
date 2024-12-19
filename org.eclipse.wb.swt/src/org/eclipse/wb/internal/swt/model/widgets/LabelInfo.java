@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+
+import org.eclipse.swt.widgets.Label;
 
 /**
  * Model for {@link org.eclipse.swt.widgets.Label}.
@@ -31,6 +33,11 @@ public final class LabelInfo extends ControlInfo {
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
+	}
+
+	@Override
+	public Label getWidget() {
+		return (Label) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

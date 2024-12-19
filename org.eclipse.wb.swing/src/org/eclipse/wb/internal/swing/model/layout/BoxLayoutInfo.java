@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import java.awt.Component;
@@ -59,9 +58,13 @@ public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
 	 *         horizontally.
 	 */
 	public boolean isHorizontal() {
-		BoxLayout layout = (BoxLayout) getObject();
-		int axis = ReflectionUtils.getFieldInt(layout, "axis");
+		int axis = getLayoutManager().getAxis();
 		return axis == BoxLayout.X_AXIS || axis == BoxLayout.LINE_AXIS;
+	}
+
+	@Override
+	public BoxLayout getLayoutManager() {
+		return (BoxLayout) super.getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

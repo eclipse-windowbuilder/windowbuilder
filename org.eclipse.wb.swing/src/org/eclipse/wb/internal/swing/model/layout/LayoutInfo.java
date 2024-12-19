@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -223,6 +223,19 @@ public class LayoutInfo extends JavaInfo {
 			storeLayoutData(componentInfo);
 			removeComponentConstraints(container, componentInfo);
 		}
+	}
+
+	/**
+	 * May be overridden by subclasses to cast the layout manager to its explicit
+	 * type.
+	 *
+	 * <b>Important</b> This method should <i>always</i> return a the same object as
+	 * {@link #getObject()}.
+	 *
+	 * @return the {@link LayoutManager} created for this {@link LayoutInfo}.
+	 */
+	public LayoutManager getLayoutManager() {
+		return (LayoutManager) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

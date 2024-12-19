@@ -62,8 +62,8 @@ public final class TreeItemInfo extends ItemInfo {
 	}
 
 	@Override
-	protected TreeItem getWidget() {
-		return (TreeItem) super.getWidget();
+	public TreeItem getWidget() {
+		return (TreeItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

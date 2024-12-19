@@ -45,8 +45,8 @@ public final class GridColumnGroupInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected GridColumnGroup getWidget() {
-		return (GridColumnGroup) super.getWidget();
+	public GridColumnGroup getWidget() {
+		return (GridColumnGroup) getObject();
 	}
 
 	/**
@@ -54,7 +54,7 @@ public final class GridColumnGroupInfo extends ItemInfo {
 	 * of the {@link GridColumnGroup}.
 	 */
 	protected org.eclipse.swt.graphics.Rectangle getSwtBounds() throws Exception {
-		return (org.eclipse.swt.graphics.Rectangle) ReflectionUtils.invokeMethod(getWidget(), "getBounds()");
+		return (org.eclipse.swt.graphics.Rectangle) ReflectionUtils.invokeMethod(getObject(), "getBounds()");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

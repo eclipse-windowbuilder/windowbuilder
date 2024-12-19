@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -75,7 +75,7 @@ public final class CoolBarInfo extends CompositeInfo {
 		super.refresh_afterCreate();
 		// ensure that each CoolItem has reasonable size
 		for (CoolItemInfo itemInfo : getItems()) {
-			CoolItem item = (CoolItem) itemInfo.getObject();
+			CoolItem item = itemInfo.getWidget();
 			Control control = item.getControl();
 			if (control == null) {
 				item.setSize(20, 25);

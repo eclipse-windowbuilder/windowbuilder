@@ -46,8 +46,8 @@ public final class GridItemInfo extends ItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected GridItem getWidget() {
-		return (GridItem) super.getWidget();
+	public GridItem getWidget() {
+		return (GridItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

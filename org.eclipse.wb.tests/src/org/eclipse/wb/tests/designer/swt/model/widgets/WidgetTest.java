@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,10 +14,10 @@ import org.eclipse.wb.internal.core.model.creation.ExposedPropertyCreationSuppor
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.ExposedPropertyVariableSupport;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
@@ -26,6 +26,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 
 import org.junit.Test;
@@ -91,8 +92,7 @@ public class WidgetTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_description_setData() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
+		ShellInfo shell = (ShellInfo) parseComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
 						"    setData('1');",
@@ -101,10 +101,10 @@ public class WidgetTest extends RcpModelTest {
 						"}");
 		shell.refresh();
 		// check setData()
-		Object shellObject = shell.getObject();
-		assertEquals("1", ReflectionUtils.invokeMethod(shellObject, "getData()"));
-		assertEquals("2", ReflectionUtils.invokeMethod(shellObject, "getData(java.lang.String)", "key"));
-		assertNull(ReflectionUtils.invokeMethod(shellObject, "getData(java.lang.String)", "no-such-key"));
+		Shell shellObject = shell.getWidget();
+		assertEquals("1", shellObject.getData());
+		assertEquals("2", shellObject.getData("key"));
+		assertNull(shellObject.getData("no-such-key"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

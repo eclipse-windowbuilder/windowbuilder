@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
@@ -51,6 +50,7 @@ import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ColorDescriptor;
+import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -495,12 +495,11 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
 			//
 			for (ColorRegistryInfo registryInfo : registries) {
 				// prepare color info's
-				Object registry = registryInfo.getObject();
+				ColorRegistry registry = registryInfo.getResourceRegistry();
 				List<ColorInfo> infos = new ArrayList<>();
 				for (KeyFieldInfo keyInfo : registryInfo.getKeyFields()) {
 					if (keyInfo.value == null) {
-						keyInfo.value =
-								ReflectionUtils.invokeMethod(registry, "get(java.lang.String)", keyInfo.keyValue);
+						keyInfo.value = registry.get(keyInfo.keyValue);
 					}
 					if (keyInfo.value != null) {
 						ColorInfo colorInfo = ColorSupport.createInfo(keyInfo.keyName, keyInfo.value);

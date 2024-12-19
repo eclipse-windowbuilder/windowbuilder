@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 
 import org.junit.Test;
 
@@ -61,7 +60,7 @@ public class GridLayoutFactoryTest extends RcpModelTest {
 								+ " {/GridLayoutFactory.swtDefaults().margins(10, 20)/ /GridLayoutFactory.swtDefaults().margins(10, 20).applyTo(this)/}");
 		refresh();
 		// check that GridLayout has same values as configured
-		Composite compositeObject = (Composite) composite.getObject();
+		Composite compositeObject = composite.getWidget();
 		GridLayout layout = (GridLayout) compositeObject.getLayout();
 		assertEquals(10, layout.marginWidth);
 		assertEquals(20, layout.marginHeight);
@@ -92,7 +91,7 @@ public class GridLayoutFactoryTest extends RcpModelTest {
 		refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		// check that GridData has same values as configured
-		GridData gridData = (GridData) ((Control) button.getObject()).getLayoutData();
+		GridData gridData = (GridData) button.getWidget().getLayoutData();
 		assertEquals(150, gridData.widthHint);
 		assertEquals(50, gridData.heightHint);
 	}

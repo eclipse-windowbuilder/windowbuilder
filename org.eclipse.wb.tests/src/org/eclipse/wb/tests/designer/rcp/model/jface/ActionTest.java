@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.rcp.model.jface.ApplicationWindowInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo;
@@ -161,7 +160,7 @@ public class ActionTest extends RcpModelTest {
 		ActionInfo action = ActionContainerInfo.getActions(window).get(0);
 		// check refresh
 		window.refresh();
-		assertEquals("The text", ReflectionUtils.invokeMethod2(action.getObject(), "getText"));
+		assertEquals("The text", action.getAction().getText());
 		// check "action" presentation
 		{
 			IObjectPresentation presentation = action.getPresentation();

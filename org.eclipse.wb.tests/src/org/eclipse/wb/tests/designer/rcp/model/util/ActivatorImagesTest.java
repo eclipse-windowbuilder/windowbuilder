@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,11 +12,13 @@ package org.eclipse.wb.tests.designer.rcp.model.util;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 
 import org.junit.Test;
 
@@ -127,30 +129,28 @@ public class ActivatorImagesTest extends RcpModelTest {
 	}
 
 	private void test_getImage(String path) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
+		ShellInfo shell = (ShellInfo) parseComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
 						"    setImage(testplugin.Activator.getImage('" + path + "'));",
 						"  }",
 						"}");
 		shell.refresh();
-		Object image = ReflectionUtils.invokeMethod(shell.getObject(), "getImage()");
+		Image image = shell.getImage();
 		assertNotNull(image);
-		assertFalse((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
+		assertFalse(image.isDisposed());
 	}
 
 	@Test
 	public void test_getImage_wrongPath() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
+		ShellInfo shell = (ShellInfo) parseComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
 						"    setImage(testplugin.Activator.getImage('icons/3.png'));",
 						"  }",
 						"}");
 		shell.refresh();
-		assertNull(ReflectionUtils.invokeMethod(shell.getObject(), "getImage()"));
+		assertNull(shell.getWidget().getImage());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -215,8 +215,7 @@ public class ActivatorImagesTest extends RcpModelTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
+		ShellInfo shell = (ShellInfo) parseComposite(
 						"public class Test extends MyShell {",
 						"  public Test() {",
 						"    setID(testplugin.Activator.getImageDescriptor('" + path + "'));",
@@ -224,7 +223,7 @@ public class ActivatorImagesTest extends RcpModelTest {
 						"}");
 		shell.refresh();
 		//
-		Object shellObject = shell.getObject();
+		Shell shellObject = shell.getWidget();
 		Object imageDescriptor = ReflectionUtils.getFieldObject(shellObject, "m_imageDescriptor");
 		if (checkNotNull) {
 			assertNotNull(imageDescriptor);

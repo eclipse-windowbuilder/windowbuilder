@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.tests.designer.swt.support;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.InsValue;
@@ -52,8 +53,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	@Ignore
 	@Test
 	public void test_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
+		ShellInfo shell = (ShellInfo) parseComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
 						"    Button button = new Button(this, SWT.NONE);",
@@ -64,7 +64,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 		shell.refresh();
 		// On GTK, the bounds are only calculated if the shell is visible
 		if (EnvironmentUtils.IS_LINUX) {
-			Shell swtShell = (Shell) shell.getObject();
+			Shell swtShell = shell.getWidget();
 			swtShell.setVisible(true);
 			waitEventLoop(10);
 		}

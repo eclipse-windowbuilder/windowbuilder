@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.creation.factory.ImplicitFactoryCreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
@@ -57,7 +56,7 @@ public final class CollapsibleButtonsInfo extends CompositeInfo {
 	 */
 	private void makeAddedButtonsVisible() throws Exception {
 		// FIXME: remove this code after the author fixed the 'isVisible()' problem
-		Shell shell = (Shell) ReflectionUtils.invokeMethod(getObject(), "getShell()");
+		Shell shell = getWidget().getShell();
 		shell.setVisible(true);
 		shell.layout();
 	}

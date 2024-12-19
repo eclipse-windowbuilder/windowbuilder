@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -116,6 +116,11 @@ public final class BorderLayoutInfo extends LayoutInfo {
 		return null;
 	}
 
+	@Override
+	public BorderLayout getLayoutManager() {
+		return (BorderLayout) getObject();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Commands
@@ -223,7 +228,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
 
 		@Override
 		public Object getValue() throws Exception {
-			Object constraints = ((BorderLayout) getObject()).getConstraints(m_component.getComponent());
+			Object constraints = getLayoutManager().getConstraints(m_component.getComponent());
 			for (int i = 0; i < CONSTRAINTS_VALUES.length; i++) {
 				String constraintsValue = CONSTRAINTS_VALUES[i];
 				if (constraintsValue.equals(constraints)) {

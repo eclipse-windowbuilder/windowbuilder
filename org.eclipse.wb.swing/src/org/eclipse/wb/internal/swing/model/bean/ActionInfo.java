@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,6 +54,10 @@ public class ActionInfo extends JavaInfo {
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
 		addListeners();
+	}
+
+	public Action getAction() {
+		return (Action) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -113,8 +117,8 @@ public class ActionInfo extends JavaInfo {
 	private void refreshIconImage() throws IOException {
 		m_smallIconImage = null;
 		// if Action has icon, convert it into SWT image
-		if (getObject() instanceof Action) {
-			javax.swing.Icon smallIcon = (Icon) ((Action) getObject()).getValue(Action.SMALL_ICON);
+		if (getObject() != null) {
+			javax.swing.Icon smallIcon = (Icon) getAction().getValue(Action.SMALL_ICON);
 			if (smallIcon != null) {
 				m_smallIconImage = ImageUtils.convertToSWT(smallIcon);
 			}

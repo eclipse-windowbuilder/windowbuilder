@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorPreferencePageInfo;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.rcp.model.jface.FieldEditorSubComponentCreationSu
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorSubComponentVariableSupport;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.LabelInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -41,6 +41,7 @@ import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
@@ -894,11 +895,11 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 		// perform refresh()
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
-		ControlInfo labelControl = fieldEditor.getChildControls().get(0);
+		LabelInfo labelControl = (LabelInfo) fieldEditor.getChildControls().get(0);
 		// ensure that properties are applied
-		Object labelObject = labelControl.getObject();
-		assertEquals("Some tooltip", ReflectionUtils.invokeMethod2(labelObject, "getToolTipText"));
-		assertEquals(false, ReflectionUtils.invokeMethod2(labelObject, "isEnabled"));
+		Label labelObject = labelControl.getWidget();
+		assertEquals("Some tooltip", labelObject.getToolTipText());
+		assertEquals(false, labelObject.isEnabled());
 		// check delete()
 		assertTrue(labelControl.canDelete());
 		labelControl.delete();

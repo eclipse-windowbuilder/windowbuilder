@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -446,7 +446,7 @@ public class ControlTest extends RcpModelTest {
 		shell.refresh();
 		// check current size
 		assertEquals(new Dimension(399, 299), shell.getBounds().getSize());
-		assertEquals(new Point(399, 299), ((Control) shell.getObject()).getSize());
+		assertEquals(new Point(399, 299), shell.getWidget().getSize());
 		// use "size" property
 		Property sizeProperty = shell.getPropertyByTitle("size");
 		assertEquals(new Point(399, 299), sizeProperty.getValue());

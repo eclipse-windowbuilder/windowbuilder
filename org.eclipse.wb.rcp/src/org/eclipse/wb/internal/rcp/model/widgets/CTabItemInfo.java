@@ -41,8 +41,8 @@ public final class CTabItemInfo extends AbstractTabItemInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected CTabItem getWidget() {
-		return (CTabItem) super.getWidget();
+	public CTabItem getWidget() {
+		return (CTabItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

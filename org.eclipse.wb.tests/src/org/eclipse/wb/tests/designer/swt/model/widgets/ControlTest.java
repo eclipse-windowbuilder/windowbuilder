@@ -17,11 +17,11 @@ import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyE
 import org.eclipse.wb.internal.core.model.util.PlaceholderUtils;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodeInformation;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.ColorSupport;
@@ -35,6 +35,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -654,10 +655,10 @@ public class ControlTest extends RcpModelTest {
 				"  {new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}");
 		shell.refresh();
 		// prepare MyButton
-		ControlInfo button = shell.getChildrenControls().get(0);
-		Object buttonObject = button.getObject();
+		ButtonInfo button = (ButtonInfo) shell.getChildrenControls().get(0);
+		Button buttonObject = button.getWidget();
 		// MyButton was evaluated using default constructor...
-		assertEquals("A", ReflectionUtils.invokeMethod(buttonObject, "getText()"));
+		assertEquals("A", buttonObject.getText());
 		assertFalse(button.isPlaceholder());
 		// only one (good) instance of MyButton should be on Shell
 		{
@@ -841,7 +842,7 @@ public class ControlTest extends RcpModelTest {
 						"}");
 		composite.refresh();
 		// has "parent" and "style"
-		Composite compositeObject = (Composite) composite.getObject();
+		Composite compositeObject = composite.getWidget();
 		assertNotNull(compositeObject.getParent());
 		// On Linux, the DOUBLE_BUFFERED flag is also set
 		Assertions.assertThat(SWT.LEFT_TO_RIGHT & compositeObject.getStyle()).isGreaterThan(0);

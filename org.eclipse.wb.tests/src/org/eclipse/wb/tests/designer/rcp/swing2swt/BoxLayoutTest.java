@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,13 @@
 package org.eclipse.wb.tests.designer.rcp.swing2swt;
 
 import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.swing2swt.layout.BoxLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+
+import javax.swing.BoxLayout;
 
 /**
  * Test {@link BoxLayoutInfo}.
@@ -76,8 +77,7 @@ public class BoxLayoutTest extends AbstractSwing2SwtTest {
 		// X_AXIS, so horizontal
 		assertTrue(layout.isHorizontal());
 		// set Y_AXIS
-		layout.getPropertyByTitle("axis").setValue(
-				ReflectionUtils.getFieldObject(layout.getObject(), "Y_AXIS"));
+		layout.getPropertyByTitle("axis").setValue(BoxLayout.Y_AXIS);
 		assertEditor(
 				"import swing2swt.layout.BoxLayout;",
 				"public class Test extends Shell {",

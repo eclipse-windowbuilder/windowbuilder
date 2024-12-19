@@ -149,8 +149,8 @@ public final class ToolItemInfo extends ItemInfo {
 	}
 
 	@Override
-	protected ToolItem getWidget() {
-		return (ToolItem) super.getWidget();
+	public ToolItem getWidget() {
+		return (ToolItem) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -181,7 +181,7 @@ IThisMethodParameterEvaluator {
 		m_shellInfo = GenericsUtils.get(ShellInfo.class, components);
 		Assert.isTrueException(m_shellInfo != null, IExceptionConstants.SWT_DIALOG_NO_MAIN_SHELL);
 		JavaInfoUtils.setParameter(m_shellInfo, "SWT.isRoot", "true");
-		m_shell = (Shell) m_shellInfo.getObject();
+		m_shell = m_shellInfo.getWidget();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

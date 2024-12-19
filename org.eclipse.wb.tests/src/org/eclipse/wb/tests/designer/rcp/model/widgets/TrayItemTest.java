@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ public class TrayItemTest extends RcpModelTest {
 				"    {new: org.eclipse.swt.widgets.TrayItem} {field-initializer: trayItem} {/new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE)/}");
 		// prepare TrayItem
 		TrayItemInfo item = getTrayItem(shell);
-		TrayItem itemObject = (TrayItem) item.getObject();
+		TrayItem itemObject = item.getWidget();
 		// "live" now
 		assertFalse(itemObject.isDisposed());
 		// disposed with model
