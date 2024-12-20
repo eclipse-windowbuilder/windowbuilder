@@ -103,11 +103,11 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		// property
 		Property property = container.getPropertyByTitle("property");
 		assertNotNull(property);
-		Assertions.assertThat(getPropertyText(property)).isNull();
+		assertNull(getPropertyText(property));
 		assertInstanceOf(InstanceObjectPropertyEditor.class, property.getEditor());
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
-		Assertions.assertThat(editor.getInstanceExpression(property)).isNull();
+		assertNull(editor.getInstanceExpression(property));
 		Assertions.assertThat(editor.getProperties(property)).isEmpty();
 	}
 
@@ -131,7 +131,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		Property property = container.getPropertyByTitle("property");
 		assertNotNull(property);
 		Assertions.assertThat(getPropertyText(property)).isEqualTo("javax.swing.JButton");
-		assertInstanceOf(InstanceObjectPropertyEditor.class, property.getEditor()); 
+		assertInstanceOf(InstanceObjectPropertyEditor.class, property.getEditor());
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
 		assertNotNull(editor.getInstanceExpression(property));

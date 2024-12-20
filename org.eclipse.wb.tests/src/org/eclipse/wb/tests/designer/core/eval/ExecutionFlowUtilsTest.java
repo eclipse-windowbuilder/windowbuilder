@@ -2082,10 +2082,10 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 		// delete Statement for "fooNode", no more variables information
 		m_lastEditor.removeEnclosingStatement(fooNode);
 		{
-			Assertions.assertThat(getDeclaration(flowDescription, fooNode)).isNull();
+			assertNull(getDeclaration(flowDescription, fooNode));
 			Assertions.assertThat(getReferences(flowDescription, fooNode)).isEmpty();
 			Assertions.assertThat(getAssignments(flowDescription, fooNode)).isEmpty();
-			Assertions.assertThat(getLastAssignment(flowDescription, fooNode)).isNull();
+			assertNull(getLastAssignment(flowDescription, fooNode));
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1513,19 +1513,19 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory_", "create()", true);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory_", "createButton()", false);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory_", "createNo(java.lang.Object)", false);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 	}
 
@@ -1582,7 +1582,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 	}
 
@@ -1625,19 +1625,19 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 	}
 
@@ -1696,7 +1696,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			Assertions.assertThat(factoryDescription).isNull();
+			assertNull(factoryDescription);
 		}
 	}
 

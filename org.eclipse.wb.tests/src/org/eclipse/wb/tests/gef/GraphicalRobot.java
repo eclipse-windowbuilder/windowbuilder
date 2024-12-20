@@ -37,6 +37,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -895,7 +896,7 @@ public final class GraphicalRobot {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void assertNullEditPart(Object object) {
-		Assertions.assertThat(getEditPartNull(object)).isNull();
+		assertNull(getEditPartNull(object));
 	}
 
 	public void assertNotNullEditPart(Object object) {

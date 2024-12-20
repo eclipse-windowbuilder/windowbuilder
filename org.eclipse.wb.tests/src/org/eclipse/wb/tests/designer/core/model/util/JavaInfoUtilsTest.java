@@ -504,14 +504,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 		{
 			Assertions.assertThat(JavaInfoUtils.getParameter(panel, "test.parameter.1")).isEqualTo("value_1");
 			Assertions.assertThat(JavaInfoUtils.getParameter(panel, "test.parameter.2")).isEqualTo("1000");
-			Assertions.assertThat(JavaInfoUtils.getParameter(panel, "test.parameter.3")).isNull();
+			assertNull(JavaInfoUtils.getParameter(panel, "test.parameter.3"));
 		}
 		// check parameters map
 		{
 			Map<String, String> parameters = JavaInfoUtils.getParameters(panel);
 			Assertions.assertThat(parameters.get("test.parameter.1")).isEqualTo("value_1");
 			Assertions.assertThat(parameters.get("test.parameter.2")).isEqualTo("1000");
-			Assertions.assertThat(parameters.get("test.parameter.3")).isNull();
+			assertNull(parameters.get("test.parameter.3"));
 		}
 		// set new parameter
 		JavaInfoUtils.setParameter(panel, "test.parameter.3", "true");

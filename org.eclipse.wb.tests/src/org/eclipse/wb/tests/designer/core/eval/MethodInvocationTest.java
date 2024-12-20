@@ -643,7 +643,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						"}");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "root()");
-		Assertions.assertThat(actual).isNull();
+		assertNull(actual);
 	}
 
 	@Test

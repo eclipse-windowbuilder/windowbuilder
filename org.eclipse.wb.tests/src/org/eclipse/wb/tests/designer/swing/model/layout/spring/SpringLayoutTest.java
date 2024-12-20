@@ -426,17 +426,17 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		{
 			Property offset = PropertyUtils.getByPath(button, "Constraints/WEST/offset");
 			Assertions.assertThat(offset.isModified()).isFalse();
-			Assertions.assertThat(offset.getValue()).isNull();
+			assertNull(offset.getValue());
 		}
 		{
 			Property anchor = PropertyUtils.getByPath(button, "Constraints/WEST/anchor");
 			Assertions.assertThat(anchor.isModified()).isFalse();
-			Assertions.assertThat(anchor.getValue()).isNull();
+			assertNull(anchor.getValue());
 		}
 		{
 			Property side = PropertyUtils.getByPath(button, "Constraints/WEST/side");
 			Assertions.assertThat(side.isModified()).isFalse();
-			Assertions.assertThat(side.getValue()).isNull();
+			assertNull(side.getValue());
 		}
 	}
 

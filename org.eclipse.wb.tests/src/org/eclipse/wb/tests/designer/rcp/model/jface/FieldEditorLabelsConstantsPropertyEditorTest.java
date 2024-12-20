@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -219,7 +219,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 		// all valid, but empty
 		{
 			String errorMessage = prepareLabelsFields("");
-			Assertions.assertThat(errorMessage).isNull();
+			assertNull(errorMessage);
 			Assertions.assertThat(m_resultLabels).isEmpty();
 			Assertions.assertThat(m_resultFields).isEmpty();
 		}
@@ -236,7 +236,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 		// use local field
 		{
 			String errorMessage = prepareLabelsFields(getSourceDQ("some label LOCAL_ID"));
-			Assertions.assertThat(errorMessage).isNull();
+			assertNull(errorMessage);
 			Assertions.assertThat(m_resultLabels).containsOnly("some label");
 			{
 				Assertions.assertThat(m_resultFields).hasSize(1);
@@ -249,7 +249,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 					prepareLabelsFields(getSourceDQ(
 							"first label test.PrefConstants.ID_1",
 							"second label test.PrefConstants.ID_2"));
-			Assertions.assertThat(errorMessage).isNull();
+			assertNull(errorMessage);
 			Assertions.assertThat(m_resultLabels).containsOnly("first label", "second label");
 			{
 				Assertions.assertThat(m_resultFields).hasSize(2);
