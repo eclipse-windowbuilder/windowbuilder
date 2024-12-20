@@ -92,7 +92,6 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	// Tool listeners
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private IDefaultToolProvider m_defaultToolProvider;
 	private EventListenerList m_eventTable;
 
 	private EventListenerList getEventTable() {
@@ -100,13 +99,6 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 			m_eventTable = new EventListenerList();
 		}
 		return m_eventTable;
-	}
-
-	/**
-	 * Sets the {@link IDefaultToolProvider}.
-	 */
-	public void setDefaultToolProvider(IDefaultToolProvider toolListener) {
-		m_defaultToolProvider = toolListener;
 	}
 
 	/**
@@ -128,17 +120,6 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	// Tool
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Loads the default {@link Tool}.
-	 */
-	@Override
-	public void loadDefaultTool() {
-		if (m_defaultToolProvider != null) {
-			m_defaultToolProvider.loadDefaultTool();
-		} else {
-			setActiveTool(getDefaultTool());
-		}
-	}
 
 	/**
 	 * Returns the default tool for this edit domain. This will be a {@link SelectionTool} unless
