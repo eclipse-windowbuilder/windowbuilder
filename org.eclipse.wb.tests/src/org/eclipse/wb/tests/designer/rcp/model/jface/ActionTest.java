@@ -576,9 +576,9 @@ public class ActionTest extends RcpModelTest {
 			entry = (ActionUseEntryInfo) entries.get(0);
 		}
 		// check properties
-		Assertions.assertThat(entry.getId()).isNotNull();
-		Assertions.assertThat(entry.getName()).isNotNull();
-		Assertions.assertThat(entry.getDescription()).isNotNull();
+		assertNotNull(entry.getId());
+		assertNotNull(entry.getName());
+		assertNotNull(entry.getDescription());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

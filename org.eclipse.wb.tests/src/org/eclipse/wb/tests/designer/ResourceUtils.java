@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,9 +19,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaModelException;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.Assertions;
 import org.osgi.framework.Bundle;
 
 import java.io.FileNotFoundException;
@@ -65,7 +66,7 @@ public class ResourceUtils {
 	public static void resources2project(TestProject project, String path, String[] skipEntries)
 			throws IOException, CoreException, JavaModelException, Exception {
 		Enumeration<URL> pathEntries = m_testBundle.findEntries(path, "*", true);
-		Assertions.assertThat(pathEntries).isNotNull();
+		assertNotNull(pathEntries);
 		while (pathEntries.hasMoreElements()) {
 			URL entryURL = pathEntries.nextElement();
 			String entryPathBase = entryURL.getPath();

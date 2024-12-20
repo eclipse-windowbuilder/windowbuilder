@@ -373,14 +373,14 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			m_testProject.addExternalJar(managerJar);
 			{
 				IType managerType = m_javaProject.findType(managerClassName);
-				Assertions.assertThat(managerType).isNotNull();
+				assertNotNull(managerType);
 				Assertions.assertThat(managerType.getFields()).isEmpty();
 			}
 			// no changes, because "manager" is in binary
 			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
 			{
 				IType managerType = m_javaProject.findType(managerClassName);
-				Assertions.assertThat(managerType).isNotNull();
+				assertNotNull(managerType);
 				Assertions.assertThat(managerType.getFields()).isEmpty();
 			}
 		} finally {

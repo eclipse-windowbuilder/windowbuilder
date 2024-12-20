@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -220,7 +220,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 				"  public Test() {", "  }", "}");
 		// check ComponentDescription
 		ComponentDescription description = panel.getDescription();
-		Assertions.assertThat(description.getBeanInfo()).isNotNull();
+		assertNotNull(description.getBeanInfo());
 		ImageDescriptor icon = description.getIcon();
 		assertEquals(10, icon.getImageData(100).width);
 		assertEquals(15, icon.getImageData(100).height);

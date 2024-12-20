@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.List;
@@ -126,7 +125,7 @@ public class ButtonGroupTest extends SwingModelTest {
 			assertEquals(1, buttonGroups.size());
 			// check sole ButtonGroupInfo
 			ButtonGroupInfo buttonGroup = buttonGroups.get(0);
-			Assertions.assertThat(buttonGroup.getAssociation()).isNotNull();
+			assertNotNull(buttonGroup.getAssociation());
 			assertEquals("m_buttonGroup", buttonGroup.getVariableSupport().getName());
 			// test that group has bound JRadioButton's
 			{
