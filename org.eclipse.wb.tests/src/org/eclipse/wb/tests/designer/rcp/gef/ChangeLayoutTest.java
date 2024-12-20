@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,7 +58,7 @@ public class ChangeLayoutTest extends RcpGefTest {
 		// initially Button has "absolute" selection policy
 		{
 			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
-			Assertions.assertThat(policy).isNotNull();
+			assertNotNull(policy);
 			Assertions.assertThat(policy.toString()).contains("AbsoluteLayoutSelectionEditPolicy");
 		}
 		// drop FillLayout
@@ -79,7 +79,7 @@ public class ChangeLayoutTest extends RcpGefTest {
 		// FillLayout uses "non-resizable" selection policy
 		{
 			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
-			Assertions.assertThat(policy).isNotNull();
+			assertNotNull(policy);
 			Assertions.assertThat(policy.toString()).contains("NonResizableSelectionEditPolicy");
 		}
 	}

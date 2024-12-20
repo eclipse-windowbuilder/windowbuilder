@@ -128,8 +128,8 @@ public class SwingParserTest extends SwingModelTest {
 			fail();
 		} catch (Throwable e_) {
 			NoEntryPointError e = (NoEntryPointError) DesignerExceptionUtils.getRootCause(e_);
-			Assertions.assertThat(e.getEditor()).isNotNull();
-			Assertions.assertThat(e.getTypeDeclaration()).isNotNull();
+			assertNotNull(e.getEditor());
+			assertNotNull(e.getTypeDeclaration());
 		}
 	}
 
@@ -146,8 +146,8 @@ public class SwingParserTest extends SwingModelTest {
 					"}");
 			fail();
 		} catch (NoEntryPointError e) {
-			Assertions.assertThat(e.getEditor()).isNotNull();
-			Assertions.assertThat(e.getTypeDeclaration()).isNotNull();
+			assertNotNull(e.getEditor());
+			assertNotNull(e.getTypeDeclaration());
 		}
 	}
 
@@ -236,8 +236,8 @@ public class SwingParserTest extends SwingModelTest {
 					"}");
 			fail();
 		} catch (MultipleConstructorsError e) {
-			Assertions.assertThat(e.getEditor()).isNotNull();
-			Assertions.assertThat(e.getTypeDeclaration()).isNotNull();
+			assertNotNull(e.getEditor());
+			assertNotNull(e.getTypeDeclaration());
 		}
 	}
 

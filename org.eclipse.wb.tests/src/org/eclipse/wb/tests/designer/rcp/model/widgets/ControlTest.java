@@ -199,8 +199,8 @@ public class ControlTest extends RcpModelTest {
 					"}");
 			fail();
 		} catch (MultipleConstructorsError e) {
-			Assertions.assertThat(e.getEditor()).isNotNull();
-			Assertions.assertThat(e.getTypeDeclaration()).isNotNull();
+			assertNotNull(e.getEditor());
+			assertNotNull(e.getTypeDeclaration());
 		}
 	}
 
@@ -588,7 +588,7 @@ public class ControlTest extends RcpModelTest {
 						"}");
 		// check ComponentDescription
 		ComponentDescription description = shell.getDescription();
-		Assertions.assertThat(description.getBeanInfo()).isNotNull();
+		assertNotNull(description.getBeanInfo());
 		ImageDescriptor icon = description.getIcon();
 		assertEquals(10, icon.getImageData(100).width);
 		assertEquals(15, icon.getImageData(100).height);

@@ -36,7 +36,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.api.Assertions;
@@ -245,7 +246,7 @@ public final class GraphicalRobot {
 		m_viewer.select(editPart);
 		// find Handle
 		Point location = findSideHandle(bounds, predicate);
-		Assertions.assertThat(location).describedAs("Side Handle for " + predicate).isNotNull();
+		assertNotNull("Side Handle for " + predicate, location);
 		mouseX = location.x;
 		mouseY = location.y;
 		mouseInSourceX = mouseX - bounds.x;
@@ -705,7 +706,7 @@ public final class GraphicalRobot {
 	public void animateDirectEdit(String text) {
 		// prepare Text widget
 		Text textWidget = UiContext.findFirstWidget(m_viewer.getControl(), Text.class);
-		Assertions.assertThat(textWidget).describedAs("No Text widget.").isNotNull();
+		assertNotNull("No Text widget.", textWidget);
 		// use Text widget
 		textWidget.setText(text);
 		endDirectEdit(textWidget);
@@ -898,7 +899,7 @@ public final class GraphicalRobot {
 	}
 
 	public void assertNotNullEditPart(Object object) {
-		Assertions.assertThat(getEditPartNull(object)).isNotNull();
+		assertNotNull(getEditPartNull(object));
 	}
 
 	/**
@@ -1061,7 +1062,7 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot assertCommandNotNull() throws Exception {
 		Command command = getCommand();
-		Assertions.assertThat(command).describedAs("No command.").isNotNull();
+		assertNotNull("No command.", command);
 		return this;
 	}
 
@@ -1192,7 +1193,7 @@ public final class GraphicalRobot {
 				result &= Math.abs(p1.y - partBounds.y) < delta;
 				result &= Math.abs(p2.y - partBounds.bottom()) < delta;
 			} else {
-				Assert.fail("Unsupported location: " + location);
+				fail("Unsupported location: " + location);
 			}
 			// OK, final result
 			return result;

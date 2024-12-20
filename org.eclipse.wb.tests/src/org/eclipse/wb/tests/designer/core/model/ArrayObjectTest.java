@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -208,8 +208,8 @@ public class ArrayObjectTest extends SwingModelTest {
 	public void test_addItem() throws Exception {
 		getParsedContainer();
 		// check exists
-		Assertions.assertThat(localButton).isNotNull();
-		Assertions.assertThat(emptyButton).isNotNull();
+		assertNotNull(localButton);
+		assertNotNull(emptyButton);
 		// add new button
 		JavaInfo newButton = createJavaInfo("javax.swing.JButton");
 		arrayInfo.command_CREATE(newButton, null);
@@ -226,9 +226,9 @@ public class ArrayObjectTest extends SwingModelTest {
 		Assertions.<JavaInfo>assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
 		// check objects
 		myPanel.refresh();
-		Assertions.assertThat(localButton.getObject()).isNotNull();
-		Assertions.assertThat(emptyButton.getObject()).isNotNull();
-		Assertions.assertThat(newButton.getObject()).isNotNull();
+		assertNotNull(localButton.getObject());
+		assertNotNull(emptyButton.getObject());
+		assertNotNull(newButton.getObject());
 	}
 
 	@Test
@@ -256,8 +256,8 @@ public class ArrayObjectTest extends SwingModelTest {
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// check objects
 		myPanel.refresh();
-		Assertions.assertThat(localButton.getObject()).isNotNull();
-		Assertions.assertThat(emptyButton.getObject()).isNotNull();
+		assertNotNull(localButton.getObject());
+		assertNotNull(emptyButton.getObject());
 	}
 
 	@Test
@@ -313,8 +313,8 @@ public class ArrayObjectTest extends SwingModelTest {
 			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo, newArrayInfo);
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
 		}
 		{
 			// move empty button too
@@ -333,8 +333,8 @@ public class ArrayObjectTest extends SwingModelTest {
 			Assertions.assertThat(newArrayInfo.getItems()).containsOnly(localButton, emptyButton);
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
 		}
 	}
 
@@ -381,9 +381,9 @@ public class ArrayObjectTest extends SwingModelTest {
 			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
-			Assertions.assertThat(newButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
+			assertNotNull(newButton.getObject());
 		}
 		{
 			// check source on delete
@@ -397,8 +397,8 @@ public class ArrayObjectTest extends SwingModelTest {
 					"}");
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
 		}
 	}
 
@@ -436,9 +436,9 @@ public class ArrayObjectTest extends SwingModelTest {
 			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
-			Assertions.assertThat(newButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
+			assertNotNull(newButton.getObject());
 		}
 		{
 			// check source on delete
@@ -452,8 +452,8 @@ public class ArrayObjectTest extends SwingModelTest {
 					"}");
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
 		}
 	}
 
@@ -504,9 +504,9 @@ public class ArrayObjectTest extends SwingModelTest {
 			Assertions.assertThat(myPanel.getPresentation().getChildrenTree()).containsOnly(arrayInfo);
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
-			Assertions.assertThat(newButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
+			assertNotNull(newButton.getObject());
 		}
 		{
 			// check source on delete
@@ -521,8 +521,8 @@ public class ArrayObjectTest extends SwingModelTest {
 					"}");
 			// check objects
 			myPanel.refresh();
-			Assertions.assertThat(localButton.getObject()).isNotNull();
-			Assertions.assertThat(emptyButton.getObject()).isNotNull();
+			assertNotNull(localButton.getObject());
+			assertNotNull(emptyButton.getObject());
 		}
 	}
 

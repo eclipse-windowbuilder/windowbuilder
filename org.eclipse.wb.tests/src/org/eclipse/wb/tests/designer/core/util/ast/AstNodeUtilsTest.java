@@ -523,14 +523,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		// no type argument
 		{
 			ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_1, 0);
-			Assertions.assertThat(argument).isNotNull();
+			assertNotNull(argument);
 			String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
 			Assertions.assertThat(argumentName).isEqualTo("java.lang.Number");
 		}
 		// Double as type argument
 		{
 			ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_2, 0);
-			Assertions.assertThat(argument).isNotNull();
+			assertNotNull(argument);
 			String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
 			Assertions.assertThat(argumentName).isEqualTo("java.lang.Double");
 		}
@@ -539,14 +539,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 			// ask 0-th type argument directly
 			{
 				ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_3, 0);
-				Assertions.assertThat(argument).isNotNull();
+				assertNotNull(argument);
 				String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
 				Assertions.assertThat(argumentName).isEqualTo("java.lang.String");
 			}
 			// ask 0-th type argument of Wrapper
 			{
 				ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_3, "test.Wrapper", 0);
-				Assertions.assertThat(argument).isNotNull();
+				assertNotNull(argument);
 				String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
 				Assertions.assertThat(argumentName).isEqualTo("java.lang.Float");
 			}
