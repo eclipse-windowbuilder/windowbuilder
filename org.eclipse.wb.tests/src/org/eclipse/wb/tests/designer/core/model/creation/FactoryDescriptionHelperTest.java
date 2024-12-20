@@ -1465,19 +1465,19 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 	}
 
@@ -1570,13 +1570,13 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 		// for 'setProperty()'
 		{
@@ -1684,13 +1684,13 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
+			assertTrue(factoryDescription.isFactory());
 		}
 		// for 'setProperty()'
 		{

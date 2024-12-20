@@ -458,7 +458,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = getJavaInfoByName("button");
 		Property offset = PropertyUtils.getByPath(button, "Constraints/WEST/offset");
 		// initial state
-		Assertions.assertThat(offset.isModified()).isTrue();
+		assertTrue(offset.isModified());
 		Assertions.assertThat(offset.getValue()).isEqualTo(10);
 		// set new
 		offset.setValue(50);
@@ -474,7 +474,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"    }",
 				"  }",
 				"}");
-		Assertions.assertThat(offset.isModified()).isTrue();
+		assertTrue(offset.isModified());
 		Assertions.assertThat(offset.getValue()).isEqualTo(50);
 		// ignore "remove"
 		{
@@ -534,7 +534,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		Property anchorSide = PropertyUtils.getByPath(button, "Constraints/NORTH/side");
-		Assertions.assertThat(anchorSide.isModified()).isTrue();
+		assertTrue(anchorSide.isModified());
 		Assertions.assertThat(anchorSide.getValue()).isEqualTo(SpringLayout.NORTH);
 		anchorSide.setValue(SpringLayout.SOUTH);
 		assertEditor(
@@ -606,7 +606,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		Property anchor = PropertyUtils.getByPath(button_2, "Constraints/WEST/anchor");
-		Assertions.assertThat(anchor.isModified()).isTrue();
+		assertTrue(anchor.isModified());
 		assertSame(anchor.getValue(), panel);
 		anchor.setValue(button_1);
 		assertEditor(

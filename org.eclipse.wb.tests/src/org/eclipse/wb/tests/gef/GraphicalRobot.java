@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Text;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -956,7 +957,7 @@ public final class GraphicalRobot {
 		for (int i = 0; i < predicates.length; i++) {
 			Predicate<IFigure> predicate = predicates[i];
 			IFigure feedback = feedbacks.get(i);
-			Assertions.assertThat(predicate.test(feedback)).describedAs("Predicate [" + i + "] failed.").isTrue();
+			assertTrue("Predicate [" + i + "] failed.", predicate.test(feedback));
 		}
 	}
 
@@ -1012,7 +1013,7 @@ public final class GraphicalRobot {
 				}
 			}
 			// figure should be found
-			Assertions.assertThat(figureFound).describedAs("No figure found for " + description).isTrue();
+			assertTrue("No figure found for " + description, figureFound);
 		}
 		// all figure should be matched
 		if (!feedbackFigures.isEmpty()) {
@@ -1034,7 +1035,7 @@ public final class GraphicalRobot {
 	 * Asserts that there are no {@link IFigure}'s on feedback {@link Layer}.
 	 */
 	public void assertNoFeedbackFigures() {
-		Assertions.assertThat(getFeedbackFigures().isEmpty()).describedAs("Feedback layer should be empty.").isTrue();
+		assertTrue("Feedback layer should be empty.", getFeedbackFigures().isEmpty());
 	}
 
 	/**

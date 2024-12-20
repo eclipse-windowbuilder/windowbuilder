@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -938,7 +938,7 @@ public class LazyTest extends AbstractVariableTest {
 						"}");
 		BorderLayoutInfo borderLayout = (BorderLayoutInfo) panel.getLayout();
 		//
-		Assertions.assertThat(LazyVariableSupportUtils.canConvert(borderLayout)).isTrue();
+		assertTrue(LazyVariableSupportUtils.canConvert(borderLayout));
 		LazyVariableSupportUtils.convert(borderLayout);
 		// check
 		assertEditor(
@@ -984,7 +984,7 @@ public class LazyTest extends AbstractVariableTest {
 		JPanelInfo panel = testPanel.getChildren(JPanelInfo.class).get(0);
 		Assertions.assertThat(panel.getChildren(ComponentInfo.class).size()).isEqualTo(2);
 		//
-		Assertions.assertThat(LazyVariableSupportUtils.canConvert(panel)).isTrue();
+		assertTrue(LazyVariableSupportUtils.canConvert(panel));
 		LazyVariableSupportUtils.convert(panel);
 		// check
 		assertEditor(
