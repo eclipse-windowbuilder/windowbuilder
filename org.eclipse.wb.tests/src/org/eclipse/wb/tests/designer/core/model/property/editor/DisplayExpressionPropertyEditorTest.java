@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.property.editor.DisplayExpressionPrope
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -44,7 +43,7 @@ public class DisplayExpressionPropertyEditorTest extends SwingModelTest {
 		// prepare "myFoo" property
 		Property fooProperty = panel.getPropertyByTitle("myFoo");
 		assertNotNull(fooProperty);
-		Assertions.assertThat(fooProperty.getEditor()).isInstanceOf(DisplayExpressionPropertyEditor.class);
+		assertInstanceOf(DisplayExpressionPropertyEditor.class, fooProperty.getEditor());
 		// no expression, so no text
 		assertNull(getPropertyText(fooProperty));
 	}
@@ -64,7 +63,7 @@ public class DisplayExpressionPropertyEditorTest extends SwingModelTest {
 		// prepare "myFoo" property
 		Property fooProperty = panel.getPropertyByTitle("myFoo");
 		assertNotNull(fooProperty);
-		Assertions.assertThat(fooProperty.getEditor()).isInstanceOf(DisplayExpressionPropertyEditor.class);
+		assertInstanceOf(DisplayExpressionPropertyEditor.class, fooProperty.getEditor());
 		// we should get expression, not just result
 		assertEquals("1 + 2", getPropertyText(fooProperty));
 	}

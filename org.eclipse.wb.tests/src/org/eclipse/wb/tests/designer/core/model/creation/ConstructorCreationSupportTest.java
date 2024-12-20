@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -154,7 +154,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 						"    }",
 						"  }",
 						"}");
-		Assertions.assertThat(panel.getCreationSupport()).isInstanceOf(ConstructorCreationSupport.class);
+		assertInstanceOf(ConstructorCreationSupport.class, panel.getCreationSupport());
 		// delete
 		assertTrue(panel.getAssociation().canDelete());
 		assertTrue(panel.getCreationSupport().canDelete());
@@ -1048,7 +1048,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 		Class<?> clazz = m_lastLoader.loadClass("test.MyButton");
 		CreationSupport creationSupport = new ConstructorCreationSupport();
 		JavaInfoUtils.createJavaInfo(m_lastEditor, clazz, creationSupport);
-		Assertions.assertThat(creationSupport.getAssociation()).isInstanceOf(ConstructorParentAssociation.class);
+		assertInstanceOf(ConstructorParentAssociation.class, creationSupport.getAssociation());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

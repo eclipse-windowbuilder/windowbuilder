@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -244,7 +244,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
 			Assertions.assertThat(instances).hasSize(1);
 			Object instance = instances.get(0);
-			Assertions.assertThat(instance).isInstanceOf(TestObject_1.class);
+			assertInstanceOf(TestObject_1.class, instance);
 			assertEquals("1", instance.toString());
 		}
 		// remove dynamic extension
@@ -408,7 +408,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 				ExternalFactoriesHelper.loadBundleClass("java.util.List");
 				fail();
 			} catch (ClassNotFoundException e) {
-				Assertions.assertThat(e.getCause()).isInstanceOf(IllegalArgumentException.class);
+				assertInstanceOf(IllegalArgumentException.class, e.getCause());
 			}
 		} finally {
 			TestUtils.removeDynamicExtension(pointId);

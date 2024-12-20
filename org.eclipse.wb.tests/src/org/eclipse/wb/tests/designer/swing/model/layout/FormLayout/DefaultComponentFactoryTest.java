@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,8 +74,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		// CreationSupport
-		Assertions.assertThat(component.getCreationSupport()).isInstanceOf(
-				DefaultComponentFactoryCreationSupport.class);
+		assertInstanceOf(DefaultComponentFactoryCreationSupport.class, component.getCreationSupport());
 		// permissions
 		assertTrue(JavaInfoUtils.canMove(component));
 		assertTrue(JavaInfoUtils.canReparent(component));
@@ -188,8 +187,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		// CreationSupport
-		Assertions.assertThat(component.getCreationSupport()).isInstanceOf(
-				DefaultComponentFactoryCreationSupport.class);
+		assertInstanceOf(DefaultComponentFactoryCreationSupport.class, component.getCreationSupport());
 		// "text" property
 		component.getPropertyByTitle("text").setValue("B");
 		assertEditor(

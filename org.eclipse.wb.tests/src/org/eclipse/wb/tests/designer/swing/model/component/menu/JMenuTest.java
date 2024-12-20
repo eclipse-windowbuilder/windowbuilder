@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1025,7 +1025,7 @@ public class JMenuTest extends SwingModelTest {
 		JMenuInfo menu = getJavaInfoByName("menu");
 		JPopupMenuSeparatorInfo separator = menu.getChildren(JPopupMenuSeparatorInfo.class).get(0);
 		// separator has Object
-		Assertions.assertThat(separator.getObject()).isInstanceOf(JPopupMenu.Separator.class);
+		assertInstanceOf(JPopupMenu.Separator.class, separator.getObject());
 		// check VoidInvocationVariableSupport
 		{
 			VariableSupport variable = separator.getVariableSupport();

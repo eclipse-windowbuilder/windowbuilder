@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,7 +36,6 @@ import org.eclipse.jface.action.MenuManager;
 
 import static org.mockito.Mockito.mock;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.List;
@@ -458,7 +457,7 @@ public class MorphingSupportTest extends SwingModelTest {
 			Class<?> targetClass = JTextField.class;
 			MorphingTargetDescription morphingTarget = new MorphingTargetDescription(targetClass, null);
 			ComponentInfo button = panel.getChildrenComponents().get(0);
-			Assertions.assertThat(button.getCreationSupport()).isInstanceOf(StaticFactoryCreationSupport.class);
+			assertInstanceOf(StaticFactoryCreationSupport.class, button.getCreationSupport());
 			morph(button, morphingTarget);
 		}
 		// check result
@@ -546,7 +545,7 @@ public class MorphingSupportTest extends SwingModelTest {
 			Class<?> targetClass = m_lastLoader.loadClass("test.MyButton2");
 			MorphingTargetDescription morphingTarget = new MorphingTargetDescription(targetClass, null);
 			ComponentInfo button = panel.getChildrenComponents().get(0);
-			Assertions.assertThat(button.getCreationSupport()).isInstanceOf(StaticFactoryCreationSupport.class);
+			assertInstanceOf(StaticFactoryCreationSupport.class, button.getCreationSupport());
 			morph(button, morphingTarget);
 		}
 		// check result
@@ -609,7 +608,7 @@ public class MorphingSupportTest extends SwingModelTest {
 			Class<?> targetClass = JTextField.class;
 			MorphingTargetDescription morphingTarget = new MorphingTargetDescription(targetClass, null);
 			ComponentInfo button = panel.getChildrenComponents().get(0);
-			Assertions.assertThat(button.getCreationSupport()).isInstanceOf(InstanceFactoryCreationSupport.class);
+			assertInstanceOf(InstanceFactoryCreationSupport.class, button.getCreationSupport());
 			morph(button, morphingTarget);
 		}
 		// check result

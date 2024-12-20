@@ -752,7 +752,7 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 					variableSupport.getChildTarget().toString());
 		}
 		// check Association for exposed "labelControl"
-		Assertions.assertThat(labelControl.getAssociation()).isInstanceOf(ImplicitObjectAssociation.class);
+		assertInstanceOf(ImplicitObjectAssociation.class, labelControl.getAssociation());
 		// check refresh()
 		page.refresh();
 		// check that bounds just exist, we will test them carefully in next tests

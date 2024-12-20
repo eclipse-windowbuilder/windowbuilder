@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,7 +32,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -226,13 +225,12 @@ public class GridLayoutGefTest extends RcpGefTest {
 		GraphicalEditPart buttonPart = canvas.getEditPart(button);
 		// select "button", so show grid selection
 		canvas.select(button);
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
-				GridSelectionEditPolicy.class);
+		assertInstanceOf(GridSelectionEditPolicy.class, buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE));
 		// set "exclude"
 		GridLayoutInfo.getGridData(button).getPropertyByTitle("exclude").setValue(true);
 		assertNoLoggedExceptions();
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
-				NonResizableSelectionEditPolicy.class);
+		assertInstanceOf(NonResizableSelectionEditPolicy.class,
+				buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE));
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",
@@ -267,8 +265,8 @@ public class GridLayoutGefTest extends RcpGefTest {
 		ControlInfo filterControl = filteredTree.getChildrenControls().get(0);
 		// select "filterControl" has simple selection policy
 		GraphicalEditPart buttonPart = canvas.getEditPart(filterControl);
-		Assertions.assertThat(buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE)).isInstanceOf(
-				NonResizableSelectionEditPolicy.class);
+		assertInstanceOf(NonResizableSelectionEditPolicy.class,
+				buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE));
 	}
 
 	/**
@@ -297,7 +295,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 		{
 			GraphicalEditPart buttonPart = canvas.getEditPart(button);
 			EditPolicy selectionPolicy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
-			Assertions.assertThat(selectionPolicy).isInstanceOf(GridSelectionEditPolicy.class);
+			assertInstanceOf(GridSelectionEditPolicy.class, selectionPolicy);
 		}
 		// drag "button" to "group"
 		canvas.beginDrag(button).dragTo(group, 0.5, 0.5).endDrag();
@@ -319,7 +317,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 		{
 			GraphicalEditPart buttonPart = canvas.getEditPart(button);
 			EditPolicy selectionPolicy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
-			Assertions.assertThat(selectionPolicy).isInstanceOf(NonResizableSelectionEditPolicy.class);
+			assertInstanceOf(NonResizableSelectionEditPolicy.class, selectionPolicy);
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,14 +56,14 @@ public class GenericUtilsTest extends AbstractBindingTest {
 		FieldBeanObserveInfo datas = fieldObserves.get(0);
 		IGenericType datasObjectType = datas.getObjectType();
 		//
-		Assertions.assertThat(datasObjectType).isInstanceOf(GenericTypeContainer.class);
+		assertInstanceOf(GenericTypeContainer.class, datasObjectType);
 		GenericTypeContainer datasType = (GenericTypeContainer) datasObjectType;
 		Assertions.assertThat(datasType.getFullTypeName()).isEqualTo(
 				"java.util.List<java.util.Map<java.lang.String, java.lang.Number>>");
 		//
 		IGenericType datasItemObjectType = datasType.getSubType(0);
 		//
-		Assertions.assertThat(datasItemObjectType).isInstanceOf(GenericTypeContainer.class);
+		assertInstanceOf(GenericTypeContainer.class, datasItemObjectType);
 		GenericTypeContainer datasItemType = (GenericTypeContainer) datasItemObjectType;
 		Assertions.assertThat(datasItemType.getFullTypeName()).isEqualTo(
 				"java.util.Map<java.lang.String, java.lang.Number>");

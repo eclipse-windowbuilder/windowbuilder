@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorCreationSu
 import org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import javax.swing.JToolBar;
@@ -236,7 +235,7 @@ public class InvocationVoidAssociationTest extends SwingModelTest {
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_1 = bar.getChildrenComponents().get(0);
 		ComponentInfo button_2 = bar.getChildrenComponents().get(1);
-		Assertions.assertThat(button_2.getAssociation()).isInstanceOf(InvocationVoidAssociation.class);
+		assertInstanceOf(InvocationVoidAssociation.class, button_2.getAssociation());
 		// move "button_2" before "button_1"
 		JavaInfoUtils.move(button_2, null, bar, button_1);
 		assertEditor(

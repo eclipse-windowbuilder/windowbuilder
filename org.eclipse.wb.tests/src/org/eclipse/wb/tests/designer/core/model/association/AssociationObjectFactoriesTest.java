@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -68,7 +67,7 @@ public class AssociationObjectFactoriesTest extends SwingModelTest {
 		{
 			AssociationObject associationObject = factory.create();
 			assertEquals(source, associationObject.toString());
-			Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+			assertInstanceOf(InvocationChildAssociation.class, associationObject.getAssociation());
 			assertFalse(associationObject.isRequired());
 		}
 	}
