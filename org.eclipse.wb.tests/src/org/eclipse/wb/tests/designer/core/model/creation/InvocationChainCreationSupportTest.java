@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -109,6 +108,7 @@ public class InvocationChainCreationSupportTest extends SwingModelTest {
 		panel.refresh();
 		assertNoErrors(panel);
 		assertNotNull(button_1.getObject());
-		Assertions.assertThat(button_2.getObject()).isNotNull().isNotSameAs(button_1.getObject());
+		assertNotNull(button_2.getObject());
+		assertNotSame(button_1.getObject(), button_2.getObject());
 	}
 }
