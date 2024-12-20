@@ -25,7 +25,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -240,7 +239,7 @@ public class ComponentDescriptionTest extends SwingModelTest {
 		//
 		ComponentDescription description =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyObject");
-		Assertions.assertThat(description.hasTrueParameter("parameter_1")).isTrue();
+		assertTrue(description.hasTrueParameter("parameter_1"));
 		assertFalse(description.hasTrueParameter("parameter_2"));
 		assertFalse(description.hasTrueParameter("parameter_3"));
 	}

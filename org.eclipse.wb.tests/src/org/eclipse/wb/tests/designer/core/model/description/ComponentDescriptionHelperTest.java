@@ -251,7 +251,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 				"    add(new MyButton());", "  }", "}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check caching
-		Assertions.assertThat(panel.getDescription().isCached()).isTrue();
+		assertTrue(panel.getDescription().isCached());
 		assertFalse(button.getDescription().isCached());
 	}
 
