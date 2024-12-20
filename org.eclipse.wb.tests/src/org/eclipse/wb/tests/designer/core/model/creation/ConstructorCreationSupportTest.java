@@ -1017,7 +1017,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 		Class<?> clazz = JButton.class;
 		CreationSupport creationSupport = new ConstructorCreationSupport();
 		JavaInfoUtils.createJavaInfo(m_lastEditor, clazz, creationSupport);
-		Assertions.assertThat(creationSupport.getAssociation()).isNull();
+		assertNull(creationSupport.getAssociation());
 	}
 
 	/**

@@ -2761,7 +2761,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
 		// generic Object
 		{
 			Object defaultValue = getDefaultValue("Object");
-			Assertions.assertThat(defaultValue).isNull();
+			assertNull(defaultValue);
 		}
 	}
 

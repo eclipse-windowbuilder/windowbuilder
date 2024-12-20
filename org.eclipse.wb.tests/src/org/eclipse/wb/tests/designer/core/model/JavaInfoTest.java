@@ -1374,7 +1374,7 @@ public class JavaInfoTest extends SwingModelTest {
 						"  }",
 						"}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
-		Assertions.assertThat(button.getPropertyByTitle("foo")).isNull();
+		assertNull(button.getPropertyByTitle("foo"));
 	}
 
 	/**

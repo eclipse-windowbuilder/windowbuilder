@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import org.assertj.core.api.Assertions;
@@ -482,7 +483,7 @@ public final class TreeRobot {
 		{
 			Tree tree = (Tree) m_viewer.getControl();
 			Object item = tree.getData("_wbp_insertMarkItem");
-			Assertions.assertThat(item).isNull();
+			assertNull(item);
 		}
 		return this;
 	}
@@ -538,7 +539,7 @@ public final class TreeRobot {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void assertNullEditPart(Object object) {
-		Assertions.assertThat(getEditPartNull(object)).isNull();
+		assertNull(getEditPartNull(object));
 	}
 
 	public void assertNotNullEditPart(Object object) {

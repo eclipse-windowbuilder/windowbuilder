@@ -1438,9 +1438,9 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 			int index = m_lastEditor.getSource().indexOf("foo =");
 			Expression fooNode = (Expression) m_lastEditor.getEnclosingNode(index);
 			Expression fieldAccess = AstNodeUtils.getFieldAssignment(fooNode);
-			Assertions.assertThat(fieldAccess).isNull();
-			Assertions.assertThat(AstNodeUtils.getFieldAccessName(fooNode)).isNull();
-			Assertions.assertThat(AstNodeUtils.getFieldAccessQualifier(fooNode)).isNull();
+			assertNull(fieldAccess);
+			assertNull(AstNodeUtils.getFieldAccessName(fooNode));
+			assertNull(AstNodeUtils.getFieldAccessQualifier(fooNode));
 		}
 		// foo.m_value = 1, valid
 		{
