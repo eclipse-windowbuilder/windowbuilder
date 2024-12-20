@@ -87,16 +87,16 @@ public class GridTest extends AbstractNebulaTest {
 		GridColumnGroupInfo group = grid.getChildren(GridColumnGroupInfo.class).get(0);
 		{
 			Rectangle bounds = group.getBounds();
-			Assertions.assertThat(bounds.width).isEqualTo(150);
-			Assertions.assertThat(bounds.height).isEqualTo(headerHeight);
+			assertEquals(bounds.width, 150);
+			assertEquals(bounds.height, headerHeight);
 		}
 		assertEquals(1, group.getChildren(GridColumnInfo.class).size());
 		// column
 		{
 			GridColumnInfo column = group.getChildren(GridColumnInfo.class).get(0);
 			Rectangle bounds = column.getBounds();
-			Assertions.assertThat(bounds.width).isEqualTo(150);
-			Assertions.assertThat(bounds.height).isEqualTo(headerHeight - groupHeaderHeight);
+			assertEquals(bounds.width, 150);
+			assertEquals(bounds.height, headerHeight - groupHeaderHeight);
 		}
 		// item
 		GridItemInfo item = grid.getChildren(GridItemInfo.class).get(0);
@@ -111,7 +111,7 @@ public class GridTest extends AbstractNebulaTest {
 			GridItemInfo subItem = item.getChildren(GridItemInfo.class).get(0);
 			Rectangle bounds = subItem.getBounds();
 			Assertions.assertThat(bounds.width).isGreaterThan(100);
-			Assertions.assertThat(bounds.height).isEqualTo(0); // parent item collapsed
+			assertEquals(bounds.height, 0); // parent item collapsed
 		}
 	}
 

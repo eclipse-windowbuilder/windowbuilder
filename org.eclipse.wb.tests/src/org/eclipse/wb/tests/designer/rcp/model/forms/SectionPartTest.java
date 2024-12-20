@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.forms.widgets.Section;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -67,10 +66,10 @@ public class SectionPartTest extends AbstractFormsTest {
 		// refresh
 		part.refresh();
 		assertNoErrors(part);
-		Assertions.assertThat(part.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(part.getBounds().height).isEqualTo(500);
-		Assertions.assertThat(section.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(section.getBounds().height).isEqualTo(500);
+		assertEquals(part.getBounds().width, 600);
+		assertEquals(part.getBounds().height, 500);
+		assertEquals(section.getBounds().width, 600);
+		assertEquals(section.getBounds().height, 500);
 	}
 
 	/**

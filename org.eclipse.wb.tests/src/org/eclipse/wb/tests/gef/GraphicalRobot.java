@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -915,7 +916,7 @@ public final class GraphicalRobot {
 
 	public void assertPrimarySelected(Object object) {
 		EditPart editPart = getEditPart(object);
-		Assertions.assertThat(editPart.getSelected()).isEqualTo(EditPart.SELECTED_PRIMARY);
+		assertEquals(editPart.getSelected(), EditPart.SELECTED_PRIMARY);
 	}
 
 	/**
@@ -950,8 +951,7 @@ public final class GraphicalRobot {
 		{
 			Layer feedbackLayer = m_viewer.getLayer(layerName);
 			feedbacks = feedbackLayer.getChildren();
-			Assertions.assertThat(feedbacks.size()).describedAs("Wrong count of feedbacks.").isEqualTo(
-					predicates.length);
+			assertEquals("Wrong count of feedbacks.", feedbacks.size(), predicates.length);
 		}
 		// check all feedback's
 		for (int i = 0; i < predicates.length; i++) {

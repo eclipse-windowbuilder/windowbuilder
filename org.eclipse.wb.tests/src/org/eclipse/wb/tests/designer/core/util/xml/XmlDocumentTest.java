@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -151,7 +151,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 						int offset = element.getCloseTagOffset();
 						int length = element.getCloseTagLength();
 						String text = context.getText(offset, length);
-						Assertions.assertThat(text).isEqualTo("</" + tag + ">");
+						assertEquals(text, "</" + tag + ">");
 					}
 					// all
 					{
@@ -178,14 +178,14 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 					int offset = attribute.getNameOffset();
 					int length = attribute.getNameLength();
 					String text = context.getText(offset, length);
-					Assertions.assertThat(text).isEqualTo(attribute.getName());
+					assertEquals(text, attribute.getName());
 				}
 				// value
 				{
 					int offset = attribute.getValueOffset();
 					int length = attribute.getValueLength();
 					String text = context.getText(offset, length);
-					Assertions.assertThat(text).isEqualTo(attribute.getValue());
+					assertEquals(text, attribute.getValue());
 				}
 			}
 
@@ -200,12 +200,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 				// content
 				String text = context.getText(textNode.getOffset(), textNode.getLength());
 				if (textNode.isCDATA()) {
-					Assertions.assertThat(text).isEqualTo(textNode.getRawText());
+					assertEquals(text, textNode.getRawText());
 					Assertions.assertThat(text).startsWith("<![CDATA[").endsWith("]]>");
 					Assertions.assertThat(text).contains(textNode.getText());
 				} else {
-					Assertions.assertThat(text).isEqualTo(textNode.getRawText());
-					Assertions.assertThat(text).isEqualTo(textNode.getText());
+					assertEquals(text, textNode.getRawText());
+					assertEquals(text, textNode.getText());
 				}
 			}
 		});

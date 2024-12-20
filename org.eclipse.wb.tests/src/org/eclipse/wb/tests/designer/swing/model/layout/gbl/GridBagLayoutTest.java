@@ -412,7 +412,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		Rectangle cells = gridInfo.getComponentCells(button);
 		Rectangle cellsRectangle = gridInfo.getCellsRectangle(cells);
 		assertEquals(new Rectangle(0, 0, 2, 1), cells);
-		Assertions.assertThat(cellsRectangle.x).isEqualTo(0);
+		assertEquals(cellsRectangle.x, 0);
 		Assertions.assertThat(cellsRectangle.width).isGreaterThan(400);
 	}
 
@@ -449,7 +449,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		Rectangle cells = gridInfo.getComponentCells(button);
 		Rectangle cellsRectangle = gridInfo.getCellsRectangle(cells);
 		assertEquals(new Rectangle(0, 0, 1, 2), cells);
-		Assertions.assertThat(cellsRectangle.y).isEqualTo(0);
+		assertEquals(cellsRectangle.y, 0);
 		Assertions.assertThat(cellsRectangle.height).isGreaterThan(250);
 	}
 

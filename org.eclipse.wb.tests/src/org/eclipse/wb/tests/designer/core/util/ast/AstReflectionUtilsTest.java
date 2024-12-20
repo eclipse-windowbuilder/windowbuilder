@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -127,28 +126,28 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 			Object[] rawArguments = new Object[]{1, "a", "b", "c"};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a", "b", "c"}});
+			assertArrayEquals(updatedArguments, new Object[] { 1, new String[] { "a", "b", "c" } });
 		}
 		// use array
 		{
 			Object[] rawArguments = new Object[]{1, new String[]{"a", "b", "c"}};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a", "b", "c"}});
+			assertArrayEquals(updatedArguments, new Object[] { 1, new String[] { "a", "b", "c" } });
 		}
 		// single element
 		{
 			Object[] rawArguments = new Object[]{1, "a"};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{"a"}});
+			assertArrayEquals(updatedArguments, new Object[] { 1, new String[] { "a" } });
 		}
 		// no elements
 		{
 			Object[] rawArguments = new Object[]{1};
 			Object[] updatedArguments =
 					AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-			Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, new String[]{}});
+			assertArrayEquals(updatedArguments, new Object[] { 1, new String[] {} });
 		}
 	}
 
@@ -183,7 +182,7 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 		Object[] rawArguments = new Object[]{1, "str"};
 		Object[] updatedArguments =
 				AstReflectionUtils.updateForVarArgs(classLoader, methodBinding, rawArguments);
-		Assertions.assertThat(updatedArguments).isEqualTo(new Object[]{1, "str"});
+		assertArrayEquals(updatedArguments, new Object[] { 1, "str" });
 	}
 
 	////////////////////////////////////////////////////////////////////////////

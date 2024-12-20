@@ -133,15 +133,15 @@ public class JMenuBarTest extends SwingModelTest {
 			ImageDescriptor image = menuObject.getImageDescriptor();
 			assertNotNull(image);
 			ImageData imageData = image.getImageData(100);
-			Assertions.assertThat(imageData.x).isEqualTo(0);
-			Assertions.assertThat(imageData.y).isEqualTo(0);
+			assertEquals(imageData.x, 0);
+			assertEquals(imageData.y, 0);
 			Assertions.assertThat(imageData.width).isGreaterThan(40);
 			Assertions.assertThat(imageData.height).isGreaterThan(20);
 		}
 		{
 			Rectangle bounds = menuObject.getBounds();
-			Assertions.assertThat(bounds.x).isEqualTo(0);
-			Assertions.assertThat(bounds.y).isEqualTo(0);
+			assertEquals(bounds.x, 0);
+			assertEquals(bounds.y, 0);
 			Assertions.assertThat(bounds.width).isGreaterThan(40);
 			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}

@@ -581,8 +581,7 @@ public class JTableTest extends SwingModelTest {
 				modelDescription.getModelSource());
 		{
 			List<String> invocations = modelDescription.getColumnModelInvocations();
-			Assertions.assertThat(invocations).isEqualTo(
-					List.of(
+			assertEquals(invocations, List.of(
 							"getColumnModel().getColumn(0).setResizable(false)",
 							"getColumnModel().getColumn(0).setPreferredWidth(100)",
 							"getColumnModel().getColumn(0).setMinWidth(50)",

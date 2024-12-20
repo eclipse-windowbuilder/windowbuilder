@@ -745,7 +745,7 @@ public class SwingParserTest extends SwingModelTest {
 			Throwable e = DesignerExceptionUtils.getRootCause(badNode.getException());
 			assertEquals("new MyButton(0)", m_lastEditor.getSource(node));
 			Assertions.assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
-			Assertions.assertThat(e.getMessage()).isEqualTo("actual");
+			assertEquals(e.getMessage(), "actual");
 		}
 		// not placeholder
 		{
@@ -794,7 +794,7 @@ public class SwingParserTest extends SwingModelTest {
 			Throwable e = DesignerExceptionUtils.getRootCause(badNode.getException());
 			assertEquals("new MyButton()", m_lastEditor.getSource(node));
 			Assertions.assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
-			Assertions.assertThat(e.getMessage()).isEqualTo("actual");
+			assertEquals(e.getMessage(), "actual");
 		}
 	}
 
@@ -846,7 +846,7 @@ public class SwingParserTest extends SwingModelTest {
 			Throwable e = DesignerExceptionUtils.getRootCause(badNode.getException());
 			assertEquals("new MyButton(0)", m_lastEditor.getSource(node));
 			Assertions.assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
-			Assertions.assertThat(e.getMessage()).isEqualTo("actual");
+			assertEquals(e.getMessage(), "actual");
 		}
 		{
 			BadNodeInformation badNode = badNodes.get(1);
@@ -854,7 +854,7 @@ public class SwingParserTest extends SwingModelTest {
 			Throwable e = DesignerExceptionUtils.getRootCause(badNode.getException());
 			assertEquals("new MyButton(0)", m_lastEditor.getSource(node));
 			Assertions.assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
-			Assertions.assertThat(e.getMessage()).isEqualTo("default");
+			assertEquals(e.getMessage(), "default");
 		}
 	}
 

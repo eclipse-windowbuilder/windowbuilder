@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -245,14 +245,14 @@ public class CoolBarManagerTest extends RcpModelTest {
 		{
 			Rectangle bounds = contributionItem.getBounds();
 			Assertions.assertThat(bounds.x).isGreaterThan(5);
-			Assertions.assertThat(bounds.y).isEqualTo(0);
+			assertEquals(bounds.y, 0);
 			Assertions.assertThat(bounds.width).isGreaterThan(400);
 			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 		{
 			Rectangle bounds = toolBarManager.getBounds();
-			Assertions.assertThat(bounds.x).isEqualTo(0);
-			Assertions.assertThat(bounds.y).isEqualTo(0);
+			assertEquals(bounds.x, 0);
+			assertEquals(bounds.y, 0);
 			Assertions.assertThat(bounds.width).isGreaterThan(400);
 			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}

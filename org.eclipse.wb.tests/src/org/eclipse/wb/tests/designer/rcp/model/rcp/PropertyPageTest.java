@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,8 +53,8 @@ public class PropertyPageTest extends RcpModelTest {
 		page.refresh();
 		assertNoErrors(page);
 		// check bounds
-		Assertions.assertThat(page.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(page.getBounds().height).isEqualTo(500);
+		assertEquals(page.getBounds().width, 600);
+		assertEquals(page.getBounds().height, 500);
 		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(300);
 		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(30);
 		Assertions.assertThat(container.getBounds().width).isGreaterThan(300);

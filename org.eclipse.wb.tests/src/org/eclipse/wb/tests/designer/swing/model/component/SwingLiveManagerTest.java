@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -141,8 +141,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		{
 			Image image = newComponent.getImage();
 			assertNotNull(image);
-			Assertions.assertThat(image.getBounds().width).isEqualTo(100);
-			Assertions.assertThat(image.getBounds().height).isEqualTo(50);
+			assertEquals(image.getBounds().width, 100);
+			assertEquals(image.getBounds().height, 50);
 		}
 	}
 
@@ -197,8 +197,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				{
 					Image image = newComponent.getImage();
 					assertNotNull(image);
-					Assertions.assertThat(image.getBounds().width).isEqualTo(200);
-					Assertions.assertThat(image.getBounds().height).isEqualTo(50);
+					assertEquals(image.getBounds().width, 200);
+					assertEquals(image.getBounds().height, 50);
 				}
 				// no changes in editor
 				assertEditor(originalSource, m_lastEditor);
@@ -230,8 +230,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				{
 					Image image = newComponent.getImage();
 					assertNotNull(image);
-					Assertions.assertThat(image.getBounds().width).isEqualTo(200);
-					Assertions.assertThat(image.getBounds().height).isEqualTo(50);
+					assertEquals(image.getBounds().width, 200);
+					assertEquals(image.getBounds().height, 50);
 				}
 			} finally {
 				log.removeLogListener(logListener);
@@ -277,6 +277,6 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				"}");
 		// same baseline as "live"
 		int baseline = newButton.getBaseline();
-		Assertions.assertThat(baseline).isEqualTo(liveBaseline);
+		assertEquals(baseline, liveBaseline);
 	}
 }

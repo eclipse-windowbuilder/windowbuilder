@@ -44,7 +44,6 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -251,7 +250,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 			Property parentProperty = PropertyUtils.getByPath(button, "Constructor/parent");
 			assertNotNull(parentProperty);
 			Property[] parentProperties = getSubProperties(parentProperty);
-			Assertions.assertThat(parentProperties).isEqualTo(panel.getProperties());
+			assertArrayEquals(parentProperties, panel.getProperties());
 		}
 	}
 

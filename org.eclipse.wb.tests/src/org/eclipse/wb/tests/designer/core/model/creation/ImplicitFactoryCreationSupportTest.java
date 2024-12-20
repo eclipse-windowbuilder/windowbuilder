@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -239,7 +239,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 			Property contentProperty = PropertyUtils.getByPath(component, "Factory/content");
 			assertNotNull(contentProperty);
 			Property[] contentProperties = getSubProperties(contentProperty);
-			Assertions.assertThat(contentProperties).isEqualTo(button.getProperties());
+			assertArrayEquals(contentProperties, button.getProperties());
 		}
 	}
 

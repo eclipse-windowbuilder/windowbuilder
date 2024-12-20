@@ -147,7 +147,7 @@ public class BadNodesTest extends SwingModelTest {
 		// refresh
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
-		Assertions.assertThat(((JButton) button.getObject()).getText()).isEqualTo("<dynamic>");
+		assertEquals(((JButton) button.getObject()).getText(), "<dynamic>");
 	}
 
 	/**

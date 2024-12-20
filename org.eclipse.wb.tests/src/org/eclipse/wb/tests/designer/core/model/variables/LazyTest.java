@@ -982,7 +982,7 @@ public class LazyTest extends AbstractVariableTest {
 						"  }",
 						"}");
 		JPanelInfo panel = testPanel.getChildren(JPanelInfo.class).get(0);
-		Assertions.assertThat(panel.getChildren(ComponentInfo.class).size()).isEqualTo(2);
+		assertEquals(panel.getChildren(ComponentInfo.class).size(), 2);
 		//
 		assertTrue(LazyVariableSupportUtils.canConvert(panel));
 		LazyVariableSupportUtils.convert(panel);

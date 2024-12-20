@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012, 2024 Google, Inc.
+ * Copyright (c) 2012, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.rcp.model.e4;
 import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,7 +66,7 @@ public class E4PartTest extends RcpModelTest {
 		part.refresh();
 		assertNoErrors(part);
 		// check bounds
-		Assertions.assertThat(part.getBounds().width).isEqualTo(450);
-		Assertions.assertThat(part.getBounds().height).isEqualTo(300);
+		assertEquals(part.getBounds().width, 450);
+		assertEquals(part.getBounds().height, 300);
 	}
 }

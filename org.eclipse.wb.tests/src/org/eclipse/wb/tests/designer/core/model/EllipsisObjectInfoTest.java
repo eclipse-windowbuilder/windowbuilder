@@ -34,6 +34,8 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.swing.JButton;
+
 /**
  * Test {@link EllipsisObjectInfo} and {@link InvocationChildEllipsisAssociation}.
  *
@@ -88,10 +90,7 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 			assertTrue(arrayInfo.isRemoveOnEmpty());
 			assertTrue(!arrayInfo.isHideInTree());
 			// check item type
-			Assertions.assertThat(arrayInfo.getItemClass()).isEqualTo(
-					ReflectionUtils.getClassByName(
-							EditorState.get(m_lastEditor).getEditorLoader(),
-							"javax.swing.JButton"));
+			assertEquals(arrayInfo.getItemClass(), JButton.class);
 		}
 		// button with {@link LocalVariableSupport}
 		{
@@ -116,7 +115,7 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 		{
 			List<ObjectInfo> childrenTree = presentation.getChildrenTree();
 			Assertions.assertThat(childrenTree).hasSize(2);
-			Assertions.assertThat(childrenTree).isEqualTo(myPanel.getChildrenComponents());
+			assertEquals(childrenTree, myPanel.getChildrenComponents());
 			Assertions.assertThat(childrenTree).containsOnly(localButton, emptyButton);
 		}
 		// graphical children
@@ -254,8 +253,8 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 	public void test_moveItemInside() throws Exception {
 		getParsedContainer();
 		// check exists
-		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		assertEquals(arrayInfo.getItems().indexOf(localButton), 0);
+		assertEquals(arrayInfo.getItems().indexOf(emptyButton), 1);
 		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// move button
@@ -269,8 +268,8 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 				"    addButtons( new JButton(), button );",
 				"  }",
 				"}");
-		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(1);
-		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(0);
+		assertEquals(arrayInfo.getItems().indexOf(localButton), 1);
+		assertEquals(arrayInfo.getItems().indexOf(emptyButton), 0);
 		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isGreaterThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// check objects
@@ -283,8 +282,8 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 	public void test_moveItemBetween() throws Exception {
 		getParsedContainer();
 		// check exists
-		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		assertEquals(arrayInfo.getItems().indexOf(localButton), 0);
+		assertEquals(arrayInfo.getItems().indexOf(emptyButton), 1);
 		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// create new invocation
@@ -367,8 +366,8 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 				"  }",
 		"}"});
 		// check exists
-		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		assertEquals(arrayInfo.getItems().indexOf(localButton), 0);
+		assertEquals(arrayInfo.getItems().indexOf(emptyButton), 1);
 		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// outside JButton
@@ -427,8 +426,8 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 				"  }",
 		"}"});
 		// check exists
-		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		assertEquals(arrayInfo.getItems().indexOf(localButton), 0);
+		assertEquals(arrayInfo.getItems().indexOf(emptyButton), 1);
 		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// outside JButton
@@ -475,8 +474,8 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 	public void test_moveItemOutside_inlining() throws Exception {
 		getParsedContainer();
 		// check exists
-		Assertions.assertThat(arrayInfo.getItems().indexOf(localButton)).isEqualTo(0);
-		Assertions.assertThat(arrayInfo.getItems().indexOf(emptyButton)).isEqualTo(1);
+		assertEquals(arrayInfo.getItems().indexOf(localButton), 0);
+		assertEquals(arrayInfo.getItems().indexOf(emptyButton), 1);
 		Assertions.assertThat(myPanel.getChildrenComponents().indexOf(localButton)).isLessThan(
 				myPanel.getChildrenComponents().indexOf(emptyButton));
 		// add new JButton

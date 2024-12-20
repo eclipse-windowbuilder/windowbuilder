@@ -2077,7 +2077,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 					declaration.getName(),
 					fooNode);
 			Assertions.<ASTNode>assertThat(getAssignments(flowDescription, fooNode)).containsOnly(declaration);
-			Assertions.assertThat(getLastAssignment(flowDescription, fooNode)).isEqualTo(declaration);
+			assertEquals(getLastAssignment(flowDescription, fooNode), declaration);
 		}
 		// delete Statement for "fooNode", no more variables information
 		m_lastEditor.removeEnclosingStatement(fooNode);

@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swing.model.property.editor.beans.TextPropertyEdi
 import org.eclipse.wb.internal.swing.model.property.editor.color.ColorPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.beans.PropertyEditorSupport;
@@ -712,7 +711,7 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 						"getTags",
 						Property.class,
 						property);
-		Assertions.assertThat(tags).isEqualTo(new String[]{"5", "6"});
+		assertArrayEquals(tags, new String[] { "5", "6" });
 	}
 
 	private void configure_PropertyEditorSupport_setSource_forText() throws Exception {

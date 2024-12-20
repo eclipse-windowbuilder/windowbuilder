@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,7 +25,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Test;
 
@@ -458,7 +457,7 @@ public class LookAndFeelTest extends SwingModelTest {
 						"}");
 		LafInfo selectedLAF = LafSupport.getSelectedLAF(panel);
 		if (EnvironmentUtils.IS_LINUX) {
-			Assertions.assertThat(selectedLAF.getClassName()).isEqualTo("javax.swing.plaf.metal.MetalLookAndFeel");
+			assertEquals(selectedLAF.getClassName(), "javax.swing.plaf.metal.MetalLookAndFeel");
 		} else {
 			assertInstanceOf(SystemLafInfo.class, selectedLAF);
 		}
@@ -539,7 +538,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	public void test_get_defaultLAF() throws Exception {
 		LafInfo defaultLAF = LafSupport.getDefaultLAF();
 		if (EnvironmentUtils.IS_LINUX) {
-			Assertions.assertThat(defaultLAF.getClassName()).isEqualTo("javax.swing.plaf.metal.MetalLookAndFeel");
+			assertEquals(defaultLAF.getClassName(), "javax.swing.plaf.metal.MetalLookAndFeel");
 		} else {
 			assertInstanceOf(SystemLafInfo.class, defaultLAF);
 		}

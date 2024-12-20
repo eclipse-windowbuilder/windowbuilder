@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -95,11 +94,11 @@ public class StringUtilitiesTest extends DesignerTestCase {
 	public void test_extractCamelWords() throws Exception {
 		{
 			String[] words = StringUtilities.extractCamelWords(null);
-			Assertions.assertThat(words).isEqualTo(ArrayUtils.EMPTY_STRING_ARRAY);
+			assertArrayEquals(words, ArrayUtils.EMPTY_STRING_ARRAY);
 		}
 		{
 			String[] words = StringUtilities.extractCamelWords("NullPointerException");
-			Assertions.assertThat(words).isEqualTo(new String[]{"Null", "Pointer", "Exception"});
+			assertArrayEquals(words, new String[] { "Null", "Pointer", "Exception" });
 		}
 	}
 
@@ -261,9 +260,9 @@ public class StringUtilitiesTest extends DesignerTestCase {
 		String[] source = {"my text", "some text"};
 		// replace
 		String[] target = StringUtilities.replace(source, "text", "word");
-		Assertions.assertThat(target).isEqualTo(new String[]{"my word", "some word"});
+		assertArrayEquals(target, new String[] { "my word", "some word" });
 		// source should not be changed
-		Assertions.assertThat(source).isEqualTo(new String[]{"my text", "some text"});
+		assertArrayEquals(source, new String[] { "my text", "some text" });
 	}
 
 	////////////////////////////////////////////////////////////////////////////

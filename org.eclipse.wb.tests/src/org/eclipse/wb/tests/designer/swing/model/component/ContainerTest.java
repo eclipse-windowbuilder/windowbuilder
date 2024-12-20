@@ -38,7 +38,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import com.jgoodies.forms.layout.FormLayout;
 
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -599,7 +598,7 @@ public class ContainerTest extends SwingModelTest {
 			boolean enabled) {
 		IAction action = findChildAction(layoutManager, text);
 		assertNotNull(action);
-		Assertions.assertThat(action.isEnabled()).isEqualTo(enabled);
+		assertEquals(action.isEnabled(), enabled);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

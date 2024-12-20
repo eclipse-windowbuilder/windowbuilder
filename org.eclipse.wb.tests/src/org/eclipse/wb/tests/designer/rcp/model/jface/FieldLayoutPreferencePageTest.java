@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -114,10 +114,10 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
 		// check bounds
 		page.refresh();
 		assertNoErrors(page);
-		Assertions.assertThat(composite_1.getBounds().width).isEqualTo(200);
-		Assertions.assertThat(composite_2.getBounds().width).isEqualTo(200);
+		assertEquals(composite_1.getBounds().width, 200);
+		assertEquals(composite_2.getBounds().width, 200);
 		Assertions.assertThat(editor_1.getBounds().width).isGreaterThanOrEqualTo(90);
-		Assertions.assertThat(editor_2.getBounds().width).isEqualTo(200);
+		assertEquals(editor_2.getBounds().width, 200);
 		// FieldEditor's are not visible on FieldLayoutPreferencePage (on design canvas)
 		{
 			boolean[] visible = new boolean[]{true};

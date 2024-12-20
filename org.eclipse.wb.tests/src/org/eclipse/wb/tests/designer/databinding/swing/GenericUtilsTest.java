@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.GenericTypeContai
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -58,17 +57,15 @@ public class GenericUtilsTest extends AbstractBindingTest {
 		//
 		assertInstanceOf(GenericTypeContainer.class, datasObjectType);
 		GenericTypeContainer datasType = (GenericTypeContainer) datasObjectType;
-		Assertions.assertThat(datasType.getFullTypeName()).isEqualTo(
-				"java.util.List<java.util.Map<java.lang.String, java.lang.Number>>");
+		assertEquals(datasType.getFullTypeName(), "java.util.List<java.util.Map<java.lang.String, java.lang.Number>>");
 		//
 		IGenericType datasItemObjectType = datasType.getSubType(0);
 		//
 		assertInstanceOf(GenericTypeContainer.class, datasItemObjectType);
 		GenericTypeContainer datasItemType = (GenericTypeContainer) datasItemObjectType;
-		Assertions.assertThat(datasItemType.getFullTypeName()).isEqualTo(
-				"java.util.Map<java.lang.String, java.lang.Number>");
+		assertEquals(datasItemType.getFullTypeName(), "java.util.Map<java.lang.String, java.lang.Number>");
 		//
 		List<IGenericType> subTypes = datasItemType.getSubTypes();
-		Assertions.assertThat(subTypes.size()).isEqualTo(2);
+		assertEquals(subTypes.size(), 2);
 	}
 }

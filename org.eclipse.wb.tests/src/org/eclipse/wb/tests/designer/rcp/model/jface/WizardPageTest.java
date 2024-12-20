@@ -79,8 +79,8 @@ public class WizardPageTest extends RcpModelTest {
 		// refresh()
 		wizardPage.refresh();
 		// check bounds
-		Assertions.assertThat(wizardPage.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(wizardPage.getBounds().height).isEqualTo(500);
+		assertEquals(wizardPage.getBounds().width, 600);
+		assertEquals(wizardPage.getBounds().height, 500);
 		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(500);
 		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(230);
 		Assertions.assertThat(container.getBounds().width).isGreaterThan(500);
@@ -88,8 +88,8 @@ public class WizardPageTest extends RcpModelTest {
 		// set new bounds
 		wizardPage.getTopBoundsSupport().setSize(500, 400);
 		wizardPage.refresh();
-		Assertions.assertThat(wizardPage.getBounds().width).isEqualTo(500);
-		Assertions.assertThat(wizardPage.getBounds().height).isEqualTo(400);
+		assertEquals(wizardPage.getBounds().width, 500);
+		assertEquals(wizardPage.getBounds().height, 400);
 	}
 
 	/**

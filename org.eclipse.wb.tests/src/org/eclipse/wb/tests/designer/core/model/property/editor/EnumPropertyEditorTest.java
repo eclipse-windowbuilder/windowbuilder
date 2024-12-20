@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -77,7 +76,7 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 							"getElements(org.eclipse.wb.internal.core.model.property.Property)",
 							property);
 			String[] enumStrings = GenericsUtils.getEnumStrings(enums);
-			Assertions.assertThat(enumStrings).isEqualTo(new String[]{"A", "B", "C"});
+			assertArrayEquals(enumStrings, new String[] { "A", "B", "C" });
 		}
 	}
 
@@ -200,7 +199,7 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 							"getElements(org.eclipse.wb.internal.core.model.property.Property)",
 							property);
 			String[] enumStrings = GenericsUtils.getEnumStrings(enums);
-			Assertions.assertThat(enumStrings).isEqualTo(new String[]{"A", "B", "C"});
+			assertArrayEquals(enumStrings, new String[] { "A", "B", "C" });
 		}
 	}
 

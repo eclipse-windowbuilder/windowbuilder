@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,7 +50,6 @@ import org.eclipse.ui.texteditor.spelling.SpellingService;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -274,9 +273,9 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	public static void assertRGB(RGB rgb, int red, int green, int blue) {
 		String message = rgb.toString();
-		Assertions.assertThat(rgb.red).describedAs(message).isEqualTo(red);
-		Assertions.assertThat(rgb.green).describedAs(message).isEqualTo(green);
-		Assertions.assertThat(rgb.blue).describedAs(message).isEqualTo(blue);
+		assertEquals(message, rgb.red, red);
+		assertEquals(message, rgb.green, green);
+		assertEquals(message, rgb.blue, blue);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

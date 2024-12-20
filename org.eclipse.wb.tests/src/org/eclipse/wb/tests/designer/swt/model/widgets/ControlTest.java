@@ -463,8 +463,7 @@ public class ControlTest extends RcpModelTest {
 		ControlInfo badComponent = shell.getChildrenControls().get(0);
 		Object badComponentObject = badComponent.getObject();
 		// "MyButton" has placeholder object - Composite
-		Assertions.assertThat(badComponentObject.getClass().getName()).isEqualTo(
-				"org.eclipse.swt.widgets.Composite");
+		assertEquals(badComponentObject.getClass().getName(), "org.eclipse.swt.widgets.Composite");
 		assertTrue(badComponent.isPlaceholder());
 		// "shell" has only one Control child (we should remove partially create MyButton instance)
 		{
@@ -493,7 +492,7 @@ public class ControlTest extends RcpModelTest {
 		{
 			Throwable e = DesignerExceptionUtils.getRootCause(nodeException);
 			Assertions.assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
-			Assertions.assertThat(e.getMessage()).isEqualTo(exceptionMessage);
+			assertEquals(e.getMessage(), exceptionMessage);
 		}
 		// exception should be associated with node
 		Assertions.assertThat(PlaceholderUtils.getExceptions(node)).contains(nodeException);

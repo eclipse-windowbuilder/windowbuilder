@@ -1856,8 +1856,7 @@ public class MethodOrderTest extends SwingModelTest {
 		List<ComponentInfo> childrenComponents = panel.getChildrenComponents();
 		// property item
 		JavaInfo propertyItemInfo = childrenComponents.get(0);
-		Assertions.assertThat(propertyItemInfo.getDescription().getComponentClass().getCanonicalName()).isEqualTo(
-				"test.PropertyItem");
+		assertEquals(propertyItemInfo.getDescription().getComponentClass().getCanonicalName(), "test.PropertyItem");
 		// panel item
 		JavaInfo panelItemInfo = childrenComponents.get(1);
 		assertInstanceOf(JPanelInfo.class, panelItemInfo);
@@ -1897,8 +1896,7 @@ public class MethodOrderTest extends SwingModelTest {
 		assertInstanceOf(JPanelInfo.class, panelItemInfo);
 		// property item
 		JavaInfo propertyItemInfo = childrenComponents.get(1);
-		Assertions.assertThat(propertyItemInfo.getDescription().getComponentClass().getCanonicalName()).isEqualTo(
-				"test.PropertyItem");
+		assertEquals(propertyItemInfo.getDescription().getComponentClass().getCanonicalName(), "test.PropertyItem");
 		// change property
 		Property property = propertyItemInfo.getPropertyByTitle("value");
 		property.setValue(50);
@@ -1929,8 +1927,7 @@ public class MethodOrderTest extends SwingModelTest {
 		List<ComponentInfo> childrenComponents = panel.getChildrenComponents();
 		// property item
 		JavaInfo propertyItemInfo = childrenComponents.get(0);
-		Assertions.assertThat(propertyItemInfo.getDescription().getComponentClass().getCanonicalName()).isEqualTo(
-				"test.PropertyItem");
+		assertEquals(propertyItemInfo.getDescription().getComponentClass().getCanonicalName(), "test.PropertyItem");
 		// change property
 		Property property = propertyItemInfo.getPropertyByTitle("value");
 		property.setValue(100);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -299,24 +299,20 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	public void test_computeTrim() throws Exception {
 		Object shellObject = m_shell.getObject();
 		Rectangle trim = ContainerSupport.computeTrim(shellObject, 0, 0, 500, 500);
-		Assertions.assertThat(trim.x).isEqualTo(
-				Expectations.get(
+		assertEquals(trim.x, (int) Expectations.get(
 						-8,
 						new IntValue[]{new IntValue("flanker-windows", -8), new IntValue("scheglov-win", -8)}));
-		Assertions.assertThat(trim.y).isEqualTo(
-				Expectations.get(
+		assertEquals(trim.y, (int) Expectations.get(
 						-30,
 						new IntValue[]{
 								new IntValue("flanker-windows", -30),
 								new IntValue("scheglov-win", -30)}));
-		Assertions.assertThat(trim.width).isEqualTo(
-				Expectations.get(
+		assertEquals(trim.width, (int) Expectations.get(
 						500 + 8 + 8,
 						new IntValue[]{
 								new IntValue("flanker-windows", 500 + 8 + 8),
 								new IntValue("scheglov-win", 500 + 8 + 8)}));
-		Assertions.assertThat(trim.height).isEqualTo(
-				Expectations.get(
+		assertEquals(trim.height, (int) Expectations.get(
 						500 + 30 + 8,
 						new IntValue[]{
 								new IntValue("flanker-windows", 500 + 30 + 8),
@@ -332,14 +328,12 @@ public class ContainerSupportTest extends AbstractSupportTest {
 		Object shellObject = m_shell.getObject();
 		ControlSupport.setSize(shellObject, 500, 500);
 		Rectangle clientArea = ContainerSupport.getClientArea(shellObject);
-		Assertions.assertThat(clientArea.x).isEqualTo(0);
-		Assertions.assertThat(clientArea.y).isEqualTo(0);
-		Assertions.assertThat(clientArea.width).isEqualTo(
-				Expectations.get(500 - 8 - 8, new IntValue[]{
+		assertEquals(clientArea.x, 0);
+		assertEquals(clientArea.y, 0);
+		assertEquals(clientArea.width, (int) Expectations.get(500 - 8 - 8, new IntValue[] {
 						new IntValue("flanker-windows", 500 - 8 - 8),
 						new IntValue("scheglov-win", 500 - 8 - 8)}));
-		Assertions.assertThat(clientArea.height).isEqualTo(
-				Expectations.get(500 - 30 - 8, new IntValue[]{
+		assertEquals(clientArea.height, (int) Expectations.get(500 - 30 - 8, new IntValue[] {
 						new IntValue("flanker-windows", 500 - 30 - 8),
 						new IntValue("scheglov-win", 500 - 30 - 8)}));
 	}

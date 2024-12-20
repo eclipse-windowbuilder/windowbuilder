@@ -141,8 +141,7 @@ public class CTabFolderTest extends RcpModelTest {
 		assertSame(tabFolder.getWidget().getSelection(), item_2.getObject());
 		// check tree/graphical children
 		Assertions.assertThat(tabFolder.getPresentation().getChildrenTree()).containsOnly(item_1, item_2);
-		Assertions.assertThat(tabFolder.getPresentation().getChildrenGraphical()).isEqualTo(
-				List.of(item_1, item_2));
+		assertEquals(tabFolder.getPresentation().getChildrenGraphical(), List.of(item_1, item_2));
 	}
 
 	/**

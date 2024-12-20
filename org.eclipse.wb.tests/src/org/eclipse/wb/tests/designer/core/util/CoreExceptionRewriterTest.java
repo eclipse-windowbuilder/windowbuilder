@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.os.OSSupportError;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -60,7 +59,7 @@ public class CoreExceptionRewriterTest extends DesignerTestCase {
 			DesignerException rewritten =
 					(DesignerException) CoreExceptionRewriter2.INSTANCE.rewrite(wrapper);
 			assertEquals(ICoreExceptionConstants.EVAL_ANONYMOUS, rewritten.getCode());
-			Assertions.assertThat(rewritten.getParameters()).isEqualTo(new String[]{"msg"});
+			assertArrayEquals(rewritten.getParameters(), new String[] { "msg" });
 		}
 	}
 
