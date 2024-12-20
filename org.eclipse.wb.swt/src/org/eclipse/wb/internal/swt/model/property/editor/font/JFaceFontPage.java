@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,8 +16,8 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.FontSupport;
-import org.eclipse.wb.internal.swt.support.JFaceSupport;
 
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
@@ -28,6 +28,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,7 +71,7 @@ public final class JFaceFontPage extends AbstractFontPage {
 			// add items
 			List<FontInfo> fonts;
 			try {
-				fonts = JFaceSupport.getJFaceFonts();
+				fonts = getJFaceFonts();
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 				fonts = Collections.emptyList();
@@ -115,5 +118,39 @@ public final class JFaceFontPage extends AbstractFontPage {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void setFont(FontInfo fontInfo) {
+	}
+
+	/**
+	 * @return all JFace fonts.
+	 */
+	public static List<FontInfo> getJFaceFonts() throws Exception {
+		List<FontInfo> jfaceFonts = new ArrayList<>();
+		Method[] methods = JFaceResources.class.getMethods();
+		for (int i = 0; i < methods.length; i++) {
+			Method method = methods[i];
+			int modifiers = method.getModifiers();
+			// check public static
+			if (!Modifier.isPublic(modifiers) || !Modifier.isStatic(modifiers)) {
+				continue;
+			}
+			// check getXXXFont name
+			String name = method.getName();
+			if (!name.startsWith("get") || !name.endsWith("Font")) {
+				continue;
+			}
+			// check empty parameters method
+			if (method.getParameterTypes().length != 0) {
+				continue;
+			}
+			// check return type
+			if (!method.getReturnType().getName().equals("org.eclipse.swt.graphics.Font")) {
+				continue;
+		}
+			// create font info
+			Object font = method.invoke(null);
+			jfaceFonts.add(
+					new FontInfo(name + "()", font, "org.eclipse.jface.resource.JFaceResources." + name + "()", false));
+	}
+		return jfaceFonts;
 	}
 }

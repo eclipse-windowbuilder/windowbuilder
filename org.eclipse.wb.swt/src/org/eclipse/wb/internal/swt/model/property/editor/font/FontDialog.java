@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ReusableDialog;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.jface.resource.FontRegistryInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
-import org.eclipse.wb.internal.swt.support.JFaceSupport;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -168,20 +167,18 @@ public final class FontDialog extends ReusableDialog {
 				parent,
 				SWT.NONE,
 				this));
-		if (JFaceSupport.isAvialable()) {
-			// FIXME removed to avoid JVM crash in eswt-converged.dll
-			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=201442
-			//addPage(JFaceFontPage.NAME, new JFaceFontPage(parent, SWT.NONE, this, m_javaInfo));
-			//
-			try {
-				List<FontRegistryInfo> registries =
-						RegistryContainerInfo.getRegistries(m_javaInfo.getRootJava(), FontRegistryInfo.class);
-				if (!registries.isEmpty()) {
-					addPage(RegistryFontPage.NAME, new RegistryFontPage(parent, SWT.NONE, this, registries));
-				}
-			} catch (Throwable e) {
-				DesignerPlugin.log(e);
+		// FIXME removed to avoid JVM crash in eswt-converged.dll
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=201442
+		//addPage(JFaceFontPage.NAME, new JFaceFontPage(parent, SWT.NONE, this, m_javaInfo));
+		//
+		try {
+			List<FontRegistryInfo> registries =
+					RegistryContainerInfo.getRegistries(m_javaInfo.getRootJava(), FontRegistryInfo.class);
+			if (!registries.isEmpty()) {
+				addPage(RegistryFontPage.NAME, new RegistryFontPage(parent, SWT.NONE, this, registries));
 			}
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
 		}
 	}
 
