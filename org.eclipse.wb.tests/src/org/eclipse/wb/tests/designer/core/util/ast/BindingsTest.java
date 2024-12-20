@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -243,7 +243,7 @@ public class BindingsTest extends AbstractJavaTest {
 		ITypeBinding copy_1 = context.get(binding_1);
 		ITypeBinding copy_2 = context.get(binding_2);
 		// check
-		Assertions.assertThat(copy_1).isNotSameAs(copy_2);
+		assertNotSame(copy_1, copy_2);
 	}
 
 	/**
@@ -282,9 +282,9 @@ public class BindingsTest extends AbstractJavaTest {
 		ITypeBinding copy_2 = context.get(binding_2, true);
 		ITypeBinding copy_3 = context.get(binding_3, true);
 		// check bindings
-		Assertions.assertThat(copy_1).isNotSameAs(copy_0);
-		Assertions.assertThat(copy_2).isNotSameAs(copy_0);
-		Assertions.assertThat(copy_2).isNotSameAs(copy_1);
+		assertNotSame(copy_1, copy_0);
+		assertNotSame(copy_2, copy_0);
+		assertNotSame(copy_2, copy_1);
 		assert_TypeBinding_names(copy_0, "test.G", "test.G");
 		assert_TypeBinding_names(copy_1, "test.G", "test.G<java.lang.Double>");
 		assert_TypeBinding_names(copy_2, "test.G", "test.G<java.lang.Integer>");

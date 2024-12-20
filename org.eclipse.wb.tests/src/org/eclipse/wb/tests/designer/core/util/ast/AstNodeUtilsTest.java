@@ -325,7 +325,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		ITypeBinding binding_1 = getNode("marker_1", ClassInstanceCreation.class).resolveTypeBinding();
 		ITypeBinding binding_2 = getNode("marker_2", ClassInstanceCreation.class).resolveTypeBinding();
 		ITypeBinding binding_3 = getNode("marker_3", ClassInstanceCreation.class).resolveTypeBinding();
-		Assertions.assertThat(binding_1).isNotSameAs(binding_2);
+		assertNotSame(binding_1, binding_2);
 		// check base class names
 		{
 			String name_1 = AstNodeUtils.getFullyQualifiedName(binding_1, false);
