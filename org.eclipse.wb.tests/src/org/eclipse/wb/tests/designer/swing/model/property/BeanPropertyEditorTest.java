@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -327,7 +327,7 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 		// check "myBean" property
 		Property property = panel.getPropertyByTitle("myBean");
 		assertNotNull(property);
-		Assertions.assertThat(property.getEditor()).isInstanceOf(TextPropertyEditor.class);
+		assertInstanceOf(TextPropertyEditor.class, property.getEditor());
 	}
 
 	/**

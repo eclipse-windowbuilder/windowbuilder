@@ -1447,12 +1447,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 			int index = m_lastEditor.getSource().indexOf("oo.");
 			ASTNode fooNode = m_lastEditor.getEnclosingNode(index);
 			Expression fieldAccess = AstNodeUtils.getFieldAssignment(fooNode);
-			Assertions.assertThat(fieldAccess).isNotNull().isInstanceOf(QualifiedName.class);
-			Assertions.assertThat(fieldAccess.getParent()).isInstanceOf(Assignment.class);
+			assertInstanceOf(QualifiedName.class, fieldAccess);
+			assertInstanceOf(Assignment.class, fieldAccess.getParent());
 			assertEquals("m_value", AstNodeUtils.getFieldAccessName(fieldAccess).getIdentifier());
 			{
 				Expression qualifier = AstNodeUtils.getFieldAccessQualifier(fieldAccess);
-				Assertions.assertThat(qualifier).isInstanceOf(SimpleName.class);
+				assertInstanceOf(SimpleName.class, qualifier);
 				assertEquals("foo", m_lastEditor.getSource(qualifier));
 			}
 		}
@@ -1477,12 +1477,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 			int index = m_lastEditor.getSource().indexOf("().");
 			ASTNode objectNode = m_lastEditor.getEnclosingNode(index);
 			Expression fieldAccess = AstNodeUtils.getFieldAssignment(objectNode);
-			Assertions.assertThat(fieldAccess).isNotNull().isInstanceOf(FieldAccess.class);
-			Assertions.assertThat(fieldAccess.getParent()).isInstanceOf(Assignment.class);
+			assertInstanceOf(FieldAccess.class, fieldAccess);
+			assertInstanceOf(Assignment.class, fieldAccess.getParent());
 			assertEquals("m_value", AstNodeUtils.getFieldAccessName(fieldAccess).getIdentifier());
 			{
 				Expression qualifier = AstNodeUtils.getFieldAccessQualifier(fieldAccess);
-				Assertions.assertThat(qualifier).isInstanceOf(ClassInstanceCreation.class);
+				assertInstanceOf(ClassInstanceCreation.class, qualifier);
 				assertEquals("new MyObject()", m_lastEditor.getSource(qualifier));
 			}
 		}
@@ -1645,9 +1645,9 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		assertSame(AstNodeUtils.getParentType(fooMethod), testType);
 		MethodDeclaration toStringMethod =
 				AstNodeUtils.getEnclosingMethod(this.<ASTNode>getNode("toString"));
-		Assertions.assertThat(toStringMethod.getParent()).isInstanceOf(AnonymousClassDeclaration.class);
+		assertInstanceOf(AnonymousClassDeclaration.class, toStringMethod.getParent());
 		assertSame(AstNodeUtils.getEnclosingType(toStringMethod), testType);
-		Assertions.assertThat(AstNodeUtils.getParentType(toStringMethod)).isInstanceOf(TypeDeclaration.class);
+		assertInstanceOf(TypeDeclaration.class, AstNodeUtils.getParentType(toStringMethod));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

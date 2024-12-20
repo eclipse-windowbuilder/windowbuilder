@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -400,13 +399,13 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
 		// field "button"
 		{
 			ComponentInfo fieldButton = panel.getChildrenComponents().get(0);
-			Assertions.assertThat(fieldButton.getVariableSupport()).isInstanceOf(ExposedFieldVariableSupport.class);
+			assertInstanceOf(ExposedFieldVariableSupport.class, fieldButton.getVariableSupport());
 			assertFalse(fieldButton.isRepresentedBy(useName));
 		}
 		// local "button"
 		{
 			ComponentInfo localButton = panel.getChildrenComponents().get(1);
-			Assertions.assertThat(localButton.getVariableSupport()).isInstanceOf(LocalUniqueVariableSupport.class);
+			assertInstanceOf(LocalUniqueVariableSupport.class, localButton.getVariableSupport());
 			assertTrue(localButton.isRepresentedBy(useName));
 		}
 	}

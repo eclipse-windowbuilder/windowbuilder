@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -142,7 +142,7 @@ public class BadNodesTest extends SwingModelTest {
 			Assertions.assertThat(badNodes).hasSize(1);
 			BadNodeInformation badNode = badNodes.get(0);
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(badNode.getException());
-			Assertions.assertThat(rootCause).isInstanceOf(IllegalStateException.class);
+			assertInstanceOf(IllegalStateException.class, rootCause);
 		}
 		// refresh
 		panel.refresh();

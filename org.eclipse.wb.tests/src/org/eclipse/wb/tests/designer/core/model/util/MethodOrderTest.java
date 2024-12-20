@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1860,7 +1860,7 @@ public class MethodOrderTest extends SwingModelTest {
 				"test.PropertyItem");
 		// panel item
 		JavaInfo panelItemInfo = childrenComponents.get(1);
-		Assertions.assertThat(panelItemInfo).isInstanceOf(JPanelInfo.class);
+		assertInstanceOf(JPanelInfo.class, panelItemInfo);
 		// change property
 		Property property = propertyItemInfo.getPropertyByTitle("value");
 		property.setValue(10);
@@ -1894,7 +1894,7 @@ public class MethodOrderTest extends SwingModelTest {
 		List<ComponentInfo> childrenComponents = panel.getChildrenComponents();
 		// panel item
 		JavaInfo panelItemInfo = childrenComponents.get(0);
-		Assertions.assertThat(panelItemInfo).isInstanceOf(JPanelInfo.class);
+		assertInstanceOf(JPanelInfo.class, panelItemInfo);
 		// property item
 		JavaInfo propertyItemInfo = childrenComponents.get(1);
 		Assertions.assertThat(propertyItemInfo.getDescription().getComponentClass().getCanonicalName()).isEqualTo(

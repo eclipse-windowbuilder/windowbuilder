@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualAssociation;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -60,7 +59,7 @@ public class AssociationObjectsTest extends SwingModelTest {
 	public void test_empty() throws Exception {
 		AssociationObject associationObject = AssociationObjects.empty();
 		assertEquals("empty", associationObject.toString());
-		Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(EmptyAssociation.class);
+		assertInstanceOf(EmptyAssociation.class, associationObject.getAssociation());
 		assertFalse(associationObject.isRequired());
 	}
 
@@ -71,7 +70,7 @@ public class AssociationObjectsTest extends SwingModelTest {
 	public void test_nonVisual() throws Exception {
 		AssociationObject associationObject = AssociationObjects.nonVisual();
 		assertEquals("nonVisual", associationObject.toString());
-		Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(NonVisualAssociation.class);
+		assertInstanceOf(NonVisualAssociation.class, associationObject.getAssociation());
 		assertFalse(associationObject.isRequired());
 	}
 
@@ -82,7 +81,7 @@ public class AssociationObjectsTest extends SwingModelTest {
 	public void test_constructorChild() throws Exception {
 		AssociationObject associationObject = AssociationObjects.constructorChild();
 		assertEquals("constructorChild", associationObject.toString());
-		Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(ConstructorChildAssociation.class);
+		assertInstanceOf(ConstructorChildAssociation.class, associationObject.getAssociation());
 		assertFalse(associationObject.isRequired());
 	}
 
@@ -93,7 +92,7 @@ public class AssociationObjectsTest extends SwingModelTest {
 	public void test_invocationVoid() throws Exception {
 		AssociationObject associationObject = AssociationObjects.invocationVoid();
 		assertEquals("invocationVoid", associationObject.toString());
-		Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(InvocationVoidAssociation.class);
+		assertInstanceOf(InvocationVoidAssociation.class, associationObject.getAssociation());
 		assertFalse(associationObject.isRequired());
 	}
 
@@ -104,7 +103,7 @@ public class AssociationObjectsTest extends SwingModelTest {
 	public void test_invocationChildNull() throws Exception {
 		AssociationObject associationObject = AssociationObjects.invocationChildNull();
 		assertEquals("invocationChildNull", associationObject.toString());
-		Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+		assertInstanceOf(InvocationChildAssociation.class, associationObject.getAssociation());
 		assertFalse(associationObject.isRequired());
 	}
 
@@ -117,13 +116,13 @@ public class AssociationObjectsTest extends SwingModelTest {
 		{
 			AssociationObject associationObject = AssociationObjects.invocationChild(source, false);
 			assertEquals(source, associationObject.toString());
-			Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+			assertInstanceOf(InvocationChildAssociation.class, associationObject.getAssociation());
 			assertFalse(associationObject.isRequired());
 		}
 		{
 			AssociationObject associationObject = AssociationObjects.invocationChild(source, true);
 			assertEquals(source, associationObject.toString());
-			Assertions.assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+			assertInstanceOf(InvocationChildAssociation.class, associationObject.getAssociation());
 			assertTrue(associationObject.isRequired());
 		}
 	}

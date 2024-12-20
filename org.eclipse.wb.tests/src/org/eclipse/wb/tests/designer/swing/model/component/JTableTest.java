@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -71,7 +71,7 @@ public class JTableTest extends SwingModelTest {
 		// validate model, we used "null", so JTable installed DefaultTableModel
 		{
 			TableModel model = tableObject.getModel();
-			Assertions.assertThat(model).isInstanceOf(DefaultTableModel.class);
+			assertInstanceOf(DefaultTableModel.class, model);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class JTableTest extends SwingModelTest {
 		{
 			Property property = tableInfo.getPropertyByTitle("model");
 			assertEquals("3 columns, 2 rows", getPropertyText(property));
-			Assertions.assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
+			assertInstanceOf(TableModelPropertyEditor.class, property.getEditor());
 		}
 	}
 
@@ -340,7 +340,7 @@ public class JTableTest extends SwingModelTest {
 		{
 			Property property = tableInfo.getPropertyByTitle("model");
 			assertEquals(null, getPropertyText(property));
-			Assertions.assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
+			assertInstanceOf(TableModelPropertyEditor.class, property.getEditor());
 		}
 	}
 
@@ -371,7 +371,7 @@ public class JTableTest extends SwingModelTest {
 		{
 			Property property = tableInfo.getPropertyByTitle("model");
 			assertEquals("3 columns, 2 rows", getPropertyText(property));
-			Assertions.assertThat(property.getEditor()).isInstanceOf(TableModelPropertyEditor.class);
+			assertInstanceOf(TableModelPropertyEditor.class, property.getEditor());
 		}
 	}
 

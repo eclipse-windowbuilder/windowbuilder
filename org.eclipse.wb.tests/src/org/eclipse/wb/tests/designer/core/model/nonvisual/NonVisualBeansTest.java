@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -87,7 +87,7 @@ public class NonVisualBeansTest extends SwingModelTest {
 				"    {new: java.util.ArrayList} {field-initializer: m_testBean} {/new ArrayList()/}");
 		// check association
 		JavaInfo bean = getNVO(panel);
-		Assertions.assertThat(bean.getAssociation()).isInstanceOf(NonVisualAssociation.class);
+		assertInstanceOf(NonVisualAssociation.class, bean.getAssociation());
 	}
 
 	@Test
@@ -268,7 +268,7 @@ public class NonVisualBeansTest extends SwingModelTest {
 				"    {new: javax.swing.JButton} {field-initializer: m_button} {/new JButton()/}");
 		panel.refresh();
 		ComponentInfo button = (ComponentInfo) getNVO(panel);
-		Assertions.assertThat(button.getAssociation()).isInstanceOf(NonVisualAssociation.class);
+		assertInstanceOf(NonVisualAssociation.class, button.getAssociation());
 		// move "button" to "panel"
 		((FlowLayoutInfo) panel.getLayout()).move(button, null);
 		assertEditor(
@@ -283,7 +283,7 @@ public class NonVisualBeansTest extends SwingModelTest {
 				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
 				"  {NonVisualBeans}",
 				"  {new: javax.swing.JButton} {field-initializer: m_button} {/new JButton()/ /add(m_button)/}");
-		Assertions.assertThat(button.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+		assertInstanceOf(InvocationChildAssociation.class, button.getAssociation());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -318,7 +318,7 @@ public class NonVisualBeansTest extends SwingModelTest {
 		test_nonVisual(panel);
 		// check association
 		JavaInfo bean = getNVO(panel);
-		Assertions.assertThat(bean.getAssociation()).isInstanceOf(NonVisualAssociation.class);
+		assertInstanceOf(NonVisualAssociation.class, bean.getAssociation());
 	}
 
 	@Test
@@ -369,7 +369,7 @@ public class NonVisualBeansTest extends SwingModelTest {
 	private static NonVisualBeanInfo test_nonVisual(ContainerInfo panel) throws Exception {
 		JavaInfo child = getNVO(panel);
 		// check association
-		Assertions.assertThat(child.getAssociation()).isInstanceOf(NonVisualAssociation.class);
+		assertInstanceOf(NonVisualAssociation.class, child.getAssociation());
 		// prepare NVO information
 		NonVisualBeanInfo beanInfo = NonVisualBeanInfo.getNonVisualInfo(child);
 		assertNotNull(beanInfo);

@@ -26,7 +26,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Composite;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -98,7 +97,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 		// parameter[1] should be style
 		{
 			ParameterDescription styleParameter = constructorDescription.getParameter(1);
-			Assertions.assertThat(styleParameter.getEditor()).isInstanceOf(StylePropertyEditor.class);
+			assertInstanceOf(StylePropertyEditor.class, styleParameter.getEditor());
 		}
 		// parameter[2] was marked as parent in description
 		{
@@ -140,7 +139,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 		// parameter[1] should be style
 		{
 			ParameterDescription styleParameter = constructorDescription.getParameter(1);
-			Assertions.assertThat(styleParameter.getEditor()).isInstanceOf(StylePropertyEditor.class);
+			assertInstanceOf(StylePropertyEditor.class, styleParameter.getEditor());
 		}
 	}
 

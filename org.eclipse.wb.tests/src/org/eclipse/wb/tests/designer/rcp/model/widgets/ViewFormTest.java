@@ -214,7 +214,7 @@ public class ViewFormTest extends RcpModelTest {
 			// no "real" Control's, but in "tree" we have position placeholder children
 			List<ObjectInfo> children = viewForm.getPresentation().getChildrenTree();
 			assertEquals(4, children.size());
-			Assertions.assertThat(children.get(0)).isInstanceOf(ControlInfo.class);
+			assertInstanceOf(ControlInfo.class, children.get(0));
 			assertEquals(3, GenericsUtils.select(children, AbstractPositionInfo.class).size());
 			// prepare "content" position
 			AbstractPositionInfo positionContent = (AbstractPositionInfo) children.get(3);
@@ -302,7 +302,7 @@ public class ViewFormTest extends RcpModelTest {
 		List<ObjectInfo> children = viewForm.getPresentation().getChildrenTree();
 		assertEquals(4, children.size());
 		assertSame(children.get(0), button);
-		Assertions.assertThat(children.get(1)).isInstanceOf(AbstractPositionInfo.class);
+		assertInstanceOf(AbstractPositionInfo.class, children.get(1));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

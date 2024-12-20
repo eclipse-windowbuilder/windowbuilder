@@ -1083,7 +1083,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 					fail();
 				} catch (Throwable e_) {
 					Throwable e = DesignerExceptionUtils.getRootCause(e_);
-					Assertions.assertThat(e).isInstanceOf(IllegalStateException.class);
+					assertInstanceOf(IllegalStateException.class, e);
 				}
 			} finally {
 				testBundle.uninstall();

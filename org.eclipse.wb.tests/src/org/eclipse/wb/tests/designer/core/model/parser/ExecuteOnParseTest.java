@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -2059,7 +2059,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
 			fail();
 		} catch (Throwable e) {
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
-			Assertions.assertThat(rootCause).isInstanceOf(DesignerException.class);
+			assertInstanceOf(DesignerException.class, rootCause);
 			assertEquals(
 					ICoreExceptionConstants.EVAL_LOCAL_METHOD_INVOCATION,
 					((DesignerException) rootCause).getCode());
@@ -2740,23 +2740,23 @@ public class ExecuteOnParseTest extends SwingModelTest {
 		// collections
 		{
 			Object defaultValue = getDefaultValue("java.util.ArrayList");
-			Assertions.assertThat(defaultValue).isInstanceOf(ArrayList.class);
+			assertInstanceOf(ArrayList.class, defaultValue);
 		}
 		{
 			Object defaultValue = getDefaultValue("java.util.LinkedList");
-			Assertions.assertThat(defaultValue).isInstanceOf(LinkedList.class);
+			assertInstanceOf(LinkedList.class, defaultValue);
 		}
 		{
 			Object defaultValue = getDefaultValue("java.util.Vector");
-			Assertions.assertThat(defaultValue).isInstanceOf(Vector.class);
+			assertInstanceOf(Vector.class, defaultValue);
 		}
 		{
 			Object defaultValue = getDefaultValue("java.util.HashSet");
-			Assertions.assertThat(defaultValue).isInstanceOf(Set.class);
+			assertInstanceOf(Set.class, defaultValue);
 		}
 		{
 			Object defaultValue = getDefaultValue("java.util.HashMap");
-			Assertions.assertThat(defaultValue).isInstanceOf(Map.class);
+			assertInstanceOf(Map.class, defaultValue);
 		}
 		// generic Object
 		{

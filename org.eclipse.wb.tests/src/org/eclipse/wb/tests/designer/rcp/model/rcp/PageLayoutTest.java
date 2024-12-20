@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -848,8 +848,8 @@ public class PageLayoutTest extends RcpModelTest {
 		{
 			assertSame(container, item.getParent());
 			Assertions.assertThat(container.getChildren()).contains(item);
-			Assertions.assertThat(item.getCreationSupport()).isInstanceOf(PageLayoutAddCreationSupport.class);
-			Assertions.assertThat(item.getVariableSupport()).isInstanceOf(EmptyPureVariableSupport.class);
+			assertInstanceOf(PageLayoutAddCreationSupport.class, item.getCreationSupport());
+			assertInstanceOf(EmptyPureVariableSupport.class, item.getVariableSupport());
 		}
 		// check hierarchy
 		assertHierarchy(
@@ -896,8 +896,8 @@ public class PageLayoutTest extends RcpModelTest {
 		{
 			assertSame(container, item.getParent());
 			Assertions.assertThat(container.getChildren()).contains(item);
-			Assertions.assertThat(item.getCreationSupport()).isInstanceOf(PageLayoutAddCreationSupport.class);
-			Assertions.assertThat(item.getVariableSupport()).isInstanceOf(EmptyPureVariableSupport.class);
+			assertInstanceOf(PageLayoutAddCreationSupport.class, item.getCreationSupport());
+			assertInstanceOf(EmptyPureVariableSupport.class, item.getVariableSupport());
 		}
 		// check hierarchy
 		assertHierarchy(

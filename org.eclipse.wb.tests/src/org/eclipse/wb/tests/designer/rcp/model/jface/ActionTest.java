@@ -377,8 +377,8 @@ public class ActionTest extends RcpModelTest {
 		CategoryInfo category = categories.get(0);
 		List<EntryInfo> entries = category.getEntries();
 		Assertions.assertThat(entries).hasSize(3);
-		Assertions.assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
-		Assertions.assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
+		assertInstanceOf(ActionNewEntryInfo.class, entries.get(0));
+		assertInstanceOf(ActionExternalEntryInfo.class, entries.get(1));
 		{
 			ComponentEntryInfo entry = (ComponentEntryInfo) entries.get(2);
 			assertEquals("org.eclipse.jface.action.Separator", entry.getClassName());
@@ -386,7 +386,7 @@ public class ActionTest extends RcpModelTest {
 		// ask for dynamic entries
 		listener.entries(category, entries);
 		Assertions.assertThat(entries).hasSize(4);
-		Assertions.assertThat(entries.get(3)).isInstanceOf(ActionUseEntryInfo.class);
+		assertInstanceOf(ActionUseEntryInfo.class, entries.get(3));
 	}
 
 	/**
@@ -464,8 +464,8 @@ public class ActionTest extends RcpModelTest {
 		CategoryInfo category = categories.get(0);
 		List<EntryInfo> entries = category.getEntries();
 		Assertions.assertThat(entries).hasSize(4);
-		Assertions.assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
-		Assertions.assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
+		assertInstanceOf(ActionNewEntryInfo.class, entries.get(0));
+		assertInstanceOf(ActionExternalEntryInfo.class, entries.get(1));
 		{
 			ComponentEntryInfo entry = (ComponentEntryInfo) entries.get(2);
 			assertEquals("org.eclipse.jface.action.Separator", entry.getClassName());
@@ -477,7 +477,7 @@ public class ActionTest extends RcpModelTest {
 		// ask for dynamic entries
 		listener.entries(category, entries);
 		Assertions.assertThat(entries).hasSize(5);
-		Assertions.assertThat(entries.get(4)).isInstanceOf(ActionUseEntryInfo.class);
+		assertInstanceOf(ActionUseEntryInfo.class, entries.get(4));
 	}
 
 	/**
@@ -520,8 +520,8 @@ public class ActionTest extends RcpModelTest {
 		CategoryInfo category = categories.get(0);
 		List<EntryInfo> entries = category.getEntries();
 		Assertions.assertThat(entries).hasSize(4);
-		Assertions.assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
-		Assertions.assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
+		assertInstanceOf(ActionNewEntryInfo.class, entries.get(0));
+		assertInstanceOf(ActionExternalEntryInfo.class, entries.get(1));
 		{
 			ComponentEntryInfo entry = (ComponentEntryInfo) entries.get(2);
 			assertEquals("org.eclipse.jface.action.Separator", entry.getClassName());
@@ -533,7 +533,7 @@ public class ActionTest extends RcpModelTest {
 		// ask for dynamic entries
 		listener.entries(category, entries);
 		Assertions.assertThat(entries).hasSize(5);
-		Assertions.assertThat(entries.get(4)).isInstanceOf(ActionUseEntryInfo.class);
+		assertInstanceOf(ActionUseEntryInfo.class, entries.get(4));
 	}
 
 	/**

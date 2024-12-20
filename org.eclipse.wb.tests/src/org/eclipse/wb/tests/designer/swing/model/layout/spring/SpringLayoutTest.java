@@ -75,7 +75,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"{this: javax.swing.JPanel} {this} {/setLayout(new SpringLayout())/ /add(button)/}",
 				"  {new: javax.swing.SpringLayout} {empty} {/setLayout(new SpringLayout())/}",
 				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/}");
-		Assertions.assertThat(panel.getLayout()).isInstanceOf(SpringLayoutInfo.class);
+		assertInstanceOf(SpringLayoutInfo.class, panel.getLayout());
 		// without constraints "button" is located at (0,0)
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);

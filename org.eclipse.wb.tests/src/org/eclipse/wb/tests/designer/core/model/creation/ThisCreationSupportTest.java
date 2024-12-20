@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -199,7 +199,7 @@ public class ThisCreationSupportTest extends SwingModelTest {
 				"}");
 		// no problem with properties
 		panel.getProperties();
-		Assertions.assertThat(panel.getAssociation()).isInstanceOf(RootAssociation.class);
+		assertInstanceOf(RootAssociation.class, panel.getAssociation());
 	}
 
 	@Test
@@ -233,7 +233,7 @@ public class ThisCreationSupportTest extends SwingModelTest {
 				"}");
 		// no problem with properties
 		frame.getProperties();
-		Assertions.assertThat(frame.getAssociation()).isInstanceOf(RootAssociation.class);
+		assertInstanceOf(RootAssociation.class, frame.getAssociation());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -282,8 +282,8 @@ public class ThisCreationSupportTest extends SwingModelTest {
 		GenericProperty enabledProperty = (GenericProperty) panel.getPropertyByTitle("enabled");
 		List<ExpressionAccessor> accessors = getGenericPropertyAccessors(enabledProperty);
 		Assertions.assertThat(accessors).hasSize(2);
-		Assertions.assertThat(accessors.get(0)).isInstanceOf(SetterAccessor.class);
-		Assertions.assertThat(accessors.get(1)).isInstanceOf(SuperConstructorAccessor.class);
+		assertInstanceOf(SetterAccessor.class, accessors.get(0));
+		assertInstanceOf(SuperConstructorAccessor.class, accessors.get(1));
 		// change "enabled"
 		enabledProperty.setValue(true);
 		assertEditor(

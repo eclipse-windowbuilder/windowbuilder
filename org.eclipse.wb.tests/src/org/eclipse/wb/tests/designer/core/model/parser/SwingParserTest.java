@@ -781,7 +781,7 @@ public class SwingParserTest extends SwingModelTest {
 		panel.refresh();
 		// "MyButton" has placeholder object - JPanel
 		{
-			Assertions.assertThat(button.getObject()).isInstanceOf(JPanel.class);
+			assertInstanceOf(JPanel.class, button.getObject());
 			assertTrue(button.isPlaceholder());
 			Assertions.assertThat(PlaceholderUtils.getExceptions(button)).hasSize(1);
 		}
@@ -833,7 +833,7 @@ public class SwingParserTest extends SwingModelTest {
 		panel.refresh();
 		// "MyButton" has placeholder object - JPanel
 		{
-			Assertions.assertThat(button.getObject()).isInstanceOf(JPanel.class);
+			assertInstanceOf(JPanel.class, button.getObject());
 			assertTrue(button.isPlaceholder());
 			Assertions.assertThat(PlaceholderUtils.getExceptions(button)).hasSize(2);
 		}
