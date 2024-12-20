@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.DisplayedMnemonicKeyPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import javax.swing.JLabel;
@@ -132,7 +131,7 @@ public class JLabelTest extends SwingModelTest {
 		Property labelForProperty = label.getPropertyByTitle("labelFor");
 		assertNotNull(labelForProperty);
 		assertSame(PropertyCategory.PREFERRED, labelForProperty.getCategory());
-		Assertions.assertThat(labelForProperty.getEditor()).isSameAs(ObjectPropertyEditor.INSTANCE);
+		assertSame(labelForProperty.getEditor(), ObjectPropertyEditor.INSTANCE);
 		// no "setLabelFor()" invocation, so no text
 		assertFalse(labelForProperty.isModified());
 		assertNull(getPropertyText(labelForProperty));

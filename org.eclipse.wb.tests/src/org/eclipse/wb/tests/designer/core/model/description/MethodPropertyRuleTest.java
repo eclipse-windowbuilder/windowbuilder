@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -192,13 +191,13 @@ public class MethodPropertyRuleTest extends SwingModelTest {
 			String id = "setText(java.lang.String,boolean) 0";
 			GenericPropertyDescription property = description.getProperty(id);
 			assertNotNull(property);
-			Assertions.assertThat(property.getEditor()).isSameAs(StringPropertyEditor.INSTANCE);
+			assertSame(property.getEditor(), StringPropertyEditor.INSTANCE);
 		}
 		{
 			String id = "setText(java.lang.String,boolean) 1";
 			GenericPropertyDescription property = description.getProperty(id);
 			assertNotNull(property);
-			Assertions.assertThat(property.getEditor()).isSameAs(BooleanPropertyEditor.INSTANCE);
+			assertSame(property.getEditor(), BooleanPropertyEditor.INSTANCE);
 		}
 	}
 }

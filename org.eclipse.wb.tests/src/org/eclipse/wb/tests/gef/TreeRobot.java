@@ -32,6 +32,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import static org.junit.Assert.assertSame;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
@@ -523,7 +525,7 @@ public final class TreeRobot {
 		TreeEditPart editPart = getEditPart(object);
 		// item
 		Object item = tree.getData("_wbp_insertMarkItem");
-		Assertions.assertThat(item).isSameAs(editPart.getWidget());
+		assertSame(item, editPart.getWidget());
 		// before/after
 		Boolean location = (Boolean) tree.getData("_wbp_insertMarkLocation");
 		Assertions.assertThat(location).isEqualTo(before);

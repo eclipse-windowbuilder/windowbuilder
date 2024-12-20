@@ -238,21 +238,21 @@ public class TabFolderTest extends RcpModelTest {
 			boolean[] refresh = new boolean[]{false};
 			shell.getBroadcastObject().selecting(button_2, refresh);
 			Assertions.assertThat(refresh[0]).isTrue();
-			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_2);
+			assertSame(tabFolder.getSelectedItem(), item_2);
 		}
 		// again select "button_2", it is already selected, so no refresh
 		{
 			boolean[] refresh = new boolean[]{false};
 			shell.getBroadcastObject().selecting(button_2, refresh);
 			Assertions.assertThat(refresh[0]).isFalse();
-			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_2);
+			assertSame(tabFolder.getSelectedItem(), item_2);
 		}
 		// select "button_1", refresh expected
 		{
 			boolean[] refresh = new boolean[]{false};
 			shell.getBroadcastObject().selecting(button_1, refresh);
 			Assertions.assertThat(refresh[0]).isTrue();
-			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_1);
+			assertSame(tabFolder.getSelectedItem(), item_1);
 		}
 	}
 
