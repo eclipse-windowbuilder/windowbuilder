@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.swing.swingx.JXTaskPaneInfo;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -61,12 +60,12 @@ public class JXTaskPaneTest extends SwingxModelTest {
 						"}");
 		panel.refresh();
 		//
-		Assertions.assertThat(ActionContainerInfo.getActions(panel).size()).isEqualTo(1);
+		assertEquals(ActionContainerInfo.getActions(panel).size(), 1);
 		List<JXTaskPaneInfo> children = panel.getChildren(JXTaskPaneInfo.class);
-		Assertions.assertThat(children.size()).isEqualTo(1);
+		assertEquals(children.size(), 1);
 		// check JXTaskPane
 		JXTaskPaneInfo pane = children.get(0);
-		Assertions.assertThat(pane.getChildrenComponents().size()).isEqualTo(2);// ContentPane & action Component
+		assertEquals(pane.getChildrenComponents().size(), 2);// ContentPane & action Component
 	}
 
 	/**

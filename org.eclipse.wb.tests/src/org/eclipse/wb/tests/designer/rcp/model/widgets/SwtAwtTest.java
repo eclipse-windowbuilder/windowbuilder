@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.widgets.Composite;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -90,10 +89,10 @@ public class SwtAwtTest extends RcpModelTest {
 		{
 			Rectangle frameBounds = frame.getBounds();
 			Rectangle compositeBounds = composite.getBounds();
-			Assertions.assertThat(frameBounds.x).isEqualTo(0);
-			Assertions.assertThat(frameBounds.y).isEqualTo(0);
-			Assertions.assertThat(frameBounds.width).isEqualTo(compositeBounds.width);
-			Assertions.assertThat(frameBounds.height).isEqualTo(compositeBounds.height);
+			assertEquals(frameBounds.x, 0);
+			assertEquals(frameBounds.y, 0);
+			assertEquals(frameBounds.width, compositeBounds.width);
+			assertEquals(frameBounds.height, compositeBounds.height);
 		}
 		// "frame" is visible
 		{
@@ -123,10 +122,10 @@ public class SwtAwtTest extends RcpModelTest {
 		assertNotNull(frame.getImage());
 		{
 			Rectangle frameBounds = frame.getBounds();
-			Assertions.assertThat(frameBounds.x).isEqualTo(2);
-			Assertions.assertThat(frameBounds.y).isEqualTo(2);
-			Assertions.assertThat(frameBounds.width).isEqualTo(composite.getBounds().width - 2 - 2);
-			Assertions.assertThat(frameBounds.height).isEqualTo(composite.getBounds().height - 2 - 2);
+			assertEquals(frameBounds.x, 2);
+			assertEquals(frameBounds.y, 2);
+			assertEquals(frameBounds.width, composite.getBounds().width - 2 - 2);
+			assertEquals(frameBounds.height, composite.getBounds().height - 2 - 2);
 		}
 	}
 
@@ -156,8 +155,8 @@ public class SwtAwtTest extends RcpModelTest {
 		assertNotNull(frame.getImage());
 		{
 			Rectangle frameBounds = frame.getBounds();
-			Assertions.assertThat(frameBounds.x).isEqualTo(0);
-			Assertions.assertThat(frameBounds.y).isEqualTo(0);
+			assertEquals(frameBounds.x, 0);
+			assertEquals(frameBounds.y, 0);
 		}
 	}
 

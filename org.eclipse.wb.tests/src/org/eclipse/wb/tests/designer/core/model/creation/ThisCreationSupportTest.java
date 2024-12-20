@@ -399,7 +399,7 @@ public class ThisCreationSupportTest extends SwingModelTest {
 		refresh();
 		// check "varArgs" value
 		String[] names = (String[]) ReflectionUtils.getFieldObject(panel.getObject(), "names");
-		Assertions.assertThat(names).isEqualTo(new String[]{"a", "b", "c"});
+		assertArrayEquals(names, new String[] { "a", "b", "c" });
 	}
 
 	/**
@@ -429,7 +429,7 @@ public class ThisCreationSupportTest extends SwingModelTest {
 		refresh();
 		// check "varArgs" value
 		String[] names = (String[]) ReflectionUtils.getFieldObject(panel.getObject(), "names");
-		Assertions.assertThat(names).isEqualTo(new String[]{"a", "b", "c"});
+		assertArrayEquals(names, new String[] { "a", "b", "c" });
 	}
 
 	/**

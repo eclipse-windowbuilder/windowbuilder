@@ -1459,8 +1459,8 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 				"  }",
 				"}");
 		// check descriptions
-		Assertions.assertThat(getDescriptionsMap("test.TestFactory", true).size()).isEqualTo(1);
-		Assertions.assertThat(getDescriptionsMap("test.TestFactory", false).size()).isEqualTo(2);
+		assertEquals(getDescriptionsMap("test.TestFactory", true).size(), 1);
+		assertEquals(getDescriptionsMap("test.TestFactory", false).size(), 2);
 		// for 'create()'
 		{
 			FactoryMethodDescription factoryDescription =

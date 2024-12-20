@@ -154,31 +154,31 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.IComponent");
-			Assertions.assertThat(description.getIcon().getImageData(100).width).isEqualTo(1);
+			assertEquals(description.getIcon().getImageData(100).width, 1);
 		}
 		// Component: 2x2 icon
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.Component");
-			Assertions.assertThat(description.getIcon().getImageData(100).width).isEqualTo(2);
+			assertEquals(description.getIcon().getImageData(100).width, 2);
 		}
 		// Component_2: no special icon, but it implements IComponent, so 1x1 icon
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.Component_2");
-			Assertions.assertThat(description.getIcon().getImageData(100).width).isEqualTo(1);
+			assertEquals(description.getIcon().getImageData(100).width, 1);
 		}
 		// MyComponent_1: special 3x3 icon
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.MyComponent_1");
-			Assertions.assertThat(description.getIcon().getImageData(100).width).isEqualTo(3);
+			assertEquals(description.getIcon().getImageData(100).width, 3);
 		}
 		// MyComponent_2: no special icon, so use 2x2 from Component
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.MyComponent_2");
-			Assertions.assertThat(description.getIcon().getImageData(100).width).isEqualTo(2);
+			assertEquals(description.getIcon().getImageData(100).width, 2);
 		}
 	}
 
@@ -369,8 +369,8 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		// check icon
 		{
 			ImageDescriptor icon = description.getIcon();
-			Assertions.assertThat(icon.getImageData(100).width).isEqualTo(10);
-			Assertions.assertThat(icon.getImageData(100).height).isEqualTo(10);
+			assertEquals(icon.getImageData(100).width, 10);
+			assertEquals(icon.getImageData(100).height, 10);
 		}
 	}
 

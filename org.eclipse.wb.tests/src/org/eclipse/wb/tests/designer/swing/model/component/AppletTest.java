@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -70,7 +70,7 @@ public class AppletTest extends SwingModelTest {
 		{
 			Rectangle bounds = button.getBounds();
 			Assertions.assertThat(bounds.x).isGreaterThan(100).isLessThan(300);
-			Assertions.assertThat(bounds.y).isEqualTo(5);
+			assertEquals(bounds.y, 5);
 		}
 	}
 

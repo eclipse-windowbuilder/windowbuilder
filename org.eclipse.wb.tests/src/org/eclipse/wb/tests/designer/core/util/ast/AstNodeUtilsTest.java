@@ -330,18 +330,18 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		{
 			String name_1 = AstNodeUtils.getFullyQualifiedName(binding_1, false);
 			String name_2 = AstNodeUtils.getFullyQualifiedName(binding_2, false);
-			Assertions.assertThat(name_1).isEqualTo("test.G");
-			Assertions.assertThat(name_2).isEqualTo("test.G");
-			Assertions.assertThat(name_1).isEqualTo(name_2);
+			assertEquals(name_1, "test.G");
+			assertEquals(name_2, "test.G");
+			assertEquals(name_1, name_2);
 		}
 		// check class names with generics
 		{
 			String name_1 = AstNodeUtils.getFullyQualifiedName(binding_1, false, true);
 			String name_2 = AstNodeUtils.getFullyQualifiedName(binding_2, false, true);
 			String name_3 = AstNodeUtils.getFullyQualifiedName(binding_3, false, true);
-			Assertions.assertThat(name_1).isEqualTo("test.G");
-			Assertions.assertThat(name_2).isEqualTo("test.G<java.lang.Double>");
-			Assertions.assertThat(name_3).isEqualTo("test.G<java.lang.Integer>");
+			assertEquals(name_1, "test.G");
+			assertEquals(name_2, "test.G<java.lang.Double>");
+			assertEquals(name_3, "test.G<java.lang.Integer>");
 			Assertions.assertThat(name_1).isNotEqualTo(name_2);
 		}
 	}
@@ -525,14 +525,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 			ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_1, 0);
 			assertNotNull(argument);
 			String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
-			Assertions.assertThat(argumentName).isEqualTo("java.lang.Number");
+			assertEquals(argumentName, "java.lang.Number");
 		}
 		// Double as type argument
 		{
 			ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_2, 0);
 			assertNotNull(argument);
 			String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
-			Assertions.assertThat(argumentName).isEqualTo("java.lang.Double");
+			assertEquals(argumentName, "java.lang.Double");
 		}
 		// ask WrapperSub
 		{
@@ -541,14 +541,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 				ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_3, 0);
 				assertNotNull(argument);
 				String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
-				Assertions.assertThat(argumentName).isEqualTo("java.lang.String");
+				assertEquals(argumentName, "java.lang.String");
 			}
 			// ask 0-th type argument of Wrapper
 			{
 				ITypeBinding argument = AstNodeUtils.getTypeBindingArgument(binding_3, "test.Wrapper", 0);
 				assertNotNull(argument);
 				String argumentName = AstNodeUtils.getFullyQualifiedName(argument, false);
-				Assertions.assertThat(argumentName).isEqualTo("java.lang.Float");
+				assertEquals(argumentName, "java.lang.Float");
 			}
 			// no such base class
 			try {
@@ -2168,7 +2168,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		Expression argument = DomGenerics.arguments(invocation).get(0);
 		assertTrue(AstNodeUtils.isVariable(argument));
 		Expression expression = AstNodeUtils.getActualVariableExpression(argument);
-		Assertions.assertThat(expression.toString()).isEqualTo(actualExpression);
+		assertEquals(expression.toString(), actualExpression);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -3327,8 +3327,8 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		//
 		List<String> signatures =
 				AstNodeUtils.getMethodSignatures(List.of(methods[0], methods[1]));
-		Assertions.assertThat(signatures).hasSize(2).isEqualTo(
-				List.of("foo()", "bar(int,java.lang.String)"));
+		assertEquals(signatures.size(), 2);
+		assertEquals(signatures, List.of("foo()", "bar(int,java.lang.String)"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

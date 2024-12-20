@@ -95,7 +95,7 @@ public class ComponentDescriptionKeyTest extends DesignerTestCase {
 		ComponentDescriptionKey key_1 = new ComponentDescriptionKey(Component.class);
 		ComponentDescriptionKey key_2 = new ComponentDescriptionKey(Component.class);
 		ComponentDescriptionKey key_3 = new ComponentDescriptionKey(Container.class);
-		Assertions.assertThat(key_1.hashCode()).isEqualTo(key_2.hashCode());
+		assertEquals(key_1.hashCode(), key_2.hashCode());
 		Assertions.assertThat(key_1.hashCode()).isNotEqualTo(key_3.hashCode());
 	}
 
@@ -110,8 +110,8 @@ public class ComponentDescriptionKeyTest extends DesignerTestCase {
 		ComponentDescriptionKey key_2 = new ComponentDescriptionKey(Component.class);
 		ComponentDescriptionKey key_3 = new ComponentDescriptionKey(Container.class);
 		Assertions.assertThat(key_1).isNotEqualTo(this);
-		Assertions.assertThat(key_1).isEqualTo(key_1);
-		Assertions.assertThat(key_1).isEqualTo(key_2);
+		assertEquals(key_1, key_1);
+		assertEquals(key_1, key_2);
 		Assertions.assertThat(key_1).isNotEqualTo(key_3);
 	}
 
@@ -129,11 +129,11 @@ public class ComponentDescriptionKeyTest extends DesignerTestCase {
 				new ComponentDescriptionKey(Component.class, host_2, "suffix_2");
 		ComponentDescriptionKey key_5 =
 				new ComponentDescriptionKey(Component.class, host_1, "suffix_1");
-		Assertions.assertThat(key_1).isEqualTo(key_1);
+		assertEquals(key_1, key_1);
 		Assertions.assertThat(key_1).isNotEqualTo(key_2);
 		Assertions.assertThat(key_1).isNotEqualTo(key_3);
 		Assertions.assertThat(key_1).isNotEqualTo(key_4);
-		Assertions.assertThat(key_1).isEqualTo(key_5);
+		assertEquals(key_1, key_5);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

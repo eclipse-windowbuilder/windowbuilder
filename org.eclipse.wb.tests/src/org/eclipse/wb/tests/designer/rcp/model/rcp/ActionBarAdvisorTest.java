@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -88,8 +87,8 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 			advisor.refresh();
 			assertNoErrors(advisor);
 			// check bounds
-			Assertions.assertThat(advisor.getBounds().width).isEqualTo(600);
-			Assertions.assertThat(advisor.getBounds().height).isEqualTo(500);
+			assertEquals(advisor.getBounds().width, 600);
+			assertEquals(advisor.getBounds().height, 500);
 		}
 		// check Proxy implementations for IActionBarConfigurer
 		{
@@ -130,15 +129,15 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 			advisor.refresh();
 			assertNoErrors(advisor);
 			// check bounds
-			Assertions.assertThat(advisor.getBounds().width).isEqualTo(600);
-			Assertions.assertThat(advisor.getBounds().height).isEqualTo(500);
+			assertEquals(advisor.getBounds().width, 600);
+			assertEquals(advisor.getBounds().height, 500);
 		}
 		// set new size
 		{
 			advisor.getTopBoundsSupport().setSize(450, 300);
 			advisor.refresh();
-			Assertions.assertThat(advisor.getBounds().width).isEqualTo(450);
-			Assertions.assertThat(advisor.getBounds().height).isEqualTo(300);
+			assertEquals(advisor.getBounds().width, 450);
+			assertEquals(advisor.getBounds().height, 300);
 		}
 	}
 

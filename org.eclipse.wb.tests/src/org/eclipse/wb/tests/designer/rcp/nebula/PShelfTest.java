@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -80,15 +80,15 @@ public class PShelfTest extends AbstractNebulaTest {
 			PShelfItemInfo item = pshelf.getChildren(PShelfItemInfo.class).get(0);
 			// "item" should have some not empty bounds (test for PShelfItem_Info.fixBodyBounds())
 			Rectangle bounds = item.getBounds();
-			Assertions.assertThat(bounds.width).isEqualTo(pshelfBounds.width);
+			assertEquals(bounds.width, pshelfBounds.width);
 			Assertions.assertThat(bounds.height).isGreaterThan(itemHeight);
 			{
 				// check inner composite
 				CompositeInfo composite = item.getChildren(CompositeInfo.class).get(0);
 				assertTrue(composite.hasLayout());
 				Rectangle compositeBounds = composite.getBounds();
-				Assertions.assertThat(compositeBounds.width).isEqualTo(bounds.width);
-				Assertions.assertThat(compositeBounds.height).isEqualTo(bounds.height - itemHeight);
+				assertEquals(compositeBounds.width, bounds.width);
+				assertEquals(compositeBounds.height, bounds.height - itemHeight);
 			}
 		}
 		// check second item (closed)
@@ -96,8 +96,8 @@ public class PShelfTest extends AbstractNebulaTest {
 			PShelfItemInfo item = pshelf.getChildren(PShelfItemInfo.class).get(1);
 			// "item" should have some not empty bounds (test for PShelfItem_Info.fixBodyBounds())
 			Rectangle bounds = item.getBounds();
-			Assertions.assertThat(bounds.width).isEqualTo(pshelfBounds.width);
-			Assertions.assertThat(bounds.height).isEqualTo(itemHeight);
+			assertEquals(bounds.width, pshelfBounds.width);
+			assertEquals(bounds.height, itemHeight);
 		}
 	}
 }

@@ -140,7 +140,7 @@ public class DialogTest extends RcpModelTest {
 		{
 			assertTrue(dialogAreaSuper.hasLayout());
 			Rectangle bounds = dialogAreaSuper.getModelBounds();
-			Assertions.assertThat(bounds.width).isEqualTo(dialogAreaParent.getModelBounds().width);
+			assertEquals(bounds.width, dialogAreaParent.getModelBounds().width);
 			Assertions.assertThat(bounds.height).isGreaterThan(200);
 		}
 	}

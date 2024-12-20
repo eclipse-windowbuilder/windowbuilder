@@ -327,7 +327,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		// check sub-properties
 		{
 			ObjectPropertyEditor opEditor = (ObjectPropertyEditor) labelForProperty.getEditor();
-			Assertions.assertThat(opEditor.getProperties(labelForProperty).length).isEqualTo(0);
+			assertEquals(opEditor.getProperties(labelForProperty).length, 0);
 		}
 	}
 

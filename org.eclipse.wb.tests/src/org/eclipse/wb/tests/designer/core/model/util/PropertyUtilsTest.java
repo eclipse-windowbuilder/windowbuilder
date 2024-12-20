@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -70,7 +70,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 	public void test_getTitles_asArray() throws Exception {
 		Property property_1 = new PropertyWithTitle("a");
 		Property property_2 = new PropertyWithTitle("b");
-		Assertions.assertThat(PropertyUtils.getTitles(property_1, property_2)).isEqualTo(new String[]{"a", "b"});
+		assertArrayEquals(PropertyUtils.getTitles(property_1, property_2), new String[] { "a", "b" });
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class PropertyUtilsTest extends SwingModelTest {
 		Property property_2 = new PropertyWithTitle("b");
 		List<Property> properties = List.of(property_1, property_2);
 		List<String> expectedTitles = List.of("a", "b");
-		Assertions.assertThat(PropertyUtils.getTitles(properties)).isEqualTo(expectedTitles);
+		assertEquals(PropertyUtils.getTitles(properties), expectedTitles);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

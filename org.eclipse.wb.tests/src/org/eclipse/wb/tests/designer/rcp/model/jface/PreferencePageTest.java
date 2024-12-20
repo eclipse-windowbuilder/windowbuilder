@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -61,8 +61,8 @@ public class PreferencePageTest extends RcpModelTest {
 		// refresh()
 		preferencePage.refresh();
 		// check bounds
-		Assertions.assertThat(preferencePage.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(preferencePage.getBounds().height).isEqualTo(500);
+		assertEquals(preferencePage.getBounds().width, 600);
+		assertEquals(preferencePage.getBounds().height, 500);
 		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(300);
 		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(30);
 		Assertions.assertThat(container.getBounds().width).isGreaterThan(300);
@@ -70,7 +70,7 @@ public class PreferencePageTest extends RcpModelTest {
 		// set new bounds
 		preferencePage.getTopBoundsSupport().setSize(500, 400);
 		preferencePage.refresh();
-		Assertions.assertThat(preferencePage.getBounds().width).isEqualTo(500);
-		Assertions.assertThat(preferencePage.getBounds().height).isEqualTo(400);
+		assertEquals(preferencePage.getBounds().width, 500);
+		assertEquals(preferencePage.getBounds().height, 400);
 	}
 }

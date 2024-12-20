@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -104,8 +103,8 @@ public class ComponentTest extends SwingModelTest {
 		assertEquals(new Rectangle(0, 0, 0, 0), panel.getBounds());
 		{
 			org.eclipse.swt.graphics.Rectangle imageBounds = panel.getImage().getBounds();
-			Assertions.assertThat(imageBounds.width).isEqualTo(1);
-			Assertions.assertThat(imageBounds.height).isEqualTo(1);
+			assertEquals(imageBounds.width, 1);
+			assertEquals(imageBounds.height, 1);
 		}
 	}
 

@@ -80,8 +80,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
 			Rectangle modelBounds = button.getModelBounds();
-			Assertions.assertThat(modelBounds.x).isEqualTo(0);
-			Assertions.assertThat(modelBounds.y).isEqualTo(0);
+			assertEquals(modelBounds.x, 0);
+			assertEquals(modelBounds.y, 0);
 		}
 	}
 
@@ -111,8 +111,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
 			Rectangle modelBounds = button.getModelBounds();
-			Assertions.assertThat(modelBounds.x).isEqualTo(5);
-			Assertions.assertThat(modelBounds.y).isEqualTo(10);
+			assertEquals(modelBounds.x, 5);
+			assertEquals(modelBounds.y, 10);
 		}
 	}
 
@@ -142,8 +142,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
 			Rectangle modelBounds = button.getModelBounds();
-			Assertions.assertThat(modelBounds.x).isEqualTo(5);
-			Assertions.assertThat(modelBounds.y).isEqualTo(10);
+			assertEquals(modelBounds.x, 5);
+			assertEquals(modelBounds.y, 10);
 		}
 	}
 
@@ -459,7 +459,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		Property offset = PropertyUtils.getByPath(button, "Constraints/WEST/offset");
 		// initial state
 		assertTrue(offset.isModified());
-		Assertions.assertThat(offset.getValue()).isEqualTo(10);
+		assertEquals(offset.getValue(), 10);
 		// set new
 		offset.setValue(50);
 		assertEditor(
@@ -475,7 +475,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"  }",
 				"}");
 		assertTrue(offset.isModified());
-		Assertions.assertThat(offset.getValue()).isEqualTo(50);
+		assertEquals(offset.getValue(), 50);
 		// ignore "remove"
 		{
 			String source = m_lastEditor.getSource();
@@ -535,7 +535,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		//
 		Property anchorSide = PropertyUtils.getByPath(button, "Constraints/NORTH/side");
 		assertTrue(anchorSide.isModified());
-		Assertions.assertThat(anchorSide.getValue()).isEqualTo(SpringLayout.NORTH);
+		assertEquals(anchorSide.getValue(), SpringLayout.NORTH);
 		anchorSide.setValue(SpringLayout.SOUTH);
 		assertEditor(
 				"public class Test extends JPanel {",

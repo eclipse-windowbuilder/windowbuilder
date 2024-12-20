@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -104,8 +104,8 @@ public class ViewPartTest extends RcpModelTest {
 		part.refresh();
 		assertNoErrors(part);
 		// check bounds
-		Assertions.assertThat(part.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(part.getBounds().height).isEqualTo(500);
+		assertEquals(part.getBounds().width, 600);
+		assertEquals(part.getBounds().height, 500);
 		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(300);
 		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(30);
 		Assertions.assertThat(container.getBounds().width).isGreaterThan(300);

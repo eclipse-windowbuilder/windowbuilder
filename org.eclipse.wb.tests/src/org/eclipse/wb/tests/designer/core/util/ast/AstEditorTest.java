@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1077,12 +1077,12 @@ public class AstEditorTest extends AbstractJavaTest {
 		String unitContent = m_lastModelUnit.getBuffer().getContents();
 		String fileContent = getFileContentSrc("test/Test.java");
 		if (bufferEquals) {
-			Assertions.assertThat(unitContent).isEqualTo(expected);
+			assertEquals(unitContent, expected);
 		} else {
 			Assertions.assertThat(unitContent).isNotEqualTo(expected);
 		}
 		if (fileEquals) {
-			Assertions.assertThat(fileContent).isEqualTo(expected);
+			assertEquals(fileContent, expected);
 		} else {
 			Assertions.assertThat(fileContent).isNotEqualTo(expected);
 		}

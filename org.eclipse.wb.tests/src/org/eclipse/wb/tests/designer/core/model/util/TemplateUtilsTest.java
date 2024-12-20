@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,7 +28,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -205,7 +204,7 @@ public class TemplateUtilsTest extends SwingModelTest {
 		// do resolve
 		List<String> lines = List.of(getExpression(panel) + " a", getExpression(panel) + " b");
 		List<String> result = List.of("this a", "this b");
-		Assertions.assertThat(resolve(nodeTarget, lines)).isEqualTo(result);
+		assertEquals(resolve(nodeTarget, lines), result);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

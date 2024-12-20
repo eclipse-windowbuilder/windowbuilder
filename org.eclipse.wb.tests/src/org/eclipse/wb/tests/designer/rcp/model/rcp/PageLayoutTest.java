@@ -53,7 +53,6 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 
 import org.assertj.core.api.Assertions;
-import org.assertj.core.data.Offset;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -227,8 +226,8 @@ public class PageLayoutTest extends RcpModelTest {
 		// bounds
 		{
 			Rectangle bounds = editorArea.getBounds();
-			Assertions.assertThat(bounds.x).isEqualTo(0);
-			Assertions.assertThat(bounds.y).isEqualTo(0);
+			assertEquals(bounds.x, 0);
+			assertEquals(bounds.y, 0);
 			Assertions.assertThat(bounds.width).isGreaterThan(550);
 			Assertions.assertThat(bounds.height).isGreaterThan(450);
 		}
@@ -261,14 +260,14 @@ public class PageLayoutTest extends RcpModelTest {
 			Rectangle viewBounds = view.getBounds();
 			// editor bounds
 			Assertions.assertThat(editorBounds.x).isGreaterThan(550);
-			Assertions.assertThat(editorBounds.y).isEqualTo(0);
-			Assertions.assertThat(editorBounds.width).isEqualTo(0);
+			assertEquals(editorBounds.y, 0);
+			assertEquals(editorBounds.width, 0);
 			Assertions.assertThat(editorBounds.height).isGreaterThan(450);
 			// view bounds
-			Assertions.assertThat(viewBounds.x).isEqualTo(0);
-			Assertions.assertThat(viewBounds.y).isEqualTo(0);
+			assertEquals(viewBounds.x, 0);
+			assertEquals(viewBounds.y, 0);
 			Assertions.assertThat(viewBounds.width).isGreaterThan(450);
-			Assertions.assertThat(viewBounds.height).isEqualTo(editorBounds.height);
+			assertEquals(viewBounds.height, editorBounds.height);
 		}
 	}
 
@@ -411,13 +410,13 @@ public class PageLayoutTest extends RcpModelTest {
 			// line bounds
 			Assertions.assertThat(bounds_0.x).isGreaterThan(150);
 			Assertions.assertThat(bounds_0.y).isZero();
-			Assertions.assertThat(bounds_0.width).isEqualTo(SashLineInfo.SASH_SIZE);
+			assertEquals(bounds_0.width, SashLineInfo.SASH_SIZE);
 			Assertions.assertThat(bounds_0.height).isGreaterThanOrEqualTo(450);
 			// part bounds
 			Assertions.assertThat(line_0.getPartBounds().x).isZero();
 			Assertions.assertThat(line_0.getPartBounds().y).isZero();
-			Assertions.assertThat(line_0.getPartBounds().right()).isEqualTo(bounds_0.x);
-			Assertions.assertThat(line_0.getPartBounds().height).isEqualTo(bounds_0.height);
+			assertEquals(line_0.getPartBounds().right(), bounds_0.x);
+			assertEquals(line_0.getPartBounds().height, bounds_0.height);
 			// ref bounds
 			Assertions.assertThat(line_0.getRefBounds().x).isZero();
 			Assertions.assertThat(line_0.getRefBounds().y).isZero();
@@ -431,10 +430,10 @@ public class PageLayoutTest extends RcpModelTest {
 			assertEquals(PositionConstants.SOUTH, line.getPosition());
 			assertFalse(line.isHorizontal());
 			// line bounds
-			Assertions.assertThat(bounds_1.x).isEqualTo(bounds_0.x + bounds_0.width);
+			assertEquals(bounds_1.x, bounds_0.x + bounds_0.width);
 			Assertions.assertThat(bounds_1.y).isGreaterThan(130);
 			Assertions.assertThat(bounds_1.width).isGreaterThan(350);
-			Assertions.assertThat(bounds_1.height).isEqualTo(SashLineInfo.SASH_SIZE);
+			assertEquals(bounds_1.height, SashLineInfo.SASH_SIZE);
 		}
 		{
 			SashLineInfo line = line_2;
@@ -443,9 +442,9 @@ public class PageLayoutTest extends RcpModelTest {
 			assertEquals(PositionConstants.NORTH, line.getPosition());
 			assertFalse(line.isHorizontal());
 			// line bounds
-			Assertions.assertThat(bounds_2.x).isEqualTo(bounds_1.x);
-			Assertions.assertThat(bounds_2.height).isEqualTo(SashLineInfo.SASH_SIZE);
-			Assertions.assertThat(bounds_2.width).isEqualTo(bounds_1.width);
+			assertEquals(bounds_2.x, bounds_1.x);
+			assertEquals(bounds_2.height, SashLineInfo.SASH_SIZE);
+			assertEquals(bounds_2.width, bounds_1.width);
 		}
 		{
 			SashLineInfo line = line_3;
@@ -454,9 +453,9 @@ public class PageLayoutTest extends RcpModelTest {
 			assertEquals(PositionConstants.WEST, line.getPosition());
 			assertTrue(line.isHorizontal());
 			// line bounds
-			Assertions.assertThat(bounds_3.y).isEqualTo(bounds_1.y + bounds_1.height);
-			Assertions.assertThat(bounds_3.width).isEqualTo(SashLineInfo.SASH_SIZE);
-			Assertions.assertThat(bounds_3.height).isEqualTo(bounds_2.y - (bounds_1.y + bounds_1.height));
+			assertEquals(bounds_3.y, bounds_1.y + bounds_1.height);
+			assertEquals(bounds_3.width, SashLineInfo.SASH_SIZE);
+			assertEquals(bounds_3.height, bounds_2.y - (bounds_1.y + bounds_1.height));
 		}
 	}
 
@@ -516,14 +515,14 @@ public class PageLayoutTest extends RcpModelTest {
 			Rectangle editorBounds = editorArea.getBounds();
 			Rectangle viewBounds = view.getBounds();
 			// view bounds
-			Assertions.assertThat(viewBounds.x).isEqualTo(0);
-			Assertions.assertThat(viewBounds.y).isEqualTo(0);
+			assertEquals(viewBounds.x, 0);
+			assertEquals(viewBounds.y, 0);
 			Assertions.assertThat(viewBounds.width).isGreaterThan(150);
 			Assertions.assertThat(viewBounds.height).isGreaterThan(450);
 			// editor bounds
-			Assertions.assertThat(editorBounds.x).isEqualTo(viewBounds.right() + SashLineInfo.SASH_SIZE);
-			Assertions.assertThat(editorBounds.y).isEqualTo(0);
-			Assertions.assertThat(editorBounds.height).isEqualTo(viewBounds.height);
+			assertEquals(editorBounds.x, viewBounds.right() + SashLineInfo.SASH_SIZE);
+			assertEquals(editorBounds.y, 0);
+			assertEquals(editorBounds.height, viewBounds.height);
 			// relationship for editor/view width
 			assertPartsSizes(viewBounds.width, editorBounds.width, 0.3, 0.7);
 		}
@@ -555,14 +554,14 @@ public class PageLayoutTest extends RcpModelTest {
 			Rectangle editorBounds = editorArea.getBounds();
 			Rectangle viewBounds = view.getBounds();
 			// editor bounds
-			Assertions.assertThat(editorBounds.x).isEqualTo(0);
-			Assertions.assertThat(editorBounds.y).isEqualTo(0);
+			assertEquals(editorBounds.x, 0);
+			assertEquals(editorBounds.y, 0);
 			Assertions.assertThat(editorBounds.width).isGreaterThan(150);
 			Assertions.assertThat(editorBounds.height).isGreaterThan(450);
 			// view bounds
-			Assertions.assertThat(viewBounds.x).isEqualTo(editorBounds.right() + SashLineInfo.SASH_SIZE);
-			Assertions.assertThat(viewBounds.y).isEqualTo(0);
-			Assertions.assertThat(viewBounds.height).isEqualTo(editorBounds.height);
+			assertEquals(viewBounds.x, editorBounds.right() + SashLineInfo.SASH_SIZE);
+			assertEquals(viewBounds.y, 0);
+			assertEquals(viewBounds.height, editorBounds.height);
 			// relationship for editor/view width
 			assertPartsSizes(viewBounds.width, editorBounds.width, 0.3, 0.7);
 		}
@@ -594,14 +593,14 @@ public class PageLayoutTest extends RcpModelTest {
 			Rectangle editorBounds = editorArea.getBounds();
 			Rectangle viewBounds = view.getBounds();
 			// view bounds
-			Assertions.assertThat(viewBounds.x).isEqualTo(0);
-			Assertions.assertThat(viewBounds.y).isEqualTo(0);
+			assertEquals(viewBounds.x, 0);
+			assertEquals(viewBounds.y, 0);
 			Assertions.assertThat(viewBounds.width).isGreaterThan(500);
 			Assertions.assertThat(viewBounds.height).isGreaterThan(100);
 			// editor bounds
-			Assertions.assertThat(editorBounds.x).isEqualTo(0);
-			Assertions.assertThat(editorBounds.y).isEqualTo(viewBounds.bottom() + SashLineInfo.SASH_SIZE);
-			Assertions.assertThat(editorBounds.width).isEqualTo(viewBounds.width);
+			assertEquals(editorBounds.x, 0);
+			assertEquals(editorBounds.y, viewBounds.bottom() + SashLineInfo.SASH_SIZE);
+			assertEquals(editorBounds.width, viewBounds.width);
 			// relationship for editor/view height
 			assertPartsSizes(viewBounds.height, editorBounds.height, 0.3, 0.7);
 		}
@@ -633,14 +632,14 @@ public class PageLayoutTest extends RcpModelTest {
 			Rectangle editorBounds = editorArea.getBounds();
 			Rectangle viewBounds = view.getBounds();
 			// editor bounds
-			Assertions.assertThat(editorBounds.x).isEqualTo(0);
-			Assertions.assertThat(editorBounds.y).isEqualTo(0);
+			assertEquals(editorBounds.x, 0);
+			assertEquals(editorBounds.y, 0);
 			Assertions.assertThat(editorBounds.width).isGreaterThan(550);
 			Assertions.assertThat(editorBounds.height).isGreaterThan(300);
 			// view bounds
-			Assertions.assertThat(viewBounds.x).isEqualTo(0);
-			Assertions.assertThat(viewBounds.y).isEqualTo(editorBounds.bottom() + SashLineInfo.SASH_SIZE);
-			Assertions.assertThat(viewBounds.width).isEqualTo(editorBounds.width);
+			assertEquals(viewBounds.x, 0);
+			assertEquals(viewBounds.y, editorBounds.bottom() + SashLineInfo.SASH_SIZE);
+			assertEquals(viewBounds.width, editorBounds.width);
 			// relationship for editor/view height
 			assertPartsSizes(viewBounds.height, editorBounds.height, 0.3, 0.7);
 		}
@@ -684,8 +683,8 @@ public class PageLayoutTest extends RcpModelTest {
 			assertNotNull(view2.getSashLine());
 			{
 				Rectangle bounds = view2.getBounds();
-				Assertions.assertThat(bounds.x).isEqualTo(0);
-				Assertions.assertThat(bounds.y).isEqualTo(0);
+				assertEquals(bounds.x, 0);
+				assertEquals(bounds.y, 0);
 				Assertions.assertThat(bounds.width).isGreaterThan(150);
 				Assertions.assertThat(bounds.height).isGreaterThan(150);
 			}
@@ -720,9 +719,7 @@ public class PageLayoutTest extends RcpModelTest {
 	 * Asserts that two parts sizes are distributed according given coefficients.
 	 */
 	private static void assertPartsSizes(int value_1, int value_2, double k_1, double k_2) {
-		Assertions.assertThat(Math.abs(value_1 / k_1 - value_2 / k_2) - SashLineInfo.SASH_SIZE).isEqualTo(
-				0.0,
-				Offset.offset(2.0));
+		assertEquals(Math.abs(value_1 / k_1 - value_2 / k_2) - SashLineInfo.SASH_SIZE, 0.0, 2.0);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -766,7 +763,7 @@ public class PageLayoutTest extends RcpModelTest {
 			}
 			{
 				Rectangle bounds = container.getBounds();
-				Assertions.assertThat(bounds.x).isEqualTo(0);
+				assertEquals(bounds.x, 0);
 				Assertions.assertThat(bounds.y).isGreaterThan(450);
 				Assertions.assertThat(bounds.width).isGreaterThan(550);
 				Assertions.assertThat(bounds.height).isGreaterThan(20);
@@ -2359,8 +2356,8 @@ public class PageLayoutTest extends RcpModelTest {
 		page.refresh();
 		{
 			Rectangle bounds = folder.getBounds();
-			Assertions.assertThat(bounds.x).isEqualTo(0);
-			Assertions.assertThat(bounds.y).isEqualTo(0);
+			assertEquals(bounds.x, 0);
+			assertEquals(bounds.y, 0);
 			Assertions.assertThat(bounds.width).isGreaterThan(550);
 			Assertions.assertThat(bounds.height).isGreaterThan(150);
 		}
@@ -2375,7 +2372,7 @@ public class PageLayoutTest extends RcpModelTest {
 			Assertions.assertThat(bounds.height).isGreaterThan(20);
 			// relative to view_1
 			Assertions.assertThat(view_2.getBounds().x).isGreaterThan(view_1.getBounds().right());
-			Assertions.assertThat(view_2.getBounds().y).isEqualTo(view_1.getBounds().y);
+			assertEquals(view_2.getBounds().y, view_1.getBounds().y);
 		}
 		// check presentation of "folder"
 		{

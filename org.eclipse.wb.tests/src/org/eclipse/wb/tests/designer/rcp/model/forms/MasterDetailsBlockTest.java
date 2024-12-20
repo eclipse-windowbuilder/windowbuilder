@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import org.eclipse.wb.internal.rcp.model.forms.MasterDetailsBlockInfo;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -62,8 +61,8 @@ public class MasterDetailsBlockTest extends AbstractFormsTest {
 		// refresh
 		page.refresh();
 		assertNoErrors(page);
-		Assertions.assertThat(page.getBounds().width).isEqualTo(600);
-		Assertions.assertThat(page.getBounds().height).isEqualTo(500);
+		assertEquals(page.getBounds().width, 600);
+		assertEquals(page.getBounds().height, 500);
 		// Set new size.
 		// This test intentionally commented.
 		// ScrolledForm performs re-flow in async, so requires running messages loop,
@@ -71,8 +70,8 @@ public class MasterDetailsBlockTest extends AbstractFormsTest {
 		/*{
     	page.getTopBoundsSupport().setSize(450, 300);
     	page.refresh();
-    	Assertions.assertThat(page.getBounds().width).isEqualTo(450);
-    	Assertions.assertThat(page.getBounds().height).isEqualTo(300);
+    	assertEquals(page.getBounds().width, 450);
+    	assertEquals(page.getBounds().height, 300);
     }*/
 	}
 }

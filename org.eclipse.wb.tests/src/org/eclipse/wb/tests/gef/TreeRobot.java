@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -427,7 +428,7 @@ public final class TreeRobot {
 	 */
 	public TreeRobot assertPrimarySelected(Object object) {
 		TreeEditPart editPart = getEditPart(object);
-		Assertions.assertThat(editPart.getSelected()).isEqualTo(EditPart.SELECTED_PRIMARY);
+		assertEquals(editPart.getSelected(), EditPart.SELECTED_PRIMARY);
 		return this;
 	}
 
@@ -530,7 +531,7 @@ public final class TreeRobot {
 		assertSame(item, editPart.getWidget());
 		// before/after
 		Boolean location = (Boolean) tree.getData("_wbp_insertMarkLocation");
-		Assertions.assertThat(location).isEqualTo(before);
+		assertEquals(location, before);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

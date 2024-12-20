@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -434,7 +434,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 */
 	@Test
 	public void test_getEnumStrings() throws Exception {
-		Assertions.assertThat(GenericsUtils.getEnumStrings(MyEnum.A, MyEnum.B)).isEqualTo(new String[]{"A", "B"});
+		assertArrayEquals(GenericsUtils.getEnumStrings(MyEnum.A, MyEnum.B), new String[] { "A", "B" });
 	}
 
 	/**
@@ -455,7 +455,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		{
 			MyEnum[] expectedValues = new MyEnum[]{MyEnum.A, MyEnum.B};
 			MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, "A", "B");
-			Assertions.assertThat(actualValues).isEqualTo(expectedValues);
+			assertArrayEquals(actualValues, expectedValues);
 		}
 		// bad
 		try {
@@ -472,7 +472,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	public void test_getEnumValues_filter() throws Exception {
 		MyEnum[] expectedValues = new MyEnum[]{MyEnum.B, MyEnum.C};
 		MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, t -> t == MyEnum.B || t == MyEnum.C);
-		Assertions.assertThat(actualValues).isEqualTo(expectedValues);
+		assertArrayEquals(actualValues, expectedValues);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

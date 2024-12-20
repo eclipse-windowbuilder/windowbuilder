@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -246,7 +246,7 @@ public class QParserTest extends AbstractJavaProjectTest {
 		try {
 			parseSource("<root/foo");
 		} catch (QException e) {
-			Assertions.assertThat(e.getMessage()).isEqualTo("Expected > for tag: <root/> near line 1, column 7");
+			assertEquals(e.getMessage(), "Expected > for tag: <root/> near line 1, column 7");
 		}
 	}
 
@@ -420,7 +420,7 @@ public class QParserTest extends AbstractJavaProjectTest {
 		try {
 			parseSource("<root foo invalid=/>");
 		} catch (QException e) {
-			Assertions.assertThat(e.getMessage()).isEqualTo("Error in attribute processing near line 1, column 11");
+			assertEquals(e.getMessage(), "Error in attribute processing near line 1, column 11");
 		}
 	}
 
@@ -429,7 +429,7 @@ public class QParserTest extends AbstractJavaProjectTest {
 		try {
 			parseSource("<root foo=invalid/>");
 		} catch (QException e) {
-			Assertions.assertThat(e.getMessage()).isEqualTo("Error in attribute processing near line 1, column 11");
+			assertEquals(e.getMessage(), "Error in attribute processing near line 1, column 11");
 		}
 	}
 

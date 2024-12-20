@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import javax.swing.SpringLayout;
@@ -199,8 +198,8 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		// "button" is located at (5,10)
 		{
 			Rectangle modelBounds = button.getModelBounds();
-			Assertions.assertThat(modelBounds.x).isEqualTo(5);
-			Assertions.assertThat(modelBounds.y).isEqualTo(10);
+			assertEquals(modelBounds.x, 5);
+			assertEquals(modelBounds.y, 10);
 		}
 		// LEFT
 		{
@@ -259,13 +258,13 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		Rectangle bounds_2 = button_2.getModelBounds();
 		// "button_1" is located at (5,10)
 		{
-			Assertions.assertThat(bounds_1.x).isEqualTo(5);
-			Assertions.assertThat(bounds_1.y).isEqualTo(10);
+			assertEquals(bounds_1.x, 5);
+			assertEquals(bounds_1.y, 10);
 		}
 		// "button_2" is located at (right_1+5,y_1)
 		{
-			Assertions.assertThat(bounds_2.x).isEqualTo(bounds_1.right() + 5);
-			Assertions.assertThat(bounds_2.y).isEqualTo(bounds_1.y);
+			assertEquals(bounds_2.x, bounds_1.right() + 5);
+			assertEquals(bounds_2.y, bounds_1.y);
 		}
 		// "button_1" attachments
 		{

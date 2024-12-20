@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -90,7 +90,7 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 		{
 			Rectangle bounds = shell.getBounds();
 			Assertions.assertThat(bounds.width).isGreaterThan(9);
-			Assertions.assertThat(bounds.height).isEqualTo(300);
+			assertEquals(bounds.height, 300);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 		// size is reasonable
 		{
 			Rectangle bounds = shell.getBounds();
-			Assertions.assertThat(bounds.width).isEqualTo(450);
+			assertEquals(bounds.width, 450);
 			Assertions.assertThat(bounds.height).isGreaterThan(0);
 		}
 	}

@@ -758,7 +758,7 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 		// check that bounds just exist, we will test them carefully in next tests
 		Assertions.assertThat(fieldEditor.getBounds().width).isGreaterThan(300);
 		Assertions.assertThat(fieldEditor.getBounds().height).isGreaterThan(18);
-		Assertions.assertThat(labelControl.getBounds().x).isEqualTo(0);
+		assertEquals(labelControl.getBounds().x, 0);
 		Assertions.assertThat(labelControl.getBounds().width).isGreaterThan(50);
 		Assertions.assertThat(labelControl.getBounds().height).isGreaterThan(10);
 	}

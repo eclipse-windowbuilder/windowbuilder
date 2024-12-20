@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1970,11 +1970,11 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 		ComponentInfo button_4 = panel.getChildrenComponents().get(3);
 		ComponentInfo button_5 = panel.getChildrenComponents().get(4);
 		//
-		Assertions.assertThat(layout.getCellComponents(0, 0)).isEqualTo(List.of(button_1, button_2));
-		Assertions.assertThat(layout.getCellComponents(1, 0)).isEqualTo(List.of(button_3));
-		Assertions.assertThat(layout.getCellComponents(1, 1)).isEqualTo(List.of(button_4));
-		Assertions.assertThat(layout.getCellComponents(0, 2)).isEqualTo(List.of(button_5));
-		Assertions.assertThat(layout.getCellComponents(1, 2)).isEqualTo(List.of(button_5));
+		assertEquals(layout.getCellComponents(0, 0), List.of(button_1, button_2));
+		assertEquals(layout.getCellComponents(1, 0), List.of(button_3));
+		assertEquals(layout.getCellComponents(1, 1), List.of(button_4));
+		assertEquals(layout.getCellComponents(0, 2), List.of(button_5));
+		assertEquals(layout.getCellComponents(1, 2), List.of(button_5));
 		Assertions.assertThat(layout.getCellComponents(2, 2)).isEmpty();
 	}
 
