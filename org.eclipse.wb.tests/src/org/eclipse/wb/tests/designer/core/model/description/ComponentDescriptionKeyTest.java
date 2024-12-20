@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.core.model.description;
 import org.eclipse.wb.internal.core.model.description.ComponentDescriptionKey;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -96,7 +95,7 @@ public class ComponentDescriptionKeyTest extends DesignerTestCase {
 		ComponentDescriptionKey key_2 = new ComponentDescriptionKey(Component.class);
 		ComponentDescriptionKey key_3 = new ComponentDescriptionKey(Container.class);
 		assertEquals(key_1.hashCode(), key_2.hashCode());
-		Assertions.assertThat(key_1.hashCode()).isNotEqualTo(key_3.hashCode());
+		assertNotEquals(key_1.hashCode(), key_3.hashCode());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -109,10 +108,10 @@ public class ComponentDescriptionKeyTest extends DesignerTestCase {
 		ComponentDescriptionKey key_1 = new ComponentDescriptionKey(Component.class);
 		ComponentDescriptionKey key_2 = new ComponentDescriptionKey(Component.class);
 		ComponentDescriptionKey key_3 = new ComponentDescriptionKey(Container.class);
-		Assertions.assertThat(key_1).isNotEqualTo(this);
+		assertNotEquals(key_1, this);
 		assertEquals(key_1, key_1);
 		assertEquals(key_1, key_2);
-		Assertions.assertThat(key_1).isNotEqualTo(key_3);
+		assertNotEquals(key_1, key_3);
 	}
 
 	@Test
@@ -130,9 +129,9 @@ public class ComponentDescriptionKeyTest extends DesignerTestCase {
 		ComponentDescriptionKey key_5 =
 				new ComponentDescriptionKey(Component.class, host_1, "suffix_1");
 		assertEquals(key_1, key_1);
-		Assertions.assertThat(key_1).isNotEqualTo(key_2);
-		Assertions.assertThat(key_1).isNotEqualTo(key_3);
-		Assertions.assertThat(key_1).isNotEqualTo(key_4);
+		assertNotEquals(key_1, key_2);
+		assertNotEquals(key_1, key_3);
+		assertNotEquals(key_1, key_4);
 		assertEquals(key_1, key_5);
 	}
 
