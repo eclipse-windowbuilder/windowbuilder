@@ -1026,7 +1026,7 @@ public final class GraphicalRobot {
 								+ " "
 								+ figure.toString();
 			}
-			Assertions.assertThat(true).describedAs(message).isFalse();
+			fail(message);
 		}
 	}
 
