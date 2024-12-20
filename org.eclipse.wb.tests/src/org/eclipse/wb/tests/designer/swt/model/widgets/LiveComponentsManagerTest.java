@@ -555,7 +555,8 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		ControlInfo newButton = BTestUtils.createButton();
 		// get baseline
 		int liveBaseline = newButton.getBaseline();
-		Assertions.assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
+		assertNotEquals(liveBaseline, IBaselineSupport.NO_BASELINE);
+		assertTrue(liveBaseline > 0);
 		// drop Button
 		shell.getLayout().command_CREATE(newButton, null);
 		assertEditor(

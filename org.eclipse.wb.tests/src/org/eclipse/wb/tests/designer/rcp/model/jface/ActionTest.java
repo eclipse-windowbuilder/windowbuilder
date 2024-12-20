@@ -838,7 +838,7 @@ public class ActionTest extends RcpModelTest {
 		ContributionItemInfo item_1 = (ContributionItemInfo) toolBarManager.getItems().get(0);
 		ContributionItemInfo item_2 = (ContributionItemInfo) toolBarManager.getItems().get(1);
 		assertNotSame(item_1.getObject(), item_2.getObject());
-		Assertions.assertThat(item_1.getBounds()).isNotEqualTo(item_2.getBounds());
+		assertNotEquals(item_1.getBounds(), item_2.getBounds());
 	}
 
 	/**
@@ -878,7 +878,7 @@ public class ActionTest extends RcpModelTest {
 		assertNotSame(item_1.getObject(), item_2.getObject());
 		assertNotNull(item_1.getBounds());
 		assertNotNull(item_2.getBounds());
-		Assertions.assertThat(item_1.getBounds()).isNotEqualTo(item_2.getBounds());
+		assertNotEquals(item_1.getBounds(), item_2.getBounds());
 	}
 
 	/**

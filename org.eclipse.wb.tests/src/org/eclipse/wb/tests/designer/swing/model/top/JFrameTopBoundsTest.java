@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -211,8 +210,8 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 						"}");
 		// assert that pack() was invoked and not overridden
 		Dimension size = frame.getBounds().getSize();
-		Assertions.assertThat(size.width).isNotEqualTo(450);
-		Assertions.assertThat(size.height).isNotEqualTo(300);
+		assertNotEquals(size.width, 450);
+		assertNotEquals(size.height, 300);
 	}
 
 	/**

@@ -342,7 +342,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 			assertEquals(name_1, "test.G");
 			assertEquals(name_2, "test.G<java.lang.Double>");
 			assertEquals(name_3, "test.G<java.lang.Integer>");
-			Assertions.assertThat(name_1).isNotEqualTo(name_2);
+			assertNotEquals(name_1, name_2);
 		}
 	}
 

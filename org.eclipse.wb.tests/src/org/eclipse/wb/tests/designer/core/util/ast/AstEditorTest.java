@@ -1079,12 +1079,12 @@ public class AstEditorTest extends AbstractJavaTest {
 		if (bufferEquals) {
 			assertEquals(unitContent, expected);
 		} else {
-			Assertions.assertThat(unitContent).isNotEqualTo(expected);
+			assertNotEquals(unitContent, expected);
 		}
 		if (fileEquals) {
 			assertEquals(fileContent, expected);
 		} else {
-			Assertions.assertThat(fileContent).isNotEqualTo(expected);
+			assertNotEquals(fileContent, expected);
 		}
 	}
 

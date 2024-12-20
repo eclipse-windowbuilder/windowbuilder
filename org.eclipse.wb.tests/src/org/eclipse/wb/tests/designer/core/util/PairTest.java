@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
@@ -47,13 +46,13 @@ public class PairTest extends DesignerTestCase {
 	@Test
 	public void test_equalsNo_1() throws Exception {
 		Pair<String, String> pair_1 = Pair.create("One", "Odin");
-		Assertions.assertThat(pair_1).isNotEqualTo("One");
+		assertNotEquals(pair_1, "One");
 	}
 
 	@Test
 	public void test_equalsNo_2() throws Exception {
 		Pair<String, String> pair_1 = Pair.create("One", "Odin");
 		Pair<String, String> pair_2 = Pair.create("Two", "Dva");
-		Assertions.assertThat(pair_1).isNotEqualTo(pair_2);
+		assertNotEquals(pair_1, pair_2);
 	}
 }

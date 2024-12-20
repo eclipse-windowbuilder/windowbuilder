@@ -262,7 +262,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		ComponentInfo newButton = createJavaInfo("javax.swing.JButton");
 		// prepare "live" baseline
 		int liveBaseline = newButton.getBaseline();
-		Assertions.assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
+		assertNotEquals(liveBaseline, IBaselineSupport.NO_BASELINE);
+		assertTrue(liveBaseline > 0);
 		// drop JButton
 		((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
 		assertEditor(
