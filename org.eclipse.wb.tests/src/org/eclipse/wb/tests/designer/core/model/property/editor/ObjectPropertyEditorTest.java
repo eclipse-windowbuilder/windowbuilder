@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -107,7 +107,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		assertSame(PropertyCategory.ADVANCED, property.getCategory());
 		// prepare editor
 		final PropertyEditor propertyEditor = property.getEditor();
-		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -199,7 +199,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		assertFalse(property.isModified());
 		// prepare editor
 		final PropertyEditor propertyEditor = property.getEditor();
-		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -272,7 +272,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		assertNotNull(property);
 		// prepare editor
 		final PropertyEditor propertyEditor = property.getEditor();
-		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -378,7 +378,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		// prepare property
 		final Property property = label.getPropertyByTitle("labelFor");
 		final PropertyEditor propertyEditor = property.getEditor();
-		Assertions.assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
+		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate - just open and ensure that dialog opened (no exception during this)
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override

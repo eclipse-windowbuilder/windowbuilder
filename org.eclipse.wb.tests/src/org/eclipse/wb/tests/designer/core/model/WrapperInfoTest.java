@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -100,7 +100,7 @@ public class WrapperInfoTest extends SwingModelTest {
 				wrappedComponent.getVariableSupport());
 		// ... with wrapper
 		WrapperMethodInfo wrapper = wrappedComponent.getChildren(WrapperMethodInfo.class).get(0);
-		Assertions.assertThat(wrapper.getWrapper().getWrappedInfo()).isSameAs(wrappedComponent);
+		assertSame(wrapper.getWrapper().getWrappedInfo(), wrappedComponent);
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class WrapperInfoTest extends SwingModelTest {
 		ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
 		// ... with wrapper
 		WrapperMethodInfo wrapper = wrappedComponent.getChildren(WrapperMethodInfo.class).get(0);
-		Assertions.assertThat(wrapper.getWrapper().getWrappedInfo()).isSameAs(wrappedComponent);
+		assertSame(wrapper.getWrapper().getWrappedInfo(), wrappedComponent);
 		// hierarchy
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/add(panel)/}",

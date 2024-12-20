@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -139,7 +139,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		// property info
 		JavaInfo propertyInfo = editor.getInstanceInfo(property);
 		Assertions.assertThat(propertyInfo).isNotNull();
-		Assertions.assertThat(propertyInfo).isSameAs(childInfo);
+		assertSame(propertyInfo, childInfo);
 	}
 
 	/**
@@ -201,8 +201,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 					"}");
 			assertEquals("javax.swing.JButton", getPropertyText(property));
 			Assertions.assertThat(container.getChildrenComponents()).hasSize(1);
-			Assertions.assertThat(container.getChildrenComponents().get(0)).isSameAs(
-					editor.getInstanceInfo(property));
+			assertSame(container.getChildrenComponents().get(0), editor.getInstanceInfo(property));
 		}
 	}
 
@@ -263,7 +262,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
 		JavaInfo instanceInfo = editor.getInstanceInfo(property);
-		Assertions.assertThat(instanceInfo).isSameAs(container.getChildrenComponents().get(0));
+		assertSame(instanceInfo, container.getChildrenComponents().get(0));
 		// manual set listener for property
 		InstanceObjectPropertyEditor.installListenerForProperty(instanceInfo);
 		// set to default
@@ -298,7 +297,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		JavaInfo instanceInfo = editor.getInstanceInfo(property);
 		// sub property
 		Property subProperty = getPropertyByTitle(editor.getProperties(property), "text");
-		Assertions.assertThat(subProperty).isSameAs(instanceInfo.getPropertyByTitle("text"));
+		assertSame(subProperty, instanceInfo.getPropertyByTitle("text"));
 		subProperty.setValue("value");
 		// check source
 		assertEditor(

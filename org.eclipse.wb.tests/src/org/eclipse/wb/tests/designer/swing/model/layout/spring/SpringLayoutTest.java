@@ -607,7 +607,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		//
 		Property anchor = PropertyUtils.getByPath(button_2, "Constraints/WEST/anchor");
 		Assertions.assertThat(anchor.isModified()).isTrue();
-		Assertions.assertThat(anchor.getValue()).isSameAs(panel);
+		assertSame(anchor.getValue(), panel);
 		anchor.setValue(button_1);
 		assertEditor(
 				"public class Test extends JPanel {",

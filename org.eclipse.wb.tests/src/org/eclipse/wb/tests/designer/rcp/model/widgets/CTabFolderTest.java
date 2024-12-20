@@ -138,7 +138,7 @@ public class CTabFolderTest extends RcpModelTest {
 		item_2.doSelect();
 		// check that "item_2" is selected in model and in GUI
 		assertSame(item_2, tabFolder.getSelectedItem());
-		Assertions.assertThat(tabFolder.getWidget().getSelection()).isSameAs(item_2.getObject());
+		assertSame(tabFolder.getWidget().getSelection(), item_2.getObject());
 		// check tree/graphical children
 		Assertions.assertThat(tabFolder.getPresentation().getChildrenTree()).containsOnly(item_1, item_2);
 		Assertions.assertThat(tabFolder.getPresentation().getChildrenGraphical()).isEqualTo(
@@ -232,21 +232,21 @@ public class CTabFolderTest extends RcpModelTest {
 			boolean[] refresh = new boolean[]{false};
 			shell.getBroadcastObject().selecting(button_2, refresh);
 			Assertions.assertThat(refresh[0]).isTrue();
-			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_2);
+			assertSame(tabFolder.getSelectedItem(), item_2);
 		}
 		// again select "button_2", it is already selected, so no refresh
 		{
 			boolean[] refresh = new boolean[]{false};
 			shell.getBroadcastObject().selecting(button_2, refresh);
 			Assertions.assertThat(refresh[0]).isFalse();
-			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_2);
+			assertSame(tabFolder.getSelectedItem(), item_2);
 		}
 		// select "button_1", refresh expected
 		{
 			boolean[] refresh = new boolean[]{false};
 			shell.getBroadcastObject().selecting(button_1, refresh);
 			Assertions.assertThat(refresh[0]).isTrue();
-			Assertions.assertThat(tabFolder.getSelectedItem()).isSameAs(item_1);
+			assertSame(tabFolder.getSelectedItem(), item_1);
 		}
 	}
 
@@ -323,7 +323,7 @@ public class CTabFolderTest extends RcpModelTest {
 		item_2.doSelect();
 		// check that "item_2" is selected in model and in GUI
 		assertSame(item_2, tabFolder.getSelectedItem());
-		Assertions.assertThat(tabFolder.getWidget().getSelection()).isSameAs(item_2.getObject());
+		assertSame(tabFolder.getWidget().getSelection(), item_2.getObject());
 		// ...so, "button_2" is in graphical children and "button_1" is not
 		{
 			List<ObjectInfo> childrenGraphical = tabFolder.getPresentation().getChildrenGraphical();
