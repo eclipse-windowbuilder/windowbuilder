@@ -21,11 +21,6 @@ import org.eclipse.gef.EditPart;
  * <p>
  * Now {@link IEditPartConfigurator}'s are used to add some {@link EditPolicy} on {@link EditPart},
  * even if {@link EditPart} itself does not know anything about these {@link EditPolicy}.
- * <p>
- * For example we have SWT and <code>ControlEditPart</code>, that is used in both RCP and eRCP. But
- * in eRCP there is <code>Command</code> that can be dropped on <code>Control</code>. However we can
- * not install corresponding {@link EditPolicy} in <code>ControlEditPart</code> because at "shared"
- * SWT level we don't know anything about eRCP and <code>Command</code>.
  *
  * @author scheglov_ke
  * @coverage core.gef

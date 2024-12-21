@@ -73,7 +73,7 @@ public class SwingParserTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * No any Swing, eRCP or RCP classes, for no GUI toolkit.
+	 * No any Swing or RCP classes, for no GUI toolkit.
 	 */
 	@Test
 	public void test_noToolkit() throws Exception {

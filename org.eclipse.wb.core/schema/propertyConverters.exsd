@@ -43,7 +43,6 @@
             <annotation>
                <documentation>
                   The optional toolkit id, for cases when we want to have different converters for types with same name.
-For example eRCP and RCP share same namespace, so we need to know toolkit to decide if this  converter should be used for current component description.
                </documentation>
             </annotation>
          </attribute>

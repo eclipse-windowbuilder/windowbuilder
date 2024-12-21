@@ -10,7 +10,6 @@ Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.swt,
  org.eclipse.wb.internal.swt.gef,
  org.eclipse.wb.internal.swt.gef.part,
- org.eclipse.wb.internal.swt.gef.part.delegate,
  org.eclipse.wb.internal.swt.gef.policy,
  org.eclipse.wb.internal.swt.gef.policy.layout,
  org.eclipse.wb.internal.swt.gef.policy.layout.form,
