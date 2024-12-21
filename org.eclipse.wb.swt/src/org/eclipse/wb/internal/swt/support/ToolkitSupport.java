@@ -40,15 +40,15 @@ public class ToolkitSupport extends AbstractSupport {
 	/**
 	 * Marks given {@link Control} instance as needed screen shot {@link Image}.
 	 */
-	public static void markAsNeededImage(Object control) throws Exception {
-		ControlSupport.setData(control, OSSupport.WBP_NEED_IMAGE, Boolean.TRUE);
+	public static void markAsNeededImage(Control control) throws Exception {
+		control.setData(OSSupport.WBP_NEED_IMAGE, Boolean.TRUE);
 	}
 
 	/**
 	 * @return the screen shot {@link Image} from given {@link Control}.
 	 */
-	public static Image getShotImage(Object control) throws Exception {
-		return (Image) ControlSupport.getData(control, OSSupport.WBP_IMAGE);
+	public static Image getShotImage(Control control) throws Exception {
+		return (Image) control.getData(OSSupport.WBP_IMAGE);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class ToolkitSupport extends AbstractSupport {
 	 * <code>WBP_NEED_IMAGE</code>. Created {@link Image}'s are located in <code>WBP_IMAGE</code>
 	 * data.
 	 */
-	public static void makeShots(Object control) throws Exception {
+	public static void makeShots(Control control) throws Exception {
 		getImpl().makeShots(control);
 		makeShotsHierarchy(control);
 	}
@@ -66,9 +66,9 @@ public class ToolkitSupport extends AbstractSupport {
 	 * <code>WBP_NEED_IMAGE</code>. Created {@link Image}'s are located in <code>WBP_IMAGE</code>
 	 * data.
 	 */
-	private static void makeShotsHierarchy(Object control) throws Exception {
-		if (ControlSupport.getData(control, OSSupport.WBP_NEED_IMAGE) != null) {
-			ControlSupport.setData(control, OSSupport.WBP_IMAGE, getImpl().getShotImage(control));
+	private static void makeShotsHierarchy(Control control) throws Exception {
+		if (control.getData(OSSupport.WBP_NEED_IMAGE) != null) {
+			control.setData(OSSupport.WBP_IMAGE, getImpl().getShotImage(control));
 			// set images for children
 			if (control instanceof Composite composite) {
 				for (Control child : composite.getChildren()) {

@@ -11,7 +11,7 @@
 package org.eclipse.wb.tests.designer.swt;
 
 import org.eclipse.wb.tests.designer.swt.model.ModelTests;
-import org.eclipse.wb.tests.designer.swt.support.SupportTests;
+import org.eclipse.wb.tests.designer.swt.support.CoordinateUtilsTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -27,7 +27,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	ManagerUtilsTest.class,
 	ModelTests.class,
-	SupportTests.class,
+	CoordinateUtilsTest.class,
 
 })
 public class SwtTests {

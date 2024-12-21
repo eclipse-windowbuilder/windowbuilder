@@ -39,7 +39,6 @@ import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
@@ -1304,7 +1303,7 @@ public class CompositeTest extends RcpModelTest {
 	// Use separate Shell as "parent"
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static Object m_shouldNotBeSharedShell;
+	private static Shell m_shouldNotBeSharedShell;
 
 	/**
 	 * We can not use same {@link Shell} for more than one {@link Composite}.
@@ -1322,7 +1321,7 @@ public class CompositeTest extends RcpModelTest {
 						"}");
 		composite.refresh();
 		//
-		Object shell_1 = ControlSupport.getShell(composite.getObject());
+		Shell shell_1 = composite.getWidget().getShell();
 		m_shouldNotBeSharedShell = shell_1;
 	}
 
@@ -1340,10 +1339,10 @@ public class CompositeTest extends RcpModelTest {
 						"}");
 		composite.refresh();
 		// separate Shell expected
-		Object shell_2 = ControlSupport.getShell(composite.getObject());
+		Shell shell_2 = composite.getWidget().getShell();
 		assertNotSame(shell_2, m_shouldNotBeSharedShell);
 		// and previous Shell should be disposed
-		assertTrue(ControlSupport.isDisposed(m_shouldNotBeSharedShell));
+		assertTrue(m_shouldNotBeSharedShell.isDisposed());
 		m_shouldNotBeSharedShell = null;
 	}
 }

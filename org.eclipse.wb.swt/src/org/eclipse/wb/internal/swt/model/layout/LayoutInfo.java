@@ -43,7 +43,6 @@ import org.eclipse.wb.internal.swt.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.action.MenuManager;
@@ -235,7 +234,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 		if (hasLayoutData()) {
 			Class<?> expectedLayoutDataClass = getLayoutDataClass();
 			for (Control control : controls) {
-				Object layoutData = ControlSupport.getLayoutData(control);
+				Object layoutData = control.getLayoutData();
 				if (!ReflectionUtils.isAssignableFrom(expectedLayoutDataClass, layoutData)) {
 					throw new DesignerException(IExceptionConstants.INCOMPATIBLE_LAYOUT_DATA,
 							getShortClassName(layoutData),
@@ -533,7 +532,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 				if (control.getArbitraryValue(KEY_EXPOSED_HAS_DATA) != null) {
 					layoutDataObject = control.getArbitraryValue(KEY_EXPOSED_DATA);
 				} else {
-					layoutDataObject = ControlSupport.getLayoutData(control.getObject());
+					layoutDataObject = control.getWidget().getLayoutData();
 					control.putArbitraryValue(KEY_EXPOSED_HAS_DATA, Boolean.TRUE);
 					control.putArbitraryValue(KEY_EXPOSED_DATA, layoutDataObject);
 				}

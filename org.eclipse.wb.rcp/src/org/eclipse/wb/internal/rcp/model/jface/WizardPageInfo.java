@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.IExceptionConstants;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -113,7 +112,7 @@ public final class WizardPageInfo extends DialogPageInfo implements IJavaInfoRen
 	public void refresh_dispose() throws Exception {
 		// dispose WizardDialog
 		if (m_wizardDialog != null) {
-			if (m_shell != null && !ControlSupport.isDisposed(m_shell)) {
+			if (m_shell != null && !m_shell.isDisposed()) {
 				m_wizardDialog.close();
 			}
 			m_wizardDialog = null;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.model.property.converter.FloatConverter;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -322,7 +322,7 @@ IPageLayoutTopLevelInfo {
 	protected void refresh_fetch() throws Exception {
 		{
 			Control control = (Control) getComponentObject();
-			setModelBounds(ControlSupport.getBounds(control));
+			setModelBounds(new Rectangle(control.getBounds()));
 		}
 		super.refresh_fetch();
 	}

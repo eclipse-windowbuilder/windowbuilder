@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.internal.core.model.creation.IMethodParameterEvaluator;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ITypeBinding;
@@ -49,7 +48,7 @@ public final class SwtMethodParameterEvaluator implements IMethodParameterEvalua
 		// parent
 		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
 			if (index == 0 || parameterName.equals("parent")) {
-				return getDefaultShell(parameter, classLoader);
+				return getDefaultShell(parameter);
 			}
 		}
 		// Display
@@ -74,11 +73,10 @@ public final class SwtMethodParameterEvaluator implements IMethodParameterEvalua
 	/**
 	 * @return the {@link Shell} instance for given {@link ASTNode}, existing or new.
 	 */
-	public static Object getDefaultShell(ASTNode node, ClassLoader classLoader) throws Exception {
-		Object shell = node.getProperty(SHELL_KEY);
-		if (shell == null || ControlSupport.isDisposed(shell)) {
-			Class<?> c_Shell = classLoader.loadClass("org.eclipse.swt.widgets.Shell");
-			shell = c_Shell.newInstance();
+	public static Shell getDefaultShell(ASTNode node) {
+		Shell shell = (Shell) node.getProperty(SHELL_KEY);
+		if (shell == null || shell.isDisposed()) {
+			shell = new Shell();
 			node.setProperty(SHELL_KEY, shell);
 		}
 		return shell;

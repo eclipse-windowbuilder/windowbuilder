@@ -17,11 +17,11 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.pshelf.PShelf;
 import org.eclipse.nebula.widgets.pshelf.PShelfItem;
+import org.eclipse.swt.widgets.Control;
 
 import java.util.List;
 
@@ -150,8 +150,8 @@ public final class PShelfInfo extends CompositeInfo {
 		int itemHeaderHeight = ReflectionUtils.getFieldInt(getObject(), "itemHeight");
 		int height = itemHeaderHeight;
 		if (m_selectedItem != null && itemObject == m_selectedItem.getObject()) {
-			Object bodyParent = ReflectionUtils.invokeMethod(itemObject, "getBodyParent()");
-			Rectangle bounds = ControlSupport.getBounds(bodyParent);
+			Control bodyParent = (Control) ReflectionUtils.invokeMethod(itemObject, "getBodyParent()");
+			Rectangle bounds = new Rectangle(bodyParent.getBounds());
 			height += bounds.height;
 		}
 		return height;

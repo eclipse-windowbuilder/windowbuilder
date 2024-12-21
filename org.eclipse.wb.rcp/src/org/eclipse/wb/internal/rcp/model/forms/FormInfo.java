@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Form;
 
 import java.util.List;
@@ -184,9 +185,9 @@ public final class FormInfo extends CompositeInfo {
 		{
 			Object /* FormHeading */ headObject = getWidget().getHead();
 			Object /* TitleRegion */ titleRegionObject = ReflectionUtils.getFieldObject(headObject, "titleRegion");
-			Object /* MenuHyperlink */ menuHyperlinkObject =
-					ReflectionUtils.getFieldObject(titleRegionObject, "menuHyperlink");
-			Rectangle menuHyperlinkBounds = CoordinateUtils.getBounds(getObject(), menuHyperlinkObject);
+			Control /* MenuHyperlink */ menuHyperlinkObject =
+					(Control) ReflectionUtils.getFieldObject(titleRegionObject, "menuHyperlink");
+			Rectangle menuHyperlinkBounds = CoordinateUtils.getBounds(getWidget(), menuHyperlinkObject);
 			m_menuManagerPopup.setBounds(menuHyperlinkBounds);
 		}
 	}

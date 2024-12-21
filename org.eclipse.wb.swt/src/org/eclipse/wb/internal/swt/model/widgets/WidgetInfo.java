@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -180,8 +179,8 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
 	 * @return the style of this {@link WidgetInfo}, for existing {@link Object} or "live".
 	 */
 	public final int getStyle() {
-		if (getObject() != null) {
-			return ControlSupport.getStyle(getObject());
+		if (getWidget() != null) {
+			return getWidget().getStyle();
 		} else {
 			return getLiveComponentsManager().getStyle();
 		}

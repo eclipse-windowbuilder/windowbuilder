@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.swt.layout.FillLayout;
@@ -71,7 +70,7 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
 		{
 			Control[] childControls = m_shell.getChildren();
 			if (childControls.length == 1) {
-				ControlSupport.setLayoutData(childControls[0], null);
+				childControls[0].setLayoutData(null);
 			}
 		}
 		// continue
@@ -92,7 +91,7 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
 	public void refresh_dispose() throws Exception {
 		// dispose Shell
 		if (m_shell != null) {
-			ControlSupport.dispose(m_shell);
+			m_shell.dispose();
 			m_shell = null;
 		}
 		// call "super"

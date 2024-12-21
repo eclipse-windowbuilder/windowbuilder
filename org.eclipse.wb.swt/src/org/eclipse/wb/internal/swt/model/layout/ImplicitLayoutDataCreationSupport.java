@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,11 +19,11 @@ import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * Implementation of {@link CreationSupport} for implicit {@link LayoutDataInfo}.
@@ -47,7 +47,7 @@ IImplicitCreationSupport {
 			@Override
 			public void invoke(JavaInfo target, Object object) throws Exception {
 				if (target == m_controlInfo) {
-					m_javaInfo.setObject(ControlSupport.getLayoutData(object));
+					m_javaInfo.setObject(((Control) object).getLayoutData()); 
 				}
 			}
 		});

@@ -20,8 +20,8 @@ import org.eclipse.wb.tests.designer.Expectations.InsValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 
@@ -69,7 +69,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 			waitEventLoop(10);
 		}
 		// Shell location
-		Point shellLocation = CoordinateUtils.getDisplayLocation(shell.getObject());
+		Point shellLocation = CoordinateUtils.getDisplayLocation(shell.getWidget());
 		// The shell is located at (0, 0), when invisible
 		if (EnvironmentUtils.IS_WINDOWS) {
 			assertEquals(new Point(-10000, -10000), shellLocation);
@@ -81,13 +81,13 @@ public class CoordinateUtilsTest extends RcpModelTest {
 		Assertions.assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
 		// Button location
 		{
-			Point buttonLocation = CoordinateUtils.getDisplayLocation(button.getObject());
+			Point buttonLocation = CoordinateUtils.getDisplayLocation(button.getWidget());
 			assertEquals(shellLocation.x + shellInsets.left + 10, buttonLocation.x);
 			assertEquals(shellLocation.y + shellInsets.top + 20, buttonLocation.y);
 		}
 		// getBounds() for Button relative to Shell
 		{
-			Rectangle bounds = CoordinateUtils.getBounds(shell.getObject(), button.getObject());
+			Rectangle bounds = CoordinateUtils.getBounds(shell.getWidget(), button.getWidget());
 			assertEquals(shellInsets.left + 10, bounds.x);
 			assertEquals(shellInsets.top + 20, bounds.y);
 			assertEquals(50, bounds.width);

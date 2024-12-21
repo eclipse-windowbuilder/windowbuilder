@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentati
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.ToolBar;
@@ -52,7 +51,7 @@ public final class ToolBarInfo extends CompositeInfo {
 	 * @return <code>true</code> if this {@link ToolBarInfo} has horizontal layout.
 	 */
 	public boolean isHorizontal() {
-		return ControlSupport.isStyle(getObject(), SWT.HORIZONTAL);
+		return (getWidget().getStyle() & SWT.HORIZONTAL) != 0;
 	}
 
 	/**

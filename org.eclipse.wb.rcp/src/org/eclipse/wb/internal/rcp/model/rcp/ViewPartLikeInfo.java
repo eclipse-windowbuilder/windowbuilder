@@ -24,13 +24,13 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerPopupInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
@@ -185,9 +185,9 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
 		{
 			m_menuToolItemBounds = new Rectangle(m_menuToolItem.getBounds());
 			Point menuToolItemDisplayLocation =
-					new Point(m_menuToolItem.getParent().toDisplay(
+					m_menuToolItem.getParent().toDisplay(
 							m_menuToolItemBounds.x,
-							m_menuToolItemBounds.y));
+							m_menuToolItemBounds.y);
 			// convert into "shot"
 			Point parentLocation = CoordinateUtils.getDisplayLocation(m_tabFolder);
 			m_menuToolItemBounds.x = menuToolItemDisplayLocation.x - parentLocation.x;

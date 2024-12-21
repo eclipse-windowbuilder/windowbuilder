@@ -57,8 +57,7 @@ public class AbstractSplashHandlerInfo extends AbstractComponentInfo implements 
 		Object window = getObject();
 		{
 			ASTNode node = getCreationSupport().getNode();
-			ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-			m_shell = (Shell) SwtMethodParameterEvaluator.getDefaultShell(node, classLoader);
+			m_shell = SwtMethodParameterEvaluator.getDefaultShell(node);
 			m_shell.setLayout(new FillLayout());
 			//m_shell.setVisible(true);
 		}

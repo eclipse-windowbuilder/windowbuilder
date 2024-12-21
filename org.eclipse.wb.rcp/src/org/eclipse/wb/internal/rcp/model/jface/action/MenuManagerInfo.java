@@ -24,14 +24,13 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
@@ -70,13 +69,13 @@ public final class MenuManagerInfo extends ContributionManagerInfo implements IC
 	protected void refresh_afterCreate() throws Exception {
 		// force creation for all MenuManager's
 		if (!(getParent() instanceof MenuManagerInfo)) {
-			ReflectionUtils.invokeMethod(getObject(), "updateAll(boolean)", true);
+			getManager().updateAll(true);
 		}
 		// reset 'setRemoveAllWhenShown', because it causes empty menu.
-		ReflectionUtils.invokeMethod2(getObject(), "setRemoveAllWhenShown", boolean.class, false);
+		getManager().setRemoveAllWhenShown(false);
 		// process Menu widget
 		{
-			Menu menu = (Menu) ReflectionUtils.invokeMethod2(getObject(), "getMenu");
+			Menu menu = getManager().getMenu();
 			// if no any items, create one
 			if (menu.getItemCount() == 0) {
 				new MenuItem(menu, SWT.NONE).setText(ModelMessages.MenuManagerInfo_emptyMessage);
@@ -90,7 +89,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo implements IC
 
 	@Override
 	protected void refresh_fetch() throws Exception {
-		Menu menu = (Menu) ReflectionUtils.invokeMethod2(getObject(), "getMenu");
+		Menu menu = getManager().getMenu();
 		// fetch menu visual data
 		DisplayEventListener displayListener = getBroadcast(DisplayEventListener.class);
 		try {
@@ -126,9 +125,17 @@ public final class MenuManagerInfo extends ContributionManagerInfo implements IC
 	 */
 	public boolean isBar() {
 		return ExecutionUtils.runObject(() -> {
-			Menu menu = (Menu) ReflectionUtils.invokeMethod2(getObject(), "getMenu");
-			return ControlSupport.isStyle(menu, SWT.BAR);
+			Menu menu = getManager().getMenu();
+			return (menu.getStyle() & SWT.BAR) != 0;
 		});
+	}
+
+	/**
+	 * Convenience method for accessing the {@link MenuManager} contained by this
+	 * {@link MenuManagerInfo}.
+	 */
+	public MenuManager getManager() {
+		return (MenuManager) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

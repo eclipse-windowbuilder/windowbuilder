@@ -15,9 +15,9 @@ import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -47,8 +47,8 @@ public final class CoordinateUtils {
 	/**
 	 * @return the location of given control in display coordinates.
 	 */
-	public static Point getDisplayLocation(Object composite) throws Exception {
-		Rectangle bounds = ControlSupport.getBounds(composite);
+	public static Point getDisplayLocation(Control composite) throws Exception {
+		org.eclipse.swt.graphics.Rectangle bounds = composite.getBounds();
 		int x = bounds.x;
 		int y = bounds.y;
 		return getDisplayLocation(composite, x, y);
@@ -57,13 +57,13 @@ public final class CoordinateUtils {
 	/**
 	 * @return the given location (in parent of given <code>composite</code>) in display coordinates.
 	 */
-	public static Point getDisplayLocation(Object composite, int x, int y) throws Exception {
+	public static Point getDisplayLocation(Control composite, int x, int y) throws Exception {
 		if (EnvironmentUtils.IS_LINUX && composite instanceof Shell shell) {
 			// In GTK, the bounds of a shell return the top-left position of the window
 			// manager. Because this manager is not part of the actual shell, we need to use
 			// this little workaround to get the REAL position of the shell.
 			// See: https://github.com/eclipse-platform/eclipse.platform.swt/issues/828
-			Point point = ControlSupport.toDisplay(composite, 0, 0);
+			Point point = composite.toDisplay(0, 0);
 			y = point.y;
 			Menu menuBar = shell.getMenuBar();
 			if (menuBar != null) {
@@ -72,9 +72,9 @@ public final class CoordinateUtils {
 			}
 		}
 		if (!(composite instanceof Shell)) {
-			Object parent = ControlSupport.getParent(composite);
+			Composite parent = composite.getParent();
 			if (parent != null) {
-				Point location = ControlSupport.toDisplay(parent, x, y);
+				Point location = parent.toDisplay(x, y);
 				x = location.x;
 				y = location.y;
 			}
@@ -85,8 +85,8 @@ public final class CoordinateUtils {
 	/**
 	 * @return the bounds of <code>child</code> relative to <code>parent</code>.
 	 */
-	public static Rectangle getBounds(Object parent, Object child) throws Exception {
-		Rectangle bounds = ControlSupport.getBounds(child);
+	public static Rectangle getBounds(Control parent, Control child) throws Exception {
+		Rectangle bounds = new Rectangle(child.getBounds());
 		Point childLocation = CoordinateUtils.getDisplayLocation(child);
 		Point parentLocation = CoordinateUtils.getDisplayLocation(parent);
 		bounds.x = childLocation.x - parentLocation.x;
@@ -104,14 +104,14 @@ public final class CoordinateUtils {
 		int left;
 		{
 			Point displayLocation = getDisplayLocation(composite);
-			Point clientAreaLocation = ControlSupport.toDisplay(composite, 0, 0);
+			Point clientAreaLocation = composite.toDisplay(0, 0);
 			// tweak for right-to-left
 			{
 				Composite parentComposite = composite != null ? composite.getParent() : null;
 				boolean isRTL = composite != null && (composite.getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 				boolean isParentRTL = parentComposite != null && (parentComposite.getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 				if (isRTL && !isParentRTL) {
-					Rectangle clientArea = new Rectangle(composite.getClientArea());
+					org.eclipse.swt.graphics.Rectangle clientArea = composite.getClientArea();
 					clientAreaLocation.x -= clientArea.width;
 				}
 			}
@@ -124,8 +124,8 @@ public final class CoordinateUtils {
 			return IFigure.NO_INSETS;
 		}
 		// prepare bottom/right
-		Rectangle bounds = ControlSupport.getBounds(composite);
-		Rectangle clientArea = new Rectangle(composite.getClientArea());
+		org.eclipse.swt.graphics.Rectangle bounds = composite.getBounds();
+		org.eclipse.swt.graphics.Rectangle clientArea = composite.getClientArea();
 		int bottom = bounds.height - top - clientArea.height;
 		int right = bounds.width - left - clientArea.width;
 		// final insets
@@ -155,8 +155,8 @@ public final class CoordinateUtils {
 			}
 		}
 		// prepare bounds/clientArea
-		Rectangle bounds = ControlSupport.getBounds(composite);
-		Rectangle clientArea = new Rectangle(composite.getClientArea());
+		org.eclipse.swt.graphics.Rectangle bounds = composite.getBounds();
+		org.eclipse.swt.graphics.Rectangle clientArea = composite.getClientArea();
 		// prepare insets
 		int top = clientArea.y;
 		int left = clientArea.x;

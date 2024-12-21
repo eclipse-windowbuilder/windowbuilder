@@ -11,7 +11,7 @@
 package org.eclipse.wb.internal.swt.model.widgets.menu;
 
 import org.eclipse.wb.internal.swt.model.widgets.StylePresentation;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
+import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 
 import org.eclipse.swt.SWT;
 
@@ -39,7 +39,7 @@ public final class MenuItemStylePresentation extends StylePresentation {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String getText() throws Exception {
-		if (ControlSupport.isStyle(m_javaInfo.getObject(), SWT.SEPARATOR)) {
+		if ((((WidgetInfo) m_javaInfo).getWidget().getStyle() & SWT.SEPARATOR) != 0) {
 			return "<separator>";
 		}
 		return super.getText();
