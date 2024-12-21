@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
@@ -461,13 +460,13 @@ public class ControlTest extends RcpModelTest {
 		shell.refresh();
 		// prepare "MyButton"
 		ControlInfo badComponent = shell.getChildrenControls().get(0);
-		Object badComponentObject = badComponent.getObject();
+		Control badComponentObject = (Control) badComponent.getObject();
 		// "MyButton" has placeholder object - Composite
 		assertEquals(badComponentObject.getClass().getName(), "org.eclipse.swt.widgets.Composite");
 		assertTrue(badComponent.isPlaceholder());
 		// "shell" has only one Control child (we should remove partially create MyButton instance)
 		{
-			Object[] children = ContainerSupport.getChildren(shell.getObject());
+			Control[] children = shell.getWidget().getChildren();
 			Assertions.assertThat(children).hasSize(1).containsOnly(badComponentObject);
 		}
 	}
@@ -661,7 +660,7 @@ public class ControlTest extends RcpModelTest {
 		assertFalse(button.isPlaceholder());
 		// only one (good) instance of MyButton should be on Shell
 		{
-			Object[] children = ContainerSupport.getChildren(shell.getObject());
+			Control[] children = shell.getWidget().getChildren();
 			Assertions.assertThat(children).hasSize(1).containsOnly(buttonObject);
 		}
 		// check logged exceptions

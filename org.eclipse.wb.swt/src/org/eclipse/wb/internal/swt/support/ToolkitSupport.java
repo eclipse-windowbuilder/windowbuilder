@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
@@ -69,9 +70,8 @@ public class ToolkitSupport extends AbstractSupport {
 		if (ControlSupport.getData(control, OSSupport.WBP_NEED_IMAGE) != null) {
 			ControlSupport.setData(control, OSSupport.WBP_IMAGE, getImpl().getShotImage(control));
 			// set images for children
-			if (ContainerSupport.getCompositeClass().isAssignableFrom(control.getClass())) {
-				Object[] children = ContainerSupport.getChildren(control);
-				for (Object child : children) {
+			if (control instanceof Composite composite) {
+				for (Control child : composite.getChildren()) {
 					makeShotsHierarchy(child);
 				}
 			}

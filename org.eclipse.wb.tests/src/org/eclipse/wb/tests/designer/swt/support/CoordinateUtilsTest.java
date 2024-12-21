@@ -75,7 +75,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 			assertEquals(new Point(-10000, -10000), shellLocation);
 		}
 		// Shell client area insets
-		Insets shellInsets = CoordinateUtils.getClientAreaInsets(shell.getObject());
+		Insets shellInsets = CoordinateUtils.getClientAreaInsets(shell.getWidget());
 		assertTrue(shellInsets.left == shellInsets.right);
 		Assertions.assertThat(shellInsets.left).isGreaterThanOrEqualTo(0);
 		Assertions.assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
@@ -116,6 +116,6 @@ public class CoordinateUtilsTest extends RcpModelTest {
 				Expectations.get(new Insets(15, 3, 3, 3), new InsValue[]{
 						new InsValue("flanker-windows", new Insets(15, 3, 3, 3)),
 						new InsValue("scheglov-win", new Insets(15, 3, 3, 3))});
-		assertEquals(insets, CoordinateUtils.getClientAreaInsets2(group.getObject()));
+		assertEquals(insets, CoordinateUtils.getClientAreaInsets2(group.getWidget()));
 	}
 }

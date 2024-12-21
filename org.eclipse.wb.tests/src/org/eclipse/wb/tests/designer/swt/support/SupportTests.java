@@ -22,8 +22,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 		CoordinateUtilsTest.class,
-		ControlSupportTest.class,
-		ContainerSupportTest.class
+		ControlSupportTest.class
 })
 public class SupportTests {
 }

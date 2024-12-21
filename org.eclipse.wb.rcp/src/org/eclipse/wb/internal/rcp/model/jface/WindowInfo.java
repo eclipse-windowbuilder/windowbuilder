@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRendering {
-	private Object m_shell;
+	private Shell m_shell;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -60,6 +60,14 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
 		super(editor, description, creationSupport);
 		JavaInfoUtils.scheduleSpecialRendering(this);
 		fillContextMenu();
+	}
+
+	/**
+	 * Convenience method for accessing the {@link Window} contained by this
+	 * {@link WindowInfo}.
+	 */
+	public Window getWindow() {
+		return (Window) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -135,9 +143,9 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void render() throws Exception {
-		Object window = getObject();
-		ReflectionUtils.invokeMethod(window, "create()");
-		m_shell = ReflectionUtils.invokeMethod(window, "getShell()");
+		Window window = getWindow();
+		window.create();
+		m_shell = window.getShell();
 	}
 
 	public Shell getParentShell_interceptor() throws Exception {
@@ -174,14 +182,14 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
 	}
 
 	@Override
-	public Object getComponentObject() {
+	public Shell getComponentObject() {
 		return m_shell;
 	}
 
 	/**
 	 * @return the {@link WindowInfo}'s Shell.
 	 */
-	Object getShell() {
+	Shell getShell() {
 		return m_shell;
 	}
 

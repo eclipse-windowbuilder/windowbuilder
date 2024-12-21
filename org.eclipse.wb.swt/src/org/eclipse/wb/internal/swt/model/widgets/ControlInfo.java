@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
@@ -35,7 +34,9 @@ import org.eclipse.wb.os.OSSupportError;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import java.util.List;
@@ -207,9 +208,10 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 						bounds.x = controlLocation.x - parentLocation.x;
 						bounds.y = controlLocation.y - parentLocation.y;
 						// tweak for RIGHT_TO_LEFT
-						if (ContainerSupport.isComposite(parentControl)
-								&& ContainerSupport.isRTL(parentControl)) {
-							if (ContainerSupport.isRTL(ControlSupport.getParent(parentControl))) {
+						if (parentControl instanceof Composite composite
+								&& (composite.getStyle() & SWT.RIGHT_TO_LEFT) != 0) {
+							Composite parentComposite = composite != null ? composite.getParent() : null;
+							if (parentComposite != null && (parentComposite.getStyle() & SWT.RIGHT_TO_LEFT) != 0) {
 								bounds.x += ControlSupport.getBounds(parentControl).width;
 							}
 							bounds.x -= bounds.width;
@@ -223,8 +225,8 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 				component.setBounds(bounds);
 			}
 			// prepare insets
-			if (ContainerSupport.isComposite(control)) {
-				component.setClientAreaInsets(CoordinateUtils.getClientAreaInsets(control));
+			if (control instanceof Composite composite) {
+				component.setClientAreaInsets(CoordinateUtils.getClientAreaInsets(composite));
 			}
 			// continue, process children
 			if (superRefreshFetch != null) {

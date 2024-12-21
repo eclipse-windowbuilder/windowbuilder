@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,13 +13,13 @@ package org.eclipse.wb.tests.designer.swt.support;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Shell;
 
 import org.junit.Test;
 
@@ -81,7 +81,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		// Control is Control ;-)
 		assertTrue(ControlSupport.isControlClass(ControlSupport.getControlClass()));
 		// Shell is Control
-		assertTrue(ControlSupport.isControlClass(ContainerSupport.getShellClass()));
+		assertTrue(ControlSupport.isControlClass(Shell.class));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class ControlSupportTest extends AbstractSupportTest {
 		// Object is not Control
 		assertFalse(ControlSupport.isControl(new Object()));
 		// Shell is Control
-		Object shell = ContainerSupport.createShell();
+		Shell shell = new Shell();
 		try {
 			assertTrue(ControlSupport.isControl(shell));
 		} finally {

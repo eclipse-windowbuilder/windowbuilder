@@ -15,14 +15,14 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.util.IJavaInfoRendering;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
+import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.preference.PreferenceDialog;
+import org.eclipse.jface.preference.PreferenceManager;
+import org.eclipse.jface.preference.PreferenceNode;
 import org.eclipse.jface.preference.PreferencePage;
-
-import java.lang.reflect.Constructor;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Model for {@link PreferencePage}.
@@ -49,11 +49,19 @@ public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRende
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	Object getShell() {
+	Shell getShell() {
 		if (m_shell == null) {
-			return ExecutionUtils.runObject(() -> ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()"));
+			return m_preferenceDialog.getShell();
 		}
 		return super.getShell();
+	}
+
+	/**
+	 * Convenience method for accessing the {@link IPreferencePage} contained by
+	 * this {@link PreferencePageInfo}.
+	 */
+	public IPreferencePage getPreferencePage() {
+		return (IPreferencePage) getObject();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -61,50 +69,26 @@ public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRende
 	// Rendering
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static Object m_parentShell;
-	private Object m_preferenceDialog;
+	private static Shell m_parentShell;
+	private PreferenceDialog m_preferenceDialog;
 
 	@Override
 	public void render() throws Exception {
-		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
 		// prepare PreferenceNode
-		Object preferenceNode;
-		{
-			Class<?> clazz = editorLoader.loadClass("org.eclipse.jface.preference.PreferenceNode");
-			Constructor<?> constructor =
-					ReflectionUtils.getConstructorBySignature(
-							clazz,
-							"<init>(java.lang.String,org.eclipse.jface.preference.IPreferencePage)");
-			preferenceNode = constructor.newInstance("__wbp", getObject());
-		}
+		PreferenceNode preferenceNode = new PreferenceNode("__wbp", getPreferencePage());
 		// prepare PreferenceManager
-		Object preferenceManager;
-		{
-			Class<?> clazz = editorLoader.loadClass("org.eclipse.jface.preference.PreferenceManager");
-			preferenceManager = clazz.newInstance();
-		}
+		PreferenceManager preferenceManager = new PreferenceManager();
 		// add this PreferencePage
-		ReflectionUtils.invokeMethod(
-				preferenceManager,
-				"addToRoot(org.eclipse.jface.preference.IPreferenceNode)",
-				preferenceNode);
+		preferenceManager.addToRoot(preferenceNode);
 		// prepare parent Shell for PreferenceDialog
 		if (m_parentShell == null) {
-			m_parentShell = ContainerSupport.createShell();
+			m_parentShell = new Shell();
 		}
 		// create PreferenceDialog
-		{
-			Class<?> preferenceDialogClass =
-					editorLoader.loadClass("org.eclipse.jface.preference.PreferenceDialog");
-			Constructor<?> constructor =
-					ReflectionUtils.getConstructorBySignature(
-							preferenceDialogClass,
-							"<init>(org.eclipse.swt.widgets.Shell,org.eclipse.jface.preference.PreferenceManager)");
-			m_preferenceDialog = constructor.newInstance(m_parentShell, preferenceManager);
-		}
+		m_preferenceDialog = new PreferenceDialog(m_parentShell, preferenceManager);
 		// open PreferenceDialog, so perform PreferencePage GUI creation
-		ReflectionUtils.invokeMethod(m_preferenceDialog, "create()");
-		m_shell = ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
+		m_preferenceDialog.create();
+		m_shell = m_preferenceDialog.getShell();
 		configureShell();
 	}
 

@@ -37,7 +37,6 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.actions.SelectionActionsSupport;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.GridLayoutSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -156,7 +155,7 @@ IGridLayoutInfo<ControlInfo> {
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Set<Object> m_controlsImplicit = new HashSet<>();
+	private final Set<Control> m_controlsImplicit = new HashSet<>();
 
 	@Override
 	public void refresh_dispose() throws Exception {
@@ -179,14 +178,14 @@ IGridLayoutInfo<ControlInfo> {
 	private void prepareImplicitControls() {
 		m_controlsImplicit.clear();
 		// with model
-		Set<Object> controlsWithModel = new HashSet<>();
+		Set<Control> controlsWithModel = new HashSet<>();
 		for (ControlInfo control : getControls()) {
-			controlsWithModel.add(control.getObject());
+			controlsWithModel.add(control.getWidget());
 		}
 		// process all and remember Control-s without model
-		Object compositeObject = getComposite().getObject();
-		Object[] controlsAll = ContainerSupport.getChildren(compositeObject);
-		for (Object control : controlsAll) {
+		Composite compositeObject = getComposite().getWidget();
+		Control[] controlsAll = compositeObject.getChildren();
+		for (Control control : controlsAll) {
 			if (!controlsWithModel.contains(control)) {
 				m_controlsImplicit.add(control);
 			}
@@ -853,7 +852,7 @@ IGridLayoutInfo<ControlInfo> {
 	private Dimension getImplicitGridSize() {
 		int columnCount = 0;
 		int rowCount = 0;
-		for (Object control : m_controlsImplicit) {
+		for (Control control : m_controlsImplicit) {
 			Rectangle cells = getImplicitControlCells(control);
 			columnCount = Math.max(columnCount, cells.right());
 			rowCount = Math.max(rowCount, cells.bottom());
@@ -864,7 +863,7 @@ IGridLayoutInfo<ControlInfo> {
 	/**
 	 * @return the cells of given {@link Control}.
 	 */
-	private Rectangle getImplicitControlCells(Object control) {
+	private Rectangle getImplicitControlCells(Control control) {
 		Object layout = getObject();
 		Point xy = GridLayoutSupport.getXY(layout, control);
 		// may be excluded
@@ -935,7 +934,7 @@ IGridLayoutInfo<ControlInfo> {
 	private boolean isEmptyCell(ControlInfo[][] grid, int row, int column) {
 		{
 			Object layoutObject = getObject();
-			for (Object control : m_controlsImplicit) {
+			for (Control control : m_controlsImplicit) {
 				Point point = GridLayoutSupport.getXY(layoutObject, control);
 				if (point != null && point.x == column && point.y == row) {
 					return false;
@@ -1126,7 +1125,7 @@ IGridLayoutInfo<ControlInfo> {
 				// fill occupied cells map: cell -> ControlInfo
 				fillOccupiedCells(occupiedCells, control, cells);
 			}
-			for (Object control : m_controlsImplicit) {
+			for (Control control : m_controlsImplicit) {
 				Rectangle cells = getImplicitControlCells(control);
 				fillOccupiedCells(occupiedCells, getComposite(), cells);
 			}
