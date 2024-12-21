@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -57,20 +58,20 @@ public final class CoordinateUtils {
 	 * @return the given location (in parent of given <code>composite</code>) in display coordinates.
 	 */
 	public static Point getDisplayLocation(Object composite, int x, int y) throws Exception {
-		if (EnvironmentUtils.IS_LINUX && ContainerSupport.isShell(composite)) {
+		if (EnvironmentUtils.IS_LINUX && composite instanceof Shell shell) {
 			// In GTK, the bounds of a shell return the top-left position of the window
 			// manager. Because this manager is not part of the actual shell, we need to use
 			// this little workaround to get the REAL position of the shell.
 			// See: https://github.com/eclipse-platform/eclipse.platform.swt/issues/828
 			Point point = ControlSupport.toDisplay(composite, 0, 0);
 			y = point.y;
-			Menu menuBar = ((Shell) composite).getMenuBar();
+			Menu menuBar = shell.getMenuBar();
 			if (menuBar != null) {
 				var menuBounds = OSSupport.get().getMenuBarBounds(menuBar);
 				y -= menuBounds.height;
 			}
 		}
-		if (!ContainerSupport.isShell(composite)) {
+		if (!(composite instanceof Shell)) {
 			Object parent = ControlSupport.getParent(composite);
 			if (parent != null) {
 				Point location = ControlSupport.toDisplay(parent, x, y);
@@ -97,7 +98,7 @@ public final class CoordinateUtils {
 	 * @return {@link Insets} for given composite. Practically we need here only shift of
 	 *         <code>(0,0)</code> point of client area relative to the top-left corner of bounds.
 	 */
-	public static Insets getClientAreaInsets(Object composite) throws Exception {
+	public static Insets getClientAreaInsets(Composite composite) throws Exception {
 		// prepare top/left
 		int top;
 		int left;
@@ -106,10 +107,11 @@ public final class CoordinateUtils {
 			Point clientAreaLocation = ControlSupport.toDisplay(composite, 0, 0);
 			// tweak for right-to-left
 			{
-				boolean isRTL = ContainerSupport.isRTL(composite);
-				boolean isParentRTL = ContainerSupport.isRTL(ControlSupport.getParent(composite));
+				Composite parentComposite = composite != null ? composite.getParent() : null;
+				boolean isRTL = composite != null && (composite.getStyle() & SWT.RIGHT_TO_LEFT) != 0;
+				boolean isParentRTL = parentComposite != null && (parentComposite.getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 				if (isRTL && !isParentRTL) {
-					Rectangle clientArea = ContainerSupport.getClientArea(composite);
+					Rectangle clientArea = new Rectangle(composite.getClientArea());
 					clientAreaLocation.x -= clientArea.width;
 				}
 			}
@@ -123,7 +125,7 @@ public final class CoordinateUtils {
 		}
 		// prepare bottom/right
 		Rectangle bounds = ControlSupport.getBounds(composite);
-		Rectangle clientArea = ContainerSupport.getClientArea(composite);
+		Rectangle clientArea = new Rectangle(composite.getClientArea());
 		int bottom = bounds.height - top - clientArea.height;
 		int right = bounds.width - left - clientArea.width;
 		// final insets
@@ -144,7 +146,7 @@ public final class CoordinateUtils {
 	 *
 	 * @return the {@link Insets} for "displaying data" part of given {@link Composite}.
 	 */
-	public static Insets getClientAreaInsets2(Object composite) throws Exception {
+	public static Insets getClientAreaInsets2(Composite composite) throws Exception {
 		// if client area (0,0) is shifted from top-left corner of bounds, then no need it additional insets
 		{
 			Insets trimInsets = getClientAreaInsets(composite);
@@ -154,7 +156,7 @@ public final class CoordinateUtils {
 		}
 		// prepare bounds/clientArea
 		Rectangle bounds = ControlSupport.getBounds(composite);
-		Rectangle clientArea = ContainerSupport.getClientArea(composite);
+		Rectangle clientArea = new Rectangle(composite.getClientArea());
 		// prepare insets
 		int top = clientArea.y;
 		int left = clientArea.x;

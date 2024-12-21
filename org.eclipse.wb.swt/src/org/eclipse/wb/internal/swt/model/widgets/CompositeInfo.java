@@ -65,7 +65,6 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.property.TabOrderProperty;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
@@ -309,7 +308,7 @@ IThisMethodParameterEvaluator {
 
 	@Override
 	protected void refresh_fetch() throws Exception {
-		m_clientAreaInsets2 = CoordinateUtils.getClientAreaInsets2(getObject());
+		m_clientAreaInsets2 = CoordinateUtils.getClientAreaInsets2(getWidget());
 		super.refresh_fetch();
 	}
 
@@ -406,7 +405,7 @@ IThisMethodParameterEvaluator {
 			}
 			// prepare for creation
 			AstEditor editor = getEditor();
-			Object layout = ContainerSupport.getLayout(getObject());
+			Layout layout = getWidget().getLayout();
 			// check if same implicit already exists
 			if (initialize_removeImplicitLayout(layout)) {
 				return;
@@ -676,7 +675,7 @@ IThisMethodParameterEvaluator {
 	 */
 	@Override
 	public final boolean isRTL() {
-		return ContainerSupport.isRTL(getObject());
+		return getWidget() != null && (getWidget().getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 	}
 
 	@Override

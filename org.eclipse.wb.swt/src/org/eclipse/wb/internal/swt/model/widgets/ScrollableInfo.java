@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swt.model.widgets;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Scrollable;
@@ -47,7 +46,7 @@ public class ScrollableInfo extends ControlInfo implements IScrollableInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		super.refresh_fetch();
-		m_clientArea = ContainerSupport.getClientArea(getObject());
+		m_clientArea = new Rectangle(getWidget().getClientArea());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -61,5 +60,10 @@ public class ScrollableInfo extends ControlInfo implements IScrollableInfo {
 	@Override
 	public Rectangle getClientArea() {
 		return m_clientArea;
+	}
+
+	@Override
+	public Scrollable getWidget() {
+		return (Scrollable) getObject();
 	}
 }

@@ -43,7 +43,6 @@ import org.eclipse.wb.internal.swt.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -232,10 +231,10 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 	 */
 	private void validateCorrespondence_Layout_LayoutData() throws Exception {
 		CompositeInfo composite = getComposite();
-		Object[] controls = ContainerSupport.getChildren(composite.getObject());
+		Control[] controls = composite.getWidget().getChildren();
 		if (hasLayoutData()) {
 			Class<?> expectedLayoutDataClass = getLayoutDataClass();
-			for (Object control : controls) {
+			for (Control control : controls) {
 				Object layoutData = ControlSupport.getLayoutData(control);
 				if (!ReflectionUtils.isAssignableFrom(expectedLayoutDataClass, layoutData)) {
 					throw new DesignerException(IExceptionConstants.INCOMPATIBLE_LAYOUT_DATA,

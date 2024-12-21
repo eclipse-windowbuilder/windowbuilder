@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,10 +18,12 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Model for {@link DialogPage} itself.
@@ -49,8 +51,8 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void render() throws Exception {
-		m_shell = ContainerSupport.createShell();
-		ContainerSupport.setFillLayout(m_shell);
+		m_shell = new Shell();
+		m_shell.setLayout(new FillLayout());
 		//
 		ReflectionUtils.invokeMethod(
 				getObject(),
@@ -67,7 +69,7 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
 	protected void refresh_afterCreate() throws Exception {
 		// clear LayoutData, because FillLayout does not want any
 		{
-			Object[] childControls = ContainerSupport.getChildren(m_shell);
+			Control[] childControls = m_shell.getChildren();
 			if (childControls.length == 1) {
 				ControlSupport.setLayoutData(childControls[0], null);
 			}

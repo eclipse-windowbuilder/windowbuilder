@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,8 +22,6 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -36,6 +34,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import org.apache.commons.io.FilenameUtils;
@@ -187,21 +186,21 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
 	 */
 	private static Object tryToCreate(Constructor<?> actualConstructor, Object... arguments)
 			throws Exception {
-		Object parent = arguments[0];
+		Composite parent = (Composite) arguments[0];
 		// special case: no parent (probably only for Shell)
 		if (parent == null) {
 			return actualConstructor.newInstance(arguments);
 		}
 		// when has parent
-		int oldChildrenCount = ContainerSupport.getChildren(parent).length;
+		int oldChildrenCount = parent.getChildren().length;
 		try {
 			return actualConstructor.newInstance(arguments);
 		} catch (Throwable e) {
 			// dispose new Control(s)
-			Object[] newChildren = ContainerSupport.getChildren(parent);
+			Control[] newChildren = parent.getChildren();
 			for (int i = oldChildrenCount; i < newChildren.length; i++) {
-				Object newChild = newChildren[i];
-				ControlSupport.dispose(newChild);
+				Control newChild = newChildren[i];
+				newChild.dispose();
 			}
 			// re-throw
 			throw ReflectionUtils.getExceptionToThrow(e);

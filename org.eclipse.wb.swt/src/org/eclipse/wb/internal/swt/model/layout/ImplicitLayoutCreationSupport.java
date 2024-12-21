@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,11 +24,12 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Layout;
 
 /**
  * Implementation of {@link CreationSupport} for implicit {@link LayoutInfo}.
@@ -87,7 +88,7 @@ IImplicitCreationSupport {
 		@Override
 		public void invoke(JavaInfo target, Object object) throws Exception {
 			if (target == m_composite) {
-				Object layout = ContainerSupport.getLayout(object);
+				Layout layout = ((Composite) object).getLayout();
 				Class<?> layoutClass = m_javaInfo.getDescription().getComponentClass();
 				if (layoutClass == null) {
 					m_javaInfo.setObject(layout);

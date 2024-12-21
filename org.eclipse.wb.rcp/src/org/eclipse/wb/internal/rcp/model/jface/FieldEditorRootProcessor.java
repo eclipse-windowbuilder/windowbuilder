@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,10 +20,10 @@ import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.swt.widgets.Composite;
 
 import java.util.List;
 
@@ -118,7 +118,7 @@ public final class FieldEditorRootProcessor implements IRootProcessor {
 				ConstructorCreationSupport creationSupport =
 						(ConstructorCreationSupport) component.getCreationSupport();
 				for (ParameterDescription parameter : creationSupport.getDescription().getParameters()) {
-					if (parameter.getType() == ContainerSupport.getCompositeClass()) {
+					if (parameter.getType() == Composite.class) {
 						// prepare CompositeInfo used in FieldEditor creation
 						CompositeInfo compositeInfo;
 						{

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,14 +18,17 @@ import org.eclipse.wb.internal.core.model.property.converter.IntegerConverter;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
+import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -62,7 +65,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 				"setSize(int,int)",
 				"setSize(org.eclipse.swt.graphics.Point)",
 		"pack()"})) {
-			ContainerSupport.layout(m_component.getObject());
+			((Composite) m_component.getObject()).layout();
 			return;
 		}
 		// set size from resource properties (or default)
@@ -107,7 +110,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public boolean show() throws Exception {
-		Object control = m_component.getObject();
+		Control control = (Control) m_component.getObject();
 		show(m_component, control);
 		return true;
 	}
@@ -115,7 +118,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 	/**
 	 * Shows given control for testing/preview.
 	 */
-	public static void show(AbstractComponentInfo component, Object control) throws Exception {
+	public static void show(AbstractComponentInfo component, Control control) throws Exception {
 		showBefore();
 		try {
 			show0(control);
@@ -154,17 +157,17 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 	/**
 	 * Shows given control for testing/preview, raw.
 	 */
-	private static void show0(Object control) throws Exception {
-		final Object shell = ControlSupport.getShell(control);
+	private static void show0(Control control) throws Exception {
+		final Shell shell = control.getShell();
 		// handle wrapper
 		if (control != shell) {
-			ContainerSupport.setShellText(shell, ModelMessages.CompositeTopBoundsSupport_wrapperShellText);
-			ContainerSupport.setFillLayout(shell);
+			shell.setText(ModelMessages.CompositeTopBoundsSupport_wrapperShellText);
+			shell.setLayout(new FillLayout());
 			org.eclipse.draw2d.geometry.Rectangle controlBounds = ControlSupport.getBounds(control);
-			org.eclipse.draw2d.geometry.Rectangle shellBounds =
-					ContainerSupport.computeTrim(shell, 0, 0, controlBounds.width, controlBounds.height);
+			org.eclipse.draw2d.geometry.Rectangle shellBounds = new org.eclipse.draw2d.geometry.Rectangle(
+					shell.computeTrim(0, 0, controlBounds.width, controlBounds.height));
 			ControlSupport.setSize(shell, shellBounds.width, shellBounds.height);
-			ContainerSupport.layout(shell);
+			shell.layout();
 		}
 		// close preview by pressing ESC key
 		Runnable clearESC = closeOnESC(shell);
@@ -186,20 +189,20 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 			ControlSupport.setLocation(shell, x, y);
 		}
 		// show Shell in modal state
-		ContainerSupport.showShell(shell);
+		ToolkitSupport.showShell(shell);
 		clearESC.run();
 	}
 
 	/**
 	 * Add the display filter which closes preview by pressing ESC key.
 	 */
-	private static Runnable closeOnESC(final Object shell) {
+	private static Runnable closeOnESC(final Shell shell) {
 		final Display display = DesignerPlugin.getStandardDisplay();
 		final Listener listener = new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				if (event.keyCode == SWT.ESC) {
-					ContainerSupport.closeShell(shell);
+					shell.close();
 					event.doit = false;
 				}
 			}
