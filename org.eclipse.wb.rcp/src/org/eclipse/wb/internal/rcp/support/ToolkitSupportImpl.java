@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,15 +23,11 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -59,19 +55,17 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void makeShots(Object controlObject) throws Exception {
+	public void makeShots(Control controlObject) throws Exception {
 		OSSupport.get().makeShots(controlObject);
 	}
 
 	@Override
-	public Image getShotImage(Object controlObject) throws Exception {
-		Widget widget = (Widget) controlObject;
-		return (Image) widget.getData(OSSupport.WBP_IMAGE);
+	public Image getShotImage(Control controlObject) throws Exception {
+		return (Image) controlObject.getData(OSSupport.WBP_IMAGE);
 	}
 
 	@Override
-	public MenuVisualData fetchMenuVisualData(Object menuObject) throws Exception {
-		Menu menu = (Menu) menuObject;
+	public MenuVisualData fetchMenuVisualData(Menu menu) throws Exception {
 		MenuVisualData menuInfo = new MenuVisualData();
 		if ((menu.getStyle() & SWT.BAR) != 0) {
 			// menu bar
@@ -111,35 +105,13 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 	}
 
 	@Override
-	public void beginShot(Object controlObject) {
+	public void beginShot(Control controlObject) {
 		OSSupport.get().beginShot(controlObject);
 	}
 
 	@Override
-	public void endShot(Object controlObject) {
+	public void endShot(Control controlObject) {
 		OSSupport.get().endShot(controlObject);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public Object createToolkitImage(Image image) throws Exception {
-		return image;
-	}
-
-	@Override
-	public Image createSWTImage(Object image) throws Exception {
-		// save image to byte stream
-		ImageLoader loader = new ImageLoader();
-		loader.data = new ImageData[]{((Image) image).getImageData()};
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		loader.save(outStream, SWT.IMAGE_PNG);
-		// load image from byte stream
-		ByteArrayInputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
-		return new Image(null, inStream);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -148,8 +120,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void showShell(Object shellObject) throws Exception {
-		final Shell shell = (Shell) shellObject;
+	public void showShell(Shell shell) throws Exception {
 		final Shell mainShell = DesignerPlugin.getShell();
 		// [Linux] feature in SWT/GTK: since we cannot use Test/Preview shell as modal
 		// and if the 'main' shell of the application is disabled, switching to other
@@ -215,8 +186,8 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
 	}
 
 	@Override
-	public Image getFontPreview(Object font) throws Exception {
-		m_fontPreviewShell.updateFont((Font) font);
+	public Image getFontPreview(Font font) throws Exception {
+		m_fontPreviewShell.updateFont(font);
 		return OSSupport.get().makeShot(m_fontPreviewShell);
 	}
 

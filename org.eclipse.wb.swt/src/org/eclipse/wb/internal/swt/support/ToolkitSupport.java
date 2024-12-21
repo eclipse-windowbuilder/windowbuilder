@@ -18,6 +18,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.StringUtils;
@@ -81,21 +82,21 @@ public class ToolkitSupport extends AbstractSupport {
 	/**
 	 * Prepares the process of taking screen shot.
 	 */
-	public static void beginShot(Object control) throws Exception {
+	public static void beginShot(Control control) throws Exception {
 		getImpl().beginShot(control);
 	}
 
 	/**
 	 * Finalizes the process of taking screen shot.
 	 */
-	public static void endShot(Object control) throws Exception {
+	public static void endShot(Control control) throws Exception {
 		getImpl().endShot(control);
 	}
 
 	/**
 	 * @return {@link MenuVisualData} for given menu.
 	 */
-	public static MenuVisualData fetchMenuVisualData(Object menu) throws Exception {
+	public static MenuVisualData fetchMenuVisualData(Menu menu) throws Exception {
 		return getImpl().fetchMenuVisualData(menu);
 	}
 
@@ -108,32 +109,13 @@ public class ToolkitSupport extends AbstractSupport {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the new toolkit {@link Image} for given SWT {@link Image}.
-	 */
-	public static Object createToolkitImage(Image image) throws Exception {
-		return getImpl().createToolkitImage(image);
-	}
-
-	/**
-	 * @return the new SWT {@link Image} for given toolkit {@link Image}.
-	 */
-	public static Image createSWTImage(Object image) throws Exception {
-		return getImpl().createSWTImage(image);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Shell
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Shows given {@link Shell} object to user. On close {@link Shell} will be hidden, not disposed.
 	 */
-	public static void showShell(Object shell) throws Exception {
+	public static void showShell(Shell shell) throws Exception {
 		getImpl().showShell(shell);
 	}
 
@@ -152,7 +134,7 @@ public class ToolkitSupport extends AbstractSupport {
 	/**
 	 * @return {@link Image} with preview for given {@link Font}.
 	 */
-	public static Image getFontPreview(Object font) throws Exception {
+	public static Image getFontPreview(Font font) throws Exception {
 		return getImpl().getFontPreview(font);
 	}
 
