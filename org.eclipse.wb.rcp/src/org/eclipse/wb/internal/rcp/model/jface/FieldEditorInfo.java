@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,7 +31,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.rcp.model.rcp.WorkbenchPartLikeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
@@ -41,6 +40,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jface.preference.FieldEditor;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
@@ -82,7 +82,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 		});
 		// remember Control's of FieldEditor
 		addBroadcastListener(new EvaluationEventListener() {
-			private final List<Object> m_beforeControls = new ArrayList<>();
+			private final List<Control> m_beforeControls = new ArrayList<>();
 
 			@Override
 			public void evaluateBefore(EvaluationContext context, ASTNode node) throws Exception {
@@ -107,7 +107,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 			/**
 			 * @return the top level {@link Shell}
 			 */
-			private Object getShell() {
+			private Shell getShell() {
 				ObjectInfo root = EditorState.getActiveJavaInfo().getRoot();
 				if (root instanceof PreferencePageInfo) {
 					return ((PreferencePageInfo) root).getShell();
@@ -186,7 +186,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 	@Override
 	public Object getComponentObject() {
 		if (!m_controls.isEmpty()) {
-			if (ContainerSupport.isComposite(m_controls.get(0))) {
+			if (m_controls.get(0) instanceof Composite) {
 				return m_controls.get(0);
 			} else {
 				return ((AbstractComponentInfo) getParent()).getComponentObject();
@@ -217,19 +217,18 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 	// Refresh
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<Object> m_controls = new ArrayList<>();
+	private final List<Control> m_controls = new ArrayList<>();
 
 	/**
 	 * Appends direct/indirect children of given {@link Control}.
 	 */
-	private static void appendControls(Object control, List<Object> controls) throws Exception {
+	private static void appendControls(Control control, List<Control> controls) throws Exception {
 		if (control == null) {
 			return;
 		}
 		controls.add(control);
-		if (ContainerSupport.isComposite(control)) {
-			Object[] children = ContainerSupport.getChildren(control);
-			for (Object child : children) {
+		if (control instanceof Composite composite) {
+			for (Control child : composite.getChildren()) {
 				appendControls(child, controls);
 			}
 		}
@@ -245,15 +244,14 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 	protected void refresh_fetch() throws Exception {
 		// prepare enclosing bounds for FieldEditor Control's
 		Assert.isLegal(!m_controls.isEmpty());
-		if (ContainerSupport.isComposite(m_controls.get(0))) {
-			Object composite = m_controls.get(0);
+		if (m_controls.get(0) instanceof Composite composite) {
 			ControlInfo.refresh_fetch(this, composite, null);
 		} else {
 			// keep only "top level" Control's, remove any children
-			for (Iterator<Object> I = m_controls.iterator(); I.hasNext();) {
-				Object control = I.next();
+			for (Iterator<Control> I = m_controls.iterator(); I.hasNext();) {
+				Control control = I.next();
 				do {
-					control = ControlSupport.getParent(control);
+					control = control.getParent();
 					if (m_controls.contains(control)) {
 						I.remove();
 						break;
@@ -262,7 +260,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 			}
 			// prepare "bounds" as intersection of all Control's
 			Rectangle bounds = new Rectangle();
-			for (Object control : m_controls) {
+			for (Control control : m_controls) {
 				Rectangle controlBounds = ControlSupport.getBounds(control);
 				if (bounds.isEmpty()) {
 					bounds = controlBounds;

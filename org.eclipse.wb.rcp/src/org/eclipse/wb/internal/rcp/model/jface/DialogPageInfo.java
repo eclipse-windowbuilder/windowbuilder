@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Abstract model for {@link DialogPage} subclasses.
@@ -27,7 +28,7 @@ import org.eclipse.jface.dialogs.DialogPage;
  * @coverage rcp.model.jface
  */
 public abstract class DialogPageInfo extends AbstractComponentInfo {
-	protected Object m_shell;
+	protected Shell m_shell;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -61,14 +62,14 @@ public abstract class DialogPageInfo extends AbstractComponentInfo {
 	}
 
 	@Override
-	public Object getComponentObject() {
+	public Shell getComponentObject() {
 		return m_shell;
 	}
 
 	/**
 	 * @return the {@link DialogPageInfo}'s Shell.
 	 */
-	Object getShell() {
+	Shell getShell() {
 		return m_shell;
 	}
 

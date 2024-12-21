@@ -11,9 +11,9 @@
 package org.eclipse.wb.internal.swt.model.widgets.exposed;
 
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.HierarchyProvider;
-import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -35,8 +35,8 @@ public final class ControlsHierarchyProvider extends HierarchyProvider {
 
 	@Override
 	public Object[] getChildrenObjects(Object object) throws Exception {
-		if (ContainerSupport.isComposite(object)) {
-			return ContainerSupport.getChildren(object);
+		if (object instanceof Composite composite) {
+			return composite.getChildren();
 		}
 		return ArrayUtils.EMPTY_OBJECT_ARRAY;
 	}
