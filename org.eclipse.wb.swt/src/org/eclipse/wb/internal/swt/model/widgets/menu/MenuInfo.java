@@ -173,7 +173,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 			displayListener.beforeMessagesLoop();
 			// On windows, when one creates a new entry the image for the menu is not displayed correctly
 			Display.getDefault().readAndDispatch();
-			visualData = ToolkitSupport.fetchMenuVisualData(getObject());//
+			visualData = ToolkitSupport.fetchMenuVisualData(getWidget());//
 		} finally {
 			displayListener.afterMessagesLoop();
 		}

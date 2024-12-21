@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -36,47 +37,32 @@ public interface IToolkitSupport {
 	 * Prepares shots for all {@link Control}'s in hierarchy that have flag {@link #WBP_NEED_IMAGE}.
 	 * Created image can be requested using {@link #getShotImage(Object)}.
 	 */
-	void makeShots(Object control) throws Exception;
+	void makeShots(Control control) throws Exception;
 
 	/**
 	 * @return the SWT shot {@link Image} created by {@link #makeShots(Object)}.
 	 */
-	Image getShotImage(Object control) throws Exception;
+	Image getShotImage(Control control) throws Exception;
 
 	/**
 	 * Prepares the process of taking screen shot.
 	 */
-	void beginShot(Object control);
+	void beginShot(Control control);
 
 	/**
 	 * Finalizes the process of taking screen shot.
 	 */
-	void endShot(Object control);
+	void endShot(Control control);
 
 	/**
 	 * @return the menu visual data (image, bounds, item bounds) for given menu object.
 	 */
-	MenuVisualData fetchMenuVisualData(Object menu) throws Exception;
+	MenuVisualData fetchMenuVisualData(Menu menu) throws Exception;
 
 	/**
 	 * @return the default height of single-line menu bar according to system metrics (if available).
 	 */
 	int getDefaultMenuBarHeight() throws Exception;
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the new toolkit {@link Image} for given SWT {@link Image}.
-	 */
-	Object createToolkitImage(Image image) throws Exception;
-
-	/**
-	 * @return the new SWT {@link Image} for given toolkit {@link Image}.
-	 */
-	Image createSWTImage(Object image) throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -86,7 +72,7 @@ public interface IToolkitSupport {
 	/**
 	 * Shows given {@link Shell} object to user. On close {@link Shell} will be hidden, not disposed.
 	 */
-	void showShell(Object shell) throws Exception;
+	void showShell(Shell shell) throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -101,5 +87,5 @@ public interface IToolkitSupport {
 	/**
 	 * @return {@link Image} with preview for given {@link Font}.
 	 */
-	Image getFontPreview(Object font) throws Exception;
+	Image getFontPreview(Font font) throws Exception;
 }
