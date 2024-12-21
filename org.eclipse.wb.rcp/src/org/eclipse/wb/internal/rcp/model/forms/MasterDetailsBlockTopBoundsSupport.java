@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.model.forms;
 
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -53,7 +52,7 @@ public final class MasterDetailsBlockTopBoundsSupport extends TopBoundsSupport {
 			// "size" is size of _content_ for "shell", so calculate trim
 			Rectangle trim = new Rectangle(shell.computeTrim(0, 0, size.width, size.height));
 			// OK, set size from trim
-			ControlSupport.setSize(shell, trim.width, trim.height);
+			shell.setSize(trim.width, trim.height);
 		}
 	}
 

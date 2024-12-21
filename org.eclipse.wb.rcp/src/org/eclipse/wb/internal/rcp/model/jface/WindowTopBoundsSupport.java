@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -63,7 +62,7 @@ public class WindowTopBoundsSupport extends TopBoundsSupport {
 		// set size from resource properties (or default)
 		{
 			Dimension size = getResourceSize();
-			ControlSupport.setSize(m_window.getShell(), size.width, size.height);
+			m_window.getShell().setSize(size.width, size.height);
 		}
 	}
 

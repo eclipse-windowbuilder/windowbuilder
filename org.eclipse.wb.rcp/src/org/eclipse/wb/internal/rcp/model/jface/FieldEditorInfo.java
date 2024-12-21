@@ -31,15 +31,14 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.rcp.model.rcp.WorkbenchPartLikeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jface.preference.FieldEditor;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -261,7 +260,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 			// prepare "bounds" as intersection of all Control's
 			Rectangle bounds = new Rectangle();
 			for (Control control : m_controls) {
-				Rectangle controlBounds = ControlSupport.getBounds(control);
+				Rectangle controlBounds = new Rectangle(control.getBounds());
 				if (bounds.isEmpty()) {
 					bounds = controlBounds;
 				} else {
@@ -272,8 +271,8 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
 			setModelBounds(bounds.getCopy());
 			// convert into "shot"
 			{
-				Object control = m_controls.get(0);
-				Object parentControl = ((AbstractComponentInfo) getParent()).getComponentObject();
+				Control control = m_controls.get(0);
+				Control parentControl = (Control) ((AbstractComponentInfo) getParent()).getComponentObject();
 				Point controlLocation = CoordinateUtils.getDisplayLocation(control, bounds.x, bounds.y);
 				Point parentLocation = CoordinateUtils.getDisplayLocation(parentControl);
 				bounds.x = controlLocation.x - parentLocation.x;

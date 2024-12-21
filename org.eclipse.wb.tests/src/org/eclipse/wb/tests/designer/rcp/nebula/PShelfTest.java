@@ -14,9 +14,9 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.nebula.pshelf.PShelfInfo;
 import org.eclipse.wb.internal.rcp.nebula.pshelf.PShelfItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.pshelf.PShelf;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -72,8 +72,8 @@ public class PShelfTest extends AbstractNebulaTest {
 		PShelfInfo pshelf = shell.getChildren(PShelfInfo.class).get(0);
 		assertEquals(2, pshelf.getChildren().size());
 		// widget
-		Object pshelfObj = pshelf.getObject();
-		Rectangle pshelfBounds = ControlSupport.getBounds(pshelfObj);
+		PShelf pshelfObj = pshelf.getWidget();
+		Rectangle pshelfBounds = new Rectangle(pshelfObj.getBounds());
 		int itemHeight = ReflectionUtils.getFieldInt(pshelfObj, "itemHeight");
 		// check first item (opened)
 		{

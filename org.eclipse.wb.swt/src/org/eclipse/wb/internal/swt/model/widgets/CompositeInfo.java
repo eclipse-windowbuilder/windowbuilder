@@ -65,7 +65,6 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.property.TabOrderProperty;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -631,7 +630,7 @@ IThisMethodParameterEvaluator {
 	public boolean shouldDrawDotsBorder() throws Exception {
 		// if has native border, no need to custom one
 		{
-			if (ControlSupport.isStyle(getObject(), SWT.BORDER)) {
+			if ((getWidget().getStyle() & SWT.BORDER) != 0) {
 				return false;
 			}
 		}

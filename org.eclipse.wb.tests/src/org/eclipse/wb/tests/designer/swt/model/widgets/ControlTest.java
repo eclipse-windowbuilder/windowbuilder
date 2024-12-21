@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -211,11 +210,11 @@ public class ControlTest extends RcpModelTest {
 		assertNotNull(shellClass);
 		//
 		compositeInfo.refresh();
-		Object control = compositeInfo.getObject();
+		Control control = compositeInfo.getWidget();
 		//
-		assertNotNull(ControlSupport.getBounds(control));
-		assertNotNull(ControlSupport.toDisplay(control, 0, 0));
-		assertNotNull(ControlSupport.getStyle(control));
+		assertNotNull(control.getBounds());
+		assertNotNull(control.toDisplay(0, 0));
+		assertNotNull(control.getStyle());
 	}
 
 	/**
@@ -322,15 +321,15 @@ public class ControlTest extends RcpModelTest {
 						"}");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
-		Object shellObject = shell.getObject();
-		Object buttonObject = button.getObject();
+		Composite shellObject = shell.getWidget();
+		Control buttonObject = button.getWidget();
 		// not disposed now
-		assertFalse(ControlSupport.isDisposed(shellObject));
-		assertFalse(ControlSupport.isDisposed(buttonObject));
+		assertFalse(shellObject.isDisposed());
+		assertFalse(buttonObject.isDisposed());
 		// dispose
 		disposeLastModel();
-		assertTrue(ControlSupport.isDisposed(shellObject));
-		assertTrue(ControlSupport.isDisposed(buttonObject));
+		assertTrue(shellObject.isDisposed());
+		assertTrue(buttonObject.isDisposed());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -819,8 +818,8 @@ public class ControlTest extends RcpModelTest {
 						"}");
 		composite.refresh();
 		// dispose "parent", i.e. shared Shell
-		Object shell = ControlSupport.getParent(composite.getObject());
-		ControlSupport.dispose(shell);
+		Composite shell = composite.getWidget().getParent();
+		shell.dispose();
 		// try to refresh again, new Shell should be created and used
 		composite.refresh();
 	}

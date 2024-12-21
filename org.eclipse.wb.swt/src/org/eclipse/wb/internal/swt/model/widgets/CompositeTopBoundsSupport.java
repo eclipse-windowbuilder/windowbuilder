@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.converter.IntegerConverter;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -71,7 +70,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 		// set size from resource properties (or default)
 		{
 			Dimension size = getResourceSize();
-			ControlSupport.setSize(m_component.getObject(), size.width, size.height);
+			((Composite) m_component.getObject()).setSize(size.width, size.height);
 		}
 	}
 
@@ -163,10 +162,9 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 		if (control != shell) {
 			shell.setText(ModelMessages.CompositeTopBoundsSupport_wrapperShellText);
 			shell.setLayout(new FillLayout());
-			org.eclipse.draw2d.geometry.Rectangle controlBounds = ControlSupport.getBounds(control);
-			org.eclipse.draw2d.geometry.Rectangle shellBounds = new org.eclipse.draw2d.geometry.Rectangle(
-					shell.computeTrim(0, 0, controlBounds.width, controlBounds.height));
-			ControlSupport.setSize(shell, shellBounds.width, shellBounds.height);
+			Rectangle controlBounds = control.getBounds();
+			Rectangle shellBounds = shell.computeTrim(0, 0, controlBounds.width, controlBounds.height);
+			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.layout();
 		}
 		// close preview by pressing ESC key
@@ -178,7 +176,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 			int x;
 			int y;
 			{
-				org.eclipse.draw2d.geometry.Rectangle shellBounds = ControlSupport.getBounds(shell);
+				Rectangle shellBounds = shell.getBounds();
 				x = monitorClientArea.x + (monitorClientArea.width - shellBounds.width) / 2;
 				y = monitorClientArea.y + (monitorClientArea.height - shellBounds.height) / 2;
 			}
@@ -186,7 +184,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
 			x = Math.max(x, monitorClientArea.x + 10);
 			y = Math.max(y, monitorClientArea.y + 10);
 			// do set location
-			ControlSupport.setLocation(shell, x, y);
+			shell.setLocation(x, y);
 		}
 		// show Shell in modal state
 		ToolkitSupport.showShell(shell);

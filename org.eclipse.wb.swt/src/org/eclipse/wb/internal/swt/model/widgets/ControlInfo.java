@@ -26,16 +26,16 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 import org.eclipse.wb.os.OSSupportError;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -111,8 +111,8 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void refresh_dispose() throws Exception {
-		if (isRoot()) {
-			ControlSupport.dispose(getObject());
+		if (isRoot() && getWidget() != null) {
+			getWidget().dispose();
 		}
 		// call "super"
 		super.refresh_dispose();
@@ -121,19 +121,14 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 	@Override
 	protected void refresh_afterCreate() throws Exception {
 		// preferred size, should be here, because "super" applies "top bounds"
-		setPreferredSize(ControlSupport.getPreferredSize(getObject()));
+		setPreferredSize(new Dimension(((Control) getObject()).computeSize(SWT.DEFAULT, SWT.DEFAULT)));
 		// call "super"
 		super.refresh_afterCreate();
 	}
 
 	@Override
 	protected void refresh_fetch() throws Exception {
-		refresh_fetch(this, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ControlInfo.super.refresh_fetch();
-			}
-		});
+		refresh_fetch(this, () -> ControlInfo.super.refresh_fetch());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -161,7 +156,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 	 */
 	public static void refresh_fetch(AbstractComponentInfo component, RunnableEx superRefreshFetch)
 			throws Exception {
-		Object control = component.getComponentObject();
+		Control control = (Control) component.getComponentObject();
 		refresh_fetch(component, control, superRefreshFetch);
 	}
 
@@ -180,7 +175,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 	 *          the {@link RunnableEx} to invoke "super" of refresh_fetch(), so process children.
 	 */
 	public static void refresh_fetch(AbstractComponentInfo component,
-			Object control,
+			Control control,
 			RunnableEx superRefreshFetch) throws Exception {
 		// create shot's for all controls
 		boolean wasOSSupportError = false;
@@ -192,7 +187,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 			// prepare model bounds
 			Rectangle modelBounds;
 			{
-				modelBounds = ControlSupport.getBounds(control);
+				modelBounds = new Rectangle(control.getBounds());
 				component.setModelBounds(modelBounds);
 			}
 			// prepare shot bounds
@@ -201,7 +196,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 				// convert into "shot"
 				if (component.getParent() instanceof AbstractComponentInfo) {
 					AbstractComponentInfo parent = (AbstractComponentInfo) component.getParent();
-					Object parentControl = parent.getComponentObject();
+					Control parentControl = (Control) parent.getComponentObject();
 					if (control != parentControl) {
 						Point controlLocation = CoordinateUtils.getDisplayLocation(control);
 						Point parentLocation = CoordinateUtils.getDisplayLocation(parentControl);
@@ -212,7 +207,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 								&& (composite.getStyle() & SWT.RIGHT_TO_LEFT) != 0) {
 							Composite parentComposite = composite != null ? composite.getParent() : null;
 							if (parentComposite != null && (parentComposite.getStyle() & SWT.RIGHT_TO_LEFT) != 0) {
-								bounds.x += ControlSupport.getBounds(parentControl).width;
+								bounds.x += parentControl.getBounds().width;
 							}
 							bounds.x -= bounds.width;
 						}
@@ -254,22 +249,22 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
 				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
-					if (ControlSupport.isControl(componentObject)) {
-						ToolkitSupport.markAsNeededImage(componentObject);
+					if (componentObject instanceof Control controlObject) {
+						ToolkitSupport.markAsNeededImage(controlObject);
 					}
 				}
 			}
 		});
 		// prepare images
-		ToolkitSupport.makeShots(control);
+		ToolkitSupport.makeShots((Control) control);
 		// get images
 		root.accept(new ObjectInfoVisitor() {
 			@Override
 			public void endVisit(ObjectInfo objectInfo) throws Exception {
 				if (objectInfo instanceof AbstractComponentInfo componentInfo) {
 					Object componentObject = componentInfo.getComponentObject();
-					if (ControlSupport.isControl(componentObject)) {
-						Image image = ToolkitSupport.getShotImage(componentObject);
+					if (componentObject instanceof Control controlObject) {
+						Image image = ToolkitSupport.getShotImage(controlObject);
 						componentInfo.setImage(image);
 					}
 				}

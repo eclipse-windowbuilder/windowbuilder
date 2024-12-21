@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.StylePresentation;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
@@ -133,7 +132,7 @@ public final class ToolItemInfo extends ItemInfo {
 	 * @return <code>true</code> if this {@link ToolItemInfo} is separator.
 	 */
 	public boolean isSeparator() {
-		return ControlSupport.isStyle(getObject(), SWT.SEPARATOR);
+		return (getWidget().getStyle() & SWT.SEPARATOR) != 0;
 	}
 
 	/**

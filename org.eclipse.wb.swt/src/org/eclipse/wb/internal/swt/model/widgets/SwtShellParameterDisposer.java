@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,8 +13,6 @@ package org.eclipse.wb.internal.swt.model.widgets;
 import org.eclipse.wb.core.model.IRootProcessor;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -69,10 +67,8 @@ public final class SwtShellParameterDisposer implements IRootProcessor {
 			public void postVisit(ASTNode node) {
 				String key = SwtMethodParameterEvaluator.SHELL_KEY;
 				Object shell = node.getProperty(key);
-				if (shell != null
-						&& ReflectionUtils.isSuccessorOf(shell, "org.eclipse.swt.widgets.Shell")
-						&& !ControlSupport.isDisposed(shell)) {
-					ControlSupport.dispose(shell);
+				if (shell instanceof Shell shellObject && !shellObject.isDisposed()) {
+					shellObject.dispose();
 					node.setProperty(key, null);
 				}
 			}

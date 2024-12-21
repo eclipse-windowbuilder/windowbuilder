@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.SwtMethodParameterEvaluator;
-import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -36,6 +35,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.List;
@@ -150,8 +150,7 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
 
 	public Shell getParentShell_interceptor() throws Exception {
 		ASTNode node = getCreationSupport().getNode();
-		ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-		return (Shell) SwtMethodParameterEvaluator.getDefaultShell(node, classLoader);
+		return SwtMethodParameterEvaluator.getDefaultShell(node);
 	}
 
 	public Object getInitialSize_validator(Object o) {
@@ -215,7 +214,7 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
 	@Override
 	protected void refresh_afterCreate() throws Exception {
 		// preferred size, should be here, because "super" applies "top bounds"
-		setPreferredSize(ControlSupport.getPreferredSize(m_shell));
+		setPreferredSize(new Dimension(m_shell.computeSize(SWT.DEFAULT, SWT.DEFAULT)));
 		// call "super"
 		super.refresh_afterCreate();
 	}
