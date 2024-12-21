@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 	 * Configures test values for core/toolkit preferences.
 	 *
 	 * @param preferences
-	 *          the eRCP toolkit preferences.
+	 *          the RCP toolkit preferences.
 	 */
 	protected void configureForTestPreferences(IPreferenceStore preferences) {
 		preferences.setValue(
@@ -79,7 +79,7 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 	 * Configures default values for core/toolkit preferences.
 	 *
 	 * @param preferences
-	 *          the eRCP toolkit preferences.
+	 *          the RCP toolkit preferences.
 	 */
 	protected void configureDefaultPreferences(IPreferenceStore preferences) {
 		preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);

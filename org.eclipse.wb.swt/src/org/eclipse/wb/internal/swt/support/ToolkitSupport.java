@@ -27,7 +27,7 @@ import org.osgi.framework.Bundle;
 import java.lang.reflect.Constructor;
 
 /**
- * Toolkit specific utilities for eRCP/RCP.
+ * Toolkit specific utilities for RCP.
  *
  * @author lobas_av
  * @coverage swt.support
@@ -144,23 +144,15 @@ public class ToolkitSupport extends AbstractSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static IToolkitSupport m_impl_RCP;
-	private static IToolkitSupport m_impl_eRCP;
 
 	/**
 	 * @return the toolkit dependent implementation of {@link IToolkitSupport}.
 	 */
 	private static IToolkitSupport getImpl() throws Exception {
-		if (is_RCP()) {
-			if (m_impl_RCP == null) {
-				m_impl_RCP = createImpl();
-			}
-			return m_impl_RCP;
-		} else {
-			if (m_impl_eRCP == null) {
-				m_impl_eRCP = createImpl();
-			}
-			return m_impl_eRCP;
+		if (m_impl_RCP == null) {
+			m_impl_RCP = createImpl();
 		}
+		return m_impl_RCP;
 	}
 
 	/**

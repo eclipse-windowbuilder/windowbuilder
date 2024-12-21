@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,8 +32,6 @@ public final class ProductInfo {
 	private static final String[] CORE_PRODUCT = {"org.eclipse.wb.core"};
 	private static final String[] SWTD_PRODUCT = {"org.eclipse.wb.swt"};
 	private static final String[] SWINGD_PRODUCT = {"org.eclipse.wb.swing"};
-	private static final String[] GWTD_PRODUCT = {"com.google.gdt.eclipse.designer"};
-	private static final String[] ERCP_PRODUCT = {"org.eclipse.wb.ercp"};
 	// build info
 	private static final String UNKNOWN_BUILD = "UNKNOWN";
 	// eclipse info
@@ -51,20 +49,14 @@ public final class ProductInfo {
 	private String build;
 
 	private ProductInfo() {
-		boolean isInstalledERCP = Platform.getBundle(ERCP_PRODUCT[0]) != null;
 		boolean isInstalledSWT = Platform.getBundle(SWTD_PRODUCT[0]) != null;
 		boolean isInstalledSwing = Platform.getBundle(SWINGD_PRODUCT[0]) != null;
-		boolean isInstalledGWT = Platform.getBundle(GWTD_PRODUCT[0]) != null;
 		if (isInstalledSWT && isInstalledSwing) {
 			product_info = CORE_PRODUCT; //core
 		} else if (isInstalledSWT) {
 			product_info = SWTD_PRODUCT; // swt
 		} else if (isInstalledSwing) {
 			product_info = SWINGD_PRODUCT; // swing
-		} else if (isInstalledGWT) {
-			product_info = GWTD_PRODUCT; // gwt
-		} else if (isInstalledERCP) {
-			product_info = ERCP_PRODUCT; // ercp
 		} else {
 			product_info = CORE_PRODUCT; // core...should not get here
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -68,10 +68,6 @@ public final class EditorState {
 
 	/**
 	 * Sets some {@link JavaInfo} of active editor.
-	 * <p>
-	 * We use this {@link JavaInfo} to understand context in which Designer operates, for example
-	 * RCP/eRCP uses same model classes for widgets, but access for bounds/image/etc is specific to
-	 * the toolkit.
 	 */
 	public static void setActiveJavaInfo(JavaInfo rootInfo) {
 		m_activeJavaInfo = rootInfo;

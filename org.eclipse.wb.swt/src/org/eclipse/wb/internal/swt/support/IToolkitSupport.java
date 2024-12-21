@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * RCP/eRCP plugins provide implementation of this interface to provide access to the toolkit
+ * RCP plugins provide implementation of this interface to provide access to the toolkit
  * specific operations.
  *
  * @author mitin_aa

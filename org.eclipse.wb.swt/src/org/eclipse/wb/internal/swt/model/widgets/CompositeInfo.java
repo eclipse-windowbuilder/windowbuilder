@@ -334,7 +334,7 @@ IThisMethodParameterEvaluator {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected TopBoundsSupport createTopBoundsSupport() {
-		// return implementation from eRCP or RCP bundles
+		// return implementation from RCP bundles
 		return ExecutionUtils.runObject(() -> {
 			// prepare "impl" class
 			Class<?> implClass;

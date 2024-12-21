@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,8 +53,7 @@ public final class DesignPageFactory implements IEditorPageFactory {
 			ICompilationUnit compilationUnit = editor.getCompilationUnit();
 			IJavaProject project = compilationUnit.getJavaProject();
 			// check "big" SWT
-			if (project.findType("org.eclipse.swt.custom.SashForm") != null
-					&& project.findType("org.eclipse.ercp.swt.mobile.MobileShell") == null) {
+			if (project.findType("org.eclipse.swt.custom.SashForm") != null) {
 				IImportDeclaration[] imports = compilationUnit.getImports();
 				//
 				for (IType type : compilationUnit.getTypes()) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Implementation of {@link IDescriptionProcessor} for eRCP.
+ * Implementation of {@link IDescriptionProcessor} for RCP.
  * <p>
  * It analyzes {@link ConstructorDescription}'s and treats <code>Composite, int</code> parameters as
  * parent and style.

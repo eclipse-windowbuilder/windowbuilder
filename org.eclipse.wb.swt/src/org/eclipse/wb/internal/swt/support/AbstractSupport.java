@@ -22,15 +22,15 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
  */
 public class AbstractSupport {
 	/**
-	 * @return <code>this</code> if active editor contains SWT (eRCP or RCP) GUI.
+	 * @return <code>this</code> if active editor contains SWT/RCP GUI.
 	 */
 	public static boolean is_SWT() {
 		String toolkitId = EditorState.getActiveJavaInfo().getDescription().getToolkit().getId();
-		return toolkitId.equals("org.eclipse.wb.ercp") || toolkitId.equals("org.eclipse.wb.rcp");
+		return toolkitId.equals("org.eclipse.wb.rcp");
 	}
 
 	/**
-	 * @return <code>this</code> if active editor contains RCP GUI and <code>false</code> if eRCP.
+	 * @return <code>true</code> if active editor contains RCP GUI.
 	 */
 	public static boolean is_RCP() {
 		String toolkitId = GlobalState.getToolkit().getId();
