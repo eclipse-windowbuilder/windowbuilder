@@ -28,7 +28,7 @@ import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
+import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryMoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryRemoveCommand;
@@ -52,16 +52,16 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntr
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentPresentationHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.core.IDefaultToolProvider;
 
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -94,7 +94,8 @@ public class DesignerPalette {
 	private IEditPartViewer m_editPartViewer;
 	private JavaInfo m_rootJavaInfo;
 	private PaletteManager m_manager;
-	private IEntry m_defaultEntry;
+	private DesignerRoot m_palette;
+	private DesignerPaletteEditDomain m_editDomain;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -105,7 +106,9 @@ public class DesignerPalette {
 		m_isMainPalette = isMainPalette;
 		m_operations = new DesignerPaletteOperations();
 		m_preferences = new PluginPalettePreferences();
+		m_editDomain = new DesignerPaletteEditDomain();
 		m_paletteComposite = new PaletteComposite(parent, SWT.NONE);
+		m_paletteComposite.getPaletteViewer().setEditDomain(m_editDomain);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -124,6 +127,7 @@ public class DesignerPalette {
 			final JavaInfo rootJavaInfo,
 			String toolkitId) {
 		m_editPartViewer = editPartViewer;
+		m_editPartViewer.getEditDomain().setPaletteViewer(m_paletteComposite.getPaletteViewer());
 		m_rootJavaInfo = rootJavaInfo;
 		//
 		if (m_rootJavaInfo != null) {
@@ -248,7 +252,7 @@ public class DesignerPalette {
 		m_goodEntryInfos.clear();
 		m_entryInfoToVisual.clear();
 		m_visualToEntryInfo.clear();
-		m_defaultEntry = null;
+		m_palette = null;
 	}
 
 	/**
@@ -279,14 +283,19 @@ public class DesignerPalette {
 					public boolean activate(boolean reload) {
 						return entryInfo.createTool(reload) != null;
 					}
+
+					@Override
+					public Tool createTool() {
+						return entryInfo.createTool(m_editDomain.m_reload);
+					}
 				};
 				m_goodEntryInfos.add(entryInfo);
 				m_entryInfoToVisual.put(entryInfo, entry);
 				m_visualToEntryInfo.put(entry, entryInfo);
 				// initialize default entry
-				if (m_defaultEntry == null) {
+				if (m_palette != null && m_palette.getDefaultEntry() == null) {
 					if (entryInfo instanceof IDefaultEntryInfo) {
-						m_defaultEntry = entry;
+						m_palette.setDefaultEntry(entry);
 					}
 				}
 			}
@@ -308,12 +317,7 @@ public class DesignerPalette {
 				public List<DesignerEntry> getChildren() {
 					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
-					ExecutionUtils.runIgnore(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							getBroadcastPalette().entries(categoryInfo, entryInfoList);
-						}
-					});
+					ExecutionUtils.runIgnore(() -> getBroadcastPalette().entries(categoryInfo, entryInfoList));
 					// convert EntryInfo's into IEntry's
 					List<DesignerEntry> entries = new ArrayList<>();
 					for (EntryInfo entryInfo : entryInfoList) {
@@ -368,7 +372,7 @@ public class DesignerPalette {
 	private void showPalette() {
 		clearEntryCaches();
 		// set IPalette
-		DesignerRoot palette = new DesignerRoot() {
+		m_palette = new DesignerRoot() {
 			@Override
 			public void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
 				new DesignerPalettePopupActions(getOperations()).addPopupActions(
@@ -415,11 +419,12 @@ public class DesignerPalette {
 			for (CategoryInfo categoryInfo : categoryInfoList) {
 				if (shouldBeDisplayed(categoryInfo)) {
 					DesignerContainer category = getVisualCategory(categoryInfo);
-					palette.add(category);
+					m_palette.add(category);
 				}
 			}
 		}
-		m_paletteComposite.setPalette(palette);
+		m_paletteComposite.setPalette(m_palette);
+		m_editPartViewer.getEditDomain().setPaletteRoot(m_palette);
 		configure_EditDomain_DefaultTool();
 	}
 
@@ -443,16 +448,6 @@ public class DesignerPalette {
 	private void configure_EditDomain_DefaultTool() {
 		if (m_isMainPalette) {
 			final EditDomain editDomain = m_editPartViewer.getEditDomain();
-			editDomain.setDefaultToolProvider(new IDefaultToolProvider() {
-				@Override
-				public void loadDefaultTool() {
-					if (m_defaultEntry != null) {
-						m_paletteComposite.selectEntry(m_defaultEntry, false);
-					} else {
-						editDomain.setActiveTool(new SelectionTool());
-					}
-				}
-			});
 			editDomain.loadDefaultTool();
 		}
 	}
@@ -462,6 +457,22 @@ public class DesignerPalette {
 	 */
 	private void refreshVisualPalette() {
 		m_paletteComposite.refreshPalette();
+	}
+
+	private static class DesignerPaletteEditDomain extends EditDomain {
+		private boolean m_reload;
+
+		@Override
+		public void mouseDown(MouseEvent mouseEvent, EditPartViewer viewer) {
+			m_reload = (mouseEvent.stateMask & SWT.CTRL) != 0;
+			super.mouseDown(mouseEvent, viewer);
+		}
+
+		@Override
+		public void mouseUp(MouseEvent mouseEvent, EditPartViewer viewer) {
+			super.mouseUp(mouseEvent, viewer);
+			m_reload = false;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

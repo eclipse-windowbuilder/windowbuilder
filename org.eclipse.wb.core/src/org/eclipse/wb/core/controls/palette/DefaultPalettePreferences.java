@@ -18,7 +18,7 @@ import org.eclipse.jface.resource.FontDescriptor;
  *
  * @author scheglov_ke
  * @coverage core.control.palette
- * @deprecated Replaced by {@link DesignPaletteViewerPreferences}.
+ * @deprecated Use {@link DesignerPaletteViewerPreferences} instead.
  */
 @Deprecated(forRemoval = true, since = "1.18.0")
 public final class DefaultPalettePreferences implements IPalettePreferences {
