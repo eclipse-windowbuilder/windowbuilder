@@ -28,7 +28,9 @@ import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryMoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryRemoveCommand;
@@ -59,6 +61,9 @@ import org.eclipse.wb.internal.gef.core.IDefaultToolProvider;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.gef.ui.palette.PaletteContextMenuProvider;
+import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -89,8 +94,11 @@ public class DesignerPalette {
 	private final String ENTRYINFO_CATEGORY = "org.eclipse.wb.swing.layouts";
 	private final boolean m_isMainPalette;
 	private final PluginPalettePreferences m_preferences;
-	private final PaletteComposite m_paletteComposite;
+	private final PaletteComposite m_legacyPaletteComposite;
 	private final DesignerPaletteOperations m_operations;
+	private final PaletteViewer m_paletteViewer;
+	private final FigureCanvas m_paletteComposite;
+	private final DesignerPaletteEditDomain m_paletteDomain;
 	private IEditPartViewer m_editPartViewer;
 	private JavaInfo m_rootJavaInfo;
 	private PaletteManager m_manager;
@@ -105,7 +113,22 @@ public class DesignerPalette {
 		m_isMainPalette = isMainPalette;
 		m_operations = new DesignerPaletteOperations();
 		m_preferences = new PluginPalettePreferences();
-		m_paletteComposite = new PaletteComposite(parent, SWT.NONE);
+		if (EnvironmentUtils.isGefPalette()) {
+			m_legacyPaletteComposite = null;
+			m_paletteDomain = new DesignerPaletteEditDomain();
+			m_paletteViewer = new PaletteViewer();
+			m_paletteViewer.enableVerticalScrollbar(true);
+			m_paletteViewer.setEditDomain(m_paletteDomain);
+			m_paletteViewer.setPaletteViewerPreferences(m_preferences);
+			m_paletteViewer.setContextMenu(new PaletteContextMenuProvider(m_paletteViewer));
+			m_paletteComposite = (FigureCanvas) m_paletteViewer.createControl(parent);
+			m_paletteComposite.setScrollbarsMode(SWT.NONE);
+		} else {
+			m_legacyPaletteComposite = new PaletteComposite(parent, SWT.NONE);
+			m_paletteDomain = null;
+			m_paletteViewer = null;
+			m_paletteComposite = null;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -114,7 +137,7 @@ public class DesignerPalette {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public Control getControl() {
-		return m_paletteComposite;
+		return m_legacyPaletteComposite != null ? m_legacyPaletteComposite : m_paletteComposite;
 	}
 
 	/**
@@ -125,6 +148,9 @@ public class DesignerPalette {
 			String toolkitId) {
 		m_editPartViewer = editPartViewer;
 		m_rootJavaInfo = rootJavaInfo;
+		if (m_legacyPaletteComposite == null) {
+			editPartViewer.getEditDomain().setPaletteViewer(m_paletteViewer);
+		}
 		//
 		if (m_rootJavaInfo != null) {
 			// cancel cache pre-loading jobs possibly scheduled and/or running
@@ -143,7 +169,9 @@ public class DesignerPalette {
 			// configure preferences
 			{
 				m_preferences.setPrefix(toolkitId);
-				m_paletteComposite.setPreferences(m_preferences);
+				if (m_legacyPaletteComposite != null) {
+					m_legacyPaletteComposite.setPreferences(m_preferences);
+				}
 			}
 			// set site
 			IPaletteSite.Helper.setSite(m_rootJavaInfo, m_paletteSite);
@@ -151,7 +179,11 @@ public class DesignerPalette {
 			rootJavaInfo.addBroadcastListener(new ObjectEventListener() {
 				@Override
 				public void refreshed() throws Exception {
-					if (m_paletteComposite.isDisposed()) {
+					if (m_legacyPaletteComposite != null && m_legacyPaletteComposite.isDisposed()) {
+						rootJavaInfo.removeBroadcastListener(this);
+						return;
+					}
+					if (m_paletteComposite != null && m_paletteComposite.isDisposed()) {
 						rootJavaInfo.removeBroadcastListener(this);
 						return;
 					}
@@ -278,6 +310,14 @@ public class DesignerPalette {
 					@Override
 					public boolean activate(boolean reload) {
 						return entryInfo.createTool(reload) != null;
+					}
+
+					@Override
+					public Tool createTool() {
+						if (m_paletteDomain == null) {
+							return entryInfo.createTool(false);
+						}
+						return entryInfo.createTool(m_paletteDomain.isReload());
 					}
 				};
 				m_goodEntryInfos.add(entryInfo);
@@ -419,7 +459,11 @@ public class DesignerPalette {
 				}
 			}
 		}
-		m_paletteComposite.setPalette(palette);
+		if (m_legacyPaletteComposite != null) {
+			m_legacyPaletteComposite.setPalette(palette);
+		} else {
+			m_paletteViewer.setPaletteRoot(palette);
+		}
 		configure_EditDomain_DefaultTool();
 	}
 
@@ -447,7 +491,11 @@ public class DesignerPalette {
 				@Override
 				public void loadDefaultTool() {
 					if (m_defaultEntry != null) {
-						m_paletteComposite.selectEntry(m_defaultEntry, false);
+						if (m_legacyPaletteComposite != null) {
+							m_legacyPaletteComposite.selectEntry(m_defaultEntry, false);
+						} else {
+							m_paletteViewer.setActiveTool(m_defaultEntry);
+						}
 					} else {
 						editDomain.setActiveTool(new SelectionTool());
 					}
@@ -461,7 +509,9 @@ public class DesignerPalette {
 	 * Refreshes visual palette.
 	 */
 	private void refreshVisualPalette() {
-		m_paletteComposite.refreshPalette();
+		if (m_legacyPaletteComposite != null) {
+			m_legacyPaletteComposite.refreshPalette();
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -508,15 +558,19 @@ public class DesignerPalette {
 			PalettePreferencesDialog dialog = new PalettePreferencesDialog(getShell(), m_preferences);
 			if (dialog.open() == Window.OK) {
 				dialog.commit();
-				m_paletteComposite.setPreferences(m_preferences);
+				if (m_legacyPaletteComposite != null) {
+					m_legacyPaletteComposite.setPreferences(m_preferences);
+				}
 			}
 		}
 
 		public void setIconsType(int iconsType) {
-			m_paletteComposite.setLayoutType(iconsType);
 			m_preferences.setLayoutSetting(iconsType);
-			m_paletteComposite.setPreferences(m_preferences);
-			m_paletteComposite.refreshComposite();
+			if (m_legacyPaletteComposite != null) {
+				m_legacyPaletteComposite.setLayoutType(iconsType);
+				m_legacyPaletteComposite.setPreferences(m_preferences);
+				m_legacyPaletteComposite.refreshComposite();
+			}
 		}
 
 		public EntryInfo getEntry(Object target) {

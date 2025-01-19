@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2024 Patrick Ziegler and others.
+ * Copyright (c) 2024, 2025 Patrick Ziegler and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 @SuppressWarnings("removal")
 public abstract class DesignerEntry extends ToolEntry implements IEntry {
 	public DesignerEntry(String label, String shortDescription, ImageDescriptor iconSmall) {
-		super(label, shortDescription, iconSmall, null);
+		super(label, shortDescription, iconSmall, iconSmall);
 	}
 
 	/**
@@ -36,9 +36,15 @@ public abstract class DesignerEntry extends ToolEntry implements IEntry {
 	 *
 	 * @return <code>true</code> if {@link DesignerEntry} was successfully
 	 *         activated.
+	 * @deprecated Call {@link #createTool()} instead and check for null-ness. The
+	 *             reload flag needs to be set in the edit domain. This method will
+	 *             be removed after the 2027-03 release.
 	 */
 	@Override
-	public abstract boolean activate(boolean reload);
+	@Deprecated(since = "1.19.0", forRemoval = true)
+	public boolean activate(boolean reload) {
+		return false;
+	}
 
 	/**
 	 * @noreference This method is not intended to be referenced by clients.
