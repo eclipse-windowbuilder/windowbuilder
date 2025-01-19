@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -125,15 +126,19 @@ public final class PaletteComposite extends Composite {
 	// Instance fields
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("removal")
 	private IPalettePreferences m_preferences;
 	private final FigureCanvas m_figureCanvas;
 	private final EventManager m_eventManager;
 	private final PaletteFigure m_paletteFigure;
 	private final Layer m_feedbackLayer;
+	@SuppressWarnings("removal")
 	private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
 	private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
 	private MenuManager m_menuManager;
+	@SuppressWarnings("removal")
 	private IPalette m_palette;
+	@SuppressWarnings("removal")
 	private IEntry m_selectedEntry;
 	private Object m_forcedTargetObject;
 	private int m_layoutType;
@@ -143,6 +148,7 @@ public final class PaletteComposite extends Composite {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("removal")
 	public PaletteComposite(Composite parent, int style) {
 		super(parent, style);
 		m_preferences = new DesignerPaletteViewerPreferences();
@@ -176,6 +182,7 @@ public final class PaletteComposite extends Composite {
 	/**
 	 * Adds {@link Action}'s to the popup menu.
 	 */
+	@SuppressWarnings("removal")
 	private void addPopupActions(IMenuManager menuManager) {
 		// prepare target figure
 		Figure targetFigure;
@@ -221,10 +228,22 @@ public final class PaletteComposite extends Composite {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Sets {@link IPalette} for displaying.
+	 *
+	 * @deprecated Use {@link #setPalette(DesignerRoot)}. This method will be
+	 *             removed after the 2027-03 release.
 	 */
+	@Deprecated(since = "1.19", forRemoval = true)
 	public void setPalette(IPalette palette) {
 		m_palette = palette;
 		refreshPalette();
+	}
+
+	/**
+	 * Sets {@link PaletteRoot} for displaying.
+	 */
+	@SuppressWarnings("removal")
+	public void setPalette(DesignerRoot palette) {
+		setPalette((IPalette) palette);
 	}
 
 	/**
@@ -236,7 +255,11 @@ public final class PaletteComposite extends Composite {
 
 	/**
 	 * Sets new {@link IPalettePreferences}.
+	 *
+	 * @deprecated Use {@link #setPreferences(DesignerPaletteViewerPreferences)}.
+	 *             This method will be removed after the 2027-03 release.
 	 */
+	@Deprecated(since = "1.19", forRemoval = true)
 	public void setPreferences(IPalettePreferences preferences) {
 		m_preferences = preferences;
 		m_layoutType = m_preferences.getLayoutType();
@@ -244,12 +267,23 @@ public final class PaletteComposite extends Composite {
 	}
 
 	/**
+	 * Sets new {@link IPalettePreferences}.
+	 */
+	@SuppressWarnings("removal")
+	public void setPreferences(DesignerPaletteViewerPreferences preferences) {
+		setPreferences((IPalettePreferences) preferences);
+	}
+
+	/**
 	 * Sets the selected {@link IEntry}.
 	 *
-	 * @param reload
-	 *          is <code>true</code> if after first using this {@link IEntry} should be loaded again,
-	 *          not switched to default entry (usually selection).
+	 * @param reload is <code>true</code> if after first using this {@link IEntry}
+	 *               should be loaded again, not switched to default entry (usually
+	 *               selection).
+	 * @deprecated Use {@link #selectEntry(DesignerEntry, boolean)} instead. This
+	 *             method will be removed after the 2027-03 release.
 	 */
+	@Deprecated(since = "3.19", forRemoval = true)
 	public void selectEntry(IEntry selectedEntry, boolean reload) {
 		// activate new entry
 		m_selectedEntry = selectedEntry;
@@ -265,18 +299,53 @@ public final class PaletteComposite extends Composite {
 	}
 
 	/**
-	 * @return the {@link Figure} used for displaying {@link ICategory}.
+	 * Sets the selected {@link DesignerEntry}.
+	 *
+	 * @param reload is <code>true</code> if after first using this {@link IEntry}
+	 *               should be loaded again, not switched to default entry (usually
+	 *               selection).
 	 */
+	@SuppressWarnings("removal")
+	public void selectEntry(DesignerEntry selectedEntry, boolean reload) {
+		selectEntry((IEntry) selectedEntry, reload);
+	}
+
+	/**
+	 * @return the {@link Figure} used for displaying {@link ICategory}.
+	 * @deprecated Use {@link #getCategoryFigure(DesignerContainer)} instead. This
+	 *             method will be removed after the 2027-03 release.
+	 */
+	@Deprecated(since = "3.19", forRemoval = true)
 	public Figure getCategoryFigure(ICategory category) {
 		return m_categoryFigures.get(category);
 	}
 
 	/**
-	 * @return the {@link Figure} used for displaying {@link IEntry}.
+	 * @return the {@link IFigure} used for displaying {@link DesignerContainer}.
 	 */
+	@SuppressWarnings("removal")
+	public IFigure getCategoryFigure(DesignerContainer category) {
+		return getCategoryFigure((ICategory) category);
+	}
+
+	/**
+	 * @return the {@link Figure} used for displaying {@link IEntry}.
+	 *
+	 * @deprecated Use {@link #getEntryFigure(DesignerContainer, DesignerEntry)}
+	 *             instead. This method will be removed after the 2027-03 release.
+	 */
+	@Deprecated(since = "3.19", forRemoval = true)
 	public Figure getEntryFigure(ICategory category, IEntry entry) {
 		CategoryFigure categoryFigure = m_categoryFigures.get(category);
 		return categoryFigure.m_entryFigures.get(entry);
+	}
+
+	/**
+	 * @return the {@link IFigure} used for displaying {@link DesignerEntry}.
+	 */
+	@SuppressWarnings("removal")
+	public Figure getEntryFigure(DesignerContainer category, DesignerEntry entry) {
+		return getEntryFigure((ICategory) category, (IEntry) entry);
 	}
 
 	/**
@@ -296,6 +365,7 @@ public final class PaletteComposite extends Composite {
 	 *
 	 * @author scheglov_ke
 	 */
+	@SuppressWarnings("removal")
 	private final class PaletteFigure extends Layer {
 		////////////////////////////////////////////////////////////////////////////
 		//
@@ -366,6 +436,7 @@ public final class PaletteComposite extends Composite {
 	 *
 	 * @author scheglov_ke
 	 */
+	@SuppressWarnings("removal")
 	private final class CategoryFigure extends Figure {
 		private static final int IMAGE_SPACE_LEFT = 4;
 		private static final int IMAGE_SPACE_RIGHT = 4;
@@ -707,6 +778,7 @@ public final class PaletteComposite extends Composite {
 	 *
 	 * @author scheglov_ke
 	 */
+	@SuppressWarnings("removal")
 	private final class EntryFigure extends Figure {
 		private static final int IMAGE_SPACE_RIGHT = 2;
 		private static final int MARGIN_WIDTH_1 = 3;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,8 @@ import java.util.List;
  *
  * @author scheglov_ke
  * @coverage core.control.palette
- * @deprecated Use {@link DesignerContainer} instead.
+ * @deprecated Use {@link DesignerContainer} instead. This interface will be
+ *             removed after the 2027-03 release.
  */
 //TODO GEF
 @Deprecated(since = "1.17.0", forRemoval = true)
