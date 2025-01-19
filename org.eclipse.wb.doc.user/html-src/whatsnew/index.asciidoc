@@ -1,9 +1,7 @@
-= What's New - v1.18.0
+= What's New - v1.19.0
 
-* Fixed IndexOutOfBoundsException when removing widgets while using JDK8
-* Dropped support for JSR296 (Swing Application Framework)
-* Removal of old amd64 binaries for Linux
+* Experimental GEF palette which can be enabled using the _wbp.gef.palette_ system property.
 
-For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/10[1.18.0] milestone.
+For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/11[1.19.0] milestone.
 
-What's new - link:v117.html[*v1.17.0*]
+What's new - link:v118.html[*v1.18.0*]

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -209,5 +209,16 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 
 	public static void setTestingTime(boolean value) {
 		System.setProperty(WBP_TESTING_TIME, value ? "true" : "false");
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Development
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String WBP_GEF_PALETTE = "wbp.gef.palette";
+
+	public static boolean isGefPalette() {
+		return Boolean.getBoolean(WBP_GEF_PALETTE);
 	}
 }
