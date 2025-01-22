@@ -121,6 +121,8 @@ public class DesignerPalette {
 			m_paletteViewer.setEditDomain(m_paletteDomain);
 			m_paletteViewer.setPaletteViewerPreferences(m_preferences);
 			m_paletteViewer.setContextMenu(new PaletteContextMenuProvider(m_paletteViewer));
+			m_paletteViewer.setColorProvider(new DesignerColorProvider());
+			m_paletteViewer.setEditPartFactory(new DesignerPaletteEditPartFactory());
 			m_paletteComposite = (FigureCanvas) m_paletteViewer.createControl(parent);
 			m_paletteComposite.setScrollbarsMode(SWT.NONE);
 		} else {
