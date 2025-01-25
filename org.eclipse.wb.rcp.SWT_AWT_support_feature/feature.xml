@@ -19,9 +19,9 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.core.feature" version="1.9.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.rcp.feature" version="1.9.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.swing.feature" version="1.9.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.feature" version="1.19.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.rcp.feature" version="1.19.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.swing.feature" version="1.19.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin

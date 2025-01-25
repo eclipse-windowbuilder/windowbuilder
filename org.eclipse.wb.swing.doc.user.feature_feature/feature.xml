@@ -19,7 +19,7 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.doc.user.feature" version="1.9.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.doc.user.feature" version="1.19.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
