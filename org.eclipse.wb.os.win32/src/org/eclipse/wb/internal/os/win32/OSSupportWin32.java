@@ -391,9 +391,10 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 			// With 3.129.0, the single "handle" field has been removed from the Image class
 			// to better handle displays with different zoom levels
 			if (SWT_VERSION.compareTo(new Version(3, 129, 0)) >= 0) {
+				int initialNativeZoom = Display.getCurrent().getPrimaryMonitor().getZoom();
 				Long handle = _fetchPopupMenuVisualData(getHandleField(menu.getShell()), getHandleField(menu), bounds);
-				Method method = ReflectionUtils.getMethod(Image.class, "win32_new", Device.class, int.class, long.class);
-				return (Image) method.invoke(null, Display.getCurrent(), SWT.BITMAP, handle);
+				Method method = ReflectionUtils.getMethod(Image.class, "win32_new", Device.class, int.class, long.class, int.class);
+				return (Image) method.invoke(null, Display.getCurrent(), SWT.BITMAP, handle, initialNativeZoom);
 			}
 			return super.getMenuPopupVisualData(menu, bounds);
 		}
