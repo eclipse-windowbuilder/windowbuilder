@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.os.linux;singleton:=true
-Bundle-Version: 1.10.0.qualifier
+Bundle-Version: 1.10.100.qualifier
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Eclipse-PlatformFilter: (& (osgi.ws=gtk) (osgi.os=linux))
 Require-Bundle: org.eclipse.swt,
  org.eclipse.core.runtime,

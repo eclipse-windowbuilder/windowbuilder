@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.rcp.SWT_AWT;singleton:=true
-Bundle-Version: 1.9.600.qualifier
+Bundle-Version: 1.9.700.qualifier
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gef;bundle-version="3.18.0",
@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.debug.ui,
  org.eclipse.jface
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.wb.internal.rcp.swtawt.palette
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.SWT.AWT
