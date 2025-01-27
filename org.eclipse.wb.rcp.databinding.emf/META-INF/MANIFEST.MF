@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.rcp.databinding.emf;singleton:=true
-Bundle-Version: 1.9.600.qualifier
+Bundle-Version: 1.9.700.qualifier
 Bundle-Activator: org.eclipse.wb.internal.rcp.databinding.emf.Activator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.databinding,
  org.eclipse.wb.rcp.databinding
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.databinding.emf
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",

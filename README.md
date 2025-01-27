@@ -45,7 +45,7 @@ https://download.eclipse.org/windowbuilder/updates/nightly/latest
 
 ## How to build on the command line
 
-WindowBuilder can be built locally with at least Java 17 and Maven 3.9.0 using:
+WindowBuilder can be built locally with at least Java 21 and Maven 3.9.0 using:
 
 `mvn clean package`
 

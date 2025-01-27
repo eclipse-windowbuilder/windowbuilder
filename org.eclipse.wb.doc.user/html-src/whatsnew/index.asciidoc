@@ -1,5 +1,7 @@
 = What's New - v1.19.0
 
+* Minimum required execution environment raised to Java 21 due to a dependency to JDT.
+
 * Experimental GEF palette which can be enabled using the _wbp.gef.palette_ system property.
 
 For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/11[1.19.0] milestone.

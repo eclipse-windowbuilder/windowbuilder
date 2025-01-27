@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.core.databinding;singleton:=true
-Bundle-Version: 1.9.700.qualifier
+Bundle-Version: 1.9.800.qualifier
 Bundle-Activator: org.eclipse.wb.internal.core.databinding.Activator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
@@ -28,7 +28,7 @@ Export-Package: org.eclipse.wb.internal.core.databinding,
  org.eclipse.wb.internal.core.databinding.utils,
  org.eclipse.wb.internal.core.databinding.wizards.autobindings
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.core.databinding
 Import-Package: org.apache.commons.io,
