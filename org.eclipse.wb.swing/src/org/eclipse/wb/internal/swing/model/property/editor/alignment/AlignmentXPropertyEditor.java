@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,9 +22,9 @@ import javax.swing.JComponent;
  */
 public final class AlignmentXPropertyEditor extends AlignmentPropertyEditor {
 	public AlignmentXPropertyEditor() {
-		super(new String[]{"RIGHT_ALIGNMENT", "CENTER_ALIGNMENT", "LEFT_ALIGNMENT",}, new String[]{
-				"right.gif",
+		super(new String[]{"LEFT_ALIGNMENT", "CENTER_ALIGNMENT", "RIGHT_ALIGNMENT",}, new String[]{
+				"left.gif",
 				"center.gif",
-				"left.gif",});
+				"right.gif",});
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,14 +11,17 @@
 package org.eclipse.wb.internal.core.model.property.editor.presentation;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.swt.SWT;
+import org.eclipse.draw2d.Button;
+import org.eclipse.draw2d.ButtonModel;
+import org.eclipse.draw2d.Clickable;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
+
+import java.util.Optional;
 
 /**
  * Implementation of {@link PropertyEditorPresentation} for displaying {@link Button}.
@@ -28,70 +31,35 @@ import org.eclipse.swt.widgets.Button;
  * @coverage core.model.property.editor
  */
 public abstract class ButtonPropertyEditorPresentation extends PropertyEditorPresentation {
-	private final int m_style;
-	private final ButtonPropertyEditorPresentationImpl m_impl;
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructors
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public ButtonPropertyEditorPresentation() {
-		this(SWT.NONE);
-	}
-
-	public ButtonPropertyEditorPresentation(int style) {
-		m_style = style;
-		m_impl =
-				EnvironmentUtils.IS_MAC
-				? new ButtonPropertyEditorPresentationImplMac(this)
-						: new ButtonPropertyEditorPresentationImpl(this);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Sets "selection" property of {@link Button}.
-	 */
-	public final void setSelection(PropertyTable propertyTable, Property property, boolean selected) {
-		m_impl.setSelection(propertyTable, property, selected);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// PropertyEditorPresentation
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public final void show(final PropertyTable propertyTable,
-			final Property property,
-			final int x,
-			final int y,
-			final int width,
-			final int height) {
-		m_impl.show(propertyTable, property, x, y, width, height);
-	}
 
 	@Override
-	public final void hide(PropertyTable propertyTable, Property property) {
-		m_impl.hide(propertyTable, property);
-	}
-
-	@Override
-	public Dimension getSize(int wHint, int hHint) {
-		return m_impl.getSize(wHint, hHint);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Access
-	//
-	////////////////////////////////////////////////////////////////////////////
-	final int getStyle() {
-		return m_style;
+	public IFigure getFigure(PropertyTable propertyTable, Property property) {
+		Clickable button = new PresentationButton(this, getImage());
+		// Button should be a perfect square
+		button.setPreferredSize(propertyTable.getRowHeight(), propertyTable.getRowHeight());
+		// Only create tooltip when necessary
+		getTooltip().ifPresent(tooltip -> button.setToolTip(new Label(tooltip)));
+		button.getModel().addChangeListener(event -> {
+			if (ButtonModel.PRESSED_PROPERTY.equals(event.getPropertyName())) {
+				propertyTable.deactivateEditor(true);
+				propertyTable.setActiveProperty(property);
+			}
+		});
+		button.getModel().addActionListener(event -> {
+			try {
+				onClick(propertyTable, property);
+			} catch (Throwable e) {
+				propertyTable.deactivateEditor(false);
+				propertyTable.handleException(e);
+			}
+		});
+		return button;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -109,8 +77,8 @@ public abstract class ButtonPropertyEditorPresentation extends PropertyEditorPre
 	/**
 	 * @return the tooltip text to display for {@link Button}.
 	 */
-	protected String getTooltip() {
-		return null;
+	protected Optional<String> getTooltip() {
+		return Optional.empty();
 	}
 
 	/**

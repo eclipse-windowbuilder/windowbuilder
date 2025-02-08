@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -65,7 +65,6 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -373,6 +372,13 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		return new Point(x - (m_splitter + 2), getAbsoluteBounds(editPart).top());
 	}
 
+	/**
+	 * The height for a row, based on the font height of the parent composite.
+	 */
+	public int getRowHeight() {
+		return m_rowHeight;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
@@ -395,19 +401,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	}
 
 	private void setInput0() {
-		// send "hide" to all PropertyEditorPresentation's
-		if (m_properties != null) {
-			for (PropertyInfo propertyInfo : m_properties) {
-				Property property = propertyInfo.getProperty();
-				// hide presentation
-				{
-					PropertyEditorPresentation presentation = property.getEditor().getPresentation();
-					if (presentation != null) {
-						presentation.hide(this, property);
-					}
-				}
-			}
-		}
 		// set new properties
 		if (m_rawProperties == null || m_rawProperties.length == 0) {
 			deactivateEditor(false);
@@ -1063,9 +1056,10 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			propertyFigure.setOpaque(true);
 			figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
 			//
-			if (getModel().getProperty().getEditor().getPresentation() != null) {
+			PropertyEditorPresentation presentation = getModel().getProperty().getEditor().getPresentation();
+			if (presentation != null) {
 				gridLayout.numColumns++;
-				figure.add(new PresentationFigure(getModel()));
+				figure.add(presentation.getFigure(PropertyTable.this, getModel().getProperty()));
 			}
 			return figure;
 		}
@@ -1158,32 +1152,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		public boolean isActiveProperty() {
 			Property property = m_propertyInfo.getProperty();
 			return m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
-		}
-	}
-
-	private final class PresentationFigure extends Figure {
-		private final PropertyEditorPresentation m_presentation;
-		private final Property m_property;
-
-		public PresentationFigure(PropertyInfo propertyInfo) {
-			m_property = propertyInfo.getProperty();
-			m_presentation = m_property.getEditor().getPresentation();
-			Objects.requireNonNull(m_presentation, "Property must have a presentation");
-			setPreferredSize(m_presentation.getSize(SWT.DEFAULT, m_rowHeight));
-		}
-
-		@Override
-		public void paintFigure(Graphics graphics) {
-			Rectangle absoluteBounds = bounds.getCopy();
-			translateToAbsolute(absoluteBounds);
-			m_presentation.show(PropertyTable.this, m_property, absoluteBounds.x, absoluteBounds.y,
-					absoluteBounds.width, absoluteBounds.height);
-		}
-
-		@Override
-		public void erase() {
-			m_presentation.hide(PropertyTable.this, m_property);
-			super.erase();
 		}
 	}
 
@@ -1348,13 +1316,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				// skip if should not display raw Property
 				if (!rawProperties_shouldShow(child.m_property)) {
 					continue;
-				}
-				// hide presentation
-				{
-					PropertyEditorPresentation presentation = child.getProperty().getEditor().getPresentation();
-					if (presentation != null) {
-						presentation.hide(PropertyTable.this, child.getProperty());
-					}
 				}
 				// remove child
 				m_properties.remove(index);
