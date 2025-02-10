@@ -27,6 +27,7 @@ import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureUtilities;
+import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
@@ -137,6 +138,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		createControl(parent);
 		setEditPartFactory(new PropertyEditPartFactory());
 		setEditDomain(new PropertyEditDomain());
+		getControl().getViewport().setContentsTracksWidth(true);
+		getControl().getViewport().setContentsTracksHeight(true);
 		getControl().addListener(SWT.Resize, event -> handleResize());
 		getControl().setScrollbarsMode(SWT.NONE);
 		// calculate sizes
@@ -916,11 +919,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 
 		@Override
 		protected IFigure createFigure() {
-			GridLayout gridLayout = new GridLayout();
-			gridLayout.marginHeight = 0;
-			gridLayout.marginWidth = 0;
-			gridLayout.horizontalSpacing = 0;
-			gridLayout.verticalSpacing = 0;
+			FlowLayout flowLayout = new FlowLayout(true);
+			flowLayout.setMajorSpacing(0);
 
 			LineBorder border = new LineBorder(COLOR_LINE) {
 				@Override
@@ -991,7 +991,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			figure = new Figure();
 			figure.setBorder(border);
 			figure.setBackgroundColor(COLOR_BACKGROUND);
-			figure.setLayoutManager(gridLayout);
+			figure.setLayoutManager(flowLayout);
 			figure.setOpaque(true);
 			return figure;
 		}
@@ -1039,15 +1039,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			gridLayout.marginWidth = 0;
 			gridLayout.horizontalSpacing = 0;
 			gridLayout.verticalSpacing = 0;
-			figure = new Figure() {
-				@Override
-				public void setParent(IFigure parent) {
-					super.setParent(parent);
-					if (parent != null) {
-						parent.setConstraint(this, new GridData(SWT.FILL, SWT.FILL, true, false));
-					}
-				}
-			};
+			figure = new Figure();
 			figure.setLayoutManager(gridLayout);
 			figure.setBorder(border);
 			//
