@@ -686,7 +686,10 @@ public class DesignerPalette {
 		}
 
 		public Shell getShell() {
-			return m_paletteComposite.getShell();
+			if (EnvironmentUtils.isGefPalette()) {
+				return m_paletteComposite.getShell();
+			}
+			return m_legacyPaletteComposite.getShell();
 		}
 	}
 }
