@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -411,19 +411,17 @@ public class JTableTest extends SwingModelTest {
 			assertEquals(true, column.m_resizable);
 		}
 		// model source
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"    {'10', '11'},",
-								"    {'20', '21'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+						{"10", "11"},
+						{"20", "21"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
@@ -445,15 +443,13 @@ public class JTableTest extends SwingModelTest {
 		assertEquals(0, modelDescription.getRowCount());
 		assertEquals(0, modelDescription.getColumnCount());
 		// model source
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"  },",
-								"  new String[] {",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+					}
+				)""",
 				modelDescription.getModelSource());
 		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
@@ -487,20 +483,18 @@ public class JTableTest extends SwingModelTest {
 		assertEquals(1, modelDescription.getRowCount());
 		assertEquals(10, modelDescription.getColumnCount());
 		// model source
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'str', Boolean.TRUE, Boolean.FALSE, new Integer(8), "
-										+ "new Byte((byte) 8), new Short((short) 8), new Long(8L), "
-										+ "new Float(8.1f), new Double(8.2), null"
-										+ "},",
-										"  },",
-										"  new String[] {",
-										"    '00', '01', '02', '03', '04', '05', '06', '07', '08', '09'",
-										"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"str", Boolean.TRUE, Boolean.FALSE, new Integer(8), \
+				new Byte((byte) 8), new Short((short) 8), new Long(8L), \
+				new Float(8.1f), new Double(8.2), null\
+				},
+					},
+					new String[] {
+						"00", "01", "02", "03", "04", "05", "06", "07", "08", "09"
+					}
+				)""",
 				modelDescription.getModelSource());
 		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
@@ -560,24 +554,22 @@ public class JTableTest extends SwingModelTest {
 			assertEquals(Integer.MAX_VALUE, column.m_maxWidth);
 		}
 		// model source
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-								") {",
-								"  boolean[] columnEditables = new boolean[] {",
-								"    false, true",
-								"  };",
-								"  public boolean isCellEditable(int row, int column) {",
-								"    return columnEditables[column];",
-								"  }",
-						"}"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				) {
+					boolean[] columnEditables = new boolean[] {
+						false, true
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				}""",
 				modelDescription.getModelSource());
 		{
 			List<String> invocations = modelDescription.getColumnModelInvocations();
@@ -623,24 +615,22 @@ public class JTableTest extends SwingModelTest {
 		assertSame(Object.class, modelDescription.getColumn(2).m_class);
 		assertSame(Integer.class, modelDescription.getColumn(3).m_class);
 		// model source
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {null, null, null, null},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B', 'C', 'D'",
-								"  }",
-								") {",
-								"  Class[] columnTypes = new Class[] {",
-								"    java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Integer.class",
-								"  };",
-								"  public Class getColumnClass(int columnIndex) {",
-								"    return columnTypes[columnIndex];",
-								"  }",
-						"}"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{null, null, null, null},
+					},
+					new String[] {
+						"A", "B", "C", "D"
+					}
+				) {
+					Class[] columnTypes = new Class[] {
+						java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Integer.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+				}""",
 				modelDescription.getModelSource());
 		{
 			List<String> invocations = modelDescription.getColumnModelInvocations();
@@ -687,18 +677,16 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.insertColumn(1);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(3, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', null, '01'},",
-								"    {'10', null, '11'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'New column', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", null, "01"},
+						{"10", null, "11"},
+					},
+					new String[] {
+						"A", "New column", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 		isNewColumn(modelDescription, 1);
 	}
@@ -737,18 +725,16 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.removeColumn(1);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '02'},",
-								"    {'10', '12'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'C'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "02"},
+						{"10", "12"},
+					},
+					new String[] {
+						"A", "C"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 
@@ -786,18 +772,16 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.setColumnCount(4);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(4, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01', null, null},",
-								"    {'10', '11', null, null},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B', 'New column', 'New column'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01", null, null},
+						{"10", "11", null, null},
+					},
+					new String[] {
+						"A", "B", "New column", "New column"
+					}
+				)""",
 				modelDescription.getModelSource());
 		isNewColumn(modelDescription, 2);
 		isNewColumn(modelDescription, 3);
@@ -805,18 +789,16 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.setColumnCount(1);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(1, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00'},",
-								"    {'10'},",
-								"  },",
-								"  new String[] {",
-								"    'A'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00"},
+						{"10"},
+					},
+					new String[] {
+						"A"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 
@@ -854,52 +836,46 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.moveColumn(2, 1);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(4, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '02', '01', '03'},",
-								"    {'10', '12', '11', '13'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'C', 'B', 'D'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "02", "01", "03"},
+						{"10", "12", "11", "13"},
+					},
+					new String[] {
+						"A", "C", "B", "D"
+					}
+				)""",
 				modelDescription.getModelSource());
 		// move: forward
 		modelDescription.moveColumn(1, 2);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(4, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01', '02', '03'},",
-								"    {'10', '11', '12', '13'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B', 'C', 'D'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01", "02", "03"},
+						{"10", "11", "12", "13"},
+					},
+					new String[] {
+						"A", "B", "C", "D"
+					}
+				)""",
 				modelDescription.getModelSource());
 		// move: forward 2
 		modelDescription.moveColumn(0, 3);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(4, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'01', '02', '03', '00'},",
-								"    {'11', '12', '13', '10'},",
-								"  },",
-								"  new String[] {",
-								"    'B', 'C', 'D', 'A'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"01", "02", "03", "00"},
+						{"11", "12", "13", "10"},
+					},
+					new String[] {
+						"B", "C", "D", "A"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 
@@ -947,25 +923,23 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.setColumnType(1, Boolean.class);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', Boolean.TRUE},",
-								"    {'10', null},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-								") {",
-								"  Class[] columnTypes = new Class[] {",
-								"    java.lang.Object.class, java.lang.Boolean.class",
-								"  };",
-								"  public Class getColumnClass(int columnIndex) {",
-								"    return columnTypes[columnIndex];",
-								"  }",
-						"}"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", Boolean.TRUE},
+						{"10", null},
+					},
+					new String[] {
+						"A", "B"
+					}
+				) {
+					Class[] columnTypes = new Class[] {
+						java.lang.Object.class, java.lang.Boolean.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+				}""",
 				modelDescription.getModelSource());
 		Assertions.assertThat(modelDescription.getColumnModelInvocations()).isEmpty();
 	}
@@ -1009,19 +983,17 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.insertRow(1);
 		assertEquals(3, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"    {'10', '11'},",
-								"    {null, null},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+						{"10", "11"},
+						{null, null},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 
@@ -1060,18 +1032,16 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.removeRow(1);
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"    {'20', '21'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+						{"20", "21"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 
@@ -1109,36 +1079,32 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.setRowCount(4);
 		assertEquals(4, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"    {'10', '11'},",
-								"    {null, null},",
-								"    {null, null},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+						{"10", "11"},
+						{null, null},
+						{null, null},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 		// set rows: 1
 		modelDescription.setRowCount(1);
 		assertEquals(1, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 
@@ -1178,58 +1144,52 @@ public class JTableTest extends SwingModelTest {
 		modelDescription.moveRow(2, 1);
 		assertEquals(4, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"    {'20', '21'},",
-								"    {'10', '11'},",
-								"    {'30', '31'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+						{"20", "21"},
+						{"10", "11"},
+						{"30", "31"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 		// move: forward
 		modelDescription.moveRow(1, 2);
 		assertEquals(4, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'00', '01'},",
-								"    {'10', '11'},",
-								"    {'20', '21'},",
-								"    {'30', '31'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"00", "01"},
+						{"10", "11"},
+						{"20", "21"},
+						{"30", "31"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 		// move: forward 2
 		modelDescription.moveRow(0, 3);
 		assertEquals(4, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
-		assertEquals(
-				getDoubleQuotes2(
-						new String[]{
-								"new javax.swing.table.DefaultTableModel(",
-								"  new Object[][] {",
-								"    {'10', '11'},",
-								"    {'20', '21'},",
-								"    {'30', '31'},",
-								"    {'00', '01'},",
-								"  },",
-								"  new String[] {",
-								"    'A', 'B'",
-								"  }",
-						")"}).trim(),
+		assertEquals("""
+				new javax.swing.table.DefaultTableModel(
+					new Object[][] {
+						{"10", "11"},
+						{"20", "21"},
+						{"30", "31"},
+						{"00", "01"},
+					},
+					new String[] {
+						"A", "B"
+					}
+				)""",
 				modelDescription.getModelSource());
 	}
 }

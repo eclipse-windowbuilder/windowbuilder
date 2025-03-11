@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1648,7 +1648,9 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_toString_rootWithoutChildren() throws Exception {
-		String content = getDoubleQuotes2("<root/>");
+		String content = """
+				<root/>
+				""";
 		prepareContext(content);
 		assertEquals(content, rootElement.toString());
 	}
@@ -1658,7 +1660,9 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_toString_rootWithAttributes() throws Exception {
-		String content = getDoubleQuotes2("<root name='value'/>");
+		String content = """
+				<root name="value"/>
+				""";
 		prepareContext(content);
 		assertEquals(content, rootElement.toString());
 	}
@@ -1668,7 +1672,9 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_toString_rootOnlyText() throws Exception {
-		String content = getDoubleQuotes2("<root>aaa bbb</root>");
+		String content = """
+				<root>aaa bbb</root>
+				""";
 		prepareContext(content);
 		assertEquals(content, rootElement.toString());
 	}
@@ -1678,13 +1684,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_toString_twoLevels() throws Exception {
-		String content =
-				getDoubleQuotes2(
-						"<root>",
-						"  <firstLevelElement>",
-						"    <secondLevelElement/>",
-						"  </firstLevelElement>",
-						"</root>");
+		String content = """
+				<root>
+					<firstLevelElement>
+						<secondLevelElement/>
+					</firstLevelElement>
+				</root>
+				""";
 		prepareContext(content);
 		assertEquals(content, rootElement.toString());
 	}

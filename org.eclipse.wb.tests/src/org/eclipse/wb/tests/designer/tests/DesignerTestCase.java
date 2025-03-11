@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -418,17 +418,9 @@ public abstract class DesignerTestCase extends Assert {
 	 * @return the single string from several lines, where input lines may use single quotes, but
 	 *         result string will have double quotes.
 	 */
-	public static String getDoubleQuotes2(String... lines) {
+	public static String getSourceDQ(String... lines) {
 		String source = getSource(lines);
 		return StringUtils.replace(source, "'", "\"");
-	}
-
-	/**
-	 * @return the single string from several lines, where input lines may use single quotes, but
-	 *         result string will have double quotes.
-	 */
-	public static String getSourceDQ(String... lines) {
-		return getDoubleQuotes2(lines);
 	}
 
 	/**
