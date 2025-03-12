@@ -20,8 +20,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <baseline.repo>https://download.eclipse.org/releases/2024-12</baseline.repo>
-    <eclipse.repo>https://download.eclipse.org/releases/2025-03</eclipse.repo>
+    <baseline.repo>https://download.eclipse.org/releases/2025-03</baseline.repo>
+    <eclipse.repo>https://download.eclipse.org/releases/2025-06</eclipse.repo>
     <tycho.sbom.url>${eclipse.repo}</tycho.sbom.url>
   </properties>
 
