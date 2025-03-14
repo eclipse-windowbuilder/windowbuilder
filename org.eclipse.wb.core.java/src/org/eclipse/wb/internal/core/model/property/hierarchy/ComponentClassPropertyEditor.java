@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -86,7 +86,6 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
 			@Override
 			public Control createTooltipControl(Property property,
 					Composite parent,
-					int availableWidth,
 					final IPropertyTooltipSite site) {
 				// prepare hierarchy
 				List<Class<?>> classes = new ArrayList<>();
