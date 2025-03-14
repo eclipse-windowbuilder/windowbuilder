@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -153,7 +153,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 			GridLayoutFactory.create(m_tooltip).noMargins();
 		}
 		// prepare control
-		Control control = provider.createTooltipControl(m_property, m_tooltip, endX - startX, this);
+		Control control = provider.createTooltipControl(m_property, m_tooltip, this);
 		if (control == null) {
 			hideTooltip();
 			return;
