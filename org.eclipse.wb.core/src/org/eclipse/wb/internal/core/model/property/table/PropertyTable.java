@@ -291,21 +291,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	// Location/size utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the <code>X</code> position for first pixel of {@link PropertyInfo}
-	 *         title (location of state image).
-	 */
-	private int getTitleX(PropertyInfo propertyInfo) {
-		return MARGIN_LEFT + getLevelIndent() * propertyInfo.getLevel();
-	}
-
-	/**
-	 * @return the <code>X</code> position for first pixel of {@link PropertyInfo}
-	 *         title text.
-	 */
-	private int getTitleTextX(PropertyInfo propertyInfo) {
-		return getTitleX(propertyInfo) + getLevelIndent();
-	}
 
 	/**
 	 * @return the bounds of the given edit part relative to the top right corner of
@@ -316,13 +301,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		Rectangle bounds = figure.getBounds().getCopy();
 		figure.translateToAbsolute(bounds);
 		return bounds;
-	}
-
-	/**
-	 * @return the indentation for single level.
-	 */
-	private int getLevelIndent() {
-		return m_stateWidth + STATE_IMAGE_MARGIN_RIGHT;
 	}
 
 	/**
@@ -338,15 +316,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		if (clientArea.width - m_splitter < MIN_COLUMN_WIDTH) {
 			m_splitter = clientArea.width - MIN_COLUMN_WIDTH;
 		}
-	}
-
-	/**
-	 * @return <code>true</code> if given <code>x</code> coordinate is on state
-	 *         (plus/minus) image.
-	 */
-	private boolean isLocationState(PropertyInfo propertyInfo, int x) {
-		int levelX = getTitleX(propertyInfo);
-		return propertyInfo.isComplex() && levelX <= x && x <= levelX + m_stateWidth;
 	}
 
 	/**
@@ -526,7 +495,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
 			PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(propertyInfo);
-			int x = getTitleX(propertyInfo);
+			int x = editPart.getTitleX();
 			int y = getAbsoluteBounds(editPart).y();
 			return new org.eclipse.swt.graphics.Point(x, y);
 		}
@@ -697,7 +666,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				if (findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
 					PropertyInfo propertyInfo = editPart.getModel();
 					// check for expand/collapse
-					if (isLocationState(propertyInfo, event.x)) {
+					if (editPart.isLocationState(event.x)) {
 						try {
 							m_lastExpandCollapseTime = System.currentTimeMillis();
 							propertyInfo.flip();
@@ -771,7 +740,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				int y = getAbsoluteBounds(editPart).bottom();
 				// check for title
 				{
-					int titleX = getTitleTextX(propertyInfo);
+					int titleX = editPart.getTitleTextX();
 					int titleRight = m_splitter - 2;
 					if (titleX <= x && x < titleRight) {
 						m_tooltipHelper.update(property, true, false, titleX, titleRight, y, m_rowHeight);
@@ -968,14 +937,14 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							// draw line if there are children
 							if (index2 > index) {
 								PropertyInfo nextPropertyInfo = m_properties.get(index2);
-								GraphicalEditPart editPart = (GraphicalEditPart) getEditPartRegistry()
+								PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry()
 										.get(propertyInfo);
-								GraphicalEditPart nextEditPart = (GraphicalEditPart) getEditPartRegistry()
+								PropertyEditPart nextEditPart = (PropertyEditPart) getEditPartRegistry()
 										.get(nextPropertyInfo);
 								if (editPart != null && nextEditPart != null) {
 									Rectangle bounds = editPart.getFigure().getBounds();
 									Rectangle nextBounds = nextEditPart.getFigure().getBounds();
-									int x = getTitleX(propertyInfo) + xOffset;
+									int x = editPart.getTitleX() + xOffset;
 									int y1 = bounds.top() + height - yOffset;
 									int y2 = nextBounds.top() + m_rowHeight / 2;
 									graphics.drawLine(x, y1, x, y2);
@@ -1025,6 +994,38 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			addSelectionChangedListener(event -> refreshVisuals());
 		}
 
+		/**
+		 * @return the <code>X</code> position for first pixel of {@link PropertyInfo}
+		 *         title (location of state image).
+		 */
+		private int getTitleX() {
+			return MARGIN_LEFT + getLevelIndent() * getModel().getLevel();
+		}
+
+		/**
+		 * @return the <code>X</code> position for first pixel of {@link PropertyInfo}
+		 *         title text.
+		 */
+		private int getTitleTextX() {
+			return getTitleX() + getLevelIndent();
+		}
+
+		/**
+		 * @return the indentation for single level.
+		 */
+		private int getLevelIndent() {
+			return m_stateWidth + STATE_IMAGE_MARGIN_RIGHT;
+		}
+
+		/**
+		 * @return <code>true</code> if given <code>x</code> coordinate is on state
+		 *         (plus/minus) image.
+		 */
+		private boolean isLocationState(int x) {
+			int levelX = getTitleX();
+			return getModel().isComplex() && levelX <= x && x <= levelX + m_stateWidth;
+		}
+
 		@Override
 		public PropertyInfo getModel() {
 			return (PropertyInfo) super.getModel();
@@ -1043,7 +1044,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			figure.setLayoutManager(gridLayout);
 			figure.setBorder(border);
 			//
-			propertyFigure = new PropertyFigure(getModel());
+			propertyFigure = new PropertyFigure();
 			propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, m_rowHeight));
 			propertyFigure.setOpaque(true);
 			figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -1078,72 +1079,67 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				}
 			}
 		}
-	}
 
-	private final class PropertyFigure extends Figure {
-		private final PropertyInfo m_propertyInfo;
+		private final class PropertyFigure extends Figure {
 
-		public PropertyFigure(PropertyInfo propertyInfo) {
-			m_propertyInfo = propertyInfo;
-		}
-
-		@Override
-		protected void paintClientArea(Graphics graphics) {
-			int height = bounds.height();
-			int y = bounds.y();
-			// draw property
-			try {
-				Property property = m_propertyInfo.getProperty();
-				if (isActiveProperty()) {
-					setActiveEditorBounds();
-				}
-				// draw state image
-				if (m_propertyInfo.isShowComplex()) {
-					Image stateImage = m_propertyInfo.isExpanded() ? m_minusImage : m_plusImage;
-					DrawUtils.drawImageCV(graphics, stateImage, getTitleX(m_propertyInfo), y, height);
-				}
-				// draw title
-				{
-					// configure GC
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				int height = bounds.height();
+				int y = bounds.y();
+				// draw property
+				try {
+					Property property = getModel().getProperty();
+					if (isActiveProperty()) {
+						setActiveEditorBounds();
+					}
+					// draw state image
+					if (getModel().isShowComplex()) {
+						Image stateImage = getModel().isExpanded() ? m_minusImage : m_plusImage;
+						DrawUtils.drawImageCV(graphics, stateImage, getTitleX(), y, height);
+					}
+					// draw title
 					{
-						graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
-						// check category
-						if (getCategory(property).isAdvanced()) {
-							graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
-							graphics.setFont(m_italicFont);
-						} else if (getCategory(property).isPreferred() || getCategory(property).isSystem()) {
-							graphics.setFont(m_boldFont);
+						// configure GC
+						{
+							graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
+							// check category
+							if (getCategory(property).isAdvanced()) {
+								graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
+								graphics.setFont(m_italicFont);
+							} else if (getCategory(property).isPreferred() || getCategory(property).isSystem()) {
+								graphics.setFont(m_boldFont);
+							}
+							// check for active
+							if (isActiveProperty()) {
+								graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
+							}
 						}
-						// check for active
-						if (isActiveProperty()) {
-							graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
+						// paint title
+						int x = getTitleTextX();
+						DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, m_splitter - x, height);
+					}
+					// draw value
+					{
+						// configure GC
+						graphics.setFont(m_baseFont);
+						if (!isActiveProperty()) {
+							graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
 						}
+						// prepare value rectangle
+						int x = m_splitter + 4;
+						int w = getControl().getClientArea().width - x - MARGIN_RIGHT;
+						// paint value
+						property.getEditor().paint(property, graphics, x, y, w, height);
 					}
-					// paint title
-					int x = getTitleTextX(m_propertyInfo);
-					DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, m_splitter - x, height);
+				} catch (Throwable e) {
+					DesignerPlugin.log(e);
 				}
-				// draw value
-				{
-					// configure GC
-					graphics.setFont(m_baseFont);
-					if (!isActiveProperty()) {
-						graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
-					}
-					// prepare value rectangle
-					int x = m_splitter + 4;
-					int w = getControl().getClientArea().width - x - MARGIN_RIGHT;
-					// paint value
-					property.getEditor().paint(property, graphics, x, y, w, height);
-				}
-			} catch (Throwable e) {
-				DesignerPlugin.log(e);
 			}
-		}
 
-		public boolean isActiveProperty() {
-			Property property = m_propertyInfo.getProperty();
-			return m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
+			public boolean isActiveProperty() {
+				Property property = getModel().getProperty();
+				return m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
+			}
 		}
 	}
 
