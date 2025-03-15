@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProv
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.IPropertyExceptionHandler;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.internal.core.model.property.table.PropertyTable.PropertyEditPart;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -47,7 +48,6 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -245,12 +245,14 @@ public final class ComponentsPropertiesPage implements IPage {
 	 */
 	private void trackPropertySelection() {
 		ISelectionChangedListener listener = event -> {
-			StructuredSelection selection = (StructuredSelection) event.getSelection();
-			m_activeProperty = (Property) selection.getFirstElement();
-			ExecutionUtils.runLog(() -> {
-				update_defaultValueAction();
-				update_categoryAction();
-			});
+			IStructuredSelection selection = event.getStructuredSelection();
+			if (selection.getFirstElement() instanceof PropertyEditPart editPart) {
+				m_activeProperty = editPart.getProperty();
+				ExecutionUtils.runLog(() -> {
+					update_defaultValueAction();
+					update_categoryAction();
+				});
+			}
 		};
 		m_propertyTable.addSelectionChangedListener(listener);
 		m_eventsTable.addSelectionChangedListener(listener);

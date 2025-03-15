@@ -125,6 +125,7 @@ public class ModelMessages extends NLS {
 	public static String OrderingSupport_sendBackward;
 	public static String OrderingSupport_sendToBack;
 	public static String PropertyTable_noProperties;
+	public static String PropertyTable_unknownEditPart;
 	public static String RenameConvertSupport_beField;
 	public static String RenameConvertSupport_message;
 	public static String RenameConvertSupport_shellTitle;
