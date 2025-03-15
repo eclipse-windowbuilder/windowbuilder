@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyE
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Figure;
@@ -49,7 +50,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.KeyEvent;
@@ -250,7 +251,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				// prepare bounds for editor
 				org.eclipse.swt.graphics.Rectangle bounds;
 				{
-					PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(m_activePropertyInfo);
+					PropertyEditPart editPart = getEditPartForModel(m_activePropertyInfo);
 					Rectangle figureBounds = getAbsoluteBounds(editPart);
 					int x = m_splitter + 1;
 					int y = figureBounds.top();
@@ -494,7 +495,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	public org.eclipse.swt.graphics.Point forTests_getStateLocation(Property property) {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
-			PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(propertyInfo);
+			PropertyEditPart editPart = getEditPartForModel(propertyInfo);
 			int x = editPart.getTitleX();
 			int y = getAbsoluteBounds(editPart).y();
 			return new org.eclipse.swt.graphics.Point(x, y);
@@ -508,7 +509,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	public org.eclipse.swt.graphics.Point forTests_getValueLocation(Property property) {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
-			PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry().get(propertyInfo);
+			PropertyEditPart editPart = getEditPartForModel(propertyInfo);
 			int x = m_splitter + 5;
 			int y = getAbsoluteBounds(editPart).y();
 			return new org.eclipse.swt.graphics.Point(x, y);
@@ -550,15 +551,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public ISelection getSelection() {
-		if (m_activePropertyInfo != null) {
-			return new StructuredSelection(m_activePropertyInfo.getProperty());
-		} else {
-			return StructuredSelection.EMPTY;
-		}
-	}
-
-	@Override
 	public void setSelection(ISelection selection) {
 		throw new NotImplementedException(PropertyTable.class.getName());
 	}
@@ -568,7 +560,22 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 * {@link ISelectionChangedListener} 's.
 	 */
 	private void setActivePropertyInfo(PropertyInfo activePropertyInfo) {
-		m_activePropertyInfo = activePropertyInfo;
+		if (activePropertyInfo == null) {
+			m_activePropertyInfo = null;
+			return;
+		}
+		PropertyEditPart editPart = getEditPartForModel(activePropertyInfo);
+		if (editPart == null) {
+			String msg = NLS.bind(ModelMessages.PropertyTable_unknownEditPart, activePropertyInfo);
+			DesignerPlugin.log(Status.warning(msg));
+			return;
+		}
+		select(editPart);
+	}
+
+	@Override
+	public final void select(EditPart editPart) {
+		m_activePropertyInfo = ((PropertyEditPart) editPart).getModel();
 		// update m_activePropertyId only when really select property,
 		// not just remove selection because there are no corresponding property for old
 		// active
@@ -578,13 +585,9 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			m_activePropertyId = m_activePropertyInfo.m_id;
 		}
 		// make sure that active property is visible
-		if (getEditPartRegistry().get(m_activePropertyInfo) instanceof PropertyEditPart editPart) {
-			reveal(editPart);
-		}
+		reveal(editPart);
 		// send events
-		fireSelectionChanged();
-		// re-draw
-		getControl().redraw();
+		super.select(editPart);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -608,6 +611,23 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 */
 	private PropertyCategory getCategory(Property property) {
 		return m_propertyCategoryProvider.getCategory(property);
+	}
+
+	/**
+	 * Convenience method to look up an edit part for a given model element in the
+	 * EditPart registry.
+	 *
+	 * See also {@link #getEditPartRegistry()} for details on the EditPart registry.
+	 *
+	 * @param model the model object for which an EditPart is looked up
+	 * @return the edit part or null if for the given model no EditPart is
+	 *         registered
+	 */
+	public PropertyEditPart getEditPartForModel(PropertyInfo propertyInfo) {
+		if (propertyInfo == null) {
+			return null;
+		}
+		return (PropertyEditPart) getEditPartForModel((Object) propertyInfo);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -638,7 +658,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			// click in property
 			if (!m_splitterResizing && findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
 				// prepare property
-				setActivePropertyInfo(editPart.getModel());
+				select(editPart);
 				Property property = m_activePropertyInfo.getProperty();
 				// de-activate current editor
 				deactivateEditor(true);
@@ -937,10 +957,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							// draw line if there are children
 							if (index2 > index) {
 								PropertyInfo nextPropertyInfo = m_properties.get(index2);
-								PropertyEditPart editPart = (PropertyEditPart) getEditPartRegistry()
-										.get(propertyInfo);
-								PropertyEditPart nextEditPart = (PropertyEditPart) getEditPartRegistry()
-										.get(nextPropertyInfo);
+								PropertyEditPart editPart = getEditPartForModel(propertyInfo);
+								PropertyEditPart nextEditPart = getEditPartForModel(nextPropertyInfo);
 								if (editPart != null && nextEditPart != null) {
 									Rectangle bounds = editPart.getFigure().getBounds();
 									Rectangle nextBounds = nextEditPart.getFigure().getBounds();
@@ -986,7 +1004,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 	}
 
-	private final class PropertyEditPart extends AbstractGraphicalEditPart {
+	public final class PropertyEditPart extends AbstractGraphicalEditPart {
 		private PropertyFigure propertyFigure;
 
 		public PropertyEditPart(PropertyInfo propertyInfo) {
@@ -1024,6 +1042,16 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		private boolean isLocationState(int x) {
 			int levelX = getTitleX();
 			return getModel().isComplex() && levelX <= x && x <= levelX + m_stateWidth;
+		}
+
+		/**
+		 * Convenience method to avoid accessing the internal {@link PropertyInfo}
+		 * class.
+		 *
+		 * @return The {@link Property} of this edit part's model.
+		 */
+		public Property getProperty() {
+			return getModel().getProperty();
 		}
 
 		@Override
@@ -1137,8 +1165,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			}
 
 			public boolean isActiveProperty() {
-				Property property = getModel().getProperty();
-				return m_activePropertyInfo != null && m_activePropertyInfo.getProperty() == property;
+				return getSelected() == EditPart.SELECTED_PRIMARY;
 			}
 		}
 	}
