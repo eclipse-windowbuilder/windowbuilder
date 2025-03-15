@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,7 +102,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 		m_sender.moveTo(10, 10);
 		assertNull(m_propertyTable.getControl().getCursor());
 		//
-		int splitter = m_propertyTable.forTests_getSplitter();
+		int splitter = m_propertyTable.getSplitter();
 		for (int x = splitter - 1; x <= splitter + 1; x++) {
 			m_sender.moveTo(x, 10);
 			assertSame(Cursors.SIZEWE, m_propertyTable.getControl().getCursor());
@@ -120,7 +120,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 		int width = m_propertyTable.getControl().getClientArea().width;
 		// check initial position
 		int splitter = (int) (width * 0.4);
-		assertEquals(splitter, m_propertyTable.forTests_getSplitter());
+		assertEquals(splitter, m_propertyTable.getSplitter());
 		// do resize, enough space for title
 		splitter = check_dragSplitter(splitter, 100, 100);
 		// do resize, too little space for title
@@ -138,8 +138,8 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 		m_sender.dragTo(to, 10);
 		m_sender.endDrag();
 		waitEventLoop(0);
-		assertEquals(expected, m_propertyTable.forTests_getSplitter());
-		return m_propertyTable.forTests_getSplitter();
+		assertEquals(expected, m_propertyTable.getSplitter());
+		return m_propertyTable.getSplitter();
 	}
 
 	/**
