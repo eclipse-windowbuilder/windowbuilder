@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ public class PropertyTableEditorsTest extends AbstractPropertyTableTest {
 		m_propertyTable.setInput(new Property[]{property});
 		assertNull(m_propertyTable.forTests_getActiveEditor());
 		// click empty space - no editor
-		m_sender.click(m_propertyTable.forTests_getSplitter() + 10, 100, 1);
+		m_sender.click(m_propertyTable.getSplitter() + 10, 100, 1);
 		waitEventLoop(10);
 		assertNull(m_propertyTable.forTests_getActiveEditor());
 	}

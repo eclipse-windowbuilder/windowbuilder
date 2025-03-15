@@ -252,14 +252,14 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 	 * Hovers on title.
 	 */
 	private void doHoverTitleTooltip() throws InterruptedException {
-		doHoverTooltip(m_propertyTable.forTests_getSplitter() - 10, 10);
+		doHoverTooltip(m_propertyTable.getSplitter() - 10, 10);
 	}
 
 	/**
 	 * Hovers on value.
 	 */
 	private void doHoverValueTooltip() throws InterruptedException {
-		doHoverTooltip(m_propertyTable.forTests_getSplitter() + 10, 10);
+		doHoverTooltip(m_propertyTable.getSplitter() + 10, 10);
 	}
 
 	/**

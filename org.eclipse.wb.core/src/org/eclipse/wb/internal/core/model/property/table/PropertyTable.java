@@ -48,11 +48,11 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
@@ -126,9 +126,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	private final Set<String> m_expandedIds = new TreeSet<>();
 	private int m_rowHeight;
 	private int m_splitter = -1;
-	private Font m_baseFont;
-	private Font m_boldFont;
-	private Font m_italicFont;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -145,17 +142,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		getControl().setScrollbarsMode(SWT.NONE);
 		// calculate sizes
 		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
-		m_baseFont = parent.getFont();
-		m_boldFont = DrawUtils.getBoldFont(m_baseFont);
-		m_italicFont = DrawUtils.getItalicFont(m_baseFont);
 		// Initialize with <No Properties>
 		setInput(null);
-	}
-
-	@Override
-	protected void handleDispose(DisposeEvent e) {
-		m_boldFont.dispose();
-		m_italicFont.dispose();
 	}
 
 	@Override
@@ -486,7 +474,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	/**
 	 * @return the position of splitter.
 	 */
-	public int forTests_getSplitter() {
+	public int getSplitter() {
 		return m_splitter;
 	}
 
@@ -523,14 +511,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 */
 	public PropertyEditor forTests_getActiveEditor() {
 		return m_activeEditor;
-	}
-
-	/**
-	 * @return the {@link PropertyCategory} that is used by this
-	 *         {@link PropertyTable} to display.
-	 */
-	public PropertyCategory forTests_getCategory(Property property) {
-		return getCategory(property);
 	}
 
 	/**
@@ -610,7 +590,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 * @return the {@link PropertyCategory} that is used by this
 	 *         {@link PropertyTable} to display.
 	 */
-	private PropertyCategory getCategory(Property property) {
+	public PropertyCategory getCategory(Property property) {
 		return m_propertyCategoryProvider.getCategory(property);
 	}
 
@@ -869,7 +849,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	public class PropertyEditPartFactory implements EditPartFactory {
+	public static class PropertyEditPartFactory implements EditPartFactory {
 		@Override
 		@SuppressWarnings("unchecked")
 		public EditPart createEditPart(EditPart context, Object model) {
@@ -902,7 +882,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 
 	}
 
-	private final class PropertyRootEditPart extends AbstractGraphicalEditPart {
+	private static final class PropertyRootEditPart extends AbstractGraphicalEditPart {
 		public PropertyRootEditPart(List<PropertyInfo> model) {
 			setModel(model);
 		}
@@ -922,7 +902,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 					drawExpandLines(g, tempRect);
 					// draw splitter
 					tempRect = getPaintRectangle(f, i);
-					g.drawLine(m_splitter, 0, m_splitter, tempRect.height);
+					g.drawLine(getViewer().getSplitter(), 0, getViewer().getSplitter(), tempRect.height);
 				}
 
 				////////////////////////////////////////////////////////////////////////////
@@ -935,20 +915,21 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				 * Draws lines from expanded complex property to its last sub-property.
 				 */
 				private void drawExpandLines(Graphics graphics, Rectangle clientArea) {
-					int height = m_rowHeight - MARGIN_BOTTOM;
+					int height = getViewer().getRowHeight() - MARGIN_BOTTOM;
 					int xOffset = m_plusImage.getBounds().width / 2;
 					int yOffset = (height - m_plusImage.getBounds().width) / 2;
+					List<PropertyInfo> properties = getModelChildren();
 					//
 					graphics.setForegroundColor(COLOR_COMPLEX_LINE);
-					for (int i = 0; i < m_properties.size(); i++) {
-						PropertyInfo propertyInfo = m_properties.get(i);
+					for (int i = 0; i < properties.size(); i++) {
+						PropertyInfo propertyInfo = properties.get(i);
 						//
 						if (propertyInfo.isExpanded()) {
-							int index = m_properties.indexOf(propertyInfo);
+							int index = properties.indexOf(propertyInfo);
 							// prepare index of last sub-property
 							int index2 = index;
-							for (; index2 < m_properties.size(); index2++) {
-								PropertyInfo nextPropertyInfo = m_properties.get(index2);
+							for (; index2 < properties.size(); index2++) {
+								PropertyInfo nextPropertyInfo = properties.get(index2);
 								if (nextPropertyInfo != propertyInfo
 										&& nextPropertyInfo.getLevel() <= propertyInfo.getLevel()) {
 									break;
@@ -957,17 +938,17 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							index2--;
 							// draw line if there are children
 							if (index2 > index) {
-								PropertyInfo nextPropertyInfo = m_properties.get(index2);
-								PropertyEditPart editPart = getEditPartForModel(propertyInfo);
-								PropertyEditPart nextEditPart = getEditPartForModel(nextPropertyInfo);
+								PropertyInfo nextPropertyInfo = properties.get(index2);
+								PropertyEditPart editPart = getViewer().getEditPartForModel(propertyInfo);
+								PropertyEditPart nextEditPart = getViewer().getEditPartForModel(nextPropertyInfo);
 								if (editPart != null && nextEditPart != null) {
 									Rectangle bounds = editPart.getFigure().getBounds();
 									Rectangle nextBounds = nextEditPart.getFigure().getBounds();
 									int x = editPart.getTitleX() + xOffset;
 									int y1 = bounds.top() + height - yOffset;
-									int y2 = nextBounds.top() + m_rowHeight / 2;
+									int y2 = nextBounds.top() + getViewer().getRowHeight() / 2;
 									graphics.drawLine(x, y1, x, y2);
-									graphics.drawLine(x, y2, x + m_rowHeight / 3, y2);
+									graphics.drawLine(x, y2, x + getViewer().getRowHeight() / 3, y2);
 								}
 							}
 						}
@@ -990,6 +971,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 
 		@Override
+		public PropertyTable getViewer() {
+			return (PropertyTable) super.getViewer();
+		}
+
+		@Override
 		@SuppressWarnings("unchecked")
 		public List<PropertyInfo> getModel() {
 			return (List<PropertyInfo>) super.getModel();
@@ -1005,12 +991,25 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 	}
 
-	public final class PropertyEditPart extends AbstractGraphicalEditPart {
+	public static final class PropertyEditPart extends AbstractGraphicalEditPart {
+		private final ISelectionChangedListener listener;
 		private PropertyFigure propertyFigure;
 
 		public PropertyEditPart(PropertyInfo propertyInfo) {
 			setModel(propertyInfo);
-			addSelectionChangedListener(event -> refreshVisuals());
+			listener = event -> refreshVisuals();
+		}
+
+		@Override
+		public void addNotify() {
+			super.addNotify();
+			getViewer().addSelectionChangedListener(listener);
+		}
+
+		@Override
+		public void removeNotify() {
+			getViewer().removeSelectionChangedListener(listener);
+			super.removeNotify();
 		}
 
 		/**
@@ -1045,6 +1044,14 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			return getModel().isComplex() && levelX <= x && x <= levelX + m_stateWidth;
 		}
 
+		private Font getBoldFont(Font font) {
+			return getViewer().getResourceManager().create(FontDescriptor.createFrom(font).withStyle(SWT.BOLD));
+		}
+
+		private Font getItalicFont(Font font) {
+			return getViewer().getResourceManager().create(FontDescriptor.createFrom(font).withStyle(SWT.ITALIC));
+		}
+
 		/**
 		 * Convenience method to avoid accessing the internal {@link PropertyInfo}
 		 * class.
@@ -1074,14 +1081,14 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			figure.setBorder(border);
 			//
 			propertyFigure = new PropertyFigure();
-			propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, m_rowHeight));
+			propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, getViewer().getRowHeight()));
 			propertyFigure.setOpaque(true);
 			figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
 			//
 			PropertyEditorPresentation presentation = getModel().getProperty().getEditor().getPresentation();
 			if (presentation != null) {
 				gridLayout.numColumns++;
-				figure.add(presentation.getFigure(PropertyTable.this, getModel().getProperty()));
+				figure.add(presentation.getFigure(getViewer(), getModel().getProperty()));
 			}
 			return figure;
 		}
@@ -1089,6 +1096,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		@Override
 		protected void createEditPolicies() {
 			// Nothing to do
+		}
+
+		@Override
+		public PropertyTable getViewer() {
+			return (PropertyTable) super.getViewer();
 		}
 
 		@Override
@@ -1118,9 +1130,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				// draw property
 				try {
 					Property property = getModel().getProperty();
-					if (isActiveProperty()) {
-						setActiveEditorBounds();
-					}
 					// draw state image
 					if (getModel().isShowComplex()) {
 						Image stateImage = getModel().isExpanded() ? m_minusImage : m_plusImage;
@@ -1132,11 +1141,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 						{
 							graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
 							// check category
-							if (getCategory(property).isAdvanced()) {
+							if (getViewer().getCategory(property).isAdvanced()) {
 								graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
-								graphics.setFont(m_italicFont);
-							} else if (getCategory(property).isPreferred() || getCategory(property).isSystem()) {
-								graphics.setFont(m_boldFont);
+								graphics.setFont(getItalicFont(getFont()));
+							} else if (getViewer().getCategory(property).isPreferred() || getViewer().getCategory(property).isSystem()) {
+								graphics.setFont(getBoldFont(getFont()));
 							}
 							// check for active
 							if (isActiveProperty()) {
@@ -1145,18 +1154,18 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 						}
 						// paint title
 						int x = getTitleTextX();
-						DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, m_splitter - x, height);
+						DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, getViewer().getSplitter() - x, height);
 					}
 					// draw value
 					{
 						// configure GC
-						graphics.setFont(m_baseFont);
+						graphics.setFont(getFont());
 						if (!isActiveProperty()) {
 							graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
 						}
 						// prepare value rectangle
-						int x = m_splitter + 4;
-						int w = getControl().getClientArea().width - x - MARGIN_RIGHT;
+						int x = getViewer().getSplitter() + 4;
+						int w = getViewer().getControl().getClientArea().width - x - MARGIN_RIGHT;
 						// paint value
 						property.getEditor().paint(property, graphics, x, y, w, height);
 					}
