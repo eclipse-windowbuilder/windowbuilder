@@ -404,6 +404,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				DesignerPlugin.log(e);
 			}
 		}
+		setContents(m_properties);
+		getControl().getViewport().validate();
 		// update active property
 		if (m_activePropertyId != null) {
 			PropertyInfo newActivePropertyInfo = null;
@@ -419,7 +421,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			// set new PropertyInfo
 			setActivePropertyInfo(newActivePropertyInfo);
 		}
-		setContents(m_properties);
 	}
 
 	/**
