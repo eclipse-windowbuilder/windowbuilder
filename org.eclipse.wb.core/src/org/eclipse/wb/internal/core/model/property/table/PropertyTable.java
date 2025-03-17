@@ -18,54 +18,34 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProv
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProviders;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
+import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditPart;
+import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditPartFactory;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.core.runtime.Status;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureUtilities;
-import org.eclipse.draw2d.FlowLayout;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.GridData;
-import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.LineBorder;
-import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.SeparatorBorder;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
-import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -81,40 +61,12 @@ import java.util.TreeSet;
 public class PropertyTable extends ScrollingGraphicalViewer {
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Colors
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private static final Color COLOR_BACKGROUND = ColorConstants.listBackground;
-	private static final Color COLOR_NO_PROPERTIES = ColorConstants.gray;
-	private static final Color COLOR_LINE = ColorConstants.lightGray;
-	private static final Color COLOR_COMPLEX_LINE = DrawUtils.getShiftedColor(ColorConstants.lightGray, -32);
-	private static final Color COLOR_PROPERTY_BG = DrawUtils.getShiftedColor(COLOR_BACKGROUND, -12);
-	private static final Color COLOR_PROPERTY_BG_MODIFIED = COLOR_BACKGROUND;
-	private static final Color COLOR_PROPERTY_FG_TITLE = ColorConstants.listForeground;
-	private static final Color COLOR_PROPERTY_FG_VALUE = DrawUtils.isDarkColor(ColorConstants.listBackground)
-			? ColorConstants.lightBlue
-					: ColorConstants.darkBlue;
-	private static final Color COLOR_PROPERTY_BG_SELECTED = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION);
-	private static final Color COLOR_PROPERTY_FG_SELECTED = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT);
-	private static final Color COLOR_PROPERTY_FG_ADVANCED = ColorConstants.gray;
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Sizes
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final int MIN_COLUMN_WIDTH = 75;
-	private static final int MARGIN_LEFT = 2;
 	private static final int MARGIN_RIGHT = 1;
 	private static final int MARGIN_BOTTOM = 1;
-	private static final int STATE_IMAGE_MARGIN_RIGHT = 4;
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Images
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private static final Image m_plusImage = DesignerPlugin.getImage("properties/plus.gif");
-	private static final Image m_minusImage = DesignerPlugin.getImage("properties/minus.gif");
-	private static int m_stateWidth = 9;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance fields
@@ -845,343 +797,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// PropertyFigure
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	public static class PropertyEditPartFactory implements EditPartFactory {
-		@Override
-		@SuppressWarnings("unchecked")
-		public EditPart createEditPart(EditPart context, Object model) {
-			if (model instanceof List properties) {
-				if (properties.isEmpty()) {
-					return new NoPropertyEditPart();
-				}
-				return new PropertyRootEditPart((List<PropertyInfo>) model);
-			}
-			return new PropertyEditPart((PropertyInfo) model);
-		}
-	}
-
-	private static class NoPropertyEditPart extends AbstractGraphicalEditPart {
-
-		@Override
-		protected IFigure createFigure() {
-			Label label = new Label();
-			label.setBackgroundColor(COLOR_BACKGROUND);
-			label.setForegroundColor(COLOR_NO_PROPERTIES);
-			label.setText(ModelMessages.PropertyTable_noProperties);
-			label.setOpaque(true);
-			return label;
-		}
-
-		@Override
-		protected void createEditPolicies() {
-			// Nothing to do
-		}
-
-	}
-
-	private static final class PropertyRootEditPart extends AbstractGraphicalEditPart {
-		public PropertyRootEditPart(List<PropertyInfo> model) {
-			setModel(model);
-		}
-
-		@Override
-		protected IFigure createFigure() {
-			FlowLayout flowLayout = new FlowLayout(true);
-			flowLayout.setMajorSpacing(0);
-
-			LineBorder border = new LineBorder(COLOR_LINE) {
-				@Override
-				public void paint(IFigure f, Graphics g, Insets i) {
-					// draw rectangle around figure
-					super.paint(f, g, i);
-					// draw expand line
-					tempRect = getPaintRectangle(f, i);
-					drawExpandLines(g, tempRect);
-					// draw splitter
-					tempRect = getPaintRectangle(f, i);
-					g.drawLine(getViewer().getSplitter(), 0, getViewer().getSplitter(), tempRect.height);
-				}
-
-				////////////////////////////////////////////////////////////////////////////
-				//
-				// Painting
-				//
-				////////////////////////////////////////////////////////////////////////////
-
-				/**
-				 * Draws lines from expanded complex property to its last sub-property.
-				 */
-				private void drawExpandLines(Graphics graphics, Rectangle clientArea) {
-					int height = getViewer().getRowHeight() - MARGIN_BOTTOM;
-					int xOffset = m_plusImage.getBounds().width / 2;
-					int yOffset = (height - m_plusImage.getBounds().width) / 2;
-					List<PropertyInfo> properties = getModelChildren();
-					//
-					graphics.setForegroundColor(COLOR_COMPLEX_LINE);
-					for (int i = 0; i < properties.size(); i++) {
-						PropertyInfo propertyInfo = properties.get(i);
-						//
-						if (propertyInfo.isExpanded()) {
-							int index = properties.indexOf(propertyInfo);
-							// prepare index of last sub-property
-							int index2 = index;
-							for (; index2 < properties.size(); index2++) {
-								PropertyInfo nextPropertyInfo = properties.get(index2);
-								if (nextPropertyInfo != propertyInfo
-										&& nextPropertyInfo.getLevel() <= propertyInfo.getLevel()) {
-									break;
-								}
-							}
-							index2--;
-							// draw line if there are children
-							if (index2 > index) {
-								PropertyInfo nextPropertyInfo = properties.get(index2);
-								PropertyEditPart editPart = getViewer().getEditPartForModel(propertyInfo);
-								PropertyEditPart nextEditPart = getViewer().getEditPartForModel(nextPropertyInfo);
-								if (editPart != null && nextEditPart != null) {
-									Rectangle bounds = editPart.getFigure().getBounds();
-									Rectangle nextBounds = nextEditPart.getFigure().getBounds();
-									int x = editPart.getTitleX() + xOffset;
-									int y1 = bounds.top() + height - yOffset;
-									int y2 = nextBounds.top() + getViewer().getRowHeight() / 2;
-									graphics.drawLine(x, y1, x, y2);
-									graphics.drawLine(x, y2, x + getViewer().getRowHeight() / 3, y2);
-								}
-							}
-						}
-						//
-					}
-				}
-			};
-			//
-			figure = new Figure();
-			figure.setBorder(border);
-			figure.setBackgroundColor(COLOR_BACKGROUND);
-			figure.setLayoutManager(flowLayout);
-			figure.setOpaque(true);
-			return figure;
-		}
-
-		@Override
-		protected void createEditPolicies() {
-			// Nothing to do
-		}
-
-		@Override
-		public PropertyTable getViewer() {
-			return (PropertyTable) super.getViewer();
-		}
-
-		@Override
-		@SuppressWarnings("unchecked")
-		public List<PropertyInfo> getModel() {
-			return (List<PropertyInfo>) super.getModel();
-		}
-
-		@Override
-		protected List<PropertyInfo> getModelChildren() {
-			List<PropertyInfo> model = getModel();
-			if (model == null) {
-				return Collections.emptyList();
-			}
-			return Collections.unmodifiableList(model);
-		}
-	}
-
-	public static final class PropertyEditPart extends AbstractGraphicalEditPart {
-		private final ISelectionChangedListener listener;
-		private PropertyFigure propertyFigure;
-
-		public PropertyEditPart(PropertyInfo propertyInfo) {
-			setModel(propertyInfo);
-			listener = event -> refreshVisuals();
-		}
-
-		@Override
-		public void addNotify() {
-			super.addNotify();
-			getViewer().addSelectionChangedListener(listener);
-		}
-
-		@Override
-		public void removeNotify() {
-			getViewer().removeSelectionChangedListener(listener);
-			super.removeNotify();
-		}
-
-		/**
-		 * @return the <code>X</code> position for first pixel of {@link PropertyInfo}
-		 *         title (location of state image).
-		 */
-		private int getTitleX() {
-			return MARGIN_LEFT + getLevelIndent() * getModel().getLevel();
-		}
-
-		/**
-		 * @return the <code>X</code> position for first pixel of {@link PropertyInfo}
-		 *         title text.
-		 */
-		private int getTitleTextX() {
-			return getTitleX() + getLevelIndent();
-		}
-
-		/**
-		 * @return the indentation for single level.
-		 */
-		private int getLevelIndent() {
-			return m_stateWidth + STATE_IMAGE_MARGIN_RIGHT;
-		}
-
-		/**
-		 * @return <code>true</code> if given <code>x</code> coordinate is on state
-		 *         (plus/minus) image.
-		 */
-		private boolean isLocationState(int x) {
-			int levelX = getTitleX();
-			return getModel().isComplex() && levelX <= x && x <= levelX + m_stateWidth;
-		}
-
-		private Font getBoldFont(Font font) {
-			return getViewer().getResourceManager().create(FontDescriptor.createFrom(font).withStyle(SWT.BOLD));
-		}
-
-		private Font getItalicFont(Font font) {
-			return getViewer().getResourceManager().create(FontDescriptor.createFrom(font).withStyle(SWT.ITALIC));
-		}
-
-		/**
-		 * Convenience method to avoid accessing the internal {@link PropertyInfo}
-		 * class.
-		 *
-		 * @return The {@link Property} of this edit part's model.
-		 */
-		public Property getProperty() {
-			return getModel().getProperty();
-		}
-
-		@Override
-		public PropertyInfo getModel() {
-			return (PropertyInfo) super.getModel();
-		}
-
-		@Override
-		protected IFigure createFigure() {
-			SeparatorBorder border = new SeparatorBorder(new Insets(0, 0, MARGIN_BOTTOM, 1), PositionConstants.BOTTOM);
-			border.setColor(COLOR_LINE);
-			GridLayout gridLayout = new GridLayout();
-			gridLayout.marginHeight = 0;
-			gridLayout.marginWidth = 0;
-			gridLayout.horizontalSpacing = 0;
-			gridLayout.verticalSpacing = 0;
-			figure = new Figure();
-			figure.setLayoutManager(gridLayout);
-			figure.setBorder(border);
-			//
-			propertyFigure = new PropertyFigure();
-			propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, getViewer().getRowHeight()));
-			propertyFigure.setOpaque(true);
-			figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
-			//
-			PropertyEditorPresentation presentation = getModel().getProperty().getEditor().getPresentation();
-			if (presentation != null) {
-				gridLayout.numColumns++;
-				figure.add(presentation.getFigure(getViewer(), getModel().getProperty()));
-			}
-			return figure;
-		}
-
-		@Override
-		protected void createEditPolicies() {
-			// Nothing to do
-		}
-
-		@Override
-		public PropertyTable getViewer() {
-			return (PropertyTable) super.getViewer();
-		}
-
-		@Override
-		protected void refreshVisuals() {
-			if (propertyFigure.isActiveProperty()) {
-				propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
-			} else {
-				Property property = getModel().getProperty();
-				try {
-					if (property.isModified()) {
-						propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
-					} else {
-						propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG);
-					}
-				} catch (Exception e) {
-					DesignerPlugin.log(e);
-				}
-			}
-		}
-
-		private final class PropertyFigure extends Figure {
-
-			@Override
-			protected void paintClientArea(Graphics graphics) {
-				int height = bounds.height();
-				int y = bounds.y();
-				// draw property
-				try {
-					Property property = getModel().getProperty();
-					// draw state image
-					if (getModel().isShowComplex()) {
-						Image stateImage = getModel().isExpanded() ? m_minusImage : m_plusImage;
-						DrawUtils.drawImageCV(graphics, stateImage, getTitleX(), y, height);
-					}
-					// draw title
-					{
-						// configure GC
-						{
-							graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
-							// check category
-							if (getViewer().getCategory(property).isAdvanced()) {
-								graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
-								graphics.setFont(getItalicFont(getFont()));
-							} else if (getViewer().getCategory(property).isPreferred() || getViewer().getCategory(property).isSystem()) {
-								graphics.setFont(getBoldFont(getFont()));
-							}
-							// check for active
-							if (isActiveProperty()) {
-								graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
-							}
-						}
-						// paint title
-						int x = getTitleTextX();
-						DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, getViewer().getSplitter() - x, height);
-					}
-					// draw value
-					{
-						// configure GC
-						graphics.setFont(getFont());
-						if (!isActiveProperty()) {
-							graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
-						}
-						// prepare value rectangle
-						int x = getViewer().getSplitter() + 4;
-						int w = getViewer().getControl().getClientArea().width - x - MARGIN_RIGHT;
-						// paint value
-						property.getEditor().paint(property, graphics, x, y, w, height);
-					}
-				} catch (Throwable e) {
-					DesignerPlugin.log(e);
-				}
-			}
-
-			public boolean isActiveProperty() {
-				return getSelected() == EditPart.SELECTED_PRIMARY;
-			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// PropertyInfo
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -1190,7 +805,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 *
 	 * @author scheglov_ke
 	 */
-	private final class PropertyInfo {
+	public final class PropertyInfo {
 		private final String m_id;
 		private final int m_level;
 		private final Property m_property;
