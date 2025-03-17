@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -490,7 +490,8 @@ public final class GenericPropertyImpl extends GenericProperty {
 		} else if (m_editor instanceof IValueSourcePropertyEditor sourceEditor) {
 			source = sourceEditor.getValueSource(validatedValue);
 		} else {
-			Assert.isNotNull(m_converter);
+			Assert.isNotNull(m_converter, "%s: No converter found for property '%s' of type '%s'", getJavaInfo(),
+					getTitle(), getType());
 			source = m_converter.toJavaSource(m_javaInfo, validatedValue);
 		}
 		// set source
