@@ -31,7 +31,7 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProv
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.IPropertyExceptionHandler;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
-import org.eclipse.wb.internal.core.model.property.table.PropertyTable.PropertyEditPart;
+import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditPart;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
