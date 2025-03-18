@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,13 +69,13 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getClass() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"import javax.swing.JPanel;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				import javax.swing.JPanel;
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ITypeBinding typeBinding;
 		{
 			SimpleName name = getNode("JPanel");
@@ -111,13 +111,13 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.JButton;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    hasVarArgs(1, 'a', 'b', 'c');",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.JButton;
+				public class Test extends MyPanel {
+					public Test() {
+						hasVarArgs(1, "a", "b", "c");
+					}
+				}""");
 		ClassLoader classLoader = CodeUtils.getProjectClassLoader(m_javaProject);
 		MethodInvocation invocation = getNode("hasVarArgs(", MethodInvocation.class);
 		IMethodBinding methodBinding = invocation.resolveMethodBinding();
@@ -168,13 +168,13 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.JButton;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    noVarArgs(1, 'str');",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.JButton;
+				public class Test extends MyPanel {
+					public Test() {
+						noVarArgs(1, "str");
+					}
+				}""");
 		ClassLoader classLoader = CodeUtils.getProjectClassLoader(m_javaProject);
 		MethodInvocation invocation = getNode("noVarArgs(", MethodInvocation.class);
 		IMethodBinding methodBinding = invocation.resolveMethodBinding();
@@ -207,13 +207,13 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.JButton;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    super('test', new JButton());",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.JButton;
+				public class Test extends MyPanel {
+					public Test() {
+						super("test", new JButton());
+					}
+				}""");
 		SuperConstructorInvocation superInvocation = getNode("super(");
 		// prepare "MyPanel" class
 		Class<?> clazz;
@@ -250,13 +250,13 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(new MyPanel('test', new JButton()));",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyPanel("test", new JButton()));
+					}
+				}""");
 		ClassInstanceCreation classInstanceCreation = getNode("new MyPanel(");
 		// prepare "MyPanel" class
 		Class<?> clazz;
@@ -300,13 +300,13 @@ public class AstReflectionUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.JButton;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    componentFactory('test', new JButton());",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.JButton;
+				public class Test extends MyPanel {
+					public Test() {
+						componentFactory("test", new JButton());
+					}
+				}""");
 		MethodInvocation invocation =
 				AstNodeUtils.getEnclosingNode(getNode("componentFactory("), MethodInvocation.class);
 		// prepare "MyPanel" class

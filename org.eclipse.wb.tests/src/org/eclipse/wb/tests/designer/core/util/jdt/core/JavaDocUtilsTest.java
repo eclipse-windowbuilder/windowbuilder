@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,28 +62,27 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	@Ignore
 	@Test
 	public void test_getTooltip_basic() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  void test() {",
-						"    foo_1();",
-						"    foo_2();",
-						"    bar();",
-						"    new sun.awt.Mutex().lock();",
-						"  }",
-						"  /**",
-						"  * My   tooltip.",
-						"  */",
-						"  void foo_1() {",
-						"  }",
-						"  /**",
-						"  * My tooltip with <code>tags</code>.",
-						"  */",
-						"  void foo_2() {",
-						"  }",
-						"  void bar() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					void test() {
+						foo_1();
+						foo_2();
+						bar();
+						new sun.awt.Mutex().lock();
+					}
+					/**
+					 * My   tooltip.
+					 */
+					void foo_1() {
+					}
+					/**
+					 * My tooltip with <code>tags</code>.
+					 */
+					void foo_2() {
+					}
+					void bar() {
+					}
+				}""");
 		IMethodBinding[] methodBindings = CodeUtilsTest.getInvocationBindings(typeDeclaration, 0);
 		assertEquals("My tooltip.", getTooltip(methodBindings[0]));
 		assertEquals("My tooltip with <code>tags</code>.", getTooltip(methodBindings[1]));

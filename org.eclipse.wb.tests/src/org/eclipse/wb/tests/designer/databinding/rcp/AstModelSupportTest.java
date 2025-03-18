@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,20 +50,19 @@ public class AstModelSupportTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_method() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    create('aaa');",
-						"    String name = create('aaa');",
-						"    foo(name, create('aaa'));",
-						"  }",
-						"  static String create(String value) {",
-						"    return 'zzz: ' + value;",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						create("aaa");
+						String name = create("aaa");
+						foo(name, create("aaa"));
+					}
+					static String create(String value) {
+						return "zzz: " + value;
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -91,21 +90,20 @@ public class AstModelSupportTest extends AbstractJavaTest {
 
 	@Test
 	public void test_field_assignment_method() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private String m_name;",
-						"  public void foo() {",
-						"    m_name = create('aaa');",
-						"    String name = create('aaa');",
-						"    foo(name, m_name);",
-						"  }",
-						"  static String create(String value) {",
-						"    return 'zzz: ' + value;",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					private String m_name;
+						public void foo() {
+						m_name = create("aaa");
+						String name = create("aaa");
+						foo(name, m_name);
+					}
+					static String create(String value) {
+						return "zzz: " + value;
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -133,20 +131,19 @@ public class AstModelSupportTest extends AbstractJavaTest {
 
 	@Test
 	public void test_local_variable_method() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    String name = create('aaa');",
-						"    String name2 = create('aaa');",
-						"    foo(name, name2);",
-						"  }",
-						"  static String create(String value) {",
-						"    return 'zzz: ' + value;",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						String name = create("aaa");
+						String name2 = create("aaa");
+						foo(name, name2);
+					}
+					static String create(String value) {
+						return "zzz: " + value;
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -174,21 +171,20 @@ public class AstModelSupportTest extends AbstractJavaTest {
 
 	@Test
 	public void test_local_variable_assignment_method() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    String name;",
-						"    String name2 = create('aaa');",
-						"    name = create('aaa');",
-						"    foo(name, name2);",
-						"  }",
-						"  static String create(String value) {",
-						"    return 'zzz: ' + value;",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						String name;
+						String name2 = create("aaa");
+						name = create("aaa");
+						foo(name, name2);
+					}
+					static String create(String value) {
+						return "zzz: " + value;
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -220,17 +216,16 @@ public class AstModelSupportTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_constructor() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    new String('aaa');",
-						"    String name = new String('aaa');",
-						"    foo(name, new String('aaa'));",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						new String("aaa");
+						String name = new String("aaa");
+						foo(name, new String("aaa"));
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -258,18 +253,17 @@ public class AstModelSupportTest extends AbstractJavaTest {
 
 	@Test
 	public void test_field_assignment_constructor() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private String m_name;",
-						"  public void foo() {",
-						"    m_name = new String('aaa');",
-						"    String name = new String('aaa');",
-						"    foo(name, m_name);",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					private String m_name;
+					public void foo() {
+						m_name = new String("aaa");
+						String name = new String("aaa");
+						foo(name, m_name);
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -297,17 +291,16 @@ public class AstModelSupportTest extends AbstractJavaTest {
 
 	@Test
 	public void test_local_variable_constructor() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    String name = new String('aaa');",
-						"    String name2 = new String('aaa');",
-						"    foo(name, name2);",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						String name = new String("aaa");
+						String name2 = new String("aaa");
+						foo(name, name2);
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -335,18 +328,17 @@ public class AstModelSupportTest extends AbstractJavaTest {
 
 	@Test
 	public void test_local_variable_assignment_constructor() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    String name;",
-						"    String name2 = new String('aaa');",
-						"    name = new String('aaa');",
-						"    foo(name, name2);",
-						"  }",
-						"  void foo(String name, String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						String name;
+						String name2 = new String("aaa");
+						name = new String("aaa");
+						foo(name, name2);
+					}
+					void foo(String name, String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,66 +63,61 @@ public class FieldTest extends AbstractEngineTest {
 
 	@Test
 	public void test_localFieldValue_thisQualifier() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  private int value = 5;",
-						"  int foo() {",
-						"    return this.value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					private int value = 5;
+					int foo() {
+						return this.value;
+					}
+				}""");
 		assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
 	@Test
 	public void test_localFieldValue_defaultValue_false() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  private boolean value;",
-						"  boolean foo() {",
-						"    return this.value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					private boolean value;
+					boolean foo() {
+						return this.value;
+					}
+				}""");
 		assertEquals(false, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
 	@Test
 	public void test_localFieldValue_defaultValue_zero() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  private int value;",
-						"  int foo() {",
-						"    return this.value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					private int value;
+					int foo() {
+						return this.value;
+					}
+				}""");
 		assertEquals(0, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
 	@Test
 	public void test_localFieldValue_defaultValue_null() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  private Object value;",
-						"  Object foo() {",
-						"    return this.value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					private Object value;
+					Object foo() {
+						return this.value;
+					}
+				}""");
 		assertEquals(null, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
 	@Test
 	public void test_localFieldValue_noQualifier() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  private int value = 5;",
-						"  int foo() {",
-						"    return value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					private int value = 5;
+					int foo() {
+						return value;
+					}
+				}""");
 		assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 }

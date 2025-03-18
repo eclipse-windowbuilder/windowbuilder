@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,12 +48,11 @@ public class GathererTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ListGatherer() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  String a = 'aaa';",
-						"  String b = 'bbb';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					String a = "aaa";
+					String b = "bbb";
+				}""");
 		Gatherer<StringLiteral> gatherer = new ListGatherer<>() {
 			@Override
 			public void endVisit(StringLiteral node) {
@@ -76,12 +75,11 @@ public class GathererTest extends AbstractJavaTest {
 
 	@Test
 	public void test_SetGatherer() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  String a = 'aaa';",
-						"  String b = 'bbb';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					String a = "aaa";
+					String b = "bbb";
+				}""");
 		Gatherer<StringLiteral> gatherer = new SetGatherer<>() {
 			@Override
 			public void endVisit(StringLiteral node) {
@@ -105,12 +103,11 @@ public class GathererTest extends AbstractJavaTest {
 
 	@Test
 	public void test_unique() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  String a = 'aaa';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					String a = "aaa";
+				}""");
 		Gatherer<StringLiteral> gatherer = new SetGatherer<>() {
 			@Override
 			public void endVisit(StringLiteral node) {
@@ -128,12 +125,11 @@ public class GathererTest extends AbstractJavaTest {
 
 	@Test
 	public void test_VariableDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  String a = 'aaa';",
-						"  String b = 'bbb';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					String a = "aaa";
+					String b = "bbb";
+				}""");
 		Gatherer<VariableDeclarationFragment> gatherer =
 				new ListGatherer<>() {
 			@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -176,8 +176,8 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 	/**
 	 * Creates unit Test.java with given source, parses it and returns single {@link TypeDeclaration}.
 	 */
-	protected final TypeDeclaration createTypeDeclaration_Test(String... lines) throws Exception {
-		String source = getSource2(new String[]{"package test;"}, getDoubleQuotes(lines));
+	protected final TypeDeclaration createTypeDeclaration_Test(String code) throws Exception {
+		String source = "package test;\n" + code;
 		CompilationUnit astUnit = createASTCompilationUnit("test", "Test.java", source);
 		// return type
 		assertEquals(1, astUnit.types().size());
