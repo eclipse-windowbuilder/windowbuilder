@@ -156,6 +156,232 @@ public class CustomizeTest extends SwingModelTest {
 				}""");
 	}
 
+	@Test
+	public void test_customizer_cursor() throws Exception {
+		setFileContentSrc(
+				"test/MyButton.java",
+				getTestSource("""
+						public class MyButton extends JButton {
+						}"""));
+		setFileContentSrc(
+				"test/MyCustomizer.java",
+				getTestSource("""
+						import java.beans.Customizer;
+						import java.awt.Cursor;
+						public class MyCustomizer extends JPanel implements Customizer {
+							public void setObject(Object bean) {
+								MyButton b = (MyButton) bean;
+								Cursor c = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+								b.setCursor(c);
+							}
+						}"""));
+		waitForAutoBuild();
+		// create bean info
+		setFileContentSrc(
+				"test/MyButtonBeanInfo.java",
+				getTestSource("""
+						import java.beans.BeanInfo;
+						import java.beans.BeanDescriptor;
+						import java.beans.Introspector;
+						import java.beans.SimpleBeanInfo;
+						public class MyButtonBeanInfo extends SimpleBeanInfo {
+							private BeanDescriptor m_descriptor;
+							public MyButtonBeanInfo() {
+								m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);
+							}
+							public BeanDescriptor getBeanDescriptor() {
+								return m_descriptor;
+							}
+							public BeanInfo[] getAdditionalBeanInfo() {
+								try {
+									BeanInfo info = Introspector.getBeanInfo(JButton.class);
+									return new BeanInfo[] {info};
+								} catch (Throwable e) {
+								}
+								return null;
+							}
+						}"""));
+		waitForAutoBuild();
+		// create panel
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
+		panel.refresh();
+		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
+		// check action
+		IMenuManager manager = getContextMenu(buttonInfo);
+		final IAction action = findChildAction(manager, "&Customize...");
+		assertNotNull(action);
+		// open customize dialog
+		new UiContext().executeAndCheck(context -> action.run(), context -> {
+			context.useShell("Customize");
+			context.clickButton("OK");
+		});
+		// check no changes
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+						add(button);
+					}
+				}""");
+	}
+
+	@Test
+	public void test_customizer_orientation() throws Exception {
+		setFileContentSrc(
+				"test/MyButton.java",
+				getTestSource("""
+						public class MyButton extends JButton {
+						}"""));
+		setFileContentSrc(
+				"test/MyCustomizer.java",
+				getTestSource("""
+						import java.beans.Customizer;
+						import java.awt.ComponentOrientation;
+						public class MyCustomizer extends JPanel implements Customizer {
+							public void setObject(Object bean) {
+								MyButton b = (MyButton) bean;
+								b.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+							}
+						}"""));
+		waitForAutoBuild();
+		// create bean info
+		setFileContentSrc(
+				"test/MyButtonBeanInfo.java",
+				getTestSource("""
+						import java.beans.BeanInfo;
+						import java.beans.BeanDescriptor;
+						import java.beans.Introspector;
+						import java.beans.SimpleBeanInfo;
+						public class MyButtonBeanInfo extends SimpleBeanInfo {
+							private BeanDescriptor m_descriptor;
+							public MyButtonBeanInfo() {
+								m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);
+							}
+							public BeanDescriptor getBeanDescriptor() {
+								return m_descriptor;
+							}
+							public BeanInfo[] getAdditionalBeanInfo() {
+								try {
+									BeanInfo info = Introspector.getBeanInfo(JButton.class);
+									return new BeanInfo[] {info};
+								} catch (Throwable e) {
+								}
+								return null;
+							}
+						}"""));
+		waitForAutoBuild();
+		// create panel
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
+		panel.refresh();
+		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
+		// check action
+		IMenuManager manager = getContextMenu(buttonInfo);
+		final IAction action = findChildAction(manager, "&Customize...");
+		assertNotNull(action);
+		// open customize dialog
+		new UiContext().executeAndCheck(context -> action.run(), context -> {
+			context.useShell("Customize");
+			context.clickButton("OK");
+		});
+		// check no changes
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+						add(button);
+					}
+				}""");
+	}
+
+	@Test
+	public void test_customizer_font() throws Exception {
+		setFileContentSrc(
+				"test/MyButton.java",
+				getTestSource("""
+						public class MyButton extends JButton {
+						}"""));
+		setFileContentSrc(
+				"test/MyCustomizer.java",
+				getTestSource("""
+						import java.beans.Customizer;
+						import java.awt.Font;
+						public class MyCustomizer extends JPanel implements Customizer {
+							public void setObject(Object bean) {
+								MyButton b = (MyButton) bean;
+								b.setFont(new Font(Font.MONOSPACED, Font.BOLD, 12));
+							}
+						}"""));
+		waitForAutoBuild();
+		// create bean info
+		setFileContentSrc(
+				"test/MyButtonBeanInfo.java",
+				getTestSource("""
+						import java.beans.BeanInfo;
+						import java.beans.BeanDescriptor;
+						import java.beans.Introspector;
+						import java.beans.SimpleBeanInfo;
+						public class MyButtonBeanInfo extends SimpleBeanInfo {
+							private BeanDescriptor m_descriptor;
+							public MyButtonBeanInfo() {
+								m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);
+							}
+							public BeanDescriptor getBeanDescriptor() {
+								return m_descriptor;
+							}
+							public BeanInfo[] getAdditionalBeanInfo() {
+								try {
+									BeanInfo info = Introspector.getBeanInfo(JButton.class);
+									return new BeanInfo[] {info};
+								} catch (Throwable e) {
+								}
+								return null;
+							}
+						}"""));
+		waitForAutoBuild();
+		// create panel
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
+		panel.refresh();
+		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
+		// check action
+		IMenuManager manager = getContextMenu(buttonInfo);
+		final IAction action = findChildAction(manager, "&Customize...");
+		assertNotNull(action);
+		// open customize dialog
+		new UiContext().executeAndCheck(context -> action.run(), context -> {
+			context.useShell("Customize");
+			context.clickButton("OK");
+		});
+		// check no changes
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setFont(new Font("Monospaced", Font.BOLD, 12));
+						add(button);
+					}
+				}""");
+	}
+
 	// XXX
 	@Test
 	public void test_customizer_chageProperties_OK() throws Exception {

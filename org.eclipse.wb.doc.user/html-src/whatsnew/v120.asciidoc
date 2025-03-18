@@ -1,0 +1,7 @@
+= What's New - v1.20.0
+
+== Swing
+
+- Added conversion support for `java.awt.Cursor`, `java.awt.Font` and `java.awt.ComponentOrientation` in the Customizer.
+
+What's new - link:v119.html[*v1.19.0*]

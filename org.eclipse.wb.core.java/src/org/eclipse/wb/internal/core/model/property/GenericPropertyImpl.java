@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.model.property;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValue;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValueEx;
 import org.eclipse.wb.core.model.broadcast.GenericPropertySetValue;
@@ -490,8 +491,8 @@ public final class GenericPropertyImpl extends GenericProperty {
 		} else if (m_editor instanceof IValueSourcePropertyEditor sourceEditor) {
 			source = sourceEditor.getValueSource(validatedValue);
 		} else {
-			Assert.isNotNull(m_converter, "%s: No converter found for property '%s' of type '%s'", getJavaInfo(),
-					getTitle(), getType());
+			Assert.isNotNull(m_converter, "%s: No converter found for property '%s' of type '%s'",
+					ObjectInfo.getText(getJavaInfo()), getTitle(), getType());
 			source = m_converter.toJavaSource(m_javaInfo, validatedValue);
 		}
 		// set source
