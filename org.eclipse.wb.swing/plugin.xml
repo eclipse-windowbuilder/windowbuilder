@@ -171,6 +171,12 @@
 			class="org.eclipse.wb.internal.swing.model.property.converter.InsetsConverter"/>
 		<converter type="java.awt.Color"
 			class="org.eclipse.wb.internal.swing.model.property.converter.ColorConverter"/>
+		<converter type="java.awt.Cursor"
+			class="org.eclipse.wb.internal.swing.model.property.converter.CursorConverter"/>
+		<converter type="java.awt.ComponentOrientation"
+			class="org.eclipse.wb.internal.swing.model.property.converter.ComponentOrientationConverter"/>
+		<converter type="java.awt.Font"
+			class="org.eclipse.wb.internal.swing.model.property.converter.FontConverter"/>
 	</extension>
 
 
