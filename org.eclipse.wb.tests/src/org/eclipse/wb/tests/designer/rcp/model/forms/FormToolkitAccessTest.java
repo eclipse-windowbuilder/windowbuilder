@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,12 +56,11 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_invalid() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test {
+				}""");
 		assertSame(null, FormToolkitAccess.get(typeDeclaration));
 		try {
 			FormToolkitAccess.getOrFail(typeDeclaration);
@@ -141,24 +140,23 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_toolkitField() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class Test {",
-						"  private FormToolkit m_toolkit;",
-						"  //",
-						"  private int field;",
-						"  public void isToolkit_1() {",
-						"    int a;",
-						"  }",
-						"  public int isToolkit_2() {",
-						"    return field;",
-						"  }",
-						"  public Object isToolkit_3() {",
-						"    return m_toolkit;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test {
+					private FormToolkit m_toolkit;
+					//
+					private int field;
+					public void isToolkit_1() {
+						int a;
+					}
+					public int isToolkit_2() {
+						return field;
+					}
+					public Object isToolkit_3() {
+						return m_toolkit;
+					}
+				}""");
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("m_toolkit", toolkitAccess.getReferenceExpression());
 		assertToolkitNode(false, toolkitAccess, typeDeclaration, "isToolkit_1");
@@ -168,22 +166,21 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_toolkitLocal() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"import org.eclipse.swt.widgets.*;",
-						"public class Test {",
-						"  public void createMasterPart(int a, double b) {",
-						"    System.out.println(1);",
-						"    FormToolkit toolkit = new FormToolkit((Display) null);",
-						"    System.out.println(2);",
-						"    System.out.println(toolkit);",
-						"  }",
-						"  public void foo() {",
-						"    System.out.println(3);",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				import org.eclipse.swt.widgets.*;
+				public class Test {
+					public void createMasterPart(int a, double b) {
+						System.out.println(1);
+						FormToolkit toolkit = new FormToolkit((Display) null);
+						System.out.println(2);
+						System.out.println(toolkit);
+					}
+					public void foo() {
+						System.out.println(3);
+					}
+				}""");
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("toolkit", toolkitAccess.getReferenceExpression());
 		{
@@ -210,21 +207,20 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 						"  }",
 						"}"));
 		waitForAutoBuild();
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class Test extends MyForm {",
-						"  public void isToolkit_1() {",
-						"    int a;",
-						"  }",
-						"  public void isToolkit_2() {",
-						"    System.out.println();",
-						"  }",
-						"  public void isToolkit_3() {",
-						"    getMyForm().getToolkit();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test extends MyForm {
+					public void isToolkit_1() {
+						int a;
+					}
+					public void isToolkit_2() {
+						System.out.println();
+					}
+					public void isToolkit_3() {
+						getMyForm().getToolkit();
+					}
+				}""");
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("getMyForm().getToolkit()", toolkitAccess.getReferenceExpression());
 		assertToolkitNode(false, toolkitAccess, typeDeclaration, "isToolkit_1");
@@ -234,24 +230,23 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_formField() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class Test {",
-						"  private IManagedForm m_form;",
-						"  //",
-						"  private int field;",
-						"  public void isToolkit_1() {",
-						"    int a;",
-						"  }",
-						"  public int isToolkit_2() {",
-						"    return field;",
-						"  }",
-						"  public Object isToolkit_3() {",
-						"    return m_form.getToolkit();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test {
+					private IManagedForm m_form;
+					//
+					private int field;
+					public void isToolkit_1() {
+						int a;
+					}
+					public int isToolkit_2() {
+						return field;
+					}
+					public Object isToolkit_3() {
+						return m_form.getToolkit();
+					}
+				}""");
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("m_form.getToolkit()", toolkitAccess.getReferenceExpression());
 		assertToolkitNode(false, toolkitAccess, typeDeclaration, "isToolkit_1");
@@ -261,19 +256,18 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_formMethod_prefer_toolkitLocal() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import org.eclipse.swt.widgets.*;",
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class Test {",
-						"  public void createMasterPart(int a, double b) {",
-						"    FormToolkit toolkit = new FormToolkit((Display) null);",
-						"  }",
-						"  public IManagedForm getMyForm() {",
-						"    return null;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import org.eclipse.swt.widgets.*;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test {
+					public void createMasterPart(int a, double b) {
+						FormToolkit toolkit = new FormToolkit((Display) null);
+					}
+					public IManagedForm getMyForm() {
+						return null;
+					}
+				}""");
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("toolkit", toolkitAccess.getReferenceExpression());
 	}

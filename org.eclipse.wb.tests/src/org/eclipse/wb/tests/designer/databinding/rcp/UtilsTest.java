@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,33 +51,32 @@ public class UtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getNodeReference() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private String m_name;",
-						"  private String m_name2 = '123';",
-						"  private Test test = null;",
-						"  public void foo() {",
-						"    foo(m_name);",
-						"    foo(this.m_name2);",
-						"    foo(getName());",
-						"    foo(this.test.getName());",
-						"    foo(getTest().test.getName());",
-						"    m_name = getName();",
-						"    this.m_name = m_name2;",
-						"    Test.this.m_name = m_name2;",
-						"    test.m_name2 = '4567';",
-						"    new String('aaa');",
-						"  }",
-						"  String getName() {",
-						"    return m_name;",
-						"  }",
-						"  Test getTest() {",
-						"    return this;",
-						"  }",
-						"  void foo(String value) {",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					private String m_name;
+					private String m_name2 = "123";
+					private Test test = null;
+					public void foo() {
+						foo(m_name);
+						foo(this.m_name2);
+						foo(getName());
+						foo(this.test.getName());
+						foo(getTest().test.getName());
+						m_name = getName();
+						this.m_name = m_name2;
+						Test.this.m_name = m_name2;
+						test.m_name2 = "4567";
+						new String("aaa");
+					}
+					String getName() {
+						return m_name;
+					}
+					Test getTest() {
+						return this;
+					}
+					void foo(String value) {
+					}
+				}""");
 		//
 		MethodDeclaration method = AstNodeUtils.getMethodBySignature(type, "foo()");
 		assertNotNull(method);
@@ -129,13 +128,12 @@ public class UtilsTest extends AbstractJavaTest {
 
 	@Test
 	public void test_getMethodSignature() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void foo() {",
-						"    System.getProperty('os.name');",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					void foo() {
+						System.getProperty("os.name");
+					}
+				}""");
 		MethodDeclaration[] methods = type.getMethods();
 		List<Statement> statements = DomGenerics.statements(methods[0].getBody());
 		ExpressionStatement statement = (ExpressionStatement) statements.get(0);
@@ -147,13 +145,12 @@ public class UtilsTest extends AbstractJavaTest {
 
 	@Test
 	public void test_getCreationSignature() throws Exception {
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void foo() {",
-						"    new String('string');",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				public class Test {
+					void foo() {
+						new String("string");
+					}
+				}""");
 		MethodDeclaration[] methods = type.getMethods();
 		List<Statement> statements = DomGenerics.statements(methods[0].getBody());
 		ExpressionStatement statement = (ExpressionStatement) statements.get(0);

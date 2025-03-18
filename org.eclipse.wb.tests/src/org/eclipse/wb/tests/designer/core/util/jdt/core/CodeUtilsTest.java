@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -175,12 +175,11 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_clearHiddenCode_parsing() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  int field; //$hide$",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					int field; //$hide$
+				}""");
 		assertEquals(0, typeDeclaration.getFields().length);
 	}
 
@@ -973,14 +972,13 @@ public class CodeUtilsTest extends AbstractJavaTest {
 						"  void foo() {",
 						"  }",
 						"}"));
-		TypeDeclaration type =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  void test() {",
-						"    (new A()).foo();",
-						"    (new B()).foo();",
-						"  }",
-						"}");
+		TypeDeclaration type = createTypeDeclaration_Test("""
+				class Test {
+					void test() {
+						(new A()).foo();
+						(new B()).foo();
+					}
+				}""");
 		IJavaProject project = m_lastEditor.getJavaProject();
 		// test for constructor
 		{

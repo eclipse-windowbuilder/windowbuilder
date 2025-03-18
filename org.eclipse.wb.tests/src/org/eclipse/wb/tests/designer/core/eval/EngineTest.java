@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -70,13 +70,12 @@ public class EngineTest extends AbstractEngineTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_fail() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  int foo(int value) {",
-						"    return value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					int foo(int value) {
+						return value;
+					}
+				}""");
 		try {
 			evaluateSingleMethod(typeDeclaration, "foo(int)");
 			fail();
@@ -102,13 +101,12 @@ public class EngineTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void root() {",
-						"    MyObject.getValue();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public void root() {
+						MyObject.getValue();
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		Expression expression =
 				(Expression) m_lastEditor.getEnclosingNode("MyObject.getValue()").getParent();
@@ -152,13 +150,12 @@ public class EngineTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void root() {",
-						"    MyObject.getValue();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public void root() {
+						MyObject.getValue();
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		Expression expression =
 				(Expression) m_lastEditor.getEnclosingNode("MyObject.getValue()").getParent();
@@ -295,44 +292,41 @@ public class EngineTest extends AbstractEngineTest {
 
 	@Test
 	public void test_SimpleName_recursiveAssignment() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(new String[]{
-						"public class Test {",
-						"  public int root() {",
-						"    int value = 4;",
-						"    value = value + 1;",
-						"    return value;",
-						"  }",
-				"}"});
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public int root() {
+						int value = 4;
+						value = value + 1;
+						return value;
+					}
+				}""");
 		Object actual = evaluateSingleMethod(typeDeclaration, "root()");
 		assertEquals(5, actual);
 	}
 
 	@Test
 	public void test_SimpleName_inv_good() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(new String[]{
-						"public class Test {",
-						"  public void root() {",
-						"    foo('12345');",
-						"  }",
-						"  public String foo(String s) {",
-						"    return s;",
-						"  }",
-				"}"});
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public void root() {
+						foo("12345");
+					}
+					public String foo(String s) {
+						return s;
+					}
+				}""");
 		Object actual = evaluateSingleMethod(typeDeclaration, "root()", "foo(java.lang.String)");
 		assertEquals("12345", actual);
 	}
 
 	@Test
 	public void test_SimpleName_inv_noInvocation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public int foo(int value) {",
-						"    return value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public int foo(int value) {
+						return value;
+					}
+				}""");
 		try {
 			evaluateSingleMethod(typeDeclaration, "foo(int)");
 			fail();
@@ -348,17 +342,16 @@ public class EngineTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_SimpleName_inv_twoInvocation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(new String[]{
-						"public class Test {",
-						"  public void root() {",
-						"    foo('111');",
-						"    foo('222');",
-						"  }",
-						"  public String foo(String s) {",
-						"    return s;",
-						"  }",
-				"}"});
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public void root() {
+						foo("111");
+						foo("222");
+					}
+					public String foo(String s) {
+						return s;
+					}
+				}""");
 		Object actual = evaluateSingleMethod(typeDeclaration, "root()", "foo(java.lang.String)");
 		assertEquals("111", actual);
 	}
@@ -374,13 +367,12 @@ public class EngineTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		// parse
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test extends SuperClass {",
-						"  public int foo() {",
-						"    return FOO;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test extends SuperClass {
+					public int foo() {
+						return FOO;
+					}
+				}""");
 		waitForAutoBuild();
 		// evaluate
 		assertEquals(555, evaluateSingleMethod(typeDeclaration, "foo()"));
@@ -389,14 +381,13 @@ public class EngineTest extends AbstractEngineTest {
 	@Test
 	public void test_SimpleName_localConstant() throws Exception {
 		waitForAutoBuild();
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public static int FOO = 222;",
-						"  public int foo() {",
-						"    return FOO;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public static int FOO = 222;
+						public int foo() {
+						return FOO;
+					}
+				}""");
 		// evaluate
 		assertEquals(222, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
@@ -404,14 +395,13 @@ public class EngineTest extends AbstractEngineTest {
 	@Test
 	public void test_SimpleName_fieldWithoutInitializer() throws Exception {
 		waitForAutoBuild();
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Object field;",
-						"  public Object foo() {",
-						"    return field;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Object field;
+					public Object foo() {
+						return field;
+					}
+				}""");
 		// evaluate
 		assertEquals(null, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
@@ -423,13 +413,12 @@ public class EngineTest extends AbstractEngineTest {
 				getSourceDQ("package test;", "public interface IConstants {", "  int FOO = 555;", "}"));
 		waitForAutoBuild();
 		// parse
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test implements IConstants {",
-						"  public int foo() {",
-						"    return FOO;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test implements IConstants {
+					public int foo() {
+						return FOO;
+					}
+				}""");
 		waitForAutoBuild();
 		// evaluate
 		assertEquals(555, evaluateSingleMethod(typeDeclaration, "foo()"));
@@ -465,14 +454,13 @@ public class EngineTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_QualifiedName_3() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int foo() {",
-						"    int[] ints = new int[]{1,2,3};",
-						"    return ints.length;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int foo() {
+						int[] ints = new int[]{1,2,3};
+						return ints.length;
+					}
+				}""");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "foo()");
 		assertEquals(3, actual);
@@ -483,15 +471,14 @@ public class EngineTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_QualifiedName_4() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.Dimension;",
-						"class Test {",
-						"  public int foo() {",
-						"    Dimension dimension = new Dimension(1, 2);",
-						"    return dimension.width;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.Dimension;
+				class Test {
+					public int foo() {
+						Dimension dimension = new Dimension(1, 2);
+						return dimension.width;
+					}
+				}""");
 		Object actual = evaluateSingleMethod(typeDeclaration, "foo()");
 		assertEquals(1, actual);
 	}
@@ -503,19 +490,18 @@ public class EngineTest extends AbstractEngineTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_FieldAccess() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int use_fieldAccess() {",
-						"    return new Foo(12345).m_value;",
-						"  }",
-						"  public static class Foo {",
-						"    public final int m_value;",
-						"    public Foo(int value) {",
-						"      m_value = value;",
-						"    }",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int use_fieldAccess() {
+						return new Foo(12345).m_value;
+					}
+					public static class Foo {
+						public final int m_value;
+						public Foo(int value) {
+						m_value = value;
+						}
+					}
+				}""");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "use_fieldAccess()");
 		assertEquals(12345, actual);
@@ -528,15 +514,14 @@ public class EngineTest extends AbstractEngineTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_assignment() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public void foo() {",
-						"    int a;",
-						"    int b;",
-						"    a = b = 5;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public void foo() {
+						int a;
+						int b;
+						a = b = 5;
+					}
+				}""");
 		waitForAutoBuild();
 		//
 		MethodDeclaration methodDeclaration =

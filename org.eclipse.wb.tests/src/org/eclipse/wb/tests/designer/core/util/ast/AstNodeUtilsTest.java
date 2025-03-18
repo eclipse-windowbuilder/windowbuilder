@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -185,26 +185,25 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getFullyQualifiedName_anon() throws Exception {
-		TypeDeclaration type_0 =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  Object o_1 = new Object() {",
-						"  };",
-						"  Object o_2 = new Object() {",
-						"  };",
-						"  Object o_3 = new Object() {",
-						"    Object o_4 = new Object() {;",
-						"    };",
-						"    Object o_5 = new Object() {;",
-						"      Object o_6 = new Object() {;",
-						"      };",
-						"    };",
-						"    Object o_7 = new Object() {;",
-						"      Object o_8 = new Object() {;",
-						"      };",
-						"    };",
-						"  };",
-						"}");
+		TypeDeclaration type_0 = createTypeDeclaration_Test("""
+				public class Test {
+					Object o_1 = new Object() {
+					};
+					Object o_2 = new Object() {
+					};
+					Object o_3 = new Object() {
+						Object o_4 = new Object() {;
+						};
+						Object o_5 = new Object() {;
+							Object o_6 = new Object() {;
+							};
+						};
+						Object o_7 = new Object() {;
+							Object o_8 = new Object() {;
+							};
+						};
+					};
+				}""");
 		{
 			FieldDeclaration field_1 = type_0.getFields()[0];
 			assert_getFullyQualifiedName_anon("test.Test$1", field_1);
@@ -277,12 +276,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 						"  public MyObject(E[] elements) {",
 						"  }",
 						"}"));
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    new MyObject<String>(new String[]{'a', 'b', 'c'});",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						new MyObject<String>(new String[]{"a", "b", "c"});
+					}
+				}""");
 		ClassInstanceCreation creation = getNode("new MyObject");
 		// "actual" binding
 		IMethodBinding binding = AstNodeUtils.getCreationBinding(creation);
@@ -471,11 +470,10 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeBinding_TypeDeclaration_goodType() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test extends javax.swing.JPanel {",
-						"  // filler",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test extends javax.swing.JPanel {
+					// filler
+				}""");
 		//
 		ITypeBinding binding = AstNodeUtils.getTypeBinding(typeDeclaration);
 		assertNotNull(binding);
@@ -700,12 +698,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeBinding_SingleVariableDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private void foo(int a, String b, String[] c) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private void foo(int a, String b, String[] c) {
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		List<SingleVariableDeclaration> parameters = DomGenerics.parameters(methodDeclaration);
 		// int
@@ -734,12 +731,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	@Test
 	public void test_getTypeBinding_SingleVariableDeclaration_noType() throws Exception {
 		m_ignoreModelCompileProblems = true;
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private void foo(NoSuchType a) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private void foo(NoSuchType a) {
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		List<SingleVariableDeclaration> parameters = DomGenerics.parameters(methodDeclaration);
 		//
@@ -758,16 +754,16 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeBinding_VariableDeclaration() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"public class Test {",
-				"  private short d;",
-				"  private void foo(long a) {",
-				"    String b;",
-				"    for (int c = 0; c < 10; c++) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				public class Test {
+					private short d;
+					private void foo(long a) {
+						String b;
+						for (int c = 0; c < 10; c++) {
+						}
+					}
+				}""");
 		// "a"
 		{
 			VariableDeclaration var = getNode("a)", VariableDeclaration.class);
@@ -804,12 +800,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getFullyQualifiedName_SingleVariableDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private void foo(int a, String b, String[] c) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private void foo(int a, String b, String[] c) {
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		List<SingleVariableDeclaration> parameters = DomGenerics.parameters(methodDeclaration);
 		// int
@@ -839,12 +834,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isSuccessorOf_ITypeBinding_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private String m_string = '123';",
-						"  private String[] m_string_array = {};",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private String m_string = "123";
+					private String[] m_string_array = {};
+				}""");
 		//
 		{
 			FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
@@ -869,11 +863,10 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isSuccessorOf_ITypeBinding_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test extends javax.swing.JPanel {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test extends javax.swing.JPanel {
+				}""");
 		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
 		assertFalse(AstNodeUtils.isSuccessorOf(typeBinding, "java.util.List", "java.util.Map"));
 		assertTrue(AstNodeUtils.isSuccessorOf(typeBinding, "java.util.List", "java.awt.Container"));
@@ -884,12 +877,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isSuccessorOf_ITypeBinding_3() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  private String m_string = '123';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					private String m_string = "123";
+				}""");
 		//
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		VariableDeclaration declaration = DomGenerics.fragments(fieldDeclaration).get(0);
@@ -905,13 +897,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isSuccessorOf_ITypeBinding_ITypeBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private java.util.List m_List = null;",
-						"  private java.util.ArrayList m_ArrayList = null;",
-						"  private java.util.Set m_Set = null;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private java.util.List m_List = null;
+					private java.util.ArrayList m_ArrayList = null;
+					private java.util.Set m_Set = null;
+				}""");
 		// prepare bindings
 		FieldDeclaration[] fields = typeDeclaration.getFields();
 		ITypeBinding bindingList = AstNodeUtils.getTypeBinding(fields[0].getType());
@@ -927,13 +918,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isSuccessorOf_Expression_ITypeBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private Object m_ArrayList = new java.util.ArrayList();",
-						"  private java.util.List m_List = null;",
-						"  private java.util.Set m_Set = null;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private Object m_ArrayList = new java.util.ArrayList();
+					private java.util.List m_List = null;
+					private java.util.Set m_Set = null;
+				}""");
 		// prepare bindings
 		FieldDeclaration[] fields = typeDeclaration.getFields();
 		Expression expressionArrayList = DomGenerics.fragments(fields[0]).get(0).getInitializer();
@@ -949,12 +939,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isSuccessorOf_SingleVariableDeclaration_ITypeBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private void foo(int a, String b, java.util.ArrayList c) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private void foo(int a, String b, java.util.ArrayList c) {
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		List<SingleVariableDeclaration> parameters = DomGenerics.parameters(methodDeclaration);
 		// int
@@ -1075,16 +1064,15 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isStatic_forBodyDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private int m_foo;",
-						"  private static int m_bar;",
-						"  public void foo() {",
-						"  }",
-						"  public static void bar() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private int m_foo;
+					private static int m_bar;
+					public void foo() {
+					}
+					public static void bar() {
+					}
+				}""");
 		{
 			FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 			assertFalse(AstNodeUtils.isStatic(fieldDeclaration));
@@ -1108,14 +1096,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isStatic_IMethodBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"  }",
-						"  public static void bar() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+					}
+					public static void bar() {
+					}
+				}""");
 		{
 			MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 			IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(methodDeclaration);
@@ -1133,14 +1120,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isStatic_ITypeBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public class Foo {",
-						"  }",
-						"  public static class Bar {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public class Foo {
+					}
+					public static class Bar {
+					}
+				}""");
 		{
 			TypeDeclaration fooType = typeDeclaration.getTypes()[0];
 			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(fooType);
@@ -1158,13 +1144,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isAbstract_IMethodBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public abstract class Test {",
-						"  public void foo() {",
-						"  }",
-						"  public abstract void bar();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public abstract class Test {
+					public void foo() {
+					}
+					public abstract void bar();
+				}""");
 		{
 			MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 			IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(methodDeclaration);
@@ -1182,13 +1167,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isAbstract_MethodDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public abstract class Test {",
-						"  public void foo() {",
-						"  }",
-						"  public abstract void bar();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public abstract class Test {
+					public void foo() {
+					}
+					public abstract void bar();
+				}""");
 		{
 			MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 			assertFalse(AstNodeUtils.isAbstract(methodDeclaration));
@@ -1204,14 +1188,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isAbstract_ITypeBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public class Foo {",
-						"  }",
-						"  public abstract class Bar {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public class Foo {
+					}
+					public abstract class Bar {
+					}
+				}""");
 		{
 			TypeDeclaration fooType = typeDeclaration.getTypes()[0];
 			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(fooType);
@@ -1229,15 +1212,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMember() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Object foo() {",
-						"    return new Object() {};",
-						"  }",
-						"  public class Bar {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Object foo() {
+						return new Object() {};
+					}
+					public class Bar {
+					}
+				}""");
 		// anonymous is not "inner"
 		{
 			ClassInstanceCreation creation =
@@ -1426,13 +1408,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		setFileContentSrc(
 				"test/MyObject.java",
 				getSourceDQ("package test;", "public class MyObject {", "  public int m_value;", "}"));
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    MyObject foo = new MyObject();",
-				"    foo.m_value = 1;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						MyObject foo = new MyObject();
+						foo.m_value = 1;
+					}
+				}""");
 		// foo = new MyObject(), invalid
 		{
 			int index = m_lastEditor.getSource().indexOf("foo =");
@@ -1466,12 +1448,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		setFileContentSrc(
 				"test/MyObject.java",
 				getSourceDQ("package test;", "public class MyObject {", "  public int m_value;", "}"));
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    new MyObject().m_value = 1;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						new MyObject().m_value = 1;
+					}
+				}""");
 		// new MyObject().m_value = 1, valid
 		{
 			int index = m_lastEditor.getSource().indexOf("().");
@@ -1493,12 +1475,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getFieldFragmentByName() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private int m_value;",
-						"  public String m_name = '123';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private int m_value;
+					public String m_name = "123";
+				}""");
 		//
 		VariableDeclarationFragment fragment0 =
 				AstNodeUtils.getFieldFragmentByName(typeDeclaration, "m_value");
@@ -1571,21 +1552,20 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getEnclosingMethod_inTypeDeclaration() throws Exception {
-		TypeDeclaration testType =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private int markA;",
-						"  public void methodA() {",
-						"    class Inner {",
-						"      public void methodB() {",
-						"        int markB;",
-						"      }",
-						"    }",
-						"  }",
-						"  public void methodC() {",
-						"    int markC;",
-						"  }",
-						"}");
+		TypeDeclaration testType = createTypeDeclaration_Test("""
+				public class Test {
+					private int markA;
+					public void methodA() {
+						class Inner {
+							public void methodB() {
+								int markB;
+							}
+						}
+					}
+					public void methodC() {
+						int markC;
+					}
+				}""");
 		ASTNode markA = getNode("markA");
 		ASTNode markB = getNode("markB");
 		ASTNode markC = getNode("markC");
@@ -1609,16 +1589,15 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 
 	@Test
 	public void test_getEnclosingTypeTop() throws Exception {
-		TypeDeclaration testType =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public class Inner {",
-						"    public void foo() {",
-						"    }",
-						"  }",
-						"  public void bar() {",
-						"  }",
-						"}");
+		TypeDeclaration testType = createTypeDeclaration_Test("""
+				public class Test {
+					public class Inner {
+						public void foo() {
+						}
+					}
+					public void bar() {
+					}
+				}""");
 		TypeDeclaration innerType = testType.getTypes()[0];
 		MethodDeclaration fooMethod = innerType.getMethods()[0];
 		MethodDeclaration barMethod = testType.getMethods()[0];
@@ -1630,17 +1609,16 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 
 	@Test
 	public void test_getParentType() throws Exception {
-		TypeDeclaration testType =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"    Object object = new Object(){",
-						"      public String toString() {",
-						"          return 'test';",
-						"        }",
-						"      };",
-						"  }",
-						"}");
+		TypeDeclaration testType = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+						Object object = new Object(){
+							public String toString() {
+								return "test";
+							}
+						};
+					}
+				}""");
 		MethodDeclaration fooMethod = testType.getMethods()[0];
 		assertSame(AstNodeUtils.getParentType(fooMethod), testType);
 		MethodDeclaration toStringMethod =
@@ -1691,17 +1669,16 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getCommonParent() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    int a;",
-						"    int b;",
-						"  }",
-						"  public void foo() {",
-						"    int c;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+						int b;
+					}
+					public void foo() {
+						int c;
+					}
+				}""");
 		ASTNode nodeA = getNode("a;");
 		ASTNode nodeB = getNode("b;");
 		ASTNode nodeC = getNode("c;");
@@ -1734,16 +1711,16 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getCommonBlock() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    int a;",
-				"    int b;",
-				"  }",
-				"  public void foo() {",
-				"    int c;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+						int b;
+					}
+					public void foo() {
+						int c;
+					}
+				}""");
 		ASTNode nodeA = getNode("a;");
 		ASTNode nodeB = getNode("b;");
 		ASTNode nodeC = getNode("c;");
@@ -1775,18 +1752,18 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getStatementWithinBlock() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    int a;",
-				"    {",
-				"      int b;",
-				"    }",
-				"  }",
-				"  public void foo() {",
-				"    int c;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+						{
+							int b;
+						}
+					}
+					public void foo() {
+						int c;
+					}
+				}""");
 		ASTNode nodeA = getNode("a;");
 		ASTNode nodeB = getNode("b;");
 		ASTNode nodeC = getNode("c;");
@@ -2095,18 +2072,17 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_isVariable() throws Exception {
-		createTypeDeclaration_Test(
-				"",
-				"public class Test {",
-				"  int field = 0;",
-				"  public void foo() {",
-				"    int local = 0;",
-				"    System.out.println(field);",
-				"    System.out.println(this.field);",
-				"    System.out.println(local);",
-				"    System.out.println(java.util.Collections.EMPTY_LIST);",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					int field = 0;
+					public void foo() {
+						int local = 0;
+						System.out.println(field);
+						System.out.println(this.field);
+						System.out.println(local);
+						System.out.println(java.util.Collections.EMPTY_LIST);
+					}
+				}""");
 		// field: is variable
 		{
 			SimpleName argument = (SimpleName) m_lastEditor.getEnclosingNode("field)");
@@ -2141,21 +2117,21 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 
 	@Test
 	public void test_getActualVariableExpression() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  Object field1 = new Object();",
-				"  Object field2 = null;",
-				"  public void foo() {",
-				"    field2 = new Double(0);",
-				"    Object local1 = null;",
-				"    Object local2 = null;",
-				"    System.out.println(field1/*marker1*/);",
-				"    System.out.println(this.field2/*marker2*/);",
-				"    local1 = new Integer(7);",
-				"    System.out.println(local1/*marker3*/);",
-				"    System.out.println(local2/*marker4*/);",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					Object field1 = new Object();
+					Object field2 = null;
+					public void foo() {
+						field2 = new Double(0);
+						Object local1 = null;
+						Object local2 = null;
+						System.out.println(field1/*marker1*/);
+						System.out.println(this.field2/*marker2*/);
+						local1 = new Integer(7);
+						System.out.println(local1/*marker3*/);
+						System.out.println(local2/*marker4*/);
+					}
+				}""");
 		// field: is variable
 		assert_variable("marker1", "new Object()");
 		assert_variable("marker2", "new Double(0)");
@@ -2178,16 +2154,15 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getMethodInvocations_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void foo() {",
-						"    bar(1);",
-						"    bar(2);",
-						"  }",
-						"  void bar(int i) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					void foo() {
+						bar(1);
+						bar(2);
+					}
+					void bar(int i) {
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<MethodInvocation> invocations = AstNodeUtils.getMethodInvocations(methods[1]);
@@ -2210,17 +2185,16 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 						"  public void bar(int i) {",
 						"  }",
 						"}"));
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private MyObject myObject = new MyObject();",
-						"  void foo() {",
-						"    myObject.bar(1);",
-						"    bar(2);",
-						"  }",
-						"  void bar(int i) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private MyObject myObject = new MyObject();
+					void foo() {
+						myObject.bar(1);
+						bar(2);
+					}
+					void bar(int i) {
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<MethodInvocation> invocations = AstNodeUtils.getMethodInvocations(methods[1]);
@@ -2235,15 +2209,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	@Test
 	public void test_getMethodInvocations_noType_noBinding() throws Exception {
 		m_ignoreModelCompileProblems = true;
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void root() {",
-						"    toInvoke(null);",
-						"  }",
-						"  void toInvoke(NoSuchType o) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					void root() {
+						toInvoke(null);
+					}
+					void toInvoke(NoSuchType o) {
+					}
+				}""");
 		// method toInvoke() has no binding
 		MethodDeclaration method = typeDeclaration.getMethods()[1];
 		assertNull(AstNodeUtils.getMethodBinding(method));
@@ -2263,18 +2236,17 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getLocalMethodDeclaration_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void foo() {",
-						"    bar();",
-						"    this.bar();",
-						"    new Test().bar();",
-						"    System.gc();",
-						"  }",
-						"  void bar() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					void foo() {
+						bar();
+						this.bar();
+						new Test().bar();
+						System.gc();
+					}
+					void bar() {
+					}
+				}""");
 		List<Statement> statements = DomGenerics.statements(typeDeclaration.getMethods()[0].getBody());
 		// bar()
 		{
@@ -2345,15 +2317,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getLocalMethodDeclaration_cachingBug() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void foo() {",
-						"    bar();",
-						"  }",
-						"  void bar() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					void foo() {
+						bar();
+					}
+					void bar() {
+					}
+				}""");
 		MethodInvocation invocation =
 				(MethodInvocation) m_lastEditor.getEnclosingNode("bar()").getParent();
 		MethodDeclaration oldMethod = typeDeclaration.getMethods()[1];
@@ -2411,15 +2382,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getConstructorInvocations_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  Test() {",
-						"    this(1);",
-						"  }",
-						"  public Test(int i) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					Test() {
+						this(1);
+					}
+					public Test(int i) {
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<ConstructorInvocation> invocations = AstNodeUtils.getConstructorInvocations(methods[1]);
@@ -2434,15 +2404,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	@Test
 	public void test_getConstructorInvocations_noType_noBinding() throws Exception {
 		m_ignoreModelCompileProblems = true;
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  Test() {",
-						"    this(null);",
-						"  }",
-						"  Test(NoSuchType o) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					Test() {
+						this(null);
+					}
+					Test(NoSuchType o) {
+					}
+				}""");
 		// constructor Test(NoSuchType) has no binding
 		MethodDeclaration method = typeDeclaration.getMethods()[1];
 		assertNull(AstNodeUtils.getMethodBinding(method));
@@ -2461,13 +2430,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getClassInstanceCreations_0() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  public Test(int value) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					public Test(int value) {
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<ClassInstanceCreation> invocations = AstNodeUtils.getClassInstanceCreations(methods[0]);
@@ -2479,16 +2447,15 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getClassInstanceCreations_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test(int value) {",
-						"  }",
-						"  public static void main(String[] args) {",
-						"    new Test(1);",
-						"    new Test(2);",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test(int value) {
+					}
+					public static void main(String[] args) {
+						new Test(1);
+						new Test(2);
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<ClassInstanceCreation> invocations = AstNodeUtils.getClassInstanceCreations(methods[0]);
@@ -2508,16 +2475,15 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getConstructors() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test(int value) {",
-						"  }",
-						"  public void foo() {",
-						"  }",
-						"  public Test(boolean value) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test(int value) {
+					}
+					public void foo() {
+					}
+					public Test(boolean value) {
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		List<MethodDeclaration> constructors = AstNodeUtils.getConstructors(typeDeclaration);
 		Assertions.assertThat(constructors).containsOnly(methods[0], methods[2]);
@@ -2533,15 +2499,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getClassInstanceCreations_TypeDeclaration_0() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  public Test(int value) {",
-						"  }",
-						"  private class Foo {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					public Test(int value) {
+					}
+					private class Foo {
+					}
+				}""");
 		TypeDeclaration foo = typeDeclaration.getTypes()[0];
 		//
 		List<ClassInstanceCreation> invocations = AstNodeUtils.getClassInstanceCreations(foo);
@@ -2553,17 +2518,16 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getClassInstanceCreations_TypeDeclaration_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test(int value) {",
-						"    new Foo(1);",
-						"    new Foo(2);",
-						"  }",
-						"  private class Foo {",
-						"    Foo(int value) {}",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test(int value) {
+						new Foo(1);
+						new Foo(2);
+					}
+					private class Foo {
+						Foo(int value) {}
+					}
+				}""");
 		TypeDeclaration foo = typeDeclaration.getTypes()[0];
 		//
 		List<ClassInstanceCreation> invocations = AstNodeUtils.getClassInstanceCreations(foo);
@@ -2581,23 +2545,22 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getJavaDocTag() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  /**",
-						"  * @my.tag",
-						"  */",
-						"  private int m_foo;",
-						"  /**",
-						"  * Not a tag.",
-						"  */",
-						"  private int m_bar;",
-						"  /**",
-						"  * @second.tag aaa bbb",
-						"  */",
-						"  private int m_baz;",
-						"  private int m_goo;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					/**
+					 * @my.tag
+					 */
+					private int m_foo;
+					/**
+					 * Not a tag.
+					 */
+					private int m_bar;
+					/**
+					 * @second.tag aaa bbb
+					 */
+					private int m_baz;
+					private int m_goo;
+				}""");
 		{
 			FieldDeclaration fooField = typeDeclaration.getFields()[0];
 			assertNull(AstNodeUtils.getJavaDocTag(fooField, "@noSuchTag"));
@@ -2626,19 +2589,18 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_hasJavaDocTag() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  /**",
-						"  * @my.tag",
-						"  */",
-						"  private int m_foo;",
-						"  /**",
-						"  * Not a tag.",
-						"  */",
-						"  private int m_bar;",
-						"  private int m_goo;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					/**
+					 * @my.tag
+					 */
+					private int m_foo;
+					/**
+					 * Not a tag.
+					 */
+					private int m_bar;
+					private int m_goo;
+				}""");
 		{
 			FieldDeclaration fooField = typeDeclaration.getFields()[0];
 			assertTrue(AstNodeUtils.hasJavaDocTag(fooField, "@my.tag"));
@@ -2664,15 +2626,15 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMethodInvocation_onlySignature() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  private void root() {",
-				"    System.exit(0);",
-				"    exit(1);",
-				"  }",
-				"  private void exit(int code) {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					private void root() {
+						System.exit(0);
+						exit(1);
+					}
+					private void exit(int code) {
+					}
+				}""");
 		// System.exit(int)
 		{
 			ASTNode node = m_lastEditor.getEnclosingNode("(0)");
@@ -2696,13 +2658,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMethodInvocation_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  Object m_1 = java.util.Arrays.toString(new int[] {});",
-						"  Object m_2 = null;",
-						"  int m_3 = hashCode();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					Object m_1 = java.util.Arrays.toString(new int[] {});
+					Object m_2 = null;
+					int m_3 = hashCode();
+				}""");
 		// correct and incorrect type/method
 		{
 			Expression initializer = getFieldFragment(typeDeclaration, 0).getInitializer();
@@ -2735,11 +2696,10 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMethodInvocation_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  int m_1 = new java.util.ArrayList().size();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					int m_1 = new java.util.ArrayList().size();
+				}""");
 		Expression initializer = getFieldFragment(typeDeclaration, 0).getInitializer();
 		// ask as method of superclass
 		assertTrue(AstNodeUtils.isMethodInvocation(initializer, "java.util.List", "size()"));
@@ -2750,13 +2710,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMethodInvocation_SuperMethodInvocation() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    int value = 123;",
-				"    super.hashCode();",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int value = 123;
+						super.hashCode();
+					}
+				}""");
 		// correct and incorrect type/method
 		{
 			Expression expression = getNode(".hashCode", SuperMethodInvocation.class);
@@ -2779,13 +2739,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMethodInvocation_signatures_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  Object m_1 = java.util.Arrays.toString(new int[] {});",
-						"  Object m_2 = null;",
-						"  int m_3 = hashCode();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					Object m_1 = java.util.Arrays.toString(new int[] {});
+					Object m_2 = null;
+					int m_3 = hashCode();
+				}""");
 		// correct and incorrect type/method
 		{
 			Expression initializer = getFieldFragment(typeDeclaration, 0).getInitializer();
@@ -2835,11 +2794,10 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_isMethodInvocation_signatures_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  int m_1 = new java.util.ArrayList().size();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					int m_1 = new java.util.ArrayList().size();
+				}""");
 		Expression initializer = getFieldFragment(typeDeclaration, 0).getInitializer();
 		// ask as method of superclass
 		assertTrue(AstNodeUtils.isMethodInvocation(
@@ -2850,12 +2808,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 
 	@Test
 	public void test_isCreation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  Object m_1 = new java.util.ArrayList(0);",
-						"  Object m_2 = null;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					Object m_1 = new java.util.ArrayList(0);
+					Object m_2 = null;
+				}""");
 		// correct and incorrect type/signature
 		{
 			Expression initializer = getFieldFragment(typeDeclaration, 0).getInitializer();
@@ -2890,13 +2847,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getMethodBySignature() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.util.ArrayList;",
-						"public class Test extends ArrayList {",
-						"  public void foo() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.util.ArrayList;
+				public class Test extends ArrayList {
+					public void foo() {
+					}
+				}""");
 		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
 		// test.Test.foo()
 		{
@@ -3010,12 +2966,11 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getFullyQualifiedName_TypeDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test {",
-						"  private class A {}",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test {
+					private class A {}
+				}""");
 		assertEquals("test.Test", AstNodeUtils.getFullyQualifiedName(typeDeclaration, false));
 		assertEquals(
 				"test.Test.A",
@@ -3027,14 +2982,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeDeclaration_inner() throws Exception {
-		createTypeDeclaration_Test(
-				"class Test {",
-				"  private class A {}",
-				"  void foo() {",
-				"    new A();",
-				"    new Integer(0);",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				class Test {
+					private class A {}
+					void foo() {
+						new A();
+						new Integer(0);
+					}
+				}""");
 		// new A()
 		{
 			ClassInstanceCreation creation = getNode("new A(");
@@ -3054,13 +3009,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeDeclaration_local() throws Exception {
-		createTypeDeclaration_Test(
-				"class Test {",
-				"  void foo() {",
-				"    class A {}",
-				"    new A();",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				class Test {
+					void foo() {
+						class A {}
+						new A();
+					}
+				}""");
 		// new A()
 		{
 			ClassInstanceCreation creation = getNode("new A(");
@@ -3179,13 +3134,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    foo(0, new JButton());",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test extends MyPanel {
+					public Test() {
+						foo(0, new JButton());
+					}
+				}""");
 		MethodInvocation invocation = getNode("foo(", MethodInvocation.class);
 		IMethodBinding binding = AstNodeUtils.getMethodBinding(invocation);
 		// check signatures
@@ -3216,13 +3171,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    foo(0, new String[0]);",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test extends MyPanel {
+					public Test() {
+						foo(0, new String[0]);
+					}
+				}""");
 		MethodInvocation invocation = getNode("foo(", MethodInvocation.class);
 		IMethodBinding binding = AstNodeUtils.getMethodBinding(invocation);
 		// check signatures
@@ -3253,13 +3208,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    foo(0, new JButton());",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test extends MyPanel {
+					public Test() {
+						foo(0, new JButton());
+					}
+				}""");
 		MethodInvocation invocation = getNode("foo(", MethodInvocation.class);
 		IMethodBinding binding = AstNodeUtils.getMethodBinding(invocation);
 		// check signatures
@@ -3290,13 +3245,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    foo(0, new java.util.ArrayList());",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test extends MyPanel {
+					public Test() {
+						foo(0, new java.util.ArrayList());
+					}
+				}""");
 		MethodInvocation invocation = getNode("foo(", MethodInvocation.class);
 		IMethodBinding binding = AstNodeUtils.getMethodBinding(invocation);
 		// check signatures
@@ -3315,14 +3270,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getMethodSignatures() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public void foo() {",
-						"  }",
-						"  public void bar(int a, String b) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public void foo() {
+					}
+					public void bar(int a, String b) {
+					}
+				}""");
 		MethodDeclaration[] methods = typeDeclaration.getMethods();
 		//
 		List<String> signatures =
@@ -3341,13 +3295,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getMethodByName() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.util.ArrayList;",
-						"public class Test extends ArrayList {",
-						"  public void foo(int a) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.util.ArrayList;
+				public class Test extends ArrayList {
+					public void foo(int a) {
+					}
+				}""");
 		{
 			MethodDeclaration actual = AstNodeUtils.getMethodByName(typeDeclaration, "foo");
 			assertSame(typeDeclaration.getMethods()[0], actual);
@@ -3405,15 +3358,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ConstructorInvocation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    this(false, 2);",
-						"  }",
-						"  public Test(boolean b, int i) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						this(false, 2);
+					}
+					public Test(boolean b, int i) {
+					}
+				}""");
 		ConstructorInvocation invocation =
 				(ConstructorInvocation) m_lastEditor.getEnclosingNode("this(");
 		assertEquals("<init>(boolean,int)", AstNodeUtils.getSignature(invocation));
@@ -3430,14 +3382,13 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getMethodBinding_SuperMethodInvocation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public String toString() {",
-						"    super.toString();",
-						"    return null;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public String toString() {
+						super.toString();
+						return null;
+					}
+				}""");
 		MethodDeclaration toStringMethod = typeDeclaration.getMethods()[0];
 		ExpressionStatement firstStatement =
 				(ExpressionStatement) toStringMethod.getBody().statements().get(0);
@@ -3480,12 +3431,12 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getCreationSignature_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"public class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				public class Test {
+				}
+				""");
 		// add new field
 		m_lastEditor.addFieldDeclaration(
 				"private Integer value = new Integer(5);",
@@ -3524,15 +3475,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_SuperConstructorInvocation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.*;",
-						"import javax.swing.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    super(new BorderLayout());",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.*;
+				import javax.swing.*;
+				public class Test extends JPanel {
+					public Test() {
+						super(new BorderLayout());
+					}
+				}""");
 		// prepare SuperConstructorInvocation
 		SuperConstructorInvocation invocation;
 		{

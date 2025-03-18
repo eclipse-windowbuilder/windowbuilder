@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -214,15 +214,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getModelType() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    int a;",
-						"  }",
-						"  private void init() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+					}
+					private void init() {
+					}
+				}""");
 		IType expected = m_lastEditor.getModelUnit().getType("Test");
 		IType actual = m_lastEditor.getModelType(typeDeclaration);
 		assertEquals(expected, actual);
@@ -479,15 +478,15 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_moveStatement_12() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    int a;",
-						"  }",
-						"  private void init() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+					}
+					private void init() {
+					}
+				}
+				""");
 		MethodDeclaration method_constructor = typeDeclaration.getMethods()[0];
 		MethodDeclaration method_init = typeDeclaration.getMethods()[1];
 		// move statement
@@ -790,13 +789,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getEnclosing_all() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  void foo() {",
-						"    System.out.println();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					void foo() {
+						System.out.println();
+					}
+				}""");
 		// prepare testing targets
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		Block block = method.getBody();
@@ -1171,11 +1169,11 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_indexOfCharBackward() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler",
-				"public class Test {",
-				"  // filler filler filler filler",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					// filler filler filler filler
+				}""");
 		assertEquals(1, m_lastEditor.indexOfCharBackward('a', 2));
 		assertEquals(4, m_lastEditor.indexOfCharBackward('a', 6));
 		try {
@@ -1268,18 +1266,15 @@ public class AstEditorTest extends AbstractJavaTest {
 						"public class Constants {",
 						"  public static final int SIZE = 10;",
 						"}"));
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"",
-						"import java.util.*;",
-						"",
-						"public class Test {",
-						"  int f_0 = 12345;",
-						"  Object f_1 = new ArrayList();",
-						"  Object f_2 = new ArrayList(Constants.SIZE);",
-						"  Object f_3 = Collections.emptyList();",
-						"  Object f_4 = List.class;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.util.*;
+				public class Test {
+					int f_0 = 12345;
+					Object f_1 = new ArrayList();
+					Object f_2 = new ArrayList(Constants.SIZE);
+					Object f_3 = Collections.emptyList();
+					Object f_4 = List.class;
+				}""");
 		waitForAutoBuild();
 		// check source for field initializers
 		FieldDeclaration[] fields = typeDeclaration.getFields();
@@ -1318,17 +1313,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeBindingSource() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"import java.util.List;",
-				"import java.util.Map;",
-				"public class Test {",
-				"  private List<String> field_1;",
-				"  private Map<Double, List<String>> field_2;",
-				"  public Test() {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				import java.util.List;
+				import java.util.Map;
+				public class Test {
+					private List<String> field_1;
+					private Map<Double, List<String>> field_2;
+					public Test() {
+					}
+				}""");
 		// field_1
 		{
 			FieldDeclaration field = getNode("field_1", FieldDeclaration.class);
@@ -1357,13 +1352,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_indexOf() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    int a;",
-				"    int b;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+						int b;
+					}
+				}""");
 		{
 			int index = m_lastEditor.indexOf("int a");
 			assertEquals("int a", m_lastEditor.getSource(index, 5));
@@ -1389,13 +1384,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getCharAt() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"  int a;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+					int a;
+				}""");
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		int position = AstNodeUtils.getSourceBegin(fieldDeclaration);
 		// good positions
@@ -1439,25 +1433,24 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getLineNumber() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"  int a;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+					int a;
+				}""");
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		assertEquals(4, m_lastEditor.getLineNumber(fieldDeclaration.getStartPosition()));
 	}
 
 	@Test
 	public void test_getLineNumber_badPosition() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler",
-				"// filler filler filler",
-				"class Test {",
-				"  int a;",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+					int a;
+				}""");
 		try {
 			m_lastEditor.getLineNumber(-1);
 			fail();
@@ -1476,13 +1469,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getLineBegin() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.*;",
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  int a;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.*;
+				import javax.swing.*;
+				class Test extends JPanel {
+					int a;
+				}""");
 		// prepare field and its position
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		int begin = AstNodeUtils.getSourceBegin(fieldDeclaration);
@@ -1511,13 +1503,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getLineEnd() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.*;",
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  int a;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.*;
+				import javax.swing.*;
+				class Test extends JPanel {
+					int a;
+				}""");
 		// prepare field and its position
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		int begin = AstNodeUtils.getSourceBegin(fieldDeclaration);
@@ -1544,18 +1535,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_skipWhitespaceAndPureEOLCToLeft_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.*;",
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  int a;",
-						"  // 111",
-						"  ",
-						"  // 222",
-						"  int b;",
-						"  int c;  int d;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.*;
+				import javax.swing.*;
+				class Test extends JPanel {
+					int a;
+					// 111
+
+					// 222
+					int b;
+					int c;  int d;
+				}""");
 		FieldDeclaration[] fields = typeDeclaration.getFields();
 		// do checks
 		assertEquals(
@@ -1576,13 +1566,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_skipSingleEOLToLeft_1() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"\r\n\r\nint b;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+				\r\n\r\nint b;
+				}""");
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		int index = fieldDeclaration.getStartPosition();
 		// no EOL to left
@@ -1593,13 +1582,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_skipSingleEOLToLeft_2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"\n\nint b;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+				\n\nint b;
+				}""");
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		int index = fieldDeclaration.getStartPosition();
 		// skip only single EOL - \n, so 1 character
@@ -1763,16 +1751,16 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_addFieldDeclaration_inAnonymousType() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import javax.swing.*;",
-						"import java.awt.event.*;",
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"    });",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import javax.swing.*;
+				import java.awt.event.*;
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+						});
+					}
+				}
+				""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		ExpressionStatement expressionStatement =
 				(ExpressionStatement) methodDeclaration.getBody().statements().get(0);
@@ -1812,14 +1800,13 @@ public class AstEditorTest extends AbstractJavaTest {
 		waitForAutoBuild();
 		//
 		m_ignoreModelCompileProblems = true;
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test implements MyInterface {",
-						"  //$hide>>$",
-						"  public void someMethod() {",
-						"  }",
-						"  //$hide<<$",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test implements MyInterface {
+					//$hide>>$
+					public void someMethod() {
+					}
+					//$hide<<$
+				}""");
 		m_lastEditor.addFieldDeclaration("int field;", new BodyDeclarationTarget(typeDeclaration, true));
 	}
 
@@ -1830,12 +1817,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_addMethodDeclaration_0() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test {",
-						"  int m_value0123456789;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test {
+					int m_value0123456789;
+				}
+				""");
 		FieldDeclaration targetField = typeDeclaration.getFields()[0];
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(null, targetField, true);
@@ -1860,14 +1847,14 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_addMethodDeclaration_danglingJavadoc() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"  /** dangling */",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				// filler filler filler
+				class Test {
+					/** dangling */
+				}
+				""");
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, false);
 		//
 		m_lastEditor.addMethodDeclaration("int foo()", List.of("return 0;"), target);
@@ -1887,12 +1874,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_addMethodDeclaration_withEmptyLine() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test {",
-						"  int m_value0123456789;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test {
+					int m_value0123456789;
+				}
+				""");
 		FieldDeclaration targetField = typeDeclaration.getFields()[0];
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(null, targetField, true);
@@ -1918,12 +1905,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_addMethodDeclaration_withParameters() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+				}
+				""");
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, false);
 		MethodDeclaration newMethod =
 				m_lastEditor.addMethodDeclaration(
@@ -1982,12 +1969,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addInterfaceMethodDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public interface Test {",
-						"  int FILLER = 0;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public interface Test {
+					int FILLER = 0;
+				}
+				""");
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, false);
 		MethodDeclaration newMethod = m_lastEditor.addInterfaceMethodDeclaration("int foo()", target);
@@ -2010,14 +1997,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_addMethodDeclaration_innerTypeStatic() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private static class Inner {",
-						"    public static void someMethod() {",
-						"    }",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private static class Inner {
+						public static void someMethod() {
+						}
+					}
+				}""");
 		m_lastEditor.addMethodDeclaration(
 				"void testMethod()",
 				Collections.emptyList(),
@@ -2029,14 +2015,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseBodyDeclaration_targetTypeWithJavadoc() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler",
-				"/**",
-				"  Some comment.",
-				"*/",
-				"public class Test {",
-				"  // marker",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler
+				/**
+				  Some comment.
+				*/
+				public class Test {
+					// marker
+				}""");
 		int position = m_lastEditor.indexOf("// marker");
 		String source = "void foo() {}";
 		check_ASTParser_parseBodyDeclaration(position, source);
@@ -2047,12 +2033,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseBodyDeclaration_intoPrivateInnerType() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  private static class Inner {",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					private static class Inner {
+						// marker
+					}
+				}""");
 		int position = m_lastEditor.indexOf("// marker");
 		String source = "void foo() {}";
 		check_ASTParser_parseBodyDeclaration(position, source);
@@ -2063,12 +2049,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseBodyDeclaration_intoProtectedInnerType() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  protected static class Inner {",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					protected static class Inner {
+						// marker
+					}
+				}""");
 		int position = m_lastEditor.indexOf("// marker");
 		String source = "void foo() {}";
 		check_ASTParser_parseBodyDeclaration(position, source);
@@ -2085,16 +2071,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseBodyDeclaration_intoAnonymous_whenTopLevelHasSameMethod()
 			throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    new Object() {",
-				"      // marker",
-				"    };",
-				"  }",
-				"  private void foo() {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						new Object() {
+							// marker
+						};
+					}
+					private void foo() {
+					}
+				}""");
 		int position = m_lastEditor.indexOf("// marker");
 		String source = "void foo() {}";
 		check_ASTParser_parseBodyDeclaration(position, source);
@@ -2112,18 +2098,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_addMethodDeclaration_Enums_declared() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private enum TestEnum {",
-						"    C1,",
-						"    C2;",
-						"    TestEnum(){}",
-						"    void someEnumMethod(){}",
-						"  }",
-						"  private final TestEnum m_testEnum = TestEnum.C1;",
-						"  void someTestMethod1(TestEnum testEnum){}",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private enum TestEnum {
+						C1,
+						C2;
+						TestEnum(){}
+						void someEnumMethod(){}
+					}
+					private final TestEnum m_testEnum = TestEnum.C1;
+					void someTestMethod1(TestEnum testEnum){}
+				}""");
 		m_lastEditor.addMethodDeclaration(
 				"void someTestMethod2(TestEnum testEnum)",
 				Collections.emptyList(),
@@ -2196,17 +2181,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_addStatement_anonymousInitializer() throws Exception {
-		createTypeDeclaration_Test(
-				"import java.util.ArrayList;",
-				"public class Test {",
-				"  public Test() {",
-				"    new ArrayList<Object>() {",
-				"      {",
-				"        // initializer",
-				"      }",
-				"    };",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import java.util.ArrayList;
+				public class Test {
+					public Test() {
+						new ArrayList<Object>() {
+							{
+							// initializer
+							}
+						};
+					}
+				}""");
 		int position = m_lastEditor.indexOf("// initializer");
 		String source = "ensureCapacity(77);";
 		Statement statement = m_lastEditor.getParser().parseStatement(position, source);
@@ -2229,26 +2214,24 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getParametersSource() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  int getSum(String s, double d) {",
-						"    return 0;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					int getSum(String s, double d) {
+						return 0;
+					}
+				}""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		assertEquals("String s, double d", m_lastEditor.getParametersSource(method));
 	}
 
 	@Test
 	public void test_getParameterNames() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  int getSum(String s, double d) {",
-						"    return 0;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					int getSum(String s, double d) {
+						return 0;
+					}
+				}""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		assertTrue(ArrayUtils.isEquals(new String[]{"s", "d"}, m_lastEditor.getParameterNames(method)));
 	}
@@ -2263,13 +2246,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceMethodName_returnVoid() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test {",
-						"  public void foo(int a) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test {
+					public void foo(int a) {
+					}
+				}
+				""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		m_lastEditor.replaceMethodName(method, "barBaz");
 		assertEditor(
@@ -2288,13 +2271,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceMethodName_returnObject() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public String foo(int a) {",
-						"    return null;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public String foo(int a) {
+						return null;
+					}
+				}
+				""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		m_lastEditor.replaceMethodName(method, "barBaz");
 		assertEditor(
@@ -2313,13 +2296,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceMethodName_returnPrimitive() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int foo(int a) {",
-						"    return 0;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int foo(int a) {
+						return 0;
+					}
+				}
+				""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		m_lastEditor.replaceMethodName(method, "barBaz");
 		assertEditor(
@@ -2343,13 +2326,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceMethodType_int() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public long foo() {",
-						"    return 0;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public long foo() {
+						return 0;
+					}
+				}
+				""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
 		m_lastEditor.replaceMethodType(method, "int");
 		assertEditor(
@@ -2370,12 +2353,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_addTypeDeclaration() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+				}
+				""");
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, true);
 		TypeDeclaration newType =
@@ -2415,13 +2398,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addTypeDeclaration_superCI_binding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"import java.util.ArrayList;",
-						"class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				import java.util.ArrayList;
+				class Test {
+				}
+				""");
 		//
 		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, true);
 		TypeDeclaration newType =
@@ -2463,12 +2446,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ensureInterfaceImplementation_empty() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				class Test {
+				}
+				""");
 		// ensure
 		boolean result =
 				m_lastEditor.ensureInterfaceImplementation(typeDeclaration, "java.io.Serializable");
@@ -2501,11 +2484,11 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_ensureInterfaceImplementation_extends() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test extends java.util.ArrayList {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test extends java.util.ArrayList {
+				}
+				""");
 		// ensure
 		boolean result =
 				m_lastEditor.ensureInterfaceImplementation(typeDeclaration, "java.io.Serializable");
@@ -2537,13 +2520,13 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_ensureInterfaceImplementation_implements() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test implements Comparable {",
-						"  public int compareTo(Object o) {",
-						"    return 0;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test implements Comparable {
+					public int compareTo(Object o) {
+						return 0;
+					}
+				}
+				""");
 		// ensure
 		boolean result =
 				m_lastEditor.ensureInterfaceImplementation(typeDeclaration, "java.io.Serializable");
@@ -2577,11 +2560,10 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_ensureInterfaceImplementation_already() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test implements java.io.Serializable {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test implements java.io.Serializable {
+				}""");
 		// ensure
 		boolean result =
 				m_lastEditor.ensureInterfaceImplementation(typeDeclaration, "java.io.Serializable");
@@ -2942,14 +2924,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getUniqueVariableName_withDeclarations() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  int foo;",
-						"  void bar() {",
-						"    int baz;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					int foo;
+					void bar() {
+						int baz;
+					}
+				}""");
 		// if we use "normal" method with position, it uses all variables
 		{
 			assertEquals("value", m_lastEditor.getUniqueVariableName(-1, "value", null));
@@ -3441,17 +3422,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_removeCreationArgument() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private void foo() {",
-						"    new Test(1, 2);",
-						"  }",
-						"  public Test(int a, int b) {",
-						"  }",
-						"  public Test(int a) {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private void foo() {
+						new Test(1, 2);
+					}
+					public Test(int a, int b) {
+					}
+					public Test(int a) {
+					}
+				}
+				""");
 		// do remove argument
 		{
 			MethodDeclaration method = typeDeclaration.getMethods()[0];
@@ -4094,14 +4075,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	private void check_replaceCreationArguments(String[] newArgumentsLines,
 			String[] expectedSourceLines,
 			String expectedSignature) throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.util.*;",
-						"public class Test {",
-						"  void foo() {",
-						"    Object o = new ArrayList();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.util.*;
+				public class Test {
+					void foo() {
+						Object o = new ArrayList();
+					}
+				}
+				""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		VariableDeclarationStatement statement =
 				(VariableDeclarationStatement) methodDeclaration.getBody().statements().get(0);
@@ -4200,13 +4181,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_inlineParenthesizedExpression() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    Object obj = new Object();",
-				"    ((obj)).hashCode();",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						Object obj = new Object();
+						((obj)).hashCode();
+					}
+				}
+				""");
 		Expression objNode = (Expression) m_lastEditor.getEnclosingNode("obj)");
 		// do inline
 		m_lastEditor.inlineParenthesizedExpression(objNode);
@@ -4232,12 +4214,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_hasEnclosingTryStatement_noTryStatement() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    int value;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int value;
+					}
+				}""");
 		Statement statement = getNode("int value", Statement.class);
 		//
 		assertFalse(m_lastEditor.hasEnclosingTryStatement(statement, "java.lang.Throwable"));
@@ -4248,15 +4230,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_hasEnclosingTryStatement_noSuchCatch() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    try {",
-				"      int value;",
-				"    } catch (java.lang.Exception e) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						try {
+							int value;
+						} catch (java.lang.Exception e) {
+						}
+					}
+				}""");
 		Statement statement = getNode("int value", Statement.class);
 		//
 		assertFalse(m_lastEditor.hasEnclosingTryStatement(statement, "java.lang.Throwable"));
@@ -4267,15 +4249,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_hasEnclosingTryStatement_hasExactCatch() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    try {",
-				"      int value;",
-				"    } catch (java.lang.Exception e) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						try {
+							int value;
+						} catch (java.lang.Exception e) {
+						}
+					}
+				}""");
 		Statement statement = getNode("int value", Statement.class);
 		//
 		assertTrue(m_lastEditor.hasEnclosingTryStatement(statement, "java.lang.Exception"));
@@ -4286,15 +4268,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_hasEnclosingTryStatement_hasSuperCatch() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    try {",
-				"      int value;",
-				"    } catch (java.lang.Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						try {
+							int value;
+						} catch (java.lang.Throwable e) {
+						}
+					}
+				}""");
 		Statement statement = getNode("int value", Statement.class);
 		//
 		assertTrue(m_lastEditor.hasEnclosingTryStatement(statement, "java.lang.Exception"));
@@ -4310,13 +4292,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_encloseInTryStatement() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    int value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int value;
+					}
+				}
+				""");
 		Block sourceBlock = typeDeclaration.getMethods()[0].getBody();
 		Statement statement = DomGenerics.statements(sourceBlock).get(0);
 		// do enclose
@@ -4340,18 +4322,19 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeEmptyTryStatements() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    try{",
-				"    } finally {",
-				"    }",
-				"    try {",
-				"      int value;",
-				"    } finally {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						try{
+						} finally {
+						}
+						try {
+							int value;
+						} finally {
+						}
+					}
+				}
+				""");
 		// do remove
 		m_lastEditor.removeEmptyTryStatements();
 		assertEditor(
@@ -4378,13 +4361,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_encloseInBlock() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    int value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int value;
+					}
+				}
+				""");
 		Block sourceBlock = typeDeclaration.getMethods()[0].getBody();
 		Statement statement = DomGenerics.statements(sourceBlock).get(0);
 		// do enclose
@@ -4407,19 +4390,19 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_inlineBlock() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public Test() {",
-						"    int a;",
-						"    {",
-						"      int b;",
-						"      int c;",
-						"      int d;",
-						"    }",
-						"    int e;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						int a;
+						{
+							int b;
+							int c;
+							int d;
+						}
+						int e;
+					}
+				}
+				""");
 		Block mainBlock = typeDeclaration.getMethods()[0].getBody();
 		Block blockToInline = (Block) DomGenerics.statements(mainBlock).get(1);
 		// do inline
@@ -4531,16 +4514,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addStatement_5() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.*;",
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    {",
-						"    }",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.*;
+				import javax.swing.*;
+				class Test extends JPanel {
+					Test() {
+						{
+						}
+					}
+				}
+				""");
 		MethodDeclaration targetMethod = typeDeclaration.getMethods()[0];
 		Block targetBlock = (Block) getStatement(targetMethod.getBody(), new int[]{0});
 		//
@@ -4567,17 +4550,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addStatement_6() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import java.awt.*;",
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    System.out.println(1);",
-						"    // existing comment",
-						"    System.out.println(2);",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import java.awt.*;
+				import javax.swing.*;
+				class Test extends JPanel {
+					Test() {
+						System.out.println(1);
+						// existing comment
+						System.out.println(2);
+					}
+				}
+				""");
 		MethodDeclaration targetMethod = typeDeclaration.getMethods()[0];
 		Statement targetStatement = (Statement) targetMethod.getBody().statements().get(1);
 		//
@@ -4608,14 +4591,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addStatement_7() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  Test() {",
-						"    System.out.println(1); // end of line comment",
-						"    System.out.println(2);",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					Test() {
+						System.out.println(1); // end of line comment
+						System.out.println(2);
+					}
+				}
+				""");
 		MethodDeclaration targetMethod = typeDeclaration.getMethods()[0];
 		Statement targetStatement = (Statement) targetMethod.getBody().statements().get(0);
 		//
@@ -4640,13 +4623,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addStatement_8() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"class Test {",
-						"  Test() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test {
+					Test() {
+					}
+				}
+				""");
 		MethodDeclaration targetMethod = typeDeclaration.getMethods()[0];
 		Block targetBlock = targetMethod.getBody();
 		//
@@ -4673,15 +4656,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addStatement_beforeStatement_inIfStatement_thenWithElse() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    if (true)",
-				"      System.out.println(0);",
-				"    else",
-				"      System.out.println(1);",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						if (true)
+							System.out.println(0);
+						else
+							System.out.println(1);
+					}
+				}
+				""");
 		Statement targetStatement = getNode("System.out.println(0)", Statement.class);
 		//
 		m_lastEditor.addStatement("int a;", new StatementTarget(targetStatement, true));
@@ -4706,13 +4690,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_addStatement_beforeStatement_inIfStatement_onlyThen() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    if (true)",
-				"      System.out.println();",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						if (true)
+							System.out.println();
+					}
+				}
+				""");
 		Statement targetStatement = getNode("System.out.println()", Statement.class);
 		//
 		m_lastEditor.addStatement("int a;", new StatementTarget(targetStatement, true));
@@ -4887,16 +4872,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeBodyDeclaration_anonymous() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test extends javax.swing.JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new java.awt.event.KeyAdapter() {",
-						"      public void keyPressed(java.awt.event.KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test extends javax.swing.JPanel {
+					public Test() {
+						addKeyListener(new java.awt.event.KeyAdapter() {
+							public void keyPressed(java.awt.event.KeyEvent e) {
+							}
+						});
+					}
+				}
+				""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		ExpressionStatement addStatement =
 				(ExpressionStatement) methodDeclaration.getBody().statements().get(0);
@@ -4930,14 +4915,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeVariableDeclaration_field() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  private JButton button_1 = new JButton(), button_2, button_3 = new JButton(), button_4;",
-						"  Test() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import javax.swing.*;
+				class Test extends JPanel {
+					private JButton button_1 = new JButton(), button_2, button_3 = new JButton(), button_4;
+					Test() {
+					}
+				}
+				""");
 		FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
 		List<VariableDeclarationFragment> fragments = DomGenerics.fragments(fieldDeclaration);
 		// remove first
@@ -4994,14 +4979,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeVariableDeclaration_local() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import javax.swing.*;",
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JButton button_1 = new JButton(), button_2, button_3 = new JButton(), button_4;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import javax.swing.*;
+				class Test extends JPanel {
+					Test() {
+						JButton button_1 = new JButton(), button_2, button_3 = new JButton(), button_4;
+					}
+				}
+				""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		VariableDeclarationStatement variableDeclaration =
 				(VariableDeclarationStatement) methodDeclaration.getBody().statements().get(0);
@@ -5067,13 +5052,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeDanglingJavadoc_attachedJavaDoc() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"class Test {",
-				"  /** not dangling */",
-				"  private int javaDocTarget;",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				class Test {
+					/** not dangling */
+					private int javaDocTarget;
+				}
+				""");
 		//
 		m_lastEditor.removeDanglingJavadoc();
 		assertEditor(
@@ -5095,12 +5081,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeDanglingJavadoc_onlyWhitespaces() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"class Test {",
-				"  /** dangling */",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				class Test {
+					/** dangling */
+				}
+				""");
 		//
 		m_lastEditor.removeDanglingJavadoc();
 		assertEditor(
@@ -5120,14 +5107,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_removeDanglingJavadoc_lineComments() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"class Test {",
-				"  /** dangling */",
-				"  // line comment A",
-				"  // line comment B",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				class Test {
+					/** dangling */
+					// line comment A
+					// line comment B
+				}
+				""");
 		//
 		m_lastEditor.removeDanglingJavadoc();
 		assertEditor(
@@ -6101,14 +6089,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_classAccessTop() throws Exception {
-		TypeDeclaration testType =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  public class Inner {",
-						"    public void foo() {",
-						"    }",
-						"  }",
-						"}");
+		TypeDeclaration testType = createTypeDeclaration_Test("""
+				public class Test {
+					public class Inner {
+						public void foo() {
+						}
+					}
+				}
+				""");
 		TypeDeclaration innerType = testType.getTypes()[0];
 		MethodDeclaration fooMethod = innerType.getMethods()[0];
 		StatementTarget target = new StatementTarget(fooMethod.getBody(), false);
@@ -6135,11 +6123,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setIdentifier() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler",
-				"class Test {",
-				"  private int m_value = 0;",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler
+				class Test {
+					private int m_value = 0;
+				}
+				""");
 		//
 		SimpleName fieldName = (SimpleName) m_lastEditor.getEnclosingNode("m_value");
 		m_lastEditor.setIdentifier(fieldName, "foo");
@@ -6164,13 +6153,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_invisibleType() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private static class Inner {",
-						"  }",
-						"  private Inner m_inner;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private static class Inner {
+					}
+					private Inner m_inner;
+				}""");
 		waitForAutoBuild();
 		//
 		int position = typeDeclaration.getFields()[0].getStartPosition();
@@ -6291,13 +6279,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_FieldAccess() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private int m_value;",
-						"  public Test() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private int m_value;
+					public Test() {
+					}
+				}""");
 		MethodDeclaration methodDeclaration =
 				AstNodeUtils.getMethodBySignature(typeDeclaration, "<init>()");
 		StatementTarget statementTarget = new StatementTarget(methodDeclaration, true);
@@ -6317,12 +6304,11 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_SingleVariableDeclaration_IVariableBinding() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  int field;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					int field;
+				}""");
 		//
 		int position = typeDeclaration.getFields()[0].getStartPosition();
 		MethodDeclaration method =
@@ -6591,13 +6577,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseExpression_referenceLocalFieldDeclaration() throws Exception {
 		// prepare type
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private static final int ID = 555;",
-						"  public Test() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private static final int ID = 555;
+					public Test() {
+					}
+				}""");
 		// parse expression
 		int position = typeDeclaration.getStartPosition();
 		SimpleName simpleName = (SimpleName) m_lastEditor.getParser().parseExpression(position, "ID");
@@ -6615,16 +6600,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseExpression_referenceLocalStaticMethod() throws Exception {
 		// prepare type
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import javax.swing.*;",
-						"public class Test {",
-						"  public Test() {",
-						"  }",
-						"  private static JButton createButton() {",
-						"    return new JButton();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test {
+					public Test() {
+					}
+					private static JButton createButton() {
+						return new JButton();
+					}
+				}""");
 		// parse expression
 		int position = typeDeclaration.getStartPosition();
 		Expression expression =
@@ -6658,12 +6642,11 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_SuperMethodInvocation() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"// filler filler filler",
-						"public class Test {",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				// filler filler filler
+				public class Test {
+				}""");
 		// parse expression
 		int position = typeDeclaration.getStartPosition();
 		SuperMethodInvocation invocation =
@@ -6713,16 +6696,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseExpression_notInitializedFinalField() throws Exception {
 		// prepare type
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private final int m_finalField_0;",
-						"  private final Object m_finalField_1;",
-						"  public Test() {",
-						"    m_finalField_0 = 123;",
-						"    m_finalField_1 = new Object();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private final int m_finalField_0;
+					private final Object m_finalField_1;
+					public Test() {
+						m_finalField_0 = 123;
+						m_finalField_1 = new Object();
+					}
+				}""");
 		// parse expression
 		int position = typeDeclaration.getStartPosition();
 		String expressionSource = "1 + 2";
@@ -6732,16 +6714,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseExpression_publicStaticFinalField_inInnerClass() throws Exception {
 		// prepare type
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private class Inner {",
-						"    private static final int CONS = 555;",
-						"  }",
-						"  public Test() {",
-						"    // marker",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private class Inner {
+						private static final int CONS = 555;
+					}
+					public Test() {
+						// marker
+					}
+				}""");
 		// parse expression
 		int position = typeDeclaration.getStartPosition();
 		String expressionSource = "Inner.CONS";
@@ -6754,15 +6735,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseExpression_classSystem() throws Exception {
 		// prepare type
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  private class System {",
-						"  }",
-						"  public Test() {",
-						"    // marker",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					private class System {
+					}
+					public Test() {
+						// marker
+					}
+				}""");
 		// parse expression
 		int position = typeDeclaration.getStartPosition();
 		String expressionSource = "123";
@@ -6775,13 +6755,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_warning_nullReference() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    Object var = new Object();",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						Object var = new Object();
+						// marker
+					}
+				}""");
 		// configure IJavaProject to handle warning as error
 		{
 			IJavaProject javaProject = m_lastEditor.getModelUnit().getJavaProject();
@@ -6803,13 +6783,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_warning_unusedImport() throws Exception {
-		createTypeDeclaration_Test(
-				"import java.util.List;",
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import java.util.List;
+				public class Test {
+					public Test() {
+						// marker
+					}
+				}""");
 		// configure IJavaProject to handle warning as error
 		{
 			IJavaProject javaProject = m_lastEditor.getModelUnit().getJavaProject();
@@ -6866,13 +6846,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_warning_unnecessaryCast() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    Object var;",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						Object var;
+						// marker
+					}
+				}""");
 		// configure IJavaProject to handle warning as error
 		{
 			IJavaProject javaProject = m_lastEditor.getModelUnit().getJavaProject();
@@ -6894,13 +6874,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	@Test
 	public void test_ASTParser_parseExpression_severalVariableDeclarationFragments_inFieldDeclaration()
 			throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  private int a, b;",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					private int a, b;
+					public Test() {
+						// marker
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -6911,17 +6891,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_generics() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  private static class Inner implements Comparable<Inner> {",
-				"    public int compareTo(Inner o) {",
-				"      return 0;",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					private static class Inner implements Comparable<Inner> {
+						public int compareTo(Inner o) {
+							return 0;
+						}
+					}
+					public Test() {
+						// marker
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -6932,14 +6912,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_generics2() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  <T> void foo(T o) {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					<T> void foo(T o) {
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -6950,15 +6930,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_annotations() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  @SuppressWarnings('unchecked')",
-				"  void foo() {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					@SuppressWarnings("unchecked")
+					void foo() {
+					}
+				}
+				""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -6980,20 +6961,20 @@ public class AstEditorTest extends AbstractJavaTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  public class MyClass extends MySuper {",
-				"    public MyClass() {",
-				"      this(0);",
-				"    }",
-				"    public MyClass(int val) {",
-				"      super(val);",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					public class MyClass extends MySuper {
+						public MyClass() {
+							this(0);
+						}
+						public MyClass(int val) {
+							super(val);
+						}
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7004,16 +6985,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_innerClass_noSuperConstructor() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  public class MyClass {",
-				"    public MyClass(byte val) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					public class MyClass {
+						public MyClass(byte val) {
+						}
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7024,15 +7005,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_innerAbstractClass_abstractMethod() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  public abstract class AbstractClass {",
-				"    public abstract void foo();",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					public abstract class AbstractClass {
+						public abstract void foo();
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7043,15 +7024,15 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_innerInterface_abstractMethod() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  public interface MyInterface {",
-				"    void foo();",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					public interface MyInterface {
+						void foo();
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7062,16 +7043,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_innerClass_noModifierConstructor() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  public class MyClass {",
-				"    MyClass(int val) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					public class MyClass {
+						MyClass(int val) {
+						}
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7082,17 +7063,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_innerClass_privateModifier() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    MyClass o = new MyClass();",
-				"    // marker",
-				"  }",
-				"  public class MyClass {",
-				"    public void setVisible(boolean visible) {",
-				"    }",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						MyClass o = new MyClass();
+						// marker
+					}
+					public class MyClass {
+						public void setVisible(boolean visible) {
+						}
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "o.setVisible(false)");
@@ -7103,15 +7084,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_innerInterface_shouldBeInterface() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public interface MyInterface {",
-				"    public abstract void foo();",
-				"  }",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public interface MyInterface {
+						public abstract void foo();
+					}
+					public Test() {
+						// marker
+					}
+				}
+				""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7122,17 +7104,17 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_skipJavaDoc() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  /**",
-				"  * Some text with {} and ().",
-				"  */",
-				"  public void foo() {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					/**
+					 * Some text with {} and ().
+					 */
+					public void foo() {
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7143,20 +7125,20 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_skipComment() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  /**",
-				"  * Some JavaDoc.",
-				"  */",
-				"  /*",
-				"  * Some comment with {} and ().",
-				"  */",
-				"  public void foo() {",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					/**
+					 * Some JavaDoc.
+					 */
+					/*
+					 * Some comment with {} and ().
+					 */
+					public void foo() {
+					}
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7167,13 +7149,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_ASTParser_parseExpression_nativeMethod() throws Exception {
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    // marker",
-				"  }",
-				"  native void someNativeMethod();",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						// marker
+					}
+					native void someNativeMethod();
+				}""");
 		// parse expression
 		int position = m_lastEditor.indexOf("// marker");
 		check_ASTParser_parseExpression(position, "123");
@@ -7207,12 +7189,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceExpression() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  Object m_value = new Object();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					Object m_value = new Object();
+				}
+				""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		VariableDeclarationFragment fragment = (VariableDeclarationFragment) field.fragments().get(0);
 		//
@@ -7233,12 +7215,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_replaceExpression_noImports() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  Object m_value = new Object();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					Object m_value = new Object();
+				}
+				""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		VariableDeclarationFragment fragment = (VariableDeclarationFragment) field.fragments().get(0);
 		//
@@ -7259,12 +7241,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_replaceExpression_lines() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  Object m_value = new Object();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					Object m_value = new Object();
+				}
+				""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		VariableDeclarationFragment fragment = (VariableDeclarationFragment) field.fragments().get(0);
 		//
@@ -7287,12 +7269,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_replaceExpression_linesInSingle() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  Object m_value = new Object();",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					Object m_value = new Object();
+				}
+				""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		VariableDeclarationFragment fragment = (VariableDeclarationFragment) field.fragments().get(0);
 		//
@@ -7316,11 +7298,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_resolveImports() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler",
-				"public class Test {",
-				"  Object m_value = new Object();",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					Object m_value = new Object();
+				}
+				""");
 		Expression expression = getNode("new Object()");
 		//
 		m_lastEditor.replaceExpression(
@@ -7352,12 +7335,13 @@ public class AstEditorTest extends AbstractJavaTest {
 						"package other.pkg;",
 						"public class Test {",
 						"}"));
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test {",
-				"  Object value = new Object();",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test {
+					Object value = new Object();
+				}
+				""");
 		Expression expression = getNode("new Object()");
 		//
 		m_lastEditor.replaceExpression(expression, "new other.pkg.Test()");
@@ -7458,13 +7442,14 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceVariableType_VariableDeclarationStatement() throws Exception {
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test {",
-				"  public Test() {",
-				"    JButton button = null;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test {
+					public Test() {
+						JButton button = null;
+					}
+				}
+				""");
 		VariableDeclaration variableDeclaration = getNode("button", VariableDeclaration.class);
 		m_lastEditor.replaceVariableType(variableDeclaration, "javax.swing.JTextField");
 		assertEditor(
@@ -7484,11 +7469,12 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceVariableType_FieldDeclaration() throws Exception {
-		createTypeDeclaration_Test(
-				"import javax.swing.*;",
-				"public class Test {",
-				"  private JButton button;",
-				"}");
+		createTypeDeclaration_Test("""
+				import javax.swing.*;
+				public class Test {
+					private JButton button;
+				}
+				""");
 		VariableDeclaration variableDeclaration = getNode("button", VariableDeclaration.class);
 		m_lastEditor.replaceVariableType(variableDeclaration, "javax.swing.JTextField");
 		assertEditor(
@@ -7506,11 +7492,11 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_replaceVariableType_unknown() throws Exception {
-		createTypeDeclaration_Test(
-				"// filler filler filler filler filler",
-				"import javax.swing.*;",
-				"public class Test {",
-				"}");
+		createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				import javax.swing.*;
+				public class Test {
+				}""");
 		VariableDeclaration variableDeclaration = mock(VariableDeclaration.class);
 		try {
 			m_lastEditor.replaceVariableType(variableDeclaration, "javax.swing.JTextField");
@@ -7526,12 +7512,11 @@ public class AstEditorTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getStringLiteralNumberOnLine() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  String m_string_1 = '1' + '2' +",
-						"    '3';",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					String m_string_1 = "1" + "2" +
+						"3";
+				}""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		VariableDeclarationFragment fragment = (VariableDeclarationFragment) field.fragments().get(0);
 		InfixExpression infixExpression = (InfixExpression) fragment.getInitializer();
@@ -7550,12 +7535,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_addEndOfLineComment() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler",
-						"public class Test {",
-						"  int m_value;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler
+				public class Test {
+					int m_value;
+				}
+				""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		//
 		m_lastEditor.addEndOfLineComment(field.getStartPosition(), " // Hello!");
@@ -7574,14 +7559,13 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getEndOfLineComment() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test {",
-						"  int m_value; // 111",
-						"  int m_value2;",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test {
+					int m_value; // 111
+					int m_value2;
+				}""");
 		// has comment
 		{
 			FieldDeclaration field = typeDeclaration.getFields()[0];
@@ -7605,12 +7589,12 @@ public class AstEditorTest extends AbstractJavaTest {
 
 	@Test
 	public void test_removeEndOfLineComment() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test {",
-						"  int m_value; // 111   // 222  ",
-						"  int m_value2; // 333",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test {
+					int m_value; // 111   // 222\s\s
+					int m_value2; // 333
+				}
+				""");
 		FieldDeclaration field = typeDeclaration.getFields()[0];
 		// no such comment on this line, ignore
 		m_lastEditor.removeEndOfLineComment(field.getStartPosition(), "// 333");
@@ -7681,13 +7665,14 @@ public class AstEditorTest extends AbstractJavaTest {
 		setFileContentSrc(
 				"test/MyObject.java",
 				getSourceDQ("package test;", "public class MyObject {", "  public int m_value;", "}"));
-		createTypeDeclaration_Test(
-				"public class Test {",
-				"  public Test() {",
-				"    MyObject foo = new MyObject();",
-				"    foo.m_value = 1;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				public class Test {
+					public Test() {
+						MyObject foo = new MyObject();
+						foo.m_value = 1;
+					}
+				}
+				""");
 		int fooIndex = m_lastEditor.getSource().indexOf("foo.");
 		Expression fooNode = (Expression) m_lastEditor.getEnclosingNode(fooIndex);
 		m_lastEditor.replaceExpression(fooNode, "new test.MyObject()");
@@ -7713,16 +7698,16 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getTypeArgumentsSource() throws Exception {
-		createTypeDeclaration_Test(
-				"import java.util.*;",
-				"public class Test {",
-				"  void foo() {",
-				"    new Object();",
-				"    new ArrayList<Integer>();",
-				"    new HashMap<String, Double>();",
-				"    new LinkedList<Short>() {};",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import java.util.*;
+				public class Test {
+					void foo() {
+						new Object();
+						new ArrayList<Integer>();
+						new HashMap<String, Double>();
+						new LinkedList<Short>() {};
+					}
+				}""");
 		// no type arguments
 		check_getTypeArgumentsSource("new Object", "");
 		// single type argument
@@ -7743,18 +7728,18 @@ public class AstEditorTest extends AbstractJavaTest {
 	 */
 	@Test
 	public void test_getMethodStubSource() throws Exception {
-		createTypeDeclaration_Test(
-				"import java.util.*;",
-				"public class Test {",
-				"  void methodA() {",
-				"  }",
-				"  public String methodB(int a, String b, Double c) {",
-				"    return 'b';",
-				"  }",
-				"  public static final int methodC() {",
-				"    return 42;",
-				"  }",
-				"}");
+		createTypeDeclaration_Test("""
+				import java.util.*;
+				public class Test {
+					void methodA() {
+					}
+					public String methodB(int a, String b, Double c) {
+						return "b";
+					}
+					public static final int methodC() {
+						return 42;
+					}
+				}""");
 		{
 			MethodDeclaration method = getNode("methodA", MethodDeclaration.class);
 			assertEquals("\tvoid methodA() {\n\t}", m_lastEditor.getMethodStubSource(method));

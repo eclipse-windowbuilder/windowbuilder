@@ -85,16 +85,15 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_staticPublicMethod() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int call_staticPublicMethod() {",
-						"    return staticPublicMethod(5);",
-						"  }",
-						"  public static int staticPublicMethod(int i) {",
-						"    return 2 * i;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int call_staticPublicMethod() {
+						return staticPublicMethod(5);
+					}
+					public static int staticPublicMethod(int i) {
+						return 2 * i;
+					}
+				}""");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "call_staticPublicMethod()");
 		assertEquals(10, actual);
@@ -102,16 +101,15 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_instancePublicMethod_bad() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int root() {",
-						"    return instancePublicMethod(5);",
-						"  }",
-						"  public int instancePublicMethod(int i) {",
-						"    return 2 * i;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int root() {
+						return instancePublicMethod(5);
+					}
+					public int instancePublicMethod(int i) {
+						return 2 * i;
+					}
+				}""");
 		waitForAutoBuild();
 		try {
 			evaluateSingleMethod(typeDeclaration, "root()");
@@ -127,16 +125,15 @@ public class MethodInvocationTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_instancePublicMethod_simpleReturn() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int root() {",
-						"    return instancePublicMethod();",
-						"  }",
-						"  public int instancePublicMethod() {",
-						"    return 5;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int root() {
+						return instancePublicMethod();
+					}
+					public int instancePublicMethod() {
+						return 5;
+					}
+				}""");
 		waitForAutoBuild();
 		//
 		assertEquals(5, evaluateSingleMethod(typeDeclaration, "root()"));
@@ -148,16 +145,15 @@ public class MethodInvocationTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_instancePublicMethod_simpleReturn_fail() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int root() {",
-						"    return instancePublicMethod();",
-						"  }",
-						"  public int instancePublicMethod() {",
-						"    return 5 / 0;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int root() {
+						return instancePublicMethod();
+					}
+					public int instancePublicMethod() {
+						return 5 / 0;
+					}
+				}""");
 		waitForAutoBuild();
 		//
 		try {
@@ -180,19 +176,18 @@ public class MethodInvocationTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_instancePublicMethod_withReturnTag() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int root() {",
-						"    return instancePublicMethod(5);",
-						"  }",
-						"  /**",
-						"  * @wbp.eval.method.return value",
-						"  */",
-						"  public int instancePublicMethod(int value) {",
-						"    return 2 * value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int root() {
+						return instancePublicMethod(5);
+					}
+					/**
+					 * @wbp.eval.method.return value
+					 */
+					public int instancePublicMethod(int value) {
+						return 2 * value;
+					}
+				}""");
 		waitForAutoBuild();
 		//
 		assertEquals(5, evaluateSingleMethod(typeDeclaration, "root()"));
@@ -205,20 +200,19 @@ public class MethodInvocationTest extends AbstractEngineTest {
 	 */
 	@Test
 	public void test_instancePublicMethod_withReturnTag2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int root() {",
-						"    return instancePublicMethod(5);",
-						"  }",
-						"  /**",
-						"  * Some description.",
-						"  * @wbp.eval.method.return value",
-						"  */",
-						"  public int instancePublicMethod(int value) {",
-						"    return 2 * value;",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int root() {
+						return instancePublicMethod(5);
+					}
+					/**
+					 * Some description.
+					 * @wbp.eval.method.return value
+					 */
+					public int instancePublicMethod(int value) {
+						return 2 * value;
+					}
+				}""");
 		waitForAutoBuild();
 		//
 		assertEquals(5, evaluateSingleMethod(typeDeclaration, "root()"));
@@ -226,18 +220,17 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_staticPublicMethod_inner() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int call_innerMethod() {",
-						"    return Foo.innerMethod(5);",
-						"  }",
-						"  public static class Foo {",
-						"    public static int innerMethod(int i) {",
-						"      return 3 * i;",
-						"    }",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int call_innerMethod() {
+						return Foo.innerMethod(5);
+					}
+					public static class Foo {
+						public static int innerMethod(int i) {
+							return 3 * i;
+						}
+					}
+				}""");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "call_innerMethod()");
 		assertEquals(15, actual);
@@ -250,14 +243,13 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_staticImportMethod() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"import static java.lang.System.currentTimeMillis;",
-						"class Test {",
-						"  public long callMe() {",
-						"    return currentTimeMillis();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				import static java.lang.System.currentTimeMillis;
+				class Test {
+					public long callMe() {
+						return currentTimeMillis();
+					}
+				}""");
 		long actual = (Long) evaluateSingleMethod(typeDeclaration, "callMe()");
 		Assertions.assertThat(actual).isGreaterThan(1200L * 1000L * 1000L * 1000L);
 	}
@@ -276,14 +268,13 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_methodInvocation_nullExpression() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public int root() {",
-						"    Object obj = null;",
-						"    return obj.hashCode();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public int root() {
+						Object obj = null;
+						return obj.hashCode();
+					}
+				}""");
 		try {
 			evaluateSingleMethod(typeDeclaration, "root()");
 			fail();
@@ -616,15 +607,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_creation_innerStatic() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public Object root() {",
-						"    return new Foo();",
-						"  }",
-						"  public static class Foo {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public Object root() {
+						return new Foo();
+					}
+					public static class Foo {
+					}
+				}""");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "root()");
 		assertNotNull(actual);
@@ -632,15 +622,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_creation_innerNotStatic() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"class Test {",
-						"  public Object root() {",
-						"    return new Foo();",
-						"  }",
-						"  public class Foo {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				class Test {
+					public Object root() {
+						return new Foo();
+					}
+					public class Foo {
+					}
+				}""");
 		waitForAutoBuild();
 		Object actual = evaluateSingleMethod(typeDeclaration, "root()");
 		assertNull(actual);
@@ -860,15 +849,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler filler filler",
-						"public class Test {",
-						"  public Object foo() {",
-						"    return new MyClass() {",
-						"    };",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				public class Test {
+					public Object foo() {
+						return new MyClass() {
+						};
+					}
+				}""");
 		try {
 			evaluateSingleMethod(typeDeclaration, "foo()");
 			fail();
@@ -892,15 +880,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler filler filler",
-						"public class Test {",
-						"  public Object foo() {",
-						"    return new MyListener() {",
-						"    };",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				public class Test {
+					public Object foo() {
+						return new MyListener() {
+						};
+					}
+				}""");
 		//
 		Object o = evaluateSingleMethod(typeDeclaration, "foo()");
 		assertTrue(ReflectionUtils.isSuccessorOf(o, "test.MyListener"));
@@ -921,15 +908,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler filler filler",
-						"public class Test {",
-						"  public Object foo() {",
-						"    return new MyHandler() {",
-						"    };",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				public class Test {
+					public Object foo() {
+						return new MyHandler() {
+						};
+					}
+				}""");
 		//
 		Object o = evaluateSingleMethod(typeDeclaration, "foo()");
 		assertTrue(ReflectionUtils.isSuccessorOf(o, "test.MyHandler"));
@@ -957,15 +943,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		//
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"// filler filler filler filler filler",
-						"public class Test {",
-						"  public Object foo() {",
-						"    return new MyListenerAdapter() {",
-						"    };",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				// filler filler filler filler filler
+				public class Test {
+					public Object foo() {
+						return new MyListenerAdapter() {
+						};
+					}
+				}""");
 		//
 		Object o = evaluateSingleMethod(typeDeclaration, "foo()");
 		assertTrue(ReflectionUtils.isSuccessorOf(o, "test.MyListener"));
@@ -1023,13 +1008,12 @@ public class MethodInvocationTest extends AbstractEngineTest {
 					"<interceptor class='" + interceptorClass.getName() + "'/>");
 			testBundle.install();
 			try {
-				TypeDeclaration typeDeclaration =
-						createTypeDeclaration_Test(
-								"public class Test {",
-								"  public Object foo() {",
-								"    return new MyObject(0);",
-								"  }",
-								"}");
+				TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+						public class Test {
+							public Object foo() {
+								return new MyObject(0);
+							}
+						}""");
 				// evaluate, should be no exception
 				evaluateSingleMethod(typeDeclaration, "foo()");
 			} finally {
@@ -1070,13 +1054,12 @@ public class MethodInvocationTest extends AbstractEngineTest {
 					"<interceptor class='" + interceptorClass.getName() + "'/>");
 			testBundle.install();
 			try {
-				TypeDeclaration typeDeclaration =
-						createTypeDeclaration_Test(
-								"public class Test {",
-								"  public Object foo() {",
-								"    return new MyObject(0);",
-								"  }",
-								"}");
+				TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+						public class Test {
+							public Object foo() {
+								return new MyObject(0);
+							}
+						}""");
 				// evaluate, but default constructor (used in interceptor) throws exception
 				try {
 					evaluateSingleMethod(typeDeclaration, "foo()");
@@ -1222,13 +1205,12 @@ public class MethodInvocationTest extends AbstractEngineTest {
 	}
 
 	private Object test_SuperMethodInvocation2() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test extends Base {",
-						"  public int getSize() {",
-						"    return super.getSize();",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test extends Base {
+					public int getSize() {
+						return super.getSize();
+					}
+				}""");
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		ReturnStatement returnStatement = (ReturnStatement) m_lastEditor.getEnclosingNode("return ");
 		Expression expression = returnStatement.getExpression();

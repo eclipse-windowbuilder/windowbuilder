@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -501,12 +501,11 @@ public class BindingsTest extends AbstractJavaTest {
 	@Ignore
 	@Test
 	public void test_getCopy() throws Exception {
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration_Test(
-						"public class Test extends javax.swing.JFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
+		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
+				public class Test extends javax.swing.JFrame {
+					public Test() {
+					}
+				}""");
 		ITypeBinding typeBinding = getTypeBinding(typeDeclaration);
 		ITypeBinding typeBinding2 = m_lastEditor.getBindingContext().getCopy(typeBinding);
 		// new ITypeBinding
