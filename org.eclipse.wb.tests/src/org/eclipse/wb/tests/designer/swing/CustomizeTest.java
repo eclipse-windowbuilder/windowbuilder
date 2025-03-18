@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,14 +46,13 @@ public class CustomizeTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_noCustomizer() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton('button');",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton("button");
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check action
@@ -66,64 +65,63 @@ public class CustomizeTest extends SwingModelTest {
 	public void test_customizer() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyButton extends JButton {",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyButton extends JButton {
+						}"""));
 		setFileContentSrc(
 				"test/MyCustomizer.java",
-				getTestSource(
-						"import java.beans.Customizer;",
-						"import java.beans.PropertyChangeListener;",
-						"public class MyCustomizer extends JPanel implements Customizer {",
-						"  public MyCustomizer() {",
-						"    System.setProperty('wbp.test.isDesignTime',"
-								+ " Boolean.toString(java.beans.Beans.isDesignTime()));",
-								"  }",
-								"  public void setObject(Object bean) {",
-								"  }",
-								"  public void addPropertyChangeListener(PropertyChangeListener listener) {",
-								"  }",
-								"  public void removePropertyChangeListener(PropertyChangeListener listener) {",
-								"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.Customizer;
+						import java.beans.PropertyChangeListener;
+						public class MyCustomizer extends JPanel implements Customizer {
+							public MyCustomizer() {
+								System.setProperty("wbp.test.isDesignTime",
+									Boolean.toString(java.beans.Beans.isDesignTime()));
+							}
+							public void setObject(Object bean) {
+							}
+							public void addPropertyChangeListener(PropertyChangeListener listener) {
+							}
+							public void removePropertyChangeListener(PropertyChangeListener listener) {
+							}
+						}"""));
 		waitForAutoBuild();
 		// create bean info
 		setFileContentSrc(
 				"test/MyButtonBeanInfo.java",
-				getTestSource(
-						"import java.beans.BeanInfo;",
-						"import java.beans.BeanDescriptor;",
-						"import java.beans.Introspector;",
-						"import java.beans.SimpleBeanInfo;",
-						"public class MyButtonBeanInfo extends SimpleBeanInfo {",
-						"  private BeanDescriptor m_descriptor;",
-						"  public MyButtonBeanInfo() {",
-						"    m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);",
-						"  }",
-						"  public BeanDescriptor getBeanDescriptor() {",
-						"    return m_descriptor;",
-						"  }",
-						"  public BeanInfo[] getAdditionalBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      return new BeanInfo[] {info};",
-						"    } catch (Throwable e) {",
-						"    }",
-						"    return null;",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.BeanInfo;
+						import java.beans.BeanDescriptor;
+						import java.beans.Introspector;
+						import java.beans.SimpleBeanInfo;
+						public class MyButtonBeanInfo extends SimpleBeanInfo {
+							private BeanDescriptor m_descriptor;
+							public MyButtonBeanInfo() {
+								m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);
+							}
+							public BeanDescriptor getBeanDescriptor() {
+								return m_descriptor;
+							}
+							public BeanInfo[] getAdditionalBeanInfo() {
+								try {
+									BeanInfo info = Introspector.getBeanInfo(JButton.class);
+									return new BeanInfo[] {info};
+								} catch (Throwable e) {
+								}
+								return null;
+							}
+						}"""));
 		waitForAutoBuild();
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check action
@@ -149,27 +147,26 @@ public class CustomizeTest extends SwingModelTest {
 			assertEquals("true", value);
 		}
 		// check no changes
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 	}
 
 	// XXX
 	@Test
 	public void test_customizer_chageProperties_OK() throws Exception {
 		prepare_customizer_changeProperties();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		final ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check action
@@ -195,15 +192,15 @@ public class CustomizeTest extends SwingModelTest {
 			}
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    button.setTitle('New title');",
-				"    button.setFreeze(true);",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setTitle('New title');
+						button.setFreeze(true);
+						add(button);
+					}
+				}""");
 	}
 
 	/**
@@ -213,15 +210,14 @@ public class CustomizeTest extends SwingModelTest {
 	@Test
 	public void test_customizer_chageProperties_Cancel() throws Exception {
 		prepare_customizer_changeProperties();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    button.setTitle('Old title');",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setTitle('Old title');
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		final ComponentInfo button = panel.getChildrenComponents().get(0);
 		final Object buttonObject = button.getObject();
@@ -252,14 +248,14 @@ public class CustomizeTest extends SwingModelTest {
 			}
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    button.setTitle('Old title');",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setTitle('Old title');
+						add(button);
+					}
+				}""");
 		// object properties are not changed
 		{
 			assertEquals("Old title", ScriptUtils.evaluate("getTitle()", buttonObject));
@@ -270,77 +266,77 @@ public class CustomizeTest extends SwingModelTest {
 	private void prepare_customizer_changeProperties() throws Exception {
 		setFileContentSrc(
 				"test/MyCustomizer.java",
-				getTestSource(
-						"import java.beans.Customizer;",
-						"import java.beans.PropertyChangeListener;",
-						"public class MyCustomizer extends JPanel implements Customizer {",
-						"  private MyButton button;",
-						"  public void setObject(Object bean) {",
-						"    button = (MyButton) bean;",
-						"    button.customizer = this;",
-						"  }",
-						"  public void doBeanChanges() {",
-						"    button.setTitle('New title');",
-						"    firePropertyChange('title', null, 'New title');",
-						"    button.setFreeze(true);",
-						"    firePropertyChange('freeze', null, true);",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.Customizer;
+						import java.beans.PropertyChangeListener;
+						public class MyCustomizer extends JPanel implements Customizer {
+							private MyButton button;
+								public void setObject(Object bean) {
+									button = (MyButton) bean;
+									button.customizer = this;
+								}
+								public void doBeanChanges() {
+									button.setTitle('New title');
+									firePropertyChange('title', null, 'New title');
+									button.setFreeze(true);
+								firePropertyChange('freeze', null, true);
+							}
+						}"""));
 		setFileContentSrc(
 				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public Object customizer;",
-						"  private String m_title;",
-						"  public String getTitle() {",
-						"    return m_title;",
-						"  }",
-						"  public void setTitle(String title) {",
-						"    m_title = title;",
-						"  }",
-						"  private boolean m_freeze;",
-						"  public boolean isFreeze() {",
-						"    return m_freeze;",
-						"  }",
-						"  public void setFreeze(boolean freeze) {",
-						"    m_freeze = freeze;",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyButton extends JButton {
+							public Object customizer;
+							private String m_title;
+							public String getTitle() {
+								return m_title;
+							}
+							public void setTitle(String title) {
+								m_title = title;
+							}
+							private boolean m_freeze;
+							public boolean isFreeze() {
+								return m_freeze;
+							}
+							public void setFreeze(boolean freeze) {
+								m_freeze = freeze;
+							}
+						}"""));
 		setFileContentSrc(
 				"test/MyButtonBeanInfo.java",
-				getTestSource(
-						"import java.beans.BeanInfo;",
-						"import java.beans.BeanDescriptor;",
-						"import java.beans.Introspector;",
-						"import java.beans.SimpleBeanInfo;",
-						"import java.beans.PropertyDescriptor;",
-						"public class MyButtonBeanInfo extends SimpleBeanInfo {",
-						"  private BeanDescriptor m_descriptor;",
-						"  private PropertyDescriptor[] m_properties;",
-						"  public MyButtonBeanInfo() {",
-						"    m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);",
-						"    try {",
-						"      m_properties = new PropertyDescriptor[2];",
-						"      m_properties[0] = new PropertyDescriptor('title', MyButton.class, 'getTitle', 'setTitle');",
-						"      m_properties[1] = new PropertyDescriptor('freeze', MyButton.class, 'isFreeze', 'setFreeze');",
-						"    } catch(Throwable e) {",
-						"    }",
-						"  }",
-						"  public BeanDescriptor getBeanDescriptor() {",
-						"    return m_descriptor;",
-						"  }",
-						"  public PropertyDescriptor[] getPropertyDescriptors() {",
-						"    return m_properties;",
-						"  }",
-						"  public BeanInfo[] getAdditionalBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      return new BeanInfo[] {info};",
-						"    } catch (Throwable e) {",
-						"    }",
-						"    return null;",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.BeanInfo;
+						import java.beans.BeanDescriptor;
+						import java.beans.Introspector;
+						import java.beans.SimpleBeanInfo;
+						import java.beans.PropertyDescriptor;
+						public class MyButtonBeanInfo extends SimpleBeanInfo {
+							private BeanDescriptor m_descriptor;
+							private PropertyDescriptor[] m_properties;
+							public MyButtonBeanInfo() {
+								m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);
+								try {
+									m_properties = new PropertyDescriptor[2];
+									m_properties[0] = new PropertyDescriptor("title", MyButton.class, "getTitle", "setTitle");
+									m_properties[1] = new PropertyDescriptor("freeze", MyButton.class, "isFreeze", "setFreeze");
+								} catch(Throwable e) {
+								}
+							}
+							public BeanDescriptor getBeanDescriptor() {
+								return m_descriptor;
+							}
+							public PropertyDescriptor[] getPropertyDescriptors() {
+								return m_properties;
+							}
+							public BeanInfo[] getAdditionalBeanInfo() {
+								try {
+									BeanInfo info = Introspector.getBeanInfo(JButton.class);
+									return new BeanInfo[] {info};
+								} catch (Throwable e) {
+								}
+								return null;
+							}
+						}"""));
 		waitForAutoBuild();
 	}
 
@@ -348,81 +344,80 @@ public class CustomizeTest extends SwingModelTest {
 	public void test_customizer_EXPLICIT_PROPERTY_CHANGE() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  private String m_title;",
-						"  public String getTitle() {",
-						"    return m_title;",
-						"  }",
-						"  public void setTitle(String title) {",
-						"    m_title = title;",
-						"  }",
-						"  private boolean m_freeze;",
-						"  public boolean isFreeze() {",
-						"    return m_freeze;",
-						"  }",
-						"  public void setFreeze(boolean freeze) {",
-						"    m_freeze = freeze;",
-						"  }",
-						"  public Object customizer;",
-						"}"));
+				getTestSource("""
+						public class MyButton extends JButton {
+							private String m_title;
+							public String getTitle() {
+								return m_title;
+							}
+							public void setTitle(String title) {
+								m_title = title;
+							}
+							private boolean m_freeze;
+							public boolean isFreeze() {
+								return m_freeze;
+							}
+							public void setFreeze(boolean freeze) {
+								m_freeze = freeze;
+							}
+							public Object customizer;
+						}"""));
 		setFileContentSrc(
 				"test/MyCustomizer.java",
-				getTestSource(
-						"import java.beans.Customizer;",
-						"import java.beans.PropertyChangeListener;",
-						"public class MyCustomizer extends JPanel implements Customizer {",
-						"  public void setObject(Object bean) {",
-						"    MyButton button = (MyButton)bean;",
-						"    button.customizer = this;",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.Customizer;
+						import java.beans.PropertyChangeListener;
+						public class MyCustomizer extends JPanel implements Customizer {
+							public void setObject(Object bean) {
+								MyButton button = (MyButton)bean;
+								button.customizer = this;
+							}
+						}"""));
 		setFileContentSrc(
 				"test/MyButtonBeanInfo.java",
-				getTestSource(
-						"import java.beans.BeanInfo;",
-						"import java.beans.BeanDescriptor;",
-						"import java.beans.Introspector;",
-						"import java.beans.SimpleBeanInfo;",
-						"import java.beans.PropertyDescriptor;",
-						"public class MyButtonBeanInfo extends SimpleBeanInfo {",
-						"  private BeanDescriptor m_descriptor;",
-						"  private PropertyDescriptor[] m_properties;",
-						"  public MyButtonBeanInfo() {",
-						"    m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);",
-						"    m_descriptor.setValue('EXPLICIT_PROPERTY_CHANGE', Boolean.TRUE);",
-						"    try {",
-						"      m_properties = new PropertyDescriptor[2];",
-						"      m_properties[0] = new PropertyDescriptor('title', MyButton.class, 'getTitle', 'setTitle');",
-						"      m_properties[1] = new PropertyDescriptor('freeze', MyButton.class, 'isFreeze', 'setFreeze');",
-						"    } catch(Throwable e) {",
-						"    }",
-						"  }",
-						"  public BeanDescriptor getBeanDescriptor() {",
-						"    return m_descriptor;",
-						"  }",
-						"  public PropertyDescriptor[] getPropertyDescriptors() {",
-						"    return m_properties;",
-						"  }",
-						"  public BeanInfo[] getAdditionalBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      return new BeanInfo[] {info};",
-						"    } catch (Throwable e) {",
-						"    }",
-						"    return null;",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.BeanInfo;
+						import java.beans.BeanDescriptor;
+						import java.beans.Introspector;
+						import java.beans.SimpleBeanInfo;
+						import java.beans.PropertyDescriptor;
+						public class MyButtonBeanInfo extends SimpleBeanInfo {
+							private BeanDescriptor m_descriptor;
+							private PropertyDescriptor[] m_properties;
+							public MyButtonBeanInfo() {
+								m_descriptor = new BeanDescriptor(MyButton.class, MyCustomizer.class);
+								m_descriptor.setValue("EXPLICIT_PROPERTY_CHANGE", Boolean.TRUE);
+								try {
+									m_properties = new PropertyDescriptor[2];
+									m_properties[0] = new PropertyDescriptor("title", MyButton.class, "getTitle", "setTitle");
+									m_properties[1] = new PropertyDescriptor("freeze", MyButton.class, "isFreeze", "setFreeze");
+								} catch(Throwable e) {
+								}
+							}
+							public BeanDescriptor getBeanDescriptor() {
+								return m_descriptor;
+							}
+							public PropertyDescriptor[] getPropertyDescriptors() {
+								return m_properties;
+							}
+							public BeanInfo[] getAdditionalBeanInfo() {
+								try {
+									BeanInfo info = Introspector.getBeanInfo(JButton.class);
+									return new BeanInfo[] {info};
+									} catch (Throwable e) {
+								}
+								return null;
+							}
+						}"""));
 		waitForAutoBuild();
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		final ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check action
@@ -458,14 +453,14 @@ public class CustomizeTest extends SwingModelTest {
 			}
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    button.setTitle('test');",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setTitle("test");
+						add(button);
+					}
+				}""");
 	}
 
 	/**
@@ -478,47 +473,46 @@ public class CustomizeTest extends SwingModelTest {
 	public void test_useInheritedCustomizer() throws Exception {
 		setFileContentSrc(
 				"test/BeanA.java",
-				getTestSource(
-						"public class BeanA extends JButton {",
-						"  private static final long serialVersionUID = 0L;",
-						"}"));
+				getTestSource("""
+						public class BeanA extends JButton {
+							private static final long serialVersionUID = 0L;
+						}"""));
 		setFileContentSrc(
 				"test/BeanABeanInfo.java",
-				getTestSource(
-						"import java.beans.*;",
-						"public class BeanABeanInfo extends SimpleBeanInfo {",
-						"  private final static Class<?> beanClass = BeanA.class;",
-						"  private final static Class<?> customizerClass = BeanCustomizer.class;",
-						"  @Override",
-						"  public BeanDescriptor getBeanDescriptor() {",
-						"    return new BeanDescriptor(beanClass, customizerClass);",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.*;
+						public class BeanABeanInfo extends SimpleBeanInfo {
+							private final static Class<?> beanClass = BeanA.class;
+							private final static Class<?> customizerClass = BeanCustomizer.class;
+							@Override
+							public BeanDescriptor getBeanDescriptor() {
+								return new BeanDescriptor(beanClass, customizerClass);
+							}
+						}"""));
 		setFileContentSrc(
 				"test/BeanCustomizer.java",
-				getTestSource(
-						"import java.beans.*;",
-						"public class BeanCustomizer extends JPanel implements Customizer {",
-						"  private static final long serialVersionUID = 0L;",
-						"  public void setObject(Object bean) {",
-						"  }",
-						"}"));
+				getTestSource("""
+						import java.beans.*;
+						public class BeanCustomizer extends JPanel implements Customizer {
+							private static final long serialVersionUID = 0L;
+							public void setObject(Object bean) {
+							}
+						}"""));
 		setFileContentSrc(
 				"test/BeanB.java",
-				getTestSource(
-						"public class BeanB extends BeanA {",
-						"  private static final long serialVersionUID = 0L;",
-						"}"));
+				getTestSource("""
+						public class BeanB extends BeanA {
+							private static final long serialVersionUID = 0L;
+						}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    BeanB bean = new BeanB();",
-						"    add(bean);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						BeanB bean = new BeanB();
+						add(bean);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check action
