@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,14 +42,14 @@ public class OpenListenerEditPolicyTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_newHandler() throws Exception {
-		openContainer(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		// add "refresh" broadcast listener
 		final AtomicBoolean refreshFlag = new AtomicBoolean();
@@ -72,18 +72,18 @@ public class OpenListenerEditPolicyTest extends SwingGefTest {
 			assertTrue(multiMode.isSourceActive());
 		}
 		// source changes
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    button.addActionListener(new ActionListener() {",
-				"      public void actionPerformed(ActionEvent e) {",
-				"      }",
-				"    });",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						button.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+							}
+						});
+						add(button);
+					}
+				}""");
 	}
 
 	/**
@@ -93,18 +93,18 @@ public class OpenListenerEditPolicyTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_existingHandler() throws Exception {
-		openContainer(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    button.addActionListener(new ActionListener() {",
-				"      public void actionPerformed(ActionEvent e) {",
-				"      }",
-				"    });",
-				"    add(button);",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						button.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+							}
+						});
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		// add "refresh" broadcast listener
 		final AtomicBoolean refreshFlag = new AtomicBoolean();

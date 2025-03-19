@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,21 +49,20 @@ public class DeleteActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_ParentChild() throws Exception {
-		ContainerInfo thisPanel =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"		{",
-						"			JPanel panel = new JPanel();",
-						"			add(panel);",
-						"			{",
-						"				JButton button = new JButton('New button');",
-						"				panel.add(button);",
-						"			}",
-						"		}",
-						"	}",
-						"}");
+		ContainerInfo thisPanel = openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel panel = new JPanel();
+							add(panel);
+							{
+								JButton button = new JButton("New button");
+								panel.add(button);
+							}
+						}
+					}
+				}""");
 		ContainerInfo panel = (ContainerInfo) thisPanel.getChildrenComponents().get(0);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// select
@@ -73,12 +72,12 @@ public class DeleteActionTest extends SwingGefTest {
 			IAction deleteAction = getDeleteAction();
 			assertTrue(deleteAction.isEnabled());
 			deleteAction.run();
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"	public Test() {",
-					"	}",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+						}
+					}""");
 		}
 	}
 
@@ -87,28 +86,27 @@ public class DeleteActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_canRootComponent() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"	  setEnabled(false);",
-						"	}",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 		// select "panel"
 		canvas.select(panel);
 		// delete "panel"
 		IAction deleteAction = getDeleteAction();
 		assertTrue(deleteAction.isEnabled());
 		deleteAction.run();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"	public Test() {",
-				"	}",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -117,13 +115,12 @@ public class DeleteActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_componentInTree_butNotOnDesign() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"	}",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// add artificial ObjectInfo
 		ObjectInfo object = new TestObjectInfo("myObject") {
 			@Override
@@ -169,15 +166,14 @@ public class DeleteActionTest extends SwingGefTest {
 				IPreferenceConstants.P_EDITOR_LAYOUT,
 				IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_DESIGN);
 		try {
-			ContainerInfo panel =
-					openContainer(
-							"// filler filler filler filler filler",
-							"// filler filler filler filler filler",
-							"public class Test extends JPanel {",
-							"	public Test() {",
-							"	  add(new JButton('Some button'));",
-							"	}",
-							"}");
+			ContainerInfo panel = openContainer("""
+					// filler filler filler filler filler
+					// filler filler filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+							add(new JButton("Some button"));
+						}
+					}""");
 			// select JButton
 			{
 				ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -188,13 +184,13 @@ public class DeleteActionTest extends SwingGefTest {
 			assertTrue(deleteAction.isEnabled());
 			deleteAction.run();
 			assertEquals(
-					getTestSource(
-							"// filler filler filler filler filler",
-							"// filler filler filler filler filler",
-							"public class Test extends JPanel {",
-							"	public Test() {",
-							"	}",
-							"}"),
+					getTestSource("""
+							// filler filler filler filler filler
+							// filler filler filler filler filler
+							public class Test extends JPanel {
+								public Test() {
+								}
+							}"""),
 					m_lastEditor.getModelUnit().getSource());
 		} finally {
 			preferences.setToDefault(IPreferenceConstants.P_EDITOR_LAYOUT);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -119,15 +119,14 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 			Dimension oldSize,
 			Dimension newSize,
 			String newSizeLine) throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    " + oldSizeLine,
-						"    add(new JButton('Swing JButton'));",
-						"    add(new Button('AWT Button'));",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						%s
+						add(new JButton("Swing JButton"));
+						add(new Button("AWT Button"));
+					}
+				}""".formatted(oldSizeLine));
 		// check size
 		assertEquals(oldSize, canvas.getSize(panel));
 		waitEventLoop(50);
@@ -138,14 +137,14 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 		canvas.dragTo(panel, 0, newSize.height).endDrag();
 		// check new size
 		assertEquals(newSize, canvas.getSize(panel));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    " + newSizeLine,
-				"    add(new JButton('Swing JButton'));",
-				"    add(new Button('AWT Button'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						%s
+						add(new JButton("Swing JButton"));
+						add(new Button("AWT Button"));
+					}
+				}""".formatted(newSizeLine));
 		//
 		return m_lastEditor.getModelUnit();
 	}

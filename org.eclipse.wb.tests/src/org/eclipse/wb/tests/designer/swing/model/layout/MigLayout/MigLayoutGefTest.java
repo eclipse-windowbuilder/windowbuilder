@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
@@ -91,24 +90,24 @@ public class MigLayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setLayout_empty() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		//
 		loadCreationTool("net.miginfocom.swing.MigLayout");
 		canvas.moveTo(panel, 0.5, 0.5).click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[]'));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[]"));
+					}
+				}""");
 	}
 
 	/**
@@ -118,18 +117,18 @@ public class MigLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_setLayout_replaceGridBagLayout() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		canvas.select(panel);
 		//
 		loadCreationTool("net.miginfocom.swing.MigLayout");
@@ -146,371 +145,371 @@ public class MigLayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_filled() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button = new JButton('Existing JButton');",
-				"      add(button, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button = new JButton("Existing JButton");
+							add(button, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		loadButtonWithText();
 		canvas.moveTo(button, 0.5, 0.55).click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button = new JButton('Existing JButton');",
-				"      add(button, 'flowy,cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button = new JButton("Existing JButton");
+							add(button, "flowy,cell 0 0");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 0");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_empty() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COL_INSET, ROW_INSET).click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 0");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_1x1() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		int x = COL_INSET + COL_VIRTUAL_SIZE + COL_GAP + COL_VIRTUAL_SIZE / 2;
 		int y = ROW_INSET + ROW_VIRTUAL_SIZE + ROW_GAP + ROW_VIRTUAL_SIZE / 2;
 		canvas.moveTo(panel, x, y);
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[][]'));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 1 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[][]"));
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 1 1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_1x0() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		int x = COL_INSET + COL_VIRTUAL_SIZE + COL_GAP + COL_VIRTUAL_SIZE / 2;
 		int y = ROW_INSET + ROW_VIRTUAL_SIZE / 2;
 		canvas.moveTo(panel, x, y);
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 1 0");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_0x1() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		int x = COL_INSET + COL_VIRTUAL_SIZE / 2;
 		int y = ROW_INSET + ROW_VIRTUAL_SIZE + ROW_GAP + ROW_VIRTUAL_SIZE / 2;
 		canvas.moveTo(panel, x, y);
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[][]'));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[][]"));
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_appendToColumn_0x1() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inX(0.5).outY(ROW_GAP + 1).move();
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[][]'));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[][]"));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 0");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_appendToRow_1x0() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inY(0.5).outX(COL_GAP + 1).move();
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 0");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 1 0");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_beforeFirstRow() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inX(0.5).outY(-2).move();
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[][]'));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[][]"));
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 0");
+						}
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_beforeFirstColumn() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inY(0.5).outX(-2).move();
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 0");
+						}
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "cell 1 0");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertRow_endOfComponent() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button_1 = new JButton('Button 1');",
-				"      add(button_1, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('Button 2');",
-				"      add(button_2, 'cell 0 1');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button_1 = new JButton("Button 1");
+							add(button_1, "cell 0 0");
+						}
+						{
+							JButton button_2 = new JButton("Button 2");
+							add(button_2, "cell 0 1");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		//
 		loadButtonWithText();
 		canvas.target(button_1).inX(0.5).inY(-2).move();
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[][][]'));",
-				"    {",
-				"      JButton button_1 = new JButton('Button 1');",
-				"      add(button_1, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 0 1');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('Button 2');",
-				"      add(button_2, 'cell 0 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[][][]"));
+						{
+							JButton button_1 = new JButton("Button 1");
+							add(button_1, "cell 0 0");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 0 1");
+						}
+						{
+							JButton button_2 = new JButton("Button 2");
+							add(button_2, "cell 0 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertColumn_endOfComponent() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button_1 = new JButton('Button 1');",
-				"      add(button_1, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('Button 2');",
-				"      add(button_2, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button_1 = new JButton("Button 1");
+							add(button_1, "cell 0 0");
+						}
+						{
+							JButton button_2 = new JButton("Button 2");
+							add(button_2, "cell 1 0");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		//
 		loadButtonWithText();
 		canvas.target(button_1).inY(0.5).inX(-2).move();
 		canvas.click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][][]', '[]'));",
-				"    {",
-				"      JButton button_1 = new JButton('Button 1');",
-				"      add(button_1, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, 'cell 1 0');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('Button 2');",
-				"      add(button_2, 'cell 2 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][][]", "[]"));
+						{
+							JButton button_1 = new JButton("Button 1");
+							add(button_1, "cell 0 0");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "cell 1 0");
+						}
+						{
+							JButton button_2 = new JButton("Button 2");
+							add(button_2, "cell 2 0");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -525,31 +524,31 @@ public class MigLayoutGefTest extends SwingGefTest {
 	public void test_CREATE_inherited_columnOperations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new MigLayout('', '[][]', '[]'));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new MigLayout("", "[][]", "[]"));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "cell 0 0");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "cell 1 0");
+						}
+					}
+				}""");
 		loadButton();
 		// can not insert column
 		{
@@ -572,31 +571,31 @@ public class MigLayoutGefTest extends SwingGefTest {
 	public void test_CREATE_inherited_rowOperations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new MigLayout('', '[]', '[][]'));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new MigLayout("", "[]", "[][]"));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, 'cell 0 1');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "cell 0 0");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "cell 0 1");
+						}
+					}
+				}""");
 		loadButton();
 		// can not insert row
 		{
@@ -621,17 +620,17 @@ public class MigLayoutGefTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton existing = new JButton('My JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton existing = new JButton("My JButton");
+							add(existing, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		// do copy/paste
 		doCopyPaste(existing);
@@ -639,21 +638,21 @@ public class MigLayoutGefTest extends SwingGefTest {
 			canvas.target(existing).inY(0.5).outX(COL_GAP + 1).move();
 			canvas.click();
 		}
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JButton existing = new JButton('My JButton');",
-				"      add(existing, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JButton existing = new JButton("My JButton");
+							add(existing, "cell 0 0");
+						}
+						{
+							JButton button = new JButton("My JButton");
+							add(button, "cell 1 0");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -663,73 +662,73 @@ public class MigLayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MOVE_virtual_1x0() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, 'cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button = new JButton("My JButton");
+							add(button, "cell 0 0");
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		canvas.beginDrag(button);
 		canvas.target(button).inY(0.5).outX(COL_GAP + 1).drag();
 		canvas.endDrag();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, 'cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JButton button = new JButton("My JButton");
+							add(button, "cell 1 0");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ADD_virtual_0x0() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, BorderLayout.NORTH);",
-				"    }",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      add(inner, BorderLayout.CENTER);",
-				"      inner.setLayout(new MigLayout());",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton("My JButton");
+							add(button, BorderLayout.NORTH);
+						}
+						{
+							JPanel inner = new JPanel();
+							add(inner, BorderLayout.CENTER);
+							inner.setLayout(new MigLayout());
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		panel = getJavaInfoByName("inner");
 		//
 		canvas.beginDrag(button);
 		canvas.target(panel).in(COL_INSET, ROW_INSET).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      add(inner, BorderLayout.CENTER);",
-				"      inner.setLayout(new MigLayout());",
-				"      {",
-				"        JButton button = new JButton('My JButton');",
-				"        inner.add(button, 'cell 0 0');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JPanel inner = new JPanel();
+							add(inner, BorderLayout.CENTER);
+							inner.setLayout(new MigLayout());
+							{
+								JButton button = new JButton("My JButton");
+								inner.add(button, "cell 0 0");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -744,23 +743,23 @@ public class MigLayoutGefTest extends SwingGefTest {
 	public void test_headerColumn_MOVE_inherited() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new MigLayout('', '[150px][100px]', ''));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new MigLayout("", "[150px][100px]", ""));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -775,12 +774,12 @@ public class MigLayoutGefTest extends SwingGefTest {
 
 	@Test
 	public void test_headerColumn_MOVE_forward_beforeOther() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[150px][100px][50px]', ''));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[150px][100px][50px]", ""));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -791,22 +790,22 @@ public class MigLayoutGefTest extends SwingGefTest {
 			horizontalRobot.beginDrag(sourceColumn).dragTo(relativeColumn, -5, 0.5);
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[100px][150px][50px]', '[]'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[100px][150px][50px]", "[]"));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_forward_afterLast() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[150px][100px][50px]', ''));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[150px][100px][50px]", ""));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -817,12 +816,12 @@ public class MigLayoutGefTest extends SwingGefTest {
 			horizontalRobot.beginDrag(sourceColumn).dragTo(relativeColumn, -5, 0.5);
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[100px][50px][150px]', '[]'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[100px][50px][150px]", "[]"));
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -837,23 +836,23 @@ public class MigLayoutGefTest extends SwingGefTest {
 	public void test_headerRow_MOVE_inherited() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new MigLayout('', '', '[100px][75px]'));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new MigLayout("", "", "[100px][75px]"));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -868,12 +867,12 @@ public class MigLayoutGefTest extends SwingGefTest {
 
 	@Test
 	public void test_headerRow_MOVE_forward_beforeOther() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '', '[100px][75px][50px]'));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "", "[100px][75px][50px]"));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -884,22 +883,22 @@ public class MigLayoutGefTest extends SwingGefTest {
 			verticalRobot.beginDrag(sourceRow).dragTo(relativeRow, 0.5, -5);
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[75px][100px][50px]'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[75px][100px][50px]"));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerRow_MOVE_forward_afterLast() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '', '[100px][75px][50px]'));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "", "[100px][75px][50px]"));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -910,12 +909,12 @@ public class MigLayoutGefTest extends SwingGefTest {
 			verticalRobot.beginDrag(sourceRow).dragTo(relativeRow, 0.5, -5);
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[75px][50px][100px]'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[75px][50px][100px]"));
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -924,15 +923,14 @@ public class MigLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public String getTestSource(String... lines) {
-		lines =
-				CodeUtils.join(new String[]{
-						"import net.miginfocom.layout.*;",
-				"import net.miginfocom.swing.*;"}, lines);
-		return super.getTestSource(lines);
+	public String getTestSource(String code) {
+		return super.getTestSource("""
+				import net.miginfocom.layout.*;
+				import net.miginfocom.swing.*;
+				%s""".formatted(code));
 	}
 
-	private void openPanel(String... lines) throws Exception {
+	private void openPanel(String lines) throws Exception {
 		panel = openContainer(lines);
 		if (panel.getLayout() instanceof MigLayoutInfo) {
 			layout = (MigLayoutInfo) panel.getLayout();

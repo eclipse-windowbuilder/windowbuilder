@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,20 +74,19 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_replaceWithOther_andPaintDuringThis() throws Exception {
-		mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    GridBagLayout gridBagLayout = new GridBagLayout();",
-						"    gridBagLayout.columnWeights = new double[]{1.0};",
-						"    gridBagLayout.rowWeights = new double[]{1.0};",
-						"    setLayout(gridBagLayout);",
-						"    {",
-						"      JButton button = new JButton('New JButton');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWeights = new double[]{1.0};
+						gridBagLayout.rowWeights = new double[]{1.0};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton("New JButton");
+							add(button);
+						}
+					}
+				}""");
 		button = getJavaInfoByName("button");
 		canvas.select(button);
 		waitEventLoop(0);
@@ -123,22 +122,22 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JPopupMenu_select() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton('button');",
-				"      add(button, new GridBagConstraints());",
-				"    }",
-				"    {",
-				"      JPopupMenu popupMenu = new JPopupMenu();",
-				"      addPopup(this, popupMenu);",
-				"    }",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							add(button, new GridBagConstraints());
+						}
+						{
+							JPopupMenu popupMenu = new JPopupMenu();
+							addPopup(this, popupMenu);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		ComponentInfo popup = getJavaInfoByName("popupMenu");
 		//
 		canvas.select(popup);
@@ -150,15 +149,14 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JPopupMenu_drop() throws Exception {
-		mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		//
 		ComponentInfo newPopup = loadCreationTool("javax.swing.JPopupMenu");
 		{
@@ -166,18 +164,18 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 			canvas.assertFeedbacks(canvas.getTargetPredicate(mainPanel));
 			canvas.click();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JPopupMenu popupMenu = new JPopupMenu();",
-				"      addPopup(this, popupMenu);",
-				"    }",
-				"    setLayout(new GridBagLayout());",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPopupMenu popupMenu = new JPopupMenu();
+							addPopup(this, popupMenu);
+						}
+						setLayout(new GridBagLayout());
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		canvas.assertPrimarySelected(newPopup);
 	}
 
@@ -192,62 +190,61 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 
 	@Test
 	public void test_CREATE_inTree_empty() throws Exception {
-		mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"  }",
-						"}");
+		mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+					}
+				}""");
 		// create JButton
 		loadCreationTool("javax.swing.JButton", "empty");
 		tree.moveOn(mainPanel);
 		tree.assertCommandNotNull();
 		tree.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.gridx = 0;",
-				"      gbc.gridy = 0;",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 0;
+							gbc.gridy = 0;
+							add(button, gbc);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_DELETE_afterSelect() throws Exception {
 		final ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
-				  public Test() {
-				    setSize(50, 50);
-				    GridBagLayout gridBagLayout = new GridBagLayout();
-				    setLayout(gridBagLayout);
+					public Test() {
+						setSize(50, 50);
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						setLayout(gridBagLayout);
 
-				    JPanel panel = new JPanel();
-				    GridBagConstraints gbc_panel = new GridBagConstraints();
-				    gbc_panel.ipady = 10;
-				    gbc_panel.ipadx = 10;
-				    gbc_panel.fill = GridBagConstraints.BOTH;
-				    gbc_panel.gridx = 0;
-				    gbc_panel.gridy = 0;
-				    add(panel, gbc_panel);
-				    panel.setLayout(null);
+						JPanel panel = new JPanel();
+						GridBagConstraints gbc_panel = new GridBagConstraints();
+						gbc_panel.ipady = 10;
+						gbc_panel.ipadx = 10;
+						gbc_panel.fill = GridBagConstraints.BOTH;
+						gbc_panel.gridx = 0;
+						gbc_panel.gridy = 0;
+						add(panel, gbc_panel);
+						panel.setLayout(null);
 
-				    JPanel panel_1 = new JPanel();
-				    GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-				    gbc_panel_1.ipady = 10;
-				    gbc_panel_1.ipadx = 10;
-				    gbc_panel_1.fill = GridBagConstraints.BOTH;
-				    gbc_panel_1.gridx = 1;
-				    gbc_panel_1.gridy = 1;
-				    add(panel_1, gbc_panel_1);
-				    panel_1.setLayout(null);
-				  }
+						JPanel panel_1 = new JPanel();
+						GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+						gbc_panel_1.ipady = 10;
+						gbc_panel_1.ipadx = 10;
+						gbc_panel_1.fill = GridBagConstraints.BOTH;
+						gbc_panel_1.gridx = 1;
+						gbc_panel_1.gridy = 1;
+						add(panel_1, gbc_panel_1);
+						panel_1.setLayout(null);
+					}
 				}
 				""");
 		panel.refresh();
@@ -263,21 +260,21 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 		assertEquals(1, layout.getRows().size());
 		assertEditor("""
 				public class Test extends JPanel {
-				  public Test() {
-				    setSize(50, 50);
-				    GridBagLayout gridBagLayout = new GridBagLayout();
-				    setLayout(gridBagLayout);
+					public Test() {
+						setSize(50, 50);
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						setLayout(gridBagLayout);
 
-				    JPanel panel = new JPanel();
-				    GridBagConstraints gbc_panel = new GridBagConstraints();
-				    gbc_panel.ipady = 10;
-				    gbc_panel.ipadx = 10;
-				    gbc_panel.fill = GridBagConstraints.BOTH;
-				    gbc_panel.gridx = 0;
-				    gbc_panel.gridy = 0;
-				    add(panel, gbc_panel);
-				    panel.setLayout(null);
-				  }
+						JPanel panel = new JPanel();
+						GridBagConstraints gbc_panel = new GridBagConstraints();
+						gbc_panel.ipady = 10;
+						gbc_panel.ipadx = 10;
+						gbc_panel.fill = GridBagConstraints.BOTH;
+						gbc_panel.gridx = 0;
+						gbc_panel.gridy = 0;
+						add(panel, gbc_panel);
+						panel.setLayout(null);
+					}
 				}
 				""");
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,13 +44,12 @@ public class LayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_dropLayout_canvas() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		// create BorderLayout
 		LayoutInfo newLayout = loadCreationTool("java.awt.BorderLayout");
 		// use canvas
@@ -60,24 +59,23 @@ public class LayoutGefTest extends SwingGefTest {
 		canvas.assertCommandNotNull();
 		canvas.click();
 		// assert
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+					}
+				}""");
 		assertSame(newLayout, panel.getLayout());
 	}
 
 	@Test
 	public void test_dropLayout_tree() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		// create BorderLayout
 		LayoutInfo newLayout = loadCreationTool("java.awt.BorderLayout");
 		// use canvas
@@ -86,12 +84,12 @@ public class LayoutGefTest extends SwingGefTest {
 		tree.assertCommandNotNull();
 		tree.click();
 		// assert
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+					}
+				}""");
 		assertSame(newLayout, panel.getLayout());
 	}
 
@@ -103,13 +101,12 @@ public class LayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_dropLayout_disabledSetLayout_canvas() throws Exception {
 		ContainerTest.prepareMyPanel_disabledSetLayout();
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// load BorderLayout
 		loadCreationTool("java.awt.BorderLayout");
 		// use canvas
@@ -121,13 +118,12 @@ public class LayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_dropLayout_disabledSetLayout_tree() throws Exception {
 		ContainerTest.prepareMyPanel_disabledSetLayout();
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// load BorderLayout
 		loadCreationTool("java.awt.BorderLayout");
 		// use canvas
@@ -149,30 +145,29 @@ public class LayoutGefTest extends SwingGefTest {
 	public void test_dropUnknownLayout_noTreeLayout() throws Exception {
 		setFileContentSrc(
 				"test/MyLayout.java",
-				getTestSource(
-						"public class MyLayout implements LayoutManager {",
-						"  public void addLayoutComponent(String name, Component comp) {",
-						"  }",
-						"  public  void removeLayoutComponent(Component comp) {",
-						"  }",
-						"  public Dimension preferredLayoutSize(Container parent) {",
-						"    return new Dimension(200, 100);",
-						"  }",
-						"  public Dimension minimumLayoutSize(Container parent) {",
-						"    return new Dimension(200, 100);",
-						"  }",
-						"  public void layoutContainer(Container parent) {",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyLayout implements LayoutManager {
+							public void addLayoutComponent(String name, Component comp) {
+							}
+							public  void removeLayoutComponent(Component comp) {
+							}
+							public Dimension preferredLayoutSize(Container parent) {
+								return new Dimension(200, 100);
+							}
+							public Dimension minimumLayoutSize(Container parent) {
+								return new Dimension(200, 100);
+							}
+							public void layoutContainer(Container parent) {
+							}
+						}"""));
 		waitForAutoBuild();
 		// open editor
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		// FlowLayout has command
 		{
 			loadCreationTool("javax.swing.JButton");

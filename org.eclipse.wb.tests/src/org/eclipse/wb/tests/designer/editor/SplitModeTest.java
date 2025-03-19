@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -68,12 +68,12 @@ public class SplitModeTest extends SwingGefTest {
 				IPreferenceConstants.P_EDITOR_LAYOUT,
 				IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
 		preferences.setValue(IPreferenceConstants.P_EDITOR_LAYOUT_SYNC_DELAY, 100);
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"	public Test() {",
-				"	} // marker",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					} // marker
+				}""");
 		openSourcePage();
 		// initially no setEnabled(false) invocation
 		check_isEnabled(true);
@@ -103,12 +103,12 @@ public class SplitModeTest extends SwingGefTest {
 				IPreferenceConstants.P_EDITOR_LAYOUT,
 				IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
 		preferences.setValue(IPreferenceConstants.P_EDITOR_LAYOUT_SYNC_DELAY, -1);
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"	public Test() {",
-				"	} // marker",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					} // marker
+				}""");
 		openSourcePage();
 		// initially no setEnabled(false) invocation
 		check_isEnabled(true);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,96 +40,93 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_onCanvas_empty() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+					}
+				}""");
 		//
 		ComponentInfo newButton = loadCreationTool("javax.swing.JButton");
 		canvas.moveTo(panel, 100, 100).click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '" + CardLayoutTest.getAssociationName(newButton) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button = new JButton("New button");
+							add(button, "%s");
+						}
+					}
+				}""".formatted(CardLayoutTest.getAssociationName(newButton)));
 	}
 
 	@Test
 	public void test_CREATE_onCanvas_beforeExisting() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1, '111');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		// select "panel", so "button_1" will be transparent on borders
 		canvas.select(panel);
 		// create new JButton
 		ComponentInfo newButton = loadCreationTool("javax.swing.JButton");
 		canvas.moveTo(button_1, 2, 100).click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '" + CardLayoutTest.getAssociationName(newButton) + "');",
-				"    }",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button = new JButton("New button");
+							add(button, "%s");
+						}
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""".formatted(CardLayoutTest.getAssociationName(newButton)));
 	}
 
 	@Test
 	public void test_CREATE_onCanvas_afterExisting() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1, '111');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		// select "panel", so "button_1" will be transparent on borders
 		canvas.select(panel);
 		// create new JButton
 		ComponentInfo newButton = loadCreationTool("javax.swing.JButton");
 		canvas.moveTo(button_1, -2, 100).click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '" + CardLayoutTest.getAssociationName(newButton) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "%s");
+						}
+					}
+				}""".formatted(CardLayoutTest.getAssociationName(newButton)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -139,92 +136,91 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_inTree_empty() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+					}
+				}""");
 		//
 		ComponentInfo newButton = loadCreationTool("javax.swing.JButton");
 		tree.moveOn(panel);
 		tree.assertCommandNotNull();
 		tree.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '" + CardLayoutTest.getAssociationName(newButton) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button = new JButton("New button");
+							add(button, "%s");
+						}
+					}
+				}""".formatted(CardLayoutTest.getAssociationName(newButton)));
 	}
 
 	@Test
 	public void test_CREATE_inTree_beforeExisting() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		// create new JButton
 		ComponentInfo newButton = loadCreationTool("javax.swing.JButton");
 		tree.moveBefore(button_1).click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '" + CardLayoutTest.getAssociationName(newButton) + "');",
-				"    }",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button = new JButton("New button");
+							add(button, "%s");
+						}
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""".formatted(CardLayoutTest.getAssociationName(newButton)));
 	}
 
 	@Test
 	public void test_CREATE_inTree_afterExisting() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		// create new JButton
 		ComponentInfo newButton = loadCreationTool("javax.swing.JButton");
 		tree.moveAfter(button_1).click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '" + CardLayoutTest.getAssociationName(newButton) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "%s");
+						}
+					}
+				}""".formatted(CardLayoutTest.getAssociationName(newButton)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -234,38 +230,38 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MOVE_inTree() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2, '222');",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2, "222");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		tree.startDrag(button_2).dragBefore(button_1).endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2, '222');",
-				"    }",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_2 = new JButton();
+							add(button_2, "222");
+						}
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -275,24 +271,24 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_navigation_next() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton('111');",
-				"      add(button_1, '111');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('222');",
-				"      add(button_2, '222');",
-				"    }",
-				"    {",
-				"      JButton button_3 = new JButton('333');",
-				"      add(button_3, '333');",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton("111");
+							add(button_1, "111");
+						}
+						{
+							JButton button_2 = new JButton("222");
+							add(button_2, "222");
+						}
+						{
+							JButton button_3 = new JButton("333");
+							add(button_3, "333");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		ComponentInfo button_3 = getJavaInfoByName("button_3");
@@ -320,24 +316,24 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 
 	@Test
 	public void test_navigation_prev() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_1 = new JButton('111');",
-				"      add(button_1, '111');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('222');",
-				"      add(button_2, '222');",
-				"    }",
-				"    {",
-				"      JButton button_3 = new JButton('333');",
-				"      add(button_3, '333');",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton("111");
+							add(button_1, "111");
+						}
+						{
+							JButton button_2 = new JButton("222");
+							add(button_2, "222");
+						}
+						{
+							JButton button_3 = new JButton("333");
+							add(button_3, "333");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		ComponentInfo button_3 = getJavaInfoByName("button_3");

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,13 +47,13 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 		setFileContentSrc("test/messages_it.properties", getSourceDQ("frame.title=My JFrame IT"));
 		waitForAutoBuild();
 		// open editor
-		openContainer(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle('test.messages').getString('frame.title')); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		openContainer("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		// check default title
 		assertEquals("My JFrame", ((JFrame) m_contentJavaInfo.getObject()).getTitle());
 		{

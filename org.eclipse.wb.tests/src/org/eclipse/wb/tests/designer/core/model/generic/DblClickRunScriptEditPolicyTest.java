@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,10 +39,10 @@ public class DblClickRunScriptEditPolicyTest extends SwingGefTest {
 	public void test_doFlip() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+						}"""));
 		setFileContentSrc(
 				"test/MyPanel.wbp-component.xml",
 				getSourceDQ(
@@ -54,23 +54,22 @@ public class DblClickRunScriptEditPolicyTest extends SwingGefTest {
 						"</component>"));
 		waitForAutoBuild();
 		// open editor
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// double click
 		canvas.doubleClick(panel);
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setEnabled(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 	}
 }

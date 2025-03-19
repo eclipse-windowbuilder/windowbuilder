@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,12 +89,12 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_undoRedo() throws Exception {
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		String initialSource = m_lastEditor.getSource();
 		IActionBars actionBars = m_designerEditor.getEditorSite().getActionBars();
 		// do edit
@@ -115,16 +115,16 @@ public class UndoManagerTest extends SwingGefTest {
 				// use creation tool
 				canvas.moveTo(contentPane, 100, 50);
 				canvas.click();
-				assertEditor(
-						"// filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton('New button');",
-						"      getContentPane().add(button, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						// filler filler filler
+						public class Test extends JFrame {
+							public Test() {
+								{
+									JButton button = new JButton("New button");
+									getContentPane().add(button, BorderLayout.NORTH);
+								}
+							}
+						}""");
 				source_withButton = m_lastEditor.getSource();
 			}
 			// check selection on new JButton
@@ -164,12 +164,12 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_modifyLogicAndSwitchDesign() throws Exception {
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		// prepare ICompilationUnit
 		ICompilationUnit compilationUnit;
 		{
@@ -210,13 +210,12 @@ public class UndoManagerTest extends SwingGefTest {
 	@Test
 	public void test_modifyInParallelJavaEditor() throws Exception {
 		IWorkbenchPage activePage = DesignerPlugin.getActivePage();
-		ContainerInfo originalContainer =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo originalContainer = openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		// open in Java editor
 		ISourceViewer sourceViewer;
 		{
@@ -250,13 +249,12 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_expandOnSelection() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		IComponentsTree componentTree = DesignPageSite.Helper.getSite(frame).getComponentTree();
 		// collapse all
@@ -277,15 +275,14 @@ public class UndoManagerTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_expandRemembered_bug_0() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    JPanel panel = new JPanel();",
-						"    getContentPane().add(panel);",
-						"    panel.add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				public class Test extends JFrame {
+					public Test() {
+						JPanel panel = new JPanel();
+						getContentPane().add(panel);
+						panel.add(new JButton());
+					}
+				}""");
 		IActionBars actionBars = m_designerEditor.getEditorSite().getActionBars();
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		ContainerInfo panel = (ContainerInfo) contentPane.getChildrenComponents().get(0);
@@ -336,13 +333,12 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_expandOnOpen_1() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		// "frame" should be expanded
 		assertExpandedComponents(frame);
 	}
@@ -354,14 +350,13 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_expandOnOpen_2() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    getContentPane().add(new JButton());",
-						"    getContentPane().add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				public class Test extends JFrame {
+					public Test() {
+						getContentPane().add(new JButton());
+						getContentPane().add(new JButton());
+					}
+				}""");
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		// "frame" and "contentPane" should be expanded
 		assertExpandedComponents(frame, contentPane);
@@ -375,19 +370,18 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_expandOnOpen_3() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      getContentPane().add(panel);",
-						"      panel.add(new JButton());",
-						"    }",
-						"    getContentPane().add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+						{
+							JPanel panel = new JPanel();
+							getContentPane().add(panel);
+							panel.add(new JButton());
+						}
+						getContentPane().add(new JButton());
+					}
+				}""");
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		// "frame" and "contentPane" should be expanded
 		assertExpandedComponents(frame, contentPane);
@@ -412,19 +406,19 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_restoreSelection_good() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1);",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+				}""");
 		// select
 		tree.select(getJavaInfoByName("button_2"));
 		tree.assertPrimarySelected(getJavaInfoByName("button_2"));
@@ -444,24 +438,24 @@ public class UndoManagerTest extends SwingGefTest {
 	public void test_restoreSelection_whenComponentDisappears() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  private JButton m_button = new JButton();",
-						"  public MyPanel() {",
-						"    add(m_button);",
-						"  }",
-						"  public JButton getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyPanel extends JPanel {
+							private JButton m_button = new JButton();
+							public MyPanel() {
+								add(m_button);
+							}
+							public JButton getButton() {
+								return m_button;
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(new MyPanel());",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyPanel());
+					}
+				}""");
 		// select
 		{
 			ComponentInfo button = getJavaInfoByName("getButton()");
@@ -471,13 +465,13 @@ public class UndoManagerTest extends SwingGefTest {
 		// use "MyPanel" which does not expose "getButton()"
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  private JButton m_button = new JButton();",
-						"  public MyPanel() {",
-						"    add(m_button);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyPanel extends JPanel {
+							private JButton m_button = new JButton();
+							public MyPanel() {
+								add(m_button);
+							}
+						}"""));
 		waitForAutoBuild();
 		// reparse
 		{
@@ -498,15 +492,14 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_readOnly_Yes() throws Exception {
-		String[] expectedSource =
-				new String[]{
-						"// filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"  }",
-						"  void foo() {",
-						"  }",
-		"}"};
+		String expectedSource = """
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+					void foo() {
+					}
+				}""";
 		test_readOnly(IDialogConstants.YES_LABEL, false, expectedSource, expectedSource);
 	}
 
@@ -515,31 +508,30 @@ public class UndoManagerTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_readOnly_No() throws Exception {
-		test_readOnly(IDialogConstants.NO_LABEL, true, new String[]{
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-				"  void foo() {",
-				"  }",
-		"}"}, new String[]{
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-		"}"});
+		test_readOnly(IDialogConstants.NO_LABEL, true, """
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+					void foo() {
+					}
+				}""", """
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 	}
 
 	private void test_readOnly(final String buttonId,
 			boolean expectedAccess,
-			String[] expectedSource1,
-			String[] expectedSource2) throws Exception {
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-				"}");
+			String expectedSource1, String expectedSource2) throws Exception {
+		openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		ICompilationUnit unit = m_lastEditor.getModelUnit();
 		// modify file access to read-only mode
 		IFile unitFile = (IFile) unit.getUnderlyingResource();
@@ -582,12 +574,12 @@ public class UndoManagerTest extends SwingGefTest {
 	@DisposeProjectAfter
 	@Test
 	public void test_showDesign_switchToSource_rename_showDesign() throws Exception {
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		ICompilationUnit unit = m_lastEditor.getModelUnit();
 		// switch to "Source"
 		openSourcePage();
@@ -606,15 +598,15 @@ public class UndoManagerTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_showDesign_rename() throws Exception {
-		openContainer(
-				"public class Test extends JFrame {",
-				"  public static void main2(String[] args) {",
-				"    Test frame = new Test();",
-				"    frame.setVisible(true);",
-				"  }",
-				"  public Test() {",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JFrame {
+					public static void main2(String[] args) {
+						Test frame = new Test();
+						frame.setVisible(true);
+					}
+					public Test() {
+					}
+				}""");
 		// rename
 		{
 			ICompilationUnit unit = m_lastEditor.getModelUnit();

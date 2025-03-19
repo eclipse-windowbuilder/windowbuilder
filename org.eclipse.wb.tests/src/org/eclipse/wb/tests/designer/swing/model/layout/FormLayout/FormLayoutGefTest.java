@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
@@ -89,25 +88,25 @@ public class FormLayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setLayout_empty() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		//
 		loadCreationTool("com.jgoodies.forms.layout.FormLayout");
 		canvas.moveTo(panel, 0.5, 0.5).click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {},",
-				"      new RowSpec[] {}));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {},
+							new RowSpec[] {}));
+					}
+				}""");
 	}
 
 	/**
@@ -117,18 +116,18 @@ public class FormLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_setLayout_replaceGridBagLayout() throws Exception {
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		canvas.select(panel);
 		//
 		loadCreationTool("com.jgoodies.forms.layout.FormLayout");
@@ -147,18 +146,18 @@ public class FormLayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_filled() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    add(new JButton('Existing JButton'), '2, 2');",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						add(new JButton("Existing JButton"), "2, 2");
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP, ROW_GAP);
@@ -167,523 +166,523 @@ public class FormLayoutGefTest extends SwingGefTest {
 
 	@Test
 	public void test_CREATE_empty() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP, ROW_GAP);
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_2x2() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP, ROW_GAP);
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_4x2() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP + V_COLUMN_SIZE + COLUMN_GAP, ROW_GAP);
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_2x4() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout());
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP, ROW_GAP + V_ROW_SIZE + ROW_GAP);
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 4');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 4");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_appendToColumn_2x4() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inX(0.5).outY(ROW_GAP + 1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 4');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 2");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 4");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_appendToRow_4x2() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inY(0.5).outX(COLUMN_GAP + 1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 2");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_beforeFirstRow() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inX(0.5).outY(-2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 2');",
-				"    }",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 4');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 2");
+						}
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 4");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_beforeFirstColumn() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		//
 		loadButtonWithText();
 		canvas.target(existing).inY(0.5).outX(-2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 2');",
-				"    }",
-				"    {",
-				"      JButton existing = new JButton('Existing JButton');",
-				"      add(existing, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 2");
+						}
+						{
+							JButton existing = new JButton("Existing JButton");
+							add(existing, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertRow_endOfComponent_noGapNext() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '2, 1');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "2, 1");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		//
 		loadButtonWithText();
 		canvas.target(button_1).inX(0.5).inY(-2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '2, 1');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 3');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 4');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "2, 1");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 3");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 4");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertRow_beginOfComponent_noGapPrev() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '2, 1');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "2, 1");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		loadButtonWithText();
 		canvas.target(button_2).inX(0.5).inY(2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '2, 1');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 3');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 4');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "2, 1");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 3");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 4");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertColumn_endOfComponent_noGapNext() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '1, 2');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "1, 2");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		//
 		loadButtonWithText();
 		canvas.target(button_1).inY(0.5).inX(-2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '1, 2');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '3, 2');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "1, 2");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "3, 2");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertColumn_beginOfComponent_noGapPrev() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '1, 2');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "1, 2");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		loadButtonWithText();
 		canvas.target(button_2).inY(0.5).inX(2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '1, 2');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '3, 2');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "1, 2");
+						}
+						{
+							JButton button = new JButton("New button");
+							add(button, "3, 2");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -691,35 +690,35 @@ public class FormLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_CREATE_whenNoRows() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {}));
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP, ROW_GAP);
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 2");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -727,35 +726,35 @@ public class FormLayoutGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_CREATE_whenNoColumns() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(panel, COLUMN_GAP, ROW_GAP);
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "2, 2");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -770,35 +769,35 @@ public class FormLayoutGefTest extends SwingGefTest {
 	public void test_CREATE_inherited_columnOperations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new FormLayout(new ColumnSpec[] {
+										FormSpecs.DEFAULT_COLSPEC,
+										FormSpecs.DEFAULT_COLSPEC,},
+									new RowSpec[] {
+										FormSpecs.DEFAULT_ROWSPEC,}));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '1, 1');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '2, 1');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "1, 1");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "2, 1");
+						}
+					}
+				}""");
 		loadButton();
 		// can not insert column
 		{
@@ -821,35 +820,35 @@ public class FormLayoutGefTest extends SwingGefTest {
 	public void test_CREATE_inherited_rowOperations() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new FormLayout(new ColumnSpec[] {
+										FormSpecs.DEFAULT_COLSPEC,},
+									new RowSpec[] {
+										FormSpecs.DEFAULT_ROWSPEC,
+										FormSpecs.DEFAULT_ROWSPEC,}));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton('JButton 1');",
-				"      add(button_1, '1, 1');",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton('JButton 2');",
-				"      add(button_2, '1, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton("JButton 1");
+							add(button_1, "1, 1");
+						}
+						{
+							JButton button_2 = new JButton("JButton 2");
+							add(button_2, "1, 2");
+						}
+					}
+				}""");
 		loadButton();
 		// can not insert row
 		{
@@ -874,21 +873,21 @@ public class FormLayoutGefTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_PASTE_virtual_4x2() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('My JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("My JButton");
+							add(existing, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo existing = getJavaInfoByName("existing");
 		// do copy/paste
 		doCopyPaste(existing);
@@ -902,27 +901,27 @@ public class FormLayoutGefTest extends SwingGefTest {
 			canvas.target(existing).inY(0.5).outX(ROW_GAP + 1).move();
 			canvas.click();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton existing = new JButton('My JButton');",
-				"      add(existing, '2, 2');",
-				"    }",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton existing = new JButton("My JButton");
+							add(existing, "2, 2");
+						}
+						{
+							JButton button = new JButton("My JButton");
+							add(button, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -932,88 +931,88 @@ public class FormLayoutGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MOVE_virtual_4x2() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, '2, 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("My JButton");
+							add(button, "2, 2");
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		canvas.beginDrag(button);
 		canvas.target(button).inY(0.5).outX(ROW_GAP + 1).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, '4, 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("My JButton");
+							add(button, "4, 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ADD_virtual_2x2() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton('My JButton');",
-				"      add(button, BorderLayout.NORTH);",
-				"    }",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      add(inner, BorderLayout.CENTER);",
-				"      inner.setLayout(new FormLayout());",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton("My JButton");
+							add(button, BorderLayout.NORTH);
+						}
+						{
+							JPanel inner = new JPanel();
+							add(inner, BorderLayout.CENTER);
+							inner.setLayout(new FormLayout());
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		panel = getJavaInfoByName("inner");
 		//
 		canvas.beginDrag(button);
 		canvas.target(panel).in(COLUMN_GAP, ROW_GAP).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      add(inner, BorderLayout.CENTER);",
-				"      inner.setLayout(new FormLayout(new ColumnSpec[] {",
-				"          FormSpecs.RELATED_GAP_COLSPEC,",
-				"          FormSpecs.DEFAULT_COLSPEC,},",
-				"        new RowSpec[] {",
-				"          FormSpecs.RELATED_GAP_ROWSPEC,",
-				"          FormSpecs.DEFAULT_ROWSPEC,}));",
-				"      {",
-				"        JButton button = new JButton('My JButton');",
-				"        inner.add(button, '2, 2');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JPanel inner = new JPanel();
+							add(inner, BorderLayout.CENTER);
+							inner.setLayout(new FormLayout(new ColumnSpec[] {
+									FormSpecs.RELATED_GAP_COLSPEC,
+									FormSpecs.DEFAULT_COLSPEC,},
+								new RowSpec[] {
+									FormSpecs.RELATED_GAP_ROWSPEC,
+									FormSpecs.DEFAULT_ROWSPEC,}));
+							{
+								JButton button = new JButton("My JButton");
+								inner.add(button, "2, 2");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1028,27 +1027,27 @@ public class FormLayoutGefTest extends SwingGefTest {
 	public void test_headerColumn_MOVE_inherited() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        ColumnSpec.decode('150px'),",
-						"        ColumnSpec.decode('100px'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new FormLayout(new ColumnSpec[] {
+										ColumnSpec.decode("150px"),
+										ColumnSpec.decode("100px"),},
+									new RowSpec[] {
+										FormSpecs.DEFAULT_ROWSPEC,}));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1063,20 +1062,20 @@ public class FormLayoutGefTest extends SwingGefTest {
 
 	@Test
 	public void test_headerColumn_MOVE_forward_targetGap() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        new ColumnSpec('150px'),",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        new ColumnSpec('100px'),",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        new ColumnSpec('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								new ColumnSpec("150px"),
+								FormSpecs.RELATED_GAP_COLSPEC,
+								new ColumnSpec("100px"),
+								FormSpecs.RELATED_GAP_COLSPEC,
+								new ColumnSpec("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1087,35 +1086,35 @@ public class FormLayoutGefTest extends SwingGefTest {
 			horizontalRobot.beginDrag(sourceColumn).dragTo(relativeColumn, -5, 0.5);
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('100px'),",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('150px'),",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("100px"),
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("150px"),
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_forward_targetNotGap() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        new ColumnSpec('150px'),",
-				"        new ColumnSpec('100px'),",
-				"        new ColumnSpec('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								new ColumnSpec("150px"),
+								new ColumnSpec("100px"),
+								new ColumnSpec("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1126,33 +1125,33 @@ public class FormLayoutGefTest extends SwingGefTest {
 			horizontalRobot.beginDrag(sourceColumn).dragTo(relativeColumn, -5, 0.5);
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        ColumnSpec.decode('100px'),",
-				"        ColumnSpec.decode('150px'),",
-				"        ColumnSpec.decode('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								ColumnSpec.decode("100px"),
+								ColumnSpec.decode("150px"),
+								ColumnSpec.decode("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_forward_targetBeforeGap() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        new ColumnSpec('150px'),",
-				"        new ColumnSpec('100px'),",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        new ColumnSpec('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								new ColumnSpec("150px"),
+								new ColumnSpec("100px"),
+								FormSpecs.RELATED_GAP_COLSPEC,
+								new ColumnSpec("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1163,33 +1162,33 @@ public class FormLayoutGefTest extends SwingGefTest {
 			horizontalRobot.beginDrag(sourceColumn).dragTo(relativeColumn, +5, 0.5);
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        ColumnSpec.decode('100px'),",
-				"        ColumnSpec.decode('150px'),",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								ColumnSpec.decode("100px"),
+								ColumnSpec.decode("150px"),
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_forward_targetLast() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        new ColumnSpec('150px'),",
-				"        new ColumnSpec('100px'),",
-				"        new ColumnSpec('50px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								new ColumnSpec("150px"),
+								new ColumnSpec("100px"),
+								new ColumnSpec("50px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1200,17 +1199,17 @@ public class FormLayoutGefTest extends SwingGefTest {
 			horizontalRobot.beginDrag(sourceColumn).dragTo(relativeColumn, -5, 0.5);
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        ColumnSpec.decode('100px'),",
-				"        ColumnSpec.decode('50px'),",
-				"        ColumnSpec.decode('150px'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								ColumnSpec.decode("100px"),
+								ColumnSpec.decode("50px"),
+								ColumnSpec.decode("150px"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1225,27 +1224,27 @@ public class FormLayoutGefTest extends SwingGefTest {
 	public void test_headerRow_MOVE_inherited() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        RowSpec.decode('100px'),",
-						"        RowSpec.decode('75px'),}));",
-						"  }",
-						"}"));
+				getTestSource("""
+						// filler filler filler filler filler
+						// filler filler filler filler filler
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								setLayout(new FormLayout(new ColumnSpec[] {
+										FormSpecs.DEFAULT_COLSPEC,},
+									new RowSpec[] {
+										RowSpec.decode("100px"),
+										RowSpec.decode("75px"),}));
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1260,20 +1259,20 @@ public class FormLayoutGefTest extends SwingGefTest {
 
 	@Test
 	public void test_headerRow_MOVE_forward_targetGap() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        new RowSpec('100px'),",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        new RowSpec('75px'),",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        new RowSpec('50px'),}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								new RowSpec("100px"),
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								new RowSpec("75px"),
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								new RowSpec("50px"),}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1284,35 +1283,35 @@ public class FormLayoutGefTest extends SwingGefTest {
 			verticalRobot.beginDrag(sourceRow).dragTo(relativeRow, 0.5, -5);
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        RowSpec.decode('75px'),",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        RowSpec.decode('100px'),",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        RowSpec.decode('50px'),}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("75px"),
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("100px"),
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("50px"),}));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerRow_MOVE_forward_targetNotGap() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        new RowSpec('100px'),",
-				"        new RowSpec('75px'),",
-				"        new RowSpec('50px'),}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								new RowSpec("100px"),
+								new RowSpec("75px"),
+								new RowSpec("50px"),}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1323,33 +1322,33 @@ public class FormLayoutGefTest extends SwingGefTest {
 			verticalRobot.beginDrag(sourceRow).dragTo(relativeRow, 0.5, -5);
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        RowSpec.decode('75px'),",
-				"        RowSpec.decode('100px'),",
-				"        RowSpec.decode('50px'),}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								RowSpec.decode("75px"),
+								RowSpec.decode("100px"),
+								RowSpec.decode("50px"),}));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerRow_MOVE_forward_targetBeforeGap() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        new RowSpec('100px'),",
-				"        new RowSpec('75px'),",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        new RowSpec('50px'),}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								new RowSpec("100px"),
+								new RowSpec("75px"),
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								new RowSpec("50px"),}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1360,33 +1359,33 @@ public class FormLayoutGefTest extends SwingGefTest {
 			verticalRobot.beginDrag(sourceRow).dragTo(relativeRow, 0.5, +5);
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        RowSpec.decode('75px'),",
-				"        RowSpec.decode('100px'),",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        RowSpec.decode('50px'),}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								RowSpec.decode("75px"),
+								RowSpec.decode("100px"),
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("50px"),}));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerRow_MOVE_forward_targetLast() throws Exception {
-		openPanel(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        new RowSpec('100px'),",
-				"        new RowSpec('75px'),",
-				"        new RowSpec('50px'),}));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								new RowSpec("100px"),
+								new RowSpec("75px"),
+								new RowSpec("50px"),}));
+					}
+				}""");
 		// select panel to show headers
 		canvas.select(panel);
 		// animate headers
@@ -1397,17 +1396,17 @@ public class FormLayoutGefTest extends SwingGefTest {
 			verticalRobot.beginDrag(sourceRow).dragTo(relativeRow, 0.5, -5);
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        RowSpec.decode('75px'),",
-				"        RowSpec.decode('50px'),",
-				"        RowSpec.decode('100px'),}));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								RowSpec.decode("75px"),
+								RowSpec.decode("50px"),
+								RowSpec.decode("100px"),}));
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1416,15 +1415,14 @@ public class FormLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public String getTestSource(String... lines) {
-		lines =
-				CodeUtils.join(new String[]{
-						"import com.jgoodies.forms.layout.*;",
-				"import com.jgoodies.forms.factories.*;"}, lines);
-		return super.getTestSource(lines);
+	public String getTestSource(String code) {
+		return super.getTestSource("""
+				import com.jgoodies.forms.layout.*;
+				import com.jgoodies.forms.factories.*;
+				%s""".formatted(code));
 	}
 
-	private void openPanel(String... lines) throws Exception {
+	private void openPanel(String lines) throws Exception {
 		panel = openContainer(lines);
 		if (panel.getLayout() instanceof FormLayoutInfo) {
 			layout = (FormLayoutInfo) panel.getLayout();

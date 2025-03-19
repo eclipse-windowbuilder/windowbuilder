@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,12 +51,12 @@ public class ActionsTest extends SwingGefTest {
 	public void test_deactiveEditor_thenActivateAgain() throws Exception {
 		IWorkbenchPage page = DesignerPlugin.getActivePage();
 		// open Design
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// "Copy" action exists
 		IAction copyAction = getCopyAction();
 		assertNotNull(copyAction);
@@ -65,13 +65,13 @@ public class ActionsTest extends SwingGefTest {
 			IFile otherFile =
 					setFileContentSrc(
 							"test/Other.java",
-							getTestSource(
-									"// filler filler filler filler filler",
-									"// filler filler filler filler filler",
-									"public class Other extends JPanel {",
-									"  public Other() {",
-									"  }",
-									"}"));
+							getTestSource("""
+									// filler filler filler filler filler
+									// filler filler filler filler filler
+									public class Other extends JPanel {
+										public Other() {
+										}
+									}"""));
 			IDE.openEditor(page, otherFile);
 		}
 		// switch back to our Designer editor

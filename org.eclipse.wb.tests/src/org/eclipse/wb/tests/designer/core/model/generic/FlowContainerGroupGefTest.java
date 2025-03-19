@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,25 +36,24 @@ public class FlowContainerGroupGefTest extends FlowContainerAbstractGefTest {
 	@Test
 	public void test_group_hierarchy() throws Exception {
 		prepareFlowPanel();
-		ContainerInfo mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      FlowPanel panel = new FlowPanel();",
-						"      add(panel);",
-						"      {",
-						"        JButton buttonA = new JButton();",
-						"        panel.add(buttonA);",
-						"      }",
-						"      {",
-						"        JButton buttonB = new JButton();",
-						"        panel.add(buttonB);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							FlowPanel panel = new FlowPanel();
+							add(panel);
+							{
+								JButton buttonA = new JButton();
+								panel.add(buttonA);
+							}
+							{
+								JButton buttonB = new JButton();
+								panel.add(buttonB);
+							}
+						}
+					}
+				}""");
 		ContainerInfo panel = (ContainerInfo) mainPanel.getChildrenComponents().get(0);
 		FlowContainerGroupInfo group = panel.getChildren(FlowContainerGroupInfo.class).get(0);
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
@@ -76,25 +75,24 @@ public class FlowContainerGroupGefTest extends FlowContainerAbstractGefTest {
 	@Test
 	public void test_group_add() throws Exception {
 		prepareFlowPanel();
-		ContainerInfo mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      FlowPanel panel = new FlowPanel();",
-						"      add(panel);",
-						"      {",
-						"        JButton existingButton = new JButton();",
-						"        panel.add(existingButton);",
-						"      }",
-						"    }",
-						"    {",
-						"      JButton rootButton = new JButton('A');",
-						"      add(rootButton, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							FlowPanel panel = new FlowPanel();
+							add(panel);
+							{
+								JButton existingButton = new JButton();
+								panel.add(existingButton);
+							}
+						}
+						{
+							JButton rootButton = new JButton("A");
+							add(rootButton, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		ContainerInfo panel = (ContainerInfo) mainPanel.getChildrenComponents().get(0);
 		ComponentInfo rootButton = mainPanel.getChildrenComponents().get(1);
 		FlowContainerGroupInfo group = panel.getChildren(FlowContainerGroupInfo.class).get(0);
@@ -106,24 +104,24 @@ public class FlowContainerGroupGefTest extends FlowContainerAbstractGefTest {
 		// done drag, so finish MOVE
 		tree.endDrag();
 		tree.assertFeedback_empty();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      FlowPanel panel = new FlowPanel();",
-				"      add(panel);",
-				"      {",
-				"        JButton existingButton = new JButton();",
-				"        panel.add(existingButton);",
-				"      }",
-				"      {",
-				"        JButton rootButton = new JButton('A');",
-				"        panel.add(rootButton);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							FlowPanel panel = new FlowPanel();
+							add(panel);
+							{
+								JButton existingButton = new JButton();
+								panel.add(existingButton);
+							}
+							{
+								JButton rootButton = new JButton("A");
+								panel.add(rootButton);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

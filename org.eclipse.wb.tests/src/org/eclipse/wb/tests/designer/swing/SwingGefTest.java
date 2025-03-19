@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -93,12 +93,12 @@ public abstract class SwingGefTest extends DesignerEditorTestCase {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	protected ContainerInfo openContainer(String... lines) throws Exception {
+	protected ContainerInfo openContainer(String lines) throws Exception {
 		return openEditor(lines);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T extends ObjectInfo> T openEditor(String... lines) throws Exception {
+	protected <T extends ObjectInfo> T openEditor(String lines) throws Exception {
 		ICompilationUnit unit = createModelCompilationUnit("test", "Test.java", getTestSource(lines));
 		openDesign(unit);
 		// prepare models
@@ -108,7 +108,7 @@ public abstract class SwingGefTest extends DesignerEditorTestCase {
 	/**
 	 * Asserts that active {@link AstEditor} has expected Swing source.
 	 */
-	protected void assertEditor(String... lines) {
+	protected void assertEditor(String lines) {
 		AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
 		assertEditor(getTestSource(lines), editor);
 	}
@@ -116,16 +116,15 @@ public abstract class SwingGefTest extends DesignerEditorTestCase {
 	/**
 	 * @return the source for Swing.
 	 */
-	public String getTestSource(String... lines) {
-		lines = getDoubleQuotes(lines);
-		return getSource(new String[][]{
-			new String[]{
-					"package test;",
-					"import java.awt.*;",
-					"import java.awt.event.*;",
-					"import javax.swing.*;",
-			"import javax.swing.border.*;"},
-			lines});
+	public String getTestSource(String source) {
+		return """
+				package test;
+				import java.awt.*;
+				import java.awt.event.*;
+				import javax.swing.*;
+				import javax.swing.border.*;
+				%s
+				""".formatted(source);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -140,18 +139,18 @@ public abstract class SwingGefTest extends DesignerEditorTestCase {
 	protected final void prepareBox(int width, int height) throws Exception {
 		setFileContentSrc(
 				"test/Box.java",
-				getTestSource(
-						"public class Box extends JLabel {",
-						"  public Box() {",
-						"    setPreferredSize(new Dimension(" + width + ", " + height + "));",
-						"    setBackground(Color.PINK);",
-						"    setOpaque(true);",
-						"  }",
-						"  public Box(String text) {",
-						"    this();",
-						"    setText(text);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class Box extends JLabel {
+							public Box() {
+								setPreferredSize(new Dimension(%d, %d));
+								setBackground(Color.PINK);
+								setOpaque(true);
+							}
+							public Box(String text) {
+								this();
+								setText(text);
+							}
+						}""".formatted(width, height)));
 		waitForAutoBuild();
 	}
 
