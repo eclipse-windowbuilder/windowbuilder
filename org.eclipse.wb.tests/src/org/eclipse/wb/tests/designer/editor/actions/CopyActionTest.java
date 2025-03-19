@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,12 +47,12 @@ public class CopyActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_noSelection() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"  // filler filler filler",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+					// filler filler filler
+				}""");
 		// prepare "Copy" action
 		IAction copyAction = getCopyAction();
 		// no selection - disabled action
@@ -65,13 +65,12 @@ public class CopyActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_thisSelection() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"  // filler filler filler",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+					// filler filler filler
+				}""");
 		// prepare "Copy" action
 		IAction copyAction = getCopyAction();
 		// "this" selected - disabled action
@@ -85,16 +84,15 @@ public class CopyActionTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_copySingle() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton btn = new JButton();",
-						"      add(btn);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton btn = new JButton();
+							add(btn);
+						}
+					}
+				}""");
 		// select "btn"
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -117,19 +115,19 @@ public class CopyActionTest extends SwingGefTest {
 				canvas.moveTo(targetEditPart, 10, 10);
 				canvas.click();
 			}
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JButton button = new JButton();",
-					"      add(button);",
-					"    }",
-					"    {",
-					"      JButton btn = new JButton();",
-					"      add(btn);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							{
+								JButton button = new JButton();
+								add(button);
+							}
+							{
+								JButton btn = new JButton();
+								add(btn);
+							}
+						}
+					}""");
 		}
 	}
 
@@ -140,20 +138,19 @@ public class CopyActionTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_copyParentAndItsChild() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JPanel inner = new JPanel();",
-						"      add(inner);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        inner.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel inner = new JPanel();
+							add(inner);
+							{
+								JButton button = new JButton();
+								inner.add(button);
+							}
+						}
+					}
+				}""");
 		// select "inner" and "button"
 		{
 			ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -177,27 +174,27 @@ public class CopyActionTest extends SwingGefTest {
 				canvas.moveTo(targetEditPart, 10, 10);
 				canvas.click();
 			}
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JPanel panel = new JPanel();",
-					"      add(panel);",
-					"      {",
-					"        JButton button = new JButton();",
-					"        panel.add(button);",
-					"      }",
-					"    }",
-					"    {",
-					"      JPanel inner = new JPanel();",
-					"      add(inner);",
-					"      {",
-					"        JButton button = new JButton();",
-					"        inner.add(button);",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							{
+								JPanel panel = new JPanel();
+								add(panel);
+								{
+									JButton button = new JButton();
+									panel.add(button);
+								}
+							}
+							{
+								JPanel inner = new JPanel();
+								add(inner);
+								{
+									JButton button = new JButton();
+									inner.add(button);
+								}
+							}
+						}
+					}""");
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,12 +69,12 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	public void test_JFrame_bigSize_setInSuperclass() throws Exception {
 		setFileContentSrc(
 				"test/MyBigFrame.java",
-				getTestSource(
-						"public class MyBigFrame extends JFrame {",
-						"  public MyBigFrame() {",
-						"    setSize(500, 400);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyBigFrame extends JFrame {
+							public MyBigFrame() {
+								setSize(500, 400);
+							}
+						}"""));
 		waitForAutoBuild();
 		//
 		Dimension oldSize = new Dimension(500, 400);
@@ -97,11 +97,12 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	@Test
 	public void test_JFrame_veryBig() throws Exception {
 		setFileContentSrc("test/MyVeryBigFrame.java",
-				getTestSource("public class MyVeryBigFrame extends JFrame {",
-				"  public MyVeryBigFrame() {",
-				"    setSize(500, 400);",
-				"  }",
-				"}"));
+				getTestSource("""
+						public class MyVeryBigFrame extends JFrame {
+							public MyVeryBigFrame() {
+									setSize(500, 400);
+							}
+						}"""));
 		waitForAutoBuild();
 		// Expand horizontally
 		Dimension oldSize = new Dimension(500, 400);
@@ -134,12 +135,12 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	public void test_JInternalFrame_bigSize_setInSuperclass() throws Exception {
 		setFileContentSrc(
 				"test/MyBigFrame.java",
-				getTestSource(
-						"public class MyBigFrame extends JInternalFrame {",
-						"  public MyBigFrame() {",
-						"    setSize(500, 400);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyBigFrame extends JInternalFrame {
+							public MyBigFrame() {
+								setSize(500, 400);
+							}
+						}"""));
 		waitForAutoBuild();
 		//
 		Dimension oldSize = new Dimension(500, 400);
@@ -180,12 +181,12 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	public void test_packAlways() throws Exception {
 		setFileContentSrc(
 				"test/MyFrame.java",
-				getTestSource(
-						"public class MyFrame extends JFrame {",
-						"  protected void finishInit() {",
-						"    pack();",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyFrame extends JFrame {
+							protected void finishInit() {
+								pack();
+							}
+						}"""));
 		setFileContentSrc(
 				"test/MyFrame.wbp-component.xml",
 				getSourceDQ(
@@ -200,14 +201,13 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 						"</component>"));
 		waitForAutoBuild();
 		// open
-		ContainerInfo frame =
-				openContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends MyFrame {",
-						"  public Test() {",
-						"    finishInit();",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				// filler filler filler filler filler
+				public class Test extends MyFrame {
+					public Test() {
+						finishInit();
+					}
+				}""");
 		// assert that pack() was invoked and not overridden
 		Dimension size = frame.getBounds().getSize();
 		assertNotEquals(size.width, 450);
@@ -274,16 +274,15 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 			Dimension resizeSize,
 			Dimension newSize,
 			String newSizeLine) throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"public class Test extends " + superClassName + " {",
-						"  public Test() {",
-						"    " + oldSizeLine,
-						"    getContentPane().add(new JButton('Swing JButton'), BorderLayout.NORTH);",
-						"    getContentPane().add(new Button('AWT Button'), BorderLayout.WEST);",
-						"    " + addSizeString,
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				public class Test extends %s {
+					public Test() {
+						%s
+						getContentPane().add(new JButton("Swing JButton"), BorderLayout.NORTH);
+						getContentPane().add(new Button("AWT Button"), BorderLayout.WEST);
+						%s
+					}
+				}""".formatted(superClassName, oldSizeLine, addSizeString));
 		// check size
 		assertEquals(oldSize, canvas.getSize(frame));
 		waitEventLoop(50);
@@ -294,15 +293,15 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 		canvas.dragTo(frame, 0, resizeSize.height).endDrag();
 		// check new size
 		assertEquals(newSize, canvas.getSize(frame));
-		assertEditor(
-				"public class Test extends " + superClassName + " {",
-				"  public Test() {",
-				"    " + newSizeLine,
-				"    getContentPane().add(new JButton('Swing JButton'), BorderLayout.NORTH);",
-				"    getContentPane().add(new Button('AWT Button'), BorderLayout.WEST);",
-				"    " + addSizeString,
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends %s {
+					public Test() {
+						%s
+						getContentPane().add(new JButton("Swing JButton"), BorderLayout.NORTH);
+						getContentPane().add(new Button("AWT Button"), BorderLayout.WEST);
+						%s
+					}
+				}""".formatted(superClassName, newSizeLine, addSizeString));
 		//
 		return m_lastEditor.getModelUnit();
 	}

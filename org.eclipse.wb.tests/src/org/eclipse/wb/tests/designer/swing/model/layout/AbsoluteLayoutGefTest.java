@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,48 +44,46 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_canvas_CREATE() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+						public class Test extends JPanel {
+							public Test() {
+								setLayout(null);
+							}
+						}""");
 		// create Box
 		loadCreationBox();
 		// use canvas
 		canvas.sideMode().create(100, 50);
 		canvas.target(panel).in(30, 40).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(30, 40, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box box = new Box();
+							box.setBounds(30, 40, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 	}
 
 	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Box boxA = new Box();",
-						"      boxA.setBounds(10, 20, 100, 50);",
-						"      add(boxA);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box boxA = new Box();
+							boxA.setBounds(10, 20, 100, 50);
+							add(boxA);
+						}
+					}
+				}""");
 		// copy "boxA"
 		{
 			// select "boxA"
@@ -106,102 +104,100 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 		canvas.sideMode().create(100, 50);
 		canvas.target(panel).inX(50).inY(100).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Box boxA = new Box();",
-				"      boxA.setBounds(10, 20, 100, 50);",
-				"      add(boxA);",
-				"    }",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(50, 100, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box boxA = new Box();
+							boxA.setBounds(10, 20, 100, 50);
+							add(boxA);
+						}
+						{
+							Box box = new Box();
+							box.setBounds(50, 100, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_MOVE() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Box box = new Box();",
-						"      box.setBounds(30, 40, 100, 50);",
-						"      add(box);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box box = new Box();
+							box.setBounds(30, 40, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 		ComponentInfo box = panel.getChildrenComponents().get(0);
 		// move
 		canvas.sideMode().beginMove(box);
 		canvas.target(panel).inX(50).inY(80).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(50, 80, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box box = new Box();
+							box.setBounds(50, 80, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 	}
 
 	@Ignore
 	@Test
 	public void test_canvas_ADD() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JPanel inner = new JPanel();",
-						"      inner.setLayout(null);",
-						"      add(inner);",
-						"      inner.setBounds(20, 100, 200, 150);",
-						"      {",
-						"        Box box = new Box();",
-						"        box.setBounds(10, 20, 100, 50);",
-						"        inner.add(box);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							inner.setBounds(20, 100, 200, 150);
+							{
+								Box box = new Box();
+								box.setBounds(10, 20, 100, 50);
+								inner.add(box);
+							}
+						}
+					}
+				}""");
 		ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo box = inner.getChildrenComponents().get(0);
 		// move
 		canvas.sideMode().beginMove(box);
 		canvas.target(panel).in(50, 25).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      inner.setLayout(null);",
-				"      add(inner);",
-				"      inner.setBounds(20, 100, 200, 150);",
-				"    }",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(50, 25, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							inner.setBounds(20, 100, 200, 150);
+						}
+						{
+							Box box = new Box();
+							box.setBounds(50, 25, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -212,30 +208,29 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_tree_CREATE() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		// create Box
 		ComponentInfo newBox = loadCreationBox();
 		// use tree
 		tree.moveOn(panel);
 		tree.assertFeedback_on(panel);
 		tree.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(0, 0, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box box = new Box();
+							box.setBounds(0, 0, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 		tree.assertPrimarySelected(newBox);
 	}
 
@@ -243,18 +238,17 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Box boxA = new Box();",
-						"      boxA.setBounds(10, 20, 100, 50);",
-						"      add(boxA);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box boxA = new Box();
+							boxA.setBounds(10, 20, 100, 50);
+							add(boxA);
+						}
+					}
+				}""");
 		// copy "boxA"
 		{
 			// select "boxA"
@@ -275,44 +269,43 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 		tree.moveOn(panel);
 		tree.assertFeedback_on(panel);
 		tree.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Box boxA = new Box();",
-				"      boxA.setBounds(10, 20, 100, 50);",
-				"      add(boxA);",
-				"    }",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(0, 0, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box boxA = new Box();
+							boxA.setBounds(10, 20, 100, 50);
+							add(boxA);
+						}
+						{
+							Box box = new Box();
+							box.setBounds(0, 0, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_tree_MOVE() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Box boxA = new Box();",
-						"      boxA.setBounds(10, 20, 100, 50);",
-						"      add(boxA);",
-						"    }",
-						"    {",
-						"      Box boxB = new Box();",
-						"      boxB.setBounds(20, 100, 100, 50);",
-						"      add(boxB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box boxA = new Box();
+							boxA.setBounds(10, 20, 100, 50);
+							add(boxA);
+						}
+						{
+							Box boxB = new Box();
+							boxB.setBounds(20, 100, 100, 50);
+							add(boxB);
+						}
+					}
+				}""");
 		ComponentInfo boxA = panel.getChildrenComponents().get(0);
 		ComponentInfo boxB = panel.getChildrenComponents().get(1);
 		// use tree
@@ -320,46 +313,45 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 		tree.dragBefore(boxA);
 		tree.assertFeedback_before(boxA);
 		tree.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Box boxB = new Box();",
-				"      boxB.setBounds(20, 100, 100, 50);",
-				"      add(boxB);",
-				"    }",
-				"    {",
-				"      Box boxA = new Box();",
-				"      boxA.setBounds(10, 20, 100, 50);",
-				"      add(boxA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							Box boxB = new Box();
+							boxB.setBounds(20, 100, 100, 50);
+							add(boxB);
+						}
+						{
+							Box boxA = new Box();
+							boxA.setBounds(10, 20, 100, 50);
+							add(boxA);
+						}
+					}
+				}""");
 		tree.assertPrimarySelected(boxB);
 	}
 
 	@Test
 	public void test_tree_ADD() throws Exception {
 		prepareBox();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JPanel inner = new JPanel();",
-						"      inner.setLayout(null);",
-						"      add(inner);",
-						"      inner.setBounds(20, 100, 200, 150);",
-						"      {",
-						"        Box box = new Box();",
-						"        box.setBounds(10, 20, 100, 50);",
-						"        inner.add(box);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							inner.setBounds(20, 100, 200, 150);
+							{
+								Box box = new Box();
+								box.setBounds(10, 20, 100, 50);
+								inner.add(box);
+							}
+						}
+					}
+				}""");
 		ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo box = inner.getChildrenComponents().get(0);
 		// use tree
@@ -367,22 +359,22 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 		tree.dragOn(panel);
 		tree.assertFeedback_on(panel);
 		tree.endDrag();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      inner.setLayout(null);",
-				"      add(inner);",
-				"      inner.setBounds(20, 100, 200, 150);",
-				"    }",
-				"    {",
-				"      Box box = new Box();",
-				"      box.setBounds(0, 0, 100, 50);",
-				"      add(box);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							inner.setBounds(20, 100, 200, 150);
+						}
+						{
+							Box box = new Box();
+							box.setBounds(0, 0, 100, 50);
+							add(box);
+						}
+					}
+				}""");
 	}
 }

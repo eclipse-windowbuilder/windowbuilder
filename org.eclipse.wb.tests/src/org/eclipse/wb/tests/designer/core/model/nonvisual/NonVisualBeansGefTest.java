@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,13 +40,12 @@ public class NonVisualBeansGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_canNotDropLayout_asNVO() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		loadCreationTool("java.awt.FlowLayout");
 		// use canvas
 		canvas.sideMode().create(10, 10);

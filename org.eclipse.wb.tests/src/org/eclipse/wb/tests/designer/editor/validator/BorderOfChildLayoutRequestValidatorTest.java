@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,20 +54,20 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		// move on "panel_1": inner part, so not "transparent"
 		canvas.moveTo(panel_1, 10, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel_1.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+							{
+								JButton button = new JButton();
+								panel_1.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -79,20 +79,20 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		// move on border "panel_1": but it is not "transparent", because _it_ is selected, not its parent
 		canvas.moveTo(panel_1, 10, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel_1.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+							{
+								JButton button = new JButton();
+								panel_1.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -104,20 +104,20 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		// move on border "panel_1": it is "transparent", because its parent is selected
 		canvas.moveTo(panel_1, 1, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -136,34 +136,33 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		// move on border "panel_1": it is "transparent" always
 		canvas.moveTo(panel_1, 1, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+					}
+				}""");
 	}
 
 	private void prepare_CREATE() throws Exception {
-		mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      JPanel panel_1 = new JPanel();",
-						"      add(panel_1);",
-						"    }",
-						"  }",
-						"}");
+		mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+					}
+				}""");
 		panel_1 = (ContainerInfo) mainPanel.getChildrenComponents().get(0);
 	}
 
@@ -179,24 +178,24 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		canvas.select(mainPanel);
 		canvas.moveTo(panel_1, 10, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel_1.add(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+							{
+								JButton button = new JButton();
+								panel_1.add(button);
+							}
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -206,24 +205,24 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		canvas.select(panel_1);
 		canvas.moveTo(panel_1, 2, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel_1.add(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+							{
+								JButton button = new JButton();
+								panel_1.add(button);
+							}
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -233,42 +232,41 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		canvas.select(mainPanel);
 		canvas.moveTo(panel_1, 2, 10);
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"    }",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	private void prepare_PASTE() throws Exception {
-		mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      JPanel panel_1 = new JPanel();",
-						"      add(panel_1);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel_1 = (ContainerInfo) mainPanel.getChildrenComponents().get(0);
 		button = mainPanel.getChildrenComponents().get(1);
 		// copy "button"
@@ -295,20 +293,20 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ADD_inside() throws Exception {
-		openContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"    }",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel_1 = getJavaInfoByName("panel_1");
 		button = getJavaInfoByName("button");
 		// drag "button"
@@ -318,39 +316,38 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		// done drag, so finish ADD
 		canvas.endDrag();
 		canvas.assertNoFeedbacks();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel_1.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+							{
+								JButton button = new JButton();
+								panel_1.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ADD_onBorder() throws Exception {
-		mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      JPanel panel_1 = new JPanel();",
-						"      add(panel_1);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel_1 = (ContainerInfo) mainPanel.getChildrenComponents().get(0);
 		button = mainPanel.getChildrenComponents().get(1);
 		// drag "button"
@@ -360,19 +357,19 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 		// done drag, so finish MOVE
 		canvas.endDrag();
 		canvas.assertNoFeedbacks();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JPanel panel_1 = new JPanel();",
-				"      add(panel_1);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JPanel panel_1 = new JPanel();
+							add(panel_1);
+						}
+					}
+				}""");
 	}
 }

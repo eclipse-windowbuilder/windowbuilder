@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,17 +48,17 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_gotoDefinition() throws Exception {
-		openContainer(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		// prepare UiContext
 		UiContext context = new UiContext();
@@ -93,17 +93,17 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_convertLocalToField() throws Exception {
-		openContainer(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		// prepare UiContext
 		UiContext context = new UiContext();
@@ -120,34 +120,34 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 			assertNotNull(toolItem);
 			context.click(toolItem, SWT.NONE);
 		}
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  private JButton button;",
-				"  public Test() {",
-				"    {",
-				"      button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					private JButton button;
+					public Test() {
+						{
+							button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		// use action
 		{
 			ToolItem toolItem = context.getToolItem("Convert field to local");
 			assertNotNull(toolItem);
 			context.click(toolItem, SWT.NONE);
 		}
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 }

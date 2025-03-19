@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,25 +35,24 @@ public class SelectSupportTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_all() throws Exception {
-		JavaInfo panel =
-				openContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"	  {",
-						"	    JButton button_1 = new JButton('Button 1');",
-						"	    add(button_1);",
-						"	  }",
-						"	  {",
-						"	    JButton button_2 = new JButton('Button 2');",
-						"	    add(button_2);",
-						"	  }",
-						"	  {",
-						"	    JTextField text_1 = new JTextField(15);",
-						"	    add(text_1);",
-						"	  }",
-						"	}",
-						"}");
+		JavaInfo panel = openContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton("Button 1");
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton("Button 2");
+							add(button_2);
+						}
+						{
+							JTextField text_1 = new JTextField(15);
+							add(text_1);
+						}
+					}
+				}""");
 		JavaInfo button_1 = getJavaInfoByName("button_1");
 		JavaInfo button_2 = getJavaInfoByName("button_2");
 		JavaInfo text_1 = getJavaInfoByName("text_1");
@@ -109,13 +108,13 @@ public class SelectSupportTest extends SwingGefTest {
 
 	@Test
 	public void test_disposeHierarchy() throws Exception {
-		openContainer(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"	public Test() {",
-				"	}",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// reparse
 		{
 			IDesignPageSite.Helper.getSite(m_contentJavaInfo).reparse();

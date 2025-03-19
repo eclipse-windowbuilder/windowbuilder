@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,14 +42,13 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_resizeBoth() throws Exception {
-		ComponentInfo shell =
-				openContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"	}",
-						"}");
+		ComponentInfo shell = openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// initial size
 		{
 			Rectangle bounds = shell.getBounds();
@@ -68,14 +67,13 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 
 	@Test
 	public void test_resizeEast_toNegative() throws Exception {
-		ComponentInfo shell =
-				openContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"	}",
-						"}");
+		ComponentInfo shell = openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// initial size
 		{
 			Rectangle bounds = shell.getBounds();
@@ -96,14 +94,13 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
 
 	@Test
 	public void test_resizeSouth_toNegative() throws Exception {
-		ComponentInfo shell =
-				openContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"	public Test() {",
-						"	}",
-						"}");
+		ComponentInfo shell = openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// initial size
 		{
 			Rectangle bounds = shell.getBounds();

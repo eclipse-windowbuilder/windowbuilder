@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,35 +42,34 @@ public class JTabbedPaneGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_childrenForActiveTab() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);",
-						"    add(tabbedPane);",
-						"    {",
-						"      JPanel panel_1 = new JPanel();",
-						"      panel_1.setLayout(null);",
-						"      tabbedPane.addTab('AAAAAA', panel_1);",
-						"      {",
-						"        JButton button_1 = new JButton();",
-						"        button_1.setBounds(10, 10, 100, 100);",
-						"        panel_1.add(button_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      JPanel panel_2 = new JPanel();",
-						"      panel_2.setLayout(null);",
-						"      tabbedPane.addTab('BBBBBB', panel_2);",
-						"      {",
-						"        JButton button_2 = new JButton();",
-						"        button_2.setBounds(110, 10, 100, 100);",
-						"        panel_2.add(button_2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+						add(tabbedPane);
+						{
+							JPanel panel_1 = new JPanel();
+							panel_1.setLayout(null);
+							tabbedPane.addTab("AAAAAA", panel_1);
+							{
+								JButton button_1 = new JButton();
+								button_1.setBounds(10, 10, 100, 100);
+								panel_1.add(button_1);
+							}
+						}
+						{
+							JPanel panel_2 = new JPanel();
+							panel_2.setLayout(null);
+							tabbedPane.addTab("BBBBBB", panel_2);
+							{
+								JButton button_2 = new JButton();
+								button_2.setBounds(110, 10, 100, 100);
+								panel_2.add(button_2);
+							}
+						}
+					}
+				}""");
 		JTabbedPaneInfo tabbedPane = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ContainerInfo panel_1 = (ContainerInfo) tabbedPane.getChildrenComponents().get(0);
 		ContainerInfo panel_2 = (ContainerInfo) tabbedPane.getChildrenComponents().get(1);
@@ -92,22 +91,21 @@ public class JTabbedPaneGefTest extends SwingGefTest {
 
 	@Test
 	public void test_tab_MOVE() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JLabel label = new JLabel();",
-						"      tabbed.addTab('111', label);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('222', button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JLabel label = new JLabel();
+							tabbed.addTab("111", label);
+						}
+						{
+							JButton button = new JButton();
+							tabbed.addTab("222", button);
+						}
+					}
+				}""");
 		JTabbedPaneInfo tabbedPane = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo label = tabbedPane.getChildrenComponents().get(0);
 		ComponentInfo button = tabbedPane.getChildrenComponents().get(1);
@@ -122,20 +120,20 @@ public class JTabbedPaneGefTest extends SwingGefTest {
 		// check
 		canvas.assertNullEditPart(label);
 		canvas.assertNotNullEditPart(button);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('222', button);",
-				"    }",
-				"    {",
-				"      JLabel label = new JLabel();",
-				"      tabbed.addTab('111', label);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("222", button);
+						}
+						{
+							JLabel label = new JLabel();
+							tabbed.addTab("111", label);
+						}
+					}
+				}""");
 	}
 }

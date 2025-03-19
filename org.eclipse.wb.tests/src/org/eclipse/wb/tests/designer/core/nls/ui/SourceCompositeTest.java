@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,13 +58,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				getSourceDQ("frame.title=My JFrame", "frame.name=My name"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -125,13 +125,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				getSourceDQ("frame.title=My JFrame IT", "frame.name=My name IT"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -199,13 +199,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -258,13 +258,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 			}
 		});
 		// check source
-		assertEditor(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle('My JFrame');",
-				"  }",
-				"}");
+		assertEditor("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle("My JFrame");
+					}
+				}""");
 		assertFalse(getFileContentSrc("test/messages.properties").contains("frame.title"));
 	}
 
@@ -273,13 +273,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -332,13 +332,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -385,13 +385,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		setFileContentSrc("test/messages_it.properties", getSourceDQ(""));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -473,14 +473,14 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"    setName(\"My name\");",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+						setName("My name");
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -522,14 +522,14 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				getSourceDQ("frame.title=My JFrame", "frame.name=My name"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"    setName(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.name\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+						setName(ResourceBundle.getBundle("test.messages").getString("frame.name")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -579,13 +579,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				getSourceDQ("frame.title=My JFrame", "frame.name=My name"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"import java.util.ResourceBundle;",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				import java.util.ResourceBundle;
+				public class Test extends JFrame {
+					public Test() {
+						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
@@ -624,12 +624,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				getSourceDQ("#Direct ResourceBundle", "key.1=1 2", "key.2=2 2"));
 		waitForAutoBuild();
 		//
-		String initialSource = getTestSource(
-				"// filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-				"}");
+		String initialSource = getTestSource("""
+				// filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {

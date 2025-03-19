@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -144,15 +144,14 @@ public class PropertyTweaksTest extends SwingGefTest {
 	}
 
 	private ComponentInfo parse_MyButton() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"import ams.zpointcs.MyButton;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				import ams.zpointcs.MyButton;
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		return button;

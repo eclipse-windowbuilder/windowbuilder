@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,17 +63,16 @@ public class ActionGefTest extends SwingGefTest {
 	@Test
 	public void test_JToolBar_ActionNewEntryInfo() throws Exception {
 		createExternalAction();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JToolBar toolBar = new JToolBar();",
-						"      add(toolBar, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
 				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
@@ -93,28 +92,28 @@ public class ActionGefTest extends SwingGefTest {
 			canvas.target(toolBar).in(20, 5).move();
 			canvas.click();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final Action action = new SwingAction();",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JToolBar toolBar = new JToolBar();",
-				"      add(toolBar, BorderLayout.NORTH);",
-				"      {",
-				"        JButton button = toolBar.add(action);",
-				"      }",
-				"    }",
-				"  }",
-				"  private class SwingAction extends AbstractAction {",
-				"    public SwingAction() {",
-				"      putValue(NAME, 'SwingAction');",
-				"      putValue(SHORT_DESCRIPTION, 'Some short description');",
-				"    }",
-				"    public void actionPerformed(ActionEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final Action action = new SwingAction();
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+							{
+								JButton button = toolBar.add(action);
+							}
+						}
+					}
+					private class SwingAction extends AbstractAction {
+						public SwingAction() {
+							putValue(NAME, "SwingAction");
+							putValue(SHORT_DESCRIPTION, "Some short description");
+						}
+						public void actionPerformed(ActionEvent e) {
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
 				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
@@ -133,18 +132,17 @@ public class ActionGefTest extends SwingGefTest {
 	@Test
 	public void test_JToolBar_ActionUseEntryInfo_canvas() throws Exception {
 		createExternalAction();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  private ExternalAction action = new ExternalAction();",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JToolBar toolBar = new JToolBar();",
-						"      add(toolBar, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
 				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
@@ -159,20 +157,20 @@ public class ActionGefTest extends SwingGefTest {
 		canvas.target(toolBar).in(10, 5).move();
 		canvas.click();
 		assertNoErrors(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private ExternalAction action = new ExternalAction();",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JToolBar toolBar = new JToolBar();",
-				"      add(toolBar, BorderLayout.NORTH);",
-				"      {",
-				"        JButton button = toolBar.add(action);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+							{
+								JButton button = toolBar.add(action);
+							}
+						}
+					}
+				}""");
 		// ...new "JButton" created, it should be selected
 		ComponentInfo button = toolBar.getChildrenComponents().get(0);
 		tree.assertPrimarySelected(button);
@@ -185,18 +183,17 @@ public class ActionGefTest extends SwingGefTest {
 	@Test
 	public void test_JToolBar_ActionUseEntryInfo_tree() throws Exception {
 		createExternalAction();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  private ExternalAction action = new ExternalAction();",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JToolBar toolBar = new JToolBar();",
-						"      add(toolBar, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
 				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
@@ -211,20 +208,20 @@ public class ActionGefTest extends SwingGefTest {
 		tree.moveOn(toolBar);
 		tree.click();
 		assertNoErrors(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private ExternalAction action = new ExternalAction();",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JToolBar toolBar = new JToolBar();",
-				"      add(toolBar, BorderLayout.NORTH);",
-				"      {",
-				"        JButton button = toolBar.add(action);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+							{
+								JButton button = toolBar.add(action);
+							}
+						}
+					}
+				}""");
 		// ...new "JButton" created, it should be selected
 		ComponentInfo button = toolBar.getChildrenComponents().get(0);
 		tree.assertPrimarySelected(button);
@@ -238,17 +235,16 @@ public class ActionGefTest extends SwingGefTest {
 	@Test
 	public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
 		createExternalAction();
-		final ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JToolBar toolBar = new JToolBar();",
-						"      add(toolBar, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
 				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
@@ -291,20 +287,20 @@ public class ActionGefTest extends SwingGefTest {
 		canvas.target(toolBar).in(10, 5).move();
 		canvas.click();
 		assertNoErrors(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ExternalAction externalAction = new ExternalAction();",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JToolBar toolBar = new JToolBar();",
-				"      add(toolBar, BorderLayout.NORTH);",
-				"      {",
-				"        JButton button = toolBar.add(externalAction);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ExternalAction externalAction = new ExternalAction();
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JToolBar toolBar = new JToolBar();
+							add(toolBar, BorderLayout.NORTH);
+							{
+								JButton button = toolBar.add(externalAction);
+							}
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
 				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
@@ -328,17 +324,16 @@ public class ActionGefTest extends SwingGefTest {
 	@Test
 	public void test_JButton_setAction() throws Exception {
 		createExternalAction();
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  private ExternalAction action = new ExternalAction();",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JPanel} {this} {/add(button)/}",
 				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -352,17 +347,17 @@ public class ActionGefTest extends SwingGefTest {
 		loadUseAction(action);
 		canvas.target(button).in(10, 5).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private ExternalAction action = new ExternalAction();",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setAction(action);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						{
+							JButton button = new JButton();
+							button.setAction(action);
+							add(button);
+						}
+					}
+				}""");
 		// ...target "button" should be selected
 		canvas.assertPrimarySelected(button);
 	}
@@ -373,29 +368,28 @@ public class ActionGefTest extends SwingGefTest {
 	@Test
 	public void test_JMenu_dropBetween_JMenuItem() throws Exception {
 		createExternalAction();
-		ContainerInfo frame =
-				openContainer(
-						"public class Test extends JFrame {",
-						"  private ExternalAction action = new ExternalAction();",
-						"  public Test() {",
-						"    {",
-						"      JMenuBar menuBar = new JMenuBar();",
-						"      setJMenuBar(menuBar);",
-						"      {",
-						"        JMenu menu = new JMenu('Menu');",
-						"        menuBar.add(menu);",
-						"        {",
-						"          JMenuItem item_1 = new JMenuItem('AAA AAA AAA');",
-						"          menu.add(item_1);",
-						"        }",
-						"        {",
-						"          JMenuItem item_2 = new JMenuItem('BBB BBB BBB');",
-						"          menu.add(item_2);",
-						"        }",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				public class Test extends JFrame {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						{
+							JMenuBar menuBar = new JMenuBar();
+							setJMenuBar(menuBar);
+							{
+								JMenu menu = new JMenu("Menu");
+								menuBar.add(menu);
+								{
+									JMenuItem item_1 = new JMenuItem("AAA AAA AAA");
+									menu.add(item_1);
+								}
+								{
+									JMenuItem item_2 = new JMenuItem("BBB BBB BBB");
+									menu.add(item_2);
+								}
+							}
+						}
+					}
+				}""");
 		assertHierarchy(
 				"{this: javax.swing.JFrame} {this} {/setJMenuBar(menuBar)/}",
 				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}",
@@ -418,31 +412,31 @@ public class ActionGefTest extends SwingGefTest {
 		loadUseAction(action);
 		canvas.target(item_2).in(10, 1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends JFrame {",
-				"  private ExternalAction action = new ExternalAction();",
-				"  public Test() {",
-				"    {",
-				"      JMenuBar menuBar = new JMenuBar();",
-				"      setJMenuBar(menuBar);",
-				"      {",
-				"        JMenu menu = new JMenu('Menu');",
-				"        menuBar.add(menu);",
-				"        {",
-				"          JMenuItem item_1 = new JMenuItem('AAA AAA AAA');",
-				"          menu.add(item_1);",
-				"        }",
-				"        {",
-				"          JMenuItem menuItem = menu.add(action);",
-				"        }",
-				"        {",
-				"          JMenuItem item_2 = new JMenuItem('BBB BBB BBB');",
-				"          menu.add(item_2);",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JFrame {
+					private ExternalAction action = new ExternalAction();
+					public Test() {
+						{
+							JMenuBar menuBar = new JMenuBar();
+							setJMenuBar(menuBar);
+							{
+								JMenu menu = new JMenu("Menu");
+								menuBar.add(menu);
+								{
+									JMenuItem item_1 = new JMenuItem("AAA AAA AAA");
+									menu.add(item_1);
+								}
+								{
+									JMenuItem menuItem = menu.add(action);
+								}
+								{
+									JMenuItem item_2 = new JMenuItem("BBB BBB BBB");
+									menu.add(item_2);
+								}
+							}
+						}
+					}
+				}""");
 		// ...new "JMenuItem" should be selected
 		JMenuItemInfo newItem = menu.getChildrenItems().get(1);
 		assertEquals("menuItem", newItem.getVariableSupport().getName());
@@ -460,15 +454,15 @@ public class ActionGefTest extends SwingGefTest {
 	private void createExternalAction() throws Exception {
 		setFileContentSrc(
 				"test/ExternalAction.java",
-				getTestSource(
-						"public class ExternalAction extends AbstractAction {",
-						"  public ExternalAction() {",
-						"    putValue(NAME, 'My name');",
-						"    putValue(SHORT_DESCRIPTION, 'My short description');",
-						"  }",
-						"  public void actionPerformed(ActionEvent e) {",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class ExternalAction extends AbstractAction {
+							public ExternalAction() {
+								putValue(NAME, "My name");
+								putValue(SHORT_DESCRIPTION, "My short description");
+							}
+							public void actionPerformed(ActionEvent e) {
+							}
+						}"""));
 		waitForAutoBuild();
 	}
 

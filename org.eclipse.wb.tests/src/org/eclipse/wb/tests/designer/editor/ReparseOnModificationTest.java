@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,20 +59,19 @@ public class ReparseOnModificationTest extends SwingGefTest {
 				createModelCompilationUnit(
 						"test",
 						"MyComponent.java",
-						getTestSource(
-								"public class MyComponent extends JPanel {",
-								"  public MyComponent() {",
-								"  }",
-								"}"));
+						getTestSource("""
+								public class MyComponent extends JPanel {
+									public MyComponent() {
+									}
+								}"""));
 		waitForAutoBuild();
 		// initial state, Design visible
-		ContainerInfo initialPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyComponent());",
-						"  }",
-						"}");
+		ContainerInfo initialPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyComponent());
+					}
+				}""");
 		// open MyComponent
 		IEditorPart componentEditor = JavaUI.openInEditor(componentUnit);
 		// modify MyComponent
@@ -104,20 +103,19 @@ public class ReparseOnModificationTest extends SwingGefTest {
 				createModelCompilationUnit(
 						"test",
 						"MyComponent.java",
-						getTestSource(
-								"public class MyComponent extends JPanel {",
-								"  public MyComponent() {",
-								"  }",
-								"}"));
+						getTestSource("""
+								public class MyComponent extends JPanel {
+									public MyComponent() {
+									}
+								}"""));
 		waitForAutoBuild();
 		// open editor
-		ContainerInfo initialPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyComponent());",
-						"  }",
-						"}");
+		ContainerInfo initialPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyComponent());
+					}
+				}""");
 		// initial state, Design visible
 		// switch to Source page
 		openSourcePage();
@@ -153,20 +151,19 @@ public class ReparseOnModificationTest extends SwingGefTest {
 				createModelCompilationUnit(
 						"test",
 						"MyComponent.java",
-						getTestSource(
-								"public class MyComponent extends JPanel {",
-								"  public MyComponent() {",
-								"  }",
-								"}"));
+						getTestSource("""
+								public class MyComponent extends JPanel {
+									public MyComponent() {
+									}
+								}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyComponent());",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyComponent());
+					}
+				}""");
 		// no modifications yet
 		assertFalse(shouldReparse_editorActivated(panel));
 		// modify and check
@@ -184,28 +181,27 @@ public class ReparseOnModificationTest extends SwingGefTest {
 				createModelCompilationUnit(
 						"test",
 						"MyComponent_inner.java",
-						getTestSource(
-								"public class MyComponent_inner extends JPanel {",
-								"  public MyComponent_inner() {",
-								"  }",
-								"}"));
+						getTestSource("""
+								public class MyComponent_inner extends JPanel {
+									public MyComponent_inner() {
+									}
+								}"""));
 		setFileContentSrc(
 				"test/MyComponent.java",
-				getTestSource(
-						"public class MyComponent extends JPanel {",
-						"  public MyComponent() {",
-						"    add(new MyComponent_inner());",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyComponent extends JPanel {
+							public MyComponent() {
+								add(new MyComponent_inner());
+							}
+						}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyComponent());",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyComponent());
+					}
+				}""");
 		// no modifications yet
 		assertFalse(shouldReparse_editorActivated(panel));
 		// modify and check
@@ -220,7 +216,7 @@ public class ReparseOnModificationTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected ContainerInfo openContainer(String... lines) throws Exception {
+	protected ContainerInfo openContainer(String lines) throws Exception {
 		ContainerInfo container = super.openContainer(lines);
 		waitDependencyInformation(container);
 		return container;

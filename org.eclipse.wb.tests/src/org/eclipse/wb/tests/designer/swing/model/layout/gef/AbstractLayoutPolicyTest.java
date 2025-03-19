@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,9 +27,9 @@ public abstract class AbstractLayoutPolicyTest extends SwingGefTest {
 	/**
 	 * Check for drop given layout on root container.
 	 */
-	protected final void check_setLayout(String[] source,
+	protected final void check_setLayout(String source,
 			String layoutClassName,
-			String[] source2,
+			String source2,
 			int clickOffsetX,
 			int clickOffsetY) throws Exception {
 		openContainer(source);

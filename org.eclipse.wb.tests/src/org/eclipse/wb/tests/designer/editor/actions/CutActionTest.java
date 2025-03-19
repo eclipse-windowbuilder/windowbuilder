@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,12 +36,12 @@ public class CutActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_noSelection() throws Exception {
-		openContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// prepare "Cut" action
 		IAction cutAction = getCutAction();
 		// no selection - disabled action
@@ -54,13 +54,12 @@ public class CutActionTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_thisSelection() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// prepare "Cut" action
 		IAction cutAction = getCutAction();
 		// "this" selected - disabled action
@@ -74,15 +73,14 @@ public class CutActionTest extends SwingGefTest {
 	@Ignore
 	@Test
 	public void test_cutSingle() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton('0');",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton("0");
+						add(button);
+					}
+				}""");
 		// select "button"
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -93,12 +91,12 @@ public class CutActionTest extends SwingGefTest {
 			IAction cutAction = getCutAction();
 			assertTrue(cutAction.isEnabled());
 			cutAction.run();
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+						}
+					}""");
 		}
 		// paste
 		{
@@ -108,16 +106,16 @@ public class CutActionTest extends SwingGefTest {
 			// do paste
 			canvas.moveTo(panel, 10, 10);
 			canvas.click();
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JButton button = new JButton('0');",
-					"      add(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+							{
+								JButton button = new JButton("0");
+								add(button);
+							}
+						}
+					}""");
 		}
 	}
 }

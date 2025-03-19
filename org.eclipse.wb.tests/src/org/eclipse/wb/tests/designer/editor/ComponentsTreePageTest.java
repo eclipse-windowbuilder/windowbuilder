@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,16 +59,15 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_ObjectEventListener_select_existingComponent() throws Exception {
-		ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// no initial selection
 		assertTreeSelectionModels();
@@ -88,13 +87,12 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_ObjectEventListener_select_newComponent() throws Exception {
-		final ContainerInfo panel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"  // filler filler filler",
-						"}");
+		final ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+					// filler filler filler
+				}""");
 		// no initial selection
 		assertTreeSelectionModels();
 		assertSelectionModels();
@@ -127,22 +125,22 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	@Test
 	public void test_TreeDropListener_dragAfterException() throws Exception {
 		removeExceptionsListener();
-		openContainer(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, BorderLayout.NORTH);",
-				"    }",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      add(inner, BorderLayout.CENTER);",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.NORTH);
+						}
+						{
+							JPanel inner = new JPanel();
+							add(inner, BorderLayout.CENTER);
+						}
+					}
+				}""");
 		// simulate exception
 		{
 			System.setProperty("wbp.EditDomain.simulateCommandException", "true");
@@ -171,22 +169,22 @@ public class ComponentsTreePageTest extends SwingGefTest {
 			ComponentInfo inner = getJavaInfoByName("inner");
 			tree.startDrag(button).dragOn(inner).endDrag();
 		}
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      add(inner, BorderLayout.CENTER);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        inner.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JPanel inner = new JPanel();
+							add(inner, BorderLayout.CENTER);
+							{
+								JButton button = new JButton();
+								inner.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -52,29 +52,29 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 		ContainerInfo panel = openMyPanel();
 		// flip: false -> true
 		canvas.doubleClick(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      MyPanel panel = new MyPanel();",
-				"      panel.setMyExpanded(true);",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							MyPanel panel = new MyPanel();
+							panel.setMyExpanded(true);
+							add(panel);
+						}
+					}
+				}""");
 		// flip: true -> false
 		canvas.doubleClick(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      MyPanel panel = new MyPanel();",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							MyPanel panel = new MyPanel();
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -96,16 +96,16 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 		ContainerInfo panel = openMyPanel();
 		// do double click, but property to flip does not exist, so ignore
 		canvas.doubleClick(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      MyPanel panel = new MyPanel();",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							MyPanel panel = new MyPanel();
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -127,16 +127,16 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 		ContainerInfo panel = openMyPanel();
 		// do double click, but property to flip is not boolean, so ignore
 		canvas.doubleClick(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      MyPanel panel = new MyPanel();",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							MyPanel panel = new MyPanel();
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -146,16 +146,16 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 		ContainerInfo panel = openMyPanel();
 		// do double click, but no flip parameter, so ignore
 		canvas.doubleClick(panel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      MyPanel panel = new MyPanel();",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							MyPanel panel = new MyPanel();
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -166,30 +166,29 @@ public class FlipBooleanPropertyGefTest extends SwingGefTest {
 	private void prepareMyPanel() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends Container {",
-						"  private boolean m_expanded;",
-						"  public boolean getMyExpanded() {",
-						"    return m_expanded;",
-						"  }",
-						"  public void setMyExpanded(boolean expanded) {",
-						"    m_expanded = expanded;",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyPanel extends Container {
+							private boolean m_expanded;
+							public boolean getMyExpanded() {
+								return m_expanded;
+							}
+							public void setMyExpanded(boolean expanded) {
+								m_expanded = expanded;
+							}
+						}"""));
 	}
 
 	private ContainerInfo openMyPanel() throws Exception {
-		ContainerInfo mainPanel =
-				openContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      MyPanel panel = new MyPanel();",
-						"      add(panel);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo mainPanel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							MyPanel panel = new MyPanel();
+							add(panel);
+						}
+					}
+				}""");
 		return (ContainerInfo) mainPanel.getChildrenComponents().get(0);
 	}
 }

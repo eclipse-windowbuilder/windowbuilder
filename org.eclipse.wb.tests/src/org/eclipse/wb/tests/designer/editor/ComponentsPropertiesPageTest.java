@@ -66,8 +66,12 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_PropertyCategoryProvider_Provider() throws Exception {
-		ContainerInfo panel = openContainer("public class Test extends JPanel {", "  public Test() {",
-				"    // filler filler filler", "  }", "}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						// filler filler filler
+					}
+				}""");
 		//
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -113,8 +117,12 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_PropertyList_Processor() throws Exception {
-		ContainerInfo panel = openContainer("public class Test extends JPanel {", "  public Test() {",
-				"    // filler filler filler", "  }", "}");
+		ContainerInfo panel = openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						// filler filler filler
+					}
+				}""");
 		//
 		TestBundle testBundle = new TestBundle();
 		try {

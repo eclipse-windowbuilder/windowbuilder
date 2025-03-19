@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,51 +42,49 @@ public class JMenuGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_drop_JMenuBar_onJFrame() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				// filler filler filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 		//
 		JMenuBarInfo menuBar = loadCreationTool("javax.swing.JMenuBar");
 		canvas.moveTo(frame, 100, 5).click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    {",
-				"      JMenuBar menuBar = new JMenuBar();",
-				"      setJMenuBar(menuBar);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+						{
+							JMenuBar menuBar = new JMenuBar();
+							setJMenuBar(menuBar);
+						}
+					}
+				}""");
 		canvas.assertPrimarySelected(menuBar);
 	}
 
 	@Test
 	public void test_drop_JMenuBar_onJInternalFrame() throws Exception {
-		ContainerInfo frame =
-				openContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JInternalFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo frame = openContainer("""
+				// filler filler filler filler filler
+				public class Test extends JInternalFrame {
+					public Test() {
+					}
+				}""");
 		//
 		JMenuBarInfo menuBar = loadCreationTool("javax.swing.JMenuBar");
 		canvas.moveTo(frame, 100, 5).click();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JInternalFrame {",
-				"  public Test() {",
-				"    {",
-				"      JMenuBar menuBar = new JMenuBar();",
-				"      setJMenuBar(menuBar);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JInternalFrame {
+					public Test() {
+						{
+							JMenuBar menuBar = new JMenuBar();
+							setJMenuBar(menuBar);
+						}
+					}
+				}""");
 		canvas.assertPrimarySelected(menuBar);
 	}
 
@@ -95,18 +93,18 @@ public class JMenuGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_dontMoveMove_onItsItem() throws Exception {
-		openContainer(
-				"// filler filler filler filler filler",
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    JMenuBar menuBar = new JMenuBar();",
-				"    setJMenuBar(menuBar);",
-				"    {",
-				"      JMenu menu = new JMenu('Test');",
-				"      menuBar.add(menu);",
-				"    }",
-				"  }",
-				"}");
+		openContainer("""
+				// filler filler filler filler filler
+				public class Test extends JFrame {
+					public Test() {
+						JMenuBar menuBar = new JMenuBar();
+						setJMenuBar(menuBar);
+						{
+							JMenu menu = new JMenu("Test");
+							menuBar.add(menu);
+						}
+					}
+				}""");
 		JavaInfo menu = getJavaInfoByName("menu");
 		//
 		canvas.moveTo(menu, 0.5, -1).beginDrag().dragOn(0, 20);
