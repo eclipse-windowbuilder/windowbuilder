@@ -34,7 +34,8 @@ import org.eclipse.swt.graphics.Image;
 
 public final class PropertyEditPart extends AbstractPropertyEditPart {
 	private final ISelectionChangedListener listener;
-	private PropertyFigure propertyFigure;
+	private TitleFigure titleFigure;
+	private ValueFigure valueFigure;
 
 	public PropertyEditPart(PropertyInfo propertyInfo) {
 		setModel(propertyInfo);
@@ -113,6 +114,7 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		SeparatorBorder border = new SeparatorBorder(new Insets(0, 0, MARGIN_BOTTOM, 1), PositionConstants.BOTTOM);
 		border.setColor(COLOR_LINE);
 		GridLayout gridLayout = new GridLayout();
+		gridLayout.numColumns = 2;
 		gridLayout.marginHeight = 0;
 		gridLayout.marginWidth = 0;
 		gridLayout.horizontalSpacing = 0;
@@ -121,10 +123,15 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		figure.setLayoutManager(gridLayout);
 		figure.setBorder(border);
 		//
-		propertyFigure = new PropertyFigure();
-		propertyFigure.setPreferredSize(new Dimension(SWT.DEFAULT, getViewer().getRowHeight()));
-		propertyFigure.setOpaque(true);
-		figure.add(propertyFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
+		titleFigure = new TitleFigure();
+		titleFigure.setPreferredSize(new Dimension(getViewer().getSplitter(), getViewer().getRowHeight()));
+		titleFigure.setOpaque(true);
+		figure.add(titleFigure, new GridData(SWT.FILL, SWT.FILL, false, false));
+
+		valueFigure = new ValueFigure();
+		valueFigure.setPreferredSize(new Dimension(SWT.DEFAULT, getViewer().getRowHeight()));
+		valueFigure.setOpaque(true);
+		figure.add(valueFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
 		//
 		PropertyEditorPresentation presentation = getModel().getProperty().getEditor().getPresentation();
 		if (presentation != null) {
@@ -136,15 +143,18 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 
 	@Override
 	protected void refreshVisuals() {
-		if (propertyFigure.isActiveProperty()) {
-			propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
+		if (isActiveProperty()) {
+			titleFigure.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
+			valueFigure.setBackgroundColor(COLOR_PROPERTY_BG_SELECTED);
 		} else {
 			Property property = getModel().getProperty();
 			try {
 				if (property.isModified()) {
-					propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
+					titleFigure.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
+					valueFigure.setBackgroundColor(COLOR_PROPERTY_BG_MODIFIED);
 				} else {
-					propertyFigure.setBackgroundColor(COLOR_PROPERTY_BG);
+					titleFigure.setBackgroundColor(COLOR_PROPERTY_BG);
+					valueFigure.setBackgroundColor(COLOR_PROPERTY_BG);
 				}
 			} catch (Exception e) {
 				DesignerPlugin.log(e);
@@ -152,61 +162,66 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		}
 	}
 
-	private final class PropertyFigure extends Figure {
+	private boolean isActiveProperty() {
+		return getSelected() == EditPart.SELECTED_PRIMARY;
+	}
 
+	public final class TitleFigure extends Figure {
 		@Override
 		protected void paintClientArea(Graphics graphics) {
 			int height = bounds.height();
 			int y = bounds.y();
 			// draw property
 			try {
-				Property property = getModel().getProperty();
+				Property property = getProperty();
 				// draw state image
 				if (getModel().isShowComplex()) {
 					Image stateImage = getModel().isExpanded() ? m_minusImage : m_plusImage;
 					DrawUtils.drawImageCV(graphics, stateImage, getTitleX(), y, height);
 				}
 				// draw title
-				{
-					// configure GC
-					{
-						graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
-						// check category
-						if (getViewer().getCategory(property).isAdvanced()) {
-							graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
-							graphics.setFont(getItalicFont(getFont()));
-						} else if (getViewer().getCategory(property).isPreferred() || getViewer().getCategory(property).isSystem()) {
-							graphics.setFont(getBoldFont(getFont()));
-						}
-						// check for active
-						if (isActiveProperty()) {
-							graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
-						}
-					}
-					// paint title
-					int x = getTitleTextX();
-					DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, getViewer().getSplitter() - x, height);
+				graphics.setForegroundColor(COLOR_PROPERTY_FG_TITLE);
+				// check category
+				if (getViewer().getCategory(property).isAdvanced()) {
+					graphics.setForegroundColor(COLOR_PROPERTY_FG_ADVANCED);
+					graphics.setFont(getItalicFont(getFont()));
+				} else if (getViewer().getCategory(property).isPreferred() || getViewer().getCategory(property).isSystem()) {
+					graphics.setFont(getBoldFont(getFont()));
 				}
-				// draw value
-				{
-					// configure GC
-					graphics.setFont(getFont());
-					if (!isActiveProperty()) {
-						graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
-					}
-					// prepare value rectangle
-					int x = getViewer().getSplitter() + 4;
-					int w = getViewer().getControl().getClientArea().width - x - MARGIN_RIGHT;
-					// paint value
-					property.getEditor().paint(property, graphics, x, y, w, height);
+				// check for active
+				if (isActiveProperty()) {
+					graphics.setForegroundColor(COLOR_PROPERTY_FG_SELECTED);
 				}
+				// paint title
+				int x = getTitleTextX();
+				DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, getViewer().getSplitter() - x, height);
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
 		}
+	}
 
-		public boolean isActiveProperty() {
-			return getSelected() == EditPart.SELECTED_PRIMARY;
+	public final class ValueFigure extends Figure {
+		@Override
+		protected void paintClientArea(Graphics graphics) {
+			int height = bounds.height();
+			int y = bounds.y();
+			// draw property
+			try {
+				Property property = getProperty();
+				// configure GC
+				graphics.setFont(getFont());
+				if (!isActiveProperty()) {
+					graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
+				}
+				// prepare value rectangle
+				int x = getViewer().getSplitter() + 4;
+				int w = getViewer().getControl().getClientArea().width - x - MARGIN_RIGHT;
+				// paint value
+				property.getEditor().paint(property, graphics, x, y, w, height);
+			} catch (Throwable e) {
+				DesignerPlugin.log(e);
+			}
 		}
 	}
 }
