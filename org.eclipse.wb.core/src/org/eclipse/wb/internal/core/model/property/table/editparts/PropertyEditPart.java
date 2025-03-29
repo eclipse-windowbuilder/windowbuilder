@@ -14,17 +14,23 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable.PropertyInfo;
+import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.MouseWheelListener;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.SeparatorBorder;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -94,6 +100,24 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		return getViewer().getResourceManager().create(FontDescriptor.createFrom(font).withStyle(SWT.ITALIC));
 	}
 
+	private MouseMotionListener getMouseMotionListener(PropertyFigure figureUnderCursor) {
+		return new MouseMotionListener.Stub() {
+			@Override
+			public void mouseHover(MouseEvent me) {
+				Point location = Point.SINGLETON;
+				location.setX(me.x);
+				location.setY(me.y);
+
+				figureUnderCursor.translateToAbsolute(location);
+				getViewer().getTooltipHelper().displayToolTipNear(figureUnderCursor, location.x, location.y);
+			}
+		};
+	}
+
+	private MouseWheelListener getMouseWheelListener() {
+		return event -> getViewer().getTooltipHelper().hideTooltip();
+	}
+
 	/**
 	 * Convenience method to avoid accessing the internal {@link PropertyInfo}
 	 * class.
@@ -126,11 +150,15 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		titleFigure = new TitleFigure();
 		titleFigure.setPreferredSize(new Dimension(getViewer().getSplitter(), getViewer().getRowHeight()));
 		titleFigure.setOpaque(true);
+		titleFigure.addMouseMotionListener(getMouseMotionListener(titleFigure));
+		titleFigure.addMouseWheelListener(getMouseWheelListener());
 		figure.add(titleFigure, new GridData(SWT.FILL, SWT.FILL, false, false));
 
 		valueFigure = new ValueFigure();
 		valueFigure.setPreferredSize(new Dimension(SWT.DEFAULT, getViewer().getRowHeight()));
 		valueFigure.setOpaque(true);
+		valueFigure.addMouseMotionListener(getMouseMotionListener(valueFigure));
+		valueFigure.addMouseWheelListener(getMouseWheelListener());
 		figure.add(valueFigure, new GridData(SWT.FILL, SWT.FILL, true, false));
 		//
 		PropertyEditorPresentation presentation = getModel().getProperty().getEditor().getPresentation();
@@ -166,7 +194,28 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		return getSelected() == EditPart.SELECTED_PRIMARY;
 	}
 
-	public final class TitleFigure extends Figure {
+	public abstract sealed class PropertyFigure extends Figure permits TitleFigure, ValueFigure {
+		public Property getProperty() {
+			return PropertyEditPart.this.getProperty();
+		}
+
+		public PropertyTooltipProvider getPropertyTooltipProvider() {
+			IAdaptable adaptable = getPropertyToolTipAdaptable();
+			if (adaptable == null) {
+				return null;
+			}
+			return adaptable.getAdapter(PropertyTooltipProvider.class);
+		}
+
+		protected abstract IAdaptable getPropertyToolTipAdaptable();
+
+		@Override
+		public String toString() {
+			return "[%s] %s".formatted(getClass().getSimpleName(), getProperty().getTitle());
+		}
+	}
+
+	public final class TitleFigure extends PropertyFigure {
 		@Override
 		protected void paintClientArea(Graphics graphics) {
 			int height = bounds.height();
@@ -199,9 +248,14 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 				DesignerPlugin.log(e);
 			}
 		}
+
+		@Override
+		protected IAdaptable getPropertyToolTipAdaptable() {
+			return getProperty();
+		}
 	}
 
-	public final class ValueFigure extends Figure {
+	public final class ValueFigure extends PropertyFigure {
 		@Override
 		protected void paintClientArea(Graphics graphics) {
 			int height = bounds.height();
@@ -222,6 +276,11 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
+		}
+
+		@Override
+		protected IAdaptable getPropertyToolTipAdaptable() {
+			return getProperty().getEditor();
 		}
 	}
 }

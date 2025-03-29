@@ -11,11 +11,12 @@
 package org.eclipse.wb.internal.core.model.property.table;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
-import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditPart.PropertyFigure;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -29,7 +30,13 @@ import org.eclipse.swt.widgets.Shell;
  * @author scheglov_ke
  * @coverage core.model.property.table
  */
-class PropertyTableTooltipHelper implements IPropertyTooltipSite {
+public class PropertyTableTooltipHelper implements IPropertyTooltipSite {
+	/**
+	 * The position of the tool-tip relative to the mouse cursor. The tip should't
+	 * be directly under the cursor so that it doesn't obscure the figure
+	 * underneath.
+	 */
+	private static final Point OFFSET = new Point(12, 0);
 	private final PropertyTable m_table;
 	private Shell m_tooltip;
 
@@ -40,14 +47,6 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 	////////////////////////////////////////////////////////////////////////////
 	public PropertyTableTooltipHelper(PropertyTable table) {
 		m_table = table;
-		m_table.getControl().addListener(SWT.MouseHover, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				if (event.stateMask == 0) {
-					showTooltip();
-				}
-			}
-		});
 		m_table.getControl().addListener(SWT.MouseExit, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -65,6 +64,12 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 				hideTooltip();
 			}
 		});
+		m_table.getControl().addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				hideTooltip();
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -72,32 +77,8 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Property m_property;
-	private boolean m_onTitle;
-	private boolean m_onValue;
-	private int m_beginX;
-	private int m_endX;
+	private int m_x;
 	private int m_y;
-	private int m_rowHeight;
-
-	/**
-	 * {@link PropertyTable} call this method to inform that cursor location was changed.
-	 */
-	public void update(Property property,
-			boolean onTitle,
-			boolean onValue,
-			int beginX,
-			int endX,
-			int y,
-			int rowHeight) {
-		m_property = property;
-		m_onTitle = onTitle;
-		m_onValue = onValue;
-		m_beginX = beginX;
-		m_endX = endX;
-		m_y = y;
-		m_rowHeight = rowHeight;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -122,29 +103,15 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 	// Showing tooltip
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void showTooltip() {
-		hideTooltip();
-		// check for property
-		if (m_property == null) {
-			return;
-		}
-		//
-		if (m_onTitle) {
-			showTooltip(m_property, m_beginX, m_endX);
-		}
-		if (m_onValue) {
-			showTooltip(m_property.getEditor(), m_beginX, m_endX);
-		}
-	}
 
-	private void showTooltip(IAdaptable adaptable, int startX, int endX) {
+	public void displayToolTipNear(PropertyFigure hoverSource, int eventX, int eventY) {
+		m_x = eventX;
+		m_y = eventY;
+		hideTooltip();
 		// prepare provider
-		PropertyTooltipProvider provider = null;
-		{
-			provider = adaptable.getAdapter(PropertyTooltipProvider.class);
-			if (provider == null) {
-				return;
-			}
+		PropertyTooltipProvider provider = hoverSource.getPropertyTooltipProvider();
+		if (provider == null) {
+			return;
 		}
 		// create Shell
 		{
@@ -153,7 +120,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 			GridLayoutFactory.create(m_tooltip).noMargins();
 		}
 		// prepare control
-		Control control = provider.createTooltipControl(m_property, m_tooltip, this);
+		Control control = provider.createTooltipControl(hoverSource.getProperty(), m_tooltip, this);
 		if (control == null) {
 			hideTooltip();
 			return;
@@ -163,9 +130,9 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 			// prepare tooltip location
 			Point tooltipLocation;
 			if (provider.getTooltipPosition() == PropertyTooltipProvider.ON) {
-				tooltipLocation = m_table.getControl().toDisplay(new Point(startX, m_y));
+				tooltipLocation = m_table.getControl().toDisplay(new Point(m_x + OFFSET.x, m_y + OFFSET.y));
 			} else {
-				tooltipLocation = m_table.getControl().toDisplay(new Point(startX, m_y + m_rowHeight));
+				tooltipLocation = m_table.getControl().toDisplay(new Point(m_x + OFFSET.x, m_y + OFFSET.y + getTable().getRowHeight()));
 			}
 			// set location/size and open
 			m_tooltip.setLocation(tooltipLocation.x, tooltipLocation.y);
