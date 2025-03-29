@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
+import org.eclipse.wb.core.controls.palette.DesignerSubPalette;
+
 import org.eclipse.draw2d.AbstractBackground;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ButtonModel;
@@ -40,7 +42,10 @@ public class DesignerPaletteEditPartFactory extends PaletteEditPartFactory {
 		editPart.addEditPartListener(new EditPartListener.Stub() {
 			@Override
 			public void childAdded(EditPart child, int index) {
-				if (child.getModel() instanceof PaletteDrawer) {
+				// Should look different from a plain PaletteDrawer
+				if (child.getModel() instanceof DesignerSubPalette) {
+					updateFigure(child, ToolEntryBackground::new);
+				} else if (child.getModel() instanceof PaletteDrawer) {
 					updateFigure(child, DrawerBackground::new);
 				} else if (child.getModel() instanceof ToolEntry) {
 					updateFigure(child, ToolEntryBackground::new);

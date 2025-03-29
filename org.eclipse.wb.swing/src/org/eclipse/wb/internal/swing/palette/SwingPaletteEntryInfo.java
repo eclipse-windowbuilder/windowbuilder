@@ -10,10 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.palette;
 
+import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
+import org.eclipse.wb.internal.core.editor.palette.ISubPaletteInfo;
+import org.eclipse.wb.internal.core.editor.palette.PaletteManager;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
@@ -33,6 +36,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * {@link EntryInfo} that shows popup/cascading Swing palette (this entry should be placed into RCP
  * palette).
@@ -40,7 +47,7 @@ import org.eclipse.swt.widgets.Shell;
  * @author scheglov_ke
  * @coverage swing.editor.palette
  */
-public final class SwingPaletteEntryInfo extends EntryInfo {
+public final class SwingPaletteEntryInfo extends EntryInfo implements ISubPaletteInfo {
 	private static final ImageDescriptor ICON = Activator.getImageDescriptor("popup_palette.png");
 
 	////////////////////////////////////////////////////////////////////////////
@@ -62,6 +69,17 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 	@Override
 	public ImageDescriptor getIcon() {
 		return ICON;
+	}
+
+	@Override
+	public List<CategoryInfo> getSubCategories() {
+		PaletteManager swingManager = new PaletteManager(m_rootJavaInfo, IPreferenceConstants.TOOLKIT_ID);
+		swingManager.reloadPalette();
+
+		List<CategoryInfo> elements = new ArrayList<>(swingManager.getPalette().getCategories());
+
+		elements.removeIf(category -> "org.eclipse.wb.swing.system".equals(category.getId()));
+		return Collections.unmodifiableList(elements);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
