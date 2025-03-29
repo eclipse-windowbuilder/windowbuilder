@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.core.editor.palette;
 import org.eclipse.wb.core.controls.palette.DesignerContainer;
 import org.eclipse.wb.core.controls.palette.DesignerEntry;
 import org.eclipse.wb.core.controls.palette.DesignerRoot;
+import org.eclipse.wb.core.controls.palette.DesignerSubPalette;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.PaletteComposite;
@@ -60,6 +61,8 @@ import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.ui.palette.PaletteContextMenuProvider;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.jface.action.IMenuManager;
@@ -100,7 +103,7 @@ public class DesignerPalette {
 	private IEditPartViewer m_editPartViewer;
 	private JavaInfo m_rootJavaInfo;
 	private PaletteManager m_manager;
-	private DesignerEntry m_defaultEntry;
+	private PaletteEntry m_defaultEntry;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -267,8 +270,8 @@ public class DesignerPalette {
 	private final Map<String, Boolean> m_openCategories = new HashMap<>();
 	private final Set<EntryInfo> m_knownEntryInfos = new HashSet<>();
 	private final Set<EntryInfo> m_goodEntryInfos = new HashSet<>();
-	private final Map<EntryInfo, DesignerEntry> m_entryInfoToVisual = new HashMap<>();
-	private final Map<DesignerEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
+	private final Map<EntryInfo, PaletteEntry> m_entryInfoToVisual = new HashMap<>();
+	private final Map<PaletteEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
 
 	/**
 	 * Clears all caches for {@link EntryInfo}, {@link IEntry}, etc.
@@ -284,42 +287,51 @@ public class DesignerPalette {
 	}
 
 	/**
-	 * @return the {@link DesignerEntry} for given {@link EntryInfo}.
+	 * @return the {@link PaletteEntry} for given {@link EntryInfo}.
 	 */
-	private DesignerEntry getVisualEntry(final EntryInfo entryInfo) {
-		DesignerEntry entry = m_entryInfoToVisual.get(entryInfo);
+	private PaletteEntry getVisualEntry(final EntryInfo entryInfo) {
+		PaletteEntry entry = m_entryInfoToVisual.get(entryInfo);
 		if (entry == null && !m_knownEntryInfos.contains(entryInfo)) {
 			m_knownEntryInfos.add(entryInfo);
 			if (entryInfo.initialize(m_editPartViewer, m_rootJavaInfo)) {
-				entry = new DesignerEntry(entryInfo.getName(), entryInfo.getDescription(), entryInfo.getIcon()) {
-					////////////////////////////////////////////////////////////////////////////
-					//
-					// Access
-					//
-					////////////////////////////////////////////////////////////////////////////
-					@Override
-					public boolean isEnabled() {
-						return entryInfo.isEnabled();
-					}
+				if (entryInfo instanceof ISubPaletteInfo stackInfo && EnvironmentUtils.isGefPalette()) {
+					entry = new DesignerSubPalette(entryInfo.getName(), entryInfo.getDescription(), entryInfo.getIcon());
 
-					////////////////////////////////////////////////////////////////////////////
-					//
-					// Activation
-					//
-					////////////////////////////////////////////////////////////////////////////
-					@Override
-					public boolean activate(boolean reload) {
-						return entryInfo.createTool(reload) != null;
+					((PaletteDrawer) entry).setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
+					for (CategoryInfo categoryInfo : stackInfo.getSubCategories()) {
+						((PaletteDrawer) entry).add(getVisualCategory(categoryInfo));
 					}
-
-					@Override
-					public Tool createTool() {
-						if (m_paletteDomain == null) {
-							return entryInfo.createTool(false);
+				} else {
+					entry = new DesignerEntry(entryInfo.getName(), entryInfo.getDescription(), entryInfo.getIcon()) {
+						////////////////////////////////////////////////////////////////////////////
+						//
+						// Access
+						//
+						////////////////////////////////////////////////////////////////////////////
+						@Override
+						public boolean isEnabled() {
+							return entryInfo.isEnabled();
 						}
-						return entryInfo.createTool(m_paletteDomain.isReload());
-					}
-				};
+
+						////////////////////////////////////////////////////////////////////////////
+						//
+						// Activation
+						//
+						////////////////////////////////////////////////////////////////////////////
+						@Override
+						public boolean activate(boolean reload) {
+							return entryInfo.createTool(reload) != null;
+						}
+
+						@Override
+						public Tool createTool() {
+							if (m_paletteDomain == null) {
+								return entryInfo.createTool(false);
+							}
+							return entryInfo.createTool(m_paletteDomain.isReload());
+						}
+					};
+				}
 				m_goodEntryInfos.add(entryInfo);
 				m_entryInfoToVisual.put(entryInfo, entry);
 				m_visualToEntryInfo.put(entry, entryInfo);
@@ -345,12 +357,12 @@ public class DesignerPalette {
 				private boolean m_open;
 
 				@Override
-				public List<DesignerEntry> getChildren() {
+				public List<PaletteEntry> getChildren() {
 					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
 					ExecutionUtils.runIgnore(() -> getBroadcastPalette().entries(categoryInfo, entryInfoList));
 					// convert EntryInfo's into IEntry's
-					List<DesignerEntry> entries = new ArrayList<>();
+					List<PaletteEntry> entries = new ArrayList<>();
 					for (EntryInfo entryInfo : entryInfoList) {
 						if (entryInfo.isVisible()) {
 							if (categoryId.equals(ENTRYINFO_CATEGORY)) {
@@ -358,13 +370,13 @@ public class DesignerPalette {
 										IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
 												entryInfo.getId().substring(entryInfo.getId().indexOf(' ') + 1),
 												true)) {
-									DesignerEntry entry = getVisualEntry(entryInfo);
+									PaletteEntry entry = getVisualEntry(entryInfo);
 									if (entry != null) {
 										entries.add(entry);
 									}
 								}
 							} else {
-								DesignerEntry entry = getVisualEntry(entryInfo);
+								PaletteEntry entry = getVisualEntry(entryInfo);
 								if (entry != null) {
 									entries.add(entry);
 								}
@@ -483,11 +495,11 @@ public class DesignerPalette {
 		if (m_isMainPalette) {
 			final EditDomain editDomain = m_editPartViewer.getEditDomain();
 			editDomain.setDefaultToolProvider(() -> {
-				if (m_defaultEntry != null) {
+				if (m_defaultEntry instanceof DesignerEntry defaultEntry) {
 					if (m_legacyPaletteComposite != null) {
-						m_legacyPaletteComposite.selectEntry(m_defaultEntry, false);
+						m_legacyPaletteComposite.selectEntry(defaultEntry, false);
 					} else {
-						m_paletteViewer.setActiveTool(m_defaultEntry);
+						m_paletteViewer.setActiveTool(defaultEntry);
 					}
 				} else {
 					editDomain.setActiveTool(new SelectionTool());
