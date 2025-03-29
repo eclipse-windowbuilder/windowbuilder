@@ -78,6 +78,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	private final Set<String> m_expandedIds = new TreeSet<>();
 	private int m_rowHeight;
 	private int m_splitter = -1;
+	private PropertyTableTooltipHelper m_toolTipHelper;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -94,6 +95,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		getControl().setScrollbarsMode(SWT.NONE);
 		// calculate sizes
 		m_rowHeight = 1 + FigureUtilities.getFontMetrics(getControl().getFont()).getHeight() + 1;
+		// Initialize tool-tip helper
+		m_toolTipHelper = new PropertyTableTooltipHelper(this);
 		// Initialize with <No Properties>
 		setInput(null);
 	}
@@ -477,6 +480,10 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		return null;
 	}
 
+	public final PropertyTableTooltipHelper getTooltipHelper() {
+		return m_toolTipHelper;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// ISelectionProvider
@@ -570,7 +577,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	////////////////////////////////////////////////////////////////////////////
 
 	public class PropertyEditDomain extends EditDomain {
-		private final PropertyTableTooltipHelper m_tooltipHelper = new PropertyTableTooltipHelper(PropertyTable.this);
 		private boolean m_splitterResizing;
 		/**
 		 * We do expand/collapse on to events: click on state sign and on double click.
@@ -664,10 +670,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				} else {
 					getControl().setCursor(null);
 				}
-				// update tooltip helper
-				updateTooltip(event);
-			} else {
-				updateTooltipNoProperty();
 			}
 		}
 
@@ -679,42 +681,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				configureSplitter();
 				getControl().redraw();
 			}
-		}
-
-		/**
-		 * Updates {@link PropertyTableTooltipHelper}.
-		 */
-		private void updateTooltip(MouseEvent event) {
-			int x = event.x;
-			//
-			if (findObjectAt(new Point(x, event.y)) instanceof PropertyEditPart editPart) {
-				PropertyInfo propertyInfo = editPart.getModel();
-				Property property = propertyInfo.getProperty();
-				int y = getAbsoluteBounds(editPart).bottom();
-				// check for title
-				{
-					int titleX = editPart.getTitleTextX();
-					int titleRight = m_splitter - 2;
-					if (titleX <= x && x < titleRight) {
-						m_tooltipHelper.update(property, true, false, titleX, titleRight, y, m_rowHeight);
-						return;
-					}
-				}
-				// check for value
-				{
-					int valueX = m_splitter + 3;
-					if (x > valueX) {
-						m_tooltipHelper.update(property, false, true, valueX, getControl().getClientArea().width, y,
-								m_rowHeight);
-					}
-				}
-			} else {
-				updateTooltipNoProperty();
-			}
-		}
-
-		private void updateTooltipNoProperty() {
-			m_tooltipHelper.update(null, false, false, 0, 0, 0, 0);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
