@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.core.EditDomain;
@@ -31,7 +30,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
@@ -81,12 +79,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 			DesignerPalette palette = new DesignerPalette(shell, SWT.NONE, false);
 			palette.setInput(m_editPartViewer, m_rootJavaInfo, IPreferenceConstants.TOOLKIT_ID);
 			// make all Control's non-focusable, to avoid Shell activation on click
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					makeNoFocus(shell);
-				}
-			});
+			ExecutionUtils.runLog(() -> makeNoFocus(shell));
 		}
 		// show Shell near to mouse cursor
 		{
@@ -143,32 +136,26 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 		final Shell shellMain = (Shell) shell.getParent();
 		final Display display = shell.getDisplay();
 		// close Shell on...
-		final Listener shellClose_filter = new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				if (event.type == SWT.KeyDown) {
-					// ...ESC press
-					if (event.keyCode == SWT.ESC) {
-						event.doit = false;
-						shell.dispose();
-					}
-				} else if (event.type == SWT.MouseDown) {
-					// ...click outside of Shell hierarchy
-					if (!UiUtils.isChildOf(shell, event.widget)) {
-						shell.dispose();
-					}
-				} else if (event.type == SWT.Deactivate) {
-					// ..."main" Shell deactivation
-					if (event.widget instanceof Shell) {
-						display.asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								if (!UiUtils.isChildOf(shellMain, display.getActiveShell())) {
-									shell.dispose();
-								}
-							}
-						});
-					}
+		final Listener shellClose_filter = event -> {
+			if (event.type == SWT.KeyDown) {
+				// ...ESC press
+				if (event.keyCode == SWT.ESC) {
+					event.doit = false;
+					shell.dispose();
+				}
+			} else if (event.type == SWT.MouseDown) {
+				// ...click outside of Shell hierarchy
+				if (!UiUtils.isChildOf(shell, event.widget)) {
+					shell.dispose();
+				}
+			} else if (event.type == SWT.Deactivate) {
+				// ..."main" Shell deactivation
+				if (event.widget instanceof Shell) {
+					display.asyncExec(() -> {
+						if (!UiUtils.isChildOf(shellMain, display.getActiveShell())) {
+							shell.dispose();
+						}
+					});
 				}
 			}
 		};
@@ -177,29 +164,13 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
 		display.addFilter(SWT.Deactivate, shellClose_filter);
 		// close Shell: on Tool selection (in popup palette)
 		final EditDomain editDomain = m_editPartViewer.getEditDomain();
-		final IActiveToolListener toolListener = new IActiveToolListener() {
-			@Override
-			public void toolActivated(Tool tool) {
-				shell.dispose();
-			}
-		};
-		display.asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				editDomain.addActiveToolListener(toolListener);
-			}
-		});
+		final IActiveToolListener toolListener = tool -> shell.dispose();
+		display.asyncExec(() -> editDomain.addActiveToolListener(toolListener));
 		// remove "shellClose_filter" on Shell dispose
-		Listener listener = new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				if (event.type == SWT.Dispose) {
-					display.removeFilter(SWT.KeyDown, shellClose_filter);
-					display.removeFilter(SWT.MouseDown, shellClose_filter);
-					display.removeFilter(SWT.Deactivate, shellClose_filter);
-				}
-			}
-		};
-		shell.addListener(SWT.Dispose, listener);
+		shell.addDisposeListener(event -> {
+			display.removeFilter(SWT.KeyDown, shellClose_filter);
+			display.removeFilter(SWT.MouseDown, shellClose_filter);
+			display.removeFilter(SWT.Deactivate, shellClose_filter);
+		});
 	}
 }
