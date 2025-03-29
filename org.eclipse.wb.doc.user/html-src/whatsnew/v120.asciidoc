@@ -1,5 +1,19 @@
 = What's New - v1.20.0
 
+== General
+
+The property table has been overhauled to avoid jumps after editing a property
+and to hide the tool-tip again when the mouse wheel is scrolled. Additionally,
+the SWT-based buttons have been replaced by pure GEF-based buttons to allow for
+a better integration into the table.
+
+++++
+<p>
+  <img src="images/1.20/PropertyTable_Old.png" title="1.19 and older">
+  <img src="images/1.20/PropertyTable_New.png" title="1.20 and newer">
+</p>
+++++
+
 == Swing
 
 - Added conversion support for `java.awt.Cursor`, `java.awt.Font` and `java.awt.ComponentOrientation` in the Customizer.
