@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2024 Patrick Ziegler and others.
+ * Copyright (c) 2024, 2025 Patrick Ziegler and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,6 @@ public class WindowBuilderProjectExplorerBot extends SWTBotView {
 		LOGGER.fine("Open New wizard");
 		bot().tree().getTreeItem("TestProject").contextMenu().menu("New", "Other...").click();
 		LOGGER.fine("Opened New wizard");
-		return bot.shell("Select a wizard");
+		return bot.shell("New");
 	}
 }
