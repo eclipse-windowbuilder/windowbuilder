@@ -54,9 +54,7 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntr
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentPresentationHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.core.IDefaultToolProvider;
 
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
@@ -350,12 +348,7 @@ public class DesignerPalette {
 				public List<DesignerEntry> getChildren() {
 					final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
 					// add new EntryInfo's using broadcast
-					ExecutionUtils.runIgnore(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							getBroadcastPalette().entries(categoryInfo, entryInfoList);
-						}
-					});
+					ExecutionUtils.runIgnore(() -> getBroadcastPalette().entries(categoryInfo, entryInfoList));
 					// convert EntryInfo's into IEntry's
 					List<DesignerEntry> entries = new ArrayList<>();
 					for (EntryInfo entryInfo : entryInfoList) {
@@ -489,18 +482,15 @@ public class DesignerPalette {
 	private void configure_EditDomain_DefaultTool() {
 		if (m_isMainPalette) {
 			final EditDomain editDomain = m_editPartViewer.getEditDomain();
-			editDomain.setDefaultToolProvider(new IDefaultToolProvider() {
-				@Override
-				public void loadDefaultTool() {
-					if (m_defaultEntry != null) {
-						if (m_legacyPaletteComposite != null) {
-							m_legacyPaletteComposite.selectEntry(m_defaultEntry, false);
-						} else {
-							m_paletteViewer.setActiveTool(m_defaultEntry);
-						}
+			editDomain.setDefaultToolProvider(() -> {
+				if (m_defaultEntry != null) {
+					if (m_legacyPaletteComposite != null) {
+						m_legacyPaletteComposite.selectEntry(m_defaultEntry, false);
 					} else {
-						editDomain.setActiveTool(new SelectionTool());
+						m_paletteViewer.setActiveTool(m_defaultEntry);
 					}
+				} else {
+					editDomain.setActiveTool(new SelectionTool());
 				}
 			});
 			editDomain.loadDefaultTool();
