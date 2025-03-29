@@ -61,6 +61,12 @@ import java.util.TreeSet;
 public class PropertyTable extends ScrollingGraphicalViewer {
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final String PROP_SPLITTER = "splitter";
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Sizes
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -77,7 +83,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	private List<PropertyInfo> m_properties;
 	private final Set<String> m_expandedIds = new TreeSet<>();
 	private int m_rowHeight;
-	private int m_splitter = -1;
 	private PropertyTableTooltipHelper m_toolTipHelper;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -99,6 +104,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		m_toolTipHelper = new PropertyTableTooltipHelper(this);
 		// Initialize with <No Properties>
 		setInput(null);
+		setProperty(PROP_SPLITTER, -1);
 	}
 
 	@Override
@@ -123,11 +129,12 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	private void handleResize() {
 		// splitter
 		{
+			int width = getSplitter();
 			// set default value for splitter
-			if (m_splitter <= MIN_COLUMN_WIDTH) {
-				m_splitter = Math.max((int) (getControl().getClientArea().width * 0.4), MIN_COLUMN_WIDTH);
+			if (width <= MIN_COLUMN_WIDTH) {
+				width = Math.max((int) (getControl().getClientArea().width * 0.4), MIN_COLUMN_WIDTH);
 			}
-			configureSplitter();
+			configureSplitter(width);
 		}
 	}
 
@@ -196,7 +203,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				{
 					PropertyEditPart editPart = getEditPartForModel(m_activePropertyInfo);
 					Rectangle figureBounds = getAbsoluteBounds(editPart);
-					int x = m_splitter + 1;
+					int x = getSplitter() + 1;
 					int y = figureBounds.top();
 					int width = getControl().getClientArea().width - x - MARGIN_RIGHT;
 					int height = figureBounds.height() - MARGIN_BOTTOM;
@@ -250,23 +257,25 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	/**
 	 * Checks horizontal splitter value to boundary values.
 	 */
-	private void configureSplitter() {
+	private void configureSplitter(int width) {
+		int newWidth = width;
 		org.eclipse.swt.graphics.Rectangle clientArea = getControl().getClientArea();
 		// check title width
-		if (m_splitter < MIN_COLUMN_WIDTH) {
-			m_splitter = MIN_COLUMN_WIDTH;
+		if (newWidth < MIN_COLUMN_WIDTH) {
+			newWidth = MIN_COLUMN_WIDTH;
 		}
 		// check value width
-		if (clientArea.width - m_splitter < MIN_COLUMN_WIDTH) {
-			m_splitter = clientArea.width - MIN_COLUMN_WIDTH;
+		if (clientArea.width - newWidth < MIN_COLUMN_WIDTH) {
+			newWidth = clientArea.width - MIN_COLUMN_WIDTH;
 		}
+		setProperty(PROP_SPLITTER, newWidth);
 	}
 
 	/**
 	 * Returns <code>true</code> if <code>x</code> coordinate is on splitter.
 	 */
 	private boolean isLocationSplitter(int x) {
-		return Math.abs(m_splitter - x) < 2;
+		return Math.abs(getSplitter() - x) < 2;
 	}
 
 	/**
@@ -274,7 +283,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 *         property.
 	 */
 	private boolean isLocationValue(int x) {
-		return x > m_splitter + 2;
+		return x > getSplitter() + 2;
 	}
 
 	/**
@@ -285,7 +294,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 */
 	private Point getValueRelativeLocation(int x, int y) {
 		GraphicalEditPart editPart = (GraphicalEditPart) findObjectAt(new Point(x, y));
-		return new Point(x - (m_splitter + 2), getAbsoluteBounds(editPart).top());
+		return new Point(x - (getSplitter() + 2), getAbsoluteBounds(editPart).top());
 	}
 
 	/**
@@ -430,7 +439,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 * @return the position of splitter.
 	 */
 	public int getSplitter() {
-		return m_splitter;
+		return (int) getProperty(PROP_SPLITTER);
 	}
 
 	/**
@@ -454,7 +463,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		PropertyInfo propertyInfo = getPropertyInfo(property);
 		if (propertyInfo != null) {
 			PropertyEditPart editPart = getEditPartForModel(propertyInfo);
-			int x = m_splitter + 5;
+			int x = getSplitter() + 5;
 			int y = getAbsoluteBounds(editPart).y();
 			return new org.eclipse.swt.graphics.Point(x, y);
 		}
@@ -677,8 +686,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		public void mouseDrag(MouseEvent event, EditPartViewer viewer) {
 			// resize splitter
 			if (m_splitterResizing) {
-				m_splitter = event.x;
-				configureSplitter();
+				configureSplitter(event.x);
 				getControl().redraw();
 			}
 		}

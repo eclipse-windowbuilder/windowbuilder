@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.property.table.editparts;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
+import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable.PropertyInfo;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -38,24 +39,36 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
+import java.beans.PropertyChangeListener;
+
 public final class PropertyEditPart extends AbstractPropertyEditPart {
 	private final ISelectionChangedListener listener;
+	private final PropertyChangeListener propListener;
 	private TitleFigure titleFigure;
 	private ValueFigure valueFigure;
 
 	public PropertyEditPart(PropertyInfo propertyInfo) {
 		setModel(propertyInfo);
 		listener = event -> refreshVisuals();
+		propListener = event -> {
+			if (PropertyTable.PROP_SPLITTER.equals(event.getPropertyName())) {
+				int width = (int) event.getNewValue();
+				int height = getViewer().getRowHeight();
+				titleFigure.setPreferredSize(width, height);
+			}
+		};
 	}
 
 	@Override
 	public void addNotify() {
 		super.addNotify();
 		getViewer().addSelectionChangedListener(listener);
+		getViewer().addPropertyChangeListener(propListener);
 	}
 
 	@Override
 	public void removeNotify() {
+		getViewer().removePropertyChangeListener(propListener);
 		getViewer().removeSelectionChangedListener(listener);
 		super.removeNotify();
 	}
