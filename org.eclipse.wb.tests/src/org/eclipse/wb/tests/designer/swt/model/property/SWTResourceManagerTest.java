@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 
 import org.junit.After;
 import org.junit.Before;
@@ -184,26 +186,23 @@ public class SWTResourceManagerTest extends RcpModelTest {
 			// prepare path
 			String path = imageFile.getCanonicalPath();
 			// create image over SWTResourceManager
-			Object image =
+			Image image = (Image)
 					ReflectionUtils.invokeMethod(SWTManagerClass, "getImage(java.lang.String)", path);
 			// check create
 			assertNotNull(image);
 			// check state
-			assertFalse((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
+			assertFalse(image.isDisposed());
 			assertSame(
 					image,
 					ReflectionUtils.invokeMethod(SWTManagerClass, "getImage(java.lang.String)", path));
 			// load image directly over Image
-			Object directImage =
-					ReflectionUtils.getConstructorBySignature(
-							ImageClass,
-							"<init>(org.eclipse.swt.graphics.Device,java.lang.String)").newInstance(null, path);
+			Image directImage = new Image(null, path);
 			// check equals images
 			try {
 				assertEqualsImage(image, directImage);
 			} finally {
 				// dispose direct image
-				ReflectionUtils.invokeMethod(directImage, "dispose()");
+				directImage.dispose();
 			}
 		} finally {
 			// delete temp file
@@ -215,7 +214,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	@Test
 	public void test_getImage_classpath() throws Exception {
 		// create image over SWTResourceManager
-		Object image =
+		Image image = (Image)
 				ReflectionUtils.invokeMethod(
 						SWTManagerClass,
 						"getImage(java.lang.Class,java.lang.String)",
@@ -224,34 +223,30 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		// check create
 		assertNotNull(image);
 		// check state
-		assertFalse((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
+		assertFalse(image.isDisposed());
 		assertSame(image, ReflectionUtils.invokeMethod(
 				SWTManagerClass,
 				"getImage(java.lang.Class,java.lang.String)",
 				SWTManagerClass,
 				"/javax/swing/plaf/basic/icons/JavaCup16.png"));
 		// load image directly over Image
-		Object directImage =
-				ReflectionUtils.getConstructorBySignature(
-						ImageClass,
-						"<init>(org.eclipse.swt.graphics.Device,java.io.InputStream)").newInstance(
-								null,
-								getClass().getResourceAsStream("/javax/swing/plaf/basic/icons/JavaCup16.png"));
+		Image directImage = new Image(null,
+				getClass().getResourceAsStream("/javax/swing/plaf/basic/icons/JavaCup16.png"));
 		// check equals images
 		try {
 			assertEqualsImage(image, directImage);
 		} finally {
-			ReflectionUtils.invokeMethod(directImage, "dispose()");
+			directImage.dispose();
 		}
 		// check work SWTResourceManager with more images
-		Object image1 =
+		Image image1 = (Image)
 				ReflectionUtils.invokeMethod(
 						SWTManagerClass,
 						"getImage(java.lang.Class,java.lang.String)",
 						SWTManagerClass,
 						"/javax/swing/plaf/basic/icons/image-failed.png");
 		assertNotNull(image1);
-		assertFalse((Boolean) ReflectionUtils.invokeMethod(image1, "isDisposed()"));
+		assertFalse(image1.isDisposed());
 		assertSame(image1, ReflectionUtils.invokeMethod(
 				SWTManagerClass,
 				"getImage(java.lang.Class,java.lang.String)",
@@ -263,15 +258,15 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	@Test
 	public void test_getImage_getMissingImage() throws Exception {
 		// load first image with bad location
-		Object image =
+		Image image = (Image)
 				ReflectionUtils.invokeMethod(SWTManagerClass, "getImage(java.lang.String)", "xxx:xxx:xxx");
 		assertNotNull(image);
-		assertFalse((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
+		assertFalse(image.isDisposed());
 		assertSame(
 				image,
 				ReflectionUtils.invokeMethod(SWTManagerClass, "getImage(java.lang.String)", "xxx:xxx:xxx"));
 		// load second image with bad location
-		Object image1 =
+		Image image1 = (Image)
 				ReflectionUtils.invokeMethod(
 						SWTManagerClass,
 						"getImage(java.lang.Class,java.lang.String)",
@@ -283,7 +278,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 				"getImage(java.lang.Class,java.lang.String)",
 				SWTManagerClass,
 				"/yyy|yyy|yyy"));
-		assertFalse((Boolean) ReflectionUtils.invokeMethod(image1, "isDisposed()"));
+		assertFalse(image1.isDisposed());
 		// check equals wrong images
 		assertNotSame(image, image1);
 		assertEqualsImage(image, image1);
@@ -313,29 +308,22 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		assertTrue((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
 	}
 
-	private static final String[] IMAGE_DATA_FIELDS = {
-			"width",
-			"height",
-			"depth",
-			"scanlinePad",
-			"bytesPerLine",
-			"transparentPixel",
-			"maskPad",
-			"alpha",
-			"type",
-			"x",
-	"y"};
+	private static void assertEqualsImage(Image image1, Image image2) throws Exception {
+		ImageData data1 = image1.getImageData();
+		ImageData data2 = image2.getImageData();
 
-	private static void assertEqualsImage(Object image1, Object image2) throws Exception {
-		Object data1 = ReflectionUtils.invokeMethod(image1, "getImageData()");
-		Object data2 = ReflectionUtils.invokeMethod(image2, "getImageData()");
-		for (int i = 0; i < IMAGE_DATA_FIELDS.length; i++) {
-			String field = IMAGE_DATA_FIELDS[i];
-			assertEquals(
-					field,
-					ReflectionUtils.getFieldInt(data1, field),
-					ReflectionUtils.getFieldInt(data2, field));
-		}
+		assertEquals(data1.width, data2.width);
+		assertEquals(data1.height, data2.height);
+		assertEquals(data1.depth, data2.depth);
+		assertEquals(data1.scanlinePad, data2.scanlinePad);
+		assertEquals(data1.bytesPerLine, data2.bytesPerLine);
+		assertEquals(data1.transparentPixel, data2.transparentPixel);
+		assertEquals(data1.maskPad, data2.maskPad);
+		assertEquals(data1.alpha, data2.alpha);
+		// Type is only set when image was created via ImageData (Windows)
+//		assertEquals(data1.type, data2.type);
+		assertEquals(data1.x, data2.x);
+		assertEquals(data1.y, data2.y);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
