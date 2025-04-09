@@ -11,7 +11,7 @@
 
     <groupId>org.eclipse.wb</groupId>
     <artifactId>org.eclipse.wb.os.win32</artifactId>
-    <version>1.10.100-SNAPSHOT</version>
+    <version>1.10.200-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
 
     <build>

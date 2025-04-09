@@ -4,7 +4,9 @@
       label="%featureName"
       version="1.20.0.qualifier"
       provider-name="%providerName"
-      plugin="org.eclipse.wb.swt">
+      plugin="org.eclipse.wb.swt"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
 
    <description>
       %description
