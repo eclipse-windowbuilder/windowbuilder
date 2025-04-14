@@ -18,6 +18,8 @@ import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
 import java.beans.BeanInfo;
 import java.beans.IndexedPropertyDescriptor;
@@ -630,6 +632,10 @@ public class ReflectionUtils {
 		return Modifier.isAbstract(method.getModifiers());
 	}
 
+	public static boolean isStatic(Method method) {
+		return Modifier.isStatic(method.getModifiers());
+	}
+
 	public static boolean isPublic(Field field) {
 		return Modifier.isPublic(field.getModifiers());
 	}
@@ -685,11 +691,7 @@ public class ReflectionUtils {
 			for (Method method : c.getDeclaredMethods()) {
 				String signature = getMethodSignature(method);
 				if (!methods.containsKey(signature)) {
-					// InaccessibleObjectException thrown by methods hidden by strong encapsulation
-					ExecutionUtils.runIgnore(() -> {
-						method.setAccessible(true);
-						methods.put(signature, method);
-					});
+					methods.put(signature, method);
 				}
 			}
 		}
@@ -698,7 +700,6 @@ public class ReflectionUtils {
 			for (Method method : interfaceClass.getDeclaredMethods()) {
 				String signature = getMethodSignature(method);
 				if (!methods.containsKey(signature)) {
-					method.setAccessible(true);
 					methods.put(signature, method);
 				}
 			}
@@ -879,6 +880,21 @@ public class ReflectionUtils {
 	}
 
 	/**
+	 * @return the {@link Object} result of invoking method.
+	 */
+	public static Object invokeMethod(Object refObject, Method method, Object... arguments)
+			throws Exception {
+		try {
+			if (isStatic(method)) {
+				return MethodUtils.invokeStaticMethod(method.getDeclaringClass(), method.getName(), arguments);
+			}
+			return MethodUtils.invokeMethod(refObject, true, method.getName(), arguments);
+		} catch (InvocationTargetException e) {
+			throw propagate(e.getCause());
+		}
+	}
+
+	/**
 	 * @return the {@link Object} result of invoking method with given signature.
 	 */
 	public static Object invokeMethod(Object object, String signature, Object... arguments)
@@ -892,11 +908,7 @@ public class ReflectionUtils {
 		Method method = getMethodBySignature(refClass, signature);
 		Assert.isNotNull(method, "Can not find method " + signature + " in " + refClass);
 		// do invoke
-		try {
-			return method.invoke(refObject, arguments);
-		} catch (InvocationTargetException e) {
-			throw propagate(e.getCause());
-		}
+		return invokeMethod(refObject, method, arguments);
 	}
 
 	/**
@@ -1059,7 +1071,6 @@ public class ReflectionUtils {
 		// check all declared constructors
 		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
 			if (getConstructorSignature(constructor).equals(signature)) {
-				constructor.setAccessible(true);
 				return (Constructor<T>) constructor;
 			}
 		}
@@ -1082,7 +1093,6 @@ public class ReflectionUtils {
 		// check all declared constructors
 		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
 			if (getConstructorGenericSignature(constructor).equals(signature)) {
-				constructor.setAccessible(true);
 				return (Constructor<T>) constructor;
 			}
 		}
@@ -1177,7 +1187,6 @@ public class ReflectionUtils {
 		while (clazz != null) {
 			// add all declared field
 			for (Field field : clazz.getDeclaredFields()) {
-				field.setAccessible(true);
 				fields.add(field);
 			}
 			// process superclass
@@ -1199,7 +1208,6 @@ public class ReflectionUtils {
 			Field[] declaredFields = clazz.getDeclaredFields();
 			for (Field field : declaredFields) {
 				if (field.getName().equals(name)) {
-					field.setAccessible(true);
 					return field;
 				}
 			}
@@ -1233,7 +1241,7 @@ public class ReflectionUtils {
 			if (field == null) {
 				throw new IllegalArgumentException("Unable to find '" + name + "' in " + refClass);
 			}
-			return field.get(refObject);
+			return FieldUtils.readField(field, refObject, true);
 		});
 	}
 
@@ -1283,11 +1291,23 @@ public class ReflectionUtils {
 	 * Sets {@link Object} value of field with given name.
 	 */
 	public static void setField(Object object, String name, Object value) {
+		Assert.isNotNull(object);
+		Class<?> refClass = getRefClass(object);
+		Object refObject = getRefObject(object);
+		Field field = getFieldByName(refClass, name);
+		setField(refObject, field, value);
+	}
+
+	/**
+	 * Sets {@link Object} value of field with given name.
+	 */
+	public static void setField(Object refObject, Field field, Object value) {
 		try {
-			Assert.isNotNull(object);
-			Class<?> refClass = getRefClass(object);
-			Object refObject = getRefObject(object);
-			getFieldByName(refClass, name).set(refObject, value);
+			if (isStatic(field)) {
+				FieldUtils.writeStaticField(field, value, true);
+			} else {
+				FieldUtils.writeField(field, refObject, value, true);
+			}
 		} catch (Throwable e) {
 			throw propagate(e);
 		}
@@ -1465,7 +1485,6 @@ public class ReflectionUtils {
 			addPropertyDescriptor(descriptors, propertyName, propertyToGetter, propertyToSetter);
 		}
 		useSimplePropertyNamesWherePossible(descriptors);
-		makeMethodsAccessible(descriptors);
 		// OK, final result
 		m_propertyDescriptorsCache.put(componentClass, descriptors);
 		return descriptors;
@@ -1485,19 +1504,6 @@ public class ReflectionUtils {
 			String simplePropertyName = getSimplePropertyName(qualifiedPropertyName);
 			if (simplePropertyNames.get(simplePropertyName).size() == 1) {
 				propertyDescriptor.setName(simplePropertyName);
-			}
-		}
-	}
-
-	private static void makeMethodsAccessible(List<PropertyDescriptor> descriptors) {
-		for (PropertyDescriptor propertyDescriptor : descriptors) {
-			Method getMethod = getReadMethod(propertyDescriptor);
-			Method setMethod = getWriteMethod(propertyDescriptor);
-			if (getMethod != null) {
-				getMethod.setAccessible(true);
-			}
-			if (setMethod != null) {
-				setMethod.setAccessible(true);
 			}
 		}
 	}
@@ -1550,7 +1556,6 @@ public class ReflectionUtils {
 				continue;
 			}
 			if (!isStatic && (isPublic || isProtected)) {
-				method.setAccessible(true);
 				String methodName = method.getName();
 				if (methodName.startsWith("set") && method.getParameterTypes().length == 1) {
 					String propertyName = getQualifiedPropertyName(method);

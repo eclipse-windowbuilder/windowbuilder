@@ -136,7 +136,7 @@ public abstract class PolicyUtils {
 	 */
 	private static Layer getLayer(GraphicalEditPolicy policy, String name) throws Exception {
 		Method method = findPolicyMethod(policy, "getLayer(java.lang.String)");
-		return (Layer) method.invoke(policy, new Object[]{name});
+		return (Layer) ReflectionUtils.invokeMethod(policy, method, name);
 	}
 
 	/**

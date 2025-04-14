@@ -160,7 +160,7 @@ public class JavaInfoMemento implements Serializable {
 		for (int i = 0; i < 10; i++) {
 			Field field = ReflectionUtils.getFieldByName(o.getClass(), "this$" + i);
 			if (field != null) {
-				field.set(o, null);
+				ReflectionUtils.setField(o, field, null);
 			}
 		}
 	}

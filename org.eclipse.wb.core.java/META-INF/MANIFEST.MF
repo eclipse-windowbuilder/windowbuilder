@@ -157,5 +157,6 @@ Import-Package: jakarta.xml.bind;version="[4.0.1,5.0.0)",
  org.apache.commons.lang3;version="[3.0.0,4.0.0)",
  org.apache.commons.lang3.exception;version="[3.0.0,4.0.0)",
  org.apache.commons.lang3.function;version="[3.0.0,4.0.0)",
+ org.apache.commons.lang3.reflect;version="[3.0.0,4.0.0)",
  org.apache.commons.text;version="[1.11.0,2.0.0)"
 

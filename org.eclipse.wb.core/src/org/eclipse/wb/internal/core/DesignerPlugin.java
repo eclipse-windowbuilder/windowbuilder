@@ -33,8 +33,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-import static org.burningwave.core.assembler.StaticComponentContainer.Modules;
-
 import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
@@ -62,21 +60,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
 		addLogListener();
 		if (EnvironmentUtils.IS_LINUX) {
 			installPreferenceForwarder();
-		}
-		exportAllModulesToAllModules();
-	}
-
-	private void exportAllModulesToAllModules() {
-		try {
-			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-			try {
-				Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-				Modules.exportAllToAll();
-			} finally {
-				Thread.currentThread().setContextClassLoader(ccl);
-			}
-		} catch (Exception exc) {
-			log(exc);
 		}
 	}
 
