@@ -23,6 +23,10 @@ import org.eclipse.swt.widgets.Event;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Constructor;
+
 /**
  * @author lobas_av
  *
@@ -87,7 +91,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
-	public void test_Drag_1() throws Exception {
+	public void test_Drag_1() throws Throwable {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
@@ -189,7 +193,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	}
 
 	@Test
-	public void test_Drag_2() throws Exception {
+	public void test_Drag_2() throws Throwable {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
@@ -237,7 +241,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	}
 
 	@Test
-	public void test_Drag_3() throws Exception {
+	public void test_Drag_3() throws Throwable {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
@@ -287,12 +291,16 @@ public class TreeDragToolTest extends TreeToolTest {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Event createDNDEvent(TreeEditPart dragPart, Point dropLocation) throws Exception {
+	private Event createDNDEvent(TreeEditPart dragPart, Point dropLocation) throws Throwable {
 		// create DNDEvent
 		Class<?> dndClass =
 				ReflectionUtils.getClassByName(getClass().getClassLoader(), "org.eclipse.swt.dnd.DNDEvent");
-		Event event =
-				(Event) ReflectionUtils.getConstructorBySignature(dndClass, "<init>()").newInstance();
+		Constructor<?> constructor = dndClass.getDeclaredConstructor();
+
+		MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(dndClass, MethodHandles.lookup());
+		MethodHandle constructorHandle = lookup.unreflectConstructor(constructor);
+
+		Event event = (Event) constructorHandle.invoke();
 		// configure event
 		event.widget = m_viewer.getControl();
 		event.item = dragPart.getWidget();

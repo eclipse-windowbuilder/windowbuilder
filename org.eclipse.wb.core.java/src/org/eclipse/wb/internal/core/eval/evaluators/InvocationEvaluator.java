@@ -472,7 +472,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
 		}
 		// invoke method
 		try {
-			return method.invoke(targetValue, argumentValues);
+			return ReflectionUtils.invokeMethod(targetValue, method, argumentValues);
 		} catch (Throwable e) {
 			throw new DesignerException(ICoreExceptionConstants.EVAL_METHOD,
 					e,
