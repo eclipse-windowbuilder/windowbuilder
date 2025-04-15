@@ -29,6 +29,10 @@
     <extension point="org.eclipse.wb.core.java.classLoaderInitializers">
 		<initializer class="org.eclipse.wb.internal.swt.utils.ResourceManagerClassLoaderInitializer"
 			toolkit="org.eclipse.wb.rcp"/>
+  <initializer
+        class="org.eclipse.wb.internal.core.utils.reflect.ClassLoaderLocalMap$ClassLoaderLocalMapManager"
+        toolkit="org.eclipse.wb.rcp">
+  </initializer>
 	</extension>
 
 
