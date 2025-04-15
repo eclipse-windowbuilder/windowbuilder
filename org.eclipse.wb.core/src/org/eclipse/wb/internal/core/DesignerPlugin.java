@@ -63,7 +63,12 @@ public class DesignerPlugin extends AbstractUIPlugin {
 		if (EnvironmentUtils.IS_LINUX) {
 			installPreferenceForwarder();
 		}
-		exportAllModulesToAllModules();
+		try {
+			// https://github.com/eclipse-windowbuilder/windowbuilder/issues/1027
+			exportAllModulesToAllModules();
+		} catch (Throwable e) {
+			log(e);
+		}
 	}
 
 	private void exportAllModulesToAllModules() {
