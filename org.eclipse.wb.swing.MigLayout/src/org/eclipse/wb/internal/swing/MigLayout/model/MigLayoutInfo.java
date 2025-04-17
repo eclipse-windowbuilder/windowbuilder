@@ -228,7 +228,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			return ConstraintParser.parseLayoutConstraint((String) layoutConstraints);
 		}
 	}
-	
+
 	@Override
 	public MigLayout getLayoutManager() {
 		return (MigLayout) getObject();

@@ -35,8 +35,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		UtilTests.class,
 		LayoutTests.class,
 		JFaceTests.class,
-		FormsTests.class, 
-		TheRcpTests.class, 
+		FormsTests.class,
+		TheRcpTests.class,
 		E4Tests.class,
 		PropertyTests.class
 

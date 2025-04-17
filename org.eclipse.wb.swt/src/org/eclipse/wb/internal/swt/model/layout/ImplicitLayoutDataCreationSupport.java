@@ -47,7 +47,7 @@ IImplicitCreationSupport {
 			@Override
 			public void invoke(JavaInfo target, Object object) throws Exception {
 				if (target == m_controlInfo) {
-					m_javaInfo.setObject(((Control) object).getLayoutData()); 
+					m_javaInfo.setObject(((Control) object).getLayoutData());
 				}
 			}
 		});
