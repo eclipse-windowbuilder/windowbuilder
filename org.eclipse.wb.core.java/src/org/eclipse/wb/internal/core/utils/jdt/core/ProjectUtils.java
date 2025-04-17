@@ -453,7 +453,7 @@ public final class ProjectUtils {
 	 * Updates the classpath entry of each library to include the {@code module}
 	 * attribute. This attribute is required when this library is referenced in the
 	 * {@code module-info.java}.
-	 * 
+	 *
 	 * @param javaProject the {@link IJavaProject} to add JAR to.
 	 * @throws CoreException - if the classpath could not be set.
 	 */

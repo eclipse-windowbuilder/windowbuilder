@@ -568,7 +568,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 			@Override
 			public void run() {
 				final Object myResult = new Object();
-				Object result = ExecutionUtils.runObjectUI(() -> { 
+				Object result = ExecutionUtils.runObjectUI(() -> {
 					assertNotNull(Display.getCurrent());
 					return myResult;
 				});

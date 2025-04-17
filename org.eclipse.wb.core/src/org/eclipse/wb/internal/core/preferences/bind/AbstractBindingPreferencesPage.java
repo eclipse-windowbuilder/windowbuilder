@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- *    Marcel du Preez - removed final from "performOk" 
+ *    Marcel du Preez - removed final from "performOk"
  *******************************************************************************/
 package org.eclipse.wb.internal.core.preferences.bind;
 
