@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardImplicitCreationSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Name;
@@ -84,7 +85,7 @@ IExposedCreationSupport {
 			public void invoke(JavaInfo target, Object o) throws Exception {
 				if (target == m_hostJavaInfo) {
 					if (m_javaInfo.getObject() == null) {
-						Object object = m_field.get(o);
+						Object object = ReflectionUtils.getFieldOptObject(o, m_field.getName());
 						if (object != null) {
 							m_javaInfo.setObject(object);
 						}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -362,9 +362,7 @@ public class CategoryCommandsTest extends AbstractPaletteTest {
 			// move category
 			{
 				CategoryMoveCommand moveCommand = new CategoryMoveCommand(category_0, null);
-				ReflectionUtils.getFieldByName(CategoryMoveCommand.class, "m_id").set(
-						moveCommand,
-						"no-such-category");
+				ReflectionUtils.setField(moveCommand, "m_id", "no-such-category");
 				manager.commands_add(moveCommand);
 				assertEquals("0", palette.getCategories().get(0).getId());
 				assertEquals("1", palette.getCategories().get(1).getId());
