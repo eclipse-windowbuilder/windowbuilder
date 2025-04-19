@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,7 +45,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -217,9 +216,8 @@ public final class EclipseSource extends AbstractBundleSource {
 			throws Exception {
 		Class<?> accessorClass = loadClass(component, accessorClassName);
 		//Field bundleNameField = accessorClass.getDeclaredField("BUNDLE_NAME");
-		Field bundleNameField = ReflectionUtils.getFieldByName(accessorClass, "BUNDLE_NAME");
-		if (bundleNameField != null) {
-			String bundleName = (String) bundleNameField.get(null);
+		String bundleName = (String) ReflectionUtils.getFieldOptObject(accessorClass, "BUNDLE_NAME");
+		if (bundleName != null) {
 			return bundleName.replace('/', '.');
 		}
 		return null;
