@@ -141,7 +141,7 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 	 * @return the value of field (accessible or not).
 	 */
 	protected static Object getFieldValue(Object o, String fieldName) throws Exception {
-		return ReflectionUtils.getFieldByName(o.getClass(), fieldName).get(o);
+		return ReflectionUtils.getFieldObject(o, fieldName);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

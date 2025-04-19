@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,10 +159,7 @@ public class JavaInfoMemento implements Serializable {
 	 */
 	static void cleanUpAnonymous(Object o) throws Exception {
 		for (int i = 0; i < 10; i++) {
-			Field field = ReflectionUtils.getFieldByName(o.getClass(), "this$" + i);
-			if (field != null) {
-				field.set(o, null);
-			}
+			ReflectionUtils.setFieldOpt(o, "this$" + i, null);
 		}
 	}
 
