@@ -52,7 +52,6 @@ import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -175,8 +174,7 @@ public class UndoManagerTest extends SwingGefTest {
 		// prepare ICompilationUnit
 		ICompilationUnit compilationUnit;
 		{
-			Field field = ReflectionUtils.getFieldByName(m_designPage.getClass(), "m_compilationUnit");
-			compilationUnit = (ICompilationUnit) field.get(m_designPage);
+			compilationUnit = (ICompilationUnit) ReflectionUtils.getFieldObject(m_designPage, "m_compilationUnit");
 		}
 		//
 		{

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.beans.BeanInfo;
 import java.beans.IndexedPropertyDescriptor;
@@ -1179,7 +1180,6 @@ public class ReflectionUtils {
 		while (clazz != null) {
 			// add all declared field
 			for (Field field : clazz.getDeclaredFields()) {
-				field.setAccessible(true);
 				fields.add(field);
 			}
 			// process superclass
@@ -1201,7 +1201,6 @@ public class ReflectionUtils {
 			Field[] declaredFields = clazz.getDeclaredFields();
 			for (Field field : declaredFields) {
 				if (field.getName().equals(name)) {
-					field.setAccessible(true);
 					return field;
 				}
 			}
@@ -1226,6 +1225,18 @@ public class ReflectionUtils {
 	 * @return the {@link Object} value of field with given name.
 	 */
 	public static Object getFieldObject(final Object object, final String name) {
+		return getFieldObject(object, name, true);
+	}
+
+	/**
+	 * @return the {@link Object} value of field with given name. Returns
+	 *         {@code null} if the field doesn't exist.
+	 */
+	public static Object getFieldOptObject(final Object object, final String name) {
+		return getFieldObject(object, name, false);
+	}
+
+	private static Object getFieldObject(final Object object, final String name, boolean errorIfMissing) {
 		Assert.isNotNull(object);
 		Assert.isNotNull(name);
 		return ExecutionUtils.runObject(() -> {
@@ -1233,9 +1244,13 @@ public class ReflectionUtils {
 			Object refObject = getRefObject(object);
 			Field field = getFieldByName(refClass, name);
 			if (field == null) {
-				throw new IllegalArgumentException("Unable to find '" + name + "' in " + refClass);
+				if (errorIfMissing) {
+					String msg = "Unable to find '%s' in '%s'".formatted(name, refClass);
+					throw new IllegalArgumentException(msg);
+				}
+				return null;
 			}
-			return field.get(refObject);
+			return FieldUtils.readField(field, refObject, true);
 		});
 	}
 
@@ -1282,15 +1297,42 @@ public class ReflectionUtils {
 	}
 
 	/**
+	 * @return the {@code double} value of field with given name.
+	 */
+	public static double getFieldDouble(Object object, String name) {
+		return (Double) getFieldObject(object, name);
+	}
+
+	/**
 	 * Sets {@link Object} value of field with given name.
 	 */
 	public static void setField(Object object, String name, Object value) {
+		setField(object, name, value, true);
+	}
+
+	/**
+	 * Sets {@link Object} value of field with given name. Does nothing if the field
+	 * doesn't exist.
+	 */
+	public static void setFieldOpt(Object object, String name, Object value) {
+		setField(object, name, value, false);
+	}
+
+	private static void setField(Object object, String name, Object value, boolean errorIfMissing) {
 		try {
 			Assert.isNotNull(object);
 			Class<?> refClass = getRefClass(object);
 			Object refObject = getRefObject(object);
-			getFieldByName(refClass, name).set(refObject, value);
-		} catch (Throwable e) {
+			Field field = getFieldByName(refClass, name);
+			if (field == null) {
+				if (errorIfMissing) {
+					String msg = "Unable to find '%s' in '%s'".formatted(name, refClass);
+					throw new IllegalArgumentException(msg);
+				}
+				return;
+			}
+			FieldUtils.writeField(getFieldByName(refClass, name), refObject, value, true);
+		} catch (IllegalAccessException e) {
 			throw propagate(e);
 		}
 	}

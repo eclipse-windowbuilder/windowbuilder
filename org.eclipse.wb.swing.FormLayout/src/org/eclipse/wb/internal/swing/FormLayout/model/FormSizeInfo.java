@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -52,18 +52,18 @@ public final class FormSizeInfo {
 			Assert.isTrue(sizeClassName.equals("com.jgoodies.forms.layout.BoundedSize"));
 			// component
 			{
-				Size basic = (Size) ReflectionUtils.getFieldByName(sizeClass, "basis").get(size);
+				Size basic = (Size) ReflectionUtils.getFieldObject(size, "basis");
 				Assert.isTrue(basic == Sizes.DEFAULT || basic == Sizes.MINIMUM || basic == Sizes.PREFERRED);
 				m_componentSize = basic;
 			}
 			// lower bound
 			{
-				Size lower = (Size) ReflectionUtils.getFieldByName(sizeClass, "lowerBound").get(size);
+				Size lower = (Size) ReflectionUtils.getFieldObject(size, "lowerBound");
 				setLowerSize(createConstant(lower));
 			}
 			// upper bound
 			{
-				Size upper = (Size) ReflectionUtils.getFieldByName(sizeClass, "upperBound").get(size);
+				Size upper = (Size) ReflectionUtils.getFieldObject(size, "upperBound");
 				setUpperSize(createConstant(upper));
 			}
 		}
@@ -79,11 +79,10 @@ public final class FormSizeInfo {
 	 */
 	private static FormSizeConstantInfo createConstant(Size size) throws Exception {
 		if (size != null) {
-			Class<?> sizeClass = size.getClass();
 			Assert.instanceOf(ConstantSize.class, size);
 			//
-			double value = ReflectionUtils.getFieldByName(sizeClass, "value").getDouble(size);
-			Unit unit = (Unit) ReflectionUtils.getFieldByName(sizeClass, "unit").get(size);
+			double value = ReflectionUtils.getFieldDouble(size, "value");
+			Unit unit = (Unit) ReflectionUtils.getFieldObject(size, "unit");
 			return new FormSizeConstantInfo(value, unit);
 		}
 		return null;

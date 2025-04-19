@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,6 +26,8 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ThisExpression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 
@@ -74,7 +76,7 @@ public final class FieldAccessEvaluator implements IExpressionEvaluator {
 			Field field = ReflectionUtils.getFieldByName(expressionClass, fieldName);
 			Assert.isNotNull(field);
 			// return static value
-			return field.get(expressionValue);
+			return FieldUtils.readField(field, expressionValue, true);
 		}
 		// we don't understand given expression
 		return AstEvaluationEngine.UNKNOWN;
