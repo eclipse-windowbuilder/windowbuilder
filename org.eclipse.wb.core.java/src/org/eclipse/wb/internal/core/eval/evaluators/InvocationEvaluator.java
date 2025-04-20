@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -214,7 +214,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
 		// invoke method
 		try {
 			invocation.getRoot().setProperty(SUPER_MI_KEY, Boolean.TRUE);
-			return method.invoke(thisValue, argumentValues);
+			return ReflectionUtils.invokeMethod(method, thisValue, argumentValues);
 		} catch (Throwable e) {
 			throw new DesignerException(ICoreExceptionConstants.EVAL_SUPER_METHOD,
 					e,
@@ -474,7 +474,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
 		}
 		// invoke method
 		try {
-			return method.invoke(targetValue, argumentValues);
+			return ReflectionUtils.invokeMethod(method, targetValue, argumentValues);
 		} catch (Throwable e) {
 			throw new DesignerException(ICoreExceptionConstants.EVAL_METHOD,
 					e,
