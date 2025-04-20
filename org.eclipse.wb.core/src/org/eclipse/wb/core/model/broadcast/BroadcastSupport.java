@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.InvocationHandlerAdapter;
@@ -206,7 +207,11 @@ public final class BroadcastSupport {
 							// Iterate over a local copy due to a potential ConcurrentModificationException
 							for (Object listener : getClassListeners(listenerClass).toArray()) {
 								try {
-									method.invoke(listener, args);
+									if (args == null) {
+										ReflectionUtils.invokeMethod(method, listener);
+									} else {
+										ReflectionUtils.invokeMethod(method, listener, args);
+									}
 								} catch (InvocationTargetException e) {
 									throw e.getCause();
 								}

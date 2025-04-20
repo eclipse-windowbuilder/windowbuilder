@@ -90,7 +90,8 @@ public final class SetterAccessor extends ExpressionAccessor {
 
 	private Object askDefaultValue(final JavaInfo javaInfo) throws Exception {
 		if (m_getter != null && isDefaultEnabled(javaInfo)) {
-			return ExecutionUtils.runObjectIgnore(() -> m_getter.invoke(javaInfo.getObject()), Property.UNKNOWN_VALUE);
+			return ExecutionUtils.runObjectIgnore(() -> ReflectionUtils.invokeMethod(m_getter, javaInfo.getObject()),
+					Property.UNKNOWN_VALUE);
 		} else {
 			return Property.UNKNOWN_VALUE;
 		}

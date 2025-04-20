@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -138,7 +138,7 @@ public abstract class PolicyUtils {
 	 */
 	private static Layer getLayer(GraphicalEditPolicy policy, String name) throws Exception {
 		Method method = findPolicyMethod(policy, "getLayer(java.lang.String)");
-		return (Layer) method.invoke(policy, new Object[]{name});
+		return (Layer) ReflectionUtils.invokeMethod(method, policy, name);
 	}
 
 	/**

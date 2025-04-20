@@ -468,12 +468,9 @@ public class JavaInfoUtils {
 			// check that methods returns not "null"
 			Object methodObject = null;
 			{
-				try {
-					methodObject = getMethod.invoke(hostObject);
-					if (methodObject == null) {
-						continue;
-					}
-				} catch (Exception e) {
+				methodObject = ExecutionUtils.runObjectLog(() -> ReflectionUtils.invokeMethod(getMethod, hostObject),
+						null);
+				if (methodObject == null) {
 					continue;
 				}
 			}
@@ -500,7 +497,7 @@ public class JavaInfoUtils {
 		Assert.isNotNull(hostObject);
 		// prepare "method" object
 		Method getMethod = ReflectionUtils.getMethod(hostObject.getClass(), getMethodName);
-		Object methodObject = getMethod.invoke(hostObject);
+		Object methodObject = ReflectionUtils.invokeMethod(getMethod, hostObject);
 		Assert.isNotNull(methodObject);
 		// add exposed child
 		return addChildExposedByMethod(host, getMethod, null, methodObject);
