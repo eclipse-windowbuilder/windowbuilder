@@ -9,7 +9,7 @@ on:
       - master
 jobs:
   check-dash-licenses:
-    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@dedd3cfb28e2ba54abbc3dfc88f539b5ea8d27b3 # 1.1.0
+    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@acf58b400ff964c8a1ade4d7df66a9fe0148383f # 1.1.0
     with:
       projectId: tools.windowbuilder
   build:
