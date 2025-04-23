@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -206,12 +205,9 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 			}
 			m_currentValue = value;
 			ObjectInfo firstObject = getEditObject();
-			ExecutionUtils.run(firstObject, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (Property property : m_propertyList) {
-						property.setValue(value);
-					}
+			ExecutionUtils.run(firstObject, () -> {
+				for (Property property : m_propertyList) {
+					property.setValue(value);
 				}
 			});
 		}
@@ -222,42 +218,39 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		private void prepareProperties() {
 			if (m_propertyList == null) {
 				m_propertyList = new ArrayList<>();
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						// prepare properties
-						for (ObjectInfo object : m_selection) {
-							Property property = object.getPropertyByTitle(m_property);
-							if (property == null) {
-								property = getReflectionProperty(object, m_property);
-							}
-							if (property == null) {
-								property = getCustomProperty(object, m_property);
-							}
-							if (property != null) {
-								m_propertyList.add(property);
-							}
+				ExecutionUtils.runLog(() -> {
+					// prepare properties
+					for (ObjectInfo object : m_selection) {
+						Property property = object.getPropertyByTitle(m_property);
+						if (property == null) {
+							property = getReflectionProperty(object, m_property);
 						}
-						// check inner properties
-						if (m_innerProperty != null) {
-							int size = m_propertyList.size();
-							for (int i = 0; i < size; i++) {
-								Property property = m_propertyList.get(i);
-								IComplexPropertyEditor editor = (IComplexPropertyEditor) property.getEditor();
-								for (Property innerProperty : editor.getProperties(property)) {
-									if (m_innerProperty.equals(innerProperty.getTitle())) {
-										m_propertyList.set(i, innerProperty);
-									}
+						if (property == null) {
+							property = getCustomProperty(object, m_property);
+						}
+						if (property != null) {
+							m_propertyList.add(property);
+						}
+					}
+					// check inner properties
+					if (m_innerProperty != null) {
+						int size = m_propertyList.size();
+						for (int i = 0; i < size; i++) {
+							Property property = m_propertyList.get(i);
+							IComplexPropertyEditor editor = (IComplexPropertyEditor) property.getEditor();
+							for (Property innerProperty : editor.getProperties(property)) {
+								if (m_innerProperty.equals(innerProperty.getTitle())) {
+									m_propertyList.set(i, innerProperty);
 								}
 							}
 						}
-						// check sub properties
-						if (m_subProperty != null) {
-							int size = m_propertyList.size();
-							for (int i = 0; i < size; i++) {
-								Property property = m_propertyList.get(i);
-								m_propertyList.set(i, new SubFieldProperty(m_subProperty, property));
-							}
+					}
+					// check sub properties
+					if (m_subProperty != null) {
+						int size = m_propertyList.size();
+						for (int i = 0; i < size; i++) {
+							Property property = m_propertyList.get(i);
+							m_propertyList.set(i, new SubFieldProperty(m_subProperty, property));
 						}
 					}
 				});

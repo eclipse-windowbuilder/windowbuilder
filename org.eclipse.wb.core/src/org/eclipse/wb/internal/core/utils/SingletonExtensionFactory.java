@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.utils;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -49,13 +48,10 @@ IExecutableExtensionFactory {
 	public void setInitializationData(final IConfigurationElement config,
 			final String propertyName,
 			final Object data) throws CoreException {
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				Bundle extensionBundle = ExternalFactoriesHelper.getExtensionBundle(config);
-				String objectClassName = ((Map<String, String>) data).get("class");
-				m_objectClass = extensionBundle.loadClass(objectClassName);
-			}
+		ExecutionUtils.runRethrow(() -> {
+			Bundle extensionBundle = ExternalFactoriesHelper.getExtensionBundle(config);
+			String objectClassName = ((Map<String, String>) data).get("class");
+			m_objectClass = extensionBundle.loadClass(objectClassName);
 		});
 	}
 

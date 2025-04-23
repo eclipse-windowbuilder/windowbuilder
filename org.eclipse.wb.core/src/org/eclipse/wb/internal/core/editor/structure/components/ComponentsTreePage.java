@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -154,29 +153,26 @@ public final class ComponentsTreePage implements IPage {
 	private void selectGraphicalViewer() {
 		final List<? extends EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 		// refresh if necessary
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				boolean[] refreshFlag = new boolean[1];
-				if (!selectedEditParts.isEmpty()) {
-					for (EditPart editPart : selectedEditParts) {
-						ObjectInfo objectInfo = (ObjectInfo) editPart.getModel();
-						objectInfo.getBroadcastObject().selecting(objectInfo, refreshFlag);
-					}
-				} else {
-					m_rootObject.getBroadcastObject().selecting(null, refreshFlag);
+		ExecutionUtils.runLog(() -> {
+			boolean[] refreshFlag = new boolean[1];
+			if (!selectedEditParts.isEmpty()) {
+				for (EditPart editPart : selectedEditParts) {
+					ObjectInfo objectInfo = (ObjectInfo) editPart.getModel();
+					objectInfo.getBroadcastObject().selecting(objectInfo, refreshFlag);
 				}
-				// Do refresh.
-				// We remove "graphical listener" because refresh can cause temporary selection changes,
-				// for example because of removing some graphical EditPart's. But we know, that we apply
-				// selection from "tree", it should stay as is, so no need to listen for "graphical listener".
-				if (refreshFlag[0]) {
-					m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
-					try {
-						m_rootObject.refresh();
-					} finally {
-						m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
-					}
+			} else {
+				m_rootObject.getBroadcastObject().selecting(null, refreshFlag);
+			}
+			// Do refresh.
+			// We remove "graphical listener" because refresh can cause temporary selection changes,
+			// for example because of removing some graphical EditPart's. But we know, that we apply
+			// selection from "tree", it should stay as is, so no need to listen for "graphical listener".
+			if (refreshFlag[0]) {
+				m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
+				try {
+					m_rootObject.refresh();
+				} finally {
+					m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
 				}
 			}
 		});

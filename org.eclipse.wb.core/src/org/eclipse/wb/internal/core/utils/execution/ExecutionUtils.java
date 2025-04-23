@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,12 +50,7 @@ public class ExecutionUtils {
 		do {
 			final long leftMillis = end - System.currentTimeMillis();
 			if (leftMillis >= 0) {
-				runIgnore(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						Thread.sleep(leftMillis);
-					}
-				});
+				runIgnore(() -> Thread.sleep(leftMillis));
 			}
 		} while (System.currentTimeMillis() < end);
 	}
@@ -262,12 +257,7 @@ public class ExecutionUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T runObject(ObjectInfo object, final Callable<T> runnable) {
 		final Object[] result = {null};
-		run(object, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				result[0] = runnable.call();
-			}
-		});
+		run(object, () -> result[0] = runnable.call());
 		return (T) result[0];
 	}
 
@@ -346,11 +336,8 @@ public class ExecutionUtils {
 	 * edit operation.
 	 */
 	public static void refresh(ObjectInfo objectInfo) {
-		run(objectInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// do nothing, we need just refresh
-			}
+		run(objectInfo, () -> {
+			// do nothing, we need just refresh
 		});
 	}
 

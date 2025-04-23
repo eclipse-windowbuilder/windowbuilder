@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -78,15 +77,12 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	@Override
 	protected void showSelection() {
 		super.showSelection();
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
-				drawFeedbacks(widget, PositionConstants.LEFT);
-				drawFeedbacks(widget, PositionConstants.RIGHT);
-				drawFeedbacks(widget, PositionConstants.TOP);
-				drawFeedbacks(widget, PositionConstants.BOTTOM);
-			}
+		ExecutionUtils.runRethrow(() -> {
+			IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
+			drawFeedbacks(widget, PositionConstants.LEFT);
+			drawFeedbacks(widget, PositionConstants.RIGHT);
+			drawFeedbacks(widget, PositionConstants.TOP);
+			drawFeedbacks(widget, PositionConstants.BOTTOM);
 		});
 		if (getHost().getSelected() == EditPart.SELECTED_PRIMARY) {
 			showAlignmentFigures();

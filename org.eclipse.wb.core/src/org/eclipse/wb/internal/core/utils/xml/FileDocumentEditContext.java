@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.utils.xml;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBuffer;
@@ -63,12 +62,9 @@ public class FileDocumentEditContext extends AbstractDocumentEditContext {
 	 */
 	@Override
 	public final void commit() {
-		ExecutionUtils.runRethrowUI(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				commit_super();
-				m_buffer.commit(null, false);
-			}
+		ExecutionUtils.runRethrowUI(() -> {
+			commit_super();
+			m_buffer.commit(null, false);
 		});
 	}
 

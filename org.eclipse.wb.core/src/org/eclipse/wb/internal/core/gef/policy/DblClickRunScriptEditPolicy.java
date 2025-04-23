@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -50,12 +49,7 @@ public final class DblClickRunScriptEditPolicy extends EditPolicy {
 	public void performRequest(Request request) {
 		super.performRequest(request);
 		if (RequestConstants.REQ_OPEN.equals(request.getType())) {
-			ExecutionUtils.run(m_component, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					ScriptUtils.evaluate(m_script, m_component);
-				}
-			});
+			ExecutionUtils.run(m_component, () -> ScriptUtils.evaluate(m_script, m_component));
 		}
 	}
 }

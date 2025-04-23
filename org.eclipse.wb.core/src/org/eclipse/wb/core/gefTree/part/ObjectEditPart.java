@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
@@ -168,12 +167,7 @@ public class ObjectEditPart extends TreeEditPart {
 	private void update() {
 		if (m_updateRequired) {
 			m_updateRequired = false;
-			ExecutionUtils.runLogUI(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					update0();
-				}
-			});
+			ExecutionUtils.runLogUI(this::update0);
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.Separator;
@@ -270,49 +269,46 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public void run() {
-			ExecutionUtils.run(m_components.get(0).getUnderlyingModel(), new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					switch (m_command) {
-					case ALIGN_H_CENTER :
-						commandCenterHorizontally();
-						break;
-					case ALIGN_HEIGHT :
-						commandReplicateHeight();
-						break;
-					case ALIGN_WIDTH :
-						commandReplicateWidth();
-						break;
-					case ALIGN_V_CENTERS :
-						commandAlignCenterVertically();
-						break;
-					case ALIGN_V_BOTTOM :
-						commandAlignBottom();
-						break;
-					case ALIGN_V_TOP :
-						commandAlignTop();
-						break;
-					case ALIGN_H_CENTERS :
-						commandAlignCenterHorizontally();
-						break;
-					case ALIGN_H_RIGHT :
-						commandAlignRight();
-						break;
-					case ALIGN_H_LEFT :
-						commandAlignLeft();
-						break;
-					case ALIGN_V_SPACE :
-						commandDistributeSpaceVertically();
-						break;
-					case ALIGN_H_SPACE :
-						commandDistributeSpaceHorizontally();
-						break;
-					case ALIGN_V_CENTER :
-						commandCenterVertically();
-						break;
-					default :
-						break;
-					}
+			ExecutionUtils.run(m_components.get(0).getUnderlyingModel(), () -> {
+				switch (m_command) {
+				case ALIGN_H_CENTER :
+					commandCenterHorizontally();
+					break;
+				case ALIGN_HEIGHT :
+					commandReplicateHeight();
+					break;
+				case ALIGN_WIDTH :
+					commandReplicateWidth();
+					break;
+				case ALIGN_V_CENTERS :
+					commandAlignCenterVertically();
+					break;
+				case ALIGN_V_BOTTOM :
+					commandAlignBottom();
+					break;
+				case ALIGN_V_TOP :
+					commandAlignTop();
+					break;
+				case ALIGN_H_CENTERS :
+					commandAlignCenterHorizontally();
+					break;
+				case ALIGN_H_RIGHT :
+					commandAlignRight();
+					break;
+				case ALIGN_H_LEFT :
+					commandAlignLeft();
+					break;
+				case ALIGN_V_SPACE :
+					commandDistributeSpaceVertically();
+					break;
+				case ALIGN_H_SPACE :
+					commandDistributeSpaceHorizontally();
+					break;
+				case ALIGN_V_CENTER :
+					commandCenterVertically();
+					break;
+				default :
+					break;
 				}
 			});
 		}
