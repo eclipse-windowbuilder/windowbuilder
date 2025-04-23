@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -200,32 +199,29 @@ public class DesignToolbarHelper {
 	private void refreshHierarchyActions() {
 		final List<IContributionItem> toRemove = new ArrayList<>(m_hierarchyItems);
 		// add items for hierarchy
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// prepare items
-				List<Object> items;
-				{
-					items = new ArrayList<>();
-					m_rootObject.getBroadcastObject().addHierarchyActions(items);
+		ExecutionUtils.runLog(() -> {
+			// prepare items
+			List<Object> items;
+			{
+				items = new ArrayList<>();
+				m_rootObject.getBroadcastObject().addHierarchyActions(items);
+			}
+			// add items to toolbar
+			m_hierarchyItems.clear();
+			for (Object object : items) {
+				// prepare contribution item
+				IContributionItem item;
+				if (object instanceof IContributionItem) {
+					item = (IContributionItem) object;
+				} else {
+					IAction action = (IAction) object;
+					item = new ActionContributionItem(action);
 				}
-				// add items to toolbar
-				m_hierarchyItems.clear();
-				for (Object object : items) {
-					// prepare contribution item
-					IContributionItem item;
-					if (object instanceof IContributionItem) {
-						item = (IContributionItem) object;
-					} else {
-						IAction action = (IAction) object;
-						item = new ActionContributionItem(action);
-					}
-					// add item
-					toRemove.remove(item);
-					m_hierarchyItems.add(item);
-					m_toolBarManager.remove(item);
-					m_toolBarManager.appendToGroup(HIERARCHY_ACTIONS_GROUP, item);
-				}
+				// add item
+				toRemove.remove(item);
+				m_hierarchyItems.add(item);
+				m_toolBarManager.remove(item);
+				m_toolBarManager.appendToGroup(HIERARCHY_ACTIONS_GROUP, item);
 			}
 		});
 		// remove old items
@@ -269,33 +265,30 @@ public class DesignToolbarHelper {
 			}
 		}
 		// add items for selected objects
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// prepare items
-				List<Object> items;
-				{
-					items = new ArrayList<>();
-					m_rootObject.getBroadcastObject().addSelectionActions(selectedObjects, items);
+		ExecutionUtils.runLog(() -> {
+			// prepare items
+			List<Object> items;
+			{
+				items = new ArrayList<>();
+				m_rootObject.getBroadcastObject().addSelectionActions(selectedObjects, items);
+			}
+			// don't remove items that are added again
+			m_selectionItems.clear();
+			toRemove.removeAll(items);
+			// add items to toolbar
+			for (Object object : items) {
+				// prepare contribution item
+				IContributionItem item;
+				if (object instanceof IContributionItem) {
+					item = (IContributionItem) object;
+				} else {
+					IAction action = (IAction) object;
+					item = new ActionContributionItem(action);
 				}
-				// don't remove items that are added again
-				m_selectionItems.clear();
-				toRemove.removeAll(items);
-				// add items to toolbar
-				for (Object object : items) {
-					// prepare contribution item
-					IContributionItem item;
-					if (object instanceof IContributionItem) {
-						item = (IContributionItem) object;
-					} else {
-						IAction action = (IAction) object;
-						item = new ActionContributionItem(action);
-					}
-					// add item
-					m_selectionItems.add(item);
-					m_toolBarManager.remove(item);
-					m_toolBarManager.appendToGroup(SELECTION_ACTIONS_GROUP, item);
-				}
+				// add item
+				m_selectionItems.add(item);
+				m_toolBarManager.remove(item);
+				m_toolBarManager.appendToGroup(SELECTION_ACTIONS_GROUP, item);
 			}
 		});
 		// remove old items

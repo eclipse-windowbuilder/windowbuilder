@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.utils.xml;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
 
@@ -152,12 +151,7 @@ public abstract class AbstractDocumentEditContext {
 	private final IModelChangedListener m_modelChangedListener = new IModelChangedListener() {
 		@Override
 		public void modelChanged(final ModelChangedEvent event) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					handleModelChange(event);
-				}
-			});
+			ExecutionUtils.runRethrow(() -> handleModelChange(event));
 		}
 	};
 

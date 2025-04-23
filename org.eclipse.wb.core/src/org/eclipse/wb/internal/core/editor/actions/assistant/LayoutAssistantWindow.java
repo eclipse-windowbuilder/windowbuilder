@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.TabFactory;
@@ -173,13 +172,10 @@ public class LayoutAssistantWindow extends Window {
 				}
 			}
 			// create pages
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					ObjectInfo component = m_selectedComponents.get(0);
-					LayoutAssistantListener listener = component.getBroadcast(LayoutAssistantListener.class);
-					listener.createAssistantPages(m_selectedComponents, m_tabContainer, m_pages);
-				}
+			ExecutionUtils.runLog(() -> {
+				ObjectInfo component = m_selectedComponents.get(0);
+				LayoutAssistantListener listener = component.getBroadcast(LayoutAssistantListener.class);
+				listener.createAssistantPages(m_selectedComponents, m_tabContainer, m_pages);
 			});
 			// update pages
 			if (m_pages.isEmpty()) {

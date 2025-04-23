@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.model.util;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -62,25 +61,15 @@ public abstract class ObjectInfoAction extends Action {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public final void run() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (shouldRun()) {
-					ExecutionUtils.run(m_object, new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							runEx();
-						}
-					});
-				}
-			}
-		});
+		if (shouldRun()) {
+			ExecutionUtils.run(m_object, this::runEx);
+		}
 	}
 
 	/**
 	 * @return <code>true</code> if {@link #runEx()} should be run inside of edit operation.
 	 */
-	protected boolean shouldRun() throws Exception {
+	protected boolean shouldRun() {
 		if (getStyle() == AS_RADIO_BUTTON) {
 			return isChecked();
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.editor;
 import org.eclipse.wb.core.controls.flyout.IFlyoutMenuContributor;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -48,12 +47,7 @@ public final class DesignerFlyoutMenuContributor implements IFlyoutMenuContribut
 		manager.add(new Action("Extract as view") {
 			@Override
 			public void run() {
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						DesignerPlugin.getActivePage().showView(m_viewId);
-					}
-				});
+				ExecutionUtils.runLog(() -> DesignerPlugin.getActivePage().showView(m_viewId));
 			}
 		});
 	}
