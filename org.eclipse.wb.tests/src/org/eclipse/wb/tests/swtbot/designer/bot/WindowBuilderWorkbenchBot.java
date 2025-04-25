@@ -29,6 +29,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.intro.IIntroManager;
 import org.eclipse.ui.intro.IIntroPart;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -192,9 +193,11 @@ public class WindowBuilderWorkbenchBot extends SWTWorkbenchBot {
 	 */
 	public void setFileContent(String packageName, String fileName, String content) {
 		UIUtil.syncExec(() -> {
-			IFile sourceFile = getFile(packageName, fileName);
-			sourceFile.setContents(content.getBytes(StandardCharsets.UTF_8), true, false, null);
-			createdFiles.add(sourceFile);
+			try (InputStream is = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8))) {
+				IFile sourceFile = getFile(packageName, fileName);
+				sourceFile.setContents(is, true, false, null);
+				createdFiles.add(sourceFile);
+			}
 		});
 	}
 

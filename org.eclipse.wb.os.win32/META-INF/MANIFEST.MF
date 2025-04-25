@@ -5,12 +5,12 @@ Bundle-SymbolicName: org.eclipse.wb.os.win32;singleton:=true
 Bundle-Version: 1.10.200.qualifier
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-21
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.wb.core
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.31.100,4.0.0)",
+ org.eclipse.ui;bundle-version="[3.206.0,4.0.0)",
+ org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)"
 Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32))
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Import-Package: org.apache.commons.lang3,
+Import-Package: org.apache.commons.lang3;version="[3.14.0,4.0.0)",
  org.eclipse.wb.os
 Automatic-Module-Name: org.eclipse.wb.os.win32

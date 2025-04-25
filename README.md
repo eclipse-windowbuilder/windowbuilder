@@ -43,6 +43,13 @@ https://download.eclipse.org/windowbuilder/updates/nightly/latest
 * 💬 Discussion channels
      * https://github.com/eclipse-windowbuilder/windowbuilder/discussions
 
+## Requirements
+
+- Eclipse 2024-06 or newer
+- GEF Classic 3.24 or newer
+- Optional: Nebula 3.1.1 or newer
+- Java 21 or newer
+
 ## How to build on the command line
 
 WindowBuilder can be built locally with at least Java 21 and Maven 3.9.0 using:
