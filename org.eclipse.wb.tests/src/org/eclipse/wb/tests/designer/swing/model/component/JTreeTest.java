@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -238,9 +238,7 @@ public class JTreeTest extends SwingModelTest {
 	private static Object createItemInformation(int level, String text) throws Exception {
 		Class<?> itemClass =
 				Class.forName("org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModelDialog$ItemInformation");
-		return ReflectionUtils.getConstructor(itemClass, int.class, String.class).newInstance(
-				level,
-				text);
+		return ReflectionUtils.newInstance(itemClass, "<init>(int,java.lang.String)", level, text);
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -615,8 +615,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
 	 * @return the {@link RenameConvertSupport} for given objects.
 	 */
 	private RenameConvertSupport getRenameSupport(ObjectInfo... objects) throws Exception {
-		return ReflectionUtils.getConstructor(RenameConvertSupport.class, Iterable.class).newInstance(
-				List.of(objects));
+		return ReflectionUtils.newInstance(RenameConvertSupport.class, "<init>(java.lang.Iterable)", List.of(objects));
 	}
 
 	/**

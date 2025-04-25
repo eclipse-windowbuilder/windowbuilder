@@ -263,7 +263,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
 				}
 				// create object using constructor
 				fixThisExpressionArguments(constructor, argumentExpressions, argumentValues);
-				return constructor.newInstance(argumentValues);
+				return ReflectionUtils.newInstance(constructor, argumentValues);
 			} catch (Throwable e) {
 				if (e instanceof InvocationTargetException) {
 					e = ((InvocationTargetException) e).getCause();

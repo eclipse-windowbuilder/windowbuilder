@@ -1077,7 +1077,6 @@ public class ReflectionUtils {
 		// check all declared constructors
 		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
 			if (getConstructorSignature(constructor).equals(signature)) {
-				constructor.setAccessible(true);
 				return (Constructor<T>) constructor;
 			}
 		}
@@ -1100,7 +1099,6 @@ public class ReflectionUtils {
 		// check all declared constructors
 		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
 			if (getConstructorGenericSignature(constructor).equals(signature)) {
-				constructor.setAccessible(true);
 				return (Constructor<T>) constructor;
 			}
 		}
@@ -1151,6 +1149,32 @@ public class ReflectionUtils {
 		}
 		// no compatible constructor
 		return null;
+	}
+
+	/**
+	 * Creates a new instance of the given class using the constructor with the
+	 * matching signature or {@code null}, if no matching constructor is found.
+	 */
+	public static <T> T newInstance(Class<T> clazz, String signature, Object... arguments) {
+		Constructor<T> constructor = getConstructorBySignature(clazz, signature);
+		return newInstance(constructor, arguments);
+	}
+
+	/**
+	 * Creates a new instance of the given class using the constructor with the
+	 * matching signature or {@code null}, if the constructor is {@code null}.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T newInstance(Constructor<T> constructor, Object... arguments) {
+		if (constructor == null) {
+			return null;
+		}
+		try {
+			return (T) getPrivateLookup(constructor.getDeclaringClass()).unreflectConstructor(constructor)
+					.asFixedArity().invokeWithArguments(arguments);
+		} catch (Throwable e) {
+			throw propagate(e);
+		}
 	}
 
 	/**

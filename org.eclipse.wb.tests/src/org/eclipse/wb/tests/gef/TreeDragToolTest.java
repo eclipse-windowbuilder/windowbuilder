@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -293,8 +293,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		// create DNDEvent
 		Class<?> dndClass =
 				ReflectionUtils.getClassByName(getClass().getClassLoader(), "org.eclipse.swt.dnd.DNDEvent");
-		Event event =
-				(Event) ReflectionUtils.getConstructorBySignature(dndClass, "<init>()").newInstance();
+		Event event = (Event) ReflectionUtils.newInstance(dndClass, "<init>()");
 		// configure event
 		event.widget = m_viewer.getControl();
 		event.item = dragPart.getWidget();
