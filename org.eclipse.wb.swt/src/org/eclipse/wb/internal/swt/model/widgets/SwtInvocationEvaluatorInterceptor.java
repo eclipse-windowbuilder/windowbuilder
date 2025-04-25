@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -196,7 +196,7 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
 		// when has parent
 		int oldChildrenCount = parent.getChildren().length;
 		try {
-			return actualConstructor.newInstance(arguments);
+			return ReflectionUtils.newInstance(actualConstructor, arguments);
 		} catch (Throwable e) {
 			// dispose new Control(s)
 			Control[] newChildren = parent.getChildren();

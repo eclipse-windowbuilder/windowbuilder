@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -204,7 +204,7 @@ public final class TreeRobot {
 					ReflectionUtils.getClassByName(
 							TreeRobot.class.getClassLoader(),
 							"org.eclipse.swt.dnd.DNDEvent");
-			return (Event) ReflectionUtils.getConstructorBySignature(dndClass, "<init>()").newInstance();
+			return (Event) ReflectionUtils.newInstance(dndClass, "<init>()");
 		});
 	}
 
