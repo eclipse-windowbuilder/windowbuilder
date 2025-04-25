@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2016, 2024 vogella GmbH Foundation and others.
+  Copyright (c) 2016, 2025 vogella GmbH Foundation and others.
   All rights reserved. This program and the accompanying materials
   are made available under the terms of the Eclipse Distribution License v1.0
   which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@
     <baseline.repo>https://download.eclipse.org/releases/2025-03</baseline.repo>
     <eclipse.repo>https://download.eclipse.org/releases/2025-06</eclipse.repo>
     <tycho.sbom.url>${eclipse.repo}</tycho.sbom.url>
+    <target-platform>${maven.multiModuleProjectDirectory}/target-platform/wb.target</target-platform>
   </properties>
 
   <profiles>
@@ -99,6 +100,17 @@
           </plugins>
         </pluginManagement>
       </build>
+    </profile>
+    <!-- Empty profile required for GitHub action -->
+    <profile>
+        <id>master</id>
+    </profile>
+    <profile>
+      <id>2024-06</id>
+      <properties>
+        <target-platform>${maven.multiModuleProjectDirectory}/target-platform/wb-2024-06.target</target-platform>
+        <tycho.baseline.skip>true</tycho.baseline.skip>
+      </properties>
     </profile>
   </profiles>
 
@@ -240,7 +252,7 @@
         <version>${tycho.version}</version>
         <configuration>
           <target>
-            <file>../target-platform/wb.target</file>
+            <file>${target-platform}</file>
           </target>
           <environments>
             <environment>

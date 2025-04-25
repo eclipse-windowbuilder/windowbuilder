@@ -89,26 +89,26 @@ Export-Package: org.eclipse.wb.internal.rcp,
  org.eclipse.wb.internal.rcp.wizards.swt.composite,
  org.eclipse.wb.internal.rcp.wizards.swt.dialog,
  org.eclipse.wb.internal.rcp.wizards.swt.shell
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.ui.forms,
- org.eclipse.search,
- org.eclipse.wb.core;bundle-version="1.12.0",
- org.eclipse.wb.core.ui,
- org.eclipse.wb.core.java,
- org.eclipse.wb.swt,
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.31.100,4.0.0)",
+ org.eclipse.ui;bundle-version="[3.206.0,4.0.0)",
+ org.eclipse.ui.forms;bundle-version="[3.13.300,4.0.0)",
+ org.eclipse.search;bundle-version="[3.16.200,4.0.0)",
+ org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)",
+ org.eclipse.wb.core.ui;bundle-version="[1.10.800,2.0.0)",
+ org.eclipse.wb.core.java;bundle-version="[1.13.100,2.0.0)",
+ org.eclipse.wb.swt;bundle-version="[1.10.100,2.0.0)",
  org.eclipse.pde.core;bundle-version="[3.18.100,4.0.0)",
  org.eclipse.pde.ui;bundle-version="[3.15.200,4.0.0)",
- org.eclipse.wb.swt.widgets.baseline,
- org.eclipse.swt,
- org.eclipse.draw2d;bundle-version="3.16.0",
- org.eclipse.gef;bundle-version="3.18.0",
- org.objectweb.asm;bundle-version="9.0.0",
- net.bytebuddy.byte-buddy;bundle-version="1.14.4"
+ org.eclipse.wb.swt.widgets.baseline;bundle-version="[1.10.300,2.0.0)",
+ org.eclipse.swt;bundle-version="3.126.0",
+ org.eclipse.draw2d;bundle-version="3.20.0",
+ org.eclipse.gef;bundle-version="[3.21.100,4.0.0)",
+ org.objectweb.asm;bundle-version="[9.7.0,10.0.0)",
+ net.bytebuddy.byte-buddy;bundle-version="[1.14.16,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.eclipse.wb.rcp
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
- org.apache.commons.io,
- org.apache.commons.lang3
+ org.apache.commons.io;version="[2.16.1,3.0.0)",
+ org.apache.commons.lang3;version="[3.14.0,4.0.0)"

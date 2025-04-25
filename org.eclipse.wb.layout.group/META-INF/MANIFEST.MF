@@ -11,14 +11,14 @@ Export-Package: org.eclipse.wb.internal.layout.group.gef,
  org.netbeans.modules.form.layoutdesign,
  org.netbeans.modules.form.layoutdesign.support
 Bundle-ClassPath: .
-Require-Bundle: org.eclipse.core.resources,
- org.eclipse.core.runtime,
- org.eclipse.jface,
- org.eclipse.wb.core;bundle-version="1.12.0",
- org.eclipse.wb.core.java,
- org.eclipse.draw2d;bundle-version="3.16.0",
- org.eclipse.gef;bundle-version="3.18.0"
+Require-Bundle: org.eclipse.core.resources;bundle-version="[3.20.200,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.31.100,4.0.0)",
+ org.eclipse.jface;bundle-version="[3.34.0,4.0.0)",
+ org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)",
+ org.eclipse.wb.core.java;bundle-version="[1.13.100,2.0.0)",
+ org.eclipse.draw2d;bundle-version="[3.20.0,4.0.0)",
+ org.eclipse.gef;bundle-version="[3.21.100,4.0.0)"
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.layout.group
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
- org.apache.commons.io
+ org.apache.commons.io;version="[2.16.1,3.0.0)"

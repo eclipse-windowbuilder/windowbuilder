@@ -5,14 +5,14 @@ Bundle-SymbolicName: org.eclipse.wb.core.ui;singleton:=true
 Bundle-Version: 1.10.800.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.wb.core;bundle-version="1.1.0",
- org.eclipse.wb.core.java
+Require-Bundle: org.eclipse.ui;bundle-version="[3.206.0,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.31.100,4.0.0)",
+ org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)",
+ org.eclipse.wb.core.java;bundle-version="[1.13.100,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wb.internal.core.preferences,
  org.eclipse.wb.internal.core.wizards.actions,
  org.eclipse.wb.internal.core.wizards.palette
 Automatic-Module-Name: org.eclipse.wb.core.ui
-Import-Package: org.apache.commons.lang3
+Import-Package: org.apache.commons.lang3;version="[3.14.0,4.0.0)"
