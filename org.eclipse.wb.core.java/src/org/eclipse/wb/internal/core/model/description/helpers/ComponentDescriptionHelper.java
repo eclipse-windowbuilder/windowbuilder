@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -534,7 +534,6 @@ public final class ComponentDescriptionHelper {
 			throws Exception {
 		Class<?> componentClass = componentDescription.getComponentClass();
 		for (Constructor<?> constructor : componentClass.getDeclaredConstructors()) {
-			constructor.setAccessible(true);
 			ConstructorDescription constructorDescription = new ConstructorDescription(componentClass);
 			// add parameter descriptions of constructor
 			for (Class<?> parameterType : constructor.getParameterTypes()) {
