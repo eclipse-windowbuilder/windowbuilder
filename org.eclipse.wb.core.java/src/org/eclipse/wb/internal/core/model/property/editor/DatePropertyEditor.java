@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.ButtonPro
 import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyEditorPresentation;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ReusableDialog;
@@ -158,9 +157,9 @@ IConfigurablePropertyObject {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String getValueSource(Object value) throws Exception {
-		if (value instanceof Date) {
+		if (value instanceof Date date) {
 			String source;
-			Long millisecs = ReflectionUtils.getFieldLong(value, "fastTime");
+			Long millisecs = date.getTime();
 			if (StringUtils.isEmpty(m_sourceTemplate)) {
 				source = "new java.util.Date(%millisecs%)";
 			} else {
