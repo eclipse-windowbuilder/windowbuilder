@@ -25,13 +25,13 @@
 				<dependency>
 					<groupId>commons-io</groupId>
 					<artifactId>commons-io</artifactId>
-					<version>2.18.0</version>
+					<version>2.19.0</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
 					<groupId>io.github.toolfactory</groupId>
 					<artifactId>jvm-driver</artifactId>
-					<version>9.7.1</version>
+					<version>9.9.10</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
@@ -55,19 +55,19 @@
 				<dependency>
 					<groupId>org.apache.commons</groupId>
 					<artifactId>commons-text</artifactId>
-					<version>1.13.0</version>
+					<version>1.13.1</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
 					<groupId>org.burningwave</groupId>
 					<artifactId>core</artifactId>
-					<version>12.65.2</version>
+					<version>12.66.2</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
 					<groupId>org.burningwave</groupId>
 					<artifactId>jvm-driver</artifactId>
-					<version>8.16.1</version>
+					<version>8.19.1</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
