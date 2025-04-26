@@ -1694,6 +1694,12 @@ public class ReflectionUtils {
 	}
 
 	private static MethodHandles.Lookup getPrivateLookup(Class<?> clazz) {
+		Module callerModule = ReflectionUtils.class.getModule();
+		Module targetModule = clazz.getModule();
+		// Quick check to see if private lookup is possible
+		if (targetModule.isNamed() && !targetModule.isOpen(clazz.getPackageName(), callerModule)) {
+			return MethodHandles.lookup();
+		}
 		try {
 			return MethodHandles.privateLookupIn(clazz, MethodHandles.lookup());
 		} catch (IllegalArgumentException | IllegalAccessException e) {
