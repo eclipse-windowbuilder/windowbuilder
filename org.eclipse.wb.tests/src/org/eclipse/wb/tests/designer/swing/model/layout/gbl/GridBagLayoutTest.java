@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatementGeneratorDescription;
@@ -26,6 +27,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
+import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagConstraintsInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagConstraintsInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.IPreferenceConstants;
@@ -2883,5 +2885,194 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		Assertions.assertThat(layout.getComponents()).containsExactly(button);
+	}
+
+	/**
+	 * Based on the example described in the {@link GridBagLayout} JavaDoc.
+	 *
+	 * <pre>
+	 * +-----------------------------------------+
+	 * | Button1 | Button2 | Button 3 | Button 4 |
+	 * +-----------------------------------------+
+	 * |                Button 5                 |
+	 * +-----------------------------------------+
+	 * |           Button6            | Button 7 |
+	 * +-----------------------------------------+
+	 * | Button 8 |           Button9            |
+	 * |          |           Button10           |
+	 * +-----------------------------------------+
+	 * </pre>
+	 */
+	@Test
+	public void test_relativeRemainder() throws Exception {
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("Button1");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button2");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button3");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button4");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = GridBagConstraints.REMAINDER; // end row
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button5");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = GridBagConstraints.REMAINDER; // end row
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button6");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = GridBagConstraints.RELATIVE; // next-to-last in row
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button7");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = GridBagConstraints.REMAINDER; // end row
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button8");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = 1;
+							c.gridheight = 2;
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button9");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = GridBagConstraints.REMAINDER; // end row
+							c.gridheight = 1;
+							add(button, c);
+						}
+						{
+							JButton button = new JButton("Button10");
+							GridBagConstraints c = new GridBagConstraints();
+							c.fill = GridBagConstraints.BOTH;
+							c.gridwidth = GridBagConstraints.REMAINDER; // end row
+							c.gridheight = 1;
+							add(button, c);
+						}
+					}
+				}""");
+		panel.refresh();
+		List<ContainerInfo> buttons = panel.getChildren(ContainerInfo.class);
+		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+		{
+			ContainerInfo button = buttons.get(0);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button1\"");
+			assertEquals(constraints.x, 0);
+			assertEquals(constraints.y, 0);
+			assertEquals(constraints.width, 1);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(1);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button2\"");
+			assertEquals(constraints.x, 1);
+			assertEquals(constraints.y, 0);
+			assertEquals(constraints.width, 1);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(2);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button3\"");
+			assertEquals(constraints.x, 2);
+			assertEquals(constraints.y, 0);
+			assertEquals(constraints.width, 1);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(3);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button4\"");
+			assertEquals(constraints.x, 3);
+			assertEquals(constraints.y, 0);
+			assertEquals(constraints.width, 1);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(4);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button5\"");
+			assertEquals(constraints.x, 0);
+			assertEquals(constraints.y, 1);
+			assertEquals(constraints.width, 4);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(5);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button6\"");
+			assertEquals(constraints.x, 0);
+			assertEquals(constraints.y, 2);
+			assertEquals(constraints.width, 3);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(6);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button7\"");
+			assertEquals(constraints.x, 3);
+			assertEquals(constraints.y, 2);
+			assertEquals(constraints.width, 1);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(7);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button8\"");
+			assertEquals(constraints.x, 0);
+			assertEquals(constraints.y, 3);
+			assertEquals(constraints.width, 1);
+			assertEquals(constraints.height, 2);
+		}
+		{
+			ContainerInfo button = buttons.get(8);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button9\"");
+			assertEquals(constraints.x, 1);
+			assertEquals(constraints.y, 3);
+			assertEquals(constraints.width, 3);
+			assertEquals(constraints.height, 1);
+		}
+		{
+			ContainerInfo button = buttons.get(9);
+			AbstractGridBagConstraintsInfo constraints = layout.getConstraints(button);
+			assertEquals(ObjectInfo.getText(button), "button - \"Button10\"");
+			assertEquals(constraints.x, 1);
+			assertEquals(constraints.y, 4);
+			assertEquals(constraints.width, 3);
+			assertEquals(constraints.height, 1);
+		}
 	}
 }

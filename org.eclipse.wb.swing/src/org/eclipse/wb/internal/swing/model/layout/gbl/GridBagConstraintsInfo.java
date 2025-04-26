@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,11 +19,13 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 import java.text.MessageFormat;
 
 /**
@@ -61,27 +63,21 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 			width = constraints.gridwidth;
 			height = constraints.gridheight;
 		} else {
-			Component component = ((ComponentInfo) getParent()).getComponent();
+			ComponentInfo componentInfo = (ComponentInfo) getParent();
+			Component component = componentInfo.getComponent();
 			// prepare GridBagLayout
-			GridBagLayout gridBagLayout;
-			{
-				LayoutManager layout = component.getParent().getLayout();
-				if (!(layout instanceof GridBagLayout)) {
-					return;
-				}
-				gridBagLayout = (GridBagLayout) layout;
+			if (!(((ContainerInfo) componentInfo.getParent()).getLayout() instanceof GridBagLayoutInfo gridBagLayoutInfo)) {
+				return;
 			}
 			// get constraints
-			constraints =
-					(GridBagConstraints) ReflectionUtils.invokeMethod(
-							gridBagLayout,
-							"lookupConstraints(java.awt.Component)",
-							component);
+			GridBagLayout gridBagLayout = gridBagLayoutInfo.getLayoutManager();
+			constraints = gridBagLayout.getConstraints(component);
 			// location
-			x = ReflectionUtils.getFieldInt(constraints, "tempX");
-			y = ReflectionUtils.getFieldInt(constraints, "tempY");
-			width = ReflectionUtils.getFieldInt(constraints, "tempWidth");
-			height = ReflectionUtils.getFieldInt(constraints, "tempHeight");
+			Rectangle gridBounds = gridBagLayoutInfo.getGridBounds(componentInfo);
+			x = gridBounds.x;
+			y = gridBounds.y;
+			width = gridBounds.width;
+			height = gridBounds.height;
 		}
 		// fetch fields
 		insets = CoordinateUtils.get(constraints.insets);

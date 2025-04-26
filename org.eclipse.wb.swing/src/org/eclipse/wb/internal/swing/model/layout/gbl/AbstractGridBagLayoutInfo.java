@@ -52,7 +52,9 @@ import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -185,6 +187,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	////////////////////////////////////////////////////////////////////////////
 	protected final Set<Integer> m_refreshFilledColumns = new TreeSet<>();
 	protected final Set<Integer> m_refreshFilledRows = new TreeSet<>();
+	private final Map<ComponentInfo, Rectangle> m_gridBounds = new HashMap<>();
+	private final GridBagConstraints m_defaultContraints = new GridBagConstraints();
 
 	@Override
 	public void refresh_dispose() throws Exception {
@@ -195,12 +199,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	@Override
 	protected void refresh_afterCreate() throws Exception {
 		super.refresh_afterCreate();
+		ContainerInfo container = getContainer();
+		Container containerObject = container.getContainer();
 		// force layout() to calculate "real" location/size in GridBagConstraints."temp*" fields
 		{
-			ContainerInfo container = getContainer();
 			// do layout, use some reasonable size
 			{
-				Container containerObject = container.getContainer();
 				java.awt.Dimension containerSizeOriginal = containerObject.getSize();
 				try {
 					containerObject.setSize(450, 300);
@@ -209,15 +213,16 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 					containerObject.setSize(containerSizeOriginal);
 				}
 			}
-			// fetch fields
-			for (ComponentInfo component : getComponents()) {
-				getConstraints(component).getCurrentObjectFields(false);
-			}
 		}
-		// initialize dimensions
 		int[][] dimensions = getLayoutDimensions();
 		int gridWidth = dimensions[0].length;
 		int gridHeight = dimensions[1].length;
+		// fetch fields
+		refresh_LayoutInfo(containerObject, gridWidth, gridHeight);
+		for (ComponentInfo component : getComponents()) {
+			getConstraints(component).getCurrentObjectFields(false);
+		}
+		// initialize dimensions
 		if (!m_dimensionsInitialized) {
 			m_dimensionsInitialized = true;
 			// columns
@@ -269,6 +274,140 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 				getContainer().getContainer().doLayout();
 				((AbstractComponentInfo) getRoot()).getTopBoundsSupport().apply();
 			}
+		}
+	}
+
+	/**
+	 * A simplified version of the algorithm used within the
+	 * {@link GridBagLayout#getLayoutInfo(Container,int)} method, which calculates
+	 * the cells occupied by each component.
+	 */
+	private void refresh_LayoutInfo(Container parent, int width, int height) {
+		int px;
+		int py;
+		int curRow = -1;
+		int curCol = -1;
+
+		GridBagLayout gridBagLayout = getLayoutManager();
+
+		// Calculate maximum dimension of the grid
+		int xMax = 0;
+		int yMax = 0;
+
+		for (ComponentInfo componentInfo : getComponents()) {
+			Component component = componentInfo.getComponent();
+			if (!component.isVisible()) {
+				continue;
+			}
+
+			GridBagConstraints constraints = gridBagLayout.getConstraints(component);
+			xMax = Math.max(xMax, constraints.gridwidth);
+			yMax = Math.max(xMax, constraints.gridheight);
+		}
+
+		int[] xMaxArray = new int[height + yMax];
+		int[] yMaxArray = new int[width + xMax];
+
+		// Calculate the cells occupied by each component
+		for (ComponentInfo componentInfo : getComponents()) {
+			Component component = componentInfo.getComponent();
+			if (!component.isVisible()) {
+				continue;
+			}
+
+			GridBagConstraints constraints = gridBagLayout.getConstraints(component);
+			Rectangle curBounds = new Rectangle();
+
+			curBounds.x = constraints.gridx;
+			curBounds.y = constraints.gridy;
+			curBounds.width = constraints.gridwidth;
+			curBounds.height = constraints.gridheight;
+
+			// If x or y is negative, then use relative positioning
+			if (curBounds.x < 0 && curBounds.y < 0) {
+				if (curRow >= 0) {
+					curBounds.y = curRow;
+				} else if (curCol >= 0) {
+					curBounds.x = curCol;
+				} else {
+					curBounds.y = 0;
+				}
+			}
+
+			if (curBounds.x < 0) {
+				if (curBounds.height <= 0) {
+					curBounds.height += height - curBounds.y;
+					if (curBounds.height < 1) {
+						curBounds.height = 1;
+					}
+				}
+
+				px = 0;
+				for (int i = curBounds.y; i < curBounds.bottom(); i++) {
+					px = Math.max(px, xMaxArray[i]);
+				}
+
+				curBounds.x = px - curBounds.x - 1;
+				if (curBounds.x < 0) {
+					curBounds.x = 0;
+				}
+			} else if (curBounds.y < 0) {
+				if (curBounds.width <= 0) {
+					curBounds.width += width - curBounds.x;
+					if (curBounds.width < 1) {
+						curBounds.width = 1;
+					}
+				}
+
+				py = 0;
+				for (int i = curBounds.x; i < curBounds.right(); i++) {
+					py = Math.max(py, yMaxArray[i]);
+				}
+
+				curBounds.y = py - curBounds.y - 1;
+				if (curBounds.y < 0) {
+					curBounds.y = 0;
+				}
+			}
+
+			if (curBounds.width <= 0) {
+				curBounds.width += width - curBounds.x;
+				if (curBounds.width < 1) {
+					curBounds.width = 1;
+				}
+			}
+
+			if (curBounds.height <= 0) {
+				curBounds.height += height - curBounds.y;
+				if (curBounds.height < 1) {
+					curBounds.height = 1;
+				}
+			}
+
+			px = curBounds.right();
+			py = curBounds.bottom();
+
+			for (int i = curBounds.x; i < curBounds.right(); i++) {
+				yMaxArray[i] = py;
+			}
+
+			for (int i = curBounds.y; i < curBounds.bottom(); i++) {
+				xMaxArray[i] = px;
+			}
+
+			// Make negative sizes start a new row/column
+			if (constraints.gridheight == 0 && constraints.gridwidth == 0) {
+				curRow = -1;
+				curCol = -1;
+			}
+
+			if (constraints.gridheight == 0 && curRow < 0) {
+				curCol = curBounds.right();
+			} else if (constraints.gridwidth == 0 && curCol < 0) {
+				curRow = curBounds.bottom();
+			}
+
+			m_gridBounds.put(componentInfo, curBounds);
 		}
 	}
 
@@ -921,6 +1060,14 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
 	protected Interval[] checkRowIntervals(Interval[] rowIntervals) {
 		return rowIntervals;
+	}
+
+	/* package */ Rectangle getGridBounds(ComponentInfo componentInfo) {
+		int x = m_defaultContraints.gridx;
+		int y = m_defaultContraints.gridy;
+		int width = m_defaultContraints.gridwidth;
+		int height = m_defaultContraints.gridheight;
+		return m_gridBounds.getOrDefault(componentInfo, new Rectangle(x, y, width, height));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
