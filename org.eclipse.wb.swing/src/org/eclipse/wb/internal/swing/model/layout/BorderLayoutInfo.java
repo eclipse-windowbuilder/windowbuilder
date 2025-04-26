@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
@@ -98,11 +97,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
 	 * @return the {@link Component} with given constraints.
 	 */
 	public Component getComponent(String constraints) {
-		return (Component) ReflectionUtils.invokeMethodEx(
-				getObject(),
-				"getChild(java.lang.String,boolean)",
-				constraints,
-				true);
+		return getLayoutManager().getLayoutComponent(constraints);
 	}
 
 	/**
