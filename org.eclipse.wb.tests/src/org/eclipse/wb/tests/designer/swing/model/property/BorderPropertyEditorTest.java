@@ -12,17 +12,26 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.property;
 
+import org.eclipse.wb.core.controls.CSpinner;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
+
+import org.eclipse.swtbot.swt.finder.SWTBot;
+
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Test for {@link BorderPropertyEditor}.
@@ -165,6 +174,50 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 							JButton button = new JButton();
 							add(button);
 						}
+					}
+				}""");
+	}
+
+	/**
+	 * https://github.com/eclipse-windowbuilder/windowbuilder/issues/1049
+	 */
+	@Test
+	public void test_modifyBorder() throws Exception {
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
+		panel.refresh();
+		// property
+		Property borderProperty = panel.getPropertyByTitle("border");
+
+		// Executed while the dialog is open
+		runWithModalDialog(() -> {
+			SWTBot bot = new SWTBot(DesignerPlugin.getShell());
+			SWTBot dialogBot = bot.shell("Border editor").bot();
+			dialogBot.comboBox().setSelection("EmptyBorder");
+
+			List<CSpinner> spinners = dialogBot.getFinder().findControls(widgetOfType(CSpinner.class));
+			assertEquals(spinners.size(), 4);
+
+			spinners.get(0).setSelection(10);
+			spinners.get(1).setSelection(15);
+			spinners.get(2).setSelection(20);
+			spinners.get(3).setSelection(25);
+			dialogBot.button("OK").click();
+		});
+
+		PropertyEditor editor = BorderPropertyEditor.INSTANCE;
+		ReflectionUtils.invokeMethod2(editor, "openDialog", Property.class, borderProperty);
+
+		panel.refresh();
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setBorder(new EmptyBorder(10, 15, 20, 25));
 					}
 				}""");
 	}

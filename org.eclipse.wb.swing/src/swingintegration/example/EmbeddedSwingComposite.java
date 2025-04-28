@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2024 SAS Institute. All rights reserved.
+ * Copyright (c) 2007, 2025 SAS Institute. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -173,7 +173,6 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		currentSystemFont = getFont();
 		// set listeners
 		getDisplay().addListener(SWT.Settings, settingsListener);
-		addListener(SWT.Dispose, event -> dispose_AWT());
 	}
 
 	/**
