@@ -600,6 +600,12 @@ public class CustomizeTest extends SwingModelTest {
 								MyButton button = (MyButton)bean;
 								button.customizer = this;
 							}
+
+							@Override
+							// Make public for reflective access
+							public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+								super.firePropertyChange(propertyName, oldValue, newValue);
+							}
 						}"""));
 		setFileContentSrc(
 				"test/MyButtonBeanInfo.java",
