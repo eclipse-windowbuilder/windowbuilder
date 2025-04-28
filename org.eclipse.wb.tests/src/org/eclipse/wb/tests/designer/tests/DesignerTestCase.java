@@ -69,6 +69,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -498,6 +499,33 @@ public abstract class DesignerTestCase extends Assert {
 				}
 			});
 		}
+	}
+
+	/**
+	 * Convenience method for testing modal dialogs. This method needs to be called
+	 * <b>before</b> the dialog is opened, which then schedules the runnable to be
+	 * executed while the dialog is blocking.<br>
+	 * Note: This method forcefully closes the modal dialog after the runnable has
+	 * been executed, to ensure that it doesn't interfere with the remaining tests.
+	 *
+	 * @param runnable The runnable to execute.
+	 */
+	protected void runWithModalDialog(Runnable runnable) {
+		Set<Shell> originalShells = Set.of(DesignerPlugin.getStandardDisplay().getShells());
+		DesignerPlugin.getStandardDisplay().asyncExec(() -> {
+			try {
+				runnable.run();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// Dispose the modal dialog
+				for (Shell shell : DesignerPlugin.getStandardDisplay().getShells()) {
+					if (!originalShells.contains(shell)) {
+						shell.dispose();
+					}
+				}
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////

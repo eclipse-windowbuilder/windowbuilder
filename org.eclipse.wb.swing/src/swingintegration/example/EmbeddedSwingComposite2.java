@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2024 SAS Institute. All rights reserved.
+ * Copyright (c) 2007, 2025 SAS Institute. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -164,8 +164,6 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 	public EmbeddedSwingComposite2(Composite parent, int style) {
 		super(parent, style | SWT.EMBEDDED | SWT.NO_BACKGROUND);
 		setLayout(new FillLayout());
-		// set listeners
-		addListener(SWT.Dispose, event -> dispose_AWT());
 	}
 
 	/**
