@@ -29,7 +29,6 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.text.Document;
 
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -47,7 +46,6 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class XmlDocumentTest extends AbstractJavaProjectTest {
-	private boolean m_removeTrailingEOL = false;
 	private AbstractDocumentEditContext context;
 	private DocumentElement rootElement;
 
@@ -92,8 +90,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	/**
 	 * Parses given lines of XML and prepares {@link #context} and {@link #rootElement}.
 	 */
-	private void prepareContext(String... lines) throws Exception {
-		String source = getXMLSource(lines);
+	private void prepareContext(String source) throws Exception {
 		Document document = new Document(source);
 		context = new DocumentEditContext(document) {
 			@Override
@@ -106,21 +103,9 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	}
 
 	/**
-	 * @return the XML source for given lines.
-	 */
-	private String getXMLSource(String... lines) {
-		String source = getSourceDQ(lines);
-		if (m_removeTrailingEOL) {
-			source = StringUtils.chomp(source);
-		}
-		return source;
-	}
-
-	/**
 	 * Asserts that XML document has expected content and valid offset/length combinations.
 	 */
-	private void assertContext(String... lines) throws Exception {
-		String source = getXMLSource(lines);
+	private void assertContext(String source) throws Exception {
 		assertEquals(source, context.getText());
 		assertOffsets();
 	}
@@ -237,12 +222,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_parse() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'>",
-				"  <first/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'>
+					<first/>
+				</root>""");
 		// check model
 		Model model = rootElement.getModel();
 		assertNotNull(model);
@@ -283,12 +268,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 			Assertions.assertThat(attributes).isEmpty();
 		}
 		// toString()
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'>",
-				"  <first/>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'>
+					<first/>
+				</root>""");
 	}
 
 	/**
@@ -296,12 +281,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_getRoot() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'>",
-				"  <first/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'>
+					<first/>
+				</root>""");
 		// root itself
 		assertSame(rootElement, rootElement.getRoot());
 		// child
@@ -316,13 +301,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_getTagLocal() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root xmlns:wbp='someValue'>",
-				"  <first/>",
-				"  <wbp:second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root xmlns:wbp='someValue'>
+					<first/>
+					<wbp:second/>
+				</root>""");
 		// first
 		{
 			DocumentElement element = rootElement.getChildAt(0);
@@ -342,13 +327,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_getTagNS() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root xmlns:wbp='someValue'>",
-				"  <first/>",
-				"  <wbp:second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root xmlns:wbp='someValue'>
+					<first/>
+					<wbp:second/>
+				</root>""");
 		// first
 		{
 			DocumentElement element = rootElement.getChildAt(0);
@@ -368,13 +353,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_getChild_byTag() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'>",
-				"  <first/>",
-				"  <second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'>
+					<first/>
+					<second/>
+				</root>""");
 		DocumentElement first = rootElement.getChildAt(0);
 		DocumentElement second = rootElement.getChildAt(1);
 		//
@@ -391,17 +376,17 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_getDirectChild() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'>",
-				"  <parent>",
-				"    <directChild>",
-				"      <indirectChild/>",
-				"    </directChild>",
-				"  </parent>",
-				"  <notChild/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'>
+					<parent>
+						<directChild>
+							<indirectChild/>
+						</directChild>
+					</parent>
+					<notChild/>
+				</root>""");
 		DocumentElement parent = rootElement.getChildAt(0);
 		DocumentElement directChild = parent.getChildAt(0);
 		DocumentElement indirectChild = directChild.getChildAt(0);
@@ -420,13 +405,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_textNode_parse() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"  <source><![CDATA[Some source]]></source>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+					<source><![CDATA[Some source]]></source>
+				</root>""");
 		// <description> and <source>
 		List<DocumentElement> children = rootElement.getChildren();
 		Assertions.assertThat(children).hasSize(2);
@@ -451,23 +436,23 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 			assertEquals("Some source", textNode.getText());
 		}
 		// toString()
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"  <source><![CDATA[Some source]]></source>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+					<source><![CDATA[Some source]]></source>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_edit() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+				</root>""");
 		// prepare text node
 		DocumentElement parent = rootElement.getChildAt(0);
 		DocumentTextNode textNode = parent.getTextNode();
@@ -479,70 +464,70 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 			String text = "Other text";
 			textNode.setText(text);
 			assertEquals(text, textNode.getText());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description>Other text</description>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description>Other text</description>
+					</root>""");
 		}
 		// set text with "\n"
 		{
 			String text = "First line\nSecond line";
 			textNode.setText(text);
 			assertEquals(text, textNode.getText());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description>First line\nSecond line</description>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description>First line\nSecond line</description>
+					</root>""");
 		}
 		// set empty text
 		{
 			String text = "";
 			textNode.setText(text);
 			assertEquals(text, textNode.getText());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description></description>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description></description>
+					</root>""");
 		}
 		// set some text
 		{
 			String text = "the text";
 			textNode.setText(text);
 			assertEquals(text, textNode.getText());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description>the text</description>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description>the text</description>
+					</root>""");
 		}
 		// remove text node
 		{
 			parent.removeTextNode();
 			assertSame(null, parent.getTextNode());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description/>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description/>
+					</root>""");
 		}
 	}
 
 	@Test
 	public void test_textNode_edit_CDATA() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description><![CDATA[Some text]]></description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description><![CDATA[Some text]]></description>
+				</root>""");
 		// prepare text node
 		DocumentElement parent = rootElement.getChildAt(0);
 		DocumentTextNode textNode = parent.getTextNode();
@@ -554,34 +539,34 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 			String text = "Other text";
 			textNode.setText(text);
 			assertEquals(text, textNode.getText());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description><![CDATA[Other text]]></description>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description><![CDATA[Other text]]></description>
+					</root>""");
 		}
 		// remove text node
 		{
 			parent.removeTextNode();
 			assertSame(null, parent.getTextNode());
-			assertContext(
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<!-- ==================================== -->",
-					"<root>",
-					"  <description/>",
-					"</root>");
+			assertContext("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<!-- ==================================== -->
+					<root>
+						<description/>
+					</root>""");
 		}
 	}
 
 	@Test
 	public void test_textNode_edit_CDATA2() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description><![CDATA[Some text]]></description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description><![CDATA[Some text]]></description>
+				</root>""");
 		// prepare text node
 		DocumentElement parent = rootElement.getChildAt(0);
 		DocumentTextNode textNode = parent.getTextNode();
@@ -591,22 +576,22 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// remove CDATA flag
 		textNode.setCDATA(false);
 		assertFalse(textNode.isCDATA());
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_add_whenOpen() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description></description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description></description>
+				</root>""");
 		DocumentElement parent = rootElement.getChildAt(0);
 		// initial state
 		assertEquals(null, parent.getTextNode());
@@ -615,22 +600,22 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		textNode.setText("Some text");
 		// add text node
 		parent.setTextNode(textNode);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_add_whenClosed() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description/>
+				</root>""");
 		DocumentElement parent = rootElement.getChildAt(0);
 		// initial state
 		assertEquals(null, parent.getTextNode());
@@ -639,22 +624,22 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		textNode.setText("Some text");
 		// add text node
 		parent.setTextNode(textNode);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_add_CDATA() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description></description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description></description>
+				</root>""");
 		DocumentElement parent = rootElement.getChildAt(0);
 		// initial state
 		assertEquals(null, parent.getTextNode());
@@ -664,12 +649,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		textNode.setText("Some text");
 		// add text node
 		parent.setTextNode(textNode);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description><![CDATA[Some text]]></description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description><![CDATA[Some text]]></description>
+				</root>""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -679,82 +664,82 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_textNode_setText_new() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description/>
+				</root>""");
 		DocumentElement element = rootElement.getChildAt(0);
 		// initial state
 		assertEquals(null, element.getTextNode());
 		// set text
 		element.setText("Some text", false);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_setText_new_CDATA() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description/>
+				</root>""");
 		DocumentElement element = rootElement.getChildAt(0);
 		// initial state
 		assertEquals(null, element.getTextNode());
 		// set text
 		element.setText("Some text", true);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description><![CDATA[Some text]]></description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description><![CDATA[Some text]]></description>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_setText_replace() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Old text</description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Old text</description>
+				</root>""");
 		DocumentElement element = rootElement.getChildAt(0);
 		// set text
 		element.setText("New text", false);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>New text</description>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>New text</description>
+				</root>""");
 	}
 
 	@Test
 	public void test_textNode_setText_remove() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description>Some text</description>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description>Some text</description>
+				</root>""");
 		DocumentElement element = rootElement.getChildAt(0);
 		// set text
 		element.setText(null, false);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <description/>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<description/>
+				</root>""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -767,10 +752,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_addFirst() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 		// no attributes initially
 		Assertions.assertThat(rootElement.getDocumentAttributes()).isEmpty();
 		// add attribute as value
@@ -780,10 +765,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// attribute is in element
 		List<DocumentAttribute> attributes = rootElement.getDocumentAttributes();
 		Assertions.assertThat(attributes).containsOnly(newAttribute);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name="value"/>""");
 	}
 
 	/**
@@ -791,10 +776,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_addSecond() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root other='attr'/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root other="attr"/>""");
 		// one attribute initially
 		Assertions.assertThat(rootElement.getDocumentAttributes()).hasSize(1);
 		// add attribute as value
@@ -804,10 +789,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// attribute is in element
 		List<DocumentAttribute> attributes = rootElement.getDocumentAttributes();
 		Assertions.assertThat(attributes).contains(newAttribute);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root other='attr' name='value'/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root other="attr" name="value"/>""");
 	}
 
 	/**
@@ -815,10 +800,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_addThird() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root a='1' b='2'/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root a="1" b="2"/>""");
 		// two attributes initially
 		Assertions.assertThat(rootElement.getDocumentAttributes()).hasSize(2);
 		// add attribute as value
@@ -828,10 +813,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// attribute is in element
 		List<DocumentAttribute> attributes = rootElement.getDocumentAttributes();
 		Assertions.assertThat(attributes).contains(newAttribute);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root a='1' b='2' name='value'/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root a="1" b="2" name="value"/>""");
 	}
 
 	/**
@@ -839,10 +824,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_addNullValue() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 		// no attributes initially
 		Assertions.assertThat(rootElement.getDocumentAttributes()).isEmpty();
 		// try to add, but "null" value
@@ -850,10 +835,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertNull(newAttribute);
 		// still no attributes
 		Assertions.assertThat(rootElement.getDocumentAttributes()).isEmpty();
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 	}
 
 	/**
@@ -864,37 +849,37 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	@Test
 	public void test_attribute_charset() throws Exception {
 		String rusValue = "\u0410\u0411\u0412";
-		prepareContext(
-				"<!-- ==================================== -->",
-				"<!-- ==================================== -->",
-				"<root/>");
+		prepareContext("""
+				<!-- ==================================== -->
+				<!-- ==================================== -->
+				<root/>""");
 		// special characters
 		rootElement.setAttribute("name", "\n ' \" < > &");
-		assertContext(
-				"<!-- ==================================== -->",
-				"<!-- ==================================== -->",
-				"<root name='&#10; &apos; &quot; &lt; &gt; &amp;'/>");
+		assertContext("""
+				<!-- ==================================== -->
+				<!-- ==================================== -->
+				<root name="&#10; &apos; &quot; &lt; &gt; &amp;"/>""");
 		// no charset in model, encoded
 		assertEquals(null, rootElement.getModel().getCharset());
 		rootElement.setAttribute("name", rusValue);
-		assertContext(
-				"<!-- ==================================== -->",
-				"<!-- ==================================== -->",
-				"<root name='&#1040;&#1041;&#1042;'/>");
+		assertContext("""
+				<!-- ==================================== -->
+				<!-- ==================================== -->
+				<root name="&#1040;&#1041;&#1042;"/>""");
 		// UTF-8, plain
 		rootElement.getModel().setCharset("UTF-8");
 		rootElement.setAttribute("name", rusValue);
-		assertContext(
-				"<!-- ==================================== -->",
-				"<!-- ==================================== -->",
-				"<root name='\u0410\u0411\u0412'/>");
+		assertContext("""
+				<!-- ==================================== -->
+				<!-- ==================================== -->
+				<root name="\u0410\u0411\u0412"/>""");
 		// ISO-8859-1, encoded
 		rootElement.getModel().setCharset("ISO-8859-1");
 		rootElement.setAttribute("name", rusValue);
-		assertContext(
-				"<!-- ==================================== -->",
-				"<!-- ==================================== -->",
-				"<root name='&#1040;&#1041;&#1042;'/>");
+		assertContext("""
+				<!-- ==================================== -->
+				<!-- ==================================== -->
+				<root name="&#1040;&#1041;&#1042;"/>""");
 	}
 
 	/**
@@ -902,10 +887,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_edit() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'/>""");
 		// get attribute
 		DocumentAttribute rootAttribute = rootElement.getDocumentAttribute("name");
 		assertNotNull(rootAttribute);
@@ -916,10 +901,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(rootAttribute, rootElement.setAttribute("name", "newValue"));
 		assertEquals("name", rootAttribute.getName());
 		assertEquals("newValue", rootAttribute.getValue());
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='newValue'/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='newValue'/>""");
 	}
 
 	/**
@@ -927,10 +912,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_setValue() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'/>""");
 		// get attribute
 		DocumentAttribute rootAttribute = rootElement.getDocumentAttribute("name");
 		assertNotNull(rootAttribute);
@@ -941,10 +926,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		rootAttribute.setValue("newValue");
 		assertEquals("name", rootAttribute.getName());
 		assertEquals("newValue", rootAttribute.getValue());
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='newValue'/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='newValue'/>""");
 	}
 
 	/**
@@ -952,10 +937,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_deleteAsObject() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'/>""");
 		// initial state
 		List<DocumentAttribute> attributes = rootElement.getDocumentAttributes();
 		Assertions.assertThat(attributes).hasSize(1);
@@ -968,10 +953,10 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		attributes = rootElement.getDocumentAttributes();
 		Assertions.assertThat(attributes).hasSize(0);
 		assertNull(rootElement.getDocumentAttribute("name"));
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 	}
 
 	/**
@@ -979,20 +964,20 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_attribute_deleteAsValue() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'/>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'/>""");
 		// remove "name" attribute
 		rootElement.setAttribute("name", null);
 		// no attributes
 		List<DocumentAttribute> nodeAttributes = rootElement.getDocumentAttributes();
 		Assertions.assertThat(nodeAttributes).isEmpty();
 		assertNull(rootElement.getDocumentAttribute("name"));
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1002,12 +987,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_element_add_whenClosed() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <parent/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<parent/>
+				</root>""");
 		// prepare "parent"
 		DocumentElement parent = rootElement.getChildAt(0);
 		assertEquals("parent", parent.getTag());
@@ -1022,58 +1007,55 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// state
 		assertTrue(newChild.isClosed());
 		assertFalse(parent.isClosed());
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <parent>",
-				"    <child/>",
-				"  </parent>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<parent>
+						<child/>
+					</parent>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_add_whenSecond() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <first/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<first/>
+				</root>""");
 		// add "second"
 		DocumentElement newChild = new DocumentElement("second");
 		rootElement.addChild(newChild);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <first/>",
-				"  <second/>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<first/>
+					<second/>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_add_whenOnSameLine() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root> <parent></parent> </root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root> <parent></parent> </root>""");
 		DocumentElement parent = rootElement.getChildAt(0);
 		// add "child"
 		DocumentElement newChild = new DocumentElement();
 		newChild.setTag("child");
 		parent.addChild(newChild);
-		m_getSource_ignoreSpaces = true;
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root> <parent>",
-				" \t<child/></parent> </root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root> <parent><child/></parent> </root>""");
 	}
 
 	@Test
 	public void test_element_add_whenSingleLine_whenClosed() throws Exception {
-		m_removeTrailingEOL = true;
 		prepareContext("<root/>");
 		// add "child"
 		DocumentElement newChild = new DocumentElement();
@@ -1084,7 +1066,6 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 
 	@Test
 	public void test_element_add_whenSingleLine_whenOpen() throws Exception {
-		m_removeTrailingEOL = true;
 		prepareContext("<root></root>");
 		// add "child"
 		DocumentElement newChild = new DocumentElement();
@@ -1095,42 +1076,42 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 
 	@Test
 	public void test_element_removeFirst() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <first/>",
-				"  <second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<first/>
+					<second/>
+				</root>""");
 		// remove "first"
 		DocumentElement first = rootElement.getChildAt(0);
 		first.remove();
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <second/>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<second/>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_removeSecond() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <first/>",
-				"  <second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<first/>
+					<second/>
+				</root>""");
 		// remove "second"
 		DocumentElement second = rootElement.getChildAt(1);
 		second.remove();
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <first/>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<first/>
+				</root>""");
 	}
 
 	/**
@@ -1138,39 +1119,39 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_element_removeLast() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <last/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<last/>
+				</root>""");
 		// remove "last"
 		DocumentElement second = rootElement.getChildAt(0);
 		second.remove();
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 		assertTrue(rootElement.isClosed());
 	}
 
 	@Test
 	public void test_element_remove_parentHasText() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  text <first/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					text <first/>
+				</root>""");
 		// remove "first"
 		DocumentElement first = rootElement.getChildAt(0);
 		first.remove();
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  text ",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					text\s
+				</root>""");
 	}
 
 	/**
@@ -1178,54 +1159,54 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_element_removeChildren() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <first/>",
-				"  <second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<first/>
+					<second/>
+				</root>""");
 		// remove all children
 		rootElement.removeChildren();
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root/>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root/>""");
 	}
 
 	@Test
 	public void test_element_setTag() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <tag attrA='1'>",
-				"    <inner attrB='2'/>",
-				"  </tag>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<tag attrA='1'>
+						<inner attrB='2'/>
+					</tag>
+				</root>""");
 		DocumentElement element = rootElement.getChildAt(0);
 		assertEquals("tag", element.getTag());
 		// set new tag name
 		element.setTag("newTag");
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <newTag attrA='1'>",
-				"    <inner attrB='2'/>",
-				"  </newTag>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<newTag attrA='1'>
+						<inner attrB='2'/>
+					</newTag>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_setTagLocal() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root xmlns:wbp='someValue'>",
-				"  <first/>",
-				"  <wbp:second/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root xmlns:wbp='someValue'>
+					<first/>
+					<wbp:second/>
+				</root>""");
 		// "first"
 		{
 			DocumentElement element = rootElement.getChildAt(0);
@@ -1237,13 +1218,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 			element.setTagLocal("newSecond");
 		}
 		// verify
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root xmlns:wbp='someValue'>",
-				"  <newFirst/>",
-				"  <wbp:newSecond/>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root xmlns:wbp='someValue'>
+					<newFirst/>
+					<wbp:newSecond/>
+				</root>""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1253,16 +1234,16 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_element_move_newParent() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <element/>",
-				"  </source>",
-				"  <target>",
-				"  </target>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<element/>
+					</source>
+					<target>
+					</target>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(0);
 		DocumentElement target = rootElement.getChildAt(1);
@@ -1272,15 +1253,15 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(target, element.getParent());
 		Assertions.assertThat(target.getChildren()).contains(element);
 		Assertions.assertThat(source.getChildren()).doesNotContain(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source/>",
-				"  <target>",
-				"    <element/>",
-				"  </target>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source/>
+					<target>
+						<element/>
+					</target>
+				</root>""");
 	}
 
 	/**
@@ -1288,16 +1269,16 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_element_move_newParent_oldHasText() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    Some text <element/>",
-				"  </source>",
-				"  <target>",
-				"  </target>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						Some text <element/>
+					</source>
+					<target>
+					</target>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(0);
 		DocumentElement target = rootElement.getChildAt(1);
@@ -1307,31 +1288,31 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(target, element.getParent());
 		Assertions.assertThat(target.getChildren()).contains(element);
 		Assertions.assertThat(source.getChildren()).doesNotContain(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    Some text ",
-				"  </source>",
-				"  <target>",
-				"    <element/>",
-				"  </target>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						Some text\s
+					</source>
+					<target>
+						<element/>
+					</target>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_move_newParent_newIndentation() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <element/>",
-				"    <target>",
-				"    </target>",
-				"  </source>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<element/>
+						<target>
+						</target>
+					</source>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(0);
 		DocumentElement target = source.getChildAt(1);
@@ -1341,30 +1322,30 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(target, element.getParent());
 		Assertions.assertThat(target.getChildren()).contains(element);
 		Assertions.assertThat(source.getChildren()).doesNotContain(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <target>",
-				"      <element/>",
-				"    </target>",
-				"  </source>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<target>
+							<element/>
+						</target>
+					</source>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_move_reorder_asFirst() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <first/>",
-				"    <element/>",
-				"    <second/>",
-				"  </source>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<first/>
+						<element/>
+						<second/>
+					</source>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(1);
 		// do move
@@ -1372,30 +1353,30 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// hierarchy
 		assertSame(source, element.getParent());
 		Assertions.assertThat(source.getChildren()).contains(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <element/>",
-				"    <first/>",
-				"    <second/>",
-				"  </source>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<element/>
+						<first/>
+						<second/>
+					</source>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_move_reorder_asLast() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <first/>",
-				"    <element/>",
-				"    <second/>",
-				"  </source>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<first/>
+						<element/>
+						<second/>
+					</source>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(1);
 		// do move
@@ -1403,16 +1384,16 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// hierarchy
 		assertSame(source, element.getParent());
 		Assertions.assertThat(source.getChildren()).contains(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <first/>",
-				"    <second/>",
-				"    <element/>",
-				"  </source>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<first/>
+						<second/>
+						<element/>
+					</source>
+				</root>""");
 	}
 
 	/**
@@ -1420,16 +1401,16 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_element_move_reorder_asLast2() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <first/>",
-				"    <element/>",
-				"    <second/>",
-				"  </source>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<first/>
+						<element/>
+						<second/>
+					</source>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(1);
 		// do move
@@ -1437,30 +1418,30 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		// hierarchy
 		assertSame(source, element.getParent());
 		Assertions.assertThat(source.getChildren()).contains(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <first/>",
-				"    <second/>",
-				"    <element/>",
-				"  </source>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<first/>
+						<second/>
+						<element/>
+					</source>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_move_closedElement() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <element attr='value'/>",
-				"  </source>",
-				"  <target>",
-				"  </target>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<element attr='value'/>
+					</source>
+					<target>
+					</target>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(0);
 		DocumentElement target = rootElement.getChildAt(1);
@@ -1470,28 +1451,28 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(target, element.getParent());
 		Assertions.assertThat(target.getChildren()).contains(element);
 		Assertions.assertThat(source.getChildren()).doesNotContain(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source/>",
-				"  <target>",
-				"    <element attr='value'/>",
-				"  </target>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source/>
+					<target>
+						<element attr='value'/>
+					</target>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_move_closedTarget() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <element attr='value'/>",
-				"  </source>",
-				"  <target/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<element attr='value'/>
+					</source>
+					<target/>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(0);
 		DocumentElement target = rootElement.getChildAt(1);
@@ -1501,29 +1482,29 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(target, element.getParent());
 		Assertions.assertThat(target.getChildren()).contains(element);
 		Assertions.assertThat(source.getChildren()).doesNotContain(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source/>",
-				"  <target>",
-				"    <element attr='value'/>",
-				"  </target>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source/>
+					<target>
+						<element attr='value'/>
+					</target>
+				</root>""");
 	}
 
 	@Test
 	public void test_element_move_openWithText() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source>",
-				"    <element attr='value'>Some text</element>",
-				"  </source>",
-				"  <target>",
-				"  </target>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source>
+						<element attr='value'>Some text</element>
+					</source>
+					<target>
+					</target>
+				</root>""");
 		DocumentElement source = rootElement.getChildAt(0);
 		DocumentElement element = source.getChildAt(0);
 		DocumentElement target = rootElement.getChildAt(1);
@@ -1533,15 +1514,15 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 		assertSame(target, element.getParent());
 		Assertions.assertThat(target.getChildren()).contains(element);
 		Assertions.assertThat(source.getChildren()).doesNotContain(element);
-		assertContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root>",
-				"  <source/>",
-				"  <target>",
-				"    <element attr='value'>Some text</element>",
-				"  </target>",
-				"</root>");
+		assertContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root>
+					<source/>
+					<target>
+						<element attr='value'>Some text</element>
+					</target>
+				</root>""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1554,12 +1535,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_visitor() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<!-- ==================================== -->",
-				"<root name='value'>",
-				"  <tag name2='222'/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<!-- ==================================== -->
+				<root name='value'>
+					<tag name2='222'/>
+				</root>""");
 		assertNotNull(rootElement);
 		// visit using default visitor
 		rootElement.accept(new DocumentModelVisitor());
@@ -1626,13 +1607,13 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_getElements() throws Exception {
-		prepareContext(
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<root>",
-				"  <special name='A'/>",
-				"  <someOther/>",
-				"  <special name='B'/>",
-				"</root>");
+		prepareContext("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<root>
+					<special name='A'/>
+					<someOther/>
+					<special name='B'/>
+				</root>""");
 		//
 		List<SpecialDocumentNode> specials = rootElement.getChildren(SpecialDocumentNode.class);
 		Assertions.assertThat(specials).hasSize(2);
@@ -1716,12 +1697,12 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
 	 */
 	@Test
 	public void test_writeShort_twoLevels() throws Exception {
-		prepareContext(
-				"<root>",
-				"  <firstLevelElement>",
-				"    <secondLevelElement/>",
-				"  </firstLevelElement>",
-				"</root>");
+		prepareContext("""
+				<root>
+					<firstLevelElement>
+						<secondLevelElement/>
+					</firstLevelElement>
+				</root>""");
 		assertEquals("<root>", writeShort(rootElement));
 	}
 
