@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.util;
 
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.asm.ToBytesClassAdapter;
 import org.eclipse.wb.internal.core.utils.reflect.IByteCodeProcessor;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.property.editor.image.plugin.WorkspacePluginInfo;
 
 import org.eclipse.core.resources.IProject;
@@ -26,6 +26,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -65,22 +66,15 @@ public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProce
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void createInternalImageManager(ProjectClassLoader classLoader) {
-		try {
-			// prepare InternalImageManager bytes
-			ClassLoader localClassLoader = getClass().getClassLoader();
-			InputStream stream =
-					localClassLoader.getResourceAsStream("org/eclipse/wb/internal/rcp/model/util/InternalImageManager.class");
+		ClassLoader localClassLoader = getClass().getClassLoader();
+		// prepare InternalImageManager bytes
+		try (InputStream stream = localClassLoader
+				.getResourceAsStream("org/eclipse/wb/internal/rcp/model/util/InternalImageManager.class")) {
 			byte[] bytes = IOUtils.toByteArray(stream);
-			stream.close();
 			// inject InternalImageManager to project class loader
-			ReflectionUtils.invokeMethod(
-					classLoader,
-					"defineClass(java.lang.String,byte[],int,int)",
-					"org.eclipse.wb.internal.rcp.model.util.InternalImageManager",
-					bytes,
-					0,
-					bytes.length);
-		} catch (Throwable e) {
+			classLoader.defineClass("org.eclipse.wb.internal.rcp.model.util.InternalImageManager", bytes);
+		} catch (IOException e) {
+			DesignerPlugin.log(e.getMessage(), e);
 		}
 	}
 
