@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.parser;
 
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.asm.ToBytesClassAdapter;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -29,6 +30,7 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -59,12 +61,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void initialize(final ClassLoader classLoader) {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				createDefaultBean(configureBindings(classLoader));
-			}
-		});
+		createDefaultBean(configureBindings(classLoader));
 		ExecutionUtils.runIgnore(new RunnableEx() {
 			@Override
 			public void run() throws Exception {
@@ -117,21 +114,17 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
 	// Bean/Observable
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void createDefaultBean(ProjectClassLoader projectClassLoader) throws Exception {
+	private void createDefaultBean(ProjectClassLoader projectClassLoader) {
 		// prepare DefaultBean bytes
 		ClassLoader localClassLoader = getClass().getClassLoader();
-		InputStream stream =
-				localClassLoader.getResourceAsStream("org/eclipse/wb/internal/rcp/databinding/parser/DefaultBean.class");
-		byte[] bytes = IOUtils.toByteArray(stream);
-		stream.close();
-		// inject DefaultBean to project class loader
-		ReflectionUtils.invokeMethod(
-				projectClassLoader,
-				"defineClass(java.lang.String,byte[],int,int)",
-				"org.eclipse.wb.internal.rcp.databinding.parser.DefaultBean",
-				bytes,
-				0,
-				bytes.length);
+		try (InputStream stream = localClassLoader
+				.getResourceAsStream("org/eclipse/wb/internal/rcp/databinding/parser/DefaultBean.class")) {
+			byte[] bytes = IOUtils.toByteArray(stream);
+			// inject DefaultBean to project class loader
+			projectClassLoader.defineClass("org.eclipse.wb.internal.rcp.databinding.parser.DefaultBean", bytes);
+		} catch (IOException e) {
+			DesignerPlugin.log(e.getMessage(), e);
+		}
 	}
 
 	private static ProjectClassLoader configureBindings(ClassLoader classLoader) {

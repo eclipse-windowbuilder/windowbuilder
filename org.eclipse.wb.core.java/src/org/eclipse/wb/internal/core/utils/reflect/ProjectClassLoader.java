@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -421,5 +421,13 @@ public class ProjectClassLoader extends URLClassLoader {
 			} catch (Throwable e) {
 			}
 		}
+	}
+
+	/**
+	 * May be called by the {@link IByteProcessor}'s to inject their own classes
+	 * into the project class-loader.
+	 */
+	public void defineClass(String className, byte[] bytes) {
+		defineClass(className, bytes, 0, bytes.length);
 	}
 }
