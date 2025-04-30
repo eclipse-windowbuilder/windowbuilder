@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,10 +27,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -38,9 +36,6 @@ import org.eclipse.swt.widgets.Text;
  *
  * <ul>
  * <li>modify events are sent out as the text is changed, and not only after editing is done</li>
- *
- * <li>the <code>Control</code> from <code>getControl(Composite)</code> does not notify registered
- * FocusListeners. This is a workaround for bug 58777.</li>
  *
  * <li>the user can go to the next/previous row with up and down keys</li>
  * </ul>
@@ -97,21 +92,13 @@ public class TableTextCellEditor extends CellEditor {
 	}
 
 	@Override
+	protected boolean dependsOnExternalFocusListener() {
+		return false;
+	}
+
+	@Override
 	protected Control createControl(Composite parent) {
-		//workaround for bug 58777: don't accept focus listeners on the text control
-		Composite result = new Composite(parent, SWT.NONE) {
-			@Override
-			public void addListener(int eventType, final Listener listener) {
-				if (eventType != SWT.FocusIn && eventType != SWT.FocusOut) {
-					m_text.addListener(eventType, listener);
-				}
-			}
-		};
-		result.setFont(parent.getFont());
-		result.setBackground(parent.getBackground());
-		result.setLayout(new FillLayout());
-		//
-		m_text = new Text(result, getStyle());
+		m_text = new Text(parent, getStyle());
 		m_text.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -193,7 +180,7 @@ public class TableTextCellEditor extends CellEditor {
 		m_text.setBackground(parent.getBackground());
 		m_text.setText("");//$NON-NLS-1$
 		//
-		return result;
+		return m_text;
 	}
 
 	@Override
