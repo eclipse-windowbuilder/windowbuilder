@@ -237,6 +237,11 @@ public final class EditableSource implements IEditableSource {
 		if (oldKey.equals(newKey)) {
 			return;
 		}
+		// check that changing key is used in current form, else
+		// we will break code, because other form will use not existing key
+		if (!m_formKeys.contains(oldKey)) {
+			return;
+		}
 		// check, may be there is already such key in some bundle
 		boolean containsNewKey = false;
 		for (EditableLocaleInfo editableLocale : m_localeToInfo.values()) {
