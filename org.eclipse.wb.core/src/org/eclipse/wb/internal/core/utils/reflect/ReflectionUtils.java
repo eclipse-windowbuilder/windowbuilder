@@ -27,13 +27,13 @@ import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -691,6 +691,9 @@ public class ReflectionUtils {
 		// process classes
 		for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
 			for (Method method : c.getDeclaredMethods()) {
+				if (!method.trySetAccessible()) {
+					continue;
+				}
 				String signature = getMethodSignature(method);
 				if (!methods.containsKey(signature)) {
 					methods.put(signature, method);
@@ -700,6 +703,9 @@ public class ReflectionUtils {
 		// process interfaces
 		for (Class<?> interfaceClass : clazz.getInterfaces()) {
 			for (Method method : interfaceClass.getDeclaredMethods()) {
+				if (!method.trySetAccessible()) {
+					continue;
+				}
 				String signature = getMethodSignature(method);
 				if (!methods.containsKey(signature)) {
 					methods.put(signature, method);
@@ -906,14 +912,12 @@ public class ReflectionUtils {
 		Assert.isNotNull(arguments);
 		// do invoke
 		try {
-			MethodHandle methodHandle = getPrivateLookup(method.getDeclaringClass()).unreflect(method);
-			if (!isStatic(method)) {
-				Assert.isNotNull(object, "non-static method '%s' must be bound to an object", method);
-				methodHandle = methodHandle.bindTo(object);
+			if (method.trySetAccessible()) {
+				return method.invoke(object, arguments);
 			}
-			return methodHandle.asFixedArity().invokeWithArguments(arguments);
-		} catch (Throwable e) {
-			throw propagate(e);
+			return null;
+		} catch (InvocationTargetException e) {
+			throw propagate(e.getCause());
 		}
 	}
 
