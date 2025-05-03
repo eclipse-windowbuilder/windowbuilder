@@ -27,7 +27,6 @@ import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.invoke.MethodHandles;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -1168,15 +1167,18 @@ public class ReflectionUtils {
 	 * Creates a new instance of the given class using the constructor with the
 	 * matching signature or {@code null}, if the constructor is {@code null}.
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(Constructor<T> constructor, Object... arguments) {
 		if (constructor == null) {
 			return null;
 		}
 		try {
-			return (T) getPrivateLookup(constructor.getDeclaringClass()).unreflectConstructor(constructor)
-					.asFixedArity().invokeWithArguments(arguments);
-		} catch (Throwable e) {
+			if (constructor.trySetAccessible()) {
+				return constructor.newInstance(arguments);
+			}
+			return null;
+		} catch (IllegalArgumentException e) {
+			throw propagate(e.getCause());
+		} catch (ReflectiveOperationException e) {
 			throw propagate(e);
 		}
 	}
@@ -1293,7 +1295,10 @@ public class ReflectionUtils {
 				}
 				return null;
 			}
-			return FieldUtils.readField(field, refObject, true);
+			if (field.trySetAccessible()) {
+				return field.get(refObject);
+			}
+			return null;
 		});
 	}
 
@@ -1695,19 +1700,5 @@ public class ReflectionUtils {
 
 	private static String getSimplePropertyName(String qualifiedPropertyName) {
 		return StringUtils.substringBefore(qualifiedPropertyName, "(");
-	}
-
-	private static MethodHandles.Lookup getPrivateLookup(Class<?> clazz) {
-		Module callerModule = ReflectionUtils.class.getModule();
-		Module targetModule = clazz.getModule();
-		// Quick check to see if private lookup is possible
-		if (targetModule.isNamed() && !targetModule.isOpen(clazz.getPackageName(), callerModule)) {
-			return MethodHandles.lookup();
-		}
-		try {
-			return MethodHandles.privateLookupIn(clazz, MethodHandles.lookup());
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			return MethodHandles.lookup();
-		}
 	}
 }
