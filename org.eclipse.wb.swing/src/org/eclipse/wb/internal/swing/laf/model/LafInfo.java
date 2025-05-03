@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
 
 /**
  * Base class for {@link LookAndFeel} info.
@@ -108,8 +109,13 @@ public class LafInfo extends LafEntryInfo {
 	 * @return the instance of LAF class.
 	 */
 	public LookAndFeel getLookAndFeelInstance() throws Exception {
-		Class<?> lafClass = Class.forName(getClassName());
-		return (LookAndFeel) lafClass.newInstance();
+		LookAndFeel oldLookAndFeel = UIManager.getLookAndFeel();
+		try {
+			UIManager.setLookAndFeel(getClassName());
+			return UIManager.getLookAndFeel();
+		} finally {
+			UIManager.setLookAndFeel(oldLookAndFeel);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
