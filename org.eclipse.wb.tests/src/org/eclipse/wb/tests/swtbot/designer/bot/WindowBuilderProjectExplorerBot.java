@@ -36,6 +36,6 @@ public class WindowBuilderProjectExplorerBot extends SWTBotView {
 		LOGGER.fine("Open New wizard");
 		bot().tree().getTreeItem("TestProject").contextMenu().menu("New", "Other...").click();
 		LOGGER.fine("Opened New wizard");
-		return bot.shell("New");
+		return bot.activeShell();
 	}
 }
