@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.JFrame;
@@ -46,7 +45,6 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 	 * Use constructor without accessor, only to create {@link IEditableSource} using existing
 	 * *.properties.
 	 */
-	@Ignore
 	@Test
 	public void test_constructorWithoutAccessor() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
@@ -87,11 +85,12 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 			parameters.m_propertyBundleName = "test.messages";
 			parameters.m_propertyFileExists = false;
 		}
+		SourceDescription sourceDescription = getSourceDescription(frame);
 		// add source
 		IEditableSupport editableSupport = support.getEditable();
 		editableSupport.addSource(
 				editableSource,
-				NlsSupport.getSourceDescriptions(frame)[0],
+				sourceDescription,
 				parameters);
 		// apply commands
 		support.applyEditable(editableSupport);
@@ -248,7 +247,6 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 		assertEquals(0, support.getSources().length);
 	}
 
-	@Ignore
 	@Test
 	public void test_addSource() throws Exception {
 		ContainerInfo frame =
@@ -265,8 +263,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
 		IEditableSource editableSource;
 		{
 			editableSource = NlsTestUtils.createEmptyEditable("messages");
-			SourceDescription sourceDescription = NlsSupport.getSourceDescriptions(frame)[0];
-			assertSame(EclipseSource.class, sourceDescription.getSourceClass());
+			SourceDescription sourceDescription = getSourceDescription(frame);
 			// prepare parameters
 			SourceParameters parameters = new SourceParameters();
 			IJavaProject javaProject = m_lastEditor.getJavaProject();
