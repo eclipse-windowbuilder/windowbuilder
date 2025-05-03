@@ -67,7 +67,9 @@ public class DesignerPlugin extends AbstractUIPlugin {
 		}
 		try {
 			// https://github.com/eclipse-windowbuilder/windowbuilder/issues/1027
-			exportAllModulesToAllModules();
+			if (EnvironmentUtils.isBurningWaveEnabled()) {
+				exportAllModulesToAllModules();
+			}
 		} catch (Throwable e) {
 			log(e);
 		}

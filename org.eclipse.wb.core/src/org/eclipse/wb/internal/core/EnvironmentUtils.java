@@ -223,4 +223,15 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 	public static boolean isGefPalette() {
 		return Boolean.getBoolean(WBP_GEF_PALETTE);
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Testing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String WBP_BURNINGWAVE = "wbp.burningwave.enabled";
+
+	public static boolean isBurningWaveEnabled() {
+		return Boolean.valueOf(System.getProperty(WBP_BURNINGWAVE, Boolean.TRUE.toString()));
+	}
 }
