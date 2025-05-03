@@ -122,7 +122,7 @@ public class WindowBuilderWorkbenchBot extends SWTWorkbenchBot {
 		LOGGER.fine("Open New wizard");
 		shell().menu().menu("File").menu("New", "Other...").click();
 		LOGGER.fine("Opened New wizard");
-		return shell("New");
+		return activeShell();
 	}
 
 	// I/O
