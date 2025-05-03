@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,9 +16,16 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WithTooltip.withTooltip;
+
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarDropDownButton;
 
+import org.apache.commons.lang3.function.FailableBiConsumer;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -29,7 +36,7 @@ import org.junit.BeforeClass;
  * @author scheglov_ke
  */
 public abstract class AbstractNlsUiTest extends SwingGefTest {
-	protected ToolItem m_dialogItem;
+	protected SWTBotToolbarDropDownButton m_dialogItem;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -40,10 +47,10 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 	protected void fetchContentFields() {
 		super.fetchContentFields();
 		{
-			UiContext context = new UiContext();
 			// NLS dialog item
-			m_dialogItem = context.getToolItem("Externalize strings");
-			assertNotNull("Can not find NLS dialog item.", m_dialogItem);
+			SWTBot bot = new SWTBot(m_designerEditor.getRootControl());
+			ToolItem widget = (ToolItem) bot.getFinder().findControls(withTooltip("Externalize strings")).getFirst();
+			m_dialogItem = new SWTBotToolbarDropDownButton(widget);
 		}
 	}
 
@@ -72,9 +79,42 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
 			public void run(UiContext context) throws Exception {
-				context.click(m_dialogItem);
+				context.click(m_dialogItem.widget);
 			}
 		}, runnable);
+	}
+	
+	/**
+	 * Creates compilation unit, opens Design page, opens NLS dialog and then run
+	 * given {@link FailableBiConsumer}.
+	 */
+	protected final void openDialogNLS(String initialSource, FailableBiConsumer<UiContext, SWTBot, Exception> consumer)
+			throws Exception {
+		openDialogNLS("test", initialSource, consumer);
+	}
+
+	/**
+	 * Creates compilation unit, opens Design page, opens NLS dialog and then run
+	 * given {@link FailableBiConsumer}.
+	 */
+	protected final void openDialogNLS(String packageName, String initialSource,
+			FailableBiConsumer<UiContext, SWTBot, Exception> consumer)
+			throws Exception {
+		ICompilationUnit unit = createModelCompilationUnit(packageName, "Test.java", initialSource);
+		openDesign(unit);
+		// click on "Externalize strings" item
+		UiContext context = new UiContext();
+		context.executeAndCheck(new FailableRunnable<Exception>() {
+			@Override
+			public void run() {
+				m_dialogItem.click();
+			}
+		}, new FailableConsumer<SWTBot, Exception> () {
+			@Override
+			public void accept(SWTBot bot) throws Exception {
+				consumer.accept(context, bot);
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////

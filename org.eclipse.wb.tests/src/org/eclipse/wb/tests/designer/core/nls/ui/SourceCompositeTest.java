@@ -17,28 +17,43 @@ import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.StringPropertyInfo;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
-import org.eclipse.wb.internal.core.nls.ui.NlsDialog;
 import org.eclipse.wb.internal.core.nls.ui.SourceComposite;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils.ITableTooltipProvider;
-import org.eclipse.wb.tests.gef.EventSender;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
+import org.eclipse.wb.tests.utils.SWTBotCTableCombo;
+import org.eclipse.wb.tests.utils.SWTBotEditableSource;
+
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
+import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
+import static org.eclipse.swtbot.swt.finder.waits.Conditions.waitForShell;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
+import org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy;
+import org.eclipse.swtbot.swt.finder.results.Result;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
+import org.eclipse.swtbot.swt.finder.utils.Traverse;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotRootMenu;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
-import org.junit.Ignore;
+import org.apache.commons.lang3.function.FailableBiConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -46,8 +61,24 @@ import java.util.Locale;
  *
  * @author scheglov_ke
  */
-@Ignore
 public class SourceCompositeTest extends AbstractDialogTest {
+	private static String SWTBOT_KEYBOARD_STRATEGY;
+	private static String SWTBOT_KEYBOARD_LAYOUT;
+
+	@BeforeClass
+	public static void setUpAll() {
+		SWTBOT_KEYBOARD_STRATEGY = SWTBotPreferences.KEYBOARD_STRATEGY;
+		SWTBotPreferences.KEYBOARD_STRATEGY = SWTKeyboardStrategy.class.getName();
+		SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+		SWTBOT_KEYBOARD_LAYOUT = SWTBotPreferences.KEYBOARD_LAYOUT;
+	}
+
+	@AfterClass
+	public static void tearDownAll() {
+		SWTBotPreferences.KEYBOARD_STRATEGY = SWTBOT_KEYBOARD_STRATEGY;
+		SWTBotPreferences.KEYBOARD_LAYOUT = SWTBOT_KEYBOARD_LAYOUT;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// ITableTooltipProvider
@@ -67,45 +98,36 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
-				Table table = getSourceTable(context, tabItems[0]);
-				// prepare provider
-				ITableTooltipProvider provider;
-				{
-					SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
-					provider = (ITableTooltipProvider) ReflectionUtils.invokeMethod(
-							sourceComposite,
-							"createTooltipProvider()");
-				}
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
 				// check items
+				SWTBotTable table = shell.table();
 				assertItems(
 						table,
 						new String[] { "frame.name", "My name" },
 						new String[] { "frame.title", "My JFrame" });
 				//
-				Shell newShell = new Shell();
-				try {
+				try (SWTBotTableTooltipProvider provider = getTableToolTipProvider(shell)) {
 					// not first column
 					{
-						Control control = provider.createTooltipControl(table.getItem(1), newShell, 1);
+						Control control = provider.createTooltipControl(table.getTableItem(1), 1);
 						assertNull(control);
 					}
 					// no components
 					{
-						Control control = provider.createTooltipControl(table.getItem(0), newShell, 0);
+						Control control = provider.createTooltipControl(table.getTableItem(0), 0);
 						assertNull(control);
 					}
 					// one component
 					{
-						Control control = provider.createTooltipControl(table.getItem(1), newShell, 0);
+						Control control = provider.createTooltipControl(table.getTableItem(1), 0);
 						assertNotNull(control);
-						assertTrue(newShell.getChildren().length > 0);
+						assertTrue(provider.getChildren().length > 0);
 					}
-				} finally {
-					newShell.dispose();
 				}
 			}
 		});
@@ -133,33 +155,31 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
-				Table table = getSourceTable(context, tabItems[0]);
-				Menu tableMenu = table.getMenu();
-				EventSender eventSender = new EventSender(table);
-				//
-				eventSender.postMouseMove(getItemLocation(table, 2, 10));
-				tableMenu.notifyListeners(SWT.Show, null);
-				final MenuItem removeLocaleItem = findMenuItem(tableMenu, "Remove locale...");
-				assertNotNull(removeLocaleItem);
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
+				SWTBotTable table = shell.table();
+				table.getTableItem(0).click(2);
+				// Workaround to make sure the context menu for the 2nd column is opened
+				SWTBotRootMenu tableMenu = new SWTBotRootMenu(UIThreadRunnable.syncExec(() -> {
+					Menu menu = table.widget.getMenu();
+					menu.setVisible(true);
+					return menu;
+				}));
+				final SWTBotMenu removeLocaleItem = tableMenu.menu("Remove locale...");
 				// don't confirm, no changes expected
 				{
-					context.executeAndCheck(new UIRunnable() {
+					context.execute(new FailableRunnable<Exception>() {
 						@Override
-						public void run(UiContext ctx) throws Exception {
-							removeLocaleItem.notifyListeners(SWT.Selection, null);
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext ctx) throws Exception {
-							ctx.useShell("Confirm");
-							ctx.clickButton("Cancel");
-							ctx.popShell();
+						public void run() {
+							removeLocaleItem.click();
 						}
 					});
+					bot.waitUntil(waitForShell(withText("Confirm")));
+					bot.shell("Confirm").bot().button("Cancel").click();
 					// check items
 					assertItems(
 							table,
@@ -168,25 +188,21 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				}
 				// confirm
 				{
-					context.executeAndCheck(new UIRunnable() {
+					context.execute(new FailableRunnable<Exception>() {
 						@Override
-						public void run(UiContext ctx) throws Exception {
-							removeLocaleItem.notifyListeners(SWT.Selection, null);
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext ctx) throws Exception {
-							ctx.useShell("Confirm");
-							ctx.clickButton("OK");
-							ctx.popShell();
+						public void run() {
+							removeLocaleItem.click();
 						}
 					});
+					bot.waitUntil(waitForShell(withText("Confirm")));
+					bot.shell("Confirm").bot().button("OK").click();
 					// check items
 					assertItems(
 							table,
 							new String[] { "frame.name", "My name" },
 							new String[] { "frame.title", "My JFrame" });
 				}
+				shell.button("OK").click();
 			}
 		});
 		// 'it' properties should be deleted
@@ -205,54 +221,39 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
-				Table table = getSourceTable(context, tabItems[0]);
-				Menu tableMenu = table.getMenu();
-				EventSender eventSender = new EventSender(table);
-				//
-				table.select(0);
-				eventSender.postMouseMove(getItemLocation(table, 0, 0));
-				tableMenu.notifyListeners(SWT.Show, null);
-				final MenuItem internalizeItem = findMenuItem(tableMenu, "Internalize key...");
-				assertNotNull(internalizeItem);
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
+				SWTBotTable table = shell.table();
+				SWTBotRootMenu tableMenu = table.getTableItem(0).contextMenu();
+				final SWTBotMenu internalizeItem = tableMenu.contextMenu("Internalize key...");
 				// don't confirm, no changes expected
 				{
-					context.executeAndCheck(new UIRunnable() {
+					context.execute(new FailableRunnable<Exception>() {
 						@Override
-						public void run(UiContext ctx) throws Exception {
-							internalizeItem.notifyListeners(SWT.Selection, null);
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext ctx) throws Exception {
-							ctx.useShell("Confirm");
-							ctx.clickButton("Cancel");
-							ctx.popShell();
+						public void run() {
+							internalizeItem.click();
 						}
 					});
+					bot.shell("Confirm").bot().button("Cancel").click();
 					// check items
 					assertItems(table, new String[] { "frame.title", "My JFrame" });
 				}
 				// confirm
 				{
-					context.executeAndCheck(new UIRunnable() {
+					context.execute(new FailableRunnable<Exception>() {
 						@Override
-						public void run(UiContext ctx) throws Exception {
-							internalizeItem.notifyListeners(SWT.Selection, null);
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext ctx) throws Exception {
-							ctx.useShell("Confirm");
-							ctx.clickButton("OK");
-							ctx.popShell();
+						public void run() {
+							internalizeItem.click();
 						}
 					});
+					bot.shell("Confirm").bot().button("OK").click();
 					// check items
 					assertItems(table /* , <no elements> */);
+					shell.button("OK").click();
 				}
 			}
 		});
@@ -279,47 +280,40 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
-				Table table = getSourceTable(context, tabItems[0]);
-				Menu tableMenu = table.getMenu();
-				EventSender eventSender = new EventSender(table);
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
+				SWTBotTable table = shell.table();
+				SWTBotRootMenu tableMenu = table.getTableItem(0).click().contextMenu();
+				final SWTBotMenu addLocaleItem = tableMenu.menu("Add locale...");
 				//
-				table.select(0);
-				eventSender.postMouseMove(getItemLocation(table, 0, 10));
-				tableMenu.notifyListeners(SWT.Show, null);
-				final MenuItem addLocaleItem = findMenuItem(tableMenu, "Add locale...");
-				assertNotNull(addLocaleItem);
-				//
-				context.executeAndCheck(new UIRunnable() {
+				context.execute(new FailableRunnable<Exception>() {
 					@Override
-					public void run(UiContext ctx) throws Exception {
-						addLocaleItem.notifyListeners(SWT.Selection, null);
-					}
-				}, new UIRunnable() {
-					@Override
-					public void run(UiContext ctx) throws Exception {
-						ctx.useShell("Choose Locale");
-						// select 'it' language
-						CTableCombo languagesCombo = ctx.findFirstWidget(CTableCombo.class);
-						for (int i = 0; i < languagesCombo.getItemCount(); i++) {
-							String item = languagesCombo.getItem(i);
-							if (item.startsWith("it - ")) {
-								languagesCombo.select(i);
-								languagesCombo.notifyListeners(SWT.Selection, null);
-								break;
-							}
-						}
-						// click "OK"
-						ctx.clickButton("OK");
-						ctx.popShell();
+					public void run() {
+						addLocaleItem.click();
 					}
 				});
+				{
+					SWTBot shell2 = bot.shell("Choose Locale").bot();
+					// select 'it' language
+					SWTBotCTableCombo languagesCombo = getLanguageCombo(shell2);
+					for (int i = 0; i < languagesCombo.getItemCount(); i++) {
+						String item = languagesCombo.getItem(i);
+						if (item.startsWith("it - ")) {
+							languagesCombo.select(i);
+							break;
+						}
+					}
+					// click "OK"
+					shell2.button("OK").click();
+				}
 				// check items
 				assertColumns(table, "Key", "(default)", "it");
 				assertItems(table, new String[] { "frame.title", "My JFrame", "My JFrame" });
+				shell.button("OK").click();
 			}
 		});
 		// we should have new locale - 'it'
@@ -338,39 +332,19 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				context.executeAndCheck(new UIRunnable() {
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				context.execute(new FailableRunnable<Exception>() {
 					@Override
-					public void run(UiContext ctx) throws Exception {
-						ctx.clickButton("New locale...");
-					}
-				}, new UIRunnable() {
-					@Override
-					public void run(UiContext ctx) throws Exception {
-						ctx.useShell("Choose Locale");
-						ctx.clickButton("Cancel");
-						ctx.popShell();
+					public void run() {
+						shell.button("New locale...").click();
 					}
 				});
+				bot.shell("Choose Locale").bot().button("Cancel").click();
 			}
 		});
-	}
-
-	/**
-	 * @return the {@link MenuItem} with given text or <code>null</code>.
-	 */
-	private static MenuItem findMenuItem(Menu menu, String text) {
-		MenuItem[] items = menu.getItems();
-		for (int i = 0; i < items.length; i++) {
-			MenuItem item = items[i];
-			if (item.getText().equals(text)) {
-				return item;
-			}
-		}
-		// not found
-		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -391,16 +365,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
 				//
-				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
-				IEditableSource editableSource =
-						(IEditableSource) ReflectionUtils.getFieldObject(sourceComposite, "m_source");
-				Table table = getSourceTable(context, tabItems[0]);
+				SWTBotEditableSource editableSource = getEditableSource(shell);
+				SWTBotTable table = shell.table();
 				// check initial items
 				{
 					assertColumns(table, "Key", "(default)", "it");
@@ -409,12 +382,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// click to activate cell editor
 				{
 					// click on value to start edit
-					clickItem(table, 1, 0, 1);
+					table.click(0, 1);
 					// send new text and CR
 					{
-						UiContext.findFirstWidget(table, Text.class).setFocus();
-						EventSender.sendText("New title");
-						EventSender.sendKey(SWT.CR);
+						SWTBotText text = shell.text();
+						text.setText("New title");
+						text.pressShortcut(Keystrokes.CR);
 						waitEventLoop(10);
 					}
 				}
@@ -427,10 +400,11 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				}
 				// rename key
 				{
-					clickItem(table, 0, 0, 1);
+					table.click(0, 0);
 					{
-						EventSender.sendText("frame.title2");
-						EventSender.sendKey(SWT.CR);
+						SWTBotText text = shell.text();
+						text.setText("frame.title2");
+						text.pressShortcut(Keystrokes.CR);
 						waitEventLoop(10);
 					}
 					// check
@@ -448,9 +422,10 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					assertNull(editableSource.getValue(localeInfo, "frame.title2"));
 					// modify
 					{
-						clickItem(table, 2, 0, 1);
-						EventSender.sendText("title IT");
-						EventSender.sendKey(SWT.CR);
+						table.click(0, 2);
+						SWTBotText text = shell.text();
+						text.setText("title IT");
+						text.pressShortcut(Keystrokes.CR);
 						waitEventLoop(10);
 					}
 					// check
@@ -460,6 +435,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 								table,
 								new String[] { "frame.title2", "New title", "title IT" });
 					}
+					shell.button("OK").click();
 				}
 				// wait UI
 				//waitEventLoop(5000);
@@ -480,16 +456,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setName("My name");
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
 				//
-				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
-				IEditableSource editableSource =
-						(IEditableSource) ReflectionUtils.getFieldObject(sourceComposite, "m_source");
-				Table table = getSourceTable(context, tabItems[0]);
+				SWTBotEditableSource editableSource = getEditableSource(shell);
+				SWTBotTable table = shell.table();
 				// check initial items
 				{
 					assertColumns(table, "Key", "(default)");
@@ -528,16 +503,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setName(ResourceBundle.getBundle("test.messages").getString("frame.name")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
+			public void accept(UiContext context, SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
 				//
-				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
-				final IEditableSource editableSource =
-						(IEditableSource) ReflectionUtils.getFieldObject(sourceComposite, "m_source");
-				Table table = getSourceTable(context, tabItems[0]);
+				final SWTBotEditableSource editableSource = getEditableSource(shell);
+				SWTBotTable table = shell.table();
 				// check initial items
 				{
 					assertColumns(table, "Key", "(default)");
@@ -547,19 +521,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 							new String[] { "frame.title", "My JFrame" });
 				}
 				// rename "frame.name" -> "frame.title"
-				context.executeAndCheck(new UIRunnable() {
-					@Override
-					public void run(UiContext ctx) throws Exception {
-						editableSource.renameKey("frame.name", "frame.title");
-					}
-				}, new UIRunnable() {
-					@Override
-					public void run(UiContext ctx) throws Exception {
-						ctx.useShell("Confirm");
-						ctx.clickButton("Yes, keep existing value");
-						ctx.popShell();
-					}
-				});
+				editableSource.renameKey("frame.name", "frame.title");
+				bot.shell("Confirm").bot().button("Yes, keep existing value").click();
 				// check items
 				{
 					assertColumns(table, "Key", "(default)");
@@ -583,15 +546,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
+			public void accept(UiContext context, SWTBot bot) {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				assertTrue(shell.tabItem("test.messages").isActive());
 				//
 				//waitEventLoop(5000);
-				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
-				Table table = getSourceTable(context, tabItems[0]);
+				SWTBotTable table = shell.table();
 				// check initial items
 				assertItems(
 						table,
@@ -599,10 +562,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						new String[] { "frame.title", "My JFrame" });
 				// check "Show strings only for current form"
 				{
-					Button onlyFormButton =
-							context.getButtonByText(sourceComposite, "Show strings only for current form");
-					onlyFormButton.setSelection(true);
-					context.click(onlyFormButton);
+					SWTBotCheckBox onlyFormButton = shell.checkBox("Show strings only for current form");
+					onlyFormButton.click();
 				}
 				// only 'frame.title' expected
 				assertItems(table, new String[] { "frame.title", "My JFrame" });
@@ -626,11 +587,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				tabFolder.setSelection(0);
-				Table table = getSourceTable(context, tabFolder.getItems()[0]);
+			public void accept(UiContext context, SWTBot bot) throws InterruptedException {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				// No externalizable strings
+				assertFalse(shell.tabItem("test.messages").isActive());
+				shell.tabItem("test.messages").activate();
+				SWTBotTable table = shell.table();
 				// check initial items
 				assertItems(
 						table,
@@ -639,12 +604,13 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// check next column
 				{
 					// activate editor at (1, 0)
-					clickItem(table, 1, 0, 1);
+					table.click(0, 1);
 					// navigate next column - (1, 2)
-					EventSender.sendKey(SWT.TAB);
+					shell.text().traverse(Traverse.TAB_NEXT);
 					// set text
-					EventSender.sendText("a b");
-					EventSender.sendKey(SWT.CR);
+					SWTBotText text = shell.text();
+					text.setText("a b");
+					text.pressShortcut(Keystrokes.CR);
 					waitEventLoop(10);
 					// check
 					assertItems(
@@ -655,12 +621,14 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// check next row
 				{
 					// activate editor at (2, 0)
-					clickItem(table, 2, 0, 1);
+					table.click(0, 2);
 					// navigate next row - (2, 2)
-					EventSender.sendKey(SWT.ARROW_DOWN);
+					shell.text().pressShortcut(Keystrokes.DOWN);
+					waitEventLoop(10);
 					// set text
-					EventSender.sendText("b b");
-					EventSender.sendKey(SWT.CR);
+					SWTBotText text = shell.text();
+					text.setText("b b");
+					text.pressShortcut(Keystrokes.CR);
 					waitEventLoop(10);
 					// check
 					assertItems(
@@ -671,14 +639,17 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// prev column/row
 				{
 					// activate editor at (2, 1)
-					clickItem(table, 2, 1, 1);
+					table.click(1, 2);
 					// prev column
-					EventSender.sendKey(SWT.SHIFT, SWT.TAB);
-					EventSender.sendText("b a");
+					shell.text().pressShortcut(SWT.SHIFT, SWT.TAB);
+					waitEventLoop(10);
+					shell.text().setText("b a");
 					// prev row
-					EventSender.sendKey(SWT.ARROW_UP);
-					EventSender.sendText("a a");
-					EventSender.sendKey(SWT.CR);
+					shell.text().pressShortcut(Keystrokes.UP);
+					waitEventLoop(10);
+					SWTBotText text = shell.text();
+					text.setText("a a");
+					text.pressShortcut(Keystrokes.CR);
 					// check
 					waitEventLoop(10);
 					assertItems(
@@ -688,5 +659,68 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				}
 			}
 		});
+	}
+
+	/**
+	 * @return {@link SWTBotEditableSource} of this dialog.
+	 */
+	private static SWTBotEditableSource getEditableSource(SWTBot shell) throws Exception {
+		SourceComposite composite = shell.getFinder().findControls(widgetOfType(SourceComposite.class)).get(0);
+		IEditableSource editableSource = (IEditableSource) ReflectionUtils.getFieldObject(composite, "m_source");
+		return new SWTBotEditableSource(editableSource);
+	}
+
+	/**
+	 * @return {@link SWTBotCTableCombo} of this dialog.
+	 */
+	private static SWTBotCTableCombo getLanguageCombo(SWTBot shell) {
+		CTableCombo widget = shell.getFinder().findControls(widgetOfType(CTableCombo.class)).get(0);
+		if (widget == null) {
+			return null;
+		}
+		return new SWTBotCTableCombo(widget);
+	}
+
+	/**
+	 * @return {@link SWTBotTableTooltipProvider} of this dialog.
+	 */
+	private static SWTBotTableTooltipProvider getTableToolTipProvider(SWTBot shell) throws Exception {
+		return new SWTBotTableTooltipProvider(shell);
+	}
+
+	/**
+	 * Wrapper for the {@link ITableTooltipProvider} to support creation of
+	 * tool-tips outside the UI thread.
+	 */
+	private static class SWTBotTableTooltipProvider extends SWTBot implements Closeable {
+		private final Shell shell;
+		private final ITableTooltipProvider provider;
+
+		public SWTBotTableTooltipProvider(SWTBot parent) throws Exception {
+			SourceComposite composite = parent.getFinder().findControls(widgetOfType(SourceComposite.class)).get(0);
+			provider = (ITableTooltipProvider) ReflectionUtils.invokeMethod(composite, "createTooltipProvider()");
+			shell = UIThreadRunnable.syncExec((Result<Shell>) Shell::new);
+		}
+
+		public Control createTooltipControl(SWTBotTableItem tableItem, int column) {
+			return UIThreadRunnable.syncExec(() -> provider.createTooltipControl(tableItem.widget, shell, column));
+		}
+
+		public Control[] getChildren() {
+			return UIThreadRunnable.syncExec(shell::getChildren);
+		}
+
+		@Override
+		public void close() throws IOException {
+			UIThreadRunnable.syncExec(shell::dispose);
+		}
+	}
+
+	/**
+	 * Waits given number of milliseconds and runs events loop every 1 millisecond.
+	 * At least one events loop will be executed.
+	 */
+	protected static void waitEventLoop(int time) {
+		UIThreadRunnable.syncExec(() -> waitEventLoop(time, 0));
 	}
 }
