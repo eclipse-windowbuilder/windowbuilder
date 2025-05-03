@@ -81,7 +81,7 @@ public abstract class AbstractDialogTest extends AbstractNlsUiTest {
 	 *
 	 * @return the array of {@link TabItem}'s.
 	 */
-	protected static TabItem[] assertItems(TabFolder tabFolder, String[] expectedTitles) {
+	protected static TabItem[] assertItems(TabFolder tabFolder, String... expectedTitles) {
 		TabItem[] items = tabFolder.getItems();
 		assertEquals(expectedTitles.length, items.length);
 		for (int i = 0; i < items.length; i++) {
@@ -106,7 +106,7 @@ public abstract class AbstractDialogTest extends AbstractNlsUiTest {
 	/**
 	 * Asserts that {@link Table} has {@link TableColumn}'s with given titles.
 	 */
-	protected static void assertColumns(Table table, String[] expectedTitles) {
+	protected static void assertColumns(Table table, String... expectedTitles) {
 		TableColumn[] columns = table.getColumns();
 		assertEquals(expectedTitles.length, columns.length);
 		for (int i = 0; i < columns.length; i++) {
@@ -118,7 +118,7 @@ public abstract class AbstractDialogTest extends AbstractNlsUiTest {
 	/**
 	 * Asserts that {@link Table} has {@link TableItems}'s with given titles.
 	 */
-	protected static void assertItems(Table table, String[][] expectedTitles2) {
+	protected static void assertItems(Table table, String[]... expectedTitles2) {
 		TableItem[] items = table.getItems();
 		assertEquals(expectedTitles2.length, items.length);
 		for (int i = 0; i < items.length; i++) {

@@ -70,7 +70,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				Table table = getSourceTable(context, tabItems[0]);
 				// prepare provider
 				ITableTooltipProvider provider;
@@ -83,9 +83,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// check items
 				assertItems(
 						table,
-						new String[][]{
-							new String[]{"frame.name", "My name"},
-							new String[]{"frame.title", "My JFrame"},});
+						new String[] { "frame.name", "My name" },
+						new String[] { "frame.title", "My JFrame" });
 				//
 				Shell newShell = new Shell();
 				try {
@@ -137,7 +136,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				Table table = getSourceTable(context, tabItems[0]);
 				Menu tableMenu = table.getMenu();
 				EventSender eventSender = new EventSender(table);
@@ -164,9 +163,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// check items
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"frame.name", "My name", "My name IT"},
-								new String[]{"frame.title", "My JFrame", "My JFrame IT"},});
+							new String[] { "frame.name", "My name", "My name IT" },
+							new String[] { "frame.title", "My JFrame", "My JFrame IT" });
 				}
 				// confirm
 				{
@@ -186,9 +184,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// check items
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"frame.name", "My name"},
-								new String[]{"frame.title", "My JFrame"},});
+							new String[] { "frame.name", "My name" },
+							new String[] { "frame.title", "My JFrame" });
 				}
 			}
 		});
@@ -211,7 +208,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				Table table = getSourceTable(context, tabItems[0]);
 				Menu tableMenu = table.getMenu();
 				EventSender eventSender = new EventSender(table);
@@ -237,7 +234,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						}
 					});
 					// check items
-					assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame"}});
+					assertItems(table, new String[] { "frame.title", "My JFrame" });
 				}
 				// confirm
 				{
@@ -255,7 +252,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						}
 					});
 					// check items
-					assertItems(table, new String[][]{});
+					assertItems(table /* , <no elements> */);
 				}
 			}
 		});
@@ -285,7 +282,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		openDialogNLS(initialSource, new NLSDialogRunnable() {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				Table table = getSourceTable(context, tabItems[0]);
 				Menu tableMenu = table.getMenu();
 				EventSender eventSender = new EventSender(table);
@@ -321,8 +318,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					}
 				});
 				// check items
-				assertColumns(table, new String[]{"Key", "(default)", "it"});
-				assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame", "My JFrame"},});
+				assertColumns(table, "Key", "(default)", "it");
+				assertItems(table, new String[] { "frame.title", "My JFrame", "My JFrame" });
 			}
 		});
 		// we should have new locale - 'it'
@@ -398,7 +395,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				//
 				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
 				IEditableSource editableSource =
@@ -406,8 +403,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				Table table = getSourceTable(context, tabItems[0]);
 				// check initial items
 				{
-					assertColumns(table, new String[]{"Key", "(default)", "it"});
-					assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame", ""},});
+					assertColumns(table, "Key", "(default)", "it");
+					assertItems(table, new String[] { "frame.title", "My JFrame", "" });
 				}
 				// click to activate cell editor
 				{
@@ -426,7 +423,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					assertTrue(editableSource.getKeys().contains("frame.title"));
 					assertEquals("New title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title"));
 					//
-					assertItems(table, new String[][]{new String[]{"frame.title", "New title", ""},});
+					assertItems(table, new String[] { "frame.title", "New title", "" });
 				}
 				// rename key
 				{
@@ -442,7 +439,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						assertTrue(editableSource.getKeys().contains("frame.title2"));
 						assertEquals("New title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title2"));
 						//
-						assertItems(table, new String[][]{new String[]{"frame.title2", "New title", ""},});
+						assertItems(table, new String[] { "frame.title2", "New title", "" });
 					}
 				}
 				// update 'it'
@@ -461,7 +458,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						assertEquals("title IT", editableSource.getValue(localeInfo, "frame.title2"));
 						assertItems(
 								table,
-								new String[][]{new String[]{"frame.title2", "New title", "title IT"},});
+								new String[] { "frame.title2", "New title", "title IT" });
 					}
 				}
 				// wait UI
@@ -487,7 +484,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				//
 				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
 				IEditableSource editableSource =
@@ -495,8 +492,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				Table table = getSourceTable(context, tabItems[0]);
 				// check initial items
 				{
-					assertColumns(table, new String[]{"Key", "(default)"});
-					assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame"},});
+					assertColumns(table, "Key", "(default)");
+					assertItems(table, new String[] { "frame.title", "My JFrame" });
 				}
 				// externalize "name"
 				{
@@ -506,12 +503,11 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				}
 				// check items
 				{
-					assertColumns(table, new String[]{"Key", "(default)"});
+					assertColumns(table, "Key", "(default)");
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"frame.title", "My JFrame"},
-								new String[]{"Test.this.name", "My name"}});
+							new String[] { "frame.title", "My JFrame" },
+							new String[] { "Test.this.name", "My name" });
 				}
 			}
 		});
@@ -536,7 +532,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				//
 				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
 				final IEditableSource editableSource =
@@ -544,12 +540,11 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				Table table = getSourceTable(context, tabItems[0]);
 				// check initial items
 				{
-					assertColumns(table, new String[]{"Key", "(default)"});
+					assertColumns(table, "Key", "(default)");
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"frame.name", "My name"},
-								new String[]{"frame.title", "My JFrame"},});
+							new String[] { "frame.name", "My name" },
+							new String[] { "frame.title", "My JFrame" });
 				}
 				// rename "frame.name" -> "frame.title"
 				context.executeAndCheck(new UIRunnable() {
@@ -567,8 +562,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				});
 				// check items
 				{
-					assertColumns(table, new String[]{"Key", "(default)"});
-					assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame"}});
+					assertColumns(table, "Key", "(default)");
+					assertItems(table, new String[] { "frame.title", "My JFrame" });
 				}
 			}
 		});
@@ -592,7 +587,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				//
 				//waitEventLoop(5000);
 				SourceComposite sourceComposite = getSourceComposite(context, tabItems[0]);
@@ -600,9 +595,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// check initial items
 				assertItems(
 						table,
-						new String[][]{
-							new String[]{"frame.name", "My name"},
-							new String[]{"frame.title", "My JFrame"},});
+						new String[] { "frame.name", "My name" },
+						new String[] { "frame.title", "My JFrame" });
 				// check "Show strings only for current form"
 				{
 					Button onlyFormButton =
@@ -611,7 +605,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					context.click(onlyFormButton);
 				}
 				// only 'frame.title' expected
-				assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame"}});
+				assertItems(table, new String[] { "frame.title", "My JFrame" });
 			}
 		});
 	}
@@ -640,9 +634,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 				// check initial items
 				assertItems(
 						table,
-						new String[][]{
-							new String[]{"key.1", "1 1", "1 2"},
-							new String[]{"key.2", "2 1", "2 2"},});
+						new String[] { "key.1", "1 1", "1 2" },
+						new String[] { "key.2", "2 1", "2 2" });
 				// check next column
 				{
 					// activate editor at (1, 0)
@@ -656,9 +649,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// check
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"key.1", "1 1", "a b"},
-								new String[]{"key.2", "2 1", "2 2"},});
+							new String[] { "key.1", "1 1", "a b" },
+							new String[] { "key.2", "2 1", "2 2" });
 				}
 				// check next row
 				{
@@ -673,9 +665,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// check
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"key.1", "1 1", "a b"},
-								new String[]{"key.2", "2 1", "b b"},});
+							new String[] { "key.1", "1 1", "a b" },
+							new String[] { "key.2", "2 1", "b b" });
 				}
 				// prev column/row
 				{
@@ -692,9 +683,8 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					waitEventLoop(10);
 					assertItems(
 							table,
-							new String[][]{
-								new String[]{"key.1", "a a", "a b"},
-								new String[]{"key.2", "b a", "b b"},});
+							new String[] { "key.1", "a a", "a b" },
+							new String[] { "key.2", "b a", "b b" });
 				}
 			}
 		});
