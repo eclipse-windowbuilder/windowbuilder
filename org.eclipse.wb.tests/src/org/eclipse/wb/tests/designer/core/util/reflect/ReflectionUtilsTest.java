@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,7 +29,6 @@ import org.junit.Test;
 import java.awt.Component;
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
-import java.io.LineNumberReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -626,22 +625,39 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertNull(ReflectionUtils.getMethodBySignature(Object.class, "hashCode2()"));
 	}
 
+	/**
+	 * Access private method declared by the class
+	 */
 	@Test
 	public void test_getMethodBySignature_private_direct() throws Exception {
 		assertNotNull(
 				ReflectionUtils.getMethodBySignature(
-						ArrayList.class,
-						"fastRemove(java.lang.Object[],int)"));
+						Mock.class,
+						"foo2(int)"));
 	}
 
+
+	/**
+	 * Access protected method declared by the sub-class but overriden by this
+	 * class.
+	 */
 	@Test
 	public void test_getMethodBySignature_private_super() throws Exception {
-		assertNotNull(ReflectionUtils.getMethodBySignature(ArrayList.class, "removeRange(int,int)"));
+		assertNotNull(
+				ReflectionUtils.getMethodBySignature(
+						Mock.class,
+						"foo(int)"));
 	}
 
+	/**
+	 * Access private method declared by the sub-class.
+	 */
 	@Test
 	public void test_getMethodBySignature_private_super2() throws Exception {
-		assertNotNull(ReflectionUtils.getMethodBySignature(LineNumberReader.class, "fill()"));
+		assertNotNull(
+				ReflectionUtils.getMethodBySignature(
+						Mock.class,
+						"foo1(int)"));
 	}
 
 	interface MyCollection extends Collection<Object> {
@@ -681,9 +697,8 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	public void test_getMethod_private_direct() throws Exception {
 		assertNotNull(
 				ReflectionUtils.getMethod(
-						ArrayList.class,
-						"fastRemove",
-						java.lang.Object[].class,
+						Mock.class,
+						"foo2",
 						int.class));
 	}
 
@@ -1330,7 +1345,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getFieldObject() throws Exception {
-		assertEquals(0, ReflectionUtils.getFieldObject(new ArrayList<>(), "size"));
+		assertEquals(0, ReflectionUtils.getFieldObject(new Mock(), "o"));
 	}
 
 	@Test
@@ -1375,7 +1390,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 
 	@Test
 	public void test_getFieldInt() throws Exception {
-		assertEquals(0, ReflectionUtils.getFieldInt(new ArrayList<>(), "size"));
+		assertEquals(0, ReflectionUtils.getFieldInt(new Mock(), "i"));
 	}
 
 	@Test
@@ -1397,7 +1412,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 
 	@Test
 	public void test_getFieldBoolean() throws Exception {
-		assertTrue(ReflectionUtils.getFieldBoolean(new JButton(), "paintBorder"));
+		assertTrue(ReflectionUtils.getFieldBoolean(new Mock(), "b"));
 	}
 
 	@Test
@@ -2073,6 +2088,29 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 					A.class,
 					List.class,
 					Object.class);
+		}
+	}
+
+	@SuppressWarnings("unused")
+	private static class MockBase {
+		private final boolean b = true;
+		private final int i = 0;
+		private final Object o = 0;
+
+		private void foo1(int j) {
+		}
+
+		protected void foo(int j) {
+		}
+	}
+
+	@SuppressWarnings("unused")
+	private static class Mock extends MockBase {
+		private void foo2(int j) {
+		}
+
+		@Override
+		protected void foo(int j) {
 		}
 	}
 }
