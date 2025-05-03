@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,11 +47,14 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -363,6 +366,14 @@ public final class SourceComposite extends Composite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void setViewerMenu() {
+		final int[] column = new int[1];
+		m_table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				Point pt = new Point(e.x, e.y);
+				column[0] = UiUtils.getColumnAt(m_table, pt);
+			}
+		});
 		// prepare manager
 		MenuManager menuManager = new MenuManager(null);
 		menuManager.setRemoveAllWhenShown(true);
@@ -411,12 +422,11 @@ public final class SourceComposite extends Composite {
 					}
 				});
 				// "Remove locale" action
-				final int column = UiUtils.getColumnUnderCursor(m_table);
 				{
 					Action action = new Action(Messages.SourceComposite_removeLocaleAction) {
 						@Override
 						public void run() {
-							final LocaleInfo locale = m_locales[column - 1];
+							final LocaleInfo locale = m_locales[column[0] - 1];
 							// ask confirmation
 							if (!MessageDialog.openConfirm(
 									getShell(),
@@ -437,7 +447,7 @@ public final class SourceComposite extends Composite {
 							});
 						}
 					};
-					action.setEnabled(column > 1 && column < m_table.getColumnCount());
+					action.setEnabled(column[0] > 1 && column[0] < m_table.getColumnCount());
 					manager.add(action);
 				}
 			}

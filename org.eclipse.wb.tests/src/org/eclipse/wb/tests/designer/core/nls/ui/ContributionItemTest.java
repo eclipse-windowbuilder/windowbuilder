@@ -63,7 +63,7 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 			// check locales combo, and switch to "it" locale
 			assertNotNull("NLS dialog item not found.", m_dialogItem);
 			// initialize menu creation
-			context.click(m_dialogItem, SWT.ARROW);
+			context.click(m_dialogItem.widget, SWT.ARROW);
 			// find locales menu inside display popups
 			Menu localesMenu = context.getLastPopup();
 			assertNotNull("Can not find locales menu.", localesMenu);
