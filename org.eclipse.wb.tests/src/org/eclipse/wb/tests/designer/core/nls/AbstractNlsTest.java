@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
+import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.nls.NlsSupport;
+import org.eclipse.wb.internal.core.nls.SourceDescription;
+import org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSource;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.junit.After;
@@ -38,5 +42,18 @@ public abstract class AbstractNlsTest extends SwingModelTest {
 			deleteFiles(m_testProject.getJavaProject().getProject().getFolder("src"));
 			waitForAutoBuild();
 		}
+	}
+
+	/**
+	 * Returns the {@link EclipseSource} source description for the given component.
+	 */
+	protected static SourceDescription getSourceDescription(JavaInfo component) throws Exception {
+		for (SourceDescription sourceDescription : NlsSupport.getSourceDescriptions(component)) {
+			if (sourceDescription.getSourceClass() == EclipseSource.class) {
+				return sourceDescription;
+			}
+		}
+		fail();
+		return null;
 	}
 }

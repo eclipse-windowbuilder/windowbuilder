@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -31,17 +31,15 @@ import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -305,7 +303,6 @@ public class EditableSupportTest extends AbstractNlsTest {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void test_existingSource() throws Exception {
 		NlsTestUtils.create_EclipseOld_Accessor(this, false);
@@ -368,7 +365,6 @@ public class EditableSupportTest extends AbstractNlsTest {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void test_addSource() throws Exception {
 		waitForAutoBuild();
@@ -398,7 +394,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 			IEditableSource editableSource;
 			{
 				editableSource = NlsTestUtils.createEmptyEditable("messages");
-				SourceDescription sourceDescription = NlsSupport.getSourceDescriptions(frame)[0];
+				SourceDescription sourceDescription = getSourceDescription(frame);
 				// prepare parameters
 				SourceParameters parameters = new SourceParameters();
 				IJavaProject javaProject = m_lastEditor.getJavaProject();
@@ -908,8 +904,6 @@ public class EditableSupportTest extends AbstractNlsTest {
 	// renameKey() conflict
 	//
 	////////////////////////////////////////////////////////////////////////////
-	// Disabled because the Linux build gets stuck
-	@Ignore
 	@Test
 	public void test_renameConflict_cancel() throws Exception {
 		NlsTestUtils.create_EclipseOld_Accessor(this, false);
@@ -940,16 +934,15 @@ public class EditableSupportTest extends AbstractNlsTest {
 					new JavaInfo[][]{new JavaInfo[]{frame}, new JavaInfo[]{frame}});
 		}
 		// dispose shell, so cancel dialog
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				editableSource.renameKey("frame.name", "frame.title");
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				Shell shell = context.useShell("Confirm");
-				shell.notifyListeners(SWT.Close, new Event());
+			public void accept(SWTBot bot) throws Exception {
+				bot.shell("Confirm").close();
 			}
 		});
 		// no changes expected
@@ -964,8 +957,6 @@ public class EditableSupportTest extends AbstractNlsTest {
 		}
 	}
 
-	// Disabled because the Linux build gets stuck
-	@Ignore
 	@Test
 	public void test_renameConflict_keep() throws Exception {
 		NlsTestUtils.create_EclipseOld_Accessor(this, false);
@@ -986,15 +977,15 @@ public class EditableSupportTest extends AbstractNlsTest {
 		IEditableSupport editableSupport = support.getEditable();
 		final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
 		// yes, keep existing value
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				editableSource.renameKey("frame.name", "frame.title");
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.clickButton("Yes, keep existing value");
+			public void accept(SWTBot bot) throws Exception {
+				bot.shell("Confirm").bot().button("Yes, keep existing value").click();
 			}
 		});
 		{
@@ -1007,8 +998,6 @@ public class EditableSupportTest extends AbstractNlsTest {
 		}
 	}
 
-	// Disabled because the Linux build gets stuck
-	@Ignore
 	@Test
 	public void test_renameConflict_useSourceValue() throws Exception {
 		NlsTestUtils.create_EclipseOld_Accessor(this, false);
@@ -1029,15 +1018,15 @@ public class EditableSupportTest extends AbstractNlsTest {
 		IEditableSupport editableSupport = support.getEditable();
 		final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
 		// no, use value of renaming key
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				editableSource.renameKey("frame.name", "frame.title");
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.clickButton("No, use value of renaming key");
+			public void accept(SWTBot bot) throws Exception {
+				bot.shell("Confirm").bot().button("No, use value of renaming key").click();
 			}
 		});
 		{

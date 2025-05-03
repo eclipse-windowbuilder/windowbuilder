@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swing.model.property;
 
 import org.eclipse.wb.core.controls.CSpinner;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -24,6 +23,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+import org.eclipse.wb.tests.gef.UiContext;
+import org.eclipse.wb.tests.utils.SWTBotCSpinner;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
 
@@ -31,6 +32,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -194,12 +196,14 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 		Property borderProperty = panel.getPropertyByTitle("border");
 
 		// Executed while the dialog is open
-		runWithModalDialog(() -> {
-			SWTBot bot = new SWTBot(DesignerPlugin.getShell());
+		new UiContext().executeAndCheck(() -> {
+			PropertyEditor editor = BorderPropertyEditor.INSTANCE;
+			ReflectionUtils.invokeMethod2(editor, "openDialog", Property.class, borderProperty);
+		}, bot -> {
 			SWTBot dialogBot = bot.shell("Border editor").bot();
 			dialogBot.comboBox().setSelection("EmptyBorder");
 
-			List<CSpinner> spinners = dialogBot.getFinder().findControls(widgetOfType(CSpinner.class));
+			List<SWTBotCSpinner> spinners = getCSpinners(dialogBot);
 			assertEquals(spinners.size(), 4);
 
 			spinners.get(0).setSelection(10);
@@ -209,9 +213,6 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 			dialogBot.button("OK").click();
 		});
 
-		PropertyEditor editor = BorderPropertyEditor.INSTANCE;
-		ReflectionUtils.invokeMethod2(editor, "openDialog", Property.class, borderProperty);
-
 		panel.refresh();
 		assertEditor("""
 				// filler filler filler
@@ -220,5 +221,16 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 						setBorder(new EmptyBorder(10, 15, 20, 25));
 					}
 				}""");
+	}
+
+	/**
+	 * @return {@link SWTBotCSpinner}s of this dialog.
+	 */
+	private List<SWTBotCSpinner> getCSpinners(SWTBot shell) {
+		List<SWTBotCSpinner> spinners = new ArrayList<>();
+		for (CSpinner spinner : shell.getFinder().findControls(widgetOfType(CSpinner.class))) {
+			spinners.add(new SWTBotCSpinner(spinner));
+		}
+		return spinners;
 	}
 }

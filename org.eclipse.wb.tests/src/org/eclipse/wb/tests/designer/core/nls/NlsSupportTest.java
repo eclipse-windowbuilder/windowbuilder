@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,7 +42,6 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.assertj.core.api.Assertions;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -655,7 +654,6 @@ public class NlsSupportTest extends SwingModelTest {
 	/**
 	 * When user renames component, we should rename associated NLS keys.
 	 */
-	@Ignore
 	@Test
 	public void test_renameKeysWhenVariable() throws Exception {
 		setFileContentSrc(
