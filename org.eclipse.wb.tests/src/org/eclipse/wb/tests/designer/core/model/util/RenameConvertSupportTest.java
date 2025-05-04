@@ -20,18 +20,19 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 
 import static org.mockito.Mockito.mock;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 import java.util.List;
@@ -42,6 +43,7 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class RenameConvertSupportTest extends SwingModelTest {
+	
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Exit zone :-) XXX
@@ -175,18 +177,19 @@ public class RenameConvertSupportTest extends SwingModelTest {
 				"}");
 		final ComponentInfo button = getJavaInfoByName("button");
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				RenameConvertSupport.rename(List.of(button));
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Rename/convert");
-				context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Rename/convert").bot();
+				shell.button("Cancel").click();
 			}
 		});
+		waitEventLoop(10);
 	}
 
 	/**
@@ -206,26 +209,23 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		final IAction renameAction = getRenameAction(button);
 		assertNotNull(renameAction);
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				renameAction.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Rename/convert");
-				try {
-					{
-						Text nameField = context.getTextByText("button");
-						nameField.setText("myButton");
-					}
-					context.clickButton("OK");
-				} catch (Throwable e) {
-					context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Rename/convert").bot();
+				{
+					SWTBotText nameField = shell.text("button");
+					nameField.setText("myButton");
 				}
+				shell.button("OK").click();
 			}
 		});
+		waitEventLoop(10);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
@@ -252,26 +252,23 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		final IAction renameAction = getRenameAction(button);
 		assertNotNull(renameAction);
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				renameAction.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Rename/convert");
-				try {
-					{
-						ToolItem item = context.getToolItem("Be field");
-						context.click(item, SWT.NONE);
-					}
-					context.clickButton("OK");
-				} catch (Throwable e) {
-					context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Rename/convert").bot();
+				{
+					SWTBotToolbarButton item = shell.toolbarRadioButtonWithTooltip("Be field");
+					item.click();
 				}
+				shell.button("OK").click();
 			}
 		});
+		waitEventLoop(10);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  private JButton button;",
@@ -305,29 +302,26 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		final IAction renameAction = getRenameAction(button);
 		assertNotNull(renameAction);
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				renameAction.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Rename/convert");
-				try {
-					{
-						Text nameField = context.getTextByText("button");
-						nameField.setText("myButton");
-					}
-					// "lazy" can not be converted to local/field
-					assertFalse(context.getToolItem("Be local").isEnabled());
-					assertFalse(context.getToolItem("Be field").isEnabled());
-					context.clickButton("OK");
-				} catch (Throwable e) {
-					context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Rename/convert").bot();
+				{
+					SWTBotText nameField = shell.text("button");
+					nameField.setText("myButton");
 				}
+				// "lazy" can not be converted to local/field
+				assertFalse(shell.toolbarRadioButtonWithTooltip("Be local").isEnabled());
+				assertFalse(shell.toolbarRadioButtonWithTooltip("Be field").isEnabled());
+				shell.button("OK").click();
 			}
 		});
+		waitEventLoop(10);
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  private JButton myButton;",
