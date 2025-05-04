@@ -46,7 +46,7 @@ public class NlsDialogTest extends AbstractDialogTest {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(0, tabFolder.getSelectionIndex());
-				assertItems(tabFolder, new String[]{"Properties"});
+				assertItems(tabFolder, "Properties");
 			}
 		});
 	}
@@ -73,18 +73,18 @@ public class NlsDialogTest extends AbstractDialogTest {
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(2, tabFolder.getSelectionIndex());
 				TabItem[] tabItems =
-						assertItems(tabFolder, new String[]{"test.messages", "test.messages2", "Properties"});
+						assertItems(tabFolder, "test.messages", "test.messages2", "Properties");
 				// check possible sources: 0
 				{
 					Table table = getSourceTable(context, tabItems[0]);
-					assertColumns(table, new String[]{"Key", "(default)"});
-					assertItems(table, new String[][]{new String[]{"frame.title", "My JFrame"}});
+					assertColumns(table, "Key", "(default)");
+					assertItems(table, new String[] { "frame.title", "My JFrame" });
 				}
 				// check possible sources: 1
 				{
 					Table table = getSourceTable(context, tabItems[1]);
-					assertColumns(table, new String[]{"Key", "(default)"});
-					assertItems(table, new String[][]{new String[]{"frame.name", "My name"}});
+					assertColumns(table, "Key", "(default)");
+					assertItems(table, new String[] { "frame.name", "My name" });
 				}
 			}
 		});
@@ -109,13 +109,13 @@ public class NlsDialogTest extends AbstractDialogTest {
 			@Override
 			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
 				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
+				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
 				// check source
 				Table table = getSourceTable(context, tabItems[0]);
-				assertColumns(table, new String[]{"Key", "(default)", "it"});
-				assertItems(table, new String[][]{
-					new String[]{"frame.name", "My name", ""},
-					new String[]{"frame.title", "My JFrame", "My JFrame IT"},});
+				assertColumns(table, "Key", "(default)", "it");
+				assertItems(table,
+						new String[] { "frame.name", "My name", "" },
+						new String[] { "frame.title", "My JFrame", "My JFrame IT" });
 			}
 		});
 	}

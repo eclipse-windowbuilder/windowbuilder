@@ -147,7 +147,7 @@ public abstract class AbstractDialogTest extends AbstractNlsUiTest {
 	/**
 	 * Asserts that {@link List} has items's with given titles.
 	 */
-	protected static void assertItems(List list, String[] expectedTitles) {
+	protected static void assertItems(List list, String... expectedTitles) {
 		String[] items = list.getItems();
 		assertEquals(expectedTitles.length, items.length);
 		for (int i = 0; i < items.length; i++) {
