@@ -934,12 +934,12 @@ public class EditableSupportTest extends AbstractNlsTest {
 					new JavaInfo[][]{new JavaInfo[]{frame}, new JavaInfo[]{frame}});
 		}
 		// dispose shell, so cancel dialog
-		new UiContext().executeAndCheck(new FailableRunnable<Exception>() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
 			public void run() throws Exception {
 				editableSource.renameKey("frame.name", "frame.title");
 			}
-		}, new FailableConsumer<SWTBot, Exception>() {
+		}, new FailableConsumer<>() {
 			@Override
 			public void accept(SWTBot bot) throws Exception {
 				bot.shell("Confirm").close();
@@ -977,12 +977,12 @@ public class EditableSupportTest extends AbstractNlsTest {
 		IEditableSupport editableSupport = support.getEditable();
 		final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
 		// yes, keep existing value
-		new UiContext().executeAndCheck(new FailableRunnable<Exception>() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
 			public void run() throws Exception {
 				editableSource.renameKey("frame.name", "frame.title");
 			}
-		}, new FailableConsumer<SWTBot, Exception>() {
+		}, new FailableConsumer<>() {
 			@Override
 			public void accept(SWTBot bot) throws Exception {
 				bot.shell("Confirm").bot().button("Yes, keep existing value").click();
@@ -1018,12 +1018,12 @@ public class EditableSupportTest extends AbstractNlsTest {
 		IEditableSupport editableSupport = support.getEditable();
 		final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
 		// no, use value of renaming key
-		new UiContext().executeAndCheck(new FailableRunnable<Exception>() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
 			public void run() throws Exception {
 				editableSource.renameKey("frame.name", "frame.title");
 			}
-		}, new FailableConsumer<SWTBot, Exception>() {
+		}, new FailableConsumer<>() {
 			@Override
 			public void accept(SWTBot bot) throws Exception {
 				bot.shell("Confirm").bot().button("No, use value of renaming key").click();

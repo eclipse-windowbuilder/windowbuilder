@@ -13,15 +13,14 @@
 package org.eclipse.wb.tests.designer.core.nls.ui;
 
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
+import org.eclipse.wb.tests.utils.SWTBotExternalizeDropDownButton;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WithTooltip.withTooltip;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarDropDownButton;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
@@ -36,7 +35,7 @@ import org.junit.BeforeClass;
  * @author scheglov_ke
  */
 public abstract class AbstractNlsUiTest extends SwingGefTest {
-	protected SWTBotToolbarDropDownButton m_dialogItem;
+	protected SWTBotExternalizeDropDownButton m_dialogItem;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -50,7 +49,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 			// NLS dialog item
 			SWTBot bot = new SWTBot(m_designerEditor.getRootControl());
 			ToolItem widget = (ToolItem) bot.getFinder().findControls(withTooltip("Externalize strings")).getFirst();
-			m_dialogItem = new SWTBotToolbarDropDownButton(widget);
+			m_dialogItem = new SWTBotExternalizeDropDownButton(widget);
 		}
 	}
 
@@ -59,31 +58,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Creates compilation unit, opens Design page, opens NLS dialog and then run given
-	 * {@link UIRunnable}.
-	 */
-	protected final void openDialogNLS(String initialSource, UIRunnable runnable) throws Exception {
-		openDialogNLS("test", initialSource, runnable);
-	}
 
-	/**
-	 * Creates compilation unit, opens Design page, opens NLS dialog and then run given
-	 * {@link UIRunnable}.
-	 */
-	protected final void openDialogNLS(String packageName, String initialSource, UIRunnable runnable)
-			throws Exception {
-		ICompilationUnit unit = createModelCompilationUnit(packageName, "Test.java", initialSource);
-		openDesign(unit);
-		// click on "Externalize strings" item
-		new UiContext().executeAndCheck(new UIRunnable() {
-			@Override
-			public void run(UiContext context) throws Exception {
-				context.click(m_dialogItem.widget);
-			}
-		}, runnable);
-	}
-	
 	/**
 	 * Creates compilation unit, opens Design page, opens NLS dialog and then run
 	 * given {@link FailableBiConsumer}.
@@ -104,7 +79,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 		openDesign(unit);
 		// click on "Externalize strings" item
 		UiContext context = new UiContext();
-		context.executeAndCheck(new FailableRunnable<Exception>() {
+		context.executeAndCheck(new FailableRunnable<>() {
 			@Override
 			public void run() {
 				m_dialogItem.click();
