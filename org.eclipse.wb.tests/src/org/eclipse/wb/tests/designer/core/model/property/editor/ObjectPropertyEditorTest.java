@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,12 +24,15 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.utils.TableCollection;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -111,43 +114,43 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				openPropertyDialog(property);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("value");
-				TreeItem panelItem = context.getTreeItem("(javax.swing.JPanel)");
-				Button okButton = context.getButtonByText("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("value").bot();
+				SWTBotTreeItem panelItem = shell.tree().expandNode("(javax.swing.JPanel)");
+				SWTBotButton okButton = shell.button("OK");
 				// initially "panel" selected, so invalid
 				assertFalse(okButton.isEnabled());
 				// prepare "non-visual beans" item
-				TreeItem beansContainer;
+				SWTBotTreeItem beansContainer;
 				{
-					TreeItem[] childItems = panelItem.getItems();
+					SWTBotTreeItem[] childItems = panelItem.getItems();
 					Assertions.assertThat(childItems).hasSize(1);
 					assertEquals("(non-visual beans)", childItems[0].getText());
 					beansContainer = childItems[0];
 				}
 				// prepare "object_1"
-				TreeItem myObjectItem;
+				SWTBotTreeItem myObjectItem;
 				{
-					TreeItem[] beanItems = beansContainer.getItems();
+					SWTBotTreeItem[] beanItems = beansContainer.getItems();
 					Assertions.assertThat(beanItems).hasSize(1);
 					assertEquals("object_1", beanItems[0].getText());
 					myObjectItem = beanItems[0];
 				}
 				// container - invalid
-				UiContext.setSelection(beansContainer);
+				beansContainer.select();
 				assertFalse(okButton.isEnabled());
 				// "object_1" - valid
-				UiContext.setSelection(myObjectItem);
+				myObjectItem.select();
 				assertTrue(okButton.isEnabled());
 				// click OK
-				context.clickButton(okButton);
+				okButton.click();
 			}
 		});
 		// check
@@ -203,28 +206,28 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				openPropertyDialog(property);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("button");
-				TreeItem panelItem = context.getTreeItem("(javax.swing.JPanel)");
-				Button okButton = context.getButtonByText("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("button").bot();
+				SWTBotTreeItem panelItem = shell.tree().expandNode("(javax.swing.JPanel)");
+				SWTBotButton okButton = shell.button("OK");
 				// initially "panel" selected, so invalid
 				assertFalse(okButton.isEnabled());
 				// prepare items
-				TreeItem[] childItems = panelItem.getItems();
+				SWTBotTreeItem[] childItems = panelItem.getItems();
 				Assertions.assertThat(childItems).hasSize(1);
 				assertEquals("button", childItems[0].getText());
 				// JButton - valid
-				UiContext.setSelection(childItems[0]);
+				childItems[0].click();
 				assertTrue(okButton.isEnabled());
 				// click OK
-				context.clickButton(okButton);
+				okButton.click();
 			}
 		});
 		// check
@@ -276,23 +279,20 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				openPropertyDialog(property);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("button");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("button").bot();
 				// "button_2" is selected
-				try {
-					TreeItem itemButton_2 = context.getTreeItem("button_2");
-					TreeItem[] selection = itemButton_2.getParent().getSelection();
-					Assertions.assertThat(selection).containsOnly(itemButton_2);
-				} finally {
-					context.clickButton("Cancel");
-				}
+				TableCollection selection = shell.tree().selection();
+				assertEquals(selection.rowCount(), 1);
+				assertEquals(selection.get(0, 0), "button_2");
+				shell.button("Cancel").click();
 			}
 		});
 	}
@@ -382,16 +382,16 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate - just open and ensure that dialog opened (no exception during this)
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				openPropertyDialog(property);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("labelFor");
-				context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("labelFor").bot();
+				shell.button("Cancel").click();
 			}
 		});
 	}

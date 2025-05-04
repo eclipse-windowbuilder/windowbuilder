@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,6 +37,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -710,11 +712,10 @@ public final class GraphicalRobot {
 	 */
 	public void animateDirectEdit(String text) {
 		// prepare Text widget
-		Text textWidget = UiContext.findFirstWidget(m_viewer.getControl(), Text.class);
-		assertNotNull("No Text widget.", textWidget);
+		SWTBotText textWidget = new SWTBot(m_viewer.getControl()).text();
 		// use Text widget
 		textWidget.setText(text);
-		endDirectEdit(textWidget);
+		endDirectEdit(textWidget.widget);
 	}
 
 	/**
