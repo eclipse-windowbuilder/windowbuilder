@@ -12,19 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls.ui;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.nls.ExternalizeStringsContributionItem;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotRootMenu;
 
-import org.junit.Ignore;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.junit.Test;
 
 import java.util.List;
@@ -36,7 +33,6 @@ import javax.swing.JFrame;
  *
  * @author scheglov_ke
  */
-@Ignore
 public class ContributionItemTest extends AbstractNlsUiTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -59,27 +55,24 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 		// check default title
 		assertEquals("My JFrame", ((JFrame) m_contentJavaInfo.getObject()).getTitle());
 		{
-			UiContext context = new UiContext();
 			// check locales combo, and switch to "it" locale
 			assertNotNull("NLS dialog item not found.", m_dialogItem);
 			// initialize menu creation
-			context.click(m_dialogItem.widget, SWT.ARROW);
-			// find locales menu inside display popups
-			Menu localesMenu = context.getLastPopup();
-			assertNotNull("Can not find locales menu.", localesMenu);
-			{
-				// check available locales
-				final String[] requiredLocales = new String[]{"(default)", "it"};
-				MenuItem[] availableLocaleItems = localesMenu.getItems();
-				assertEquals(requiredLocales.length, availableLocaleItems.length);
+			new UiContext().executeAndCheck(() -> {
+				// noop
+			}, bot -> {
+				SWTBotRootMenu contextMenu = m_dialogItem.externalizeMenu();
+				final String[] requiredLocales = new String[] { "(default)", "it" };
+				List<String> availableLocaleItems = contextMenu.menuItems();
+				assertEquals(requiredLocales.length, availableLocaleItems.size());
 				for (int i = 0; i < requiredLocales.length; i++) {
-					assertEquals(requiredLocales[i], availableLocaleItems[i].getText());
+					assertEquals(requiredLocales[i], availableLocaleItems.get(i));
 					if (i == /*selecting*/1) {
-						context.selectMenuItem(availableLocaleItems[i]);
+						contextMenu.menu(requiredLocales[i]).click();
 					}
 				}
-			}
-			localesMenu.setVisible(false);
+				UIThreadRunnable.syncExec(() -> contextMenu.widget.dispose());
+			});
 		}
 		// check title=it
 		assertEquals("My JFrame IT", ((JFrame) m_contentJavaInfo.getObject()).getTitle());
@@ -109,15 +102,11 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 						"    setTitle('My JFrame');",
 						"  }",
 						"}");
-		openDialogNLS("", initialSource, new UIRunnable() {
+		openDialogNLS("", initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Can't Externalize");
+			public void accept(UiContext context, SWTBot bot) throws Exception {
 				// click "OK"
-				List<Button> buttons = context.findWidgets(Button.class);
-				context.click(buttons.get(0));
-				// main window shell expected
-				assertSame(DesignerPlugin.getShell(), context.getActiveShell());
+				bot.shell("Can't Externalize").bot().button("OK").click();
 			}
 		});
 	}

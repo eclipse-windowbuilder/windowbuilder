@@ -15,11 +15,11 @@ package org.eclipse.wb.tests.designer.core.nls.ui;
 import org.eclipse.wb.internal.core.nls.ui.NlsDialog;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.Table;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTabItem;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 
-import org.junit.Ignore;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.junit.Test;
 
 /**
@@ -27,7 +27,6 @@ import org.junit.Test;
  *
  * @author scheglov_ke
  */
-@Ignore
 public class NlsDialogTest extends AbstractDialogTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -42,11 +41,13 @@ public class NlsDialogTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(0, tabFolder.getSelectionIndex());
-				assertItems(tabFolder, "Properties");
+			public void accept(UiContext context, SWTBot bot) {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				SWTBotTabItem properties = shell.tabItem("Properties");
+				assertTrue(properties.isActive());
+				assertItems(shell, "Properties");
 			}
 		});
 	}
@@ -68,21 +69,28 @@ public class NlsDialogTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(2, tabFolder.getSelectionIndex());
-				TabItem[] tabItems =
-						assertItems(tabFolder, "test.messages", "test.messages2", "Properties");
+			public void accept(UiContext context, SWTBot bot) {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "test.messages2", "Properties");
+				SWTBotTabItem messagesTab = shell.tabItem("test.messages");
+				assertFalse(messagesTab.isActive());
+				SWTBotTabItem messages2Tab = shell.tabItem("test.messages2");
+				assertFalse(messages2Tab.isActive());
+				SWTBotTabItem properties = shell.tabItem("Properties");
+				assertTrue(properties.isActive());
 				// check possible sources: 0
 				{
-					Table table = getSourceTable(context, tabItems[0]);
+					messagesTab.activate();
+					SWTBotTable table = shell.tableWithLabel("Strings:");
 					assertColumns(table, "Key", "(default)");
 					assertItems(table, new String[] { "frame.title", "My JFrame" });
 				}
 				// check possible sources: 1
 				{
-					Table table = getSourceTable(context, tabItems[1]);
+					messages2Tab.activate();
+					SWTBotTable table = shell.tableWithLabel("Strings:");
 					assertColumns(table, "Key", "(default)");
 					assertItems(table, new String[] { "frame.name", "My name" });
 				}
@@ -105,13 +113,15 @@ public class NlsDialogTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new NLSDialogRunnable() {
+		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
 			@Override
-			public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
-				assertEquals(0, tabFolder.getSelectionIndex());
-				TabItem[] tabItems = assertItems(tabFolder, "test.messages", "Properties");
+			public void accept(UiContext context, SWTBot bot) {
+				SWTBot shell = bot.shell("Externalize strings").bot();
+				assertItems(shell, "test.messages", "Properties");
+				SWTBotTabItem messagesTab = shell.tabItem("test.messages");
+				assertTrue(messagesTab.isActive());
 				// check source
-				Table table = getSourceTable(context, tabItems[0]);
+				SWTBotTable table = shell.tableWithLabel("Strings:");
 				assertColumns(table, "Key", "(default)", "it");
 				assertItems(table,
 						new String[] { "frame.name", "My name", "" },
