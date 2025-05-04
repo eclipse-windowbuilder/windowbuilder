@@ -38,7 +38,6 @@ import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -529,17 +528,17 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// do initialize
 		assertTrue(componentEntry.initialize(null, m_lastParseInfo));
 		// create tool
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				CreationTool creationTool = (CreationTool) componentEntry.createTool();
 				assertNull(creationTool);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Error");
-				context.clickButton("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Error").bot();
+				shell.button("OK").click();
 			}
 		});
 	}
