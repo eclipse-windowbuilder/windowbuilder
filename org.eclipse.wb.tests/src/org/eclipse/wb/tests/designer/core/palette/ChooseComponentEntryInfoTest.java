@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,15 +25,14 @@ import org.eclipse.wb.internal.core.editor.palette.PaletteManager;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.tests.designer.core.TestProject;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
-import org.eclipse.wb.tests.gef.UIPredicate;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.IType;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -118,16 +117,16 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					tools[0] = (CreationTool) entry.createTool();
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					context.useShell("Open type");
-					context.clickButton("Cancel");
+				public void accept(SWTBot bot) {
+					SWTBot shell = bot.shell("Open type").bot();
+					shell.button("Cancel").click();
 				}
 			});
 			creationTool = tools[0];
@@ -177,16 +176,15 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					tools[0] = (CreationTool) entry.createTool();
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					animateChooseType(context, "JButton");
-					context.clickButton("OK");
+				public void accept(SWTBot bot) {
+					animateOpenTypeSelection(bot, "JButton", "OK");
 				}
 			});
 			creationTool = tools[0];
@@ -265,31 +263,17 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 			// create tool
 			{
 				final CreationTool[] tools = new CreationTool[1];
-				new UiContext().executeAndCheck(new UIRunnable() {
+				new UiContext().executeAndCheck(new FailableRunnable<>() {
 					@Override
-					public void run(UiContext context) throws Exception {
+					public void run() throws Exception {
 						tools[0] = (CreationTool) entry.createTool();
 					}
-				}, new UIRunnable() {
+				}, new FailableConsumer<>() {
 					@Override
-					public void run(UiContext context) throws Exception {
-						animateChooseType(context, "MyClass");
-						clickOK_andConfirmReparse(context);
-					}
-
-					private void clickOK_andConfirmReparse(final UiContext okContext) throws Exception {
-						new UiContext().executeAndCheck(new UIRunnable() {
-							@Override
-							public void run(UiContext context) throws Exception {
-								okContext.clickButton("OK");
-							}
-						}, new UIRunnable() {
-							@Override
-							public void run(UiContext context) throws Exception {
-								context.useShell("Unable to load component");
-								context.clickButton("Yes");
-							}
-						});
+					public void accept(SWTBot bot) {
+						animateOpenTypeSelection(bot, "MyClass", "OK");
+						SWTBot shell = bot.shell("Unable to load component").bot();
+						shell.button("Yes").click();
 					}
 				});
 			}
@@ -298,24 +282,5 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		}
 		// should be reparsed
 		assertTrue(reparsed.get());
-	}
-
-	private static void animateChooseType(UiContext context, String className) throws Exception {
-		context.useShell("Open type");
-		// set filter
-		{
-			Text filterText = context.findFirstWidget(Text.class);
-			filterText.setText(className);
-		}
-		// wait for types
-		{
-			final Table typesTable = context.findFirstWidget(Table.class);
-			context.waitFor(new UIPredicate() {
-				@Override
-				public boolean check() {
-					return typesTable.getItems().length != 0;
-				}
-			});
-		}
 	}
 }

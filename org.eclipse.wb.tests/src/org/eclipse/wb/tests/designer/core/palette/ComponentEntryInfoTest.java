@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,7 +38,6 @@ import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -46,13 +45,15 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -527,17 +528,17 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// do initialize
 		assertTrue(componentEntry.initialize(null, m_lastParseInfo));
 		// create tool
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				CreationTool creationTool = (CreationTool) componentEntry.createTool();
 				assertNull(creationTool);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Error");
-				context.clickButton("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Error").bot();
+				shell.button("OK").click();
 			}
 		});
 	}
@@ -1106,43 +1107,28 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<>();
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					CreationTool result = (CreationTool) componentEntry.createTool();
 					creationToolResult.set(result);
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					context.useShell("Generic component creation");
+				public void accept(SWTBot bot) {
+					SWTBot shell = bot.shell("Generic component creation").bot();
 					// initial type
-					Text textWidget = context.getTextByLabel("Row type:");
+					SWTBotText textWidget = shell.textWithLabel("Row type:");
 					assertEquals("java.lang.Object", textWidget.getText());
 					// animate "..." button
 					{
-						Button chooseButton = context.getButtonByText("...");
-						animateChooseButton(chooseButton);
+						shell.button("...").click();
+						animateOpenTypeSelection(bot, "java.lang.String", "OK");
 					}
 					// chosen type
 					assertEquals("java.lang.String", textWidget.getText());
 					// OK
-					context.clickButton("OK");
-				}
-
-				public void animateChooseButton(final Button chooseButton) throws Exception {
-					new UiContext().executeAndCheck(new UIRunnable() {
-						@Override
-						public void run(UiContext context) throws Exception {
-							context.click(chooseButton);
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext context) throws Exception {
-							animateOpenTypeSelection(context, "java.lang.String");
-							context.clickButton("OK");
-						}
-					});
+					shell.button("OK").click();
 				}
 			});
 			creationTool = creationToolResult.get();
@@ -1174,43 +1160,28 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<>();
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					CreationTool result = (CreationTool) componentEntry.createTool();
 					creationToolResult.set(result);
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					context.useShell("Generic component creation");
+				public void accept(SWTBot bot) {
+					SWTBot shell = bot.shell("Generic component creation").bot();
 					// initial type
-					Text textWidget = context.getTextByLabel("Row type:");
+					SWTBotText textWidget = shell.textWithLabel("Row type:");
 					assertEquals("java.lang.Object", textWidget.getText());
 					// animate "..." button
 					{
-						Button chooseButton = context.getButtonByText("...");
-						animateChooseButton(chooseButton);
+						shell.button("...").click();
+						animateOpenTypeSelection(bot, "java.lang.String", "Cancel");
 					}
 					// no changes
 					assertEquals("java.lang.Object", textWidget.getText());
 					// cancel
-					context.clickButton("Cancel");
-				}
-
-				public void animateChooseButton(final Button chooseButton) throws Exception {
-					new UiContext().executeAndCheck(new UIRunnable() {
-						@Override
-						public void run(UiContext context) throws Exception {
-							context.click(chooseButton);
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext context) throws Exception {
-							animateOpenTypeSelection(context, "java.lang.String");
-							context.clickButton("Cancel");
-						}
-					});
+					shell.button("Cancel").click();
 				}
 			});
 			creationTool = creationToolResult.get();
@@ -1232,49 +1203,23 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 			componentEntry = prepare_typeParameters(line);
 		}
 		// animate createTool()
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				componentEntry.createTool();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Generic component creation");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Generic component creation").bot();
 				// animate "..." button
 				{
-					Button chooseButton = context.getButtonByText("...");
-					animateChooseButton(chooseButton);
+					shell.button("...").click();
+					animateOpenTypeSelection(bot, "java.lang.String", "OK");
+					bot.shell("Error").bot().button("OK").click();
 				}
 				// Cancel
-				context.clickButton("Cancel");
-			}
-
-			public void animateChooseButton(final Button chooseButton) throws Exception {
-				new UiContext().executeAndCheck(new UIRunnable() {
-					@Override
-					public void run(UiContext context) throws Exception {
-						context.click(chooseButton);
-					}
-				}, new UIRunnable() {
-					@Override
-					public void run(final UiContext openTypeContext) throws Exception {
-						animateOpenTypeSelection(openTypeContext, "java.lang.String");
-						// click OK and close "Error" dialog
-						new UiContext().executeAndCheck(new UIRunnable() {
-							@Override
-							public void run(UiContext context) throws Exception {
-								openTypeContext.clickButton("OK");
-							}
-						}, new UIRunnable() {
-							@Override
-							public void run(UiContext context) throws Exception {
-								context.useShell("Error");
-								context.clickButton("OK");
-							}
-						});
-					}
-				});
+				shell.button("Cancel").click();
 			}
 		});
 	}

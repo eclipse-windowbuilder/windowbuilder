@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,17 +24,13 @@ import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.model.property.event.EventsPropertyUtils;
 import org.eclipse.wb.internal.core.model.property.event.IPreferenceConstants;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -43,6 +39,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
@@ -50,6 +47,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -438,16 +437,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * Deletes value of given {@link Property} and clicks "OK" in confirmation dialog.
 	 */
 	private static void deleteEventPropertyWithGUI(final Property property) throws Exception {
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				property.setValue(Property.UNKNOWN_VALUE);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Confirm");
-				context.clickButton("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Confirm").bot();
+				shell.button("OK").click();
 			}
 		});
 	}
@@ -513,16 +512,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		final Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		String expectedSource = m_lastEditor.getSource();
 		// press "Cancel", so don't delete
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Confirm");
-				context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Confirm").bot();
+				shell.button("Cancel").click();
 			}
 		});
 		// no change expected
@@ -876,23 +875,17 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	private static void deleteInnerListener_twoUsages(final Property property,
 			final String multiButton) throws Exception {
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				property.setValue(Property.UNKNOWN_VALUE);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(final UiContext context) throws Exception {
-				context.useShell("Confirm");
-				context.clickButton("OK");
-				ExecutionUtils.runAsync(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						context.useShell("Confirm");
-						context.clickButton(multiButton);
-					}
-				});
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Confirm").bot();
+				shell.button("OK").click();
+				bot.shell("Confirm").bot().button(multiButton).click();
 			}
 		});
 	}

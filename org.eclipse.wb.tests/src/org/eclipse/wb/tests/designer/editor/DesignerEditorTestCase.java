@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
-import org.eclipse.wb.internal.core.editor.structure.DesignComponentsComposite;
 import org.eclipse.wb.internal.core.editor.structure.components.IComponentsTree;
 import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -56,6 +55,7 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.ActionFactory;
@@ -64,6 +64,8 @@ import org.eclipse.ui.ide.IDE;
 import junit.framework.TestCase;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.After;
 import org.junit.Before;
 
@@ -153,11 +155,18 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	protected final void openDesign(IWizard wizard, IPackageFragment packageFragment, String fileName)
 			throws Exception {
 		new UiContext().executeAndCheck(
-				context -> TestUtils.runWizard(wizard, new StructuredSelection(packageFragment)), //
-				context -> {
-					context.useShell(wizard.getWindowTitle());
-					context.getTextByLabel("Name:").setText(fileName);
-					context.clickButton("Finish");
+				new FailableRunnable<>() {
+					@Override
+					public void run() {
+						TestUtils.runWizard(wizard, new StructuredSelection(packageFragment));
+					}
+				}, new FailableConsumer<>() {
+					@Override
+					public void accept(SWTBot bot) {
+						SWTBot shell = bot.shell(wizard.getWindowTitle()).bot();
+						shell.textWithLabel("Name:").setText(fileName);
+						shell.button("Finish").click();
+					}
 				});
 		ICompilationUnit cu = packageFragment.getCompilationUnit(fileName + ".java");
 		openDesign(cu);
@@ -258,9 +267,7 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 		m_contentJavaInfo = (JavaInfo) m_contentEditPart.getModel();
 		m_lastEditor = m_contentJavaInfo.getEditor();
 		{
-			UiContext uiContext = new UiContext();
-			uiContext.useShell(DesignerPlugin.getShell().getText());
-			Object componentComposite = uiContext.findFirstWidget(DesignComponentsComposite.class);
+			Object componentComposite = ReflectionUtils.getFieldObject(m_designerEditor.getDesignComposite(), "m_componentsComposite");
 			Object componentPropertyPage = ReflectionUtils.getFieldObject(componentComposite, "m_propertiesPage");
 			m_propertyTable = (PropertyTable) ReflectionUtils.getFieldObject(componentPropertyPage, "m_propertyTable");
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,17 +20,16 @@ import org.eclipse.wb.internal.core.model.property.editor.InnerClassPropertyEdit
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.gef.UIPredicate;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 /**
@@ -139,32 +138,15 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// use GUI to set "ExternalLabelProvider"
 		{
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					openPropertyDialog(property);
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					// set filter
-					{
-						context.useShell("Open type");
-						Text filterText = context.findFirstWidget(Text.class);
-						filterText.setText("ExternalLabelPro");
-					}
-					// wait for types
-					{
-						final Table typesTable = context.findFirstWidget(Table.class);
-						context.waitFor(new UIPredicate() {
-							@Override
-							public boolean check() {
-								return typesTable.getItems().length != 0;
-							}
-						});
-					}
-					// click OK
-					context.clickButton("OK");
+				public void accept(SWTBot bot) {
+					animateOpenTypeSelection(bot, "ExternalLabelPro", "OK");
 				}
 			});
 			// check source
@@ -215,43 +197,15 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// use GUI to set "ExternalLabelProvider"
 		{
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					openPropertyDialog(property);
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(final UiContext context) throws Exception {
-					// set filter
-					{
-						context.useShell("Open type");
-						Text filterText = context.findFirstWidget(Text.class);
-						filterText.setText("AbstractLabelPro");
-					}
-					// wait for types
-					{
-						final Table typesTable = context.findFirstWidget(Table.class);
-						context.waitFor(new UIPredicate() {
-							@Override
-							public boolean check() {
-								return typesTable.getItems().length != 0;
-							}
-						});
-					}
-					// click OK, shows Error, close it
-					new UiContext().executeAndCheck(new UIRunnable() {
-						@Override
-						public void run(UiContext context2) throws Exception {
-							context.clickButton("OK");
-						}
-					}, new UIRunnable() {
-						@Override
-						public void run(UiContext context2) throws Exception {
-							context2.useShell("Error");
-							context2.clickButton("OK");
-						}
-					});
+				public void accept(SWTBot bot) {
+					animateOpenTypeSelection(bot, "AbstractLabelPro", "OK");
 				}
 			});
 		}

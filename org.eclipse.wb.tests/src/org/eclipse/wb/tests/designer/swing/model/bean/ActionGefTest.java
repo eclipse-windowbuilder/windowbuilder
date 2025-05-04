@@ -25,13 +25,12 @@ import org.eclipse.wb.internal.swing.palette.ActionExternalEntryInfo;
 import org.eclipse.wb.internal.swing.palette.ActionNewEntryInfo;
 import org.eclipse.wb.internal.swing.palette.ActionUseEntryInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
-import org.eclipse.wb.tests.gef.UIPredicate;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -254,35 +253,18 @@ public class ActionGefTest extends SwingGefTest {
 		panel.refresh();
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		// load "action" tool
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				ActionExternalEntryInfo entry = new ActionExternalEntryInfo();
 				entry.initialize(m_viewerCanvas, panel);
 				Tool tool = entry.createTool();
 				m_viewerCanvas.getEditDomain().setActiveTool(tool);
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Open type");
-				// set filter
-				{
-					Text text = context.findFirstWidget(Text.class);
-					text.setText("ExternalAction");
-				}
-				// wait for types
-				{
-					final Table typesTable = context.findFirstWidget(Table.class);
-					context.waitFor(new UIPredicate() {
-						@Override
-						public boolean check() {
-							return typesTable.getItems().length != 0;
-						}
-					});
-				}
-				// click OK
-				context.clickButton("OK");
+			public void accept(SWTBot bot) {
+				animateOpenTypeSelection(bot, "ExternalAction", "OK");
 			}
 		});
 		// drop new "action" on "toolBar"...
