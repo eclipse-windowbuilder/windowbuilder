@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.editor.palette.PaletteManager;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.tests.designer.core.TestProject;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.IType;
@@ -118,16 +117,16 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					tools[0] = (CreationTool) entry.createTool();
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					context.useShell("Open type");
-					context.clickButton("Cancel");
+				public void accept(SWTBot bot) {
+					SWTBot shell = bot.shell("Open type").bot();
+					shell.button("Cancel").click();
 				}
 			});
 			creationTool = tools[0];

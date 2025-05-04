@@ -16,13 +16,14 @@ import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 /**
@@ -131,16 +132,16 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				action.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Customize");
-				context.clickButton("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Customize").bot();
+				shell.button("OK").click();
 			}
 		});
 		// check for isDesignTime()
@@ -219,9 +220,17 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(context -> action.run(), context -> {
-			context.useShell("Customize");
-			context.clickButton("OK");
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
+			@Override
+			public void run() {
+				action.run();
+			}
+		}, new FailableConsumer<>() {
+			@Override
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Customize").bot();
+				shell.button("OK").click();
+			}
 		});
 		// check no changes
 		assertEditor("""
@@ -294,9 +303,17 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(context -> action.run(), context -> {
-			context.useShell("Customize");
-			context.clickButton("OK");
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
+			@Override
+			public void run() {
+				action.run();
+			}
+		}, new FailableConsumer<>() {
+			@Override
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Customize").bot();
+				shell.button("OK").click();
+			}
 		});
 		// check no changes
 		assertEditor("""
@@ -369,9 +386,17 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(context -> action.run(), context -> {
-			context.useShell("Customize");
-			context.clickButton("OK");
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
+			@Override
+			public void run() {
+				action.run();
+			}
+		}, new FailableConsumer<>() {
+			@Override
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Customize").bot();
+				shell.button("OK").click();
+			}
 		});
 		// check no changes
 		assertEditor("""
@@ -402,21 +427,21 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				action.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Customize");
+			public void accept(SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Customize").bot();
 				// change properties
 				Object object = button.getObject();
 				Object customizer = ReflectionUtils.getFieldObject(object, "customizer");
 				ReflectionUtils.invokeMethod(customizer, "doBeanChanges()");
 				// commit changes
-				context.clickButton("OK");
+				shell.button("OK").click();
 			}
 		});
 		// check source
@@ -459,20 +484,20 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				action.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Customize");
+			public void accept(SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Customize").bot();
 				// change properties
 				Object customizer = ReflectionUtils.getFieldObject(buttonObject, "customizer");
 				ReflectionUtils.invokeMethod(customizer, "doBeanChanges()");
 				// cancel changes
-				context.clickButton("Cancel");
+				shell.button("Cancel").click();
 			}
 		});
 		// check source
@@ -659,15 +684,15 @@ public class CustomizeTest extends SwingModelTest {
 		final IAction action = findChildAction(manager, "&Customize...");
 		assertNotNull(action);
 		// open customize dialog
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				action.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Customize");
+			public void accept(SWTBot bot) throws Exception {
+				SWTBot shell = bot.shell("Customize").bot();
 				// change properties
 				Object object = button.getObject();
 				ReflectionUtils.invokeMethod(object, "setTitle(java.lang.String)", "test");
@@ -681,9 +706,7 @@ public class CustomizeTest extends SwingModelTest {
 						null,
 						"test");
 				// press "OK" button
-				Button okButton = context.getButtonByText("OK");
-				assertNotNull(okButton);
-				context.click(okButton);
+				shell.button("OK").click();
 			}
 		});
 		// check source

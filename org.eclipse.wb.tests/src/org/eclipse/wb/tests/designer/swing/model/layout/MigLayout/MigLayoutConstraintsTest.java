@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.swing.SwingImages;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -34,10 +33,13 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import net.miginfocom.layout.LC;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 import java.awt.Container;
@@ -961,22 +963,22 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		assertEquals("", constraints.getString());
 		// open dialog, but cancel
 		{
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() {
 					action.run();
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					context.useShell("Cell properties");
+				public void accept(SWTBot bot) {
+					SWTBot shell = bot.shell("Cell properties").bot();
 					{
-						Text text = context.getTextByLabel("Specification:");
+						SWTBotText text = shell.textWithLabel("Specification:");
 						text.setText("width 100px");
 					}
 					// changes applied into "constraints"
 					assertEquals("width 100px", constraints.getString());
-					context.clickButton("Cancel");
+					shell.button("Cancel").click();
 				}
 			});
 			// changes of "constraints" rolled back
@@ -991,20 +993,20 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 					"}");
 		}
 		// open dialog, commit changes
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				action.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Cell properties");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Cell properties").bot();
 				{
-					Text text = context.getTextByLabel("Specification:");
+					SWTBotText text = shell.textWithLabel("Specification:");
 					text.setText("width 100px");
 				}
-				context.clickButton("OK");
+				shell.button("OK").click();
 			}
 		});
 		assertEditor(
