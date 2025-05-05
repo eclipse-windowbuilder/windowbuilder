@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -63,6 +63,8 @@ import javax.swing.SwingUtilities;
  * @coverage swing.utils
  */
 public class SwingImageUtils {
+	private static String UI_SCALE = "sun.java2d.uiScale";
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Shot
@@ -97,12 +99,21 @@ public class SwingImageUtils {
 		// bad results like invalid background color. The workaround is to set opacity property and
 		// restore old value back when all done.
 		ComponentShotConfigurator shotConfigurator = new ComponentShotConfigurator(component);
+		String oldUiScale = System.getProperty(UI_SCALE);
 		try {
+			// HighDPI support on Windows is fundamentally broken
+			// https://github.com/eclipse-windowbuilder/windowbuilder/issues/1038
+			System.setProperty(UI_SCALE, "1.0");
 			// Linux only: it seems that printAll() should be invoked in AWT dispatch thread
 			// to prevent deadlocks between main thread and AWT event queue.
 			// See also SwingUtils.invokeLaterAndWait().
 			runInDispatchThread(() -> component.printAll(componentImage.getGraphics()));
 		} finally {
+			if (oldUiScale != null) {
+				System.setProperty(UI_SCALE, oldUiScale);
+			} else {
+				System.clearProperty(UI_SCALE);
+			}
 			shotConfigurator.dispose();
 		}
 		// convert into SWT image
