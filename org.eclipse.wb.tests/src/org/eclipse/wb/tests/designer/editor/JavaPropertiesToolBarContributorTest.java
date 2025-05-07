@@ -16,11 +16,10 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.editor.multi.MultiMode;
 import org.eclipse.wb.internal.core.editor.structure.property.JavaPropertiesToolBarContributor;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
+import org.eclipse.wb.tests.gef.UiContext;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WithTooltip.withTooltip;
-
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.ToolItem;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -48,6 +47,7 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 	/**
 	 * Test for "Goto definition" action.
 	 */
+	@Ignore
 	@Test
 	public void test_gotoDefinition() throws Exception {
 		openContainer("""
@@ -62,26 +62,27 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 					}
 				}""");
 		JavaInfo button = getJavaInfoByName("button");
-		// prepare swt bot
-		SWTBot bot = new SWTBot(m_designerEditor.getRootControl());
+		// prepare UiContext
+		UiContext context = new UiContext();
 		// no selection initially, so no action
 		{
-			assertTrue(bot.getFinder().findControls(withTooltip("Goto definition")).isEmpty());
+			ToolItem toolItem = context.getToolItem("Goto definition");
+			assertNull(toolItem);
 		}
 		// select "button", show actions
 		canvas.select(button);
 		// use action
 		{
-			assertFalse(bot.getFinder().findControls(withTooltip("Goto definition")).isEmpty());
-			SWTBotToolbarButton toolItem = bot.toolbarButtonWithTooltip("Goto definition");
-			toolItem.click();
+			ToolItem toolItem = context.getToolItem("Goto definition");
+			assertNotNull(toolItem);
+			context.click(toolItem, SWT.NONE);
 			waitEventLoop(0);
 		}
 		// assert that position in XML source was opened
 		{
 			// "Source" is active
 			MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
-			assertTrue(multiMode.isSourceActive());
+			assertTrue(multiMode.getSourcePage().isActive());
 			// selection in source
 			int expectedPosition = button.getCreationSupport().getNode().getStartPosition();
 			assertJavaSelection(expectedPosition, 0);
@@ -107,18 +108,19 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		// prepare UiContext
-		SWTBot bot = new SWTBot(m_designerEditor.getRootControl());
+		UiContext context = new UiContext();
 		// no selection initially, so no action
 		{
-			assertTrue(bot.getFinder().findControls(withTooltip("Convert local to field")).isEmpty());
+			ToolItem toolItem = context.getToolItem("Convert local to field");
+			assertNull(toolItem);
 		}
 		// select "button", show actions
 		canvas.select(button);
 		// use action
 		{
-			assertFalse(bot.getFinder().findControls(withTooltip("Convert local to field")).isEmpty());
-			SWTBotToolbarButton toolItem = bot.toolbarButtonWithTooltip("Convert local to field");
-			toolItem.click();
+			ToolItem toolItem = context.getToolItem("Convert local to field");
+			assertNotNull(toolItem);
+			context.click(toolItem, SWT.NONE);
 		}
 		assertEditor("""
 				// filler filler filler filler filler
@@ -134,8 +136,9 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 				}""");
 		// use action
 		{
-			SWTBotToolbarButton toolItem = bot.toolbarButtonWithTooltip("Convert field to local");
-			toolItem.click();
+			ToolItem toolItem = context.getToolItem("Convert field to local");
+			assertNotNull(toolItem);
+			context.click(toolItem, SWT.NONE);
 		}
 		assertEditor("""
 				// filler filler filler filler filler

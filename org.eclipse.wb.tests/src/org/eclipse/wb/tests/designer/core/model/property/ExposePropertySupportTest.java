@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.VariableDeclaration;
@@ -27,13 +28,10 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -407,19 +405,19 @@ public class ExposePropertySupportTest extends SwingModelTest {
 		// prepare action
 		final IAction action = getExposeAction(button, "text");
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() {
+			public void run(UiContext context) throws Exception {
 				action.run();
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Expose property").bot();
+			public void run(UiContext context) throws Exception {
+				context.useShell("Expose property");
 				// prepare widgets
-				SWTBotText textWidget = shell.textWithLabel("Property name:");
-				SWTBotStyledText previewWidget = bot.styledTextWithLabel("Preview:");
-				SWTBotButton okButton = shell.button("OK");
+				Text textWidget = context.getTextByLabel("Property name:");
+				StyledText previewWidget = (StyledText) context.getControlAfterLabel("Preview:");
+				Button okButton = context.getButtonByText("OK");
 				// initial state
 				{
 					assertEquals("buttonText", textWidget.getText());
@@ -439,7 +437,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 					assertTrue(okButton.isEnabled());
 				}
 				// OK
-				okButton.click();
+				context.clickButton(okButton);
 			}
 		});
 		assertEditor(

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,12 +15,9 @@ package org.eclipse.wb.tests.designer.core.model.property.editor;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 /**
@@ -160,16 +157,16 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 		panel.refresh();
 		//
 		final Property property = panel.getPropertyByTitle("foo");
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() throws Exception {
+			public void run(UiContext context) throws Exception {
 				setTextEditorText(property, "notInteger");
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("foo").bot();
-				shell.button("OK").click();
+			public void run(UiContext context) throws Exception {
+				context.useShell("foo");
+				context.clickButton("OK");
 			}
 		});
 		assertEditor(
