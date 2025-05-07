@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2024 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -45,12 +46,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.After;
 import org.junit.Test;
 
@@ -272,18 +270,18 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 				"}");
 		refresh();
 		// set RowLayout for "inner"
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() throws Exception {
+			public void run(UiContext context) throws Exception {
 				CompositeInfo inner = getJavaInfoByName("inner");
 				LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
 				inner.setLayout(rowLayout);
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("No, keep 'null' layout").click();
+			public void run(UiContext context) throws Exception {
+				context.useShell("Confirm");
+				context.clickButton("No, keep 'null' layout");
 			}
 		});
 		assertEditor(
@@ -315,18 +313,18 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 				"}");
 		refresh();
 		// set RowLayout for "inner"
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() throws Exception {
+			public void run(UiContext context) throws Exception {
 				CompositeInfo inner = getJavaInfoByName("inner");
 				LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
 				inner.setLayout(rowLayout);
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("Yes, use FormLayout").click();
+			public void run(UiContext context) throws Exception {
+				context.useShell("Confirm");
+				context.clickButton("Yes, use FormLayout");
 			}
 		});
 		assertEditor(

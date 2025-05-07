@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IProject;
@@ -32,16 +33,13 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swt.widgets.TreeItem;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.After;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -1438,21 +1436,21 @@ public class FactoryCreateActionTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// animate UI
 		final IAction createAction = getCreateFactoryAction(button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() {
+			public void run(UiContext context) throws Exception {
 				createAction.run();
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Create factory").bot();
-				shell.textWithLabel("&Class:").setText("StaticFactory");
+			public void run(UiContext context) throws Exception {
+				context.useShell("Create factory");
+				context.getTextByLabel("&Class:").setText("StaticFactory");
 				{
-					SWTBotTreeItem treeItem = shell.tree().expandNode("Invocations", "setSelected(boolean)");
-					treeItem.uncheck();
+					TreeItem treeItem = context.getTreeItem("setSelected(boolean)");
+					UiContext.setChecked(treeItem, false);
 				}
-				shell.button("OK").click();
+				context.clickButton("OK");
 			}
 		});
 		// verify

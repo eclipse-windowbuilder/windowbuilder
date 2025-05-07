@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.RefactoringTestUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IFile;
@@ -40,7 +41,6 @@ import org.eclipse.jdt.ui.actions.JdtActionConstants;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.source.ISourceViewer;
-import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -48,8 +48,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -547,16 +545,16 @@ public class UndoManagerTest extends SwingGefTest {
 				new ArrayList<>(),
 				new BodyDeclarationTarget(typeDeclaration, false));
 		// do commit changes
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() throws Exception {
+			public void run(UiContext context) throws Exception {
 				m_lastEditor.commitChanges();
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Read-only File Encountered").bot();
-				shell.button(buttonId).click();
+			public void run(UiContext context) throws Exception {
+				context.useShell("Read-only File Encountered");
+				context.clickButton(buttonId);
 			}
 		});
 		//

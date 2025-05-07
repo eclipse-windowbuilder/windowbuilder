@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,13 +21,11 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.InstanceFactoryEn
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryInfo;
 import org.eclipse.wb.internal.core.model.util.TemplateUtils;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swt.widgets.Table;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 import java.util.List;
@@ -257,19 +255,20 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		InstanceFactoryInfo instanceFactory;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
+			new UiContext().executeAndCheck(new UIRunnable() {
 				@Override
-				public void run() throws Exception {
+				public void run(UiContext context) throws Exception {
 					tools[0] = (CreationTool) entry.createTool();
 				}
-			}, new FailableConsumer<>() {
+			}, new UIRunnable() {
 				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Select factory").bot();
-					SWTBotTable table = shell.table();
+				public void run(UiContext context) throws Exception {
+					context.useShell("Select factory");
+					waitEventLoop(0);
+					Table table = context.findFirstWidget(Table.class);
 					table.select(1);
 					// click OK
-					shell.button("OK").click();
+					context.clickButton("OK");
 				}
 			});
 			creationTool = tools[0];
@@ -331,16 +330,16 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
+			new UiContext().executeAndCheck(new UIRunnable() {
 				@Override
-				public void run() throws Exception {
+				public void run(UiContext context) throws Exception {
 					tools[0] = (CreationTool) entry.createTool();
 				}
-			}, new FailableConsumer<>() {
+			}, new UIRunnable() {
 				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Select factory").bot();
-					shell.button("Cancel").click();
+				public void run(UiContext context) throws Exception {
+					context.useShell("Select factory");
+					context.clickButton("Cancel");
 				}
 			});
 			creationTool = tools[0];

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2024 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,15 +19,16 @@ import org.eclipse.wb.internal.swing.model.bean.ButtonGroupInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+import org.eclipse.wb.tests.gef.UIPredicate;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 import java.util.List;
@@ -583,15 +584,32 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() {
+			public void run(UiContext context) throws Exception {
 				newGroupAction.run();
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				animateOpenTypeSelection(bot, "MyButtonGroup", "OK");
+			public void run(UiContext context) throws Exception {
+				// set filter
+				{
+					context.useShell("Open type");
+					Text filterText = context.findFirstWidget(Text.class);
+					filterText.setText("MyButtonGroup");
+				}
+				// wait for types
+				{
+					final Table typesTable = context.findFirstWidget(Table.class);
+					context.waitFor(new UIPredicate() {
+						@Override
+						public boolean check() {
+							return typesTable.getItems().length != 0;
+						}
+					});
+				}
+				// click OK
+				context.clickButton("OK");
 			}
 		});
 		assertEditor(
@@ -627,15 +645,32 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() {
+			public void run(UiContext context) throws Exception {
 				newGroupAction.run();
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				animateOpenTypeSelection(bot, "java.lang.Object", "OK");
+			public void run(UiContext context) throws Exception {
+				// set filter
+				{
+					context.useShell("Open type");
+					Text filterText = context.findFirstWidget(Text.class);
+					filterText.setText("java.lang.Object");
+				}
+				// wait for types
+				{
+					final Table typesTable = context.findFirstWidget(Table.class);
+					context.waitFor(new UIPredicate() {
+						@Override
+						public boolean check() {
+							return typesTable.getItems().length != 0;
+						}
+					});
+				}
+				// click OK, but not ButtonGroup, so ignored
+				context.clickButton("OK");
 			}
 		});
 		assertEditor(
@@ -669,16 +704,16 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
+		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
-			public void run() {
+			public void run(UiContext context) throws Exception {
 				newGroupAction.run();
 			}
-		}, new FailableConsumer<>() {
+		}, new UIRunnable() {
 			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Open type").bot();
-				shell.button("Cancel").click();
+			public void run(UiContext context) throws Exception {
+				context.useShell("Open type");
+				context.clickButton("Cancel");
 			}
 		});
 		assertEditor(

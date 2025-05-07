@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
+import org.eclipse.wb.tests.gef.UIPredicate;
+import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
@@ -40,11 +42,8 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.UIPlugin;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.internal.ide.IDEInternalPreferences;
@@ -482,31 +481,23 @@ public abstract class DesignerTestCase extends Assert {
 	/**
 	 * Animates "Open type" dialog, set filter and waits for first result in types list.
 	 */
-	public static void animateOpenTypeSelection(SWTBot bot, String typeName, String buttonName) {
-		SWTBot shell = bot.shell("Open type").bot();
+	public static void animateOpenTypeSelection(UiContext context, String typeName) throws Exception {
 		// set filter
 		{
-			SWTBotText filterText = shell.text();
+			context.useShell("Open type");
+			Text filterText = context.findFirstWidget(Text.class);
 			filterText.setText(typeName);
 		}
 		// wait for types
 		{
-			final SWTBotTable typesTable = shell.table();
-			bot.waitUntil(new DefaultCondition() {
+			final Table typesTable = context.findFirstWidget(Table.class);
+			context.waitFor(new UIPredicate() {
 				@Override
-				public boolean test() throws Exception {
-					return typesTable.rowCount() != 0;
-				}
-
-				@Override
-				public String getFailureMessage() {
-					return "\"Open type\" dialog took too long to find types.";
+				public boolean check() {
+					return typesTable.getItems().length != 0;
 				}
 			});
 		}
-		shell.button(buttonName).click();
-		// wait for result to be applied
-		UIThreadRunnable.syncExec(() -> waitEventLoop(10));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

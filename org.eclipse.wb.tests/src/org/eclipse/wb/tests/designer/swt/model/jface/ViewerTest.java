@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,6 +40,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+import org.eclipse.wb.tests.gef.UIPredicate;
+import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -48,11 +50,11 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -697,15 +699,35 @@ public class ViewerTest extends RcpModelTest {
 							"new ContentProvider",
 							"new ArrayContentProvider");
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
+			new UiContext().executeAndCheck(new UIRunnable() {
 				@Override
-				public void run() throws Exception {
+				public void run(UiContext context) throws Exception {
 					openPropertyDialog(property);
 				}
-			}, new FailableConsumer<>() {
+			}, new UIRunnable() {
 				@Override
-				public void accept(SWTBot bot) {
-					animateOpenTypeSelection(bot, "ArrayContentPro", "OK");
+				public void run(UiContext context) throws Exception {
+					context.useShell("Open type");
+					// set filter
+					{
+						Text filterText = context.findFirstWidget(Text.class);
+						filterText.setText("ArrayContentPro");
+					}
+					// wait for types
+					{
+						final Table typesTable = context.findFirstWidget(Table.class);
+						context.waitFor(new UIPredicate() {
+							@Override
+							public boolean check() {
+								return typesTable.getItems().length != 0;
+							}
+						});
+					}
+					// click OK
+					{
+						Button okButton = context.getButtonByText("OK");
+						context.click(okButton);
+					}
 				}
 			});
 			// check source
