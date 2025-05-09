@@ -21,8 +21,8 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
-import org.eclipse.wb.tests.gef.UIPredicate;
-import org.eclipse.wb.tests.gef.UiContext;
+
+import static org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
@@ -42,8 +42,12 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.ui.internal.UIPlugin;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.internal.ide.IDEInternalPreferences;
@@ -481,23 +485,33 @@ public abstract class DesignerTestCase extends Assert {
 	/**
 	 * Animates "Open type" dialog, set filter and waits for first result in types list.
 	 */
-	public static void animateOpenTypeSelection(UiContext context, String typeName) throws Exception {
+	public static void animateOpenTypeSelection(SWTBot bot, String typeName, String buttonName) {
+		SWTBotShell shellBot = bot.shell("Open type");
+		SWTBot shell = shellBot.bot();
 		// set filter
 		{
-			context.useShell("Open type");
-			Text filterText = context.findFirstWidget(Text.class);
+			SWTBotText filterText = shell.text();
 			filterText.setText(typeName);
 		}
 		// wait for types
 		{
-			final Table typesTable = context.findFirstWidget(Table.class);
-			context.waitFor(new UIPredicate() {
+			final SWTBotTable typesTable = shell.table();
+			bot.waitUntil(new DefaultCondition() {
 				@Override
-				public boolean check() {
-					return typesTable.getItems().length != 0;
+				public boolean test() throws Exception {
+					return typesTable.rowCount() != 0;
+				}
+
+				@Override
+				public String getFailureMessage() {
+					return "\"Open type\" dialog took too long to find types.";
 				}
 			});
 		}
+		shell.button(buttonName).click();
+		shell.waitUntil(shellCloses(shellBot));
+		// wait for result to be applied
+		UIThreadRunnable.syncExec(() -> waitEventLoop(10));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

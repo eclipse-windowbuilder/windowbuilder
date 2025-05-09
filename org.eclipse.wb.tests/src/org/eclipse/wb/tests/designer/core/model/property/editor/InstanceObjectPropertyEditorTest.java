@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,13 +20,12 @@ import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.gef.UIPredicate;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -165,32 +164,15 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		// use GUI to set "ExternalLabelProvider"
 		{
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new UIRunnable() {
+			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
+				public void run() throws Exception {
 					openPropertyDialog(property);
 				}
-			}, new UIRunnable() {
+			}, new FailableConsumer<>() {
 				@Override
-				public void run(UiContext context) throws Exception {
-					// set filter
-					{
-						context.useShell("Open type");
-						Text filterText = context.findFirstWidget(Text.class);
-						filterText.setText("JButton");
-					}
-					// wait for types
-					{
-						final Table typesTable = context.findFirstWidget(Table.class);
-						context.waitFor(new UIPredicate() {
-							@Override
-							public boolean check() {
-								return typesTable.getItems().length != 0;
-							}
-						});
-					}
-					// click OK
-					context.clickButton("OK");
+				public void accept(SWTBot bot) {
+					animateOpenTypeSelection(bot, "JButton", "OK");
 				}
 			});
 			// check source
