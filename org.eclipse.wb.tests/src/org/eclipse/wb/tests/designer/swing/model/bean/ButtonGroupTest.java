@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.swing.model.bean.ButtonGroupInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jface.action.IAction;
@@ -670,16 +669,16 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				newGroupAction.run();
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Open type");
-				context.clickButton("Cancel");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Open type").bot();
+				shell.button("Cancel").click();
 			}
 		});
 		assertEditor(

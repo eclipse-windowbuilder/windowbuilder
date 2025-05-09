@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,16 +21,18 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -225,16 +227,17 @@ public class AbstractNamedTest extends AbstractVariableTest {
 			assertEquals("abc", getTextEditorText(variableProperty));
 		}
 		// duplicate name
-		new UiContext().executeAndCheck(new UIRunnable() {
+
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() throws Exception {
 				setTextEditorText(variableProperty, "button_2");
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("Variable");
-				context.clickButton("OK");
+			public void accept(SWTBot bot) {
+				SWTBot shell = bot.shell("Variable").bot();
+				shell.button("OK").click();
 			}
 		});
 		// no changes

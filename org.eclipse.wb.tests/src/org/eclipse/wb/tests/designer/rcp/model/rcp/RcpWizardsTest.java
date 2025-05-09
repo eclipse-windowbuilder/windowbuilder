@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,13 +18,17 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
-import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.ui.part.ViewPart;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -94,17 +98,19 @@ public class RcpWizardsTest extends RcpModelTest {
 	}
 
 	private void animate_ViewPart() throws Exception {
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				TestUtils.runWizard(new ViewPartWizard(), new StructuredSelection(m_packageFragment));
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("New Eclipse RCP ViewPart");
-				context.getTextByLabel("Name:").setText("MyViewPart");
-				context.clickButton("Finish");
+			public void accept(SWTBot bot) {
+				SWTBotShell botShell = bot.shell("New Eclipse RCP ViewPart");
+				SWTBot shell = botShell.bot();
+				shell.textWithLabel("Name:").setText("MyViewPart");
+				shell.button("Finish").click();
+				bot.waitUntil(Conditions.shellCloses(botShell));
 			}
 		});
 	}
@@ -137,17 +143,19 @@ public class RcpWizardsTest extends RcpModelTest {
 	}
 
 	private void animate_EditorPart() throws Exception {
-		new UiContext().executeAndCheck(new UIRunnable() {
+		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
+			public void run() {
 				TestUtils.runWizard(new EditorPartWizard(), new StructuredSelection(m_packageFragment));
 			}
-		}, new UIRunnable() {
+		}, new FailableConsumer<>() {
 			@Override
-			public void run(UiContext context) throws Exception {
-				context.useShell("New Eclipse RCP EditorPart");
-				context.getTextByLabel("Name:").setText("MyEditorPart");
-				context.clickButton("Finish");
+			public void accept(SWTBot bot) {
+				SWTBotShell botShell = bot.shell("New Eclipse RCP EditorPart");
+				SWTBot shell = botShell.bot();
+				shell.textWithLabel("Name:").setText("MyEditorPart");
+				shell.button("Finish").click();
+				bot.waitUntil(Conditions.shellCloses(botShell));
 			}
 		});
 	}
