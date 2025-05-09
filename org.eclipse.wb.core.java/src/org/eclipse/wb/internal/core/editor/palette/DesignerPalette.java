@@ -65,13 +65,17 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
+import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.ui.palette.PaletteContextMenuProvider;
 import org.eclipse.gef.ui.palette.PaletteViewer;
+import org.eclipse.gef.ui.palette.editparts.PaletteEditPart;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
@@ -106,6 +110,9 @@ public class DesignerPalette {
 	private JavaInfo m_rootJavaInfo;
 	private PaletteManager m_manager;
 	private PaletteEntry m_defaultEntry;
+	private DesignerRoot m_paletteRoot;
+	private Font m_categoryFont = null;
+	private Font m_entryFont = null;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -128,6 +135,21 @@ public class DesignerPalette {
 			m_paletteViewer.setEditPartFactory(new DesignerPaletteEditPartFactory());
 			m_paletteComposite = (FigureCanvas) m_paletteViewer.createControl(parent);
 			m_paletteComposite.setScrollbarsMode(SWT.NONE);
+			m_paletteComposite.addDisposeListener(event -> {
+				if (m_categoryFont != null) {
+					m_categoryFont.dispose();
+				}
+				if (m_entryFont != null) {
+					m_entryFont.dispose();
+				}
+			});
+			m_preferences.addPropertyChangeListener(event -> {
+				String key = event.getPropertyName();
+				if (m_preferences.isCategoryPropertyKey(key) || m_preferences.isEntryPropertyKey(key)) {
+					updateFonts(event.getPropertyName());
+					m_paletteViewer.getRootEditPart().refresh();
+				}
+			});
 		} else {
 			m_legacyPaletteComposite = new PaletteComposite(parent, SWT.NONE);
 			m_paletteDomain = null;
@@ -174,7 +196,18 @@ public class DesignerPalette {
 			// configure preferences
 			{
 				m_preferences.setPrefix(toolkitId);
-				if (m_legacyPaletteComposite != null) {
+				if (m_legacyPaletteComposite == null) {
+					Display display = m_paletteComposite.getDisplay();
+					if (m_categoryFont != null) {
+						m_categoryFont.dispose();
+					}
+					if (m_entryFont != null) {
+						m_entryFont.dispose();
+					}
+					m_categoryFont = m_preferences.getCategoryFontDescriptor().createFont(display);
+					m_entryFont = m_preferences.getEntryFontDescriptor().createFont(display);
+					updateFonts((String) null);
+				} else {
 					m_legacyPaletteComposite.setPreferences(m_preferences);
 				}
 			}
@@ -417,7 +450,7 @@ public class DesignerPalette {
 	private void showPalette() {
 		clearEntryCaches();
 		// set IPalette
-		DesignerRoot palette = new DesignerRoot() {
+		m_paletteRoot = new DesignerRoot() {
 			@Override
 			public void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
 				new DesignerPalettePopupActions(getOperations()).addPopupActions(
@@ -464,14 +497,14 @@ public class DesignerPalette {
 			for (CategoryInfo categoryInfo : categoryInfoList) {
 				if (shouldBeDisplayed(categoryInfo)) {
 					DesignerContainer category = getVisualCategory(categoryInfo);
-					palette.add(category);
+					m_paletteRoot.add(category);
 				}
 			}
 		}
 		if (m_legacyPaletteComposite != null) {
-			m_legacyPaletteComposite.setPalette(palette);
+			m_legacyPaletteComposite.setPalette(m_paletteRoot);
 		} else {
-			m_paletteViewer.setPaletteRoot(palette);
+			m_paletteViewer.setPaletteRoot(m_paletteRoot);
 		}
 		configure_EditDomain_DefaultTool();
 	}
@@ -517,6 +550,54 @@ public class DesignerPalette {
 	private void refreshVisualPalette() {
 		if (m_legacyPaletteComposite != null) {
 			m_legacyPaletteComposite.refreshPalette();
+		}
+	}
+
+	/**
+	 * Refreshes the font associated with the given property and replaces any old
+	 * references in the palette viewer. <i>Important</i> This method will update
+	 * all figures and edit parts to consider the new font when e.g. calculating
+	 * their size.
+	 */
+	private void updateFonts(String propertyName) {
+		Display display = m_paletteComposite.getDisplay();
+
+		if (m_preferences.isCategoryPropertyKey(propertyName)) {
+			if (m_categoryFont != null) {
+				m_categoryFont.dispose();
+			}
+			m_categoryFont = m_preferences.getCategoryFontDescriptor().createFont(display);
+		} else if (m_preferences.isEntryPropertyKey(propertyName)) {
+			if (m_entryFont != null) {
+				m_entryFont.dispose();
+			}
+			m_entryFont = m_preferences.getEntryFontDescriptor().createFont(display);
+		}
+
+		updateFonts((PaletteEditPart) m_paletteViewer.getEditPartForModel(m_paletteRoot));
+
+		m_paletteComposite.getViewport().invalidateTree();
+		m_paletteComposite.getViewport().revalidate();
+		m_paletteComposite.redraw();
+
+		m_paletteViewer.getRootEditPart().refresh();
+	}
+
+	/**
+	 * Recursively updates the font for all {@link ToolEntry} and
+	 * {@link PaletteDrawer} figures. <i>Important</i> It is essential that each
+	 * figure has a local font set, instead of inheriting the font of its parent, in
+	 * order to e.g. avoid a tool entry using the font of its containing drawer.
+	 */
+	private void updateFonts(PaletteEditPart editPart) {
+		if (editPart.getModel() instanceof ToolEntry) {
+			editPart.getFigure().setFont(m_entryFont);
+		} else if (editPart.getModel() instanceof PaletteDrawer) {
+			editPart.getFigure().setFont(m_categoryFont);
+		}
+
+		for (PaletteEditPart childEditPart : editPart.getChildren()) {
+			updateFonts(childEditPart);
 		}
 	}
 

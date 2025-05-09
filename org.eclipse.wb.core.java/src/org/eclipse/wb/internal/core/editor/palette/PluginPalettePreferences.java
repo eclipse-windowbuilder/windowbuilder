@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,6 +23,8 @@ import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
+
+import java.util.Objects;
 
 /**
  * Implementation of {@link IPalettePreferences} for {@link IPreferenceStore}.
@@ -134,5 +136,19 @@ public final class PluginPalettePreferences extends DesignerPaletteViewerPrefere
 	 */
 	public void setMinColumns(int minColumns) {
 		getPreferenceStore().setValue(m_minColumnsKey, minColumns);
+	}
+
+	/**
+	 * @return {@code true} if the given key matches {@link #m_categoryFontKey}
+	 */
+	public boolean isCategoryPropertyKey(String key) {
+		return Objects.equals(key, m_categoryFontKey);
+	}
+
+	/**
+	 * @return {@code true} if the given key matches {@link #m_entryFontKey}
+	 */
+	public boolean isEntryPropertyKey(String key) {
+		return Objects.equals(key, m_entryFontKey);
 	}
 }
