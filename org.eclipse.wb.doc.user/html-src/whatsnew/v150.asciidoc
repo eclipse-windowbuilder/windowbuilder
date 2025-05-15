@@ -12,4 +12,4 @@
 * Exclude properties incompatible with the project JVM
 * Support for externalizing "TitleBorder.title"
 
-What's new - link:pro/v100.html[*v1.0.0*]
+What's new - xref:pro/v100.adoc[*v1.0.0*]

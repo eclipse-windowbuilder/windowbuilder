@@ -9,8 +9,8 @@
 * link:#Swing[Enhanced Swing support]
 * link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
  
-* link:v400.html[v4.0.0]
-* link:v300.html[v3.0.0]
+* xref:v400.adoc[v4.0.0]
+* xref:v300.adoc[v3.0.0]
 
 [#FlyoutPanes]
 == New Dockable Flyout Palette & Property Editor

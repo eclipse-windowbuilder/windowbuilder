@@ -9,9 +9,9 @@
 * link:#CodeGeneration[Code Generation & Parsing enhancements]
 * link:#Editor_PropertyPane[Editor & Property Pane Enhancements] +
  
-* link:v410.html[v4.1.0]
-* link:v400.html[v4.0.0]
-* link:v300.html[v3.0.0]
+* xref:v410.adoc[v4.1.0]
+* xref:v400.adoc[v4.0.0]
+* xref:v300.adoc[v3.0.0]
 
 [#SWT_VisualInheritance]
 == Support for SWT Visual Inheritance
