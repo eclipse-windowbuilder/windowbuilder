@@ -10,7 +10,7 @@
 * link:#Editor_PropertyPane[Editor & Property Pane Enhancements]
 * link:#CodeParsing[Code Parsing Enhancements]
 
-* link:v300.html[v3.0.0]
+* xref:v300.adoc[v3.0.0]
 
 [#SWT_AWT]
 == Support for the SWT_AWT bridge allowing SWT and Swing to be mixed

@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/whatsnew
+endif::[]
+
 = What's New - v1.20.0
 
 == General
@@ -7,15 +11,14 @@ and to hide the tool-tip again when the mouse wheel is scrolled. Additionally,
 the SWT-based buttons have been replaced by pure GEF-based buttons to allow for
 a better integration into the table.
 
-++++
-<p>
-  <img src="images/1.20/PropertyTable_Old.png" title="1.19 and older">
-  <img src="images/1.20/PropertyTable_New.png" title="1.20 and newer">
-</p>
-++++
+[cols="a,a"]
+|===
+| image:images/1.20/PropertyTable_Old.png[1.19 and older]
+| image:images/1.20/PropertyTable_New.png[1.20 and newer]
+|===
 
 == Swing
 
 - Added conversion support for `java.awt.Cursor`, `java.awt.Font` and `java.awt.ComponentOrientation` in the Customizer.
 
-What's new - link:v119.html[*v1.19.0*]
+What's new - xref:v119.adoc[*v1.19.0*]

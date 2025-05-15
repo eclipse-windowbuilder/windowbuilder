@@ -6,4 +6,4 @@
 
 For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/10[1.18.0] milestone.
 
-What's new - link:v117.html[*v1.17.0*]
+What's new - xref:v117.adoc[*v1.17.0*]

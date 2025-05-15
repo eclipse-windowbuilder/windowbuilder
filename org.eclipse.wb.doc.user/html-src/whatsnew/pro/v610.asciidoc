@@ -15,15 +15,15 @@
 [cols="50%,50%"]
 |===
 a|
-* link:v600.html[v6.0.0]
-* link:v510.html[v5.1.0]
-* link:v500.html[v5.0.0]
-* link:v430.html[v4.3.0]
+* xref:v600.adoc[v6.0.0]
+* xref:v510.adoc[v5.1.0]
+* xref:v500.adoc[v5.0.0]
+* xref:v430.adoc[v4.3.0]
 a|
-* link:v420.html[v4.2.0]
-* link:v410.html[v4.1.0]
-* link:v400.html[v4.0.0]
-* link:v300.html[v3.0.0]
+* xref:v420.adoc[v4.2.0]
+* xref:v410.adoc[v4.1.0]
+* xref:v400.adoc[v4.0.0]
+* xref:v300.adoc[v3.0.0]
 |===
 
 [#GWT]
