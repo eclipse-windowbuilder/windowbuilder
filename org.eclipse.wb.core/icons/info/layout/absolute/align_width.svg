@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333333"
+   version="1.1"
+   id="svg181291"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs181288">
+    <linearGradient
+       id="linearGradient20483">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop20479" />
+      <stop
+         style="stop-color:#5f95b8;stop-opacity:1;"
+         offset="1"
+         id="stop20481" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient20471">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop20467" />
+      <stop
+         style="stop-color:#cd3743;stop-opacity:1;"
+         offset="1"
+         id="stop20469" />
+    </linearGradient>
+    <marker
+       style="overflow:visible"
+       id="Arrow1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="4.0606599"
+       markerHeight="6.7071066"
+       viewBox="0 0 4.0606602 6.7071068"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         id="path5057"
+         transform="rotate(180,0.125,0)" />
+    </marker>
+    <linearGradient
+       id="linearGradient190262">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop190258" />
+      <stop
+         style="stop-color:#a0a0a4;stop-opacity:1;"
+         offset="1"
+         id="stop190260" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient190264"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.88892018,0,0,0.8000568,0.2204235,0.4496638)" />
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient216718"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.888921,0.60005829,0,-0.5557948,-0.0441229)"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469" />
+    <linearGradient
+       xlink:href="#linearGradient20483"
+       id="linearGradient218247"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.888921,-0.60005829,0,3.3338618,0.61727763)"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469" />
+    <linearGradient
+       xlink:href="#linearGradient20471"
+       id="linearGradient218270"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.888921,-0.60005829,0,4.6567784,-0.17643377)"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469" />
+  </defs>
+  <g
+     id="layer1"
+     transform="rotate(-90,1.9843556,2.1166666)">
+    <path
+       style="fill:url(#linearGradient218247);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.264506;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1.587442,0.52914733 H 2.3812692 V 3.9687306 H 1.587442 Z"
+       id="path186443-1-4" />
+    <path
+       style="fill:url(#linearGradient218270);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.264506;stroke-dasharray:none;stroke-opacity:1"
+       d="M 2.9103587,0.52914733 H 3.7041859 V 2.6458906 H 2.9103587 Z"
+       id="path186443-1-45" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.197115"
+       d="M -0.13231101,1.0583526 0.52914731,0.39689433 1.1906056,1.0583526 V 1.322936 L 0.66143897,0.79376932 V 3.7041859 L 1.1906056,3.1750193 V 3.4396026 L 0.52914731,4.1010609 -0.13231101,3.4396026 V 3.1750193 L 0.39685565,3.7041859 V 0.79376932 L -0.13231101,1.322936 Z"
+       id="path16922" />
+  </g>
+</svg>

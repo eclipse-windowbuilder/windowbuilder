@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -61,8 +62,10 @@ AbstractAlignmentActionsSupport<C> implements LayoutConstants {
 	protected void addSizeActions(List<Object> actions) {
 		// create size actions
 		actions.add(new Separator());
-		actions.add(new SelectionAction("width", Messages.AlignmentsSupport_linkWidth, ALIGN_WIDTH));
-		actions.add(new SelectionAction("height", Messages.AlignmentsSupport_linkHeight, ALIGN_HEIGHT));
+		actions.add(new SelectionAction(CoreImages.LAYOUT_ABSOLUTE_ALIGN_WIDTH,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_WIDTH_DISABLED, Messages.AlignmentsSupport_linkWidth, ALIGN_WIDTH));
+		actions.add(new SelectionAction(CoreImages.LAYOUT_ABSOLUTE_ALIGN_HEIGHT,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_HEIGHT_DISABLED, Messages.AlignmentsSupport_linkHeight, ALIGN_HEIGHT));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

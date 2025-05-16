@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.palette;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
-import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
@@ -31,8 +31,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @coverage swt.editor.palette
  */
 public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
-	private static final ImageDescriptor ICON = Activator.getImageDescriptor("info/layout/absolute/layout.gif");
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -50,7 +48,7 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon() {
-		return ICON;
+		return CoreImages.LAYOUT_ABSOLUTE;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

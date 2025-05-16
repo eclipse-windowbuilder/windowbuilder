@@ -86,6 +86,38 @@ public abstract class CoreImages {
 	public static ImageDescriptor PROPERTIES_PLUS = of("properties/plus.svg");
 	public static ImageDescriptor PROPERTIES_TRUE = of("properties/true.svg");
 
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_CENTER_DISABLED = of("info/layout/absolute/align_h_center_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_CENTER = of("info/layout/absolute/align_h_center.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_CENTERS_DISABLED = of("info/layout/absolute/align_h_centers_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_CENTERS = of("info/layout/absolute/align_h_centers.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_LEFT_DISABLED = of("info/layout/absolute/align_h_left_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_LEFT = of("info/layout/absolute/align_h_left.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_RIGHT_DISABLED = of("info/layout/absolute/align_h_right_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_RIGHT = of("info/layout/absolute/align_h_right.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_SPACE_DISABLED = of("info/layout/absolute/align_h_space_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_H_SPACE = of("info/layout/absolute/align_h_space.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_HEIGHT_DISABLED = of("info/layout/absolute/align_height_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_HEIGHT = of("info/layout/absolute/align_height.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_BOTTOM_DISABLED = of("info/layout/absolute/align_v_bottom_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_BOTTOM = of("info/layout/absolute/align_v_bottom.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_CENTER_DISABLED = of("info/layout/absolute/align_v_center_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_CENTER = of("info/layout/absolute/align_v_center.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_CENTERS_DISABLED = of("info/layout/absolute/align_v_centers_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_CENTERS = of("info/layout/absolute/align_v_centers.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_SPACE_DISABLED = of("info/layout/absolute/align_v_space_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_SPACE = of("info/layout/absolute/align_v_space.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_TOP_DISABLED = of("info/layout/absolute/align_v_top_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_V_TOP = of("info/layout/absolute/align_v_top.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_WIDTH_DISABLED = of("info/layout/absolute/align_width_disabled.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_ALIGN_WIDTH = of("info/layout/absolute/align_width.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_BRING_FORWARD = of("info/layout/absolute/bring_forward.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_BRING_TO_FRONT = of("info/layout/absolute/bring_to_front.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_SEND_BACKWARD = of("info/layout/absolute/send_backward.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE_SEND_TO_BACK = of("info/layout/absolute/send_to_back.svg");
+	public static ImageDescriptor LAYOUT_ABSOLUTE = of("info/layout/absolute/layout.svg");
+
+	public static ImageDescriptor LAYOUT_FIT_TO_SIZE = of("info/layout/fit_to_size.svg");
+
 	/**
 	 * Images returned by this method must <b>not</b> be disposed.
 	 *

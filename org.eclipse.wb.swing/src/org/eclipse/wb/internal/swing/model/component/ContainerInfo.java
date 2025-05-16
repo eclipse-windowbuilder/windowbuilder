@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@
 package org.eclipse.wb.internal.swing.model.component;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -48,7 +49,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.ImplicitLayoutCreationSupport;
@@ -179,7 +179,7 @@ public class ContainerInfo extends ComponentInfo {
 				}
 			};
 			action.setText(ModelMessages.ContainerInfo_setLayoutAbsolute);
-			action.setImageDescriptor(Activator.getImageDescriptor("info/layout/absolute/layout.gif"));
+			action.setImageDescriptor(CoreImages.LAYOUT_ABSOLUTE);
 			layoutsManager.add(action);
 		}
 		// add layout items
