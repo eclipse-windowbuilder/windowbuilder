@@ -162,3 +162,4 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.206.0,4.0.0)";visibility:=reex
  org.mvel2;bundle-version="[2.5.2,3.0.0)"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.core
+Require-Capability: eclipse.swt;filter:="(image.format=svg)";resolution:=optional

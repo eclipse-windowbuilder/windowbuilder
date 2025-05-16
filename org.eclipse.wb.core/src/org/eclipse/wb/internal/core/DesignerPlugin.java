@@ -23,7 +23,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Listener;
@@ -39,7 +41,10 @@ import static org.burningwave.core.assembler.StaticComponentContainer.Modules;
 
 import org.osgi.framework.BundleContext;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -50,6 +55,7 @@ import java.io.InputStream;
 public class DesignerPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.eclipse.wb.core";
 	private static DesignerPlugin m_plugin;
+	private static Boolean isSvgSupported;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -383,6 +389,33 @@ public class DesignerPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return m_resourceProvider.getImageDescriptor("icons/" + path);
+	}
+
+	/**
+	 * Convenience method to check whether SVGs are supported by the current
+	 * application. This method returns {@code true}, if there is at least one
+	 * active bundle that satisfies the (optional) {@code (image.format=svg)}
+	 * capability.
+	 */
+	public static boolean isSvgSupported() {
+		if (isSvgSupported != null) {
+			return isSvgSupported;
+		}
+		String svg = """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<svg width="1" height="1" version="1.1" viewBox="0 0 0 0" xmlns="http://www.w3.org/2000/svg"></svg>
+				"""; //$NON-NLS-1$
+		try (InputStream is = new ByteArrayInputStream(svg.getBytes(StandardCharsets.UTF_8))) {
+			new ImageLoader().load(is);
+			isSvgSupported = true;
+		} catch (IOException ignore) {
+			// Should never happen
+			isSvgSupported = false;
+		} catch (SWTException e) {
+			// SVGs unsupported
+			isSvgSupported = false;
+		}
+		return isSvgSupported;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
