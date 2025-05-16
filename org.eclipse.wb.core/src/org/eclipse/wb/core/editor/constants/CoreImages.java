@@ -16,6 +16,10 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.swt.graphics.Image;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -32,6 +36,8 @@ import java.net.URL;
  * @noextend This class is not intended to be extended by clients.
  */
 public abstract class CoreImages {
+	private static ResourceManager RESOURCE_MANAGER = new LocalResourceManager(JFaceResources.getResources());
+
 	public static ImageDescriptor ALIGNMENT_H_MENU_CENTER = of("alignment/h/menu/center.svg");
 	public static ImageDescriptor ALIGNMENT_H_MENU_DEFAULT = of("alignment/h/menu/default.svg");
 	public static ImageDescriptor ALIGNMENT_H_MENU_DELETE = of("alignment/h/menu/delete.svg");
@@ -69,6 +75,25 @@ public abstract class CoreImages {
 	public static ImageDescriptor ALIGNMENT_V_SMALL_GROW = of("alignment/v/small/grow.svg");
 	public static ImageDescriptor ALIGNMENT_V_SMALL_TOP = of("alignment/v/small/top.svg");
 	public static ImageDescriptor ALIGNMENT_V_SMALL_UNKNOWN = of("alignment/v/small/unknown.svg");
+
+	public static ImageDescriptor PROPERTIES_BOOLEAN_NULL = of("properties/BooleanNull.svg");
+	public static ImageDescriptor PROPERTIES_BOOLEAN_UNKNOWN = of("properties/BooleanUnknown.svg");
+	public static ImageDescriptor PROPERTIES_DOTS = of("properties/dots.svg");
+	public static ImageDescriptor PROPERTIES_DOWN = of("properties/down.svg");
+	public static ImageDescriptor PROPERTIES_DT = of("properties/dt.svg");
+	public static ImageDescriptor PROPERTIES_FALSE = of("properties/false.svg");
+	public static ImageDescriptor PROPERTIES_MINUS = of("properties/minus.svg");
+	public static ImageDescriptor PROPERTIES_PLUS = of("properties/plus.svg");
+	public static ImageDescriptor PROPERTIES_TRUE = of("properties/true.svg");
+
+	/**
+	 * Images returned by this method must <b>not</b> be disposed.
+	 *
+	 * @return A shared {@link Image} of the given descriptor.
+	 */
+	public static Image getSharedImage(ImageDescriptor imageDescriptor) {
+		return RESOURCE_MANAGER.create(imageDescriptor);
+	}
 
 	private static ImageDescriptor of(String fileName) {
 		return of(FrameworkUtil.getBundle(CoreImages.class), fileName);

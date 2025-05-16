@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -73,7 +74,7 @@ IConfigurablePropertyObject {
 	private final PropertyEditorPresentation PRESENTATION = new ButtonPropertyEditorPresentation() {
 		@Override
 		protected Image getImage() {
-			return DesignerPlugin.getImage("properties/dt.png");
+			return CoreImages.getSharedImage(CoreImages.PROPERTIES_DT);
 		}
 
 		@Override

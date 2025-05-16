@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -23,7 +24,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddAfter;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -385,7 +385,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 				m_layoutComplexProperty.setEditorPresentation(new ButtonPropertyEditorPresentation() {
 					@Override
 					protected Image getImage() {
-						return DesignerPlugin.getImage("properties/down.png");
+						return CoreImages.getSharedImage(CoreImages.PROPERTIES_DOWN);
 					}
 
 					@Override
