@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,15 +15,11 @@ package org.eclipse.wb.internal.draw2d;
 import org.eclipse.wb.draw2d.Figure;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.LightweightSystem;
-import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
@@ -35,7 +31,6 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	private RootFigure m_rootFigure;
-	private final Dimension m_rootPreferredSize = new Dimension();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -79,7 +74,6 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	protected void setDefaultUpdateManager() {
 		getUpdateManager().setControl(this);
 	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
@@ -122,92 +116,34 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Check bounds and reconfigure scroll bar's if needed and repaint client area.
-	 */
-	public void handleRefresh(int x, int y, int width, int height) {
-		if (m_rootPreferredSize.equals(m_rootFigure.getPreferredSize())) {
-			// calculate paint area
-			Point size = getSize();
-			Rectangle paintArea = new Rectangle(0, 0, size.x, size.y);
-			paintArea.intersect(new Rectangle(x, y, width, height));
-			// set repaint
-			redraw(paintArea.x, paintArea.y, paintArea.width, paintArea.height, true);
-		} else {
-			org.eclipse.swt.graphics.Rectangle clientArea = getClientArea();
-			Rectangle bounds = new Rectangle(clientArea).setLocation(0, 0);
-			m_rootFigure.setBounds(bounds);
-			getViewport().setBounds(bounds);
-			getViewport().revalidate();
-			// set repaint
-			redraw();
-		}
-	}
-
-	/**
-	 * Update manager using double-buffering and allowing the temporary suspension
-	 * of any actual paint operations. This mechanism is needed during the creation
-	 * of the live images, where the design page is in an inconsistent page.
+	 * Update manager allowing the temporary suspension of any actual paint
+	 * operations. This mechanism is needed during the creation of the live images,
+	 * where the design page is in an inconsistent page.
 	 */
 	private static class CachedUpdateManager extends DeferredUpdateManager {
 		private FigureCanvas m_canvas;
-		private Image m_bufferedImage;
 		private boolean m_drawCached;
 
 		private void setControl(FigureCanvas canvas) {
 			m_canvas = canvas;
-			m_canvas.addControlListener(ControlListener.controlResizedAdapter(event -> disposeImage()));
 		}
 
 		@Override
-		protected void paint(GC paintGC) {
-			org.eclipse.swt.graphics.Rectangle bounds = paintGC.getClipping();
-			// check draw cached mode
+		public synchronized void performUpdate() {
 			if (m_drawCached) {
-				if (m_bufferedImage == null) {
-					paintGC.fillRectangle(bounds);
-				} else {
-					paintGC.drawImage(m_bufferedImage, 0, 0);
-				}
+				queueWork();
 				return;
 			}
-			// check double buffered image
-			if (m_bufferedImage == null) {
-				Point size = m_canvas.getSize();
-				m_bufferedImage = new Image(null, size.x, size.y);
-			}
-			// prepare double buffered Graphics
-			GC bufferedGC = new GC(m_bufferedImage);
-			try {
-				bufferedGC.setClipping(bounds);
-				bufferedGC.setBackground(paintGC.getBackground());
-				bufferedGC.setForeground(paintGC.getForeground());
-				bufferedGC.setFont(paintGC.getFont());
-				bufferedGC.setLineStyle(paintGC.getLineStyle());
-				bufferedGC.setLineWidth(paintGC.getLineWidth());
-				bufferedGC.setXORMode(paintGC.getXORMode());
-				// draw content
-				Graphics graphics = new SWTGraphics(bufferedGC);
-				int dx = -m_canvas.getViewport().getHorizontalRangeModel().getValue();
-				int dy = -m_canvas.getViewport().getVerticalRangeModel().getValue();
-				graphics.translate(dx, dy);
-				m_canvas.getRootFigure().paint(graphics);
-			} finally {
-				bufferedGC.dispose();
-			}
-			// flush painting
-			paintGC.drawImage(m_bufferedImage, 0, 0);
+			super.performUpdate();
 		}
 
 		@Override
-		public void dispose() {
-			disposeImage();
-		}
-
-		private void disposeImage() {
-			if (m_bufferedImage != null) {
-				m_bufferedImage.dispose();
-				m_bufferedImage = null;
+		protected void paint(GC gc) {
+			if (m_drawCached) {
+				addDirtyRegion(m_canvas.getRootFigure(), new Rectangle(gc.getClipping()));
+				return;
 			}
+			super.paint(gc);
 		}
 	}
 }
