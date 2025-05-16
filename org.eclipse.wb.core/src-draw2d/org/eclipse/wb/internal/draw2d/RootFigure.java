@@ -15,10 +15,8 @@ package org.eclipse.wb.internal.draw2d;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 
-import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.draw2d.EventDispatcher;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -34,16 +32,9 @@ import java.util.Map;
  */
 public class RootFigure extends Figure implements IRootFigure {
 	private final FigureCanvas m_figureCanvas;
-	private final Rectangle m_dirtyRegion = new Rectangle();
-	/**
-	 * @deprecated No longer needed once we use the GEF lightweight-system.
-	 */
-	@Deprecated
-	private final UpdateManager m_updateManager;
 	private Dimension m_preferredSize;
 	private Map<String, Layer> m_nameToLayer = new HashMap<>();
 	private IPreferredSizeProvider m_preferredSizeProvider;
-	private boolean m_refreshWork;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -52,26 +43,6 @@ public class RootFigure extends Figure implements IRootFigure {
 	////////////////////////////////////////////////////////////////////////////
 	public RootFigure(FigureCanvas figureCanvas) {
 		m_figureCanvas = figureCanvas;
-		m_updateManager = new DeferredUpdateManager();
-		m_updateManager.addUpdateListener(new UpdateListener() {
-			@Override
-			@SuppressWarnings("rawtypes")
-			public void notifyPainting(Rectangle damage, Map dirtyRegions) {
-				m_dirtyRegion.union(damage);
-				// Null check for JUnit tests. The root figure should ALWAYS belong to a canvas.
-				if (figureCanvas != null && !m_figureCanvas.isDisposed() && !m_refreshWork) {
-					m_refreshWork = true;
-					m_figureCanvas.handleRefresh(m_dirtyRegion.x, m_dirtyRegion.y, m_dirtyRegion.width, m_dirtyRegion.height);
-					m_dirtyRegion.setBounds(0, 0, 0, 0);
-					m_refreshWork = false;
-				}
-			}
-
-			@Override
-			public void notifyValidating() {
-				// Nothing to do...
-			}
-		});
 		setOpaque(true);
 	}
 
@@ -108,7 +79,7 @@ public class RootFigure extends Figure implements IRootFigure {
 
 	@Override
 	public UpdateManager getUpdateManager() {
-		return m_updateManager;
+		return getFigureCanvas().getLightweightSystem().getUpdateManager();
 	}
 
 	/**
@@ -164,7 +135,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	@Override
 	public void repaint(int x, int y, int width, int height) {
-		m_updateManager.addDirtyRegion(this, x, y, width, height);
+		getUpdateManager().addDirtyRegion(this, x, y, width, height);
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,9 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.draw2d.UpdateListener;
+import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -39,10 +41,16 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 	@Test
 	public void test_getPreferredSize_setBounds() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
+		final UpdateManager updateManager = new DeferredUpdateManager();
 		//
 		TestLogger expectedLogger = new TestLogger();
 		//
-		RootFigure testRoot = new RootFigure(null);
+		RootFigure testRoot = new RootFigure(null) {
+			@Override
+			public UpdateManager getUpdateManager() {
+				return updateManager;
+			}
+		};
 		testRoot.getUpdateManager().addUpdateListener(new UpdateListener() {
 			@Override
 			@SuppressWarnings("rawtypes")
@@ -148,7 +156,13 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		};
 		figure22.add(figure23, new Rectangle(15, 25, 19, 12));
 		//
+		final UpdateManager updateManager = new DeferredUpdateManager();
 		RootFigure testRoot = new RootFigure(null) {
+			@Override
+			public UpdateManager getUpdateManager() {
+				return updateManager;
+			}
+
 			@Override
 			public void repaint(int x, int y, int width, int height) {
 			}
