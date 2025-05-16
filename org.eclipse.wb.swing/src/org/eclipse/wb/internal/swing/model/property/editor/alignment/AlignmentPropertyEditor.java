@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.alignment;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.FloatPropertyEditor;
@@ -24,11 +25,11 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swing.Activator;
 
 import org.eclipse.draw2d.ButtonGroup;
 import org.eclipse.draw2d.Clickable;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import java.awt.Component;
@@ -55,12 +56,12 @@ abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public AlignmentPropertyEditor(String[] fields, String[] images) {
+	public AlignmentPropertyEditor(String[] fields, ImageDescriptor[] images) {
 		Assert.equals(fields.length, images.length);
 		for (int i = 0; i < fields.length; i++) {
 			final String field = fields[i];
 			final float value = ReflectionUtils.getFieldFloat(Component.class, field);
-			final Image image = Activator.getImage("info/alignment/" + images[i]);
+			final Image image = CoreImages.getSharedImage(images[i]);
 			ButtonPropertyEditorPresentation presentation = new ButtonPropertyEditorPresentation() {
 				@Override
 				protected Image getImage() {

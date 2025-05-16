@@ -12,7 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.alignment;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import javax.swing.JComponent;
 
@@ -24,9 +27,9 @@ import javax.swing.JComponent;
  */
 public final class AlignmentXPropertyEditor extends AlignmentPropertyEditor {
 	public AlignmentXPropertyEditor() {
-		super(new String[]{"LEFT_ALIGNMENT", "CENTER_ALIGNMENT", "RIGHT_ALIGNMENT",}, new String[]{
-				"left.gif",
-				"center.gif",
-				"right.gif",});
+		super(new String[] { "LEFT_ALIGNMENT", "CENTER_ALIGNMENT", "RIGHT_ALIGNMENT", }, new ImageDescriptor[] {
+				CoreImages.ALIGNMENT_H_SMALL_LEFT,
+				CoreImages.ALIGNMENT_H_SMALL_CENTER,
+				CoreImages.ALIGNMENT_H_SMALL_RIGHT});
 	}
 }
