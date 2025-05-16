@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,14 +13,15 @@
 package org.eclipse.wb.internal.core.model.layout.absolute;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -58,28 +59,28 @@ public final class OrderingSupport {
 		boolean isFirst = m_components.indexOf(m_component) == 0;
 		boolean isLast = m_components.indexOf(m_component) == m_components.size() - 1;
 		orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringToFront,
-				"bring_to_front.png", !isFirst) {
+				CoreImages.LAYOUT_ABSOLUTE_BRING_TO_FRONT, !isFirst) {
 			@Override
 			protected void runEx() throws Exception {
 				GlobalState.getOrderProcessor().move(m_component, getFirstSibling());
 			}
 		});
 		orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendToBack,
-				"send_to_back.png", !isLast) {
+				CoreImages.LAYOUT_ABSOLUTE_SEND_TO_BACK, !isLast) {
 			@Override
 			protected void runEx() throws Exception {
 				GlobalState.getOrderProcessor().move(m_component, null);
 			}
 		});
 		orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringForward,
-				"bring_forward.png", !isFirst) {
+				CoreImages.LAYOUT_ABSOLUTE_BRING_FORWARD, !isFirst) {
 			@Override
 			protected void runEx() throws Exception {
 				GlobalState.getOrderProcessor().move(m_component, getPreviousSibling());
 			}
 		});
 		orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendBackward,
-				"send_backward.png", !isLast) {
+				CoreImages.LAYOUT_ABSOLUTE_SEND_BACKWARD, !isLast) {
 			@Override
 			protected void runEx() throws Exception {
 				GlobalState.getOrderProcessor().move(m_component, getNextSibling());
@@ -126,10 +127,10 @@ public final class OrderingSupport {
 	 * Abstract super class for ordering actions.
 	 */
 	private abstract class OrderAction extends ObjectInfoAction {
-		public OrderAction(String text, String imageName, boolean enabled) {
+		public OrderAction(String text, ImageDescriptor image, boolean enabled) {
 			super(m_component.getUnderlyingModel());
 			setText(text);
-			setImageDescriptor(DesignerPlugin.getImageDescriptor("info/layout/absolute/" + imageName));
+			setImageDescriptor(image);
 			setEnabled(enabled);
 		}
 	}

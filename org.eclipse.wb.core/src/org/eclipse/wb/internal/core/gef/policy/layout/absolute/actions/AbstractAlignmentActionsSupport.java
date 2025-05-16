@@ -12,14 +12,15 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -113,24 +114,36 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 	protected void addAlignmentActions(List<Object> actions) {
 		// create horizontal actions
 		actions.add(new Separator());
-		actions.add(new SelectionAction("h_left",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_LEFT,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_LEFT_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_alignLeft,
 				ALIGN_H_LEFT));
-		actions.add(new SelectionAction("h_centers",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_CENTERS,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_CENTERS_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_alighHorizontalCenters,
 				ALIGN_H_CENTERS));
-		actions.add(new SelectionAction("h_right",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_RIGHT,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_RIGHT_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_alignRight,
 				ALIGN_H_RIGHT));
 		// create vertical actions
 		actions.add(new Separator());
-		actions.add(new SelectionAction("v_top",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_TOP,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_TOP_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_alignTop,
 				ALIGN_V_TOP));
-		actions.add(new SelectionAction("v_centers",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_CENTERS,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_CENTERS_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_alignVerticalCenters,
 				ALIGN_V_CENTERS));
-		actions.add(new SelectionAction("v_bottom",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_BOTTOM,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_BOTTOM_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_alignBottom,
 				ALIGN_V_BOTTOM));
 	}
@@ -138,10 +151,14 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 	protected void addSpaceActions(List<Object> actions) {
 		// create space actions
 		actions.add(new Separator());
-		actions.add(new SelectionAction("h_space",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_SPACE,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_SPACE_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_spaceEquallyHorizontal,
 				ALIGN_H_SPACE));
-		actions.add(new SelectionAction("v_space",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_SPACE,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_SPACE_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_spaceEquallyVertical,
 				ALIGN_V_SPACE));
 	}
@@ -149,10 +166,14 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 	protected void addSizeActions(List<Object> actions) {
 		// create size actions
 		actions.add(new Separator());
-		actions.add(new SelectionAction("width",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_WIDTH,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_WIDTH_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_replicateWidth,
 				ALIGN_WIDTH));
-		actions.add(new SelectionAction("height",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_HEIGHT,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_HEIGHT_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_replicateHeight,
 				ALIGN_HEIGHT));
 	}
@@ -160,10 +181,14 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 	protected void addCenterInContainerActions(List<Object> actions) {
 		// create center actions
 		actions.add(new Separator());
-		actions.add(new SelectionAction("h_center",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_CENTER,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_H_CENTER_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_centerHorizontally,
 				ALIGN_H_CENTER));
-		actions.add(new SelectionAction("v_center",
+		actions.add(new SelectionAction(
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_CENTER,
+				CoreImages.LAYOUT_ABSOLUTE_ALIGN_V_CENTER_DISABLED,
 				GefMessages.AbstractAlignmentActionsSupport_centerVertically,
 				ALIGN_V_CENTER));
 	}
@@ -253,11 +278,10 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public SelectionAction(String image, String tooltip, int command) {
+		public SelectionAction(ImageDescriptor image, ImageDescriptor imageDisabled, String tooltip, int command) {
 			m_command = command;
-			String iconPath = "info/layout/absolute/align_" + image;
-			setImageDescriptor(DesignerPlugin.getImageDescriptor(iconPath + ".gif"));
-			setDisabledImageDescriptor(DesignerPlugin.getImageDescriptor(iconPath + "_disabled.gif"));
+			setImageDescriptor(image);
+			setDisabledImageDescriptor(imageDisabled);
 			setEnabled(isActionEnabled(m_command));
 			setToolTipText(tooltip);
 		}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333333"
+   version="1.1"
+   id="svg181291"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs181288">
+    <linearGradient
+       id="linearGradient190262">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop190258" />
+      <stop
+         style="stop-color:#a0a0a4;stop-opacity:1;"
+         offset="1"
+         id="stop190260" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient190264"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.88892018,0,0,0.8000568,0.2204235,0.4496638)" />
+  </defs>
+  <g
+     id="layer1">
+    <path
+       id="path218273"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+       d="M 2.2489583,0.26458333 V 0.52916666 H 1.190625 V 1.3229166 H 2.2489583 V 1.8520833 H 0.52916666 v 0.79375 H 2.2489583 V 3.1749999 H 1.190625 v 0.79375 H 2.2489583 V 4.2333332 H 2.5135416 V 3.9687499 h 1.0583333 v -0.79375 H 2.5135416 V 2.6458333 h 1.7197916 v -0.79375 H 2.5135416 V 1.3229166 H 3.5718749 V 0.52916666 H 2.5135416 V 0.26458333 Z" />
+    <path
+       id="path218273-1"
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1.9843749,0 V 0.26458333 H 0.92604163 V 1.0583333 H 1.9843749 V 1.5875 H 0.26458333 V 2.38125 H 1.9843749 V 2.9104166 H 0.92604163 v 0.79375 H 1.9843749 V 4.2333332 H 2.2489582 V 3.7041666 h 1.0583333 v -0.79375 H 2.2489582 V 2.38125 H 3.9687498 V 1.5875 H 2.2489582 V 1.0583333 H 3.3072915 V 0.26458333 H 2.2489582 V 0 Z" />
+  </g>
+</svg>

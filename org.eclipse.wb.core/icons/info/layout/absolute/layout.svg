@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333333"
+   version="1.1"
+   id="svg181291"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs181288">
+    <rect
+       x="-12.991176"
+       y="-8.9188513"
+       width="46.452345"
+       height="28.521742"
+       id="rect87044" />
+    <linearGradient
+       id="linearGradient33642">
+      <stop
+         style="stop-color:#a18447;stop-opacity:1;"
+         offset="0"
+         id="stop33638" />
+      <stop
+         style="stop-color:#b8a84b;stop-opacity:1;"
+         offset="1"
+         id="stop33640" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient32105">
+      <stop
+         style="stop-color:#b3a23b;stop-opacity:1;"
+         offset="0"
+         id="stop32101" />
+      <stop
+         style="stop-color:#a18447;stop-opacity:1;"
+         offset="1"
+         id="stop32103" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient190262">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop190258" />
+      <stop
+         style="stop-color:#a0a0a4;stop-opacity:1;"
+         offset="1"
+         id="stop190260" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient190264"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.88892018,0,0,0.8000568,0.2204235,0.4496638)" />
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient216718"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.888921,0.60005829,0,-0.5557948,-0.0441229)"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469" />
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient218247"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.888921,0.60005829,0,0.76716037,0.48496663)"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469" />
+    <linearGradient
+       xlink:href="#linearGradient190262"
+       id="linearGradient218270"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,0.888921,0.60005829,0,2.0900385,-0.30874477)"
+       x1="1.9974678"
+       y1="1.45895"
+       x2="1.9932934"
+       y2="3.046469" />
+    <linearGradient
+       xlink:href="#linearGradient32105"
+       id="linearGradient32107"
+       x1="1.8946636"
+       y1="-3.9556947"
+       x2="1.8877034"
+       y2="-1.3339287"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient33642"
+       id="linearGradient33644"
+       x1="1.8922979"
+       y1="-3.6975887"
+       x2="1.8860668"
+       y2="-1.5959942"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient40192"
+       id="linearGradient40194"
+       x1="3.177932"
+       y1="-2.3912981"
+       x2="3.1657889"
+       y2="-0.81509966"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient40192">
+      <stop
+         style="stop-color:#7793b4;stop-opacity:1;"
+         offset="0"
+         id="stop40188" />
+      <stop
+         style="stop-color:#c1ddf0;stop-opacity:1;"
+         offset="1"
+         id="stop40190" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient39458"
+       id="linearGradient39460"
+       x1="3.1716514"
+       y1="-2.6362054"
+       x2="3.1720695"
+       y2="-0.53879404"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient39458">
+      <stop
+         style="stop-color:#c1ddf0;stop-opacity:1;"
+         offset="0"
+         id="stop39454" />
+      <stop
+         style="stop-color:#7793b4;stop-opacity:1;"
+         offset="1"
+         id="stop39456" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1"
+     transform="rotate(-90,1.9843749,2.2489583)">
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;fill:#5f95b8;fill-rule:evenodd;stroke-width:0.264583"
+       x="0.9517104"
+       y="-3.1884766"
+       id="text80336"
+       transform="rotate(90)"><tspan
+         id="tspan80334"
+         style="stroke-width:0.264583" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
+       x="0.46734259"
+       y="-2.4701531"
+       id="text13710"
+       transform="rotate(90)"><tspan
+         id="tspan13708"
+         style="font-size:2.46944px;stroke-width:2.11667"
+         x="0.46734259"
+         y="-2.4701531">X</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
+       x="2.8380091"
+       y="-2.4701531"
+       id="text13714"
+       transform="rotate(90)"><tspan
+         id="tspan13712"
+         style="stroke-width:2.11667"
+         x="2.8380091"
+         y="-2.4701531">Y</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
+       x="0.46743074"
+       y="-0.35348642"
+       id="text13718"
+       transform="rotate(90)"><tspan
+         id="tspan13716"
+         style="stroke-width:2.11667"
+         x="0.46743074"
+         y="-0.35348642">W</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
+       x="2.8380976"
+       y="-0.35348642"
+       id="text13722"
+       transform="rotate(90)"><tspan
+         id="tspan13720"
+         style="stroke-width:2.11667"
+         x="2.8380976"
+         y="-0.35348642">H</tspan></text>
+  </g>
+</svg>

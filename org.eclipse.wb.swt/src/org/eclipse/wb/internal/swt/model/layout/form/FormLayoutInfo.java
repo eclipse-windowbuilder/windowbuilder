@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swt.model.layout.form;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -26,7 +27,6 @@ import org.eclipse.wb.internal.core.model.layout.absolute.OrderingSupport;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormUtils;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
@@ -124,7 +124,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 		{
 			IAction action =
 					new ObjectInfoAction(control, ModelMessages.FormLayoutInfo_autoSize,
-							Activator.getImageDescriptor("info/layout/FormLayout/fit_to_size.png")) {
+							CoreImages.LAYOUT_FIT_TO_SIZE) {
 				@Override
 				protected void runEx() throws Exception {
 					doAutoSize(control);

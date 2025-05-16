@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swt.model.layout.absolute;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -41,7 +42,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
@@ -92,7 +92,7 @@ IAbsoluteLayoutInfo<ControlInfo> {
 		ObjectInfoUtils.setNewId(this);
 		getDescription().setToolkit(toolkit);
 		getDescription().setOrder("first");
-		getDescription().setIcon(Activator.getImageDescriptor("info/layout/absolute/layout.gif"));
+		getDescription().setIcon(CoreImages.LAYOUT_ABSOLUTE);
 		setVariableSupport(new AbsoluteLayoutVariableSupport(this));
 	}
 
@@ -233,7 +233,7 @@ IAbsoluteLayoutInfo<ControlInfo> {
 		{
 			IAction action =
 					new ObjectInfoAction(control, ModelMessages.AbsoluteLayoutInfo_autoSize,
-							DesignerPlugin.getImageDescriptor("info/layout/absolute/fit_to_size.png")) {
+							CoreImages.LAYOUT_FIT_TO_SIZE) {
 				@Override
 				protected void runEx() throws Exception {
 					commandChangeBounds(control, null, control.getPreferredSize());
