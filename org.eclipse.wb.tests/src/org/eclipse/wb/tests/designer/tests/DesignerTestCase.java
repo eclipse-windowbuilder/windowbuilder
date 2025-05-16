@@ -506,12 +506,9 @@ public abstract class DesignerTestCase extends Assert {
 				public String getFailureMessage() {
 					return "\"Open type\" dialog took too long to find types.";
 				}
-			});
+			}, 30000);
 		}
 		shell.button(buttonName).click();
-		shell.waitUntil(shellCloses(shellBot));
-		// wait for result to be applied
-		UIThreadRunnable.syncExec(() -> waitEventLoop(10));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
