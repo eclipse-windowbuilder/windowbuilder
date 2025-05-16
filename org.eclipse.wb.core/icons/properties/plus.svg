@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="9"
+   height="9"
+   viewBox="0 0 9 9.0000004"
+   version="1.1"
+   id="svg13074"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs13068">
+    <linearGradient
+       id="linearGradient104003">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop103999" />
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:1;"
+         offset="1"
+         id="stop104001" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient20587">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop20583" />
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:1;"
+         offset="1"
+         id="stop20585" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient20587"
+       id="linearGradient27137"
+       gradientUnits="userSpaceOnUse"
+       x1="4.5543451"
+       y1="0.08026965"
+       x2="4.4158473"
+       y2="9.0690899" />
+    <linearGradient
+       xlink:href="#linearGradient104003"
+       id="linearGradient104005"
+       x1="4.5581799"
+       y1="1.0841479"
+       x2="4.5485682"
+       y2="8.0225973"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <metadata
+     id="metadata13071">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       style="fill:#9ab6d3;stroke-width:0.812513;fill-opacity:1"
+       d="M 0,0 H 1 V 1 H 2.0979001e-8 Z"
+       id="path16460" />
+    <path
+       style="fill:#5f95b8;stroke-width:0.75;fill-opacity:1"
+       d="M 1,0 H 8 V 1 H 1 Z"
+       id="path16462" />
+    <path
+       style="fill:#5f95b8;stroke-width:0.887025;fill-opacity:1"
+       d="M 1,8 V 1 H 0 v 7 z"
+       id="path16474" />
+    <path
+       style="fill:#9ab6d3;fill-opacity:1;stroke-width:0.812513"
+       d="M 8,0 H 9 V 1 H 8 Z"
+       id="path16460-7" />
+    <path
+       style="fill:#9ab6d3;fill-opacity:1;stroke-width:0.812513"
+       d="M 8,8 H 9 V 9 H 8 Z"
+       id="path16460-5" />
+    <path
+       style="fill:#9ab6d3;fill-opacity:1;stroke-width:0.812513"
+       d="M 0,8 H 1 V 9 H 0 Z"
+       id="path16460-3" />
+    <path
+       style="fill:#5f95b8;fill-opacity:1;stroke-width:0.75"
+       d="M 1,8 H 8 V 9 H 1 Z"
+       id="path16462-5" />
+    <path
+       style="fill:#5f95b8;fill-opacity:1;stroke-width:0.887025"
+       d="M 9,8 V 1 H 8 v 7 z"
+       id="path16474-6" />
+    <path
+       style="mix-blend-mode:normal;fill:url(#linearGradient104005);fill-opacity:1;stroke-width:0.75;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+       d="M 1,1 H 8 V 8 H 1 Z"
+       id="path20558" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.75;stroke-opacity:1"
+       d="M 2,4 H 4 V 2 H 5 V 4 H 7 V 5 H 5 V 7 H 4 V 5 H 2 Z"
+       id="path30045" />
+  </g>
+</svg>

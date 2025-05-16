@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.presentation;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
@@ -73,7 +73,7 @@ public abstract class ButtonPropertyEditorPresentation extends PropertyEditorPre
 	 * @return the {@link Image} to display on {@link Button}.
 	 */
 	protected Image getImage() {
-		return DesignerPlugin.getImage("properties/dots.gif");
+		return CoreImages.getSharedImage(CoreImages.PROPERTIES_DOTS);
 	}
 
 	/**

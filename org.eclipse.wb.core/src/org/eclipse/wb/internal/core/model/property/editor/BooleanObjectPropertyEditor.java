@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -28,9 +28,9 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.property.editor
  */
 public final class BooleanObjectPropertyEditor extends PropertyEditor {
-	private static final Image m_nullImage = DesignerPlugin.getImage("properties/BooleanNull.png");
-	private static final Image m_trueImage = DesignerPlugin.getImage("properties/true.png");
-	private static final Image m_falseImage = DesignerPlugin.getImage("properties/false.png");
+	private static final Image m_nullImage = CoreImages.getSharedImage(CoreImages.PROPERTIES_BOOLEAN_NULL);
+	private static final Image m_trueImage = CoreImages.getSharedImage(CoreImages.PROPERTIES_TRUE);
+	private static final Image m_falseImage = CoreImages.getSharedImage(CoreImages.PROPERTIES_FALSE);
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance

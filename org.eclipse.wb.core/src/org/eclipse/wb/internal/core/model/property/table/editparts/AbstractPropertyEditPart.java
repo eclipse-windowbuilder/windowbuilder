@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table.editparts;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
@@ -59,8 +59,8 @@ public abstract class AbstractPropertyEditPart extends AbstractGraphicalEditPart
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
-	protected static final Image m_plusImage = DesignerPlugin.getImage("properties/plus.gif");
-	protected static final Image m_minusImage = DesignerPlugin.getImage("properties/minus.gif");
+	protected static final Image m_plusImage = CoreImages.getSharedImage(CoreImages.PROPERTIES_PLUS);
+	protected static final Image m_minusImage = CoreImages.getSharedImage(CoreImages.PROPERTIES_MINUS);
 	protected static int m_stateWidth = 9;
 
 	@Override
