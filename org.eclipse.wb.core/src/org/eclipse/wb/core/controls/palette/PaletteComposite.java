@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
@@ -47,7 +46,6 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -1307,7 +1305,7 @@ public final class PaletteComposite extends Composite {
 			int width,
 			int height) {
 		int textY = y + (height - graphics.getFontMetrics().getHeight()) / 2;
-		String clipString = DrawUtils.clipString((GC) ReflectionUtils.getFieldObject(graphics, "gc"), text, width);
+		String clipString = DrawUtils.clipString(graphics, text, width);
 		graphics.drawText(clipString, x, textY);
 	}
 

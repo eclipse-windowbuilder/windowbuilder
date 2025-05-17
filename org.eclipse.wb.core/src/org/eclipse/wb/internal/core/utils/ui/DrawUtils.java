@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,24 +45,6 @@ public class DrawUtils {
 	// Drawing
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Draws given text clipped horizontally and centered vertically.
-	 *
-	 * @deprecated Use {@link #drawStringCV(Graphics, String, int, int, int, int)}
-	 *             instead.
-	 */
-	@Deprecated
-	public static final void drawStringCV(GC gc, String text, int x, int y, int width, int height) {
-		org.eclipse.swt.graphics.Rectangle oldClipping = gc.getClipping();
-		try {
-			gc.setClipping(new org.eclipse.swt.graphics.Rectangle(x, y, width, height));
-			//
-			int textStartY = y + (height - gc.getFontMetrics().getHeight()) / 2;
-			gc.drawString(clipString(gc, text, width), x, textStartY, true);
-		} finally {
-			gc.setClipping(oldClipping);
-		}
-	}
 
 	/**
 	 * Draws given text clipped horizontally and centered vertically.
@@ -82,27 +64,14 @@ public class DrawUtils {
 	/**
 	 * Draws given text clipped or centered horizontally and centered vertically.
 	 */
-	public static final void drawStringCHCV(GC gc, String text, int x, int y, int width, int height) {
-		int textStartY = y + (height - gc.getFontMetrics().getHeight()) / 2;
-		Point textSize = gc.stringExtent(text);
+	public static final void drawStringCHCV(Graphics graphics, String text, int x, int y, int width, int height) {
+		int textStartY = y + (height - graphics.getFontMetrics().getHeight()) / 2;
+		int textWidth = getStringWidth(graphics, text);
 		//
-		if (textSize.x > width) {
-			gc.drawString(clipString(gc, text, width), x, textStartY);
+		if (textWidth > width) {
+			graphics.drawString(clipString(graphics, text, width), x, textStartY);
 		} else {
-			gc.drawString(text, x + (width - textSize.x) / 2, textStartY);
-		}
-	}
-
-	/**
-	 * Draws image at given <code>x</code> and centered vertically.
-	 *
-	 * @deprecated Use {@link #drawImageCV(Graphics, Image, int, int, int)} instead.
-	 */
-	@Deprecated
-	public static final void drawImageCV(GC gc, Image image, int x, int y, int height) {
-		if (image != null) {
-			org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
-			gc.drawImage(image, x, y + (height - imageBounds.height) / 2);
+			graphics.drawString(text, x + (width - textWidth) / 2, textStartY);
 		}
 	}
 
@@ -158,35 +127,6 @@ public class DrawUtils {
 		int destX = targetRectangle.x + (targetRectangle.width - newImageWidth) / 2;
 		int destY = targetRectangle.y + (targetRectangle.height - newImageHeight) / 2;
 		gc.drawImage(image, 0, 0, imageWidth, imageHeight, destX, destY, newImageWidth, newImageHeight);
-	}
-
-	/**
-	 * @return the string clipped to have width less than given. Clipping is done as trailing "...".
-	 *
-	 * @deprecated Use {@link #clipString(Graphics, String, int)} instead.
-	 */
-	@Deprecated
-	public static String clipString(GC gc, String text, int width) {
-		if (width <= 0) {
-			return "";
-		}
-		// check if text already fits in given width
-		if (gc.stringExtent(text).x <= width) {
-			return text;
-		}
-		// use average count of characters as base
-		int count = Math.min(width / gc.getFontMetrics().getAverageCharWidth(), text.length());
-		if (gc.stringExtent(text.substring(0, count) + DOTS).x > width) {
-			while (count > 0 && gc.stringExtent(text.substring(0, count) + DOTS).x > width) {
-				count--;
-			}
-		} else {
-			while (count < text.length() - 1
-					&& gc.stringExtent(text.substring(0, count + 1) + DOTS).x < width) {
-				count++;
-			}
-		}
-		return text.substring(0, count) + DOTS;
 	}
 
 	/**
