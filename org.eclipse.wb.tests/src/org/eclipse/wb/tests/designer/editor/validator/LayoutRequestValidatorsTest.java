@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,9 +22,10 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+
+import java.util.Objects;
 
 /**
  * Tests for {@link LayoutRequestValidators}.
@@ -129,7 +130,7 @@ public class LayoutRequestValidatorsTest extends AbstractLayoutRequestValidatorT
 		ILayoutRequestValidator[] validators = getValidators(compoundValidator);
 		for (ILayoutRequestValidator validator : validators) {
 			if (validator instanceof ModelClassLayoutRequestValidator) {
-				if (ObjectUtils.equals(
+				if (Objects.equals(
 						ReflectionUtils.getFieldObject(validator, "m_requiredModelClass"),
 						requiredModelClass)) {
 					return;
@@ -144,7 +145,7 @@ public class LayoutRequestValidatorsTest extends AbstractLayoutRequestValidatorT
 		ILayoutRequestValidator[] validators = getValidators(compoundValidator);
 		for (ILayoutRequestValidator validator : validators) {
 			if (validator instanceof ComponentClassLayoutRequestValidator) {
-				if (ObjectUtils.equals(
+				if (Objects.equals(
 						ReflectionUtils.getFieldObject(validator, "m_requiredClass"),
 						requiredComponentClass)) {
 					return;

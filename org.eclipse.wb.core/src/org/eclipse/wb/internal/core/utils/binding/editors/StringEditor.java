@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.core.utils.binding.editors;
 import org.eclipse.wb.internal.core.utils.binding.IDataEditor;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * @author lobas_av
@@ -45,6 +45,6 @@ public class StringEditor implements IDataEditor {
 
 	@Override
 	public void setValue(Object value) {
-		m_field.setText(ObjectUtils.toString(value));
+		m_field.setText(Objects.toString(value));
 	}
 }

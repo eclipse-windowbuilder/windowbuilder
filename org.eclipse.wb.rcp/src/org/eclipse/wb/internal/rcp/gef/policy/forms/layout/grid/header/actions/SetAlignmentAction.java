@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * {@link Action} for modifying alignment of {@link TableWrapDimensionInfo}.
@@ -41,7 +41,7 @@ public final class SetAlignmentAction<C extends IControlInfo> extends DimensionH
 			int alignment) {
 		super(header, text, imageDescriptor, AS_RADIO_BUTTON);
 		m_alignment = alignment;
-		setChecked(ObjectUtils.equals(header.getDimension().getAlignment(), m_alignment));
+		setChecked(Objects.equals(header.getDimension().getAlignment(), m_alignment));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

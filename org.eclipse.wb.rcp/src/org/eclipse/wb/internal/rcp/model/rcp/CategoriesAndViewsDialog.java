@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -62,12 +62,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@link Dialog} for editing categories and moving views between them.
@@ -222,7 +222,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 					IPluginElement elementB = (IPluginElement) b;
 					String idA = PdeUtils.getAttribute(elementA, "id");
 					String idB = PdeUtils.getAttribute(elementB, "id");
-					return ObjectUtils.equals(idA, idB);
+					return Objects.equals(idA, idB);
 				}
 				return a == null ? b == null : a.equals(b);
 			}
@@ -459,7 +459,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 				}
 				// find category with given id
 				for (IPluginElement category : m_categories) {
-					if (ObjectUtils.equals(PdeUtils.getAttribute(category, "id"), viewCategoryId)) {
+					if (Objects.equals(PdeUtils.getAttribute(category, "id"), viewCategoryId)) {
 						return category;
 					}
 				}

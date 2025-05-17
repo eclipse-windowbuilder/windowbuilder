@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,9 +17,8 @@ import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.beans.PropertyDescriptor;
+import java.util.Objects;
 
 /**
  * {@link PropertyEditor} for "enumerationValues" attribute of {@link PropertyDescriptor}.
@@ -66,7 +65,7 @@ IClipboardSourceProvider {
 		// return name for value
 		if (value != Property.UNKNOWN_VALUE) {
 			for (int i = 0; i < m_values.length; i++) {
-				if (ObjectUtils.equals(m_values[i], value)) {
+				if (Objects.equals(m_values[i], value)) {
 					return m_names[i];
 				}
 			}
@@ -84,7 +83,7 @@ IClipboardSourceProvider {
 	public String getValueSource(Object value) throws Exception {
 		if (value != Property.UNKNOWN_VALUE) {
 			for (int i = 0; i < m_values.length; i++) {
-				if (ObjectUtils.equals(m_values[i], value)) {
+				if (Objects.equals(m_values[i], value)) {
 					return m_sources[i];
 				}
 			}

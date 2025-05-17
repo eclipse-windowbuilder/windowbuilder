@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,9 +43,8 @@ import org.eclipse.swt.widgets.Shell;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Model for {@link Dialog}.
@@ -105,7 +104,7 @@ IThisMethodParameterEvaluator {
 			String methodSignature,
 			SingleVariableDeclaration parameter,
 			int index) throws Exception {
-		if (ObjectUtils.equals(parameter.getName().getIdentifier(), "style")) {
+		if (Objects.equals(parameter.getName().getIdentifier(), "style")) {
 			return SWT.DIALOG_TRIM;
 		}
 		return AstEvaluationEngine.UNKNOWN;

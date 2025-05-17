@@ -85,12 +85,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Model for any SWT {@link Composite}.
@@ -288,7 +288,7 @@ IThisMethodParameterEvaluator {
 			String methodSignature,
 			SingleVariableDeclaration parameter,
 			int index) throws Exception {
-		if (ObjectUtils.equals(parameter.getName().getIdentifier(), "style")) {
+		if (Objects.equals(parameter.getName().getIdentifier(), "style")) {
 			return SWT.NONE;
 		}
 		return AstEvaluationEngine.UNKNOWN;

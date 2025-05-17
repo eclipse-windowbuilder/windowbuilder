@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,9 +25,8 @@ import org.eclipse.jdt.core.dom.InfixExpression;
 import org.eclipse.jdt.core.dom.InfixExpression.Operator;
 import org.eclipse.jdt.core.dom.PrefixExpression;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for "boolean" type.
@@ -74,11 +73,11 @@ public final class BooleanEvaluator implements IExpressionEvaluator {
 					Object rightObject = AstEvaluationEngine.evaluate(context, rightOperand);
 					// ==
 					if (operator == InfixExpression.Operator.EQUALS) {
-						return ObjectUtils.equals(leftObject, rightObject);
+						return Objects.equals(leftObject, rightObject);
 					}
 					// !=
 					if (operator == InfixExpression.Operator.NOT_EQUALS) {
-						return !ObjectUtils.equals(leftObject, rightObject);
+						return !Objects.equals(leftObject, rightObject);
 					}
 				}
 				// prepare operands

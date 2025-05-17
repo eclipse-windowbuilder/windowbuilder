@@ -35,9 +35,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * Helper for {@link EditPolicy}'s.
@@ -223,7 +222,7 @@ public abstract class PolicyUtils {
 		} else if (policy instanceof SelectionEditPolicy) {
 			translateAbsoluteToModel((SelectionEditPolicy) policy, t);
 		} else {
-			throw new IllegalArgumentException(ObjectUtils.toString(policy));
+			throw new IllegalArgumentException(Objects.toString(policy));
 		}
 	}
 

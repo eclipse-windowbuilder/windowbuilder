@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,8 +23,6 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.awt.Component;
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
@@ -32,6 +30,7 @@ import java.beans.Customizer;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 /**
  * {@link Action} for performing customization.
@@ -126,7 +125,7 @@ class CustomizerAction extends Action {
 								if (javaInfoState.changedProperties.contains(property.getTitle())) {
 									Object newValue = javaInfoState.changedPropertyValues.get(property.getTitle());
 									Object oldValue = javaInfoState.oldValues.get(i);
-									if (!ObjectUtils.equals(newValue, oldValue)) {
+									if (!Objects.equals(newValue, oldValue)) {
 										property.setValue(newValue);
 									}
 								}
@@ -142,7 +141,7 @@ class CustomizerAction extends Action {
 							for (int i = 0; i < size; i++) {
 								Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
 								Object oldValue = javaInfoState.oldValues.get(i);
-								if (!ObjectUtils.equals(newValue, oldValue)) {
+								if (!Objects.equals(newValue, oldValue)) {
 									javaInfoState.properties.get(i).setValue(newValue);
 								}
 							}
@@ -161,7 +160,7 @@ class CustomizerAction extends Action {
 						for (int i = 0; i < size; i++) {
 							Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
 							Object oldValue = javaInfoState.oldValues.get(i);
-							if (!ObjectUtils.equals(newValue, oldValue)) {
+							if (!Objects.equals(newValue, oldValue)) {
 								javaInfoState.setters.get(i).invoke(javaInfoState.object, oldValue);
 							}
 						}

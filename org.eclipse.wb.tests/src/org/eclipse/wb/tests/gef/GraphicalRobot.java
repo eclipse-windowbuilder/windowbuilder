@@ -46,13 +46,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -224,7 +224,7 @@ public final class GraphicalRobot {
 			if (handle.getDragTrackerTool() instanceof ResizeTracker) {
 				ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTrackerTool();
 				return resizeTracker.getDirection() == direction
-						&& ObjectUtils.equals(resizeTracker.getRequestType(), type);
+						&& Objects.equals(resizeTracker.getRequestType(), type);
 			}
 			return false;
 		};

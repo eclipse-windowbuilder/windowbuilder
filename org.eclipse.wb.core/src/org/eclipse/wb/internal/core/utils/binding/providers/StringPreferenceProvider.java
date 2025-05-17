@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.core.utils.binding.providers;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * @author lobas_av
@@ -42,6 +42,6 @@ public class StringPreferenceProvider extends AbstractPreferenceProvider {
 
 	@Override
 	public void setValue(Object value) {
-		m_store.setValue(m_key, ObjectUtils.toString(value));
+		m_store.setValue(m_key, Objects.toString(value));
 	}
 }
