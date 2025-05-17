@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * {@link AbstractBorderField} that allows to select {@link Boolean} value.
@@ -76,7 +76,7 @@ public final class BooleanField extends AbstractBorderField {
 	 * Sets the value, that should correspond to the one of the field values.
 	 */
 	public void setValue(Object value) throws Exception {
-		if (ObjectUtils.equals(Boolean.FALSE, value)) {
+		if (Objects.equals(Boolean.FALSE, value)) {
 			m_source = "false";
 			m_buttons[0].setSelection(true);
 			m_buttons[1].setSelection(false);

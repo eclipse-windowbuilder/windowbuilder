@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,11 +16,11 @@ import org.eclipse.wb.internal.core.utils.binding.IDataEditor;
 import org.eclipse.wb.internal.core.utils.dialogfields.ListDialogField;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lobas_av
@@ -61,7 +61,7 @@ public class StringListEditor implements IDataEditor {
 
 	@Override
 	public void setValue(Object value) {
-		String stringValue = ObjectUtils.toString(value);
+		String stringValue = Objects.toString(value);
 		String[] values = StringUtils.split(stringValue, m_separator);
 		List<String> elements = new ArrayList<>();
 		CollectionUtils.addAll(elements, values);

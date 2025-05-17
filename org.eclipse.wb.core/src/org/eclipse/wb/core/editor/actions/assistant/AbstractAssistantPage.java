@@ -37,13 +37,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract implementation of {@link ILayoutAssistantPage} with convenient function to create
@@ -186,7 +186,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 					Object value = property.getValue();
 					if (commonValue == NO_VALUE) {
 						commonValue = value;
-					} else if (!ObjectUtils.equals(commonValue, value)) {
+					} else if (!Objects.equals(commonValue, value)) {
 						return Property.UNKNOWN_VALUE;
 					}
 				}
@@ -200,7 +200,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		 */
 		protected final void setValue(final Object value) {
 			prepareProperties();
-			if (m_currentValue != Property.UNKNOWN_VALUE && ObjectUtils.equals(m_currentValue, value)) {
+			if (m_currentValue != Property.UNKNOWN_VALUE && Objects.equals(m_currentValue, value)) {
 				return;
 			}
 			m_currentValue = value;
@@ -630,7 +630,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 			Object value = getValue();
 			for (Button button : m_buttons) {
 				Object buttonValue = button.getData();
-				button.setSelection(ObjectUtils.equals(value, buttonValue));
+				button.setSelection(Objects.equals(value, buttonValue));
 			}
 		}
 

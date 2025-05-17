@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,9 +20,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * {@link AbstractBorderField} that allows to select one field from many.
@@ -78,7 +77,7 @@ public final class RadioField extends AbstractBorderField {
 		for (int i = 0; i < m_fields.length; i++) {
 			String fieldName = m_fields[i];
 			Field field = m_clazz.getField(fieldName);
-			if (ObjectUtils.equals(field.get(null), value)) {
+			if (Objects.equals(field.get(null), value)) {
 				m_source = m_clazz.getName() + "." + m_fields[i];
 				m_buttons[i].setSelection(true);
 			} else {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Field;
@@ -36,6 +35,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Helper for accessing external factories contributed via extension points.
@@ -276,7 +276,7 @@ public class ExternalFactoriesHelper {
 	public static synchronized IExtension getExtension(String pointId, String extensionId) {
 		for (IExtension extension : getExtensions(pointId)) {
 			if (extension.isValid()) {
-				if (ObjectUtils.equals(extension.getUniqueIdentifier(), extensionId)) {
+				if (Objects.equals(extension.getUniqueIdentifier(), extensionId)) {
 					return extension;
 				}
 			} else {

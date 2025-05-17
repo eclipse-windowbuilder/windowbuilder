@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * Pair of two objects.
@@ -47,8 +47,8 @@ public final class Pair<L, R> {
 		if (!(o instanceof Pair<?, ?> other)) {
 			return false;
 		}
-		return ObjectUtils.equals(getLeft(), other.getLeft())
-				&& ObjectUtils.equals(getRight(), other.getRight());
+		return Objects.equals(getLeft(), other.getLeft())
+				&& Objects.equals(getRight(), other.getRight());
 	}
 
 	@Override

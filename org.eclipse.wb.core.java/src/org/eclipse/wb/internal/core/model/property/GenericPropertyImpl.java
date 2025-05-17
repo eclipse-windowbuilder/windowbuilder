@@ -38,13 +38,13 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Concrete implementation of {@link GenericProperty}.
@@ -338,7 +338,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 			Object value) throws Exception {
 		// check for default value
 		if (value != UNKNOWN_VALUE) {
-			if (ObjectUtils.equals(getDefaultValue(accessor), value)) {
+			if (Objects.equals(getDefaultValue(accessor), value)) {
 				source = null;
 			}
 		}

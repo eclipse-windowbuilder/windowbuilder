@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
@@ -32,6 +31,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The {@link PropertyEditor} for selecting single field of class from given set.
@@ -79,7 +79,7 @@ IClipboardSourceProvider {
 		if (value != Property.UNKNOWN_VALUE) {
 			for (int i = 0; i < m_values.length; i++) {
 				Object fieldValue = m_values[i];
-				if (ObjectUtils.equals(fieldValue, value)) {
+				if (Objects.equals(fieldValue, value)) {
 					return m_titles[i];
 				}
 			}
@@ -98,7 +98,7 @@ IClipboardSourceProvider {
 		if (value != Property.UNKNOWN_VALUE) {
 			for (int i = 0; i < m_values.length; i++) {
 				Object fieldValue = m_values[i];
-				if (ObjectUtils.equals(fieldValue, value)) {
+				if (Objects.equals(fieldValue, value)) {
 					String fieldName = m_names[i];
 					if (fieldName == null) {
 						return null;

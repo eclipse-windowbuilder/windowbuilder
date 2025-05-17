@@ -42,12 +42,12 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Utilities for UI.
@@ -519,7 +519,7 @@ public class UiUtils {
 	 */
 	public static boolean equals(Image image_1, Image image_2) {
 		// try to compare as plain Object's
-		if (ObjectUtils.equals(image_1, image_2)) {
+		if (Objects.equals(image_1, image_2)) {
 			return true;
 		}
 		// compare bounds
@@ -535,7 +535,7 @@ public class UiUtils {
 	 */
 	public static boolean equals(ImageDescriptor imageDesc_1, ImageDescriptor imageDesc_2) {
 		// try to compare as plain Object's
-		if (ObjectUtils.equals(imageDesc_1, imageDesc_2)) {
+		if (Objects.equals(imageDesc_1, imageDesc_2)) {
 			return true;
 		}
 		// compare bounds

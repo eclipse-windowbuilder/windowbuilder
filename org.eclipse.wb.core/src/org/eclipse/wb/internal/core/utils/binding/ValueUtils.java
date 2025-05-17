@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.utils.binding;
 
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lobas_av
@@ -43,7 +43,7 @@ public final class ValueUtils {
 			return booleanObject.booleanValue();
 		}
 		// extract from Object
-		String stringObject = ObjectUtils.toString(value);
+		String stringObject = Objects.toString(value);
 		return BooleanUtils.toBoolean(stringObject);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.jdt.core.dom.Expression;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
+
+import java.util.Objects;
 
 /**
  * Implementation of {@link GenericProperty} for composite property.
@@ -110,7 +111,7 @@ public final class GenericPropertyComposite extends GenericProperty {
 			Object propertyValue = property.getValue();
 			if (value == NO_VALUE) {
 				value = propertyValue;
-			} else if (!ObjectUtils.equals(value, propertyValue)) {
+			} else if (!Objects.equals(value, propertyValue)) {
 				return UNKNOWN_VALUE;
 			}
 		}
@@ -125,7 +126,7 @@ public final class GenericPropertyComposite extends GenericProperty {
 			Object propertyValue = property.getDefaultValue();
 			if (value == NO_VALUE) {
 				value = propertyValue;
-			} else if (!ObjectUtils.equals(value, propertyValue)) {
+			} else if (!Objects.equals(value, propertyValue)) {
 				return UNKNOWN_VALUE;
 			}
 		}

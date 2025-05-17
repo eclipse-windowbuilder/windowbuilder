@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,7 +47,6 @@ import org.eclipse.pde.internal.ui.util.PDEModelUtility;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.part.EditorPart;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
@@ -58,6 +57,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -749,7 +749,7 @@ public final class PdeUtils {
 				@Override
 				public boolean visit(IPluginElement element) {
 					String categoryId = getAttribute(element, "category");
-					if (ObjectUtils.equals(m_id, categoryId)) {
+					if (Objects.equals(m_id, categoryId)) {
 						views.add(createViewInfo(element));
 					}
 					return false;

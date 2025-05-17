@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.core.model.description;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * The key for caching {@link ComponentDescription}.
@@ -71,8 +71,8 @@ public final class ComponentDescriptionKey {
 	public boolean equals(Object obj) {
 		if (obj instanceof ComponentDescriptionKey key) {
 			return m_componentClass == key.m_componentClass
-					&& ObjectUtils.equals(m_host, key.m_host)
-					&& ObjectUtils.equals(m_suffix, key.m_suffix);
+					&& Objects.equals(m_host, key.m_host)
+					&& Objects.equals(m_suffix, key.m_suffix);
 		}
 		return false;
 	}

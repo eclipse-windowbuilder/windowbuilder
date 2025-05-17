@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,8 +19,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.pde.core.plugin.IPluginElement;
 
-import org.apache.commons.lang3.ObjectUtils;
-
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -98,7 +97,7 @@ public final class ExtensionElementProperty<T> extends Property {
 	@Override
 	public boolean isModified() throws Exception {
 		Object value = getValue();
-		return value != UNKNOWN_VALUE && !ObjectUtils.equals(value, m_defaultValue);
+		return value != UNKNOWN_VALUE && !Objects.equals(value, m_defaultValue);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -122,9 +121,9 @@ public final class ExtensionElementProperty<T> extends Property {
 	@SuppressWarnings("unchecked")
 	public void setValue(Object value) throws Exception {
 		IPluginElement element = getElement();
-		if (element != null && !ObjectUtils.equals(value, getValue())) {
+		if (element != null && !Objects.equals(value, getValue())) {
 			String attributeValue;
-			if (value == UNKNOWN_VALUE || ObjectUtils.equals(value, m_defaultValue)) {
+			if (value == UNKNOWN_VALUE || Objects.equals(value, m_defaultValue)) {
 				attributeValue = null;
 			} else {
 				attributeValue = m_fromValueConverter.apply((T) value);

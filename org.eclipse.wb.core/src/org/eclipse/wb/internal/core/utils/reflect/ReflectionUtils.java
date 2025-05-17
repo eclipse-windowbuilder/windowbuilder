@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -46,6 +45,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -333,7 +333,7 @@ public class ReflectionUtils {
 			Field fieldTYPE = getFieldByName(candidateClass, "TYPE");
 			if (fieldTYPE != null) {
 				Class<?> primitiveType = (Class<?>) getFieldObject(candidateClass, "TYPE");
-				if (ObjectUtils.equals(primitiveType.getName(), requiredClass)) {
+				if (Objects.equals(primitiveType.getName(), requiredClass)) {
 					return true;
 				}
 			}
@@ -1191,7 +1191,7 @@ public class ReflectionUtils {
 			return true;
 		}
 		return constructor_1.getDeclaringClass() == constructor_2.getDeclaringClass()
-				&& ObjectUtils.equals(
+				&& Objects.equals(
 						getConstructorSignature(constructor_1),
 						getConstructorSignature(constructor_2));
 	}

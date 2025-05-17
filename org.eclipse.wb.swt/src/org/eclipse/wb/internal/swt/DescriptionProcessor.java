@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,7 +32,6 @@ import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.beans.BeanInfo;
@@ -42,6 +41,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -280,7 +280,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
 			if (!isComposite(componentClass)) {
 				return;
 			}
-			if (!ObjectUtils.equals(componentDescription.getParameter("layout.has"), "false")) {
+			if (!Objects.equals(componentDescription.getParameter("layout.has"), "false")) {
 				return;
 			}
 			// remove setLayout() method

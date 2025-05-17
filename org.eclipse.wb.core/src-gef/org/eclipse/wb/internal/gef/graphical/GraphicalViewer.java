@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,9 +30,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * @author lobas_av
@@ -186,7 +185,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 			protected boolean acceptVisit(Figure figure) {
 				for (org.eclipse.gef.EditPart editPart : exclude) {
 					GraphicalEditPart graphicalPart = (GraphicalEditPart) editPart;
-					if (ObjectUtils.equals(figure, graphicalPart.getFigure())) {
+					if (Objects.equals(figure, graphicalPart.getFigure())) {
 						return false;
 					}
 				}
