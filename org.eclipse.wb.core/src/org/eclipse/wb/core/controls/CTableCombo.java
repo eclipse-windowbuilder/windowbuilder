@@ -14,6 +14,7 @@ package org.eclipse.wb.core.controls;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionListener;
@@ -46,7 +47,7 @@ import java.util.Locale;
  */
 public class CTableCombo extends Composite {
 	protected Button m_arrow;
-	protected CImageLabel m_text;
+	protected CLabel m_text;
 	protected Shell m_popup;
 	protected Table m_table;
 	protected boolean hasFocus;
@@ -64,7 +65,7 @@ public class CTableCombo extends Composite {
 
 	private void init(Composite parent, int style) {
 		m_arrow = new Button(this, SWT.ARROW | SWT.DOWN | SWT.NO_FOCUS);
-		m_text = new CImageLabel(this, style & ~SWT.BORDER);
+		m_text = new CLabel(this, style & ~SWT.BORDER);
 		m_text.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 		final Shell shell = getShell();
 		m_popup = new Shell(shell, SWT.NONE);

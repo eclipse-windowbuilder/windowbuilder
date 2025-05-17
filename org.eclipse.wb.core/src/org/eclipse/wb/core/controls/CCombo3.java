@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.binding.editors.controls.DefaultContro
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -41,7 +42,7 @@ import org.eclipse.swt.widgets.Widget;
  */
 public class CCombo3 extends Composite {
 	private final long m_createTime = System.currentTimeMillis();
-	private final CImageLabel m_text;
+	private final CLabel m_text;
 	private final Button m_arrow;
 	private final Shell m_popup;
 	private final Table m_table;
@@ -57,7 +58,7 @@ public class CCombo3 extends Composite {
 		addEvents(this, m_comboListener, new int[]{SWT.Dispose, SWT.Move, SWT.Resize});
 		// create label
 		{
-			m_text = new CImageLabel(this, SWT.NONE);
+			m_text = new CLabel(this, SWT.NONE);
 			new DefaultControlActionsManager(m_text);
 			addEvents(m_text, m_textListener, new int[]{
 					SWT.KeyDown,

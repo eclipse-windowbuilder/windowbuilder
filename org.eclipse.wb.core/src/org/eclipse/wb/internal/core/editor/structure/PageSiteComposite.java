@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.structure;
 
-import org.eclipse.wb.core.controls.CImageLabel;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.ToolBar;
  * @coverage core.editor.structure
  */
 public final class PageSiteComposite extends Composite {
-	private final CImageLabel m_title;
+	private final CLabel m_title;
 	private final ToolBarManager m_toolBarManager;
 	private final ToolBar m_toolBar;
 	private IPage m_page;
@@ -46,7 +46,7 @@ public final class PageSiteComposite extends Composite {
 		GridLayoutFactory.create(this).noMargins().spacingV(0).columns(2);
 		// title
 		{
-			m_title = new CImageLabel(this, SWT.NONE);
+			m_title = new CLabel(this, SWT.NONE);
 			GridDataFactory.create(m_title).grabH().fill();
 		}
 		// toolbar
