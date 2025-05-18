@@ -15,6 +15,8 @@ public class Messages extends NLS {
 	public static String DesignerNewProjectCreationWizardPage_removeErrorTitle;
 	public static String DesignerNewProjectCreationWizardPage_removeProgress;
 	public static String DesignerNewProjectCreationWizardPage_title;
+	public static String DesignerNewProjectCreationWizardPage_createProject;
+	public static String DesignerNewProjectCreationWizardPage_updateProject;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

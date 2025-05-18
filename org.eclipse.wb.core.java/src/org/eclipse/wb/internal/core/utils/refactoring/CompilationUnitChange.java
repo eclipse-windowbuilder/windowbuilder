@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ltk.core.refactoring.Change;
@@ -76,9 +76,9 @@ public class CompilationUnitChange extends TextFileChange {
 	 */
 	@Override
 	protected IDocument acquireDocument(IProgressMonitor pm) throws CoreException {
-		pm.beginTask("", 2); //$NON-NLS-1$
-		fCUnit.becomeWorkingCopy(null, new SubProgressMonitor(pm, 1));
-		return super.acquireDocument(new SubProgressMonitor(pm, 1));
+		SubMonitor subMonitor = SubMonitor.convert(pm, 2);
+		fCUnit.becomeWorkingCopy(null, subMonitor.split(1));
+		return super.acquireDocument(subMonitor.split(1));
 	}
 
 	/**

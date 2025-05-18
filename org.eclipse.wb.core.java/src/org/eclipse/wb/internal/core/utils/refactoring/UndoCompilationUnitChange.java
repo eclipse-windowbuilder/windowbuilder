@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.ContentStamp;
@@ -81,10 +81,11 @@ import java.text.MessageFormat;
 	 */
 	@Override
 	public Change perform(IProgressMonitor pm) throws CoreException {
+		SubMonitor subMonitor = SubMonitor.convert(pm, 2);
 		pm.beginTask("", 2); //$NON-NLS-1$
-		fCUnit.becomeWorkingCopy(null, new SubProgressMonitor(pm, 1));
+		fCUnit.becomeWorkingCopy(null, subMonitor.split(1));
 		try {
-			return super.perform(new SubProgressMonitor(pm, 1));
+			return super.perform(subMonitor.split(1));
 		} finally {
 			fCUnit.discardWorkingCopy();
 		}
