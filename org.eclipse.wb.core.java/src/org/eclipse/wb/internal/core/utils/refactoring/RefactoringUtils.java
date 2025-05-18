@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.compare.rangedifferencer.RangeDifferencer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
@@ -86,7 +85,7 @@ public class RefactoringUtils {
 		CreateChangeOperation createChangeOperation =
 				new CreateChangeOperation(new CheckConditionsOperation(refactoring,
 						CheckConditionsOperation.ALL_CONDITIONS), RefactoringStatus.FATAL);
-		createChangeOperation.run(new SubProgressMonitor(pm, 6));
+		createChangeOperation.run(pm);
 		return createChangeOperation.getChange();
 	}
 

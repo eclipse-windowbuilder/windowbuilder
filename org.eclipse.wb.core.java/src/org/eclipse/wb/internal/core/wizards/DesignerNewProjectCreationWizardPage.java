@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageDeclaration;
@@ -132,8 +132,9 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 			monitor = new NullProgressMonitor();
 		}
 		try {
-			monitor.beginTask("Creating project and examining existing resources...", 2); //$NON-NLS-1$
-			createProject(fCurrProject, fCurrProjectLocation, new SubProgressMonitor(monitor, 1));
+			SubMonitor subMonitor = SubMonitor.convert(monitor,
+					Messages.DesignerNewProjectCreationWizardPage_createProject, 2);
+			createProject(fCurrProject, fCurrProjectLocation, subMonitor.split(1));
 			if (initialize) {
 				IClasspathEntry[] entries = null;
 				IPath outputLocation = null;
@@ -149,7 +150,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 				}
 				init(JavaCore.create(fCurrProject), outputLocation, entries, false);
 			}
-			monitor.worked(1);
+			subMonitor.worked(1);
 		} finally {
 			monitor.done();
 		}
@@ -160,11 +161,12 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
 	 */
 	public void performFinish(IProgressMonitor monitor) throws CoreException, InterruptedException {
 		try {
-			monitor.beginTask("Creating project...", 3); //$NON-NLS-1$
+			SubMonitor subMonitor = SubMonitor.convert(monitor,
+					Messages.DesignerNewProjectCreationWizardPage_updateProject, 3);
 			if (fCurrProject == null) {
-				updateProject(true, new SubProgressMonitor(monitor, 1));
+				updateProject(true, subMonitor.split(1));
 			}
-			configureJavaProject(new SubProgressMonitor(monitor, 2));
+			configureJavaProject(subMonitor.split(2));
 		} finally {
 			monitor.done();
 			fCurrProject = null;
