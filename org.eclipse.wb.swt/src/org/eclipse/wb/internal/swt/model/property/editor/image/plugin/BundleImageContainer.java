@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
 import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IHasChildren;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
@@ -32,7 +33,16 @@ import java.util.List;
  * @coverage swt.property.editor.plugin
  */
 public class BundleImageContainer extends ImageContainer implements IHasChildren {
-	private static final String[] PATTERNS = {".gif", ".png", ".jpg", ".jpeg", ".bmp", ".ico"};
+	private static final String[] PATTERNS;
+
+	static {
+		if (DesignerPlugin.isSvgSupported()) {
+			PATTERNS = new String[] { ".svg", ".gif", ".png", ".jpg", ".jpeg", ".bmp", ".ico" };
+		} else {
+			PATTERNS = new String[] { ".gif", ".png", ".jpg", ".jpeg", ".bmp", ".ico" };
+		}
+	}
+
 	private final String m_name;
 	private final Bundle m_bundle;
 	private final String m_symbolicName;

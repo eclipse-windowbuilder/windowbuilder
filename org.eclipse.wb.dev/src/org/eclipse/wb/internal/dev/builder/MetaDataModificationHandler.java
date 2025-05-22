@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -114,10 +114,17 @@ public final class MetaDataModificationHandler implements BuilderHandler {
 	private static boolean isInterestingResource(IResource resource) {
 		if (resource instanceof IFile) {
 			String path = resource.getFullPath().toPortableString().toLowerCase();
-			return path.contains("/wbp-meta/")
-					&& (path.endsWith(".wbp-component.xml") || path.endsWith(".png") || path.endsWith(".gif"));
+			return path.contains("/wbp-meta/") && (isComponent(path) || isImage(path));
 		}
 		return false;
+	}
+
+	private static boolean isImage(String path) {
+		return path.endsWith(".svg") || path.endsWith(".png") || path.endsWith(".gif");
+	}
+	
+	private static boolean isComponent(String path) {
+		return path.endsWith(".wbp-component.xml");
 	}
 
 	private static String getMetaDataCheckSum(IProject project) throws Exception {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.model.description.helpers;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.description.IToolkitProvider;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -121,7 +122,15 @@ public final class DescriptionHelper {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final String[] ICON_EXTS = new String[]{".png", ".gif"};
+	public static final String[] ICON_EXTS;
+
+	static {
+		if (DesignerPlugin.isSvgSupported()) {
+			ICON_EXTS = new String[] { ".svg", ".png", ".gif" };
+		} else {
+			ICON_EXTS = new String[] { ".png", ".gif" };
+		}
+	}
 
 	/**
 	 * @return the icon {@link ImageDescriptor} for given component.
