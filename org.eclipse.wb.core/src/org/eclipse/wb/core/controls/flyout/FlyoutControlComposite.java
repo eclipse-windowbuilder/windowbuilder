@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,6 +34,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.Transform;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -290,23 +291,7 @@ public final class FlyoutControlComposite extends Composite {
 		public FlyoutContainer(Composite parent, int style) {
 			super(parent, style);
 			configureMenu();
-			updateTitleImage(Messages.FlyoutControlComposite_title);
-			// add listeners
-			addListener(SWT.Dispose, new Listener() {
-				@Override
-				public void handleEvent(Event event) {
-					if (m_titleImage != null) {
-						m_titleImage.dispose();
-						m_titleImageRotated.dispose();
-						m_titleImage = null;
-						m_titleImageRotated = null;
-					}
-					if (m_backImage != null) {
-						m_backImage.dispose();
-						m_backImage = null;
-					}
-				}
-			});
+			setTitleText(Messages.FlyoutControlComposite_title);
 			{
 				Listener listener = new Listener() {
 					@Override
@@ -593,7 +578,16 @@ public final class FlyoutControlComposite extends Composite {
 		 * Sets the text of title.
 		 */
 		public void setTitleText(String text) {
-			updateTitleImage(text);
+			m_text = text;
+			// prepare size of text
+			{
+				GC gc = new GC(this);
+				gc.setFont(TITLE_FONT);
+				Point textSize = gc.textExtent(m_text);
+				gc.dispose();
+				m_titleWidth = textSize.x + 2 * TITLE_LINES + 4 * TITLE_MARGIN;
+				m_titleHeight = textSize.y;
+			}
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -633,31 +627,16 @@ public final class FlyoutControlComposite extends Composite {
 		// Paint
 		//
 		////////////////////////////////////////////////////////////////////////////
-		private Image m_backImage;
 
 		/**
 		 * Handler for {@link SWT#Paint} event.
 		 */
-		private void handlePaint(GC paintGC) {
+		private void handlePaint(GC gc) {
 			Rectangle clientArea = getClientArea();
 			if (clientArea.isEmpty()) {
 				return;
 			}
-			// prepare back image
-			GC gc;
-			{
-				if (m_backImage == null || !m_backImage.getBounds().equals(clientArea)) {
-					if (m_backImage != null) {
-						m_backImage.dispose();
-					}
-					m_backImage = new Image(getDisplay(), clientArea.width, clientArea.height);
-				}
-				// prepare GC
-				gc = new GC(m_backImage);
-				gc.setBackground(paintGC.getBackground());
-				gc.setForeground(paintGC.getForeground());
-				gc.fillRectangle(clientArea);
-			}
+			gc.fillRectangle(clientArea);
 			//
 			if (isOpenExpanded()) {
 				// draw header
@@ -665,18 +644,18 @@ public final class FlyoutControlComposite extends Composite {
 					// draw title
 					if (isWest()) {
 						drawStateImage(gc, 0, 0);
-						gc.drawImage(m_titleImage, m_titleHeight, 0);
+						drawTitleText(gc, m_titleHeight, 0);
 					} else if (isEast()) {
 						int x = clientArea.width - m_titleHeight;
 						drawStateImage(gc, x, 0);
-						gc.drawImage(m_titleImage, x - m_titleWidth, 0);
+						drawTitleText(gc, x - m_titleWidth, 0);
 					} else if (isNorth()) {
 						drawStateImage(gc, 0, 0);
-						gc.drawImage(m_titleImage, m_titleHeight, 0);
+						drawTitleText(gc, m_titleHeight, 0);
 					} else if (isSouth()) {
 						int y = RESIZE_WIDTH;
 						drawStateImage(gc, 0, y);
-						gc.drawImage(m_titleImage, m_titleHeight, y);
+						drawTitleText(gc, m_titleHeight, y);
 					}
 				}
 				// draw resize band
@@ -684,17 +663,12 @@ public final class FlyoutControlComposite extends Composite {
 			} else {
 				if (isHorizontal()) {
 					drawStateImage(gc, 0, 0);
-					gc.drawImage(m_titleImageRotated, 0, m_titleHeight);
+					drawTitleImageVertical(gc, 0, m_titleHeight);
 				} else {
 					drawStateImage(gc, 0, 0);
-					gc.drawImage(m_titleImage, m_titleHeight, 0);
+					drawTitleText(gc, m_titleHeight, 0);
 				}
 				DrawUtils.drawHighlightRectangle(gc, 0, 0, clientArea.width, clientArea.height);
-			}
-			// flush back image
-			{
-				gc.dispose();
-				paintGC.drawImage(m_backImage, 0, 0);
 			}
 		}
 
@@ -786,62 +760,57 @@ public final class FlyoutControlComposite extends Composite {
 		// Title image
 		//
 		////////////////////////////////////////////////////////////////////////////
+		private String m_text;
 		private int m_titleWidth;
 		private int m_titleHeight;
-		private Image m_titleImage;
-		private Image m_titleImageRotated;
 
 		/**
-		 * Creates {@link Image} for given title text.
+		 * Draws the vertical title text.
 		 */
-		private void updateTitleImage(String text) {
+		private void drawTitleImageVertical(GC gc, int x, int y) {
+			Transform tr = new Transform(getDisplay());
+			tr.translate(0, m_titleWidth + y);
+			tr.rotate(-90);
+			gc.setTransform(tr);
+			drawTitleText(gc, x, y);
+			gc.setTransform(null);
+			tr.dispose();
+		}
+
+		/**
+		 * Draws the horizontal title text.
+		 */
+		private void drawTitleText(GC gc, int x, int y) {
 			// prepare size of text
 			Point textSize;
 			{
-				GC gc = new GC(this);
-				gc.setFont(TITLE_FONT);
-				textSize = gc.textExtent(text);
-				gc.dispose();
-			}
-			// dispose existing image
-			if (m_titleImage != null) {
-				m_titleImage.dispose();
-				m_titleImageRotated.dispose();
+				GC tmp = new GC(this);
+				tmp.setFont(TITLE_FONT);
+				textSize = tmp.textExtent(m_text);
+				tmp.dispose();
 			}
 			// prepare new image
 			{
-				m_titleWidth = textSize.x + 2 * TITLE_LINES + 4 * TITLE_MARGIN;
-				m_titleHeight = textSize.y;
-				m_titleImage = new Image(getDisplay(), m_titleWidth, m_titleHeight);
-				GC gc = new GC(m_titleImage);
-				try {
-					gc.setBackground(getBackground());
-					gc.fillRectangle(0, 0, m_titleWidth, m_titleHeight);
-					int x = 0;
-					// draw left lines
-					{
-						x += TITLE_MARGIN;
-						drawTitleLines(gc, x, m_titleHeight, TITLE_LINES);
-						x += TITLE_LINES + TITLE_MARGIN;
-					}
-					// draw text
-					{
-						gc.setForeground(ColorConstants.black);
-						gc.setFont(TITLE_FONT);
-						gc.drawText(text, x, 0);
-						x += textSize.x;
-					}
-					// draw right lines
-					{
-						x += TITLE_MARGIN;
-						drawTitleLines(gc, x, m_titleHeight, TITLE_LINES);
-					}
-				} finally {
-					gc.dispose();
+				gc.fillRectangle(x, y, m_titleWidth, m_titleHeight);
+				// draw left lines
+				{
+					x += TITLE_MARGIN;
+					drawTitleLines(gc, x, m_titleHeight, TITLE_LINES);
+					x += TITLE_LINES + TITLE_MARGIN;
+				}
+				// draw text
+				{
+					gc.setForeground(ColorConstants.black);
+					gc.setFont(TITLE_FONT);
+					gc.drawText(m_text, x, 0);
+					x += textSize.x;
+				}
+				// draw right lines
+				{
+					x += TITLE_MARGIN;
+					drawTitleLines(gc, x, m_titleHeight, TITLE_LINES);
 				}
 			}
-			// prepare rotated image
-			m_titleImageRotated = DrawUtils.createRotatedImage(m_titleImage);
 		}
 
 		/**
