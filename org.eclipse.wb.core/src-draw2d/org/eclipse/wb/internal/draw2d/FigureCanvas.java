@@ -38,7 +38,7 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public FigureCanvas(Composite parent, int style) {
-		super(parent, style | SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE, createLightweightSystem());
+		super(parent, style | SWT.DOUBLE_BUFFERED, createLightweightSystem());
 		// create root figure
 		createRootFigure();
 	}
