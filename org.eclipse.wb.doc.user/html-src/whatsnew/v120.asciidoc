@@ -17,8 +17,18 @@ a better integration into the table.
 | image:images/1.20/PropertyTable_New.png[1.20 and newer]
 |===
 
+Palette contributions may now also use SVGs as icons. If both an SVG and a PNG
+exist, the SVG file takes precedence if and only if SVGs are supported by the
+current Eclipse version.
+
 == Swing
 
 - Added conversion support for `java.awt.Cursor`, `java.awt.Font` and `java.awt.ComponentOrientation` in the Customizer.
+
+== SWT
+
+- Support for SVGs as image data if using Eclipse 2025-06 or newer.
+
+image:images/1.20/SVG_Support.png[Image Chooser with SVG selection]
 
 What's new - xref:v119.adoc[*v1.19.0*]

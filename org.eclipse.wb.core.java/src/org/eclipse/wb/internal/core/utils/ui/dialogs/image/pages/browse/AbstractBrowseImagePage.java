@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse;
 
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImageDialog;
@@ -221,6 +222,9 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
 	public static boolean isImageExtension(String extension) {
 		if (extension == null) {
 			return false;
+		}
+		if (DesignerPlugin.isSvgSupported() && extension.equalsIgnoreCase("svg")) {
+			return true;
 		}
 		return extension.equalsIgnoreCase("gif")
 				|| extension.equalsIgnoreCase("png")
