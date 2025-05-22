@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IHasChildren;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
@@ -148,7 +148,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Image getImage() {
-		return DesignerPlugin.getImage("folder_open.gif");
+		return CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 	}
 
 	@Override

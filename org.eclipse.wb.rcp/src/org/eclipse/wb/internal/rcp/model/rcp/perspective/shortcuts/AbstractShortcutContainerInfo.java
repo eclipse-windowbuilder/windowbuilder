@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
@@ -24,7 +25,6 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
-import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
@@ -110,7 +110,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
 	private final IObjectPresentation m_presentation = new DefaultObjectPresentation(this) {
 		@Override
 		public ImageDescriptor getIcon() throws Exception {
-			return Activator.getImageDescriptor("info/perspective/container.gif");
+			return CoreImages.FOLDER_OPEN;
 		}
 
 		@Override

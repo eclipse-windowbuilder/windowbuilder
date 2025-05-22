@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -208,7 +209,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 		// choose menu
 		m_browseItem = new ToolItem(browseToolBar, SWT.DROP_DOWN);
 		m_browseItem.setToolTipText(Messages.ImportArchiveDialog_browseToolTip);
-		m_browseItem.setImage(DesignerPlugin.getImage("palette/category.gif"));
+		m_browseItem.setImage(CoreImages.getSharedImage(CoreImages.FOLDER_OPEN));
 		//
 		m_browseMenu = new Menu(browseToolBar);
 		// Classpath

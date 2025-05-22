@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.EmptyTransfer;
@@ -512,12 +512,12 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 		@Override
 		public Image getImage(Object element) {
 			if (element == OTHER_CATEGORY) {
-				return DesignerPlugin.getImage("folder_open.gif");
+				return CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 			}
 			//
 			IPluginElement pluginElement = (IPluginElement) element;
 			if (isCategoryElement(pluginElement)) {
-				return DesignerPlugin.getImage("folder_open.gif");
+				return CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 			}
 			if (pluginElement.getName().equals("view")) {
 				return m_resourceManager.createImageWithDefault(PdeUtils.getElementIcon(pluginElement, "icon", null));

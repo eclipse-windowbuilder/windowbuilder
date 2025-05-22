@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
@@ -111,8 +112,8 @@ public final class PaletteComposite extends Composite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final Image NO_ICON = loadImage("icons/no_icon.gif");
-	private static final Image FOLDER_OPEN = loadImage("icons/folder_open.gif");
-	private static final Image FOLDER_CLOSED = loadImage("icons/folder_closed.gif");
+	private static final Image FOLDER_OPEN = CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
+	private static final Image FOLDER_CLOSED = CoreImages.getSharedImage(CoreImages.FOLDER_CLOSED);
 
 	/**
 	 * @return the {@link Image} using path relative to this class.

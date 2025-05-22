@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 
 import org.eclipse.jdt.core.IJavaElement;
@@ -65,7 +65,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Image getImage() {
-		return DesignerPlugin.getImage("folder_package.gif");
+		return CoreImages.getSharedImage(CoreImages.FOLDER_PACKAGE);
 	}
 
 	@Override

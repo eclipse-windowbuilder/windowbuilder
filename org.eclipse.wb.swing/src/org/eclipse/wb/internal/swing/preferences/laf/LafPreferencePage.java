@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.preferences.laf;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -114,7 +115,7 @@ implements
 IWorkbenchPreferencePage,
 IPreferenceConstants {
 	// constants
-	private static final Image CATEGORY_IMAGE = Activator.getImage("info/laf/container.gif");
+	private static final Image CATEGORY_IMAGE = CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 	private static final Image LAF_ITEM_IMAGE = Activator.getImage("info/laf/laf.png");
 	// variables
 	private LafInfo m_defaultLAF;
