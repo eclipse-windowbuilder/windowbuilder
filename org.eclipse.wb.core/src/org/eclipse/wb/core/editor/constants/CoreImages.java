@@ -118,6 +118,10 @@ public abstract class CoreImages {
 
 	public static ImageDescriptor LAYOUT_FIT_TO_SIZE = of("info/layout/fit_to_size.svg");
 
+	public static ImageDescriptor FOLDER_CLOSED = of("folder_closed.svg");
+	public static ImageDescriptor FOLDER_OPEN = of("folder_open.svg");
+	public static ImageDescriptor FOLDER_PACKAGE = of("folder_package.svg");
+
 	/**
 	 * Images returned by this method must <b>not</b> be disposed.
 	 *

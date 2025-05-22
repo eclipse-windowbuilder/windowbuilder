@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.AbstractElementInfo;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -106,7 +107,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 	////////////////////////////////////////////////////////////////////////////
 	private static final Image IMAGE_CLEAR_FILTER =
 			DesignerPlugin.getImage("palette/clear_filter.gif");
-	private static final Image IMAGE_CATEGORY = DesignerPlugin.getImage("palette/category.gif");
+	private static final Image IMAGE_CATEGORY = CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance fields

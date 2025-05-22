@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.model.util.factory;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
@@ -853,7 +854,7 @@ public final class FactoryCreateAction extends Action {
 				// creation
 				{
 					TreeItem creationItem = new TreeItem(tree, SWT.NONE);
-					creationItem.setImage(DesignerPlugin.getImage("actions/factory/folder.png"));
+					creationItem.setImage(CoreImages.getSharedImage(CoreImages.FOLDER_OPEN));
 					creationItem.setText(ModelMessages.FactoryCreateAction_dialogArgumentsCreation);
 					creationItem.setGrayed(true);
 					creationItem.setChecked(true);
@@ -873,7 +874,7 @@ public final class FactoryCreateAction extends Action {
 				{
 					TreeItem invocationsItem = new TreeItem(tree, SWT.NONE);
 					invocationsItem.setText(ModelMessages.FactoryCreateAction_dialogArgumentsInvocations);
-					invocationsItem.setImage(DesignerPlugin.getImage("actions/factory/folder.png"));
+					invocationsItem.setImage(CoreImages.getSharedImage(CoreImages.FOLDER_OPEN));
 					invocationsItem.setGrayed(true);
 					invocationsItem.setChecked(true);
 					// for each invocation

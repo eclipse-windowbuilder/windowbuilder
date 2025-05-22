@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@
 package org.eclipse.wb.internal.core.editor.palette;
 
 import org.eclipse.wb.core.controls.palette.IPalette;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -51,7 +52,7 @@ import java.text.MessageFormat;
  */
 final class DesignerPalettePopupActions {
 	// image constants
-	private static final ImageDescriptor ID_ADD_CATEGORY = getImageDescription("add_category.gif");
+	private static final ImageDescriptor ID_ADD_CATEGORY = CoreImages.FOLDER_OPEN;
 	private static final ImageDescriptor ID_ADD_COMPONENT = getImageDescription("add_component.gif");
 	private static final ImageDescriptor IMPORT_JAR_IMAGE = getImageDescription("import_jar.png");
 	private static final ImageDescriptor ID_REMOVE = getImageDescription("remove.gif");

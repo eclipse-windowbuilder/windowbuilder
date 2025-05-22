@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
@@ -22,7 +23,6 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.variable.FieldInitializerVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.swing.Activator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -137,7 +137,7 @@ public final class ButtonGroupContainerInfo extends ObjectInfo {
 
 			@Override
 			public ImageDescriptor getIcon() throws Exception {
-				return Activator.getImageDescriptor("info/ButtonGroup/ButtonGroup_container.gif");
+				return CoreImages.FOLDER_OPEN;
 			}
 		};
 	}
