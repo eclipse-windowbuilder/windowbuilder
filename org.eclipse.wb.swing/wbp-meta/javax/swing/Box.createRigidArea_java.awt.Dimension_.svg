@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333333"
+   version="1.1"
+   id="svg885"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs882" />
+  <g
+     id="layer1">
+    <g
+       id="g4054"
+       transform="translate(0.12715732,0.09632234)">
+      <g
+         id="g856">
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 3.9738842,0.96201097 V 2.8140943"
+           id="path1742" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 0.2697175,2.8140943 V 0.96201097"
+           id="path1744" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 0.13742601,1.6234691 H 4.1061759"
+           id="path1746" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 4.1061759,2.1526358 H 0.13742601"
+           id="path1748" />
+      </g>
+      <g
+         id="layer1-3"
+         transform="translate(-0.12725057,-0.09632234)">
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 1.3230099,0.13229166 H 3.1750932"
+           id="path1742-7" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 3.1750932,3.8364581 H 1.3230099"
+           id="path1744-5" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 1.984468,3.9687499 V 0"
+           id="path1746-3" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+           d="M 2.5136347,0 V 3.9687499"
+           id="path1748-5" />
+      </g>
+    </g>
+  </g>
+</svg>
