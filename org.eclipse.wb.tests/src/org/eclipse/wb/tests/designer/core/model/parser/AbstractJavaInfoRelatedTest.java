@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.parser;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -58,6 +57,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -473,12 +473,12 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static Shell TEST_COMBO_SHELL;
-	private static CCombo3 TEST_COMBO;
+	private static CCombo TEST_COMBO;
 
 	@BeforeClass
 	public static void setUpAll() {
 		TEST_COMBO_SHELL = new Shell();
-		TEST_COMBO = new CCombo3(TEST_COMBO_SHELL, SWT.NONE);
+		TEST_COMBO = new CCombo(TEST_COMBO_SHELL, SWT.NONE);
 	}
 
 	@AfterClass
@@ -494,7 +494,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 		String signature =
 				"addItems("
 						+ "org.eclipse.wb.internal.core.model.property.Property,"
-						+ "org.eclipse.wb.core.controls.CCombo3)";
+						+ "org.eclipse.swt.custom.CCombo)";
 		TEST_COMBO.removeAll();
 		ReflectionUtils.invokeMethodEx(propertyEditor, signature, property, TEST_COMBO);
 	}
@@ -535,7 +535,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 		String signature =
 				"selectItem("
 						+ "org.eclipse.wb.internal.core.model.property.Property,"
-						+ "org.eclipse.wb.core.controls.CCombo3)";
+						+ "org.eclipse.swt.custom.CCombo)";
 		ReflectionUtils.invokeMethodEx(propertyEditor, signature, property, TEST_COMBO);
 	}
 
@@ -547,7 +547,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 		String signature =
 				"toPropertyEx("
 						+ "org.eclipse.wb.internal.core.model.property.Property,"
-						+ "org.eclipse.wb.core.controls.CCombo3,"
+						+ "org.eclipse.swt.custom.CCombo,"
 						+ "int)";
 		ReflectionUtils.invokeMethodEx(propertyEditor, signature, property, TEST_COMBO, index);
 	}

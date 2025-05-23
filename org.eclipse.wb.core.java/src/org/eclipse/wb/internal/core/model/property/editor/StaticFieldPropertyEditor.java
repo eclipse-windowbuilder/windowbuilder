@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
+
+import org.eclipse.swt.custom.CCombo;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -129,19 +130,19 @@ IClipboardSourceProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void addItems(Property property, CCombo3 combo) throws Exception {
+	protected void addItems(Property property, CCombo combo) throws Exception {
 		for (String title : m_titles) {
 			combo.add(title);
 		}
 	}
 
 	@Override
-	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+	protected void selectItem(Property property, CCombo combo) throws Exception {
 		combo.setText(getText(property));
 	}
 
 	@Override
-	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+	protected void toPropertyEx(Property property, CCombo combo, int index) throws Exception {
 		Object value = m_values[index];
 		if (property instanceof GenericProperty genericProperty) {
 			String source = getValueSource(value);

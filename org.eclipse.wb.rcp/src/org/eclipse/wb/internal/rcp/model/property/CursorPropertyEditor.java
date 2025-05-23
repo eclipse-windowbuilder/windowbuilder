@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.property;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Cursor;
 
 import java.lang.reflect.Field;
@@ -119,19 +119,19 @@ IClipboardSourceProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void addItems(Property property, CCombo3 combo) throws Exception {
+	protected void addItems(Property property, CCombo combo) throws Exception {
 		for (Field cursorField : getCursorFields()) {
 			combo.add(cursorField.getName());
 		}
 	}
 
 	@Override
-	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+	protected void selectItem(Property property, CCombo combo) throws Exception {
 		combo.setText(getText(property));
 	}
 
 	@Override
-	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+	protected void toPropertyEx(Property property, CCombo combo, int index) throws Exception {
 		if (property instanceof GenericProperty genericProperty) {
 			ManagerUtils.ensure_SWTResourceManager(genericProperty.getJavaInfo());
 			// prepare source

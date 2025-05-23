@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+
+import org.eclipse.swt.custom.CCombo;
 
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public final class StringListPropertyEditor extends AbstractListPropertyEditor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void toPropertyEx_simpleProperty(Property property, CCombo3 combo, int index)
+	protected void toPropertyEx_simpleProperty(Property property, CCombo combo, int index)
 			throws Exception {
 		property.setValue(m_strings[index]);
 	}

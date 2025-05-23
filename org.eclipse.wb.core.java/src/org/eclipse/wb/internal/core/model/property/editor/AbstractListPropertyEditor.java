@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
+
+import org.eclipse.swt.custom.CCombo;
 
 import java.util.List;
 import java.util.Map;
@@ -95,19 +96,19 @@ IClipboardSourceProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void addItems(Property property, CCombo3 combo) throws Exception {
+	protected void addItems(Property property, CCombo combo) throws Exception {
 		for (int i = 0; i < getCount(); i++) {
 			combo.add(getTitle(i));
 		}
 	}
 
 	@Override
-	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+	protected void selectItem(Property property, CCombo combo) throws Exception {
 		combo.setText(getText(property));
 	}
 
 	@Override
-	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+	protected void toPropertyEx(Property property, CCombo combo, int index) throws Exception {
 		if (property instanceof GenericProperty genericProperty) {
 			String expression = getExpression(index);
 			Object evaluatedExpression = evaluateExpression(genericProperty, expression);
@@ -130,7 +131,7 @@ IClipboardSourceProvider {
 	/**
 	 * Sets value of simple {@link Property}, not {@link GenericProperty}.
 	 */
-	protected void toPropertyEx_simpleProperty(Property property, CCombo3 combo, int index)
+	protected void toPropertyEx_simpleProperty(Property property, CCombo combo, int index)
 			throws Exception {
 	}
 

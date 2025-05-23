@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.eclipse.swt.custom.CCombo;
 
 /**
  * The base {@link PropertyEditor} for selecting single value of type {@link Enum}.
@@ -62,7 +63,7 @@ IClipboardSourceProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void addItems(Property property, CCombo3 combo) throws Exception {
+	protected void addItems(Property property, CCombo combo) throws Exception {
 		Enum<?>[] elements = getElements(property);
 		for (Enum<?> element : elements) {
 			combo.add(element.toString());
@@ -70,12 +71,12 @@ IClipboardSourceProvider {
 	}
 
 	@Override
-	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+	protected void selectItem(Property property, CCombo combo) throws Exception {
 		combo.setText(getText(property));
 	}
 
 	@Override
-	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+	protected void toPropertyEx(Property property, CCombo combo, int index) throws Exception {
 		Enum<?>[] elements = getElements(property);
 		Enum<?> element = elements[index];
 		setPropertyValue(property, element);

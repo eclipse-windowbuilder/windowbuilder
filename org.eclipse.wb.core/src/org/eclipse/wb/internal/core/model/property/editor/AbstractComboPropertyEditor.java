@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.MouseAdapter;
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 /**
- * The {@link PropertyEditor} for selecting single value using {@link CCombo3}.
+ * The {@link PropertyEditor} for selecting single value using {@link CCombo}.
  *
  * @author scheglov_ke
  * @coverage core.model.property.editor
@@ -40,7 +40,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
 	// Editing
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private CCombo3 m_combo;
+	private CCombo m_combo;
 	private boolean m_doDropDown;
 
 	@Override
@@ -48,7 +48,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
 			throws Exception {
 		// create combo
 		{
-			m_combo = new CCombo3(propertyTable.getControl(), SWT.NONE);
+			m_combo = new CCombo(propertyTable.getControl(), SWT.READ_ONLY);
 			m_doDropDown = true;
 			// add items
 			addItems(property, m_combo);
@@ -85,7 +85,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
 						propertyTable.handleException(e);
 						propertyTable.deactivateEditor(false);
 					}
-					m_combo.doDropDown(false);
+					m_combo.setListVisible(false);
 					break;
 				}
 			}
@@ -108,8 +108,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
 		if (m_doDropDown) {
 			m_doDropDown = false;
 			m_combo.setFocus();
-			m_combo.doDropDown(true);
-			m_combo.startDrag();
+			m_combo.setListVisible(true);
 		}
 	}
 
@@ -127,19 +126,19 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Adds items to given {@link CCombo3}.
+	 * Adds items to given {@link CCombo}.
 	 */
-	protected abstract void addItems(Property property, CCombo3 combo) throws Exception;
+	protected abstract void addItems(Property property, CCombo combo) throws Exception;
 
 	/**
-	 * Selects current item in given {@link CCombo3}.
+	 * Selects current item in given {@link CCombo}.
 	 */
-	protected abstract void selectItem(Property property, CCombo3 combo) throws Exception;
+	protected abstract void selectItem(Property property, CCombo combo) throws Exception;
 
 	/**
 	 * Transfers data from widget to {@link Property}.
 	 */
-	protected abstract void toPropertyEx(Property property, CCombo3 combo, int index)
+	protected abstract void toPropertyEx(Property property, CCombo combo, int index)
 			throws Exception;
 
 	/**

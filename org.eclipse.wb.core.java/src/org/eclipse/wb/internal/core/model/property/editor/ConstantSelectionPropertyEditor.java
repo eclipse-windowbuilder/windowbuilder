@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -65,6 +64,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -127,7 +127,7 @@ IConfigurablePropertyObject {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void addItems(Property _property, CCombo3 combo) throws Exception {
+	protected void addItems(Property _property, CCombo combo) throws Exception {
 		GenericProperty property = (GenericProperty) _property;
 		IType type = getType(property);
 		List<IField> fields = getFields(type);
@@ -139,7 +139,7 @@ IConfigurablePropertyObject {
 	}
 
 	@Override
-	protected void selectItem(Property _property, CCombo3 combo) throws Exception {
+	protected void selectItem(Property _property, CCombo combo) throws Exception {
 		GenericProperty property = (GenericProperty) _property;
 		combo.select(-1);
 		// try to find current field
@@ -153,7 +153,7 @@ IConfigurablePropertyObject {
 	}
 
 	@Override
-	protected void toPropertyEx(Property _property, CCombo3 combo, int index) throws Exception {
+	protected void toPropertyEx(Property _property, CCombo combo, int index) throws Exception {
 		GenericProperty property = (GenericProperty) _property;
 		IField field = (IField) combo.getData("" + index);
 		setField(property, field);

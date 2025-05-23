@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.spring;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -35,6 +34,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.swt.custom.CCombo;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -579,7 +579,7 @@ public final class SpringAttachmentInfo {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		protected void addItems(Property property, CCombo3 combo) throws Exception {
+		protected void addItems(Property property, CCombo combo) throws Exception {
 			m_components.clear();
 			// parent
 			{
@@ -598,12 +598,12 @@ public final class SpringAttachmentInfo {
 		}
 
 		@Override
-		protected void selectItem(Property property, CCombo3 combo) throws Exception {
+		protected void selectItem(Property property, CCombo combo) throws Exception {
 			combo.setText(getText(property));
 		}
 
 		@Override
-		protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+		protected void toPropertyEx(Property property, CCombo combo, int index) throws Exception {
 			ComponentInfo component = m_components.get(index);
 			property.setValue(component);
 		}

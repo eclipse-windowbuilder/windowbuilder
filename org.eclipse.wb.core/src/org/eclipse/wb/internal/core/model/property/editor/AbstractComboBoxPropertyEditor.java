@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.controls.CComboBox;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
@@ -143,7 +142,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
 	protected abstract void addItems(Property property, CComboBox combo) throws Exception;
 
 	/**
-	 * Selects current item in given {@link CCombo3}.
+	 * Selects current item in given {@link CComboBox}.
 	 */
 	protected void selectItem(Property property, CComboBox combo) throws Exception {
 	}
