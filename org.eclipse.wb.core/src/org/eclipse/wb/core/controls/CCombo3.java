@@ -17,9 +17,7 @@ import org.eclipse.wb.internal.core.utils.binding.editors.controls.DefaultContro
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -32,7 +30,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Combo control for {@link PropertyTable} and combo property editors.
@@ -42,7 +43,7 @@ import org.eclipse.swt.widgets.Widget;
  */
 public class CCombo3 extends Composite {
 	private final long m_createTime = System.currentTimeMillis();
-	private final CLabel m_text;
+	private final Text m_text;
 	private final Button m_arrow;
 	private final Shell m_popup;
 	private final Table m_table;
@@ -58,7 +59,7 @@ public class CCombo3 extends Composite {
 		addEvents(this, m_comboListener, new int[]{SWT.Dispose, SWT.Move, SWT.Resize});
 		// create label
 		{
-			m_text = new CLabel(this, SWT.NONE);
+			m_text = new Text(this, SWT.READ_ONLY);
 			new DefaultControlActionsManager(m_text);
 			addEvents(m_text, m_textListener, new int[]{
 					SWT.KeyDown,
@@ -419,17 +420,9 @@ public class CCombo3 extends Composite {
 	 * Adds new item with given text.
 	 */
 	public void add(String text) {
-		add(text, null);
-	}
-
-	/**
-	 * Adds new item with given text and image.
-	 */
-	public void add(String text, Image image) {
 		checkWidget();
 		TableItem item = new TableItem(m_table, SWT.NONE);
 		item.setText(text);
-		item.setImage(image);
 	}
 
 	/**
@@ -463,13 +456,11 @@ public class CCombo3 extends Composite {
 		checkWidget();
 		if (index == -1) {
 			m_table.deselectAll();
-			m_text.setText(null);
-			m_text.setImage(null);
+			m_text.setText(StringUtils.EMPTY);
 			return;
 		} else {
 			TableItem item = m_table.getItem(index);
 			m_text.setText(item.getText());
-			m_text.setImage(item.getImage());
 			m_table.select(index);
 		}
 	}
