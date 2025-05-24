@@ -35,3 +35,4 @@ Import-Package: com.jgoodies.forms.factories;version="[1.9.0,2.0.0]",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
  org.apache.commons.lang3;version="[3.14.0,4.0.0)",
  org.apache.commons.text;version="[1.12.0,2.0.0)"
+Require-Capability: eclipse.swt;filter:="(image.format=svg)";resolution:=optional

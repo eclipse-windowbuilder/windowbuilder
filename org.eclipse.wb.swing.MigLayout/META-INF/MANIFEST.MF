@@ -23,3 +23,4 @@ Import-Package: net.miginfocom.layout;version="[11.3.0,12.0.0]",
  org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",
  org.apache.commons.lang3;version="[3.14.0,4.0.0)"
+Require-Capability: eclipse.swt;filter:="(image.format=svg)";resolution:=optional

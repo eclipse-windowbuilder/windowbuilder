@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333332 4.2333333"
+   version="1.1"
+   id="svg4570"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4567" />
+  <g
+     id="layer1">
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke-width:2.11667"
+       d="M 0,1.0583333 H 1.0583333 V 0 H 1.3229166 V 1.0583333 H 4.2333332 V 1.3229166 H 1.3229166 V 4.2333332 H 1.0583333 V 1.3229166 H 0 Z"
+       id="path4910" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke-width:2.11667;fill-opacity:1"
+       d="M 1.5875,0 H 1.8520833 V 4.2333332 H 1.5875 Z"
+       id="path4912" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:2.11667"
+       d="M 2.1166666,1.8520833 H 3.9687499 V 2.1166666 H 2.1166666 Z"
+       id="path7572" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:2.11667"
+       d="M 2.1166666,3.4395833 H 3.9687499 V 3.7041666 H 2.1166666 Z"
+       id="path7572-0" />
+    <ellipse
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+       id="path7683"
+       cx="3.0427082"
+       cy="2.7781248"
+       rx="0.52916664"
+       ry="0.26458332" />
+    <ellipse
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+       id="path7683-2"
+       cx="3.0427082"
+       cy="2.2489581"
+       rx="0.52916664"
+       ry="0.26458332" />
+    <ellipse
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1"
+       id="path7683-2-3"
+       cx="3.0427082"
+       cy="3.3072915"
+       rx="0.52916664"
+       ry="0.26458332" />
+  </g>
+</svg>
