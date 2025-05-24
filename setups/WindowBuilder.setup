@@ -177,7 +177,7 @@
               project="org.eclipse.wb.core"/>
           <operand
               xsi:type="workingsets:ExclusionPredicate"
-              excludedWorkingSet="//'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Features'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Releng'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Tests'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Docs']"/>
+              excludedWorkingSet="//'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Features'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Releng'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Tests'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Docs'] //'windowbuilder.workingsets'/@workingSets[name='Window%20Builder%20Examples']"/>
         </predicate>
       </workingSet>
       <workingSet
@@ -227,6 +227,18 @@
           <operand
               xsi:type="predicates:NamePredicate"
               pattern=".*.doc.user"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Window Builder Examples">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.wb.core"/>
+          <operand
+              xsi:type="predicates:LocationPredicate"
+              pattern="${git.clone.windowbuilder.location/examples/.*}"/>
         </predicate>
       </workingSet>
       <description>The dynamic working sets for the Window Builder projects</description>
