@@ -156,47 +156,47 @@
          style="stroke-width:0.264583" /></text>
     <text
        xml:space="preserve"
-       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
-       x="0.46734259"
-       y="-2.4701531"
+       style="font-size:2.54454px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.18104;stroke-dasharray:none"
+       x="0.45038402"
+       y="-2.335887"
        id="text13710"
-       transform="rotate(90)"><tspan
+       transform="matrix(0,0.98095035,-1.0194196,0,0,0)"><tspan
          id="tspan13708"
-         style="font-size:2.46944px;stroke-width:2.11667"
-         x="0.46734259"
-         y="-2.4701531">X</tspan></text>
+         style="font-size:2.54454px;stroke-width:2.18104"
+         x="0.45038402"
+         y="-2.335887">X</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
-       x="2.8380091"
-       y="-2.4701531"
+       style="font-size:2.54454px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.18104;stroke-dasharray:none"
+       x="2.8778744"
+       y="-2.3358915"
        id="text13714"
-       transform="rotate(90)"><tspan
+       transform="matrix(0,0.98095115,-1.0194188,0,0,0)"><tspan
          id="tspan13712"
-         style="stroke-width:2.11667"
-         x="2.8380091"
-         y="-2.4701531">Y</tspan></text>
+         style="stroke-width:2.18104"
+         x="2.8778744"
+         y="-2.3358915">Y</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
-       x="0.46743074"
-       y="-0.35348642"
+       style="font-size:2.49785px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.14102;stroke-dasharray:none"
+       x="0.48708019"
+       y="-0.25478262"
        id="text13718"
-       transform="rotate(90)"><tspan
+       transform="matrix(0,0.96295062,-1.0384749,0,0,0)"><tspan
          id="tspan13716"
-         style="stroke-width:2.11667"
-         x="0.46743074"
-         y="-0.35348642">W</tspan></text>
+         style="stroke-width:2.14102"
+         x="0.48708019"
+         y="-0.25478262">W</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.46944px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.11667;stroke-dasharray:none"
-       x="2.8380976"
-       y="-0.35348642"
+       style="font-size:2.73129px;font-family:monospace;-inkscape-font-specification:monospace;fill:#000000;fill-rule:evenodd;stroke-width:2.34112;stroke-dasharray:none"
+       x="2.5728793"
+       y="-0.27859062"
        id="text13722"
-       transform="rotate(90)"><tspan
+       transform="matrix(0,1.0529462,-0.94971616,0,0,0)"><tspan
          id="tspan13720"
-         style="stroke-width:2.11667"
-         x="2.8380976"
-         y="-0.35348642">H</tspan></text>
+         style="stroke-width:2.34112"
+         x="2.5728793"
+         y="-0.27859062">H</tspan></text>
   </g>
 </svg>
