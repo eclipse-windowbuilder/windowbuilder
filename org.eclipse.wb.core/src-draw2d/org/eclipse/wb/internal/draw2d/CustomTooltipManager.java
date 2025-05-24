@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
+import org.eclipse.wb.draw2d.PaletteFigure;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -142,8 +143,8 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
 	protected final void handleShowCustomTooltip(int mouseX, int mouseY) {
 		hideTooltip();
 		Figure cursorFigure = m_eventManager.getCursorFigure();
-		if (cursorFigure != null) {
-			ICustomTooltipProvider tooltipProvider = cursorFigure.getCustomTooltipProvider();
+		if (cursorFigure instanceof PaletteFigure paletteFigure) {
+			ICustomTooltipProvider tooltipProvider = paletteFigure.getCustomTooltipProvider();
 			if (tooltipProvider != null) {
 				m_tooltipFigure = cursorFigure;
 				//

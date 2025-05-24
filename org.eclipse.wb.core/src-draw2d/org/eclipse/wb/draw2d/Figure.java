@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.draw2d;
 
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
-import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -33,7 +32,6 @@ import java.util.List;
  */
 public class Figure extends org.eclipse.draw2d.Figure {
 	private String m_toolTipText;
-	private ICustomTooltipProvider m_customTooltipProvider;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -193,22 +191,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 */
 	public void setToolTipText(String toolTipText) {
 		m_toolTipText = toolTipText;
-	}
-
-	/**
-	 * @return custom tool tip provider {@link ICustomTooltipProvider}, or <code>null</code> if it has
-	 *         not been set.
-	 */
-	public ICustomTooltipProvider getCustomTooltipProvider() {
-		return m_customTooltipProvider;
-	}
-
-	/**
-	 * Sets the custom tool tip provider {@link ICustomTooltipProvider} to the argument, which may be
-	 * <code>null</code> indicating that no tool tip text should be shown.
-	 */
-	public void setCustomTooltipProvider(ICustomTooltipProvider provider) {
-		m_customTooltipProvider = provider;
 	}
 
 	@Override

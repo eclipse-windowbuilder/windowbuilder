@@ -17,6 +17,7 @@ import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
+import org.eclipse.wb.draw2d.PaletteFigure;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -131,7 +132,7 @@ public final class PaletteComposite extends Composite {
 	private IPalettePreferences m_preferences;
 	private final FigureCanvas m_figureCanvas;
 	private final EventManager m_eventManager;
-	private final PaletteFigure m_paletteFigure;
+	private final PaletteRootFigure m_paletteFigure;
 	private final Layer m_feedbackLayer;
 	@SuppressWarnings("removal")
 	private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
@@ -163,7 +164,7 @@ public final class PaletteComposite extends Composite {
 			m_eventManager = (EventManager) m_figureCanvas.getRootFigure().internalGetEventDispatcher();
 		}
 		// add palette figure (layer)
-		m_paletteFigure = new PaletteFigure();
+		m_paletteFigure = new PaletteRootFigure();
 		m_figureCanvas.getRootFigure().add(m_paletteFigure);
 		// set menu
 		{
@@ -367,13 +368,13 @@ public final class PaletteComposite extends Composite {
 	 * @author scheglov_ke
 	 */
 	@SuppressWarnings("removal")
-	private final class PaletteFigure extends Layer {
+	private final class PaletteRootFigure extends Layer {
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public PaletteFigure() {
+		public PaletteRootFigure() {
 			super("palette");
 		}
 
@@ -427,6 +428,7 @@ public final class PaletteComposite extends Composite {
 			}
 		}
 	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// CategoryFigure
@@ -438,7 +440,7 @@ public final class PaletteComposite extends Composite {
 	 * @author scheglov_ke
 	 */
 	@SuppressWarnings("removal")
-	private final class CategoryFigure extends Figure {
+	private final class CategoryFigure extends PaletteFigure {
 		private static final int IMAGE_SPACE_LEFT = 4;
 		private static final int IMAGE_SPACE_RIGHT = 4;
 		private static final int MARGIN_HEIGHT = 2;
@@ -780,7 +782,7 @@ public final class PaletteComposite extends Composite {
 	 * @author scheglov_ke
 	 */
 	@SuppressWarnings("removal")
-	private final class EntryFigure extends Figure {
+	private final class EntryFigure extends PaletteFigure {
 		private static final int IMAGE_SPACE_RIGHT = 2;
 		private static final int MARGIN_WIDTH_1 = 3;
 		private static final int MARGIN_WIDTH_2 = 6;
@@ -1274,7 +1276,7 @@ public final class PaletteComposite extends Composite {
 	/**
 	 * Sets wrapped tooltip for given figure.
 	 */
-	private static void setToolTip(Figure figure, String header, String details) {
+	private static void setToolTip(PaletteFigure figure, String header, String details) {
 		if (header != null && details != null) {
 			figure.setCustomTooltipProvider(new HtmlPaletteTooltipProvider(header, details));
 		} else if (details == null) {
