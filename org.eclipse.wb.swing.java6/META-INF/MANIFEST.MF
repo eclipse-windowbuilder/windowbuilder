@@ -22,4 +22,5 @@ Bundle-Activator: org.eclipse.wb.internal.swing.java6.Activator
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.swing.java6
 Import-Package: org.apache.commons.lang3;version="[3.14.0,4.0.0)"
+Require-Capability: eclipse.swt;filter:="(image.format=svg)";resolution:=optional
 
