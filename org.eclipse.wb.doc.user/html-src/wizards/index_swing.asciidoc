@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/wizards/
+endif::[]
+
 = Wizards
 
 *Swing Designer* provides a large number of wizards. Each toolkit
@@ -7,9 +11,8 @@ The wizards may be accessed from the Eclipse *New* wizard (*File > New >
 Other*) or the drop down *Swing Designer* wizard menu in the Eclipse
 toolbar.
 
-++++
-<p>
-  <img src="images/wizards_swing.gif">
-  <img src="images/wizard_menu.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| image:images/wizards_swing.gif[image]
+| image:images/wizard_menu.png[image]
+|===

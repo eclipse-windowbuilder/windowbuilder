@@ -4,66 +4,63 @@ image:images/preferences_windowbuilder.png[image]
 
 Here is the list of core preference pages:
 
-* *link:preferences_code_parsing.html[Code Parsing]*
+* *xref:preferences_code_parsing.adoc[Code Parsing]*
 
-Preferences maybe link:preferences_export.html[exported and imported]
+Preferences maybe xref:preferences_export.adoc[exported and imported]
 using the Eclipse Preference Export/Import facility.
 
 == General Comments
 
-The positions of the *link:../userinterface/palette.html[Palette]* and
-*link:../userinterface/structure_view.html[Structure View]* may be
+The positions of the *xref:../userinterface/palette.adoc[Palette]* and
+*xref:../userinterface/structure_view.adoc[Structure View]* may be
 configured via drag and drop or by right-clicking on the header and
 selecting the *Dock On* command. The
-*link:../userinterface/palette.html[Palette]* may be docked to either
+*xref:../userinterface/palette.adoc[Palette]* may be docked to either
 the left or right side of the
-*link:../userinterface/design_view.html[Design View]*.
+*xref:../userinterface/design_view.adoc[Design View]*.
 
-++++
-<p>
-  <img src="images/flyout_palette1.png">
-  <img src="../userinterface/images/palette_dock_on.gif" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/flyout_palette1.png[]
+| ../userinterface/images/palette_dock_on.gif[]
+|===
 
-The *link:../userinterface/structure_view.html[Structure View]* may be
+The *xref:../userinterface/structure_view.adoc[Structure View]* may be
 docked to the top, bottom, left or right of the
-*link:../userinterface/design_view.html[Design View]*.
+*xref:../userinterface/design_view.adoc[Design View]*.
 
-++++
-<p>
-  <img src="images/dock_left.png">
-  <img src="images/dock_top.png" align="top">
-  <img src="../userinterface/images/structure_view_dock_on.gif" align="top">
-</p>
-++++
+[cols="a,a,a"]
+|===
+| images/dock_left.png[]
+| images/dock_top.png[]
+| ../userinterface/images/structure_view_dock_on.gif[]
+|===
 
-The *link:../userinterface/palette.html[Palette]* and
-*link:../userinterface/structure_view.html[Structure View]* are also
+The *xref:../userinterface/palette.adoc[Palette]* and
+*xref:../userinterface/structure_view.adoc[Structure View]* are also
 available as standalone views. Use the *Window > Show View > Other...*
 command and open the *WindowBuilder* category or right-click on the
 header and select the *Extract as view* command. Closing the view will
 make it reappear as embedded view within the editor.
 
-++++
-<p>
-  <img src="images/windowbuilder_views.png">
-  <img src="images/palette_view.png" align="top">
-  <img src="images/structure_view.png" align="top">
-  <img src="../userinterface/images/palette_extract_as_view.gif" align="top">
-  <img src="../userinterface/images/structure_extract_as_view.gif" align="top">
-</p>
-++++
+[cols="a,a,a,a,a"]
+|===
+| images/windowbuilder_views.png[]
+| images/palette_view.png[]
+| images/structure_view.png[]
+| ../userinterface/images/palette_extract_as_view.gif[]
+| ../userinterface/images/structure_extract_as_view.gif[]
+|===
 
 == Editor Layout
 
 This preference controls the position of the
-*link:../userinterface/source_view.html[Source View]* relative to the
-*link:../userinterface/design_view.html[Design View]*. By default, they
+*xref:../userinterface/source_view.adoc[Source View]* relative to the
+*xref:../userinterface/design_view.adoc[Design View]*. By default, they
 are "on separate notebook tabs" labeled *Source* and *Design* (you can
 select which page is first). Additional options are provided to show the
-*link:../userinterface/source_view.html[Source View]* and
-*link:../userinterface/design_view.html[Design View]* side by side or
+*xref:../userinterface/source_view.adoc[Source View]* and
+*xref:../userinterface/design_view.adoc[Design View]* side by side or
 one above the other.
 
 image:../userinterface/images/source_view_right.png[image,width=902,height=305]
@@ -73,12 +70,12 @@ image:../userinterface/images/source_view.png[image,width=442,height=456]
 
 == Sync Delay (ms)
 
-When the *link:../userinterface/source_view.html[Source View]* and
-*link:../userinterface/design_view.html[Design View]* are both visible,
+When the *xref:../userinterface/source_view.adoc[Source View]* and
+*xref:../userinterface/design_view.adoc[Design View]* are both visible,
 this preference determines the delay used to synchronize the two panes.
-If the user types in the *link:../userinterface/source_view.html[Source
+If the user types in the *xref:../userinterface/source_view.adoc[Source
 View]*, the source will be re-parsed and the
-*link:../userinterface/design_view.html[Design View]* will be updated
+*xref:../userinterface/design_view.adoc[Design View]* will be updated
 after a period specified by the sync delay. Use "-1" to synchronize only
 on save.
 
@@ -92,7 +89,7 @@ editor with them.
 
 This preference determines whether the *WindowBuilder* editor will be
 automatically maximized when switching to the
-*link:../userinterface/design_view.html[Design View]*.
+*xref:../userinterface/design_view.adoc[Design View]*.
 
 == Format source code (and reparse) on editor save
 
@@ -104,7 +101,7 @@ formatted using your Eclipse code formatting preferences whenever the
 
 This preference controls whether the source definition of a component is
 highlighted any time a component is selected in the
-*link:../userinterface/design_view.html[Design View]*.
+*xref:../userinterface/design_view.adoc[Design View]*.
 
 == Automatically add to palette when using Choose Component
 

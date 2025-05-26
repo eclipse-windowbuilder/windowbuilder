@@ -20,23 +20,22 @@ widget.
 image:images/visual_inheritance_parent.png[image]
 
 The inner *Composite* widget has been exposed as a public component
-using the *link:../userinterface/context_menu.html[Expose Component]*
-command. *link:../userinterface/context_menu.html[Expose Component]*
+using the *xref:../userinterface/context_menu.adoc[Expose Component]*
+command. *xref:../userinterface/context_menu.adoc[Expose Component]*
 converts a component to a field and adds a public accessor for it.
 Finally, the *background* color property of the first *Text* widget and
 the *text* property of the *Button* have been exposed as a public
 properties of the *Composite* using the
-*link:../userinterface/property_pane_context_menu.html[Expose Property]*
-command. *link:../userinterface/property_pane_context_menu.html[Expose
+*xref:../userinterface/property_pane_context_menu.adoc[Expose Property]*
+command. *xref:../userinterface/property_pane_context_menu.adoc[Expose
 Property]* adds a pair of accessors for getting and setting the desired
 property of the target widget.
 
-++++
-<p>
-  <img src="images/visual_inheritance_expose_component_menu.png">
-  <img src="images/visual_inheritance_expose_property_menu.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/visual_inheritance_expose_component_menu.png[]
+| images/visual_inheritance_expose_property_menu.png[]
+|===
 
 [source,java]
 ----

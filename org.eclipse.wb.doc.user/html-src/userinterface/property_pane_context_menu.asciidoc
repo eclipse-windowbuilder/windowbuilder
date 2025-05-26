@@ -11,7 +11,7 @@ a|
 
 |image:images/events.gif[image,width=16,height=16]
 |*Show events*
-|Show the link:../features/event_handling.html[events] defined for the
+|Show the xref:../features/event_handling.adoc[events] defined for the
 component. Expand a event category to see the individual events.
 Double-click on an event to generate a default event handler and switch
 to the *Source* view..
@@ -42,8 +42,8 @@ to local variables.
 |image:images/exposeProperty.gif[image,width=16,height=16]
 |*Expose property...*
 | Add a public or protected accessor for the selected property. Components
-exposed in link:../features/visual_inheritance.html[superclasses] or in
-link:../features/custom_composites.html[embedded panels] can be selected
+exposed in xref:../features/visual_inheritance.adoc[superclasses] or in
+xref:../features/custom_composites.adoc[embedded panels] can be selected
 and edited by the user.
 
 image:images/expose_property.png[image,width=394,height=308]

@@ -1,36 +1,40 @@
+ifdef::env-github[]
+:imagesdir: ../html/
+endif::[]
+
 = Swing Designer FAQ
 
 The following are frequently asked questions about *Swing Designer*: 
 
-* link:#OtherGUIBuilders[Can Swing Designer edit windows created with
+* xref:#OtherGUIBuilders[Can Swing Designer edit windows created with
 JBuilder, VA Java, NetBeans, VisualCafe, etc.?]
-* link:#CreatedByHand[Can Swing Designer edit windows that have been
+* xref:#CreatedByHand[Can Swing Designer edit windows that have been
 created by hand?]
-* link:#Refactor[Can I refactor or otherwise modify the Swing Designer
+* xref:#Refactor[Can I refactor or otherwise modify the Swing Designer
 generated code?]
-* link:#SpecialTags[Why doesn't Swing Designer surround generate code
+* xref:#SpecialTags[Why doesn't Swing Designer surround generate code
 with special tags or mark it as read-only?]
-* link:#CantParse[Are there any specific constructs that Swing Designer
+* xref:#CantParse[Are there any specific constructs that Swing Designer
 can't parse?]
-* link:#CustomWidgets[Can Swing Designer use custom widgets?]
-* link:#DesignTab[What can I do if I don't see the Design tab when I
+* xref:#CustomWidgets[Can Swing Designer use custom widgets?]
+* xref:#DesignTab[What can I do if I don't see the Design tab when I
 edit a window?]
-* link:#Exception[What should I do if I encounter an exception using
+* xref:#Exception[What should I do if I encounter an exception using
 Swing Designer?]
-* link:#ParsingError[What should I do if I encounter "Unknown Window
+* xref:#ParsingError[What should I do if I encounter "Unknown Window
 Type (Parsing Error)"?]
-* link:#OutOfMemoryError[What should I do if I encounter an
+* xref:#OutOfMemoryError[What should I do if I encounter an
 OutOfMemoryError using Swing Designer?]
-* link:#NoSuchMethodError[What should I do if I encounter an
+* xref:#NoSuchMethodError[What should I do if I encounter an
 NoSuchMethodError or NoClassDefFoundError using Swing Designer?]
-* link:#UnsupportedClassVersionError[What should I do if I encounter an
+* xref:#UnsupportedClassVersionError[What should I do if I encounter an
 UnsupportedClassVersionError using Swing Designer?]
-* link:#InstantiationException[What should I do if I encounter an
+* xref:#InstantiationException[What should I do if I encounter an
 InstantiationException or other error when using a custom widget?]
-* link:#Linux[How should Swing Designer be configured to work on Linux?]
-* link:#SuSELinux[What should I do if I have problems running under SuSE
+* xref:#Linux[How should Swing Designer be configured to work on Linux?]
+* xref:#SuSELinux[What should I do if I have problems running under SuSE
 Linux?]
-* link:#LinuxFlashing[How can I prevent the preview window from flashing
+* xref:#LinuxFlashing[How can I prevent the preview window from flashing
 under Linux using Metacity]
 
 [#OtherGUIBuilders]
@@ -147,15 +151,15 @@ image:features/images/open_with.gif[image]
 
 Eclipse remembers the last editor type used with a file. If you don't see the
 *Design* tab, that means that you are using the standard Eclipse *Java Editor*
-rather than the link:features/editing_existing_window.html[*WindowBuilder*]
-*link:features/editing_existing_window.html[Editor]*. Open the file with
-the link:features/editing_existing_window.html[*WindowBuilder*]
-*link:features/editing_existing_window.html[Editor]* and you will see
+rather than the xref:features/editing_existing_window.adoc[*WindowBuilder*]
+*xref:features/editing_existing_window.adoc[Editor]*. Open the file with
+the xref:features/editing_existing_window.adoc[*WindowBuilder*]
+*xref:features/editing_existing_window.adoc[Editor]* and you will see
 both the *Source* and *Design* tabs. Note that Eclipse will only let you
 have a file open with one editor at a time, so you may need to close any
 existing editor before opening it with the
-link:features/editing_existing_window.html[*WindowBuilder*]
-*link:features/editing_existing_window.html[Editor]*.
+xref:features/editing_existing_window.adoc[*WindowBuilder*]
+*xref:features/editing_existing_window.adoc[Editor]*.
 
 image:features/images/source_design.png[image,width=252,height=70]
 
@@ -298,7 +302,7 @@ contained in the SWT GTK plugin.
 
 An InstantiationException means that Swing Designer could not create an
 instance of a particular class. The most common reason for this is that
-the component is not a link:#CustomWidgets[valid custom widget]. In
+the component is not a xref:#CustomWidgets[valid custom widget]. In
 order to be a valid Swing widget, a class must be a valid Java Bean and
 have a public, zero-argument constructor. SWT widgets must have a public
 two-argument constructor with parent and style bits as the two
@@ -323,7 +327,7 @@ answer true when the component is loaded within Swing Designer and false
 at runtime.
 
 More detail about the use of custom widgets is available in
-link:#CustomWidgets[this FAQ entry].
+xref:#CustomWidgets[this FAQ entry].
 
 [#Linux]
 == How should Swing Designer be configured to work on Linux?

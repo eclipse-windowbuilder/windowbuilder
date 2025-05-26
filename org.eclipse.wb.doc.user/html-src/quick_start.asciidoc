@@ -1,39 +1,43 @@
+ifdef::env-github[]
+:imagesdir: ../html/
+endif::[]
+
 = WindowBuilder Pro Quick Start
 
 image:userinterface/images/userinterface.png[image] +
  
 
 . *Install the latest WindowBuilder Pro build into Eclipse
-link:installation/updatesite_3.4.html[3.4],
-link:installation/updatesite_3.5.html[3.5] or
-link:installation/updatesite_3.6.html[3.6].* +
+xref:installation/updatesite_3.4.adoc[3.4],
+xref:installation/updatesite_3.5.adoc[3.5] or
+xref:installation/updatesite_3.6.adoc[3.6].* +
  
 . *Create a new project using the appropriate
-link:wizards/index.html[project wizard]. +
+xref:wizards/index.adoc[project wizard]. +
  *
-. *Use a link:wizards/index.html[class wizard] to create your first GUI
-window or link:features/editing_existing_window.html[edit an existing
+. *Use a xref:wizards/index.adoc[class wizard] to create your first GUI
+window or xref:features/editing_existing_window.adoc[edit an existing
 window]* +
  
-. *Choose an appropriate link:layoutmanagers/index.html[layout manager]
+. *Choose an appropriate xref:layoutmanagers/index.adoc[layout manager]
 for your window. +
  *
 . *Add various components from the
-link:userinterface/palette.html[Palette] and edit their properties using
-the link:userinterface/property_pane.html[Property Pane]. +
+xref:userinterface/palette.adoc[Palette] and edit their properties using
+the xref:userinterface/property_pane.adoc[Property Pane]. +
  *
 . *Visually create and edit your window's
-link:features/menu_editing.html[menubar]. +
+xref:features/menu_editing.adoc[menubar]. +
  *
-. *Add link:features/event_handling.html[event handlers] to various
+. *Add xref:features/event_handling.adoc[event handlers] to various
 widgets to provide behavior. +
  *
-. *If you create a new link:features/custom_composites.html[Composite or
+. *If you create a new xref:features/custom_composites.adoc[Composite or
 JPanel], you can embed it in another window using the
-link:userinterface/palette.html[Choose Component] command. +
+xref:userinterface/palette.adoc[Choose Component] command. +
  *
 . *You can test launch your window by right-clicking on it and selecting
 Run As > Java Application. +
  *
-. *link:features/internationalization.html[Internationalize] your
+. *xref:features/internationalization.adoc[Internationalize] your
 application and manage multiple locales.*

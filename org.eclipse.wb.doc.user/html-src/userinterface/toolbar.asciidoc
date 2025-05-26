@@ -1,8 +1,8 @@
 = Toolbar
 
 The *Toolbar* provides access to commands commonly used in the
-*link:design_view.html[Design View]* and
-*link:component_tree.html[Component Tree].*
+*xref:design_view.adoc[Design View]* and
+*xref:component_tree.adoc[Component Tree].*
 
 [width="100%",cols="10%,20%,70%"]
 |===
@@ -29,7 +29,7 @@ layout and resizing behavior of your components.
 |image:images/cut_edit.gif[image]
 |*Cut*
 |Copy the selected components to the clipboard and remove them from the
-*link:design_view.html[DesignView]*.
+*xref:design_view.adoc[DesignView]*.
 
 |image:images/copy_edit.gif[image]
 |*Copy*
@@ -41,7 +41,7 @@ layout and resizing behavior of your components.
 
 |image:images/delete.gif[image,width=16,height=16]
 |*Delete*
-|Delete the selected components from the *link:design_view.html[Design View]*.
+|Delete the selected components from the *xref:design_view.adoc[Design View]*.
 
 |image:images/assistant.gif[image]
 |*Layout Assistant*
@@ -104,14 +104,14 @@ anchors.
 
 |image:images/globe3.png[image]
 |*Externalize Strings*
-| Opens the *link:../features/internationalization.html[Externalize
+| Opens the *xref:../features/internationalization.adoc[Externalize
 Strings]* dialog.
 
 image:../features/images/nls_externalize_strings5.png[image,width=463,height=326]
 
 |
 |*Choose Locale*
-| Choose the *link:../features/internationalization.html[Locale]* to
+| Choose the *xref:../features/internationalization.adoc[Locale]* to
 display the current widgets.
 
 image:images/choose_locale.gif[image]

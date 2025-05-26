@@ -3,7 +3,7 @@
 image:images/component_tree.png[image,width=289,height=303]
 
 The *Component Tree* shows the hierarchical relationship between all of
-the components in the *link:design_view.html[Design View]*.
+the components in the *xref:design_view.adoc[Design View]*.
 
 Each component in the tree shows is icon (with potential decorators),
 its variable name and text label. Components may be represented as local
@@ -21,8 +21,8 @@ collapse them using the *Collapse All*
 image:images/collapse_all.gif[image,width=16,height=16] button.
 
 Right-click on an entry in the tree to access the same
-link:context_menu.html[context menu] available in the
-*link:design_view.html[Design View]*. Components may be re-arranged in
+xref:context_menu.adoc[context menu] available in the
+*xref:design_view.adoc[Design View]*. Components may be re-arranged in
 the tree via drag/drop and deleted using the *Delete* key.
 
 Multiple components may be selected in the tree by holding down the
