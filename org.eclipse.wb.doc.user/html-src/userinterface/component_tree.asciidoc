@@ -40,7 +40,7 @@ a|
 a|
 === Description
 
-|image:images/exposed_decorator.gif[image]
+|image:images/exposed_decorator.png[image]
 |*Exposed*
 |Child widgets exposed in a custom container.
 
