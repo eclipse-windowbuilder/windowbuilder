@@ -1,31 +1,30 @@
 = Palette
 
-++++
-<p>
-  <img src="images/palette_swt.png" align="top">
-  <img src="images/palette_swing.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/palette_swt.png[]
+| images/palette_swing.png[]
+|===
 
 The *Palette* provides quick access to toolkit-specific components as
 well as any custom components installed by the user. The *Palette* is
 organized into categories which may be expanded, collapsed or hidden.
 
-To add a components to the *link:design_view.html[Design View]*, you
+To add a components to the *xref:design_view.adoc[Design View]*, you
 can:
 
 * Select it in the palette and drop it on the
-*link:design_view.html[Design View]* or
-*link:component_tree.html[Component Tree]* by clicking in the desired location.
+*xref:design_view.adoc[Design View]* or
+*xref:component_tree.adoc[Component Tree]* by clicking in the desired location.
 * Use the *Choose Component* command to select the widget type from *Choose Component* dialog.
 
 Multiple widgets of the same type may be added to the
-*link:design_view.html[Design View]* by holding down the *Ctrl* key when
+*xref:design_view.adoc[Design View]* by holding down the *Ctrl* key when
 selecting the widget in the *Palette*.
 
 The palette may be customized by right-clicking anywhere in the palette
-to access the link:palette_context_menu.html[palette context menu] or by
-opening the *link:palette_manager.html[Palette Manager]* dialog..
+to access the xref:palette_context_menu.adoc[palette context menu] or by
+opening the *xref:palette_manager.adoc[Palette Manager]* dialog..
 
 The following commands are common to every palette:
 
@@ -98,14 +97,13 @@ image:images/set_tab_order.png[image,width=296,height=137]
 The position of the *Palette* may be configured via drag and drop or by
 right-clicking on the *Palette* header and selecting the *Dock On*
 command. The *Palette* may be docked to either the left or right side of
-the *link:design_view.html[Design View]*.
+the *xref:design_view.adoc[Design View]*.
 
-++++
-<p>
-  <img src="../preferences/images/flyout_palette1.png" align="top">
-  <img src="images/palette_dock_on.gif" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| ../preferences/images/flyout_palette1.png[]
+| images/palette_dock_on.gif[]
+|===
 
 The *Palette* may also be collapse and expanded on demand.
 
@@ -117,10 +115,9 @@ view or right-click on the *Palette* and select the *Extract as view*
 command. Closing the *Palette* view will make the *Palette* reappear as
 embedded view within the editor.
 
-++++
-<p>
-  <img src="../preferences/images/windowbuilder_views.png" align="top">
-  <img src="../preferences/images/palette_view.png" align="top">
-  <img src="images/palette_extract_as_view.gif" align="top">
-</p>
-++++
+[cols="a,a,a"]
+|===
+| ../preferences/images/windowbuilder_views.png[]
+| ../preferences/images/palette_view.png[]
+| images/palette_extract_as_view.gif[]
+|===

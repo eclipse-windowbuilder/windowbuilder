@@ -12,7 +12,7 @@ properties that are the same between the two types are kept. This allows
 quick design changes without having to recreate all the components.
 
 To morph a component from one type to another,
-link:../userinterface/context_menu.html[right-click] on the component
+xref:../userinterface/context_menu.adoc[right-click] on the component
 and select a component type to morph to from the *Morph* cascading menu.
 
 In addition to morphing to common sibling types, you can also morph a
