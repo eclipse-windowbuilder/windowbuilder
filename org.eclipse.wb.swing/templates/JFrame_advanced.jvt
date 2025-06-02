@@ -36,7 +36,7 @@ method
 		setBounds(100, 100, %DefaultFormSize%);
 		%this%%field-prefix%contentPane = new JPanel();
 		%this%%field-prefix%contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		%ContentPane.SwingLayout%
 		setContentPane(%this%%field-prefix%contentPane);
+		%ContentPane.SwingLayout%
 	}
 
