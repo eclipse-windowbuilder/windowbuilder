@@ -37,7 +37,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.event.MouseListener;
@@ -369,7 +368,6 @@ public class JPopupMenuTest extends SwingModelTest {
 	/**
 	 * Test that we can paste {@link JPopupMenu}.
 	 */
-	@Ignore
 	@Test
 	public void test_PASTE() throws Exception {
 		ContainerInfo panelInfo =

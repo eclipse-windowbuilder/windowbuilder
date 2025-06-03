@@ -18,7 +18,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.part.ViewPart;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -38,7 +37,6 @@ public class ViewPartGefTest extends RcpGefTest {
 	 * popup should be on separate layer. So, this caused problems with count of children on content
 	 * figure.
 	 */
-	@Ignore
 	@Test
 	public void test_withMenuManager() throws Exception {
 		openJavaInfo(

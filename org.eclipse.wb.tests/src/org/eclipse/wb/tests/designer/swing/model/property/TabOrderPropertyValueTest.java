@@ -23,7 +23,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.IJavaProject;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -97,7 +96,6 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(1));
 	}
 
-	@Ignore
 	@Test
 	public void test_getValue_2() throws Exception {
 		ProjectUtils.ensureResourceType(
@@ -138,7 +136,6 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(0));
 	}
 
-	@Ignore
 	@Test
 	public void test_setValue() throws Exception {
 		// create panel

@@ -27,7 +27,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.draw2d.PositionConstants;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -775,7 +774,6 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Paste copy of "item" on "bar".
 	 */
-	@Ignore
 	@Test
 	public void test_PASTE_item() throws Exception {
 		CompositeInfo shellInfo =

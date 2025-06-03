@@ -20,7 +20,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -71,7 +70,6 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareComponent();
@@ -260,7 +258,6 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 		tree.assertPrimarySelected(newButton);
 	}
 
-	@Ignore
 	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareComponent();

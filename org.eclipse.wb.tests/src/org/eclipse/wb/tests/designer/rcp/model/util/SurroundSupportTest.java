@@ -41,7 +41,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -280,7 +279,6 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Single {@link ControlInfo} on {@link Group} with {@link AbsoluteLayoutInfo}.
 	 */
-	@Ignore
 	@Test
 	public void test_absolute_singleControl_onGroup() throws Exception {
 		CompositeInfo shell =

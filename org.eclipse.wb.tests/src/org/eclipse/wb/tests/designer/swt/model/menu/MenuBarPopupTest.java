@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -199,7 +198,6 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * Test for copy/paste "popup".
 	 */
-	@Ignore
 	@Test
 	public void test_popupPaste() throws Exception {
 		CompositeInfo shellInfo =

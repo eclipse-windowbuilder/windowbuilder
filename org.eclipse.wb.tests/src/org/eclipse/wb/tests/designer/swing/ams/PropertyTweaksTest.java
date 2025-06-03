@@ -22,7 +22,6 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -45,7 +44,6 @@ public class PropertyTweaksTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_Groups_fromBundle() throws Exception {
 		prepareParse_MyButton();
@@ -67,7 +65,6 @@ public class PropertyTweaksTest extends SwingGefTest {
 	}
 
 	@DisposeProjectAfter
-	@Ignore
 	@Test
 	public void test_Groups_fromJar() throws Exception {
 		// add JAR
@@ -95,7 +92,6 @@ public class PropertyTweaksTest extends SwingGefTest {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void test_categories() throws Exception {
 		prepareParse_MyButton();

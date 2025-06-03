@@ -21,7 +21,6 @@ import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -63,7 +62,6 @@ public class SplitModeTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
-	@Ignore
 	public void test_reparse_afterDelay() throws Exception {
 		IPreferenceStore preferences = DesignerPlugin.getPreferences();
 		preferences.setValue(

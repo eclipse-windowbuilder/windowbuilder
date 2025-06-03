@@ -42,7 +42,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -425,7 +424,6 @@ public class MenuTest extends RcpModelTest {
 	 * Tests for {@link IMenuInfo#validatePaste(Object)} and
 	 * {@link IMenuInfo#commandPaste(Object, IMenuItemInfo)}.
 	 */
-	@Ignore
 	@Test
 	public void test_IMenuInfo_paste_1() throws Exception {
 		CompositeInfo shell =
@@ -699,7 +697,6 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for copy/paste {@link MenuInfo} with {@link MenuItemInfo} and sub-menu.
 	 */
-	@Ignore
 	@Test
 	public void test_commandPaste() throws Exception {
 		CompositeInfo shell =

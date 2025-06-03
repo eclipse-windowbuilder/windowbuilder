@@ -23,7 +23,6 @@ import org.eclipse.swt.graphics.ImageData;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -212,7 +211,6 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void test_getImage_classpath() throws Exception {
 		// create image over SWTResourceManager

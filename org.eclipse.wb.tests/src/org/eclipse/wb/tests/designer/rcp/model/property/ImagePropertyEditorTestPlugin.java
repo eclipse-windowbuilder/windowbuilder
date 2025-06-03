@@ -37,7 +37,6 @@ import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -167,7 +166,6 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	// PluginImagesRoot
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PluginImagesRoot() throws Exception {
 		FilterConfigurer filterConfigurer = new FilterConfigurer(false, false, false, false);

@@ -34,7 +34,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -1006,7 +1005,6 @@ public class GridLayoutGefTest extends RcpGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
 		openPanel(

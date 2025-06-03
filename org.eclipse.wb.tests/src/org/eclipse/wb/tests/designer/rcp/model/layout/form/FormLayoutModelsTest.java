@@ -32,7 +32,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -650,7 +649,6 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	// Test for copy/paste.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		CompositeInfo composite =

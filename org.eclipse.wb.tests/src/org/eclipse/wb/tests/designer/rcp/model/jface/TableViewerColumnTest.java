@@ -46,7 +46,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -425,7 +424,6 @@ public class TableViewerColumnTest extends RcpModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_copyPaste() throws Exception {
 		CompositeInfo shell =

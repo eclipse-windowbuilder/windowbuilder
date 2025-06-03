@@ -21,7 +21,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -71,7 +70,6 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 		Assertions.assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).isEmpty();
 	}
 
-	@Ignore
 	@Test
 	public void test_37() throws Exception {
 		parseComposite(

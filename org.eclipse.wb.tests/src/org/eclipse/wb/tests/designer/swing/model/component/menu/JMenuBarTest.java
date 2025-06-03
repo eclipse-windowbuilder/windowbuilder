@@ -31,7 +31,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.ImageData;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -393,7 +392,6 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * We can paste {@link JMenuInfo}'s.
 	 */
-	@Ignore
 	@Test
 	public void test_IMenuInfo_PASTE() throws Exception {
 		ContainerInfo frameInfo =

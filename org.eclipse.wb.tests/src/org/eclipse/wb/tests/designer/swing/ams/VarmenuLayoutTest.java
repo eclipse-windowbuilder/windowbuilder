@@ -20,7 +20,6 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.draw2d.PositionConstants;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -61,7 +60,6 @@ public class VarmenuLayoutTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel = openContainer("""
@@ -90,7 +88,6 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
 	@Test
 	public void test_RESIZE_width() throws Exception {
 		ContainerInfo panel = openContainer("""
@@ -134,7 +131,6 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
 	@Test
 	public void test_RESIZE_height() throws Exception {
 		ContainerInfo panel = openContainer("""

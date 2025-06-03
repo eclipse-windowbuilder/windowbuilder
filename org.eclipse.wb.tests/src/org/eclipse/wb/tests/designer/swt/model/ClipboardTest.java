@@ -29,7 +29,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -381,7 +380,6 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
-	@Ignore
 	@Test
 	public void test_viewer_1() throws Exception {
 		String[] sourceLines =
@@ -464,7 +462,6 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
-	@Ignore
 	@Test
 	public void test_viewer_2() throws Exception {
 		String[] sourceLines =

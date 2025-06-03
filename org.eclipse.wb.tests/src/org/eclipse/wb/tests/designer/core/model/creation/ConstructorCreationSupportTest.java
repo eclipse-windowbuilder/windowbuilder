@@ -46,7 +46,6 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.JButton;
@@ -625,7 +624,6 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	/**
 	 * {@link ConstructorCreationSupport} should include type arguments into clipboard source.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard_typeArguments() throws Exception {
 		// prepare generic MyButton
@@ -693,7 +691,6 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	 * {@link ConstructorCreationSupport} should support {@link AnonymousClassDeclaration} in
 	 * clipboard source.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard_anonymousClassDeclaration() throws Exception {
 		// prepare generic MyButton

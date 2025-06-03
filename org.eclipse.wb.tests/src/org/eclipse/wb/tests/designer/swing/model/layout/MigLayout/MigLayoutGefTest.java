@@ -28,7 +28,6 @@ import net.miginfocom.swing.MigLayout;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.GridBagLayout;
@@ -619,7 +618,6 @@ public class MigLayoutGefTest extends SwingGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
 		openPanel("""

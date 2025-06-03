@@ -19,13 +19,11 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author sablin_aa
  */
-@Ignore
 public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

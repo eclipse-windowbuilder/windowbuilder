@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.FlowLayout;
@@ -432,7 +431,6 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		String[] lines1 =

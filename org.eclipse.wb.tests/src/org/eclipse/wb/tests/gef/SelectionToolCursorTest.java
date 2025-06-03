@@ -26,7 +26,6 @@ import org.eclipse.swt.SWT;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -229,7 +228,6 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void test_ResizeTracker_Resize() throws Exception {
 		ResizeCommand command = new ResizeCommand();

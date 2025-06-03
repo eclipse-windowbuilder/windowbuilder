@@ -24,7 +24,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Window;
@@ -162,7 +161,6 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	/**
 	 * Using {@link JFrame#pack()}.
 	 */
-	@Ignore
 	@Test
 	public void test_resize_pack() throws Exception {
 		Dimension packSize =

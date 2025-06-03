@@ -48,7 +48,6 @@ import org.eclipse.swt.widgets.TabFolder;
 import static org.junit.Assume.assumeTrue;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -342,7 +341,6 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Test for {@link CompositeInfo#getClientAreaInsets2()}.
 	 */
-	@Ignore
 	@Test
 	public void test_insetsWithGroup() throws Exception {
 		CompositeInfo shell =
@@ -694,7 +692,6 @@ public class ControlTest extends RcpModelTest {
 	 * We should correctly handle bounds for {@link Control}s on {@link Composite} with
 	 * {@link SWT#RIGHT_TO_LEFT} style.
 	 */
-	@Ignore
 	@Test
 	public void test_RTL() throws Exception {
 		CompositeInfo composite =
@@ -742,7 +739,6 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Two levels of {@link Composite} with {@link SWT#RIGHT_TO_LEFT} style.
 	 */
-	@Ignore
 	@Test
 	public void test_RTL_withInnerComposite() throws Exception {
 		CompositeInfo composite =

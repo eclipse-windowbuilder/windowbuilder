@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -55,7 +54,6 @@ public class TreeTest extends RcpModelTest {
 	/**
 	 * Test for parsing {@link TreeColumn} and bounds of {@link TreeColumnInfo}.
 	 */
-	@Ignore
 	@Test
 	public void test_TreeColumn() throws Exception {
 		CompositeInfo shell =
@@ -110,7 +108,6 @@ public class TreeTest extends RcpModelTest {
 	/**
 	 * Test for copy/paste {@link TreeColumn}.
 	 */
-	@Ignore
 	@Test
 	public void test_TreeColumn_copyPaste() throws Exception {
 		CompositeInfo shell =

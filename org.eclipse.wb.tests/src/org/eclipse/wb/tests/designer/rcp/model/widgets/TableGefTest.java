@@ -18,7 +18,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.draw2d.PositionConstants;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,8 +40,6 @@ public class TableGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	@Ignore
 	@Test
 	public void test_canvas_CREATE_column() throws Exception {
 		openJavaInfo(
@@ -82,8 +79,6 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
-	// Test get stuck during the Linux build...
-	@Ignore
 	@Test
 	public void test_canvas_MOVE_column() throws Exception {
 		openJavaInfo(
@@ -127,8 +122,6 @@ public class TableGefTest extends RcpGefTest {
 				"}");
 	}
 
-	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	@Ignore
 	@Test
 	public void test_canvas_RESIZE_column() throws Exception {
 		openJavaInfo(

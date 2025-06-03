@@ -44,7 +44,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.swt.graphics.Image;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -528,7 +527,6 @@ public class JMenuTest extends SwingModelTest {
 	/**
 	 * We can paste {@link JMenuItemInfo}'s.
 	 */
-	@Ignore
 	@Test
 	public void test_IMenuInfo_PASTE() throws Exception {
 		ContainerInfo frameInfo =

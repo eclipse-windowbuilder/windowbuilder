@@ -50,7 +50,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -80,7 +79,6 @@ public class DialogTest extends RcpModelTest {
 	 * {@link Dialog} with {@link Dialog#createDialogArea(Composite)} method.<br>
 	 * Parameter "parent" in <code>createDialogArea()</code> should not have layout.
 	 */
-	@Ignore
 	@Test
 	public void test_0() throws Exception {
 		DialogInfo dialog =

@@ -26,7 +26,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -80,7 +79,6 @@ public class ControlDecorationTest extends RcpModelTest {
 	/**
 	 * Set real image for {@link ControlDecoration}, so it is used in UI and in presentation.
 	 */
-	@Ignore
 	@Test
 	public void test_existingImage() throws Exception {
 		CompositeInfo shell =

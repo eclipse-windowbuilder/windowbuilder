@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -51,8 +50,6 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	@Ignore
 	@Test
 	public void test_1() throws Exception {
 		ShellInfo shell = (ShellInfo) parseComposite(
@@ -100,7 +97,6 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	/**
 	 * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
 	 */
-	@Ignore
 	@Test
 	public void test_withGroup() throws Exception {
 		CompositeInfo shell =

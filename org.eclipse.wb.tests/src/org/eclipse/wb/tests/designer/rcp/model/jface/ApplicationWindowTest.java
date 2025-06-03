@@ -24,7 +24,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -127,7 +126,6 @@ public class ApplicationWindowTest extends RcpModelTest {
 	/**
 	 * Test for {@link IToolBarManager}.
 	 */
-	@Ignore
 	@Test
 	public void test_managers_ToolBarManager() throws Exception {
 		ApplicationWindowInfo window =

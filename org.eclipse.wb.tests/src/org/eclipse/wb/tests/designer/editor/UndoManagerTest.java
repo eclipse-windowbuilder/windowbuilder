@@ -51,7 +51,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -274,7 +273,6 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Sometimes expansion paths are remembered for wrong dump, so this causes later exception.
 	 */
-	@Ignore
 	@Test
 	public void test_expandRemembered_bug_0() throws Exception {
 		ContainerInfo frame = openContainer("""
@@ -597,7 +595,6 @@ public class UndoManagerTest extends SwingGefTest {
 	 * exceptions.
 	 */
 	@DisposeProjectAfter
-	@Ignore
 	@Test
 	public void test_showDesign_rename() throws Exception {
 		openContainer("""

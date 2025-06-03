@@ -22,7 +22,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.JSplitPane;
@@ -383,7 +382,6 @@ public class JSplitPaneTest extends SwingModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		final ContainerInfo panel =

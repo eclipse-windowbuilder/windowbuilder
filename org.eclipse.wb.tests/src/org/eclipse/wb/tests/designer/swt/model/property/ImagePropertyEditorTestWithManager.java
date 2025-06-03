@@ -26,7 +26,6 @@ import org.eclipse.jface.resource.LocalResourceManager;
 
 import org.apache.commons.io.FilenameUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -103,7 +102,6 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	@Ignore
 	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
 		assert_getText_getClipboardSource_forSource(
@@ -115,7 +113,6 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	@Ignore
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
 		assert_getText_getClipboardSource_forSource(

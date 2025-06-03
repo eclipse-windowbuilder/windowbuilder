@@ -39,7 +39,6 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.BorderLayout;
@@ -605,7 +604,6 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	/**
 	 * Delete using "Layout" property.
 	 */
-	@Ignore
 	@Test
 	public void test_delete2() throws Exception {
 		ContainerInfo panel =

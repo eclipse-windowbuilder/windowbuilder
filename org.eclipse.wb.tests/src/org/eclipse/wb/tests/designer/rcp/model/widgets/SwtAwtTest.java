@@ -25,7 +25,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.widgets.Composite;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -61,7 +60,6 @@ public class SwtAwtTest extends RcpModelTest {
 	// Parse
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_parse() throws Exception {
 		CompositeInfo shell =
@@ -103,7 +101,6 @@ public class SwtAwtTest extends RcpModelTest {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void test_parseWithBorder() throws Exception {
 		CompositeInfo shell =
@@ -135,8 +132,6 @@ public class SwtAwtTest extends RcpModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=355351
 	 */
-	// Test gets stuck during the Linux build...
-	@Ignore
 	@Test
 	public void test_parseWhenZeroSize() throws Exception {
 		CompositeInfo shell =

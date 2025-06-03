@@ -36,7 +36,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -808,7 +807,6 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * We don't support member classes as factories.
 	 */
-	@Ignore
 	@Test
 	public void test_descriptions_memberClass() throws Exception {
 		setFileContentSrc(
@@ -970,7 +968,6 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * Kosta.20080407: I consider this not correct anymore, so disable this test.
 	 */
 	@Test
-	@Ignore
 	public void test_descriptionsInstanceStatic() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",

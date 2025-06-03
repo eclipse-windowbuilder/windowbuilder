@@ -19,7 +19,6 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -42,7 +41,6 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_canvas_CREATE() throws Exception {
 		prepareBox();
@@ -71,7 +69,6 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareBox();
@@ -156,7 +153,6 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
 	@Test
 	public void test_canvas_ADD() throws Exception {
 		prepareBox();
@@ -236,7 +232,6 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
 		tree.assertPrimarySelected(newBox);
 	}
 
-	@Ignore
 	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareBox();

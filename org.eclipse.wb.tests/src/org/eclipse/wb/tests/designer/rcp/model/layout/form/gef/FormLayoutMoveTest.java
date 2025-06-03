@@ -25,7 +25,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -49,7 +48,6 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
-	@Ignore
 	public void test_move_with_both_sides_attached() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -83,7 +81,6 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	}
 
 	@Test
-	@Ignore
 	public void test_move_with_both_sides_attached_left_control_attached() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
