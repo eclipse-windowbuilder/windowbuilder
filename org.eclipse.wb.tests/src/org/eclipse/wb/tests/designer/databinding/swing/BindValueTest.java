@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.AutoBindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.UpdateStrategyInfo;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -27,7 +26,6 @@ import java.util.List;
  * @author sablin_aa
  *
  */
-@Ignore
 public class BindValueTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -36,66 +34,64 @@ public class BindValueTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_strategy_policy_variable() throws Exception {
-		JPanelInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test extends JPanel {",
-								"  public static class MyBean {",
-								"    protected String name;",
-								"    public String getName() {",
-								"      return name;",
-								"    }",
-								"    public void setName(String newName) {",
-								"      this.name = newName;",
-								"    }",
-								"  }",
-								"  public static void main(String[] args) {",
-								"    JFrame frame = new JFrame();",
-								"    frame.getContentPane().add(new Test(), BorderLayout.CENTER);",
-								"    frame.setMinimumSize(new Dimension(500, 500));",
-								"    frame.setVisible(true);",
-								"    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);",
-								"  }",
-								"  protected MyBean myBean = new MyBean();",
-								"  private JLabel label;",
-								"  private JTextField textField;",
-								"  private JButton button;",
-								"  public Test() {",
-								"    label = new JLabel();",
-								"    add(label);",
-								"    textField = new JTextField();",
-								"    add(textField);",
-								"    button = new JButton();",
-								"    add(button);",
-								"    initDataBindings();",
-								"  }",
-								"  AutoBinding.UpdateStrategy m_strategy = AutoBinding.UpdateStrategy.READ_ONCE;",
-								"  protected void initDataBindings() {",
-								"    {",
-								"      BeanProperty<MyBean, String> modelBeanProperty = BeanProperty.create(\"name\");",
-								"      BeanProperty<JLabel, String> labelBeanProperty = BeanProperty.create(\"text\");",
-								"      AutoBinding.UpdateStrategy strategy = AutoBinding.UpdateStrategy.READ;",
-								"      AutoBinding<MyBean, String, JLabel, String> autoBinding = Bindings.createAutoBinding(",
-								"        strategy, myBean, modelBeanProperty, label, labelBeanProperty);",
-								"      autoBinding.bind();",
-								"    }",
-								"    {",
-								"      BeanProperty<MyBean, String> modelBeanProperty = BeanProperty.create(\"name\");",
-								"      BeanProperty<JTextField, String> textFieldBeanProperty = BeanProperty.create(\"text\");",
-								"      AutoBinding<MyBean, String, JTextField, String> autoBinding = Bindings.createAutoBinding(",
-								"        AutoBinding.UpdateStrategy.READ_WRITE, myBean, modelBeanProperty, textField, textFieldBeanProperty);",
-								"      autoBinding.bind();",
-								"    }",
-								"    {",
-								"      BeanProperty<MyBean, String> modelBeanProperty = BeanProperty.create(\"name\");",
-								"      BeanProperty<JButton, String> buttonBeanProperty = BeanProperty.create(\"text\");",
-								"      AutoBinding<MyBean, String, JButton, String> autoBinding = Bindings.createAutoBinding(",
-								"        m_strategy, myBean, modelBeanProperty, button, buttonBeanProperty);",
-								"      autoBinding.bind();",
-								"    }",
-								"  }",
-						"}"});
+		m_waitForAutoBuild = true;
+		JPanelInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test extends JPanel {
+					public static class MyBean {
+						protected String name;
+						public String getName() {
+							return name;
+						}
+						public void setName(String newName) {
+							this.name = newName;
+						}
+					}
+					public static void main(String[] args) {
+						JFrame frame = new JFrame();
+						frame.getContentPane().add(new Test(), BorderLayout.CENTER);
+						frame.setMinimumSize(new Dimension(500, 500));
+						frame.setVisible(true);
+						frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					}
+					protected MyBean myBean = new MyBean();
+					private JLabel label;
+					private JTextField textField;
+					private JButton button;
+					public Test() {
+						label = new JLabel();
+						add(label);
+						textField = new JTextField();
+						add(textField);
+						button = new JButton();
+						add(button);
+						initDataBindings();
+					}
+					AutoBinding.UpdateStrategy m_strategy = AutoBinding.UpdateStrategy.READ_ONCE;
+					protected void initDataBindings() {
+						{
+							BeanProperty<MyBean, String> modelBeanProperty = BeanProperty.create("name");
+							BeanProperty<JLabel, String> labelBeanProperty = BeanProperty.create("text");
+							AutoBinding.UpdateStrategy strategy = AutoBinding.UpdateStrategy.READ;
+							AutoBinding<MyBean, String, JLabel, String> autoBinding = Bindings.createAutoBinding(
+								strategy, myBean, modelBeanProperty, label, labelBeanProperty);
+							autoBinding.bind();
+						}
+						{
+							BeanProperty<MyBean, String> modelBeanProperty = BeanProperty.create("name");
+							BeanProperty<JTextField, String> textFieldBeanProperty = BeanProperty.create("text");
+							AutoBinding<MyBean, String, JTextField, String> autoBinding = Bindings.createAutoBinding(
+								AutoBinding.UpdateStrategy.READ_WRITE, myBean, modelBeanProperty, textField, textFieldBeanProperty);
+							autoBinding.bind();
+						}
+						{
+							BeanProperty<MyBean, String> modelBeanProperty = BeanProperty.create("name");
+							BeanProperty<JButton, String> buttonBeanProperty = BeanProperty.create("text");
+							AutoBinding<MyBean, String, JButton, String> autoBinding = Bindings.createAutoBinding(
+								m_strategy, myBean, modelBeanProperty, button, buttonBeanProperty);
+							autoBinding.bind();
+						}
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

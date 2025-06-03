@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,13 +19,11 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author sablin_aa
  */
-@Ignore
 public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -55,14 +53,13 @@ public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_noProvider() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList();",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+					}
+				}""");
 		assertNotNull(panel);
 		//
 		if (DataBindingsCodeUtils.getExtrasBundle() == null) {
@@ -81,14 +78,13 @@ public class SwingDatabindingsFactoryTest extends SwingModelTest {
 	@Test
 	public void test_Provider() throws Exception {
 		DatabindingTestUtils.configure(m_testProject);
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList();",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+					}
+				}""");
 		assertNotNull(panel);
 		//
 		assertTrue(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
