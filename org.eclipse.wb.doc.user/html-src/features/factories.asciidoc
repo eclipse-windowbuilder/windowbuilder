@@ -4,22 +4,21 @@ The tool supports the creation of custom factory classes and methods.
 This is a convenient way to create customized, reusable versions of
 common components. The tool supports the following features:
 
-* link:#Creating[Create a static factory method from any widget]
-* link:#Parameterizing[Factory methods may be parameterized with one or
+* xref:#Creating[Create a static factory method from any widget]
+* xref:#Parameterizing[Factory methods may be parameterized with one or
 more arguments]
-* link:#Applying[Morph any widget into a factory instance]
-* link:#AddingToPalette[Add any factory component to the palette]
+* xref:#Applying[Morph any widget into a factory instance]
+* xref:#AddingToPalette[Add any factory component to the palette]
 
 The following is an example of a simple button that is converted into
 multiple factories. The button has two properties set: its text is set
 to "OK" and its color is set to red.
 
-++++
-<p>
-  <img src="images/factory_example.png">
-  <img src="images/create_factory_menu.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/factory_example.png[]
+| images/create_factory_menu.png[]
+|===
 
 `JButton okButton = new JButton("OK");` +
 `okButton.setForeground(Color.RED);`
@@ -32,9 +31,9 @@ factory...* command. In the *Create Factory* dialog, enter the name of
 the factory class (or select an existing factory using the *Browse*
 button) and the method name for the (static) factory method. If you wish
 the new factory to be added to the
-*link:../userinterface/palette.html[Palette]*, select a palette category
+*xref:../userinterface/palette.adoc[Palette]*, select a palette category
 or create a new category using the
-*link:../userinterface/palette_manager.html[Palette Manager]*.
+*xref:../userinterface/palette_manager.adoc[Palette Manager]*.
 
 Below this, you will see a list if *Creation arguments* and
 *Invocations*. *Creation arguments* are passed directly to the
@@ -43,12 +42,11 @@ after creation. Note that for SWT factories, the *parent* container must
 be passed as an argument as shown below on the right (*parent* cannot be
 unchecked).
 
-++++
-<p>
-  <img src="images/create_factory_dialog1.png">
-  <img src="images/create_factory_dialog2.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/create_factory_dialog1.png[]
+| images/create_factory_dialog2.png[]
+|===
 
 [#Parameterizing]
 == Parameterizing a factory method
@@ -61,12 +59,11 @@ into the method and applied to the widget. Likewise, checking the
 *foreground* invocation property will cause the *foreground* property to
 be passed into the method and applied to the widget.
 
-++++
-<p>
-  <img src="images/create_factory_dialog3.png">
-  <img src="images/create_factory_dialog4.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/create_factory_dialog3.png[]
+| images/create_factory_dialog4.png[]
+|===
 
 If an invocation property should be ignored entirely, uncheck it in the
 *Invocations* list as shown below.
@@ -141,7 +138,7 @@ newly created factory method.
 
 Once created, a factory may be applied to an existing widget using the
 *Factory > Select Factory...* command. This is very similar to a
-link:morphing.html[morphing] operation. Once a factory has been
+xref:morphing.adoc[morphing] operation. Once a factory has been
 selected, its methods are shown directly in the *Factory* cascade menu
 as shown below.
 
@@ -151,8 +148,8 @@ image:images/select_factory_menu.png[image,width=382,height=149]
 == Adding factories to the palette
 
 Factories may also be added to the palette for quick access using either
-the *link:../userinterface/palette_manager.html[Palette Manager]* or the
-*link:../userinterface/palette_context_menu.html[Palette context menu]*.
+the *xref:../userinterface/palette_manager.adoc[Palette Manager]* or the
+*xref:../userinterface/palette_context_menu.adoc[Palette context menu]*.
 
 image:images/factory_custom_palette.png[image]
 

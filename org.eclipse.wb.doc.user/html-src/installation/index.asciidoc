@@ -2,14 +2,14 @@
 
 Designer is composed of several components that can either be installed
 as a unit or as separate pieces. Make sure to check the
-link:system.html[system requirements] before installing the product.
+xref:system.adoc[system requirements] before installing the product.
 
 For installation details, see the following:
 
 == Preferred installation options using update sites
 
-* *link:updatesite_3.8.html[Installing using an update site into E-3.8
+* *xref:updatesite_3.8.adoc[Installing using an update site into E-3.8
 or E-4.2]*
-* *link:updatesite_3.7.html[Installing using an update site into E-3.7]*
-* *link:updatesite_3.6.html[Installing using an update site into E-3.6]*
-* *link:updatesite_3.5.html[Installing using an update site into E-3.5]*
+* *xref:updatesite_3.7.adoc[Installing using an update site into E-3.7]*
+* *xref:updatesite_3.6.adoc[Installing using an update site into E-3.6]*
+* *xref:updatesite_3.5.adoc[Installing using an update site into E-3.5]*
