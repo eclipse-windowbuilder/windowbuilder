@@ -506,7 +506,7 @@ public abstract class DesignerTestCase extends Assert {
 				public String getFailureMessage() {
 					return "\"Open type\" dialog took too long to find types.";
 				}
-			}, 30000);
+			});
 		}
 		shell.button(buttonName).click();
 	}
