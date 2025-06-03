@@ -42,7 +42,6 @@ import org.eclipse.jdt.core.JavaCore;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -216,7 +215,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
 	 */
 	@DisposeProjectAfter
-	@Ignore
 	@Test
 	public void test_ensureResourceType_existsButNotUpToDate() throws Exception {
 		String managerClassName = "pkg.MyManager";
@@ -268,7 +266,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * update it in required project; not generate new copy in given {@link IJavaProject}.
 	 */
 	@DisposeProjectAfter
-	@Ignore
 	@Test
 	public void test_ensureResourceType_existsInDifferentProject_butNotUpToDate()
 			throws Exception {
@@ -329,7 +326,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * We should ignore {@link IType} if it is declared in binary file.
 	 */
 	@DisposeProjectAfter
-	@Ignore
 	@Test
 	public void test_ensureResourceType_binary() throws Exception {
 		String managerClassName = "pkg.MyManager";
@@ -397,7 +393,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * We should not try to update {@link IType} if it is in "read-only" unit.
 	 */
 	@DisposeProjectAfter
-	@Ignore
 	@Test
 	public void test_ensureResourceType_readOnly() throws Exception {
 		String managerClassName = "pkg.MyManager";

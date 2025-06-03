@@ -32,7 +32,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 
@@ -487,7 +486,6 @@ public class MenuItemTest extends RcpModelTest {
 	/**
 	 * Test adding a selection listener to menu item.
 	 */
-	@Ignore
 	@Test
 	public void test_addSelectionListener() throws Exception {
 		CompositeInfo shell =

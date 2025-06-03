@@ -40,7 +40,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import com.jgoodies.forms.layout.FormLayout;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -424,7 +423,6 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		String[] lines1 =

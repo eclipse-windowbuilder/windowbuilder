@@ -26,7 +26,6 @@ import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -64,7 +63,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo}.
 	 */
-	@Ignore
 	@Test
 	public void test_FormSizeConstantInfo() throws Exception {
 		FormSizeConstantInfo size = new FormSizeConstantInfo(25, ConstantSize.PIXEL);
@@ -139,7 +137,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertFromPixels(int, Unit)}
 	 */
-	@Ignore
 	@Test
 	public void test_FormSizeConstantInfo_convertFromPixels() throws Exception {
 		{
@@ -197,7 +194,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertToPixels(double, Unit)}
 	 */
-	@Ignore
 	@Test
 	public void test_FormSizeConstantInfo_convertToPixels() throws Exception {
 		{

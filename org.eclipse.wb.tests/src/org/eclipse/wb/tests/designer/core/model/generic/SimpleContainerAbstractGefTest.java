@@ -20,7 +20,6 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -109,7 +108,6 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		canvas.assertPrimarySelected(newButton);
 	}
 
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareSimplePanel();
@@ -348,7 +346,6 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		tree.assertPrimarySelected(newButton);
 	}
 
-	@Ignore
 	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareSimplePanel();

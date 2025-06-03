@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -1043,7 +1042,6 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
 	// Center in window
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_align_center_in_window() throws Exception {
 		CompositeInfo shell =

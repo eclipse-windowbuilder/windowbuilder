@@ -42,7 +42,6 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
@@ -84,7 +83,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Object type.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerTypeBinding_1() throws Exception {
 		String code = "private java.util.List foo() {return null;}";
@@ -94,7 +92,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Primitive type.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerTypeBinding_2() throws Exception {
 		String code = "private int foo() {return 0;}";
@@ -104,7 +101,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Array type.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerTypeBinding_3() throws Exception {
 		String code = "private int[] foo() {return null;}";
@@ -114,7 +110,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Inner type.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerTypeBinding_4() throws Exception {
 		String code = "class Foo {} private Foo foo() {return null;}";
@@ -307,7 +302,6 @@ public class BindingsTest extends AbstractJavaTest {
 	// DesignerPackageBinding
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_DesignerPackageBinding() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("");
@@ -327,7 +321,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Basic test for {@link DesignerMethodBinding}.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerMethodBinding_1() throws Exception {
 		TypeDeclaration typeDeclaration =
@@ -415,7 +408,6 @@ public class BindingsTest extends AbstractJavaTest {
 	 * When we remove parameter from generic {@link IMethodBinding} we should also update its
 	 * {@link IMethodBinding#getMethodDeclaration()}.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerMethodBinding_removeParameterType_whenGenerics() throws Exception {
 		createTypeDeclaration_TestC(getSourceDQ(
@@ -447,7 +439,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Basic test for {@link DesignerVariableBinding}.
 	 */
-	@Ignore
 	@Test
 	public void test_DesignerVariableBinding_1() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("private int m_value;");
@@ -500,7 +491,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link BindingContext#getCopy(ITypeBinding)}.
 	 */
-	@Ignore
 	@Test
 	public void test_getCopy() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""

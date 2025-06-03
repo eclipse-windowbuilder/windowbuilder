@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swing.swingx.JXTaskPaneInfo;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -36,7 +35,6 @@ import javax.swing.JToolBar;
  *
  * @author sablin_aa
  */
-@Ignore
 public class JXTaskPaneTest extends SwingxModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

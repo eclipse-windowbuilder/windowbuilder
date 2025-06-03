@@ -40,7 +40,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InOrder;
 
@@ -626,7 +625,6 @@ public class SimpleContainerModelTest extends SwingModelTest {
 	/**
 	 * {@link SimpleContainer} should automatically copy its child into clipboard.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		prepareSimplePanel();

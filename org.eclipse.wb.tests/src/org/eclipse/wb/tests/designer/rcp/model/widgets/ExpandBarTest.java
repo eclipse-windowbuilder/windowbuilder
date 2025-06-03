@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -52,8 +51,6 @@ public class ExpandBarTest extends RcpModelTest {
 	/**
 	 * {@link ExpandBar} with {@link ExpandItem}'s.
 	 */
-	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	@Ignore
 	@Test
 	public void test_parseItems() throws Exception {
 		CompositeInfo shell =

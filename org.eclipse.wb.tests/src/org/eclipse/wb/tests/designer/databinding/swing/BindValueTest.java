@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.AutoBindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.UpdateStrategyInfo;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -27,7 +26,6 @@ import java.util.List;
  * @author sablin_aa
  *
  */
-@Ignore
 public class BindValueTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

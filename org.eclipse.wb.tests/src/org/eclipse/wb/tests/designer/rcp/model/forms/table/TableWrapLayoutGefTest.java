@@ -24,7 +24,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -583,7 +582,6 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
 		openComposite(
