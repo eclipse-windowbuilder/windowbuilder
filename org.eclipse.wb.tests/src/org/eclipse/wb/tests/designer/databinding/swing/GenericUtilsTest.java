@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.GenericTypeContai
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -30,7 +29,6 @@ import java.util.List;
  * @author sablin_aa
  *
  */
-@Ignore
 public class GenericUtilsTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -39,15 +37,14 @@ public class GenericUtilsTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getObjectType() throws Exception {
-		JPanelInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"import java.util.List;",
-						"import java.util.Map;",
-						"public class Test extends JPanel {",
-						"  private List<Map<String,Number>> datas;",
-						"  public Test() {",
-						"  }",
-				"}"});
+		JPanelInfo shell = DatabindingTestUtils.parseTestSource(this,"""
+				import java.util.List;
+				import java.util.Map;
+				public class Test extends JPanel {
+					private List<Map<String,Number>> datas;
+					public Test() {
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
