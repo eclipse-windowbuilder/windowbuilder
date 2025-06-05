@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,28 +25,27 @@ public class DatabindingTestUtils {
 	 * Configures given {@link TestProject} for using Swing DB.
 	 */
 	public static void configure(TestProject testProject) throws Exception {
-		testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/jsr295");
+		testProject.addBundleJars("org.eclipse.wb.tests", "/libs/jsr295");
 	}
 
 	/**
 	 * @return the source for Swing class in package "test".
 	 */
-	public static String getTestSource(String... lines) {
-		return DesignerTestCase.getSource(new String[][]{
-			new String[]{
-					"package test;",
-					"import java.awt.*;",
-					"import java.awt.event.*;",
-					"import javax.swing.*;",
-					"import javax.swing.border.*;",
-			"import org.jdesktop.beansbinding.*;"},
-			lines});
+	public static String getTestSource(String lines) {
+		return DesignerTestCase.getSource("""
+				package test;
+				import java.awt.*;
+				import java.awt.event.*;
+				import javax.swing.*;
+				import javax.swing.border.*;
+				import org.jdesktop.beansbinding.*;
+				%s""".formatted(lines));
 	}
 
 	/**
 	 * @return the {@link JPanelInfo} for Swing source of class "Test" in package "test".
 	 */
-	public static JPanelInfo parseTestSource(AbstractJavaInfoTest javaInfoTest, String[] lines)
+	public static JPanelInfo parseTestSource(AbstractJavaInfoTest javaInfoTest, String lines)
 			throws Exception {
 		return (JPanelInfo) javaInfoTest.parseSource("test", "Test.java", getTestSource(lines));
 	}
