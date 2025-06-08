@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.JFrame;
@@ -624,7 +623,6 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link IClipboardImplicitCreationSupport} implementation.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		setFileContentSrc(
@@ -675,9 +673,9 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
 				"      myPanel_0.m_button.setEnabled(false);",
 				"    }",
 				"    {",
-				"      MyPanel myPanel = new MyPanel();",
-				"      myPanel.m_button.setEnabled(false);",
-				"      add(myPanel);",
+				"      MyPanel myPanel_0 = new MyPanel();",
+				"      myPanel_0.m_button.setEnabled(false);",
+				"      add(myPanel_0);",
 				"    }",
 				"  }",
 				"}");

@@ -20,7 +20,6 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -183,7 +182,6 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareFlowPanel();
@@ -239,8 +237,8 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 							FlowPanel panel = new FlowPanel();
 							add(panel);
 							{
-								JButton button = new JButton("A");
-								panel.add(button);
+								JButton rootButton = new JButton("A");
+								panel.add(rootButton);
 							}
 							{
 								JButton existingButton = new JButton();
@@ -420,7 +418,6 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
 	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareFlowPanel();
@@ -476,8 +473,8 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
 							FlowPanel panel = new FlowPanel();
 							add(panel);
 							{
-								JButton button = new JButton("A");
-								panel.add(button);
+								JButton rootButton = new JButton("A");
+								panel.add(rootButton);
 							}
 							{
 								JButton existingButton = new JButton();

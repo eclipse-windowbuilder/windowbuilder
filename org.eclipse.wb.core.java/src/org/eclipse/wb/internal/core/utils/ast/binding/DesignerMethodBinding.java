@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,6 +40,9 @@ public final class DesignerMethodBinding implements IMethodBinding {
 	private final String m_name;
 	private final int m_modifiers;
 	private final boolean m_constructor;
+	private final boolean m_compactConstructor;
+	private final boolean m_canonicalConstructor;
+	private final boolean m_syntheticRecordMethod;
 	private final boolean m_varargs;
 	private final ITypeBinding m_declaringClass;
 	private final ITypeBinding m_returnType;
@@ -59,6 +62,9 @@ public final class DesignerMethodBinding implements IMethodBinding {
 		m_name = binding.getName();
 		m_modifiers = binding.getModifiers();
 		m_constructor = binding.isConstructor();
+		m_compactConstructor = binding.isCompactConstructor();
+		m_canonicalConstructor = binding.isCanonicalConstructor();
+		m_syntheticRecordMethod = binding.isSyntheticRecordMethod();
 		m_varargs = binding.isVarargs();
 		m_declaringClass = context.get(binding.getDeclaringClass());
 		m_returnType = context.get(binding.getReturnType());
@@ -286,26 +292,26 @@ public final class DesignerMethodBinding implements IMethodBinding {
 
 	@Override
 	public IBinding getDeclaringMember() {
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
 	public IVariableBinding[] getSyntheticOuterLocals() {
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
 	public boolean isCompactConstructor() {
-		return false;
+		return m_compactConstructor;
 	}
 
 	@Override
 	public boolean isCanonicalConstructor() {
-		return false;
+		return m_canonicalConstructor;
 	}
 
 	@Override
 	public boolean isSyntheticRecordMethod() {
-		return false;
+		return m_syntheticRecordMethod;
 	}
 }

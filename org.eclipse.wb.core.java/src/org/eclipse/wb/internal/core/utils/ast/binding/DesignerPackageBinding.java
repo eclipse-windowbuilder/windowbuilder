@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.core.utils.ast.binding;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.dom.IBinding;
+import org.eclipse.jdt.core.dom.IModuleBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
 
 /**
@@ -117,6 +118,11 @@ final class DesignerPackageBinding implements IPackageBinding {
 
 	@Override
 	public org.eclipse.jdt.core.dom.IAnnotationBinding[] getAnnotations() {
+		throw new IllegalArgumentException();
+	}
+
+	@Override
+	public IModuleBinding getModule() {
 		throw new IllegalArgumentException();
 	}
 }
