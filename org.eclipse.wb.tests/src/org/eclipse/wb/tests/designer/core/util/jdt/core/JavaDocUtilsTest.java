@@ -24,7 +24,6 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -61,7 +60,6 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	// getTooltip
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_getTooltip_basic() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
@@ -70,7 +68,6 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 						foo_1();
 						foo_2();
 						bar();
-						new sun.awt.Mutex().lock();
 					}
 					/**
 					 * My   tooltip.
