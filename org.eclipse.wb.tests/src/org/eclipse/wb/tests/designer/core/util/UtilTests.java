@@ -25,15 +25,14 @@ import org.eclipse.wb.tests.designer.core.util.ui.ImageUtilsTest;
 import org.eclipse.wb.tests.designer.core.util.ui.MenuIntersectorTest;
 import org.eclipse.wb.tests.designer.core.util.xml.XmlTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		AssertTest.class,
 		Base64UtilsTest.class,
 		XmlWriterTest.class,

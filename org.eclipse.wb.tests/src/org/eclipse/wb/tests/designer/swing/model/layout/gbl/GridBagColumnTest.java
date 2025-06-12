@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.GridBagConstraints;
 import java.util.List;

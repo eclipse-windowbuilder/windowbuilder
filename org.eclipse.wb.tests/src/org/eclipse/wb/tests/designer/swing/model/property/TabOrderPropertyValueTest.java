@@ -22,9 +22,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.junit.After;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		do_projectDispose();
@@ -97,7 +97,7 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(1));
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getValue_2() throws Exception {
 		ProjectUtils.ensureResourceType(
@@ -138,7 +138,7 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(0));
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_setValue() throws Exception {
 		// create panel

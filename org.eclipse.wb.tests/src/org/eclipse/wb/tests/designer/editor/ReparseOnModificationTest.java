@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.ui.IEditorPart;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for reparsing on dependency modification, for example modification of used component (it

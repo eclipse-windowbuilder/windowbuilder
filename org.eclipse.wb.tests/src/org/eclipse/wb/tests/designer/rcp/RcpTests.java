@@ -20,17 +20,16 @@ import org.eclipse.wb.tests.designer.rcp.nebula.NebulaTests;
 import org.eclipse.wb.tests.designer.rcp.resource.ResourceTests;
 import org.eclipse.wb.tests.designer.rcp.swing2swt.Swing2SwtTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * All RCP tests.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	ModelTests.class,
 	DescriptionTests.class,
 	ResourceTests.class,

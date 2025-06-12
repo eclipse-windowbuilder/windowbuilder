@@ -41,8 +41,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -280,7 +280,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Single {@link ControlInfo} on {@link Group} with {@link AbsoluteLayoutInfo}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_absolute_singleControl_onGroup() throws Exception {
 		CompositeInfo shell =

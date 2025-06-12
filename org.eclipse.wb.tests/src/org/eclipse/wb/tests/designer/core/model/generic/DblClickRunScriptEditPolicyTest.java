@@ -15,7 +15,7 @@ package org.eclipse.wb.tests.designer.core.model.generic;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for <code>double-click.runScript</code> support.

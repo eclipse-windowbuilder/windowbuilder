@@ -21,8 +21,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -306,7 +306,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing with changing alignment.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_move_to_trailing_change_alignment() throws Exception {
 		prepareComponent();
@@ -395,7 +395,7 @@ public class FormLayoutMoveSingleWithBothSidesTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing without changing alignment.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_move_to_trailing_keep_alignment() throws Exception {
 		prepareComponent();

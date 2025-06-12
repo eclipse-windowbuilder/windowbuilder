@@ -22,8 +22,8 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * We should tweak properties for AMS components: group them and change {@link PropertyCategory}.
@@ -45,7 +45,7 @@ public class PropertyTweaksTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
+	@Disabled
 	@Test
 	public void test_Groups_fromBundle() throws Exception {
 		prepareParse_MyButton();
@@ -67,7 +67,7 @@ public class PropertyTweaksTest extends SwingGefTest {
 	}
 
 	@DisposeProjectAfter
-	@Ignore
+	@Disabled
 	@Test
 	public void test_Groups_fromJar() throws Exception {
 		// add JAR
@@ -95,7 +95,7 @@ public class PropertyTweaksTest extends SwingGefTest {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_categories() throws Exception {
 		prepareParse_MyButton();

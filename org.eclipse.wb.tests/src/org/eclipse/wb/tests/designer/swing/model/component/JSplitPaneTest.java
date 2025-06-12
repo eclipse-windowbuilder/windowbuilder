@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JSplitPane;
 

@@ -22,8 +22,8 @@ import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Abstract super class for RCP tests.
@@ -39,7 +39,7 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
@@ -56,7 +56,7 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		configureDefaultPreferences(RcpToolkitDescription.INSTANCE.getPreferences());
 		super.tearDown();

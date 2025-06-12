@@ -15,8 +15,8 @@ package org.eclipse.wb.tests.designer.rcp.model.layout;
 import org.eclipse.wb.internal.swt.model.layout.form.ControlSelectionPropertyEditor;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ControlSelectionPropertyEditor}.
@@ -30,7 +30,7 @@ public class ControlSelectionPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare testing object

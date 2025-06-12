@@ -17,16 +17,16 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.gef.EditPart;
 import org.eclipse.swt.widgets.Display;
 
-import org.junit.Assert;
-import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author lobas_av
  *
  */
-public abstract class GefTestCase extends Assert {
+public abstract class GefTestCase extends Assertions {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		// check create display for initialize figure's colors
 		Display.getDefault();

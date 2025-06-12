@@ -21,9 +21,8 @@ import org.eclipse.wb.tests.designer.rcp.model.rcp.TheRcpTests;
 import org.eclipse.wb.tests.designer.rcp.model.util.UtilTests;
 import org.eclipse.wb.tests.designer.rcp.model.widgets.WidgetTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * RCP model tests.
@@ -31,8 +30,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author scheglov_ke
  */
 
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		WidgetTests.class,
 		UtilTests.class,
 		LayoutTests.class,

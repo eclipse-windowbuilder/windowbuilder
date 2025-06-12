@@ -12,16 +12,15 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.util;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Swing utils tests.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({ SurroundSupportTest.class })
+@Suite
+@SelectClasses({ SurroundSupportTest.class })
 public class UtilTests {
 }

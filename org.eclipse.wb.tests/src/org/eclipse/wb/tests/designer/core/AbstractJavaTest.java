@@ -55,7 +55,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		// don't ignore model compilation problems
 		m_ignoreModelCompileProblems = false;
@@ -252,11 +252,11 @@ public abstract class AbstractJavaTest extends AbstractJavaProjectTest {
 			throws Exception {
 		List<ASTNode> nodes = javaInfo.getRelatedNodes();
 		assertEquals(
+				sourceTightlyNodes.length,
+				nodes.size(),
 				StringUtils.join(sourceTightlyNodes, ", ")
 				+ " != "
-				+ StringUtils.join(nodes.iterator(), ", "),
-				sourceTightlyNodes.length,
-				nodes.size());
+				+ StringUtils.join(nodes.iterator(), ", "));
 		for (int i = 0; i < nodes.size(); i++) {
 			ASTNode node = nodes.get(i);
 			// prepare node to compare source

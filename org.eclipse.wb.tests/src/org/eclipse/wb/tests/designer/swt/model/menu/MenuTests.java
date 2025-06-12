@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.swt.widgets.Menu;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link Menu}.
  *
  * @author mitin_aa
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		AbstractMenuObjectTest.class,
 		MenuItemTest.class,
 		MenuTest.class,

@@ -19,9 +19,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.net.URL;
@@ -45,7 +45,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		CompositeInfo shell =
@@ -66,7 +66,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		if (m_testProject != null && ManagerClass != null) {
 			ReflectionUtils.invokeMethod(ManagerClass, "dispose()");

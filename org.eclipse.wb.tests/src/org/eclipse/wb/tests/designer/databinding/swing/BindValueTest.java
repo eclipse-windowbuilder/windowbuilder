@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.AutoBindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.UpdateStrategyInfo;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

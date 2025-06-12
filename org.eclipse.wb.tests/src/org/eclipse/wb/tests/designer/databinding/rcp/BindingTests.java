@@ -25,16 +25,15 @@ import org.eclipse.wb.tests.designer.databinding.rcp.model.widgets.ViewerObserva
 import org.eclipse.wb.tests.designer.databinding.rcp.model.widgets.WidgetBindableTest;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.widgets.WidgetObservableTest;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author lobas_av
  *
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		AstModelSupportTest.class,
 		UtilsTest.class,
 		BeanBindableTest.class,

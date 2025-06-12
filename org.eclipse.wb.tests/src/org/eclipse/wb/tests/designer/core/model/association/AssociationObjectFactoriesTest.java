@@ -18,7 +18,7 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link AssociationObjectFactories}.

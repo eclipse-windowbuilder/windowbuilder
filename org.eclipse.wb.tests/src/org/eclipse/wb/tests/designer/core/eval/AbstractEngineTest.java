@@ -80,9 +80,9 @@ public abstract class AbstractEngineTest extends AbstractJavaTest {
 			}
 		};
 		Object evaluationResult = AstEvaluationEngine.evaluate(context, expressionToEvaluate);
-		assertTrue(MessageFormat.format(
+		assertTrue(expressionEvaluated[0], MessageFormat.format(
 				"Expression ''{0}'' was not notified in evaluationSuccessful()",
-				expressionToEvaluate), expressionEvaluated[0]);
+				expressionToEvaluate));
 		return evaluationResult;
 	}
 

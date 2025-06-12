@@ -24,7 +24,7 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link TableViewer}.

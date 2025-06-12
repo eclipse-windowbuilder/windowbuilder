@@ -30,9 +30,9 @@ import org.eclipse.ui.part.ViewPart;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for RCP wizards, such as {@link ViewPart}.
@@ -48,14 +48,14 @@ public class RcpWizardsTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		m_packageFragment = m_testProject.getPackage("test");
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		waitEventLoop(10);
 		super.tearDown();

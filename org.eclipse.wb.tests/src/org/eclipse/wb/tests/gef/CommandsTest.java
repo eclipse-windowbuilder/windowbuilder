@@ -16,14 +16,14 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av
  *
  */
-public class CommandsTest extends Assert {
+public class CommandsTest extends Assertions {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Tests

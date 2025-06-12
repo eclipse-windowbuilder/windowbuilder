@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Predicate;
 

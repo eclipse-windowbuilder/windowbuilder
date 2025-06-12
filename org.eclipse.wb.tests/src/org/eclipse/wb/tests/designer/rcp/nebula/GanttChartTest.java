@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.nebula.widgets.ganttchart.GanttChart;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link GanttChart} items models.

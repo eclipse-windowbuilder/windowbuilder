@@ -35,7 +35,7 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

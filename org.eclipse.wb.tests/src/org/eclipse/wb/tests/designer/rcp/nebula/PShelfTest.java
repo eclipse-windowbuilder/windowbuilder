@@ -21,7 +21,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.pshelf.PShelf;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link PShelfInfo}.

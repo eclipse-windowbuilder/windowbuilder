@@ -34,7 +34,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

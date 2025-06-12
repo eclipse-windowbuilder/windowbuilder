@@ -28,8 +28,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link JavaInfoMemento} and other clipboard related operations.
@@ -53,7 +53,7 @@ public class ClipboardTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(IPreferenceConstants.P_USE_RESOURCE_MANAGER, false);

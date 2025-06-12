@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.function.Predicate;

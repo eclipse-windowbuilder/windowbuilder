@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.jface.dialogs.PopupDialog;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link PopupDialogInfo}.

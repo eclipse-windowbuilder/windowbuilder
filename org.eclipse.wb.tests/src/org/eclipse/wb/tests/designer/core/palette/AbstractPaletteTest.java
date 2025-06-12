@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 import javax.swing.JPanel;
 
@@ -42,7 +42,7 @@ public abstract class AbstractPaletteTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		removeToolkitExtension();
 		if (m_lastManager != null) {

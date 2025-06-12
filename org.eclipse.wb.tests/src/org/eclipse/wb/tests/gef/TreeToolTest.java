@@ -31,8 +31,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		//
@@ -80,7 +80,7 @@ public abstract class TreeToolTest extends GefTestCase {
 		m_sender = new EventSender(m_viewer.getControl());
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 		m_shell = null;

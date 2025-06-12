@@ -31,8 +31,8 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -232,7 +232,7 @@ public class ActionGefTest extends SwingGefTest {
 	/**
 	 * Test for {@link ActionExternalEntryInfo}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
 		createExternalAction();

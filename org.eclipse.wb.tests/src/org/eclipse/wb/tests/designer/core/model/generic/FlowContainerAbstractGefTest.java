@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for "flow container" support for container itself or for its "layout manager".

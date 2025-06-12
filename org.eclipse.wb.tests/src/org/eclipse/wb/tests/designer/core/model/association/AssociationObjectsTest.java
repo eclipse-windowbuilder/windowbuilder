@@ -21,7 +21,7 @@ import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualAssociation;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link AssociationObjects}.

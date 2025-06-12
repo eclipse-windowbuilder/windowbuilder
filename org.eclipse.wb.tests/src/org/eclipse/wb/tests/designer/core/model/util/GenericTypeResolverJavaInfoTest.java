@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.TypeVariable;
 

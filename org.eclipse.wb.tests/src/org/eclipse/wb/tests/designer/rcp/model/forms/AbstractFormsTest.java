@@ -16,10 +16,8 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import junit.framework.TestCase;
-
 /**
- * Abstract {@link TestCase} for all "Forms API" tests.
+ * Abstract test case for all "Forms API" tests.
  *
  * @author scheglov_ke
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av

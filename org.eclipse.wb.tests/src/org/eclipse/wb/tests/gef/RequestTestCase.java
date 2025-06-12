@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author lobas_av
@@ -39,7 +39,7 @@ public abstract class RequestTestCase extends GefTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		//
@@ -59,7 +59,7 @@ public abstract class RequestTestCase extends GefTestCase {
 		m_sender = new EventSender(m_viewer.getControl());
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 	}

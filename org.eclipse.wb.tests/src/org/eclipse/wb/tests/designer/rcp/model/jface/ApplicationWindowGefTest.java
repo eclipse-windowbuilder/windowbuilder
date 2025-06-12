@@ -28,7 +28,7 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ApplicationWindowInfo} in GEF.

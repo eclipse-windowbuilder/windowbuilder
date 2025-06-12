@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.awt.LayoutManager;
 
@@ -35,14 +35,14 @@ public abstract class AbstractLayoutTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		configureForTest();
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		configureDefaults();
 		super.tearDown();

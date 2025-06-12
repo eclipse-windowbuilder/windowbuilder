@@ -15,7 +15,7 @@ package org.eclipse.wb.tests.designer.swing.model;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CoordinateUtils}.

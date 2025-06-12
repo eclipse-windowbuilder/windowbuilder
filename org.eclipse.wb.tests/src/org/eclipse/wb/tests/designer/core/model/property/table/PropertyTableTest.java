@@ -22,8 +22,8 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.swt.graphics.Point;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for basic {@link PropertyTable} features.
@@ -40,7 +40,7 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// set up properties

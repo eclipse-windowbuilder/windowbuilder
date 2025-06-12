@@ -28,9 +28,9 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CellConstraintsSupport}.
@@ -49,7 +49,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		//
@@ -84,7 +84,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		if (m_panel != null) {
 			m_panel.refresh_dispose();

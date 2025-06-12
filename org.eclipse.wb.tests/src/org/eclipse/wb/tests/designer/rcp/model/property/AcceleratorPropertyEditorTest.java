@@ -20,8 +20,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link AcceleratorPropertyEditor}.
@@ -35,7 +35,7 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare Control with "accelerator" property

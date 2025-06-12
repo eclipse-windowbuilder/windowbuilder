@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests {@link FormLayoutInfo}.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		FormSizeInfoTest.class,
 		FormDimensionInfoTest.class,
 		FormLayoutTest.class,

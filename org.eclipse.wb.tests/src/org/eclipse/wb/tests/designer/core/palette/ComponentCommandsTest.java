@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.core.editor.palette.command.EntryMoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.EntryRemoveCommand;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

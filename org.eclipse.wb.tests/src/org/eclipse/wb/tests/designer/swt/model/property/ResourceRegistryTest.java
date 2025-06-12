@@ -22,8 +22,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Display;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -45,7 +45,7 @@ public class ResourceRegistryTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		m_initialDisplayRunnables = getDisplayRunnablesCount();

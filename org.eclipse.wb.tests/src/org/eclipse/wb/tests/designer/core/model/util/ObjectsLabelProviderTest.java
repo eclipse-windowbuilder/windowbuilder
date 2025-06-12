@@ -25,7 +25,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ObjectsLabelProvider}.

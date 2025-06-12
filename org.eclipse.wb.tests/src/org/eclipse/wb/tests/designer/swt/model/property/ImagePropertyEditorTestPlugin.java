@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 
 import org.eclipse.core.resources.IFile;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ImagePropertyEditor} with plugin images.

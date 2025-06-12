@@ -17,9 +17,9 @@ import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 import org.eclipse.jdt.core.ICompilationUnit;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,14 +33,14 @@ import java.util.List;
 public class SwingExampleTest extends DesignerEditorTestCase {
 	private static final String PATH_PREFIX = "../examples/swing";
 
-	@Before
+	@BeforeEach
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		do_projectCreate();
 	}
 
-	@After
+	@AfterEach
 	@Override
 	public void tearDown() throws Exception {
 		do_projectDispose();

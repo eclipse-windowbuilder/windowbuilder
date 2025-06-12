@@ -16,9 +16,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.SelectionRequest;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +51,14 @@ public final class RequestsLogger {
 	 * Asserts that this {@link RequestsLogger} has no events.
 	 */
 	public void assertEmpty() {
-		Assert.assertTrue(m_events.isEmpty());
+		Assertions.assertTrue(m_events.isEmpty());
 	}
 
 	/**
 	 * Asserts that this {@link RequestsLogger} contains same events as in expected one.
 	 */
 	public void assertEquals(RequestsLogger expectedLogger) {
-		Assert.assertEquals(getString(expectedLogger), getString(this));
+		Assertions.assertEquals(getString(expectedLogger), getString(this));
 	}
 
 	/**

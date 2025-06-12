@@ -25,9 +25,9 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class GraphicalViewerTest extends GefTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// configure
@@ -65,7 +65,7 @@ public class GraphicalViewerTest extends GefTestCase {
 		m_viewer.setEditDomain(m_domain);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 	}

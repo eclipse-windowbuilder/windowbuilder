@@ -22,9 +22,8 @@ import org.eclipse.wb.tests.draw2d.Draw2dTests;
 import org.eclipse.wb.tests.gef.GefTests;
 import org.eclipse.wb.tests.utils.CommonTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * All WindowBuilder tests.
@@ -32,8 +31,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author scheglov_ke
  */
 
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	Draw2dTests.class, //
 	GefTests.class, //
 	SwtTests.class,

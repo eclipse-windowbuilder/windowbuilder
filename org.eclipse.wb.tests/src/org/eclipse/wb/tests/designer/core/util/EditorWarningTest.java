@@ -15,7 +15,7 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link EditorWarning}.

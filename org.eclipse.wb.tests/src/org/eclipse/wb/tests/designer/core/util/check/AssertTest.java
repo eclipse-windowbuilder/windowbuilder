@@ -16,14 +16,15 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link Assert}.
  *
  * @author scheglov_ke
  */
-public class AssertTest extends org.junit.Assert {
+public class AssertTest extends Assertions {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// isLegal

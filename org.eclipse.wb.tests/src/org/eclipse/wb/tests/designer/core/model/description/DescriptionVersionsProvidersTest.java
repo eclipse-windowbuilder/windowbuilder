@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jdt.core.IJavaProject;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 
 import java.awt.Component;

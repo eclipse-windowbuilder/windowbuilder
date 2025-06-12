@@ -19,9 +19,9 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.draw2d.PositionConstants;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for <code>VarmenuLayout</code> support.
@@ -35,7 +35,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		setFileContentSrc(
@@ -61,7 +61,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
+	@Disabled
 	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel = openContainer("""
@@ -90,7 +90,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_RESIZE_width() throws Exception {
 		ContainerInfo panel = openContainer("""
@@ -134,7 +134,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				}""");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_RESIZE_height() throws Exception {
 		ContainerInfo panel = openContainer("""

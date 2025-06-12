@@ -12,16 +12,15 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.swing;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author sablin_aa
  *
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		SwingDatabindingsFactoryTest.class,
 		GenericUtilsTest.class,
 		BindValueTest.class

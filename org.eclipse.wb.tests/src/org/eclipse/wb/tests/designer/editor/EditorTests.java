@@ -15,15 +15,14 @@ package org.eclipse.wb.tests.designer.editor;
 import org.eclipse.wb.tests.designer.editor.actions.DesignerEditorTests;
 import org.eclipse.wb.tests.designer.editor.validator.LayoutRequestValidatorTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		//basic policy
 		TopSelectionEditPolicyTest.class,
 		// basic features

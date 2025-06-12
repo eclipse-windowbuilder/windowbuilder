@@ -25,9 +25,9 @@ import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare JDT elements
@@ -77,7 +77,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		// clean-up fields

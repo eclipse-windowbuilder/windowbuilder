@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link EnumerationValuesPropertyEditor}.

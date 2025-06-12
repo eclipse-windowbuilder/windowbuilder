@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Combo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ComboViewer}.

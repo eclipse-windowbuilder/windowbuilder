@@ -19,8 +19,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class BundleInfoTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));

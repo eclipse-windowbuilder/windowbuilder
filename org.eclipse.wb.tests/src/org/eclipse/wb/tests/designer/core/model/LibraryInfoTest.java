@@ -24,8 +24,8 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 
 import java.io.File;
@@ -38,7 +38,7 @@ public class LibraryInfoTest extends AbstractJavaProjectTest {
 	private LibraryInfo libraryInfo;
 	private IFile libraryFile;
 
-	@Before
+	@BeforeEach
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
@@ -77,7 +77,7 @@ public class LibraryInfoTest extends AbstractJavaProjectTest {
 
 	private IFile getBundleFile(String symbolicName) {
 		Bundle bundle = Platform.getBundle(symbolicName);
-		assertNotNull("Bundle not found: " + symbolicName, bundle);
+		assertNotNull(bundle, "Bundle not found: " + symbolicName);
 
 		File bundleFile = FileLocator.getBundleFileLocation(bundle).orElse(null);
 		assertNotNull("Bundle file not found: " + symbolicName);
@@ -94,7 +94,7 @@ public class LibraryInfoTest extends AbstractJavaProjectTest {
 				.filter(element -> symbolicName.equals(element.getAttribute("symbolicName"))) //
 				.findFirst() //
 				.orElse(null);
-		assertNotNull("bundle-library extension point not found: " + SYMBOLIC_NAME, libraryElement);
+		assertNotNull(libraryElement, "bundle-library extension point not found: " + SYMBOLIC_NAME);
 		return libraryElement;
 	}
 }

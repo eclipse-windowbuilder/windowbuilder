@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.SpringLayout;
 

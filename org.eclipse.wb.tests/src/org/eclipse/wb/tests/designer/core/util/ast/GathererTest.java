@@ -22,8 +22,8 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.List;
@@ -38,7 +38,7 @@ public class GathererTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

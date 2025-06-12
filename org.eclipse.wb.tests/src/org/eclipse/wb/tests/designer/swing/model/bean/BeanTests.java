@@ -12,17 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for Swing beans.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		ButtonGroupTest.class,
 		ActionTest.class,
 		ActionGefTest.class

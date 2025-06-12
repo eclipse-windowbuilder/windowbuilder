@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 import org.eclipse.jface.action.IAction;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;

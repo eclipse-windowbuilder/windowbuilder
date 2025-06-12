@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.widgets.Button;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Abstract test for RCP in editor.
@@ -38,7 +38,7 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		configureDefaults(org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);

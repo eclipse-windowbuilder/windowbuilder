@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.ViewerObser
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

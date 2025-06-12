@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link GridBagLayoutInfo}.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		GridBagLayoutTest.class,
 		GridBagDimensionTest.class,
 		GridBagColumnTest.class,

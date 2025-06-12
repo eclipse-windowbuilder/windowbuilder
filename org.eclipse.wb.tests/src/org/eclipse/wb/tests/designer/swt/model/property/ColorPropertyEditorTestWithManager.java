@@ -22,8 +22,8 @@ import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
 import org.eclipse.jface.resource.LocalResourceManager;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ColorPropertyEditor} with {@link LocalResourceManager}.
@@ -37,7 +37,7 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(

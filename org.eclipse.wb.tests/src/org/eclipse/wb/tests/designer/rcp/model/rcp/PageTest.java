@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link PageInfo}.
@@ -46,7 +46,7 @@ public class PageTest extends RcpModelTest {
 	/**
 	 * Test for many elements of {@link PageInfo}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_Page() throws Exception {
 		PageInfo page =

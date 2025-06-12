@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.ExtensionElementProperty;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ExtensionElementProperty}.

@@ -23,8 +23,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.IPreferenceConstants;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -42,7 +42,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 		preferences.setToDefault(IPreferenceConstants.P_ENABLE_GRAB);

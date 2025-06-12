@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.applet.Applet;
 

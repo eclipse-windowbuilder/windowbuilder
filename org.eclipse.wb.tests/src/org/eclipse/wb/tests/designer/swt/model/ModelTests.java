@@ -18,17 +18,16 @@ import org.eclipse.wb.tests.designer.swt.model.menu.MenuTests;
 import org.eclipse.wb.tests.designer.swt.model.property.PropertiesTests;
 import org.eclipse.wb.tests.designer.swt.model.widgets.WidgetTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * SWT model tests.
  *
  * @author sablin_aa
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		WidgetTests.class,
 		PropertiesTests.class,
 		LayoutTests.class,

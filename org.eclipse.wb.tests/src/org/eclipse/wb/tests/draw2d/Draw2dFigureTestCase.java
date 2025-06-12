@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.widgets.Display;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 
 
@@ -27,7 +27,7 @@ import org.junit.Before;
  */
 public abstract class Draw2dFigureTestCase extends DesignerTestCase implements ColorConstants {
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		// check create display for initialize figure's colors
 		Display.getDefault();

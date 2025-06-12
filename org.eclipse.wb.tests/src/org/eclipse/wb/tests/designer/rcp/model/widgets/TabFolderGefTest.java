@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.widgets.TabItem;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link TabFolderInfo} in GEF.

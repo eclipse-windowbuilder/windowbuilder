@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

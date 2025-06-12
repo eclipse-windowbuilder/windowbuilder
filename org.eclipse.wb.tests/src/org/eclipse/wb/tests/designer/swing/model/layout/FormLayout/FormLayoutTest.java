@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,8 +188,8 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 		frame.refresh();
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		ComponentInfo table = contentPane.getChildrenComponents().get(0);
-		assertTrue("Actual size: " + table.getBounds().getSize(), table.getBounds().width > 300);
-		assertTrue("Actual size: " + table.getBounds().getSize(), table.getBounds().height > 200);
+		assertTrue(table.getBounds().width > 300, "Actual size: " + table.getBounds().getSize());
+		assertTrue(table.getBounds().height > 200, "Actual size: " + table.getBounds().getSize());
 	}
 
 	/**

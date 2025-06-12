@@ -27,7 +27,7 @@ import org.eclipse.nebula.widgets.grid.GridItem;
 import net.miginfocom.layout.Grid;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link Grid} items models.

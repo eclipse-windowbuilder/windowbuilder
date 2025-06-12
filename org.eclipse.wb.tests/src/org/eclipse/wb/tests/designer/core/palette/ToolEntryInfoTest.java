@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.gef.EmptyEditPartViewer;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for abstract {@link ToolEntryInfo}.

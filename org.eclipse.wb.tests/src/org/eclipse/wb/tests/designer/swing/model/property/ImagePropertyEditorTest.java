@@ -20,8 +20,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ImagePropertyEditor}.
@@ -69,7 +69,7 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getText_Class_getResource_1() throws Exception {
 		assertImagePropertyText(
@@ -82,7 +82,7 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getText_Class_getResource_2() throws Exception {
 		assertImagePropertyText(
@@ -96,7 +96,7 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 				"}"});
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getText_Class_getResource_3() throws Exception {
 		assertImagePropertyText(

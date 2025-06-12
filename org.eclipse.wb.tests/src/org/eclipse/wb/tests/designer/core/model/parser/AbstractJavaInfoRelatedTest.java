@@ -62,8 +62,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -475,13 +475,13 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 	private static Shell TEST_COMBO_SHELL;
 	private static CCombo3 TEST_COMBO;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpAll() {
 		TEST_COMBO_SHELL = new Shell();
 		TEST_COMBO = new CCombo3(TEST_COMBO_SHELL, SWT.NONE);
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDownAll() {
 		TEST_COMBO_SHELL.dispose();
 	}

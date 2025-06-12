@@ -30,8 +30,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -55,7 +55,7 @@ public class EllipsisObjectInfoTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		// clear fields
 		for (Field field : getClass().getDeclaredFields()) {

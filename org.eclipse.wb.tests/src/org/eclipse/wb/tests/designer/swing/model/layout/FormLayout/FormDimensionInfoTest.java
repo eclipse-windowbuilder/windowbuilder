@@ -26,8 +26,8 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 
@@ -266,7 +266,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
 	// Convert to GAP template
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
+	@Disabled
 	@Test
 	public void test_convertToNearestGap_columns() throws Exception {
 		check_convertToNearestGap_column("4px", 5, "LABEL_COMPONENT_GAP_COLSPEC");
@@ -284,7 +284,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
 		check_convertToNearestGap_column("20px", 5, null);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_convertToNearestGap_rows() throws Exception {
 		check_convertToNearestGap_row("4px", 5, "LABEL_COMPONENT_GAP_ROWSPEC");

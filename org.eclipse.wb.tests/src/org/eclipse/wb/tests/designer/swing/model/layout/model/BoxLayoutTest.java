@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.alignment.AlignmentXP
 import org.eclipse.wb.internal.swing.model.property.editor.alignment.AlignmentYPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;

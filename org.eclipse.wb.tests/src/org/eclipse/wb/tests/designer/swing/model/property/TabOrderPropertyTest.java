@@ -25,8 +25,8 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.property.TabOrderProperty;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
@@ -44,7 +44,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {

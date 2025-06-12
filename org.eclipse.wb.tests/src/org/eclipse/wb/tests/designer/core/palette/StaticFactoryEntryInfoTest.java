@@ -29,7 +29,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link StaticFactoryEntryInfo}.

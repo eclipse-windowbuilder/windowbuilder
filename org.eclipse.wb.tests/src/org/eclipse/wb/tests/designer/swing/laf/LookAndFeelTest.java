@@ -27,8 +27,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		if (m_lastParseInfo != null) {

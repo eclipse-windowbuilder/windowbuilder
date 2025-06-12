@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Test for {@link MigLayoutInfo}.
@@ -44,7 +44,7 @@ public abstract class AbstractMigLayoutTest extends AbstractLayoutTest {
 	}
 
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// create IConstants with C_* constants

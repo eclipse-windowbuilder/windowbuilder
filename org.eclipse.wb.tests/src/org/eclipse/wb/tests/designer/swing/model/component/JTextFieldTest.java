@@ -14,7 +14,7 @@ package org.eclipse.wb.tests.designer.swing.model.component;
 
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JTextField;
 import javax.swing.text.Document;

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for changing layout and GEF.

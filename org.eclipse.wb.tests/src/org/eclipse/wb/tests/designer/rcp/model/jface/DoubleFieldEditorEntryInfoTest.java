@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.model.jface.FieldEditorPreferencePageInfo;
 import org.eclipse.wb.internal.rcp.palette.DoubleFieldEditorEntryInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link DoubleFieldEditorEntryInfo}.

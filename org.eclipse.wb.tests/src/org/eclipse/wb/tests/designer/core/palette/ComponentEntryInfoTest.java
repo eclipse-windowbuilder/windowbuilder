@@ -55,7 +55,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 
 import java.util.Map;
@@ -244,7 +244,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 					ComponentDescriptionHelper.getDescription(m_lastEditor, JPanel.class);
 			CreationDescription creation = componentDescription.getCreation(null);
 			assertEquals(creation.getDescription(), entry.getDescription());
-			assertTrue("Same icons.", UiUtils.equals(creation.getIcon(), entry.getIcon()));
+			assertTrue(UiUtils.equals(creation.getIcon(), entry.getIcon()), "Same icons.");
 		}
 	}
 

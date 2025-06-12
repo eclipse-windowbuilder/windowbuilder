@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.BorderLayout;
 

@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.custom.SashForm;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link SashFormInfo}.
@@ -399,7 +399,7 @@ public class SashFormTest extends RcpModelTest {
 	/**
 	 * Test for {@link SashFormInfo#command_RESIZE(ControlInfo, int)}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_RESIZE() throws Exception {
 		CompositeInfo shell =

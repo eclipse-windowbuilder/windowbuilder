@@ -21,8 +21,8 @@ import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 
 import org.eclipse.jface.resource.LocalResourceManager;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link FontPropertyEditor} with {@link LocalResourceManager}.
@@ -36,7 +36,7 @@ public class FontPropertyEditorTestWithManager extends FontPropertyEditorTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(

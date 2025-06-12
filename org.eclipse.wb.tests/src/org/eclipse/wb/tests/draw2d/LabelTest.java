@@ -25,7 +25,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av

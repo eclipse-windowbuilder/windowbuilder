@@ -35,8 +35,8 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.MessageFormat;
 
@@ -89,7 +89,7 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 
 	// TODO clear all fields in DesignerEditorTestCase
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_styleProperty = null;
 		m_editor = null;

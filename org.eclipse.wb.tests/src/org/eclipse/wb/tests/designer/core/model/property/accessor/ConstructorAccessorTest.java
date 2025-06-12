@@ -26,7 +26,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ConstructorAccessor}.

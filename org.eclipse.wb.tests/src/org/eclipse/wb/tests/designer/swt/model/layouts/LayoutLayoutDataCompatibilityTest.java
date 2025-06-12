@@ -24,7 +24,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Layout;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test that <code>LayoutData</code> corresponds to {@link Layout}.

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link StringUtilities}.
@@ -198,8 +198,8 @@ public class StringUtilitiesTest extends DesignerTestCase {
 	 */
 	private static void assertIntervals(int[] expected, int[] actual) {
 		assertTrue(
-				ArrayUtils.toString(expected) + " != " + ArrayUtils.toString(actual),
-				ArrayUtils.isEquals(expected, actual));
+				ArrayUtils.isEquals(expected, actual),
+				ArrayUtils.toString(expected) + " != " + ArrayUtils.toString(actual));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

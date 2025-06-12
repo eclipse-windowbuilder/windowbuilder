@@ -28,9 +28,9 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.widgets.Shell;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
@@ -50,7 +50,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare test Shell
@@ -103,7 +103,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		if (m_shell != null) {

@@ -15,7 +15,7 @@ package org.eclipse.wb.tests.designer.core.model.description;
 import org.eclipse.wb.internal.core.model.description.ComponentDescriptionKey;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
 import java.awt.Container;

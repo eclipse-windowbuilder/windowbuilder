@@ -40,11 +40,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
@@ -253,7 +253,7 @@ public final class GraphicalRobot {
 		m_viewer.select(editPart);
 		// find Handle
 		Point location = findSideHandle(bounds, predicate);
-		assertNotNull("Side Handle for " + predicate, location);
+		assertNotNull(location, "Side Handle for " + predicate);
 		mouseX = location.x;
 		mouseY = location.y;
 		mouseInSourceX = mouseX - bounds.x;
@@ -954,13 +954,13 @@ public final class GraphicalRobot {
 		{
 			Layer feedbackLayer = m_viewer.getLayer(layerName);
 			feedbacks = feedbackLayer.getChildren();
-			assertEquals("Wrong count of feedbacks.", feedbacks.size(), predicates.length);
+			assertEquals(feedbacks.size(), predicates.length, "Wrong count of feedbacks.");
 		}
 		// check all feedback's
 		for (int i = 0; i < predicates.length; i++) {
 			Predicate<IFigure> predicate = predicates[i];
 			IFigure feedback = feedbacks.get(i);
-			assertTrue("Predicate [" + i + "] failed.", predicate.test(feedback));
+			assertTrue(predicate.test(feedback), "Predicate [" + i + "] failed.");
 		}
 	}
 
@@ -1016,7 +1016,7 @@ public final class GraphicalRobot {
 				}
 			}
 			// figure should be found
-			assertTrue("No figure found for " + description, figureFound);
+			assertTrue(figureFound, "No figure found for " + description);
 		}
 		// all figure should be matched
 		if (!feedbackFigures.isEmpty()) {
@@ -1038,7 +1038,7 @@ public final class GraphicalRobot {
 	 * Asserts that there are no {@link IFigure}'s on feedback {@link Layer}.
 	 */
 	public void assertNoFeedbackFigures() {
-		assertTrue("Feedback layer should be empty.", getFeedbackFigures().isEmpty());
+		assertTrue(getFeedbackFigures().isEmpty(), "Feedback layer should be empty.");
 	}
 
 	/**
@@ -1067,7 +1067,7 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot assertCommandNotNull() throws Exception {
 		Command command = getCommand();
-		assertNotNull("No command.", command);
+		assertNotNull(command, "No command.");
 		return this;
 	}
 

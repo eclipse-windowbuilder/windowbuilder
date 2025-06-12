@@ -12,17 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for RCP JFace models.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		TableViewerTest.class,
 		TableViewerColumnTest.class,
 		TreeViewerColumnTest.class,

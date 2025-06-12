@@ -24,8 +24,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 	protected Shell m_shell;
@@ -38,7 +38,7 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// create GUI
@@ -57,7 +57,7 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 		super.tearDown();

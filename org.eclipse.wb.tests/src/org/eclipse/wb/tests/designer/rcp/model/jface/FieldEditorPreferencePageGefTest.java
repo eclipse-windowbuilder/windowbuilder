@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link FieldEditorPreferencePage} in GEF.

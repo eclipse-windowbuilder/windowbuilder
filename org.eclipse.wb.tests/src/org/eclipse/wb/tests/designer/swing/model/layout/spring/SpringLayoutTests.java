@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.spring;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 import javax.swing.SpringLayout;
 
@@ -23,8 +22,8 @@ import javax.swing.SpringLayout;
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		SpringAttachmentTest.class,
 		SpringLayoutTest.class,
 		SpringLayoutGefTest.class

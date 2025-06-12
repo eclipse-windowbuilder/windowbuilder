@@ -17,15 +17,14 @@ import org.eclipse.wb.tests.designer.swing.laf.LookAndFeelTest;
 import org.eclipse.wb.tests.designer.swing.model.ModelTests;
 import org.eclipse.wb.tests.designer.swing.swingx.SwingXTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	LookAndFeelTest.class,
 	ConvertersTest.class,
 	CustomizeTest.class,

@@ -12,17 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for SWT widgets models.
  *
  * @author lobas_av
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		WidgetTest.class,
 		LiveComponentsManagerTest.class,
 		DescriptionProcessorTest.class,

@@ -26,9 +26,9 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.swt.graphics.Image;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test {@link GridBagLayoutInfo} in GEF.
@@ -51,14 +51,14 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		AbstractGridBagLayoutTest.configureForTest();
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		AbstractGridBagLayoutTest.configureDefaults();
 		super.tearDown();

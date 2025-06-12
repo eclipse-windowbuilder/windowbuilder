@@ -32,8 +32,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 
 import java.util.List;
@@ -487,7 +487,7 @@ public class MenuItemTest extends RcpModelTest {
 	/**
 	 * Test adding a selection listener to menu item.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_addSelectionListener() throws Exception {
 		CompositeInfo shell =

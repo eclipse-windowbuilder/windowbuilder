@@ -63,8 +63,8 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
@@ -86,7 +86,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
@@ -1316,7 +1316,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		Assertions.assertThat(actualSignatures).contains(expectedSignatures);
 		// un-expected
 		for (String unExpectedSignature : unExpectedSignatures) {
-			assertFalse("" + actualSignatures, actualSignatures.contains(unExpectedSignature));
+			assertFalse(actualSignatures.contains(unExpectedSignature), "" + actualSignatures);
 		}
 	}
 
@@ -1393,7 +1393,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		Assertions.assertThat(actualNames).contains(expectedNames);
 		// un-expected
 		for (String unExpectedSignature : unExpectedNames) {
-			assertFalse("" + actualNames, actualNames.contains(unExpectedSignature));
+			assertFalse(actualNames.contains(unExpectedSignature), "" + actualNames);
 		}
 	}
 
@@ -1844,7 +1844,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		// check declarations
 		List<VariableDeclaration> declarations =
 				AstNodeUtils.getVariableDeclarationsAll(typeDeclaration);
-		assertEquals("Wrong count of variables.", expectedNames.length, declarations.size());
+		assertEquals(expectedNames.length, declarations.size(), "Wrong count of variables.");
 		for (int i = 0; i < declarations.size(); i++) {
 			VariableDeclaration declaration = declarations.get(i);
 			assertEquals(declaration.getName().getIdentifier(), expectedNames[i]);
@@ -1888,7 +1888,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		// prepare shadowing declarations
 		List<VariableDeclaration> declarations =
 				AstNodeUtils.getVariableDeclarationsAfter(typeDeclaration, position);
-		assertEquals("Wrong count of shadowing variables.", expectedNames.length, declarations.size());
+		assertEquals(expectedNames.length, declarations.size(), "Wrong count of shadowing variables.");
 		for (int i = 0; i < declarations.size(); i++) {
 			VariableDeclaration declaration = declarations.get(i);
 			assertEquals(declaration.getName().getIdentifier(), expectedNames[i]);

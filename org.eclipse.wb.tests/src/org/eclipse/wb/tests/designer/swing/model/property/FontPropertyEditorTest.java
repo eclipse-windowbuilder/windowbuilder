@@ -29,9 +29,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Font;
 
@@ -49,7 +49,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -709,7 +709,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		check_copyPaste(originalSource, expectedSource);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_copyPaste_explicit() throws Exception {
 		String originalSource = "new Font(\"Arial\", Font.BOLD | Font.ITALIC, 15)";

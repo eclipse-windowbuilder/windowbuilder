@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
 import org.eclipse.swt.graphics.Point;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link PropertyEditor}'s in {@link PropertyTable}.

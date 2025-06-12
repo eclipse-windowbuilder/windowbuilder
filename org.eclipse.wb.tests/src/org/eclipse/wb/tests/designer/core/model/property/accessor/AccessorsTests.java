@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.core.model.property.accessor;
 
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for core {@link ExpressionAccessor}'s.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		AccessorUtilsTest.class,
 		FieldAccessorTest.class,
 		SetterAccessorTest.class,

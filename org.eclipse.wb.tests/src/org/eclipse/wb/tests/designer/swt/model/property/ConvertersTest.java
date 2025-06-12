@@ -21,9 +21,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Point;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for SWT converters.
@@ -39,7 +39,7 @@ public class ConvertersTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		shell =
@@ -52,7 +52,7 @@ public class ConvertersTest extends RcpModelTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		shell = null;
 		super.tearDown();

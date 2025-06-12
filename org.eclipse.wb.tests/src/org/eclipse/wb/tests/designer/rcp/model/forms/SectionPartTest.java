@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.forms.widgets.Section;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link SectionPartInfo}.

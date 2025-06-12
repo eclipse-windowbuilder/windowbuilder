@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.nls.ui.FlagImagesRepository;
 import org.eclipse.wb.internal.core.nls.ui.LocaleUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 

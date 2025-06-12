@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -37,7 +37,7 @@ public class DesignerPluginTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 	}

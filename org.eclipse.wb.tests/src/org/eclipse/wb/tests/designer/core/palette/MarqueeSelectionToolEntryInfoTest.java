@@ -16,7 +16,7 @@ import org.eclipse.wb.core.editor.palette.model.entry.MarqueeSelectionToolEntryI
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link MarqueeSelectionToolEntryInfo}.

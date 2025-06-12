@@ -23,7 +23,7 @@ import org.eclipse.wb.tests.designer.ResourceUtils;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ConstraintsAbsoluteLayoutInfo}.

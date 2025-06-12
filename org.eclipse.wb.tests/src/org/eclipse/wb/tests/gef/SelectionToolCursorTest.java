@@ -24,10 +24,10 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av
@@ -45,7 +45,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// configure
@@ -59,7 +59,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		m_tool = null;
@@ -229,7 +229,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_ResizeTracker_Resize() throws Exception {
 		ResizeCommand command = new ResizeCommand();

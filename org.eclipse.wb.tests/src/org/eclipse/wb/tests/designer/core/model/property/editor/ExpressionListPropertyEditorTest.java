@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.editor.ExpressionListProperty
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;

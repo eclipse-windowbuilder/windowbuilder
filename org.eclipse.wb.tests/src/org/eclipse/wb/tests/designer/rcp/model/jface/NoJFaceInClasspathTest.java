@@ -25,8 +25,8 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * If no JFace in classpath, in {@link IJavaProject}, then corresponding entries should no be
@@ -50,7 +50,7 @@ public class NoJFaceInClasspathTest extends AbstractJavaInfoTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {

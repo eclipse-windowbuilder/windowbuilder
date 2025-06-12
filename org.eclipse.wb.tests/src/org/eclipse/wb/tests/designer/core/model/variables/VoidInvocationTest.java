@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
 import java.awt.Container;

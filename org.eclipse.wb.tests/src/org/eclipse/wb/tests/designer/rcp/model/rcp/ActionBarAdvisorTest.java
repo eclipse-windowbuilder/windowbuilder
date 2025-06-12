@@ -31,7 +31,7 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ActionBarAdvisorInfo}.

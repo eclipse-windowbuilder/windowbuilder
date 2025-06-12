@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link DesignerExceptionUtils}.
@@ -38,7 +38,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		DesignerExceptionUtils.flushErrorEntriesCache();
 		super.tearDown();

@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
-import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link PropertyManager}.
@@ -121,7 +121,7 @@ public class PropertyManagerTest extends SwingModelTest {
 	// Test suite tear down
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@AfterClass
+	@AfterAll
 	public static void tearDownClass() throws Exception {
 		AbstractJavaProjectTest.tearDownClass();
 		PropertyManager.setCategory(SwingToolkitDescription.INSTANCE, "background", null);

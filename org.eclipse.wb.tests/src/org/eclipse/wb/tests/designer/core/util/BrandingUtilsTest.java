@@ -16,8 +16,8 @@ import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.branding.IBrandingDescription;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link BrandingUtils}.
@@ -32,7 +32,7 @@ public class BrandingUtilsTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 	}

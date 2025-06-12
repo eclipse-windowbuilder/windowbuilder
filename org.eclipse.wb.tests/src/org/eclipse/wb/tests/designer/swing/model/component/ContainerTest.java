@@ -40,7 +40,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import com.jgoodies.forms.layout.FormLayout;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
 import java.awt.Container;

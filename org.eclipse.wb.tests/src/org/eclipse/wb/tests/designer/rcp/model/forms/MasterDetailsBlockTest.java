@@ -14,7 +14,7 @@ package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import org.eclipse.wb.internal.rcp.model.forms.MasterDetailsBlockInfo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link MasterDetailsBlockInfo}.

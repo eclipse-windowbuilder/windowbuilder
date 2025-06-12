@@ -15,8 +15,8 @@ package org.eclipse.wb.tests.designer.core.eval.primities;
 import org.eclipse.wb.internal.core.eval.evaluators.BooleanEvaluator;
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link BooleanEvaluator}.
@@ -29,7 +29,7 @@ public class BooleanTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

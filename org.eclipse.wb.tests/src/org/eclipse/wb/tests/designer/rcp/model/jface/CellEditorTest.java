@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.widgets.Control;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CellEditor} support.

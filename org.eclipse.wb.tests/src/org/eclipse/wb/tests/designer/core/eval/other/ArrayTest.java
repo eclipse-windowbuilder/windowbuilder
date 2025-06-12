@@ -15,8 +15,8 @@ package org.eclipse.wb.tests.designer.core.eval.other;
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author scheglov_ke
@@ -28,7 +28,7 @@ public class ArrayTest extends AbstractEngineTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {

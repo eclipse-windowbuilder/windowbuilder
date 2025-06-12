@@ -25,8 +25,8 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class AstModelSupportTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

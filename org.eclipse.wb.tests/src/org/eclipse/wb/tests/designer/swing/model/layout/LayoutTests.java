@@ -26,17 +26,16 @@ import org.eclipse.wb.tests.designer.swing.model.layout.model.FlowLayoutTest;
 import org.eclipse.wb.tests.designer.swing.model.layout.model.GridLayoutTest;
 import org.eclipse.wb.tests.designer.swing.model.layout.spring.SpringLayoutTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for Swing layouts.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		LayoutManagersTest.class,
 		ImplicitLayoutTest.class,
 		AbsoluteLayoutTest.class,

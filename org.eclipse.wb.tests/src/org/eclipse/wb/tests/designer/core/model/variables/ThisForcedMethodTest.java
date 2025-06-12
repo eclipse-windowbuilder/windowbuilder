@@ -26,9 +26,9 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JFrame;
 
@@ -46,14 +46,14 @@ public class ThisForcedMethodTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		PREFERENCES.setValue(GenerationSettings.P_FORCED_METHOD, "init");
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		PREFERENCES.setToDefault(GenerationSettings.P_FORCED_METHOD);
 		super.tearDown();

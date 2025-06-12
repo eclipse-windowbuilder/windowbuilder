@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.SelectionActionsSuppo
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,8 +19,8 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.awt.GridBagLayout;
 
@@ -36,14 +36,14 @@ abstract class AbstractGridBagLayoutTest extends AbstractLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		configureForTest();
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		configureDefaults();
 		super.tearDown();

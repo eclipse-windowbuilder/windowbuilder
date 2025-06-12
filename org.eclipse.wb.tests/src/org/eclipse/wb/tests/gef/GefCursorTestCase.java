@@ -36,8 +36,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public abstract class GefCursorTestCase extends GefTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// create shell
@@ -84,7 +84,7 @@ public abstract class GefCursorTestCase extends GefTestCase {
 		m_sender = new EventSender(m_viewer.getControl());
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 		m_shell = null;

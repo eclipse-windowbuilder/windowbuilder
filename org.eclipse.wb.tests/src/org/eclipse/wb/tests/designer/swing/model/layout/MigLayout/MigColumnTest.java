@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link MigColumnInfo}.

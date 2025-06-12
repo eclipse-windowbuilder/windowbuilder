@@ -12,17 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Test for "org.eclipse.wb.core.temp" project.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	StringUtilitiesTest.class,
 	ProjectClassLoaderTest.class})
 

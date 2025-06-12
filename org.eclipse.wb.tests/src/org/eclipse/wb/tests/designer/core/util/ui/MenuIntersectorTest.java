@@ -25,7 +25,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,16 +170,16 @@ public class MenuIntersectorTest extends DesignerTestCase {
 			runExecuted_1[0] = false;
 			runExecuted_2[0] = false;
 			wrapperAction.runWithEvent(null);
-			assertTrue("action_1 executed", runExecuted_1[0]);
-			assertTrue("action_2 executed", runExecuted_2[0]);
+			assertTrue(runExecuted_1[0], "action_1 executed");
+			assertTrue(runExecuted_2[0], "action_2 executed");
 		}
 		// execute IAction using run()
 		{
 			runExecuted_1[0] = false;
 			runExecuted_2[0] = false;
 			wrapperAction.run();
-			assertTrue("action_1 executed", runExecuted_1[0]);
-			assertTrue("action_2 executed", runExecuted_2[0]);
+			assertTrue(runExecuted_1[0], "action_1 executed");
+			assertTrue(runExecuted_2[0], "action_2 executed");
 		}
 	}
 
@@ -226,8 +226,8 @@ public class MenuIntersectorTest extends DesignerTestCase {
 			runExecuted_1[0] = false;
 			runExecuted_2[0] = false;
 			wrapperAction.run();
-			assertTrue("action_1 executed", runExecuted_1[0]);
-			assertFalse("action_2 executed", runExecuted_2[0]);
+			assertTrue(runExecuted_1[0], "action_1 executed");
+			assertFalse(runExecuted_2[0], "action_2 executed");
 		}
 	}
 

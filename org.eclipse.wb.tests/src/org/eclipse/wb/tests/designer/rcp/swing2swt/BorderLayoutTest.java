@@ -23,7 +23,7 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.swt.widgets.Control;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test {@link BorderLayoutInfo}.

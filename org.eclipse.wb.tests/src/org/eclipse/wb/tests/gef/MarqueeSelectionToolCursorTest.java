@@ -18,8 +18,8 @@ import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 
 import org.eclipse.draw2d.Cursors;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av
@@ -33,7 +33,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// configure

@@ -16,7 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.CoolBarInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CoolBarInfo} in GEF.

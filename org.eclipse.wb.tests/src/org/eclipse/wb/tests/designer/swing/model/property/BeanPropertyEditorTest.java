@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.beans.TextPropertyEdi
 import org.eclipse.wb.internal.swing.model.property.editor.color.ColorPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.beans.PropertyEditorSupport;
 import java.lang.reflect.Constructor;

@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
 
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

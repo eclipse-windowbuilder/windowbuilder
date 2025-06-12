@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.core.model.creation;
 
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link FactoryDescriptionHelper} and static/instance factories.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		FactoryDescriptionHelperTest.class,
 		StaticFactoryCreationSupportTest.class,
 		InstanceFactoryCreationSupportTest.class,

@@ -20,9 +20,9 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
 import java.text.MessageFormat;
@@ -53,7 +53,7 @@ public class QParserTest extends AbstractJavaProjectTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
@@ -62,7 +62,7 @@ public class QParserTest extends AbstractJavaProjectTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		handler = null;
 		super.tearDown();

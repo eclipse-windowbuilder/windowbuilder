@@ -22,7 +22,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link IAction} management in {@link DesignerEditor}.

@@ -30,7 +30,7 @@ import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

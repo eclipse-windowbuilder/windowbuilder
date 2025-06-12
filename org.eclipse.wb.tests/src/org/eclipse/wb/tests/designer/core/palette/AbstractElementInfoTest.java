@@ -17,7 +17,7 @@ import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link AbstractElementInfo}.

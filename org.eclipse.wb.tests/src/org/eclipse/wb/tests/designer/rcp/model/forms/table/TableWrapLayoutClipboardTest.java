@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link TableWrapLayoutInfo} and copy/paste.

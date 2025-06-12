@@ -20,7 +20,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTabItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link NlsDialog}.

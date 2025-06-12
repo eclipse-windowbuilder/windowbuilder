@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JMenu;
 

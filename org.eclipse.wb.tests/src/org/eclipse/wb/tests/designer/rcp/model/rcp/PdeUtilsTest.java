@@ -32,7 +32,7 @@ import org.eclipse.ui.IPageLayout;
 
 import org.apache.commons.io.FilenameUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.HashMap;
@@ -191,7 +191,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
 			IPluginElement element =
 					m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_1");
 			assertNull(PdeUtils.getAttribute(null, "nullElement"));
-			assertNull("id_1", PdeUtils.getAttribute(element, "noSuchAttribute"));
+			assertNull(PdeUtils.getAttribute(element, "noSuchAttribute"), "id_1");
 			assertEquals("id_1", PdeUtils.getAttribute(element, "id"));
 			assertEquals("name 1", PdeUtils.getAttribute(element, "name"));
 			assertEquals("C_1", PdeUtils.getAttribute(element, "class"));

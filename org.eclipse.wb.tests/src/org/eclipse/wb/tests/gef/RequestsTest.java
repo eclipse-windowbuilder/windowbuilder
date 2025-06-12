@@ -31,8 +31,8 @@ import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.SWT;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ import java.util.List;
  * @author lobas_av
  *
  */
-public class RequestsTest extends Assert {
+public class RequestsTest extends Assertions {
 
 	////////////////////////////////////////////////////////////////////////////
 	//

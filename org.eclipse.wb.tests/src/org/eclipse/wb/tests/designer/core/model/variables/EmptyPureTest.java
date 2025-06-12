@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.model.variable.EmptyPureVariableSupport;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for adding using {@link EmptyPureVariableSupport}.

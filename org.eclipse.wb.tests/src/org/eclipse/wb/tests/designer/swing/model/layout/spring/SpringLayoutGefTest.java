@@ -24,9 +24,9 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -52,7 +52,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
@@ -69,7 +69,7 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		for (Field field : getClass().getDeclaredFields()) {
 			field.set(this, null);

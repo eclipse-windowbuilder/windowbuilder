@@ -27,7 +27,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link FactoryApplyAction}.
@@ -431,7 +431,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 					EditorState.get(editor).getEditorLoader().loadClass("test.StaticFactory");
 			factoryDescription =
 					FactoryDescriptionHelper.getDescription(editor, factoryClass, methodSignature, true);
-			assertNotNull("No factory method with signature: " + methodSignature, factoryDescription);
+			assertNotNull(factoryDescription, "No factory method with signature: " + methodSignature);
 		}
 		// apply factory
 		FactoryApplyAction action = new FactoryApplyAction(component, factoryDescription);

@@ -35,8 +35,8 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_project != null) {

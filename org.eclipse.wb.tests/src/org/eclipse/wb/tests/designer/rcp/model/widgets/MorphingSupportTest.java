@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.swt.widgets.Group;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link MorphingSupport} and RCP.

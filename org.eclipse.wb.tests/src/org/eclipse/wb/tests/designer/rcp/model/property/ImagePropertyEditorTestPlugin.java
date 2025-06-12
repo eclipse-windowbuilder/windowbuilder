@@ -36,9 +36,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ImagePropertyEditor} with plugin images.
@@ -52,7 +52,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {
@@ -167,7 +167,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	// PluginImagesRoot
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
+	@Disabled
 	@Test
 	public void test_PluginImagesRoot() throws Exception {
 		FilterConfigurer filterConfigurer = new FilterConfigurer(false, false, false, false);

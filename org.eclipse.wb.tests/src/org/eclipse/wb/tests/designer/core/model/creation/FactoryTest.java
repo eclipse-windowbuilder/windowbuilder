@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for any factory.

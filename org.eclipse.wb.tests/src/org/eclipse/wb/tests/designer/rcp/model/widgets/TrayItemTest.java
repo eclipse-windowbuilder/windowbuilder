@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.TrayItem;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test {@link TrayItemInfo}.

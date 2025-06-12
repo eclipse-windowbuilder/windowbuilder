@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
 import org.eclipse.wb.core.model.association.RootAssociation;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.model.util.PlaceholderUtils;
@@ -41,10 +40,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.junit.Assume.assumeTrue;
-
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,12 +67,11 @@ public class ControlTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MethodMain() throws Exception {
-		assumeTrue(EnvironmentUtils.IS_WINDOWS);
 		CompositeInfo shellInfo =
 				parseComposite(
 						"class Test {",
 						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
+						"    Shell shell = new Shell(SWT.NONE);",
 						"    shell.setSize(320, 240);",
 						"    shell.setText('SWT');",
 						"    Button button = new Button(shell, SWT.NONE);",
@@ -306,7 +302,7 @@ public class ControlTest extends RcpModelTest {
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
 		GridLayoutInfo gridLayout = (GridLayoutInfo) composite.getLayout();
 		int columnWidth = gridLayout.getGridInfo().getColumnIntervals()[0].length();
-		assertTrue("More than 400 expected, but " + columnWidth + " found", columnWidth > 400);
+		assertTrue(columnWidth > 400, "More than 400 expected, but " + columnWidth + " found");
 	}
 
 	/**

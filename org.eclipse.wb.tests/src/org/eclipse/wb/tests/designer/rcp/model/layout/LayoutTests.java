@@ -15,9 +15,8 @@ package org.eclipse.wb.tests.designer.rcp.model.layout;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.tests.designer.rcp.model.layout.form.FormLayoutTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for RCP {@link LayoutInfo}'s.
@@ -25,8 +24,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author scheglov_ke
  * @author mitin_aa
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		ControlSelectionPropertyEditorTest.class,
 		FormLayoutTests.class,
 		GridLayoutTest.class,

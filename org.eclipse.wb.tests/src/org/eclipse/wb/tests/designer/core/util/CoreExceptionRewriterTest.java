@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.os.OSSupportError;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CoreExceptionRewriter}.

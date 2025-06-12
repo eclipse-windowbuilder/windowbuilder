@@ -22,7 +22,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
@@ -244,7 +244,7 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 	 */
 	private static void checkOrderAction(IMenuManager orderManager, String text, boolean enabled) {
 		IAction action = getOrderAction(orderManager, text);
-		assertNotNull("Can not find action: " + text, action);
+		assertNotNull(action, "Can not find action: " + text);
 		assertEquals(enabled, action.isEnabled());
 	}
 }

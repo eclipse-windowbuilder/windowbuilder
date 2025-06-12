@@ -25,8 +25,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class TreeTest extends RcpModelTest {
 	/**
 	 * Test for parsing {@link TreeColumn} and bounds of {@link TreeColumnInfo}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_TreeColumn() throws Exception {
 		CompositeInfo shell =
