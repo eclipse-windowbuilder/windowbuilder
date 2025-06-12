@@ -23,7 +23,6 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -142,7 +141,6 @@ public class JSpinnerTest extends SwingModelTest {
 				0xDEADBEEF));
 	}
 
-	@Ignore
 	@Test
 	public void test_dateModel() throws Exception {
 		String source =

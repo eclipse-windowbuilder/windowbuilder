@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_selectionActions() throws Exception {
 		ContainerInfo panel =

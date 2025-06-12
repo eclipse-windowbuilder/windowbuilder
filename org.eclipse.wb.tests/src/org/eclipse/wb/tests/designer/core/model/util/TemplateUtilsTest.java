@@ -30,7 +30,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.text.MessageFormat;
@@ -75,7 +74,6 @@ public class TemplateUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link TemplateUtils#format(String, Object...)}.
 	 */
-	@Ignore
 	@Test
 	public void test_format() throws Exception {
 		ContainerInfo panel =

@@ -30,7 +30,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Font;
@@ -702,7 +701,6 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	// Copy/paste
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_copyPaste_null() throws Exception {
 		String originalSource = "null";
@@ -710,7 +708,6 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		check_copyPaste(originalSource, expectedSource);
 	}
 
-	@Ignore
 	@Test
 	public void test_copyPaste_explicit() throws Exception {
 		String originalSource = "new Font(\"Arial\", Font.BOLD | Font.ITALIC, 15)";
@@ -718,7 +715,6 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		check_copyPaste(originalSource, expectedSource);
 	}
 
-	@Ignore
 	@Test
 	public void test_copyPaste_derived() throws Exception {
 		String originalSource = "myLabel.getFont().deriveFont(20f)";

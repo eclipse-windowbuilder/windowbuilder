@@ -37,7 +37,6 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -374,7 +373,6 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		configureWrapperContents();

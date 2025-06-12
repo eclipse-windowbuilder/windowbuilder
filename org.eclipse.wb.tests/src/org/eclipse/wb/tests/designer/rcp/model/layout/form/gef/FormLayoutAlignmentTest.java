@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -194,7 +193,6 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 	}
 
 	@Test
-	@Ignore
 	public void test_replicateWidth_leftRightAttached_reverse() throws Exception {
 		parse_twoButtons_typical(new String[]{
 				"left = new FormAttachment(0, 50);",

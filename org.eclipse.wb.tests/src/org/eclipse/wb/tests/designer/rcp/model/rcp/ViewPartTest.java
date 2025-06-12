@@ -34,7 +34,6 @@ import org.eclipse.ui.part.ViewPart;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -60,7 +59,6 @@ public class ViewPartTest extends RcpModelTest {
 	/**
 	 * Test for many elements of {@link ViewPartInfo}.
 	 */
-	@Ignore
 	@Test
 	public void test_0() throws Exception {
 		ViewPartInfo part =

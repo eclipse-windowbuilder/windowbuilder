@@ -41,7 +41,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.assertj.core.api.Assertions;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -672,7 +671,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * <p>
 	 * Row "0" has component, but it is spanned two rows, so "0" has zero size.
 	 */
-	@Ignore
 	@Test
 	public void test_grid_emptyRow_spanned() throws Exception {
 		ContainerInfo panel =
@@ -2408,7 +2406,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for copy/paste {@link JPanel} with {@link GridBagLayout} and children.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		ContainerInfo panel =
@@ -2489,7 +2486,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * We should not change alignments when paste existing panel.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard_disableAutoAlignment() throws Exception {
 		ContainerInfo panel =

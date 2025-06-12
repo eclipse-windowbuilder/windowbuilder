@@ -22,7 +22,6 @@ import org.eclipse.jdt.core.IType;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -124,7 +123,6 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 		assertTrue(scope.includesClasspaths());
 	}
 
-	@Ignore
 	@Test
 	public void test_otherScope() throws Exception {
 		SubtypesScope scope2 = new SubtypesScope(javaProject.findType("java.util.List"));

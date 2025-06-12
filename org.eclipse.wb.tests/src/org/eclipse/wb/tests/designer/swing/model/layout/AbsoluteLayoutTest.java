@@ -52,7 +52,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.assertj.core.api.Assertions;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.BorderLayout;
@@ -1491,7 +1490,6 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		String[] lines1 =

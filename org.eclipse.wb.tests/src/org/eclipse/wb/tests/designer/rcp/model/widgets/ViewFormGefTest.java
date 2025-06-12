@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -157,7 +156,6 @@ public class ViewFormGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		ViewFormInfo composite =
