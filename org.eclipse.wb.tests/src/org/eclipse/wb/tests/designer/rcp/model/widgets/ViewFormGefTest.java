@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ViewFormInfo}.

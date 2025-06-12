@@ -16,17 +16,16 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import junit.framework.TestCase;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
- * Fake {@link TestCase} that just wait long time, so that we have time to get memory snapshot.
+ * Fake test case that just wait long time, so that we have time to get memory
+ * snapshot.
  *
  * @author scheglov_ke
  */
-@Ignore
+@Disabled
 public class WaitForMemoryProfilerTest extends DesignerTestCase {
 	@Test
 	public void test_waitForProfiler() throws InterruptedException {

@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.core.model.property.table;
 
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link PropertyTable}.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		PropertyTableTest.class,
 		PropertyTableTooltipTest.class,
 		PropertyTableEditorsTest.class

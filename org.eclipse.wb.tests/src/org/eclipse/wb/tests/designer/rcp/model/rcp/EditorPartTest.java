@@ -31,7 +31,7 @@ import org.eclipse.ui.services.IServiceLocator;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link EditorPartInfo}.

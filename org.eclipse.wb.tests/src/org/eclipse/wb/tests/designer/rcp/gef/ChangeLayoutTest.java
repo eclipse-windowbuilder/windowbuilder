@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.gef.EditPolicy;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for changing layout and GEF.

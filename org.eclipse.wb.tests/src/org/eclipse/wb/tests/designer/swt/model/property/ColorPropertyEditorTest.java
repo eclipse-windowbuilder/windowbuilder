@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 /**
  * Tests for {@link ColorPropertyEditor}.
@@ -33,7 +33,7 @@ public abstract class ColorPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(

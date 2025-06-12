@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.ElementVisibilityCommand;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

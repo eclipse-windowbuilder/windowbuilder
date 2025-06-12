@@ -12,16 +12,15 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.resource;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for RCP resource managers.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({ ResourceManagerTest.class })
+@Suite
+@SelectClasses({ ResourceManagerTest.class })
 public class ResourceTests {
 }

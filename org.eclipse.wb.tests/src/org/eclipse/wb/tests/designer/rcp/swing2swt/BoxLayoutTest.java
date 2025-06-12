@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.swing2swt.layout.BoxLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.BoxLayout;
 

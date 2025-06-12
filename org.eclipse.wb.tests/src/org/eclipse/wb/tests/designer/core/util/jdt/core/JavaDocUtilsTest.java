@@ -23,9 +23,9 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link JavaDocUtils}.
@@ -39,7 +39,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
@@ -61,7 +61,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	// getTooltip
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getTooltip_basic() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""

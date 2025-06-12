@@ -17,9 +17,8 @@ import org.eclipse.wb.tests.designer.rcp.model.layout.form.gef.FormLayoutMoveTes
 
 import org.eclipse.swt.layout.FormLayout;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link FormLayout}.
@@ -27,8 +26,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author scheglov_ke
  * @author mitin_aa
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		FormLayoutMoveSingleResizableTest.class,
 		FormLayoutMoveSingleWithSingleSideTest.class,
 		FormLayoutMoveSingleWithBothSidesTest.class,

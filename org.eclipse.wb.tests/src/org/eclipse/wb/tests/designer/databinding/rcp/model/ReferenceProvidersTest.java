@@ -15,14 +15,14 @@ package org.eclipse.wb.tests.designer.databinding.rcp.model;
 import org.eclipse.wb.internal.core.databinding.model.reference.CompoundReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av
  *
  */
-public class ReferenceProvidersTest extends Assert {
+public class ReferenceProvidersTest extends Assertions {
 	@Test
 	public void test_StringReferenceProvider() throws Exception {
 		StringReferenceProvider referenceProvider = new StringReferenceProvider("test");

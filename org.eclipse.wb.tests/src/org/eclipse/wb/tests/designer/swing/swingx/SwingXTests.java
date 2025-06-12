@@ -12,16 +12,15 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.swingx;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * All SwingX tests.
  *
  * @author sablin_aa
  */
-@RunWith(Suite.class)
-@SuiteClasses({ JXTaskPaneTest.class })
+@Suite
+@SelectClasses({ JXTaskPaneTest.class })
 public class SwingXTests {
 }

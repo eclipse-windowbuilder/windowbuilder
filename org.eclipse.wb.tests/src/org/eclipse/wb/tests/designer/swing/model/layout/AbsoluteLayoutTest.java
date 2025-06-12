@@ -51,8 +51,8 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.BorderLayout;
 import java.util.Collections;
@@ -74,7 +74,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		preferences.setValue(IPreferenceConstants.P_CREATION_FLOW, false);

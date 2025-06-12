@@ -22,8 +22,8 @@ import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av
@@ -36,7 +36,7 @@ public class TreeDragToolTest extends TreeToolTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// set SelectionTool

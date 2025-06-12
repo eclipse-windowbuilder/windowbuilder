@@ -26,8 +26,8 @@ import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import javax.swing.JButton;
 
@@ -43,7 +43,7 @@ public abstract class SwingGefTest extends DesignerEditorTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		configureDefaults(org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION);
@@ -61,7 +61,7 @@ public abstract class SwingGefTest extends DesignerEditorTestCase {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		configureDefaults();
 		super.tearDown();

@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModel
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;

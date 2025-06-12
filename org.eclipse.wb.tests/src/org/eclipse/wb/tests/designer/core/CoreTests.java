@@ -19,16 +19,15 @@ import org.eclipse.wb.tests.designer.core.nls.NlsTests;
 import org.eclipse.wb.tests.designer.core.palette.PaletteTests;
 import org.eclipse.wb.tests.designer.core.util.UtilTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author scheglov_ke
  */
 
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	BundleResourceProviderTest.class,
 	DesignerPluginTest.class,
 	EnvironmentUtilsTest.class,

@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Abstract test for {@link FormLayout}.
@@ -34,7 +34,7 @@ public abstract class AbstractFormLayoutTest extends AbstractLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		LafSupport.applySelectedLAF(LafSupport.getDefaultLAF());

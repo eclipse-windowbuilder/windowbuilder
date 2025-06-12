@@ -28,7 +28,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link DialogInfo}.

@@ -31,7 +31,7 @@ import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

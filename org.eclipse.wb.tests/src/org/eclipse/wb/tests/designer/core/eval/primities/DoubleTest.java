@@ -14,8 +14,8 @@ package org.eclipse.wb.tests.designer.core.eval.primities;
 
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author scheglov_ke
@@ -26,7 +26,7 @@ public class DoubleTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

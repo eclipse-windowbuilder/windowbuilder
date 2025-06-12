@@ -25,9 +25,9 @@ import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 import org.eclipse.jface.resource.LocalResourceManager;
 
 import org.apache.commons.io.FilenameUtils;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
@@ -43,7 +43,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
@@ -103,7 +103,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
 		assert_getText_getClipboardSource_forSource(
@@ -115,7 +115,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
 		assert_getText_getClipboardSource_forSource(

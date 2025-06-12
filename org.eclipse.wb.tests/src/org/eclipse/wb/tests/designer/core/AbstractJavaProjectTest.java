@@ -14,6 +14,7 @@ package org.eclipse.wb.tests.designer.core;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest.AnnotationExtension;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectBefore;
 import org.eclipse.wb.tests.designer.core.annotations.WaitForAutoBuildAfter;
@@ -38,17 +39,17 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.MultipleFailureException;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,7 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
+@ExtendWith(AnnotationExtension.class)
 public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	private static final List<IFile> m_createdResources = new ArrayList<>();
 
@@ -66,7 +68,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		// remove resources (with retries)
 		{
@@ -97,7 +99,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 		super.tearDown();
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDownClass() throws Exception {
 		do_projectDispose();
 	}
@@ -108,39 +110,30 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	@Rule
-	public TestRule methodRule = new TestRule() {
+	public static class AnnotationExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 		@Override
-		public Statement apply(Statement base, Description description) {
-			return new Statement() {
-				@Override
-				public void evaluate() throws Throwable {
-					List<Throwable> errors = new ArrayList<>();
-					if (description.getAnnotation(DisposeProjectBefore.class) != null) {
-						waitEventLoop(10);
-						do_projectDispose();
-						waitEventLoop(10);
-					}
-					try {
-						base.evaluate();
-					} catch (Throwable t) {
-						errors.add(t);
-					} finally {
-						if (description.getAnnotation(DisposeProjectAfter.class) != null) {
-							waitEventLoop(10);
-							do_projectDispose();
-							waitEventLoop(10);
-						}
-						if (description.getAnnotation(WaitForAutoBuildAfter.class) != null) {
-							waitForAutoBuild();
-						}
-
-					}
-					MultipleFailureException.assertEmpty(errors);
-				}
-			};
+		public void beforeTestExecution(ExtensionContext context) throws Exception {
+			Method method = context.getRequiredTestMethod();
+			if (method.getAnnotation(DisposeProjectBefore.class) != null) {
+				waitEventLoop(10);
+				do_projectDispose();
+				waitEventLoop(10);
+			}
 		}
-	};
+
+		@Override
+		public void afterTestExecution(ExtensionContext context) throws Exception {
+			Method method = context.getRequiredTestMethod();
+			if (method.getAnnotation(DisposeProjectAfter.class) != null) {
+				waitEventLoop(10);
+				do_projectDispose();
+				waitEventLoop(10);
+			}
+			if (method.getAnnotation(WaitForAutoBuildAfter.class) != null) {
+				waitForAutoBuild();
+			}
+		}
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

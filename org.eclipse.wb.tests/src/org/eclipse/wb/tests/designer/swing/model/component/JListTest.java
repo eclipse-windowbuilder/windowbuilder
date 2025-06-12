@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.list.ListModel
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JList;
 import javax.swing.ListModel;

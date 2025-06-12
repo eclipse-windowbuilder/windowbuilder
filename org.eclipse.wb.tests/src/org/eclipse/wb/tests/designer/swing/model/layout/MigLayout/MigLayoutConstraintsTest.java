@@ -40,7 +40,7 @@ import net.miginfocom.layout.LC;
 
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Container;
 import java.util.List;
@@ -1134,7 +1134,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		}
 		// set alignment
 		IAction alignmentAction = findChildAction(alignmentManager, actionText);
-		assertNotNull(actionText, alignmentAction);
+		assertNotNull(alignmentAction, actionText);
 		alignmentAction.setChecked(true);
 		alignmentAction.run();
 		// check result

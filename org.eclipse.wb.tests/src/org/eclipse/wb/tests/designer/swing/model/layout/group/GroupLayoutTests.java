@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.group;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 import javax.swing.GroupLayout;
 
@@ -23,8 +22,8 @@ import javax.swing.GroupLayout;
  *
  * @author mitin_aa
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		GroupLayoutTest.class,
 		GroupLayoutGefTest.class
 })

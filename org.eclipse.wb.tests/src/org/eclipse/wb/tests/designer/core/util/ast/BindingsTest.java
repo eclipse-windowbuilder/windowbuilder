@@ -41,9 +41,9 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -62,7 +62,7 @@ public class BindingsTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
@@ -84,7 +84,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Object type.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_1() throws Exception {
 		String code = "private java.util.List foo() {return null;}";
@@ -94,7 +94,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Primitive type.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_2() throws Exception {
 		String code = "private int foo() {return 0;}";
@@ -104,7 +104,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Array type.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_3() throws Exception {
 		String code = "private int[] foo() {return null;}";
@@ -114,7 +114,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Inner type.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_4() throws Exception {
 		String code = "class Foo {} private Foo foo() {return null;}";
@@ -307,7 +307,7 @@ public class BindingsTest extends AbstractJavaTest {
 	// DesignerPackageBinding
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerPackageBinding() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("");
@@ -327,7 +327,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Basic test for {@link DesignerMethodBinding}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerMethodBinding_1() throws Exception {
 		TypeDeclaration typeDeclaration =
@@ -415,7 +415,7 @@ public class BindingsTest extends AbstractJavaTest {
 	 * When we remove parameter from generic {@link IMethodBinding} we should also update its
 	 * {@link IMethodBinding#getMethodDeclaration()}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerMethodBinding_removeParameterType_whenGenerics() throws Exception {
 		createTypeDeclaration_TestC(getSourceDQ(
@@ -447,7 +447,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Basic test for {@link DesignerVariableBinding}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_DesignerVariableBinding_1() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("private int m_value;");
@@ -500,7 +500,7 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link BindingContext#getCopy(ITypeBinding)}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getCopy() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
@@ -603,9 +603,9 @@ public class BindingsTest extends AbstractJavaTest {
 	private static void assert_equals(Method method, Object expectedValue, Object actualValue) {
 		String message = "For method " + method;
 		if (expectedValue == null) {
-			assertNull(message, actualValue);
+			assertNull(actualValue, message);
 		} else if (expectedValue.getClass().isArray()) {
-			assertTrue(message, actualValue.getClass().isArray());
+			assertTrue(actualValue.getClass().isArray(), message);
 			int length = Array.getLength(expectedValue);
 			for (int i = 0; i < length; i++) {
 				Object expectedElement = Array.get(expectedValue, i);
@@ -622,10 +622,10 @@ public class BindingsTest extends AbstractJavaTest {
 					getFullyQualifiedName((ITypeBinding) actualValue, false));
 		} else if (expectedValue instanceof IPackageBinding expectedPackage) {
 			IPackageBinding actualPackage = (IPackageBinding) actualValue;
-			assertEquals(message, expectedPackage.getName(), actualPackage.getName());
-			assertEquals(message, expectedPackage.isUnnamed(), actualPackage.isUnnamed());
+			assertEquals(expectedPackage.getName(), actualPackage.getName(), message);
+			assertEquals(expectedPackage.isUnnamed(), actualPackage.isUnnamed(), message);
 		} else {
-			assertEquals(message, expectedValue, actualValue);
+			assertEquals(expectedValue, actualValue, message);
 		}
 	}
 }

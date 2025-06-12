@@ -61,18 +61,16 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
 
 /**
- * {@link TestCase} for {@link DesignPage} and its usage.
+ * test case for {@link DesignPage} and its usage.
  *
  * @author scheglov_ke
  */
@@ -83,7 +81,7 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		waitEventLoop(1);
@@ -92,7 +90,7 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		try {
 			System.clearProperty(DesignerPalette.FLAG_NO_PALETTE);

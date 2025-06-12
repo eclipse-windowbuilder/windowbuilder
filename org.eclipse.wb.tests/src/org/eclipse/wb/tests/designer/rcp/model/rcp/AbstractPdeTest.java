@@ -23,15 +23,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.pde.core.plugin.IPluginElement;
 
-import junit.framework.TestCase;
-
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.ByteArrayInputStream;
 
 /**
- * Abstract {@link TestCase} for PDE related tests.
+ * Abstract test case for PDE related tests.
  *
  * @author scheglov_ke
  */
@@ -44,7 +42,7 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
@@ -67,7 +65,7 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_project = null;
 		m_utils = null;

@@ -22,9 +22,9 @@ import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 
 import org.eclipse.jface.resource.LocalResourceManager;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
@@ -49,7 +49,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		do_projectDispose();

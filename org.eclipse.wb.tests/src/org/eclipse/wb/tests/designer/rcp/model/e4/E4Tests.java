@@ -12,16 +12,15 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.e4;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for E4 models.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({ E4PartTest.class })
+@Suite
+@SelectClasses({ E4PartTest.class })
 public class E4Tests {
 }

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.GridBagConstraints;
 

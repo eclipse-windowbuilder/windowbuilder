@@ -55,7 +55,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -2698,7 +2698,7 @@ public class PageLayoutTest extends RcpModelTest {
 					assertEquals("Other", category.getName());
 				}
 			}
-			assertTrue("No 'Other' category", hasOther);
+			assertTrue(hasOther, "No 'Other' category");
 		}
 		// check for "standard" Eclipse categories
 		{
@@ -2716,8 +2716,8 @@ public class PageLayoutTest extends RcpModelTest {
 					Assertions.assertThat(category.getEntries().size()).isGreaterThan(5);
 				}
 			}
-			assertTrue("No 'General' category", hasGeneral);
-			assertTrue("No 'Java' category", hasJava);
+			assertTrue(hasGeneral, "No 'General' category");
+			assertTrue(hasJava, "No 'Java' category");
 		}
 	}
 

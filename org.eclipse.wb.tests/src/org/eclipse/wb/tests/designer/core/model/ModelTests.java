@@ -24,15 +24,14 @@ import org.eclipse.wb.tests.designer.core.model.property.PropertiesTests;
 import org.eclipse.wb.tests.designer.core.model.util.UtilTests;
 import org.eclipse.wb.tests.designer.core.model.variables.VariablesTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		ObjectInfoTest.class,
 		DefaultObjectPresentationTest.class,
 		ObjectReferenceInfoTest.class,

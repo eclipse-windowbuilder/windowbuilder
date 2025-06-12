@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link ExposeComponentSupport}.

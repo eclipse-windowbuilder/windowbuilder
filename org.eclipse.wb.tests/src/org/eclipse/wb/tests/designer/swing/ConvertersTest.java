@@ -23,7 +23,7 @@ import org.eclipse.wb.tests.designer.Expectations.KeyValue;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.EventQueue;
 import java.awt.SystemColor;

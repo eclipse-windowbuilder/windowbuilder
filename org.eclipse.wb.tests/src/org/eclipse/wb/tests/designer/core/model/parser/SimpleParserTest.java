@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

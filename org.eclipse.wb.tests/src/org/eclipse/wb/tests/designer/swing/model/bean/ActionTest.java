@@ -55,8 +55,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1594,7 +1594,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for {@link ActionInfo#getPresentation()}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_presentation() throws Exception {
 		m_waitForAutoBuild = true;

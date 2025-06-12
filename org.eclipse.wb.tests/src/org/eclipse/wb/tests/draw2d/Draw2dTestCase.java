@@ -18,15 +18,14 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Assert;
-
+import org.junit.jupiter.api.Assertions;
 
 
 /**
  * @author lobas_av
  *
  */
-public abstract class Draw2dTestCase extends Assert {
+public abstract class Draw2dTestCase extends Assertions {
 
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.nls.SourceDescription;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSource;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 /**
  * Abstract test for NLS.
@@ -32,7 +32,7 @@ public abstract class AbstractNlsTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		// process UI messages (without this we have exception from Java UI)
 		waitEventLoop(1);

@@ -22,7 +22,7 @@ import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotRootMenu;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 		assertEquals("My JFrame", ((JFrame) m_contentJavaInfo.getObject()).getTitle());
 		{
 			// check locales combo, and switch to "it" locale
-			assertNotNull("NLS dialog item not found.", m_dialogItem);
+			assertNotNull(m_dialogItem, "NLS dialog item not found.");
 			// initialize menu creation
 			new UiContext().executeAndCheck(() -> {
 				// noop

@@ -28,8 +28,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for SWT {@link CoordinateUtils}.
@@ -52,7 +52,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	@Ignore
+	@Disabled
 	@Test
 	public void test_1() throws Exception {
 		ShellInfo shell = (ShellInfo) parseComposite(
@@ -100,7 +100,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	/**
 	 * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_withGroup() throws Exception {
 		CompositeInfo shell =

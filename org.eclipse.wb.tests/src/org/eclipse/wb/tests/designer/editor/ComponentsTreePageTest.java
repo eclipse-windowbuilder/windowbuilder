@@ -29,7 +29,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;

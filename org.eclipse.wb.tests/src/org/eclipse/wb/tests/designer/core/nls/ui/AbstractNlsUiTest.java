@@ -25,9 +25,9 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * Abstract test for NLS UI.
@@ -98,7 +98,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
@@ -107,7 +107,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		// process UI messages (without this we have exception from Java UI)
 		waitEventLoop(1);
@@ -123,7 +123,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 	// Project life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

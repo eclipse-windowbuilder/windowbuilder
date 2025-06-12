@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.gef.AbstractLayoutPolicyTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CardLayoutInfo} in GEF.

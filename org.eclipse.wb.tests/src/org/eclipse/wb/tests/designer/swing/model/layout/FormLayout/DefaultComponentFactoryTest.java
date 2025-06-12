@@ -29,8 +29,8 @@ import org.eclipse.swt.graphics.Image;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for components from {@link DefaultComponentFactory}.
@@ -109,7 +109,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	 * Test for {@link DefaultComponentFactoryCreateLabelEntryInfo}.
 	 */
 	@DisposeProjectAfter
-	@Ignore
+	@Disabled
 	@Test
 	public void test_createLabel_tool() throws Exception {
 		do_projectDispose();

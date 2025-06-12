@@ -15,18 +15,16 @@ package org.eclipse.wb.tests.designer.swt;
 import org.eclipse.wb.tests.designer.swt.model.ModelTests;
 import org.eclipse.wb.tests.designer.swt.support.CoordinateUtilsTest;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * All SWT tests.
  *
  * @author sablin_aa
  */
-
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	ManagerUtilsTest.class,
 	ModelTests.class,
 	CoordinateUtilsTest.class,

@@ -43,7 +43,7 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyNoValue;
 import org.eclipse.jdt.core.dom.Expression;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.util.List;

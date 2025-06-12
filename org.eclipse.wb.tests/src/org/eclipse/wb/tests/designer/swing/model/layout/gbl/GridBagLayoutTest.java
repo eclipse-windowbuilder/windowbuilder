@@ -40,9 +40,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -66,7 +66,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		{
 			IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
@@ -2487,7 +2487,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * We should not change alignments when paste existing panel.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_clipboard_disableAutoAlignment() throws Exception {
 		ContainerInfo panel =

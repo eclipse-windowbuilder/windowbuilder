@@ -36,7 +36,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link LazyVariableSupport}.

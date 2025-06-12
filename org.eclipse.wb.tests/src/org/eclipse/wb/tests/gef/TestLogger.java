@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class TestLogger {
 	 * Asserts that this {@link TestLogger} has no events.
 	 */
 	public void assertEmpty() {
-		Assert.assertTrue(m_events.isEmpty());
+		Assertions.assertTrue(m_events.isEmpty());
 	}
 
 	/**
@@ -62,7 +61,7 @@ public class TestLogger {
 	 * Asserts that two objects are equal. If they are not an AssertionFailedError is thrown.
 	 */
 	public static void assertEquals(TestLogger expectedLogger, TestLogger actualLoogger) {
-		Assert.assertEquals(getString(expectedLogger), getString(actualLoogger));
+		Assertions.assertEquals(getString(expectedLogger), getString(actualLoogger));
 		expectedLogger.clear();
 		actualLoogger.clear();
 	}

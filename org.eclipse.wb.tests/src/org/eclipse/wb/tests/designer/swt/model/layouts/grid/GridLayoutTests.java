@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.swt.model.layouts.grid;
 
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link GridLayoutInfo}.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		GridDataTest.class,
 		GridLayoutSelectionActionsTest.class,
 		GridLayoutTest.class,

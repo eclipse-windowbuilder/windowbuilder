@@ -38,7 +38,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link SwtLiveManager}, style access.
@@ -327,32 +327,32 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 			ControlInfo button = createJavaInfo("org.eclipse.swt.widgets.Button", null);
 			int actualStyle = button.getStyle();
 			assertTrue(
-					"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.PUSH) == SWT.PUSH);
+					(actualStyle & SWT.PUSH) == SWT.PUSH,
+					"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// CHECK
 		{
 			ControlInfo button = createJavaInfo("org.eclipse.swt.widgets.Button", "check");
 			int actualStyle = button.getStyle();
 			assertTrue(
-					"SWT.CHECK bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.CHECK) == SWT.CHECK);
+					(actualStyle & SWT.CHECK) == SWT.CHECK,
+					"SWT.CHECK bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// RADIO
 		{
 			ControlInfo button = createJavaInfo("org.eclipse.swt.widgets.Button", "radio");
 			int actualStyle = button.getStyle();
 			assertTrue(
-					"SWT.RADIO bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.RADIO) == SWT.RADIO);
+					(actualStyle & SWT.RADIO) == SWT.RADIO,
+					"SWT.RADIO bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// Text: BORDER
 		{
 			ControlInfo text = BTestUtils.createControl("org.eclipse.swt.widgets.Text");
 			int actualStyle = text.getStyle();
 			assertTrue(
-					"SWT.BORDER bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.BORDER) == SWT.BORDER);
+					(actualStyle & SWT.BORDER) == SWT.BORDER,
+					"SWT.BORDER bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 	}
 
@@ -378,11 +378,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		ControlInfo myComposite = BTestUtils.createControl("test.MyComposite");
 		int actualStyle = myComposite.getStyle();
 		assertTrue(
-				"SWT.BORDER bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-				(actualStyle & SWT.BORDER) == SWT.BORDER);
-		assertTrue("SWT.NO_RADIO_GROUP bit expected, but "
+				(actualStyle & SWT.BORDER) == SWT.BORDER,
+				"SWT.BORDER bit expected, but " + Integer.toHexString(actualStyle) + " found.");
+		assertTrue((actualStyle & SWT.NO_RADIO_GROUP) == SWT.NO_RADIO_GROUP,
+				"SWT.NO_RADIO_GROUP bit expected, but "
 				+ Integer.toHexString(actualStyle)
-				+ " found.", (actualStyle & SWT.NO_RADIO_GROUP) == SWT.NO_RADIO_GROUP);
+				+ " found.");
 	}
 
 	@Test
@@ -398,16 +399,16 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 			WidgetInfo menu = createJavaInfo("org.eclipse.swt.widgets.Menu", "bar");
 			int actualStyle = menu.getStyle();
 			assertTrue(
-					"SWT.BAR bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.BAR) == SWT.BAR);
+					(actualStyle & SWT.BAR) == SWT.BAR,
+					"SWT.BAR bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// POPUP
 		{
 			WidgetInfo menu = createJavaInfo("org.eclipse.swt.widgets.Menu", null);
 			int actualStyle = menu.getStyle();
 			assertTrue(
-					"SWT.POP_UP bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.POP_UP) == SWT.POP_UP);
+					(actualStyle & SWT.POP_UP) == SWT.POP_UP,
+					"SWT.POP_UP bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 	}
 
@@ -424,35 +425,37 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 			WidgetInfo menuItem = createJavaInfo("org.eclipse.swt.widgets.MenuItem");
 			int actualStyle = menuItem.getStyle();
 			assertTrue(
-					"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.PUSH) == SWT.PUSH);
-			assertFalse("Not SWT.CASCADE bit expected, but "
+					(actualStyle & SWT.PUSH) == SWT.PUSH,
+					"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.");
+			assertFalse(
+					(actualStyle & SWT.CASCADE) == SWT.CASCADE,
+					"Not SWT.CASCADE bit expected, but "
 					+ Integer.toHexString(actualStyle)
-					+ " found.", (actualStyle & SWT.CASCADE) == SWT.CASCADE);
+					+ " found.");
 		}
 		// CHECK
 		{
 			WidgetInfo menuItem = createJavaInfo("org.eclipse.swt.widgets.MenuItem", "check");
 			int actualStyle = menuItem.getStyle();
 			assertTrue(
-					"SWT.CHECK bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.CHECK) == SWT.CHECK);
+					(actualStyle & SWT.CHECK) == SWT.CHECK,
+					"SWT.CHECK bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// RADIO
 		{
 			WidgetInfo menuItem = createJavaInfo("org.eclipse.swt.widgets.MenuItem", "radio");
 			int actualStyle = menuItem.getStyle();
 			assertTrue(
-					"SWT.RADIO bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.RADIO) == SWT.RADIO);
+					(actualStyle & SWT.RADIO) == SWT.RADIO,
+					"SWT.RADIO bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// CASCADE
 		{
 			WidgetInfo menuItem = createJavaInfo("org.eclipse.swt.widgets.MenuItem", "cascade");
 			int actualStyle = menuItem.getStyle();
 			assertTrue(
-					"SWT.CASCADE bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.CASCADE) == SWT.CASCADE);
+					(actualStyle & SWT.CASCADE) == SWT.CASCADE,
+					"SWT.CASCADE bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 	}
 
@@ -490,8 +493,8 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		// check style
 		int actualStyle = button.getStyle();
 		assertTrue(
-				"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-				(actualStyle & SWT.PUSH) == SWT.PUSH);
+				(actualStyle & SWT.PUSH) == SWT.PUSH,
+				"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 	}
 
 	@Test
@@ -518,8 +521,8 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		{
 			int actualStyle = pasteButton.getStyle();
 			assertTrue(
-					"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.PUSH) == SWT.PUSH);
+					(actualStyle & SWT.PUSH) == SWT.PUSH,
+					"SWT.PUSH bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// we still can paste
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();

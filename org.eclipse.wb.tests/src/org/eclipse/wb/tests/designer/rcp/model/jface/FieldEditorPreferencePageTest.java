@@ -47,8 +47,8 @@ import org.eclipse.swt.widgets.Label;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
@@ -69,7 +69,7 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		preferences.setToDefault(IPreferenceConstants.PREF_FIELD_USUAL_CODE);

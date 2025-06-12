@@ -47,8 +47,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -1131,13 +1131,13 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		check_contextMenu_alignmentVertical("&Fill", RowInfo.Alignment.FILL, "CENTER", "VERTICAL");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_contextMenu_verticalBaseline() throws Exception {
 		check_contextMenu_alignmentVertical("Baseline", RowInfo.Alignment.BASELINE, "BASELINE", "NONE");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_contextMenu_verticalBaselineAbove() throws Exception {
 		check_contextMenu_alignmentVertical(
@@ -1147,7 +1147,7 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 				"NONE");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_contextMenu_verticalBaselineBelow() throws Exception {
 		check_contextMenu_alignmentVertical(

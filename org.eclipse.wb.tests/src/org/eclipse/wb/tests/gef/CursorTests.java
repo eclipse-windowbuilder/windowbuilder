@@ -12,15 +12,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author lobas_av
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		CreationToolCursorTest.class,
 		SelectionToolCursorTest.class,
 		MarqueeSelectionToolCursorTest.class

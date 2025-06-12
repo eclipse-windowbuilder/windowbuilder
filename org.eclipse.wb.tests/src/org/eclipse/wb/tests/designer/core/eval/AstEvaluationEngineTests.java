@@ -25,9 +25,8 @@ import org.eclipse.wb.tests.designer.core.eval.primities.FloatTest;
 import org.eclipse.wb.tests.designer.core.eval.primities.IntegerTest;
 import org.eclipse.wb.tests.designer.core.eval.primities.LongTest;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link AstEvaluationEngine}.
@@ -35,8 +34,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author scheglov_ke
  */
 
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	EngineTest.class,
 	BooleanTest.class,
 	CharTest.class,

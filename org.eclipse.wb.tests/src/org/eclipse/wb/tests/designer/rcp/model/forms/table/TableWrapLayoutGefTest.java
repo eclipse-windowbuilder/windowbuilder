@@ -24,7 +24,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link TableWrapLayout} in GEF.

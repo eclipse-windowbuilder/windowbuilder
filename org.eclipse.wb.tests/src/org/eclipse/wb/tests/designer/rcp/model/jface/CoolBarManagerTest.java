@@ -28,8 +28,8 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link CoolBarManagerInfo}.
@@ -209,7 +209,7 @@ public class CoolBarManagerTest extends RcpModelTest {
 	/**
 	 * Test for using {@link ToolBarContributionItem}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_addToolBarManager_usingToolBarContributionItem() throws Exception {
 		ApplicationWindowInfo window =

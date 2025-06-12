@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JScrollPane;
 

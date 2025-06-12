@@ -19,17 +19,16 @@ import org.eclipse.wb.tests.designer.swing.model.property.PropertiesTests;
 import org.eclipse.wb.tests.designer.swing.model.top.TopLevelTests;
 import org.eclipse.wb.tests.designer.swing.model.util.UtilTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for Swing objects models.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		CoordinateUtilsTest.class,
 		LayoutTests.class,
 		ComponentTests.class,

@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests {@link MigLayoutInfo}.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		MigColumnTest.class,
 		MigRowTest.class,
 		MigLayoutConstraintsTest.class,

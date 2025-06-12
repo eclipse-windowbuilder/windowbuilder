@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.Statement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ExposedFieldVariableSupport}.

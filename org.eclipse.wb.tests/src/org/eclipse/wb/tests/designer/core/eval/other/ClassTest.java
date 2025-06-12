@@ -15,8 +15,8 @@ package org.eclipse.wb.tests.designer.core.eval.other;
 import org.eclipse.wb.internal.core.eval.evaluators.ClassEvaluator;
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class ClassTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

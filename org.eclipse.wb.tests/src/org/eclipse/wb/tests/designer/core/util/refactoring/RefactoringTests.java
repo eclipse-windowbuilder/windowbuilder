@@ -16,16 +16,15 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.ltk.core.refactoring.Change;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link ReflectionUtils} and its {@link Change}s.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({ RefactoringUtilsTest.class })
+@Suite
+@SelectClasses({ RefactoringUtilsTest.class })
 public class RefactoringTests {
 }

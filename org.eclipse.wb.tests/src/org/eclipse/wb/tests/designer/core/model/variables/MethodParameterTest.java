@@ -39,7 +39,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
 

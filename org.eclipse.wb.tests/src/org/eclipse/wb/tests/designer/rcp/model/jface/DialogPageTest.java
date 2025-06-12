@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.swt.layout.FillLayout;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link DialogPageInfo}.

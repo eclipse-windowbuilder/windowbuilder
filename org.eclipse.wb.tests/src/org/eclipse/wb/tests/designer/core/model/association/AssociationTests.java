@@ -14,17 +14,16 @@ package org.eclipse.wb.tests.designer.core.model.association;
 
 import org.eclipse.wb.core.model.association.Association;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for {@link Association}'s.
  *
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		// constructor
 		ConstructorParentAssociationTest.class,
 		ConstructorChildAssociationTest.class,

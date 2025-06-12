@@ -18,8 +18,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JTable;
 
@@ -388,7 +388,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_oneRow_fill() throws Exception {
 		ContainerInfo panel =
@@ -483,7 +483,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel =

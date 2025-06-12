@@ -28,8 +28,8 @@ import org.eclipse.wb.tests.designer.swt.model.menu.MenuFeedbackTester;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link MenuManagerInfo} in GEF.
@@ -60,7 +60,7 @@ public class MenuManagerGefTest extends RcpGefTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		menuTester = null;
 		super.tearDown();

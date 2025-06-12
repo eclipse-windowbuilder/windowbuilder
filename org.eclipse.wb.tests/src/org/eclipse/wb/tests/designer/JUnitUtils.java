@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.suite.api.SelectClasses;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -45,11 +45,11 @@ public class JUnitUtils {
 	private static File TEST_DIR = new File("src");
 	private static Set<Class<?>> TEST_ANNOTATIONS = Set.of( //
 			Test.class, //
-			Ignore.class, //
-			Before.class, //
-			After.class, //
-			BeforeClass.class, //
-			AfterClass.class);
+			Disabled.class, //
+			BeforeEach.class, //
+			AfterEach.class, //
+			BeforeAll.class, //
+			AfterAll.class);
 
 	public static Set<Class<?>> getRepeatedlyExecutedClasses() {
 		Map<Class<?>, Integer> counts = new HashMap<>();
@@ -103,7 +103,7 @@ public class JUnitUtils {
 		List<Class<?>> result = new ArrayList<>();
 		result.add(clazz);
 
-		SuiteClasses suiteClasses = clazz.getAnnotation(SuiteClasses.class);
+		SelectClasses suiteClasses = clazz.getAnnotation(SelectClasses.class);
 		if (suiteClasses != null) {
 			for (Class<?> suiteClass : suiteClasses.value()) {
 				result.addAll(getAllExecutedClasses(suiteClass));

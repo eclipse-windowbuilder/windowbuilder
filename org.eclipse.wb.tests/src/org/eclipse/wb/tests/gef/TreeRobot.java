@@ -34,10 +34,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
@@ -568,7 +568,7 @@ public final class TreeRobot {
 	 */
 	public TreeRobot assertCommandNotNull() throws Exception {
 		Command command = getCommand();
-		assertNotNull("No command.", command);
+		assertNotNull(command, "No command.");
 		return this;
 	}
 }

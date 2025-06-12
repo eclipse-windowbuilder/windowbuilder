@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.tests.Activator;
 
 import org.eclipse.core.resources.IFile;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link DefaultJavaInfoPresentation}.

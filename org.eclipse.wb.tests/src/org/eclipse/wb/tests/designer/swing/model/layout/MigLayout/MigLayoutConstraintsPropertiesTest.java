@@ -22,9 +22,9 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for "Constraints" property contributed by {@link CellConstraintsSupport}.
@@ -51,7 +51,7 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ContainerInfo panel =
@@ -76,7 +76,7 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		{
 			m_constraints = null;

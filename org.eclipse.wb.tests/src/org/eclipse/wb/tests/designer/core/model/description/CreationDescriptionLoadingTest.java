@@ -26,8 +26,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
@@ -45,7 +45,7 @@ public class CreationDescriptionLoadingTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		m_myButtonClass = null;
 		super.tearDown();

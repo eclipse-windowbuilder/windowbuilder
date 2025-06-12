@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.rcp.model.forms.ScrolledFormInfo;
 import org.eclipse.ui.forms.editor.FormEditor;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link FormPageInfo}.

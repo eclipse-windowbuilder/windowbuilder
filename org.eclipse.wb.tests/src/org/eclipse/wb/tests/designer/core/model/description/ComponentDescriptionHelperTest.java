@@ -48,7 +48,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 import org.xml.sax.SAXParseException;
 

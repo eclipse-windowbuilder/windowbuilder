@@ -29,8 +29,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -327,7 +327,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_absolute_singleControl_onTitledJPanel() throws Exception {
 		ContainerInfo panel =

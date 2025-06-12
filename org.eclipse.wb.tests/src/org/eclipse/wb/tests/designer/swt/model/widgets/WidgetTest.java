@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link WidgetInfo}.
@@ -70,16 +70,16 @@ public class WidgetTest extends RcpModelTest {
 			WidgetInfo text = shell.getChildrenControls().get(0);
 			int actualStyle = text.getStyle();
 			assertTrue(
-					"SWT.BORDER bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.BORDER) == SWT.BORDER);
+					(actualStyle & SWT.BORDER) == SWT.BORDER,
+					"SWT.BORDER bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 		// Button: CHECK
 		{
 			ControlInfo checkButton = createJavaInfo("org.eclipse.swt.widgets.Button", "check");
 			int actualStyle = checkButton.getStyle();
 			assertTrue(
-					"SWT.CHECK bit expected, but " + Integer.toHexString(actualStyle) + " found.",
-					(actualStyle & SWT.CHECK) == SWT.CHECK);
+					(actualStyle & SWT.CHECK) == SWT.CHECK,
+					"SWT.CHECK bit expected, but " + Integer.toHexString(actualStyle) + " found.");
 		}
 	}
 

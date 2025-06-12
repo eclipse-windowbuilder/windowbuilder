@@ -54,7 +54,7 @@ import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoRelatedTe
 import org.eclipse.wb.tests.designer.core.model.util.MorphingSupportTest;
 import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

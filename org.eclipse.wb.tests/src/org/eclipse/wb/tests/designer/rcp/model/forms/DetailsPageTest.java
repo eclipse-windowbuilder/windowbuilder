@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.model.forms.DetailsPageInfo;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IManagedForm;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link DetailsPageInfo}.

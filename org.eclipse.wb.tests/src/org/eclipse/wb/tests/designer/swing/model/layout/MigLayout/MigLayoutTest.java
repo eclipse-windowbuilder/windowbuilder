@@ -42,8 +42,8 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -234,7 +234,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_IGridInfo() throws Exception {
 		ContainerInfo panel =
@@ -1341,7 +1341,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#toUnitString(int, String)}.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_dimensionSize_toUnitString() throws Exception {
 		ContainerInfo panel =

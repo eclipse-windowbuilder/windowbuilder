@@ -43,7 +43,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.JavaCore;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.GridLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.GridLayout;
 

@@ -26,9 +26,9 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 import net.miginfocom.swing.MigLayout;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.GridBagLayout;
 import java.util.List;
@@ -65,14 +65,14 @@ public class MigLayoutGefTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		AbstractLayoutTest.configureForTest();
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		AbstractLayoutTest.configureDefaults();
 		super.tearDown();

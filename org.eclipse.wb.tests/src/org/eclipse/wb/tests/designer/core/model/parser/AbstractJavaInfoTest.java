@@ -55,8 +55,8 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		m_ignoreCompilationProblems = false;
@@ -87,7 +87,7 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		disposeLastModel();
 		tearDown_afterLastModelDispose();
@@ -319,7 +319,7 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 				if (objectInfo instanceof AbsoluteLayoutInfo) {
 					// in Swing absolute layout has object "null"
 				} else if (objectInfo instanceof JavaInfo javaInfo) {
-					assertNotNull("Object expected.", javaInfo.getObject());
+					assertNotNull(javaInfo.getObject(), "Object expected.");
 				}
 			}
 		});

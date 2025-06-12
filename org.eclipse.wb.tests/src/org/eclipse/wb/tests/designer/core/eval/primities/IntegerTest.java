@@ -16,8 +16,8 @@ import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author scheglov_ke
@@ -28,7 +28,7 @@ public class IntegerTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}

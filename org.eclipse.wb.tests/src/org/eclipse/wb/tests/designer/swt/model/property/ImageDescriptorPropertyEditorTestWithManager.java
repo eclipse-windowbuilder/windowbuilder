@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.io.FilenameUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
@@ -41,7 +41,7 @@ public class ImageDescriptorPropertyEditorTestWithManager extends ImageDescripto
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(

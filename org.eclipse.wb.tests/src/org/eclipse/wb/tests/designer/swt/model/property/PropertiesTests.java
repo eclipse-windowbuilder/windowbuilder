@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.property;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for SWT properties.
@@ -22,8 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author lobas_av
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		ConvertersTest.class,
 		ColorPropertyEditorTestNoManager.class,
 		ColorPropertyEditorTestWithManager.class,

@@ -12,15 +12,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.gef;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		BorderLayoutPolicyTest.class,
 		GridLayoutPolicyTest.class
 })

@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.description;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for component descriptions.
@@ -22,8 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author scheglov_ke
  */
 
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 	RcpDescriptionVersionsProviderFactoryTest.class
 })
 public class DescriptionTests {

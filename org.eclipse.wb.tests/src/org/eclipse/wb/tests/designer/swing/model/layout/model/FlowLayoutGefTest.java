@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.gef.AbstractLayoutPolicyTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

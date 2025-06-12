@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.property;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * Tests for Swing properties.
@@ -22,8 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author lobas_av
  * @author scheglov_ke
  */
-@RunWith(Suite.class)
-@SuiteClasses({
+@Suite
+@SelectClasses({
 		FontPropertyEditorTest.class,
 		IconPropertyEditorTest.class,
 		ImagePropertyEditorTest.class,

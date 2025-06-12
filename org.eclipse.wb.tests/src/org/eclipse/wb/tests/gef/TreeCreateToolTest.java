@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author lobas_av
@@ -33,7 +33,7 @@ public class TreeCreateToolTest extends TreeToolTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		// create test factory

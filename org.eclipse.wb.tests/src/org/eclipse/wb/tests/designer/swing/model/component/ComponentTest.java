@@ -31,8 +31,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -88,7 +88,7 @@ public class ComponentTest extends SwingModelTest {
 	/**
 	 * We can not create {@link java.awt.Image} with zero size, so we should check this.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_zeroSize() throws Exception {
 		ContainerInfo panel =

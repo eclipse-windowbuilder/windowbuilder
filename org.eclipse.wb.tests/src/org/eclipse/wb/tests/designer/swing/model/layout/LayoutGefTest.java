@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.wb.tests.designer.swing.model.component.ContainerTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.LayoutManager;
 

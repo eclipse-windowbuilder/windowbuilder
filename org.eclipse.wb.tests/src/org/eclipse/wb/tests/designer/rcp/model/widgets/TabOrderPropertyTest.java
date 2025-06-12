@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.property.TabOrderProperty;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link TabOrderProperty}, RCP variant.

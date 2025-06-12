@@ -76,7 +76,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.awt.FlowLayout;

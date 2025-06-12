@@ -20,9 +20,9 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.junit.After;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
 
@@ -38,7 +38,7 @@ public class SplitModeTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		{
@@ -63,7 +63,7 @@ public class SplitModeTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
-	@Ignore
+	@Disabled
 	public void test_reparse_afterDelay() throws Exception {
 		IPreferenceStore preferences = DesignerPlugin.getPreferences();
 		preferences.setValue(

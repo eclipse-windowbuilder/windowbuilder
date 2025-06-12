@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagConstraintsInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.util.SurroundSupportTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

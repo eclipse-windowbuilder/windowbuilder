@@ -15,8 +15,8 @@ package org.eclipse.wb.tests.designer.rcp.model.e4;
 import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link E4PartInfo}.
@@ -34,7 +34,7 @@ public class E4PartTest extends RcpModelTest {
 	}
 
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		m_testProject.addPlugin("jakarta.annotation-api");

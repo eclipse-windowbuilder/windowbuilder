@@ -35,8 +35,8 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class SourceEclipseModernTest extends AbstractNlsTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		m_testProject.addPlugin("org.eclipse.osgi");

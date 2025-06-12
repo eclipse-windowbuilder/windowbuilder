@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	 * Freely moving single resizable component with attachment into different target sides, attached
 	 * to component.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_move_to_leading_1_2component() throws Exception {
 		prepareComponent();
@@ -178,7 +178,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	/**
 	 * Freely moving single resizable component with attachment into different target sides.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_move_to_leading_1() throws Exception {
 		prepareComponent();
@@ -223,7 +223,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	/**
 	 * Freely moving single resizable component with attachment into reverse-different target sides.
 	 */
-	@Ignore
+	@Disabled
 	@Test
 	public void test_move_to_leading_2() throws Exception {
 		prepareComponent();

@@ -42,8 +42,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		action = null;
 		super.tearDown();
@@ -519,7 +519,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 		callGenerate(button, new int[]{}, new String[]{}, new int[][]{});
 		ICompilationUnit factoryUnit =
 				m_testProject.getJavaProject().findType("test.StaticFactory").getCompilationUnit();
-		assertNotNull("New factory class test.StaticFactory should be created.", factoryUnit);
+		assertNotNull(factoryUnit, "New factory class test.StaticFactory should be created.");
 		try {
 			m_getSource_ignoreSpacesCheck = true;
 			assertEquals(
@@ -1338,7 +1338,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 		for (int i = 0; i < invocationSignatures.length; i++) {
 			String signature = invocationSignatures[i];
 			Object invocation = generate_findInvocation(signature);
-			assertNotNull("Can not find invocation with signature: " + signature, invocation);
+			assertNotNull(invocation, "Can not find invocation with signature: " + signature);
 			ReflectionUtils.setField(invocation, "m_extract", Boolean.TRUE);
 			generate_fillParameters(invocation, invocationParameters[i]);
 		}

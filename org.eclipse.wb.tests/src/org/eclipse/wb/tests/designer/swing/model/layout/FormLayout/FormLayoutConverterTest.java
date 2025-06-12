@@ -18,8 +18,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link FormLayoutConverter}.
@@ -60,7 +60,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_oneRow() throws Exception {
 		ContainerInfo panel =
@@ -118,7 +118,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_twoRows_spanColumns() throws Exception {
 		ContainerInfo panel =
@@ -181,7 +181,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel =

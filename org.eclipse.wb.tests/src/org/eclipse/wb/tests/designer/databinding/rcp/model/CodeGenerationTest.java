@@ -84,7 +84,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.SWT;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -3117,7 +3117,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		assertEquals(expectedSourceCode, strategy.getSourceCode(lines, generationSupport));
 		assertEquals(expectedLines.length, lines.size());
 		for (int i = 0; i < expectedLines.length; i++) {
-			assertEquals("line:" + i, expectedLines[i], lines.get(i));
+			assertEquals(expectedLines[i], lines.get(i), "line:" + i);
 		}
 	}
 

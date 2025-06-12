@@ -23,8 +23,8 @@ import org.eclipse.wb.tests.designer.swt.model.property.PropertyEditorTestUtils;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Tests for {@link CursorPropertyEditor}.
@@ -40,7 +40,7 @@ public abstract class CursorPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_shell == null) {
@@ -49,7 +49,7 @@ public abstract class CursorPropertyEditorTest extends RcpModelTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 		ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(

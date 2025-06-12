@@ -12,14 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.databinding;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * @author lobas_av
  */
-@RunWith(Suite.class)
-@SuiteClasses({ ObjectsTreeContentProviderTest.class })
+@Suite
+@SelectClasses({ ObjectsTreeContentProviderTest.class })
 public class CoreDbTests {
 }

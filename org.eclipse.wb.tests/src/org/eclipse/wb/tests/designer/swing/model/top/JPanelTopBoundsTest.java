@@ -22,7 +22,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.JPanel;
 

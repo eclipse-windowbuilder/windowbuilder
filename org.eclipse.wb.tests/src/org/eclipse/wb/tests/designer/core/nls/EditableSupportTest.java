@@ -40,7 +40,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1096,7 +1096,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 	private void assertStringSet(Set<String> set, String[] expectedValues) {
 		assertEquals(expectedValues.length, set.size());
 		for (String expectedValue : expectedValues) {
-			assertTrue(expectedValue + " not found in " + set, set.contains(expectedValue));
+			assertTrue(set.contains(expectedValue), expectedValue + " not found in " + set);
 		}
 	}
 

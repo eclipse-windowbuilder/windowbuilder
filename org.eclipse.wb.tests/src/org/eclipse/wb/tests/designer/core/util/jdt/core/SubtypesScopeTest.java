@@ -20,10 +20,10 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link SubtypesScope}.
@@ -43,7 +43,7 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {
@@ -76,7 +76,7 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
@@ -124,7 +124,7 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 		assertTrue(scope.includesClasspaths());
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_otherScope() throws Exception {
 		SubtypesScope scope2 = new SubtypesScope(javaProject.findType("java.util.List"));

@@ -28,7 +28,7 @@ import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 import org.eclipse.draw2d.geometry.Point;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

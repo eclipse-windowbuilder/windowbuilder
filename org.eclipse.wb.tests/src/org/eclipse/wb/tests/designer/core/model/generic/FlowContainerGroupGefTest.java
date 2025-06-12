@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for "flow container" support for "layout manager", created by

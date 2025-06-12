@@ -18,8 +18,8 @@ import org.eclipse.wb.internal.rcp.model.rcp.ViewPartInfo;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link ViewCategoryPropertyEditor}.
@@ -33,7 +33,7 @@ public class ViewCategoryPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		do_projectDispose();
 		super.tearDown();

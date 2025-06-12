@@ -30,7 +30,7 @@ import org.eclipse.draw2d.geometry.Point;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

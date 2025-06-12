@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.core.runtime.IConfigurationElement;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

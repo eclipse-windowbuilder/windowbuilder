@@ -48,9 +48,9 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 	private static String SWTBOT_KEYBOARD_STRATEGY;
 	private static String SWTBOT_KEYBOARD_LAYOUT;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpAll() {
 		SWTBOT_KEYBOARD_STRATEGY = SWTBotPreferences.KEYBOARD_STRATEGY;
 		SWTBotPreferences.KEYBOARD_STRATEGY = SWTKeyboardStrategy.class.getName();
@@ -73,7 +73,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		SWTBOT_KEYBOARD_LAYOUT = SWTBotPreferences.KEYBOARD_LAYOUT;
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDownAll() {
 		SWTBotPreferences.KEYBOARD_STRATEGY = SWTBOT_KEYBOARD_STRATEGY;
 		SWTBotPreferences.KEYBOARD_LAYOUT = SWTBOT_KEYBOARD_LAYOUT;

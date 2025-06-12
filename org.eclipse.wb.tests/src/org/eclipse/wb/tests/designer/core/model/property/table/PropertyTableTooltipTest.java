@@ -27,15 +27,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for basic {@link PropertyTable} features.
  *
  * @author scheglov_ke
  */
-@Ignore
+@Disabled
 public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 	private static final PropertyEditor stringEditor = StringPropertyEditor.INSTANCE;
 

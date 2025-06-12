@@ -15,9 +15,8 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
@@ -26,7 +25,7 @@ import java.lang.reflect.Field;
  *
  * @author scheglov_ke
  */
-public class DesignerExceptionTest extends Assert {
+public class DesignerExceptionTest extends Assertions {
 	private static final int CODE = 12345;
 	private static final String PARAMETER_0 = "a";
 	private static final String PARAMETER_1 = "b";
@@ -42,7 +41,7 @@ public class DesignerExceptionTest extends Assert {
 		assertEquals(CODE, designerException.getCode());
 		{
 			String[] parameters = designerException.getParameters();
-			Assertions.assertThat(parameters).hasSize(1);
+			assertEquals(parameters.length, 1);
 			assertSame(PARAMETER_0, parameters[0]);
 		}
 	}
@@ -53,7 +52,7 @@ public class DesignerExceptionTest extends Assert {
 		assertEquals(CODE, designerException.getCode());
 		{
 			String[] parameters = designerException.getParameters();
-			Assertions.assertThat(parameters).hasSize(2);
+			assertEquals(parameters.length, 2);
 			assertSame(PARAMETER_0, parameters[0]);
 			assertSame(PARAMETER_1, parameters[1]);
 		}
@@ -67,7 +66,7 @@ public class DesignerExceptionTest extends Assert {
 		assertSame(cause, designerException.getCause());
 		{
 			String[] parameters = designerException.getParameters();
-			Assertions.assertThat(parameters).hasSize(1);
+			assertEquals(parameters.length, 1);
 			assertSame(PARAMETER_0, parameters[0]);
 		}
 	}

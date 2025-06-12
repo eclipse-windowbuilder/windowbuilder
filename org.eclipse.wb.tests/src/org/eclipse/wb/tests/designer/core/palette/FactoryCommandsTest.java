@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.InstanceFactoryEntryInfo;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntryInfo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for palette {@link FactoryEntryInfo} {@link Command}'s.

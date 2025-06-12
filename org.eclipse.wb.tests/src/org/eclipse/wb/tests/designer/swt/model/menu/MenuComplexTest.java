@@ -26,8 +26,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.draw2d.PositionConstants;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class MenuComplexTest extends RcpGefTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		menuTester = null;
 		super.tearDown();

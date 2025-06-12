@@ -21,10 +21,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -47,7 +47,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		CompositeInfo shell =
@@ -67,7 +67,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	}
 
 	@Override
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		if (m_testProject != null && SWTManagerClass != null) {
 			ReflectionUtils.invokeMethod(SWTManagerClass, "dispose()");
@@ -212,7 +212,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void test_getImage_classpath() throws Exception {
 		// create image over SWTResourceManager

@@ -22,8 +22,6 @@ import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 
-import static org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses;
-
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
@@ -43,7 +41,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
@@ -56,13 +53,12 @@ import org.eclipse.ui.texteditor.spelling.SpellingService;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -80,7 +76,7 @@ import java.util.logging.Logger;
  *
  * @author scheglov_ke
  */
-public abstract class DesignerTestCase extends Assert {
+public abstract class DesignerTestCase extends Assertions {
 
 	private static boolean m_firstDesignerTest = true;
 	private final Logger logger = Logger.getLogger(getClass().getName());
@@ -91,27 +87,27 @@ public abstract class DesignerTestCase extends Assert {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	@Rule
-	public TestRule loggerRule = new TestRule() {
-		@Override
-		public Statement apply(Statement base, Description description) {
-			logger.info(description.getClassName() + ':' + description.getMethodName());
-			return base;
-		}
+	@RegisterExtension
+	private LoggerExtension extension = new LoggerExtension();
 
-	};
+	public class LoggerExtension implements BeforeTestExecutionCallback {
+		@Override
+		public void beforeTestExecution(ExtensionContext context) throws Exception {
+			logger.info(context.getRequiredTestClass().getSimpleName() + ':' + context.getDisplayName());
+		}
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// setUp/tearDown
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		configureFirstTime();
 	}
 
-	@After
+	@AfterEach
 	public void clearMemoryLeaks() throws Exception {
 		// ObjectInfoUtils
 		((Map<?, ?>) ReflectionUtils.getFieldObject(ObjectInfoUtils.class, "m_idToObjectInfo")).clear();
@@ -160,7 +156,7 @@ public abstract class DesignerTestCase extends Assert {
 		}
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		clearInstanceFields();
 	}
@@ -218,32 +214,16 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	protected final void assertNoLoggedExceptions() {
 		assertEquals(
-				"Check console for logged exceptions.",
 				0,
-				m_numberOfExceptionsDuringThisEditorSession);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Asserts
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Asserts that given object is instance of expected class.
-	 */
-	protected static void assertInstanceOf(Class<?> expectedClass, Object o) {
-		assertNotNull(expectedClass.getName() + " class expected, but 'null' found.", o);
-		assertTrue(expectedClass.getName()
-				+ " class expected, but "
-				+ o.getClass().getName()
-				+ " found.", expectedClass.isAssignableFrom(o.getClass()));
+				m_numberOfExceptionsDuringThisEditorSession,
+				"Check console for logged exceptions.");
 	}
 
 	/**
 	 * Asserts that given object is instance of expected class.
 	 */
 	protected static void assertInstanceOf(String expectedClassName, Object o) {
-		assertNotNull(expectedClassName + " class expected, but 'null' found.", o);
+		assertNotNull(o, expectedClassName + " class expected, but 'null' found.");
 		if (!ReflectionUtils.isSuccessorOf(o, expectedClassName)) {
 			fail(expectedClassName + " class expected, but " + o.getClass().getName() + " found.");
 		}
@@ -254,10 +234,11 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	protected static void assertNotInstanceOf(Class<?> expectedClass, Object o) {
 		assertNotNull(o);
-		assertFalse(expectedClass.getName()
+		assertFalse(expectedClass.isAssignableFrom(o.getClass()),
+				expectedClass.getName()
 				+ " class expected, but "
 				+ o.getClass().getName()
-				+ " found.", expectedClass.isAssignableFrom(o.getClass()));
+				+ " found.");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -279,9 +260,9 @@ public abstract class DesignerTestCase extends Assert {
 	 */
 	public static void assertRGB(RGB rgb, int red, int green, int blue) {
 		String message = rgb.toString();
-		assertEquals(message, rgb.red, red);
-		assertEquals(message, rgb.green, green);
-		assertEquals(message, rgb.blue, blue);
+		assertEquals(rgb.red, red, message);
+		assertEquals(rgb.green, green, message);
+		assertEquals(rgb.blue, blue, message);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
