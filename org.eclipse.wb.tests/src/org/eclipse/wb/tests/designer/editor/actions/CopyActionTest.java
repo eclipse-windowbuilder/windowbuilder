@@ -21,7 +21,6 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -83,7 +82,6 @@ public class CopyActionTest extends SwingGefTest {
 	/**
 	 * Test for copy/paste single component.
 	 */
-	@Ignore
 	@Test
 	public void test_copySingle() throws Exception {
 		ContainerInfo panel = openContainer("""
@@ -121,8 +119,8 @@ public class CopyActionTest extends SwingGefTest {
 					public class Test extends JPanel {
 						public Test() {
 							{
-								JButton button = new JButton();
-								add(button);
+								JButton btn = new JButton();
+								add(btn);
 							}
 							{
 								JButton btn = new JButton();
@@ -137,7 +135,6 @@ public class CopyActionTest extends SwingGefTest {
 	 * If container and its child are selected, then only container should be copied, it will copy
 	 * child automatically.
 	 */
-	@Ignore
 	@Test
 	public void test_copyParentAndItsChild() throws Exception {
 		ContainerInfo panel = openContainer("""
@@ -180,11 +177,11 @@ public class CopyActionTest extends SwingGefTest {
 					public class Test extends JPanel {
 						public Test() {
 							{
-								JPanel panel = new JPanel();
-								add(panel);
+								JPanel inner = new JPanel();
+								add(inner);
 								{
 									JButton button = new JButton();
-									panel.add(button);
+									inner.add(button);
 								}
 							}
 							{

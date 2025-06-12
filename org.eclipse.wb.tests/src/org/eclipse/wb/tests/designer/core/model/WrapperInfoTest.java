@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,6 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -374,7 +373,6 @@ public class WrapperInfoTest extends SwingModelTest {
 				"}");
 	}
 
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		configureWrapperContents();
@@ -419,8 +417,8 @@ public class WrapperInfoTest extends SwingModelTest {
 				"      JPanel panel_2 = new JPanel();",
 				"      add(panel_2);",
 				"      {",
-				"        TestWrapper testWrapper = new TestWrapper(panel_2);",
-				"        JButton button = testWrapper.getControl();",
+				"        TestWrapper wrapper = new TestWrapper(panel_2);",
+				"        JButton button = wrapper.getControl();",
 				"      }",
 				"    }",
 				"  }",

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.event.MouseListener;
@@ -369,7 +368,6 @@ public class JPopupMenuTest extends SwingModelTest {
 	/**
 	 * Test that we can paste {@link JPopupMenu}.
 	 */
-	@Ignore
 	@Test
 	public void test_PASTE() throws Exception {
 		ContainerInfo panelInfo =
@@ -421,11 +419,11 @@ public class JPopupMenuTest extends SwingModelTest {
 				"      JButton button_2 = new JButton();",
 				"      add(button_2);",
 				"      {",
-				"        JPopupMenu popupMenu = new JPopupMenu();",
-				"        addPopup(button_2, popupMenu);",
+				"        JPopupMenu popup = new JPopupMenu();",
+				"        addPopup(button_2, popup);",
 				"        {",
 				"          JMenuItem menuItem = new JMenuItem('Some item');",
-				"          popupMenu.add(menuItem);",
+				"          popup.add(menuItem);",
 				"        }",
 				"      }",
 				"    }",

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -157,7 +156,6 @@ public class ViewFormGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		ViewFormInfo composite =
@@ -188,9 +186,9 @@ public class ViewFormGefTest extends RcpGefTest {
 				"      setTopLeft(buttonA);",
 				"    }",
 				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setEnabled(false);",
-				"      setTopRight(button);",
+				"      Button buttonA = new Button(this, SWT.NONE);",
+				"      buttonA.setEnabled(false);",
+				"      setTopRight(buttonA);",
 				"    }",
 				"  }",
 				"}");

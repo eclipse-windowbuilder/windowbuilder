@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.swt.graphics.Image;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -528,7 +527,6 @@ public class JMenuTest extends SwingModelTest {
 	/**
 	 * We can paste {@link JMenuItemInfo}'s.
 	 */
-	@Ignore
 	@Test
 	public void test_IMenuInfo_PASTE() throws Exception {
 		ContainerInfo frameInfo =
@@ -574,8 +572,8 @@ public class JMenuTest extends SwingModelTest {
 				"        menu.add(existingItem);",
 				"      }",
 				"      {",
-				"        JMenuItem menuItem = new JMenuItem('Some item');",
-				"        menu.add(menuItem);",
+				"        JMenuItem existingItem = new JMenuItem('Some item');",
+				"        menu.add(existingItem);",
 				"      }",
 				"    }",
 				"  }",

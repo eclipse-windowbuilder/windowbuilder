@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,7 +34,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -1006,7 +1005,6 @@ public class GridLayoutGefTest extends RcpGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
 		openPanel(
@@ -1035,8 +1033,8 @@ public class GridLayoutGefTest extends RcpGefTest {
 				"      existingButton.setText('My Button');",
 				"    }",
 				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('My Button');",
+				"      Button existingButton = new Button(this, SWT.NONE);",
+				"      existingButton.setText('My Button');",
 				"    }",
 				"  }",
 				"}");

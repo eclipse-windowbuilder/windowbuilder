@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,7 +40,6 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_simpleSingleControl() throws Exception {
 		CompositeInfo shell =
@@ -92,9 +90,9 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 				"    {",
 				"      Composite composite = new Composite(this, SWT.NONE);",
 				"      {",
-				"        TableWrapLayout tableWrapLayout = new TableWrapLayout();",
-				"        tableWrapLayout.topMargin = 20;",
-				"        composite.setLayout(tableWrapLayout);",
+				"        TableWrapLayout layout = new TableWrapLayout();",
+				"        layout.topMargin = 20;",
+				"        composite.setLayout(layout);",
 				"      }",
 				"      {",
 				"        Button button = new Button(composite, SWT.NONE);",
@@ -104,7 +102,6 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 				"}");
 	}
 
-	@Ignore
 	@Test
 	public void test_grid2x2() throws Exception {
 		CompositeInfo shell =
@@ -170,9 +167,9 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 				"    {",
 				"      Composite composite = new Composite(this, SWT.NONE);",
 				"      {",
-				"        TableWrapLayout tableWrapLayout = new TableWrapLayout();",
-				"        tableWrapLayout.numColumns = 2;",
-				"        composite.setLayout(tableWrapLayout);",
+				"        TableWrapLayout layout = new TableWrapLayout();",
+				"        layout.numColumns = 2;",
+				"        composite.setLayout(layout);",
 				"      }",
 				"      {",
 				"        Button button = new Button(composite, SWT.NONE);",

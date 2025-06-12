@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -46,7 +46,6 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.JButton;
@@ -625,7 +624,6 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	/**
 	 * {@link ConstructorCreationSupport} should include type arguments into clipboard source.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard_typeArguments() throws Exception {
 		// prepare generic MyButton
@@ -681,8 +679,8 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 					"      add(button);",
 					"    }",
 					"    {",
-					"      MyButton<Double, String> myButton = new MyButton<Double, String>();",
-					"      add(myButton);",
+					"      MyButton<Double, String> button = new MyButton<Double, String>();",
+					"      add(button);",
 					"    }",
 					"  }",
 					"}");
@@ -693,7 +691,6 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	 * {@link ConstructorCreationSupport} should support {@link AnonymousClassDeclaration} in
 	 * clipboard source.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard_anonymousClassDeclaration() throws Exception {
 		// prepare generic MyButton
@@ -750,14 +747,14 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 					"      add(button);",
 					"    }",
 					"    {",
-					"      MyButton myButton = new MyButton() {",
+					"      MyButton button = new MyButton() {",
 					"        protected String myStringMethod(int a, double b, String c) {",
 					"          return (String) null;",
 					"        }",
 					"        protected void myVoidMethod() {",
 					"        }",
 					"      };",
-					"      add(myButton);",
+					"      add(button);",
 					"    }",
 					"  }",
 					"}");

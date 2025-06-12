@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,7 +29,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -381,7 +380,6 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
-	@Ignore
 	@Test
 	public void test_viewer_1() throws Exception {
 		String[] sourceLines =
@@ -407,9 +405,9 @@ public class ClipboardTest extends RcpModelTest {
 						"      viewer.getTable().setHeaderVisible(true);",
 						"    }",
 						"    {",
-						"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"      tableViewer.setUseHashlookup(true);",
-						"      Table table = tableViewer.getTable();",
+						"      TableViewer viewer = new TableViewer(this, SWT.BORDER);",
+						"      viewer.setUseHashlookup(true);",
+						"      Table table = viewer.getTable();",
 						"      table.setHeaderVisible(true);",
 						"    }",
 						"  }",
@@ -464,7 +462,6 @@ public class ClipboardTest extends RcpModelTest {
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
-	@Ignore
 	@Test
 	public void test_viewer_2() throws Exception {
 		String[] sourceLines =
@@ -494,8 +491,8 @@ public class ClipboardTest extends RcpModelTest {
 						"    {",
 						"      Table table = new Table(this, SWT.BORDER);",
 						"      table.setHeaderVisible(true);",
-						"      TableViewer tableViewer = new TableViewer(table);",
-						"      tableViewer.setUseHashlookup(true);",
+						"      TableViewer viewer = new TableViewer(table);",
+						"      viewer.setUseHashlookup(true);",
 						"    }",
 						"  }",
 		"}"};

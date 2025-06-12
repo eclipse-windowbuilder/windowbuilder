@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -702,7 +702,6 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	// Copy/paste
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_copyPaste_null() throws Exception {
 		String originalSource = "null";
@@ -718,11 +717,10 @@ public class FontPropertyEditorTest extends SwingModelTest {
 		check_copyPaste(originalSource, expectedSource);
 	}
 
-	@Ignore
 	@Test
 	public void test_copyPaste_derived() throws Exception {
 		String originalSource = "myLabel.getFont().deriveFont(20f)";
-		String expectedSource = "label.getFont().deriveFont(20f)";
+		String expectedSource = originalSource;
 		check_copyPaste(originalSource, expectedSource);
 	}
 
@@ -758,9 +756,9 @@ public class FontPropertyEditorTest extends SwingModelTest {
 					"      add(myLabel);",
 					"    }",
 					"    {",
-					"      JLabel label = new JLabel();",
-					"      label.setFont(" + expectedSource + ");",
-					"      add(label);",
+					"      JLabel myLabel = new JLabel();",
+					"      myLabel.setFont(" + expectedSource + ");",
+					"      add(myLabel);",
 					"    }",
 					"  }",
 			"}"};

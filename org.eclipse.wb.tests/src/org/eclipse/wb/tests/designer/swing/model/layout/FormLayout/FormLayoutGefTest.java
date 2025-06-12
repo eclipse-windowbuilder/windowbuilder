@@ -28,7 +28,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.GridBagLayout;
@@ -872,7 +871,6 @@ public class FormLayoutGefTest extends SwingGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PASTE_virtual_4x2() throws Exception {
 		openPanel("""
@@ -919,8 +917,8 @@ public class FormLayoutGefTest extends SwingGefTest {
 							add(existing, "2, 2");
 						}
 						{
-							JButton button = new JButton("My JButton");
-							add(button, "4, 2");
+							JButton existing = new JButton("My JButton");
+							add(existing, "4, 2");
 						}
 					}
 				}""");

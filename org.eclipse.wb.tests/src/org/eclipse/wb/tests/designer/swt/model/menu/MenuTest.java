@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,7 +42,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -425,7 +424,6 @@ public class MenuTest extends RcpModelTest {
 	 * Tests for {@link IMenuInfo#validatePaste(Object)} and
 	 * {@link IMenuInfo#commandPaste(Object, IMenuItemInfo)}.
 	 */
-	@Ignore
 	@Test
 	public void test_IMenuInfo_paste_1() throws Exception {
 		CompositeInfo shell =
@@ -460,8 +458,8 @@ public class MenuTest extends RcpModelTest {
 				"      item.setText('Item');",
 				"    }",
 				"    {",
-				"      MenuItem menuItem = new MenuItem(menu, SWT.NONE);",
-				"      menuItem.setText('Item');",
+				"      MenuItem item = new MenuItem(menu, SWT.NONE);",
+				"      item.setText('Item');",
 				"    }",
 				"  }",
 				"}");
@@ -699,7 +697,6 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for copy/paste {@link MenuInfo} with {@link MenuItemInfo} and sub-menu.
 	 */
-	@Ignore
 	@Test
 	public void test_commandPaste() throws Exception {
 		CompositeInfo shell =
@@ -768,11 +765,11 @@ public class MenuTest extends RcpModelTest {
 				"        Menu menu = new Menu(button_2);",
 				"        button_2.setMenu(menu);",
 				"        {",
-				"          MenuItem menuItem = new MenuItem(menu, SWT.CASCADE);",
-				"          menuItem.setText('My item');",
+				"          MenuItem item = new MenuItem(menu, SWT.CASCADE);",
+				"          item.setText('My item');",
 				"          {",
-				"            Menu menu_1 = new Menu(menuItem);",
-				"            menuItem.setMenu(menu_1);",
+				"            Menu subMenu = new Menu(item);",
+				"            item.setMenu(subMenu);",
 				"          }",
 				"        }",
 				"      }",
