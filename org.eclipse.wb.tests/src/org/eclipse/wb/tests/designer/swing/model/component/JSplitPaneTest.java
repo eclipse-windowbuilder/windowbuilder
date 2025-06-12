@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.JSplitPane;
@@ -383,7 +382,6 @@ public class JSplitPaneTest extends SwingModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		final ContainerInfo panel =
@@ -431,15 +429,15 @@ public class JSplitPaneTest extends SwingModelTest {
 				"      }",
 				"    }",
 				"    {",
-				"      JSplitPane splitPane = new JSplitPane();",
-				"      add(splitPane);",
+				"      JSplitPane split = new JSplitPane();",
+				"      add(split);",
 				"      {",
 				"        JButton button = new JButton('A');",
-				"        splitPane.setLeftComponent(button);",
+				"        split.setLeftComponent(button);",
 				"      }",
 				"      {",
 				"        JButton button = new JButton('B');",
-				"        splitPane.setRightComponent(button);",
+				"        split.setRightComponent(button);",
 				"      }",
 				"    }",
 				"  }",

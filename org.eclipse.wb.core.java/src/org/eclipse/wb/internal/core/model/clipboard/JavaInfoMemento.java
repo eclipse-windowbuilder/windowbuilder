@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.variable.NamesManager;
+import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -239,7 +240,10 @@ public class JavaInfoMemento implements Serializable {
 	 */
 	private String getVariableName(JavaInfo javaInfo) {
 		if (javaInfo != null) {
-			return javaInfo.getVariableSupport().getName();
+			VariableSupport variableSupport = javaInfo.getVariableSupport();
+			if (variableSupport.hasName()) {
+				return variableSupport.getName();
+			}
 		}
 		return null;
 	}

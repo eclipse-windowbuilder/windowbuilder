@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.draw2d.PositionConstants;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -775,7 +774,6 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Paste copy of "item" on "bar".
 	 */
-	@Ignore
 	@Test
 	public void test_PASTE_item() throws Exception {
 		CompositeInfo shellInfo =
@@ -813,8 +811,8 @@ public class MenuComplexTest extends RcpGefTest {
 				"    Menu bar = new Menu(this, SWT.BAR);",
 				"    setMenuBar(bar);",
 				"    {",
-				"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-				"      menuItem.setText('item');",
+				"      MenuItem item = new MenuItem(bar, SWT.NONE);",
+				"      item.setText('item');",
 				"    }",
 				"    {",
 				"      MenuItem item = new MenuItem(bar, SWT.NONE);",

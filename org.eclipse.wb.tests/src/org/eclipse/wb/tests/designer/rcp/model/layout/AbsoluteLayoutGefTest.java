@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -71,7 +70,6 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
-	@Ignore
 	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareComponent();
@@ -117,9 +115,9 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"      buttonA.setBounds(10, 10, 100, 50);",
 				"    }",
 				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setEnabled(false);",
-				"      button.setBounds(50, 100, 100, 50);",
+				"      Button buttonA = new Button(this, SWT.NONE);",
+				"      buttonA.setEnabled(false);",
+				"      buttonA.setBounds(50, 100, 100, 50);",
 				"    }",
 				"  }",
 				"}");
@@ -260,7 +258,6 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 		tree.assertPrimarySelected(newButton);
 	}
 
-	@Ignore
 	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareComponent();
@@ -306,9 +303,9 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"      buttonA.setBounds(10, 10, 100, 50);",
 				"    }",
 				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setEnabled(false);",
-				"      button.setBounds(0, 0, 100, 50);",
+				"      Button buttonA = new Button(this, SWT.NONE);",
+				"      buttonA.setEnabled(false);",
+				"      buttonA.setBounds(0, 0, 100, 50);",
 				"    }",
 				"  }",
 				"}");

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -415,7 +415,6 @@ public class TableTest extends RcpModelTest {
 				"}");
 	}
 
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		CompositeInfo shell =
@@ -463,12 +462,12 @@ public class TableTest extends RcpModelTest {
 				"    {",
 				"      Table table = new Table(this, SWT.BORDER);",
 				"      {",
-				"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-				"        tableColumn.setText('Column 1');",
+				"        TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
+				"        tableColumn_1.setText('Column 1');",
 				"      }",
 				"      {",
-				"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-				"        tableColumn.setText('Column 2');",
+				"        TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
+				"        tableColumn_2.setText('Column 2');",
 				"      }",
 				"    }",
 				"  }",

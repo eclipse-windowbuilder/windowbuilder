@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.FlowLayout;
@@ -432,7 +431,6 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		String[] lines1 =
@@ -482,15 +480,15 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 					"      }",
 					"    }",
 					"    {",
-					"      JPanel panel = new JPanel();",
-					"      add(panel);",
+					"      JPanel inner = new JPanel();",
+					"      add(inner);",
 					"      {",
 					"        JButton button = new JButton('A');",
-					"        panel.add(button);",
+					"        inner.add(button);",
 					"      }",
 					"      {",
 					"        JButton button = new JButton('B');",
-					"        panel.add(button);",
+					"        inner.add(button);",
 					"      }",
 					"    }",
 					"  }",

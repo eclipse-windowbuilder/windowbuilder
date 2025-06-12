@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -110,7 +110,6 @@ public class TreeTest extends RcpModelTest {
 	/**
 	 * Test for copy/paste {@link TreeColumn}.
 	 */
-	@Ignore
 	@Test
 	public void test_TreeColumn_copyPaste() throws Exception {
 		CompositeInfo shell =
@@ -166,12 +165,12 @@ public class TreeTest extends RcpModelTest {
 				"      Tree tree = new Tree(this, SWT.BORDER);",
 				"      tree.setHeaderVisible(true);",
 				"      {",
-				"        TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);",
-				"        treeColumn.setWidth(50);",
+				"        TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
+				"        treeColumn_1.setWidth(50);",
 				"      }",
 				"      {",
-				"        TreeColumn treeColumn = new TreeColumn(tree, SWT.RIGHT);",
-				"        treeColumn.setWidth(100);",
+				"        TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);",
+				"        treeColumn_2.setWidth(100);",
 				"      }",
 				"    }",
 				"  }",

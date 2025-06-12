@@ -672,7 +672,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * <p>
 	 * Row "0" has component, but it is spanned two rows, so "0" has zero size.
 	 */
-	@Ignore
 	@Test
 	public void test_grid_emptyRow_spanned() throws Exception {
 		ContainerInfo panel =
@@ -2408,7 +2407,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for copy/paste {@link JPanel} with {@link GridBagLayout} and children.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		ContainerInfo panel =
@@ -2466,20 +2464,20 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				"      }",
 				"    }",
 				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel);",
-				"      GridBagLayout gridBagLayout = new GridBagLayout();",
-				"      gridBagLayout.columnWidths = new int[]{10, 20, 0};",
-				"      gridBagLayout.rowHeights = new int[]{10, 20, 30, 0};",
-				"      gridBagLayout.columnWeights = new double[]{1.0, 2.0, Double.MIN_VALUE};",
-				"      gridBagLayout.rowWeights = new double[]{1.0, 2.0, 3.0, Double.MIN_VALUE};",
-				"      panel.setLayout(gridBagLayout);",
+				"      JPanel inner = new JPanel();",
+				"      add(inner);",
+				"      GridBagLayout layout = new GridBagLayout();",
+				"      layout.columnWidths = new int[]{10, 20, 0};",
+				"      layout.rowHeights = new int[]{10, 20, 30, 0};",
+				"      layout.columnWeights = new double[]{1.0, 2.0, Double.MIN_VALUE};",
+				"      layout.rowWeights = new double[]{1.0, 2.0, 3.0, Double.MIN_VALUE};",
+				"      inner.setLayout(layout);",
 				"      {",
 				"        JButton button = new JButton();",
 				"        GridBagConstraints gbc = new GridBagConstraints();",
 				"        gbc.gridx = 1;",
 				"        gbc.gridy = 2;",
-				"        panel.add(button, gbc);",
+				"        inner.add(button, gbc);",
 				"      }",
 				"    }",
 				"  }",

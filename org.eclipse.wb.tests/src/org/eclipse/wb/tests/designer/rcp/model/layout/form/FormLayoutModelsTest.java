@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,7 +32,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -650,7 +649,6 @@ public class FormLayoutModelsTest extends RcpModelTest {
 	// Test for copy/paste.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		CompositeInfo composite =
@@ -707,10 +705,10 @@ public class FormLayoutModelsTest extends RcpModelTest {
 					"      button2.setLayoutData(data);",
 					"    }",
 					"    {",
-					"      Composite composite = new Composite(this, SWT.NONE);",
-					"      composite.setLayout(new FormLayout());",
+					"      Composite inner_1 = new Composite(this, SWT.NONE);",
+					"      inner_1.setLayout(new FormLayout());",
 					"      {",
-					"        Button button = new Button(composite, SWT.NONE);",
+					"        Button button = new Button(inner_1, SWT.NONE);",
 					"        {",
 					"          FormData formData = new FormData();",
 					"          formData.top = new FormAttachment(20);",
@@ -719,11 +717,11 @@ public class FormLayoutModelsTest extends RcpModelTest {
 					"        }",
 					"      }",
 					"      {",
-					"        Button button = new Button(composite, SWT.NONE);",
+					"        Button button2 = new Button(inner_1, SWT.NONE);",
 					"        {",
 					"          FormData formData = new FormData();",
 					"          formData.right = new FormAttachment(100, -10);",
-					"          button.setLayoutData(formData);",
+					"          button2.setLayoutData(formData);",
 					"        }",
 					"      }",
 					"    }",

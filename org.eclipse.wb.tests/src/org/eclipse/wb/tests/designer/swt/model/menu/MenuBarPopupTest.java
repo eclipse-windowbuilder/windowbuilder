@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -199,7 +198,6 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * Test for copy/paste "popup".
 	 */
-	@Ignore
 	@Test
 	public void test_popupPaste() throws Exception {
 		CompositeInfo shellInfo =
@@ -264,8 +262,8 @@ public class MenuBarPopupTest extends RcpGefTest {
 				"        Menu menu = new Menu(button_2);",
 				"        button_2.setMenu(menu);",
 				"        {",
-				"          MenuItem menuItem = new MenuItem(menu, SWT.NONE);",
-				"          menuItem.setText('My item');",
+				"          MenuItem item = new MenuItem(menu, SWT.NONE);",
+				"          item.setText('My item');",
 				"        }",
 				"      }",
 				"    }",

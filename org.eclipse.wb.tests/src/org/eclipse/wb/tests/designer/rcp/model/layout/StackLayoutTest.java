@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.swt.custom.StackLayout;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -305,7 +304,6 @@ public class StackLayoutTest extends RcpModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		CompositeInfo shell =
@@ -353,13 +351,13 @@ public class StackLayoutTest extends RcpModelTest {
 				"      }",
 				"    }",
 				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new StackLayout());",
+				"      Composite c = new Composite(this, SWT.NONE);",
+				"      c.setLayout(new StackLayout());",
 				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
+				"        Button button_1 = new Button(c, SWT.NONE);",
 				"      }",
 				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
+				"        Button button_2 = new Button(c, SWT.NONE);",
 				"      }",
 				"    }",
 				"  }",

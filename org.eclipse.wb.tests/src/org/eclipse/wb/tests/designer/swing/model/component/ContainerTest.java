@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,7 +40,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import com.jgoodies.forms.layout.FormLayout;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Component;
@@ -424,7 +423,6 @@ public class ContainerTest extends SwingModelTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		String[] lines1 =
@@ -465,9 +463,9 @@ public class ContainerTest extends SwingModelTest {
 					"      add(inner);",
 					"    }",
 					"    {",
-					"      JPanel panel = new JPanel();",
-					"      add(panel);",
-					"      panel.setLayout(new GridLayout(1, 0));",
+					"      JPanel inner = new JPanel();",
+					"      add(inner);",
+					"      inner.setLayout(new GridLayout(1, 0));",
 					"    }",
 					"  }",
 			"}"};

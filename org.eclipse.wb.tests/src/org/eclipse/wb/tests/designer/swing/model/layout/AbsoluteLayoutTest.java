@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -52,7 +52,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.assertj.core.api.Assertions;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.BorderLayout;
@@ -1491,7 +1490,6 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	@Ignore
 	@Test
 	public void test_clipboard() throws Exception {
 		String[] lines1 =
@@ -1542,26 +1540,26 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 					"      }",
 					"    }",
 					"    {",
-					"      JPanel panel = new JPanel();",
-					"      panel.setLayout(null);",
-					"      add(panel);",
+					"      JPanel inner = new JPanel();",
+					"      inner.setLayout(null);",
+					"      add(inner);",
 					"      {",
 					"        JButton button = new JButton();",
 					"        button.setBounds(1, 2, 3, 4);",
-					"        panel.add(button);",
+					"        inner.add(button);",
 					"      }",
 					"    }",
 					"  }",
 			"}"};
 		assertEditor(lines);
 		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(inner)/ /add(panel)/}",
+				"{this: javax.swing.JPanel} {this} {/add(inner)/ /add(inner)/}",
 				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
 				"  {new: javax.swing.JPanel} {local-unique: inner} {/new JPanel()/ /inner.setLayout(null)/ /add(inner)/ /inner.add(button)/}",
 				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /inner.add(button)/ /button.setBounds(1, 2, 3, 4)/}",
 				"    {inner.setLayout(null)} {absolute} {}",
-				"  {new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/ /add(panel)/ /panel.setLayout(null)/ /panel.add(button)/}",
-				"    {panel.setLayout(null)} {absolute} {}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /panel.add(button)/ /button.setBounds(1, 2, 3, 4)/}");
+				"  {new: javax.swing.JPanel} {local-unique: inner} {/new JPanel()/ /add(inner)/ /inner.setLayout(null)/ /inner.add(button)/}",
+				"    {inner.setLayout(null)} {absolute} {}",
+				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /inner.add(button)/ /button.setBounds(1, 2, 3, 4)/}");
 	}
 }

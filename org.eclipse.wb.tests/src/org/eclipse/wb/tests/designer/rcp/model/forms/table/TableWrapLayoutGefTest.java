@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -583,7 +582,6 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Ignore
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
 		openComposite(
@@ -612,8 +610,8 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"      existingButton.setText('My Button');",
 				"    }",
 				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('My Button');",
+				"      Button existingButton = new Button(this, SWT.NONE);",
+				"      existingButton.setText('My Button');",
 				"    }",
 				"  }",
 				"}");
