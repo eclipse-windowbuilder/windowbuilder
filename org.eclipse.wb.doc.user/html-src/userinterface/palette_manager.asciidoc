@@ -4,7 +4,7 @@
 |===
 |image:images/palette_context_menu2.png[image]
 | The *Palette Manager* may be accessed from the
-link:palette_context_menu.html[palette context menu].
+xref:palette_context_menu.adoc[palette context menu].
 
 The *Palette Manager* dialog allows the toolkit-specific palette to be
 fully configured. Categories and entries may be added, edited,
@@ -18,12 +18,11 @@ Items may be hidden from the palette by unchecking the checkbox next to
 their category or component name.
 |===
 
-++++
-<p>
-  <img src="images/palette_manager_swt.png">
-  <img src="images/palette_manager_swng.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/palette_manager_swt.png[]
+| images/palette_manager_swng.png[]
+|===
 
 == Palette Manager Commands
 
@@ -56,7 +55,7 @@ added to any available category.
 image:images/add_component_dialog.png[image]
 
 Select the *Single static factory...* command to add a single component
-from a static link:../features/factories.html[factory]. To add a single
+from a static xref:../features/factories.adoc[factory]. To add a single
 factory item, give it a name, select the factory class and method
 signature, and give it a description. The component may be initially
 *visible* or not and may be added to any available category.
@@ -64,7 +63,7 @@ signature, and give it a description. The component may be initially
 image:images/add_static_factory_dialog.png[image]
 
 Select the *Several static factories...* command to add a multiple
-components from a static link:../features/factories.html[factory]. To
+components from a static xref:../features/factories.adoc[factory]. To
 add a multiple factory items at the same time, select the factory class
 and method signatures. The component name and description will be given
 default values. The components will be initially *visible* and may be

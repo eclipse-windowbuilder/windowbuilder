@@ -11,21 +11,21 @@ image:../userinterface/images/property_pane_events.png[image]
 
 There are two ways to add an event handler with the the editor. The
 first way is through the
-*link:../userinterface/property_pane.html[Property Pane]*. First select
+*xref:../userinterface/property_pane.adoc[Property Pane]*. First select
 a component in either the
-*link:../userinterface/component_tree.html[Component Tree]* or the
-*link:../userinterface/design_view.html[Design View]*. Click the *Show
+*xref:../userinterface/component_tree.adoc[Component Tree]* or the
+*xref:../userinterface/design_view.adoc[Design View]*. Click the *Show
 Events*
 image:../userinterface/images/events.gif[image,width=16,height=16]
 button to reveal the events list in the
-*link:../userinterface/property_pane.html[Property Pane]*. Expand an
+*xref:../userinterface/property_pane.adoc[Property Pane]*. Expand an
 event and double-click or press *Enter* on the event handler you wish to
 implement.
 
 The second way to add an event handler is to simply
-link:../userinterface/context_menu.html[right-click] on a component
-(either in the *link:../userinterface/design_view.html[Design View]* or
-in the *link:../userinterface/component_tree.html[Component Tree]*),
+xref:../userinterface/context_menu.adoc[right-click] on a component
+(either in the *xref:../userinterface/design_view.adoc[Design View]* or
+in the *xref:../userinterface/component_tree.adoc[Component Tree]*),
 select *Add event handler > [name of the event] > [name of the event
 handler to implement]*.
 
@@ -37,7 +37,7 @@ item. When double-clicked, a selection event listener will be created.
 
 Any way you add an event, the tool will automatically create an event
 handler for the selected event method. The editor will then switch to
-the *link:../userinterface/source_view.html[Source View]* and go
+the *xref:../userinterface/source_view.adoc[Source View]* and go
 directly to the new event handler method. The code generated looks like
 the following:
 
@@ -59,13 +59,13 @@ browseButton.setText("Browse...");
 |===
 a|
 There are two ways to quickly return to the event-handling code from the
-*link:../userinterface/design_view.html[Design View]*. In the
-*link:../userinterface/property_pane.html[Property Pane]*, click the
+*xref:../userinterface/design_view.adoc[Design View]*. In the
+*xref:../userinterface/property_pane.adoc[Property Pane]*, click the
 *Show Events*
 image:../userinterface/images/events.gif[image,width=16,height=16]
 button and expand the event. Then double-click or press *Enter* on the
 event method to return to the code. The events' list in the
-*link:../userinterface/property_pane.html[Property Pane]* is a list of
+*xref:../userinterface/property_pane.adoc[Property Pane]* is a list of
 all the events implemented, and each individual event's property value
 is the list of methods implemented. If a method has been implemented,
 its property value is the line number in the source code where its
@@ -73,8 +73,8 @@ event-handling code begins.
 
 The other way to quickly return to the event-handling code is to
 right-click on a component (either in the
-*link:../userinterface/design_view.html[Design View]* or in the
-*link:../userinterface/component_tree.html[Component Tree]*), and then
+*xref:../userinterface/design_view.adoc[Design View]* or in the
+*xref:../userinterface/component_tree.adoc[Component Tree]*), and then
 select the menu item for the correct method that was implemented. Shown
 to the right is "*actionPerformed -> line 111*" being selected. In this
 example, "actionPerformed" is the event method, and "111" is the line
@@ -91,9 +91,9 @@ image:images/event_line_number_menu.png[image]
 
 There is only one way to delete an existing event handler in the editor.
 Select a component in either the
-*link:../userinterface/design_view.html[Design View]* or in the
-*link:../userinterface/component_tree.html[Component Tree]*. In the
-*link:../userinterface/property_pane.html[Property Pane]* expand expand
+*xref:../userinterface/design_view.adoc[Design View]* or in the
+*xref:../userinterface/component_tree.adoc[Component Tree]*. In the
+*xref:../userinterface/property_pane.adoc[Property Pane]* expand expand
 the event, click on the event method you wish to delete and then press
 *Delete*. If there are no other methods that have been implemented for
 that event, the tool will also delete the event listener for that event.

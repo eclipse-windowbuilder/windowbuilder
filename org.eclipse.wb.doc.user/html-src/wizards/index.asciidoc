@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/wizards/
+endif::[]
+
 = Wizards
 
 *WindowBuilder Pro* provides a large number of wizards. Each toolkit
@@ -6,9 +10,8 @@ contributes one or more wizards.
 The wizards may be accessed from the Eclipse *New* wizard (*File > New >
 Other*) or the drop down wizard menu in the Eclipse toolbar.
 
-++++
-<p>
-  <img src="images/wizards.png">
-  <img src="images/wizard_menu.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| image:images/wizards.png[image]
+| image:images/wizard_menu.png[image]
+|===
