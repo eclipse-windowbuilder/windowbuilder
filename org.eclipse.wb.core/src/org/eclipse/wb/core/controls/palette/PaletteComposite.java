@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
-import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
@@ -187,14 +186,11 @@ public final class PaletteComposite extends Composite {
 	@SuppressWarnings("removal")
 	private void addPopupActions(IMenuManager menuManager) {
 		// prepare target figure
-		Figure targetFigure;
+		IFigure targetFigure;
 		{
 			org.eclipse.swt.graphics.Point cursorLocation = getDisplay().getCursorLocation();
 			cursorLocation = m_figureCanvas.toControl(cursorLocation);
-			TargetFigureFindVisitor visitor =
-					new TargetFigureFindVisitor(m_figureCanvas, cursorLocation.x, cursorLocation.y);
-			m_figureCanvas.getRootFigure().accept(visitor, false);
-			targetFigure = visitor.getTargetFigure();
+			targetFigure = m_figureCanvas.getLightweightSystem().getRootFigure().findFigureAt(cursorLocation.x, cursorLocation.y);
 		}
 		// prepare target object
 		Object targetObject = null;
@@ -771,6 +767,11 @@ public final class PaletteComposite extends Composite {
 			r.height = m_titleHeight;
 			return r;
 		}
+
+		@Override
+		public String toString() {
+			return "[%s] %s".formatted(getClass().getSimpleName(), m_category.getText());
+		}
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -922,7 +923,7 @@ public final class PaletteComposite extends Composite {
 			move_eraseFeedback();
 			m_moveCommand = null;
 			// handle target
-			Figure targetFigure = getTargetFigure(this, p);
+			IFigure targetFigure = getTargetFigure(this, p);
 			if (targetFigure instanceof final EntryFigure targetEntryFigure) {
 				final CategoryFigure targetCategoryFigure = (CategoryFigure) targetFigure.getParent();
 				final ICategory targetCategory = targetCategoryFigure.m_category;
@@ -1162,6 +1163,11 @@ public final class PaletteComposite extends Composite {
 			}
 			return NO_ICON;
 		}
+
+		@Override
+		public String toString() {
+			return "[%s] %s".formatted(getClass().getSimpleName(), m_entry.getText());
+		}
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -1263,15 +1269,13 @@ public final class PaletteComposite extends Composite {
 	 * @param p
 	 *          the mouse location relative to given <code>source</code>
 	 */
-	private Figure getTargetFigure(Figure source, Point p) {
+	private IFigure getTargetFigure(Figure source, Point p) {
 		// use absolute coordinates
-		Point absoluteLocation = p.getCopy();
-		FigureUtils.translateFigureToCanvas(source, absoluteLocation);
-		// do search
-		TargetFigureFindVisitor visitor =
-				new TargetFigureFindVisitor(m_figureCanvas, absoluteLocation.x, absoluteLocation.y);
-		m_figureCanvas.getRootFigure().accept(visitor, false);
-		return visitor.getTargetFigure();
+		Point location = Point.SINGLETON;
+		location.setLocation(p);
+		source.translateFromParent(p);
+		IFigure targetFigure = m_figureCanvas.getLightweightSystem().getRootFigure().findFigureAt(location);
+		return targetFigure;
 	}
 
 	/**
