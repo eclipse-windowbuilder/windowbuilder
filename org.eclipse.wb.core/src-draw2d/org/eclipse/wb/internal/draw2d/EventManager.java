@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
 import org.eclipse.draw2d.EventDispatcher;
@@ -41,7 +40,7 @@ public class EventManager extends EventDispatcher {
 	private final FigureCanvas m_canvas;
 	private final RootFigure m_root;
 	private MouseEvent m_currentEvent;
-	private Figure m_cursorFigure;
+	private IFigure m_cursorFigure;
 	private IFigure m_captureFigure;
 	private IFigure m_targetFigure;
 	private Cursor m_cursor;
@@ -114,7 +113,7 @@ public class EventManager extends EventDispatcher {
 		}
 	}
 
-	private void setFigureUnderCursor(Figure figure, org.eclipse.swt.events.MouseEvent event) {
+	private void setFigureUnderCursor(IFigure figure, org.eclipse.swt.events.MouseEvent event) {
 		if (m_cursorFigure != figure) {
 			sendEvent(() -> m_targetFigure.handleMouseExited(m_currentEvent), event);
 			//
@@ -126,12 +125,12 @@ public class EventManager extends EventDispatcher {
 		}
 	}
 
-	public final Figure getCursorFigure() {
+	public final IFigure getCursorFigure() {
 		return m_cursorFigure;
 	}
 
 	/**
-	 * Update the {@link Figure} located at the given location which will accept mouse events.
+	 * Update the {@link IFigure} located at the given location which will accept mouse events.
 	 */
 	protected final void updateFigureUnderCursor(org.eclipse.swt.events.MouseEvent event) {
 		TargetFigureFindVisitor visitor = new TargetFigureFindVisitor(m_canvas, event.x, event.y);
