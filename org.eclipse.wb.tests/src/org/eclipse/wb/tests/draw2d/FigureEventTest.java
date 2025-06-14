@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -127,41 +127,41 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		{
 			m_sender.moveTo(15, 15);
 			//
-			expectedLogger.log("mouseMove = MouseEvent(5,5) to Figure: figure11");
+			expectedLogger.log("mouseMove = MouseEvent(15,15) to Figure: figure11");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// click over "figure11"
 		{
 			m_sender.click(20, 20, 3);
 			//
-			expectedLogger.log("mouseDown = MouseEvent(10,10) to Figure: figure11");
-			expectedLogger.log("mouseUp = MouseEvent(10,10) to Figure: figure11");
+			expectedLogger.log("mouseDown = MouseEvent(20,20) to Figure: figure11");
+			expectedLogger.log("mouseUp = MouseEvent(20,20) to Figure: figure11");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// double click over "figure21"
 		{
 			m_sender.doubleClick(60, 60, 2);
 			//
-			expectedLogger.log("mouseDown = MouseEvent(10,10) to Figure: figure21");
-			expectedLogger.log("mouseUp = MouseEvent(10,10) to Figure: figure21");
-			expectedLogger.log("mouseDown = MouseEvent(10,10) to Figure: figure21");
-			expectedLogger.log("mouseDoubleClick = MouseEvent(10,10) to Figure: figure21");
-			expectedLogger.log("mouseUp = MouseEvent(10,10) to Figure: figure21");
+			expectedLogger.log("mouseDown = MouseEvent(60,60) to Figure: figure21");
+			expectedLogger.log("mouseUp = MouseEvent(60,60) to Figure: figure21");
+			expectedLogger.log("mouseDown = MouseEvent(60,60) to Figure: figure21");
+			expectedLogger.log("mouseDoubleClick = MouseEvent(60,60) to Figure: figure21");
+			expectedLogger.log("mouseUp = MouseEvent(60,60) to Figure: figure21");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// move to "figure12"
 		{
 			m_sender.moveTo(420, 330);
 			//
-			expectedLogger.log("mouseMove = MouseEvent(20,30) to Figure: figure12");
+			expectedLogger.log("mouseMove = MouseEvent(420,330) to Figure: figure12");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// click over "figure22"
 		{
 			m_sender.click(200, 300, 5);
 			//
-			expectedLogger.log("mouseDown = MouseEvent(50,50) to Figure: figure22");
-			expectedLogger.log("mouseUp = MouseEvent(50,50) to Figure: figure22");
+			expectedLogger.log("mouseDown = MouseEvent(200,300) to Figure: figure22");
+			expectedLogger.log("mouseUp = MouseEvent(200,300) to Figure: figure22");
 			actualLogger.assertEquals(expectedLogger);
 		}
 		// move to point without figures

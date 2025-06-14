@@ -12,13 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.FigureUtils;
-
 import org.eclipse.draw2d.EventDispatcher;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -221,17 +217,7 @@ public class EventManager extends EventDispatcher {
 		m_targetFigure = m_captureFigure == null ? m_cursorFigure : m_captureFigure;
 		//
 		if (m_targetFigure != null) {
-			m_currentEvent = new MouseEvent(null, m_targetFigure, e);
-			//
-			Rectangle bounds = m_targetFigure.getBounds();
-			Point location = new Point(m_currentEvent.x - bounds.x, m_currentEvent.y - bounds.y);
-			location.x += m_canvas.getViewport().getHorizontalRangeModel().getValue();
-			location.y += m_canvas.getViewport().getVerticalRangeModel().getValue();
-			FigureUtils.translateAbsoluteToFigure(m_targetFigure, location);
-			//
-			m_currentEvent.x = location.x;
-			m_currentEvent.y = location.y;
-			//
+			m_currentEvent = new MouseEvent(this, m_targetFigure, e);
 			event.run();
 		}
 	}
