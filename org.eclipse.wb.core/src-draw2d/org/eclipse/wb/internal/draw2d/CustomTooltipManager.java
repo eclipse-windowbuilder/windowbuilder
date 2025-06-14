@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.PaletteFigure;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -41,7 +41,7 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
 	private final FigureCanvas m_canvas;
 	private final EventManager m_eventManager;
 	private Shell m_tooltipShell;
-	private Figure m_tooltipFigure;
+	private PaletteFigure m_tooltipFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -142,11 +142,11 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
 	////////////////////////////////////////////////////////////////////////////
 	protected final void handleShowCustomTooltip(int mouseX, int mouseY) {
 		hideTooltip();
-		Figure cursorFigure = m_eventManager.getCursorFigure();
+		IFigure cursorFigure = m_eventManager.getCursorFigure();
 		if (cursorFigure instanceof PaletteFigure paletteFigure) {
 			ICustomTooltipProvider tooltipProvider = paletteFigure.getCustomTooltipProvider();
 			if (tooltipProvider != null) {
-				m_tooltipFigure = cursorFigure;
+				m_tooltipFigure = paletteFigure;
 				//
 				m_tooltipShell =
 						new Shell(m_canvas.getShell(), SWT.NO_FOCUS | SWT.ON_TOP | SWT.TOOL | SWT.SINGLE);
@@ -156,7 +156,7 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
 				m_tooltipShell.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 				//
 				Control tooltipControl =
-						tooltipProvider.createTooltipControl(m_tooltipShell, this, cursorFigure);
+						tooltipProvider.createTooltipControl(m_tooltipShell, this, paletteFigure);
 				//
 				if (tooltipControl == null) {
 					hideTooltip();
