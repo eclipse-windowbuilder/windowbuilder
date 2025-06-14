@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
@@ -76,7 +77,7 @@ public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPar
 				isHorizontal ? FormUtils.getLayoutMarginLeft(layout) : FormUtils.getLayoutMarginTop(layout);
 		int position = size * percent / 100 + marginOffset;
 		Figure figure = getFigure();
-		figure.setToolTipText(String.valueOf(percent) + "%");
+		figure.setToolTip(new Label(percent + "%"));
 		int figureSize = t.t(figure.getParent().getSize()).height;
 		Rectangle bounds = t.t(new Rectangle(position - figureSize / 2, 0, figureSize, figureSize));
 		figure.setBounds(translateModelToFeedback(bounds));

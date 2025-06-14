@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -107,10 +107,10 @@ public class EventManager extends EventDispatcher {
 	}
 
 	protected void updateFigureToolTipText() {
-		if (m_cursorFigure == null) {
-			m_canvas.setToolTipText(null);
+		if (m_cursorFigure != null && m_cursorFigure.getToolTip() instanceof Label label) {
+			m_canvas.setToolTipText(label.getText());
 		} else {
-			m_canvas.setToolTipText(m_cursorFigure.getToolTipText());
+			m_canvas.setToolTipText(null);
 		}
 	}
 

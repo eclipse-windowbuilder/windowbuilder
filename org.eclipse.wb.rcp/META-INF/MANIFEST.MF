@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.rcp;singleton:=true
-Bundle-Version: 1.9.1100.qualifier
+Bundle-Version: 1.9.1200.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.rcp.Activator
 Bundle-Vendor: %providerName
@@ -93,7 +93,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.31.100,4.0.0)",
  org.eclipse.ui;bundle-version="[3.206.0,4.0.0)",
  org.eclipse.ui.forms;bundle-version="[3.13.300,4.0.0)",
  org.eclipse.search;bundle-version="[3.16.200,4.0.0)",
- org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)",
+ org.eclipse.wb.core;bundle-version="[1.21.0,2.0.0)",
  org.eclipse.wb.core.ui;bundle-version="[1.10.800,2.0.0)",
  org.eclipse.wb.core.java;bundle-version="[1.13.100,2.0.0)",
  org.eclipse.wb.swt;bundle-version="[1.10.100,2.0.0)",
