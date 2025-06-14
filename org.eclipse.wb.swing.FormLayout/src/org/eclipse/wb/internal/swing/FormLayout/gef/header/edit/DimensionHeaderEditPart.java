@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
+import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.SetTemplateAction;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
@@ -124,7 +125,10 @@ GraphicalEditPart implements IHeaderMenuProvider {
 	@Override
 	protected void refreshVisuals() {
 		// update tooltip
-		getFigure().setToolTipText(m_dimension.getToolTip());
+		String tooltip = m_dimension.getToolTip();
+		if (tooltip != null && !tooltip.isEmpty()) {
+			getFigure().setToolTip(new Label(tooltip));
+		}
 		// update background
 		{
 			if (m_dimension.isGap()) {

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.swt;singleton:=true
-Bundle-Version: 1.10.100.qualifier
+Bundle-Version: 1.10.200.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.swt.Activator
 Bundle-Vendor: %providerName
@@ -55,7 +55,7 @@ Export-Package: org.eclipse.wb.internal.swt,
  org.eclipse.wb.internal.swt.utils
 Require-Bundle: org.eclipse.ui;bundle-version="[3.206.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.31.100,4.0.0)",
- org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)",
+ org.eclipse.wb.core;bundle-version="[1.21.0,2.0.0)",
  org.eclipse.wb.core.java;bundle-version="[1.13.100,2.0.0)",
  org.eclipse.pde.core;bundle-version="[3.18.100,4.0.0)",
  org.eclipse.draw2d;bundle-version="[3.20.0,4.0.0)",

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
+import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.AncestorListener;
@@ -538,7 +539,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertNull(testFigure.getCursor());
 		assertFalse(testFigure.isOpaque());
 		assertTrue(testFigure.isVisible());
-		assertNull(testFigure.getToolTipText());
+		assertNull(testFigure.getToolTip());
 	}
 
 	@Test
@@ -676,19 +677,19 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check tooltip for new Figure
-		assertNull(testFigure.getToolTipText());
+		assertNull(testFigure.getToolTip());
 		//
 		// check set tooltip
-		testFigure.setToolTipText("JLabel(\"123\")");
-		assertEquals("JLabel(\"123\")", testFigure.getToolTipText());
+		testFigure.setToolTip(new Label("JLabel(\"123\")"));
+		assertEquals("JLabel(\"123\")", ((Label) testFigure.getToolTip()).getText());
 		//
 		// check set other tooltip
-		testFigure.setToolTipText("new Button()");
-		assertEquals("new Button()", testFigure.getToolTipText());
+		testFigure.setToolTip(new Label("new Button()"));
+		assertEquals("new Button()", ((Label) testFigure.getToolTip()).getText());
 		//
 		// check set 'null' tooltip
-		testFigure.setToolTipText(null);
-		assertNull(testFigure.getToolTipText());
+		testFigure.setToolTip(null);
+		assertNull(testFigure.getToolTip());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

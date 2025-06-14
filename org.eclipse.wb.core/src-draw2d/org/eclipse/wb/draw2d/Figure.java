@@ -31,7 +31,6 @@ import java.util.List;
  * @coverage gef.draw2d
  */
 public class Figure extends org.eclipse.draw2d.Figure {
-	private String m_toolTipText;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -177,21 +176,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Returns the receiver's tool tip text, or <code>null</code> if it has not been set.
-	 */
-	public String getToolTipText() {
-		return m_toolTipText;
-	}
-
-	/**
-	 * Sets the receiver's tool tip text to the argument, which may be <code>null</code> indicating
-	 * that no tool tip text should be shown.
-	 */
-	public void setToolTipText(String toolTipText) {
-		m_toolTipText = toolTipText;
-	}
 
 	@Override
 	protected boolean useLocalCoordinates() {

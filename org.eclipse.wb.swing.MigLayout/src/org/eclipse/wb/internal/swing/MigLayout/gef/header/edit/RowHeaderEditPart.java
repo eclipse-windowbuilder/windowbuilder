@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.SetAlignmentRowAction;
@@ -141,7 +142,10 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 			figure.setBounds(bounds);
 		}
 		// tooltip
-		figure.setToolTipText(m_row.getTooltip());
+		String tooltip = m_row.getTooltip();
+		if (tooltip != null && !tooltip.isEmpty()) {
+			figure.setToolTip(new Label(tooltip));
+		}
 	}
 
 	@Override

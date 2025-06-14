@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDimensionInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
@@ -116,7 +117,10 @@ IHeaderMenuProvider {
 		ExecutionUtils.runLog(new RunnableEx() {
 			@Override
 			public void run() throws Exception {
-				getFigure().setToolTipText(m_dimension.getTitle());
+				String tooltip = m_dimension.getTitle();
+				if (tooltip != null && !tooltip.isEmpty()) {
+					getFigure().setToolTip(new Label(tooltip));
+				}
 				getFigure().setBackgroundColor(COLOR_NORMAL);
 			}
 		});
