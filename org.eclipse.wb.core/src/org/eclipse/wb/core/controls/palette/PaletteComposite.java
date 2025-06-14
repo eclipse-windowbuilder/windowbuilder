@@ -765,8 +765,9 @@ public final class PaletteComposite extends Composite {
 		 * @return the {@link Rectangle} of title.
 		 */
 		private Rectangle getTitleRectangle() {
-			Rectangle r = getClientArea().getCopy();
-			translateToRelative(r);
+			Rectangle r = Rectangle.SINGLETON;
+			r.setBounds(getClientArea());
+			translateToParent(r);
 			r.height = m_titleHeight;
 			return r;
 		}
