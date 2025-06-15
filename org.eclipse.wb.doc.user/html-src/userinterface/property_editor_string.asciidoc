@@ -16,9 +16,8 @@ string* field. By default, key names are searched but you can also
 search values or both keys and values by selecting the appropriate radio
 button at the bottom of the dialog.
 
-++++
-<p>
-  <img src="images/property_editor_string2.png">
-  <img src="images/property_editor_string3.png" align="top">
-</p>
-++++
+[cols="a,a"]
+|===
+| images/property_editor_string2.png[]
+| images/property_editor_string3.png[]
+|===
