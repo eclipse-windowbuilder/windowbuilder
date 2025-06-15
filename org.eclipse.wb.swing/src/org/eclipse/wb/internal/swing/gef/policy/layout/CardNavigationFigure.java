@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
@@ -46,7 +47,12 @@ public final class CardNavigationFigure extends Figure {
 			@Override
 			public void mousePressed(MouseEvent event) {
 				event.consume();
-				if (event.x < WIDTH) {
+				//
+				Point location = Point.SINGLETON;
+				location.setLocation(event.x, event.y);
+				translateFromParent(location);
+				//
+				if (location.x < WIDTH) {
 					m_policy.showPrevComponent();
 				} else {
 					m_policy.showNextComponent();
