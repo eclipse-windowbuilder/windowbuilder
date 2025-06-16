@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,8 +21,10 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.editparts.LayerManager;
 
 /**
  * A {@link RootEditPart} is the <i>root</i> of an {@link IEditPartViewer}. It bridges the gap
@@ -33,7 +35,7 @@ import org.eclipse.gef.Request;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.RootEditPart {
+public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.RootEditPart, LayerManager {
 	private IEditPartViewer m_viewer;
 	private final IRootFigure m_rootFigure;
 	private EditPart m_contentEditPart;
@@ -43,8 +45,7 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RootEditPart(IEditPartViewer viewer, IRootFigure rootFigure) {
-		m_viewer = viewer;
+	public RootEditPart(IRootFigure rootFigure) {
 		m_rootFigure = rootFigure;
 		createLayers();
 	}
@@ -88,7 +89,16 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 
 	@Override
 	public void setViewer(EditPartViewer viewer) {
+		if (m_viewer == viewer) {
+			return;
+		}
+		if (m_viewer != null) {
+			unregister();
+		}
 		m_viewer = (IEditPartViewer) viewer;
+		if (m_viewer != null) {
+			register();
+		}
 	}
 
 	/**
@@ -105,6 +115,11 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	@Override
 	protected Figure createFigure() {
 		return null;
+	}
+
+	@Override
+	public Object getModel() {
+		return LayerManager.ID;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -151,5 +166,13 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	@Override
 	public Tool getDragTracker(Request request) {
 		return new MarqueeSelectionTool();
+	}
+
+	@Override
+	public IFigure getLayer(Object key) {
+		if (key instanceof String name) {
+			return m_rootFigure.getLayer(name);
+		}
+		return null;
 	}
 }

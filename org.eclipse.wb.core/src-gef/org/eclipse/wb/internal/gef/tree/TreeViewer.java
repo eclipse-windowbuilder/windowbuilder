@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -61,7 +61,8 @@ public class TreeViewer extends AbstractEditPartViewer {
 		// handle SWT events
 		m_eventManager = new TreeEventManager(m_tree, this);
 		// create root EditPart
-		m_rootEditPart = new RootEditPart(this);
+		m_rootEditPart = new RootEditPart();
+		m_rootEditPart.setViewer(this);
 		m_rootEditPart.activate();
 		setRootEditPart(m_rootEditPart);
 		// handle selection events
