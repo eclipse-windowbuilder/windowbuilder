@@ -111,7 +111,6 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	/**
 	 * Returns root {@link Figure} use for access to {@link Layer}'s.
 	 */
-	@Override
 	public final IRootFigure getRootFigure() {
 		return getRootFigureInternal();
 	}
@@ -121,14 +120,6 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	 */
 	protected final RootFigure getRootFigureInternal() {
 		return m_canvas.getRootFigure();
-	}
-
-	/**
-	 * Returns the layer identified by the <code>name</code> given in the input.
-	 */
-	@Override
-	public Layer getLayer(String name) {
-		return getRootFigure().getLayer(name);
 	}
 
 	/**
@@ -199,7 +190,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 				return editPart != null && (conditional == null || conditional.evaluate(editPart));
 			}
 		};
-		getLayer(layer).accept(visitor, false);
+		((Layer) m_rootEditPart.getLayer(layer)).accept(visitor, false);
 		return visitor.getTargetEditPart();
 	}
 
@@ -240,7 +231,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	 */
 	private Handle findTargetHandle(String layer, int x, int y) {
 		TargetFigureFindVisitor visitor = new TargetFigureFindVisitor(m_canvas, x, y);
-		getLayer(layer).accept(visitor, false);
+		((Layer) m_rootEditPart.getLayer(layer)).accept(visitor, false);
 		Figure targetFigure = visitor.getTargetFigure();
 		return targetFigure instanceof Handle ? (Handle) targetFigure : null;
 	}

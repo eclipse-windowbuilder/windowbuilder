@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.editparts.LayerManager;
 
 /**
  * @author lobas_av
@@ -70,7 +71,7 @@ public class GraphicalEditPolicy extends EditPolicy {
 				name = IEditPartViewer.MENU_FEEDBACK_LAYER;
 			}
 		}
-		return getHost().getViewer().getLayer(name);
+		return (Layer) LayerManager.Helper.find(getHost()).getLayer(name);
 	}
 
 	/**
@@ -100,7 +101,7 @@ public class GraphicalEditPolicy extends EditPolicy {
 	 *         {@link IEditPartViewer#MENU_PRIMARY_LAYER}.
 	 */
 	private boolean isOnMenuLayer() {
-		Layer menuPrimaryLayer = getHost().getViewer().getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
+		Layer menuPrimaryLayer = (Layer) LayerManager.Helper.find(getHost()).getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
 		for (IFigure figure = getHostFigure(); figure != null; figure = figure.getParent()) {
 			if (figure == menuPrimaryLayer) {
 				return true;

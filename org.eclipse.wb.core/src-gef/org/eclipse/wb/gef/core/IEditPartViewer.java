@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
-import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -111,16 +108,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * @return viewer vertical scroll offset.
 	 */
 	int getVOffset();
-
-	/**
-	 * Returns root {@link Figure} use for access to {@link Layer}'s.
-	 */
-	IRootFigure getRootFigure();
-
-	/**
-	 * Returns the layer identified by the <code>name</code> given in the input.
-	 */
-	Layer getLayer(String name);
 
 	/**
 	 * Returns the {@link EditDomain EditDomain} to which this viewer belongs.

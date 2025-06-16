@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,6 +38,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -129,8 +130,8 @@ AbstractHeaderLayoutEditPolicy {
 		if (percent > 0 && percent < 100) {
 			{
 				if (hintFeedback == null) {
-					Layer layer =
-							mainPolicy.getHost().getViewer().getLayer(IEditPartViewer.FEEDBACK_LAYER_ABV_1);
+					Layer layer = (Layer) LayerManager.Helper.find(mainPolicy.getHost())
+							.getLayer(IEditPartViewer.FEEDBACK_LAYER_ABV_1);
 					hintFeedback = new TextFeedback(layer, true);
 					hintFeedback.add();
 				}
@@ -139,7 +140,8 @@ AbstractHeaderLayoutEditPolicy {
 			}
 			{
 				if (feedback == null) {
-					Layer layer = getHost().getViewer().getLayer(IEditPartViewer.FEEDBACK_LAYER_ABV_1);
+					Layer layer = (Layer) LayerManager.Helper.find(mainPolicy.getHost())
+							.getLayer(IEditPartViewer.FEEDBACK_LAYER_ABV_1);
 					feedback = new FormHeaderEditPart.PercentFigure(isHorizontal);
 					layer.add(feedback);
 				}

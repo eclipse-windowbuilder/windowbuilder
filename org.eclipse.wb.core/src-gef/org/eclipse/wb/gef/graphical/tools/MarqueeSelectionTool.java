@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,10 +21,12 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
@@ -276,8 +278,8 @@ public class MarqueeSelectionTool extends Tool {
 	/**
 	 * Returns feedback layer.
 	 */
-	private Figure getFeedbackPane() {
-		return getCurrentViewer().getLayer(IEditPartViewer.FEEDBACK_LAYER);
+	private IFigure getFeedbackPane() {
+		return LayerManager.Helper.find(getCurrentViewer()).getLayer(IEditPartViewer.FEEDBACK_LAYER);
 	}
 
 	/**

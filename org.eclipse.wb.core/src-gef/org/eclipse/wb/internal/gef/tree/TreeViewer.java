@@ -12,11 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
-import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
@@ -111,16 +109,6 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public RootEditPart getRootEditPart() {
 		return m_rootEditPart;
-	}
-
-	@Override
-	public IRootFigure getRootFigure() {
-		return null;
-	}
-
-	@Override
-	public Layer getLayer(String name) {
-		return null;
 	}
 
 	/**

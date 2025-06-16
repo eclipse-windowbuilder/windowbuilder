@@ -34,6 +34,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
@@ -876,7 +877,7 @@ public final class GraphicalRobot {
 	 * @return the list of {@link IFigure}'s on feedback {@link Layer}.
 	 */
 	public List<? extends IFigure> getFeedbackFigures() {
-		return m_viewer.getLayer(IEditPartViewer.FEEDBACK_LAYER).getChildren();
+		return LayerManager.Helper.find(m_viewer).getLayer(IEditPartViewer.FEEDBACK_LAYER).getChildren();
 	}
 
 	/**
@@ -952,7 +953,7 @@ public final class GraphicalRobot {
 		// prepare feedback's
 		List<? extends IFigure> feedbacks;
 		{
-			Layer feedbackLayer = m_viewer.getLayer(layerName);
+			Layer feedbackLayer = (Layer) LayerManager.Helper.find(m_viewer).getLayer(layerName);
 			feedbacks = feedbackLayer.getChildren();
 			assertEquals(feedbacks.size(), predicates.length, "Wrong count of feedbacks.");
 		}
