@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.gef.part.menu;
 
 import org.eclipse.wb.core.gef.part.menu.IMenuObjectEditPart;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IActiveToolListener;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -163,10 +163,10 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 
 			@Override
 			public void deleting(Object toolkitModel) {
-				EditPart objectPart = (EditPart) getViewer().getEditPartRegistry().get(toolkitModel);
+				EditPart objectPart = getViewer().getEditPartRegistry().get(toolkitModel);
 				if (objectPart != null) {
 					EditPart parentPart = objectPart.getParent();
-					List<EditPart> siblings = parentPart.getChildren();
+					List<? extends EditPart> siblings = parentPart.getChildren();
 					int index = siblings.indexOf(objectPart);
 					// move selection on sibling or parent item
 					if (siblings.size() == 1) {
@@ -191,9 +191,9 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
 		request = processRequestProcessors(request);
-		EditPart target = super.getTargetEditPart(request);
+		org.eclipse.wb.gef.core.EditPart target = super.getTargetEditPart(request);
 		boolean isOperationRequest =
 				request.getType() == RequestConstants.REQ_CREATE
 				|| request.getType() == PasteRequest.REQ_PASTE
@@ -206,9 +206,9 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 				public void run() {
 					try {
 						MenuObjectInfoUtils.m_selectingObject = m_object;
-						((EditPart)getViewer().getRootEditPart()).accept(new EditPartVisitor() {
+						((org.eclipse.wb.gef.core.EditPart)getViewer().getRootEditPart()).accept(new EditPartVisitor() {
 							@Override
-							public boolean visit(EditPart editPart) {
+							public boolean visit(org.eclipse.wb.gef.core.EditPart editPart) {
 								if (editPart instanceof MenuObjectEditPart) {
 									editPart.refresh();
 									return false;

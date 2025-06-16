@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
+
+import org.eclipse.gef.EditPart;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class LayoutPolicyUtils {
 	/**
 	 * @return the {@link LayoutEditPolicy} for given model.
 	 */
-	public static LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+	public static LayoutEditPolicy createLayoutEditPolicy(org.eclipse.wb.gef.core.EditPart context, Object model) {
 		// try to create policy
 		List<ILayoutEditPolicyFactory> factories =
 				ExternalFactoriesHelper.getElementsInstances(

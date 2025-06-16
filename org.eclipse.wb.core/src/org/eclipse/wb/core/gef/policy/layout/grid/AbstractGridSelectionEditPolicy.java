@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.draw2d.AbstractRelativeLocator;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -41,6 +40,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.graphics.Color;
@@ -196,7 +196,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			m_alignmentFigures = new ArrayList<>();
 			// show cell figures for all children of host's parent
 			{
-				Collection<EditPart> editParts = getHost().getParent().getChildren();
+				Collection<? extends EditPart> editParts = getHost().getParent().getChildren();
 				for (EditPart editPart : editParts) {
 					showCellFigures(editPart);
 				}

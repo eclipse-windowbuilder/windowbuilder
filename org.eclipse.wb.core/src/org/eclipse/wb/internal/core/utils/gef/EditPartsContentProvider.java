@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
@@ -64,7 +64,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		EditPart parentEditPart = (EditPart) m_viewer.getEditPartRegistry().get(parentElement);
+		EditPart parentEditPart = m_viewer.getEditPartRegistry().get(parentElement);
 		if (parentEditPart != null) {
 			List<Object> children = new ArrayList<>();
 			for (EditPart editPart : parentEditPart.getChildren()) {
@@ -77,7 +77,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object getParent(Object element) {
-		EditPart editPart = (EditPart) m_viewer.getEditPartRegistry().get(element);
+		EditPart editPart = m_viewer.getEditPartRegistry().get(element);
 		if (editPart != null) {
 			return editPart.getParent().getModel();
 		}

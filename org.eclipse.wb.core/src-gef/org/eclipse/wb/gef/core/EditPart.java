@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,15 +41,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	// Parent/Children
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the List of children <code>EditParts</code>. This method should rarely be called, and
-	 * is only made public so that helper objects of this EditPart, such as EditPolicies, can obtain
-	 * the children. The returned List may be by reference, and should never be modified.
-	 */
-	@Override
-	public List<EditPart> getChildren() {
-		return (List<EditPart>) super.getChildren();
-	}
 	/**
 	 * Returns the parent <code>{@link EditPart}</code>. This method should only be called internally
 	 * or by helpers such as EditPolicies.
@@ -93,7 +84,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	public final void accept(EditPartVisitor visitor) {
 		if (visitor.visit(this)) {
-			for (EditPart childPart : getChildren()) {
+			for (EditPart childPart : (List<EditPart>) getChildren()) {
 				childPart.accept(visitor);
 			}
 			visitor.endVisit(this);
@@ -129,7 +120,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	protected void refreshChildren() {
 		// prepare map[model, currentPart]
 		Map<Object, EditPart> modelToPart = new HashMap<>();
-		List<EditPart> children = getChildren();
+		List<EditPart> children = (List<EditPart>) getChildren();
 		for (EditPart editPart : children) {
 			modelToPart.put(editPart.getModel(), editPart);
 		}
@@ -185,7 +176,7 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 			removeChild(childPart);
 		}
 		// recurse refresh()
-		for (EditPart child : getChildren()) {
+		for (EditPart child : (List<EditPart>) getChildren()) {
 			child.refresh();
 		}
 	}

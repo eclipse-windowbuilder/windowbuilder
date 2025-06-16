@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
@@ -28,6 +27,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -70,7 +70,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 			m_alignmentFigures = new ArrayList<>();
 			// show alignment figures for all of the children of the host's parent
 			{
-				Collection<EditPart> editParts = m_policy.getHost().getParent().getChildren();
+				Collection<? extends EditPart> editParts = m_policy.getHost().getParent().getChildren();
 				for (EditPart editPart : editParts) {
 					showAlignmentFigures(editPart);
 				}

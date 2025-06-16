@@ -12,10 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
+
+import org.eclipse.gef.EditPart;
 
 import org.junit.jupiter.api.Test;
 

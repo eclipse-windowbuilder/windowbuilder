@@ -125,8 +125,8 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 
 	@Override
 	public void refreshEditPolicy() {
-		List<org.eclipse.wb.gef.core.EditPart> children = getHost().getChildren();
-		for (org.eclipse.wb.gef.core.EditPart child : children) {
+		List<? extends EditPart> children = getHost().getChildren();
+		for (EditPart child : children) {
 			Object model = child.getModel();
 			if (isControl(model)) {
 				// not managed: never was or excluded

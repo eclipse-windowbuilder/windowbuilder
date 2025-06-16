@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -158,7 +158,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 			return null;
 		}
 		// prepare children
-		List<org.eclipse.wb.gef.core.EditPart> children = getReferenceChildren(request);
+		List<EditPart> children = getReferenceChildren(request);
 		// calculate next reference
 		Object referenceObject = null;
 		if (targetItem == getHostWidget()) {
@@ -198,11 +198,11 @@ public abstract class LayoutEditPolicy extends EditPolicy {
 	/**
 	 * @return the {@link List} of {@link EditPart}'s that can be used as references.
 	 */
-	private List<org.eclipse.wb.gef.core.EditPart> getReferenceChildren(Request request) {
-		List<org.eclipse.wb.gef.core.EditPart> allChildren = getHost().getChildren();
-		List<org.eclipse.wb.gef.core.EditPart> referenceChildren = new ArrayList<>();
+	private List<EditPart> getReferenceChildren(Request request) {
+		List<? extends EditPart> allChildren = getHost().getChildren();
+		List<EditPart> referenceChildren = new ArrayList<>();
 		//
-		for (org.eclipse.wb.gef.core.EditPart editPart : allChildren) {
+		for (EditPart editPart : allChildren) {
 			if (isGoodReferenceChild(request, editPart)) {
 				referenceChildren.add(editPart);
 			}

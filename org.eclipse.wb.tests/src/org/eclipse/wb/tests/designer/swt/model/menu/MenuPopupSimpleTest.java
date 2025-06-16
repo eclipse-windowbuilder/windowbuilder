@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
@@ -29,6 +28,7 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -133,7 +133,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		// click on "popup": drop-down appears
 		canvas.click(popupPart);
 		{
-			List<EditPart> children = popupPart.getChildren();
+			List<? extends EditPart> children = popupPart.getChildren();
 			assertEquals(1, children.size());
 			EditPart dropPart = children.get(0);
 			// drop-down has simple "drag tracker"
@@ -184,7 +184,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		tree.select(popupInfo);
 		assertEquals(EditPart.SELECTED_PRIMARY, popupPart.getSelected());
 		{
-			List<EditPart> children = popupPart.getChildren();
+			List<? extends EditPart> children = popupPart.getChildren();
 			assertEquals(1, children.size());
 			assertInstanceOf(EditPart.class, children.get(0));
 		}
@@ -207,7 +207,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		tree.select(popupInfo);
 		assertEquals(EditPart.SELECTED_PRIMARY, popupPart.getSelected());
 		{
-			List<EditPart> children = popupPart.getChildren();
+			List<? extends EditPart> children = popupPart.getChildren();
 			assertEquals(1, children.size());
 			assertInstanceOf(EditPart.class, children.get(0));
 		}
