@@ -65,7 +65,8 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 
 	protected GraphicalViewer(FigureCanvas canvas) {
 		m_canvas = canvas;
-		m_rootEditPart = new RootEditPart(this, getRootFigure());
+		m_rootEditPart = new RootEditPart(getRootFigure());
+		m_rootEditPart.setViewer(this);
 		m_rootEditPart.activate();
 		setRootEditPart(m_rootEditPart);
 	}
