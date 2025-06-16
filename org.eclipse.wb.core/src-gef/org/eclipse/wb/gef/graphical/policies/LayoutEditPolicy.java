@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.IEditPartDecorationListener;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -34,13 +34,13 @@ import java.util.Iterator;
 public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
 	private final EditPartListener m_listener = new EditPartListener.Stub() {
 		@Override
-		public void childAdded(org.eclipse.gef.EditPart child, int index) {
-			decorateChild((EditPart) child);
+		public void childAdded(EditPart child, int index) {
+			decorateChild(child);
 		}
 
 		@Override
-		public void removingChild(org.eclipse.gef.EditPart child, int index) {
-			undecorateChild((EditPart) child);
+		public void removingChild(EditPart child, int index) {
+			undecorateChild(child);
 		}
 	};
 
@@ -136,7 +136,7 @@ public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
 	 * {@link Request#REQ_PASTE}, {@link Request#REQ_MOVE} or {@link Request#REQ_ADD}.
 	 */
 	@Override
-	public EditPart getTargetEditPart(Request request) {
+	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
 		return isRequestCondition(request) ? getHost() : null;
 	}
 

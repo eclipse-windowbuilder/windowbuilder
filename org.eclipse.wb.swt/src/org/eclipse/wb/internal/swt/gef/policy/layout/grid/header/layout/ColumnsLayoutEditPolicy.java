@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DropRequest;
@@ -119,7 +119,7 @@ AbstractHeaderLayoutEditPolicy {
 		// prepare target header
 		DimensionHeaderEditPart<C> target = null;
 		{
-			List<EditPart> children = getHost().getChildren();
+			List<? extends EditPart> children = getHost().getChildren();
 			for (EditPart child : children) {
 				DimensionHeaderEditPart<C> columnEditPart = (DimensionHeaderEditPart<C>) child;
 				Rectangle bounds = columnEditPart.getFigure().getBounds();

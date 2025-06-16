@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -74,7 +74,7 @@ AbstractHeaderLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
+	protected void decorateChild(EditPart child) {
 		child.installEditPolicy(
 				EditPolicy.SELECTION_FEEDBACK_ROLE,
 				new ColumnSelectionEditPolicy<>(m_mainPolicy));

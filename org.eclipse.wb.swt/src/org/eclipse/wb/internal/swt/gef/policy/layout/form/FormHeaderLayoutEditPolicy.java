@@ -86,7 +86,7 @@ AbstractHeaderLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void decorateChild(org.eclipse.wb.gef.core.EditPart child) {
+	protected void decorateChild(EditPart child) {
 		child.installEditPolicy(
 				EditPolicy.SELECTION_FEEDBACK_ROLE,
 				new FormHeaderSelectionEditPolicy(mainPolicy));
