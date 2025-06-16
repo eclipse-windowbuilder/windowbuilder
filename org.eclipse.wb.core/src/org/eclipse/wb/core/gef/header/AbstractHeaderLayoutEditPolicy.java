@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.editparts.LayerManager;
 
 /**
  * Abstract implementation of {@link LayoutEditPolicy} for headers. It provides additional utilities
@@ -57,7 +58,7 @@ public abstract class AbstractHeaderLayoutEditPolicy extends LayoutEditPolicy {
 	 * @return the {@link Layer} from main {@link IEditPartViewer} with given id.
 	 */
 	protected final Layer getMainLayer(String layerId) {
-		return getMainViewer().getLayer(layerId);
+		return (Layer) LayerManager.Helper.find(getMainViewer()).getLayer(layerId);
 	}
 
 	/**

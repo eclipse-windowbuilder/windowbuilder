@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.editparts.LayerManager;
 
 /**
  * {@link MenuEditPart} for MacOSX which does special handling for OSX menu bar.
@@ -65,7 +66,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 	@Override
 	protected boolean addSelfVisual(int index) {
 		if (!isSubMenu()) {
-			getViewer().getLayer(IEditPartViewer.PRIMARY_LAYER).add(getFigure());
+			LayerManager.Helper.find(getViewer()).getLayer(IEditPartViewer.PRIMARY_LAYER).add(getFigure());
 			m_addedSelf = true;
 			// add invisible fake figure to the content pane to keep index right
 			GraphicalEditPart parent = (GraphicalEditPart) getParent();
@@ -77,7 +78,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 	@Override
 	protected boolean removeSelfVisual() {
 		if (m_addedSelf) {
-			getViewer().getLayer(IEditPartViewer.PRIMARY_LAYER).remove(getFigure());
+			LayerManager.Helper.find(getViewer()).getLayer(IEditPartViewer.PRIMARY_LAYER).remove(getFigure());
 			FigureUtils.removeFigure(getFakeFigure());
 			m_addedSelf = false;
 			return true;

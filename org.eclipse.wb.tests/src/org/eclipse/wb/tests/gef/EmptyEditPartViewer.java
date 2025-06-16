@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
-import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
@@ -94,16 +92,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 
 	@Override
 	public IEditPartFactory getEditPartFactory() {
-		return null;
-	}
-
-	@Override
-	public Layer getLayer(String name) {
-		return null;
-	}
-
-	@Override
-	public IRootFigure getRootFigure() {
 		return null;
 	}
 

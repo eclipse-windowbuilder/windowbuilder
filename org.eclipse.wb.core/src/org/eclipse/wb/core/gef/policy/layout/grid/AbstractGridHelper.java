@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,7 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.swt.graphics.Color;
 
 import java.lang.reflect.Field;
@@ -247,7 +248,7 @@ public abstract class AbstractGridHelper {
 		prepareHostClientArea();
 		translateModelToFeedback(hostClientArea);
 		m_gridFigure.setBounds(hostClientArea);
-		getHost().getViewer().getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(m_gridFigure);
+		LayerManager.Helper.find(getHost()).getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(m_gridFigure);
 	}
 
 	/**

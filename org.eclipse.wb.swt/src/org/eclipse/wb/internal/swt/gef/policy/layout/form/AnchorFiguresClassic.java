@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.draw2d.Figure;
+import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -27,6 +28,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -160,7 +162,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 			Figure figure,
 			boolean isLeading,
 			boolean isHorisontal) {
-		Figure layer = m_policy.getHost().getViewer().getLayer(IEditPartViewer.CLICKABLE_LAYER);
+		Layer layer = (Layer) LayerManager.Helper.find(m_policy.getHost()).getLayer(IEditPartViewer.CLICKABLE_LAYER);
 		// prepare rectangle for cells used by component (in layer coordinates)
 		Rectangle widgetRect;
 		{

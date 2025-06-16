@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,8 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
+
+import org.eclipse.gef.editparts.LayerManager;
 
 /**
  * Abstract implementation of {@link SelectionEditPolicy} for headers. It provides additional
@@ -45,7 +47,7 @@ public abstract class AbstractHeaderSelectionEditPolicy extends SelectionEditPol
 	 * @return the {@link Layer} from main {@link IEditPartViewer} with given id.
 	 */
 	protected final Layer getMainLayer(String layerId) {
-		return getMainViewer().getLayer(layerId);
+		return (Layer) LayerManager.Helper.find(getMainViewer()).getLayer(layerId);
 	}
 
 	/**

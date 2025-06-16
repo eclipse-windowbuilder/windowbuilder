@@ -34,6 +34,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.editparts.LayerManager;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -66,7 +67,7 @@ public abstract class PolicyUtils {
 	 * Shows border around given {@link GraphicalEditPart} figure.
 	 */
 	public static void showBorderTargetFeedback(GraphicalEditPart part) {
-		Layer feedbackLayer = part.getViewer().getLayer(IEditPartViewer.FEEDBACK_LAYER);
+		Layer feedbackLayer = (Layer) LayerManager.Helper.find(part.getViewer()).getLayer(IEditPartViewer.FEEDBACK_LAYER);
 		showBorderTargetFeedback(feedbackLayer, part);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,9 +21,11 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.editparts.LayerManager;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,8 +56,8 @@ public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
 	//
 	/////////////////////////////////////////////////////////////////////
 	@Override
-	public final Figure getContentPane() {
-		return getViewer().getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
+	public final IFigure getContentPane() {
+		return LayerManager.Helper.find(getViewer()).getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
 	}
 
 	@Override
