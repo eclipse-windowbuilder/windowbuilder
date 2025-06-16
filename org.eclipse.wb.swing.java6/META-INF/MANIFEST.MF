@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.swing.java6;singleton:=true
-Bundle-Version: 1.9.1000.qualifier
+Bundle-Version: 1.9.1100.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.swing.java6.laf
-Require-Bundle: org.eclipse.wb.core;bundle-version="[1.20.0,2.0.0)",
+Require-Bundle: org.eclipse.wb.core;bundle-version="[1.21.0,2.0.0)",
  org.eclipse.wb.swing;bundle-version="[1.10.200,2.0.0)",
- org.eclipse.wb.layout.group;bundle-version="[1.9.1000,2.0.0)",
+ org.eclipse.wb.layout.group;bundle-version="[1.9.1100,2.0.0)",
  org.eclipse.swt;bundle-version="[3.126.0,4.0.0)",
  org.eclipse.osgi;bundle-version="[3.20.0,4.0.0)",
  org.eclipse.ui.workbench;bundle-version="[3.132.0,4.0.0)",
