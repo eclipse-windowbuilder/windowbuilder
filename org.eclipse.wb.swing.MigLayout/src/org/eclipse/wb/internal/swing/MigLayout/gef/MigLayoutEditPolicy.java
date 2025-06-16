@@ -111,7 +111,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	 * different {@link SelectionEditPolicy}.
 	 */
 	private void decorateChildren() {
-		for (org.eclipse.wb.gef.core.EditPart child : getHost().getChildren()) {
+		for (EditPart child : getHost().getChildren()) {
 			decorateChild(child);
 		}
 	}

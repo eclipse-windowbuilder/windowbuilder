@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AnchorsActionsSupport;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
@@ -35,6 +34,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -241,7 +241,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 			m_alignmentFigures = new ArrayList<>();
 			// show cell figures for all children of host's parent
 			{
-				Collection<EditPart> editParts = getHost().getParent().getChildren();
+				Collection<? extends EditPart> editParts = getHost().getParent().getChildren();
 				for (EditPart editPart : editParts) {
 					showAlignmentFigures(editPart);
 				}

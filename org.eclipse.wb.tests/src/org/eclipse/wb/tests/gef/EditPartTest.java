@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
@@ -278,7 +278,7 @@ public class EditPartTest extends GefTestCase {
 			}
 
 			@Override
-			public EditPart getTargetEditPart(Request request) {
+			public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
 				actualLogger.log(getHost(), "getTargetEditPart", request);
 				return getHost();
 			}
@@ -513,7 +513,7 @@ public class EditPartTest extends GefTestCase {
 		parent.test_access_addChild(child2, -1);
 		//
 		// check add child1 and child2
-		List<EditPart> children = parent.getChildren();
+		List<? extends EditPart> children = parent.getChildren();
 		assertNotNull(children);
 		assertEquals(2, children.size());
 		assertSame(child1, children.get(0));
@@ -557,7 +557,7 @@ public class EditPartTest extends GefTestCase {
 		};
 		parent.activate();
 		parent.refresh();
-		List<EditPart> children = parent.getChildren();
+		List<? extends EditPart> children = parent.getChildren();
 		assertEquals(4, children.size());
 		assertEquals("_child2_Model", children.get(0).getModel());
 		assertEquals("_child5_Model", children.get(1).getModel());
@@ -604,7 +604,7 @@ public class EditPartTest extends GefTestCase {
 		parent.test_access_addChild(child4, -1);
 		//
 		// check add child1 and child2
-		List<EditPart> children = parent.getChildren();
+		List<? extends EditPart> children = parent.getChildren();
 		assertNotNull(children);
 		assertEquals(3, children.size());
 		assertSame(child1, children.get(0));
