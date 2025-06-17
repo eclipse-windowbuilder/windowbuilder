@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -100,7 +100,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 			resizeHandle.setCursor(Cursors.SIZEN);
 		}
 		// single static handle
-		resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(), m_line.getPosition(), REQ_RESIZE));
+		resizeHandle.setDragTracker(new ResizeTracker(getHost(), m_line.getPosition(), REQ_RESIZE));
 		return List.of(resizeHandle);
 	}
 

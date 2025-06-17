@@ -14,11 +14,9 @@ package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
@@ -67,16 +65,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 			Collection<? extends EditPart> exclude,
 			Conditional conditional,
 			String layer) {
-		return null;
-	}
-
-	@Override
-	public Handle findTargetHandle(Point location) {
-		return null;
-	}
-
-	@Override
-	public Handle findTargetHandle(int x, int y) {
 		return null;
 	}
 

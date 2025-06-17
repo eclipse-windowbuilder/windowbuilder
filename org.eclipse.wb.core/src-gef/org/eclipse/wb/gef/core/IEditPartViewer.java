@@ -15,7 +15,6 @@ package org.eclipse.wb.gef.core;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
 import java.util.Collection;
@@ -149,15 +148,4 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 			final Collection<? extends org.eclipse.gef.EditPart> exclude,
 			final Conditional conditional,
 			String layer);
-
-	/**
-	 * @return the <code>{@link Handle}</code> at the specified location.
-	 */
-	Handle findTargetHandle(Point location);
-
-	/**
-	 * Returns the <code>{@link Handle}</code> at the specified location <code>(x, y)</code>. Returns
-	 * <code>null</code> if no handle exists at the given location <code>(x, y)</code>.
-	 */
-	Handle findTargetHandle(int x, int y);
 }

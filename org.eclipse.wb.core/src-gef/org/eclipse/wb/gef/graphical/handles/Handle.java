@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * {@link Handle} will add an {@link IAncestorListener} to the owner's figure, and will
@@ -27,7 +28,7 @@ import org.eclipse.draw2d.Locator;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class Handle extends Figure implements AncestorListener {
+public abstract class Handle extends Figure implements AncestorListener, org.eclipse.gef.Handle {
 	private final GraphicalEditPart m_owner;
 	private final Locator m_locator;
 
@@ -130,7 +131,8 @@ public abstract class Handle extends Figure implements AncestorListener {
 	 * Returns the drag tracker {@link Tool} to use when the user clicks on this handle. If the drag
 	 * tracker has not been set, it will be lazily created by calling {@link #createDragTracker()}.
 	 */
-	public Tool getDragTrackerTool() {
+	@Override
+	public Tool getDragTracker() {
 		if (m_dragTracker == null) {
 			m_dragTracker = createDragTrackerTool();
 		}
@@ -140,7 +142,7 @@ public abstract class Handle extends Figure implements AncestorListener {
 	/**
 	 * Sets the drag tracker {@link Tool} for this handle.
 	 */
-	public void setDragTrackerTool(Tool dragTracker) {
+	public void setDragTracker(Tool dragTracker) {
 		m_dragTracker = dragTracker;
 	}
 
@@ -149,5 +151,17 @@ public abstract class Handle extends Figure implements AncestorListener {
 	 */
 	protected final Tool createDragTrackerTool() {
 		return null;
+	}
+
+	/**
+	 * By default, the center of the handle is returned.
+	 *
+	 * @see org.eclipse.gef.Handle#getAccessibleLocation()
+	 */
+	@Override
+	public Point getAccessibleLocation() {
+		Point p = getBounds().getCenter();
+		translateToAbsolute(p);
+		return p;
 	}
 }

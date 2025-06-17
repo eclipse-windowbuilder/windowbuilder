@@ -410,7 +410,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		public SizeHandle(int direction, Locator locator) {
 			super(getHost(), locator);
 			setCursor(Cursors.getDirectionalCursor(direction));
-			setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE_SIZE));
+			setDragTracker(new ResizeTracker(direction, REQ_RESIZE_SIZE));
 		}
 
 		@Override
@@ -576,7 +576,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		public SpanHandle(int direction, Locator locator) {
 			super(getHost(), locator);
 			setCursor(Cursors.getDirectionalCursor(direction));
-			setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE_SPAN));
+			setDragTracker(new ResizeTracker(direction, REQ_RESIZE_SPAN));
 		}
 
 		@Override

@@ -12,13 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -254,16 +252,6 @@ public class TreeViewer extends AbstractEditPartViewer {
 			Collection<? extends EditPart> exclude,
 			Conditional conditional,
 			String layer) {
-		return null;
-	}
-
-	@Override
-	public Handle findTargetHandle(Point location) {
-		return null;
-	}
-
-	@Override
-	public Handle findTargetHandle(int x, int y) {
 		return null;
 	}
 }
