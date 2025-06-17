@@ -16,7 +16,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.draw2d.RootFigure;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.core.TargetEditPartFindVisitor;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Handle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
@@ -37,7 +37,7 @@ import java.util.Objects;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class GraphicalViewer extends AbstractEditPartViewer {
+public class GraphicalViewer extends AbstractEditPartViewer implements org.eclipse.gef.GraphicalViewer {
 	protected final FigureCanvas m_canvas;
 	private final RootEditPart m_rootEditPart;
 	private EditEventManager m_eventManager;
@@ -195,30 +195,22 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	}
 
 	/**
-	 * @return the <code>{@link Handle}</code> at the specified location.
-	 */
-	@Override
-	public Handle findTargetHandle(Point location) {
-		return findTargetHandle(location.x, location.y);
-	}
-
-	/**
 	 * Returns the <code>{@link Handle}</code> at the specified location <code>(x, y)</code>. Returns
 	 * <code>null</code> if no handle exists at the given location <code>(x, y)</code>.
 	 */
 	@Override
-	public Handle findTargetHandle(int x, int y) {
+	public Handle findHandleAt(Point p) {
 		Handle target;
-		if ((target = findTargetHandle(MENU_HANDLE_LAYER_STATIC, x, y)) != null) {
+		if ((target = findTargetHandle(MENU_HANDLE_LAYER_STATIC, p)) != null) {
 			return target;
 		}
-		if ((target = findTargetHandle(MENU_HANDLE_LAYER, x, y)) != null) {
+		if ((target = findTargetHandle(MENU_HANDLE_LAYER, p)) != null) {
 			return target;
 		}
-		if ((target = findTargetHandle(HANDLE_LAYER_STATIC, x, y)) != null) {
+		if ((target = findTargetHandle(HANDLE_LAYER_STATIC, p)) != null) {
 			return target;
 		}
-		if ((target = findTargetHandle(HANDLE_LAYER, x, y)) != null) {
+		if ((target = findTargetHandle(HANDLE_LAYER, p)) != null) {
 			return target;
 		}
 		return null;
@@ -229,8 +221,8 @@ public class GraphicalViewer extends AbstractEditPartViewer {
 	 * location in given <code>layer</code>. Returns <code>null</code> if no handle exists at the
 	 * given location <code>(x, y)</code>.
 	 */
-	private Handle findTargetHandle(String layer, int x, int y) {
-		TargetFigureFindVisitor visitor = new TargetFigureFindVisitor(m_canvas, x, y);
+	private Handle findTargetHandle(String layer, Point p) {
+		TargetFigureFindVisitor visitor = new TargetFigureFindVisitor(m_canvas, p.x, p.y);
 		((Layer) m_rootEditPart.getLayer(layer)).accept(visitor, false);
 		Figure targetFigure = visitor.getTargetFigure();
 		return targetFigure instanceof Handle ? (Handle) targetFigure : null;

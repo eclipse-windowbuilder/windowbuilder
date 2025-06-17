@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -76,7 +76,7 @@ public final class TableTableColumnSelectionEditPolicy extends SelectionEditPoli
 		// create resize column handle
 		SideResizeHandle resizeHandle =
 				new SideResizeHandle(getHost(), PositionConstants.RIGHT, 10, true);
-		resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(),
+		resizeHandle.setDragTracker(new ResizeTracker(getHost(),
 				PositionConstants.EAST,
 				REQ_RESIZE));
 		handles.add(resizeHandle);

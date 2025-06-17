@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -75,7 +75,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 		ResizeHandle handle = new ResizeHandle(getHost(), direction);
 		ResizeTracker tracker = new ResizeTracker(direction, null);
 		tracker.setDefaultCursor(Cursors.SIZEALL);
-		handle.setDragTrackerTool(tracker);
+		handle.setDragTracker(tracker);
 		handle.setCursor(Cursors.SIZEALL);
 		return handle;
 	}

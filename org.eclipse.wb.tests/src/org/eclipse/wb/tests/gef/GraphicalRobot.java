@@ -188,7 +188,7 @@ public final class GraphicalRobot {
 		// find MoveHandle
 		mouseX = bounds.x;
 		mouseY = bounds.y;
-		while (!(m_viewer.findTargetHandle(mouseX, mouseY) instanceof MoveHandle)) {
+		while (!(m_viewer.findHandleAt(new Point(mouseX, mouseY)) instanceof MoveHandle)) {
 			mouseX++;
 		}
 		mouseInSourceX = mouseX - bounds.x;
@@ -222,8 +222,8 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot toResizeHandle(Object object, final Object type, final int direction) {
 		Predicate<Handle> predicate = handle -> {
-			if (handle.getDragTrackerTool() instanceof ResizeTracker) {
-				ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTrackerTool();
+			if (handle.getDragTracker() instanceof ResizeTracker) {
+				ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTracker();
 				return resizeTracker.getDirection() == direction
 						&& Objects.equals(resizeTracker.getRequestType(), type);
 			}
@@ -297,7 +297,8 @@ public final class GraphicalRobot {
 		x += bounds.x;
 		y += bounds.y;
 		while (x < bounds.right() && y < bounds.bottom()) {
-			Handle handle = m_viewer.findTargetHandle(x, y);
+			Point p = new Point(x, y);
+			Handle handle = (Handle) m_viewer.findHandleAt(p);
 			if (predicate.test(handle)) {
 				return handle.getBounds().getCenter();
 			}

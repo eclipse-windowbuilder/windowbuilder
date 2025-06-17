@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,7 +59,7 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<F
 	@Override
 	protected Handle createResizeHandle() {
 		Handle handle = new SideResizeHandle(getHost(), PositionConstants.BOTTOM, 7, false);
-		handle.setDragTrackerTool(new ResizeTracker(getHost(), PositionConstants.SOUTH, REQ_RESIZE));
+		handle.setDragTracker(new ResizeTracker(getHost(), PositionConstants.SOUTH, REQ_RESIZE));
 		return handle;
 	}
 

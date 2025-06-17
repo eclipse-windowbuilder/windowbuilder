@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
+import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
@@ -57,7 +58,7 @@ public class SelectionTool extends TargetingTool {
 	 * <code>null</code>, this method will activate it and set the {@link EditDomain} and
 	 * {@link IEditPartViewer}.
 	 */
-	public void setDragTrackerTool(DragTracker dragTracker) {
+	public void setDragTracker(DragTracker dragTracker) {
 		if (m_dragTracker != dragTracker) {
 			if (m_dragTracker != null) {
 				m_dragTracker.deactivate();
@@ -125,15 +126,17 @@ public class SelectionTool extends TargetingTool {
 			}
 			//
 			if ((m_stateMask & SWT.ALT) != 0) {
-				setDragTrackerTool(new MarqueeDragTracker());
+				setDragTracker(new MarqueeDragTracker());
 				return true;
 			}
 			//
 			Point current = getCurrentInput().getMouseLocation();
-			Handle handle = getCurrentViewer().findTargetHandle(current.x, current.y);
-			if (handle != null) {
-				setDragTrackerTool(handle.getDragTrackerTool());
-				return true;
+			if (getCurrentViewer() instanceof GraphicalViewer gv) {
+				Handle handle = (Handle) gv.findHandleAt(current);
+				if (handle != null) {
+					setDragTracker(handle.getDragTracker());
+					return true;
+				}
 			}
 			//
 			updateTargetRequest();
@@ -142,10 +145,10 @@ public class SelectionTool extends TargetingTool {
 			//
 			EditPart editPart = getTargetEditPart();
 			if (editPart == null) {
-				setDragTrackerTool(null);
+				setDragTracker(null);
 				getCurrentViewer().deselectAll();
 			} else {
-				setDragTrackerTool(editPart.getDragTracker(getTargetRequest()));
+				setDragTracker(editPart.getDragTracker(getTargetRequest()));
 				lockTargetEditPart(editPart);
 			}
 		}
@@ -155,7 +158,7 @@ public class SelectionTool extends TargetingTool {
 	@Override
 	protected boolean handleButtonUp(int button) {
 		((SelectionRequest) getTargetRequest()).setLastButtonPressed(0);
-		setDragTrackerTool(null);
+		setDragTracker(null);
 		m_state = STATE_INITIAL;
 		unlockTargetEditPart();
 		return true;
@@ -165,7 +168,7 @@ public class SelectionTool extends TargetingTool {
 	protected boolean handleMove() {
 		if (m_state == STATE_DRAG) {
 			m_state = STATE_INITIAL;
-			setDragTrackerTool(null);
+			setDragTracker(null);
 		}
 		if (m_state == STATE_INITIAL) {
 			updateTargetRequest();

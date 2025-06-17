@@ -244,7 +244,7 @@ public class SelectionToolTest extends RequestTestCase {
 			Tool tracker = getDragTracker(m_tool);
 			assertNotNull(tracker);
 			assertTrue(tracker.isActive());
-			assertSame(handle.getDragTrackerTool(), tracker);
+			assertSame(handle.getDragTracker(), tracker);
 			//
 			actualLogger.assertEmpty();
 		}
@@ -252,7 +252,7 @@ public class SelectionToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(150, 150);
 			//
-			assertSame(handle.getDragTrackerTool(), getDragTracker(m_tool));
+			assertSame(handle.getDragTracker(), getDragTracker(m_tool));
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			//
@@ -281,7 +281,7 @@ public class SelectionToolTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			assertNull(getDragTracker(m_tool));
-			assertFalse(handle.getDragTrackerTool().isActive());
+			assertFalse(handle.getDragTracker().isActive());
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.setEditParts(childEditPart);

@@ -112,7 +112,7 @@ LayoutConstants {
 	 */
 	private Handle createResizeHandle(int direction) {
 		ResizeHandle handle = new ResizeHandle(getHost(), direction);
-		handle.setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE));
+		handle.setDragTracker(new ResizeTracker(direction, REQ_RESIZE));
 		return handle;
 	}
 
