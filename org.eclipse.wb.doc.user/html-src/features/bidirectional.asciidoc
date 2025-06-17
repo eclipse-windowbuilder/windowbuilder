@@ -2,8 +2,8 @@
 
 *WindowBuilder Pro* is a powerful and easy to use bi-directional Java
 GUI designer, that directly generates Java code which can be changed in
-the *link:../userinterface/design_view.html[Design View]* or directly in
-the *link:../userinterface/source_view.html[Source View]*. All changes
+the *xref:../userinterface/design_view.adoc[Design View]* or directly in
+the *xref:../userinterface/source_view.adoc[Source View]*. All changes
 made to the source code will be reflected in the graphical designer. The
 tool can read and write almost any format and reverse-engineer most
 hand-written Java GUI code. It also supports free form code editing
@@ -39,7 +39,7 @@ refactoring friendly and very resilient in the face of hand made
 changes. You can make changes or add code anywhere you like and the tool
 will reverse engineer it when possible. You can also refactor the code
 in almost any conceivable way and the tool will still be able to parse
-it and render it in the *link:../userinterface/design_view.html[Design
+it and render it in the *xref:../userinterface/design_view.adoc[Design
 View]*. For example, use the tool to create a new Swing JFrame, add some
 widgets, and then use the Eclipse refactoring tools to extract some of
 the widgets into their own methods.

@@ -6,11 +6,11 @@ image:images/userinterface.png[image]
 
 The editor is composed of the following major components:
 
-* *link:design_view.html[Design View]* - the main visual layout area.
-* *link:source_view.html[Source View]* - write code and review the generated code
-* *link:structure_view.html[Structure View]* - composed of the *Component Tree* and the *Property Pane.*
-** *link:component_tree.html[Component Tree]* - shows the hierarchical relationship between all of the components.
-** *link:property_pane.html[Property Pane]* - displays properties and events of the selected components.
-* *link:palette.html[Palette]* - provides quick access to toolkit-specific components.
-* *link:toolbar.html[Toolbar]* - provides access to commonly used commands.
-* *link:context_menu.html[Context Menu]* - provides access to commonly used commands.
+* *xref:design_view.adoc[Design View]* - the main visual layout area.
+* *xref:source_view.adoc[Source View]* - write code and review the generated code
+* *xref:structure_view.adoc[Structure View]* - composed of the *Component Tree* and the *Property Pane.*
+** *xref:component_tree.adoc[Component Tree]* - shows the hierarchical relationship between all of the components.
+** *xref:property_pane.adoc[Property Pane]* - displays properties and events of the selected components.
+* *xref:palette.adoc[Palette]* - provides quick access to toolkit-specific components.
+* *xref:toolbar.adoc[Toolbar]* - provides access to commonly used commands.
+* *xref:context_menu.adoc[Context Menu]* - provides access to commonly used commands.

@@ -1,6 +1,6 @@
 = Palette Context Menu
 
-The link:palette.html[palette] may be customized by right-clicking
+The xref:palette.adoc[palette] may be customized by right-clicking
 anywhere in the palette to access the palette context menu.
 
 [width="100%",cols="10%,20%,70%"]
@@ -34,17 +34,17 @@ image:images/add_component_dialog.png[image]
 |
 |*Add static factory >*
 | image:images/add_factory_menu.png[image]Add components from a static
-link:../features/factories.html[factory]. Single factory components may
+xref:../features/factories.adoc[factory]. Single factory components may
 be added or multiple factory components may be added at the same time.
 
-To add a single link:../features/factories.html[factory] item, give it a
+To add a single xref:../features/factories.adoc[factory] item, give it a
 name, select the factory class and method signature, and give it a
 description. The component may be initially *visible* or not and may be
 added to any available category.
 
 image:images/add_static_factory_dialog.png[image]
 
-To add a multiple link:../features/factories.html[factory] items at the
+To add a multiple xref:../features/factories.adoc[factory] items at the
 same time, select the factory class and method signatures. The component
 name and description will be given default values. The components will
 be initially *visible* and may be added to any available category.
@@ -107,7 +107,7 @@ selected category or entry.
 |Restore the palette to its default state (and custom widgets will be removed).
 
 |image:images/manager.gif[image,width=16,height=16] |*Palette
-manager...* |The *link:palette_manager.html[Palette Manager]* dialog
+manager...* |The *xref:palette_manager.adoc[Palette Manager]* dialog
 allows the toolkit-specific palette to be fully configured. Categories,
 and entries may be added, edited and removed and JAR files imported.
 Items may be rearranged using the *Up* and *Down* buttons or via drag
