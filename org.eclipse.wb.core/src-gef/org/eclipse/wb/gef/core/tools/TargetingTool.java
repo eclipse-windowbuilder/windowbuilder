@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.gef.core.tools;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
@@ -143,7 +144,7 @@ public abstract class TargetingTool extends Tool {
 	/**
 	 * Returns a List of objects that should be excluded as potential targets for the operation.
 	 */
-	protected Collection<? extends EditPart> getExclusionSet() {
+	protected Collection<IFigure> getExclusionSet() {
 		return Collections.emptyList();
 	}
 

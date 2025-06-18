@@ -15,6 +15,7 @@ package org.eclipse.wb.gef.core;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
 import java.util.Collection;
@@ -136,7 +137,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 */
 	EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<? extends org.eclipse.gef.EditPart> exclude,
+			final Collection<IFigure> exclude,
 			final Conditional conditional);
 
 	/**
@@ -145,7 +146,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 */
 	EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<? extends org.eclipse.gef.EditPart> exclude,
+			final Collection<IFigure> exclude,
 			final Conditional conditional,
 			String layer);
 }

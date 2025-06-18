@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.gef.graphical;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.draw2d.RootFigure;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.core.TargetEditPartFindVisitor;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Handle;
 import org.eclipse.swt.SWT;
@@ -153,7 +153,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<? extends org.eclipse.gef.EditPart> exclude,
+			final Collection<IFigure> exclude,
 			final Conditional conditional) {
 		EditPart editPart = findTargetEditPart(x, y, exclude, conditional, MENU_PRIMARY_LAYER);
 		if (editPart == null) {
@@ -169,15 +169,14 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	@Override
 	public EditPart findTargetEditPart(int x,
 			int y,
-			final Collection<? extends org.eclipse.gef.EditPart> exclude,
+			final Collection<IFigure> exclude,
 			final Conditional conditional,
 			String layer) {
 		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y, this) {
 			@Override
 			protected boolean acceptVisit(Figure figure) {
-				for (org.eclipse.gef.EditPart editPart : exclude) {
-					GraphicalEditPart graphicalPart = (GraphicalEditPart) editPart;
-					if (Objects.equals(figure, graphicalPart.getFigure())) {
+				for (IFigure exclusionFigure : exclude) {
+					if (Objects.equals(figure, exclusionFigure)) {
 						return false;
 					}
 				}

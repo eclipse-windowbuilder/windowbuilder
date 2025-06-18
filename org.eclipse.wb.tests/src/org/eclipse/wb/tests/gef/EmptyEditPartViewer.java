@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
@@ -54,7 +55,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	@Override
 	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
 			int y,
-			Collection<? extends EditPart> exclude,
+			Collection<IFigure> exclude,
 			Conditional conditional) {
 		return null;
 	}
@@ -62,7 +63,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	@Override
 	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
 			int y,
-			Collection<? extends EditPart> exclude,
+			Collection<IFigure> exclude,
 			Conditional conditional,
 			String layer) {
 		return null;
