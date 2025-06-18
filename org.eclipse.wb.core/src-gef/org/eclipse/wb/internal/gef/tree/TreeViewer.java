@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -221,7 +222,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
 			int y,
-			Collection<? extends EditPart> exclude,
+			Collection<IFigure> exclude,
 			Conditional conditional) {
 		// simple check location
 		Rectangle clientArea = m_tree.getClientArea();
@@ -238,7 +239,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 		}
 		// apply conditional
 		while (result != null) {
-			if (!exclude.contains(result) && (conditional == null || conditional.evaluate(result))) {
+			if (conditional == null || conditional.evaluate(result)) {
 				return result;
 			}
 			result = result.getParent();
@@ -249,7 +250,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
 			int y,
-			Collection<? extends EditPart> exclude,
+			Collection<IFigure> exclude,
 			Conditional conditional,
 			String layer) {
 		return null;

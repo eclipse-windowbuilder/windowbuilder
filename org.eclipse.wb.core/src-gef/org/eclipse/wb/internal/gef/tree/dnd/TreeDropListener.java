@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,7 +29,11 @@ import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.Transfer;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author lobas_av
@@ -212,12 +216,13 @@ public class TreeDropListener implements DropTargetListener {
 	 */
 	private void updateTargetEditPart() {
 		Point location = getDropLocation();
+		Collection<? extends EditPart> editParts = includeChildren(getDragSource());
 		EditPart editPart =
 				m_viewer.findTargetEditPart(
 						location.x,
 						location.y,
-						includeChildren(getDragSource()),
-						getTargetingConditional());
+						Collections.emptyList(),
+						getTargetingConditional(editParts));
 		if (editPart != null) {
 			editPart = editPart.getTargetEditPart(getTargetRequest());
 		}
@@ -241,12 +246,12 @@ public class TreeDropListener implements DropTargetListener {
 	 * {@link EditPart#getTargetEditPart(Request)}. If <code>null</code> is returned, then the
 	 * conditional fails, and the search continues.
 	 */
-	private Conditional getTargetingConditional() {
-		return editPart -> editPart.getTargetEditPart(getTargetRequest()) != null;
+	private Conditional getTargetingConditional(Collection<? extends EditPart> exclude) {
+		return editPart -> !exclude.contains(editPart) && editPart.getTargetEditPart(getTargetRequest()) != null;
 	}
 
-	private static List<? extends EditPart> includeChildren(List<? extends EditPart> parts) {
-		List<EditPart> result = new ArrayList<>();
+	private static Set<? extends EditPart> includeChildren(List<? extends EditPart> parts) {
+		Set<EditPart> result = new HashSet<>();
 		for (EditPart editPart : parts) {
 			result.add(editPart);
 			result.addAll(includeChildren(editPart.getChildren()));

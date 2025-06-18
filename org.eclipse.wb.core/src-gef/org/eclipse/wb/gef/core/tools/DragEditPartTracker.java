@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,9 +15,11 @@ package org.eclipse.wb.gef.core.tools;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
+import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer.Conditional;
@@ -111,15 +113,20 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	// Handling operations
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Collection<EditPart> m_exclusionSet;
+	private Collection<IFigure> m_exclusionSet;
 
 	/**
 	 * Returns a list of all the edit parts in the {@link Tool#getOperationSet() operation set}.
 	 */
 	@Override
-	protected Collection<EditPart> getExclusionSet() {
+	protected Collection<IFigure> getExclusionSet() {
 		if (m_exclusionSet == null) {
-			m_exclusionSet = new ArrayList<>(getOperationSet());
+			List<? extends EditPart> set = getOperationSet();
+			m_exclusionSet = new ArrayList<>(set.size());
+			for (EditPart element : set) {
+				GraphicalEditPart editpart = (GraphicalEditPart) element;
+				m_exclusionSet.add(editpart.getFigure());
+			}
 		}
 		return m_exclusionSet;
 	}
