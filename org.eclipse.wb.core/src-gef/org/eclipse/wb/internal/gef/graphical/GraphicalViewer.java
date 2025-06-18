@@ -14,24 +14,22 @@ package org.eclipse.wb.internal.gef.graphical;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.draw2d.RootFigure;
-import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.core.TargetEditPartFindVisitor;
 
+import org.eclipse.draw2d.ExclusionSearch;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
 
 import java.util.Collection;
-import java.util.Objects;
 
 /**
  * @author lobas_av
@@ -172,25 +170,28 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 			final Collection<IFigure> exclude,
 			final Conditional conditional,
 			String layer) {
-		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y, this) {
-			@Override
-			protected boolean acceptVisit(Figure figure) {
-				for (IFigure exclusionFigure : exclude) {
-					if (Objects.equals(figure, exclusionFigure)) {
-						return false;
-					}
-				}
-				return true;
+		class ConditionalTreeSearch extends ExclusionSearch {
+			ConditionalTreeSearch(Collection<IFigure> coll) {
+				super(coll);
 			}
 
 			@Override
-			protected boolean acceptResult(Figure figure) {
-				EditPart editPart = extractEditPart(figure);
-				return editPart != null && (conditional == null || conditional.evaluate(editPart));
+			public boolean accept(IFigure figure) {
+				EditPart editpart = null;
+				while (editpart == null && figure != null) {
+					editpart = getVisualPartMap().get(figure);
+					figure = figure.getParent();
+				}
+				return editpart != null && (conditional == null || conditional.evaluate(editpart));
 			}
-		};
-		((Layer) m_rootEditPart.getLayer(layer)).accept(visitor, false);
-		return visitor.getTargetEditPart();
+		}
+		IFigure figure = m_rootEditPart.getLayer(layer).findFigureAt(x, y, new ConditionalTreeSearch(exclude));
+		EditPart part = null;
+		while (part == null && figure != null) {
+			part = getVisualPartMap().get(figure);
+			figure = figure.getParent();
+		}
+		return part;
 	}
 
 	/**
@@ -221,9 +222,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	 * given location <code>(x, y)</code>.
 	 */
 	private Handle findTargetHandle(String layer, Point p) {
-		TargetFigureFindVisitor visitor = new TargetFigureFindVisitor(m_canvas, p.x, p.y);
-		((Layer) m_rootEditPart.getLayer(layer)).accept(visitor, false);
-		Figure targetFigure = visitor.getTargetFigure();
-		return targetFigure instanceof Handle ? (Handle) targetFigure : null;
+		IFigure targetFigure = m_rootEditPart.getLayer(layer).findFigureAt(p);
+		return targetFigure instanceof Handle handle ? handle : null;
 	}
 }
