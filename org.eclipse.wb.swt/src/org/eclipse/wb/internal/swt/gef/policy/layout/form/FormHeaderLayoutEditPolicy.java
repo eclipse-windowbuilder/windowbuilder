@@ -235,7 +235,7 @@ AbstractHeaderLayoutEditPolicy {
 	public void buildContextMenu(IMenuManager manager) {
 		IEditPartViewer viewer = getHost().getViewer();
 		Tool tool = viewer.getEditDomain().getActiveTool();
-		Point location = tool.getLocation().getCopy();
+		Point location = tool.getAbsoluteLocation().getCopy();
 		final int percent = calcPercent(location);
 		// add actions
 		if (percent > 0) {

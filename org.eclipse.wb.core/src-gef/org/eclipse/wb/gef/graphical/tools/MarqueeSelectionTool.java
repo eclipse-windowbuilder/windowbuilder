@@ -287,7 +287,7 @@ public class MarqueeSelectionTool extends Tool {
 	 * bottom-right corner <code>(m_currentX, m_currentY)</code>.
 	 */
 	private Rectangle getMarqueeSelectionRectangle() {
-		return new Rectangle(getStartLocation(), getLocation());
+		return new Rectangle(getAbsoluteStartLocation(), getAbsoluteLocation());
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -197,8 +197,8 @@ public final class TabOrderTool extends TargetingTool {
 		// find on clickable layer
 		EditPart editPart =
 				getCurrentViewer().findTargetEditPart(
-						getCurrentInput().getMouseLocation().x,
-						getCurrentInput().getMouseLocation().y,
+						getLocation().x,
+						getLocation().y,
 						getExclusionSet(),
 						getTargetingConditional(),
 						IEditPartViewer.CLICKABLE_LAYER);
@@ -206,8 +206,8 @@ public final class TabOrderTool extends TargetingTool {
 		if (editPart == null) {
 			editPart =
 					getCurrentViewer().findTargetEditPart(
-							getCurrentInput().getMouseLocation().x,
-							getCurrentInput().getMouseLocation().y,
+							getLocation().x,
+							getLocation().y,
 							getExclusionSet(),
 							getTargetingConditional());
 		}

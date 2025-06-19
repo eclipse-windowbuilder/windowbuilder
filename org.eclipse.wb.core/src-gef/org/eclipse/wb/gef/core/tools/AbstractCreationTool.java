@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,7 +47,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		if (button == 1) {
 			if (m_state == STATE_INITIAL) {
 				m_state = STATE_DRAG;
-				((AbstractCreateRequest) getTargetRequest()).setLocation(getLocation());
+				((AbstractCreateRequest) getTargetRequest()).setLocation(getAbsoluteLocation());
 				lockTargetEditPart(getTargetEditPart());
 			}
 		} else {
@@ -117,13 +117,13 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		super.updateTargetRequest();
 		AbstractCreateRequest request = (AbstractCreateRequest) getTargetRequest();
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
-			Point start = getStartLocation();
+			Point start = getAbsoluteStartLocation();
 			Rectangle bounds = new Rectangle(start, getDragMoveDelta());
 			request.setLocation(bounds.getLocation());
 			request.setSize(bounds.getSize());
 		} else {
 			request.setSize(null);
-			request.setLocation(getLocation());
+			request.setLocation(getAbsoluteLocation());
 		}
 	}
 

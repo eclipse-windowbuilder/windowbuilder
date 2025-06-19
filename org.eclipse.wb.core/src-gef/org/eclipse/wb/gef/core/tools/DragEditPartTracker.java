@@ -209,7 +209,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
 		request.setEditParts(getOperationSet());
 		request.setMoveDelta(new Point(getDragMoveDelta()));
-		request.setLocation(getLocation());
+		request.setLocation(getAbsoluteLocation());
 	}
 
 	@Override
