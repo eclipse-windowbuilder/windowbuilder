@@ -170,8 +170,8 @@ public abstract class TargetingTool extends Tool {
 		if (!m_isLockTarget) {
 			org.eclipse.wb.gef.core.EditPart editPart =
 					getCurrentViewer().findTargetEditPart(
-							getCurrentInput().getMouseLocation().x,
-							getCurrentInput().getMouseLocation().y,
+							getLocation().x,
+							getLocation().y,
 							getExclusionSet(),
 							getTargetingConditional());
 			if (editPart != null) {

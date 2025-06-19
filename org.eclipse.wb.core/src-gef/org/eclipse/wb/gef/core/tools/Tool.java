@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -105,8 +105,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 				event.display = Display.getCurrent();
 				event.widget = getCurrentViewer().getControl();
 				event.type = SWT.MouseMove;
-				event.x = getCurrentInput().getMouseLocation().x;
-				event.y = getCurrentInput().getMouseLocation().y;
+				event.x = getLocation().x;
+				event.y = getLocation().y;
 				event.button = m_button;
 				event.stateMask = m_stateMask;
 			}
@@ -242,8 +242,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 
 	protected boolean movedPastThreshold() {
 		if (!getFlag(FLAG_PAST_THRESHOLD)) {
-			Point start = getStartLocation();
-			Point end = getLocation();
+			Point start = getAbsoluteStartLocation();
+			Point end = getAbsoluteLocation();
 			setFlag(FLAG_PAST_THRESHOLD, Math.abs(start.x - end.x) > DRAG_THRESHOLD || Math.abs(start.y - end.y) > DRAG_THRESHOLD);
 		}
 		return getFlag(FLAG_PAST_THRESHOLD);
@@ -351,9 +351,9 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	/**
 	 * Returns the current x, y <b>*absolute*</b> position of the mouse cursor.
 	 */
-	public final Point getLocation() {
-		return new Point(getCurrentInput().getMouseLocation().x + getCurrentViewer().getHOffset(),
-				getCurrentInput().getMouseLocation().y + getCurrentViewer().getVOffset());
+	public final Point getAbsoluteLocation() {
+		return new Point(getLocation().x + getCurrentViewer().getHOffset(),
+				getLocation().y + getCurrentViewer().getVOffset());
 	}
 
 	/**
@@ -361,9 +361,9 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	 * typically the mouse location where the user first pressed a mouse button. This is important for
 	 * tools that interpret mouse drags.
 	 */
-	protected Point getStartLocation() {
-		return new Point(super.getStartLocation().x + getCurrentViewer().getHOffset(),
-				super.getStartLocation().y + getCurrentViewer().getVOffset());
+	protected Point getAbsoluteStartLocation() {
+		return new Point(getStartLocation().x + getCurrentViewer().getHOffset(),
+				getStartLocation().y + getCurrentViewer().getVOffset());
 	}
 
 	/**

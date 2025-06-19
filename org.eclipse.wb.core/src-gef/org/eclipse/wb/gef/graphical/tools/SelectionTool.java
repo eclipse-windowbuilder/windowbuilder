@@ -130,7 +130,7 @@ public class SelectionTool extends TargetingTool {
 				return true;
 			}
 			//
-			Point current = getCurrentInput().getMouseLocation();
+			Point current = getLocation();
 			if (getCurrentViewer() instanceof GraphicalViewer gv) {
 				Handle handle = (Handle) gv.findHandleAt(current);
 				if (handle != null) {
@@ -187,8 +187,8 @@ public class SelectionTool extends TargetingTool {
 		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
 			// send low level event to give current tracker a chance to process 'mouse up' event.
 			Event event = new Event();
-			event.x = getCurrentInput().getMouseLocation().x;
-			event.y = getCurrentInput().getMouseLocation().y;
+			event.x = getLocation().x;
+			event.y = getLocation().y;
 			event.stateMask = m_stateMask;
 			event.button = m_button;
 			event.widget = getCurrentViewer().getControl();
@@ -220,7 +220,7 @@ public class SelectionTool extends TargetingTool {
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
 		SelectionRequest request = (SelectionRequest) getTargetRequest();
-		request.setLocation(getLocation());
+		request.setLocation(getAbsoluteLocation());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
