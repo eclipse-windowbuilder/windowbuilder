@@ -220,7 +220,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	 * the given exclusion set and conditional.
 	 */
 	@Override
-	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
+	public EditPart findTargetEditPart(int x,
 			int y,
 			Collection<IFigure> exclude,
 			Conditional conditional) {
@@ -248,7 +248,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	}
 
 	@Override
-	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
+	public EditPart findTargetEditPart(int x,
 			int y,
 			Collection<IFigure> exclude,
 			Conditional conditional,

@@ -16,6 +16,7 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
 import java.util.Collection;
@@ -124,7 +125,7 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * current selection. The last EditPart in the new selection is made
 	 * {@link EditPart#SELECTED_PRIMARY primary}.
 	 */
-	void deselect(List<? extends org.eclipse.gef.EditPart> editParts);
+	void deselect(List<? extends EditPart> editParts);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
