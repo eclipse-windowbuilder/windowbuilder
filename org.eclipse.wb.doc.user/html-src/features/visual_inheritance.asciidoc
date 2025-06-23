@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/features/
+endif::[]
+
 = Visual Inheritance
 
 The tool supports visual inheritance of SWT *Shells* and *Composites*,
@@ -9,7 +13,7 @@ inheritance supports the following features:
 * Access inherited widgets exposed via public or protected accessors
 * Access inherited custom properties
 * Inherited widgets appear in tree with the "exposed"
-image:../userinterface/images/exposed_decorator.gif[image,width=6,height=6]
+image:../userinterface/images/exposed_decorator.png[image]
 decorator
 
 The following is an example of two *Composites* in an inheritance
@@ -20,23 +24,21 @@ widget.
 image:images/visual_inheritance_parent.png[image]
 
 The inner *Composite* widget has been exposed as a public component
-using the *link:../userinterface/context_menu.html[Expose Component]*
-command. *link:../userinterface/context_menu.html[Expose Component]*
+using the xref:../userinterface/context_menu.adoc[*Expose Component*]
+command. xref:../userinterface/context_menu.adoc[*Expose Component*]
 converts a component to a field and adds a public accessor for it.
+
+image:images/visual_inheritance_expose_component_menu.png[image]
+
 Finally, the *background* color property of the first *Text* widget and
 the *text* property of the *Button* have been exposed as a public
 properties of the *Composite* using the
-*link:../userinterface/property_pane_context_menu.html[Expose Property]*
-command. *link:../userinterface/property_pane_context_menu.html[Expose
-Property]* adds a pair of accessors for getting and setting the desired
+xref:../userinterface/property_pane_context_menu.adoc[*Expose Property*]
+command. xref:../userinterface/property_pane_context_menu.adoc[*Expose
+Property*] adds a pair of accessors for getting and setting the desired
 property of the target widget.
 
-++++
-<p>
-  <img src="images/visual_inheritance_expose_component_menu.png">
-  <img src="images/visual_inheritance_expose_property_menu.png" align="top">
-</p>
-++++
+image:images/visual_inheritance_expose_property_menu.png[image]
 
 [source,java]
 ----
@@ -114,11 +116,11 @@ Composite. +
 
 Note that the exposed and inherited inner *Composite* from the
 superclass shows up in the component tree with a small
-image:../userinterface/images/exposed_decorator.gif[image,width=6,height=6]
+image:../userinterface/images/exposed_decorator.png[image]
 overlay icon. The other widgets defined in the first *Composite* do not
 show up in the tree because they are private to that *Composite*.
 
-image:images/visual_inheritance_child.png[image,width=754,height=427]
+image:images/visual_inheritance_child.png[image]
 
 [source,java]
 ----

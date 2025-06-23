@@ -143,7 +143,7 @@ within Swing Designer and false at runtime.
 [#DesignTab]
 == What can I do if I don't see the Design tab when I edit a window?
 
-image:features/images/open_with.gif[image]
+image:features/images/open_with.png[image]
 
 Eclipse remembers the last editor type used with a file. If you don't see the
 *Design* tab, that means that you are using the standard Eclipse *Java Editor*

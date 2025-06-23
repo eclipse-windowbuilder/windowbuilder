@@ -1,9 +1,13 @@
+ifdef::env-github[]
+:imagesdir: ../../html/features/
+endif::[]
+
 = Bi-directional Code Generation
 
-*WindowBuilder Pro* is a powerful and easy to use bi-directional Java
+*WindowBuilder* is a powerful and easy to use bi-directional Java
 GUI designer, that directly generates Java code which can be changed in
-the *link:../userinterface/design_view.html[Design View]* or directly in
-the *link:../userinterface/source_view.html[Source View]*. All changes
+the xref:../userinterface/design_view.adoc[*Design View*] or directly in
+the xref:../userinterface/source_view.adoc[*Source View*]. All changes
 made to the source code will be reflected in the graphical designer. The
 tool can read and write almost any format and reverse-engineer most
 hand-written Java GUI code. It also supports free form code editing
@@ -11,12 +15,12 @@ hand-written Java GUI code. It also supports free form code editing
 refactorings (you can move, rename and subdivide methods without a
 problem).
 
-image:../userinterface/images/source_view_right.png[image,width=902,height=305]
+image:../userinterface/images/source_view_right.png[image]
 
 == Editing hand-written windows
 
 Most GUI builders in the world will only read and write the code that
-they themselves create. *WindowBuilder Pro* is an exception to that
+they themselves create. *WindowBuilder* is an exception to that
 rule. It can read and write not only the code it creates, but also a
 great deal of code written by hand(>90%). If you come across a case that
 does not work, send it to us for analysis. The more broken examples that
@@ -33,21 +37,21 @@ results of complex database queries is yet another example.
 
 == Modifying generated code
 
-The *WindowBuilder Pro* parser has a good understanding of basic Java
+The *WindowBuilder* parser has a good understanding of basic Java
 code and various Swing and SWT patterns. As a result, it is very
 refactoring friendly and very resilient in the face of hand made
 changes. You can make changes or add code anywhere you like and the tool
 will reverse engineer it when possible. You can also refactor the code
 in almost any conceivable way and the tool will still be able to parse
-it and render it in the *link:../userinterface/design_view.html[Design
-View]*. For example, use the tool to create a new Swing JFrame, add some
+it and render it in the xref:../userinterface/design_view.adoc[*Design
+View*]. For example, use the tool to create a new Swing JFrame, add some
 widgets, and then use the Eclipse refactoring tools to extract some of
 the widgets into their own methods.
 
 == No special tags required
 
 Using special tags or marking code read-only would go against several of
-*WindowBuilder Pro's* major design goals. The tool does not make any
+*WindowBuilder's* major design goals. The tool does not make any
 distinction between generated code and user-written code. The tool is
 designed to generated the same code that you would write by hand and to
 make minimal changes to the source when you make a change to the design
@@ -62,8 +66,10 @@ that you wrote by hand).
 Here are some examples of constructs that the parser does not yet
 handle:
 
-* Re-use of GridBagConstraint objects across multiple widgets (we support reusing the same variable but not the same objects)
-* UI construction through the use of local parameterized helper methods
-* Multiple aliases (fields or local variables) referring to the same component
-* Multiple references to the same widget definition through multiple invocations of the same helper method
-* Dynamic GUI code based on runtime calculations
+- Re-use of GridBagConstraint objects across multiple widgets (we support
+  reusing the same variable but not the same objects)
+- UI construction through the use of local parameterized helper methods
+- Multiple aliases (fields or local variables) referring to the same component
+- Multiple references to the same widget definition through multiple invocations
+  of the same helper method
+- Dynamic GUI code based on runtime calculations

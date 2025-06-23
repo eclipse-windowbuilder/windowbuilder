@@ -1,23 +1,27 @@
+ifdef::env-github[]
+:imagesdir: ../../html/features/
+endif::[]
+
 = Features
 
 The editor supports the following major features::
 
-image:../userinterface/images/userinterface.png[image,width=748,height=493]
+image:../userinterface/images/userinterface.png[image]
 
-* *link:bidirectional.html[Bi-directional Code Generation] -* read and
-write almost any format and reverse-engineer most hand-written code
-* *link:internationalization.html[Internationalization (i18n) /
-Localization] -* externalize component strings, create and manage
-resource bundles.
-* *link:custom_composites.html[Custom Composites & Panels]* - create
-custom, reusable components.
-* *link:factories.html[Factories]* - create custom factory classes and
-methods.
-* *link:visual_inheritance.html[Visual Inheritance]* - create visual
-component hierarchies.
-* *link:event_handling.html[Event Handling]* - add event handlers to
-your components.
-* *link:menu_editing.html[Menu Editing]* - visually create and edit
-menubars, menu items and popup menus.
-* *link:morphing.html[Morphing]* - convert one component type into
-another.
+* xref:bidirectional.adoc[*Bi-directional Code Generation*] - read and
+  write almost any format and reverse-engineer most hand-written code
+* xref:internationalization.adoc[*Internationalization (i18n) /
+  Localization*] - externalize component strings, create and manage
+  resource bundles.
+* xref:custom_composites.adoc[*Custom Composites & Panels*] - create
+  custom, reusable components.
+* xref:factories.adoc[*Factories*] - create custom factory classes and
+  methods.
+* xref:visual_inheritance.adoc[*Visual Inheritance*] - create visual
+  component hierarchies.
+* xref:event_handling.adoc[*Event Handling*] - add event handlers to
+  your components.
+* xref:menu_editing.adoc[*Menu Editing*] - visually create and edit
+  menubars, menu items and popup menus.
+* xref:morphing.adoc[*Morphing*] - convert one component type into
+  another.
