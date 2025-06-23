@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/features/
+endif::[]
+
 = Custom Composites & Panels
 
 The tool supports the creation of custom *Composites* (SWT) and
@@ -6,12 +10,11 @@ components. The following features are supported:
 
 * Embed any *Composite* of *JPanel* subclass in another window
 * All widgets defined in the *Composite* / *JPanel* are visible in the
-window they are used
+  window they are used
 * Access any widget exposed via public accessors
 * Access exposed custom properties
 * Exposed widgets appear in tree with the "exposed"
-image:../userinterface/images/exposed_decorator.gif[image,width=6,height=6]
-decorator
+  image:../userinterface/images/exposed_decorator.png[image] decorator
 
 The following is an example of a custom *Composites* that is then used
 in a window. The *Composite* uses a *GridLayout* and has two *Labels*,
@@ -20,23 +23,21 @@ two *Text* widgets, a *Button* and an inner *Composite* widget.
 image:images/custom_composite.png[image]
 
 The inner *Composite* widget has been exposed as a public component
-using the *link:../userinterface/context_menu.html[Expose Component]*
-command. *link:../userinterface/context_menu.html[Expose Component]*
+using the xref:../userinterface/context_menu.adoc[*Expose Component*]
+command. xref:../userinterface/context_menu.adoc[*Expose Component*]
 converts a component to a field and adds a public accessor for it.
+
+image:images/visual_inheritance_expose_component_menu.png[Expose Components Menu Item]
+
 Finally, the *background* color property of the first *Text* widget and
 the *text* property of the *Button* have been exposed as a public
 properties of the *Composite* using the
-*link:../userinterface/property_pane_context_menu.html[Expose Property]*
-command. *link:../userinterface/property_pane_context_menu.html[Expose
-Property]* adds a pair of accessors for getting and setting the desired
+xref:../userinterface/property_pane_context_menu.adoc[*Expose Property*]
+command. xref:../userinterface/property_pane_context_menu.adoc[*Expose
+Property*] adds a pair of accessors for getting and setting the desired
 property of the target widget.
 
-++++
-<p>
-  <img src="images/visual_inheritance_expose_component_menu.png">
-  <img src="images/visual_inheritance_expose_property_menu.png" align="top">
-</p>
-++++
+image:images/visual_inheritance_expose_property_menu.png[Expose Property Menu Item]
 
 [source,java]
 ----
@@ -115,7 +116,7 @@ accessors defined in the embedded Composite. +
  +
 Note that the exposed inner *Composite* from the custom *Composite*
 shows up in the component tree with a small
-image:../userinterface/images/exposed_decorator.gif[image,width=6,height=6]
+image:../userinterface/images/exposed_decorator.png[image]
 overlay icon. The other widgets defined in the embedded *Composite* do
 not show up in the tree because they are private to that *Composite*.
 

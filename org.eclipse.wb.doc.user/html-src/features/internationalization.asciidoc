@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/features/
+endif::[]
+
 = Internationalization (i18n) / Localization
 
 The tool has powerful internationalization (i18n) support. It can
@@ -8,13 +12,13 @@ context.
 image:images/nls_package_explorer1.png[image]
 
 The editor's internationalization functions center around two items on
-the *link:../userinterface/toolbar.html[Toolbar]* - the *Externalize
+the xref:../userinterface/toolbar.adoc[*Toolbar*] - the *Externalize
 Strings* button
-image:../userinterface/images/globe3.png[image,width=16,height=16] and
+image:../userinterface/images/globe3.png[image] and
 the drop down *Locales* list (which lists any locales defined for the
 current window).
 
-image:../userinterface/images/choose_locale.gif[image]
+image:../userinterface/images/choose_locale.png[image]
 
 To illustrate how to use various internationalization functions, we will
 start with the simple example shown below. This example includes a
@@ -34,7 +38,7 @@ image:images/nls_source_view1.png[image]
 
 To begin the internationalization process, click the *Externalize
 Strings* button
-image:../userinterface/images/globe3.png[image,width=16,height=16] to
+image:../userinterface/images/globe3.png[image] to
 open the *Externalize Strings* dialog. Initially, the dialog should
 present a list of all of the hard coded string properties assigned to
 any component within the window. If any NLS string externalization
@@ -116,12 +120,10 @@ been created. The first is a properties file (resource bundle) for the
 default locale that includes all of the keys and their associated
 values.
 
-++++
-<p>
-  <img src="images/nls_package_explorer2.png">
-  <img src="images/nls_properties_default.png" align="top">
-</p>
-++++
+--
+image:images/nls_package_explorer2.png[image]
+image:images/nls_properties_default.png[image]
+--
 
 The second (optional) file is a *Messages* class whose job is to
 interface to the resource bundle via the key names. The classic Eclipse
@@ -131,7 +133,7 @@ image:images/nls_messages.png[image]
 
 The modern Eclipse message class format looks like the following:
 
-image:images/nls_messages2.png[image,width=558,height=512]
+image:images/nls_messages2.png[image]
 
 If we now take another look at the source view when using the
 *ResourceBundle in field* style, we see that all of the hard coded
@@ -151,17 +153,15 @@ again. The dialog will open up focused on the first resource bundle tab.
 Click the *New locale...* button to open up the *New Locale* dialog.
 This dialog lists all of the known locales. You can select a *Language*
 code (like fr for French) and an optional *Country* code, or you can
-select from the list of *All locales*. You can also select whether the
-strings in the new locale should be copied from an existing locale (like
-the default locale) or left blank (copied from "none") using the drop
-down list in the *Copy strings from* field.
+select from the list of *All locales*.
 
-++++
-<p>
-  <img src="images/nls_new_locale.png">
-  <img src="images/nls_new_locale2.png" align="top">
-</p>
-++++
+image:images/nls_new_locale.png[image]
+
+You can also select whether the strings in the new locale should be copied from
+an existing locale (like the default locale) or left blank (copied from "none")
+using the drop down list in the *Copy strings from* field.
+
+image:images/nls_new_locale2.png[image]
 
 After selecting the new locale, click *OK* to add the locale as a new
 column in the table. The strings values will match the locale specified
@@ -175,14 +175,12 @@ image:images/nls_externalize_strings5.png[image]
 Upon closing the dialog for the second time, you will see that a new
 properties file has been created for the new locale.
 
-++++
-<p>
-  <img src="images/nls_package_explorer3.png">
-  <img src="images/nls_properties_fr.png" align="top">
-</p>
-++++
+--
+image:images/nls_package_explorer3.png[image]
+image:images/nls_properties_fr.png[image]
+--
 
-If you switch back to the *link:../userinterface/design_view.html[Design
+If you switch back to the *xref:../userinterface/design_view.adoc[Design
 View]*, you will see that the *Locales* drop down list now contains two
 value - one for the default locale and one for the second locale.
 Selecting the second locale will update the design view to show the
@@ -199,15 +197,15 @@ image:images/nls_design_view3.png[image]
 == Editing string values in the design view
 
 It is also important to note that you can continue to edit the string
-values within the *link:../userinterface/design_view.html[Design View]*
-(either via link:../userinterface/design_view.html#DirectEdit[direct
-edit] or in the *link:../userinterface/property_pane.html[Property
+values within the xref:../userinterface/design_view.adoc[*Design View*]
+(either via xref:../userinterface/design_view.html#DirectEdit[direct
+edit] or in the *xref:../userinterface/property_pane.adoc[Property
 Pane]*) and the tool will automatically update the appropriate
 properties file. If the default locale is selected, the default
 properties file will be changed. If the second locale is selected its
 corresponding properties file will be updated. Conversely, if you edit
 the text in one of the property files, the
-*link:../userinterface/design_view.html[Design View]* will be updated
+xref:../userinterface/design_view.adoc[*Design View*] will be updated
 when the editor takes focus.
 
 image:images/nls_design_view4.png[image]
@@ -236,19 +234,17 @@ asterisks (*) or click the
 image:../userinterface/images/ellipses.png[image] button to access the
 *String Editor* and select a key from an existing resource bundle.
 
-image:images/nls_key_as_value.gif[image]
+image:images/nls_key_as_value.png[image]
 
 To use a value from a resource bundle, check the *Use existing NLS
-source/key* checkbox and click the *Browse* button. The *Choose Key*
-dialog will open where you can select a String source and a key/value
-pair. You can filter the list of key/value pairs that is shown by
+source/key* checkbox and click the *Browse* button.
+
+image:../userinterface/images/property_editor_string2.png[image]
+
+The *Choose Key* dialog will open where you can select a String source and a
+key/value pair. You can filter the list of key/value pairs that is shown by
 entering a string in the *Search string* field. By default, key names
 are searched but you can also search values or both keys and values by
 selecting the appropriate radio button at the bottom of the dialog.
 
-++++
-<p>
-  <img src="../userinterface/images/property_editor_string2.png">
-  <img src="../userinterface/images/property_editor_string3.png" align="top">
-</p>
-++++
+image:../userinterface/images/property_editor_string3.png[image]

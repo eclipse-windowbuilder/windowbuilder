@@ -9,7 +9,7 @@ a|
 a|
 === Description
 
-|image:images/events.gif[image,width=16,height=16]
+|image:images/events.png[image,width=16,height=16]
 |*Show events*
 |Show the link:../features/event_handling.html[events] defined for the
 component. Expand a event category to see the individual events.

@@ -114,5 +114,5 @@ image:../features/images/nls_externalize_strings5.png[image,width=463,height=326
 | Choose the *link:../features/internationalization.html[Locale]* to
 display the current widgets.
 
-image:images/choose_locale.gif[image]
+image:images/choose_locale.png[image]
 |===
