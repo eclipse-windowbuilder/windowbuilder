@@ -329,12 +329,12 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * is not the requested target (for example, this EditPart is not a composite), it will forward
 	 * the call to its parent.
 	 */
-	public EditPart getTargetEditPart(Request request) {
+	public org.eclipse.gef.EditPart getTargetEditPart(Request request) {
 		request = processRequestProcessors(request);
-		EditPart target = null;
+		org.eclipse.gef.EditPart target = null;
 		// update target using any understanding EditPolicy
 		for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-			EditPart newTarget = ((org.eclipse.wb.gef.core.policies.EditPolicy) editPolicy).getTargetEditPart(request);
+			org.eclipse.gef.EditPart newTarget = editPolicy.getTargetEditPart(request);
 			if (newTarget != null) {
 				target = newTarget;
 			}

@@ -278,7 +278,7 @@ public class EditPartTest extends GefTestCase {
 			}
 
 			@Override
-			public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
+			public EditPart getTargetEditPart(Request request) {
 				actualLogger.log(getHost(), "getTargetEditPart", request);
 				return getHost();
 			}

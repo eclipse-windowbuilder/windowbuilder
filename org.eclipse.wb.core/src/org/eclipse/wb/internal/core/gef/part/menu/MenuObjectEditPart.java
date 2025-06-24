@@ -191,9 +191,9 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+	public EditPart getTargetEditPart(org.eclipse.gef.Request request) {
 		request = processRequestProcessors(request);
-		org.eclipse.wb.gef.core.EditPart target = super.getTargetEditPart(request);
+		EditPart target = super.getTargetEditPart(request);
 		boolean isOperationRequest =
 				request.getType() == RequestConstants.REQ_CREATE
 				|| request.getType() == PasteRequest.REQ_PASTE

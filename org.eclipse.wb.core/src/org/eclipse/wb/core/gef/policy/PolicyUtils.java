@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -34,6 +33,8 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.editparts.LayerManager;
 
 import java.lang.reflect.Method;
@@ -324,9 +325,9 @@ public abstract class PolicyUtils {
 	/**
 	 * Schedules selection of {@link EditPart} with given model.
 	 */
-	public static void scheduleSelection(final IEditPartViewer viewer, final Object model) {
+	public static void scheduleSelection(final EditPartViewer viewer, final Object model) {
 		ExecutionUtils.runLogLater(() -> {
-			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(model);
+			EditPart editPart = viewer.getEditPartRegistry().get(model);
 			if (editPart != null) {
 				viewer.select(editPart);
 			}

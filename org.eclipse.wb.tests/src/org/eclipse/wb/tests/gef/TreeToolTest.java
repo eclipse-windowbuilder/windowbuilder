@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -237,7 +237,7 @@ public abstract class TreeToolTest extends GefTestCase {
 		}
 
 		@Override
-		public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
+		public EditPart getTargetEditPart(Request request) {
 			if (request instanceof SelectionRequest) {
 				return this;
 			}

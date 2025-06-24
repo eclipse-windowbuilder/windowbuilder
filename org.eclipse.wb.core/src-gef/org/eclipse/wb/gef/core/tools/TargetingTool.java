@@ -168,7 +168,7 @@ public abstract class TargetingTool extends Tool {
 	 */
 	protected void updateTargetUnderMouse() {
 		if (!m_isLockTarget) {
-			org.eclipse.wb.gef.core.EditPart editPart =
+			EditPart editPart =
 					getCurrentViewer().findTargetEditPart(
 							getLocation().x,
 							getLocation().y,
