@@ -151,13 +151,12 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	 * primary layers, using the given exclusion set and conditional.
 	 */
 	@Override
-	public EditPart findTargetEditPart(int x,
-			int y,
+	public EditPart findObjectAtExcluding(Point location,
 			final Collection<IFigure> exclude,
 			final Conditional conditional) {
-		EditPart editPart = findTargetEditPart(x, y, exclude, conditional, MENU_PRIMARY_LAYER);
+		EditPart editPart = findObjectAtExcluding(location, exclude, conditional, MENU_PRIMARY_LAYER);
 		if (editPart == null) {
-			editPart = findTargetEditPart(x, y, exclude, conditional, PRIMARY_LAYER);
+			editPart = findObjectAtExcluding(location, exclude, conditional, PRIMARY_LAYER);
 		}
 		return editPart;
 	}
@@ -167,12 +166,11 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	 * specified given layer, using the given exclusion set and conditional.
 	 */
 	@Override
-	public EditPart findTargetEditPart(int x,
-			int y,
+	public EditPart findObjectAtExcluding(Point location,
 			final Collection<IFigure> exclude,
 			final Conditional conditional,
 			String layer) {
-		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, x, y, this) {
+		TargetEditPartFindVisitor visitor = new TargetEditPartFindVisitor(m_canvas, location.x, location.y, this) {
 			@Override
 			protected boolean acceptVisit(Figure figure) {
 				for (IFigure exclusionFigure : exclude) {

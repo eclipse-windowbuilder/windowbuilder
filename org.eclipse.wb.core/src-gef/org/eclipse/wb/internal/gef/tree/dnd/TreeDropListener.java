@@ -218,9 +218,8 @@ public class TreeDropListener implements DropTargetListener {
 		Point location = getDropLocation();
 		Collection<? extends EditPart> editParts = includeChildren(getDragSource());
 		EditPart editPart =
-				m_viewer.findTargetEditPart(
-						location.x,
-						location.y,
+				m_viewer.findObjectAtExcluding(
+						location,
 						Collections.emptyList(),
 						getTargetingConditional(editParts));
 		if (editPart != null) {

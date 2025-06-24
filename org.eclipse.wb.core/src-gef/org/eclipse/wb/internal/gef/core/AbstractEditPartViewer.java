@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,8 +18,6 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.EventListenerList;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.jface.action.MenuManager;
@@ -32,7 +30,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -339,10 +336,6 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	// GEF
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public org.eclipse.wb.gef.core.EditPart findObjectAtExcluding(Point location, Collection<IFigure> exclusionSet, Conditional conditional) {
-		return null;
-	}
 
 	@Override
 	public Control createControl(Composite parent) {
