@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,13 +13,12 @@
 package org.eclipse.wb.internal.gef.core;
 
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 
 /**
@@ -29,7 +28,7 @@ import org.eclipse.swt.events.MouseEvent;
 public class EditDomain extends org.eclipse.gef.EditDomain {
 	private Tool m_activeTool;
 	private Tool m_defaultTool;
-	private IEditPartViewer m_currentViewer;
+	private EditPartViewer m_currentViewer;
 	private MouseEvent m_currentMouseEvent;
 	private ICommandExceptionHandler m_exceptionHandler;
 
@@ -199,110 +198,71 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Handle key events
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Called when the key has been pressed on a viewer.
-	 */
-	public void keyPressed(KeyEvent event, IEditPartViewer viewer) {
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.keyDown(event, viewer);
-		}
-	}
-
-	/**
-	 * Called when the key has been released on a viewer.
-	 */
-	public void keyReleased(KeyEvent event, IEditPartViewer viewer) {
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.keyUp(event, viewer);
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Handle mouse events
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Called when the mouse button has been double-clicked on a viewer.
 	 */
-	public void mouseDoubleClick(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void mouseDoubleClick(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.mouseDoubleClick(event, viewer);
-		}
+		super.mouseDoubleClick(event, viewer);
 	}
 
 	/**
 	 * Called when the mouse button has been pressed on a viewer.
 	 */
-	public void mouseDown(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void mouseDown(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.mouseDown(event, viewer);
-		}
+		super.mouseDown(event, viewer);
 	}
 
 	/**
 	 * Called when the mouse button has been released on a viewer.
 	 */
-	public void mouseUp(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void mouseUp(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.mouseUp(event, viewer);
-		}
+		super.mouseUp(event, viewer);
 	}
 
 	/**
 	 * Called when the mouse has been moved on a viewer.
 	 */
-	public void mouseMove(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void mouseMove(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.mouseMove(event, viewer);
-		}
+		super.mouseMove(event, viewer);
 	}
 
 	/**
 	 * Called when the mouse has been dragged within a viewer.
 	 */
-	public void mouseDrag(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void mouseDrag(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.mouseDrag(event, viewer);
-		}
+		super.mouseDrag(event, viewer);
 	}
 
 	/**
 	 * Called when the mouse enters a viewer.
 	 */
-	public void viewerEntered(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void viewerEntered(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
 		m_currentViewer = viewer;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.viewerEntered(event, viewer);
-		}
+		super.viewerEntered(event, viewer);
 	}
 
 	/**
 	 * Called when the mouse exits a viewer.
 	 */
-	public void viewerExited(MouseEvent event, IEditPartViewer viewer) {
+	@Override
+	public void viewerExited(MouseEvent event, EditPartViewer viewer) {
 		m_currentMouseEvent = event;
 		m_currentViewer = null;
-		Tool tool = getActiveTool();
-		if (tool != null) {
-			tool.viewerExited(event, viewer);
-		}
+		super.viewerExited(event, viewer);
 	}
 }
