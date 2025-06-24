@@ -196,18 +196,16 @@ public final class TabOrderTool extends TargetingTool {
 	protected void updateTargetUnderMouse() {
 		// find on clickable layer
 		EditPart editPart =
-				getCurrentViewer().findTargetEditPart(
-						getLocation().x,
-						getLocation().y,
+				getCurrentViewer().findObjectAtExcluding(
+						getLocation(),
 						getExclusionSet(),
 						getTargetingConditional(),
 						IEditPartViewer.CLICKABLE_LAYER);
 		// common find target part
 		if (editPart == null) {
 			editPart =
-					getCurrentViewer().findTargetEditPart(
-							getLocation().x,
-							getLocation().y,
+					getCurrentViewer().findObjectAtExcluding(
+							getLocation(),
 							getExclusionSet(),
 							getTargetingConditional());
 		}

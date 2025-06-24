@@ -16,6 +16,8 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
 import java.util.Collection;
@@ -124,28 +126,19 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * current selection. The last EditPart in the new selection is made
 	 * {@link EditPart#SELECTED_PRIMARY primary}.
 	 */
-	void deselect(List<? extends org.eclipse.gef.EditPart> editParts);
+	void deselect(List<? extends EditPart> editParts);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Finding
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location, using
-	 * the given exclusion set and conditional.
-	 */
-	EditPart findTargetEditPart(int x,
-			int y,
-			final Collection<IFigure> exclude,
-			final Conditional conditional);
 
 	/**
 	 * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location on
 	 * specified given layer, using the given exclusion set and conditional.
 	 */
-	EditPart findTargetEditPart(int x,
-			int y,
+	EditPart findObjectAtExcluding(Point location,
 			final Collection<IFigure> exclude,
 			final Conditional conditional,
 			String layer);

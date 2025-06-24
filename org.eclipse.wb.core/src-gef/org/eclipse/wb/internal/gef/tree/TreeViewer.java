@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -220,22 +221,21 @@ public class TreeViewer extends AbstractEditPartViewer {
 	 * the given exclusion set and conditional.
 	 */
 	@Override
-	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
-			int y,
+	public EditPart findObjectAtExcluding(Point location,
 			Collection<IFigure> exclude,
 			Conditional conditional) {
 		// simple check location
 		Rectangle clientArea = m_tree.getClientArea();
-		if (x < 0 || y < 0 || x > clientArea.width || y > clientArea.height) {
+		if (location.x < 0 || location.y < 0 || location.x > clientArea.width || location.y > clientArea.height) {
 			return null;
 		}
 		// find EditPart
-		org.eclipse.wb.gef.core.EditPart result = null;
-		TreeItem item = m_tree.getItem(new org.eclipse.swt.graphics.Point(x, y));
+		EditPart result = null;
+		TreeItem item = m_tree.getItem(new org.eclipse.swt.graphics.Point(location.x, location.y));
 		if (item == null) {
 			result = m_rootEditPart;
 		} else {
-			result = (org.eclipse.wb.gef.core.EditPart) item.getData();
+			result = (EditPart) item.getData();
 		}
 		// apply conditional
 		while (result != null) {
@@ -248,8 +248,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 	}
 
 	@Override
-	public org.eclipse.wb.gef.core.EditPart findTargetEditPart(int x,
-			int y,
+	public EditPart findObjectAtExcluding(Point location,
 			Collection<IFigure> exclude,
 			Conditional conditional,
 			String layer) {
