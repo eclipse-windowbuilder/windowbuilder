@@ -24,10 +24,14 @@ import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.draw2d.FigureCanvas;
+import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.RangeModel;
+import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -50,6 +54,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
+import java.io.Closeable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -65,6 +70,9 @@ public final class GraphicalRobot {
 	// viewer
 	private final GraphicalViewer m_viewer;
 	private final EventSender m_sender;
+	private final FigureCanvas m_canvas;
+	private final RangeModel m_horizontalRange;
+	private final RangeModel m_verticalRange;
 	// source
 	private boolean sourceSideMode = false;
 	private int sourceWidth;
@@ -91,6 +99,12 @@ public final class GraphicalRobot {
 	public GraphicalRobot(GraphicalViewer viewer) {
 		m_viewer = viewer;
 		m_sender = new EventSender(viewer.getControl());
+		m_canvas = m_viewer.getControl();
+		Viewport viewport = m_canvas.getViewport();
+		m_horizontalRange = viewport.getHorizontalRangeModel();
+		m_verticalRange = viewport.getVerticalRangeModel();
+		EditDomain editDomain = m_viewer.getEditDomain();
+		editDomain.setActiveTool(new AbsoluteSelectionTool());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -188,7 +202,13 @@ public final class GraphicalRobot {
 		// find MoveHandle
 		mouseX = bounds.x;
 		mouseY = bounds.y;
-		while (!(m_viewer.findHandleAt(new Point(mouseX, mouseY)) instanceof MoveHandle)) {
+		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
+		while (rootBounds.contains(mouseX, mouseY)) {
+			try (AutoScroller scroller = new AutoScroller(mouseX, mouseY)) {
+				if (m_viewer.findHandleAt(scroller.location) instanceof MoveHandle) {
+					break;
+				}
+			}
 			mouseX++;
 		}
 		mouseInSourceX = mouseX - bounds.x;
@@ -296,16 +316,67 @@ public final class GraphicalRobot {
 			int deltaY) {
 		x += bounds.x;
 		y += bounds.y;
-		while (x < bounds.right() && y < bounds.bottom()) {
-			Point p = new Point(x, y);
-			Handle handle = (Handle) m_viewer.findHandleAt(p);
-			if (predicate.test(handle)) {
-				return handle.getBounds().getCenter();
+		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
+		while (x < bounds.right() && y < bounds.bottom() && rootBounds.contains(x, y)) {
+			try (AutoScroller scroller = new AutoScroller(x, y)) {
+				Handle handle = (Handle) m_viewer.findHandleAt(scroller.location);
+				if (predicate.test(handle)) {
+					return handle.getBounds().getCenter();
+				}
+				x += deltaX;
+				y += deltaY;
 			}
-			x += deltaX;
-			y += deltaY;
 		}
 		return null;
+	}
+
+	/**
+	 * Subclass of the selection tool that also supports figures outside the visible
+	 * area. If necessary, the absolute coordinates that are passed to this tool are
+	 * converted to relative coordinates and the viewer scrolled by the offset. This
+	 * is necessary to have the {@link GraphicalViewer#findHandleAt(Point)} behave
+	 * correctly.
+	 */
+	private class AbsoluteSelectionTool extends SelectionTool {
+		@Override
+		protected boolean handleButtonDown(int button) {
+			Point absoluteLocation = getLocation();
+			try (AutoScroller scroller = new AutoScroller(absoluteLocation.x, absoluteLocation.y)) {
+				getCurrentInput().setMouseLocation(scroller.location.x, scroller.location.y);
+				return super.handleButtonDown(button);
+			} finally {
+				getCurrentInput().setMouseLocation(absoluteLocation.x, absoluteLocation.y);
+			}
+		}
+	}
+
+	/**
+	 * This class scrolls the viewer so that the absolute coordinates that are
+	 * passed as constructor arguments are within the visible area. This is required
+	 * because GEF does not support selecting edit parts/figures that are currently
+	 * invisible. The relative coordinates can then be accessed via
+	 * {@link #scrolledX} and {@link #scrolledY}.
+	 */
+	private class AutoScroller implements Closeable {
+		private final int offX;
+		private final int offY;
+		private final Point location;
+
+		public AutoScroller(int x, int y) {
+			offX = Math.max(x - m_horizontalRange.getExtent() + 8, 0);
+			offY = Math.max(y - m_verticalRange.getExtent() + 8, 0);
+			m_horizontalRange.setValue(offX);
+			m_verticalRange.setValue(offY);
+			int scrolledX = x - m_horizontalRange.getValue();
+			int scrolledY = y - m_verticalRange.getValue();
+			location = new Point(scrolledX, scrolledY);
+		}
+
+		@Override
+		public void close() {
+			m_horizontalRange.setValue(0);
+			m_verticalRange.setValue(0);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
