@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -255,7 +255,7 @@ AbstractGridSelectionEditPolicy {
 	 * Executes given {@link RunnableEx} as edit operation.
 	 */
 	private void execute(final RunnableEx runnable) {
-		getHost().getViewer().getEditDomain().executeCommand(new EditCommand(m_component) {
+		getHost().getViewer().getEditDomain().getCommandStack().execute(new EditCommand(m_component) {
 			@Override
 			protected void executeEdit() throws Exception {
 				runnable.run();

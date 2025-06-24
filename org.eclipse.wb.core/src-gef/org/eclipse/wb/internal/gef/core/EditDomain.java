@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.events.MouseEvent;
 
 /**
@@ -32,6 +33,10 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	private MouseEvent m_currentMouseEvent;
 	private ICommandExceptionHandler m_exceptionHandler;
 
+	public EditDomain() {
+		setCommandStack(new DesignerCommandStack());
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Commands/Exceptions
@@ -39,24 +44,24 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	////////////////////////////////////////////////////////////////////////////
 	private Tool m_inCommandTool;
 
-	/**
-	 * Execute given {@link Command} and handle all exceptions.
-	 */
-	public void executeCommand(Command command) {
-		clearToolDuringCommandExecution();
-		try {
-			if (System.getProperty("wbp.EditDomain.simulateCommandException") != null) {
-				throw new Error("Simulated exception.");
+	private class DesignerCommandStack extends CommandStack {
+		@Override
+		public void execute(Command command) {
+			clearToolDuringCommandExecution();
+			try {
+				if (System.getProperty("wbp.EditDomain.simulateCommandException") != null) {
+					throw new Error("Simulated exception.");
+				}
+				super.execute(command);
+			} catch (Throwable e) {
+				if (m_exceptionHandler != null) {
+					m_exceptionHandler.handleException(e);
+					// exception handler usually recreates viewer, so we should cancel execution on current viewer
+					throw new CancelOperationError();
+				}
+			} finally {
+				restoreToolAfterCommandExecution();
 			}
-			command.execute();
-		} catch (Throwable e) {
-			if (m_exceptionHandler != null) {
-				m_exceptionHandler.handleException(e);
-				// exception handler usually recreates viewer, so we should cancel execution on current viewer
-				throw new CancelOperationError();
-			}
-		} finally {
-			restoreToolAfterCommandExecution();
 		}
 	}
 

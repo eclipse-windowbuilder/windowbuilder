@@ -169,7 +169,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 		if (m_command != null) {
 			Command command = m_command;
 			setCommand(null);
-			getDomain().executeCommand(command);
+			getDomain().getCommandStack().execute(command);
 		}
 	}
 

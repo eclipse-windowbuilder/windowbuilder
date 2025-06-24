@@ -250,7 +250,7 @@ public final class TabOrderTool extends TargetingTool {
 		if (m_containerPolicy != null) {
 			m_containerPolicy.eraseTargetFeedback(m_containerRequest);
 			if (m_saveTabOrder && m_containerRequest.getCommand() != null) {
-				getDomain().executeCommand(m_containerRequest.getCommand());
+				getDomain().getCommandStack().execute(m_containerRequest.getCommand());
 			}
 		}
 	}
