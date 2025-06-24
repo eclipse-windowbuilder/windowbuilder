@@ -80,4 +80,9 @@ public class Layer extends Figure {
 	@Override
 	public void setOpaque(boolean opaque) {
 	}
+
+	@Override
+	public String toString() {
+		return "[%s] %s".formatted(getClass().getSimpleName(), getName());
+	}
 }
