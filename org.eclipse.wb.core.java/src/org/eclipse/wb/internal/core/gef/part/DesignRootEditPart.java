@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part;
 
+import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
+import org.eclipse.wb.draw2d.border.Border;
+import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
@@ -26,6 +29,7 @@ import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -39,6 +43,14 @@ import java.util.List;
  * @coverage core.gef
  */
 public final class DesignRootEditPart extends GraphicalEditPart {
+	/**
+	 * Counterpart to {@link AbstractComponentEditPart#TOP_LOCATION} which describes
+	 * the margin at the bottom right of the design viewer. This is necessary if the
+	 * widget is larger than the viewer, because then the edges of the figure touch
+	 * the edges of the root figure, thus making it harder to e.g. select the resize
+	 * tool.
+	 */
+	private static final Point BOTTOM_MARGIN = new Point(8, 8);
 	private final DesignRootObject m_designRootObject;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -142,7 +154,10 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Figure createFigure() {
-		return new TopFigure();
+		Figure figure = new TopFigure();
+		Border border = new MarginBorder(new Insets(0, 0, BOTTOM_MARGIN.x, BOTTOM_MARGIN.y));
+		figure.setBorder(border);
+		return figure;
 	}
 
 	/**
@@ -176,6 +191,7 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 					preferred.union(figure.getBounds());
 				}
 			}
+			preferred.expand(getInsets());
 			return preferred.getSize();
 		}
 	}

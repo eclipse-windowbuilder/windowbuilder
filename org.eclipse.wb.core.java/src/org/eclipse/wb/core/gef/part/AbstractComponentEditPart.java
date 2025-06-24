@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.gef.policy.OpenErrorLogEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -51,6 +52,10 @@ import java.util.List;
  * @coverage core.gef
  */
 public abstract class AbstractComponentEditPart extends GraphicalEditPart implements IObjectInfoEditPart {
+	/**
+	 * Counterpart to {@link DesignRootEditPart#BOTTOM_MARGIN} which describes the
+	 * margin at the top left of the design viewer.
+	 */
 	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
 			? new Point(20, 28)
 					: new Point(20, 20);
