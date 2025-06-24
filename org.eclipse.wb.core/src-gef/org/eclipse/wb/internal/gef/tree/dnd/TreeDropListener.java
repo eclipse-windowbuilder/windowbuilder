@@ -271,7 +271,7 @@ public class TreeDropListener implements DropTargetListener {
 	private void executeCommand() {
 		if (m_command != null) {
 			try {
-				m_viewer.getEditDomain().executeCommand(m_command);
+				m_viewer.getEditDomain().getCommandStack().execute(m_command);
 			} finally {
 				setCommand(null);
 			}
