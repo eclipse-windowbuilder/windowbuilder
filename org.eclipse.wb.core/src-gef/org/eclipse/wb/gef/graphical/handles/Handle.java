@@ -164,4 +164,9 @@ public abstract class Handle extends Figure implements AncestorListener, org.ecl
 		translateToAbsolute(p);
 		return p;
 	}
+
+	@Override
+	public String toString() {
+		return "[%s] %s".formatted(getClass().getSimpleName(), getBounds());
+	}
 }
