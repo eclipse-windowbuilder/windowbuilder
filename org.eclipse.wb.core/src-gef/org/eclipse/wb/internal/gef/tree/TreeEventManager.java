@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -81,14 +81,14 @@ MouseTrackListener {
 	@Override
 	public void keyPressed(KeyEvent event) {
 		if (m_domain != null) {
-			m_domain.keyPressed(event, m_viewer);
+			m_domain.keyDown(event, m_viewer);
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent event) {
 		if (m_domain != null) {
-			m_domain.keyReleased(event, m_viewer);
+			m_domain.keyUp(event, m_viewer);
 		}
 	}
 
