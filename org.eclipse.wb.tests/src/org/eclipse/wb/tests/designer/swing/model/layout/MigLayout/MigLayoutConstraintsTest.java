@@ -992,6 +992,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 					"  }",
 					"}");
 		}
+		waitEventLoop(5);
 		// open dialog, commit changes
 		new UiContext().executeAndCheck(new FailableRunnable<>() {
 			@Override
