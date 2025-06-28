@@ -164,7 +164,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 		// prepare bounds XXX
 		Rectangle bounds;
 		{
-			Figure hostFigure = getHostFigure();
+			IFigure hostFigure = getHostFigure();
 			bounds = m_line.getPartBounds().getCopy();
 			bounds = request.getTransformedRectangle(bounds);
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds.shrink(-1, -1));

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
@@ -34,7 +35,7 @@ public class DotsFeedback<C extends IAbstractComponentInfo> extends Figure {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public DotsFeedback(AbsoluteBasedLayoutEditPolicy<C> layoutEditPolicy, Figure hostFigure) {
+	public DotsFeedback(AbsoluteBasedLayoutEditPolicy<C> layoutEditPolicy, IFigure hostFigure) {
 		m_layoutEditPolicy = layoutEditPolicy;
 		// prepare bounds to draw on client-area only
 		Rectangle bounds = hostFigure.getBounds().getCopy();

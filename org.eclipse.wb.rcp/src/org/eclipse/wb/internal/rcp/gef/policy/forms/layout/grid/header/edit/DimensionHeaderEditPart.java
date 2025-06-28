@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit;
 
 import org.eclipse.wb.core.gef.header.Headers;
 import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapLayoutInfo
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDimensionInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -52,7 +52,7 @@ IHeaderMenuProvider {
 	////////////////////////////////////////////////////////////////////////////
 	protected final ITableWrapLayoutInfo<C> m_layout;
 	protected final TableWrapDimensionInfo<C> m_dimension;
-	private final Figure m_containerFigure;
+	private final IFigure m_containerFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -61,7 +61,7 @@ IHeaderMenuProvider {
 	////////////////////////////////////////////////////////////////////////////
 	public DimensionHeaderEditPart(ITableWrapLayoutInfo<C> layout,
 			TableWrapDimensionInfo<C> dimension,
-			Figure containerFigure) {
+			IFigure containerFigure) {
 		m_layout = layout;
 		m_dimension = dimension;
 		m_containerFigure = containerFigure;
@@ -88,7 +88,7 @@ IHeaderMenuProvider {
 	}
 
 	/**
-	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 * @return the offset of {@link IFigure} with headers relative to the absolute layer.
 	 */
 	public final Point getOffset() {
 		Point offset = new Point(0, 0);

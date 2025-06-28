@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.ui.ColumnEditDialog;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -53,7 +54,7 @@ public final class ColumnHeaderEditPart extends DimensionHeaderEditPart<ColumnIn
 	////////////////////////////////////////////////////////////////////////////
 	public ColumnHeaderEditPart(AbstractGridBagLayoutInfo layout,
 			ColumnInfo column,
-			Figure containerFigure) {
+			IFigure containerFigure) {
 		super(layout, column, containerFigure);
 		m_column = column;
 	}

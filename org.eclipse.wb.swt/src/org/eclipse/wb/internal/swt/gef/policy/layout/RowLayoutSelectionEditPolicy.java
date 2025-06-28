@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -156,7 +157,7 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 		// prepare bounds
 		Rectangle bounds;
 		{
-			Figure hostFigure = getHostFigure();
+			IFigure hostFigure = getHostFigure();
 			bounds = request.getTransformedRectangle(hostFigure.getBounds());
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 		}

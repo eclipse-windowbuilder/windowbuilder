@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -372,7 +372,7 @@ IPreferenceConstants {
 		// is this edit parts moved by using a keyboard
 		boolean isKeyboardMoving = isKeyboardMoving();
 		// prepare dots feedback if enabled
-		Figure hostFigure = getHostFigure();
+		IFigure hostFigure = getHostFigure();
 		if (m_dotsFeedback == null) {
 			if ((useGridSnapping() || isKeyboardMoving()) && isShowGridFeedback()) {
 				m_dotsFeedback = new DotsFeedback<>(this, hostFigure);
@@ -664,7 +664,7 @@ IPreferenceConstants {
 			m_startLocation = widgetBounds.getLocation();
 		}
 		//
-		Figure hostFigure = getHostFigure();
+		IFigure hostFigure = getHostFigure();
 		// create dots feedback
 		if (m_dotsFeedback == null) {
 			if (useGridSnapping() || isKeyboardMoving()) {

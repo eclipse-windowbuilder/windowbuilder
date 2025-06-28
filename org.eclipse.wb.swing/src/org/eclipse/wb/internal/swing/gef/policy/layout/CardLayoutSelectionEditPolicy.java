@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -86,7 +86,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 		// add navigate feedback
 		if (m_navigationFigure == null) {
 			m_navigationFigure = new CardNavigationFigure(this);
-			Figure hostFigure = getHostFigure();
+			IFigure hostFigure = getHostFigure();
 			Rectangle bounds = hostFigure.getBounds().getCopy();
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 			m_navigationFigure.setBounds(new Rectangle(bounds.right()
