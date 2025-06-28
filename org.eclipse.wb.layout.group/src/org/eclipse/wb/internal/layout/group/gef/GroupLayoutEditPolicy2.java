@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
@@ -59,7 +58,7 @@ import java.util.stream.Collectors;
  */
 public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements IFeedbacksHelper {
 	private final IGroupLayoutInfo m_layout;
-	private Figure m_dragFeedback;
+	private IFigure m_dragFeedback;
 	private final FeedbacksDrawer m_feedbacksDrawer;
 	private java.awt.Rectangle[] m_movingBounds;
 	private boolean m_dragInProgress;
@@ -520,7 +519,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 	}
 
 	@Override
-	public void addFeedback2(Figure figure) {
+	public void addFeedback2(IFigure figure) {
 		addFeedback(figure);
 	}
 
