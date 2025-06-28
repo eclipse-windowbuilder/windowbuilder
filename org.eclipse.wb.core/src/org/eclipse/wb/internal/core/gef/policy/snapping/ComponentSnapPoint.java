@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,8 +13,8 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -138,7 +138,7 @@ public class ComponentSnapPoint extends SnapPoint {
 	@Override
 	public void addFeedback(final Rectangle snappedBounds,
 			IFeedbackProxy feedbackProxy,
-			final List<Figure> feedbacks) {
+			final List<IFigure> feedbacks) {
 		if (isHorizontal()) {
 			feedbacks.add(addVerticalFeedback(m_snapPoint, feedbackProxy, snappedBounds));
 		} else {
@@ -146,7 +146,7 @@ public class ComponentSnapPoint extends SnapPoint {
 		}
 	}
 
-	protected Figure addHorizontalFeedback(final int y,
+	protected IFigure addHorizontalFeedback(final int y,
 			IFeedbackProxy feedbackProxy,
 			final Rectangle snappedBounds) {
 		final Rectangle anchorChildBounds =
@@ -156,7 +156,7 @@ public class ComponentSnapPoint extends SnapPoint {
 		return feedbackProxy.addHorizontalFeedbackLine(y, unionBounds.x, unionBounds.width);
 	}
 
-	protected Figure addVerticalFeedback(final int x,
+	protected IFigure addVerticalFeedback(final int x,
 			IFeedbackProxy feedbackProxy,
 			final Rectangle snappedBounds) {
 		final Rectangle anchorChildBounds =

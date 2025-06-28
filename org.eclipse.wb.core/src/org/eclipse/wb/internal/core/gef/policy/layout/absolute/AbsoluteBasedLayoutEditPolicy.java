@@ -234,9 +234,9 @@ IPreferenceConstants {
 	// Feedbacks
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_dotsFeedback;
-	private Figure m_moveFeedback;
-	private Figure m_createFeedback;
+	private IFigure m_dotsFeedback;
+	private IFigure m_moveFeedback;
+	private IFigure m_createFeedback;
 	private TextFeedback m_locationFeedback;
 	private TextFeedback m_sizeFeedback;
 
@@ -475,7 +475,7 @@ IPreferenceConstants {
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_resizeFeedback;
+	private IFigure m_resizeFeedback;
 	private TextFeedback m_textFeedback;
 
 	public void showResizeFeedback(ChangeBoundsRequest request) {
@@ -929,14 +929,14 @@ IPreferenceConstants {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Figure addHorizontalFeedbackLine(int y, int x, int width) {
+	public IFigure addHorizontalFeedbackLine(int y, int x, int width) {
 		Polyline line = createLineFeedback(x, y, x + width, y);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		return line;
 	}
 
 	@Override
-	public Figure addHorizontalMiddleLineFeedback(int y, int x, int width) {
+	public IFigure addHorizontalMiddleLineFeedback(int y, int x, int width) {
 		Polyline line = createLineFeedback(x, y, x + width, y);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);
@@ -944,7 +944,7 @@ IPreferenceConstants {
 	}
 
 	@Override
-	public Figure addOutlineFeedback(Rectangle bounds) {
+	public IFigure addOutlineFeedback(Rectangle bounds) {
 		// prepare bounds
 		Rectangle feedbackBounds = bounds.getCopy();
 		translateModelToFeedback(feedbackBounds);
@@ -957,14 +957,14 @@ IPreferenceConstants {
 	}
 
 	@Override
-	public Figure addVerticalFeedbackLine(int x, int y, int height) {
+	public IFigure addVerticalFeedbackLine(int x, int y, int height) {
 		Polyline line = createLineFeedback(x, y, x, y + height);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		return line;
 	}
 
 	@Override
-	public Figure addVerticalMiddleLineFeedback(int x, int y, int height) {
+	public IFigure addVerticalMiddleLineFeedback(int x, int y, int height) {
 		Polyline line = createLineFeedback(x, y, x, y + height);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);

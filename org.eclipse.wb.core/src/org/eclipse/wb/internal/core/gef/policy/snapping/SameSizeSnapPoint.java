@@ -13,8 +13,8 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -132,7 +132,7 @@ public class SameSizeSnapPoint extends SnapPoint {
 	@Override
 	public void addFeedback(Rectangle snappedBounds,
 			IFeedbackProxy feedbackProxy,
-			List<Figure> feedbacks) {
+			List<IFigure> feedbacks) {
 		// snapped to some component
 		if (m_sameSizedComponent != null) {
 			Rectangle bounds =
@@ -146,8 +146,8 @@ public class SameSizeSnapPoint extends SnapPoint {
 
 	private void addMiddleLineFeedback(Rectangle bounds,
 			IFeedbackProxy feedbackProxy,
-			List<Figure> feedbacks) {
-		Figure figure =
+			List<IFigure> feedbacks) {
+		IFigure figure =
 				isHorizontal() ? feedbackProxy.addHorizontalMiddleLineFeedback(
 						bounds.y + bounds.height / 2,
 						bounds.x,

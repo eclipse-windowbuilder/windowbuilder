@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -39,7 +39,7 @@ public class SnapPoints {
 	protected int m_horizontalMouseMoveDirection;
 	protected int m_verticalMouseMoveDirection;
 	// feedbacks
-	protected List<Figure> m_feedbacks = new ArrayList<>();
+	protected List<IFigure> m_feedbacks = new ArrayList<>();
 	private final IFeedbackProxy m_feedbackProxy;
 	private SnapPoint m_horizontalSnappedPoint;
 	private SnapPoint m_verticalSnappedPoint;
@@ -373,7 +373,7 @@ public class SnapPoints {
 	 * Removes all feedbacks.
 	 */
 	public void removeFeedbacks() {
-		for (Figure figure : m_feedbacks) {
+		for (IFigure figure : m_feedbacks) {
 			FigureUtils.removeFigure(figure);
 		}
 		m_feedbacks = new ArrayList<>();
