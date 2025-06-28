@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.ui.ColumnEditDialog;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -60,7 +61,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public ColumnHeaderEditPart(MigLayoutInfo layout, MigColumnInfo column, Figure containerFigure) {
+	public ColumnHeaderEditPart(MigLayoutInfo layout, MigColumnInfo column, IFigure containerFigure) {
 		super(layout, column, containerFigure);
 		m_column = column;
 	}

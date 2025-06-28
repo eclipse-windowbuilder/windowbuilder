@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -152,7 +152,7 @@ AbstractHeaderSelectionEditPolicy {
 			// prepare feedback bounds
 			Rectangle bounds;
 			{
-				Figure hostFigure = getHostFigure();
+				IFigure hostFigure = getHostFigure();
 				bounds = changeBoundsRequest.getTransformedRectangle(hostFigure.getBounds());
 				FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 			}
@@ -225,7 +225,7 @@ AbstractHeaderSelectionEditPolicy {
 	private class HeaderMoveHandleLocator implements Locator {
 		@Override
 		public void relocate(IFigure target) {
-			Figure reference = getHostFigure();
+			IFigure reference = getHostFigure();
 			Rectangle bounds = reference.getBounds().getCopy();
 			FigureUtils.translateFigureToFigure(reference, target, bounds);
 			target.setBounds(bounds);

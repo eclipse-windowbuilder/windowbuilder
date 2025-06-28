@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,6 +29,7 @@ import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -54,7 +55,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RowHeaderEditPart(AbstractGridBagLayoutInfo layout, RowInfo row, Figure containerFigure) {
+	public RowHeaderEditPart(AbstractGridBagLayoutInfo layout, RowInfo row, IFigure containerFigure) {
 		super(layout, row, containerFigure);
 		m_row = row;
 	}

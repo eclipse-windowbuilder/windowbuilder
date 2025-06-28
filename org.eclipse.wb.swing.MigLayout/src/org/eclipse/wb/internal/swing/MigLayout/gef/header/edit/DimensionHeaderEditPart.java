@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef.header.edit;
 
 import org.eclipse.wb.core.gef.header.Headers;
 import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
@@ -23,6 +22,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -55,14 +55,14 @@ IHeaderMenuProvider {
 	////////////////////////////////////////////////////////////////////////////
 	protected final MigLayoutInfo m_layout;
 	protected final T m_dimension;
-	private final Figure m_containerFigure;
+	private final IFigure m_containerFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public DimensionHeaderEditPart(MigLayoutInfo layout, T dimension, Figure containerFigure) {
+	public DimensionHeaderEditPart(MigLayoutInfo layout, T dimension, IFigure containerFigure) {
 		m_layout = layout;
 		m_dimension = dimension;
 		m_containerFigure = containerFigure;
@@ -94,7 +94,8 @@ IHeaderMenuProvider {
 	}
 
 	/**
-	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 * @return the offset of {@link IFigure} with headers relative to the absolute
+	 *         layer.
 	 */
 	public final Point getOffset() {
 		Point offset = new Point(0, 0);

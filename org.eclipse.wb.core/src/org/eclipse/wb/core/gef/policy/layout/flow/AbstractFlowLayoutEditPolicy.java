@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.core.gef.policy.layout.flow;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
@@ -25,6 +24,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
@@ -373,7 +373,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 
 	private void showLayoutTargetFeedback_noReference(boolean horizontal, boolean rtl) {
 		Polyline feedbackLine = getLineFeedback();
-		Figure hostFigure = getHostFigure();
+		IFigure hostFigure = getHostFigure();
 		Rectangle bounds = hostFigure.getBounds().getCopy();
 		FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 		// prepare points
@@ -506,8 +506,8 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 	}
 
 	/**
-	 * @return absolute bounds of given {@link EditPart}'s {@link Figure}, transposed if needed by
-	 *         layout.
+	 * @return absolute bounds of given {@link EditPart}'s {@link IFigure},
+	 *         transposed if needed by layout.
 	 */
 	private static Rectangle getAbsoluteBounds(boolean horizontal, EditPart editPart) {
 		Rectangle bounds = PolicyUtils.getAbsoluteBounds((GraphicalEditPart) editPart);
