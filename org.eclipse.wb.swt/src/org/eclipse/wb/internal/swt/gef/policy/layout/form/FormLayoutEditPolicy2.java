@@ -113,7 +113,7 @@ IHeadersProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private int m_frozenYValue;
-	private Figure m_createFeedback;
+	private IFigure m_createFeedback;
 	private TextFeedback m_locationFeedback;
 	private TextFeedback m_sizeFeedback;
 	private SnapPoints m_snapPoints;
@@ -189,14 +189,14 @@ IHeadersProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Figure addHorizontalFeedbackLine(int y, int x, int width) {
+	public IFigure addHorizontalFeedbackLine(int y, int x, int width) {
 		Polyline line = createLineFeedback(x, y, x + width, y);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		return line;
 	}
 
 	@Override
-	public Figure addHorizontalMiddleLineFeedback(int y, int x, int width) {
+	public IFigure addHorizontalMiddleLineFeedback(int y, int x, int width) {
 		Polyline line = createLineFeedback(x, y, x + width, y);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);
@@ -204,7 +204,7 @@ IHeadersProvider {
 	}
 
 	@Override
-	public Figure addOutlineFeedback(Rectangle bounds) {
+	public IFigure addOutlineFeedback(Rectangle bounds) {
 		// prepare bounds
 		Rectangle feedbackBounds = bounds.getCopy();
 		translateModelToFeedback(feedbackBounds);
@@ -217,14 +217,14 @@ IHeadersProvider {
 	}
 
 	@Override
-	public Figure addVerticalFeedbackLine(int x, int y, int height) {
+	public IFigure addVerticalFeedbackLine(int x, int y, int height) {
 		Polyline line = createLineFeedback(x, y, x, y + height);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		return line;
 	}
 
 	@Override
-	public Figure addVerticalMiddleLineFeedback(int x, int y, int height) {
+	public IFigure addVerticalMiddleLineFeedback(int x, int y, int height) {
 		Polyline line = createLineFeedback(x, y, x, y + height);
 		line.setForegroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 		line.setLineStyle(SWT.LINE_DASH);
@@ -236,7 +236,7 @@ IHeadersProvider {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_moveFeedback;
+	private IFigure m_moveFeedback;
 	private MoveListener m_moveListener;
 
 	private void getMoveSnapPoints() {

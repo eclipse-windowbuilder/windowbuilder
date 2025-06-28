@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.AbstractRelativeLocator;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -180,12 +179,12 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	private static final int MIN_LEFT_SPACE = 10;
 	private static final int INITIAL_RIGHT_SPACE = 10;
 	private static final int FIGURES_SPACE = 10;
-	private List<Figure> m_alignmentFigures;
+	private List<IFigure> m_alignmentFigures;
 
 	/**
 	 * @return the alignment figure for given component and axis.
 	 */
-	protected abstract Figure createAlignmentFigure(IAbstractComponentInfo component,
+	protected abstract IFigure createAlignmentFigure(IAbstractComponentInfo component,
 			boolean horizontal);
 
 	/**
@@ -209,7 +208,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 */
 	public final void hideAlignmentFigures() {
 		if (m_alignmentFigures != null) {
-			for (Figure figure : m_alignmentFigures) {
+			for (IFigure figure : m_alignmentFigures) {
 				figure.getParent().remove(figure);
 			}
 			m_alignmentFigures = null;
@@ -242,7 +241,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		{
 			int offset = INITIAL_RIGHT_SPACE;
 			{
-				Figure horizontalFigure = createAlignmentFigure(component, true);
+				IFigure horizontalFigure = createAlignmentFigure(component, true);
 				if (horizontalFigure != null) {
 					offset += horizontalFigure.getSize().width;
 					addAlignmentFigure(component, horizontalFigure, offset);
@@ -250,7 +249,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 				}
 			}
 			{
-				Figure verticalFigure = createAlignmentFigure(component, false);
+				IFigure verticalFigure = createAlignmentFigure(component, false);
 				if (verticalFigure != null) {
 					offset += verticalFigure.getSize().width;
 					addAlignmentFigure(component, verticalFigure, offset);
@@ -263,8 +262,8 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * Adds alignment figure at given offset from right side of component's cells.
 	 */
-	private void addAlignmentFigure(IAbstractComponentInfo component, Figure figure, int offset) {
-		Figure layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
+	private void addAlignmentFigure(IAbstractComponentInfo component, IFigure figure, int offset) {
+		IFigure layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
 		// prepare rectangle for cells used by component (in layer coordinates)
 		Rectangle cellRect;
 		{

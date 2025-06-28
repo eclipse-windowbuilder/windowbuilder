@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,7 @@ public class FigureUtils {
 	/**
 	 * Removes given {@link Figure} from its parent.
 	 */
-	public static void removeFigure(Figure figure) {
+	public static void removeFigure(IFigure figure) {
 		if (figure != null && figure.getParent() != null) {
 			figure.getParent().remove(figure);
 		}

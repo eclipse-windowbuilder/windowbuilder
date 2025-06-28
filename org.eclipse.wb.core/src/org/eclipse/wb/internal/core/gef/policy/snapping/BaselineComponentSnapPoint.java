@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+* Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.internal.core.laf.IBaselineSupport;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -99,7 +99,7 @@ public final class BaselineComponentSnapPoint extends ComponentSnapPoint {
 	@Override
 	public void addFeedback(final Rectangle snappedBounds,
 			IFeedbackProxy feedbackProxy,
-			final List<Figure> feedbacks) {
+			final List<IFigure> feedbacks) {
 		final Rectangle anchorChildBounds =
 				PlacementUtils.getTranslatedBounds(m_visualDataProvider, m_anchorComponent);
 		final Rectangle unionBounds = snappedBounds.getUnion(anchorChildBounds);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -111,7 +111,7 @@ public final class MigSelectionEditPolicy extends AbstractGridSelectionEditPolic
 	}
 
 	@Override
-	protected Figure createAlignmentFigure(IAbstractComponentInfo component, boolean horizontal) {
+	protected IFigure createAlignmentFigure(IAbstractComponentInfo component, boolean horizontal) {
 		IEditPartViewer viewer = getHost().getViewer();
 		final CellConstraintsSupport constraints =
 				MigLayoutInfo.getConstraints((ComponentInfo) component);

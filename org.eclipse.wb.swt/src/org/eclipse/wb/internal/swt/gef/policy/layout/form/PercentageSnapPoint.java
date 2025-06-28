@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,13 +13,13 @@
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IFeedbackProxy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.gef.policy.snapping.SnapPoint;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -85,7 +85,7 @@ final class PercentageSnapPoint<C extends IControlInfo> extends SnapPoint {
 	@Override
 	public void addFeedback(Rectangle snappedBounds,
 			IFeedbackProxy feedbackProxy,
-			List<Figure> feedbacks) {
+			List<IFigure> feedbacks) {
 		if (isHorizontal()) {
 			if (m_hasGap) {
 				feedbacks.add(feedbackProxy.addVerticalFeedbackLine(
