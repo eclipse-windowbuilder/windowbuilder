@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.BoxSupport;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -146,7 +147,7 @@ abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
 		// prepare bounds
 		Rectangle bounds;
 		{
-			Figure hostFigure = getHostFigure();
+			IFigure hostFigure = getHostFigure();
 			bounds = request.getTransformedRectangle(hostFigure.getBounds());
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds.shrink(-1, -1));
 		}

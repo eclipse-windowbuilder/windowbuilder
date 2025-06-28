@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -40,7 +41,7 @@ public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPar
 	private final boolean isHorizontal;
 	private final IFormLayoutInfo<C> layout;
 	private final Transposer t;
-	private final Figure containerFigure;
+	private final IFigure containerFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -50,7 +51,7 @@ public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPar
 	public FormHeaderEditPart(IFormLayoutInfo<C> layout,
 			Object model,
 			boolean isHorizontal,
-			Figure containerFigure) {
+			IFigure containerFigure) {
 		super();
 		this.layout = layout;
 		this.isHorizontal = isHorizontal;

@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.edit;
 
 import org.eclipse.wb.core.gef.header.Headers;
 import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -60,14 +60,14 @@ GraphicalEditPart implements IHeaderMenuProvider {
 	////////////////////////////////////////////////////////////////////////////
 	protected final FormLayoutInfo m_layout;
 	protected final T m_dimension;
-	private final Figure m_containerFigure;
+	private final IFigure m_containerFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public DimensionHeaderEditPart(FormLayoutInfo layout, T dimension, Figure containerFigure) {
+	public DimensionHeaderEditPart(FormLayoutInfo layout, T dimension, IFigure containerFigure) {
 		m_layout = layout;
 		m_dimension = dimension;
 		m_containerFigure = containerFigure;
@@ -99,7 +99,8 @@ GraphicalEditPart implements IHeaderMenuProvider {
 	}
 
 	/**
-	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 * @return the offset of {@link IFigure} with headers relative to the absolute
+	 *         layer.
 	 */
 	public final Point getOffset() {
 		Point offset = new Point(0, 0);

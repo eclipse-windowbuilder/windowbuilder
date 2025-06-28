@@ -599,7 +599,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 * @return {@link Locator} that positions handles on component side.
 	 */
 	protected final Locator createComponentLocator(int direction, double percent) {
-		Figure reference = getHostFigure();
+		IFigure reference = getHostFigure();
 		if (direction == PositionConstants.WEST) {
 			return new RelativeLocator(reference, 0, percent);
 		} else if (direction == PositionConstants.EAST) {

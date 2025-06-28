@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.ui.RowEditDialog;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -60,7 +61,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RowHeaderEditPart(MigLayoutInfo layout, MigRowInfo row, Figure containerFigure) {
+	public RowHeaderEditPart(MigLayoutInfo layout, MigRowInfo row, IFigure containerFigure) {
 		super(layout, row, containerFigure);
 		m_row = row;
 	}

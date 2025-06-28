@@ -1166,7 +1166,7 @@ SelectionEditPolicy {
 
 	private void installQuadrantHandler() {
 		mouseQuadrant = -1;
-		final Figure figure = getHostFigure();
+		final IFigure figure = getHostFigure();
 		// add mouse listener
 		mouseMotionListener = new MouseMotionListener.Stub() {
 			@Override

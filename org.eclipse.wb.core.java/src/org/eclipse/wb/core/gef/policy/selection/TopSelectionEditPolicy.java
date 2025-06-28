@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ITopBoundsSupport;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -25,6 +24,7 @@ import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -139,7 +139,7 @@ public final class TopSelectionEditPolicy extends SelectionEditPolicy {
 			// prepare feedback bounds
 			Rectangle bounds;
 			{
-				Figure hostFigure = getHostFigure();
+				IFigure hostFigure = getHostFigure();
 				bounds = request.getTransformedRectangle(hostFigure.getBounds());
 				sanitizeBounds(bounds);
 				FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
