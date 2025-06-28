@@ -35,6 +35,7 @@ import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutUtils;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -70,9 +71,9 @@ LayoutConstants {
 	private final IGroupLayoutInfo m_layout;
 	private final AnchorsSupport m_anchorsSupport;
 	private final FeedbacksDrawer m_feedbacksDrawer;
-	private List<Figure> m_alignmentFigures;
+	private List<IFigure> m_alignmentFigures;
 	private boolean m_resizeInProgress;
-	private Figure m_dragFeedback;
+	private IFigure m_dragFeedback;
 	private java.awt.Rectangle[] m_movingBounds;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -159,7 +160,7 @@ LayoutConstants {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void addFeedback2(Figure figure) {
+	public void addFeedback2(IFigure figure) {
 		addFeedback(figure);
 	}
 
@@ -296,7 +297,7 @@ LayoutConstants {
 	/**
 	 * @return the alignment figure for given component and axis.
 	 */
-	protected Figure createAlignmentFigure(final AbstractComponentInfo widget,
+	protected IFigure createAlignmentFigure(final AbstractComponentInfo widget,
 			final boolean isHorizontal) {
 		IEditPartViewer viewer = getHost().getViewer();
 		return isHorizontal
@@ -325,7 +326,7 @@ LayoutConstants {
 	 */
 	public final void hideAlignmentFigures() {
 		if (m_alignmentFigures != null) {
-			for (Figure figure : m_alignmentFigures) {
+			for (IFigure figure : m_alignmentFigures) {
 				figure.getParent().remove(figure);
 			}
 			m_alignmentFigures = null;
@@ -356,7 +357,7 @@ LayoutConstants {
 		{
 			int offset = INITIAL_RIGHT_SPACE;
 			{
-				Figure horizontalFigure = createAlignmentFigure(widget, true);
+				IFigure horizontalFigure = createAlignmentFigure(widget, true);
 				if (horizontalFigure != null) {
 					offset += horizontalFigure.getSize().width;
 					addAlignmentFigure(widget, horizontalFigure, offset);
@@ -364,7 +365,7 @@ LayoutConstants {
 				}
 			}
 			{
-				Figure verticalFigure = createAlignmentFigure(widget, false);
+				IFigure verticalFigure = createAlignmentFigure(widget, false);
 				if (verticalFigure != null) {
 					offset += verticalFigure.getSize().width;
 					addAlignmentFigure(widget, verticalFigure, offset);
@@ -377,8 +378,8 @@ LayoutConstants {
 	/**
 	 * Adds alignment figure at given offset from right side of component's cells.
 	 */
-	private void addAlignmentFigure(AbstractComponentInfo component, Figure figure, int offset) {
-		Figure layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
+	private void addAlignmentFigure(AbstractComponentInfo component, IFigure figure, int offset) {
+		IFigure layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
 		// prepare rectangle for cells used by component (in layer coordinates)
 		Rectangle cellRect;
 		{

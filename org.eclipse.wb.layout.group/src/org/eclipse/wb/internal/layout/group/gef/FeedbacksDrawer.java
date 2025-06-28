@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 final class FeedbacksDrawer implements IFeedbacksDrawer {
 	private final IFeedbacksHelper m_helper;
-	private final List<Figure> m_feedbacks = new ArrayList<>();
+	private final List<IFigure> m_feedbacks = new ArrayList<>();
 	private static final Image[] m_images = {null, null, null};
 
 	////////////////////////////////////////////////////////////////////////////
@@ -67,7 +68,7 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 			final int height,
 			final int startAngle,
 			final int arcAngle) {
-		Figure figure = new Figure() {
+		IFigure figure = new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
 				graphics.setBackgroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
@@ -85,7 +86,7 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 	@Override
 	public void drawLinkBadge(int x, int y, int dimension) {
 		final Image image = getImage(dimension);
-		Figure figure = new Figure() {
+		IFigure figure = new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
 				// draw image
@@ -148,7 +149,7 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void removeFeedbacks() {
-		for (Figure figure : m_feedbacks) {
+		for (IFigure figure : m_feedbacks) {
 			if (figure != null) {
 				FigureUtils.removeFigure(figure);
 			}
