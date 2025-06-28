@@ -32,6 +32,7 @@ import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -104,9 +105,9 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart implem
 	}
 
 	/**
-	 * Draw custom "control specific" graphics objects for given {@link Figure}.
+	 * Draw custom "control specific" graphics objects for given {@link IFigure}.
 	 */
-	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+	protected void drawCustomBorder(IFigure figure, Graphics graphics) {
 	}
 
 	@Override

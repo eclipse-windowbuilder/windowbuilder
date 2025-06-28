@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.part.widgets;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.TerminatorLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 
@@ -50,7 +50,7 @@ public final class ScrolledCompositeEditPart extends CompositeEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+	protected void drawCustomBorder(IFigure figure, Graphics graphics) {
 		super.drawCustomBorder(figure, graphics);
 		if (!m_composite.hasRequired_setContent()) {
 			String message = GefMessages.ScrolledCompositeEditPart_setContentWarning;
