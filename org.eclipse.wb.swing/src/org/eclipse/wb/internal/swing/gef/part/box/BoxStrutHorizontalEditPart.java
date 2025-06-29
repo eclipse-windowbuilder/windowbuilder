@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,13 +14,13 @@ package org.eclipse.wb.internal.swing.gef.part.box;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.StrutDirectHorizontalEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.StrutSelectionHorizontalEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
 
 import javax.swing.Box;
 

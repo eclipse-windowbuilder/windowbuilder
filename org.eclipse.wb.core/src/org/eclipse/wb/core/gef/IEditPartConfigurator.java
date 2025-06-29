@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef;
 
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.core.gef.EditPartFactory;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 /**
  * Implementations of {@link IEditPartConfigurator} are used by {@link EditPartFactory} to configure

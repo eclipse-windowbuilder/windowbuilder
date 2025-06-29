@@ -14,10 +14,10 @@ package org.eclipse.wb.internal.rcp.gef.part.widgets;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.policy.selection.TopSelectionEditPolicy;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.rcp.model.widgets.DialogInfo;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 /**
  * {@link EditPart} for {@link DialogInfo}.

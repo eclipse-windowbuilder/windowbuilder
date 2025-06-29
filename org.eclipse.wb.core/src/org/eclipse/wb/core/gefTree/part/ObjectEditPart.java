@@ -17,7 +17,6 @@ import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;

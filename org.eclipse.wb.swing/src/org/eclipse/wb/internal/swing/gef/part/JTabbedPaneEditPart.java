@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,10 +13,11 @@
 package org.eclipse.wb.internal.swing.gef.part;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.JTabbedPaneLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.JTabbedPaneTabLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
+
+import org.eclipse.gef.EditPolicy;
 
 import java.util.ArrayList;
 import java.util.List;

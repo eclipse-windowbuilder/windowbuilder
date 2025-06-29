@@ -21,7 +21,6 @@ import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -36,6 +35,7 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.swt.graphics.Color;
 

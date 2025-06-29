@@ -16,12 +16,12 @@ import org.eclipse.wb.core.gef.policy.layout.flow.ObjectFlowLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.validator.LayoutRequestValidators;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 
 /**

@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentFlowLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 
 /**
@@ -69,7 +69,7 @@ public final class CardLayoutEditPolicy extends ComponentFlowLayoutEditPolicy {
 		Object model = child.getModel();
 		if (m_layout.isManagedObject(model)) {
 			EditPolicy policy = new CardLayoutSelectionEditPolicy(m_layout);
-			child.installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, policy);
+			child.installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, policy);
 		}
 	}
 
