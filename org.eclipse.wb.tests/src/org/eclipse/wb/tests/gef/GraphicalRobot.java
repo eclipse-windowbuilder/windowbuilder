@@ -16,6 +16,8 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.tools.CreationTool;
+import org.eclipse.wb.gef.core.tools.PasteTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -27,11 +29,13 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
+import org.eclipse.wb.tests.utils.AbsoluteCreationTool;
+import org.eclipse.wb.tests.utils.AbsolutePasteTool;
+import org.eclipse.wb.tests.utils.AbsoluteSelectionTool;
+import org.eclipse.wb.tests.utils.AutoScroller;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.RangeModel;
-import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -54,7 +58,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
-import java.io.Closeable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -71,8 +74,6 @@ public final class GraphicalRobot {
 	private final GraphicalViewer m_viewer;
 	private final EventSender m_sender;
 	private final FigureCanvas m_canvas;
-	private final RangeModel m_horizontalRange;
-	private final RangeModel m_verticalRange;
 	// source
 	private boolean sourceSideMode = false;
 	private int sourceWidth;
@@ -100,10 +101,19 @@ public final class GraphicalRobot {
 		m_viewer = viewer;
 		m_sender = new EventSender(viewer.getControl());
 		m_canvas = m_viewer.getControl();
-		Viewport viewport = m_canvas.getViewport();
-		m_horizontalRange = viewport.getHorizontalRangeModel();
-		m_verticalRange = viewport.getVerticalRangeModel();
 		EditDomain editDomain = m_viewer.getEditDomain();
+		editDomain.addActiveToolListener(tool -> {
+			if (tool == null) {
+				return;
+			}
+			if (tool.getClass() == SelectionTool.class) {
+				editDomain.setActiveTool(new AbsoluteSelectionTool());
+			} else if (tool.getClass() == PasteTool.class) {
+				editDomain.setActiveTool(new AbsolutePasteTool(((PasteTool) tool).getMemento()));
+			} else if (tool.getClass() == CreationTool.class) {
+				editDomain.setActiveTool(new AbsoluteCreationTool(((CreationTool) tool).getFactory()));
+			}
+		});
 		editDomain.setActiveTool(new AbsoluteSelectionTool());
 	}
 
@@ -204,8 +214,8 @@ public final class GraphicalRobot {
 		mouseY = bounds.y;
 		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
 		while (rootBounds.contains(mouseX, mouseY)) {
-			try (AutoScroller scroller = new AutoScroller(mouseX, mouseY)) {
-				if (m_viewer.findHandleAt(scroller.location) instanceof MoveHandle) {
+			try (AutoScroller scroller = new AutoScroller(m_viewer, mouseX, mouseY)) {
+				if (m_viewer.findHandleAt(scroller.getLocation()) instanceof MoveHandle) {
 					break;
 				}
 			}
@@ -318,8 +328,8 @@ public final class GraphicalRobot {
 		y += bounds.y;
 		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
 		while (x < bounds.right() && y < bounds.bottom() && rootBounds.contains(x, y)) {
-			try (AutoScroller scroller = new AutoScroller(x, y)) {
-				Handle handle = (Handle) m_viewer.findHandleAt(scroller.location);
+			try (AutoScroller scroller = new AutoScroller(m_viewer, x, y)) {
+				Handle handle = (Handle) m_viewer.findHandleAt(scroller.getLocation());
 				if (predicate.test(handle)) {
 					return handle.getBounds().getCenter();
 				}
@@ -328,55 +338,6 @@ public final class GraphicalRobot {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * Subclass of the selection tool that also supports figures outside the visible
-	 * area. If necessary, the absolute coordinates that are passed to this tool are
-	 * converted to relative coordinates and the viewer scrolled by the offset. This
-	 * is necessary to have the {@link GraphicalViewer#findHandleAt(Point)} behave
-	 * correctly.
-	 */
-	private class AbsoluteSelectionTool extends SelectionTool {
-		@Override
-		protected boolean handleButtonDown(int button) {
-			Point absoluteLocation = getLocation();
-			try (AutoScroller scroller = new AutoScroller(absoluteLocation.x, absoluteLocation.y)) {
-				getCurrentInput().setMouseLocation(scroller.location.x, scroller.location.y);
-				return super.handleButtonDown(button);
-			} finally {
-				getCurrentInput().setMouseLocation(absoluteLocation.x, absoluteLocation.y);
-			}
-		}
-	}
-
-	/**
-	 * This class scrolls the viewer so that the absolute coordinates that are
-	 * passed as constructor arguments are within the visible area. This is required
-	 * because GEF does not support selecting edit parts/figures that are currently
-	 * invisible. The relative coordinates can then be accessed via
-	 * {@link #scrolledX} and {@link #scrolledY}.
-	 */
-	private class AutoScroller implements Closeable {
-		private final int offX;
-		private final int offY;
-		private final Point location;
-
-		public AutoScroller(int x, int y) {
-			offX = Math.max(x - m_horizontalRange.getExtent() + 8, 0);
-			offY = Math.max(y - m_verticalRange.getExtent() + 8, 0);
-			m_horizontalRange.setValue(offX);
-			m_verticalRange.setValue(offY);
-			int scrolledX = x - m_horizontalRange.getValue();
-			int scrolledY = y - m_verticalRange.getValue();
-			location = new Point(scrolledX, scrolledY);
-		}
-
-		@Override
-		public void close() {
-			m_horizontalRange.setValue(0);
-			m_verticalRange.setValue(0);
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
