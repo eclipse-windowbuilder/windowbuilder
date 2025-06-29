@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -29,6 +28,7 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

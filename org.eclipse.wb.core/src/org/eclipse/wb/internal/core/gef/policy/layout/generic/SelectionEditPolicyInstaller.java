@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.generic;
 
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 import org.apache.commons.lang3.StringUtils;
 

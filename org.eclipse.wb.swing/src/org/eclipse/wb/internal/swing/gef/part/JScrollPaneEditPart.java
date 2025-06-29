@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,9 +13,10 @@
 package org.eclipse.wb.internal.swing.gef.part;
 
 import org.eclipse.wb.gef.core.EditPart;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.JScrollPaneLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
+
+import org.eclipse.gef.EditPolicy;
 
 /**
  * The {@link EditPart} for {@link JScrollPaneInfo}.

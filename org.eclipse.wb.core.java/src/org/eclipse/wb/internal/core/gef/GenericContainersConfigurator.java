@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.gef;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.layout.generic.FlowContainerLayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.layout.generic.SimpleContainerLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainerFactory;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 import java.util.List;
 
