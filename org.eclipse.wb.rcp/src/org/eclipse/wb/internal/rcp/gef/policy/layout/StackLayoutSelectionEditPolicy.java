@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.layout;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.rcp.model.layout.IStackLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -86,7 +86,7 @@ SelectionEditPolicy {
 		// add navigate feedback
 		if (m_navigationFigure == null) {
 			m_navigationFigure = new StackLayoutNavigationFigure(this);
-			Figure hostFigure = getHostFigure();
+			IFigure hostFigure = getHostFigure();
 			Rectangle bounds = hostFigure.getBounds().getCopy();
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 			{

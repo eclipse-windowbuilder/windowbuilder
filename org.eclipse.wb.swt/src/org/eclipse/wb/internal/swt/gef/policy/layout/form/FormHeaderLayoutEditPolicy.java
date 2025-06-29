@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.draw2d.geometry.Transposer;
@@ -220,7 +221,7 @@ AbstractHeaderLayoutEditPolicy {
 	/**
 	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
 	 */
-	public static Point getOffset(Figure containerFigure, ICompositeInfo composite) {
+	public static Point getOffset(IFigure containerFigure, ICompositeInfo composite) {
 		Point offset = new Point(0, 0);
 		FigureUtils.translateFigureToAbsolute2(containerFigure, offset);
 		offset.performTranslate(composite.getClientAreaInsets());

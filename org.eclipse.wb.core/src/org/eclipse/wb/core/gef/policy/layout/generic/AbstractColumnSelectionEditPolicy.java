@@ -26,6 +26,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
@@ -153,7 +154,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 		// prepare bounds
 		Rectangle bounds;
 		{
-			Figure hostFigure = getHostFigure();
+			IFigure hostFigure = getHostFigure();
 			bounds = request.getTransformedRectangle(hostFigure.getBounds());
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds.shrink(-1, -1));
 		}

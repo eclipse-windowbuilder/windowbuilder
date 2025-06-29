@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -46,9 +45,9 @@ public class GraphicalEditPolicy extends EditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Convenience method to return the host's {@link Figure}.
+	 * Convenience method to return the host's {@link IFigure}.
 	 */
-	protected final Figure getHostFigure() {
+	protected final IFigure getHostFigure() {
 		return getHost().getFigure();
 	}
 
@@ -82,17 +81,17 @@ public class GraphicalEditPolicy extends EditPolicy {
 	}
 
 	/**
-	 * Adds the specified <code>{@link Figure}</code> to the {@link IEditPartViewer#FEEDBACK_LAYER}.
+	 * Adds the specified <code>{@link IFigure}</code> to the {@link IEditPartViewer#FEEDBACK_LAYER}.
 	 */
-	protected final void addFeedback(Figure figure) {
+	protected final void addFeedback(IFigure figure) {
 		getFeedbackLayer().add(figure);
 	}
 
 	/**
-	 * Removes the specified <code>{@link Figure}</code> to the {@link IEditPartViewer#FEEDBACK_LAYER}
+	 * Removes the specified <code>{@link IFigure}</code> to the {@link IEditPartViewer#FEEDBACK_LAYER}
 	 * .
 	 */
-	protected final void removeFeedback(Figure figure) {
+	protected final void removeFeedback(IFigure figure) {
 		getFeedbackLayer().remove(figure);
 	}
 
