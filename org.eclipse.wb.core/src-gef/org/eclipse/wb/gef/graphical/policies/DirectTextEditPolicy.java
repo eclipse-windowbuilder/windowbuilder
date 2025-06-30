@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.FigureUtils;
-
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -156,14 +154,14 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
 	}
 
 	/**
-	 * Updates location of {@link Text} widget in host {@link Figure}.
+	 * Updates location of {@link Text} widget in host {@link IFigure}.
 	 */
 	private void relocateTextWidget() {
 		// prepare absolute bounds of host figure
 		Rectangle hostBounds;
 		{
 			hostBounds = getHostFigure().getBounds().getCopy();
-			FigureUtils.translateFigureToCanvas((Figure) getHostFigure().getParent(), hostBounds);
+			getHostFigure().translateToAbsolute(hostBounds);
 		}
 		// prepare text size
 		org.eclipse.swt.graphics.Point textSize;
@@ -191,7 +189,7 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
 
 	/**
 	 * @param hostBounds
-	 *          the absolute bounds of host {@link Figure}.
+	 *          the absolute bounds of host {@link IFigure}.
 	 * @param textSize
 	 *          the size of {@link Text} widget.
 	 *

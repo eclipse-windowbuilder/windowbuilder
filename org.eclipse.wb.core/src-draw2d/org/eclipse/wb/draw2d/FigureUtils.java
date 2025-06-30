@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.IFigure;
@@ -90,18 +89,6 @@ public class FigureUtils {
 			translatable.performTranslate(figure.getInsets());
 			translatable.performTranslate(figure.getLocation());
 		}
-	}
-
-	/**
-	 * Translates given {@link Translatable} from this {@link Figure} local coordinates to absolute (
-	 * {@link RootFigure} relative) coordinates.
-	 */
-	public static final void translateFigureToCanvas(Figure figure, Translatable translatable) {
-		translateFigureToAbsolute2(figure, translatable);
-		FigureCanvas figureCanvas = figure.getFigureCanvas();
-		translatable.performTranslate(
-				-figureCanvas.getViewport().getHorizontalRangeModel().getValue(),
-				-figureCanvas.getViewport().getVerticalRangeModel().getValue());
 	}
 
 	/**
