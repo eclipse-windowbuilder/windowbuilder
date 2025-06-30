@@ -129,7 +129,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	public void setEditDomain(EditDomain domain) {
 		super.setEditDomain(domain);
 		m_eventManager = new EditEventManager(m_canvas, domain, this);
-		getRootFigureInternal().getFigureCanvas().getLightweightSystem().setEventDispatcher(m_eventManager);
+		m_canvas.getLightweightSystem().setEventDispatcher(m_eventManager);
 	}
 
 	/**

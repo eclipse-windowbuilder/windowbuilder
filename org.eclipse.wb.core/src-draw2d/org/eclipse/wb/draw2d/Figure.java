@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 
 import org.eclipse.draw2d.Graphics;
@@ -72,20 +71,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 			}
 			visitor.endVisit(this);
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Parent/Children
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * @return the {@link FigureCanvas} that contains this {@link Figure}.
-	 * @noreference @nooverride
-	 */
-	public FigureCanvas getFigureCanvas() {
-		return ((Figure) getParent()).getFigureCanvas();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
