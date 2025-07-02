@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
+import org.eclipse.jdt.core.dom.IModuleBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IVariableBinding;
@@ -45,6 +46,8 @@ public final class DesignerTypeBinding implements ITypeBinding {
 	private final boolean m_nested;
 	private final boolean m_local;
 	private final boolean m_anonymous;
+	private final boolean m_record;
+	private final boolean m_intersectionType;
 	// generics
 	private final boolean m_genericType;
 	private final boolean m_parameterizedType;
@@ -96,6 +99,8 @@ public final class DesignerTypeBinding implements ITypeBinding {
 		m_member = binding.isMember();
 		m_local = binding.isLocal();
 		m_anonymous = binding.isAnonymous();
+		m_record = binding.isRecord();
+		m_intersectionType = binding.isIntersectionType();
 		// generics
 		m_genericType = binding.isGenericType();
 		m_parameterizedType = binding.isParameterizedType();
@@ -529,20 +534,39 @@ public final class DesignerTypeBinding implements ITypeBinding {
 		throw new IllegalArgumentException();
 	}
 
+	//
+	// New in Eclipse 3.11
+	//
+
 	@Override
 	public IBinding getDeclaringMember() {
-		return null;
+		throw new IllegalArgumentException();
 	}
+
+	//
+	// New in Eclipse 3.12
+	//
 
 	@Override
 	public boolean isIntersectionType() {
-		// TODO Auto-generated method stub
-		return false;
+		return m_intersectionType;
 	}
+
+	//
+	// New in Eclipse 3.14
+	//
+
+	@Override
+	public IModuleBinding getModule() {
+		throw new IllegalArgumentException();
+	}
+
+	//
+	// New in Eclipse 3.26
+	//
 
 	@Override
 	public boolean isRecord() {
-		// TODO Auto-generated method stub
-		return false;
+		return m_record;
 	}
 }
