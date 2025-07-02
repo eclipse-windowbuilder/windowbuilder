@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageDataProvider;
+import org.eclipse.swt.graphics.PaletteData;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,6 +38,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.EventQueue;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Window;
@@ -44,6 +47,7 @@ import java.awt.image.ColorModel;
 import java.awt.image.ImageConsumer;
 import java.awt.image.ImageProducer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -72,7 +76,8 @@ public class SwingImageUtils {
 	 * @return the {@link ImageDescriptor} of given {@link Component}.
 	 */
 	public static ImageDescriptor createComponentShot(final Component component) throws Exception {
-		return SwingUtils.runObjectLaterAndWait(() -> convertImage_AWT_to_SWT(createComponentShotAWT(component)));
+		double zoom = getDisplayZoom(component);
+		return SwingUtils.runObjectLaterAndWait(() -> convertImage_AWT_to_SWT(createComponentShotAWT(component), zoom));
 	}
 
 	/**
@@ -82,13 +87,14 @@ public class SwingImageUtils {
 	static java.awt.Image createComponentShotAWT(final Component component) throws Exception {
 		Assert.isNotNull(component);
 		// prepare sizes
-		final int componentWidth = component.getWidth();
-		final int componentHeight = component.getHeight();
+		final double componentZoom = getDisplayZoom(component);
+		final int componentWidth = (int) (component.getWidth() * componentZoom);
+		final int componentHeight = (int) (component.getHeight() * componentZoom);
 		final int imageWidth = Math.max(1, componentWidth);
 		final int imageHeight = Math.max(1, componentHeight);
 		// prepare empty image
-		final BufferedImage componentImage =
-				new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+		final BufferedImage componentImage = component.getGraphicsConfiguration() //
+				.createCompatibleImage(imageWidth, imageHeight);
 		// If actual size on component is zero, then we are done.
 		if (componentWidth == 0 || componentHeight == 0) {
 			return componentImage;
@@ -101,7 +107,12 @@ public class SwingImageUtils {
 			// Linux only: it seems that printAll() should be invoked in AWT dispatch thread
 			// to prevent deadlocks between main thread and AWT event queue.
 			// See also SwingUtils.invokeLaterAndWait().
-			runInDispatchThread(() -> component.printAll(componentImage.getGraphics()));
+			runInDispatchThread(() -> {
+				Graphics2D graphics = componentImage.createGraphics();
+				graphics.scale(componentZoom, componentZoom);
+				component.printAll(graphics);
+				graphics.dispose();
+			});
 		} finally {
 			shotConfigurator.dispose();
 		}
@@ -500,24 +511,23 @@ public class SwingImageUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Converts AWT image into SWT one. Yours, C.O. ;-)
+	 * Converts AWT image at 100% zoom into SWT one. Yours, C.O. ;-)
 	 */
 	public static ImageDescriptor convertImage_AWT_to_SWT(final java.awt.Image image) throws Exception {
+		return convertImage_AWT_to_SWT(image, 1.0);
+	}
+
+	/**
+	 * Converts AWT image at given zoom level into SWT one. Yours, C.O. ;-)
+	 */
+	public static ImageDescriptor convertImage_AWT_to_SWT(final java.awt.Image image, double zoom) throws Exception {
 		return SwingUtils.runObjectLaterAndWait(() -> {
 			BufferedImage bufferedImage = (BufferedImage) image;
-			int imageWidth = bufferedImage.getWidth();
-			int imageHeight = bufferedImage.getHeight();
-			Image swtImage = new Image(null, imageWidth, imageHeight);
-			final ImageData swtImageData = swtImage.getImageData();
 			try {
-				ImageProducer source = image.getSource();
-				source.startProduction(new AwtToSwtImageConverter(bufferedImage, swtImageData));
-				return ImageDescriptor.createFromImageDataProvider(zoom -> zoom == 100 ? swtImageData : null);
+				return ImageDescriptor.createFromImageDataProvider(new AwtImageDataProvider(bufferedImage, zoom));
 			} catch (Throwable e) {
 				// fallback to ImageIO.
 				return ImageUtils.convertToSWT(image);
-			} finally {
-				swtImage.dispose();
 			}
 		});
 	}
@@ -527,6 +537,22 @@ public class SwingImageUtils {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Returns the native zoom level of the given component.
+	 */
+	public static double getDisplayZoom(final Component component) {
+		// A lof of hardcoded paint operations were added with
+		// 6d8cdc275b5b94a03a5a613783396f0e6db89f97, which very
+		// likely don't work when taking HighDPI into account.
+		// Without a Mac to test whether this issue is even
+		// relevant anymore, the check is disabled instead.
+		if (EnvironmentUtils.IS_MAC) {
+			return 1.0;
+		}
+		return component.getGraphicsConfiguration().getDefaultTransform().getScaleX();
+	}
+
 	/**
 	 * Runs given runnable in dispatch thread.
 	 */
@@ -543,6 +569,53 @@ public class SwingImageUtils {
 	// AWT -> SWT converter
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * This class handles the conversion from an AWT {@link BufferedImage} to an SWT
+	 * {@link ImageData} at any given {@code zoom} level. The original image is
+	 * based on the current display zoom and scaled artificially to the requested
+	 * zoom level.
+	 */
+	private static class AwtImageDataProvider implements ImageDataProvider {
+		/**
+		 * Cache the image data for the individual zoom levels.
+		 */
+		private final Map<Integer, ImageData> imageDataAtZoom = new HashMap<>();
+		private final BufferedImage image;
+		private final int imageZoom;
+
+		public AwtImageDataProvider(BufferedImage image, double imageZoom) {
+			this.image = image;
+			// Convert AWT zoom to SWT zoom
+			this.imageZoom = (int) (imageZoom * 100);
+		}
+
+		@Override
+		public ImageData getImageData(int zoom) {
+			return imageDataAtZoom.computeIfAbsent(zoom, this::createImageData);
+		}
+
+		private ImageData createImageData(int zoom) {
+			BufferedImage imageToUse = image;
+			if (zoom != imageZoom) {
+				int scaledImageWidth = image.getWidth() * zoom / imageZoom;
+				int scaledImageHeight = image.getHeight() * zoom / imageZoom;
+				BufferedImage scaledImageToUse = new BufferedImage(scaledImageWidth, scaledImageHeight, imageToUse.getType());
+				Graphics2D graphics = scaledImageToUse.createGraphics();
+				graphics.drawImage(imageToUse, 0, 0, scaledImageWidth, scaledImageHeight, null);
+				graphics.dispose();
+				imageToUse = scaledImageToUse;
+			}
+			final ImageProducer source = imageToUse.getSource();
+			final int imageWidth = imageToUse.getWidth();
+			final int imageHeight = imageToUse.getHeight();
+			final PaletteData swtPaletteData = new PaletteData(0xFF0000, 0x00FF00, 0x0000FF);
+			final ImageData swtImageData = new ImageData(imageWidth, imageHeight, 24, swtPaletteData);
+			source.startProduction(new AwtToSwtImageConverter(imageToUse, swtImageData));
+			return swtImageData;
+		}
+	}
+
 	/**
 	 * @author mitin_aa
 	 */
