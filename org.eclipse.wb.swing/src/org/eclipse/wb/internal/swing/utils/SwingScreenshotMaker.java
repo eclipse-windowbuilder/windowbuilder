@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Frame;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
@@ -122,8 +123,9 @@ public final class SwingScreenshotMaker {
 	 */
 	public void makeShots() throws Exception {
 		SwingImageUtils.checkForDialog(m_component);
-		final int componentWidth = Math.max(1, m_component.getWidth());
-		final int componentHeight = Math.max(1, m_component.getHeight());
+		final double componentZoom = SwingImageUtils.getDisplayZoom(m_component);
+		final int componentWidth = Math.max(1, (int) (m_component.getWidth() * componentZoom));
+		final int componentHeight = Math.max(1, (int) (m_component.getHeight() * componentZoom));
 		m_oldComponentLocation = m_component.getLocation();
 		boolean isResizable = false;
 		// When the size of the frame exceeds the size of the screen, then the frame
@@ -142,10 +144,15 @@ public final class SwingScreenshotMaker {
 		final BufferedImage windowImage;
 		// print component and its children
 		{
-			int windowWidth = Math.max(1, m_window.getWidth());
-			int windowHeight = Math.max(1, m_window.getHeight());
-			windowImage = new BufferedImage(windowWidth, windowHeight, BufferedImage.TYPE_INT_RGB);
-			m_window.printAll(windowImage.getGraphics());
+			double windowZoom = SwingImageUtils.getDisplayZoom(m_window);
+			int windowWidth = Math.max(1, (int) (m_window.getWidth() * windowZoom));
+			int windowHeight = Math.max(1, (int) (m_window.getHeight() * windowZoom));
+			windowImage = m_window.getGraphicsConfiguration() //
+					.createCompatibleImage(windowWidth, windowHeight);
+			Graphics2D graphics = windowImage.createGraphics();
+			graphics.scale(windowZoom, windowZoom);
+			m_window.printAll(graphics);
+			graphics.dispose();
 		}
 		// prepare component image
 		if (m_component == m_window) {
@@ -166,9 +173,10 @@ public final class SwingScreenshotMaker {
 				componentLocation = new Point(p_component.x - p_window.x, p_component.y - p_window.y);
 			}
 			// copy part of window image
-			BufferedImage componentImage =
-					new BufferedImage(componentWidth, componentHeight, BufferedImage.TYPE_INT_RGB);
-			componentImage.getGraphics().drawImage(
+			BufferedImage componentImage = m_component.getGraphicsConfiguration() //
+					.createCompatibleImage(componentWidth, componentHeight);
+			Graphics2D graphics = componentImage.createGraphics();
+			graphics.drawImage(
 					windowImage,
 					0,
 					0,
@@ -179,6 +187,7 @@ public final class SwingScreenshotMaker {
 					componentLocation.x + componentWidth,
 					componentLocation.y + componentHeight,
 					m_window);
+			graphics.dispose();
 			image = componentImage;
 		}
 		// store image for top-level first
@@ -190,7 +199,8 @@ public final class SwingScreenshotMaker {
 		for (Component keyComponent : Collections.unmodifiableMap(m_componentImages).keySet()) {
 			java.awt.Image image2 = m_componentImages.get(keyComponent);
 			if (image2 != null) {
-				convertedImages.put(keyComponent, SwingImageUtils.convertImage_AWT_to_SWT(image2).createImage());
+				double zoom = SwingImageUtils.getDisplayZoom(keyComponent);
+				convertedImages.put(keyComponent, SwingImageUtils.convertImage_AWT_to_SWT(image2, zoom).createImage());
 			}
 		}
 		// draw decorations on OS X
