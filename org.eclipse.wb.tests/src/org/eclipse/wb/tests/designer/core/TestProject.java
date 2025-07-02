@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -107,9 +107,11 @@ public class TestProject {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private IPackageFragmentRoot createSourceFolder() throws CoreException {
-		IFolder folder = m_project.getFolder("src");
-		folder.create(true, true, null);
-		IPackageFragmentRoot root = m_javaProject.getPackageFragmentRoot(folder);
+		IFolder srcFolder = m_project.getFolder("src");
+		if (!srcFolder.exists()) {
+			srcFolder.create(true, true, null);
+		}
+		IPackageFragmentRoot root = m_javaProject.getPackageFragmentRoot(srcFolder);
 		//
 		IClasspathEntry[] oldEntries = m_javaProject.getRawClasspath();
 		IClasspathEntry[] newEntries = new IClasspathEntry[oldEntries.length + 1];
@@ -121,7 +123,9 @@ public class TestProject {
 
 	private IFolder createBinFolder() throws CoreException {
 		IFolder binFolder = m_project.getFolder("bin");
-		binFolder.create(true, true, null);
+		if (!binFolder.exists()) {
+			binFolder.create(true, true, null);
+		}
 		return binFolder;
 	}
 
