@@ -42,7 +42,6 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
@@ -84,7 +83,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Object type.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_1() throws Exception {
 		String code = "private java.util.List foo() {return null;}";
@@ -94,7 +92,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Primitive type.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_2() throws Exception {
 		String code = "private int foo() {return 0;}";
@@ -104,7 +101,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Array type.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_3() throws Exception {
 		String code = "private int[] foo() {return null;}";
@@ -114,7 +110,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Inner type.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerTypeBinding_4() throws Exception {
 		String code = "class Foo {} private Foo foo() {return null;}";
@@ -307,15 +302,14 @@ public class BindingsTest extends AbstractJavaTest {
 	// DesignerPackageBinding
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Disabled
 	@Test
 	public void test_DesignerPackageBinding() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("");
 		IPackageBinding originalBinding = typeDeclaration.resolveBinding().getPackage();
 		IPackageBinding ourBinding = m_lastEditor.getBindingContext().get(originalBinding);
-		assert_sameProperties(IPackageBinding.class, originalBinding, ourBinding, new String[]{
+		assert_sameProperties(IPackageBinding.class, originalBinding, ourBinding, 
 				"getName",
-		"isUnnamed"});
+				"isUnnamed");
 		assert_methodFails(ourBinding, "isEqualTo", NULL_ARG);
 	}
 
@@ -327,7 +321,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Basic test for {@link DesignerMethodBinding}.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerMethodBinding_1() throws Exception {
 		TypeDeclaration typeDeclaration =
@@ -335,17 +328,21 @@ public class BindingsTest extends AbstractJavaTest {
 		MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
 		IMethodBinding originalBinding = methodDeclaration.resolveBinding();
 		IMethodBinding ourBinding = m_lastEditor.getBindingContext().get(originalBinding);
-		assert_sameProperties(IMethodBinding.class, originalBinding, ourBinding, new String[]{
+		assert_sameProperties(IMethodBinding.class, originalBinding, ourBinding,
 				"getDeclaringClass",
 				"getName",
 				"getReturnType",
 				"getParameterTypes",
+				"getParameterNames",
 				"getExceptionTypes",
 				"getMethodDeclaration",
 				"isConstructor",
+				"isCanonicalConstructor",
+				"isCompactConstructor",
+				"isSyntheticRecordMethod",
 				"getModifiers",
-				"getDeclaringMember",
-		"isVarargs"});
+				"getKey",
+				"isVarargs");
 		assert_methodFails(ourBinding, "getParameterAnnotations", new Object[]{0});
 		assert_methodFails(ourBinding, "isSubsignature", NULL_ARG);
 		assert_methodFails(ourBinding, "overrides", NULL_ARG);
@@ -415,7 +412,6 @@ public class BindingsTest extends AbstractJavaTest {
 	 * When we remove parameter from generic {@link IMethodBinding} we should also update its
 	 * {@link IMethodBinding#getMethodDeclaration()}.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerMethodBinding_removeParameterType_whenGenerics() throws Exception {
 		createTypeDeclaration_TestC(getSourceDQ(
@@ -447,7 +443,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Basic test for {@link DesignerVariableBinding}.
 	 */
-	@Disabled
 	@Test
 	public void test_DesignerVariableBinding_1() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("private int m_value;");
@@ -455,12 +450,13 @@ public class BindingsTest extends AbstractJavaTest {
 		IVariableBinding originalBinding =
 				((VariableDeclarationFragment) fieldDeclaration.fragments().get(0)).resolveBinding();
 		IVariableBinding ourBinding = m_lastEditor.getBindingContext().get(originalBinding);
-		assert_sameProperties(IVariableBinding.class, originalBinding, ourBinding, new String[]{
+		assert_sameProperties(IVariableBinding.class, originalBinding, ourBinding,
 				"getName",
 				"getDeclaringClass",
 				"getType",
 				"isField",
-		"getModifiers"});
+				"isRecordComponent",
+				"getModifiers");
 		assert_methodFails(ourBinding, "isEqualTo", NULL_ARG);
 	}
 
@@ -500,7 +496,6 @@ public class BindingsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link BindingContext#getCopy(ITypeBinding)}.
 	 */
-	@Disabled
 	@Test
 	public void test_getCopy() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
@@ -526,7 +521,7 @@ public class BindingsTest extends AbstractJavaTest {
 	 */
 	private static void assert_sameTypeBindings(ITypeBinding expectedBinding,
 			ITypeBinding actualBinding) throws Exception {
-		assert_sameProperties(ITypeBinding.class, expectedBinding, actualBinding, new String[]{
+		assert_sameProperties(ITypeBinding.class, expectedBinding, actualBinding,
 				"isPrimitive",
 				"isNullType",
 				"isArray",
@@ -549,6 +544,7 @@ public class BindingsTest extends AbstractJavaTest {
 				"isGenericType",
 				"isParameterizedType",
 				"isTypeVariable",
+				"isRecord",
 				"getTypeArguments",
 				"getTypeDeclaration",
 				"getTypeParameters",
@@ -556,8 +552,7 @@ public class BindingsTest extends AbstractJavaTest {
 				"getDeclaredMethods",
 				"getModifiers",
 				"getDeclaredModifiers",
-				"getDeclaringMember",
-		"isIntersectionType"});
+				"isIntersectionType");
 	}
 
 	/**
@@ -586,7 +581,7 @@ public class BindingsTest extends AbstractJavaTest {
 	private static void assert_sameProperties(Class<?> clazz,
 			Object expectedObject,
 			Object actualObject,
-			String methodNames[]) throws Exception {
+			String... methodNames) throws Exception {
 		Method[] allMethods = clazz.getMethods();
 		for (int i = 0; i < allMethods.length; i++) {
 			Method method = allMethods[i];
