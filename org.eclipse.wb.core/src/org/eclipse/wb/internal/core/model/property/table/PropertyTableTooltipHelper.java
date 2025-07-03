@@ -12,17 +12,22 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table;
 
+import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditPart.PropertyFigure;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
@@ -113,6 +118,9 @@ public class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 		// prepare provider
 		PropertyTooltipProvider provider = hoverSource.getPropertyTooltipProvider();
 		if (provider == null) {
+			provider = getBasicTooltipProvider(hoverSource);
+		}
+		if (provider == null) {
 			return;
 		}
 		// create Shell
@@ -162,5 +170,32 @@ public class PropertyTableTooltipHelper implements IPropertyTooltipSite {
 		Display display = Display.getCurrent();
 		control.setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 		control.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+	}
+
+	/**
+	 * Returns the tool-tip provider for the given property figure if no other
+	 * provider is specific. This method return a provider if and only if the figure
+	 * has a string representation and if this representation doesn't fit into the
+	 * column.<br>
+	 * The tool-tip is closed when clicked on.
+	 */
+	private static PropertyTooltipProvider getBasicTooltipProvider(PropertyFigure hoverSource) {
+		String text = hoverSource.getText();
+		if (text == null) {
+			return null;
+		}
+		Dimension size = FigureUtils.calculateTextSize(text, hoverSource.getFont());
+		if (hoverSource.getSize().width >= size.width) {
+			return null;
+		}
+		return new PropertyTooltipProvider() {
+			@Override
+			public Control createTooltipControl(Property property, Composite parent, IPropertyTooltipSite site) {
+				Label label = new Label(parent, SWT.NONE);
+				label.setText(text);
+				label.addListener(SWT.MouseDown, new HideListener(site));
+				return label;
+			}
+		};
 	}
 }
