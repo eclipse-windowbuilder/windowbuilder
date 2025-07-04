@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.nls.ui.SourceComposite;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils.ITableTooltipProvider;
+import org.eclipse.wb.tests.gef.EventSender;
 import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.wb.tests.utils.SWTBotCTableCombo;
 import org.eclipse.wb.tests.utils.SWTBotEditableSource;
@@ -28,17 +29,17 @@ import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
 import static org.eclipse.swtbot.swt.finder.waits.Conditions.waitForShell;
 
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
-import org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy;
+import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.results.Result;
-import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.utils.Traverse;
+import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotRootMenu;
@@ -48,8 +49,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.Closeable;
@@ -62,22 +61,6 @@ import java.util.Locale;
  * @author scheglov_ke
  */
 public class SourceCompositeTest extends AbstractDialogTest {
-	private static String SWTBOT_KEYBOARD_STRATEGY;
-	private static String SWTBOT_KEYBOARD_LAYOUT;
-
-	@BeforeAll
-	public static void setUpAll() {
-		SWTBOT_KEYBOARD_STRATEGY = SWTBotPreferences.KEYBOARD_STRATEGY;
-		SWTBotPreferences.KEYBOARD_STRATEGY = SWTKeyboardStrategy.class.getName();
-		SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-		SWTBOT_KEYBOARD_LAYOUT = SWTBotPreferences.KEYBOARD_LAYOUT;
-	}
-
-	@AfterAll
-	public static void tearDownAll() {
-		SWTBotPreferences.KEYBOARD_STRATEGY = SWTBOT_KEYBOARD_STRATEGY;
-		SWTBotPreferences.KEYBOARD_LAYOUT = SWTBOT_KEYBOARD_LAYOUT;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -387,7 +370,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					{
 						SWTBotText text = shell.text();
 						text.setText("New title");
-						text.pressShortcut(Keystrokes.CR);
+						closeCellEditor(shell);
 						waitEventLoop(10);
 					}
 				}
@@ -404,7 +387,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					{
 						SWTBotText text = shell.text();
 						text.setText("frame.title2");
-						text.pressShortcut(Keystrokes.CR);
+						closeCellEditor(shell);
 						waitEventLoop(10);
 					}
 					// check
@@ -425,7 +408,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						table.click(0, 2);
 						SWTBotText text = shell.text();
 						text.setText("title IT");
-						text.pressShortcut(Keystrokes.CR);
+						closeCellEditor(shell);
 						waitEventLoop(10);
 					}
 					// check
@@ -610,7 +593,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// set text
 					SWTBotText text = shell.text();
 					text.setText("a b");
-					text.pressShortcut(Keystrokes.CR);
+					closeCellEditor(shell);
 					waitEventLoop(10);
 					// check
 					assertItems(
@@ -623,12 +606,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// activate editor at (2, 0)
 					table.click(0, 2);
 					// navigate next row - (2, 2)
-					shell.text().pressShortcut(Keystrokes.DOWN);
+					keyDown(shell.text(), SWT.ARROW_DOWN, (char)0);
 					waitEventLoop(10);
 					// set text
 					SWTBotText text = shell.text();
 					text.setText("b b");
-					text.pressShortcut(Keystrokes.CR);
+					closeCellEditor(shell);
 					waitEventLoop(10);
 					// check
 					assertItems(
@@ -641,15 +624,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					// activate editor at (2, 1)
 					table.click(1, 2);
 					// prev column
-					shell.text().pressShortcut(SWT.SHIFT, SWT.TAB);
+					shell.text().traverse(Traverse.TAB_PREVIOUS);
 					waitEventLoop(10);
 					shell.text().setText("b a");
 					// prev row
-					shell.text().pressShortcut(Keystrokes.UP);
+					keyDown(shell.text(), SWT.ARROW_UP, (char)0);
 					waitEventLoop(10);
 					SWTBotText text = shell.text();
 					text.setText("a a");
-					text.pressShortcut(Keystrokes.CR);
+					closeCellEditor(shell);
 					// check
 					waitEventLoop(10);
 					assertItems(
@@ -686,6 +669,31 @@ public class SourceCompositeTest extends AbstractDialogTest {
 	 */
 	private static SWTBotTableTooltipProvider getTableToolTipProvider(SWTBot shell) throws Exception {
 		return new SWTBotTableTooltipProvider(shell);
+	}
+
+	/**
+	 * Creates a key event and notifies the given widget. This shouldn't be done by
+	 * calling the "key pressed" methods provided by SWTBot, as this may lead to
+	 * concurrency issues and crashes on GTK.
+	 */
+	private static void keyDown(AbstractSWTBotControl<?> bot, int key, char c) {
+		EventSender eventSender = new EventSender(bot.widget);
+		UIThreadRunnable.syncExec(() -> eventSender.keyDown(key, c));
+	}
+
+	/**
+	 * Closes the currently active cell editor. This shouldn't be done by simulating
+	 * an {@code Enter} event, as this may lead to concurrency issues and crashes on
+	 * GTK.
+	 */
+	private static void closeCellEditor(SWTBot shell) {
+		TableViewer tableViewer = getTableViewer(shell);
+		UIThreadRunnable.syncExec(() -> tableViewer.applyEditorValue());
+	}
+
+	private static TableViewer getTableViewer(SWTBot shell) {
+		SourceComposite composite = shell.widget(WidgetOfType.widgetOfType(SourceComposite.class));
+		return (TableViewer) ReflectionUtils.getFieldObject(composite, "m_viewer");
 	}
 
 	/**
