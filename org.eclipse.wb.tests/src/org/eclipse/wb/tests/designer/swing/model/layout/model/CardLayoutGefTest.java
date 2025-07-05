@@ -362,10 +362,10 @@ public class CardLayoutGefTest extends AbstractLayoutPolicyTest {
 	}
 
 	private void navigateNext(ComponentInfo component) {
-		canvas.moveTo(component, -3 - 1, 0).click();
+		canvas.click(component, -3 - 1, 0);
 	}
 
 	private void navigatePrev(ComponentInfo component) {
-		canvas.moveTo(component, -3 - CardNavigationFigure.WIDTH - 1, 0).click();
+		canvas.click(component, -3 - CardNavigationFigure.WIDTH - 1, 0);
 	}
 }

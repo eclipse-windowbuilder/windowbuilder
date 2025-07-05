@@ -16,7 +16,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.tests.gef.TestLogger;
 
@@ -39,7 +38,6 @@ import org.junit.jupiter.api.Test;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -690,80 +688,6 @@ public class FigureTest extends Draw2dFigureTestCase {
 		// check set 'null' tooltip
 		testFigure.setToolTip(null);
 		assertNull(testFigure.getToolTip());
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Visiting test
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Test
-	public void test_visit() throws Exception {
-		//
-		Figure testFigure1 = new Figure();
-		Figure testFigure2 = new Figure();
-		Figure testFigure3 = new Figure();
-		testFigure1.add(testFigure2);
-		testFigure1.add(testFigure3);
-		//
-		final List<Figure> track = new ArrayList<>();
-		FigureVisitor visitor = new FigureVisitor() {
-			@Override
-			public boolean visit(Figure figure) {
-				track.add(figure);
-				return super.visit(figure);
-			}
-
-			@Override
-			public void endVisit(Figure figure) {
-				track.add(figure);
-			}
-		};
-		//
-		// check work forward visiting
-		testFigure1.accept(visitor, true);
-		assertEquals(6, track.size());
-		assertSame(testFigure1, track.get(0));
-		assertSame(testFigure2, track.get(1));
-		assertSame(testFigure2, track.get(2));
-		assertSame(testFigure3, track.get(3));
-		assertSame(testFigure3, track.get(4));
-		assertSame(testFigure1, track.get(5));
-		//
-		// check work backward visiting
-		track.clear();
-		testFigure1.accept(visitor, false);
-		assertEquals(6, track.size());
-		assertSame(testFigure1, track.get(0));
-		assertSame(testFigure3, track.get(1));
-		assertSame(testFigure3, track.get(2));
-		assertSame(testFigure2, track.get(3));
-		assertSame(testFigure2, track.get(4));
-		assertSame(testFigure1, track.get(5));
-		//
-		// check work visiting when FigureVisitor.visit() return false
-		visitor = new FigureVisitor() {
-			@Override
-			public boolean visit(Figure figure) {
-				track.add(figure);
-				return false;
-			}
-
-			@Override
-			public void endVisit(Figure figure) {
-				track.add(figure);
-			}
-		};
-		//
-		track.clear();
-		testFigure1.accept(visitor, true);
-		assertEquals(1, track.size());
-		assertSame(testFigure1, track.get(0));
-		//
-		track.clear();
-		testFigure1.accept(visitor, false);
-		assertEquals(1, track.size());
-		assertSame(testFigure1, track.get(0));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

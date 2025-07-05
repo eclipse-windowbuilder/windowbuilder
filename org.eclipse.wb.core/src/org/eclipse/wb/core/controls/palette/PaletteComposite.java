@@ -1273,7 +1273,7 @@ public final class PaletteComposite extends Composite {
 		// use absolute coordinates
 		Point location = Point.SINGLETON;
 		location.setLocation(p);
-		source.translateFromParent(p);
+		source.translateToAbsolute(location);
 		IFigure targetFigure = m_figureCanvas.getLightweightSystem().getRootFigure().findFigureAt(location);
 		return targetFigure;
 	}
