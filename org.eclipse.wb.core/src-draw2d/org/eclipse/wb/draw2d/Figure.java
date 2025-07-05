@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.internal.draw2d.FigureVisitor;
-
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
@@ -42,35 +40,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	@Override
 	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
 		return super.getListeners(listenerClass);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Visiting
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Visits this {@link Figure} and its children using given {@link FigureVisitor}.
-	 */
-	public final void accept(FigureVisitor visitor, boolean forward) {
-		if (visitor.visit(this)) {
-			@SuppressWarnings("unchecked")
-			List<Figure> children = (List<Figure>) getChildren();
-			int size = children.size();
-			//
-			if (forward) {
-				for (int i = 0; i < size; i++) {
-					Figure childFigure = children.get(i);
-					childFigure.accept(visitor, forward);
-				}
-			} else {
-				for (int i = size - 1; i >= 0; i--) {
-					Figure childFigure = children.get(i);
-					childFigure.accept(visitor, forward);
-				}
-			}
-			visitor.endVisit(this);
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
