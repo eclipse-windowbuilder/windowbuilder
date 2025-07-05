@@ -683,7 +683,10 @@ public final class GraphicalRobot {
 	}
 
 	public GraphicalRobot click(int x, int y, int button) {
-		m_sender.click(x, y, button);
+		try (AutoScroller scroller = new AutoScroller(m_viewer, x, y)) {
+			Point scrolledLocation = scroller.getLocation();
+			m_sender.click(scrolledLocation.x, scrolledLocation.y, button);
+		}
 		return this;
 	}
 
