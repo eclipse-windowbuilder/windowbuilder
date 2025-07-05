@@ -1,0 +1,21 @@
+ifdef::env-github[]
+:imagesdir: ../../html/whatsnew
+endif::[]
+
+= What's New - v1.21.0
+
+== Swing
+
+- Improved HighDPI support for Swing components
+
+Previously, the preview for Swing components was taken at 100% zoom and then
+artificially upscaled to the current display zoom, leading to blurry results in
+the designer. Components are now directly captured with the correct zoom level.
+
+[cols="a,a"]
+|===
+| image:images/1.21/Scaling_Old.png[Old scaling at 200% zoom]
+| image:images/1.21/Scaling_New.png[New scaling at 200% zoom]
+|===
+
+What's new - xref:v120.adoc[*v1.20.0*]
