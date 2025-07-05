@@ -34,7 +34,7 @@ import java.util.List;
 public class EventManager extends EventDispatcher {
 	//
 	private final FigureCanvas m_canvas;
-	private final RootFigure m_root;
+	private final IFigure m_root;
 	private MouseEvent m_currentEvent;
 	private IFigure m_cursorFigure;
 	private IFigure m_captureFigure;
@@ -48,7 +48,7 @@ public class EventManager extends EventDispatcher {
 	////////////////////////////////////////////////////////////////////////////
 	public EventManager(FigureCanvas canvas) {
 		m_canvas = canvas;
-		m_root = m_canvas.getRootFigure();
+		m_root = m_canvas.getLightweightSystem().getRootFigure();
 		// custom tooltip
 		new CustomTooltipManager(canvas, this);
 	}
@@ -129,9 +129,7 @@ public class EventManager extends EventDispatcher {
 	 * Update the {@link IFigure} located at the given location which will accept mouse events.
 	 */
 	protected final void updateFigureUnderCursor(org.eclipse.swt.events.MouseEvent event) {
-		TargetFigureFindVisitor visitor = new TargetFigureFindVisitor(m_canvas, event.x, event.y);
-		m_root.accept(visitor, false);
-		setFigureUnderCursor(visitor.getTargetFigure(), event);
+		setFigureUnderCursor(m_root.findFigureAt(event.x, event.y), event);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
