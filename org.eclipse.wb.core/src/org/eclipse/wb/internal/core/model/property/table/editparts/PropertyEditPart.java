@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.PropertyE
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable.PropertyInfo;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -224,6 +225,12 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 
 		protected abstract IAdaptable getPropertyToolTipAdaptable();
 
+		/**
+		 * Returns a human-readable representation of this property. May be {@code
+		 * null}.
+		 */
+		public abstract String getText();
+
 		@Override
 		public String toString() {
 			return "[%s] %s".formatted(getClass().getSimpleName(), getProperty().getTitle());
@@ -258,7 +265,8 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 				}
 				// paint title
 				int x = getTitleTextX();
-				DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, getViewer().getSplitter() - x, height);
+				int width = getViewer().getSplitter() - x;
+				DrawUtils.drawStringCV(graphics, property.getTitle(), x, y, width, height);
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
@@ -267,6 +275,11 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		@Override
 		protected IAdaptable getPropertyToolTipAdaptable() {
 			return getProperty();
+		}
+
+		@Override
+		public String getText() {
+			return getProperty().getTitle();
 		}
 	}
 
@@ -284,10 +297,10 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 					graphics.setForegroundColor(COLOR_PROPERTY_FG_VALUE);
 				}
 				// prepare value rectangle
-				int x = getViewer().getSplitter() + 4;
-				int w = getViewer().getControl().getClientArea().width - x - MARGIN_RIGHT;
+				int x = bounds.x() + 4;
+				int width = bounds.width() - MARGIN_RIGHT;
 				// paint value
-				property.getEditor().paint(property, graphics, x, y, w, height);
+				property.getEditor().paint(property, graphics, x, y, width, height);
 			} catch (Throwable e) {
 				DesignerPlugin.log(e);
 			}
@@ -296,6 +309,15 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 		@Override
 		protected IAdaptable getPropertyToolTipAdaptable() {
 			return getProperty().getEditor();
+		}
+
+		@Override
+		public String getText() {
+			Object value = ExecutionUtils.runObjectIgnore(() -> getProperty().getValue(), null);
+			if (value instanceof String text) {
+				return text;
+			}
+			return null;
 		}
 	}
 }
