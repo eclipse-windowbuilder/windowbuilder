@@ -53,6 +53,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -114,6 +115,12 @@ public class TestProject {
 		IPackageFragmentRoot root = m_javaProject.getPackageFragmentRoot(srcFolder);
 		//
 		IClasspathEntry[] oldEntries = m_javaProject.getRawClasspath();
+		IClasspathEntry newEntry = JavaCore.newSourceEntry(root.getPath());
+		for (IClasspathEntry oldEntry : oldEntries) {
+			if (Objects.equals(oldEntry.getPath(), newEntry.getPath())) {
+				return root;
+			}
+		}
 		IClasspathEntry[] newEntries = new IClasspathEntry[oldEntries.length + 1];
 		System.arraycopy(oldEntries, 0, newEntries, 0, oldEntries.length);
 		newEntries[oldEntries.length] = JavaCore.newSourceEntry(root.getPath());
