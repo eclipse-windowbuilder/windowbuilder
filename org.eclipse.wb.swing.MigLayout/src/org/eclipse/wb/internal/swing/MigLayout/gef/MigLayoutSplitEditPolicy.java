@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentFlowLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -72,7 +72,7 @@ public final class MigLayoutSplitEditPolicy extends ComponentFlowLayoutEditPolic
 			return m_splittedHorizontally;
 		} else {
 			// prepare single target component (it is really only one, because there are no split yet)
-			Figure targetFigure;
+			IFigure targetFigure;
 			{
 				ComponentInfo targetComponent = m_components.get(0);
 				EditPart targetEditPart = getHost().getViewer().getEditPartRegistry().get(targetComponent);

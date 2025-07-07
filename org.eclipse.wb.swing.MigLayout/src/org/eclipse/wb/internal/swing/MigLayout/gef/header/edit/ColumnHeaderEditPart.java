@@ -129,7 +129,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		Figure figure = getFigure();
+		IFigure figure = getFigure();
 		// bounds
 		{
 			int index = getIndex();

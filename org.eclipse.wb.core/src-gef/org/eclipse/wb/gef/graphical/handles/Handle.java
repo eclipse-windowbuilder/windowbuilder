@@ -109,7 +109,7 @@ public abstract class Handle extends Figure implements AncestorListener, org.ecl
 	/**
 	 * Convenience method to return the owner's figure.
 	 */
-	protected final Figure getOwnerFigure() {
+	protected final IFigure getOwnerFigure() {
 		return getOwner().getFigure();
 	}
 

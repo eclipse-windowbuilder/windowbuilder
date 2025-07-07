@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
@@ -49,7 +48,7 @@ public class SideResizeHandle extends Handle {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static class ResizeHandleLocator implements Locator {
-		private final Figure m_reference;
+		private final IFigure m_reference;
 		private final int m_side;
 		private final int m_width;
 		private final boolean m_center;
@@ -59,7 +58,7 @@ public class SideResizeHandle extends Handle {
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public ResizeHandleLocator(Figure reference, int side, int width, boolean center) {
+		public ResizeHandleLocator(IFigure reference, int side, int width, boolean center) {
 			m_reference = reference;
 			m_side = side;
 			m_width = width;

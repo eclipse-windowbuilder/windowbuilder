@@ -107,7 +107,7 @@ public abstract class AbstractGridHelper {
 	private Figure m_gridFigure = null;
 
 	private class RootFigureListener implements FigureListener {
-		private Figure m_rootFigure;
+		private IFigure m_rootFigure;
 
 		@Override
 		public void figureMoved(IFigure source) {
@@ -119,7 +119,7 @@ public abstract class AbstractGridHelper {
 			}
 		}
 
-		void install(Figure rootFigure) {
+		void install(IFigure rootFigure) {
 			if (m_rootFigure != null) {
 				uninstall();
 			}

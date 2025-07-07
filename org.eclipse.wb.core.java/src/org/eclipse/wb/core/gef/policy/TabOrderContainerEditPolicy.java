@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.order.TabOrderInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 
@@ -90,7 +90,7 @@ public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
 			Object child = children.get(index);
 			GraphicalEditPart part = (GraphicalEditPart) viewer.getEditPartRegistry().get(child);
 			// prepare bounds for child in feedback layer
-			Figure figure = part.getFigure();
+			IFigure figure = part.getFigure();
 			Point location = figure.getBounds().getLocation();
 			FigureUtils.translateFigureToFigure(figure, layer, location);
 			// add feedback with index

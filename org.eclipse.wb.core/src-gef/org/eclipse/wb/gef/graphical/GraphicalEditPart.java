@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -26,7 +25,7 @@ import org.eclipse.gef.Request;
  * @coverage gef.graphical
  */
 public abstract class GraphicalEditPart extends EditPart {
-	private Figure m_figure;
+	private IFigure m_figure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -37,7 +36,7 @@ public abstract class GraphicalEditPart extends EditPart {
 	 * The default implementation calls {@link #createFigure()} if the figure is currently
 	 * <code>null</code>.
 	 */
-	public Figure getFigure() {
+	public IFigure getFigure() {
 		if (m_figure == null) {
 			m_figure = createFigure();
 		}
@@ -52,10 +51,10 @@ public abstract class GraphicalEditPart extends EditPart {
 	}
 
 	/**
-	 * Creates the <code>{@link Figure}</code> to be used as this part's <i>visuals</i>. This is
+	 * Creates the <code>{@link IFigure}</code> to be used as this part's <i>visuals</i>. This is
 	 * called from {@link #getFigure()} if the figure has not been created.
 	 */
-	protected abstract Figure createFigure();
+	protected abstract IFigure createFigure();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -63,7 +62,7 @@ public abstract class GraphicalEditPart extends EditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Adds the child's {@link Figure} to the {@link #getContentPane() contentPane}.
+	 * Adds the child's {@link IFigure} to the {@link #getContentPane() contentPane}.
 	 */
 	@Override
 	protected void addChildVisual(org.eclipse.gef.EditPart childPart, int index) {
@@ -72,7 +71,7 @@ public abstract class GraphicalEditPart extends EditPart {
 			getContentPane().add(graphicalChildPart.getFigure(), index);
 		}
 		EditPartViewer graphicalChildViewer = graphicalChildPart.getViewer();
-		Figure graphicalChildFigure = graphicalChildPart.getFigure();
+		IFigure graphicalChildFigure = graphicalChildPart.getFigure();
 		graphicalChildViewer.getVisualPartMap().put(graphicalChildFigure, childPart);
 	}
 
@@ -86,7 +85,7 @@ public abstract class GraphicalEditPart extends EditPart {
 	}
 
 	/**
-	 * Remove the child's {@link Figure} to the {@link #getContentPane() contentPane}.
+	 * Remove the child's {@link IFigure} to the {@link #getContentPane() contentPane}.
 	 */
 	@Override
 	protected void removeChildVisual(org.eclipse.gef.EditPart childPart) {
@@ -95,7 +94,7 @@ public abstract class GraphicalEditPart extends EditPart {
 			getContentPane().remove(graphicalChildPart.getFigure());
 		}
 		EditPartViewer graphicalChildViewer = graphicalChildPart.getViewer();
-		Figure graphicalChildFigure = graphicalChildPart.getFigure();
+		IFigure graphicalChildFigure = graphicalChildPart.getFigure();
 		graphicalChildViewer.getVisualPartMap().remove(graphicalChildFigure);
 	}
 

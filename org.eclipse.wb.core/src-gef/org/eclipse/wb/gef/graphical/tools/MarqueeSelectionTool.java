@@ -202,7 +202,7 @@ public class MarqueeSelectionTool extends Tool {
 			}
 			// prepare figure info
 			GraphicalEditPart graphicalPart = (GraphicalEditPart) editPart;
-			Figure figure = graphicalPart.getFigure();
+			IFigure figure = graphicalPart.getFigure();
 			Rectangle r = figure.getBounds().getCopy();
 			FigureUtils.translateFigureToAbsolute(figure, r);
 			// compare bounds and selection bounds

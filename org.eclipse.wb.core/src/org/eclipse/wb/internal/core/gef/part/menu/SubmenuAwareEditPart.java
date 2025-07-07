@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
@@ -68,7 +67,7 @@ public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
 		// add figure with default index.
 		GraphicalEditPart graphicalPart = (GraphicalEditPart) childPart;
 		EditPartViewer graphicalViewer = graphicalPart.getViewer();
-		Figure graphicalFigure = graphicalPart.getFigure();
+		IFigure graphicalFigure = graphicalPart.getFigure();
 		getContentPane().add(graphicalFigure);
 		graphicalViewer.getVisualPartMap().put(graphicalFigure, childPart);
 	}

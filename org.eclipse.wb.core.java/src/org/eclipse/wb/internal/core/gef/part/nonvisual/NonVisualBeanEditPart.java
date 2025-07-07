@@ -15,11 +15,11 @@ package org.eclipse.wb.internal.core.gef.part.nonvisual;
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -67,7 +67,7 @@ public final class NonVisualBeanEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor(m_beanInfo.getJavaInfo());
 		return new BeanFigure(imageDescriptor);
 	}
