@@ -93,6 +93,9 @@ public class UiContext {
 			}
 			throw new Exception("Exception during running 'check' UIRunnable.", checkException[0]);
 		}
+		while (m_display.readAndDispatch()) {
+			Thread.yield();
+		}
 	}
 
 	/**
