@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
 import org.eclipse.draw2d.IFigure;
@@ -28,7 +27,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.graphical
  */
 public class MoveHandleLocator implements Locator {
-	private final Figure m_reference;
+	private final IFigure m_reference;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -39,7 +38,7 @@ public class MoveHandleLocator implements Locator {
 	 * Creates a new {@link MoveHandleLocator} and sets its reference figure to <code>ref</code>. The
 	 * reference figure should be the handle's owner figure.
 	 */
-	public MoveHandleLocator(Figure reference) {
+	public MoveHandleLocator(IFigure reference) {
 		m_reference = reference;
 	}
 

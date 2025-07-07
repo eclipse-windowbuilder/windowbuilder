@@ -110,10 +110,10 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	}
 
 	/**
-	 * This {@link EditPart} not contains itself {@link Figure}.
+	 * This {@link EditPart} not contains itself {@link IFigure}.
 	 */
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return null;
 	}
 

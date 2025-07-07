@@ -77,7 +77,7 @@ public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPar
 		int marginOffset =
 				isHorizontal ? FormUtils.getLayoutMarginLeft(layout) : FormUtils.getLayoutMarginTop(layout);
 		int position = size * percent / 100 + marginOffset;
-		Figure figure = getFigure();
+		IFigure figure = getFigure();
 		figure.setToolTip(new Label(percent + "%"));
 		int figureSize = t.t(figure.getParent().getSize()).height;
 		Rectangle bounds = t.t(new Rectangle(position - figureSize / 2, 0, figureSize, figureSize));

@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -95,7 +96,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 			// prepare parent location
 			Rectangle parentBounds;
 			{
-				Figure parentFigure = ((GraphicalEditPart) getParent()).getFigure();
+				IFigure parentFigure = ((GraphicalEditPart) getParent()).getFigure();
 				parentBounds = parentFigure.getBounds().getCopy();
 				FigureUtils.translateFigureToAbsolute(parentFigure, parentBounds);
 			}

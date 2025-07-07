@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
@@ -83,7 +84,7 @@ public abstract class PolicyUtils {
 		// prepare bounds
 		Rectangle bounds;
 		{
-			Figure hostFigure = part.getFigure();
+			IFigure hostFigure = part.getFigure();
 			bounds = hostFigure.getBounds().getCopy();
 			bounds.expand(3, 3);
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
@@ -155,7 +156,7 @@ public abstract class PolicyUtils {
 	 * @return absolute bounds of given {@link EditPart}'s {@link Figure}.
 	 */
 	public static Rectangle getAbsoluteBounds(GraphicalEditPart editPart) {
-		Figure figure = editPart.getFigure();
+		IFigure figure = editPart.getFigure();
 		Rectangle bounds = figure.getBounds().getCopy();
 		FigureUtils.translateFigureToAbsolute(figure, bounds);
 		return bounds;
@@ -201,7 +202,7 @@ public abstract class PolicyUtils {
 		try {
 			// translate to figure
 			{
-				Figure hostFigure = toContainer.getFigure();
+				IFigure hostFigure = toContainer.getFigure();
 				FigureUtils.translateAbsoluteToFigure2(hostFigure, t);
 			}
 			// translate: container figure -> client area
@@ -239,7 +240,7 @@ public abstract class PolicyUtils {
 			}
 			// translate to layer
 			{
-				Figure hostFigure = containerEditPart.getFigure();
+				IFigure hostFigure = containerEditPart.getFigure();
 				Figure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
 				FigureUtils.translateFigureToFigure2(hostFigure, layer, t);
 			}
@@ -259,7 +260,7 @@ public abstract class PolicyUtils {
 			}
 			// translate to layer
 			{
-				Figure hostFigure = containerEditPart.getFigure();
+				IFigure hostFigure = containerEditPart.getFigure();
 				Figure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
 				FigureUtils.translateFigureToFigure2(hostFigure, layer, t);
 			}

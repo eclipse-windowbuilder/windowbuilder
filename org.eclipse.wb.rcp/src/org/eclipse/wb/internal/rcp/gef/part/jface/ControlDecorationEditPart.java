@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.rcp.gef.part.jface;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -48,12 +47,12 @@ public final class ControlDecorationEditPart extends AbstractComponentEditPart {
 	// Figure
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_originalControlFigure;
+	private IFigure m_originalControlFigure;
 
 	@Override
 	protected void refreshVisuals() {
-		Figure figure = getFigure();
-		Figure controlFigure = getControlFigure();
+		IFigure figure = getFigure();
+		IFigure controlFigure = getControlFigure();
 		IFigure controlParentFigure = controlFigure.getParent();
 		// ensure that decoration is located on _parent_ of Control
 		if (figure.getParent() != controlParentFigure) {
@@ -75,7 +74,7 @@ public final class ControlDecorationEditPart extends AbstractComponentEditPart {
 	public void removeNotify() {
 		// move decoration figure back to Control figure
 		{
-			Figure figure = getFigure();
+			IFigure figure = getFigure();
 			FigureUtils.removeFigure(figure);
 			m_originalControlFigure.add(figure);
 		}
@@ -89,9 +88,9 @@ public final class ControlDecorationEditPart extends AbstractComponentEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the {@link Figure} of decorated {@link ControlInfo}.
+	 * @return the {@link IFigure} of decorated {@link ControlInfo}.
 	 */
-	private Figure getControlFigure() {
+	private IFigure getControlFigure() {
 		EditPart controlEditPart = (EditPart) getViewer().getEditPartRegistry().get(m_decoration.getControl());
 		return ((GraphicalEditPart) controlEditPart).getFigure();
 	}

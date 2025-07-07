@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.gef.policy;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -88,7 +87,7 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_figure;
+	private IFigure m_figure;
 
 	/**
 	 * If placeholder used - show error log figure. If not - hide it.
@@ -110,7 +109,7 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
 		Locator locator = new Locator() {
 			@Override
 			public void relocate(IFigure target) {
-				Figure componentFigure = m_editPart.getFigure();
+				IFigure componentFigure = m_editPart.getFigure();
 				Rectangle componentArea = componentFigure.getClientArea();
 				target.setBounds(new Rectangle(5, componentArea.bottom() - 5 - 16, 16, 16));
 			}
