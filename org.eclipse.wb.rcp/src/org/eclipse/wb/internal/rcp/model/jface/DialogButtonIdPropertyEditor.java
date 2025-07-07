@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -58,7 +58,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -302,7 +302,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 					TableFactory.modify(table).newColumn().widthC(47).text(
 							ModelMessages.DialogButtonIdPropertyEditor_columnId);
 				}
-				m_viewer.setSorter(new IdSorter());
+				m_viewer.setComparator(new IdComparator());
 				m_viewer.setLabelProvider(new IdLabelProvider());
 				m_viewer.setContentProvider(new ArrayContentProvider());
 				m_viewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -429,7 +429,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 		// Viewer elements
 		//
 		////////////////////////////////////////////////////////////////////////////
-		private class IdSorter extends ViewerSorter {
+		private class IdComparator extends ViewerComparator {
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {
 				IdLabelProvider labelProvider = (IdLabelProvider) m_viewer.getLabelProvider();
