@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -49,7 +50,7 @@ public final class MenuPopupEditPart extends SubmenuAwareEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {

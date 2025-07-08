@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
-
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -28,7 +27,7 @@ public interface ICustomTooltipProvider {
 	/**
 	 * Create tooltip control.
 	 */
-	Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure);
+	Control createTooltipControl(Composite parent, ICustomTooltipSite site, IFigure figure);
 
 	void show(Shell shell);
 }

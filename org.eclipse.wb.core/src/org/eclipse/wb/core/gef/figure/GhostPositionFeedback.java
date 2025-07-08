@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
@@ -46,8 +46,8 @@ public final class GhostPositionFeedback extends AbstractPositionFeedback {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
-		Figure figure = new SemiTransparentFigure(50);
+	protected IFigure createFigure() {
+		IFigure figure = new SemiTransparentFigure(50);
 		figure.setBackgroundColor(m_fillColor);
 		figure.setBorder(new LineBorder(m_borderColor));
 		return figure;

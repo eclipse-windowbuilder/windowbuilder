@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -32,6 +31,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapLayoutInfo
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapColumnInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -85,7 +85,7 @@ AbstractHeaderLayoutEditPolicy {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Figure m_insertFeedback = AbstractGridLayoutEditPolicy.createInsertFigure();
+	private final IFigure m_insertFeedback = AbstractGridLayoutEditPolicy.createInsertFigure();
 	private TextFeedback m_feedback;
 	private Command m_moveCommand;
 

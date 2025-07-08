@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -55,8 +55,8 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	private static final int INITIAL_RIGHT_SPACE = 10;
 	private static final int FIGURES_SPACE = 10;
 	// fields
-	private List<Figure> m_feedbacks;
-	private List<Figure> m_alignmentFigures;
+	private List<IFigure> m_feedbacks;
+	private List<IFigure> m_alignmentFigures;
 	private final IAbsoluteLayoutCommands m_layout;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	@Override
 	protected void hideSelection() {
 		super.hideSelection();
-		for (Figure figure : getFeedbacks()) {
+		for (IFigure figure : getFeedbacks()) {
 			FigureUtils.removeFigure(figure);
 		}
 		m_feedbacks = new ArrayList<>();
@@ -209,13 +209,13 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 		lineEndFigure.setLocation(new Point(point.x - size.width / 2, point.y - size.height / 2));
 	}
 
-	private void addMyFeedback(Figure figure) {
+	private void addMyFeedback(IFigure figure) {
 		getFeedbacks().add(figure);
 		// add feedback
 		getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(figure);
 	}
 
-	private List<Figure> getFeedbacks() {
+	private List<IFigure> getFeedbacks() {
 		if (m_feedbacks == null) {
 			m_feedbacks = new ArrayList<>();
 		}
@@ -225,7 +225,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	/**
 	 * @return the alignment figure for given component and axis.
 	 */
-	protected Figure createAlignmentFigure(final IAbstractComponentInfo widget,
+	protected IFigure createAlignmentFigure(final IAbstractComponentInfo widget,
 			final boolean isHorizontal) {
 		IEditPartViewer viewer = getHost().getViewer();
 		return isHorizontal
@@ -254,7 +254,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	 */
 	public final void hideAlignmentFigures() {
 		if (m_alignmentFigures != null) {
-			for (Figure figure : m_alignmentFigures) {
+			for (IFigure figure : m_alignmentFigures) {
 				figure.getParent().remove(figure);
 			}
 			m_alignmentFigures = null;
@@ -285,7 +285,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 		{
 			int offset = INITIAL_RIGHT_SPACE;
 			{
-				Figure horizontalFigure = createAlignmentFigure(widget, true);
+				IFigure horizontalFigure = createAlignmentFigure(widget, true);
 				if (horizontalFigure != null) {
 					offset += horizontalFigure.getSize().width;
 					addAlignmentFigure(widget, horizontalFigure, offset);
@@ -293,7 +293,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 				}
 			}
 			{
-				Figure verticalFigure = createAlignmentFigure(widget, false);
+				IFigure verticalFigure = createAlignmentFigure(widget, false);
 				if (verticalFigure != null) {
 					offset += verticalFigure.getSize().width;
 					addAlignmentFigure(widget, verticalFigure, offset);
@@ -306,8 +306,8 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	/**
 	 * Adds alignment figure at given offset from right side of component's cells.
 	 */
-	private void addAlignmentFigure(IAbstractComponentInfo component, Figure figure, int offset) {
-		Figure layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
+	private void addAlignmentFigure(IAbstractComponentInfo component, IFigure figure, int offset) {
+		IFigure layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
 		// prepare rectangle for cells used by component (in layer coordinates)
 		Rectangle cellRect;
 		{

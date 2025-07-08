@@ -54,7 +54,7 @@ public class MarqueeSelectionTool extends Tool {
 	private int m_selectionMode;
 	private List<EditPart> m_allChildren;
 	private List<EditPart> m_selectedEditParts;
-	private Figure m_marqueeFeedbackFigure;
+	private IFigure m_marqueeFeedbackFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//

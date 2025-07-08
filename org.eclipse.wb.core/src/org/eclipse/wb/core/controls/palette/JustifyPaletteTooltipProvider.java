@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.JustifyLabel;
 import org.eclipse.wb.internal.draw2d.Label;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -53,7 +54,7 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createTooltipFigure(Figure hostFigure) {
+	protected IFigure createTooltipFigure(IFigure hostFigure) {
 		// header figure
 		Label headerFigure = new Label(m_header);
 		Font boldFont = FontDescriptor.createFrom(headerFigure.getFont()) //

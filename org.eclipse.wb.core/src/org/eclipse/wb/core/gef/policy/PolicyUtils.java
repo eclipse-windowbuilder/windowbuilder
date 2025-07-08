@@ -90,7 +90,7 @@ public abstract class PolicyUtils {
 			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 		}
 		// add feedback
-		Figure borderFeedback = new Figure();
+		IFigure borderFeedback = new Figure();
 		borderFeedback.setBorder(targetBorder);
 		borderFeedback.setBounds(bounds);
 		layer.add(borderFeedback);
@@ -109,7 +109,7 @@ public abstract class PolicyUtils {
 	 * Erases border feedback.
 	 */
 	public static void eraseBorderTargetFeedback(GraphicalEditPart part) {
-		Figure borderFeedback = (Figure) part.getViewer().getControl().getData(BORDER_FEEDBACK_KEY);
+		IFigure borderFeedback = (IFigure) part.getViewer().getControl().getData(BORDER_FEEDBACK_KEY);
 		if (borderFeedback != null) {
 			FigureUtils.removeFigure(borderFeedback);
 			borderFeedback = null;
@@ -153,7 +153,7 @@ public abstract class PolicyUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return absolute bounds of given {@link EditPart}'s {@link Figure}.
+	 * @return absolute bounds of given {@link EditPart}'s {@link IFigure}.
 	 */
 	public static Rectangle getAbsoluteBounds(GraphicalEditPart editPart) {
 		IFigure figure = editPart.getFigure();
@@ -169,7 +169,7 @@ public abstract class PolicyUtils {
 	////////////////////////////////////////////////////////////////////////////
 	public static void translateAbsoluteToFeedback(GraphicalEditPolicy policy, Translatable t) {
 		try {
-			Figure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
+			IFigure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
 			FigureUtils.translateAbsoluteToFigure(layer, t);
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
@@ -241,7 +241,7 @@ public abstract class PolicyUtils {
 			// translate to layer
 			{
 				IFigure hostFigure = containerEditPart.getFigure();
-				Figure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
+				IFigure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
 				FigureUtils.translateFigureToFigure2(hostFigure, layer, t);
 			}
 		} catch (Throwable e) {
@@ -261,7 +261,7 @@ public abstract class PolicyUtils {
 			// translate to layer
 			{
 				IFigure hostFigure = containerEditPart.getFigure();
-				Figure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
+				IFigure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
 				FigureUtils.translateFigureToFigure2(hostFigure, layer, t);
 			}
 		} catch (Throwable e) {

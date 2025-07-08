@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -11,9 +11,6 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.draw2d.border;
-
-import org.eclipse.wb.draw2d.Figure;
-
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -22,7 +19,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * A {@link Border} is a graphical decoration that is painted just inside the outer edge of a
- * {@link Figure}.
+ * {@link IFigure}.
  *
  * @author lobas_av
  * @coverage gef.draw2d
@@ -66,7 +63,7 @@ public abstract class Border implements org.eclipse.draw2d.Border {
 	}
 
 	/**
-	 * Paint border for <code>owner</code> {@link Figure}.
+	 * Paint border for <code>owner</code> {@link IFigure}.
 	 */
 	@Override
 	public final void paint(IFigure owner, Graphics graphics, Insets insets) {
@@ -75,8 +72,8 @@ public abstract class Border implements org.eclipse.draw2d.Border {
 	}
 
 	/**
-	 * Paint border for {@link Figure}. Coordinate (0, 0) correspond with {@link Figure} (0, 0) and
-	 * <code>onwerWidth</code>, <code>ownerHeight</code> correspond with {@link Figure}
+	 * Paint border for {@link IFigure}. Coordinate (0, 0) correspond with {@link IFigure} (0, 0) and
+	 * <code>onwerWidth</code>, <code>ownerHeight</code> correspond with {@link IFigure}
 	 * <code>width</code>, <code>height</code>.
 	 */
 	protected abstract void paint(int ownerWidth, int ownerHeight, Graphics graphics);

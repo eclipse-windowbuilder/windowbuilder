@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
-
 import org.eclipse.draw2d.DeferredUpdateManager;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -24,7 +23,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * A Canvas that contains {@link Figure Figures}.
+ * A Canvas that contains {@link IFigure Figures}.
  *
  * @author lobas_av
  * @coverage gef.draw2d

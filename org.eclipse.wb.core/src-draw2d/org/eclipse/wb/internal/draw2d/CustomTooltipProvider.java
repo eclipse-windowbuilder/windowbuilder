@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -35,7 +35,7 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
+	public final Control createTooltipControl(Composite parent, ICustomTooltipSite site, IFigure figure) {
 		m_canvas = new FigureCanvas(parent, SWT.NONE);
 		GridDataFactory.create(m_canvas).fill().grab();
 		m_canvas.addListener(SWT.MouseDown, site.getHideListener());
@@ -57,5 +57,5 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
 		shell.setVisible(true);
 	}
 
-	protected abstract Figure createTooltipFigure(Figure hostFigure);
+	protected abstract IFigure createTooltipFigure(IFigure hostFigure);
 }

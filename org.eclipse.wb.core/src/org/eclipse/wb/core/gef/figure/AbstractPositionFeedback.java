@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -29,7 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 public abstract class AbstractPositionFeedback {
 	private final Layer m_layer;
 	private final String m_hint;
-	protected final Figure m_figure;
+	protected final IFigure m_figure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -57,9 +57,9 @@ public abstract class AbstractPositionFeedback {
 	public abstract void update(boolean contains);
 
 	/**
-	 * @return the {@link Figure} for this feedback.
+	 * @return the {@link IFigure} for this feedback.
 	 */
-	protected abstract Figure createFigure();
+	protected abstract IFigure createFigure();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

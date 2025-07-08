@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.LayerManager;
 
@@ -45,7 +46,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Figure createFigure() {
+	public IFigure createFigure() {
 		return new MacMenuImageFigure(m_menu);
 	}
 	@Override
@@ -62,7 +63,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 		}
 	}
 	private boolean m_addedSelf = false;
-	private Figure m_fakeFigure;
+	private IFigure m_fakeFigure;
 	@Override
 	protected boolean addSelfVisual(int index) {
 		if (!isSubMenu()) {
@@ -85,7 +86,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 		}
 		return false;
 	}
-	private Figure getFakeFigure() {
+	private IFigure getFakeFigure() {
 		if (m_fakeFigure == null) {
 			m_fakeFigure = new Figure();
 			m_fakeFigure.setVisible(false);

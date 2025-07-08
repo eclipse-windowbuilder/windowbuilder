@@ -104,7 +104,7 @@ public abstract class AbstractGridHelper {
 	// Feedback
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_gridFigure = null;
+	private IFigure m_gridFigure = null;
 
 	private class RootFigureListener implements FigureListener {
 		private IFigure m_rootFigure;

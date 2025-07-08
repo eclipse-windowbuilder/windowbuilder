@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.core.gef.policy.helpers.SelectionListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -28,6 +27,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -113,7 +113,7 @@ IHeadersProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	protected GridTarget m_target;
-	private final Figure m_targetFeedback = new SemiTransparentFigure(64);
+	private final IFigure m_targetFeedback = new SemiTransparentFigure(64);
 	private TextFeedback m_textFeedback;
 	private static final Color m_goodTargetFillColor = new Color(0, 255, 0);
 	private static final Color m_goodTargetBorderColor = new Color(192, 255, 192);
@@ -256,16 +256,16 @@ IHeadersProvider {
 	// Insert feedbacks
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Figure m_insertColumnFeedback = createInsertFigure();
-	private final Figure m_insertRowFeedback = createInsertFigure();
+	private final IFigure m_insertColumnFeedback = createInsertFigure();
+	private final IFigure m_insertRowFeedback = createInsertFigure();
 	private static final Color m_insertTargetFillColor = new Color(null, 255, 255, 128);
 	private static final Color m_insertTargetBorderColor = new Color(null, 255, 235, 30);
 
 	/**
-	 * @return the {@link Figure} that can be used as "insert feedback".
+	 * @return the {@link IFigure} that can be used as "insert feedback".
 	 */
-	public static Figure createInsertFigure() {
-		Figure figure = new SemiTransparentFigure(160);
+	public static IFigure createInsertFigure() {
+		IFigure figure = new SemiTransparentFigure(160);
 		figure.setBackgroundColor(m_insertTargetFillColor);
 		figure.setBorder(new LineBorder(m_insertTargetBorderColor));
 		return figure;

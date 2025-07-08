@@ -153,15 +153,15 @@ public final class DesignRootEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
-		Figure figure = new TopFigure();
+	protected IFigure createFigure() {
+		IFigure figure = new TopFigure();
 		Border border = new MarginBorder(new Insets(0, 0, BOTTOM_MARGIN.x, BOTTOM_MARGIN.y));
 		figure.setBorder(border);
 		return figure;
 	}
 
 	/**
-	 * Special {@link Figure} that cover full area of parent.
+	 * Special {@link IFigure} that cover full area of parent.
 	 */
 	private static final class TopFigure extends Figure implements IPreferredSizeProvider {
 		////////////////////////////////////////////////////////////////////////////

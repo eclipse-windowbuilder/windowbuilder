@@ -15,7 +15,6 @@ package org.eclipse.wb.core.gef.policy.layout.generic;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.model.IObjectInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -117,7 +116,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_resizeFeedback;
+	private IFigure m_resizeFeedback;
 	private TextFeedback m_textFeedback;
 
 	/**
