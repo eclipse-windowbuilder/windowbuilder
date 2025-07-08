@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 /**
  * {@link EditPart} for <i>array objects</i> model.
@@ -63,7 +64,7 @@ public final class ArrayObjectEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure();
 	}
 

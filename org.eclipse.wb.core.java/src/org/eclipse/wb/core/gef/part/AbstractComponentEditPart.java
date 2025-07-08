@@ -91,7 +91,7 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart implem
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {

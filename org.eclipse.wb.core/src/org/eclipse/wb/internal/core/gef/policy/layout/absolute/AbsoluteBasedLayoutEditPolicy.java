@@ -949,7 +949,7 @@ IPreferenceConstants {
 		Rectangle feedbackBounds = bounds.getCopy();
 		translateModelToFeedback(feedbackBounds);
 		// create feedback
-		Figure outline = new Figure();
+		IFigure outline = new Figure();
 		outline.setBorder(new LineBorder(AbsolutePolicyUtils.COLOR_OUTLINE));
 		outline.setBounds(feedbackBounds);
 		addFeedback(outline);

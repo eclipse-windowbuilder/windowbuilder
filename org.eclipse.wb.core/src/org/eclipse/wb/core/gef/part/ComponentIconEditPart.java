@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -51,7 +52,7 @@ public abstract class ComponentIconEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
@@ -76,7 +77,7 @@ public abstract class ComponentIconEditPart extends GraphicalEditPart {
 	}
 
 	/**
-	 * @return the bounds of {@link Figure} based on size of icon.
+	 * @return the bounds of {@link IFigure} based on size of icon.
 	 */
 	protected abstract Rectangle getFigureBounds(int width, int height);
 

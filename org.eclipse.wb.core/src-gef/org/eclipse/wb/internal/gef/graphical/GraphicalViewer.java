@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.graphical;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
@@ -108,7 +107,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	}
 
 	/**
-	 * Returns root {@link Figure} use for access to {@link Layer}'s.
+	 * Returns root {@link IFigure} use for access to {@link Layer}'s.
 	 */
 	public final IRootFigure getRootFigure() {
 		return getRootFigureInternal();

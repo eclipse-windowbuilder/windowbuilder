@@ -72,7 +72,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		if (isStandaloneMenu()) {
 			return new MenuImageFigure(m_menu);
 		} else if (isSubMenu()) {

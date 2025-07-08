@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.gef.policy.nonvisual;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanContainerInfo;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -51,8 +51,8 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 	private static final int SNAP_GRID_SIZE = 10;
 	private final JavaInfo m_rootInfo;
 	private final ILayoutRequestValidator m_validator;
-	private Figure m_feedbackFigure;
-	private Figure[] m_moveFeedbackFigures;
+	private IFigure m_feedbackFigure;
+	private IFigure[] m_moveFeedbackFigures;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -148,7 +148,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 		}
 		// remove move feedback's
 		if (m_moveFeedbackFigures != null) {
-			for (Figure figure : m_moveFeedbackFigures) {
+			for (IFigure figure : m_moveFeedbackFigures) {
 				removeFeedback(figure);
 			}
 			m_moveFeedbackFigures = null;
@@ -204,7 +204,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 		List<? extends EditPart> editParts = request.getEditParts();
 		// check create feedback's
 		if (m_moveFeedbackFigures == null) {
-			m_moveFeedbackFigures = new Figure[editParts.size()];
+			m_moveFeedbackFigures = new IFigure[editParts.size()];
 			for (int i = 0; i < m_moveFeedbackFigures.length; i++) {
 				NonVisualBeanEditPart part = (NonVisualBeanEditPart) editParts.get(i);
 				final JavaInfo info = part.getNonVisualInfo().getJavaInfo();

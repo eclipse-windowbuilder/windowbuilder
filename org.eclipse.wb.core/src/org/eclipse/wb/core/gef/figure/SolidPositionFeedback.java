@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,11 +17,12 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
 /**
- * Feedback with opaque {@link Figure}.
+ * Feedback with opaque {@link IFigure}.
  *
  * @author scheglov_ke
  * @coverage core.gef.figure
@@ -42,8 +43,8 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
-		Figure figure = new Figure();
+	protected IFigure createFigure() {
+		IFigure figure = new Figure();
 		figure.setOpaque(true);
 		figure.setBorder(new LineBorder(getBorderColor()));
 		return figure;

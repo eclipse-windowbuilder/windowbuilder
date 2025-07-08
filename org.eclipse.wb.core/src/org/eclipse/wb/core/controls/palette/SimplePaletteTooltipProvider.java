@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.Label;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -44,7 +44,7 @@ public final class SimplePaletteTooltipProvider extends CustomTooltipProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createTooltipFigure(Figure hostFigure) {
+	protected IFigure createTooltipFigure(IFigure hostFigure) {
 		// create tooltip figure
 		Label tooltipFigure = new Label(m_details);
 		tooltipFigure.setBorder(new MarginBorder(2));

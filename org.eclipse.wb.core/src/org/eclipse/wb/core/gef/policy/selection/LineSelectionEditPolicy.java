@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class LineSelectionEditPolicy extends SelectionEditPolicy {
 	private final Color m_lineColor;
-	private Figure m_selectionFigure;
+	private IFigure m_selectionFigure;
 	private AncestorListener m_ancestorListener;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ public class LineSelectionEditPolicy extends SelectionEditPolicy {
 	}
 
 	/**
-	 * @return the bounds of {@link Figure} of host {@link EditPart}, in "bounds" coordinates.
+	 * @return the bounds of {@link IFigure} of host {@link EditPart}, in "bounds" coordinates.
 	 */
 	protected Rectangle getHostBounds() {
 		return getHostFigure().getBounds();

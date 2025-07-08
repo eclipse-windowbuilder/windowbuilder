@@ -32,7 +32,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * This {@link EditPolicy} check that if creation of {@link JavaInfo} object was failed and it was
- * replaced with placeholder, then we should display special {@link Figure} to open error log.
+ * replaced with placeholder, then we should display special {@link IFigure} to open error log.
  *
  * @author scheglov_ke
  * @coverage core.gef.policy

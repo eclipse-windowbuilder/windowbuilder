@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.graphical;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -102,10 +101,10 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	}
 
 	/**
-	 * Return root {@link Figure} for all {@link EditPart} {@link Figure}'s.
+	 * Return root {@link IFigure} for all {@link EditPart} {@link IFigure}'s.
 	 */
 	@Override
-	public Figure getContentPane() {
+	public IFigure getContentPane() {
 		return m_rootFigure.getLayer(IEditPartViewer.PRIMARY_LAYER);
 	}
 
