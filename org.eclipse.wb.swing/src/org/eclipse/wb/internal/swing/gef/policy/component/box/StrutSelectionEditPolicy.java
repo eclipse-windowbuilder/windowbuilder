@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -110,7 +109,7 @@ abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_sizeFeedback;
+	private IFigure m_sizeFeedback;
 	private TextFeedback m_textFeedback;
 
 	/**

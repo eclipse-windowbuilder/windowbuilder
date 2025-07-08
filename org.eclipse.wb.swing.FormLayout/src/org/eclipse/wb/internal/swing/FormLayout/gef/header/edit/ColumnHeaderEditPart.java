@@ -67,8 +67,8 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
-		Figure newFigure = new Figure() {
+	protected IFigure createFigure() {
+		IFigure newFigure = new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
 				Rectangle r = getClientArea();

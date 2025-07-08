@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -71,7 +72,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 	// Feedback
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_feedback;
+	private IFigure m_feedback;
 
 	@Override
 	protected void showLayoutTargetFeedback(Request request) {

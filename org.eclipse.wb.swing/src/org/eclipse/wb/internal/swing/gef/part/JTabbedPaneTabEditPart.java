@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -59,7 +60,7 @@ public final class JTabbedPaneTabEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure();
 	}
 
