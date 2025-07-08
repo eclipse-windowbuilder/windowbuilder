@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.AbstractShortcutContainerInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
@@ -50,7 +51,7 @@ abstract class AbstractShortcutContainerEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure();
 	}
 

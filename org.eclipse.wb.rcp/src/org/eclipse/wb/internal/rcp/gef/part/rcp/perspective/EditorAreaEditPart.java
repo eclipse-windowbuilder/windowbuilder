@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective.PageLayoutSidesLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
@@ -47,7 +48,7 @@ public final class EditorAreaEditPart extends GraphicalEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure();
 	}
 

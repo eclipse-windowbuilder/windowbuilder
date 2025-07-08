@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.EditPart;
@@ -134,7 +133,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_resizeFeedback;
+	private IFigure m_resizeFeedback;
 
 	private Command getResizeCommand(final ChangeBoundsRequest request) {
 		return new EditCommand(m_part) {
