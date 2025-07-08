@@ -120,7 +120,7 @@ SelectionEditPolicy {
 	// Resize handles
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final Map<String, Figure> resizeFeedbacks = new HashMap<>();
+	private final Map<String, IFigure> resizeFeedbacks = new HashMap<>();
 
 	@Override
 	protected List<Handle> createSelectionHandles() {
@@ -162,7 +162,7 @@ SelectionEditPolicy {
 	// Source feedback and commands
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure sourceFeedbackFigure;
+	private IFigure sourceFeedbackFigure;
 
 	@Override
 	public boolean understandsRequest(Request request) {
@@ -838,7 +838,7 @@ SelectionEditPolicy {
 	// Selection feedback
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Map<String, Figure> selectionFeedbacks;
+	private Map<String, IFigure> selectionFeedbacks;
 
 	@Override
 	protected void showSelection() {
@@ -874,7 +874,7 @@ SelectionEditPolicy {
 
 	private void hideSelectionFeedbacks() {
 		if (selectionFeedbacks != null) {
-			for (Figure feedback : selectionFeedbacks.values()) {
+			for (IFigure feedback : selectionFeedbacks.values()) {
 				FigureUtils.removeFigure(feedback);
 			}
 			selectionFeedbacks = null;
@@ -1099,7 +1099,7 @@ SelectionEditPolicy {
 			if (!key.startsWith(prefix)) {
 				continue;
 			}
-			Figure feedback = selectionFeedbacks.get(key);
+			IFigure feedback = selectionFeedbacks.get(key);
 			feedback.getParent().remove(feedback);
 			I.remove();
 		}
@@ -1161,7 +1161,7 @@ SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	private MouseMotionListener mouseMotionListener;
 	private FigureListener figureListener;
-	private Figure hoverFigure;
+	private IFigure hoverFigure;
 	private int mouseQuadrant;
 
 	private void installQuadrantHandler() {
@@ -1264,7 +1264,7 @@ SelectionEditPolicy {
 	}
 
 	private void removeSingleResizeFeedback(String name) {
-		Figure feedback = resizeFeedbacks.get(name);
+		IFigure feedback = resizeFeedbacks.get(name);
 		if (feedback != null) {
 			removeFeedback(feedback);
 			resizeFeedbacks.remove(name);

@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -43,7 +43,7 @@ import java.util.List;
  */
 public final class AnchorFiguresClassic<C extends IControlInfo> {
 	// fields
-	private List<Figure> m_alignmentFigures;
+	private List<IFigure> m_alignmentFigures;
 	private final SelectionEditPolicy m_policy;
 	private final FormLayoutInfoImplClassic<C> m_layoutImpl;
 
@@ -83,7 +83,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 	 */
 	public final void hide() {
 		if (m_alignmentFigures != null) {
-			for (Figure figure : m_alignmentFigures) {
+			for (IFigure figure : m_alignmentFigures) {
 				figure.getParent().remove(figure);
 			}
 			m_alignmentFigures = null;
@@ -98,7 +98,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 	/**
 	 * @return the alignment figure for given component and axis.
 	 */
-	private Figure createAlignmentFigure(C widget, int side) {
+	private IFigure createAlignmentFigure(C widget, int side) {
 		IEditPartViewer viewer = m_policy.getHost().getViewer();
 		return PlacementUtils.isHorizontalSide(side)
 				? new HorizontalPopupFigure(viewer, widget, side)
@@ -129,25 +129,25 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 		// show alignment figures
 		{
 			{
-				Figure figure = createAlignmentFigure(widget, PositionConstants.LEFT);
+				IFigure figure = createAlignmentFigure(widget, PositionConstants.LEFT);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, true, true);
 				}
 			}
 			{
-				Figure figure = createAlignmentFigure(widget, PositionConstants.RIGHT);
+				IFigure figure = createAlignmentFigure(widget, PositionConstants.RIGHT);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, false, true);
 				}
 			}
 			{
-				Figure figure = createAlignmentFigure(widget, PositionConstants.TOP);
+				IFigure figure = createAlignmentFigure(widget, PositionConstants.TOP);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, true, false);
 				}
 			}
 			{
-				Figure figure = createAlignmentFigure(widget, PositionConstants.BOTTOM);
+				IFigure figure = createAlignmentFigure(widget, PositionConstants.BOTTOM);
 				if (figure != null) {
 					addAlignmentFigure(widget, figure, false, false);
 				}
@@ -159,7 +159,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
 	 * Adds alignment figure at given offset from right side of component's cells.
 	 */
 	private void addAlignmentFigure(C component,
-			Figure figure,
+			IFigure figure,
 			boolean isLeading,
 			boolean isHorisontal) {
 		Layer layer = (Layer) LayerManager.Helper.find(m_policy.getHost()).getLayer(IEditPartViewer.CLICKABLE_LAYER);

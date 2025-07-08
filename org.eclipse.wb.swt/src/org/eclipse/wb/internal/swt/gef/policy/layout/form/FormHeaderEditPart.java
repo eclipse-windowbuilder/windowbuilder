@@ -66,7 +66,7 @@ public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPar
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new PercentFigure(isHorizontal);
 	}
 
@@ -89,7 +89,8 @@ public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPar
 	}
 
 	/**
-	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 * @return the offset of {@link IFigure} with headers relative to the absolute
+	 *         layer.
 	 */
 	private Point getOffset() {
 		return FormHeaderLayoutEditPolicy.getOffset(containerFigure, layout.getComposite());

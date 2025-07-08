@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -122,7 +121,7 @@ AbstractHeaderLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private TextFeedback hintFeedback;
-	private Figure feedback;
+	private IFigure feedback;
 
 	@Override
 	protected void showLayoutTargetFeedback(Request request) {
@@ -219,7 +218,8 @@ AbstractHeaderLayoutEditPolicy {
 	}
 
 	/**
-	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 * @return the offset of {@link IFigure} with headers relative to the absolute
+	 *         layer.
 	 */
 	public static Point getOffset(IFigure containerFigure, ICompositeInfo composite) {
 		Point offset = new Point(0, 0);

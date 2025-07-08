@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.layout;
 import org.eclipse.wb.draw2d.Figure;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Point;
@@ -24,7 +25,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 
 /**
- * {@link Figure} for selecting previous/next {@link Control} on {@link StackLayout}.
+ * {@link IFigure} for selecting previous/next {@link Control} on
+ * {@link StackLayout}.
  *
  * @author scheglov_ke
  * @coverage rcp.gef.policy

@@ -22,7 +22,6 @@ import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
@@ -51,6 +50,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -92,8 +92,8 @@ implements IHeadersProvider {
 	private static final Color baseColor = DrawUtils.getShiftedColor(offsetColor, -32);
 	private static final Color controlColor = DrawUtils.getShiftedColor(offsetColor, 32);
 	// feedbacks
-	private final Map<EditPart, List<Figure>> feedbacks = new HashMap<>();
-	private Map<EditPart, Figure> moveFeedbacks;
+	private final Map<EditPart, List<IFigure>> feedbacks = new HashMap<>();
+	private Map<EditPart, IFigure> moveFeedbacks;
 	private int lastMouseQuadrant;
 	private int frozenYValue;
 
@@ -150,7 +150,7 @@ implements IHeadersProvider {
 	@Override
 	protected void eraseLayoutTargetFeedback(Request request) {
 		if (moveFeedbacks != null) {
-			for (Figure feedback : moveFeedbacks.values()) {
+			for (IFigure feedback : moveFeedbacks.values()) {
 				removeFeedback(feedback);
 			}
 			moveFeedbacks = null;
@@ -240,7 +240,7 @@ implements IHeadersProvider {
 			moveFeedbacks = new HashMap<>();
 		}
 		// prepare change bounds feedback
-		Figure moveFeedback = moveFeedbacks.get(part);
+		IFigure moveFeedback = moveFeedbacks.get(part);
 		if (moveFeedback == null) {
 			moveFeedback = new OutlineImageFigure(control.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE);
 			moveFeedbacks.put(part, moveFeedback);
@@ -339,7 +339,7 @@ implements IHeadersProvider {
 		// hide any old create feedbacks (it is more easy to add each time new feedback
 		// than track old ones and change their positions)
 		removeFeedbacks();
-		Figure moveFeedback = moveFeedbacks.get(getHost());
+		IFigure moveFeedback = moveFeedbacks.get(getHost());
 		Image image = newChild.getImage();
 		if (moveFeedback == null) {
 			moveFeedback = new OutlineImageFigure(image);
@@ -484,7 +484,7 @@ implements IHeadersProvider {
 		Point loc = request.getLocation().getCopy();
 		translateAbsoluteToModel(loc);
 		//
-		Figure moveFeedback = moveFeedbacks.get(getHost());
+		IFigure moveFeedback = moveFeedbacks.get(getHost());
 		Rectangle bounds;
 		// calculate model bounds and create move feedback
 		Rectangle[] relativeBounds = new Rectangle[pastingComponents.size()];
@@ -1199,7 +1199,7 @@ implements IHeadersProvider {
 		if (part == null) {
 			part = getHost();
 		}
-		List<Figure> partFeedbacks = feedbacks.get(part);
+		List<IFigure> partFeedbacks = feedbacks.get(part);
 		if (partFeedbacks == null) {
 			partFeedbacks = new LinkedList<>();
 			feedbacks.put(part, partFeedbacks);
@@ -1270,11 +1270,11 @@ implements IHeadersProvider {
 	}
 
 	private void removeFeedbacks(EditPart part) {
-		List<Figure> partFeedbacks = feedbacks.get(part);
+		List<IFigure> partFeedbacks = feedbacks.get(part);
 		if (partFeedbacks == null) {
 			return;
 		}
-		for (Figure figure : partFeedbacks) {
+		for (IFigure figure : partFeedbacks) {
 			removeFeedback(figure);
 		}
 		partFeedbacks.clear();
