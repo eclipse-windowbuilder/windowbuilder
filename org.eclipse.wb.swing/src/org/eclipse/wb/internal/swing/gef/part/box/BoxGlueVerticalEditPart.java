@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.swing.gef.policy.component.box.GlueSelectionEditP
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
@@ -56,7 +57,7 @@ public final class BoxGlueVerticalEditPart extends BoxEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Figure createFigure() {
+	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {

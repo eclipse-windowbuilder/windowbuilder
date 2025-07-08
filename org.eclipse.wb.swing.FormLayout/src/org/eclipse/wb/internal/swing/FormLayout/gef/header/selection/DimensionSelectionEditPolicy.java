@@ -126,7 +126,7 @@ AbstractHeaderSelectionEditPolicy {
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Figure m_lineFeedback;
+	private IFigure m_lineFeedback;
 	private ResizeHintFigure m_feedback;
 	private ChangeBoundsRequest m_lastResizeRequest;
 	protected Command m_resizeCommand;
