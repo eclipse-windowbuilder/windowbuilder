@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,7 +36,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -808,7 +807,6 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * We don't support member classes as factories.
 	 */
-	@Disabled
 	@Test
 	public void test_descriptions_memberClass() throws Exception {
 		setFileContentSrc(
@@ -970,7 +968,6 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * Kosta.20080407: I consider this not correct anymore, so disable this test.
 	 */
 	@Test
-	@Disabled
 	public void test_descriptionsInstanceStatic() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
