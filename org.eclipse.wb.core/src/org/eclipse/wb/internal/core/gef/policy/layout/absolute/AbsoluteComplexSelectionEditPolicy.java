@@ -117,7 +117,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	private Dimension getParentSize(IAbstractComponentInfo parent) {
 		Rectangle compositeBounds = parent.getModelBounds().getCopy();
 		Insets clientAreaInsets = parent.getClientAreaInsets();
-		return compositeBounds.crop(clientAreaInsets).getSize().expand(-1, -1);
+		return compositeBounds.shrink(clientAreaInsets).getSize().expand(-1, -1);
 	}
 
 	private void addFeedbackToComponent(IAbstractComponentInfo widget,

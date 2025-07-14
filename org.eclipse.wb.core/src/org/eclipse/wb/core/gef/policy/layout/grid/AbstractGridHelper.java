@@ -161,7 +161,7 @@ public abstract class AbstractGridHelper {
 		Interval[] rowIntervals = gridInfo.getRowIntervals();
 		// prepare host information
 		prepareHostClientArea();
-		hostClientArea.crop(gridInfo.getInsets());
+		hostClientArea.shrink(gridInfo.getInsets());
 		// add horizontal lines
 		{
 			int y = hostClientArea.top();
@@ -257,7 +257,7 @@ public abstract class AbstractGridHelper {
 	private void prepareHostClientArea() {
 		IAbstractComponentInfo containerInfo = (IAbstractComponentInfo) getHost().getModel();
 		hostClientArea = getHost().getFigure().getBounds().getCopy();
-		hostClientArea.crop(containerInfo.getClientAreaInsets());
+		hostClientArea.shrink(containerInfo.getClientAreaInsets());
 		hostClientArea.x = hostClientArea.y = 0;
 	}
 

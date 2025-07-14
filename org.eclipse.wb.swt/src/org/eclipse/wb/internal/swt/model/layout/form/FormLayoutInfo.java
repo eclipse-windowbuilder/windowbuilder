@@ -315,9 +315,9 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 		AbstractComponentInfo composite = getComposite();
 		Rectangle compositeBounds = composite.getModelBounds().getCopy();
 		Insets clientAreaInsets = composite.getClientAreaInsets();
-		compositeBounds.crop(clientAreaInsets);
+		compositeBounds.shrink(clientAreaInsets);
 		Insets marginInsets = FormUtils.getLayoutMargins(this);
-		return compositeBounds.crop(marginInsets).getSize();
+		return compositeBounds.shrink(marginInsets).getSize();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

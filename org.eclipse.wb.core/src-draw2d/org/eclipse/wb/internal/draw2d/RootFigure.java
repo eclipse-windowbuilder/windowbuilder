@@ -114,7 +114,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	@Override
 	public void setBounds(Rectangle bounds) {
-		Rectangle value = getBounds().setBounds(bounds).union(getPreferredSize());
+		Rectangle value = getBounds().setBounds(bounds).setSize(Dimension.max(bounds.getSize(), getPreferredSize()));
 		for (Layer layer : getLayers()) {
 			layer.setBounds(value);
 		}
