@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -94,7 +94,7 @@ public class SwingVisualMapper implements VisualMapper {
 	@Override
 	public java.awt.Rectangle getContainerInterior(String componentId) {
 		org.eclipse.draw2d.geometry.Rectangle bounds = getContainer().getModelBounds().getCopy();
-		bounds.crop(getContainer().getInsets());
+		bounds.shrink(getContainer().getInsets());
 		return new java.awt.Rectangle(0, 0, bounds.width, bounds.height);
 	}
 

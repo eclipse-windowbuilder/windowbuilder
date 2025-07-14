@@ -81,7 +81,7 @@ public final class SpringLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicyS
     return composite.getClientArea().getSize();*/
 		ContainerInfo container = m_layout.getContainer();
 		Rectangle bounds = container.getModelBounds().getCopy();
-		bounds.crop(container.getInsets());
+		bounds.shrink(container.getInsets());
 		return bounds.getSize();
 	}
 

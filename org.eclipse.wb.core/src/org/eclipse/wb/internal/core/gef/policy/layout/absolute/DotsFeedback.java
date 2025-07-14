@@ -42,7 +42,7 @@ public class DotsFeedback<C extends IAbstractComponentInfo> extends Figure {
 		FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
 		IAbstractComponentInfo container =
 				(IAbstractComponentInfo) layoutEditPolicy.getHost().getModel();
-		bounds.crop(container.getClientAreaInsets());
+		bounds.shrink(container.getClientAreaInsets());
 		// set bounds
 		setBounds(bounds);
 	}

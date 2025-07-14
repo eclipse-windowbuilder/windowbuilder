@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -90,7 +90,7 @@ AbsoluteBasedLayoutEditPolicy<ComponentInfo> {
 		IAbstractComponentInfo composite = m_layout.getContainer();
 		Rectangle compositeBounds = composite.getModelBounds().getCopy();
 		Insets clientAreaInsets = composite.getClientAreaInsets();
-		return compositeBounds.crop(clientAreaInsets).getSize();
+		return compositeBounds.shrink(clientAreaInsets).getSize();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
