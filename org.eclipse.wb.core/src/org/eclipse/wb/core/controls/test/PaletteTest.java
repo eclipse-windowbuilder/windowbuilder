@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -156,6 +156,7 @@ public class PaletteTest implements ColorConstants {
 
 		/** {@inheritDoc} */
 		@Override
+		@Deprecated
 		public void addPopupActions(IMenuManager menuManager, Object target, int iconType) {
 		}
 
@@ -165,14 +166,17 @@ public class PaletteTest implements ColorConstants {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
+		@Deprecated
 		public void selectDefault() {
 		}
 
 		@Override
+		@Deprecated
 		public void moveCategory(ICategory category, ICategory nextCategory) {
 		}
 
 		@Override
+		@Deprecated
 		public void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry) {
 		}
 	}
@@ -201,11 +205,13 @@ public class PaletteTest implements ColorConstants {
 		////////////////////////////////////////////////////////////////////////////
 
 		@Override
+		@Deprecated
 		public boolean isOpen() {
 			return m_open;
 		}
 
 		@Override
+		@Deprecated
 		public void setOpen(boolean b) {
 			m_open = b;
 		}
@@ -244,6 +250,7 @@ public class PaletteTest implements ColorConstants {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
+		@Deprecated
 		public boolean activate(boolean reload) {
 			return true;
 		}
