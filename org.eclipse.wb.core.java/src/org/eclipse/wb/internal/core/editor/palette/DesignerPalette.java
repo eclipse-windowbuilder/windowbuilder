@@ -354,6 +354,7 @@ public class DesignerPalette {
 						//
 						////////////////////////////////////////////////////////////////////////////
 						@Override
+						@Deprecated
 						public boolean activate(boolean reload) {
 							return entryInfo.createTool(reload) != null;
 						}
@@ -422,11 +423,13 @@ public class DesignerPalette {
 				}
 
 				@Override
+				@Deprecated
 				public boolean isOpen() {
 					return m_open;
 				}
 
 				@Override
+				@Deprecated
 				public void setOpen(boolean open) {
 					m_open = open;
 					m_openCategories.put(categoryId, open);
@@ -452,6 +455,7 @@ public class DesignerPalette {
 		// set IPalette
 		m_paletteRoot = new DesignerRoot() {
 			@Override
+			@Deprecated
 			public void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
 				new DesignerPalettePopupActions(getOperations()).addPopupActions(
 						menuManager,
@@ -460,11 +464,13 @@ public class DesignerPalette {
 			}
 
 			@Override
+			@Deprecated
 			public void selectDefault() {
 				m_editPartViewer.getEditDomain().loadDefaultTool();
 			}
 
 			@Override
+			@Deprecated
 			public void moveCategory(ICategory _category, ICategory _nextCategory) {
 				CategoryInfo category = m_visualToCategoryInfo.get(_category);
 				CategoryInfo nextCategory = m_visualToCategoryInfo.get(_nextCategory);
@@ -472,6 +478,7 @@ public class DesignerPalette {
 			}
 
 			@Override
+			@Deprecated
 			public void moveEntry(IEntry _entry, ICategory _targetCategory, IEntry _nextEntry) {
 				EntryInfo entry = m_visualToEntryInfo.get(_entry);
 				CategoryInfo category = m_visualToCategoryInfo.get(_targetCategory);

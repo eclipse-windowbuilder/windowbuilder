@@ -330,6 +330,7 @@ public final class DesignerTypeBinding implements ITypeBinding {
 	}
 
 	@Override
+	@Deprecated
 	public int getDeclaredModifiers() {
 		return m_declaredModifiers;
 	}

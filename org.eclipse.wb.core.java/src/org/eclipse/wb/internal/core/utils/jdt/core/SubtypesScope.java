@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -93,21 +93,25 @@ public final class SubtypesScope implements IJavaSearchScope {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
 	public boolean includesBinaries() {
 		return m_hierarchyScope.includesBinaries();
 	}
 
 	@Override
+	@Deprecated
 	public boolean includesClasspaths() {
 		return m_hierarchyScope.includesClasspaths();
 	}
 
 	@Override
+	@Deprecated
 	public void setIncludesBinaries(boolean includesBinaries) {
 		m_hierarchyScope.setIncludesBinaries(includesBinaries);
 	}
 
 	@Override
+	@Deprecated
 	public void setIncludesClasspaths(boolean includesClasspaths) {
 		m_hierarchyScope.setIncludesClasspaths(includesClasspaths);
 	}
