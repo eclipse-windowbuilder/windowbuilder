@@ -108,7 +108,11 @@ public class Figure extends org.eclipse.draw2d.Figure {
 			if (childFigure.isVisible() && childFigure.intersects(graphics.getClip(new Rectangle()))) {
 				Rectangle childBounds = childFigure.getBounds();
 				graphics.clipRect(childBounds);
-				graphics.translate(childBounds.x, childBounds.y);
+				if (childFigure instanceof Figure f && f.useLocalCoordinates()) {
+					graphics.translate(childBounds.x, childBounds.y);
+				} else {
+					System.out.println(childFigure);
+				}
 				childFigure.paint(graphics);
 				graphics.restoreState();
 			}

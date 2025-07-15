@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit;
 
 import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapRowInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
@@ -65,7 +65,8 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 	protected IFigure createFigure() {
 		IFigure newFigure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
+				super.paintFigure(graphics);
 				Rectangle r = getClientArea();
 				// draw rectangle
 				graphics.setForegroundColor(ColorConstants.buttonDarker);
