@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.edit;
 
 import org.eclipse.wb.core.editor.constants.CoreImages;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.ui.ColumnEditDialog;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
@@ -70,7 +70,8 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
 	protected IFigure createFigure() {
 		IFigure newFigure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
+				super.paintFigure(graphics);
 				Rectangle r = getClientArea();
 				// draw rectangle
 				graphics.setForegroundColor(ColorConstants.buttonDarker);

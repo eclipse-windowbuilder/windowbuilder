@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit;
 
 import org.eclipse.wb.core.editor.constants.CoreImages;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo.Alignment;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ui.ColumnEditDialog;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
@@ -68,12 +68,13 @@ public final class ColumnHeaderEditPart extends DimensionHeaderEditPart<ColumnIn
 	protected IFigure createFigure() {
 		IFigure figure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
 				Rectangle r = getClientArea();
 				// ignore paint when Layout already replaced, but event loop happens
 				if (!m_layout.isActive()) {
 					return;
 				}
+				super.paintFigure(graphics);
 				// draw rectangle
 				graphics.setForegroundColor(ColorConstants.buttonDarker);
 				graphics.drawLine(r.x, r.y, r.x, r.bottom());

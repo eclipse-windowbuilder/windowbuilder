@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.edit;
 
 import org.eclipse.wb.core.editor.constants.CoreImages;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.ui.ColumnEditDialog;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
@@ -75,7 +75,8 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 	protected IFigure createFigure() {
 		IFigure newFigure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
+				super.paintFigure(graphics);
 				Rectangle r = getClientArea();
 				// draw rectangle
 				graphics.setForegroundColor(ColorConstants.buttonDarker);
@@ -100,10 +101,10 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
 				}
 				// draw alignment indicator
 				if (titleLeft - r.x > 3 + 7 + 3) {
-					Image image = m_column.getAlignment(true).getSmallImageDescriptor().createImage();
+					ImageDescriptor imageDescriptor = m_column.getAlignment(true).getSmallImageDescriptor();
+					Image image = getViewer().getResourceManager().create(imageDescriptor);
 					int x = r.x + 2;
 					drawCentered(graphics, image, x);
-					image.dispose();
 				}
 				// draw grow indicator
 				if (m_column.hasGrow()) {
