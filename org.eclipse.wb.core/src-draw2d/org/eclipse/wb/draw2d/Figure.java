@@ -110,8 +110,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 				graphics.clipRect(childBounds);
 				if (childFigure instanceof Figure f && f.useLocalCoordinates()) {
 					graphics.translate(childBounds.x, childBounds.y);
-				} else {
-					System.out.println(childFigure);
 				}
 				childFigure.paint(graphics);
 				graphics.restoreState();

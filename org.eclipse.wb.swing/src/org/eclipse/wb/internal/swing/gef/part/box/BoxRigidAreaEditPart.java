@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.part.box;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.StrutDirectRigidEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.StrutSelectionRigidEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -62,7 +62,8 @@ public final class BoxRigidAreaEditPart extends BoxEditPart {
 	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
+				super.paintFigure(graphics);
 				Rectangle r = getClientArea();
 				BoxStrutHorizontalEditPart.draw(graphics, r);
 				BoxStrutVerticalEditPart.draw(graphics, r);

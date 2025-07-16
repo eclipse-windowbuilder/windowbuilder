@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.part.box;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.GlueSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -60,12 +60,13 @@ public final class BoxGlueEditPart extends BoxEditPart {
 	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
+				super.paintFigure(graphics);
 				Rectangle r = getClientArea();
-				int x = (r.width - SPRING_SIZE) / 2;
-				int y = (r.height - SPRING_SIZE) / 2;
-				BoxGlueHorizontalEditPart.draw(graphics, new Rectangle(0, y, r.width, SPRING_SIZE));
-				BoxGlueVerticalEditPart.draw(graphics, new Rectangle(x, 0, SPRING_SIZE, r.height));
+				int x = r.x + (r.width - SPRING_SIZE) / 2;
+				int y = r.y + (r.height - SPRING_SIZE) / 2;
+				BoxGlueHorizontalEditPart.draw(graphics, new Rectangle(r.x, y, r.width, SPRING_SIZE));
+				BoxGlueVerticalEditPart.draw(graphics, new Rectangle(x, r.y, SPRING_SIZE, r.height));
 			}
 		};
 	}
