@@ -61,7 +61,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
@@ -288,7 +287,7 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest
 		IStructuredSelection selection =
 				(IStructuredSelection) m_componentsTree.getSelectionProvider().getSelection();
 		Object[] actualModels = selection.toArray();
-		assertTrue(ArrayUtils.isEquals(models, actualModels));
+		assertArrayEquals(models, actualModels);
 	}
 
 	/**

@@ -60,7 +60,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -3676,14 +3675,14 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
 		Statement[] statements = new Statement[]{statement_1, statement_3, statement_2};
 		// forward comparator
 		Arrays.sort(statements, AstNodeUtils.SORT_BY_POSITION);
-		assertTrue(ArrayUtils.isEquals(
+		assertArrayEquals(
 				new Statement[]{statement_1, statement_2, statement_3},
-				statements));
+				statements);
 		// reverse comparator
 		Arrays.sort(statements, AstNodeUtils.SORT_BY_REVERSE_POSITION);
-		assertTrue(ArrayUtils.isEquals(
+		assertArrayEquals(
 				new Statement[]{statement_3, statement_2, statement_1},
-				statements));
+				statements);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

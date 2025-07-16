@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,7 +28,6 @@ import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -379,7 +378,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		parent.addChild(child_1);
 		parent.addChild(child_2);
 		// test children and parent
-		assertTrue(ArrayUtils.isEquals(new Object[]{child_1, child_2}, parent.getChildren().toArray()));
+		assertArrayEquals(new Object[] { child_1, child_2 }, parent.getChildren().toArray());
 		assertSame(parent, child_1.getParent());
 		assertSame(parent, child_2.getParent());
 		// check getChildren(Class)
@@ -411,9 +410,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		parent.addChild(child_1);
 		parent.addChild(child_2);
 		parent.addChild(child_3, child_2);
-		assertTrue(ArrayUtils.isEquals(
-				new Object[]{child_1, child_3, child_2},
-				parent.getChildren().toArray()));
+		assertArrayEquals(new Object[] { child_1, child_3, child_2 }, parent.getChildren().toArray());
 		assertSame(parent, child_1.getParent());
 		assertSame(parent, child_2.getParent());
 		assertSame(parent, child_3.getParent());
@@ -471,9 +468,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		{
 			buffer.setLength(0);
 			parent.moveChild(child_3, child_1);
-			assertTrue(ArrayUtils.isEquals(
-					new Object[]{child_3, child_1, child_2},
-					parent.getChildren().toArray()));
+			assertArrayEquals(new Object[] { child_3, child_1, child_2 }, parent.getChildren().toArray());
 			assertEquals(
 					getSourceDQ(
 							"childMoveBefore parent child_3 child_1",
@@ -484,9 +479,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		{
 			buffer.setLength(0);
 			parent.moveChild(child_1, null);
-			assertTrue(ArrayUtils.isEquals(
-					new Object[]{child_3, child_2, child_1},
-					parent.getChildren().toArray()));
+			assertArrayEquals(new Object[] { child_3, child_2, child_1 }, parent.getChildren().toArray());
 			assertEquals(
 					getSourceDQ("childMoveBefore parent child_1 null", "childMoveAfter parent child_1 null"),
 					buffer.toString());
@@ -507,7 +500,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		parent.addChild(child_2);
 		// do move
 		parent.moveChild(child_2, child_2);
-		assertTrue(ArrayUtils.isEquals(new Object[]{child_1, child_2}, parent.getChildren().toArray()));
+		assertArrayEquals(new Object[] { child_1, child_2 }, parent.getChildren().toArray());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

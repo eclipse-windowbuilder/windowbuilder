@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -189,7 +189,7 @@ public final class FactoryActionsSupport {
 		String[] typeNames = getPreviousTypeNames(component);
 		// move element into head
 		typeNames = ArrayUtils.removeElement(typeNames, typeName);
-		typeNames = ArrayUtils.add(typeNames, 0, typeName);
+		typeNames = ArrayUtils.insert(0, typeNames, typeName);
 		// limit history size
 		if (typeNames.length > MAX_PREVIOUS_FACTORIES) {
 			typeNames = ArrayUtils.remove(typeNames, typeNames.length - 1);

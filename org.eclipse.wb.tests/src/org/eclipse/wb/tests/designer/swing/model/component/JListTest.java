@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.models.list.ListModelPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JList;
@@ -68,7 +67,7 @@ public class JListTest extends SwingModelTest {
 		{
 			Property modelProperty = listInfo.getPropertyByTitle("model");
 			String[] actualItems = ListModelPropertyEditor.getItems(modelProperty);
-			assertTrue(ArrayUtils.isEquals(new String[]{"111", "222", "333"}, actualItems));
+			assertArrayEquals(new String[] { "111", "222", "333" }, actualItems);
 		}
 	}
 

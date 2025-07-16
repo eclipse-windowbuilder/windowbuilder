@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -76,6 +75,6 @@ public class AbstractButtonTest extends SwingModelTest {
 		// check fields
 		Field namesField = editor.getClass().getDeclaredField("m_names");
 		namesField.setAccessible(true);
-		ArrayUtils.isEquals(expectedNames, namesField.get(editor));
+		assertArrayEquals(expectedNames, (String[]) namesField.get(editor));
 	}
 }

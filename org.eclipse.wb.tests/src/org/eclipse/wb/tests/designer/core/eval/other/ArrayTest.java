@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,9 +14,10 @@ package org.eclipse.wb.tests.designer.core.eval.other;
 
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Objects;
 
 /**
  * @author scheglov_ke
@@ -50,12 +51,6 @@ public class ArrayTest extends AbstractEngineTest {
 	// Array
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Test
-	public void test_array_compare() throws Exception {
-		int[] a_1 = new int[]{1, 2, 3};
-		int[] a_2 = new int[]{1, 2, 3};
-		assertTrue(ArrayUtils.isEquals(a_1, a_2));
-	}
 
 	@Test
 	public void test_array_int_1() throws Exception {
@@ -160,6 +155,6 @@ public class ArrayTest extends AbstractEngineTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void check_array(Object expected, String expression, String returnType) throws Exception {
-		assertTrue(ArrayUtils.isEquals(expected, evaluateExpression(expression, returnType)));
+		assertTrue(Objects.deepEquals(expected, evaluateExpression(expression, returnType)));
 	}
 }

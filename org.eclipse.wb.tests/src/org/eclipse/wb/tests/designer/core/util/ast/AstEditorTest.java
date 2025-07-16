@@ -83,7 +83,6 @@ import org.eclipse.ui.ide.IDE;
 
 import static org.mockito.Mockito.mock;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
@@ -2235,7 +2234,7 @@ public class AstEditorTest extends AbstractJavaTest {
 					}
 				}""");
 		MethodDeclaration method = typeDeclaration.getMethods()[0];
-		assertTrue(ArrayUtils.isEquals(new String[]{"s", "d"}, m_lastEditor.getParameterNames(method)));
+		assertArrayEquals(new String[] { "s", "d" }, m_lastEditor.getParameterNames(method));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -17,8 +17,6 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.util.Objects;
 
 /**
@@ -80,7 +78,7 @@ public final class GenericPropertyComposite extends GenericProperty {
 		}
 		//
 		if (obj instanceof GenericPropertyComposite property) {
-			return ArrayUtils.isEquals(m_properties, property.m_properties);
+			return Objects.deepEquals(m_properties, property.m_properties);
 		}
 		//
 		return false;
