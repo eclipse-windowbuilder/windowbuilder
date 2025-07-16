@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.part.box;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.StrutDirectHorizontalEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.StrutSelectionHorizontalEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -64,7 +64,8 @@ public final class BoxStrutHorizontalEditPart extends BoxEditPart {
 	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
+				super.paintFigure(graphics);
 				Rectangle r = getClientArea();
 				draw(graphics, r);
 			}
