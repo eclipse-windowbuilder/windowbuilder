@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,14 +13,14 @@
 package org.eclipse.wb.core.gef.figure;
 
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.border.Border;
-import org.eclipse.wb.draw2d.border.CompoundBorder;
-import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.internal.draw2d.VerticalLabel;
 
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.CompoundBorder;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
