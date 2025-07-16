@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,7 +39,6 @@ import org.eclipse.jface.action.MenuManager;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -600,8 +599,8 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 						"  }",
 						"}");
 		FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-		assertTrue(ArrayUtils.isEquals(new int[]{2, 0, 1}, layout.getColumnComponentsCounts()));
-		assertTrue(ArrayUtils.isEquals(new int[]{1, 2}, layout.getRowComponentsCounts()));
+		assertArrayEquals(new int[] { 2, 0, 1 }, layout.getColumnComponentsCounts());
+		assertArrayEquals(new int[] { 1, 2 }, layout.getRowComponentsCounts());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

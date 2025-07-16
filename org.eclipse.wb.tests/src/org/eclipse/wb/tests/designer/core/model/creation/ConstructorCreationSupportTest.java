@@ -45,7 +45,6 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
@@ -391,11 +390,11 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 		assertEquals("scrollbars", subProperties[3].getTitle());
 		// check that last property has static field editor
 		StaticFieldPropertyEditor editor = (StaticFieldPropertyEditor) subProperties[3].getEditor();
-		assertTrue(ArrayUtils.isEquals(new String[]{
+		assertArrayEquals(new String[]{
 				"SCROLLBARS_BOTH",
 				"SCROLLBARS_VERTICAL_ONLY",
 				"SCROLLBARS_HORIZONTAL_ONLY",
-		"SCROLLBARS_NONE"}, getFieldValue(editor, "m_titles")));
+				"SCROLLBARS_NONE" }, (String[]) getFieldValue(editor, "m_titles"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

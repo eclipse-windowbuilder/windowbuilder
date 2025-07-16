@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.configurable.StringsAddProper
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -67,7 +66,7 @@ public class StringsAddPropertyTest extends SwingModelTest {
 		{
 			assertEquals("[aaa,bbb]", getPropertyText(itemsProperty));
 			assertTrue(itemsProperty.isModified());
-			assertTrue(ArrayUtils.isEquals(new String[]{"aaa", "bbb"}, itemsProperty.getValue()));
+			assertArrayEquals(new String[] { "aaa", "bbb" }, (String[]) itemsProperty.getValue());
 		}
 		// set new items
 		{
@@ -82,7 +81,7 @@ public class StringsAddPropertyTest extends SwingModelTest {
 					"}");
 			assertEquals("[000,111,222]", getPropertyText(itemsProperty));
 			assertTrue(itemsProperty.isModified());
-			assertTrue(ArrayUtils.isEquals(new String[]{"000", "111", "222"}, itemsProperty.getValue()));
+			assertArrayEquals(new String[] { "000", "111", "222" }, (String[]) itemsProperty.getValue());
 		}
 	}
 
@@ -124,7 +123,7 @@ public class StringsAddPropertyTest extends SwingModelTest {
 		{
 			assertEquals("[aaa,bbb]", getPropertyText(itemsProperty));
 			assertTrue(itemsProperty.isModified());
-			assertTrue(ArrayUtils.isEquals(new String[]{"aaa", "bbb"}, itemsProperty.getValue()));
+			assertArrayEquals(new String[] { "aaa", "bbb" }, (String[]) itemsProperty.getValue());
 		}
 		// set new items
 		{
@@ -139,7 +138,7 @@ public class StringsAddPropertyTest extends SwingModelTest {
 					"}");
 			assertEquals("[000,111,222]", getPropertyText(itemsProperty));
 			assertTrue(itemsProperty.isModified());
-			assertTrue(ArrayUtils.isEquals(new String[]{"000", "111", "222"}, itemsProperty.getValue()));
+			assertArrayEquals(new String[] { "000", "111", "222" }, (String[]) itemsProperty.getValue());
 		}
 	}
 

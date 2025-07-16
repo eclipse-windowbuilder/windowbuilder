@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -234,7 +233,7 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 		assertEquals(e_classSourceName, getFieldValue(editor, "m_classSourceName"));
 		Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_names")).containsOnly(e_names);
 		Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_titles")).containsOnly(e_titles);
-		assertTrue(ArrayUtils.isEquals(e_values, getFieldValue(editor, "m_values")));
+		assertArrayEquals(e_values, (Object[]) getFieldValue(editor, "m_values"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

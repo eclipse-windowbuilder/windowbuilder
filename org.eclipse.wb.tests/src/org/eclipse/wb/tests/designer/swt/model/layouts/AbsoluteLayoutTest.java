@@ -487,14 +487,14 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		String[] initialLines = ArrayUtils.clone(initialCode);
 		for (int i = 0; i < initial.length; i++) {
 			if (!StringUtils.isEmpty(initial[i])) {
-				initialLines = ArrayUtils.add(initialLines, 4 + i, initial[i]);
+				initialLines = ArrayUtils.insert(4 + i, initialLines, initial[i]);
 			}
 		}
 		// prepare expected code
 		String[] expectedLines = ArrayUtils.clone(initialCode);
 		for (int i = 0; i < expected.length; i++) {
 			if (!StringUtils.isEmpty(expected[i])) {
-				expectedLines = ArrayUtils.add(expectedLines, 4 + i, expected[i]);
+				expectedLines = ArrayUtils.insert(4 + i, expectedLines, expected[i]);
 			}
 		}
 		// prepare model

@@ -112,23 +112,18 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_join_1() {
-		assertTrue(ArrayUtils.isEquals(new String[]{"aaa"}, CodeUtils.join(null, "aaa")));
-		assertTrue(ArrayUtils.isEquals(
-				new String[]{"aaa", "bbb", "ccc"},
-				CodeUtils.join(new String[]{"aaa", "bbb"}, "ccc")));
+		assertArrayEquals(new String[] { "aaa" }, CodeUtils.join(null, "aaa"));
+		assertArrayEquals(new String[] { "aaa", "bbb", "ccc" }, CodeUtils.join(new String[] { "aaa", "bbb" }, "ccc"));
 	}
 
 	@Test
 	public void test_join_2() {
-		assertTrue(ArrayUtils.isEquals(
-				new String[]{"aaa", "bbb"},
-				CodeUtils.join(null, new String[]{"aaa", "bbb"})));
-		assertTrue(ArrayUtils.isEquals(
-				new String[]{"aaa", "bbb"},
-				CodeUtils.join(new String[]{"aaa", "bbb"}, (String[]) null)));
-		assertTrue(ArrayUtils.isEquals(
-				new String[]{"aaa", "bbb", "ccc"},
-				CodeUtils.join(new String[]{"aaa", "bbb"}, new String[]{"ccc"})));
+		assertArrayEquals(new String[] { "aaa", "bbb" },
+				CodeUtils.join(null, new String[] { "aaa", "bbb" }));
+		assertArrayEquals(new String[] { "aaa", "bbb" },
+				CodeUtils.join(new String[] { "aaa", "bbb" }, (String[]) null));
+		assertArrayEquals(new String[] { "aaa", "bbb", "ccc" },
+				CodeUtils.join(new String[] { "aaa", "bbb" }, new String[] { "ccc" }));
 	}
 
 	@Test
