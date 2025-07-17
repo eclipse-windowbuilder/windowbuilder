@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
-import org.eclipse.wb.internal.draw2d.Label;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
