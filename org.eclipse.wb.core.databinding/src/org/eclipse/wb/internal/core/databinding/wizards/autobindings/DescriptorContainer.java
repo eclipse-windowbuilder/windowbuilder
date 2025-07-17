@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -117,7 +117,7 @@ public final class DescriptorContainer {
 						m_descriptorClass = classLoader.loadClass(attributes.getValue("class"));
 					} else if ("descriptor".equals(name)) {
 						// create descriptor
-						m_descriptor = (AbstractDescriptor) m_descriptorClass.newInstance();
+						m_descriptor = (AbstractDescriptor) m_descriptorClass.getDeclaredConstructor().newInstance();
 					} else if (m_descriptor != null) {
 						// fill attributes
 						if (attributes.getLength() == 0) {

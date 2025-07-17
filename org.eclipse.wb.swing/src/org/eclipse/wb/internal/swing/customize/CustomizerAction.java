@@ -84,7 +84,7 @@ class CustomizerAction extends Action {
 	}
 
 	private void performCustomize0() throws Exception {
-		Customizer customizer = m_customizerClass.newInstance();
+		Customizer customizer = m_customizerClass.getDeclaredConstructor().newInstance();
 		// prepare properties information
 		final JavaInfoState javaInfoState = JavaInfoState.getState(m_javaInfo);
 		boolean explicit = isExplicitPropertyChange(m_javaInfo);

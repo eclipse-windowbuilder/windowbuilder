@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -94,8 +94,8 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
 		Class<?> menuManagerClass = editorLoader.loadClass("org.eclipse.jface.action.MenuManager");
 		Class<?> actionBarsClass = editorLoader.loadClass("org.eclipse.ui.IActionBars");
 		// create managers
-		m_toolBarManager = toolBarManagerClass.newInstance();
-		m_menuManager = menuManagerClass.newInstance();
+		m_toolBarManager = toolBarManagerClass.getDeclaredConstructor().newInstance();
+		m_menuManager = menuManagerClass.getDeclaredConstructor().newInstance();
 		// create IActionBars
 		m_actionBars =
 				Proxy.newProxyInstance(

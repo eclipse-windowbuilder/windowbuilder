@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,7 +51,7 @@ public class UserDefinedLafInfo extends AbstractCustomLafInfo {
 			ClassLoader classLoader = getClassLoader();
 			m_lafClass = classLoader.loadClass(getClassName());
 		}
-		return (LookAndFeel) m_lafClass.newInstance();
+		return (LookAndFeel) m_lafClass.getDeclaredConstructor().newInstance();
 	}
 
 	private ClassLoader getClassLoader() throws Exception {

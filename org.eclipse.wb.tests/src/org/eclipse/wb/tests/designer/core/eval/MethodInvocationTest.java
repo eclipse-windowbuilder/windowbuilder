@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -974,7 +974,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 				Constructor<?> actualConstructor,
 				Object[] arguments) throws Exception {
 			if (AstNodeUtils.isSuccessorOf(typeBinding, "test.MyObject")) {
-				return clazz.newInstance();
+				return clazz.getDeclaredConstructor().newInstance();
 			}
 			return AstEvaluationEngine.UNKNOWN;
 		}
@@ -1221,7 +1221,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 		{
 			ClassLoader projectClassLoader =
 					CodeUtils.getProjectClassLoader(m_lastEditor.getModelUnit().getJavaProject());
-			final Object baseInstance = projectClassLoader.loadClass("test.Base").newInstance();
+			final Object baseInstance = projectClassLoader.loadClass("test.Base").getDeclaredConstructor().newInstance();
 			ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(methodDeclaration);
 			context = new EvaluationContext(projectClassLoader, flowDescription) {
 				@Override
