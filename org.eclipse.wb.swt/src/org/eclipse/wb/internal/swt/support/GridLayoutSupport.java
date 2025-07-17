@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -104,6 +104,6 @@ public class GridLayoutSupport extends AbstractSupport {
 	 * Create new {@link org.eclipse.swt.layout.GridData}.
 	 */
 	public static Object createGridData() throws Exception {
-		return loadClass("org.eclipse.swt.layout.GridData").newInstance();
+		return loadClass("org.eclipse.swt.layout.GridData").getDeclaredConstructor().newInstance();
 	}
 }

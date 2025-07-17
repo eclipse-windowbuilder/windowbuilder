@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -75,7 +75,7 @@ public class PluginLafInfo extends AbstractCustomLafInfo {
 		if (m_instanceReference == null || m_instanceReference.get() == null) {
 			m_initializer.initialize();
 			Class<?> lafClass = m_extensionBundle.loadClass(getClassName());
-			m_instanceReference = new SoftReference<>((LookAndFeel) lafClass.newInstance());
+			m_instanceReference = new SoftReference<>((LookAndFeel) lafClass.getDeclaredConstructor().newInstance());
 		}
 		return m_instanceReference.get();
 	}

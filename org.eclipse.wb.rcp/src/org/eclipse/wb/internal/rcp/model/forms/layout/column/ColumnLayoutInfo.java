@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -88,7 +88,7 @@ IColumnLayoutInfo<ControlInfo> {
 	@Override
 	protected Object getDefaultVirtualDataObject() throws Exception {
 		ClassLoader editorLoader = GlobalState.getClassLoader();
-		return editorLoader.loadClass("org.eclipse.ui.forms.widgets.ColumnLayoutData").newInstance();
+		return editorLoader.loadClass("org.eclipse.ui.forms.widgets.ColumnLayoutData").getDeclaredConstructor().newInstance();
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -279,7 +279,7 @@ IJavaInfoRendering {
 		Class<?> coolBarManagerClass =
 				editorLoader.loadClass("org.eclipse.jface.action.CoolBarManager");
 		// create managers
-		m_menuManager = menuManagerClass.newInstance();
+		m_menuManager = menuManagerClass.getDeclaredConstructor().newInstance();
 		m_coolBarManager = coolBarManagerClass.getConstructor(CoolBar.class).newInstance(m_coolBar);
 		// OK, we prepared everything, now add actions/items/managers
 		{

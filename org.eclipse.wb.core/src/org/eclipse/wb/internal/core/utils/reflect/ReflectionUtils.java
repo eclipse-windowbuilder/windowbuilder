@@ -1415,29 +1415,26 @@ public class ReflectionUtils {
 	 * Helper class used in {@link #propagate(Throwable)}.
 	 */
 	private static class ExceptionThrower {
-		private static Throwable throwable;
-
-		private ExceptionThrower() throws Throwable {
-			if (System.getProperty("wbp.ReflectionUtils.propagate().InstantiationException") != null) {
-				throw new InstantiationException();
-			}
-			if (System.getProperty("wbp.ReflectionUtils.propagate().IllegalAccessException") != null) {
-				throw new IllegalAccessException();
-			}
-			throw throwable;
-		}
-
-		public static synchronized void spit(Throwable t) {
+		// Based on https://www.mail-archive.com/javaposse@googlegroups.com/msg05984.html
+		private static synchronized void spit(Throwable t) {
 			if (System.getProperty("wbp.ReflectionUtils.propagate().dontThrow") == null) {
-				ExceptionThrower.throwable = t;
 				try {
-					ExceptionThrower.class.newInstance();
-				} catch (InstantiationException e) {
-				} catch (IllegalAccessException e) {
-				} finally {
-					ExceptionThrower.throwable = null;
+					if (System.getProperty("wbp.ReflectionUtils.propagate().InstantiationException") != null) {
+						ExceptionThrower.<RuntimeException>spit0(new InstantiationException());
+					}
+					if (System.getProperty("wbp.ReflectionUtils.propagate().IllegalAccessException") != null) {
+						ExceptionThrower.<RuntimeException>spit0(new IllegalAccessException());
+					}
+					ExceptionThrower.<RuntimeException>spit0(t);
+				} catch (InstantiationException | IllegalAccessException e) {
+					// ignore
 				}
 			}
+		}
+
+		@SuppressWarnings("unchecked")
+		private static <T extends Throwable> void spit0(Throwable t) throws T, InstantiationException, IllegalAccessException {
+			throw (T) t;
 		}
 	}
 

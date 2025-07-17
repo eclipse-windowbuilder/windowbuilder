@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -119,7 +119,7 @@ public abstract class AbstractTextPropertyEditorTest extends SwingModelTest {
 	protected <T extends TextDisplayPropertyEditor> T createEditor(Class<T> clazz,
 			Map<String, Object> parameters) throws Exception {
 		initTestSourceState();
-		T editor = clazz.newInstance();
+		T editor = clazz.getDeclaredConstructor().newInstance();
 		IConfigurablePropertyObject configurableEditor = (IConfigurablePropertyObject) editor;
 		configurableEditor.configure(m_lastState, parameters);
 		return editor;
