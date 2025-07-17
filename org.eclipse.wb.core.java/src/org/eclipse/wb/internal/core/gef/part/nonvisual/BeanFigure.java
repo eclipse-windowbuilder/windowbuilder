@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.gef.part.nonvisual;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.internal.draw2d.Label;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;

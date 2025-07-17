@@ -16,13 +16,13 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.XYLayout;

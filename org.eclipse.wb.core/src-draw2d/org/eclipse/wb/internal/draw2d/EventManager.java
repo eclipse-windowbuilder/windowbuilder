@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.draw2d.EventDispatcher;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
