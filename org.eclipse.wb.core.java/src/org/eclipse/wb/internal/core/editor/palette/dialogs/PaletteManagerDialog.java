@@ -371,7 +371,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 			public Image getImage(Object element) {
 				if (element instanceof EntryInfo) {
 					return Optional.ofNullable(((EntryInfo) element).getIcon()) //
-							.map(m_resourceManager::createImage) //
+							.map(m_resourceManager::create) //
 							.orElse(null);
 				}
 				return IMAGE_CATEGORY;

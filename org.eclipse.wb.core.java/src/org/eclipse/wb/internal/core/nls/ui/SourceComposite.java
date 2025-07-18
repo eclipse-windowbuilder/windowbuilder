@@ -590,7 +590,7 @@ public final class SourceComposite extends Composite {
 					final JavaInfo component = components.iterator().next();
 					final ImageDescriptor imageDescriptor = ExecutionUtils
 							.runObjectLog(() -> component.getPresentation().getIcon(), null);
-					return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
+					return imageDescriptor == null ? null : m_resourceManager.create(imageDescriptor);
 				}
 			}
 			return null;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -58,6 +58,6 @@ public class ObserveLabelProvider extends LabelProvider {
 
 	@Override
 	public Image getImage(final Object element) {
-		return ExecutionUtils.runObjectLog(() -> m_resourceManager.createImage(getPresentation(element).getImageDescriptor()), null);
+		return ExecutionUtils.runObjectLog(() -> m_resourceManager.create(getPresentation(element).getImageDescriptor()), null);
 	}
 }
