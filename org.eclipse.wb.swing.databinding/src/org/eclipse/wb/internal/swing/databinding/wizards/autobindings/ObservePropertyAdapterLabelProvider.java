@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,7 +47,7 @@ public final class ObservePropertyAdapterLabelProvider extends LabelProvider {
 	public Image getImage(Object element) {
 		try {
 			ObservePropertyAdapter adapter = (ObservePropertyAdapter) element;
-			return m_resourceManager.createImage(adapter.getObserve().getPresentation().getImageDescriptor());
+			return m_resourceManager.create(adapter.getObserve().getPresentation().getImageDescriptor());
 		} catch (Throwable e) {
 			return null;
 		}

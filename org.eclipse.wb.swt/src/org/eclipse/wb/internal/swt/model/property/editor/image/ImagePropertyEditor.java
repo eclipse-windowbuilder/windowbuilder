@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,7 +60,7 @@ public final class ImagePropertyEditor extends AbstractImagePropertyEditor {
 	 * @param javaInfo Java info the resource manager belongs to.
 	 * @param location the class whose resource directory contain the file
 	 * @param filename the file name
-	 * @return {@code LocalResourceManager.createImage(ImageDescriptor.createFromFile(<clazz>, <path>))}
+	 * @return {@code LocalResourceManager.create(ImageDescriptor.createFromFile(<clazz>, <path>))}
 	 * @see ImageDescriptor#createFromFile(Class, String)
 	 */
 	public static String getInvocationSource(JavaInfo javaInfo, String location, String filename) throws Exception {

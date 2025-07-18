@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,7 @@ public final class ObjectsLabelProvider extends LabelProvider {
 	@Override
 	public Image getImage(final Object element) {
 		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor((ObjectInfo) element);
-		return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
+		return imageDescriptor == null ? null : m_resourceManager.create(imageDescriptor);
 	}
 
 	@Override

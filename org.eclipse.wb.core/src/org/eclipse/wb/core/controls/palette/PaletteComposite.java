@@ -480,7 +480,7 @@ public final class PaletteComposite extends Composite {
 		 */
 		public void onPreferencesUpdate() {
 			FontDescriptor fontDescriptor = m_preferences.getCategoryFontDescriptor();
-			setFont(fontDescriptor == null ? null : m_resourceManager.createFont(fontDescriptor));
+			setFont(fontDescriptor == null ? null : m_resourceManager.create(fontDescriptor));
 			for (Iterator<? extends IFigure> I = getChildren().iterator(); I.hasNext();) {
 				EntryFigure entryFigure = (EntryFigure) I.next();
 				entryFigure.onPreferencesUpdate();
@@ -820,7 +820,7 @@ public final class PaletteComposite extends Composite {
 		 */
 		public void onPreferencesUpdate() {
 			FontDescriptor fontDescriptor = m_preferences.getEntryFontDescriptor();
-			setFont(fontDescriptor == null ? null : m_resourceManager.createFont(fontDescriptor));
+			setFont(fontDescriptor == null ? null : m_resourceManager.create(fontDescriptor));
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -1159,7 +1159,7 @@ public final class PaletteComposite extends Composite {
 		private Image getIcon() {
 			ImageDescriptor icon = m_entry.getIcon();
 			if (icon != null) {
-				return m_resourceManager.createImage(icon);
+				return m_resourceManager.create(icon);
 			}
 			return NO_ICON;
 		}
