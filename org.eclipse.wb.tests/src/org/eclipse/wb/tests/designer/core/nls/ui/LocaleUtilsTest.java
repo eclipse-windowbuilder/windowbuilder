@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,9 +53,9 @@ public class LocaleUtilsTest extends DesignerTestCase {
 	public void test_sortByTitle() throws Exception {
 		LocaleInfo locales[] =
 				new LocaleInfo[]{
-						new LocaleInfo(new Locale("en")),
-						new LocaleInfo(new Locale("ar")),
-						new LocaleInfo(new Locale("ru")),};
+						new LocaleInfo(Locale.of("en")),
+						new LocaleInfo(Locale.of("ar")),
+						new LocaleInfo(Locale.of("ru")),};
 		// initial check
 		assertEquals("en", locales[0].getTitle());
 		assertEquals("ar", locales[1].getTitle());
