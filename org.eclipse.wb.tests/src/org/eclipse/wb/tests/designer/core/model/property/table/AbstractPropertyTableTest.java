@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDisplayPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.internal.core.model.property.table.PropertyTableTooltipHelper;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.wb.tests.gef.EventSender;
 
@@ -28,6 +30,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractPropertyTableTest extends DesignerTestCase {
+	protected static final int DEFAULT_MARGIN = 10;
 	protected Shell m_shell;
 	protected PropertyTable m_propertyTable;
 	protected EventSender m_sender;
@@ -43,9 +46,13 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 		super.setUp();
 		// create GUI
 		{
-			m_shell = new Shell();
-			m_shell.setText("PropertyTable test");
-			m_shell.setLayout(new FillLayout());
+			// support clicking outside the property table
+			FillLayout layout = new FillLayout();
+			layout.marginHeight = DEFAULT_MARGIN;
+			layout.marginWidth = DEFAULT_MARGIN;
+			//
+			m_shell = new Shell(SWT.NO_TRIM);
+			m_shell.setLayout(layout);
 			m_shell.setBounds(10000, 0, 300, 500);
 			//
 			m_propertyTable = new PropertyTable(m_shell, SWT.NONE);
@@ -61,6 +68,26 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 		super.tearDown();
+	}
+
+	/**
+	 * Returns the currently shown tool-tip or {@code null}.
+	 */
+	protected Shell getTooltip() {
+		PropertyTableTooltipHelper tooltipHelper = m_propertyTable.getTooltipHelper();
+		return (Shell) ReflectionUtils.getFieldObject(tooltipHelper, "m_tooltip");
+	}
+
+	/**
+	 * Returns the event sender of the currently shown tool-tip or {@code null}.
+	 */
+	protected EventSender getTooltipSender() {
+		Shell shell = getTooltip();
+		if (shell == null) {
+			return null;
+		}
+		// The tool-tip is expected to contain a Label as single child
+		return new EventSender(shell.getChildren()[0]);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

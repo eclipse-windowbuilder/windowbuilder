@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -78,6 +78,14 @@ public class EventSender {
 	}
 
 	/**
+	 * Emulate mouse exit to given location <code>(x, y)</code>.
+	 */
+	public void mouseExit(int x, int y) {
+		Event event = createEvent(x, y, 0);
+		m_control.notifyListeners(SWT.MouseExit, event);
+	}
+
+	/**
 	 * Emulate mouse click use given location and <code>button</code>.
 	 */
 	public void click(Point location, int button) {
@@ -90,8 +98,10 @@ public class EventSender {
 	public void click(int x, int y, int button) {
 		Event event = createEvent(x, y, button);
 		m_control.notifyListeners(SWT.MouseDown, event);
-		updateStateMask(event, button);
-		m_control.notifyListeners(SWT.MouseUp, event);
+		if (!m_control.isDisposed()) {
+			updateStateMask(event, button);
+			m_control.notifyListeners(SWT.MouseUp, event);
+		}
 	}
 
 	/**
