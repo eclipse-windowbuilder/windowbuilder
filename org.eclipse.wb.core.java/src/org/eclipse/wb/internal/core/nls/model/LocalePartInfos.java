@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -76,7 +76,7 @@ public final class LocalePartInfos {
 				Set<LocalePartInfo> languagesSet = new HashSet<>();
 				// fill
 				for (String language : Locale.getISOLanguages()) {
-					Locale locale = new Locale(language);
+					Locale locale = Locale.of(language);
 					Image flagImage = FlagImagesRepository.getFlagImage(locale);
 					languagesSet.add(new LocalePartInfo(locale.getLanguage(),
 							locale.getDisplayLanguage(),
@@ -92,7 +92,7 @@ public final class LocalePartInfos {
 				countriesSet.add(new LocalePartInfo("", "(none)", FlagImagesRepository.getEmptyFlagImage()));
 				// fill
 				for (String country : Locale.getISOCountries()) {
-					Locale locale = new Locale("", country);
+					Locale locale = Locale.of("", country);
 					Image flagImage = FlagImagesRepository.getFlagImage(locale);
 					countriesSet.add(new LocalePartInfo(locale.getCountry(),
 							locale.getDisplayCountry(),

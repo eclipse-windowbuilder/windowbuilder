@@ -225,7 +225,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 			editableSource = editableSources.get(0);
 		}
 		// add locale
-		LocaleInfo newLocale = new LocaleInfo(new Locale("it"));
+		LocaleInfo newLocale = new LocaleInfo(Locale.of("it"));
 		{
 			// check locales
 			assertEquals(1, editableSource.getLocales().length);
@@ -611,8 +611,8 @@ public class EditableSupportTest extends AbstractNlsTest {
 					assertEquals("(default)", locales[0].getTitle());
 				}
 				// add locales
-				editableSource.addLocale(new LocaleInfo(new Locale("it")), LocaleInfo.DEFAULT);
-				editableSource.addLocale(new LocaleInfo(new Locale("fr")), null);
+				editableSource.addLocale(new LocaleInfo(Locale.ITALIAN), LocaleInfo.DEFAULT);
+				editableSource.addLocale(new LocaleInfo(Locale.FRENCH), null);
 				{
 					LocaleInfo[] locales = editableSource.getLocales();
 					assertEquals(3, locales.length);

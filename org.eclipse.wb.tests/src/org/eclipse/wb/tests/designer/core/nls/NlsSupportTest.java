@@ -165,7 +165,7 @@ public class NlsSupportTest extends SwingModelTest {
 	public void test_getValue_it() throws Exception {
 		prepareUsualState();
 		// check with Italian locale (I don't use Russian because it will be used as default in my case...)
-		AbstractSource.setLocaleInfo(m_frame, new LocaleInfo(new Locale("it")));
+		AbstractSource.setLocaleInfo(m_frame, new LocaleInfo(Locale.of("it")));
 		m_frame.refresh();
 		assertEquals("My JFrame IT", ((JFrame) m_frame.getObject()).getTitle());
 	}
@@ -173,7 +173,7 @@ public class NlsSupportTest extends SwingModelTest {
 	@Test
 	public void test_getValue_it_IT() throws Exception {
 		prepareUsualState();
-		AbstractSource.setLocaleInfo(m_frame, new LocaleInfo(new Locale("it_IT")));
+		AbstractSource.setLocaleInfo(m_frame, new LocaleInfo(Locale.of("it_IT")));
 		m_frame.refresh();
 		assertEquals("My JFrame IT", ((JFrame) m_frame.getObject()).getTitle());
 	}
@@ -235,7 +235,7 @@ public class NlsSupportTest extends SwingModelTest {
 		// check that "name" is set
 		assertEquals("My JFrame", panel.getComponent().getName());
 		// set new locale
-		AbstractSource.setLocaleInfo(panel, new LocaleInfo(new Locale("it")));
+		AbstractSource.setLocaleInfo(panel, new LocaleInfo(Locale.of("it")));
 		panel.refresh();
 		assertEquals("My JFrame IT", panel.getComponent().getName());
 	}

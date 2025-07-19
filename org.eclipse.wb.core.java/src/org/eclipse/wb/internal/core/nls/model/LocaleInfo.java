@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -182,9 +182,9 @@ public final class LocaleInfo implements Comparable<LocaleInfo> {
 			if (separatorIndex != -1) {
 				String language = localeName.substring(0, separatorIndex);
 				String country = localeName.substring(separatorIndex + 1);
-				locale = new Locale(language, country);
+				locale = Locale.of(language, country);
 			} else {
-				locale = new Locale(localeName);
+				locale = Locale.of(localeName);
 			}
 			return new LocaleInfo(locale);
 		} catch (Throwable e) {

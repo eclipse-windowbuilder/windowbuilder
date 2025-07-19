@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,13 +38,13 @@ public class FlagRepositoryTest extends DesignerTestCase {
 		Locale[] sortedLocales = FlagImagesRepository.getSortedLocales();
 		assertTrue(sortedLocales.length >= 140);
 		{
-			int index_1 = ArrayUtils.indexOf(sortedLocales, new Locale("en"));
-			int index_2 = ArrayUtils.indexOf(sortedLocales, new Locale("ru"));
+			int index_1 = ArrayUtils.indexOf(sortedLocales, Locale.of("en"));
+			int index_2 = ArrayUtils.indexOf(sortedLocales, Locale.of("ru"));
 			assertTrue(index_1 < index_2);
 		}
 		{
-			int index_1 = ArrayUtils.indexOf(sortedLocales, new Locale("de"));
-			int index_2 = ArrayUtils.indexOf(sortedLocales, new Locale("it"));
+			int index_1 = ArrayUtils.indexOf(sortedLocales, Locale.of("de"));
+			int index_2 = ArrayUtils.indexOf(sortedLocales, Locale.of("it"));
 			assertTrue(index_1 < index_2);
 		}
 	}
@@ -66,39 +66,39 @@ public class FlagRepositoryTest extends DesignerTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getFlagImage_noSuchLocale() throws Exception {
-		assertNull(FlagImagesRepository.getFlagImage(new Locale("noSuchLocale")));
+		assertNull(FlagImagesRepository.getFlagImage(Locale.of("noSuchLocale")));
 	}
 
 	@Test
 	public void test_getFlagImage_ru() throws Exception {
-		Image ruImage = FlagImagesRepository.getFlagImage(new Locale("ru"));
+		Image ruImage = FlagImagesRepository.getFlagImage(Locale.of("ru"));
 		assertNotNull(ruImage);
-		assertSame(FlagImagesRepository.getFlagImage(new Locale("ru", "RU")), ruImage);
+		assertSame(FlagImagesRepository.getFlagImage(Locale.of("ru", "RU")), ruImage);
 	}
 
 	@Test
 	public void test_getFlagImage_en() throws Exception {
 		assertSame(
-				FlagImagesRepository.getFlagImage(new Locale("en", "US")),
-				FlagImagesRepository.getFlagImage(new Locale("en")));
+				FlagImagesRepository.getFlagImage(Locale.of("en", "US")),
+				FlagImagesRepository.getFlagImage(Locale.of("en")));
 	}
 
 	@Test
 	public void test_getFlagImage_zh() throws Exception {
 		assertSame(
-				FlagImagesRepository.getFlagImage(new Locale("zh", "CN")),
-				FlagImagesRepository.getFlagImage(new Locale("zh")));
+				FlagImagesRepository.getFlagImage(Locale.of("zh", "CN")),
+				FlagImagesRepository.getFlagImage(Locale.of("zh")));
 	}
 
 	@Test
 	public void test_getFlagImage_ar() throws Exception {
 		assertSame(
-				FlagImagesRepository.getFlagImage(new Locale("ar", "AE")),
-				FlagImagesRepository.getFlagImage(new Locale("ar")));
+				FlagImagesRepository.getFlagImage(Locale.of("ar", "AE")),
+				FlagImagesRepository.getFlagImage(Locale.of("ar")));
 	}
 
 	@Test
 	public void test_getFlagImage_YU() throws Exception {
-		assertNotNull(FlagImagesRepository.getFlagImage(new Locale("se", "YU")));
+		assertNotNull(FlagImagesRepository.getFlagImage(Locale.of("se", "YU")));
 	}
 }

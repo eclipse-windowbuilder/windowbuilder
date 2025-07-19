@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -61,7 +61,7 @@ public class BundleInfoTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_createBundle() throws Exception {
-		LocaleInfo localeInfo = new LocaleInfo(new Locale("it"));
+		LocaleInfo localeInfo = new LocaleInfo(Locale.ITALIAN);
 		IFile[] files =
 				new IFile[]{
 						getFileSrc("test", "messages.properties"),
@@ -81,7 +81,7 @@ public class BundleInfoTest extends SwingModelTest {
 
 	@Test
 	public void test_createBundle_no() throws Exception {
-		LocaleInfo localeInfo = new LocaleInfo(new Locale("fr"));
+		LocaleInfo localeInfo = new LocaleInfo(Locale.FRENCH);
 		IFile[] files =
 				new IFile[]{
 						getFileSrc("test", "messages.properties"),
