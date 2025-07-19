@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -291,9 +291,9 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
 						LocalePartInfos.getLanguages()[m_languageCombo.getSelectionIndex()];
 				LocalePartInfo country = LocalePartInfos.getCountries()[m_countryCombo.getSelectionIndex()];
 				if (country.getName().length() == 0) {
-					locale = new Locale(language.getName());
+					locale = Locale.of(language.getName());
 				} else {
-					locale = new Locale(language.getName(), country.getName());
+					locale = Locale.of(language.getName(), country.getName());
 				}
 			}
 			// create selected locale information
