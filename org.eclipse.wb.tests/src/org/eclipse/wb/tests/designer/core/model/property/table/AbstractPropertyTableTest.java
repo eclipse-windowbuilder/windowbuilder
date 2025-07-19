@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,12 +16,16 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDisplayPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
+import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.internal.core.model.property.table.PropertyTableTooltipHelper;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.wb.tests.gef.EventSender;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import org.junit.jupiter.api.AfterEach;
@@ -61,6 +65,14 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 	public void tearDown() throws Exception {
 		m_shell.dispose();
 		super.tearDown();
+	}
+
+	/**
+	 * Returns the currently shown tool-tip or {@code null}.
+	 */
+	protected Shell getTooltip() {
+		PropertyTableTooltipHelper tooltipHelper = m_propertyTable.getTooltipHelper();
+		return (Shell) ReflectionUtils.getFieldObject(tooltipHelper, "m_tooltip");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -152,6 +164,25 @@ public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 		@Override
 		public Property[] getProperties(Property property) throws Exception {
 			return m_properties;
+		}
+	}
+
+	public static void main(String[] args) {
+		Shell m_shell = new Shell();
+		m_shell.setText("PropertyTable test");
+		m_shell.setLayout(new FillLayout());
+		m_shell.setBounds(0, 0, 300, 500);
+		//
+		PropertyTable m_propertyTable = new PropertyTable(m_shell, SWT.NONE);
+		//
+		m_shell.setVisible(true);
+		Property property = new TestProperty("text 01234567890", true, "New button 01234567890123456789",
+				StringPropertyEditor.INSTANCE);
+		m_propertyTable.setInput(new Property[] { property });
+
+		Display display = m_shell.getDisplay();
+		while (!display.isDisposed()) {
+			display.readAndDispatch();
 		}
 	}
 }

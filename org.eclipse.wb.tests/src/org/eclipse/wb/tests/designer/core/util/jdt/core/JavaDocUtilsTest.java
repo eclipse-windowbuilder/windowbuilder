@@ -24,7 +24,6 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -61,7 +60,6 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	// getTooltip
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Disabled
 	@Test
 	public void test_getTooltip_basic() throws Exception {
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
@@ -70,7 +68,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 						foo_1();
 						foo_2();
 						bar();
-						new sun.awt.Mutex().lock();
+						new java.util.concurrent.locks.ReentrantLock().lock();
 					}
 					/**
 					 * My   tooltip.
