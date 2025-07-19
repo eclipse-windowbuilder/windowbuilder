@@ -20,14 +20,11 @@ import org.eclipse.wb.internal.core.model.property.table.IPropertyTooltipSite;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipTextProvider;
-import org.eclipse.wb.tests.gef.EventSender;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -35,7 +32,6 @@ import org.junit.jupiter.api.Test;
  *
  * @author scheglov_ke
  */
-@Disabled
 public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 	private static final PropertyEditor stringEditor = StringPropertyEditor.INSTANCE;
 
@@ -52,10 +48,10 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		Property property = new TestProperty("text", true, "New button", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 		//
 		doHoverTooltip(50, 100);
-		assertShellCount(2);
+		assertNull(getTooltip());
 	}
 
 	/**
@@ -66,10 +62,10 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		Property property = new TestProperty("text", true, "New button", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 		//
 		doHoverTitleTooltip();
-		assertShellCount(2);
+		assertNull(getTooltip());
 	}
 
 	/**
@@ -81,23 +77,25 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		// move mouse outside - hide tooltip
 		m_sender.postMouseMove(100, 15);
 		waitEventLoop(10);
-		m_sender.postMouseMove(50, 100);
+		assertNotNull(getTooltip());
+		m_sender.mouseExit(50, 100);
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 	}
 
 	/**
-	 * Test for long property title tooltip, hide using MouseExit.
+	 * Test for long property title tooltip, hide using MousePressed/MouseReleased.
 	 */
 	@Test
 	public void test_3_longPropertyTitle_hideClick() throws Exception {
 		prepare_test_3_showTooltip();
 		// click on tooltip - hide tooltip
 		m_sender.postMouseMove(55, 10);
-		EventSender.postMouseDown(1);
-		EventSender.postMouseUp(1);
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNotNull(getTooltip());
+		getTooltipSender().click();
+		waitEventLoop(10);
+		assertNull(getTooltip());
 	}
 
 	private void prepare_test_3_showTooltip() throws Exception {
@@ -105,10 +103,10 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 				new TestProperty("textTextText0123456789", true, "New button", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 		// show tooltip
 		doHoverTitleTooltip();
-		assertShellCount(3);
+		assertNotNull(getTooltip());
 	}
 
 	/**
@@ -134,8 +132,9 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		// show tooltip
 		{
 			doHoverTitleTooltip();
-			assertShellCount(3);
-			assertTrue(Display.getCurrent().getShells()[2].getSize().y > 30);
+			Shell tooltip = getTooltip();
+			assertNotNull(tooltip);
+			assertTrue(tooltip.getSize().y > 30);
 		}
 	}
 
@@ -164,7 +163,7 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		// show tooltip
 		{
 			doHoverTitleTooltip();
-			assertShellCount(2);
+			assertNull(getTooltip());
 		}
 	}
 
@@ -196,15 +195,16 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		// show tooltip
 		{
 			doHoverTitleTooltip();
-			assertShellCount(3);
-			assertTrue(Display.getCurrent().getShells()[2].getLocation().y > m_shell.getLocation().y + 27 + 10);
+			Shell tooltip = getTooltip();
+			assertNotNull(tooltip);
+			int location = tooltip.getLocation().y;
+			int expectedLocation = m_shell.getLocation().y + 10;
+			assertTrue(location > expectedLocation, () -> location + " not below " + expectedLocation);
 		}
 		// hide using exit from PropertyTable
-		m_sender.postMouseMove(55, 12);
+		m_sender.mouseExit(50, 100);
 		waitEventLoop(10);
-		EventSender.postMouseMoveAbs(m_shell.getLocation());
-		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 	}
 
 	/**
@@ -215,11 +215,11 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 		Property property = new TestProperty("text", true, "New button", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 		// show tooltip
 		doHoverValueTooltip();
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 	}
 
 	/**
@@ -231,11 +231,11 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 				new TestProperty("text", true, "New button 01234567890123456789", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
 		waitEventLoop(10);
-		assertShellCount(2);
+		assertNull(getTooltip());
 		// show tooltip
 		doHoverValueTooltip();
 		waitEventLoop(10);
-		assertShellCount(3);
+		assertNotNull(getTooltip());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -243,12 +243,6 @@ public class PropertyTableTooltipTest extends AbstractPropertyTableTest {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Asserts that there are exactly given number of {@link Shell}'s.
-	 */
-	private static void assertShellCount(int count) {
-		assertEquals(count, Display.getCurrent().getShells().length);
-	}
 
 	/**
 	 * Hovers on title.
