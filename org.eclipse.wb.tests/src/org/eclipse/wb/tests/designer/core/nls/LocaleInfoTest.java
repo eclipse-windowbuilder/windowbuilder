@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,8 +64,8 @@ public class LocaleInfoTest extends DesignerTestCase {
 	@Test
 	public void test_getParent() throws Exception {
 		LocaleInfo[] locales =
-				new LocaleInfo[]{new LocaleInfo(new Locale("fr", "FR")), new LocaleInfo(new Locale("ru"))};
-		assertSame(locales[1], new LocaleInfo(new Locale("ru", "RU")).getParent(locales));
-		assertSame(LocaleInfo.DEFAULT, new LocaleInfo(new Locale("ru")).getParent(locales));
+				new LocaleInfo[]{new LocaleInfo(Locale.of("fr", "FR")), new LocaleInfo(Locale.of("ru"))};
+		assertSame(locales[1], new LocaleInfo(Locale.of("ru", "RU")).getParent(locales));
+		assertSame(LocaleInfo.DEFAULT, new LocaleInfo(Locale.of("ru")).getParent(locales));
 	}
 }
