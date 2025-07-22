@@ -1,15 +1,57 @@
+ifdef::env-github[]
+:imagesdir: ../../html/installation/
+endif::[]
+
 = Installation
 
 Designer is composed of several components that can either be installed
 as a unit or as separate pieces. Make sure to check the
-link:system.html[system requirements] before installing the product.
+link:https://github.com/eclipse-windowbuilder/windowbuilder?tab=readme-ov-file#requirements[system requirements] before installing the product.
 
-For installation details, see the following:
+[red]#Warning: If you previously installed using the installer or a zip file,
+you need to uninstall and start with a fresh copy of Eclipse.#
 
-== Preferred installation options using update sites
+Choose from the following options:
 
-* *link:updatesite_3.8.html[Installing using an update site into E-3.8
-or E-4.2]*
-* *link:updatesite_3.7.html[Installing using an update site into E-3.7]*
-* *link:updatesite_3.6.html[Installing using an update site into E-3.6]*
-* *link:updatesite_3.5.html[Installing using an update site into E-3.5]*
+- link:#addnew[Installing software by adding a new update site location]
+- link:#update[Updating already installed software]
+
+== Available update sites
+
+- Latest release: https://download.eclipse.org/windowbuilder/updates/release/latest
+- Nightly build: https://download.eclipse.org/windowbuilder/updates/nightly/latest
+
+To install a specific release, use the following update site. Substitue the
+placeholders with the version you want to install:
+
+https://download.eclipse.org/windowbuilder/updates/release/1.x.y
+
+[#addnew]
+== Installing software by adding a new update site location
+
+- In Eclipse, click **Help > Install New Software...** +
+  image:images/install_new_36.png[Help > Software Updates Menu]
+- Get the update site location from the product download page. On the download
+  page, right-click on the Update Site URL button and copy the link location to
+  your clipboard.
+- In the **Available Software** dialog, enter the product's update site location
+  and select all the items to install (Click the Select All button). Click
+  **Next** to continue. +
+  image:images/install_new_selectall_36.png[Add Site]
+- Click Next to confirm installation.
+- Read and accept the license agreement. To continue installing, select **"I
+  accept the terms of the license agreement"** and click **Finish**.
+- When prompted to restart Eclipse, click **Yes** to restart.
+
+[#update]
+== Updating already installed software
+
+Updates can be installed using the above instructions by simply selecting the
+update site URL from the drop down list. Another way to update is to check for
+updates as follows:
+
+- In Eclipse, click **Help > Check for Updates...** +
+  image:images/install_check_updates_36.png[Help > Software Updates Menu]
+- If updates are available, a dialog comes up asking for confirmation. Select
+  all components to update then click **Next** then **Finish** to continue.
+- When prompted to restart Eclipse, click **Yes** to restart.
