@@ -1,6 +1,10 @@
-= Preferences - UI Toolkits
+ifdef::env-github[]
+:imagesdir: ../../html/preferences/
+endif::[]
 
-image:images/preferences_uitoolkits.png[image,width=495,height=464]
+= UI Toolkits
+
+image:images/preferences_uitoolkits.png[image]
 
 This page is used to control various *UI Toolkits* options.
 
@@ -16,7 +20,7 @@ click the *Install Toolkits...* button. WindowBuilder will verify that
 the toolkit's update site is live and then hand off the installation
 process to the standard Eclipse install dialog.
 
-image:images/install_toolkit.png[image,width=568,height=345]
+image:images/install_toolkit.png[image]
 
 Installed tookits may be uninstalled using he *Uninstall Toolkit*
 button.
@@ -25,11 +29,11 @@ The *Show uninstalled toolkits in the new wizard dialog* determines
 whether uninstalled toolkits show up with a placeholder in the *New
 Wizard* under the *WindowBuilder* category.
 
-image:images/new_wizard_uninstalled_toolkit1.png[image,width=365,height=474] 
+image:images/new_wizard_uninstalled_toolkit1.png[image] 
 
 Selecting an uninstalled toolkit and clicking *Next* will present the
 user with the option of installing editing support for that toolkit.
 Clicking Finish will hand off the installation process to the standard
 Eclipse install dialog as shown above.
 
-image:images/new_wizard_uninstalled_toolkit2.png[image,width=452,height=272]
+image:images/new_wizard_uninstalled_toolkit2.png[image]

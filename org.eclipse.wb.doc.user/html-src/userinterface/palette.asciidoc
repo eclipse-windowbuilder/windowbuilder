@@ -103,7 +103,7 @@ the *link:design_view.html[Design View]*.
 ++++
 <p>
   <img src="../preferences/images/flyout_palette1.png" align="top">
-  <img src="images/palette_dock_on.gif" align="top">
+  <img src="images/palette_dock_on.png" align="top">
 </p>
 ++++
 
@@ -121,6 +121,6 @@ embedded view within the editor.
 <p>
   <img src="../preferences/images/windowbuilder_views.png" align="top">
   <img src="../preferences/images/palette_view.png" align="top">
-  <img src="images/palette_extract_as_view.gif" align="top">
+  <img src="images/palette_extract_as_view.png" align="top">
 </p>
 ++++

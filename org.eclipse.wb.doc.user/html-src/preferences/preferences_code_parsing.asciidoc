@@ -1,4 +1,8 @@
-= Preferences - Common > Code Parsing
+ifdef::env-github[]
+:imagesdir: ../../html/preferences/
+endif::[]
+
+= Code Parsing
 
 image:images/preferences_code_parsing.png[image]
 

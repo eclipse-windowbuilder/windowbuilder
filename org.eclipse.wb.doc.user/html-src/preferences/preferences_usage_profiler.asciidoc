@@ -1,4 +1,8 @@
-= Preferences - Usage Profiler
+ifdef::env-github[]
+:imagesdir: ../../html/preferences/
+endif::[]
+
+= Usage Profiler
 
 image:images/preferences_usage_profiler.png[image]
 
@@ -15,4 +19,4 @@ The Usage Profiler may be enabled with automatic data uploading, enabled
 with prompting prior to uploading (approximately once per week), or
 disabled.
 
-image:images/enable_usage_profiling.png[image,width=250,height=70]
+image:images/enable_usage_profiling.png[image]
