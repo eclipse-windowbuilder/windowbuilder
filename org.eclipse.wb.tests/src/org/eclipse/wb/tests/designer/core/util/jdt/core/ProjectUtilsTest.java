@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,7 +42,6 @@ import org.eclipse.jdt.core.JavaCore;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 
@@ -216,7 +215,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
 	 */
 	@DisposeProjectAfter
-	@Disabled
 	@Test
 	public void test_ensureResourceType_existsButNotUpToDate() throws Exception {
 		String managerClassName = "pkg.MyManager";
@@ -242,7 +240,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 							"  // recent version",
 							"  // filler filler filler",
 							"}");
-			testBundle.setFile("resources/1.5/pkg/MyManager.java", managerSource);
+			testBundle.setFile("resources/1.8/pkg/MyManager.java", managerSource);
 			testBundle.install();
 			// do ensure
 			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
@@ -268,7 +266,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * update it in required project; not generate new copy in given {@link IJavaProject}.
 	 */
 	@DisposeProjectAfter
-	@Disabled
 	@Test
 	public void test_ensureResourceType_existsInDifferentProject_butNotUpToDate()
 			throws Exception {
@@ -308,7 +305,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 							"  // recent version",
 							"  // filler filler filler",
 							"}");
-			testBundle.setFile("resources/1.5/pkg/MyManager.java", managerSource);
+			testBundle.setFile("resources/1.8/pkg/MyManager.java", managerSource);
 			testBundle.install();
 			// do ensure
 			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
@@ -329,7 +326,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * We should ignore {@link IType} if it is declared in binary file.
 	 */
 	@DisposeProjectAfter
-	@Disabled
 	@Test
 	public void test_ensureResourceType_binary() throws Exception {
 		String managerClassName = "pkg.MyManager";
@@ -369,7 +365,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 							"  // filler filler filler",
 							"  public int newField;",
 							"}");
-			testBundle.setFile("resources/1.5/pkg/MyManager.java", managerSourceNew);
+			testBundle.setFile("resources/1.8/pkg/MyManager.java", managerSourceNew);
 			testBundle.install();
 			// add "manager" IType using Jar
 			m_testProject.addExternalJar(managerJar);
@@ -397,7 +393,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * We should not try to update {@link IType} if it is in "read-only" unit.
 	 */
 	@DisposeProjectAfter
-	@Disabled
 	@Test
 	public void test_ensureResourceType_readOnly() throws Exception {
 		String managerClassName = "pkg.MyManager";
@@ -429,7 +424,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 							"  // recent version",
 							"  // filler filler filler filler filler",
 							"}");
-			testBundle.setFile("resources/1.5/pkg/MyManager.java", newSource);
+			testBundle.setFile("resources/1.8/pkg/MyManager.java", newSource);
 			testBundle.install();
 			// do ensure, ignored because file is read-only
 			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
