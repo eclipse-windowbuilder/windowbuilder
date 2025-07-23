@@ -33,7 +33,6 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -210,8 +209,6 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 	 * So, we detect {@link IType} presence and ask about reparse.
 	 */
 	@DisposeProjectAfter
-	// Test may get stuck on the Linux build...
-	@Disabled
 	@Test
 	public void test_createTool_inProject_butNotInClassLoader() throws Exception {
 		JavaInfo panel = parseEmptyPanel();

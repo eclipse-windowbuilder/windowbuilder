@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -200,7 +199,6 @@ public class ConstructorChildAssociationTest extends SwingModelTest {
 	/**
 	 * Can not delete because only one constructor in parent, so it can not be created without child.
 	 */
-	@Disabled
 	@Test
 	public void test_delete_noDelete_withGenerics() throws Exception {
 		setFileContentSrc(

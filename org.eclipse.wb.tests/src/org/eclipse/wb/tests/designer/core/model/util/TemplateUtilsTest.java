@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,10 +30,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -75,7 +73,6 @@ public class TemplateUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link TemplateUtils#format(String, Object...)}.
 	 */
-	@Disabled
 	@Test
 	public void test_format() throws Exception {
 		ContainerInfo panel =
@@ -88,7 +85,7 @@ public class TemplateUtilsTest extends SwingModelTest {
 		String id = ObjectInfoUtils.getId(panel);
 		{
 			String expected = TemplateUtils.ID_PREFIX + id + ".setEnabled(false)";
-			assertEquals(expected, MessageFormat.format("{0}.setEnabled({1})", panel, "false"));
+			assertEquals(expected, TemplateUtils.format("{0}.setEnabled({1})", panel, "false"));
 		}
 	}
 
