@@ -13,7 +13,7 @@ The position of the *Structure View* may be configured via drag and drop
 or by right-clicking on the *Structure View* header and selecting the
 *Dock On* command.
 
-image:images/structure_view_dock_on.gif[image,width=269,height=242]
+image:images/structure_view_dock_on.png[image]
 
 The *Structure View* may be docked to the top, bottom, left or right of
 the *link:design_view.html[Design View]*.
@@ -35,6 +35,6 @@ Structure* view or right-click on the *Structure View* and select the
 <p>
   <img src="../preferences/images/windowbuilder_views.png">
   <img src="../preferences/images/structure_view.png" align="top">
-  <img src="images/structure_extract_as_view.gif" align="top">
+  <img src="images/structure_extract_as_view.png" align="top">
 </p>
 ++++
