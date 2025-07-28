@@ -112,6 +112,7 @@ public class CompositeClassLoader extends ClassLoader {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
 	protected Package getPackage(String name) {
 		try {
 			Method method_getPackage =
