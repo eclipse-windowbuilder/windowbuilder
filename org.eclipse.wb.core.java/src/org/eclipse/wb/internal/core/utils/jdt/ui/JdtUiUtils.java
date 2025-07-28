@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.SubtypesScope;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -25,6 +24,7 @@ import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.jdt.ui.text.IColorManager;
 import org.eclipse.jdt.ui.text.JavaSourceViewerConfiguration;
 import org.eclipse.jdt.ui.text.JavaTextTools;
@@ -38,13 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eclipse.ui.editors.text.EditorsUI;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.texteditor.ChainedPreferenceStore;
-
-import org.osgi.framework.Bundle;
-import org.osgi.framework.Constants;
-
-import java.lang.reflect.Method;
 
 /**
  * Helper class for various JDT UI utils.
@@ -56,7 +50,6 @@ import java.lang.reflect.Method;
 public final class JdtUiUtils {
 	private static IPreferenceStore m_combinedPreferenceStore;
 	private static JavaTextTools m_javaTextTools;
-	private static AbstractUIPlugin m_javaPlugin;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -89,21 +82,10 @@ public final class JdtUiUtils {
 	}
 
 	/**
-	 * @return the instance of "org.eclipse.jdt.ui" activator class, which is the instance of
-	 *         org.eclipse.jdt.internal.ui.JavaPlugin when version > 3.2
+	 * @return the preference store of the {@code org.eclipse.jdt.ui} plugin.
 	 */
-	private static AbstractUIPlugin getJavaPlugin() {
-		if (m_javaPlugin == null) {
-			m_javaPlugin = ExecutionUtils.runObject(() -> getJavaPlugin0());
-		}
-		return m_javaPlugin;
-	}
-
-	/**
-	 * @return the JavaPlugin instance depending on eclipse version (using preprocessor).
-	 */
-	private static AbstractUIPlugin getJavaPlugin0() throws Exception {
-		return getBundleActivator("org.eclipse.jdt.ui");
+	private static IPreferenceStore getJavaPreferenceStore() {
+		return PreferenceConstants.getPreferenceStore();
 	}
 
 	/**
@@ -115,7 +97,7 @@ public final class JdtUiUtils {
 			IPreferenceStore generalTextStore = EditorsUI.getPreferenceStore();
 			m_combinedPreferenceStore =
 					new ChainedPreferenceStore(new IPreferenceStore[]{
-							getJavaPlugin().getPreferenceStore(),
+							getJavaPreferenceStore(),
 							new PreferencesAdapter(JavaCore.getPlugin().getPluginPreferences()),
 							generalTextStore});
 		}
@@ -129,7 +111,7 @@ public final class JdtUiUtils {
 	private static JavaTextTools getJavaTextTools() {
 		if (m_javaTextTools == null) {
 			m_javaTextTools =
-					new JavaTextTools(getJavaPlugin().getPreferenceStore(),
+					new JavaTextTools(getJavaPreferenceStore(),
 							JavaCore.getPlugin().getPluginPreferences());
 		}
 		return m_javaTextTools;
@@ -222,22 +204,5 @@ public final class JdtUiUtils {
 	public static String selectTypeName(Shell shell, IJavaProject javaProject) throws Exception {
 		IType type = selectClassType(shell, javaProject);
 		return type != null ? type.getFullyQualifiedName() : null;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Misc
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the bundle activator by "getDefault()" method using reflection.
-	 */
-	public static AbstractUIPlugin getBundleActivator(String bundleName) throws Exception {
-		Bundle bundle = Platform.getBundle(bundleName);
-		String pluginActivatorClassName = bundle.getHeaders().get(Constants.BUNDLE_ACTIVATOR);
-		Class<?> pluginClass = bundle.loadClass(pluginActivatorClassName);
-		// get the it's instance using "getDefault" method. Possibly it is the usage of internal API :)
-		Method getDefaultMethod = pluginClass.getMethod("getDefault", new Class[0]);
-		return (AbstractUIPlugin) getDefaultMethod.invoke(null, new Object[0]);
 	}
 }

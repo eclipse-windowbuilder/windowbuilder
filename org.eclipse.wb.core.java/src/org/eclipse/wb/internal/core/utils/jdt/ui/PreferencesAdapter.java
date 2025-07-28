@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2023 IBM Corporation and others.
+ * Copyright (c) 2000, 2025 IBM Corporation and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Display;
  * @since 3.0
  * @coverage core.util.jdt.ui
  */
+@Deprecated
 public class PreferencesAdapter implements IPreferenceStore {
 	/**
 	 * Property change listener. Listens for events of type
