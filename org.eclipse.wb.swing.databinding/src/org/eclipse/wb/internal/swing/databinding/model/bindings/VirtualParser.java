@@ -72,7 +72,7 @@ public final class VirtualParser {
 						tokenizer.nextToken(); // skip '[Virtual]'
 						// prepare binding location
 						String indexValue = tokenizer.nextToken();
-						int index = NumberUtils.isNumber(indexValue) ? Integer.parseInt(indexValue) : 0;
+						int index = NumberUtils.isCreatable(indexValue) ? Integer.parseInt(indexValue) : 0;
 						// prepare target/model orientation
 						boolean isSwingTarget = "target".equals(tokenizer.nextToken());
 						// prepare reference to swing component
