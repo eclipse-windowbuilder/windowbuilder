@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -140,7 +140,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 				// prepare name of component, strip model package and "Info" suffix
 				String componentName = modelClassName;
 				componentName = componentName.substring(modelPackage.length());
-				componentName = StringUtils.chomp(componentName, modelSuffix);
+				componentName = StringUtils.removeEnd(componentName, modelSuffix);
 				// create corresponding EditPart, use "EditPart" prefix
 				{
 					String partClassName = partPackage + componentName + "EditPart";

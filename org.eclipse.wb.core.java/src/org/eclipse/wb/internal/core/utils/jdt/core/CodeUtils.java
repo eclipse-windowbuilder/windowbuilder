@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -200,7 +200,7 @@ public class CodeUtils {
 	 */
 	public static IType findPrimaryType(ICompilationUnit compilationUnit) {
 		String unitName = compilationUnit.getElementName();
-		String typeName = StringUtils.chomp(unitName, ".java");
+		String typeName = StringUtils.removeEnd(unitName, ".java");
 		IType primaryType = compilationUnit.getType(typeName);
 		if (primaryType.exists()) {
 			return primaryType;
