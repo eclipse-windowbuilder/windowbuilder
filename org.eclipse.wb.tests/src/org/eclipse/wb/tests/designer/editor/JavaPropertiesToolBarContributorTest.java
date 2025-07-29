@@ -22,7 +22,6 @@ import static org.eclipse.swtbot.swt.finder.matchers.WithTooltip.withTooltip;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -91,7 +90,6 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 	/**
 	 * Test for "Local to field" action.
 	 */
-	@Disabled
 	@Test
 	public void test_convertLocalToField() throws Exception {
 		openContainer("""

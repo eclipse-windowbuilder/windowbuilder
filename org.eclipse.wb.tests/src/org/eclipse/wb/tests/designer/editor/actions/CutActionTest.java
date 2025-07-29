@@ -19,7 +19,6 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -72,7 +71,6 @@ public class CutActionTest extends SwingGefTest {
 	/**
 	 * Test for cut/paste single component.
 	 */
-	@Disabled
 	@Test
 	public void test_cutSingle() throws Exception {
 		ContainerInfo panel = openContainer("""
