@@ -1,16 +1,20 @@
+ifdef::env-github[]
+:imagesdir: ../html
+endif::[]
+
 = WindowBuilder User Guide
 
 *WindowBuilder* is a powerful and easy to use bi-directional Java GUI
 designer that makes it very easy to create Java GUI applications without
 spending a lot of time writing code to display simple forms. With
 *WindowBuilder* you can create complicated windows in minutes. Use the
-link:userinterface/design_view.html[visual designer] and
-link:userinterface/source_view.html[Java code] will be generated for
+xref:userinterface/design_view.adoc[visual designer] and
+xref:userinterface/source_view.adoc[Java code] will be generated for
 you. You can easily add controls using drag-and-drop, add
-link:features/event_handling.html[event handlers] to your controls,
+xref:features/event_handling.adoc[event handlers] to your controls,
 change various properties of controls using a
-link:userinterface/property_pane.html[property editor],
-link:features/internationalization.html[internationalize] your app
+xref:userinterface/property_pane.adoc[property editor],
+xref:features/internationalization.adoc[internationalize] your app
 and much more.
 
 *WindowBuilder* is built as a plug-in to http://www.eclipse.org[Eclipse]
@@ -22,7 +26,7 @@ manage the visual presentation.
 Using WYSIWYG layout tools, you don't need to write any lines of java
 code - the code will be generated for you by *WindowBuilder*. You can
 easily add any component to a container by using drag-and-drop, add an
-link:features/event_handling.html[event handler] to your controls,
+xref:features/event_handling.adoc[event handler] to your controls,
 change various properties of controls using property editors and much
 more. Generated code doesn't require any additional custom libraries to
 compile and run: all of the generated code can be used without having
@@ -33,45 +37,45 @@ _special_ areas) and most user refactorings (you can move, rename and
 subdivide methods without a problem).
 
 The editor is composed of the following major
-link:userinterface/index.html[user interface] components:
+xref:userinterface/index.adoc[user interface] components:
 
-* *link:userinterface/design_view.html[Design View]* - the main visual
+* xref:userinterface/design_view.adoc[*Design View*] - the main visual
 layout area.
-* *link:userinterface/source_view.html[Source View]* - write code and
+* xref:userinterface/source_view.adoc[*Source View*] - write code and
 review the generated code
-* *link:userinterface/structure_view.html[Structure View]* - composed of
+* xref:userinterface/structure_view.adoc[*Structure View*] - composed of
 the *Component Tree* and the *Property Pane.*
-** *link:userinterface/component_tree.html[Component Tree]* - shows the
+** xref:userinterface/component_tree.adoc[*Component Tree*] - shows the
 hierarchical relationship between all of the components.
-** *link:userinterface/property_pane.html[Property Pane]* - displays
+** xref:userinterface/property_pane.adoc[*Property Pane*] - displays
 properties and events of the selected components.
-* *link:userinterface/palette.html[Palette]* - provides quick access to
+* xref:userinterface/palette.adoc[*Palette*] - provides quick access to
 toolkit-specific components.
-* *link:userinterface/toolbar.html[Toolbar]* - provides access to
+* xref:userinterface/toolbar.adoc[*Toolbar*] - provides access to
 commonly used commands.
-* *link:userinterface/context_menu.html[Context Menu]* - provides access
+* xref:userinterface/context_menu.adoc[*Context Menu*] - provides access
 to commonly used commands.
 
-The editor also offers the following link:features/index.html[major
+The editor also offers the following xref:features/index.adoc[major
 features]:
 
-* *link:features/bidirectional.html[Bi-directional Code Generation] -*
+* xref:features/bidirectional.adoc[*Bi-directional Code Generation*] -
 read and write almost any format and reverse-engineer most hand-written
 code
-* *link:features/internationalization.html[Internationalization (i18n) /
-Localization] -* externalize component strings, create and manage
+* xref:features/internationalization.adoc[*Internationalization (i18n) /
+Localization*] - externalize component strings, create and manage
 resource bundles.
-* *link:features/custom_composites.html[Custom Composites & Panels]* -
+* xref:features/custom_composites.adoc[*Custom Composites & Panels*] -
 create custom, reusable components.
-* *link:features/factories.html[Factories]* - create custom factory
+* xref:features/factories.adoc[*Factories*] - create custom factory
 classes and methods.
-* *link:features/visual_inheritance.html[Visual Inheritance]* - create
+* xref:features/visual_inheritance.adoc[*Visual Inheritance*] - create
 visual component hierarchies.
-* *link:features/event_handling.html[Event Handling]* - add event
+* xref:features/event_handling.adoc[*Event Handling*] - add event
 handlers to your components.
-* *link:features/menu_editing.html[Menu Editing]* - visually create and
+* xref:features/menu_editing.adoc[*Menu Editing*] - visually create and
 edit menubars, menu items and popup menus.
-* *link:features/morphing.html[Morphing]* - convert one component type
+* xref:features/morphing.adoc[*Morphing*] - convert one component type
 into another.
 
 *Powered by Eclipse Technology +

@@ -1,19 +1,20 @@
+ifdef::env-github[]
+:imagesdir: ../html
+endif::[]
+
 == Error Reporting
 
 When something unexpected happens (such as an exception being thrown)
 while trying to parse a user interface class or perform a design view
 operation, the editor will display the following error page:
 
-[width="100%",cols="50%,50%"]
-|===
-a|
 image:images/error_handling_page.png[image]
-a|
-The *link:#CreateReportDialog[Create Report]* button opens up an error
+
+The xref:#CreateReportDialog[*Create Report*] button opens up an error
 reporting dialog that will create a bug report that you can submit to
 the bug tracking system along with all the needed supporting details.
 
-link:#CreateReportDialog[image:images/create_report_button.png[image,width=133,height=42]]
+xref:#CreateReportDialog[image:images/create_report_button.png[image]]
 
 The *Reparse* button will cause the current class to be reparsed.
 
@@ -23,7 +24,6 @@ The *Switch to code* button will switch the editor back to the *Source*
 view.
 
 image:images/switch_to_code_button.png[image]
-|===
 
 Clicking the *Show stack trace* link will reveal the captured stack
 trace. Clicking the link a second time will hide the stack trace.
@@ -36,34 +36,31 @@ image:images/error_handling_page_stack_trace.png[image]
 Clicking the *Create Report* button will open the *Create Report
 Dialog*:
 
-[width="100%",cols="50%,50%"]
-|===
-a|
-image:images/create_report_dialog.png[image,width=394,height=243]
-a|
+image:images/create_report_dialog.png[image]
+
 The dialog contains several fields for entering information about the
 problem and several options for attaching important support info:
 
 * The Eclipse workspace *.metadata/.log* file is attached. This contains
 any exceptions triggered as part of the error.
-* A *link:#Screenshots[screenshot]* of the design view immediately prior
+* A xref:#Screenshots[*screenshot*] of the design view immediately prior
 to the exception will be attached. Additional screenshots may be
 attached.
 * The *Compilation unit of error* (the currently edited class) may be
 optionally attached (this is recommended).
-link:support/test_cases.html[Reproducible test cases] are very important
+xref:support/test_cases.adoc[Reproducible test cases] are very important
 for quick problem resolution.
 * The *Entire project of error* (the currently edited project) may be
 optionally attached (recommended if the current class has a lot of
-dependencies). link:support/test_cases.html[Reproducible test cases] are
+dependencies). xref:support/test_cases.adoc[Reproducible test cases] are
 very important for quick problem resolution, so including any classes
 needed to compile the class you are editing can be important.
-* A *link:#SoftwareHardwareSummary[Software and hardware summary]* is
+* A xref:#SoftwareHardwareSummary[*Software and hardware summary*] is
 automatically attached to the case in order to identify any possible
 conflicts.
 * The WindowBuilder *preferences* are automatically attached to the
 case.
-* Any additional *link:#FileAttachments[File attachments]* may be
+* Any additional xref:#FileAttachments[*File attachments*] may be
 optionally added to the case (your *eclipse.ini* file, for example, or
 any other classes needed by the class you are editing).
 
@@ -73,7 +70,6 @@ manually submitted to the
 discussions]* or bug tracking system
 (*https://github.com/eclipse-windowbuilder/windowbuilder/issues[GitHub
 Issues]*).
-|===
 
 [#ProductInfo]
 === Screenshots
@@ -81,12 +77,10 @@ Issues]*).
 Click on the *Screenshots [.underline]#add..#* link to attach additional
 screenshots to the case.
 
-++++
-<p>
-  <img src="images/screenshots1.png">
-  <img src="images/screenshots2.png" align="top">
-</p>
-++++
+--
+image:images/screenshots1.png[image]
+image:images/screenshots2.png[image]
+--
 
 [#SoftwareHardwareSummary]
 === Software and hardware summary
@@ -102,16 +96,11 @@ image:images/software_and_hardware_info.png[image]
 
 Click on the *File attachments [.underline]#add..#* link to attach
 additional files to the case (such as your *eclipse.ini* file).
+--
+image:images/file_attachments1.png[image]
+image:images/file_attachments2.png[image]
+--
 
-++++
-<p>
-  <img src="images/file_attachments1.png">
-  <img src="images/file_attachments2.png" align="top">
-</p>
-++++
-
-[#ContactOptions]
-[#SubmitManually]
 == Manually submit to discussions or bug tracking system
 
 A ZIP file that includes all of the case data (including any images and
