@@ -198,7 +198,7 @@ image:images/nls_design_view3.png[image]
 
 It is also important to note that you can continue to edit the string
 values within the xref:../userinterface/design_view.adoc[*Design View*]
-(either via xref:../userinterface/design_view.html#DirectEdit[direct
+(either via xref:../userinterface/design_view.adoc#DirectEdit[direct
 edit] or in the *xref:../userinterface/property_pane.adoc[Property
 Pane]*) and the tool will automatically update the appropriate
 properties file. If the default locale is selected, the default
