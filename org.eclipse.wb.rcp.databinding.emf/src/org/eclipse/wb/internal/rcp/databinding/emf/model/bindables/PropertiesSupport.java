@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,9 +21,9 @@ import org.eclipse.wb.internal.rcp.databinding.emf.preferences.IPreferenceConsta
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
 
-import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IOrdinaryClassFile;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
@@ -312,7 +312,7 @@ public class PropertiesSupport {
 		IPackageFragment packageFragment = packageAnyType.getPackageFragment();
 		// collect all class names
 		{
-			for (IClassFile classFile : packageFragment.getClassFiles()) {
+			for (IOrdinaryClassFile classFile : packageFragment.getOrdinaryClassFiles()) {
 				IType type = classFile.getType();
 				if (type != null) {
 					allClasses.add(type.getFullyQualifiedName());
@@ -326,7 +326,7 @@ public class PropertiesSupport {
 			}
 		}
 		//
-		for (IClassFile classFile : packageFragment.getClassFiles()) {
+		for (IOrdinaryClassFile classFile : packageFragment.getOrdinaryClassFiles()) {
 			Map<String, ClassInfo> packageClasses = getPackageClassInfos(classFile.getType(), allClasses);
 			if (packageClasses != null) {
 				return new PackageInfo(packageFragment.getElementName(), packageClasses);
