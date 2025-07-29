@@ -7,44 +7,44 @@ as thoroughly as you need.
 
 *For support details, see the sections of this page:*
 
-* link:#contact[Requesting technical support]
-* link:test_cases.html[Reproducible Test cases]
-* link:#bug-found[Bugs and bug reports]
-* link:#support-form[Support Form]
-* link:../error_reporting.html[Error Reporting]
+* xref:#requesting-technical-support[Requesting technical support]
+* xref:test_cases.adoc[Reproducible Test cases]
+* xref:#what-if-i-think-ive-found-a-bug[Bugs and bug reports]
+* xref:#support-form[Support Form]
+* xref:../error_reporting.adoc[Error Reporting]
 
-[#contact]
+[#requesting-technical-support]
 == Requesting Technical Support
 
 The quickest mechanism for requesting support is to use the
-*link:../error_reporting.html[Error Reporting]* system included within
+xref:../error_reporting.adoc[*Error Reporting*] system included within
 the product. Just click the *Create Report* button and submit the case
 to the
-*https://github.com/eclipse-windowbuilder/windowbuilder/discussions[WindowBuilder
-forum]* or bug tracking system
-(*https://github.com/eclipse-windowbuilder/windowbuilder/issues[GitHub >
-Tools > WindowBuilder]*)..
+https://github.com/eclipse-windowbuilder/windowbuilder/discussions[*WindowBuilder
+forum*] or bug tracking system
+(https://github.com/eclipse-windowbuilder/windowbuilder/issues[*GitHub >
+Tools > WindowBuilder*])..
 
-If you are unable to use the *link:../error_reporting.html[Error
-Reporting]* system, please include our link:#support-form[support form]
+If you are unable to use the xref:../error_reporting.adoc[*Error
+Reporting*] system, please include our xref:#support-form[support form]
 with the product name, version and platform with any forum support
 requests. In addition, please be sure to provide the details on your
 operating system and/or development environment. Your questions should
 be concise and restricted to a single incident or request. If you have
-any link:test_cases.html[code] which may be relevant to the problem
-please include it. Example link:test_cases.html[code] that illustrates
+any xref:test_cases.adoc[code] which may be relevant to the problem
+please include it. Example xref:test_cases.adoc[code] that illustrates
 the problem is especially welcome (and often leads to a quicker
 resolution) as are debug logs generated in the event of a system
 exception.
 
-[#bug-found]
+[#what-if-i-think-ive-found-a-bug]
 == What if I think I've found a bug?
 
 We appreciate the help of our users in identifying bugs in our software.
 Bugs are an inconvenience to all of us, but unfortunately the reality of
 software development. We accept bug reports, using the form below, via
 email, fax or phone. If an exception occurs within the product, you may
-also use the link:../error_reporting.html[error reporting] option.
+also use the xref:../error_reporting.adoc[error reporting] option.
 
 [#support-form]
 == Support Form
@@ -61,7 +61,7 @@ Please submit all support requests with the following information along
 with a description of the problem and your expectations, steps to
 reproduce the problem, detailed error messages, your Eclipse ".log" file
 (found in your <workspace>/.metadata directory), and
-link:test_cases.html[code samples] as appropriate. Please include any
+xref:test_cases.adoc[code samples] as appropriate. Please include any
 other technical information that you think might be helpful to us in our
 efforts to resolve the problem.
 

@@ -13,8 +13,8 @@ you need to uninstall and start with a fresh copy of Eclipse.#
 
 Choose from the following options:
 
-- link:#addnew[Installing software by adding a new update site location]
-- link:#update[Updating already installed software]
+- xref:#installing-software-by-adding-a-new-update-site-location[Installing software by adding a new update site location]
+- xref:#updating-already-installed-software[Updating already installed software]
 
 == Available update sites
 
@@ -26,7 +26,7 @@ placeholders with the version you want to install:
 
 https://download.eclipse.org/windowbuilder/updates/release/1.x.y
 
-[#addnew]
+[#installing-software-by-adding-a-new-update-site-location]
 == Installing software by adding a new update site location
 
 - In Eclipse, click **Help > Install New Software...** +
@@ -43,7 +43,7 @@ https://download.eclipse.org/windowbuilder/updates/release/1.x.y
   accept the terms of the license agreement"** and click **Finish**.
 - When prompted to restart Eclipse, click **Yes** to restart.
 
-[#update]
+[#updating-already-installed-software]
 == Updating already installed software
 
 Updates can be installed using the above instructions by simply selecting the
