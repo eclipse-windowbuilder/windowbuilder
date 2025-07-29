@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,7 +64,7 @@ public abstract class ExceptionComposite extends Composite {
 		wbBasic = InstanceScope.INSTANCE.getNode(
 				IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
 						IEditorPreferenceConstants.WB_BASIC_UI,
-						true);
+						false);
 		// create GUI elements
 		GridLayoutFactory.create(this);
 		{
