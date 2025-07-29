@@ -1,49 +1,54 @@
-= WindowBuilder Pro FAQ
+ifdef::env-github[]
+:imagesdir: ../html
+endif::[]
+
+= WindowBuilder FAQ
 
 The following are frequently asked questions about WindowBuilder: 
 
-* link:#UpdateManager[What should I do if I'm getting errors using the
+* xref:#UpdateManager[What should I do if I'm getting errors using the
 Update Manager?]
-* link:#OtherGUIBuilders[Can WindowBuilder Pro edit windows created with
+* xref:#OtherGUIBuilders[Can WindowBuilder Pro edit windows created with
 JBuilder, VA Java, NetBeans, VisualCafe, etc.?]
-* link:#CreatedByHand[Can WindowBuilder Pro edit windows that have been
+* xref:#CreatedByHand[Can WindowBuilder Pro edit windows that have been
 created by hand?]
-* link:#Refactor[Can I refactor or otherwise modify the WindowBuilder
+* xref:#Refactor[Can I refactor or otherwise modify the WindowBuilder
 Pro generated code?]
-* link:#SpecialTags[Why doesn't WindowBuilder Pro surround generate code
+* xref:#SpecialTags[Why doesn't WindowBuilder Pro surround generate code
 with special tags or mark it as read-only?]
-* link:#CantParse[Are there any specific constructs that WindowBuilder
+* xref:#CantParse[Are there any specific constructs that WindowBuilder
 Pro can't parse?]
-* link:#Constructor[Why does WindowBuilder Pro generate in the
+* xref:#Constructor[Why does WindowBuilder Pro generate in the
 constructor?]
-* link:#CustomWidgets[Can WindowBuilder Pro use custom widgets?]
-* link:#InstantiationException[What should I do if I encounter an
+* xref:#CustomWidgets[Can WindowBuilder Pro use custom widgets?]
+* xref:#InstantiationException[What should I do if I encounter an
 InstantiationException or other error when using a custom widget?]
-* link:#Installation[What should I do if WindowBuilder Pro does not
+* xref:#Installation[What should I do if WindowBuilder Pro does not
 appear after installation?]
-* link:#DoesNotWork[What should I do if WindowBuilder Pro does not work
+* xref:#DoesNotWork[What should I do if WindowBuilder Pro does not work
 after installation?]
-* link:#DesignTab[What can I do if I don't see the Design tab when I
+* xref:#DesignTab[What can I do if I don't see the Design tab when I
 edit a window?]
-* link:#Exception[What should I do if I encounter an exception using
+* xref:#Exception[What should I do if I encounter an exception using
 WindowBuilder Pro?]
-* link:#ParsingError[What should I do if I encounter Parsing Error?]
-* link:#OutOfMemoryError[What should I do if I encounter an
+* xref:#ParsingError[What should I do if I encounter Parsing Error?]
+* xref:#OutOfMemoryError[What should I do if I encounter an
 OutOfMemoryError using WindowBuilder Pro?]
-* link:#NoSuchMethodError[What should I do if I encounter an
-NoSuchMethodError or] link:#NoClassDefFoundError[NoClassDefFoundError
+* xref:#NoSuchMethodError[What should I do if I encounter an
+NoSuchMethodError or] xref:#NoClassDefFoundError[NoClassDefFoundError
 using WindowBuilder Pro?]
-* link:#UnsupportedClassVersionError[What should I do if I encounter an
+* xref:#UnsupportedClassVersionError[What should I do if I encounter an
 UnsupportedClassVersionError using WindowBuilder Pro?]
-* link:#UnsatisfiedLinkError[What should I do if I encounter an
+* xref:#UnsatisfiedLinkError[What should I do if I encounter an
 UnsatisfiedLinkError when launching my SWT application?]
-* link:#Linux[How should WindowBuilder Pro be configured to work on
+* xref:#Linux[How should WindowBuilder Pro be configured to work on
 Linux?]
-* link:#SuSELinux[What should I do if I have problems running under SuSE
+* xref:#SuSELinux[What should I do if I have problems running under SuSE
 Linux?]
-* link:#LinuxFlashing[How can I prevent the preview window from flashing
+* xref:#LinuxFlashing[How can I prevent the preview window from flashing
 under Linux using Metacity]
 
+[#UpdateManager]
 == What should I do if I'm getting errors using the Update Manager?
 
 If you encounter some sort of Eclipse Update Manager failure with
@@ -228,7 +233,7 @@ within WindowBuilder Pro and false at runtime.
 
 An InstantiationException means that WindowBuilder Pro could not create
 an instance of a particular class. The most common reason for this is
-that the component is not a link:#CustomWidgets[valid custom widget]. In
+that the component is not a xref:#CustomWidgets[valid custom widget]. In
 order to be a valid Swing widget, a class must be a valid Java Bean and
 have a public, zero-argument constructor. SWT widgets must have a public
 two-argument constructor with parent and style bits as the two
@@ -253,7 +258,7 @@ answer true when the component is loaded within WindowBuilder Pro and
 false at runtime.
 
 More detail about the use of custom widgets is available in
-link:#CustomWidgets[this FAQ entry].
+xref:#CustomWidgets[this FAQ entry].
 
 [#Installation]
 == What should I do if WindowBuilder Pro does not appear after installation?
@@ -274,12 +279,12 @@ from your eclipse directory and restore those directories from the
 Eclipse ZIP file.
 
 After restarting Eclipse, open the Eclipse preference dialog and confirm
-that you see a link:preferences/index.html[WindowBuilder preference
-page]. If *WindowBuilder Pro* still does not appear, check your Eclipse
+that you see a xref:preferences/index.adoc[WindowBuilder preference
+page]. If *WindowBuilder* still does not appear, check your Eclipse
 ".log" file (found in your <workspace>/.metadata directory) for any
 recorded exceptions and then contact support.If no exceptions are
-present and *WindowBuilder Pro* is still not present, make sure that you
-are using a properly configured Eclipse-based IDE. *WindowBuilder Pro*
+present and *WindowBuilder* is still not present, make sure that you
+are using a properly configured Eclipse-based IDE. *WindowBuilder*
 requires the complete *Eclipse SDK* to be present, and will not load
 into an Eclipse subset (like EasyEclipse or the MyEclipse All-in-one
 edition). The most important piece missing from some Eclipse
@@ -332,13 +337,13 @@ image:features/images/open_with.png[image]
 
 Eclipse remembers the last editor type used with a file. If you don't see the
 *Design* tab, that means that you are using the standard Eclipse *Java Editor*
-rather than the *link:features/editing_existing_window.html[WindowBuilder Editor]*.
+rather than the xref:features/editing_existing_window.adoc[*WindowBuilder Editor*].
 Open the file with the 
-*link:features/editing_existing_window.html[WindowBuilder Editor]* and
+xref:features/editing_existing_window.adoc[*WindowBuilder Editor*] and
 you will see both the *Source* and *Design* tabs. Note that Eclipse will
 only let you have a file open with one editor at a time, so you may need
 to close any existing editor before opening it with the
-*link:features/editing_existing_window.html[WindowBuilder Editor]*.
+xref:features/editing_existing_window.adoc[*WindowBuilder Editor*].
 
 image:features/images/source_design.png[image,width=252,height=70]
 
@@ -351,13 +356,13 @@ problem. If the problem has been reported in the past, there is a good
 chance that it has already been fixed. If the problem still exists, you
 should send your Eclipse ".log" file (found in your
 *<workspace>/.metadata* directory) as well as any relevant test cases to
-link:support/product_support.html[support]. Including a
-link:support/test_cases.html[test case] that will help us reproduce the
+xref:support/product_support.adoc[support]. Including a
+xref:support/test_cases.adoc[test case] that will help us reproduce the
 problem is very important. The faster we can reproduce the problem, the
 faster we can get you a fix. If we can't reproduce a problem, there is
 little we can do to help you.
 
-Ideally, the link:support/test_cases.html[test case] you send should be
+Ideally, the xref:support/test_cases.adoc[test case] you send should be
 the same window you were editing when the problem occurred (along with
 any supporting files needed to compile it). If that is not possible
 (possibly because you aren't allowed to send any code to a 3rd party),
@@ -374,14 +379,14 @@ As suggested by the message, this is error is caused by a parsing
 problem. It has nothing to do with licensing. Your Eclipse ".log" file
 (found in your *<workspace>/.metadata* directory) should provide a hint
 as to the cause of the parsing error. Send the log file as well as a
-test case to link:support/product_support.html[support] (ideally the
+test case to xref:support/product_support.adoc[support] (ideally the
 window you are trying to edit). Including a
-link:support/test_cases.html[test case] that will help us reproduce the
+xref:support/test_cases.adoc[test case] that will help us reproduce the
 problem is very important. The faster we can reproduce the problem, the
 faster we can get you a fix. If we can't reproduce a problem, there is
 little we can do to help you.
 
-Ideally, the link:support/test_cases.html[test case] you send should be
+Ideally, the xref:support/test_cases.adoc[test case] you send should be
 the same window you were editing when the problem occurred (along with
 any supporting files needed to compile it). If that is not possible
 (possibly because you aren't allowed to send any code to a 3rd party),
@@ -392,7 +397,7 @@ the problem at hand (e.g., keep deleting code until the problem goes
 away and then restore that last code that was last deleted).
 
 Parsing problems can also be a side effect of the other problems
-described in the link:#DoesNotWork[earlier FAQ entry here] so check each
+described in the xref:#DoesNotWork[earlier FAQ entry here] so check each
 of the suggestions there. Refreshing and rebuilding your project using
 the *Project > Clean* command can often help as can cleaning your
 Eclipse "configuration" directory.
@@ -460,7 +465,7 @@ properly. If a plugin does not load, all of its methods will be
 unreachable, and any attempts to access them will trigger a
 NoSuchMethodError or NoClassDefFoundError. This problem can usually be
 fixed by cleaning your Eclipse "configuration" directory as described in
-this link:#DoesNotWork[earlier FAQ entry].
+this xref:#DoesNotWork[earlier FAQ entry].
 
 [#UnsupportedClassVersionError]
 == What should I do if I encounter an UnsupportedClassVersionError using WindowBuilder Pro?

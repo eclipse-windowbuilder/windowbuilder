@@ -1,31 +1,34 @@
+ifdef::env-github[]
+:imagesdir: ../html
+endif::[]
+
 = Swing Designer Quick Start
 
-image:userinterface/images/userinterface.png[image] +
- 
+image:userinterface/images/userinterface.png[image]
 
-. *Use a Swing Designer link:wizards/index.html[class wizard] to create
-your first GUI window or link:features/editing_existing_window.html[edit
-an existing window].* +
+- *Use a Swing Designer xref:wizards/index.adoc[class wizard] to create
+your first GUI window or xref:features/editing_existing_window.adoc[edit
+an existing window].*
  
-. *Choose an appropriate link:layoutmanagers/index.html[layout manager]
-for your window. +
- *
-. *Add various components from the
-link:userinterface/palette.html[Palette] and edit their properties using
-the link:userinterface/property_pane.html[Property Pane].* +
+- *Choose an appropriate xref:layoutmanagers/index.adoc[layout manager]
+for your window.*
+
+- *Add various components from the
+xref:userinterface/palette.adoc[Palette] and edit their properties using
+the xref:userinterface/property_pane.adoc[Property Pane].*
  
-. *Visually create and edit your window's
-link:features/menu_editing.html[menubar].* +
+- *Visually create and edit your window's
+xref:features/menu_editing.adoc[menubar].*
  
-. *Add link:features/event_handling.html[event handlers] to various
-widgets to provide behavior. +
- *
-. *If you create a new link:features/custom_composites.html[JPanel], you
+- *Add xref:features/event_handling.adoc[event handlers] to various
+widgets to provide behavior.*
+
+- *If you create a new xref:features/custom_composites.adoc[JPanel], you
 can embed it in another window using the
-link:userinterface/palette.html[Choose Component] command. +
- *
-. *You can test launch your window by right-clicking on it and selecting
-Run As > Java Application. +
- *
-. *link:features/internationalization.html[Internationalize] your
+xref:userinterface/palette.adoc[Choose Component] command.*
+
+- *You can test launch your window by right-clicking on it and selecting
+Run As > Java Application.*
+
+- *xref:features/internationalization.adoc[Internationalize] your
 application and manage multiple locales.*
