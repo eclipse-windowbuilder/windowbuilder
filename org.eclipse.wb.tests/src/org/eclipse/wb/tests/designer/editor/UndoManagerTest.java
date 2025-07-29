@@ -51,7 +51,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -274,7 +273,6 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Sometimes expansion paths are remembered for wrong dump, so this causes later exception.
 	 */
-	@Disabled
 	@Test
 	public void test_expandRemembered_bug_0() throws Exception {
 		ContainerInfo frame = openContainer("""
@@ -311,6 +309,8 @@ public class UndoManagerTest extends SwingGefTest {
 		openSourcePage();
 		// organize imports
 		actionBars.getGlobalActionHandler(JdtActionConstants.ORGANIZE_IMPORTS).run();
+		// wait for "Organize Imports" job
+		waitEventLoop(50);
 		assertEquals(
 				getSourceDQ(
 						"package test;",
@@ -597,7 +597,6 @@ public class UndoManagerTest extends SwingGefTest {
 	 * exceptions.
 	 */
 	@DisposeProjectAfter
-	@Disabled
 	@Test
 	public void test_showDesign_rename() throws Exception {
 		openContainer("""

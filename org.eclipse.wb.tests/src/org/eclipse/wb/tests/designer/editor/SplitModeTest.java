@@ -21,7 +21,6 @@ import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
@@ -63,7 +62,6 @@ public class SplitModeTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
-	@Disabled
 	public void test_reparse_afterDelay() throws Exception {
 		IPreferenceStore preferences = DesignerPlugin.getPreferences();
 		preferences.setValue(
@@ -81,6 +79,7 @@ public class SplitModeTest extends SwingGefTest {
 		check_isEnabled(true);
 		// set focus to Source, as if user does this
 		{
+			m_designerEditor.getSite().getShell().forceActive();
 			MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
 			multiMode.getSourcePage().setFocus();
 		}
@@ -94,7 +93,6 @@ public class SplitModeTest extends SwingGefTest {
 		check_isEnabled(true);
 		// wait for re-parse
 		waitEventLoop(1000);
-		fetchContentFields();
 		check_isEnabled(false);
 	}
 
