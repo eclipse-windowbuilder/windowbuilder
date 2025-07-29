@@ -24,7 +24,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
@@ -32,6 +31,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.IOrdinaryClassFile;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
@@ -212,14 +212,14 @@ public class CodeUtils {
 	 * @return {@link IType} associated with given {@link IJavaElement}.
 	 */
 	public static IType getType(IJavaElement element) throws JavaModelException {
-		if (element instanceof IType) {
-			return (IType) element;
-		} else if (element instanceof IMember) {
-			return ((IMember) element).getDeclaringType();
-		} else if (element instanceof ICompilationUnit) {
-			return ((ICompilationUnit) element).findPrimaryType();
-		} else if (element instanceof IClassFile) {
-			return ((IClassFile) element).getType();
+		if (element instanceof IType type) {
+			return type;
+		} else if (element instanceof IMember member) {
+			return member.getDeclaringType();
+		} else if (element instanceof ICompilationUnit cu) {
+			return cu.findPrimaryType();
+		} else if (element instanceof IOrdinaryClassFile classFile) {
+			return classFile.getType();
 		}
 		return null;
 	}
