@@ -755,6 +755,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		ContainerInfo frame = parseContainer("""
 				class Test extends MyFrame {
 					public Test() {
+						setUndecorated(true);
 						GridBagLayout layout = new GridBagLayout();
 						getContentPane().setLayout(layout);
 						{
@@ -772,10 +773,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		// "button" should be fully visible
 		Rectangle frameBounds = frame.getAbsoluteBounds();
 		Rectangle buttonBounds = button.getAbsoluteBounds();
-		Assertions.assertThat(frameBounds.getTopLeft().x).isLessThanOrEqualTo(buttonBounds.getTopLeft().x);
-		Assertions.assertThat(frameBounds.getTopLeft().y).isLessThanOrEqualTo(buttonBounds.getTopLeft().y);
-		Assertions.assertThat(frameBounds.getBottomRight().x).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().x);
-		Assertions.assertThat(frameBounds.getBottomRight().y).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().y);
+		assertTrue(frameBounds.contains(buttonBounds), frameBounds + " doesn't fully contain " + buttonBounds);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
