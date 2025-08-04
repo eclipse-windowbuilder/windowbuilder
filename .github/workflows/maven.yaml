@@ -20,7 +20,7 @@ on:
 jobs:
   check-dash-licenses:
     if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'dash-license')
-    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@cbd9bd5d78742d3c9772ace91b129424b418c342 # 1.1.0
+    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@646710d2aab93c88e20121597596740fc1a5eb20 # 1.1.0
     with:
       projectId: tools.windowbuilder
   build:
