@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
-import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IMenuManager;
@@ -32,7 +32,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
-public class AnchorActionsClassic<C extends IControlInfo> {
+public class AnchorActionsClassic<C extends ControlInfo> {
 	private static final String IMAGE_PREFIX = "info/layout/FormLayoutClassic/";
 	private final FormLayoutInfoImplClassic<C> m_layoutImpl;
 

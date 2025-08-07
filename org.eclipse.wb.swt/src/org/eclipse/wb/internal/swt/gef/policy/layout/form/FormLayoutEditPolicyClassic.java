@@ -46,6 +46,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
@@ -80,7 +81,7 @@ import java.util.Map;
  *
  * @author mitin_aa
  */
-public class FormLayoutEditPolicyClassic<C extends IControlInfo> extends KeyboardMovingLayoutEditPolicy
+public class FormLayoutEditPolicyClassic<C extends ControlInfo> extends KeyboardMovingLayoutEditPolicy
 implements IHeadersProvider {
 	private static final int EXTENSION = 8;
 	// model
