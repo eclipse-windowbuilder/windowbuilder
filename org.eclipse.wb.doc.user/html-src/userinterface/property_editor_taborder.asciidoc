@@ -1,6 +1,10 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Tab Order Editor
 
-image:images/property_editor_taborder1.png[image,width=273,height=18]
+image:images/property_editor_taborder1.png[image]
 
 Click the image:images/ellipses.png[image] button to access the *Tab
 Order Editor*. Check and uncheck the checkboxes next to the component
@@ -9,4 +13,4 @@ names to add and remove components from the tab order. Use the *Up* and
 all* and *Deselect all* buttons to add or remove all of the widgets from
 the tab order.
 
-image:images/property_editor_taborder2.png[image,width=296,height=208]
+image:images/property_editor_taborder2.png[image]

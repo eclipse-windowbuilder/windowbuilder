@@ -1,10 +1,12 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Palette Manager
 
-[width="100%",cols="1%,99%"]
-|===
-|image:images/palette_context_menu2.png[image]
-| The *Palette Manager* may be accessed from the
-link:palette_context_menu.html[palette context menu].
+image:images/palette_context_menu2.png[image]
+The *Palette Manager* may be accessed from the
+xref:palette_context_menu.adoc[palette context menu].
 
 The *Palette Manager* dialog allows the toolkit-specific palette to be
 fully configured. Categories and entries may be added, edited,
@@ -16,23 +18,18 @@ of the elements in the list.
 
 Items may be hidden from the palette by unchecking the checkbox next to
 their category or component name.
-|===
 
-++++
-<p>
-  <img src="images/palette_manager_swt.png">
-  <img src="images/palette_manager_swng.png" align="top">
-</p>
-++++
+--
+image:images/palette_manager_swt.png[image]
+image:images/palette_manager_swng.png[image]
+--
 
 == Palette Manager Commands
 
 [width="100%",cols="20%,80%"]
 |===
-a|
-=== Command
-a|
-=== Description
+|*Command*
+|*Description*
 
 |*Add Category...*
 | Create a new category to contain palette entries. The category may have
@@ -56,7 +53,7 @@ added to any available category.
 image:images/add_component_dialog.png[image]
 
 Select the *Single static factory...* command to add a single component
-from a static link:../features/factories.html[factory]. To add a single
+from a static xref:../features/factories.adoc[factory]. To add a single
 factory item, give it a name, select the factory class and method
 signature, and give it a description. The component may be initially
 *visible* or not and may be added to any available category.
@@ -64,7 +61,7 @@ signature, and give it a description. The component may be initially
 image:images/add_static_factory_dialog.png[image]
 
 Select the *Several static factories...* command to add a multiple
-components from a static link:../features/factories.html[factory]. To
+components from a static xref:../features/factories.adoc[factory]. To
 add a multiple factory items at the same time, select the factory class
 and method signatures. The component name and description will be given
 default values. The components will be initially *visible* and may be
@@ -95,12 +92,10 @@ image:images/add_instance_factories_dialog.png[image]
 a new category to add the entries to. The category name defaults to the
 name of the JAR.
 
-+++
-<p>
-  <img src="images/palette_import_jar_archive_dialog.gif">
-  <img src="images/palette_workspace_jar_selection_dialog.png" align="top">
-</p>
-+++
+--
+image:images/palette_import_jar_archive_dialog.gif[image]
+image:images/palette_workspace_jar_selection_dialog.png[image]
+--
 
 _If no widgets appear when you select a jar file, this is usually an
 indication that the jar file does not provide a proper JavaBean manifest
@@ -112,12 +107,10 @@ using the *Add Entry >>* command._
 |*Edit...*
 | Edit the selected category or component.
 
-+++
-<p>
-  <img src="images/edit_palette_category.png">
-  <img src="images/edit_palette_component.png" align="top">
-</p>
-+++
+--
+image:images/edit_palette_category.png[image]
+image:images/edit_palette_component.png[image]
+--
 
 |*Remove...*
 |Remove the selected category or entry.

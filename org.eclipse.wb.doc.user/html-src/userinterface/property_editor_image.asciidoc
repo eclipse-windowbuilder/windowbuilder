@@ -1,7 +1,11 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Icon / Image Editor
 
-image:images/property_editor_image1.png[image,width=306,height=18] 
-image:images/property_editor_image2.png[image,width=282,height=18]
+image:images/property_editor_image1.png[image] 
+image:images/property_editor_image2.png[image]
 
 Click the image:images/ellipses.png[image] button to access the *Image
 Chooser* and select an icon or image.
@@ -11,7 +15,7 @@ The *Image Chooser* has options for selecting images defined in the
 also provided to set the image to *null* or remove any generated image.
 A preview of the selected image is shown on the right.
 
-image:images/property_editor_image3.png[image,width=879,height=736]
+image:images/property_editor_image3.png[image]
 
 == User Extensions
 

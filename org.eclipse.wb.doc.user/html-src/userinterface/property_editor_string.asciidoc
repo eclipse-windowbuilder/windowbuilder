@@ -1,6 +1,10 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = String Editor
 
-image:images/property_editor_string1.png[image,width=235,height=18]
+image:images/property_editor_string1.png[image]
 
 Enter single-line strings directly into the property pane or click the
 image:images/ellipses.png[image] button to access the *String Editor*
@@ -16,9 +20,7 @@ string* field. By default, key names are searched but you can also
 search values or both keys and values by selecting the appropriate radio
 button at the bottom of the dialog.
 
-++++
-<p>
-  <img src="images/property_editor_string2.png">
-  <img src="images/property_editor_string3.png" align="top">
-</p>
-++++
+--
+image:images/property_editor_string2.png[image]
+image:images/property_editor_string3.png[image]
+--
