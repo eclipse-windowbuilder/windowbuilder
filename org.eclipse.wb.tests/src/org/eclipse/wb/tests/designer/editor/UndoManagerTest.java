@@ -310,7 +310,7 @@ public class UndoManagerTest extends SwingGefTest {
 		// organize imports
 		actionBars.getGlobalActionHandler(JdtActionConstants.ORGANIZE_IMPORTS).run();
 		// wait for "Organize Imports" job
-		waitEventLoop(50);
+		waitEventLoop(100);
 		assertEquals(
 				getSourceDQ(
 						"package test;",
