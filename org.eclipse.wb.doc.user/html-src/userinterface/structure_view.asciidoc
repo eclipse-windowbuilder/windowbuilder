@@ -1,11 +1,15 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Structure View
 
 The *Structure View* is composed of the
-*link:component_tree.html[Component Tree]* and the
-*link:property_pane.html[Property Pane]*. The
-*link:component_tree.html[Component Tree]* shows the hierarchical
+xref:component_tree.adoc[*Component Tree*] and the
+xref:property_pane.adoc[*Property Pane*]. The
+xref:component_tree.adoc[*Component Tree*] shows the hierarchical
 relationship between all of the components in the design view, while the
-*link:property_pane.html[Property Pane]* displays properties and events
+xref:property_pane.adoc[*Property Pane*] displays properties and events
 of the selected controls and provides editable text fields, lists and
 other controls to allow you to edit properties and events
 
@@ -16,14 +20,12 @@ or by right-clicking on the *Structure View* header and selecting the
 image:images/structure_view_dock_on.png[image]
 
 The *Structure View* may be docked to the top, bottom, left or right of
-the *link:design_view.html[Design View]*.
+the xref:design_view.adoc[*Design View*].
 
-++++
-<p>
-  <img src="../preferences/images/dock_left.png">
-  <img src="../preferences/images/dock_top.png" align="top">
-</p>
-++++
+--
+image:../preferences/images/dock_left.png[image]
+image:../preferences/images/dock_top.png[image]
+--
 
 The *Structure View* is also available as a standalone view. Use the
 *Window > Show View > Other...* command and open the *WindowBuilder >
@@ -31,10 +33,8 @@ Structure* view or right-click on the *Structure View* and select the
 *Extract as view* command. Closing the *Structure View* will make the
 *Structure View* reappear as embedded view within the editor
 
-++++
-<p>
-  <img src="../preferences/images/windowbuilder_views.png">
-  <img src="../preferences/images/structure_view.png" align="top">
-  <img src="images/structure_extract_as_view.png" align="top">
-</p>
-++++
+--
+image:../preferences/images/windowbuilder_views.png[image]
+image:../preferences/images/structure_view.png[image]
+image:images/structure_extract_as_view.png[image]
+--

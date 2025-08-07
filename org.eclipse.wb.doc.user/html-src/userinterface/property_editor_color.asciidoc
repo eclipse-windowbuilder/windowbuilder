@@ -1,7 +1,11 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Color Editor
 
-image:images/property_editor_color1.png[image,width=235,height=18] 
-image:images/property_editor_color2.png[image,width=235,height=18]
+image:images/property_editor_color1.png[image] 
+image:images/property_editor_color2.png[image]
 
 Click the image:images/ellipses.png[image] button to access the *Color
 Chooser* and select a color.

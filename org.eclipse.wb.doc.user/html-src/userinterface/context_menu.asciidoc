@@ -1,22 +1,23 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Context Menu
 
 The *Context Menu* provides access to commands commonly used in the
-*link:design_view.html[Design View]* and
-*link:component_tree.html[Component Tree].*
+xref:design_view.adoc[*Design View*] and
+xref:component_tree.adoc[*Component Tree*].
 
 [width="100%",cols="10%,20%,70%",]
 |===
-a|
-=== Icon
-a|
-=== Menu Name
-a|
-=== Description
+|*Icon*
+|*Menu Name*
+|*Description*
 
 |image:images/cut_edit.gif[image]
 |*Cut*
 |Copy the selected components to the clipboard and remove them from the
-*link:design_view.html[Design View]*.
+ xref:design_view.adoc[*Design View*].
 
 |image:images/copy_edit.gif[image]
 |*Copy*
@@ -26,9 +27,9 @@ a|
 |*Paste* 
 |Paste the selected components from the clipboard.
 
-|image:images/delete.gif[image,width=16,height=16]
+|image:images/delete.gif[image]
 |*Delete*
-|Delete the selected components from the *link:design_view.html[Design View]*.
+|Delete the selected components from the xref:design_view.adoc[*Design View*].
 
 |image:images/test.png[image]
 |*Test/Preview*
@@ -37,31 +38,23 @@ layout and resizing behavior of your components.
 
 |image:images/editor_refresh.png[image]
 |*Refresh*
-|Re-parse the current source and refresh the *link:design_view.html[Design View]*.
+|Re-parse the current source and refresh the xref:design_view.adoc[*Design View*].
 
 |
 |* Add event handler >*
-|Implement an link:../features/event_handling.html[event handler] for an
-event triggered by the selected component.
+|Implement an xref:../features/event_handling.adoc[event handler] for an
+ event triggered by the selected component.
 
-+++
-<p>
-  <img src="images/evant_handler_swing.png">
-  <img src="images/evant_handler_swt.png" align="top">
-</p>
-+++
+image:images/evant_handler_swing.png[image]
+image:images/evant_handler_swt.png[image]
 
 |
 |* Style >*
 | Change the style of the selected components.
 
-+++
-<p>
-  <img src="images/change_style1.png">
-  <img src="images/change_style2.png" align="top">
-  <img src="images/change_style3.png" align="top">
-</p>
-+++
+image:images/change_style1.png[image]
+image:images/change_style2.png[image]
+image:images/change_style3.png[image]
 
 |
 |*Set Layout >*
@@ -80,35 +73,30 @@ image:images/order_menu.png[image]
 |image:images/exposeComponent.gif[image,width=16,height=16]
 |* Expose Component...*
 | Add a public or protected accessor for the selected component. Components
-exposed in link:../features/visual_inheritance.html[superclasses] or in
-link:../features/custom_composites.html[embedded panels] can be selected
+exposed in xref:../features/visual_inheritance.adoc[superclasses] or in
+xref:../features/custom_composites.adoc[embedded panels] can be selected
 and edited by the user.
 
 image:images/expose_component.png[image]
 
 |image:images/morph2.gif[image,width=16,height=16]
 |* Morph >*
-| link:../features/morphing.html[Morph] the selected components into
+| xref:../features/morphing.adoc[Morph] the selected components into
 another type. Similar component types are listed. Direct subclasses of
 the select component may also be selected as can any other arbitrary
 class.
 
+image:images/morph_menu1.png[image]
+image:images/morph_menu2.png[image]
 
-+++
-<p>
-  <img src="images/morph_menu1.png" align="top">
-  <img src="images/morph_menu2.png" align="top">
-</p>
-+++
-
-|image:images/factory.gif[image,width=16,height=16]
+|image:images/factory.gif[image]
 |* Factory >*
-| Create a link:../features/factories.html[factory] from the selected
+| Create a xref:../features/factories.adoc[factory] from the selected
 component or apply a factory to the selected component.
 
-image:images/factory_menu.png[image,width=159,height=58]
+image:images/factory_menu.png[image]
 
-|image:images/rename_convert2.gif[image,width=16,height=16]
+|image:images/rename_convert2.gif[image]
 |* Rename...*
 | Rename the selected components and/or convert them to fields or local
 variables.

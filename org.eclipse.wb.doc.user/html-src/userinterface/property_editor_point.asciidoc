@@ -1,7 +1,11 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Point Editor
 
-image:images/property_editor_point1.png[image,width=273,height=18] 
-image:images/property_editor_point2.png[image,width=273,height=18]
+image:images/property_editor_point1.png[image] 
+image:images/property_editor_point2.png[image]
 
 Click the image:images/ellipses.png[image] button to access the *Point
 Editor* and enter paired x & y or width & height values.

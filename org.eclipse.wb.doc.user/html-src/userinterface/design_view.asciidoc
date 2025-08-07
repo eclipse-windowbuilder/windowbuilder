@@ -1,38 +1,42 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Design View
 
 The *Design View* is your virtual sketchpad. You can add or remove
 components, edit layout properties, direct edit labels, and see what
 your overall design looks like as it evolves.
 
-image:images/design_view.png[image,width=558,height=446]
+image:images/design_view.png[image]
 
 Select a component in the *Design View* to make it appear in the
-*link:property_pane.html[Property Pane]*, where you can edit its
+xref:property_pane.adoc[*Property Pane*], where you can edit its
 properties. This will also activate selection handles for the component.
 Selection handles allow you change layout properties of the selected
 control and, for some layout managers, also layout properties of sibling
 controls. All properties that can be changed in the *Design View* can be
-also changed in the *link:property_pane.html[Property Pane]*. Depending
-on the link:../layoutmanagers/index.html[layout manager] in effect, row
+also changed in the xref:property_pane.adoc[*Property Pane*]. Depending
+on the xref:../layoutmanagers/index.adoc[layout manager] in effect, row
 and column headers may be visible in the header area.
 
 Right-click on component to access the same
-link:context_menu.html[context menu] available in the
-*link:component_tree.html[Component Tree]*. Components may added by
-choosing them from the *link:palette.html[Palette]* and deleted using
+xref:context_menu.adoc[context menu] available in the
+xref:component_tree.adoc[*Component Tree*]. Components may added by
+choosing them from the *xref:palette.adoc[*Palette*] and deleted using
 the *Delete* key.
 
 == Component Selection
 
 Use the image:images/SelectionTool.gif[image,width=16,height=16]
-*Selection* tool in the *link:palette.html[Palette]* to select one or
+*Selection* tool in the xref:palette.adoc[*Palette*] to select one or
 more widgets. Hold the *Shift* or *Ctrl* key down to select multiple
 widgets.
 
 image:images/single_selection.png[image]
 
-Use the image:images/MarqueeSelectionTool.gif[image,width=16,height=16]
-*Marquee* tool in the *link:palette.html[Palette]* to rubber band select
+Use the image:images/MarqueeSelectionTool.gif[image]
+*Marquee* tool in the xref:palette.adoc[*Palette*] to rubber band select
 multiple widgets. Hold the *Alt* key and start dragging to automatically
 activate the  *Marquee* tool.
 
@@ -47,7 +51,7 @@ columns. First select a component in the **Design View**, and then hit
 the *Space* key to reveal an edit box in which you can set the
 component's text property.
 
-image:images/direct_edit.png[image,width=230,height=147]
+image:images/direct_edit.png[image]
 
 == Moving Components
 
@@ -58,7 +62,7 @@ showing its current location. Dynamic snap / alignment points are
 provided to make it convenient to align the component with other
 components or the window margin.
 
-image:images/feedback_drag_xy.png[image,width=229,height=124]
+image:images/feedback_drag_xy.png[image]
 
 In grid oriented layouts different feedback is shown depending on which
 cell the cursor is over. If the cursor is positioned over an open cell,
@@ -69,9 +73,9 @@ column will be inserted. If the cursor is positioned over an already
 populated cell, that cell is highlighted in red and the cursor shows a
 red minus sign.
 
-image:images/feedback_drag_grid1.png[image,width=229,height=124] 
-image:images/feedback_drag_grid2.png[image,width=229,height=124] 
-image:images/feedback_drag_grid3.png[image,width=229,height=124]
+image:images/feedback_drag_grid1.png[image] 
+image:images/feedback_drag_grid2.png[image] 
+image:images/feedback_drag_grid3.png[image]
 
 == Resizing Components
 
@@ -84,7 +88,7 @@ the window margin. Resizing a component also snaps to the preferred size
 of the resized component or to the size (vertical or horizontal) of any
 other component on the same parent.
 
-image:images/feedback_size_xy.png[image,width=229,height=124]
+image:images/feedback_size_xy.png[image]
 
 In grid oriented layouts, resizing a component will cause it to span
 more than one rows or columns. During the resize operation, the cells

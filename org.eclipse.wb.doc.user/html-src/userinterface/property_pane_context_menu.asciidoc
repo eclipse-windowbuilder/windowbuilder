@@ -1,52 +1,53 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 == Property Pane Toolbar & Context Menu
 
 [width="100%",cols="10%,20%,70%"]
 |===
-a|
-=== Icon
-a|
-=== Command Name
-a|
-=== Description
+|*Icon*
+|*Command Name*
+|*Description*
 
-|image:images/events.png[image,width=16,height=16]
+|image:images/events.png[image]
 |*Show events*
-|Show the link:../features/event_handling.html[events] defined for the
+|Show the xref:../features/event_handling.adoc[events] defined for the
 component. Expand a event category to see the individual events.
 Double-click on an event to generate a default event handler and switch
 to the *Source* view..
 
 image:images/property_pane_events.png[image]
 
-| image:images/goto_definition.gif[image,width=16,height=16] 
+| image:images/goto_definition.gif[image] 
 |*Goto Definition*
 |Switch to the *Source* view and place the cursor on the line where the
 selected control is instantiated.
 
-|image:images/local_to_field.gif[image,width=16,height=16]
+|image:images/local_to_field.gif[image]
 |*Convert local to field*
 |Convert the currently selected components from local variables to fields.
 
-|image:images/field_to_local.gif[image,width=16,height=16] |*Convert
-field to local* |Convert the currently selected components from fields
-to local variables.
+|image:images/field_to_local.gif[image]
+|*Convert field to local*
+|Convert the currently selected components from fields to local variables.
 
-|image:images/filter_advanced_properties.gif[image,width=16,height=16]
+|image:images/filter_advanced_properties.gif[image]
 |*Show advanced properties*
 |Show advanced properties in _italics_.
 
-|image:images/properties_default.gif[image,width=16,height=16]
+|image:images/properties_default.gif[image]
 |*Restore default value*
 |Revert the selected property to its default value.
 
-|image:images/exposeProperty.gif[image,width=16,height=16]
+|image:images/exposeProperty.gif[image]
 |*Expose property...*
 | Add a public or protected accessor for the selected property. Components
-exposed in link:../features/visual_inheritance.html[superclasses] or in
-link:../features/custom_composites.html[embedded panels] can be selected
+exposed in xref:../features/visual_inheritance.adoc[superclasses] or in
+xref:../features/custom_composites.adoc[embedded panels] can be selected
 and edited by the user.
 
-image:images/expose_property.png[image,width=394,height=308]
+image:images/expose_property.png[image]
 
 |
 |*Use default category*

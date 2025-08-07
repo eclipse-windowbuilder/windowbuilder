@@ -1,7 +1,11 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Rectangle Editor
 
-image:images/property_editor_rectangle1.png[image,width=273,height=18] 
-image:images/property_editor_rectangle2.png[image,width=273,height=18]
+image:images/property_editor_rectangle1.png[image] 
+image:images/property_editor_rectangle2.png[image]
 
 Click the image:images/ellipses.png[image] button to access the
 *Rectangle Editor* and enter paired x, y, width & height values.

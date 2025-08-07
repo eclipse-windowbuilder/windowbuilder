@@ -1,3 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/userinterface/
+endif::[]
+
 = Source View
 
 The *Source View* is where you write code by hand and review the code
@@ -12,16 +16,16 @@ offers all of the same features as the standard *Java Editor* including:
 * Quick fix
 * Integrated debugging features
 
-image:images/source_view.png[image,width=442,height=456]
+image:images/source_view.png[image]
 
-This *link:../preferences/index.html[Editor Layout]* preference controls
+This xref:../preferences/index.adoc[*Editor Layout*] preference controls
 the position of the *Source View* relative to the
-*link:design_view.html[Design View]*. By default, they are "on separate
+xref:design_view.adoc[*Design View*]. By default, they are "on separate
 notebook tabs" labeled *Source* and *Design* (you can select which page
 is first). Additional options are provided to show the *Source View* and
-*link:design_view.html[Design View]* side by side or one above the
+xref:design_view.adoc[*Design View*] side by side or one above the
 other.
 
-image:images/source_view_right.png[image,width=902,height=305]
+image:images/source_view_right.png[image]
 
-image:images/source_view_bottom.png[image,width=545,height=456] 
+image:images/source_view_bottom.png[image] 
