@@ -40,6 +40,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
@@ -75,7 +76,7 @@ import java.util.Map;
  *
  * @author mitin_aa
  */
-public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
+public final class FormSelectionEditPolicyClassic<C extends ControlInfo>
 extends
 SelectionEditPolicy {
 	private static final int EXTENSION = 8;

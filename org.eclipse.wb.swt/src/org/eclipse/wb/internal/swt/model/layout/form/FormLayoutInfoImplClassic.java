@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.core.utils.ui.TabFactory;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormUtils;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.actions.AnchorActionsClassic;
-import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -47,7 +47,7 @@ import java.util.Set;
  *
  * @author mitin_aa
  */
-public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayoutInfoImpl<C> {
+public class FormLayoutInfoImplClassic<C extends ControlInfo> extends FormLayoutInfoImpl<C> {
 	private final IFormLayoutInfo<C> layout;
 	private final AnchorActionsClassic<C> anchorActions;
 	private final AbstractAlignmentActionsSupport<C> alignmentActions;

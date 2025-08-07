@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.IFigure;
@@ -41,7 +42,7 @@ import java.util.List;
  *
  * @author mitin_aa
  */
-public final class AnchorFiguresClassic<C extends IControlInfo> {
+public final class AnchorFiguresClassic<C extends ControlInfo> {
 	// fields
 	private List<IFigure> m_alignmentFigures;
 	private final SelectionEditPolicy m_policy;

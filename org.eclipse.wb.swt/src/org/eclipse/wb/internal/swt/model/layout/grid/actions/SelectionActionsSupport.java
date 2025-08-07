@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
-import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -34,7 +34,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage swt.model.layout
  */
-public final class SelectionActionsSupport<C extends IControlInfo> extends ObjectEventListener {
+public final class SelectionActionsSupport<C extends ControlInfo> extends ObjectEventListener {
 	private final IGridLayoutInfo<C> m_layout;
 
 	////////////////////////////////////////////////////////////////////////////

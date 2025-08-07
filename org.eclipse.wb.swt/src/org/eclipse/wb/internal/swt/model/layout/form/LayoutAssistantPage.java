@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
-import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.jface.action.IAction;
@@ -44,7 +44,7 @@ import java.util.List;
  *
  * @author mitin_aa
  */
-public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
+public final class LayoutAssistantPage<C extends ControlInfo> extends Composite
 implements
 ILayoutAssistantPage {
 	private final List<C> m_selection;

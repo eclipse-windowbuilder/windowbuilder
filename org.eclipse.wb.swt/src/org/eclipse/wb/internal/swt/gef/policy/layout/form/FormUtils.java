@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.PositionConstants;
@@ -41,7 +42,7 @@ public final class FormUtils {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static <C extends IControlInfo> List<C> getAttachableControls(IFormLayoutInfo<C> layout,
+	public static <C extends ControlInfo> List<C> getAttachableControls(IFormLayoutInfo<C> layout,
 			C firstControl,
 			boolean horizontal) throws Exception {
 		int side = horizontal ? PositionConstants.LEFT : PositionConstants.TOP;

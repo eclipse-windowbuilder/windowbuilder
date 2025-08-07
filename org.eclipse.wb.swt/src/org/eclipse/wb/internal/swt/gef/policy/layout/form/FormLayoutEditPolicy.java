@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.utils.ui.TabFactory;
 import org.eclipse.wb.internal.swt.gef.policy.layout.AbsoluteBasedLayoutEditPolicySWT;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.LayoutAssistantPage;
+import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -50,7 +51,7 @@ import java.util.List;
  * @author mitin_aa
  * @coverage swt.gef.policy.form
  */
-public final class FormLayoutEditPolicy<C extends IControlInfo>
+public final class FormLayoutEditPolicy<C extends ControlInfo>
 extends
 AbsoluteBasedLayoutEditPolicySWT<C> {
 	private final IFormLayoutInfo<C> layout;
