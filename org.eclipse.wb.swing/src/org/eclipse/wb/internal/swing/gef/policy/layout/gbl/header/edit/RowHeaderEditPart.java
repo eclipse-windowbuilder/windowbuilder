@@ -39,8 +39,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.lang3.SystemUtils;
-
 /**
  * {@link EditPart} for {@link RowInfo} header of {@link AbstractGridBagLayoutInfo}.
  *
@@ -220,20 +218,18 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 					GefMessages.RowHeaderEditPart_vaFill,
 					CoreImages.ALIGNMENT_V_MENU_FILL,
 					RowInfo.Alignment.FILL));
-			if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
-				manager.add(new SetAlignmentRowAction(this,
-						GefMessages.RowHeaderEditPart_vaBaseline,
-						SwingImages.ALIGNMENT_V_MENU_BASELINE,
-						RowInfo.Alignment.BASELINE));
-				manager.add(new SetAlignmentRowAction(this,
-						GefMessages.RowHeaderEditPart_vaAboveBaseline,
-						SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
-						RowInfo.Alignment.BASELINE_ABOVE));
-				manager.add(new SetAlignmentRowAction(this,
-						GefMessages.RowHeaderEditPart_vaBelowBaseline,
-						SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
-						RowInfo.Alignment.BASELINE_BELOW));
-			}
+			manager.add(new SetAlignmentRowAction(this,
+					GefMessages.RowHeaderEditPart_vaBaseline,
+					SwingImages.ALIGNMENT_V_MENU_BASELINE,
+					RowInfo.Alignment.BASELINE));
+			manager.add(new SetAlignmentRowAction(this,
+					GefMessages.RowHeaderEditPart_vaAboveBaseline,
+					SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
+					RowInfo.Alignment.BASELINE_ABOVE));
+			manager.add(new SetAlignmentRowAction(this,
+					GefMessages.RowHeaderEditPart_vaBelowBaseline,
+					SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
+					RowInfo.Alignment.BASELINE_BELOW));
 		}
 		// grow
 		{

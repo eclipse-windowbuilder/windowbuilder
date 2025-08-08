@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,8 +26,6 @@ import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
-
-import org.apache.commons.lang3.SystemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,29 +130,27 @@ public class SelectionActionsSupport extends ObjectEventListener {
 				CoreImages.ALIGNMENT_V_MENU_FILL,
 				ModelMessages.SelectionActionsSupport_vaFill,
 				RowInfo.Alignment.FILL);
-		if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
-			addAlignmentAction(
-					actions,
-					constraints,
-					false,
-					SwingImages.ALIGNMENT_V_MENU_BASELINE,
-					ModelMessages.SelectionActionsSupport_vaBaseline,
-					RowInfo.Alignment.BASELINE);
-			addAlignmentAction(
-					actions,
-					constraints,
-					false,
-					SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
-					ModelMessages.SelectionActionsSupport_vaAboveBaseline,
-					RowInfo.Alignment.BASELINE_ABOVE);
-			addAlignmentAction(
-					actions,
-					constraints,
-					false,
-					SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
-					ModelMessages.SelectionActionsSupport_vaBelowBaseline,
-					RowInfo.Alignment.BASELINE_BELOW);
-		}
+		addAlignmentAction(
+				actions,
+				constraints,
+				false,
+				SwingImages.ALIGNMENT_V_MENU_BASELINE,
+				ModelMessages.SelectionActionsSupport_vaBaseline,
+				RowInfo.Alignment.BASELINE);
+		addAlignmentAction(
+				actions,
+				constraints,
+				false,
+				SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
+				ModelMessages.SelectionActionsSupport_vaAboveBaseline,
+				RowInfo.Alignment.BASELINE_ABOVE);
+		addAlignmentAction(
+				actions,
+				constraints,
+				false,
+				SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
+				ModelMessages.SelectionActionsSupport_vaBelowBaseline,
+				RowInfo.Alignment.BASELINE_BELOW);
 		// create grow actions
 		actions.add(new Separator());
 		addGrowAction(

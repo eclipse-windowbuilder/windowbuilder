@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,7 +47,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.SystemUtils;
 
 import java.awt.GridBagConstraints;
 import java.util.List;
@@ -622,20 +621,18 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
 				ModelMessages.AbstractGridBagConstraintsInfo_vaFill,
 				CoreImages.ALIGNMENT_V_MENU_FILL,
 				RowInfo.Alignment.FILL));
-		if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
-			manager.add(new SetAlignmentVerticalAction(this,
-					ModelMessages.AbstractGridBagConstraintsInfo_vaBaseline,
-					SwingImages.ALIGNMENT_V_MENU_BASELINE,
-					RowInfo.Alignment.BASELINE));
-			manager.add(new SetAlignmentVerticalAction(this,
-					ModelMessages.AbstractGridBagConstraintsInfo_vaAboveBaseline,
-					SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
-					RowInfo.Alignment.BASELINE_ABOVE));
-			manager.add(new SetAlignmentVerticalAction(this,
-					ModelMessages.AbstractGridBagConstraintsInfo_vaBelowBaseline,
-					SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
-					RowInfo.Alignment.BASELINE_BELOW));
-		}
+		manager.add(new SetAlignmentVerticalAction(this,
+				ModelMessages.AbstractGridBagConstraintsInfo_vaBaseline,
+				SwingImages.ALIGNMENT_V_MENU_BASELINE,
+				RowInfo.Alignment.BASELINE));
+		manager.add(new SetAlignmentVerticalAction(this,
+				ModelMessages.AbstractGridBagConstraintsInfo_vaAboveBaseline,
+				SwingImages.ALIGNMENT_V_MENU_BASELINE_ABOVE,
+				RowInfo.Alignment.BASELINE_ABOVE));
+		manager.add(new SetAlignmentVerticalAction(this,
+				ModelMessages.AbstractGridBagConstraintsInfo_vaBelowBaseline,
+				SwingImages.ALIGNMENT_V_MENU_BASELINE_BELOW,
+				RowInfo.Alignment.BASELINE_BELOW));
 		manager.add(new Separator());
 		manager.add(new SetGrowAction(this,
 				ModelMessages.AbstractGridBagConstraintsInfo_vaGrow,
