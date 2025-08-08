@@ -261,6 +261,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * Tests for {@link SpringLayoutInfo#getComponentAttachmentInfo(AbstractComponentInfo, int)}.
 	 */
 	@Test
+	@Deprecated
 	public void test_getComponentAttachmentInfo_parent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -297,6 +298,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * Tests for {@link SpringLayoutInfo#getComponentAttachmentInfo(AbstractComponentInfo, int)}.
 	 */
 	@Test
+	@Deprecated
 	public void test_getComponentAttachmentInfo() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
