@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.JToolBarInfo;
 import org.eclipse.wb.internal.swing.palette.ActionUseEntryInfo;
+import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
@@ -55,7 +56,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -1594,10 +1594,10 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for {@link ActionInfo#getPresentation()}.
 	 */
-	@Disabled
 	@Test
 	public void test_presentation() throws Exception {
 		m_waitForAutoBuild = true;
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel {",
@@ -1605,7 +1605,7 @@ public class ActionTest extends SwingModelTest {
 						"  private Action action_2 = new Action_2();",
 						"  private class Action_1 extends AbstractAction {",
 						"    public Action_1() {",
-						"      putValue(SMALL_ICON, new ImageIcon(Test.class.getResource('/javax/swing/plaf/basic/icons/JavaCup16.png')));",
+						"      putValue(SMALL_ICON, new ImageIcon(Test.class.getResource('/Test.png')));",
 						"    }",
 						"    public void actionPerformed(ActionEvent e) {",
 						"    }",

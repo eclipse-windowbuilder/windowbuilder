@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -99,13 +99,14 @@ public class IconPropertyEditorTest extends SwingModelTest {
 
 	@Test
 	public void test_getText_Class_getResource_1() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertIconPropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JPanel {",
 						"  public Test() {",
 						"    JButton button = new JButton();",
-						"    button.setIcon(new ImageIcon(Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\")));",
+						"    button.setIcon(new ImageIcon(Test.class.getResource(\"/Test.png\")));",
 						"    add(button);",
 						"  }",
 				"}"});
@@ -113,14 +114,15 @@ public class IconPropertyEditorTest extends SwingModelTest {
 
 	@Test
 	public void test_getText_Class_getResource_2() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertIconPropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JPanel {",
 						"  public Test() {",
 						"    JButton button = new JButton();",
 						"    button.setIcon("
-								+ "      new ImageIcon(Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"), "
+								+ "      new ImageIcon(Test.class.getResource(\"/Test.png\"), "
 								+ "      \"Some description\"));",
 								"    add(button);",
 								"  }",
@@ -129,13 +131,14 @@ public class IconPropertyEditorTest extends SwingModelTest {
 
 	@Test
 	public void test_getText_Class_getResource_3() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertIconPropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JPanel {",
 						"  public Test() {",
 						"    JButton button = new JButton();",
-						"    Icon icon = new ImageIcon(Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"));",
+						"    Icon icon = new ImageIcon(Test.class.getResource(\"/Test.png\"));",
 						"    button.setIcon(icon);",
 						"    add(button);",
 						"  }",
@@ -144,13 +147,14 @@ public class IconPropertyEditorTest extends SwingModelTest {
 
 	@Test
 	public void test_getText_Class_getResource_4() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertIconPropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JPanel {",
 						"  public Test() {",
 						"    JButton button = new JButton();",
-						"    java.net.URL url = Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\");",
+						"    java.net.URL url = Test.class.getResource(\"/Test.png\");",
 						"    Icon icon = new ImageIcon(url);",
 						"    button.setIcon(icon);",
 						"    add(button);",

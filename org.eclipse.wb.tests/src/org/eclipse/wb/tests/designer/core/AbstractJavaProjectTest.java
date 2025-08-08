@@ -430,7 +430,24 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	}
 
 	/**
-	 * Creates/updates {@link IFile} with given folder/name, relative to "src" folder.
+	 * Creates/updates {@link IFile} with given path, relative to "src" folder.
+	 */
+	public static IFile setFileContentSrc(String path, byte[] content) throws Exception {
+		return setFileContent("src/" + path, content);
+	}
+
+	/**
+	 * Creates/updates {@link IFile} with given path, relative to {@link IProject}.
+	 */
+	public static IFile setFileContent(String path, byte[] content) throws Exception {
+		IFile file = getFile(path);
+		setFileContent(file, content);
+		return file;
+	}
+
+	/**
+	 * Creates/updates {@link IFile} with given folder/name, relative to "src"
+	 * folder.
 	 *
 	 * @return the created/updated {@link IFile}.
 	 */

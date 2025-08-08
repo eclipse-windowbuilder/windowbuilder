@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -69,42 +68,42 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 		}
 	}
 
-	@Disabled
 	@Test
 	public void test_getText_Class_getResource_1() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertImagePropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JFrame {",
 						"  public Test() {",
-						"    setIconImage(Toolkit.getDefaultToolkit().getImage(Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\")));",
+						"    setIconImage(Toolkit.getDefaultToolkit().getImage(Test.class.getResource(\"/Test.png\")));",
 						"  }",
 				"}"});
 	}
 
-	@Disabled
 	@Test
 	public void test_getText_Class_getResource_2() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertImagePropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JFrame {",
 						"  public Test() {",
-						"    Image icon = Toolkit.getDefaultToolkit().getImage(Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"));",
+						"    Image icon = Toolkit.getDefaultToolkit().getImage(Test.class.getResource(\"/Test.png\"));",
 						"    setIconImage(icon);",
 						"  }",
 				"}"});
 	}
 
-	@Disabled
 	@Test
 	public void test_getText_Class_getResource_3() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assertImagePropertyText(
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
+				"Classpath: /Test.png",
 				new String[]{
 						"public class Test extends JFrame {",
 						"  public Test() {",
-						"    java.net.URL url = Test.class.getResource(\"/javax/swing/plaf/basic/icons/JavaCup16.png\");",
+						"    java.net.URL url = Test.class.getResource(\"/Test.png\");",
 						"    Image icon = Toolkit.getDefaultToolkit().getImage(url);",
 						"    setIconImage(icon);",
 						"  }",
