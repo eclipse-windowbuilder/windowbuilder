@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -255,6 +255,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	public ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget, int side)
 			throws Exception {
 		SpringAttachmentInfo attachment = getAttachment(widget, side);

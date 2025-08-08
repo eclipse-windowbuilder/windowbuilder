@@ -407,6 +407,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	// Abstract
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	protected abstract ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
 			int side) throws Exception;
 }

@@ -1063,6 +1063,7 @@ public final class PlacementsSupport {
 	 * @return the list of widgets which attached to given <code>widget</code> by
 	 *         any side.
 	 */
+	@Deprecated
 	private List<ComponentAttachmentInfo> findAffectedWidgets() throws Exception {
 		List<ComponentAttachmentInfo> attached = new ArrayList<>();
 		// traverse through non-operating widgets.
@@ -1080,6 +1081,7 @@ public final class PlacementsSupport {
 		return attached;
 	}
 
+	@Deprecated
 	private boolean checkAttached(IAbstractComponentInfo widget, IAbstractComponentInfo targetWidget,
 			List<ComponentAttachmentInfo> attachedList, int side) throws Exception {
 		if (isAttachedToWidget(widget, targetWidget, side)) {
@@ -1114,6 +1116,7 @@ public final class PlacementsSupport {
 		}
 	}
 
+	@Deprecated
 	private void resolveReference(ComponentAttachmentInfo attachment) throws Exception {
 		int side = attachment.getAlignment();
 		IAbstractComponentInfo widget = attachment.getSource();
@@ -1128,6 +1131,7 @@ public final class PlacementsSupport {
 		m_layoutCommands.attachAbsolute(widget, side, distance);
 	}
 
+	@Deprecated
 	private ComponentAttachmentInfo findReferenceToResolve(List<ComponentAttachmentInfo> cyclicList,
 			Pair<ComponentAttachmentInfo, ComponentAttachmentInfo> pair) {
 		if (!m_operatingWidgets.contains(pair.getLeft().getSource())) {
@@ -1136,6 +1140,7 @@ public final class PlacementsSupport {
 		return pair.getRight();
 	}
 
+	@Deprecated
 	private Pair<ComponentAttachmentInfo, ComponentAttachmentInfo> getCyclicPair(
 			List<ComponentAttachmentInfo> cyclicList) {
 		ComponentAttachmentInfo first = cyclicList.get(0);
@@ -1152,6 +1157,7 @@ public final class PlacementsSupport {
 		return new Pair<>(first, second);
 	}
 
+	@Deprecated
 	private List<ComponentAttachmentInfo> detectCyclicReferences(boolean isHorizontal) throws Exception {
 		List<ComponentAttachmentInfo> cyclicList = new ArrayList<>();
 		List<IAbstractComponentInfo> widgets = getNonDeletedWidgets();
@@ -1168,6 +1174,7 @@ public final class PlacementsSupport {
 		return cyclicList;
 	}
 
+	@Deprecated
 	private void traverseAttachedWidgets(List<ComponentAttachmentInfo> cyclicList,
 			Set<IAbstractComponentInfo> visitedWidgets, IAbstractComponentInfo widget,
 			IAbstractComponentInfo targetWidget, boolean isHorizontal) throws Exception {

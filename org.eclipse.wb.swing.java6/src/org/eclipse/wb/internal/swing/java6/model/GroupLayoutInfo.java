@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swing.java6.model;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
-import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -133,11 +132,6 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
 			int side,
 			int draggingSide,
 			int resizeDelta) throws Exception {
-	}
-
-	public ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
-			int side) {
-		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
