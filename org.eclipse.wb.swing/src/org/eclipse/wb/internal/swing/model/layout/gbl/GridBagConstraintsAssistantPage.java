@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,8 +22,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-import org.apache.commons.lang3.SystemUtils;
-
 /**
  * Layout assistant for {@link java.awt.GridBagConstraints}.
  *
@@ -42,104 +40,60 @@ public class GridBagConstraintsAssistantPage extends AbstractAssistantPage {
 	public GridBagConstraintsAssistantPage(Composite parent, Object selection) {
 		super(parent, selection);
 		GridLayoutFactory.create(this).columns(3);
-		//
-		if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
-			// horizontal alignments
-			{
-				Group horizontalGroup = createHorizontalAlignmentGroup();
-				GridDataFactory.modify(horizontalGroup).fill();
-			}
-			// vertical alignments
-			{
-				Group verticalGroup =
-						addChoiceProperty(
-								this,
-								"verticalAlignment",
-								ModelMessages.GridBagConstraintsAssistantPage_verticalAlignmentGroup,
-								new Object[][]{
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaTop,
-											RowInfo.Alignment.TOP},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaCenter,
-											RowInfo.Alignment.CENTER},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaBottom,
-											RowInfo.Alignment.BOTTOM},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaFill,
-											RowInfo.Alignment.FILL},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaBaseline,
-											RowInfo.Alignment.BASELINE},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaAboveBaseline,
-											RowInfo.Alignment.BASELINE_ABOVE},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaBelowBaseline,
-											RowInfo.Alignment.BASELINE_BELOW}});
-				GridDataFactory.modify(verticalGroup).fillV();
-			}
-			// insets
-			{
-				Group insetsGroup = createInsetsGroup();
-				GridDataFactory.modify(insetsGroup).fillV();
-			}
-			// weight
-			{
-				Group weightGroup = createWeightGroup();
-				GridDataFactory.modify(weightGroup).fillV();
-			}
-			// grow
-			{
-				createGrowGroup();
-			}
-			// padding
-			{
-				Group paddingGroup = createPaddingGroup();
-				GridDataFactory.create(paddingGroup).fill();
-			}
-		} else {
-			// horizontal alignments
-			{
-				Group horizontalGroup = createHorizontalAlignmentGroup();
-				GridDataFactory.modify(horizontalGroup).fillV();
-			}
-			// vertical alignments
-			{
-				Group verticalGroup =
-						addChoiceProperty(
-								this,
-								"verticalAlignment",
-								ModelMessages.GridBagConstraintsAssistantPage_verticalAlignmentGroup,
-								new Object[][]{
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaTop,
-											RowInfo.Alignment.TOP},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaCenter,
-											RowInfo.Alignment.CENTER},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaBottom,
-											RowInfo.Alignment.BOTTOM},
-									new Object[]{
-											ModelMessages.GridBagConstraintsAssistantPage_vaFill,
-											RowInfo.Alignment.FILL}});
-				GridDataFactory.modify(verticalGroup).fillV();
-			}
-			// insets
-			{
-				createInsetsGroup();
-			}
-			// padding
-			{
-				Group paddingGroup = createPaddingGroup();
-				GridDataFactory.create(paddingGroup).fill().spanH(2);
-			}
-			// grow
-			{
-				createGrowGroup();
-			}
+		// horizontal alignments
+		{
+			Group horizontalGroup = createHorizontalAlignmentGroup();
+			GridDataFactory.modify(horizontalGroup).fill();
+		}
+		// vertical alignments
+		{
+			Group verticalGroup =
+					addChoiceProperty(
+							this,
+							"verticalAlignment",
+							ModelMessages.GridBagConstraintsAssistantPage_verticalAlignmentGroup,
+							new Object[][]{
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaTop,
+										RowInfo.Alignment.TOP},
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaCenter,
+										RowInfo.Alignment.CENTER},
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaBottom,
+										RowInfo.Alignment.BOTTOM},
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaFill,
+										RowInfo.Alignment.FILL},
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaBaseline,
+										RowInfo.Alignment.BASELINE},
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaAboveBaseline,
+										RowInfo.Alignment.BASELINE_ABOVE},
+								new Object[]{
+										ModelMessages.GridBagConstraintsAssistantPage_vaBelowBaseline,
+										RowInfo.Alignment.BASELINE_BELOW}});
+			GridDataFactory.modify(verticalGroup).fillV();
+		}
+		// insets
+		{
+			Group insetsGroup = createInsetsGroup();
+			GridDataFactory.modify(insetsGroup).fillV();
+		}
+		// weight
+		{
+			Group weightGroup = createWeightGroup();
+			GridDataFactory.modify(weightGroup).fillV();
+		}
+		// grow
+		{
+			createGrowGroup();
+		}
+		// padding
+		{
+			Group paddingGroup = createPaddingGroup();
+			GridDataFactory.create(paddingGroup).fill();
 		}
 	}
 
