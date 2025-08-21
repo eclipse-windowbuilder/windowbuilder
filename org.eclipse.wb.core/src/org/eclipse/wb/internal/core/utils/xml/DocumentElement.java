@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -97,7 +97,7 @@ public class DocumentElement extends AbstractDocumentObject {
 	 * Sets the name of tag.
 	 */
 	public void setTag(String tag) {
-		if (!StringUtils.equals(m_tag, tag)) {
+		if (!m_tag.equals(tag)) {
 			String oldValue = m_tag;
 			m_tag = tag;
 			firePropertyChanged(this, P_XML_TAG_NAME, oldValue, m_tag);

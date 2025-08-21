@@ -53,7 +53,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.prefs.Preferences;
 
 import java.awt.Component;
@@ -61,6 +60,7 @@ import java.awt.Container;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract model for {@link LayoutManager}.
@@ -462,7 +462,7 @@ public class LayoutInfo extends JavaInfo {
 		ClassLoader editorLoader = null;
 		Class<?> layoutClass = null;
 		for (LayoutDescription description : descriptions) {
-			if (StringUtils.equals(defaultValue, description.getId())) {
+			if (Objects.equals(defaultValue, description.getId())) {
 				creationId = description.getCreationId();
 				editorLoader = EditorState.get(getContainer().getEditor()).getEditorLoader();
 				layoutClass = editorLoader.loadClass(description.getLayoutClassName());

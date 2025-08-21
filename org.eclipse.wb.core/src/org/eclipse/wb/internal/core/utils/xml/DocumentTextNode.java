@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.xml;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.Objects;
 
 /**
  * Node for text inside of some XML element.
@@ -57,7 +57,7 @@ public final class DocumentTextNode extends AbstractDocumentObject {
 	private String m_text;
 
 	public void setText(String text) {
-		if (!StringUtils.equals(m_text, text)) {
+		if (!Objects.equals(m_text, text)) {
 			String oldValue = m_text;
 			m_text = text;
 			firePropertyChanged(this, P_TEXT, oldValue, m_text);

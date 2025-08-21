@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,11 +33,11 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 
 import org.apache.commons.collections4.map.LRUMap;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Manager for handling undo/redo modifications in {@link ICompilationUnit}.
@@ -84,7 +84,7 @@ public final class UndoManager {
 	public void activate() {
 		if (!m_active) {
 			m_active = true;
-			if (!StringUtils.equals(m_currentSource, m_buffer.getContents())) {
+			if (!Objects.equals(m_currentSource, m_buffer.getContents())) {
 				refreshDesignerEditor();
 			}
 			addBufferListener();
