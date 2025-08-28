@@ -50,6 +50,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
@@ -92,6 +93,7 @@ import swingintegration.example.EmbeddedSwingComposite;
  */
 public class LafPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IPreferenceConstants {
 	// constants
+	private static final int DEFAULT_PREVIEW_MARGIN = 50;
 	private static final Image CATEGORY_IMAGE = CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 	private static final Image LAF_ITEM_IMAGE = Activator.getImage("info/laf/laf.png");
 	// variables
@@ -163,6 +165,7 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 			GridDataFactory.create(m_previewGroup).grabH().fill();
 			m_previewGroup.setText(Messages.LafPreferencePage_preview);
 			m_previewGroup.setLayout(new FillLayout());
+			updatePreview0();
 		}
 		// return back LAF
 		container.addDisposeListener(e -> {
@@ -548,7 +551,10 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 					}
 					LafInfo selectedLAF = getSelectedLAF();
 					if (selectedLAF == null) {
-						// nothing selected
+						CLabel nothingSelected = new CLabel(m_previewGroup, SWT.CENTER);
+						nothingSelected.setText(Messages.LafPreferencePage_noSelection);
+						nothingSelected.setMargins(0, DEFAULT_PREVIEW_MARGIN, 0, DEFAULT_PREVIEW_MARGIN);
+						m_previewGroup.requestLayout();
 						return;
 					}
 					m_previewGroup.getParent().layout(true);
