@@ -42,6 +42,7 @@ public class Messages extends NLS {
 	public static String LafPreferencePage_editCategoryMessage;
 	public static String LafPreferencePage_editCategoryTitle;
 	public static String LafPreferencePage_expandAllButton;
+	public static String LafPreferencePage_noSelection;
 	public static String LafPreferencePage_preview;
 	public static String LafPreferencePage_previewButton;
 	public static String LafPreferencePage_previewCheck;
