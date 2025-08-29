@@ -48,14 +48,13 @@ import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSourceAdapter;
 import org.eclipse.swt.dnd.DragSourceEvent;
-import org.eclipse.swt.dnd.DragSourceListener;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
@@ -110,10 +109,7 @@ import swingintegration.example.EmbeddedSwingComposite;
  * @author scheglov_ke
  * @coverage swing.preferences.laf
  */
-public class LafPreferencePage extends PreferencePage
-implements
-IWorkbenchPreferencePage,
-IPreferenceConstants {
+public class LafPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IPreferenceConstants {
 	// constants
 	private static final Image CATEGORY_IMAGE = CoreImages.getSharedImage(CoreImages.FOLDER_OPEN);
 	private static final Image LAF_ITEM_IMAGE = Activator.getImage("info/laf/laf.png");
@@ -395,14 +391,14 @@ IPreferenceConstants {
 	 * Deletes (or permanently hide) LAF and store LAF list into persistence.
 	 */
 	private void handleDelete() {
-		List<Object> selection = getSelectedEntries();
+		List<?> selection = getSelectedEntries();
 		if (selection.contains(m_defaultLAF)) {
 			MessageDialog.openWarning(
 					getShell(),
 					Messages.LafPreferencePage_deleteWarningTitle,
 					Messages.LafPreferencePage_deleteWarningMessage);
 			// filter out default LAF
-			selection = (List<Object>) CollectionUtils.select(selection, object -> object != m_defaultLAF);
+			selection = (List<?>) CollectionUtils.select(selection, object -> object != m_defaultLAF);
 		}
 		if (!selection.isEmpty()) {
 			if (MessageDialog.openConfirm(
@@ -429,7 +425,7 @@ IPreferenceConstants {
 	private void handleAddUserDefinedLAF() {
 		CategoryInfo targetCategory = LafSupport.getCategory(LafSupport.ROOT_ID);
 		{
-			List<Object> selectedEntries = getSelectedEntries();
+			List<?> selectedEntries = getSelectedEntries();
 			if (!CollectionUtils.isEmpty(selectedEntries)) {
 				Object entry = selectedEntries.get(0);
 				if (entry instanceof CategoryInfo) {
@@ -495,7 +491,7 @@ IPreferenceConstants {
 	 * Updates buttons basing on selection in LAF list viewer.
 	 */
 	private void updateButtons() {
-		List<Object> selection = getSelectedEntries();
+		List<?> selection = getSelectedEntries();
 		m_setDefaultButton.setEnabled(selection.size() == 1 && selection.get(0) instanceof LafInfo);
 		m_editButton.setEnabled(selection.size() == 1);
 		m_deleteButton.setEnabled(!selection.isEmpty());
@@ -737,7 +733,7 @@ IPreferenceConstants {
 	// DND
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private List<Object> m_dragEntries;
+	private List<?> m_dragEntries;
 	private boolean m_dragCategory;
 
 	/**
@@ -745,7 +741,7 @@ IPreferenceConstants {
 	 */
 	private void configureDND() {
 		Transfer[] transfers = new Transfer[]{LookAndFeelTransfer.INSTANCE};
-		m_lafTree.addDragSupport(DND.DROP_MOVE, transfers, new DragSourceListener() {
+		m_lafTree.addDragSupport(DND.DROP_MOVE, transfers, new DragSourceAdapter() {
 			@Override
 			public void dragStart(DragSourceEvent event) {
 				m_dragEntries = getSelectedEntries();
@@ -756,14 +752,6 @@ IPreferenceConstants {
 						event.doit = false;
 					}
 				}
-			}
-
-			@Override
-			public void dragSetData(DragSourceEvent event) {
-			}
-
-			@Override
-			public void dragFinished(DragSourceEvent event) {
 			}
 		});
 		ViewerDropAdapter dropAdapter = new ViewerDropAdapter(m_lafTree) {
@@ -925,8 +913,7 @@ IPreferenceConstants {
 	/**
 	 * @return the {@link List} of anything selectes in LAF list viewer.
 	 */
-	@SuppressWarnings("unchecked")
-	private List<Object> getSelectedEntries() {
+	private List<?> getSelectedEntries() {
 		IStructuredSelection selection = (IStructuredSelection) m_lafTree.getSelection();
 		return selection.toList();
 	}
@@ -1002,14 +989,6 @@ IPreferenceConstants {
 		@Override
 		public boolean hasChildren(Object element) {
 			return getChildren(element).length != 0;
-		}
-
-		@Override
-		public void dispose() {
-		}
-
-		@Override
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 	}
 }
