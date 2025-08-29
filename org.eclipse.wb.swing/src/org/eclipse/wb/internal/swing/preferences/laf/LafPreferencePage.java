@@ -854,7 +854,6 @@ IPreferenceConstants {
 	// https://github.com/eclipse-windowbuilder/windowbuilder/discussions/937
 	private static void configureLAF(LookAndFeel lookAndFeel) {
 		SwingUtils.runLog(() -> {
-			UIManager.put("ClassLoader", lookAndFeel.getClass().getClassLoader());
 			UIManager.setLookAndFeel(lookAndFeel);
 		});
 	}
