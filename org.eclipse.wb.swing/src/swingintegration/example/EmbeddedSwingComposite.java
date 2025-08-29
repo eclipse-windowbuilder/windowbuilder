@@ -353,11 +353,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 			container.getRootPane().getContentPane().add(swingComponent);
 			setComponentFont();
 			// force re-layout on SWT level
-			/*getDisplay().syncExec(new Runnable() {
-		public void run() {
-			getParent().layout();
-		}
-      });*/
+			getDisplay().asyncExec(() -> getParent().requestLayout());
 		});
 	}
 

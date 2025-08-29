@@ -585,10 +585,8 @@ IPreferenceConstants {
 						return;
 					}
 					LookAndFeel lookAndFeel = selectedLAF.getLookAndFeelInstance();
-					m_previewGroup.getParent().layout(true);
 					configureLAF(lookAndFeel);
 					createPreviewArea(m_previewGroup);
-					m_previewGroup.getParent().layout(true);
 				} finally {
 					m_previewGroup.getParent().setRedraw(true);
 				}
