@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.layout.group.feature"
       label="%featureName"
-      version="1.21.0.qualifier"
+      version="1.22.0.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.layout.group"
       license-feature="org.eclipse.license"
