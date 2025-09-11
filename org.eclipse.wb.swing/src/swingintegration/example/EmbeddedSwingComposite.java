@@ -14,6 +14,7 @@ package swingintegration.example;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.awt.SWT_AWT;
@@ -22,7 +23,6 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
@@ -130,10 +130,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	private final Listener settingsListener = event -> handleSettingsChange();
 	// This listener helps ensure that Swing popup menus are properly dismissed when
 	// a menu item off the SWT main menu bar is shown.
-	private final Listener menuListener = event -> {
-		assert awtHandler != null;
-		awtHandler.postHidePopups();
-	};
+	private final Listener menuListener = event -> awtHandler.postHidePopups();
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style value describing its
@@ -248,8 +245,8 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	 * @return a non-null Swing component
 	 */
 	protected RootPaneContainer addRootPaneContainer(Frame frame) {
-		assert EventQueue.isDispatchThread(); // On AWT event thread
-		assert frame != null;
+		Assert.isTrue(EventQueue.isDispatchThread(), "Must be called from AWT event thread");
+		Assert.isNotNull(frame, "AWT frame must not be null");
 		// It is important to set up the proper top level components in the frame:
 		// 1) For Swing to work properly, Sun documents that there must be an implementor of
 		// javax.swing.RootPaneContainer at the top of the component hierarchy.
@@ -272,41 +269,14 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		return applet;
 	}
 
-	/**
-	 * Performs custom updates to newly set fonts. This method is called whenever a change to the
-	 * system font through the system settings (i.e. control panel) is detected.
-	 * <p>
-	 * This method is called from the AWT event thread.
-	 * <p>
-	 * In most cases it is not necessary to override this method. Normally, the implementation of this
-	 * class will automatically propogate font changes to the embedded Swing components through
-	 * Swing's Look and Feel support. However, if additional special processing is necessary, it can
-	 * be done inside this method.
-	 *
-	 * @param newFont
-	 *          New AWT font
-	 */
-	protected void updateAwtFont(java.awt.Font newFont) {
-	}
-
-	/**
-	 * Returns the embedded AWT frame. The returned frame is the root of the AWT containment hierarchy
-	 * for the embedded Swing component. This method can be called from any thread.
-	 *
-	 * @return the embedded frame
-	 */
-	public Frame getFrame() {
-		// Intentionally leaving out checkWidget() call. This may need to be called from within user's
-		// createSwingComponent() method. Accessing from a non-SWT thread is OK, but we still check
-		// for disposal
-		if (getDisplay() == null || isDisposed()) {
-			SWT.error(SWT.ERROR_WIDGET_DISPOSED);
-		}
-		return awtContext != null ? awtContext.getFrame() : null;
-	}
+	// #########################################################################
+	//
+	// Component creation
+	//
+	// #########################################################################
 
 	private void createFrame() {
-		assert Display.getCurrent() != null; // On SWT event thread
+		checkWidget();
 		// Make sure Awt environment is initialized.
 		AwtEnvironment.getInstance(getDisplay());
 		if (awtContext != null) {
@@ -328,8 +298,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	}
 
 	private void createFocusHandlers() {
-		assert awtContext != null;
-		assert Display.getCurrent() != null; // On SWT event thread
+		checkWidget();
 		Frame frame = awtContext.getFrame();
 		awtHandler = new AwtFocusHandler(frame);
 		SwtFocusHandler swtHandler = new SwtFocusHandler(this);
@@ -342,7 +311,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	}
 
 	private void scheduleComponentCreation() {
-		assert awtContext != null;
+		Assert.isNotNull(awtContext, "AWT context must not be null");
 		// Create AWT/Swing components on the AWT thread. This is
 		// especially necessary to avoid an AWT leak bug (6411042).
 		final AwtContext currentContext = awtContext;
@@ -351,7 +320,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 			JComponent swingComponent = createSwingComponent();
 			currentContext.setSwingComponent(swingComponent);
 			container.getRootPane().getContentPane().add(swingComponent);
-			setComponentFont();
+			updateComponentFont();
 			// force re-layout on SWT level
 			/*getDisplay().syncExec(new Runnable() {
 		public void run() {
@@ -361,9 +330,15 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		});
 	}
 
-	private void setComponentFont() {
-		assert currentSystemFont != null;
-		assert EventQueue.isDispatchThread(); // On AWT event thread
+	// #########################################################################
+	//
+	// Font handling
+	//
+	// #########################################################################
+
+	private void updateComponentFont() {
+		Assert.isNotNull(currentSystemFont, "System font must not be null");
+		Assert.isTrue(EventQueue.isDispatchThread(), "Must be called from AWT event thread");
 		JComponent swingComponent = awtContext != null ? awtContext.getSwingComponent() : null;
 		if (swingComponent != null && !currentSystemFont.getDevice().isDisposed()) {
 			FontData fontData = currentSystemFont.getFontData()[0];
@@ -377,8 +352,6 @@ public abstract class EmbeddedSwingComposite extends Composite {
 					new java.awt.Font(fontData.getName(), fontData.getStyle(), awtFontSize);
 			// Update the look and feel defaults to use new font.
 			updateLookAndFeel(awtFont);
-			// Allow subclasses to react to font change if necessary.
-			updateAwtFont(awtFont);
 			// Allow components to update their UI based on new font
 			// TODO: should the update method be called on the root pane instead?
 			Container contentPane = swingComponent.getRootPane().getContentPane();
@@ -387,8 +360,8 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	}
 
 	private void updateLookAndFeel(java.awt.Font awtFont) {
-		assert awtFont != null;
-		assert EventQueue.isDispatchThread(); // On AWT event thread
+		Assert.isNotNull(awtFont, "AWT font must not be null");
+		Assert.isTrue(EventQueue.isDispatchThread(), "Must be called from AWT event thread");
 		// The FontUIResource class marks the font as replaceable by the look and feel
 		// implementation if font settings are later changed.
 		FontUIResource fontResource = new FontUIResource(awtFont);
@@ -423,9 +396,15 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		Font newFont = getDisplay().getSystemFont();
 		if (!newFont.equals(currentSystemFont)) {
 			currentSystemFont = newFont;
-			EventQueue.invokeLater(() -> setComponentFont());
+			EventQueue.invokeLater(() -> updateComponentFont());
 		}
 	}
+
+	// #########################################################################
+	//
+	// Focus Handling
+	//
+	// #########################################################################
 
 	private boolean isFocusable() {
 		if (awtContext == null) {
@@ -435,9 +414,6 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		return swingComponent != null && swingComponent.isFocusable();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.swt.widgets.Control#setFocus()
-	 */
 	@Override
 	public boolean setFocus() {
 		checkWidget();
@@ -447,9 +423,6 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		return super.setFocus();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.swt.widgets.Control#forceFocus()
-	 */
 	@Override
 	public boolean forceFocus() {
 		checkWidget();
@@ -459,9 +432,12 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		return super.forceFocus();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.swt.widgets.Widget#dispose()
-	 */
+	// #########################################################################
+	//
+	// Dispose
+	//
+	// #########################################################################
+
 	@Override
 	public void dispose() {
 		if (!isDisposed()) {
