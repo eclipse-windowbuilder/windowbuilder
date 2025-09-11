@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,8 +21,9 @@ import org.eclipse.wb.internal.core.editor.palette.PaletteManager;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
+
+import java.util.Objects;
 
 import javax.swing.JPanel;
 
@@ -168,7 +169,7 @@ public abstract class AbstractPaletteTest extends SwingModelTest {
 		PaletteInfo palette = loadPalette();
 		for (CategoryInfo category : palette.getCategories()) {
 			for (EntryInfo entry : category.getEntries()) {
-				if (StringUtils.equals(entry.getId(), id)) {
+				if (Objects.equals(entry.getId(), id)) {
 					return entry;
 				}
 			}
