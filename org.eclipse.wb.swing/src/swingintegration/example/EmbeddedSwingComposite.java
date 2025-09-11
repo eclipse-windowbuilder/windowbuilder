@@ -11,13 +11,14 @@
  *******************************************************************************/
 package swingintegration.example;
 
-import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.awt.SWT_AWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
@@ -106,6 +107,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		private final Frame frame;
 		private JComponent swingComponent;
 		private volatile boolean focusable;
+		private volatile java.awt.Dimension bounds;
 
 		AwtContext(Frame frame) {
 			assert frame != null;
@@ -126,6 +128,11 @@ public abstract class EmbeddedSwingComposite extends Composite {
 
 		void computeFocusable() {
 			focusable = swingComponent.isFocusable();
+		}
+
+		void computeBounds() {
+			swingComponent.validate();
+			bounds = swingComponent.getPreferredSize();
 		}
 	}
 
@@ -208,18 +215,12 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	@Override
 	public Point computeSize(int wHint, int hHint, boolean changed) {
 		// wait for Swing component creation
-		while (awtContext.swingComponent == null) {
+		while (awtContext.bounds == null) {
 			getDisplay().readAndDispatch();
 		}
 		// return size of Swing component
-		try {
-			final java.awt.Dimension prefSize[] = new java.awt.Dimension[1];
-			SwingImageUtils.runInDispatchThread(() -> prefSize[0] = awtContext.swingComponent.getPreferredSize());
-			return new Point(prefSize[0].width, prefSize[0].height);
-		} catch (Throwable e) {
-		}
-		// if exception, use (0, 0)
-		return new Point(0, 0);
+		final java.awt.Dimension bounds = awtContext.bounds;
+		return new Point(bounds.width, bounds.height);
 	}
 
 	/**
@@ -298,6 +299,8 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		// Glue the two frameworks together. Do this before anything is added to the frame
 		// so that all necessary listeners are in place.
 		createFocusHandlers();
+		// Make sure the bounds of the AWT component are updated on a resize
+		createResizeHandlers();
 		// This listener clears garbage during resizing, making it looker much cleaner
 		addControlListener(new CleanResizeListener());
 	}
@@ -320,6 +323,16 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		});
 	}
 
+	private void createResizeHandlers() {
+		checkWidget();
+		addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				EventQueue.invokeLater(() -> updateComponentSize());
+			}
+		});
+	}
+
 	private void scheduleComponentCreation() {
 		Assert.isNotNull(awtContext, "AWT context must not be null");
 		// Create AWT/Swing components on the AWT thread. This is
@@ -331,13 +344,25 @@ public abstract class EmbeddedSwingComposite extends Composite {
 			currentContext.setSwingComponent(swingComponent);
 			container.getRootPane().getContentPane().add(swingComponent);
 			updateComponentFont();
+			updateComponentSize();
 			updateFocusable();
-			// force re-layout on SWT level
-			/*getDisplay().syncExec(new Runnable() {
-		public void run() {
-			getParent().layout();
-		}
-      });*/
+		});
+	}
+
+	// #########################################################################
+	//
+	// Size handling
+	//
+	// #########################################################################
+
+	private void updateComponentSize() {
+		Assert.isTrue(EventQueue.isDispatchThread(), "Must be called from AWT event thread");
+		awtContext.computeBounds();
+		getDisplay().asyncExec(() -> {
+			if (isDisposed()) {
+				return;
+			}
+			getParent().requestLayout();
 		});
 	}
 
