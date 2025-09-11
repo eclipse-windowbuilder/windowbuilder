@@ -32,9 +32,8 @@ import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Toolkit;
 
-import javax.swing.JApplet;
 import javax.swing.JComponent;
-import javax.swing.RootPaneContainer;
+import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
@@ -101,7 +100,6 @@ import javax.swing.plaf.FontUIResource;
  * Of course, as in single-toolkit environments, long-running tasks should be offloaded from either
  * UI thread to a background thread. The Eclipse jobs API can be used for this purpose.
  */
-@SuppressWarnings("removal")
 public abstract class EmbeddedSwingComposite extends Composite {
 	private static class AwtContext {
 		private final Frame frame;
@@ -131,8 +129,8 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		}
 
 		void computeBounds() {
-			swingComponent.validate();
-			bounds = swingComponent.getPreferredSize();
+			frame.validate();
+			bounds = frame.getPreferredSize();
 		}
 	}
 
@@ -238,8 +236,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 
 	/**
 	 * Adds a root pane container to the embedded AWT frame. Override this to provide your own
-	 * {@link javax.swing.RootPaneContainer} implementation. In most cases, it is not necessary to
-	 * override this method.
+	 * {@link Container} implementation. In most cases, it is not necessary to override this method.
 	 * <p>
 	 * This method is called from the AWT event thread.
 	 * <p>
@@ -252,29 +249,12 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	 *          the frame to which the root pane container is added
 	 * @return a non-null Swing component
 	 */
-	protected RootPaneContainer addRootPaneContainer(Frame frame) {
+	protected JRootPane addRootPaneContainer(Frame frame) {
 		Assert.isTrue(EventQueue.isDispatchThread(), "Must be called from AWT event thread");
 		Assert.isNotNull(frame, "AWT frame must not be null");
-		// It is important to set up the proper top level components in the frame:
-		// 1) For Swing to work properly, Sun documents that there must be an implementor of
-		// javax.swing.RootPaneContainer at the top of the component hierarchy.
-		// 2) For proper event handling there must be a heavyweight
-		// an AWT frame must contain a heavyweight component (see
-		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4982522)
-		// 3) The Swing implementation further narrows the options by expecting that the
-		// top of the hierarchy be a JFrame, JDialog, JWindow, or JApplet. See javax.swing.PopupFactory.
-		// All this drives the choice of JApplet for the top level Swing component. It is the
-		// only single component that satisfies all the above. This does not imply that
-		// we have a true applet; in particular, there is no notion of an applet lifecycle in this
-		// context.
-		JApplet applet = new JApplet();
-		// In JRE 1.4, the JApplet makes itself a focus cycle root. This
-		// interferes with the focus handling installed on the parent frame, so
-		// change it back to a non-root here.
-		// TODO: consider moving the focus policy from the Frame down to the JApplet
-		applet.setFocusCycleRoot(false);
-		frame.add(applet);
-		return applet;
+		JRootPane pane = new JRootPane();
+		frame.add(pane);
+		return pane;
 	}
 
 	// #########################################################################
@@ -341,7 +321,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		// especially necessary to avoid an AWT leak bug (6411042).
 		final AwtContext currentContext = awtContext;
 		EventQueue.invokeLater(() -> {
-			RootPaneContainer container = addRootPaneContainer(currentContext.getFrame());
+			JRootPane container = addRootPaneContainer(currentContext.getFrame());
 			JComponent swingComponent = createSwingComponent();
 			currentContext.setSwingComponent(swingComponent);
 			container.getRootPane().getContentPane().add(swingComponent);
