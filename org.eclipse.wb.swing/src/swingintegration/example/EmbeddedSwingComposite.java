@@ -105,6 +105,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	private static class AwtContext {
 		private final Frame frame;
 		private JComponent swingComponent;
+		private volatile boolean focusable;
 
 		AwtContext(Frame frame) {
 			assert frame != null;
@@ -121,6 +122,10 @@ public abstract class EmbeddedSwingComposite extends Composite {
 
 		JComponent getSwingComponent() {
 			return swingComponent;
+		}
+
+		void computeFocusable() {
+			focusable = swingComponent.isFocusable();
 		}
 	}
 
@@ -308,6 +313,11 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		getDisplay().addFilter(SWT.Show, menuListener);
 		EmbeddedChildFocusTraversalPolicy policy = new EmbeddedChildFocusTraversalPolicy(awtHandler);
 		frame.setFocusTraversalPolicy(policy);
+		frame.addPropertyChangeListener(event -> {
+			if ("focusable".equals(event.getPropertyName())) {
+				updateFocusable();
+			}
+		});
 	}
 
 	private void scheduleComponentCreation() {
@@ -321,6 +331,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 			currentContext.setSwingComponent(swingComponent);
 			container.getRootPane().getContentPane().add(swingComponent);
 			updateComponentFont();
+			updateFocusable();
 			// force re-layout on SWT level
 			/*getDisplay().syncExec(new Runnable() {
 		public void run() {
@@ -406,12 +417,17 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	//
 	// #########################################################################
 
+	private void updateFocusable() {
+		Assert.isNotNull(awtContext, "AWT context must not be null");
+		Assert.isTrue(EventQueue.isDispatchThread(), "Must be called from AWT event thread");
+		awtContext.computeFocusable();
+	}
+
 	private boolean isFocusable() {
 		if (awtContext == null) {
 			return false;
 		}
-		JComponent swingComponent = awtContext.getSwingComponent();
-		return swingComponent != null && swingComponent.isFocusable();
+		return awtContext.focusable;
 	}
 
 	@Override
