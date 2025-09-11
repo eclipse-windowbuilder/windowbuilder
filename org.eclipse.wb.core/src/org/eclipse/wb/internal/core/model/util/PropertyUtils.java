@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -92,7 +93,7 @@ public final class PropertyUtils {
 	}
 	public static Property getByTitle(List<Property> properties, String title) {
 		for (Property property : properties) {
-			if (StringUtils.equals(title, property.getTitle())) {
+			if (Objects.equals(title, property.getTitle())) {
 				return property;
 			}
 		}

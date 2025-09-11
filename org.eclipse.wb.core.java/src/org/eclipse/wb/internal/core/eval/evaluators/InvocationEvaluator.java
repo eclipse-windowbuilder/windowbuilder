@@ -51,7 +51,6 @@ import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.matcher.ElementMatchers;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -129,7 +128,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
 		Javadoc javadoc = methodDeclaration.getJavadoc();
 		if (javadoc != null) {
 			for (TagElement tag : DomGenerics.tags(javadoc)) {
-				if (StringUtils.equals(tag.getTagName(), "@wbp.eval.method.return")) {
+				if ("@wbp.eval.method.return".equals(tag.getTagName())) {
 					List<ASTNode> fragments = DomGenerics.fragments(tag);
 					if (!fragments.isEmpty() && fragments.get(0) instanceof TextElement) {
 						TextElement textElement = (TextElement) tag.fragments().get(0);

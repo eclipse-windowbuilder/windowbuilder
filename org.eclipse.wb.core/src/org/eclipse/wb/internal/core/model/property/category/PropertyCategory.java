@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -92,19 +92,19 @@ public final class PropertyCategory {
 	 */
 	public static PropertyCategory get(String text, PropertyCategory defaultCategory) {
 		// simple
-		if (StringUtils.equals(text, "normal")) {
+		if ("normal".equals(text)) {
 			return NORMAL;
 		}
-		if (StringUtils.equals(text, "preferred")) {
+		if ("preferred".equals(text)) {
 			return PREFERRED;
 		}
-		if (StringUtils.equals(text, "advanced")) {
+		if ("advanced".equals(text)) {
 			return ADVANCED;
 		}
-		if (StringUtils.equals(text, "advanced-really")) {
+		if ("advanced-really".equals(text)) {
 			return ADVANCED_REALLY;
 		}
-		if (StringUtils.equals(text, "hidden")) {
+		if ("hidden".equals(text)) {
 			return HIDDEN;
 		}
 		// system
