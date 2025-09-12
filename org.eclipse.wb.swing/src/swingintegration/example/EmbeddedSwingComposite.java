@@ -220,7 +220,9 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		}
 		// return size of Swing component
 		final java.awt.Dimension bounds = awtContext.bounds;
-		return new Point(bounds.width, bounds.height);
+		int width = SWT.DEFAULT != wHint ? wHint : bounds.width;
+		int height = SWT.DEFAULT != hHint ? hHint : bounds.height;
+		return new Point(width, height);
 	}
 
 	/**
