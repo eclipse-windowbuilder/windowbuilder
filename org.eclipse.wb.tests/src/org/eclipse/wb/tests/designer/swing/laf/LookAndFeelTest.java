@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,9 +30,12 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
@@ -398,18 +401,39 @@ public class LookAndFeelTest extends SwingModelTest {
 	 * Test fetching LAF list.
 	 */
 	@Test
-	public void test_getLAFList() throws Exception {
+	public void test_getLAFList() throws Throwable {
 		List<CategoryInfo> categoryList = LafSupport.getLAFCategoriesList();
 		assertNotNull(categoryList);
 		assertFalse(categoryList.isEmpty());
+
+		AtomicInteger counter = new AtomicInteger(0);
+		List<Throwable> exceptions = new ArrayList<>();
+
 		// check LAF classes
 		for (CategoryInfo categoryInfo : categoryList) {
 			List<LafInfo> lafList = categoryInfo.getLAFList();
 			for (LafInfo lafInfo : lafList) {
 				if (!(lafInfo instanceof SeparatorLafInfo)) {
-					assertNotNull(lafInfo.getLookAndFeelInstance());
+					counter.incrementAndGet();
+					SwingUtilities.invokeLater(() -> {
+						try {
+							assertNotNull(lafInfo.getLookAndFeelInstance());
+						} catch (Throwable t) {
+							exceptions.add(t);
+						} finally {
+							counter.decrementAndGet();
+						}
+					});
 				}
 			}
+		}
+
+		while (counter.get() != 0) {
+			waitEventLoop(0);
+		}
+
+		for (Throwable t : exceptions) {
+			throw t;
 		}
 	}
 

@@ -37,7 +37,6 @@ import org.eclipse.wb.internal.swing.laf.model.SeparatorLafInfo;
 import org.eclipse.wb.internal.swing.laf.ui.AddCustomLookAndFeelDialog;
 import org.eclipse.wb.internal.swing.laf.ui.EditCustomLookAndFeelDialog;
 import org.eclipse.wb.internal.swing.preferences.Messages;
-import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -82,9 +81,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-
 import swingintegration.example.EmbeddedSwingComposite;
 
 /**
@@ -100,7 +96,6 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 	private static final Image LAF_ITEM_IMAGE = Activator.getImage("info/laf/laf.png");
 	// variables
 	private LafInfo m_defaultLAF;
-	private final LookAndFeel m_currentLookAndFeel;
 	// ui variables
 	private CheckboxTreeViewer m_lafTree;
 	private Group m_previewGroup;
@@ -121,7 +116,6 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public LafPreferencePage() {
-		m_currentLookAndFeel = UIManager.getLookAndFeel();
 		m_defaultLAF = LafSupport.getDefaultLAF();
 	}
 
@@ -175,7 +169,6 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 			// cancel preview updating
 			cancelPreviewUpdate();
 			m_previewTimer.cancel();
-			restoreLookAndFeel();
 		});
 		return container;
 	}
@@ -283,7 +276,6 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 	 * restore
 	 */
 	private void fireLookAndFeelsChanged() {
-		restoreLookAndFeel();
 		LafSupport.fireLookAndFeelsChanged();
 	}
 
@@ -524,12 +516,6 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 	// Swing LAF Preview
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Restores the {@link LookAndFeel} used before preview changed it.
-	 */
-	private void restoreLookAndFeel() {
-		configureLAF(m_currentLookAndFeel);
-	}
 
 	/**
 	 * Schedules Swing LAF preview updating.
@@ -565,10 +551,8 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 						// nothing selected
 						return;
 					}
-					LookAndFeel lookAndFeel = selectedLAF.getLookAndFeelInstance();
 					m_previewGroup.getParent().layout(true);
-					configureLAF(lookAndFeel);
-					createPreviewArea(m_previewGroup);
+					createPreviewArea(m_previewGroup, selectedLAF);
 					m_previewGroup.getParent().layout(true);
 				} finally {
 					m_previewGroup.getParent().setRedraw(true);
@@ -592,16 +576,9 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 	 * Creates {@link EmbeddedSwingComposite} with some Swing components to show it using different
 	 * LAFs.
 	 */
-	private void createPreviewArea(Group previewGroup) {
-		try {
-			LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
-			EmbeddedSwingComposite awtComposite = new LafCanvas(previewGroup, SWT.NONE);
-			awtComposite.populate();
-			// restore current laf
-			configureLAF(currentLookAndFeel);
-		} catch (Throwable e) {
-			DesignerPlugin.log(e);
-		}
+	private void createPreviewArea(Group previewGroup, LafInfo selection) {
+		EmbeddedSwingComposite awtComposite = new LafCanvas(selection, previewGroup, SWT.NONE);
+		awtComposite.populate();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -727,15 +704,6 @@ public class LafPreferencePage extends PreferencePage implements IWorkbenchPrefe
 		};
 		dropAdapter.setScrollExpandEnabled(false);
 		m_lafTree.addDropSupport(DND.DROP_MOVE, transfers, dropAdapter);
-	}
-
-	// The Look and Feel must be updated in the AWT event dispatcher to avoid
-	// deadlocks when called from within the SWT UI thread. See:
-	// https://github.com/eclipse-windowbuilder/windowbuilder/discussions/937
-	private static void configureLAF(LookAndFeel lookAndFeel) {
-		SwingUtils.runLog(() -> {
-			UIManager.setLookAndFeel(lookAndFeel);
-		});
 	}
 
 	/**
