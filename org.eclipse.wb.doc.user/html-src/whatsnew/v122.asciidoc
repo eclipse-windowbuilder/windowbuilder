@@ -1,0 +1,17 @@
+ifdef::env-github[]
+:imagesdir: ../../html/whatsnew
+endif::[]
+
+= What's New - v1.22.0
+
+== Swing
+
+- Deprecated support for Applet/JApplet
+
+The Applet API has been deprecated for removal with Java 9 and formally been
+removed with Java 26. Support for those conainers will be removed after the
+2027-12 release.
+
+See https://bugs.openjdk.org/browse/JDK-8359053
+
+What's new - xref:v110.adoc[*v1.21.0*]

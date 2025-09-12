@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,13 +23,11 @@ import org.eclipse.swt.graphics.RGB;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.applet.Applet;
-
-import javax.swing.JApplet;
 import javax.swing.JFrame;
 
 /**
- * Test for {@link Applet} and {@link JApplet}.
+ * Test for {@link java.applet.Applet Applet} and {@link javax.swing.JApplet
+ * JApplet}.
  *
  * @author scheglov_ke
  */
@@ -49,8 +47,9 @@ public class AppletTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Java thinks that {@link Applet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
-	 * test that we handle {@link Applet} correctly.
+	 * Java thinks that {@link java.applet.Applet Applet} is root of hierarchy, but
+	 * we wrap it in {@link JFrame}. So, we test that we handle
+	 * {@link java.applet.Applet Applet} correctly.
 	 */
 	@Test
 	public void test_Applet_bounds() throws Exception {
@@ -77,8 +76,9 @@ public class AppletTest extends SwingModelTest {
 	}
 
 	/**
-	 * Java thinks that {@link JApplet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
-	 * test that we handle {@link JApplet} correctly.
+	 * Java thinks that {@link javax.swing.JApplet JApplet} is root of hierarchy,
+	 * but we wrap it in {@link JFrame}. So, we test that we handle
+	 * {@link javax.swing.JApplet JApplet} correctly.
 	 */
 	@Test
 	public void test_JApplet_bounds() throws Exception {
@@ -104,8 +104,8 @@ public class AppletTest extends SwingModelTest {
 	}
 
 	/**
-	 * {@link JApplet#getParent()} returns <code>null</code>, but we should not fail, and it is not
-	 * included into hierarchy.
+	 * {@link javax.swing.JApplet#getParent()} returns <code>null</code>, but we
+	 * should not fail, and it is not included into hierarchy.
 	 */
 	@Test
 	public void test_JApplet_getParent() throws Exception {
@@ -132,8 +132,9 @@ public class AppletTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Java thinks that {@link Applet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
-	 * test that we get correct screen shot of {@link Applet}.
+	 * Java thinks that {@link java.applet.Applet Applet} is root of hierarchy, but
+	 * we wrap it in {@link JFrame}. So, we test that we get correct screen shot of
+	 * {@link java.applet.Applet Applet}.
 	 */
 	@Test
 	public void test_Applet_screenShot() throws Exception {
@@ -151,8 +152,9 @@ public class AppletTest extends SwingModelTest {
 	}
 
 	/**
-	 * Java thinks that {@link JApplet} is root of hierarchy, but we wrap it in {@link JFrame}. So, we
-	 * test that we get correct screen shot of {@link JApplet}.
+	 * Java thinks that {@link javax.swing.JApplet JApplet} is root of hierarchy,
+	 * but we wrap it in {@link JFrame}. So, we test that we get correct screen shot
+	 * of {@link javax.swing.JApplet JApplet}.
 	 */
 	@Test
 	public void test_JApplet_screenShot() throws Exception {
