@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -183,12 +183,12 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 		String fieldPrefix = JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES);
 		String fieldName = fieldPrefix + StringUtils.uncapitalize(beanClassShortName);
 		//
-		code = StringUtils.replace(code, "%BeanClass%", beanClassName);
+		code = code.replace("%BeanClass%", beanClassName);
 		//
 		if (ReflectionUtils.getConstructorBySignature(m_beanClass, "<init>()") == null) {
-			code = StringUtils.replace(code, "%BeanField%", fieldName);
+			code = code.replace("%BeanField%", fieldName);
 		} else {
-			code = StringUtils.replace(code, "%BeanField%", fieldName + " = new " + beanClassName + "()");
+			code = code.replace("%BeanField%", fieldName + " = new " + beanClassName + "()");
 		}
 		//
 		IPreferenceStore preferences = ToolkitProvider.DESCRIPTION.getPreferences();
@@ -196,8 +196,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 				preferences.getBoolean(FieldUniqueVariableSupport.P_PREFIX_THIS) ? "this." : "";
 		String beanFieldAccess = accessPrefix + fieldName;
 		//
-		code = StringUtils.replace(code, "%BeanName%", StringUtils.capitalize(beanClassShortName));
-		code = StringUtils.replace(code, "%BeanFieldAccess%", accessPrefix + fieldName);
+		code = code.replace("%BeanName%", StringUtils.capitalize(beanClassShortName));
+		code = code.replace("%BeanFieldAccess%", accessPrefix + fieldName);
 		// prepare properties
 		final List<PropertyAdapter> properties = new ArrayList<>();
 		Display.getDefault().syncExec(() -> CollectionUtils.addAll(properties, (PropertyAdapter[]) m_propertiesViewer.getCheckedElements()));
@@ -334,11 +334,11 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
 			//
 		}
 		// replace template patterns
-		code = StringUtils.replace(code, "%ComponentFields%", componentFields.toString());
-		code = StringUtils.replace(code, "%Components%" + swingContainer + "%", components.toString());
-		code = StringUtils.replace(code, "%Bindings%", bindings.toString());
-		code = StringUtils.replace(code, "%Group%", group.toString());
-		code = StringUtils.replace(code, "%LAZY%", lazy.toString());
+		code = code.replace("%ComponentFields%", componentFields.toString());
+		code = code.replace("%Components%" + swingContainer + "%", components.toString());
+		code = code.replace("%Bindings%", bindings.toString());
+		code = code.replace("%Group%", group.toString());
+		code = code.replace("%LAZY%", lazy.toString());
 		// add imports
 		for (String qualifiedTypeName : importList) {
 			imports.addImport(qualifiedTypeName);

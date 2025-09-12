@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,8 +25,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.EditorPart;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 
@@ -75,7 +73,7 @@ public final class EditorPartWizardPage extends RcpPartWizardPage {
 	@Override
 	protected String performSubstitutions(String code, ImportsManager imports) {
 		code = super.performSubstitutions(code, imports);
-		code = StringUtils.replace(code, "%EDITOR_ID%", m_newTypeClassName);
+		code = code.replace("%EDITOR_ID%", m_newTypeClassName);
 		return code;
 	}
 

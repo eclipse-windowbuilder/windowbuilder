@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,8 +18,6 @@ import org.eclipse.wb.internal.rcp.ToolkitProvider;
 
 import org.eclipse.swt.widgets.Composite;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * General wizard page for RCP wizard's.
  *
@@ -35,22 +33,19 @@ public class RcpWizardPage extends TemplateDesignWizardPage {
 	public static String doPerformSubstitutions(TemplateDesignWizardPage page,
 			String code,
 			ImportsManager imports) {
-		code = StringUtils.replace(code, "%CreateMethod%", page.getCreateMethod("createContents"));
-		code = StringUtils.replace(code, "%SWTLayout%", page.getLayoutCode("", imports));
-		code = StringUtils.replace(code, "%shell.SWTLayout%", page.getLayoutCode("shell.", imports));
+		code = code.replace("%CreateMethod%", page.getCreateMethod("createContents"));
+		code = code.replace("%SWTLayout%", page.getLayoutCode("", imports));
+		code = code.replace("%shell.SWTLayout%", page.getLayoutCode("shell.", imports));
 		code =
-				StringUtils.replace(
-						code,
+				code.replace(
 						"%container.SWTLayout%",
 						page.getLayoutCode("container.", imports));
 		code =
-				StringUtils.replace(
-						code,
+				code.replace(
 						"%field-prefix-shell.SWTLayout%",
 						page.getLayoutCode("%field-prefix%shell.", imports));
 		code =
-				StringUtils.replace(
-						code,
+				code.replace(
 						"%field-prefix-container.SWTLayout%",
 						page.getLayoutCode("%field-prefix%container.", imports));
 		code = performFieldPrefixesSubstitutions(code);

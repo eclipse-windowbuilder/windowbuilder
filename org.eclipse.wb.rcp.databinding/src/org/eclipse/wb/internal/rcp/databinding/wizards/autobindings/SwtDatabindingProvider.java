@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -243,20 +243,20 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 		String beanClassShortName = ClassUtils.getShortClassName(beanClassName);
 		String fieldPrefix = JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES);
 		String fieldName = fieldPrefix + StringUtils.uncapitalize(beanClassShortName);
-		code = StringUtils.replace(code, "%BeanClass%", beanClassName);
+		code = code.replace("%BeanClass%", beanClassName);
 		//
 		if (ReflectionUtils.getConstructorBySignature(m_beanClass, "<init>()") == null) {
-			code = StringUtils.replace(code, "%BeanField%", fieldName);
+			code = code.replace("%BeanField%", fieldName);
 		} else {
-			code = StringUtils.replace(code, "%BeanField%", fieldName + " = new " + beanClassName + "()");
+			code = code.replace("%BeanField%", fieldName + " = new " + beanClassName + "()");
 		}
 		//
 		IPreferenceStore preferences = ToolkitProvider.DESCRIPTION.getPreferences();
 		String accessPrefix =
 				preferences.getBoolean(FieldUniqueVariableSupport.P_PREFIX_THIS) ? "this." : "";
-		code = StringUtils.replace(code, "%BeanFieldAccess%", accessPrefix + fieldName);
+		code = code.replace("%BeanFieldAccess%", accessPrefix + fieldName);
 		//
-		code = StringUtils.replace(code, "%BeanName%", StringUtils.capitalize(beanClassShortName));
+		code = code.replace("%BeanName%", StringUtils.capitalize(beanClassShortName));
 		// prepare code
 		StringBuffer widgetFields = new StringBuffer();
 		StringBuffer widgets = new StringBuffer();
@@ -351,11 +351,11 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
 			importList.add(widgetDescriptor.getFullClassName());
 		}
 		// replace template patterns
-		code = StringUtils.replace(code, "%WidgetFields%", widgetFields.toString());
-		code = StringUtils.replace(code, "%Widgets%" + swtContainer + "%", widgets.toString());
+		code = code.replace("%WidgetFields%", widgetFields.toString());
+		code = code.replace("%Widgets%" + swtContainer + "%", widgets.toString());
 		//
-		code = StringUtils.replace(code, "%Observables%", observables.toString());
-		code = StringUtils.replace(code, "%Bindings%", bindings.toString());
+		code = code.replace("%Observables%", observables.toString());
+		code = code.replace("%Bindings%", bindings.toString());
 		// add imports
 		for (String qualifiedTypeName : importList) {
 			imports.addImport(qualifiedTypeName);
