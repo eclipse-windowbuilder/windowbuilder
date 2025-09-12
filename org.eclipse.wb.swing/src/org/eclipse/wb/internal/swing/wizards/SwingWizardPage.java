@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,8 +18,6 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 
 import org.eclipse.swt.widgets.Composite;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * General wizard page for Swing wizard's.
  *
@@ -35,12 +33,8 @@ public class SwingWizardPage extends TemplateDesignWizardPage {
 	public static String doPerformSubstitutions(TemplateDesignWizardPage page,
 			String code,
 			ImportsManager imports) {
-		code = StringUtils.replace(code, "%SwingLayout%", page.getLayoutCode("", imports));
-		code =
-				StringUtils.replace(
-						code,
-						"%ContentPane.SwingLayout%",
-						page.getLayoutCode("getContentPane().", imports));
+		code = code.replace("%SwingLayout%", page.getLayoutCode("", imports));
+		code = code.replace("%ContentPane.SwingLayout%", page.getLayoutCode("getContentPane().", imports));
 		return code;
 	}
 

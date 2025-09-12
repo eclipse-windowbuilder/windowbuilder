@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -165,20 +165,18 @@ public abstract class TemplateDesignWizardPage extends AbstractDesignWizardPage 
 	 */
 	protected String performSubstitutions(String code, ImportsManager imports) {
 		loadUIClasses();
-		code = StringUtils.replace(code, "%TypeName%", getTypeName());
-		code = StringUtils.replace(code, "%DefaultFormSize%", getDefaultFormSize());
-		code = StringUtils.replace(code, "%this%", getInstanceFieldQualification());
+		code = code.replace("%TypeName%", getTypeName());
+		code = code.replace("%DefaultFormSize%", getDefaultFormSize());
+		code = code.replace("%this%", getInstanceFieldQualification());
 		code = performFieldPrefixesSubstitutions(code);
 		return code;
 	}
 
 	protected static String performFieldPrefixesSubstitutions(String code) {
-		code = StringUtils.replace(
-				code,
+		code = code.replace(
 				"%field-prefix%",
 				JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES));
-		code = StringUtils.replace(
-				code,
+		code = code.replace(
 				"%static-field-prefix%",
 				JavaCore.getOption(JavaCore.CODEASSIST_STATIC_FIELD_PREFIXES));
 		return code;
