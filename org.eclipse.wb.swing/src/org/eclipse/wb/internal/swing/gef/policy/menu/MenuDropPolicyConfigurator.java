@@ -13,13 +13,13 @@
 package org.eclipse.wb.internal.swing.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
+import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 
-import javax.swing.JApplet;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -30,7 +30,6 @@ import javax.swing.JInternalFrame;
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */
-@SuppressWarnings("removal")
 public final class MenuDropPolicyConfigurator implements IEditPartConfigurator {
 	@Override
 	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
@@ -41,7 +40,7 @@ public final class MenuDropPolicyConfigurator implements IEditPartConfigurator {
 			if (JFrame.class.isAssignableFrom(componentClass)
 					|| JInternalFrame.class.isAssignableFrom(componentClass)
 					|| JDialog.class.isAssignableFrom(componentClass)
-					|| JApplet.class.isAssignableFrom(componentClass)) {
+					|| Activator.isAssignableFromJApplet(componentClass)) {
 				editPart.installEditPolicy(new MenuBarDropLayoutEditPolicy(container));
 			}
 		}

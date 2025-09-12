@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
+import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -23,7 +24,6 @@ import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
@@ -162,7 +162,7 @@ public final class SwingScreenshotMaker {
 			Point componentLocation;
 			{
 				Point p_component;
-				if (m_component instanceof Applet) {
+				if (Activator.isAssignableFromApplet(m_component.getClass())) {
 					// Applet reports "screen location" as (0,0), but we want location on "window"
 					p_component = SwingUtils.getScreenLocation(m_component.getParent());
 				} else {

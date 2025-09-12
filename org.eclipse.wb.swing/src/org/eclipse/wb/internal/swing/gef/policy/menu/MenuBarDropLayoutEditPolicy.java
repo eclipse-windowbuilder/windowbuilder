@@ -34,13 +34,12 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
-import javax.swing.JApplet;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
  * {@link LayoutEditPolicy} allowing drop {@link JMenuBarInfo} on {@link JFrame}, {@link JDialog} or
- * {@link JApplet}.
+ * {@link javax.swing.JApplet JApplet}.
  *
  * @author scheglov_ke
  * @coverage swing.gef.policy

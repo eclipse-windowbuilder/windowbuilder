@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,10 +18,8 @@ import org.eclipse.wb.internal.swing.wizards.SwingWizard;
 
 import org.eclipse.jface.wizard.Wizard;
 
-import javax.swing.JApplet;
-
 /**
- * {@link Wizard} that creates new Swing {@link JApplet}.
+ * {@link Wizard} that creates new Swing {@link javax.swing.JApplet JApplet}.
  *
  * @author lobas_av
  * @coverage swing.wizards.ui

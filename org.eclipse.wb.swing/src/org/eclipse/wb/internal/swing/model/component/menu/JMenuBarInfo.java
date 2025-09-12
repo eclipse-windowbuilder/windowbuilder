@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,7 +36,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.List;
 
-import javax.swing.JApplet;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -124,8 +123,8 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Adds this {@link JMenuBarInfo} to given {@link ContainerInfo}, such as {@link JFrame},
-	 * {@link JDialog} and {@link JApplet}.
+	 * Adds this {@link JMenuBarInfo} to given {@link ContainerInfo}, such as
+	 * {@link JFrame}, {@link JDialog} and {@link javax.swing.JApplet JApplet}.
 	 */
 	public void command_CREATE(ContainerInfo container) throws Exception {
 		AssociationObject association =

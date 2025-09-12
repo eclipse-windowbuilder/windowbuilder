@@ -24,6 +24,7 @@ public class ModelMessages extends NLS {
 	public static String ActionJavaInfoParticipator_none;
 	public static String ActionJavaInfoParticipator_setActionManager;
 	public static String ActionUseEntryInfo_description;
+	public static String AppletInfo_deprecated;
 	public static String BevelBorderComposite_bevelType;
 	public static String BevelBorderComposite_highlightInnerColor;
 	public static String BevelBorderComposite_highlightOuterColor;

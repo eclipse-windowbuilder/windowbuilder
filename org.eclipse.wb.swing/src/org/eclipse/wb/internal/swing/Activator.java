@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swing;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -30,6 +31,10 @@ import java.io.InputStream;
  */
 public final class Activator extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.eclipse.wb.swing";
+	private static final Class<?> APPLET_CLASS = ExecutionUtils
+			.runObjectIgnore(() -> Activator.class.getClassLoader().loadClass("java.applet.Applet"), null);
+	private static final Class<?> JAPPLET_CLASS = ExecutionUtils
+			.runObjectIgnore(() -> Activator.class.getClassLoader().loadClass("javax.swing.JApplet"), null);
 	private static Activator m_plugin;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -60,6 +65,28 @@ public final class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return m_plugin;
+	}
+
+	/**
+	 * @return {@code true}, if {@code clazz} extends {@link java.applet.Applet
+	 *         Applet}.
+	 */
+	public static boolean isAssignableFromApplet(Class<?> clazz) {
+		if (APPLET_CLASS == null) {
+			return false;
+		}
+		return APPLET_CLASS.isAssignableFrom(clazz);
+	}
+
+	/**
+	 * @return {@code true}, if {@code clazz} extends {@link javax.swing.JApplet
+	 *         JApplet}.
+	 */
+	public static boolean isAssignableFromJApplet(Class<?> clazz) {
+		if (JAPPLET_CLASS == null) {
+			return false;
+		}
+		return JAPPLET_CLASS.isAssignableFrom(clazz);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
