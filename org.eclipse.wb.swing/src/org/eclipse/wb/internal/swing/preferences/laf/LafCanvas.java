@@ -12,13 +12,17 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.preferences.laf;
 
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
+import org.eclipse.wb.internal.swing.laf.model.LafInfo;
 import org.eclipse.wb.internal.swing.preferences.Messages;
 
 import org.eclipse.swt.widgets.Composite;
 
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Objects;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -32,6 +36,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
 
 import swingintegration.example.EmbeddedSwingComposite;
 
@@ -39,12 +45,37 @@ import swingintegration.example.EmbeddedSwingComposite;
  * Preview of the currently selected LaF in the preference page.
  */
 public final class LafCanvas extends EmbeddedSwingComposite {
-	public LafCanvas(Composite parent, int style) {
-			super(parent, style);
-		}
+	private final LafInfo selection;
+	private LookAndFeel oldLookAndFeel;
 
-		@Override
-		protected JComponent createSwingComponent() {
+	public LafCanvas(LafInfo selection, Composite parent, int style) {
+		super(parent, style);
+		this.selection = selection;
+	}
+
+	/**
+	 * Called before the Swing components are created to set the selected
+	 * {@link LookAndFeel}.
+	 */
+	private void setLookAndFeel() throws Exception {
+		oldLookAndFeel = UIManager.getLookAndFeel();
+		LookAndFeel lookAndFeelInstance = selection.getLookAndFeelInstance();
+		UIManager.setLookAndFeel(lookAndFeelInstance);
+	}
+
+	/**
+	 * Called after the Swing components were created to restore the original
+	 * {@link LookAndFeel}.
+	 */
+	private void restoreLookAndFeel() throws Exception {
+		Objects.requireNonNull(oldLookAndFeel, "Tried to restore old LookAndFeel which was never set");
+		UIManager.setLookAndFeel(oldLookAndFeel);
+	}
+
+	@Override
+	protected JComponent createSwingComponent() {
+		try {
+			ExecutionUtils.runLog(this::setLookAndFeel);
 			// create the JRootPane
 			JRootPane rootPane = new JRootPane();
 			{
@@ -134,5 +165,9 @@ public final class LafCanvas extends EmbeddedSwingComposite {
 				rootPane.getContentPane().add(textField, gbc);
 			}
 			return rootPane;
+		} finally {
+			// Delay restoration until after the components have been painted
+			EventQueue.invokeLater(() -> ExecutionUtils.runLog(this::restoreLookAndFeel));
 		}
 	}
+}
