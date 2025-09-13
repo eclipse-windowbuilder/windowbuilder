@@ -18,16 +18,11 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.swing.laf.LafSupport;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 /**
- * Base class for {@link LookAndFeel} info.
+ * Base class for {@link javax.swing.LookAndFeel LookAndFeel} info.
  *
  * @author mitin_aa
  * @coverage swing.laf.models
@@ -110,14 +105,13 @@ public class LafInfo extends LafEntryInfo {
 	 *
 	 * @return the instance of LAF class.
 	 */
-	public LookAndFeel getLookAndFeelInstance() throws Exception {
-		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatch thread");
-		LookAndFeel oldLookAndFeel = UIManager.getLookAndFeel();
+	public LafValue getLookAndFeelInstance() throws Exception {
+		javax.swing.LookAndFeel oldLookAndFeel = javax.swing.UIManager.getLookAndFeel();
 		try {
-			UIManager.setLookAndFeel(getClassName());
-			return UIManager.getLookAndFeel();
+			javax.swing.UIManager.setLookAndFeel(getClassName());
+			return new LafValue(javax.swing.UIManager.getLookAndFeel());
 		} finally {
-			UIManager.setLookAndFeel(oldLookAndFeel);
+			javax.swing.UIManager.setLookAndFeel(oldLookAndFeel);
 		}
 	}
 

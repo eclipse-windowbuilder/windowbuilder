@@ -79,7 +79,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.xml.parsers.SAXParser;
@@ -333,7 +332,7 @@ public final class LafSupport {
 			SwingUtils.runLaterAndWait(new RunnableEx() {
 				@Override
 				public void run() throws Exception {
-					LookAndFeel lookAndFeelInstance = lafInfo.getLookAndFeelInstance();
+					javax.swing.LookAndFeel lookAndFeelInstance = lafInfo.getLookAndFeelInstance().getValue();
 					UIManager.setLookAndFeel(lookAndFeelInstance);
 				}
 			});
@@ -477,8 +476,7 @@ public final class LafSupport {
 					AstEvaluationEngine.evaluate(context, DomGenerics.arguments(setLookAndFeelMethod).get(0));
 			// it can be String or LookAndFeel only
 			if (SET_LOOK_AND_FEEL_LAF.equals(methodSignature)) {
-				LookAndFeel laf = (LookAndFeel) evaluateObject;
-				className = laf.getClass().getName();
+				className = evaluateObject.getClass().getName();
 			} else {
 				className = (String) evaluateObject;
 			}
