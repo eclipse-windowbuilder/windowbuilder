@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,10 +28,11 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.pages.TitledBo
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -67,9 +68,9 @@ public final class BorderField extends AbstractBorderField {
 			Button button = new Button(this, SWT.NONE);
 			GridDataFactory.create(button).hintHC(10);
 			button.setText(buttonText);
-			button.addListener(SWT.Selection, new Listener() {
+			button.addSelectionListener(new SelectionAdapter() {
 				@Override
-				public void handleEvent(Event e) {
+				public void widgetSelected(SelectionEvent e) {
 					BorderDialog borderDialog = new BorderDialog(getShell(), m_editor);
 					borderDialog.setBorderModified(m_border != null);
 					borderDialog.setBorder(m_border);

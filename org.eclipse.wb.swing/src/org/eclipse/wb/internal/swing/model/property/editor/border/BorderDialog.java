@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -44,17 +43,18 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.border.Border;
 
@@ -129,7 +129,7 @@ public final class BorderDialog extends ResizableDialog {
 	private Combo m_typeCombo;
 	private Group m_pagesComposite;
 	private StackLayout m_pagesLayout;
-	private final java.util.List<AbstractBorderComposite> m_pages = new ArrayList<>();
+	private final List<AbstractBorderComposite> m_pages = new ArrayList<>();
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -144,9 +144,9 @@ public final class BorderDialog extends ResizableDialog {
 			{
 				m_typeCombo = new Combo(typeGroup, SWT.READ_ONLY);
 				GridDataFactory.create(m_typeCombo).grab().fill();
-				m_typeCombo.addListener(SWT.Selection, new Listener() {
+				m_typeCombo.addSelectionListener(new SelectionAdapter() {
 					@Override
-					public void handleEvent(Event event) {
+					public void widgetSelected(SelectionEvent e) {
 						int index = m_typeCombo.getSelectionIndex();
 						m_pagesLayout.topControl = m_pages.get(index);
 						m_pagesComposite.layout();
@@ -210,14 +210,11 @@ public final class BorderDialog extends ResizableDialog {
 		// select page
 		{
 			m_pagesLayout.topControl = m_pages.get(0);
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (AbstractBorderComposite page : m_pages) {
-						boolean understands = page.setBorder(m_border);
-						if (understands && m_borderModified) {
-							m_pagesLayout.topControl = page;
-						}
+			ExecutionUtils.runLog(() -> {
+				for (AbstractBorderComposite page : m_pages) {
+					boolean understands = page.setBorder(m_border);
+					if (understands && m_borderModified) {
+						m_pagesLayout.topControl = page;
 					}
 				}
 			});
@@ -282,12 +279,7 @@ public final class BorderDialog extends ResizableDialog {
 	 * so we need to update {@link BorderPreviewCanvas}.
 	 */
 	public void borderUpdated() {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				borderUpdatedEx();
-			}
-		});
+		ExecutionUtils.runIgnore(this::borderUpdatedEx);
 	}
 
 	/**
