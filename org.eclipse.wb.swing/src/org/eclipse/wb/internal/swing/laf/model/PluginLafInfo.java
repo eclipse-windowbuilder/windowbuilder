@@ -26,8 +26,6 @@ import org.osgi.framework.Bundle;
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 
-import javax.swing.LookAndFeel;
-
 /**
  * Class representing look-n-feel loaded from using Eclipse plugin API.
  *
@@ -68,16 +66,21 @@ public class PluginLafInfo extends AbstractCustomLafInfo {
 	// Instance
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Reference<LookAndFeel> m_instanceReference;
+	private Reference<javax.swing.LookAndFeel> m_instanceReference;
 
 	@Override
-	public LookAndFeel getLookAndFeelInstance() throws Exception {
-		if (m_instanceReference == null || m_instanceReference.get() == null) {
+	public LafValue getLookAndFeelInstance() throws Exception {
+		javax.swing.LookAndFeel laf = null;
+		if (m_instanceReference != null) {
+			laf = m_instanceReference.get();
+		}
+		if (laf == null) {
 			m_initializer.initialize();
 			Class<?> lafClass = m_extensionBundle.loadClass(getClassName());
-			m_instanceReference = new SoftReference<>((LookAndFeel) lafClass.getDeclaredConstructor().newInstance());
+			laf = (javax.swing.LookAndFeel) lafClass.getDeclaredConstructor().newInstance();
+			m_instanceReference = new SoftReference<>(laf);
 		}
-		return m_instanceReference.get();
+		return new LafValue(laf);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

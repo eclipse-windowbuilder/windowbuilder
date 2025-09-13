@@ -16,8 +16,6 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import javax.swing.LookAndFeel;
-
 /**
  * Class representing user-defined Look-n-Feel.
  *
@@ -46,12 +44,12 @@ public class UserDefinedLafInfo extends AbstractCustomLafInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public LookAndFeel getLookAndFeelInstance() throws Exception {
+	public LafValue getLookAndFeelInstance() throws Exception {
 		if (m_lafClass == null) {
 			ClassLoader classLoader = getClassLoader();
 			m_lafClass = classLoader.loadClass(getClassName());
 		}
-		return (LookAndFeel) m_lafClass.getDeclaredConstructor().newInstance();
+		return new LafValue((javax.swing.LookAndFeel) m_lafClass.getDeclaredConstructor().newInstance());
 	}
 
 	private ClassLoader getClassLoader() throws Exception {

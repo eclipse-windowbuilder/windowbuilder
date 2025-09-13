@@ -59,7 +59,7 @@ public final class LafCanvas extends EmbeddedSwingComposite {
 	 */
 	private void setLookAndFeel() throws Exception {
 		oldLookAndFeel = UIManager.getLookAndFeel();
-		LookAndFeel lookAndFeelInstance = selection.getLookAndFeelInstance();
+		LookAndFeel lookAndFeelInstance = selection.getLookAndFeelInstance().getValue();
 		UIManager.setLookAndFeel(lookAndFeelInstance);
 	}
 
