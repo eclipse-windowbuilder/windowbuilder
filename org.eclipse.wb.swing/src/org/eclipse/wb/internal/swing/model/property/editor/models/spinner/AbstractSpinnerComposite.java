@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,9 @@
 package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
@@ -25,6 +27,8 @@ import javax.swing.SpinnerModel;
  * @coverage swing.property.editor
  */
 abstract class AbstractSpinnerComposite extends Composite {
+	protected static final Color COLOR_VALID = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND);
+	protected static final Color COLOR_INVALID = Display.getCurrent().getSystemColor(SWT.COLOR_RED);
 	protected final SpinnerModelDialog m_modelDialog;
 
 	////////////////////////////////////////////////////////////////////////////

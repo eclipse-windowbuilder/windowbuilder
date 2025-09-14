@@ -74,6 +74,7 @@ public class ModelMessages extends NLS {
 	public static String DateSpinnerComposite_errMinValue;
 	public static String DateSpinnerComposite_initialValue;
 	public static String DateSpinnerComposite_numberType;
+	public static String DateSpinnerComposite_numberValue;
 	public static String DateSpinnerComposite_start;
 	public static String DateSpinnerComposite_title;
 	public static String DerivedFontPage_familyLabel;
@@ -183,6 +184,7 @@ public class ModelMessages extends NLS {
 	public static String ListModelPropertyEditor_itemsDialogTitle;
 	public static String ListSpinnerComposite_hint;
 	public static String ListSpinnerComposite_itemsLabel;
+	public static String ListSpinnerComposite_itemsValue;
 	public static String ListSpinnerComposite_title;
 	public static String MatteBorderComposite_bottom;
 	public static String MatteBorderComposite_color;

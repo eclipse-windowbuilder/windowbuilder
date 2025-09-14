@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,14 +20,16 @@ import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,14 +83,20 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final List<AbstractSpinnerComposite> m_composites = new ArrayList<>();
-	private TabFolder m_tabFolder;
+	private CTabFolder m_tabFolder;
 	private JSpinner m_spinner;
 
 	//private Combo m_typeCombo;
 	@Override
 	protected void createControls(Composite container) {
 		GridLayoutFactory.create(container);
-		m_tabFolder = new TabFolder(container, SWT.NONE);
+		m_tabFolder = new CTabFolder(container, SWT.NONE);
+		m_tabFolder.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				validateAll();
+			}
+		});
 		GridDataFactory.create(m_tabFolder).grab().fill();
 		// add composites
 		{
@@ -99,7 +107,7 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 		// create tab for each spinner composite
 		for (AbstractSpinnerComposite composite : m_composites) {
 			// create tab
-			TabItem tabItem = new TabItem(m_tabFolder, SWT.NONE);
+			CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
 			tabItem.setControl(composite);
 			tabItem.setText(composite.getTitle());
 			// select tab
