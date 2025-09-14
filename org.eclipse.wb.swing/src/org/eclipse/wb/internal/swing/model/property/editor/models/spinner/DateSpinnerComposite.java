@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -236,10 +236,14 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 		Date value = m_valueField.getSelection();
 		Date minimum = m_minField.getSelection();
 		Date maximum = m_maxField.getSelection();
+		m_minField.setBackground(COLOR_VALID);
+		m_maxField.setBackground(COLOR_VALID);
 		if (m_minButton.getSelection() && minimum.compareTo(value) > 0) {
+			m_minField.setBackground(COLOR_INVALID);
 			return ModelMessages.DateSpinnerComposite_errMinValue;
 		}
 		if (m_maxButton.getSelection() && maximum.compareTo(value) < 0) {
+			m_maxField.setBackground(COLOR_INVALID);
 			return ModelMessages.DateSpinnerComposite_errMaxValue;
 		}
 		// OK

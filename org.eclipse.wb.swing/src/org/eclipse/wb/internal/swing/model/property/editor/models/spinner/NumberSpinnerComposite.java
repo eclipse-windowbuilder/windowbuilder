@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -26,6 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Spinner;
 
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -40,10 +40,10 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	private final Combo m_typeCombo;
 	private final Button m_minButton;
 	private final Button m_maxButton;
-	private final CSpinner m_valueField;
-	private final CSpinner m_minField;
-	private final CSpinner m_maxField;
-	private final CSpinner m_stepField;
+	private final Spinner m_valueField;
+	private final Spinner m_minField;
+	private final Spinner m_maxField;
+	private final Spinner m_stepField;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -61,6 +61,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 			for (NumberTypeDescription typeDescription : NumberTypeDescription.values()) {
 				m_typeCombo.add(typeDescription.getTitle());
 			}
+			m_typeCombo.select(0);
 			UiUtils.setVisibleItemCount(m_typeCombo, m_typeCombo.getItemCount());
 			m_typeCombo.addListener(SWT.Selection, m_validateListener);
 		}
@@ -123,30 +124,32 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	/**
-	 * Enables/disables given {@link CSpinner} on check {@link Button} enable/disable.
+	 * Enables/disables given {@link Spinner} on check {@link Button}
+	 * enable/disable.
 	 */
-	private static void trackCheckSpinner(final Button check, final CSpinner spinner) {
+	private void trackCheckSpinner(final Button check, final Spinner spinner) {
 		check.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				spinner.setEnabled(check.getSelection());
 			}
 		});
+		check.addListener(SWT.Selection, m_validateListener);
 	}
 
 	/**
-	 * Checks/enables check {@link Button} and {@link CSpinner}.
+	 * Checks/enables check {@link Button} and {@link Spinner}.
 	 */
-	private static void updateCheckSpinner(Button check, CSpinner spinner, boolean checked) {
+	private static void updateCheckSpinner(Button check, Spinner spinner, boolean checked) {
 		check.setSelection(checked);
 		spinner.setEnabled(checked);
 	}
 
 	/**
-	 * @return new {@link CSpinner}.
+	 * @return new {@link Spinner}.
 	 */
-	private CSpinner createSpinner() {
-		CSpinner spinner = new CSpinner(this, SWT.BORDER);
+	private Spinner createSpinner() {
+		Spinner spinner = new Spinner(this, SWT.BORDER);
 		GridDataFactory.create(spinner).grabH().fillH();
 		// configure range
 		spinner.setMinimum(Integer.MIN_VALUE);
@@ -187,16 +190,29 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 			updateCheckSpinner(m_maxButton, m_maxField, numberModel.getMaximum() != null);
 			// OK, this is our model
 			return true;
+		} else {
+			// disable min/max fields
+			updateCheckSpinner(m_minButton, m_minField, false);
+			updateCheckSpinner(m_maxButton, m_maxField, false);
+			return false;
 		}
-		return false;
 	}
 
 	@Override
 	public String validate() {
+		m_minField.setBackground(COLOR_VALID);
+		m_maxField.setBackground(COLOR_VALID);
+		m_typeCombo.setBackground(COLOR_VALID);
+		if (m_typeCombo.getSelectionIndex() == -1) {
+			m_typeCombo.setBackground(COLOR_INVALID);
+			return ModelMessages.DateSpinnerComposite_numberValue;
+		}
 		if (m_minButton.getSelection() && m_minField.getSelection() > m_valueField.getSelection()) {
+			m_minField.setBackground(COLOR_INVALID);
 			return ModelMessages.NumberSpinnerComposite_minValue;
 		}
 		if (m_maxButton.getSelection() && m_maxField.getSelection() < m_valueField.getSelection()) {
+			m_maxField.setBackground(COLOR_INVALID);
 			return ModelMessages.NumberSpinnerComposite_maxValue;
 		}
 		return null;
@@ -234,18 +250,18 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Sets integer value for {@link CSpinner}.
+	 * Sets integer value for {@link Spinner}.
 	 */
-	private static void setValue(CSpinner spinner, Object value) {
+	private static void setValue(Spinner spinner, Object value) {
 		if (value instanceof Number) {
 			spinner.setSelection(((Number) value).intValue());
 		}
 	}
 
 	/**
-	 * @return the source for value from {@link CSpinner}.
+	 * @return the source for value from {@link Spinner}.
 	 */
-	private String getValueSource(CSpinner spinner) {
+	private String getValueSource(Spinner spinner) {
 		NumberTypeDescription typeDescription =
 				NumberTypeDescription.values()[m_typeCombo.getSelectionIndex()];
 		int value = spinner.getSelection();

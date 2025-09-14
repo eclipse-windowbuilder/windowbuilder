@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,16 +19,19 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.models.spinner.SpinnerModelPropertyEditor;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+import org.eclipse.wb.tests.gef.UiContext;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.swing.JSpinner;
 
@@ -38,6 +41,23 @@ import javax.swing.JSpinner;
  * @author scheglov_ke
  */
 public class JSpinnerTest extends SwingModelTest {
+	private static TimeZone TIME_ZONE;
+	private static Locale LOCALE;
+
+	@BeforeAll
+	public static void setUpAll() {
+		TIME_ZONE = TimeZone.getDefault();
+		TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.of("UTC")));
+		LOCALE = Locale.getDefault();
+		Locale.setDefault(Locale.ENGLISH);
+	}
+
+	@AfterAll
+	public static void tearDownAll() {
+		TimeZone.setDefault(TIME_ZONE);
+		Locale.setDefault(LOCALE);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Tests
@@ -142,23 +162,11 @@ public class JSpinnerTest extends SwingModelTest {
 				0xDEADBEEF));
 	}
 
-	@Disabled
 	@Test
 	public void test_dateModel() throws Exception {
-		String source =
-				"new SpinnerDateModel(new java.util.Date(0), null, null, java.util.Calendar.SECOND)";
-		String expectedText =
-				Expectations.get(
-						"01.01.1970 03:00:00, null, null, SECOND",
-						new StrValue("America/New_York", "31.12.1969 19:00:00, null, null, SECOND"),
-						new StrValue("America/Los_Angeles", "31.12.1969 16:00:00, null, null, SECOND"));
-		String expectedTooltip =
-				Expectations.get(
-						"value=01.01.1970 03:00:00\nstart=null\nend=null\nstep=SECOND",
-						new StrValue("America/New_York",
-								"value=31.12.1969 19:00:00\nstart=null\nend=null\nstep=SECOND"),
-						new StrValue("America/Los_Angeles",
-								"value=31.12.1969 16:00:00\nstart=null\nend=null\nstep=SECOND"));
+		String source = "new SpinnerDateModel(new java.util.Date(0), null, null, java.util.Calendar.SECOND)";
+		String expectedText = "01.01.1970 00:00:00, null, null, SECOND";
+		String expectedTooltip = "value=01.01.1970 00:00:00\nstart=null\nend=null\nstep=SECOND";
 		assertEditorTextTooltip(source, expectedText, expectedTooltip);
 	}
 
@@ -204,5 +212,126 @@ public class JSpinnerTest extends SwingModelTest {
 			PropertyTooltipProvider provider = modelEditor.getAdapter(PropertyTooltipProvider.class);
 			assertSame(PropertyTooltipProvider.BELOW, provider.getTooltipPosition());
 		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SpinnerModelPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void test_editor_noModel() throws Exception {
+		ContainerInfo spinner = parseContainer("""
+				// filler filler filler
+				public class Test extends JSpinner {
+					public Test() {
+					}
+				}""");
+		spinner.refresh();
+
+		Property modelProperty = spinner.getPropertyByTitle("model");
+		PropertyEditor modelEditor = modelProperty.getEditor();
+		assertEquals("Integer, 0, null, null, 1", getPropertyText(modelProperty));
+
+		new UiContext().executeAndCheck(() -> {
+			modelEditor.activate(null, modelProperty, null);
+			waitEventLoop(5);
+		}, bot -> {
+			assertFalse(bot.cTabItem("List").isActive());
+			assertTrue(bot.cTabItem("Number").isActive());
+			assertFalse(bot.cTabItem("Date").isActive());
+		});
+	}
+
+	@Test
+	public void test_editor_numberModel() throws Exception {
+		ContainerInfo spinner = parseContainer("""
+				// filler filler filler
+				public class Test extends JSpinner {
+					public Test() {
+						setModel(new SpinnerNumberModel(5, 0, 10, 2));
+					}
+				}""");
+		spinner.refresh();
+
+		Property modelProperty = spinner.getPropertyByTitle("model");
+		PropertyEditor modelEditor = modelProperty.getEditor();
+		assertEquals("Integer, 5, 0, 10, 2", getPropertyText(modelProperty));
+
+		new UiContext().executeAndCheck(() -> {
+			modelEditor.activate(null, modelProperty, null);
+			waitEventLoop(5);
+		}, bot -> {
+			assertFalse(bot.cTabItem("List").isActive());
+			assertTrue(bot.cTabItem("Number").isActive());
+			assertFalse(bot.cTabItem("Date").isActive());
+
+			assertEquals("Integer", bot.comboBox().getText(), "Number type");
+			assertEquals("5", bot.spinner(0).getText(), "Initial Value");
+			assertEquals("0", bot.spinner(1).getText(), "Minimum");
+			assertEquals("10", bot.spinner(2).getText(), "Maximum");
+			assertEquals("2", bot.spinner(3).getText(), "Step Size");
+		});
+	}
+
+	@Test
+	public void test_editor_listModel() throws Exception {
+		ContainerInfo spinner = parseContainer("""
+				// filler filler filler
+				public class Test extends JSpinner {
+					public Test() {
+						setModel(new SpinnerListModel(new String[] {"a", "b", "c", "d", "e"}));
+					}
+				}""");
+		spinner.refresh();
+
+		Property modelProperty = spinner.getPropertyByTitle("model");
+		PropertyEditor modelEditor = modelProperty.getEditor();
+		assertEquals("a, b, c, d, e", getPropertyText(modelProperty));
+
+		new UiContext().executeAndCheck(() -> {
+			modelEditor.activate(null, modelProperty, null);
+			waitEventLoop(5);
+		}, bot -> {
+			assertTrue(bot.cTabItem("List").isActive());
+			assertFalse(bot.cTabItem("Number").isActive());
+			assertFalse(bot.cTabItem("Date").isActive());
+
+			assertEquals("a\nb\nc\nd\ne", bot.text().getText(), "Items");
+		});
+	}
+
+	@Test
+	public void test_editor_dateModel() throws Exception {
+		ContainerInfo spinner = parseContainer(
+				"""
+						import java.util.Calendar;
+						import java.util.Date;
+						// filler filler filler
+						public class Test extends JSpinner {
+							public Test() {
+								setModel(new SpinnerDateModel(new Date(1757800800000L), new Date(1757714400000L), new Date(1757887200000L), Calendar.DAY_OF_YEAR));
+							}
+						}""");
+		spinner.refresh();
+
+		Property modelProperty = spinner.getPropertyByTitle("model");
+		PropertyEditor modelEditor = modelProperty.getEditor();
+		assertEquals("13.09.2025 22:00:00, 12.09.2025 22:00:00, 14.09.2025 22:00:00, DAY_OF_YEAR",
+				getPropertyText(modelProperty));
+
+		new UiContext().executeAndCheck(() -> {
+			modelEditor.activate(null, modelProperty, null);
+			waitEventLoop(5);
+		}, bot -> {
+			assertFalse(bot.cTabItem("List").isActive());
+			assertFalse(bot.cTabItem("Number").isActive());
+			assertTrue(bot.cTabItem("Date").isActive());
+
+			assertEquals("Sep 13, 2025, 10:00:00 PM", bot.text(0).getText(), "Initial value");
+			assertEquals("Sep 12, 2025, 10:00:00 PM", bot.text(1).getText(), "Start");
+			assertEquals("Sep 14, 2025, 10:00:00 PM", bot.text(2).getText(), "End");
+		});
 	}
 }
