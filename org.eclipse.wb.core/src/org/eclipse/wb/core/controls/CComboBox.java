@@ -62,7 +62,10 @@ import java.util.ArrayList;
  *
  * @author sablin_aa
  * @coverage core.control
+ * @deprecated No longer used. This widget will be removed after the 2027-12
+ *             release.
  */
+@Deprecated(forRemoval = true, since = "2027-12")
 public class CComboBox extends Composite {
 	private Text m_text;
 	private Button m_button;
