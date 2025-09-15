@@ -212,7 +212,7 @@ public abstract class OSSupport {
 	/**
 	 * @return the bounds of {@link TabItem}.
 	 */
-	public abstract Rectangle getTabItemBounds(Object item);
+	public abstract Rectangle getTabItemBounds(TabItem item);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
