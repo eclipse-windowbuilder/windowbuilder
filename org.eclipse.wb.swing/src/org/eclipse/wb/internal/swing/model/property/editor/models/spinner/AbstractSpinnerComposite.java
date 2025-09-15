@@ -17,11 +17,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
+import java.util.function.Supplier;
 
 /**
- * Abstract editor for some {@link SpinnerModel} type.
+ * Abstract editor for some {@link SpinnerModelValue} type.
  *
  * @author scheglov_ke
  * @coverage swing.property.editor
@@ -52,11 +51,13 @@ abstract class AbstractSpinnerComposite extends Composite {
 	public abstract String getTitle();
 
 	/**
-	 * Sets the {@link SpinnerModel} to display/edit.
+	 * Sets the {@link SpinnerModelValue} to display/edit. <b>Important:</b> This
+	 * method is called from the AWT event dispatch thread.
 	 *
-	 * @return <code>true</code> if this {@link AbstractSpinnerComposite} understands given model.
+	 * @return <code>true</code> if this {@link AbstractSpinnerComposite}
+	 *         understands given model.
 	 */
-	public abstract boolean setModel(SpinnerModel model);
+	public abstract boolean setModelValue(SpinnerModelValue modelValue);
 
 	/**
 	 * @return the error message, or <code>null</code> if model configured correctly.
@@ -64,10 +65,15 @@ abstract class AbstractSpinnerComposite extends Composite {
 	public abstract String validate();
 
 	/**
-	 * @return the {@link SpinnerModel} that corresponds to this {@link AbstractSpinnerComposite} and
-	 *         configuration. This {@link SpinnerModel} is used later for preview in {@link JSpinner}.
+	 * This method is called from the SWT UI thread. But the returned
+	 * {@link Supplier} must be called from the AWT event dispatch thread.
+	 *
+	 * @return the {@link SpinnerModelValue} that corresponds to this
+	 *         {@link AbstractSpinnerComposite} and configuration. This
+	 *         {@link SpinnerModelValue} is used later for preview in
+	 *         {@link javax.swing.JSpinner}.
 	 */
-	public abstract SpinnerModel getModel();
+	public abstract Supplier<SpinnerModelValue> getModelValue();
 
 	/**
 	 * @return the source to apply.

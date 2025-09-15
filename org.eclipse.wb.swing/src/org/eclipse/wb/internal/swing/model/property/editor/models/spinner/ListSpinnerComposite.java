@@ -26,11 +26,11 @@ import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerModel;
+import java.util.function.Supplier;
 
 /**
- * Implementation of {@link AbstractSpinnerComposite} for {@link SpinnerListModel}.
+ * Implementation of {@link AbstractSpinnerComposite} for
+ * {@link javax.swing.SpinnerListModel SpinnerListModel}.
  *
  * @author scheglov_ke
  * @coverage swing.property.editor
@@ -75,10 +75,13 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public boolean setModel(SpinnerModel model) {
-		if (model instanceof SpinnerListModel listModel) {
+	public boolean setModelValue(SpinnerModelValue modelValue) {
+		if (modelValue.getValue() instanceof javax.swing.SpinnerListModel listModel) {
 			String text = StringUtils.join(listModel.getList().iterator(), "\n");
-			m_textWidget.setText(text);
+			getDisplay().asyncExec(() -> {
+				m_textWidget.setText(text);
+				m_modelDialog.validateAll();
+			});
 			// OK, this is our model
 			return true;
 		}
@@ -95,9 +98,9 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public SpinnerModel getModel() {
+	public Supplier<SpinnerModelValue> getModelValue() {
 		String[] items = getItems();
-		return new SpinnerListModel(items);
+		return () -> new SpinnerModelValue(new javax.swing.SpinnerListModel(items));
 	}
 
 	@Override
