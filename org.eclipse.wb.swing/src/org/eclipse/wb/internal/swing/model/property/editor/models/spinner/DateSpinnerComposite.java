@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -33,12 +32,11 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerModel;
+import java.util.function.Supplier;
 
 /**
- * Implementation of {@link AbstractSpinnerComposite} for {@link SpinnerDateModel}.
+ * Implementation of {@link AbstractSpinnerComposite} for
+ * {@link javax.swing.SpinnerDateModel SpinnerDateModel}.
  *
  * @author scheglov_ke
  * @coverage swing.property.editor
@@ -199,33 +197,43 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public boolean setModel(SpinnerModel model) {
-		if (model instanceof SpinnerDateModel dateModel) {
-			// values
-			setValue(m_valueField, dateModel.getValue());
-			setValue(m_minField, dateModel.getStart());
-			setValue(m_maxField, dateModel.getEnd());
-			// step
-			for (int i = 0; i < CALENDAR_FIELDS.length; i++) {
-				String field = CALENDAR_FIELDS[i];
-				if (ReflectionUtils.getFieldInt(Calendar.class, field) == dateModel.getCalendarField()) {
-					m_stepCombo.select(i);
-					break;
+	public boolean setModelValue(SpinnerModelValue modelValue) {
+		if (modelValue.getValue() instanceof javax.swing.SpinnerDateModel dateModel) {
+			Object value = dateModel.getValue();
+			Comparable<Date> start = dateModel.getStart();
+			Comparable<Date> end = dateModel.getEnd();
+			int calendarField = dateModel.getCalendarField();
+			getDisplay().asyncExec(() -> {
+				// values
+				setValue(m_valueField, value);
+				setValue(m_minField, start);
+				setValue(m_maxField, end);
+				// step
+				for (int i = 0; i < CALENDAR_FIELDS.length; i++) {
+					String field = CALENDAR_FIELDS[i];
+					if (ReflectionUtils.getFieldInt(Calendar.class, field) == calendarField) {
+						m_stepCombo.select(i);
+						break;
+					}
 				}
-			}
-			// enable/disable min/max fields
-			updateCheckField(m_minButton, m_minField, dateModel.getStart() != null);
-			updateCheckField(m_maxButton, m_maxField, dateModel.getEnd() != null);
+				// enable/disable min/max fields
+				updateCheckField(m_minButton, m_minField, start != null);
+				updateCheckField(m_maxButton, m_maxField, end != null);
+				m_modelDialog.validateAll();
+			});
 			// OK, this is our model
 			return true;
 		} else {
-			// values
-			m_valueField.setSelection(DEFAULT_DATE);
-			m_minField.setSelection(DEFAULT_DATE);
-			m_maxField.setSelection(DEFAULT_DATE);
-			// disable min/max fields
-			updateCheckField(m_minButton, m_minField, false);
-			updateCheckField(m_maxButton, m_maxField, false);
+			getDisplay().asyncExec(() -> {
+				// values
+				m_valueField.setSelection(DEFAULT_DATE);
+				m_minField.setSelection(DEFAULT_DATE);
+				m_maxField.setSelection(DEFAULT_DATE);
+				// disable min/max fields
+				updateCheckField(m_minButton, m_minField, false);
+				updateCheckField(m_maxButton, m_maxField, false);
+				m_modelDialog.validateAll();
+			});
 			// no, we don't know this model
 			return false;
 		}
@@ -251,13 +259,13 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public SpinnerModel getModel() {
+	public Supplier<SpinnerModelValue> getModelValue() {
 		Date value = m_valueField.getSelection();
 		Date minimum = m_minButton.getSelection() ? m_minField.getSelection() : null;
 		Date maximum = m_maxButton.getSelection() ? m_maxField.getSelection() : null;
 		String stepField = CALENDAR_FIELDS[m_stepCombo.getSelectionIndex()];
 		int step = ReflectionUtils.getFieldInt(Calendar.class, stepField);
-		return new SpinnerDateModel(value, minimum, maximum, step);
+		return () -> new SpinnerModelValue(new javax.swing.SpinnerDateModel(value, minimum, maximum, step));
 	}
 
 	@Override
@@ -298,7 +306,7 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	/**
-	 * @return the source for value from {@link CSpinner}.
+	 * @return the source for value from {@link CDateTime}.
 	 */
 	private String getValueSource(CDateTime field) {
 		long milliseconds;

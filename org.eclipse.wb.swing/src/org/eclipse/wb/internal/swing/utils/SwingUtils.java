@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,6 +60,17 @@ public final class SwingUtils {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Runs the {@link RunnableEx} in the AWT event dispatching thread using
+	 * {@link SwingUtilities#invokeLater(Runnable)}. Any exceptions that are thrown
+	 * are logged using {@link DesignerPlugin#log(Throwable)}.
+	 *
+	 * Note: must be invoked from SWT UI thread.
+	 */
+	public static void runLogLater(final RunnableEx runnable) {
+		SwingUtilities.invokeLater(() -> ExecutionUtils.runLog(runnable));
+	}
 	/**
 	 * Runs the {@link RunnableEx} in the AWT event dispatching thread using
 	 * {@link SwingUtilities#invokeLater(Runnable)} and waits for it to get done

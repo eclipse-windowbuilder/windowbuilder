@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,9 +19,13 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipTextProvider;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -181,16 +185,24 @@ public final class SpinnerModelPropertyEditor extends TextDialogPropertyEditor {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void openDialog(Property property) throws Exception {
-		Object value = property.getValue();
-		if (value instanceof SpinnerModel model) {
-			SpinnerModelDialog modelDialog =
-					new SpinnerModelDialog(DesignerPlugin.getShell(), property.getTitle(), model);
-			// open dialog
-			if (modelDialog.open() == Window.OK) {
-				GenericProperty genericProperty = (GenericProperty) property;
-				genericProperty.setExpression(modelDialog.getSource(), Property.UNKNOWN_VALUE);
+	protected void openDialog(Property property) {
+		Display display = DesignerPlugin.getStandardDisplay();
+		SwingUtils.runLogLater(() -> {
+			Object value = ExecutionUtils.runObjectLog(property::getValue, null);
+			if (value instanceof SpinnerModel model) {
+				SpinnerModelValue modelValue = new SpinnerModelValue(model);
+				display.asyncExec(() -> {
+					Shell shell = DesignerPlugin.getShell();
+					String title = property.getTitle();
+					SpinnerModelDialog modelDialog = new SpinnerModelDialog(shell, title, modelValue);
+					// open dialog
+					if (modelDialog.open() == Window.OK) {
+						String source = modelDialog.getSource();
+						GenericProperty genericProperty = (GenericProperty) property;
+						ExecutionUtils.runLog(() -> genericProperty.setExpression(source, Property.UNKNOWN_VALUE));
+					}
+				});
 			}
-		}
+		});
 	}
 }

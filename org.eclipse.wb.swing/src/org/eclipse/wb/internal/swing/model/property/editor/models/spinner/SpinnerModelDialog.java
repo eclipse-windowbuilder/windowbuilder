@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -27,6 +28,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -34,20 +36,15 @@ import org.eclipse.swt.widgets.Shell;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComponent;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-
-import swingintegration.example.EmbeddedSwingComposite2;
-
 /**
- * The dialog for editing {@link SpinnerModel}.
+ * The dialog for editing {@link javax.swing.SpinnerModel SpinnerModel}.
  *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
 public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog {
-	private final SpinnerModel m_model;
+	private final SpinnerModelValue m_modelValue;
+	private SpinnerModelCanvas m_spinnerPreview;
 	private String m_source;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -55,14 +52,14 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public SpinnerModelDialog(Shell parentShell, String shellText, SpinnerModel model) {
+	public SpinnerModelDialog(Shell parentShell, String shellText, SpinnerModelValue modelValue) {
 		super(parentShell,
 				Activator.getDefault(),
 				shellText,
 				ModelMessages.SpinnerModelDialog_title,
 				null,
 				ModelMessages.SpinnerModelDialog_message);
-		m_model = model;
+		m_modelValue = modelValue;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -71,7 +68,8 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the source of {@link SpinnerModel} that represents user selections.
+	 * @return the source of {@link javax.swing.SpinnerModel SpinnerModel} that
+	 *         represents user selections.
 	 */
 	public String getSource() {
 		return m_source;
@@ -84,7 +82,6 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 	////////////////////////////////////////////////////////////////////////////
 	private final List<AbstractSpinnerComposite> m_composites = new ArrayList<>();
 	private CTabFolder m_tabFolder;
-	private JSpinner m_spinner;
 
 	//private Combo m_typeCombo;
 	@Override
@@ -105,22 +102,26 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 			m_composites.add(new DateSpinnerComposite(m_tabFolder, this));
 		}
 		// create tab for each spinner composite
+		Display display = getShell().getDisplay();
 		for (AbstractSpinnerComposite composite : m_composites) {
 			// create tab
 			CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
 			tabItem.setControl(composite);
 			tabItem.setText(composite.getTitle());
 			// select tab
-			if (composite.setModel(m_model)) {
-				m_tabFolder.setSelection(tabItem);
-			}
+			SwingUtils.runLogLater(() -> {
+				if (composite.setModelValue(m_modelValue)) {
+					display.asyncExec(() -> m_tabFolder.setSelection(tabItem));
+				}
+			});
 		}
 		// preview
 		createPreviewComposite(container);
 	}
 
 	/**
-	 * Creates {@link Composite} with {@link JSpinner} for preview.
+	 * Creates {@link Composite} with {@link javax.swing.JSpinner JSpinner} for
+	 * preview.
 	 */
 	private void createPreviewComposite(Composite parent) {
 		Group previewGroup = new Group(parent, SWT.NONE);
@@ -141,16 +142,9 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 		{
 			// two clicks needed to focus AWT component, see:
 			// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6523306
-			EmbeddedSwingComposite2 spinnerComposite =
-					new EmbeddedSwingComposite2(previewGroup, SWT.NONE) {
-				@Override
-				protected JComponent createSwingComponent() {
-					m_spinner = new JSpinner();
-					return m_spinner;
-				}
-			};
-			spinnerComposite.populate();
-			GridDataFactory.create(spinnerComposite).grab().fill();
+			m_spinnerPreview = new SpinnerModelCanvas(previewGroup, SWT.NONE);
+			m_spinnerPreview.populate();
+			GridDataFactory.create(m_spinnerPreview).grab().fill();
 		}
 	}
 
@@ -179,14 +173,13 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 		{
 			String message = spinnerComposite.validate();
 			if (message != null) {
-				m_spinner.setEnabled(false);
+				m_spinnerPreview.disable();
 				return message;
 			}
 		}
 		// configure spinner
 		{
-			m_spinner.setEnabled(true);
-			m_spinner.setModel(spinnerComposite.getModel());
+			m_spinnerPreview.setSpinnerModel(spinnerComposite.getModelValue());
 		}
 		// OK
 		return null;

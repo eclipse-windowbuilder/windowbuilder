@@ -27,11 +27,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Spinner;
 
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+import java.util.function.Supplier;
 
 /**
- * Implementation of {@link AbstractSpinnerComposite} for {@link SpinnerNumberModel}.
+ * Implementation of {@link AbstractSpinnerComposite} for
+ * {@link javax.swing.SpinnerNumberModel SpinnerNumberModel}.
  *
  * @author scheglov_ke
  * @coverage swing.property.editor
@@ -170,30 +170,40 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public boolean setModel(SpinnerModel model) {
-		if (model instanceof SpinnerNumberModel numberModel) {
-			// type
-			NumberTypeDescription[] values = NumberTypeDescription.values();
-			for (int i = 0; i < values.length; i++) {
-				NumberTypeDescription typeDescription = values[i];
-				if (typeDescription.getType() == numberModel.getValue().getClass()) {
-					m_typeCombo.select(i);
+	public boolean setModelValue(SpinnerModelValue modelValue) {
+		if (modelValue.getValue() instanceof javax.swing.SpinnerNumberModel numberModel) {
+			Object value = numberModel.getValue();
+			Comparable<?> minimum = numberModel.getMinimum();
+			Comparable<?> maximum = numberModel.getMaximum();
+			Number stepSize = numberModel.getStepSize();
+			getDisplay().asyncExec(() -> {
+				// type
+				NumberTypeDescription[] values = NumberTypeDescription.values();
+				for (int i = 0; i < values.length; i++) {
+					NumberTypeDescription typeDescription = values[i];
+					if (typeDescription.getType() == value.getClass()) {
+						m_typeCombo.select(i);
+					}
 				}
-			}
-			// values
-			setValue(m_valueField, numberModel.getValue());
-			setValue(m_minField, numberModel.getMinimum());
-			setValue(m_maxField, numberModel.getMaximum());
-			setValue(m_stepField, numberModel.getStepSize());
-			// enable/disable min/max fields
-			updateCheckSpinner(m_minButton, m_minField, numberModel.getMinimum() != null);
-			updateCheckSpinner(m_maxButton, m_maxField, numberModel.getMaximum() != null);
+				// values
+				setValue(m_valueField, value);
+				setValue(m_minField, minimum);
+				setValue(m_maxField, maximum);
+				setValue(m_stepField, stepSize);
+				// enable/disable min/max fields
+				updateCheckSpinner(m_minButton, m_minField, minimum != null);
+				updateCheckSpinner(m_maxButton, m_maxField, maximum != null);
+				m_modelDialog.validateAll();
+			});
 			// OK, this is our model
 			return true;
 		} else {
 			// disable min/max fields
-			updateCheckSpinner(m_minButton, m_minField, false);
-			updateCheckSpinner(m_maxButton, m_maxField, false);
+			getDisplay().asyncExec(() -> {
+				updateCheckSpinner(m_minButton, m_minField, false);
+				updateCheckSpinner(m_maxButton, m_maxField, false);
+				m_modelDialog.validateAll();
+			});
 			return false;
 		}
 	}
@@ -219,12 +229,12 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public SpinnerModel getModel() {
+	public Supplier<SpinnerModelValue> getModelValue() {
 		int value = m_valueField.getSelection();
 		Integer minimum = m_minButton.getSelection() ? m_minField.getSelection() : null;
 		Integer maximum = m_maxButton.getSelection() ? m_maxField.getSelection() : null;
 		Number step = m_stepField.getSelection();
-		return new SpinnerNumberModel(value, minimum, maximum, step);
+		return () -> new SpinnerModelValue(new javax.swing.SpinnerNumberModel(value, minimum, maximum, step));
 	}
 
 	@Override
@@ -278,7 +288,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Description for {@link Number} in {@link SpinnerNumberModel}.
+	 * Description for {@link Number} in {@link javax.swing.SpinnerNumberModel}.
 	 */
 	private static enum NumberTypeDescription {
 		BYTE(Byte.class) {
