@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.spinner.Spinne
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.gef.UiContext;
 
+import org.eclipse.swtbot.swt.finder.SWTBot;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -234,13 +236,11 @@ public class JSpinnerTest extends SwingModelTest {
 		PropertyEditor modelEditor = modelProperty.getEditor();
 		assertEquals("Integer, 0, null, null, 1", getPropertyText(modelProperty));
 
-		new UiContext().executeAndCheck(() -> {
-			modelEditor.activate(null, modelProperty, null);
-			waitEventLoop(5);
-		}, bot -> {
-			assertFalse(bot.cTabItem("List").isActive());
-			assertTrue(bot.cTabItem("Number").isActive());
-			assertFalse(bot.cTabItem("Date").isActive());
+		new UiContext().executeAndCheck(() -> modelEditor.activate(null, modelProperty, null), bot -> {
+			SWTBot shell = bot.shell("model").bot();
+			assertFalse(shell.cTabItem("List").isActive());
+			assertTrue(shell.cTabItem("Number").isActive());
+			assertFalse(shell.cTabItem("Date").isActive());
 		});
 	}
 
@@ -259,19 +259,17 @@ public class JSpinnerTest extends SwingModelTest {
 		PropertyEditor modelEditor = modelProperty.getEditor();
 		assertEquals("Integer, 5, 0, 10, 2", getPropertyText(modelProperty));
 
-		new UiContext().executeAndCheck(() -> {
-			modelEditor.activate(null, modelProperty, null);
-			waitEventLoop(5);
-		}, bot -> {
-			assertFalse(bot.cTabItem("List").isActive());
-			assertTrue(bot.cTabItem("Number").isActive());
-			assertFalse(bot.cTabItem("Date").isActive());
+		new UiContext().executeAndCheck(() -> modelEditor.activate(null, modelProperty, null), bot -> {
+			SWTBot shell = bot.shell("model").bot();
+			assertFalse(shell.cTabItem("List").isActive());
+			assertTrue(shell.cTabItem("Number").isActive());
+			assertFalse(shell.cTabItem("Date").isActive());
 
-			assertEquals("Integer", bot.comboBox().getText(), "Number type");
-			assertEquals("5", bot.spinner(0).getText(), "Initial Value");
-			assertEquals("0", bot.spinner(1).getText(), "Minimum");
-			assertEquals("10", bot.spinner(2).getText(), "Maximum");
-			assertEquals("2", bot.spinner(3).getText(), "Step Size");
+			assertEquals("Integer", shell.comboBox().getText(), "Number type");
+			assertEquals("5", shell.spinner(0).getText(), "Initial Value");
+			assertEquals("0", shell.spinner(1).getText(), "Minimum");
+			assertEquals("10", shell.spinner(2).getText(), "Maximum");
+			assertEquals("2", shell.spinner(3).getText(), "Step Size");
 		});
 	}
 
@@ -290,15 +288,13 @@ public class JSpinnerTest extends SwingModelTest {
 		PropertyEditor modelEditor = modelProperty.getEditor();
 		assertEquals("a, b, c, d, e", getPropertyText(modelProperty));
 
-		new UiContext().executeAndCheck(() -> {
-			modelEditor.activate(null, modelProperty, null);
-			waitEventLoop(5);
-		}, bot -> {
-			assertTrue(bot.cTabItem("List").isActive());
-			assertFalse(bot.cTabItem("Number").isActive());
-			assertFalse(bot.cTabItem("Date").isActive());
+		new UiContext().executeAndCheck(() -> modelEditor.activate(null, modelProperty, null), bot -> {
+			SWTBot shell = bot.shell("model").bot();
+			assertTrue(shell.cTabItem("List").isActive());
+			assertFalse(shell.cTabItem("Number").isActive());
+			assertFalse(shell.cTabItem("Date").isActive());
 
-			assertEquals("a\nb\nc\nd\ne", bot.text().getText(), "Items");
+			assertEquals("a\nb\nc\nd\ne", shell.text().getText(), "Items");
 		});
 	}
 
@@ -321,17 +317,15 @@ public class JSpinnerTest extends SwingModelTest {
 		assertEquals("13.09.2025 22:00:00, 12.09.2025 22:00:00, 14.09.2025 22:00:00, DAY_OF_YEAR",
 				getPropertyText(modelProperty));
 
-		new UiContext().executeAndCheck(() -> {
-			modelEditor.activate(null, modelProperty, null);
-			waitEventLoop(5);
-		}, bot -> {
-			assertFalse(bot.cTabItem("List").isActive());
-			assertFalse(bot.cTabItem("Number").isActive());
-			assertTrue(bot.cTabItem("Date").isActive());
+		new UiContext().executeAndCheck(() -> modelEditor.activate(null, modelProperty, null), bot -> {
+			SWTBot shell = bot.shell("model").bot();
+			assertFalse(shell.cTabItem("List").isActive());
+			assertFalse(shell.cTabItem("Number").isActive());
+			assertTrue(shell.cTabItem("Date").isActive());
 
-			assertEquals("Sep 13, 2025, 10:00:00 PM", bot.text(0).getText(), "Initial value");
-			assertEquals("Sep 12, 2025, 10:00:00 PM", bot.text(1).getText(), "Start");
-			assertEquals("Sep 14, 2025, 10:00:00 PM", bot.text(2).getText(), "End");
+			assertEquals("Sep 13, 2025, 10:00:00 PM", shell.text(0).getText(), "Initial value");
+			assertEquals("Sep 12, 2025, 10:00:00 PM", shell.text(1).getText(), "Start");
+			assertEquals("Sep 14, 2025, 10:00:00 PM", shell.text(2).getText(), "End");
 		});
 	}
 }
