@@ -11,8 +11,6 @@
  *******************************************************************************/
 package swingintegration.example;
 
-import org.eclipse.wb.internal.swing.utils.SwingUtils;
-
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -31,6 +29,9 @@ import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
@@ -103,6 +104,7 @@ import javax.swing.plaf.FontUIResource;
 public abstract class EmbeddedSwingComposite extends Composite {
 	private static class AwtContext {
 		private final Frame frame;
+		private final Map<String, Object> defaults;
 		private JComponent swingComponent;
 		private volatile boolean focusable;
 		private volatile java.awt.Dimension bounds;
@@ -110,6 +112,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		AwtContext(Frame frame) {
 			assert frame != null;
 			this.frame = frame;
+			defaults = new HashMap<>();
 		}
 
 		Frame getFrame() {
@@ -124,6 +127,12 @@ public abstract class EmbeddedSwingComposite extends Composite {
 			return swingComponent;
 		}
 
+		void computeDefaults() {
+			for (String fontKey : FONT_KEYS) {
+				defaults.put(fontKey, UIManager.get(fontKey));
+			}
+		}
+
 		void computeFocusable() {
 			focusable = swingComponent.isFocusable();
 		}
@@ -131,6 +140,15 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		void computeBounds() {
 			frame.validate();
 			bounds = frame.getPreferredSize();
+		}
+
+		void dispose() {
+			if (frame != null) {
+				frame.dispose();
+			}
+			for (String fontKey : FONT_KEYS) {
+				UIManager.put(fontKey, defaults.get(fontKey));
+			}
 		}
 	}
 
@@ -141,6 +159,25 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	// This listener helps ensure that Swing popup menus are properly dismissed when
 	// a menu item off the SWT main menu bar is shown.
 	private final Listener menuListener = event -> awtHandler.postHidePopups();
+	private static final Set<String> FONT_KEYS = Set.of("Button.font", //
+			"CheckBox.font", //
+			"ComboBox.font", //
+			"EditorPane.font", //
+			"Label.font", //
+			"List.font", //
+			"Panel.font", //
+			"ProgressBar.font", //
+			"RadioButton.font", //
+			"ScrollPane.font", //
+			"TabbedPane.font", //
+			"Table.font", //
+			"TableHeader.font", //
+			"TextField.font", //
+			"TextPane.font", //
+			"TitledBorder.font", //
+			"ToggleButton.font", //
+			"TreeFont.font", //
+			"ViewportFont.font");
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style value describing its
@@ -180,6 +217,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		currentSystemFont = getFont();
 		// set listeners
 		getDisplay().addListener(SWT.Settings, settingsListener);
+		addDisposeListener(event -> dispose_AWT());
 	}
 
 	/**
@@ -321,6 +359,7 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		// especially necessary to avoid an AWT leak bug (6411042).
 		final AwtContext currentContext = awtContext;
 		EventQueue.invokeLater(() -> {
+			currentContext.computeDefaults();
 			JRootPane container = addRootPaneContainer(currentContext.getFrame());
 			JComponent swingComponent = createSwingComponent();
 			currentContext.setSwingComponent(swingComponent);
@@ -389,25 +428,9 @@ public abstract class EmbeddedSwingComposite extends Composite {
 		// TODO: It's possible that other platforms will need other assignments.
 		// TODO: This does not handle fonts other than the "system" font.
 		// Other fonts may change, and the Swing L&F may not be adjusting.
-		UIManager.put("Button.font", fontResource); //$NON-NLS-1$
-		UIManager.put("CheckBox.font", fontResource); //$NON-NLS-1$
-		UIManager.put("ComboBox.font", fontResource); //$NON-NLS-1$
-		UIManager.put("EditorPane.font", fontResource); //$NON-NLS-1$
-		UIManager.put("Label.font", fontResource); //$NON-NLS-1$
-		UIManager.put("List.font", fontResource); //$NON-NLS-1$
-		UIManager.put("Panel.font", fontResource); //$NON-NLS-1$
-		UIManager.put("ProgressBar.font", fontResource); //$NON-NLS-1$
-		UIManager.put("RadioButton.font", fontResource); //$NON-NLS-1$
-		UIManager.put("ScrollPane.font", fontResource); //$NON-NLS-1$
-		UIManager.put("TabbedPane.font", fontResource); //$NON-NLS-1$
-		UIManager.put("Table.font", fontResource); //$NON-NLS-1$
-		UIManager.put("TableHeader.font", fontResource); //$NON-NLS-1$
-		UIManager.put("TextField.font", fontResource); //$NON-NLS-1$
-		UIManager.put("TextPane.font", fontResource); //$NON-NLS-1$
-		UIManager.put("TitledBorder.font", fontResource); //$NON-NLS-1$
-		UIManager.put("ToggleButton.font", fontResource); //$NON-NLS-1$
-		UIManager.put("TreeFont.font", fontResource); //$NON-NLS-1$
-		UIManager.put("ViewportFont.font", fontResource); //$NON-NLS-1$
+		for (String fontKey : FONT_KEYS) {
+			UIManager.put(fontKey, fontResource);
+		}
 	}
 
 	private void handleSettingsChange() {
@@ -461,24 +484,13 @@ public abstract class EmbeddedSwingComposite extends Composite {
 	//
 	// #########################################################################
 
-	@Override
-	public void dispose() {
-		if (!isDisposed()) {
-			dispose_AWT();
-			super.dispose();
-		}
-	}
-
 	private void dispose_AWT() {
 		// remove listeners
 		getDisplay().removeListener(SWT.Settings, settingsListener);
 		getDisplay().removeFilter(SWT.Show, menuListener);
 		// dispose frame to avoid lock down in EventQueue.invokeAndWait() later
 		if (awtContext != null) {
-			SwingUtils.runLog(() -> {
-				Frame oldFrame = awtContext.getFrame();
-				oldFrame.dispose();
-			});
+			EventQueue.invokeLater(awtContext::dispose);
 		}
 	}
 }
