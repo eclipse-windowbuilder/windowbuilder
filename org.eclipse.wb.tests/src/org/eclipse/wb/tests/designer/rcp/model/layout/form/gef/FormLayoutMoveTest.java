@@ -49,12 +49,12 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
-	@Disabled
 	public void test_move_with_both_sides_attached() throws Exception {
 		CompositeInfo shell =
 				openComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    Button button = new Button(this, SWT.NONE);",
 						"    button.setText('New Button');",
@@ -70,6 +70,7 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",
+				"    super(SWT.NONE);",
 				"    setLayout(new FormLayout());",
 				"    Button button = new Button(this, SWT.NONE);",
 				"    button.setText('New Button');",

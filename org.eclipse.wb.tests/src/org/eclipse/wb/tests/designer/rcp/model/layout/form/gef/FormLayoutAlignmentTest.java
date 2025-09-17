@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -194,7 +193,6 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 	}
 
 	@Test
-	@Disabled
 	public void test_replicateWidth_leftRightAttached_reverse() throws Exception {
 		parse_twoButtons_typical(new String[]{
 				"left = new FormAttachment(0, 50);",
@@ -407,6 +405,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 						"  private Button button_1;",
 						"  private Button button_2;",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    {",
 						"      button_1 = new Button(this, SWT.NONE);",

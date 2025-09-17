@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -395,7 +394,6 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing with changing alignment.
 	 */
-	@Disabled
 	@Test
 	public void test_move_to_trailing_change_alignment() throws Exception {
 		prepareComponent();
@@ -403,6 +401,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 				parseComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    {",
 						"      Button button = new Button(this, SWT.NONE);",
@@ -423,6 +422,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",
+				"    super(SWT.NONE);",
 				"    setLayout(new FormLayout());",
 				"    {",
 				"      Button button = new Button(this, SWT.NONE);",
@@ -480,7 +480,6 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	/**
 	 * Freely moving single component in trailing without changing alignment.
 	 */
-	@Disabled
 	@Test
 	public void test_move_to_trailing_keep_alignment() throws Exception {
 		prepareComponent();
@@ -488,6 +487,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 				parseComposite(
 						"public class Test extends Shell {",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    {",
 						"      Button button = new Button(this, SWT.NONE);",
@@ -508,6 +508,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",
+				"    super(SWT.NONE);",
 				"    setLayout(new FormLayout());",
 				"    {",
 				"      Button button = new Button(this, SWT.NONE);",
