@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,13 +17,10 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -47,7 +44,6 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	 * Freely moving single resizable component with attachment into different target sides, attached
 	 * to component.
 	 */
-	@Disabled
 	@Test
 	public void test_move_to_leading_1_2component() throws Exception {
 		prepareComponent();
@@ -57,6 +53,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 						"  private Button button1;",
 						"  private Button button2;",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    {",
 						"      button1 = new Button(this, SWT.NONE);",
@@ -86,6 +83,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 				"  private Button button1;",
 				"  private Button button2;",
 				"  public Test() {",
+				"    super(SWT.NONE);",
 				"    setLayout(new FormLayout());",
 				"    {",
 				"      button1 = new Button(this, SWT.NONE);",
@@ -178,7 +176,6 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	/**
 	 * Freely moving single resizable component with attachment into different target sides.
 	 */
-	@Disabled
 	@Test
 	public void test_move_to_leading_1() throws Exception {
 		prepareComponent();
@@ -187,6 +184,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 						"public class Test extends Shell {",
 						"  private Button button1;",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    {",
 						"      button1 = new Button(this, SWT.NONE);",
@@ -206,6 +204,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 				"public class Test extends Shell {",
 				"  private Button button1;",
 				"  public Test() {",
+				"    super(SWT.NONE);",
 				"    setLayout(new FormLayout());",
 				"    {",
 				"      button1 = new Button(this, SWT.NONE);",
@@ -223,7 +222,6 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 	/**
 	 * Freely moving single resizable component with attachment into reverse-different target sides.
 	 */
-	@Disabled
 	@Test
 	public void test_move_to_leading_2() throws Exception {
 		prepareComponent();
@@ -232,6 +230,7 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 						"public class Test extends Shell {",
 						"  private Button button1;",
 						"  public Test() {",
+						"    super(SWT.NONE);",
 						"    setLayout(new FormLayout());",
 						"    {",
 						"      button1 = new Button(this, SWT.NONE);",
@@ -247,20 +246,13 @@ public class FormLayoutMoveSingleResizableTest extends RcpModelTest {
 		shell.refresh();
 		ControlInfo button1 = shell.getChildrenControls().get(0);
 		moveTo(shell, button1, 100, PlacementInfo.LEADING);
-		int expectedLeft =
-				Expectations.get(0, new IntValue[]{
-						new IntValue("scheglov-win", -334),
-						new IntValue("mitin-aa-mac", -350),
-						new IntValue("flanker-windows", -350),});
-		int expectedRight =
-				Expectations.get(0, new IntValue[]{
-						new IntValue("scheglov-win", 156),
-						new IntValue("mitin-aa-mac", 140),
-						new IntValue("flanker-windows", 140),});
+		int expectedLeft = -348;
+		int expectedRight = 142;
 		assertEditor(
 				"public class Test extends Shell {",
 				"  private Button button1;",
 				"  public Test() {",
+				"    super(SWT.NONE);",
 				"    setLayout(new FormLayout());",
 				"    {",
 				"      button1 = new Button(this, SWT.NONE);",
