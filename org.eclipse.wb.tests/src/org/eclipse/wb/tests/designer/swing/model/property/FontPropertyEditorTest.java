@@ -28,12 +28,15 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Font;
 
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * Test for {@link FontPropertyEditor}.
@@ -41,16 +44,27 @@ import javax.swing.UIManager;
  * @author scheglov_ke
  */
 public class FontPropertyEditorTest extends SwingModelTest {
+	private static LookAndFeel OLD_LOOK_AND_FEEL;
+	private static FontUIResource OLD_FONT;
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	@BeforeEach
-	public void setUp() throws Exception {
-		super.setUp();
+	@BeforeAll
+	public static void setUpAll() throws Exception {
+		OLD_LOOK_AND_FEEL = UIManager.getLookAndFeel();
+		OLD_FONT = (FontUIResource) UIManager.get("RadioButton.font");
+
+		UIManager.put("Button.font", new FontUIResource(Font.DIALOG, Font.BOLD, 12));
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+	}
+
+	@AfterAll
+	public static void tearDownAll() throws Exception {
+		UIManager.setLookAndFeel(OLD_LOOK_AND_FEEL);
+		UIManager.put("Button.font", OLD_FONT);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

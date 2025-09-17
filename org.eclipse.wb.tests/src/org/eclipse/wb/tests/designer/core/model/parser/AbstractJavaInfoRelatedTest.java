@@ -476,13 +476,13 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 	private static CCombo3 TEST_COMBO;
 
 	@BeforeAll
-	public static void setUpAll() {
+	public static void setUpAll() throws Exception {
 		TEST_COMBO_SHELL = new Shell();
 		TEST_COMBO = new CCombo3(TEST_COMBO_SHELL, SWT.NONE);
 	}
 
 	@AfterAll
-	public static void tearDownAll() {
+	public static void tearDownAll() throws Exception {
 		TEST_COMBO_SHELL.dispose();
 	}
 
