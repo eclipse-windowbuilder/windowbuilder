@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.swing.model.property.editor.font.NullFontInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.font.UiManagerFontInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -639,7 +638,7 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	}
 
 	private void assertFont2(String fontSource, String expectedText) throws Exception {
-		String expectedClipboard = StringUtils.replace(fontSource, "button.", "%this%.");
+		String expectedClipboard = fontSource.replace("button.", "%this%.");
 		assertFont(fontSource, expectedText, expectedClipboard);
 	}
 

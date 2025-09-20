@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,7 +34,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -397,12 +396,12 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertEquals("111", property.getValue());
 		// check modification
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "111", "222");
+			String expectedSource = m_lastEditor.getSource().replace("111", "222");
 			// modify value
 			property.setValue("222");
 			assertEditor(expectedSource, m_lastEditor);
 			// reset to default
-			expectedSource = StringUtils.replace(expectedSource, "\"222\"", "(String) null");
+			expectedSource = expectedSource.replace("\"222\"", "(String) null");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -433,7 +432,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		assertInstanceOf(Color.class, property.getValue());
 		// modify value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "RED", "BLUE");
+			String expectedSource = m_lastEditor.getSource().replace("RED", "BLUE");
 			property.setExpression("java.awt.Color.BLUE", null);
 			assertEditor(expectedSource, m_lastEditor);
 		}

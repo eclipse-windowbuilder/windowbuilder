@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -105,7 +105,7 @@ public class Replacer {
 				invocation = "createTypeDeclaration_Test0(" + invocation;
 				System.out.println(invocation);
 				// replace " with '
-				invocation = StringUtils.replace(invocation, "\\\"", "'");
+				invocation = invocation.replace("\\\"", "'");
 				// apply updated "invocation"
 				s = s.substring(0, invocationBegin) + invocation + s.substring(invocationEnd);
 			}

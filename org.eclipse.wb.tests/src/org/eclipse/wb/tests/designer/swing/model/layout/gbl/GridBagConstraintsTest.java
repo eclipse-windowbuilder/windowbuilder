@@ -46,7 +46,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.awt.GridBagConstraints;
@@ -170,11 +169,8 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 			assertEquals(99, constraints.getX());
 			// set value
 			{
-				String expectedSource =
-						StringUtils.replace(
-								m_lastEditor.getSource(),
-								"GridBagConstraints(99, ",
-								"GridBagConstraints(1, ");
+				String expectedSource = m_lastEditor.getSource().replace("GridBagConstraints(99, ",
+						"GridBagConstraints(1, ");
 				property.setValue(1);
 				assertEditor(expectedSource, m_lastEditor);
 			}
