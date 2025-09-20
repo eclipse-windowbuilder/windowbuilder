@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,7 +41,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;
@@ -223,8 +222,8 @@ public final class TestUtils {
 	public static void addDynamicExtension2(String pointId, String extensionId, String contribution) {
 		// update contribution
 		contribution = "<plugin>\n" + contribution + "\n</plugin>";
-		contribution = StringUtils.replace(contribution, "%pointId%", pointId);
-		contribution = StringUtils.replace(contribution, "%extensionId%", extensionId);
+		contribution = contribution.replace("%pointId%", pointId);
+		contribution = contribution.replace("%extensionId%", extensionId);
 		// add extension into registry
 		{
 			Bundle bundle = getContributorBundle();

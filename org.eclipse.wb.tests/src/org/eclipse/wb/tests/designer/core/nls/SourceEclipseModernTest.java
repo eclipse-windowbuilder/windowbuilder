@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,7 +33,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -523,7 +522,7 @@ public class SourceEclipseModernTest extends AbstractNlsTest {
 				"  }",
 				"}");
 		{
-			String messages = StringUtils.replace(getFileContentSrc("test/Messages.java"), "\r\n", "\n");
+			String messages = getFileContentSrc("test/Messages.java").replace("\r\n", "\n");
 			assertEquals(
 					getSourceDQ(
 							"package test;",

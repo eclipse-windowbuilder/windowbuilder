@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,7 +116,7 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 		}
 		// set value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "cell 1 2", "cell 2 2");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2", "cell 2 2");
 			property.setValue(2);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -131,7 +130,7 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 		assertEquals(2, property.getValue());
 		// set value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "cell 1 2", "cell 1 1");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2", "cell 1 1");
 			property.setValue(1);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -145,15 +144,13 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 		assertEquals(1, property.getValue());
 		// set value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2", "cell 1 2 2 1");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2", "cell 1 2 2 1");
 			property.setValue(2);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2 2 1", "cell 1 2");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2 2 1", "cell 1 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -167,15 +164,13 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 		assertEquals(1, property.getValue());
 		// set value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2", "cell 1 2 1 2");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2", "cell 1 2 1 2");
 			property.setValue(2);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2 1 2", "cell 1 2");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2 1 2", "cell 1 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -189,15 +184,13 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 		assertFalse(property.isModified());
 		// set value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2", "cell 1 2,alignx right");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2", "cell 1 2,alignx right");
 			property.setValue(MigColumnInfo.Alignment.RIGHT);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2,alignx right", "cell 1 2");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2,alignx right", "cell 1 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -211,15 +204,13 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 		assertFalse(property.isModified());
 		// set value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2", "cell 1 2,aligny bottom");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2", "cell 1 2,aligny bottom");
 			property.setValue(MigRowInfo.Alignment.BOTTOM);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "cell 1 2,aligny bottom", "cell 1 2");
+			String expectedSource = m_lastEditor.getSource().replace("cell 1 2,aligny bottom", "cell 1 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}

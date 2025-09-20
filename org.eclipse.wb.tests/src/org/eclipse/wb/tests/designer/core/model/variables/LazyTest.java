@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,7 +34,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -143,16 +142,16 @@ public class LazyTest extends AbstractVariableTest {
 		// change name
 		{
 			String expectedSource = m_lastEditor.getSource();
-			expectedSource = StringUtils.replace(expectedSource, "button", "addButton");
-			expectedSource = StringUtils.replace(expectedSource, "getButton()", "getAddButton()");
+			expectedSource = expectedSource.replace("button", "addButton");
+			expectedSource = expectedSource.replace("getButton()", "getAddButton()");
 			variableSupport.setName("addButton");
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// change name second time
 		{
 			String expectedSource = m_lastEditor.getSource();
-			expectedSource = StringUtils.replace(expectedSource, "addButton", "renameButton");
-			expectedSource = StringUtils.replace(expectedSource, "getAddButton()", "getRenameButton()");
+			expectedSource = expectedSource.replace("addButton", "renameButton");
+			expectedSource = expectedSource.replace("getAddButton()", "getRenameButton()");
 			variableSupport.setName("renameButton");
 			assertEditor(expectedSource, m_lastEditor);
 		}

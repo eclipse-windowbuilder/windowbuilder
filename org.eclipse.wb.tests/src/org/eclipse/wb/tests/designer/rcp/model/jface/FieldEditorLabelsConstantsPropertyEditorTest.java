@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.swt.widgets.Text;
 
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -114,7 +113,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 						"getTextForEditing",
 						GenericProperty.class,
 						m_property);
-		return StringUtils.replace(text, Text.DELIMITER, "\n");
+		return text.replace(Text.DELIMITER, "\n");
 	}
 
 	/**

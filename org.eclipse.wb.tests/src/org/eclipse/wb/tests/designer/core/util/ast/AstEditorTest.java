@@ -1243,7 +1243,7 @@ public class AstEditorTest extends AbstractJavaTest {
 						"}"));
 		//
 		String newSource = m_lastEditor.getSource();
-		newSource = StringUtils.replace(newSource, "12345", "23456");
+		newSource = newSource.replace("12345", "23456");
 		m_lastEditor.setSource(newSource);
 		// has new source
 		assertEquals(newSource, m_lastEditor.getSource());

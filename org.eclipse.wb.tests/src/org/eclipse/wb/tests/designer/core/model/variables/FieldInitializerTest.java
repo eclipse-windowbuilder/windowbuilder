@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,7 +41,6 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -100,7 +99,7 @@ public class FieldInitializerTest extends AbstractVariableTest {
 			}
 			//
 			{
-				String expected = StringUtils.replace(editor.getSource(), "button", "abc");
+				String expected = editor.getSource().replace("button", "abc");
 				variableSupport.setName("abc");
 				assertEquals(expected, editor.getSource());
 			}

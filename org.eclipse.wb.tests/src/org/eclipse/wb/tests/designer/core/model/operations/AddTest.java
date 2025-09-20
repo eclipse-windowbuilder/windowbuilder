@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
@@ -181,7 +180,7 @@ public class AddTest extends SwingModelTest {
 			@Override
 			public void associationTemplate(JavaInfo component, String[] source) throws Exception {
 				assertNotNull(component.getParent());
-				source[0] = StringUtils.replace(source[0], "%theValue%", "555");
+				source[0] = source[0].replace("%theValue%", "555");
 			}
 		});
 		flowLayout.add(newButton, null);

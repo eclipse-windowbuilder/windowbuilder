@@ -317,7 +317,7 @@ public abstract class DesignerTestCase extends Assertions {
 		String[] newLines = new String[lines.length];
 		for (int i = 0; i < lines.length; i++) {
 			String s = lines[i];
-			newLines[i] = StringUtils.replace(s, repl, with);
+			newLines[i] = s.replace(repl, with);
 		}
 		return newLines;
 	}
@@ -398,7 +398,7 @@ public abstract class DesignerTestCase extends Assertions {
 	 * @return {@link String} that used single quotes, replaced with double quotes.
 	 */
 	public static String getSourceDQ(String s) {
-		return StringUtils.replace(s, "'", "\"");
+		return s.replace("'", "\"");
 	}
 
 	/**
@@ -407,7 +407,7 @@ public abstract class DesignerTestCase extends Assertions {
 	 */
 	public static String getSourceDQ(String... lines) {
 		String source = getSource(lines);
-		return StringUtils.replace(source, "'", "\"");
+		return source.replace("'", "\"");
 	}
 
 	/**
@@ -418,7 +418,7 @@ public abstract class DesignerTestCase extends Assertions {
 		// lines
 		for (String line : lines) {
 			buffer.append('"');
-			line = StringUtils.replace(line, "\t", "  ");
+			line = line.replace("\t", "  ");
 			{
 				line = line.replace('"', '\'');
 				buffer.append(StringUtilities.escapeForJavaSource(line));

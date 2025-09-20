@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -110,7 +109,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertSame(FormLayoutInfo.getConstraints(m_button), support);
 		// set spanning
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, 2, 1");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, 2, 1");
 			support.setSpan(true, new Rectangle(1, 2, 2, 1));
 			support.write();
 			assertEditor(expectedSource, m_lastEditor);
@@ -126,8 +125,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	public void test_setAlignH() throws Exception {
 		CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_button);
 		//
-		String expectedSource =
-				StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, left, default");
+		String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, left, default");
 		support.setAlignH(CellConstraints.LEFT);
 		support.write();
 		assertEditor(expectedSource, m_lastEditor);
@@ -137,8 +135,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	public void test_setAlignV() throws Exception {
 		CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_button);
 		//
-		String expectedSource =
-				StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, default, top");
+		String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, default, top");
 		support.setAlignV(CellConstraints.TOP);
 		support.write();
 		assertEditor(expectedSource, m_lastEditor);
@@ -164,7 +161,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		}
 		// set value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2", "2, 2");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "2, 2");
 			property.setValue(2);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -180,7 +177,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertEquals(2, property.getValue());
 		// set value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 1");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 1");
 			property.setValue(1);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -196,13 +193,13 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertEquals(1, property.getValue());
 		// set value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, 2, 1");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, 2, 1");
 			property.setValue(2);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2, 2, 1", "1, 2");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2, 2, 1", "1, 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -216,13 +213,13 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertEquals(1, property.getValue());
 		// set value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, 1, 2");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, 1, 2");
 			property.setValue(2);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource = StringUtils.replace(m_lastEditor.getSource(), "1, 2, 1, 2", "1, 2");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2, 1, 2", "1, 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -236,15 +233,13 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertEquals(CellConstraints.DEFAULT, property.getValue());
 		// set value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, right, default");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, right, default");
 			property.setValue(CellConstraints.RIGHT);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "1, 2, right, default", "1, 2");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2, right, default", "1, 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -258,15 +253,13 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertEquals(CellConstraints.DEFAULT, property.getValue());
 		// set value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, default, bottom");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, default, bottom");
 			property.setValue(CellConstraints.BOTTOM);
 			assertEditor(expectedSource, m_lastEditor);
 		}
 		// reset value
 		{
-			String expectedSource =
-					StringUtils.replace(m_lastEditor.getSource(), "1, 2, default, bottom", "1, 2");
+			String expectedSource = m_lastEditor.getSource().replace("1, 2, default, bottom", "1, 2");
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEditor(expectedSource, m_lastEditor);
 		}
@@ -335,8 +328,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 			assertNotNull(findChildAction(manager2, "&Fill"));
 			// try to use "Left" action
 			{
-				String expectedSource =
-						StringUtils.replace(m_lastEditor.getSource(), "1, 2", "1, 2, left, default");
+				String expectedSource = m_lastEditor.getSource().replace("1, 2", "1, 2, left, default");
 				IAction action = findChildAction(manager2, "&Left");
 				action.setChecked(true);
 				action.run();
@@ -354,8 +346,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 			assertNotNull(findChildAction(manager2, "&Fill"));
 			// try to use "Top" action
 			{
-				String expectedSource =
-						StringUtils.replace(m_lastEditor.getSource(), "1, 2, left, default", "1, 2, left, top");
+				String expectedSource = m_lastEditor.getSource().replace("1, 2, left, default", "1, 2, left, top");
 				IAction action = findChildAction(manager2, "&Top");
 				action.setChecked(true);
 				action.run();

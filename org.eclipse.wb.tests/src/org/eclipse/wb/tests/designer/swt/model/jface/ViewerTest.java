@@ -50,7 +50,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
@@ -691,11 +690,7 @@ public class ViewerTest extends RcpModelTest {
 		propertyEditor.doubleClick(property, null);
 		// use GUI to set "ArrayContentProvider"
 		{
-			String expectedSource =
-					StringUtils.replace(
-							m_lastEditor.getSource(),
-							"new ContentProvider",
-							"new ArrayContentProvider");
+			String expectedSource = m_lastEditor.getSource().replace("new ContentProvider", "new ArrayContentProvider");
 			// open dialog and animate it
 			new UiContext().executeAndCheck(new FailableRunnable<>() {
 				@Override
