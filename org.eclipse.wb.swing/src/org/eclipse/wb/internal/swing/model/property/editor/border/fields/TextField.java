@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,7 +59,7 @@ public final class TextField extends AbstractBorderField {
 	/**
 	 * Sets the value to edit.
 	 */
-	public void setValue(String value) throws Exception {
+	public void setValue(String value) {
 		m_text.removeListener(SWT.Modify, m_modifyListener);
 		try {
 			m_text.setText(value);
