@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,8 +20,6 @@ import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.DefaultUnitConverter;
 import com.jgoodies.forms.util.UnitConverter;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Component;
 import java.lang.reflect.Method;
@@ -136,8 +134,8 @@ public final class FormSizeConstantInfo {
 		String encoded;
 		{
 			encoded = FORMAT.format(m_value) + m_unit.abbreviation();
-			encoded = StringUtils.replace(encoded, "dluX", "dlu");
-			encoded = StringUtils.replace(encoded, "dluY", "dlu");
+			encoded = encoded.replace("dluX", "dlu");
+			encoded = encoded.replace("dluY", "dlu");
 		}
 		// return encoded or source
 		if (asString) {

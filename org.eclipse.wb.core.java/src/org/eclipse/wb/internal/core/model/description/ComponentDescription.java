@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,8 +30,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jface.resource.ImageDescriptor;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
@@ -655,7 +653,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	public void setDescription(String description) {
 		if (description != null) {
 			m_description = StringUtilities.normalizeWhitespaces(description);
-			m_description = StringUtils.replace(m_description, "\\n", "\n");
+			m_description = m_description.replace("\\n", "\n");
 		} else {
 			m_description = m_componentClass.getName();
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -82,7 +82,7 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
 		{
 			String text = getTooltip(property);
 			text = StringUtils.defaultString(text);
-			text = StringUtils.replace(text, "    ", "\t");
+			text = text.replace("    ", "\t");
 			treeModelDialog.setText(text);
 		}
 		// open dialog

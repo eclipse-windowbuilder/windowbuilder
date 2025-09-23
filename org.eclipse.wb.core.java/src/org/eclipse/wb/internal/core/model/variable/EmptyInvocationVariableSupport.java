@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,8 +21,6 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Specific sub-class of {@link EmptyVariableSupport} that adds new {@link JavaInfo} using just
@@ -65,7 +63,7 @@ public final class EmptyInvocationVariableSupport extends EmptyVariableSupport {
 		{
 			NodeTarget creationTarget = new NodeTarget(associationTarget);
 			String childSource = m_javaInfo.getCreationSupport().add_getSource(creationTarget);
-			source = StringUtils.replace(source, "%child%", childSource);
+			source = source.replace("%child%", childSource);
 		}
 		// replace parent expressions
 		source = AssociationUtils.replaceTemplates(m_javaInfo, source, associationTarget);

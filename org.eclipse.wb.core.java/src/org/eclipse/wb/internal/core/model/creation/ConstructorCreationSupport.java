@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -44,8 +44,6 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -280,7 +278,7 @@ ILiveCreationSupport {
 		if (!source.contains("%parent%")) {
 			return true;
 		}
-		source = StringUtils.replace(source, "%parent%", "(" + parentType.getName() + ") null");
+		source = source.replace("%parent%", "(" + parentType.getName() + ") null");
 		// check cached result
 		if (m_validParentSources.contains(source)) {
 			return true;

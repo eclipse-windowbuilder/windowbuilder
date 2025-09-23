@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -284,9 +284,9 @@ public class ControllerSupport {
 		String hostVariable = StringUtils.uncapitalize(hostClassName);
 		String hostField = "m_" + hostVariable;
 		//
-		controllerCode = StringUtils.replace(controllerCode, "%HostClass%", hostClassName);
-		controllerCode = StringUtils.replace(controllerCode, "%HostVariable%", hostVariable);
-		controllerCode = StringUtils.replace(controllerCode, "%HostField%", hostField);
+		controllerCode = controllerCode.replace("%HostClass%", hostClassName);
+		controllerCode = controllerCode.replace("%HostVariable%", hostVariable);
+		controllerCode = controllerCode.replace("%HostField%", hostField);
 		//
 		String begin = "";
 		String end = "\t\t";
@@ -333,29 +333,20 @@ public class ControllerSupport {
 		String beanClassShortName = ClassUtils.getShortClassName(beanClassName);
 		String fieldPrefix = JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES);
 		String fieldName = fieldPrefix + StringUtils.uncapitalize(beanClassShortName);
-		controllerCode = StringUtils.replace(controllerCode, "%BeanClass%", beanClassName);
+		controllerCode = controllerCode.replace("%BeanClass%", beanClassName);
 		//
 		if (ReflectionUtils.getConstructorBySignature(beanClass, "<init>()") == null) {
-			controllerCode = StringUtils.replace(controllerCode, "%BeanField%", fieldName);
+			controllerCode = controllerCode.replace("%BeanField%", fieldName);
 		} else {
-			controllerCode =
-					StringUtils.replace(controllerCode, "%BeanField%", fieldName
-							+ " = new "
-							+ beanClassName
-							+ "()");
+			controllerCode = controllerCode.replace("%BeanField%", fieldName + " = new " + beanClassName + "()");
 		}
 		//
 		IPreferenceStore preferences = ToolkitProvider.DESCRIPTION.getPreferences();
 		String accessPrefix =
 				preferences.getBoolean(FieldUniqueVariableSupport.P_PREFIX_THIS) ? "this." : "";
-		controllerCode =
-				StringUtils.replace(controllerCode, "%BeanFieldAccess%", accessPrefix + fieldName);
+		controllerCode = controllerCode.replace("%BeanFieldAccess%", accessPrefix + fieldName);
 		//
-		controllerCode =
-				StringUtils.replace(
-						controllerCode,
-						"%BeanName%",
-						StringUtils.capitalize(beanClassShortName));
+		controllerCode = controllerCode.replace("%BeanName%", StringUtils.capitalize(beanClassShortName));
 		// prepare code
 		StringBuffer widgetFields = new StringBuffer();
 		StringBuffer widgets = new StringBuffer();
@@ -455,13 +446,13 @@ public class ControllerSupport {
 		}
 		// replace template patterns
 		String controllerClass = hostClassName + "Controller";
-		code = StringUtils.replace(code, "%ControllerClass%", controllerClass);
-		code = StringUtils.replace(code, "%WidgetFields%", widgetFields.toString());
-		code = StringUtils.replace(code, "%Widgets%" + swtContainer + "%", widgets.toString());
-		code = StringUtils.replace(code, "%WidgetGetters%", widgetGetters.toString());
+		code = code.replace("%ControllerClass%", controllerClass);
+		code = code.replace("%WidgetFields%", widgetFields.toString());
+		code = code.replace("%Widgets%" + swtContainer + "%", widgets.toString());
+		code = code.replace("%WidgetGetters%", widgetGetters.toString());
 		//
-		controllerCode = StringUtils.replace(controllerCode, "%Observables%", observables.toString());
-		controllerCode = StringUtils.replace(controllerCode, "%Bindings%", bindings.toString());
+		controllerCode = controllerCode.replace("%Observables%", observables.toString());
+		controllerCode = controllerCode.replace("%Bindings%", bindings.toString());
 		// add imports
 		for (String qualifiedTypeName : hostImportList) {
 			imports.addImport(qualifiedTypeName);
@@ -470,8 +461,7 @@ public class ControllerSupport {
 		for (String controllerImport : controllerImportList) {
 			controllerImportString.append("import " + controllerImport + ";\n");
 		}
-		controllerCode =
-				StringUtils.replace(controllerCode, "%imports%", controllerImportString.toString());
+		controllerCode = controllerCode.replace("%imports%", controllerImportString.toString());
 		//
 		IPackageFragment packageFragment = firstWizardPage.getPackageFragment();
 		//
@@ -479,7 +469,7 @@ public class ControllerSupport {
 		if (packageString.length() > 0) {
 			packageString = "package " + packageString + ";";
 		}
-		controllerCode = StringUtils.replace(controllerCode, "%package%", packageString);
+		controllerCode = controllerCode.replace("%package%", packageString);
 		//
 		IPath packagePath = packageFragment.getPath().removeFirstSegments(1);
 		IFile controllerFile =

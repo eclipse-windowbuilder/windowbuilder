@@ -293,7 +293,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 		}
 		// replace patterns
 		if (source != null && source.contains("%this%")) {
-			source = StringUtils.replace(source, "%this%", TemplateUtils.getExpression(m_javaInfo));
+			source = source.replace("%this%", TemplateUtils.getExpression(m_javaInfo));
 		}
 		// do set expression
 		ExpressionInfo expressionInfo = getExpressionInfo();

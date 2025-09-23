@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,8 +30,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.swt.widgets.Composite;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Model for {@link FieldLayoutPreferencePage}.
@@ -113,11 +111,8 @@ public final class FieldLayoutPreferencePageInfo extends PreferencePageInfo {
 				@Override
 				public void associationTemplate(JavaInfo component, String[] source) throws Exception {
 					if (component == editor) {
-						source[0] =
-								StringUtils.replace(
-										source[0],
-										"%parentComposite%",
-										TemplateUtils.getExpression(wrapperComposite));
+						source[0] = source[0].replace("%parentComposite%",
+								TemplateUtils.getExpression(wrapperComposite));
 					}
 				}
 			});

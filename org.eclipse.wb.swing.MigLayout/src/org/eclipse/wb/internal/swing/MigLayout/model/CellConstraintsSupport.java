@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,8 +45,6 @@ import net.miginfocom.layout.ConstraintParser;
 import net.miginfocom.layout.DimConstraint;
 import net.miginfocom.layout.IDEUtil;
 import net.miginfocom.swing.MigLayout;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -477,7 +475,7 @@ public final class CellConstraintsSupport {
 		source = cleanUpSource_secondGap(source, "gapy", "gapbottom ");
 		// bug in 3.7.4
 		if (source.contains("hideMode")) {
-			source = StringUtils.replace(source, "hideMode", "hidemode");
+			source = source.replace("hideMode", "hidemode");
 		}
 		// done
 		return source;

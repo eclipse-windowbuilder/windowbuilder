@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,8 +39,6 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -315,7 +313,7 @@ public final class FieldInitializerVariableSupport extends FieldVariableSupport 
 			// compose field source
 			fieldSource = modifiers + className + " " + fieldName;
 			if (initializer != null) {
-				initializer = StringUtils.replace(initializer, "%variable-name%", fieldName);
+				initializer = initializer.replace("%variable-name%", fieldName);
 				fieldSource += " = " + initializer;
 			}
 		}

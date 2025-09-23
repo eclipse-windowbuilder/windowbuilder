@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,8 +22,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
 
 import org.eclipse.ui.forms.widgets.FormToolkit;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -62,7 +60,7 @@ public final class FormToolkitRootProcessor implements IRootProcessor {
 							toolkitInstanceFactory != null
 							? TemplateUtils.getExpression(toolkitInstanceFactory)
 									: "new org.eclipse.ui.forms.widgets.FormToolkit(org.eclipse.swt.widgets.Display.getCurrent())";
-					source[0] = StringUtils.replace(source[0], FORM_TOOLKIT_NULL, toolkitSource);
+					source[0] = source[0].replace(FORM_TOOLKIT_NULL, toolkitSource);
 				}
 			}
 		});

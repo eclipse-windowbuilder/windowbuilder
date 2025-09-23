@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -90,8 +90,8 @@ public abstract class AbstractBundleSource extends AbstractSource {
 		public String getNewKey(String oldName, String newName, String oldKey) {
 			if (oldName != null && oldKey.contains(oldName)) {
 				String newKey = oldKey;
-				newKey = StringUtils.replace(newKey, "." + oldName + ".", "." + newName + ".");
-				newKey = StringUtils.replace(newKey, "_" + oldName + "_", "_" + newName + "_");
+				newKey = newKey.replace("." + oldName + ".", "." + newName + ".");
+				newKey = newKey.replace("_" + oldName + "_", "_" + newName + "_");
 				{
 					String prefix = oldName + ".";
 					if (newKey.startsWith(prefix)) {

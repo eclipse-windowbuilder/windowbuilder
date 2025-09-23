@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,8 +23,6 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -109,30 +107,26 @@ public final class AssociationUtils {
 		// replace parent expressions
 		{
 			if (source.contains("%parent%")) {
-				source =
-						StringUtils.replace(
-								source,
-								"%parent%",
-								TemplateUtils.getExpression(child.getParentJava()));
+				source = source.replace("%parent%", TemplateUtils.getExpression(child.getParentJava()));
 			}
 		}
 		// replace child expressions
 		if (source.contains("%child%")) {
-			source = StringUtils.replace(source, "%child%", TemplateUtils.getExpression(child));
+			source = source.replace("%child%", TemplateUtils.getExpression(child));
 		}
 		// replace index expressions
 		if (source.contains("%index%")) {
 			ObjectInfo parentInfo = child.getParent();
 			if (parentInfo != null) {
 				int index = parentInfo.getChildren(JavaInfo.class).size();
-				source = StringUtils.replace(source, "%index%", Integer.toString(index));
+				source = source.replace("%index%", Integer.toString(index));
 			}
 		}
 		// replace other templates
 		Map<String, String> templateArguments = child.getTemplateArguments();
 		if (templateArguments != null) {
 			for (Entry<String, String> template : templateArguments.entrySet()) {
-				source = StringUtils.replace(source, "%" + template.getKey() + "%", template.getValue());
+				source = source.replace("%" + template.getKey() + "%", template.getValue());
 			}
 		}
 		// OK, final result

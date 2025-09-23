@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,8 +38,6 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -64,7 +62,7 @@ public final class FieldEditorPreferencePageInfo extends PreferencePageInfo {
 			@Override
 			public void associationTemplate(JavaInfo component, String[] source) throws Exception {
 				if (component.getParent() == FieldEditorPreferencePageInfo.this) {
-					source[0] = StringUtils.replace(source[0], "%parentComposite%", "getFieldEditorParent()");
+					source[0] = source[0].replace("%parentComposite%", "getFieldEditorParent()");
 				}
 			}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Constructor;
@@ -166,7 +165,7 @@ public class ToolkitSupport extends AbstractSupport {
 		{
 			Bundle bundle = GlobalState.getToolkit().getBundle();
 			String implClassName = bundle.getSymbolicName() + ".support.ToolkitSupportImpl";
-			implClassName = StringUtils.replace(implClassName, ".wb.", ".wb.internal.");
+			implClassName = implClassName.replace(".wb.", ".wb.internal.");
 			implClass = bundle.loadClass(implClassName);
 		}
 		// create instance
