@@ -75,7 +75,7 @@ public final class BooleanField extends AbstractBorderField {
 	/**
 	 * Sets the value, that should correspond to the one of the field values.
 	 */
-	public void setValue(Object value) throws Exception {
+	public void setValue(Object value) {
 		if (Objects.equals(Boolean.FALSE, value)) {
 			m_source = "false";
 			m_buttons[0].setSelection(true);
