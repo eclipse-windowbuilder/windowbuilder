@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -300,9 +300,9 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
 	 */
 	private static String getSource(int accelerator) {
 		String source = getText(accelerator);
-		source = StringUtils.replace(source, "ALT+", "org.eclipse.swt.SWT.ALT | ");
-		source = StringUtils.replace(source, "CTRL+", "org.eclipse.swt.SWT.CTRL | ");
-		source = StringUtils.replace(source, "SHIFT+", "org.eclipse.swt.SWT.SHIFT | ");
+		source = source.replace("ALT+", "org.eclipse.swt.SWT.ALT | ");
+		source = source.replace("CTRL+", "org.eclipse.swt.SWT.CTRL | ");
+		source = source.replace("SHIFT+", "org.eclipse.swt.SWT.SHIFT | ");
 		// check for character/keyCode
 		int length = source.length();
 		int index = StringUtils.lastIndexOf(source, ' ');

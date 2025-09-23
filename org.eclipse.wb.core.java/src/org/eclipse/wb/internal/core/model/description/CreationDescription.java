@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,8 +17,6 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -239,6 +237,6 @@ public final class CreationDescription extends AbstractDescription {
 	 * Do any replaces in given template (with <code>%pattern%</code>).
 	 */
 	private String evaluate(String s) {
-		return StringUtils.replace(s, "%component.class%", m_componentClassName);
+		return s.replace("%component.class%", m_componentClassName);
 	}
 }

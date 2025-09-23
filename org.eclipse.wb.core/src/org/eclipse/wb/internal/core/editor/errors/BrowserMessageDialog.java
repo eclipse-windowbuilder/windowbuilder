@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,8 +26,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * A simple {@link Dialog} using {@link Browser} to render read-only info.
@@ -97,11 +95,8 @@ public class BrowserMessageDialog extends Dialog {
 	 * the contents needed to display in this dialog (i.e. without html, head, title, body tags).
 	 */
 	public void setHTML(String html) {
-		m_htmlToShow =
-				StringUtils.replace(
-						HTML_HEADER,
-						"%bg_color%",
-						DesignerExceptionUtils.getColorWebString(ColorConstants.button))
+		m_htmlToShow = HTML_HEADER.replace("%bg_color%",
+				DesignerExceptionUtils.getColorWebString(ColorConstants.button))
 				+ (m_title != null ? "<h3>" + m_title + "</h3>" : "")
 				+ html
 				+ HTML_FOOTER;

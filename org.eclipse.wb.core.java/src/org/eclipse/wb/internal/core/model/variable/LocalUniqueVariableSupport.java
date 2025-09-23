@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,8 +26,6 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +130,7 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
 						associationTarget.getPosition(),
 						NamesManager.getName(m_javaInfo),
 						null);
-		initializer = StringUtils.replace(initializer, "%variable-name%", variableName);
+		initializer = initializer.replace("%variable-name%", variableName);
 		String modifiers = prefDeclareFinal() ? "final " : "";
 		return modifiers + className + " " + variableName + " = " + initializer + ";";
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -137,10 +137,10 @@ public final class DesignerExceptionUtils {
 		// prepare color
 		Color color = ColorConstants.button;
 		String colorString = getColorWebString(color);
-		html = StringUtils.replace(html, "%bg_color%", colorString);
+		html = html.replace("%bg_color%", colorString);
 		// prepare HTML
-		html = StringUtils.replace(html, "%error_message%", errorDescription.getTitle());
-		html = StringUtils.replace(html, "%error_description%", errorDescription.getDescription());
+		html = html.replace("%error_message%", errorDescription.getTitle());
+		html = html.replace("%error_description%", errorDescription.getDescription());
 		html = includeStackTrace(html, "%stack_trace_short%", getDesignerCause(e));
 		html = includeStackTrace(html, "%stack_trace_full%", e);
 		return html;
@@ -149,7 +149,7 @@ public final class DesignerExceptionUtils {
 	private static String includeStackTrace(String html, String searchString, Throwable e) {
 		String stackTrace = ExceptionUtils.getStackTrace(e);
 		String stackTraceEscaped = StringEscapeUtils.escapeHtml4(stackTrace);
-		return StringUtils.replace(html, searchString, stackTraceEscaped);
+		return html.replace(searchString, stackTraceEscaped);
 	}
 
 	/**
@@ -173,9 +173,9 @@ public final class DesignerExceptionUtils {
 		// prepare color
 		Color color = ColorConstants.button;
 		String colorString = getColorWebString(color);
-		html = StringUtils.replace(html, "%bg_color%", colorString);
+		html = html.replace("%bg_color%", colorString);
 		// apply entry
-		html = StringUtils.replace(html, "%error_description%", entry.getDescription());
+		html = html.replace("%error_description%", entry.getDescription());
 		return html;
 	}
 
@@ -414,7 +414,7 @@ public final class DesignerExceptionUtils {
 
 	private static String includeExceptionParameter(String html, String searchString, String message) {
 		String messageEscaped = StringEscapeUtils.escapeHtml4(message);
-		return StringUtils.replace(html, searchString, messageEscaped);
+		return html.replace(searchString, messageEscaped);
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
@@ -345,13 +344,9 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
 			{
 				template =
 						IOUtils.toString(ModernEclipseSource.class.getResourceAsStream("newAccessor.jvt"));
-				template =
-						StringUtils.replace(
-								template,
-								"%PACKAGE_NAME%",
-								parameters.m_accessorPackage.getElementName());
-				template = StringUtils.replace(template, "%CLASS_NAME%", parameters.m_accessorClassName);
-				template = StringUtils.replace(template, "%BUNDLE_NAME%", parameters.m_propertyBundleName);
+				template = template.replace("%PACKAGE_NAME%", parameters.m_accessorPackage.getElementName());
+				template = template.replace("%CLASS_NAME%", parameters.m_accessorClassName);
+				template = template.replace("%BUNDLE_NAME%", parameters.m_propertyBundleName);
 			}
 			// create accessor class file
 			{

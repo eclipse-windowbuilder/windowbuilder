@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -582,7 +582,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
 					@Override
 					public void write(char[] cbuf, int off, int len) throws IOException {
 						if (len != 2 && !(cbuf[0] == '\r' || cbuf[0] == '\n')) {
-							list.add(StringUtils.replace(new String(cbuf, off, len), "\t", "    "));
+							list.add(new String(cbuf, off, len).replace("\t", "    "));
 						}
 					}
 

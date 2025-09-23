@@ -167,9 +167,9 @@ IConfigurablePropertyObject {
 				Map<String, Object> variables = new TreeMap<>();
 				variables.put("value", value);
 				String valueText = (String) evaluate(m_toStringScript, variables);
-				source = StringUtils.replace(m_sourceTemplate, "%value%", valueText);
+				source = m_sourceTemplate.replace("%value%", valueText);
 			}
-			return StringUtils.replace(source, "%millisecs%", millisecs.toString() + "L");
+			return source.replace("%millisecs%", millisecs.toString() + "L");
 		}
 		return value == null ? "(java.util.Date) null" : value.toString();
 	}

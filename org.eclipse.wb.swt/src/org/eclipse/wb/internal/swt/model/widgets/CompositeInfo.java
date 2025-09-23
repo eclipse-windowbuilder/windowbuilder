@@ -342,9 +342,8 @@ IThisMethodParameterEvaluator {
 			Class<?> implClass;
 			{
 				Bundle bundle = getDescription().getToolkit().getBundle();
-				String implClassName =
-						bundle.getSymbolicName() + ".model.widgets.CompositeTopBoundsSupport";
-				implClassName = StringUtils.replace(implClassName, ".wb.", ".wb.internal.");
+				String implClassName = bundle.getSymbolicName() + ".model.widgets.CompositeTopBoundsSupport";
+				implClassName = implClassName.replace(".wb.", ".wb.internal.");
 				implClass = bundle.loadClass(implClassName);
 			}
 			// create instance

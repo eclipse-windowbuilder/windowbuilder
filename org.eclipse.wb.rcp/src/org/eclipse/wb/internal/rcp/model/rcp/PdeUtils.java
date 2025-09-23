@@ -146,7 +146,7 @@ public final class PdeUtils {
 			for (String line : lines) {
 				if (line.startsWith("Bundle-SymbolicName:")) {
 					if (!line.endsWith("singleton:=true")) {
-						contents = StringUtils.replace(contents, line, line + "; singleton:=true");
+						contents = contents.replace(line, line + "; singleton:=true");
 						IOUtils2.setFileContents(
 								m_manifestFile,
 								new ByteArrayInputStream(contents.getBytes(m_manifestFile.getCharset())));

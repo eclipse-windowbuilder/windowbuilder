@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -306,7 +306,7 @@ public class StringUtilities {
 		String[] result = new String[strings.length];
 		for (int i = 0; i < strings.length; i++) {
 			String string = strings[i];
-			result[i] = StringUtils.replace(string, searchString, replacement);
+			result[i] = string.replace(searchString, replacement);
 		}
 		return result;
 	}

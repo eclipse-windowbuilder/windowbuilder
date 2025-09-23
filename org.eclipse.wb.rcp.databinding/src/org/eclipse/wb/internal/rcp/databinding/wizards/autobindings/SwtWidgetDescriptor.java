@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -63,7 +63,7 @@ public final class SwtWidgetDescriptor extends AbstractDescriptor {
 	 * @return the widget creation code.
 	 */
 	public String getCreateCode(String parent) {
-		return StringUtils.replace(m_createCode, "%parent%", parent);
+		return m_createCode.replace("%parent%", parent);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class SwtWidgetDescriptor extends AbstractDescriptor {
 	 * @return the widget binding code.
 	 */
 	public String getBindingCode(String widget) {
-		return StringUtils.replace(m_bindingCode, "%widget%", widget);
+		return m_bindingCode.replace("%widget%", widget);
 	}
 
 	/**

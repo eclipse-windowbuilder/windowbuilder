@@ -42,7 +42,6 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -420,10 +419,9 @@ public final class EclipseSource extends AbstractBundleSource {
 				String templateName =
 						parameters.m_withDefaultValue ? "newAccessor_default.jvt" : "newAccessor.jvt";
 				template = IOUtils.toString(EclipseSource.class.getResourceAsStream(templateName));
-				template =
-						StringUtils.replace(template, "%PACKAGE_NAME%", parameters.m_accessorPackageName);
-				template = StringUtils.replace(template, "%CLASS_NAME%", parameters.m_accessorClassName);
-				template = StringUtils.replace(template, "%BUNDLE_NAME%", parameters.m_propertyBundleName);
+				template = template.replace("%PACKAGE_NAME%", parameters.m_accessorPackageName);
+				template = template.replace("%CLASS_NAME%", parameters.m_accessorClassName);
+				template = template.replace("%BUNDLE_NAME%", parameters.m_propertyBundleName);
 			}
 			// create accessor class file
 			{

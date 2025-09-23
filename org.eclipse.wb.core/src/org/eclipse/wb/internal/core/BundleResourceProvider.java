@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
@@ -141,7 +140,7 @@ public final class BundleResourceProvider {
 	private static String normalizePath(String path) {
 		// remove extra "/"
 		while (path.indexOf("//") != -1) {
-			path = StringUtils.replace(path, "//", "/");
+			path = path.replace("//", "/");
 		}
 		// ensure leading "/", required for Eclipse 3.2
 		if (path.length() != 0 && path.charAt(0) != '/') {

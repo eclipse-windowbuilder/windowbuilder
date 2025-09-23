@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -735,7 +735,7 @@ IListenerMethodProperty {
 		String signature;
 		{
 			signature = methodInfo.getSignature();
-			signature = StringUtils.replace(signature, methodInfo.getName(), stubMethodName);
+			signature = signature.replace(methodInfo.getName(), stubMethodName);
 		}
 		// add stub method declaration
 		MethodDeclaration stubMethod;

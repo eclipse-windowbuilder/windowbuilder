@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -812,7 +812,7 @@ public final class AstEditor {
 	 */
 	public String getTypeBindingSource(ITypeBinding typeBinding) {
 		String genericTypeName = AstNodeUtils.getFullyQualifiedName(typeBinding, false, true);
-		genericTypeName = StringUtils.replace(genericTypeName, ",", ", ");
+		genericTypeName = genericTypeName.replace(",", ", ");
 		return genericTypeName;
 	}
 
@@ -1352,7 +1352,7 @@ public final class AstEditor {
 				}
 			}
 			// do replace
-			src = StringUtils.replace(src, "{wbp_class}", replacement);
+			src = src.replace("{wbp_class}", replacement);
 		}
 		// replace {wbp_classTop} with top-level class reference
 		if (src.indexOf("{wbp_classTop}") != -1) {
@@ -1364,7 +1364,7 @@ public final class AstEditor {
 				replacement = AstNodeUtils.getFullyQualifiedName(typeBinding, false) + ".class";
 			}
 			// do replace
-			src = StringUtils.replace(src, "{wbp_classTop}", replacement);
+			src = src.replace("{wbp_classTop}", replacement);
 		}
 		//
 		return src;

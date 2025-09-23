@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.Path;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -76,7 +75,7 @@ public class IOUtils2 {
 			f = new File(url.getPath());
 		}
 		String path = f.getAbsolutePath();
-		path = StringUtils.replace(path, "%20", " ");
+		path = path.replace("%20", " ");
 		return toPortablePath(path);
 	}
 
