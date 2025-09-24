@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,13 +14,13 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
 
 import org.eclipse.swt.widgets.Composite;
 
 import java.awt.Insets;
 
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -55,10 +55,9 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border != null && border.getClass() == EmptyBorder.class) {
-			EmptyBorder ourBorder = (EmptyBorder) border;
-			Insets borderInsets = ourBorder.getBorderInsets();
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof EmptyBorderValue ourBorder) {
+			Insets borderInsets = ourBorder.borderInsets;
 			m_topField.setValue(borderInsets.top);
 			m_leftField.setValue(borderInsets.left);
 			m_bottomField.setValue(borderInsets.bottom);
@@ -86,5 +85,17 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
 				+ ", "
 				+ m_rightField.getSource()
 				+ ")";
+	}
+
+	/**
+	 * Wrapper for {@link EmptyBorder}.
+	 */
+	public static class EmptyBorderValue extends BorderValue {
+		private final Insets borderInsets;
+
+		public EmptyBorderValue(EmptyBorder border) {
+			super(border);
+			borderInsets = border.getBorderInsets();
+		}
 	}
 }

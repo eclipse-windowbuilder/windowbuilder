@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ComboField;
@@ -24,7 +25,8 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.fields.TextFie
 
 import org.eclipse.swt.widgets.Composite;
 
-import javax.swing.border.Border;
+import java.awt.Color;
+
 import javax.swing.border.TitledBorder;
 
 /**
@@ -95,13 +97,13 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 	}
 
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof TitledBorder ourBorder) {
-			m_titleField.setValue(ourBorder.getTitle());
-			m_titleJustificationField.setValue(ourBorder.getTitleJustification());
-			m_titlePositionField.setValue(ourBorder.getTitlePosition());
-			m_titleColorField.setValue(ourBorder.getTitleColor());
-			m_borderField.setBorder(ourBorder.getBorder());
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof TitledBorderValue ourBorder) {
+			m_titleField.setValue(ourBorder.title);
+			m_titleJustificationField.setValue(ourBorder.titleJustification);
+			m_titlePositionField.setValue(ourBorder.titlePosition);
+			m_titleColorField.setValue(ourBorder.titleColor);
+			m_borderField.setBorderValue(ourBorder.border);
 			// OK, this is our Border
 			return true;
 		} else {
@@ -109,7 +111,7 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 			m_titleJustificationField.setValue(TitledBorder.LEADING);
 			m_titlePositionField.setValue(TitledBorder.TOP);
 			m_titleColorField.setValue(null);
-			m_borderField.setBorder(null);
+			m_borderField.setBorderValue(null);
 			// no, we don't know this Border
 			return false;
 		}
@@ -136,5 +138,25 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 		+ ", "
 		+ titleColorSource
 		+ ")";
+	}
+
+	/**
+	 * Wrapper for {@link TitledBorder}.
+	 */
+	public static class TitledBorderValue extends BorderValue {
+		private final String title;
+		private final int titleJustification;
+		private final int titlePosition;
+		private final Color titleColor;
+		private final BorderValue border;
+
+		public TitledBorderValue(TitledBorder titledBorder) {
+			super(titledBorder);
+			title = titledBorder.getTitle();
+			titleJustification = titledBorder.getTitleJustification();
+			titlePosition = titledBorder.getTitlePosition();
+			titleColor = titledBorder.getTitleColor();
+			border = AbstractBorderComposite.getBorderValue(titledBorder.getBorder());
+		}
 	}
 }

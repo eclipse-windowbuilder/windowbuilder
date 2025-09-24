@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
 
@@ -22,7 +23,6 @@ import org.eclipse.swt.widgets.Composite;
 import java.awt.Color;
 import java.awt.Insets;
 
-import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -59,10 +59,10 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof MatteBorder ourBorder) {
-			Insets borderInsets = ourBorder.getBorderInsets();
-			m_colorField.setValue(ourBorder.getMatteColor());
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof MatteBorderValue ourBorder) {
+			Insets borderInsets = ourBorder.borderInsets;
+			m_colorField.setValue(ourBorder.matteColor);
 			m_topField.setValue(borderInsets.top);
 			m_leftField.setValue(borderInsets.left);
 			m_bottomField.setValue(borderInsets.bottom);
@@ -93,5 +93,19 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 				+ ", (java.awt.Color) "
 				+ m_colorField.getSource()
 				+ ")";
+	}
+
+	/**
+	 * Wrapper for {@link MatteBorder}.
+	 */
+	public static class MatteBorderValue extends BorderValue {
+		private final Color matteColor;
+		private final Insets borderInsets;
+
+		public MatteBorderValue(MatteBorder border) {
+			super(border);
+			matteColor = border.getMatteColor();
+			borderInsets = border.getBorderInsets();
+		}
 	}
 }

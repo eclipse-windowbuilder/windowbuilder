@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.font.FontInfo;
 
 import org.eclipse.swt.SWT;
@@ -73,27 +73,18 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		// note, that this algorithm is not ideal, because we can not identify "key" by Border,
-		// and we don't have AST Expression, so we try to do our best, but can fail...
-		if (border != null) {
-			String borderClassName = border.getClass().getName();
-			if (borderClassName.indexOf('$') != -1) {
-				for (int i = 0; i < m_borders.size(); i++) {
-					if (m_borders.get(i).getClass() == border.getClass()) {
-						m_bordersList.select(i);
-						// when setBorder() invoked, our page may not have size yet, so wait for finishing
-						DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								m_bordersList.showSelection();
-							}
-						});
-						// OK, this is our Border
-						return true;
-					}
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof SwingBorderValue ourValue) {
+			m_bordersList.select(m_bordersList.indexOf(ourValue.key));
+			// when setBorder() invoked, our page may not have size yet, so wait for finishing
+			getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					m_bordersList.showSelection();
 				}
-			}
+			});
+			// OK, this is our Border
+			return true;
 		}
 		// no, we don't know this Border
 		m_bordersList.deselectAll();
@@ -143,5 +134,33 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Wrapper for Swing {@link Border}.
+	 */
+	public static class SwingBorderValue extends BorderValue {
+		private String key;
+
+		public SwingBorderValue(Border border) {
+			super(border);
+			this.key = getBorderKey(border);
+		}
+		
+		private String getBorderKey(Border border) {
+			prepareBorders();
+			// note, that this algorithm is not ideal, because we can not identify "key" by Border,
+			// and we don't have AST Expression, so we try to do our best, but can fail...
+			String borderClassName = border.getClass().getName();
+			if (borderClassName.indexOf('$') != -1) {
+				for (int i = 0; i < m_borders.size(); i++) {
+					if (m_borders.get(i).getClass() == border.getClass()) {
+						return m_borderKeys.get(i);
+					}
+				}
+			}
+			return null;
+		}
+
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,12 +14,14 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 
 import org.eclipse.swt.widgets.Composite;
 
-import javax.swing.border.Border;
+import java.awt.Color;
+
 import javax.swing.border.EtchedBorder;
 
 /**
@@ -59,11 +61,11 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof EtchedBorder ourBorder) {
-			m_typeField.setValue(ourBorder.getEtchType());
-			m_highlightField.setValue(ourBorder.getHighlightColor());
-			m_shadowField.setValue(ourBorder.getShadowColor());
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof EtchedBorderValue ourBorder) {
+			m_typeField.setValue(ourBorder.etchType);
+			m_highlightField.setValue(ourBorder.highlightColor);
+			m_shadowField.setValue(ourBorder.shadowColor);
 			// OK, this is our Border
 			return true;
 		} else {
@@ -88,5 +90,21 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 		+ ", "
 		+ shadowSource
 		+ ")";
+	}
+
+	/**
+	 * Wrapper for {@link EtchedBorder}.
+	 */
+	public static class EtchedBorderValue extends BorderValue {
+		private final int etchType;
+		private final Color highlightColor;
+		private final Color shadowColor;
+
+		public EtchedBorderValue(EtchedBorder border) {
+			super(border);
+			etchType = border.getEtchType();
+			highlightColor = border.getHighlightColor();
+			shadowColor = border.getShadowColor();
+		}
 	}
 }
