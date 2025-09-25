@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -55,6 +54,7 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.Initializer;
+import org.eclipse.jdt.core.dom.LambdaExpression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.PrefixExpression;
@@ -129,6 +129,11 @@ public final class ExecutionFlowUtils {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public boolean visit(AnonymousClassDeclaration node) {
+			return shouldVisitAnonymousClassDeclaration(node);
+		}
+
+		@Override
+		public boolean visit(LambdaExpression node) {
 			return shouldVisitAnonymousClassDeclaration(node);
 		}
 
@@ -393,15 +398,13 @@ public final class ExecutionFlowUtils {
 	 * In general we should not visit anonymous classes, they are usually event handlers. However
 	 * there are special cases, such as <code>EventQueue.invokeLater(Runnable)</code> in Swing.
 	 */
-	private static boolean shouldVisitAnonymousClassDeclaration(final AnonymousClassDeclaration anonymous) {
-		return ExecutionUtils.runObjectLog(() -> {
-			for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
-				if (provider.shouldVisit(anonymous)) {
-					return true;
-				}
+	private static boolean shouldVisitAnonymousClassDeclaration(final ASTNode anonymous) {
+		for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
+			if (provider.shouldVisit(anonymous)) {
+				return true;
 			}
-			return false;
-		}, false);
+		}
+		return false;
 	}
 
 	/**
@@ -1267,11 +1270,7 @@ public final class ExecutionFlowUtils {
 			Class<?>[] parameterTypes = method.getParameterTypes();
 			if (parameterTypes.length == 1) {
 				Class<?> parameterType = parameterTypes[0];
-				if (method.getName().equals("visit")) {
-					if (parameterType == AnonymousClassDeclaration.class) {
-						visit(stub, (AnonymousClassDeclaration) args[0]);
-					}
-				} else if (method.getName().equals("endVisit")) {
+				if (method.getName().equals("endVisit")) {
 					if (parameterType == ClassInstanceCreation.class) {
 						endVisit(stub, (ClassInstanceCreation) args[0]);
 					} else if (parameterType == MethodInvocation.class) {
@@ -1287,10 +1286,6 @@ public final class ExecutionFlowUtils {
 			} catch (InvocationTargetException e) {
 				throw e.getCause();
 			}
-		}
-
-		private boolean visit(VisitorStub stub, AnonymousClassDeclaration node) {
-			return shouldVisitAnonymousClassDeclaration(node);
 		}
 
 		private void endVisit(VisitorStub stub, ClassInstanceCreation node) {
