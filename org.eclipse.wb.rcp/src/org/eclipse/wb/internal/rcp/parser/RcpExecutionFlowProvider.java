@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,8 +15,7 @@ package org.eclipse.wb.internal.rcp.parser;
 import org.eclipse.wb.internal.core.eval.ExecutionFlowProvider;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 
-import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.ClassInstanceCreation;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -75,12 +74,10 @@ public class RcpExecutionFlowProvider extends ExecutionFlowProvider {
 	}
 
 	@Override
-	public boolean shouldVisit(AnonymousClassDeclaration anonymous) throws Exception {
-		// Realm.runWithDefault()
-		if (AstNodeUtils.isSuccessorOf(anonymous, "java.lang.Runnable")) {
-			ClassInstanceCreation creation = (ClassInstanceCreation) anonymous.getParent();
-			if (creation.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY) {
-				MethodInvocation invocation = (MethodInvocation) creation.getParent();
+	public boolean shouldVisit(ASTNode node) {
+		if (AstNodeUtils.isSuccessorOf(getTypeBinding(node), "java.lang.Runnable")) {
+			MethodInvocation invocation = getMethodInvocation(node);
+			if (invocation != null) {
 				return AstNodeUtils.isMethodInvocation(
 						invocation,
 						"org.eclipse.core.databinding.observable.Realm",
@@ -88,6 +85,6 @@ public class RcpExecutionFlowProvider extends ExecutionFlowProvider {
 			}
 		}
 		// unknown pattern
-		return false;
+		return super.shouldVisit(node);
 	}
 }

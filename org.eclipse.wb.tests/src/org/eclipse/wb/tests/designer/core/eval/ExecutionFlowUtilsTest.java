@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,6 +43,8 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.LambdaExpression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
@@ -58,6 +60,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -830,7 +834,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Visiting and AnonymousClassDeclaration
+	// Visiting and AnonymousClassDeclaration/LambdaExpressios
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
@@ -838,9 +842,10 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	 * <p>
 	 * {@link Runnable} in {@link Thread} should not be visited.
 	 */
-	@Test
-	public void test_visit_AnonymousClassDeclaration_noVisit() throws Exception {
-		String threadCode = "new Thread(new Runnable() {public void run() {int a;}});";
+	@ParameterizedTest
+	@ValueSource(strings = { "new Runnable() {public void run() {int a;}}", "() -> {int a;}" })
+	public void test_visit_AnonymousClassDeclaration_noVisit(String runnableCode) throws Exception {
+		String threadCode = "new Thread(" + runnableCode + ");";
 		String code = "void root() {" + threadCode + "}";
 		String expectedNodes[] = {threadCode};
 		check_visitNodes(code, expectedNodes, "root()");
@@ -852,9 +857,10 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	 * {@link Runnable} in {@link Thread} should not be visited, and invocations also should not be
 	 * followed.
 	 */
-	@Test
-	public void test_visit_AnonymousClassDeclaration_withInvocation() throws Exception {
-		String threadCode = "new Thread(new Runnable() {public void run() {foo();}});";
+	@ParameterizedTest
+	@ValueSource(strings = { "new Runnable() {public void run() {foo();}}", "() -> {foo();}" })
+	public void test_visit_AnonymousClassDeclaration_withInvocation(String runnableCode) throws Exception {
+		String threadCode = "new Thread(" + runnableCode + ");";
 		String code = "void root() {" + threadCode + "} void foo() {int b;}";
 		String expectedNodes[] = {threadCode};
 		check_visitNodes(code, expectedNodes, "root()");
@@ -865,13 +871,23 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	 */
 	public static class ExecutionFlowProvider_RunnableInThread extends ExecutionFlowProvider {
 		@Override
-		public boolean shouldVisit(AnonymousClassDeclaration anonymous) throws Exception {
-			if (AstNodeUtils.isSuccessorOf(anonymous.resolveBinding(), "java.lang.Runnable")) {
-				ASTNode anonymousCreation = anonymous.getParent();
-				if (anonymousCreation.getLocationInParent() == ClassInstanceCreation.ARGUMENTS_PROPERTY) {
-					Expression enclosingCreation = (ClassInstanceCreation) anonymousCreation.getParent();
-					if (AstNodeUtils.isSuccessorOf(enclosingCreation, "java.lang.Thread")) {
-						return true;
+		public boolean shouldVisit(ASTNode node) {
+			ITypeBinding typeBinding = getTypeBinding(node);
+			if (AstNodeUtils.isSuccessorOf(typeBinding, "java.lang.Runnable")) {
+				if (node instanceof AnonymousClassDeclaration anonymous) {
+					ASTNode anonymousCreation = anonymous.getParent();
+					if (anonymousCreation.getLocationInParent() == ClassInstanceCreation.ARGUMENTS_PROPERTY) {
+						Expression enclosingCreation = (ClassInstanceCreation) anonymousCreation.getParent();
+						if (AstNodeUtils.isSuccessorOf(enclosingCreation, "java.lang.Thread")) {
+							return true;
+						}
+					}
+				} else if (node instanceof LambdaExpression lambda) {
+					if (lambda.getLocationInParent() == ClassInstanceCreation.ARGUMENTS_PROPERTY) {
+						Expression enclosingCreation = (ClassInstanceCreation) lambda.getParent();
+						if (AstNodeUtils.isSuccessorOf(enclosingCreation, "java.lang.Thread")) {
+							return true;
+						}
 					}
 				}
 			}
@@ -886,8 +902,9 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	 * should not be followed. However we install special {@link ExecutionFlowProvider} that allows
 	 * such visiting.
 	 */
-	@Test
-	public void test_visit_AnonymousClassDeclaration_withInvocation_doVisit() throws Exception {
+	@ParameterizedTest
+	@ValueSource(strings = { "new Runnable() {public void run() {foo();}}", "() -> {foo();}" })
+	public void test_visit_AnonymousClassDeclaration_withInvocation_doVisit(String runnableCode) throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
 			Class<?> providerClass = ExecutionFlowProvider_RunnableInThread.class;
@@ -897,7 +914,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 					"<provider class='" + providerClass.getName() + "'/>");
 			testBundle.install();
 			try {
-				String threadCode = "new Thread(new Runnable() {public void run() {foo();}});";
+				String threadCode = "new Thread(" + runnableCode + ");";
 				String code = "void root() {" + threadCode + "} void foo() {int b;}";
 				String expectedNodes[] = {"int b;", "foo();", threadCode};
 				check_visitNodes(code, expectedNodes, "root()");
