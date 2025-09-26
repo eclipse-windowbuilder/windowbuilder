@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 
 import org.eclipse.swt.SWT;
@@ -27,7 +28,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
 /**
@@ -66,9 +66,10 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 					ExecutionUtils.runLog(new RunnableEx() {
 						@Override
 						public void run() throws Exception {
-							Border outsideBorder = m_outsideField.getBorder();
-							m_outsideField.setBorder(m_insideField.getBorder());
-							m_insideField.setBorder(outsideBorder);
+							BorderValue insideBorder = m_insideField.getBorderValue();
+							BorderValue outsideBorder = m_outsideField.getBorderValue();
+							m_outsideField.setBorderValue(insideBorder);
+							m_insideField.setBorderValue(outsideBorder);
 							m_borderDialog.borderUpdated();
 						}
 					});
@@ -90,10 +91,10 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 	}
 
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof CompoundBorder ourBorder) {
-			m_outsideField.setBorder(ourBorder.getOutsideBorder());
-			m_insideField.setBorder(ourBorder.getInsideBorder());
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof CompoundBorderValue ourBorder) {
+			m_outsideField.setBorderValue(ourBorder.outsideBorder);
+			m_insideField.setBorderValue(ourBorder.insideBorder);
 			// OK, this is our Border
 			return true;
 		} else {
@@ -110,5 +111,19 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 			return "new javax.swing.border.CompoundBorder()";
 		}
 		return "new javax.swing.border.CompoundBorder(" + outsideSource + ", " + insideSource + ")";
+	}
+
+	/**
+	 * Wrapper for {@link CompoundBorder}.
+	 */
+	public static class CompoundBorderValue extends BorderValue {
+		private final BorderValue outsideBorder;
+		private final BorderValue insideBorder;
+
+		public CompoundBorderValue(CompoundBorder border) {
+			super(border);
+			outsideBorder = AbstractBorderComposite.getBorderValue(border.getOutsideBorder());
+			insideBorder = AbstractBorderComposite.getBorderValue(border.getInsideBorder());
+		}
 	}
 }

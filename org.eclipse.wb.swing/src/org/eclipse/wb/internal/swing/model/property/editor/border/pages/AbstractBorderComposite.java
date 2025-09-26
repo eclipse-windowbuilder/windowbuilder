@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.AbstractBorderField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BooleanField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
@@ -22,13 +23,32 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ComboFi
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.TextField;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.BevelBorderComposite.BevelBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.CompoundBorderComposite.CompoundBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.EmptyBorderComposite.EmptyBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.EtchedBorderComposite.EtchedBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.LineBorderComposite.LineBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.MatteBorderComposite.MatteBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SoftBevelBorderComposite.SoftBevelBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SwingBorderComposite.SwingBorderValue;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.TitledBorderComposite.TitledBorderValue;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  * Abstract editor for some {@link Border} type.
@@ -70,17 +90,44 @@ public abstract class AbstractBorderComposite extends Composite {
 	}
 
 	/**
-	 * Sets the {@link Border} to edit.
+	 * Sets the {@link BorderValue} to edit.
 	 *
-	 * @return <code>true</code> if this {@link AbstractBorderComposite} understands given
-	 *         {@link Border}.
+	 * @return <code>true</code> if this {@link AbstractBorderComposite} understands
+	 *         given {@link BorderValue}.
 	 */
-	public abstract boolean setBorder(Border border) throws Exception;
+	public abstract boolean setBorderValue(BorderValue border) throws Exception;
 
 	/**
 	 * @return the source for updated {@link Border}.
 	 */
 	public abstract String getSource() throws Exception;
+
+	/**
+	 * Constructs and returns the {@link BorderValue} for the given {@link Border}
+	 * if it is supported by this composite. This method must be called from the AWT
+	 * event dispatcher thread. <i>Note:</i> This method returns {@code null} if and
+	 * only if {@link #setBorderValue(BorderValue)} returns {@code false} (Outside
+	 * of the {@code NoBorder}).
+	 * 
+	 * @param border The current {@link Border}.
+	 * @return The matching {@link BorderValue} or {@code null} if this border is
+	 *         not supported.
+	 */
+	public static BorderValue getBorderValue(javax.swing.border.Border border) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be created from AWT event dispatcher thread");
+		return switch (border) {
+		case null -> null;
+		case SoftBevelBorder ourBorder -> new SoftBevelBorderValue(ourBorder);
+		case BevelBorder ourBorder -> new BevelBorderValue(ourBorder);
+		case CompoundBorder ourBorder -> new CompoundBorderValue(ourBorder);
+		case MatteBorder ourBorder -> new MatteBorderValue(ourBorder);
+		case EmptyBorder ourBorder -> new EmptyBorderValue(ourBorder);
+		case EtchedBorder ourBorder -> new EtchedBorderValue(ourBorder);
+		case LineBorder ourBorder -> new LineBorderValue(ourBorder);
+		case TitledBorder ourBorder -> new TitledBorderValue(ourBorder);
+		default -> new SwingBorderValue(border);
+		};
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

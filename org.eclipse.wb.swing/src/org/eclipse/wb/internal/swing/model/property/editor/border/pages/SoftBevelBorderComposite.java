@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,13 +14,15 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 
 import org.eclipse.swt.widgets.Composite;
 
+import java.awt.Color;
+
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
 
 /**
@@ -66,13 +68,13 @@ public final class SoftBevelBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof SoftBevelBorder ourBorder) {
-			m_typeField.setValue(ourBorder.getBevelType());
-			m_highlightOuterField.setValue(ourBorder.getHighlightOuterColor());
-			m_highlightInnerField.setValue(ourBorder.getHighlightInnerColor());
-			m_shadowOuterField.setValue(ourBorder.getShadowOuterColor());
-			m_shadowInnerField.setValue(ourBorder.getShadowInnerColor());
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof SoftBevelBorderValue ourBorder) {
+			m_typeField.setValue(ourBorder.bevelType);
+			m_highlightOuterField.setValue(ourBorder.highlightOuterColor);
+			m_highlightInnerField.setValue(ourBorder.highlightInnerColor);
+			m_shadowOuterField.setValue(ourBorder.shadowOuterColor);
+			m_shadowInnerField.setValue(ourBorder.shadowInnerColor);
 			// OK, this is our Border
 			return true;
 		} else {
@@ -118,5 +120,25 @@ public final class SoftBevelBorderComposite extends AbstractBorderComposite {
 		+ ", "
 		+ shadowInnerSource
 		+ ")";
+	}
+
+	/**
+	 * Wrapper for {@link SoftBevelBorder}.
+	 */
+	public static class SoftBevelBorderValue extends BorderValue {
+		private final int bevelType;
+		private final Color highlightOuterColor;
+		private final Color highlightInnerColor;
+		private final Color shadowOuterColor;
+		private final Color shadowInnerColor;
+
+		public SoftBevelBorderValue(SoftBevelBorder border) {
+			super(border);
+			bevelType = border.getBevelType();
+			highlightOuterColor = border.getHighlightOuterColor();
+			highlightInnerColor = border.getHighlightInnerColor();
+			shadowOuterColor = border.getShadowOuterColor();
+			shadowInnerColor = border.getShadowInnerColor();
+		}
 	}
 }

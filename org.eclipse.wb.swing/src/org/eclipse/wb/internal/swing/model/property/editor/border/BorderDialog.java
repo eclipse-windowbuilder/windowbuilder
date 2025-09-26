@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,6 +37,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.pages.NoBorder
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SoftBevelBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SwingBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.TitledBorderComposite;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -58,8 +59,6 @@ import java.util.ArrayList;
 
 import javax.swing.border.Border;
 
-import swingintegration.example.EmbeddedSwingComposite2;
-
 /**
  * Dialog for {@link Border} editing.
  *
@@ -69,7 +68,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 public final class BorderDialog extends ResizableDialog {
 	private final AstEditor m_editor;
 	private boolean m_borderModified;
-	private Border m_border;
+	private BorderValue m_borderValue;
 	private String m_source;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -100,17 +99,17 @@ public final class BorderDialog extends ResizableDialog {
 	}
 
 	/**
-	 * Sets the {@link Border} to edit.
+	 * Sets the {@link BorderValue} to edit.
 	 */
-	public void setBorder(Border border) {
-		m_border = border;
+	public void setBorderValue(BorderValue borderValue) {
+		m_borderValue = borderValue;
 	}
 
 	/**
-	 * @return the updated {@link Border}.
+	 * @return the updated {@link BorderValue}.
 	 */
-	public Border getBorder() {
-		return m_border;
+	public BorderValue getBorderValue() {
+		return m_borderValue;
 	}
 
 	/**
@@ -176,10 +175,8 @@ public final class BorderDialog extends ResizableDialog {
 			GridLayoutFactory.create(previewGroup);
 			previewGroup.setText(ModelMessages.BorderDialog_preview);
 			//
-			if (EmbeddedSwingComposite2.canUseAwt()) {
-				m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
-				GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
-			}
+			m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
+			GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
 		}
 		//
 		updateGUI();
@@ -214,7 +211,7 @@ public final class BorderDialog extends ResizableDialog {
 				@Override
 				public void run() throws Exception {
 					for (AbstractBorderComposite page : m_pages) {
-						boolean understands = page.setBorder(m_border);
+						boolean understands = page.setBorderValue(m_borderValue);
 						if (understands && m_borderModified) {
 							m_pagesLayout.topControl = page;
 						}
@@ -227,7 +224,7 @@ public final class BorderDialog extends ResizableDialog {
 		}
 		// update preview
 		if (m_previewCanvas != null) {
-			m_previewCanvas.setBorder(m_border);
+			m_previewCanvas.setBorderValue(m_borderValue);
 		}
 	}
 
@@ -322,9 +319,12 @@ public final class BorderDialog extends ResizableDialog {
 			ClassLoader classLoader = EditorState.get(m_editor).getEditorLoader();
 			EvaluationContext context =
 					new EvaluationContext(classLoader, new ExecutionFlowDescription());
-			m_border = (Border) AstEvaluationEngine.evaluate(context, borderExpression);
+			SwingUtils.runLogLater(() -> {
+				Border border = (Border) AstEvaluationEngine.evaluate(context, borderExpression);
+				m_borderValue = AbstractBorderComposite.getBorderValue(border);
+				// set new Border
+				m_previewCanvas.setBorderValue(m_borderValue);
+			});
 		}
-		// set new Border
-		m_previewCanvas.setBorder(m_border);
 	}
 }
