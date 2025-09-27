@@ -208,15 +208,12 @@ public class ExecutionUtils {
 
 	/**
 	 * Runs given {@link RunnableEx} as {@link #runLog(RunnableEx)}, but using
-	 * {@link Display#asyncExec(Runnable)}.
+	 * {@link CompletableFuture#runAsync(Runnable)} and {@link Display#getDefault}.
+	 * 
+	 * @return the new CompletableFuture
 	 */
-	public static void runLogLater(final RunnableEx runnable) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				ExecutionUtils.runLog(runnable);
-			}
-		});
+	public static CompletableFuture<Void> runLogLater(final RunnableEx runnable) {
+		return CompletableFuture.runAsync(() -> runLog(runnable), Display.getDefault());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
