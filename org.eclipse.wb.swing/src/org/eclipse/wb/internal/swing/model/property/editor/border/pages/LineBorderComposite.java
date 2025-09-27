@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BooleanField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
@@ -22,7 +23,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import java.awt.Color;
 
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
@@ -58,11 +58,11 @@ public final class LineBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof LineBorder ourBorder) {
-			m_colorField.setValue(ourBorder.getLineColor());
-			m_thicknessField.setValue(ourBorder.getThickness());
-			m_typeField.setValue(ourBorder.getRoundedCorners());
+	public boolean setBorderValue(BorderValue border) throws Exception {
+		if (border instanceof LineBorderValue ourBorder) {
+			m_colorField.setValue(ourBorder.lineColor);
+			m_thicknessField.setValue(ourBorder.thickness);
+			m_typeField.setValue(ourBorder.roundCorners);
 			// OK, this is our Border
 			return true;
 		} else {
@@ -86,5 +86,21 @@ public final class LineBorderComposite extends AbstractBorderComposite {
 			return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ")";
 		}
 		return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ", true)";
+	}
+
+	/**
+	 * Wrapper for {@link LineBorder}.
+	 */
+	public static class LineBorderValue extends BorderValue {
+		private final Color lineColor;
+		private final int thickness;
+		private final boolean roundCorners;
+
+		public LineBorderValue(LineBorder border) {
+			super(border);
+			lineColor = border.getLineColor();
+			thickness = border.getThickness();
+			roundCorners = border.getRoundedCorners();
+		}
 	}
 }

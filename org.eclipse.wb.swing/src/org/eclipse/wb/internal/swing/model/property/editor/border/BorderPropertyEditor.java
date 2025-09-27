@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,6 +29,8 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
+import org.eclipse.wb.internal.swing.model.property.editor.border.pages.AbstractBorderComposite;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
@@ -119,18 +121,21 @@ IClipboardSourceProvider {
 				new BorderDialog(DesignerPlugin.getShell(), genericProperty.getJavaInfo().getEditor());
 		// set "modified" flag
 		borderDialog.setBorderModified(property.isModified());
-		// set initial value
-		{
+		SwingUtils.runLogLater(() -> {
+			// set initial value
 			Object value = property.getValue();
 			if (value instanceof Border border) {
-				borderDialog.setBorder(border);
+				BorderValue borderValue = AbstractBorderComposite.getBorderValue(border);
+				borderDialog.setBorderValue(borderValue);
 			}
-		}
-		// open dialog
-		if (borderDialog.open() == Window.OK) {
-			String source = borderDialog.getBorderSource();
-			genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
-		}
+			// open dialog
+			ExecutionUtils.runLogLater(() -> {
+				if (borderDialog.open() == Window.OK) {
+					String source = borderDialog.getBorderSource();
+					genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
+				}
+			});
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
