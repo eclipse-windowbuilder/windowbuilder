@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -32,6 +33,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
@@ -197,13 +199,14 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public boolean setModelValue(SpinnerModelValue modelValue) {
+	public CompletableFuture<Void> setModelValue(SpinnerModelValue modelValue) {
 		if (modelValue.getValue() instanceof javax.swing.SpinnerDateModel dateModel) {
 			Object value = dateModel.getValue();
 			Comparable<Date> start = dateModel.getStart();
 			Comparable<Date> end = dateModel.getEnd();
 			int calendarField = dateModel.getCalendarField();
-			getDisplay().asyncExec(() -> {
+			// OK, this is our model
+			return ExecutionUtils.runLogLater(() -> {
 				// values
 				setValue(m_valueField, value);
 				setValue(m_minField, start);
@@ -221,8 +224,6 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 				updateCheckField(m_maxButton, m_maxField, end != null);
 				m_modelDialog.validateAll();
 			});
-			// OK, this is our model
-			return true;
 		} else {
 			getDisplay().asyncExec(() -> {
 				// values
@@ -235,7 +236,7 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
 				m_modelDialog.validateAll();
 			});
 			// no, we don't know this model
-			return false;
+			return null;
 		}
 	}
 

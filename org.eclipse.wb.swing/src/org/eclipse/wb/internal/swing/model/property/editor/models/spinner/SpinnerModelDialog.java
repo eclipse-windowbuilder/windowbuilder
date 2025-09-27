@@ -28,13 +28,13 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * The dialog for editing {@link javax.swing.SpinnerModel SpinnerModel}.
@@ -102,7 +102,6 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 			m_composites.add(new DateSpinnerComposite(m_tabFolder, this));
 		}
 		// create tab for each spinner composite
-		Display display = getShell().getDisplay();
 		for (AbstractSpinnerComposite composite : m_composites) {
 			// create tab
 			CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
@@ -110,8 +109,9 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
 			tabItem.setText(composite.getTitle());
 			// select tab
 			SwingUtils.runLogLater(() -> {
-				if (composite.setModelValue(m_modelValue)) {
-					display.asyncExec(() -> m_tabFolder.setSelection(tabItem));
+				CompletableFuture<Void> result = composite.setModelValue(m_modelValue);
+				if (result != null) {
+					result.thenAccept(ignore -> m_tabFolder.setSelection(tabItem));
 				}
 			});
 		}
