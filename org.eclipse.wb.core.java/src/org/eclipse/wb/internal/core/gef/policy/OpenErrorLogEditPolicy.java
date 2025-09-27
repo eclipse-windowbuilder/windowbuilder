@@ -134,7 +134,7 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
 	 * Schedules showing error log later. We do this to allow normal "click" processing first.
 	 */
 	private void scheduleOpenErrorLog() {
-		ExecutionUtils.runAsync(new RunnableEx() {
+		ExecutionUtils.runLogLater(new RunnableEx() {
 			@Override
 			public void run() throws Exception {
 				openErrorLog();

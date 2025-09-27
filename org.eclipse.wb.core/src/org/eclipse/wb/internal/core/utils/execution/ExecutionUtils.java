@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Display;
 
 import java.beans.Beans;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Utilities for executing actions, such as {@link RunnableEx}.
@@ -190,19 +191,6 @@ public class ExecutionUtils {
 			@Override
 			public void run() {
 				ExecutionUtils.runRethrow(runnable);
-			}
-		});
-	}
-
-	/**
-	 * Runs given {@link RunnableEx} within UI thread using {@link Display#asyncExec(Runnable)}. Logs
-	 * a {@link Throwable} which may occur.
-	 */
-	public static void runAsync(final RunnableEx runnable) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				ExecutionUtils.runLog(runnable);
 			}
 		});
 	}

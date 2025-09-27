@@ -94,7 +94,7 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 		waitEventLoop(0);
 		// emulate paint loop during edit
 		// Mitin implemented Swing correctly, using AWT thread, but this requires SWT event loop
-		ExecutionUtils.runAsync(new RunnableEx() {
+		ExecutionUtils.runLogLater(new RunnableEx() {
 			@Override
 			public void run() throws Exception {
 				ExecutionUtils.runLogUI(new RunnableEx() {
