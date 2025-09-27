@@ -17,6 +17,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
@@ -54,10 +55,10 @@ abstract class AbstractSpinnerComposite extends Composite {
 	 * Sets the {@link SpinnerModelValue} to display/edit. <b>Important:</b> This
 	 * method is called from the AWT event dispatch thread.
 	 *
-	 * @return <code>true</code> if this {@link AbstractSpinnerComposite}
-	 *         understands given model.
+	 * @return {@link CompletableFuture} if this {@link AbstractSpinnerComposite}
+	 *         understands given model, otherwise {@code null}.
 	 */
-	public abstract boolean setModelValue(SpinnerModelValue modelValue);
+	public abstract CompletableFuture<Void> setModelValue(SpinnerModelValue modelValue);
 
 	/**
 	 * @return the error message, or <code>null</code> if model configured correctly.

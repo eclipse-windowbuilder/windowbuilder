@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -27,6 +28,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Spinner;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
@@ -170,13 +172,14 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 	}
 
 	@Override
-	public boolean setModelValue(SpinnerModelValue modelValue) {
+	public CompletableFuture<Void> setModelValue(SpinnerModelValue modelValue) {
 		if (modelValue.getValue() instanceof javax.swing.SpinnerNumberModel numberModel) {
 			Object value = numberModel.getValue();
 			Comparable<?> minimum = numberModel.getMinimum();
 			Comparable<?> maximum = numberModel.getMaximum();
 			Number stepSize = numberModel.getStepSize();
-			getDisplay().asyncExec(() -> {
+			// OK, this is our model
+			return ExecutionUtils.runLogLater(() -> {
 				// type
 				NumberTypeDescription[] values = NumberTypeDescription.values();
 				for (int i = 0; i < values.length; i++) {
@@ -195,8 +198,6 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 				updateCheckSpinner(m_maxButton, m_maxField, maximum != null);
 				m_modelDialog.validateAll();
 			});
-			// OK, this is our model
-			return true;
 		} else {
 			// disable min/max fields
 			getDisplay().asyncExec(() -> {
@@ -204,7 +205,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
 				updateCheckSpinner(m_maxButton, m_maxField, false);
 				m_modelDialog.validateAll();
 			});
-			return false;
+			return null;
 		}
 	}
 
