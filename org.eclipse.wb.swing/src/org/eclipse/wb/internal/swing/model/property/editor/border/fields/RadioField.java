@@ -87,7 +87,7 @@ public final class RadioField extends AbstractBorderField {
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		return m_source;
 	}
 }

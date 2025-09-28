@@ -64,7 +64,7 @@ public final class IntegerField extends AbstractBorderField {
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		int value = m_spinner.getSelection();
 		return Integer.toString(value);
 	}

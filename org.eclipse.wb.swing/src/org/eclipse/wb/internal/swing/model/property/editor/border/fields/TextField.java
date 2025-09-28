@@ -69,7 +69,7 @@ public final class TextField extends AbstractBorderField {
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		return StringConverter.INSTANCE.toJavaSource(null, m_text.getText());
 	}
 }

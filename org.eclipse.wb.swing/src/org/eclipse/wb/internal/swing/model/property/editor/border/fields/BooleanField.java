@@ -88,7 +88,7 @@ public final class BooleanField extends AbstractBorderField {
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		return m_source;
 	}
 }

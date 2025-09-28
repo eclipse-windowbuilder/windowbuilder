@@ -105,7 +105,7 @@ public final class ColorField extends AbstractBorderField {
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		return m_colorInfo != null ? ColorPropertyEditor.external_getSource(m_colorInfo) : "null";
 	}
 

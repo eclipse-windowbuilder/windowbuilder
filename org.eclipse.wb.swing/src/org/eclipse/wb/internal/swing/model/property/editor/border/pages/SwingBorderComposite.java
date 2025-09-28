@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -101,7 +101,7 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		int index = m_bordersList.getSelectionIndex();
 		if (index != -1) {
 			String key = m_borderKeys.get(index);
