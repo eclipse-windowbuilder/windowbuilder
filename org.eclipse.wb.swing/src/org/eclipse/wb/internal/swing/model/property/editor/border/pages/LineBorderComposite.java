@@ -50,6 +50,10 @@ public final class LineBorderComposite extends AbstractBorderComposite {
 				createBooleanField(ModelMessages.LineBorderComposite_corners, new String[]{
 						ModelMessages.LineBorderComposite_cornersSquare,
 						ModelMessages.LineBorderComposite_cornersRounded});
+		// set defaults values
+		m_colorField.setValue(Color.BLACK);
+		m_thicknessField.setValue(1);
+		m_typeField.setValue(false);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -66,9 +70,6 @@ public final class LineBorderComposite extends AbstractBorderComposite {
 			// OK, this is our Border
 			return true;
 		} else {
-			m_colorField.setValue(Color.BLACK);
-			m_thicknessField.setValue(1);
-			m_typeField.setValue(false);
 			// no, we don't know this Border
 			return false;
 		}

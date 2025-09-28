@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
@@ -58,6 +59,8 @@ public final class SoftBevelBorderComposite extends AbstractBorderComposite {
 				createColorField(ModelMessages.SoftBevelBorderComposite_highlightInnerColor);
 		m_shadowOuterField = createColorField(ModelMessages.SoftBevelBorderComposite_shadowOuterColor);
 		m_shadowInnerField = createColorField(ModelMessages.SoftBevelBorderComposite_shadowInnerColor);
+		// set defaults values
+		ExecutionUtils.runRethrow(() -> m_typeField.setValue(BevelBorder.LOWERED));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -76,7 +79,6 @@ public final class SoftBevelBorderComposite extends AbstractBorderComposite {
 			// OK, this is our Border
 			return true;
 		} else {
-			m_typeField.setValue(BevelBorder.LOWERED);
 			// no, we don't know this Border
 			return false;
 		}
