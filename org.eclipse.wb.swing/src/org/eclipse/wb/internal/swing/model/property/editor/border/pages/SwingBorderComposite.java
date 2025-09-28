@@ -65,6 +65,8 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 				m_borderDialog.borderUpdated();
 			}
 		});
+		// set defaults values
+		m_bordersList.deselectAll();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -96,7 +98,6 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 			}
 		}
 		// no, we don't know this Border
-		m_bordersList.deselectAll();
 		return false;
 	}
 

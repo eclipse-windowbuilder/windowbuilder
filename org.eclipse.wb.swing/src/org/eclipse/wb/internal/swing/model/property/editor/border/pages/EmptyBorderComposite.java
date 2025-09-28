@@ -47,6 +47,11 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
 		m_leftField = createIntegerField(ModelMessages.EmptyBorderComposite_left);
 		m_bottomField = createIntegerField(ModelMessages.EmptyBorderComposite_bottom);
 		m_rightField = createIntegerField(ModelMessages.EmptyBorderComposite_right);
+		// set defaults values
+		m_topField.setValue(0);
+		m_leftField.setValue(0);
+		m_bottomField.setValue(0);
+		m_rightField.setValue(0);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -66,10 +71,6 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
 			// OK, this is our Border
 			return true;
 		} else {
-			m_topField.setValue(0);
-			m_leftField.setValue(0);
-			m_bottomField.setValue(0);
-			m_rightField.setValue(0);
 			// no, we don't know this Border
 			return false;
 		}

@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
@@ -81,6 +82,12 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 		GridDataFactory.create(m_titleField).fillH();
 		GridDataFactory.create(m_titleJustificationField).fillH();
 		GridDataFactory.create(m_titlePositionField).fillH();
+		// set defaults values
+		ExecutionUtils.runRethrow(() -> {
+			m_titleField.setValue("");
+			m_titleJustificationField.setValue(TitledBorder.LEADING);
+			m_titlePositionField.setValue(TitledBorder.TOP);
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -105,11 +112,6 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 			// OK, this is our Border
 			return true;
 		} else {
-			m_titleField.setValue("");
-			m_titleJustificationField.setValue(TitledBorder.LEADING);
-			m_titlePositionField.setValue(TitledBorder.TOP);
-			m_titleColorField.setValue(null);
-			m_borderField.setBorder(null);
 			// no, we don't know this Border
 			return false;
 		}

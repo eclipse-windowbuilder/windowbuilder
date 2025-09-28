@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
@@ -51,6 +52,8 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 								ModelMessages.EtchedBorderComposite_etchRaised});
 		m_highlightField = createColorField(ModelMessages.EtchedBorderComposite_highlightColor);
 		m_shadowField = createColorField(ModelMessages.EtchedBorderComposite_shadowColor);
+		// set defaults values
+		ExecutionUtils.runRethrow(() -> m_typeField.setValue(EtchedBorder.LOWERED));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -67,7 +70,6 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 			// OK, this is our Border
 			return true;
 		} else {
-			m_typeField.setValue(EtchedBorder.LOWERED);
 			// no, we don't know this Border
 			return false;
 		}

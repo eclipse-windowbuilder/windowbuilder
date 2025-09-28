@@ -51,6 +51,12 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 		m_leftField = createIntegerField(ModelMessages.MatteBorderComposite_left);
 		m_bottomField = createIntegerField(ModelMessages.MatteBorderComposite_bottom);
 		m_rightField = createIntegerField(ModelMessages.MatteBorderComposite_right);
+		// set defaults values
+		m_colorField.setValue(Color.BLACK);
+		m_topField.setValue(1);
+		m_leftField.setValue(1);
+		m_bottomField.setValue(1);
+		m_rightField.setValue(1);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -70,11 +76,6 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 			// OK, this is our Border
 			return true;
 		} else {
-			m_colorField.setValue(Color.BLACK);
-			m_topField.setValue(1);
-			m_leftField.setValue(1);
-			m_bottomField.setValue(1);
-			m_rightField.setValue(1);
 			// no, we don't know this Border
 			return false;
 		}
