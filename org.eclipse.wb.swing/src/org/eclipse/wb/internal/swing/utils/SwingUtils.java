@@ -34,6 +34,7 @@ import java.awt.EventQueue;
 import java.awt.IllegalComponentStateException;
 import java.awt.Point;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JFrame;
@@ -63,13 +64,16 @@ public final class SwingUtils {
 
 	/**
 	 * Runs the {@link RunnableEx} in the AWT event dispatching thread using
+	 * {@link CompletableFuture#runAsync(Runnable)} and
 	 * {@link SwingUtilities#invokeLater(Runnable)}. Any exceptions that are thrown
 	 * are logged using {@link DesignerPlugin#log(Throwable)}.
 	 *
 	 * Note: must be invoked from SWT UI thread.
+	 * 
+	 * @return the new CompletableFuture
 	 */
-	public static void runLogLater(final RunnableEx runnable) {
-		SwingUtilities.invokeLater(() -> ExecutionUtils.runLog(runnable));
+	public static CompletableFuture<Void> runLogLater(final RunnableEx runnable) {
+		return CompletableFuture.runAsync(() -> ExecutionUtils.runLog(runnable), SwingUtilities::invokeLater);
 	}
 	/**
 	 * Runs the {@link RunnableEx} in the AWT event dispatching thread using
