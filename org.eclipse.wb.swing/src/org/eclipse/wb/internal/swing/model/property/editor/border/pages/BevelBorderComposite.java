@@ -62,6 +62,10 @@ public final class BevelBorderComposite extends AbstractBorderComposite {
 		ExecutionUtils.runRethrow(() -> m_typeField.setValue(BevelBorder.LOWERED));
 	}
 
+	static {
+		COMPOSITE_CLASSES.put(BevelBorderComposite.class, BevelBorder.class::isAssignableFrom);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access

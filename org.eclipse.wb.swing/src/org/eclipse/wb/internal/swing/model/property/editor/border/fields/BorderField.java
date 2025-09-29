@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,15 +16,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.AbstractBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.BevelBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.CompoundBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.EmptyBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.EtchedBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.LineBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.MatteBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SoftBevelBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SwingBorderComposite;
-import org.eclipse.wb.internal.swing.model.property.editor.border.pages.TitledBorderComposite;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -114,7 +105,8 @@ public final class BorderField extends AbstractBorderField {
 	public String getSource() throws Exception {
 		// try to use AbstractBorderComposite's to convert Border into source
 		if (m_border != null) {
-			for (Class<?> compositeClass : COMPOSITE_CLASSES) {
+			Class<?> compositeClass = AbstractBorderComposite.getCompositeClass(m_border.getClass());
+			if (compositeClass != null) {
 				AbstractBorderComposite borderComposite = getBorderComposite(compositeClass);
 				try {
 					if (borderComposite.setBorder(m_border)) {
@@ -135,16 +127,6 @@ public final class BorderField extends AbstractBorderField {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final Shell INVISIBLE_SHELL = new Shell();
-	private static final Class<?>[] COMPOSITE_CLASSES = {
-			BevelBorderComposite.class,
-			CompoundBorderComposite.class,
-			EmptyBorderComposite.class,
-			EtchedBorderComposite.class,
-			LineBorderComposite.class,
-			MatteBorderComposite.class,
-			SoftBevelBorderComposite.class,
-			TitledBorderComposite.class,
-			SwingBorderComposite.class,};
 	private static final List<AbstractBorderComposite> m_borderComposites = new LinkedList<>();
 
 	/**

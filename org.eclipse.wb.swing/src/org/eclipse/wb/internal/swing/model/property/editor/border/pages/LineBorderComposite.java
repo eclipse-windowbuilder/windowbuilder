@@ -75,6 +75,10 @@ public final class LineBorderComposite extends AbstractBorderComposite {
 		}
 	}
 
+	static {
+		COMPOSITE_CLASSES.put(LineBorderComposite.class, LineBorder.class::isAssignableFrom);
+	}
+
 	@Override
 	public String getSource() {
 		String colorSource = m_colorField.getSource();
