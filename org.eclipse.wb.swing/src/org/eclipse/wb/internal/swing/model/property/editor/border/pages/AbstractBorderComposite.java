@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+
 import javax.swing.border.Border;
 
 /**
@@ -37,6 +41,7 @@ import javax.swing.border.Border;
  * @coverage swing.property.editor
  */
 public abstract class AbstractBorderComposite extends Composite {
+	protected static final Map<Class<?>, Predicate<Class<?>>> COMPOSITE_CLASSES = new HashMap<>();
 	private final String m_title;
 	protected BorderDialog m_borderDialog;
 
@@ -81,6 +86,25 @@ public abstract class AbstractBorderComposite extends Composite {
 	 * @return the source for updated {@link Border}.
 	 */
 	public abstract String getSource() throws Exception;
+
+	/**
+	 * Used by the {@link BorderField} for the source code generation.
+	 * <i>Important</i> This method should only be called after the
+	 * {@link BorderDialog} has been created at least once.
+	 *
+	 * @return the composite class managing the given border.
+	 */
+	public static Class<?> getCompositeClass(Class<?> clazz) {
+		if (clazz == null) {
+			return NoBorderComposite.class;
+		}
+		for (Map.Entry<Class<?>, Predicate<Class<?>>> entry : COMPOSITE_CLASSES.entrySet()) {
+			if (entry.getValue().test(clazz)) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

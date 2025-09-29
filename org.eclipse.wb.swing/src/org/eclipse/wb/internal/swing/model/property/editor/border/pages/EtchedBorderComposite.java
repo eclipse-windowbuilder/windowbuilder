@@ -56,6 +56,10 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 		ExecutionUtils.runRethrow(() -> m_typeField.setValue(EtchedBorder.LOWERED));
 	}
 
+	static {
+		COMPOSITE_CLASSES.put(EtchedBorderComposite.class, EtchedBorder.class::isAssignableFrom);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access

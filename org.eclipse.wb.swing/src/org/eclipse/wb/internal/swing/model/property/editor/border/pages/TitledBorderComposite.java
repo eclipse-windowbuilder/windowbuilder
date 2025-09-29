@@ -90,6 +90,10 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 		});
 	}
 
+	static {
+		COMPOSITE_CLASSES.put(TitledBorderComposite.class, TitledBorder.class::isAssignableFrom);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access

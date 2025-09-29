@@ -54,6 +54,11 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
 		m_rightField.setValue(0);
 	}
 
+	static {
+		// Check for identity because EmptyBorder is sub-classed by MatteBorder
+		COMPOSITE_CLASSES.put(EmptyBorderComposite.class, EmptyBorder.class::equals);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access

@@ -59,6 +59,10 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 		m_rightField.setValue(1);
 	}
 
+	static {
+		COMPOSITE_CLASSES.put(MatteBorderComposite.class, MatteBorder.class::isAssignableFrom);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
