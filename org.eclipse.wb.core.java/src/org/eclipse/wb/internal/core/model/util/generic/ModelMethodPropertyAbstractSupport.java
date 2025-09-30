@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -133,27 +133,27 @@ abstract class ModelMethodPropertyAbstractSupport {
 		////////////////////////////////////////////////////////////////////////////
 		protected void processParameterPart(String part) throws Exception {
 			if (part.startsWith("getter=")) {
-				getterSignature = StringUtils.removeStart(part, "getter=");
+				getterSignature = part.substring("getter=".length());
 			}
 			if (part.startsWith("setter=")) {
-				setterSignature = StringUtils.removeStart(part, "setter=");
+				setterSignature = part.substring("setter=".length());
 			}
 			if (part.startsWith("type=")) {
-				String typeName = StringUtils.removeStart(part, "type=");
+				String typeName = part.substring("type=".length());
 				type = ReflectionUtils.getClassByName(GlobalState.getClassLoader(), typeName);
 				if (propertyEditor == null) {
 					propertyEditor = GlobalState.getDescriptionHelper().getEditorForType(type);
 				}
 			}
 			if (part.startsWith("editor=")) {
-				String desc = StringUtils.removeStart(part, "editor=");
+				String desc = part.substring("editor=".length());
 				parseEditor(desc);
 			}
 			if (part.startsWith("title=")) {
-				title = StringUtils.removeStart(part, "title=");
+				title = part.substring("title=".length());
 			}
 			if (part.startsWith("category=")) {
-				String categoryText = StringUtils.removeStart(part, "category=");
+				String categoryText = part.substring("category=".length());
 				category = PropertyCategory.get(categoryText, category);
 			}
 		}
