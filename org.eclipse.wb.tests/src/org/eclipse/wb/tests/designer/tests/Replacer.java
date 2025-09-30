@@ -99,7 +99,9 @@ public class Replacer {
 					System.exit(0);
 				}
 				// begin/end
-				invocation = StringUtils.removeStart(invocation, begin);
+				if (invocation.startsWith(begin)) {
+					invocation = invocation.substring(begin.length());
+				}
 				invocation = StringUtils.removeEnd(invocation, end);
 				//invocation = "createTypeDeclaration_Test0(" + invocation + "\")";
 				invocation = "createTypeDeclaration_Test0(" + invocation;

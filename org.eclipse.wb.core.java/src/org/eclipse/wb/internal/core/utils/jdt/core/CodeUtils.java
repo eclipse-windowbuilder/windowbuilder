@@ -185,7 +185,7 @@ public class CodeUtils {
 		String tag = preferences.getString(name);
 		tag = tag.trim();
 		// remove leading "//" prefix to search even "// $hide" - formatted line comments
-		tag = StringUtils.removeStart(tag, "//");
+		tag = tag.replaceFirst("^//", "");
 		return tag;
 	}
 
