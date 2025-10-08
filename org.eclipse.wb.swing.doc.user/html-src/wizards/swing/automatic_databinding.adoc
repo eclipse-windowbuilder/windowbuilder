@@ -1,0 +1,282 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swing/
+endif::[]
+
+= Automatic Data Binding Wizard
+
+image:images/automatic_data_binding0.gif[image]
+
+The *Swing Automatic Data Binding* wizard can be used to create new user interface classes (JPanels, JDialogs or
+JFrames) complete with widgets, layouts and data bindings from arbitrary domain model (bean) classes.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Next* button. If a domain class was selected when the wizard was opened, a default name for the new UI class will
+be generated.
+
+The *javax.swing.JPanel* class is the default superclass. You can select either *javax.swing.JDialog* or
+*javax.swing.JFrame* as alternative superclasses. 
+
+--
+image:images/automatic_data_binding1.gif[image]
+image:images/automatic_data_binding2.gif[image]
+--
+
+The second page of the wizard is used to specify the bean class, properties and widgets used for the new user interface.
+Click the "*...*" button to select a bean type, if it ha snot already been selected. The *Properties* list will show a
+list of bindable properties discovered by inspecting the class (basically any properties with getter/setter pairs with
+bindable data types). Next to "..." button is a filter button that can be use to show other properties that can't be
+bound (like *class*).
+
+--
+image:images/automatic_data_binding3.gif[image]
+image:images/automatic_data_binding4.gif[image]
+--
+
+Select or deselect all of the properties using the *Select All* or *Deselect All* buttons. The order of the properties
+may be changed using the *Up* and *Down* buttons or via drag and drop. Check each property that should be bound to a
+user interface widget. Only checked properties will appear in the user interface. For each property, you can select a
+widget type and update strategy. *String* properties will be defaulted to *JTextField* widgets and *Boolean* properties
+will be defaulted to *JCheckBox* widgets. The update strategy can be *READ_WRITE*, *READ* or *READ_ONCE*. When you are
+satisfied with your suggestions, click *Finish* to generate the class.
+
+--
+image:images/automatic_data_binding5.gif[image]
+image:images/automatic_data_binding6.gif[image]
+--
+
+The generated user interface will consist of a two-column
+xref:../../layoutmanagers/swing/gridbaglayout.adoc[*GridBagLayout*] with labels in the first column and editable
+widgets (text fields, checkboxes, spinners, etc.) in the second column. The generated layout is fully editable in the
+editor.
+
+image:images/automatic_data_binding7.gif[image]
+
+Click the *Bindings* tab in the editor to review the generated bindings. All of the bindings may be edited and new ones
+added.
+
+image:images/data_binding_tab.gif[image]
+
+image:images/automatic_data_binding8.gif[image]
+
+Given a data model (bean) class like this:
+[source,java]
+----
+public class Person extends AbstractModelObject {
+
+    private String m_name;
+    private String m_phone;
+    private String m_email;
+    private int m_age;
+    private boolean m_male;
+
+    //
+
+    public String getName() {
+        return m_name;
+    }
+
+    public void setName(String name) {
+        m_name = name;
+    }
+
+    public String getPhone() {
+        return m_phone;
+    }
+
+    public void setPhone(String phone) {
+        m_phone = phone;
+    }
+
+    public String getEmail() {
+        return m_email;
+    }
+
+    public void setEmail(String email) {
+        m_email = email;
+    }
+
+    public int getAge() {
+        return m_age;
+    }
+
+    public void setAge(int age) {
+        m_age = age;
+    }
+
+    public boolean isMale() {
+        return m_male;
+    }
+
+    public void setMale(boolean male) {
+        m_male = male;
+    }
+}
+----
+
+The generated source looks like this:
+
+[source,java]
+----
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.beans.Beans;
+
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.Bindings;
+
+public class PersonJPanel extends JPanel {
+
+    private auto.Person person = new auto.Person();
+    private JTextField nameJTextField;
+    private JTextField phoneJTextField;
+    private JTextField emailJTextField;
+    private JSpinner ageJSpinner;
+    private JCheckBox maleJCheckBox;
+
+    /**
+    * Create the panel.
+    */
+    public PersonJPanel() {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
+        gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+        gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0E-4 };
+        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4 };
+        setLayout(gridBagLayout);
+        //
+        {
+            JLabel label = new JLabel("Name:");
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            add(label, gbc);
+        }
+        {
+            nameJTextField = new JTextField();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 0, 5, 5);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            add(nameJTextField, gbc);
+        }
+        {
+            JLabel label = new JLabel("Phone:");
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            add(label, gbc);
+        }
+        {
+            phoneJTextField = new JTextField();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 0, 5, 5);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            add(phoneJTextField, gbc);
+        }
+        {
+            JLabel label = new JLabel("Email:");
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            add(label, gbc);
+        }
+        {
+            emailJTextField = new JTextField();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 0, 5, 5);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 1;
+            gbc.gridy = 2;
+            add(emailJTextField, gbc);
+        }
+        {
+            JLabel label = new JLabel("Age:");
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            add(label, gbc);
+        }
+        {
+            ageJSpinner = new JSpinner();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 0, 5, 5);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 1;
+            gbc.gridy = 3;
+            add(ageJSpinner, gbc);
+        }
+        {
+            JLabel label = new JLabel("Male:");
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            add(label, gbc);
+        }
+        {
+            maleJCheckBox = new JCheckBox();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 0, 5, 5);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 1;
+            gbc.gridy = 4;
+            add(maleJCheckBox, gbc);
+        }
+        initDataBindings();
+    }
+
+    protected void initDataBindings() {
+        if (Beans.isDesignTime()) {
+            return;
+        }
+        BeanProperty<auto.Person, java.lang.String> nameProperty = BeanProperty.create("name");
+        BeanProperty<javax.swing.JTextField, java.lang.String> textProperty = BeanProperty.create("text");
+        AutoBinding<auto.Person, java.lang.String, javax.swing.JTextField, java.lang.String> autoBinding =
+                Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, person, nameProperty, nameJTextField, textProperty);
+        autoBinding.bind();
+        //
+        BeanProperty<auto.Person, java.lang.String> phoneProperty = BeanProperty.create("phone");
+        BeanProperty<javax.swing.JTextField, java.lang.String> textProperty_1 = BeanProperty.create("text");
+        AutoBinding<auto.Person, java.lang.String, javax.swing.JTextField, java.lang.String> autoBinding_1 =
+                Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, person, phoneProperty, phoneJTextField, textProperty_1);
+        autoBinding_1.bind();
+        //
+        BeanProperty<auto.Person, java.lang.String> emailProperty = BeanProperty.create("email");
+        BeanProperty<javax.swing.JTextField, java.lang.String> textProperty_2 = BeanProperty.create("text");
+        AutoBinding<auto.Person, java.lang.String, javax.swing.JTextField, java.lang.String> autoBinding_2 =
+                Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, person, emailProperty, emailJTextField, textProperty_2);
+        autoBinding_2.bind();
+        //
+        BeanProperty<auto.Person, java.lang.Integer> ageProperty = BeanProperty.create("age");
+        BeanProperty<javax.swing.JSpinner, java.lang.Object> valueProperty = BeanProperty.create("value");
+        AutoBinding<auto.Person, java.lang.Integer, javax.swing.JSpinner, java.lang.Object> autoBinding_3 =
+                Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, person, ageProperty, ageJSpinner, valueProperty);
+        autoBinding_3.bind();
+        //
+        BeanProperty<auto.Person, java.lang.Boolean> maleProperty = BeanProperty.create("male");
+        BeanProperty<javax.swing.JCheckBox, java.lang.Boolean> selectedProperty = BeanProperty.create("selected");
+        AutoBinding<auto.Person, java.lang.Boolean, javax.swing.JCheckBox, java.lang.Boolean> autoBinding_4 =
+                Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, person, maleProperty, maleJCheckBox, selectedProperty);
+        autoBinding_4.bind();
+    }
+
+    public auto.Person getPerson() {
+        return person;
+    }
+}
+----

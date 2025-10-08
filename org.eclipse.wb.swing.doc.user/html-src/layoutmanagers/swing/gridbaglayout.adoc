@@ -1,0 +1,211 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing GridBagLayout
+
+The *GridBagLayout* class is a flexible layout manager that aligns components vertically, horizontally or along their
+baseline without requiring that the components be of the same size. Each *GridBagLayout* object maintains a dynamic,
+rectangular grid of cells, with each component occupying one or more cells, called its display area. Each component
+managed by a *GridBagLayout* is associated with an instance of *GridBagConstraints*. The constraints object specifies
+where a component's display area should be located on the grid and how the component should be positioned within its
+display area. In addition to its constraints object, the *GridBagLayout* also considers each component's minimum and
+preferred sizes in order to determine a component's size.
+
+- xref:#MainFeatures[Main Features]
+- xref:#PopupHeaderMenu[Popup Header Menu]
+- xref:#GraphicalFeedback[Graphical Feedback]
+- xref:#ColumnRowEditing[Column & Row Editing]
+- xref:#Preferences[Preferences]
+- xref:#SourceCodeGenerationParsing[Source Code Generation & Parsing]
+
+[#MainFeatures]
+== Main Features
+
+- Select *GridBagLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
+
+image:images/gbl_design_view.gif[image]
+
+- Graphical feedback is provided for all column, row and cell interactions
+- Column and row properties may be changed via a popup menu or property dialog
+- Convert existing layouts (null, *FormLayout*, etc.) to *GridBagLayout* with intelligent column, row and gap creation
+
+--
+image:images/null_convert.gif[image]
+image:images/gbl_convert.gif[image]
+--
+
+- Automatically add gaps (insets) when adding new columns or rows
+
+[#PopupHeaderMenu]
+== Popup Header Menu
+
+- Right-click on the header area to access the popup header menu
+
+--
+image:images/gbl_menu_row.gif[image]
+image:images/gbl_menu_column.gif[image]
+--
+
+- Insert new columns or rows before the current column or row
+- Add a new column or row at the end of the current list
+- Delete entire columns or rows or just their widget contents
+- Set the column alignment to left, right, center or fill
+- Specify that the column or row should grow to fill the available space
+- Edit the properties of the current column or row
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- When moving a widget or adding a new widget, open cells are highlighted green while populated cells are highlighted
+  red and insertion points are highlighted in yellow
+
+--
+image:images/gbl_add1.gif[image]
+image:images/gbl_add2.gif[image]
+image:images/gbl_add3.gif[image]
+--
+
+- Phantom drop point to the right and below the current cells will create new columns, rows and gaps as needed
+
+--
+image:images/gbl_move1.gif[image]
+image:images/gbl_move2.gif[image]
+--
+
+- The currently selected cell shows its column and row spanning handles and alignment handles
+
+image:images/gbl_alignment_one.gif[image]
+
+- Set the alignment of a cell using its popup alignment menu or the toolbar
+
+image:images/gbl_toolbar.gif[image]
+
+--
+image:images/gbl_cell_align1.gif[image]
+image:images/gbl_cell_align2.gif[image]
+--
+
+- Set the grow property by using a cell's popup alignment menu or right-clicking on a column
+
+--
+image:images/gbl_grow1.gif[image]
+image:images/gbl_grow2.gif[image]
+image:images/gbl_grow3.gif[image]
+--
+
+- Column and row sizing handles make it easy to set the size of a column or row
+
+--
+image:images/gbl_resize_column1.gif[image]
+image:images/gbl_resize_column2.gif[image]
+--
+
+--
+image:images/gbl_resize_row1.gif[image]
+image:images/gbl_resize_row2.gif[image]
+--
+
+- Reorder columns and rows by dragging them (with their associated gap columns or rows)
+
+--
+image:images/gbl_reorder_row1.gif[image]
+image:images/gbl_reorder_row2.gif[image]
+image:images/gbl_reorder_row3.gif[image]
+--
+
+
+- Column and rows borders are indicated with gray lines
+
+image:images/gbl_borders.gif[image]
+
+- Interactive column and row spanning feedback is provided
+
+--
+image:images/gbl_span1.gif[image]
+image:images/gbl_span2.gif[image]
+--
+
+- Full keyboard support for quickly changing alignment values
+
+[cols="1,1"]
+|===
+| *Cells*
+| 
+
+| F
+| fill horizontal
+
+| Shift+F
+| fill vertical
+
+| H
+| grow horizontal
+
+| V
+| grow vertical
+
+| L, C, R
+| left/center/right for horizontal
+
+| T, M, B
+| top/middle/bottom for vertical
+
+| Shift+L
+| vertical baseline
+
+| Shift+A
+| above baseline
+
+| Shift+B
+| below baseline
+|===
+
+[#ColumnRowEditing]
+== Column & Row Editing
+
+- Double click on a column or row to access its property dialog
+- Switch between columns and rows using the arrow buttons
+
+--
+image:images/gbl_column_properties1.gif[image]
+image:images/gbl_row_properties1.gif[image]
+--
+
+- Set the column or row alignment
+- Specify the resize behavior of each column or row
+- Set the minimum size of the column or row
+- Floating layout assistant image:images/assistant.gif[image]
+
+image:images/gbl_layout_assistant.gif[image]
+
+- Edit individual constraint properties for each widget in the property pane
+
+image:images/gbl_properties.gif[image]
+
+== xref:../../preferences/swing/preferences_gridbaglayout.adoc[Preferences]
+
+- Control whether to use the long or short constructor style for *GridBagConstraints*
+- Control whether automatic grab is used for text widgets, comboboxes, tables, etc.
+
+--
+image:images/gbl_auto_grab1.gif[image]
+image:images/gbl_auto_grab2.gif[image]
+--
+
+- Control whether labels are automatically right-aligned when next to a text widget
+
+--
+image:images/gbl_auto_right_label1.gif[image]
+image:images/gbl_auto_right_label2.gif[image]
+--
+
+[#SourceCodeGenerationParsing]
+== Source Code Generation & Parsing
+
+- Intelligently convert existing layouts (null, *FormLayout*, etc.) to *GridBagLayout* with column, row and gap creation
+- Parser can understand long or short constructor style for *GridBagConstraints*
+
+--
+image:images/gbl_source1.gif[image]
+--
