@@ -1,0 +1,17 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swing/
+endif::[]
+
+= Swing Designer Wizards
+
+*Swing Designer* provides a large number of Swing wizards.
+
+image:images/wizards_swing.gif[image]
+
+- xref:jframe.adoc[JFrame]
+- xref:jpanel.adoc[JPanel]
+- xref:jdialog.adoc[JDialog]
+- xref:japplet.adoc[JApplet]
+- xref:jinternalframe.adoc[JInternalFrame]
+- xref:application_window.adoc[Application Window]
+- xref:automatic_databinding.adoc[Automatic Data Binding]

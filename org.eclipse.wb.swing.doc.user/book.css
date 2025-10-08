@@ -63,6 +63,8 @@ EM.CodeName {
 	font-family: "Courier New", Courier, monospace;
 }
 
+img { vertical-align: top; }
+
 body, html { border: 0px }
 
 
