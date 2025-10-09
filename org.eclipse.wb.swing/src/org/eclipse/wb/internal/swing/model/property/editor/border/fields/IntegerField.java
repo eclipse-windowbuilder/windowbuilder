@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.fields;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
 import org.eclipse.swt.SWT;
@@ -20,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Spinner;
 
 /**
  * {@link AbstractBorderField} that allows to enter integer value.
@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage swing.property.editor
  */
 public final class IntegerField extends AbstractBorderField {
-	private CSpinner m_spinner;
+	private Spinner m_spinner;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -39,7 +39,7 @@ public final class IntegerField extends AbstractBorderField {
 		super(parent, 2, labelText);
 		// create spinner
 		{
-			m_spinner = new CSpinner(this, SWT.BORDER);
+			m_spinner = new Spinner(this, SWT.BORDER);
 			GridDataFactory.create(m_spinner).hintHC(15);
 			m_spinner.addListener(SWT.Selection, new Listener() {
 				@Override
