@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.property;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -24,16 +23,10 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.gef.UiContext;
-import org.eclipse.wb.tests.utils.SWTBotCSpinner;
-
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Test for {@link BorderPropertyEditor}.
@@ -203,13 +196,10 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 			SWTBot dialogBot = bot.shell("Border editor").bot();
 			dialogBot.comboBox().setSelection("EmptyBorder");
 
-			List<SWTBotCSpinner> spinners = getCSpinners(dialogBot);
-			assertEquals(spinners.size(), 4);
-
-			spinners.get(0).setSelection(10);
-			spinners.get(1).setSelection(15);
-			spinners.get(2).setSelection(20);
-			spinners.get(3).setSelection(25);
+			dialogBot.spinnerWithLabel("Top:").setSelection(10);
+			dialogBot.spinnerWithLabel("Left:").setSelection(15);
+			dialogBot.spinnerWithLabel("Bottom:").setSelection(20);
+			dialogBot.spinnerWithLabel("Right:").setSelection(25);
 			dialogBot.button("OK").click();
 		});
 
@@ -221,16 +211,5 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 						setBorder(new EmptyBorder(10, 15, 20, 25));
 					}
 				}""");
-	}
-
-	/**
-	 * @return {@link SWTBotCSpinner}s of this dialog.
-	 */
-	private List<SWTBotCSpinner> getCSpinners(SWTBot shell) {
-		List<SWTBotCSpinner> spinners = new ArrayList<>();
-		for (CSpinner spinner : shell.getFinder().findControls(widgetOfType(CSpinner.class))) {
-			spinners.add(new SWTBotCSpinner(spinner));
-		}
-		return spinners;
 	}
 }
