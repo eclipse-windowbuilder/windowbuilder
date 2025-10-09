@@ -38,7 +38,9 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.pages.NoBorder
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SoftBevelBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.SwingBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.TitledBorderComposite;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
@@ -70,7 +72,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 public final class BorderDialog extends ResizableDialog {
 	private final AstEditor m_editor;
 	private boolean m_borderModified;
-	private Border m_border;
+	private BorderValue m_borderValue = new BorderValue();
 	private String m_source;
 	private Shell m_tmpShell;
 
@@ -102,17 +104,18 @@ public final class BorderDialog extends ResizableDialog {
 	}
 
 	/**
-	 * Sets the {@link Border} to edit.
+	 * Sets the {@link Border} to edit. Must not be {@code null}.
 	 */
-	public void setBorder(Border border) {
-		m_border = border;
+	public void setBorderValue(BorderValue borderValue) {
+		Assert.isNotNull(borderValue, "Border value must not be null.");
+		m_borderValue = borderValue;
 	}
 
 	/**
-	 * @return the updated {@link Border}.
+	 * @return the updated {@link BorderValue}. Never {@code null}.
 	 */
-	public Border getBorder() {
-		return m_border;
+	public BorderValue getBorderValue() {
+		return m_borderValue;
 	}
 
 	/**
@@ -228,7 +231,8 @@ public final class BorderDialog extends ResizableDialog {
 				@Override
 				public void run() throws Exception {
 					for (AbstractBorderComposite page : m_pages) {
-						boolean understands = page.setBorder(m_border);
+						// TODO BorderValue
+						boolean understands = page.setBorder(m_borderValue.doGetValue());
 						if (understands && m_borderModified) {
 							m_pagesLayout.topControl = page;
 						}
@@ -241,7 +245,7 @@ public final class BorderDialog extends ResizableDialog {
 		}
 		// update preview
 		if (m_previewCanvas != null) {
-			m_previewCanvas.setBorder(m_border);
+			SwingUtils.runLogLater(() -> m_previewCanvas.setBorder(m_borderValue));
 		}
 	}
 
@@ -331,14 +335,14 @@ public final class BorderDialog extends ResizableDialog {
 					DomGenerics.types(editor.getAstUnit()).get(0).getFields()[0];
 			borderExpression = DomGenerics.fragments(fieldDeclaration).get(0).getInitializer();
 		}
-		// evaluate Border expression
-		{
+		SwingUtils.runLogLater(() -> {
+			// evaluate Border expression
 			ClassLoader classLoader = EditorState.get(m_editor).getEditorLoader();
-			EvaluationContext context =
-					new EvaluationContext(classLoader, new ExecutionFlowDescription());
-			m_border = (Border) AstEvaluationEngine.evaluate(context, borderExpression);
-		}
-		// set new Border
-		m_previewCanvas.setBorder(m_border);
+			EvaluationContext context = new EvaluationContext(classLoader, new ExecutionFlowDescription());
+			Border border = (Border) AstEvaluationEngine.evaluate(context, borderExpression);
+			m_borderValue = new BorderValue(border);
+			// set new Border
+			m_previewCanvas.setBorder(m_borderValue);
+		});
 	}
 }

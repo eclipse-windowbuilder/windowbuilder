@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 
 import org.eclipse.swt.SWT;
@@ -66,9 +67,10 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 					ExecutionUtils.runLog(new RunnableEx() {
 						@Override
 						public void run() throws Exception {
-							Border outsideBorder = m_outsideField.getBorder();
-							m_outsideField.setBorder(m_insideField.getBorder());
-							m_insideField.setBorder(outsideBorder);
+							BorderValue insideBorder = m_insideField.getBorderValue();
+							BorderValue outsideBorder = m_outsideField.getBorderValue();
+							m_outsideField.setBorderValue(insideBorder);
+							m_insideField.setBorderValue(outsideBorder);
 							m_borderDialog.borderUpdated();
 						}
 					});
@@ -96,8 +98,8 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 	@Override
 	public boolean setBorder(Border border) throws Exception {
 		if (border instanceof CompoundBorder ourBorder) {
-			m_outsideField.setBorder(ourBorder.getOutsideBorder());
-			m_insideField.setBorder(ourBorder.getInsideBorder());
+			m_outsideField.setBorderValue(new BorderValue(ourBorder.getOutsideBorder()));
+			m_insideField.setBorderValue(new BorderValue(ourBorder.getInsideBorder()));
 			// OK, this is our Border
 			return true;
 		} else {
