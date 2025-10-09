@@ -48,7 +48,7 @@ public final class BorderField extends AbstractBorderField {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public BorderField(Composite parent, String labelText, String buttonText) {
+	public BorderField(AbstractBorderComposite parent, String labelText, String buttonText) {
 		super(parent, 2, labelText);
 		{
 			m_text = new Text(this, SWT.BORDER | SWT.READ_ONLY);
@@ -121,13 +121,17 @@ public final class BorderField extends AbstractBorderField {
 		return null;
 	}
 
+	@Override
+	public AbstractBorderComposite getParent() {
+		return (AbstractBorderComposite) super.getParent();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Borders
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Shell INVISIBLE_SHELL = new Shell();
-	private static final List<AbstractBorderComposite> m_borderComposites = new LinkedList<>();
+	private final List<AbstractBorderComposite> m_borderComposites = new LinkedList<>();
 
 	/**
 	 * Note, that we can not reuse {@link AbstractBorderComposite}'s, so when we get some
@@ -135,7 +139,7 @@ public final class BorderField extends AbstractBorderField {
 	 *
 	 * @return the instance free of {@link AbstractBorderComposite}.
 	 */
-	private static final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)
+	private final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)
 			throws Exception {
 		for (Iterator<AbstractBorderComposite> I = m_borderComposites.iterator(); I.hasNext();) {
 			AbstractBorderComposite borderComposite = I.next();
@@ -145,14 +149,14 @@ public final class BorderField extends AbstractBorderField {
 			}
 		}
 		// create new instance
-		return (AbstractBorderComposite) compositeClass.getConstructor(Composite.class).newInstance(
-				INVISIBLE_SHELL);
+		Shell shell = getParent().getDialog().getTemporaryShell();
+		return (AbstractBorderComposite) compositeClass.getConstructor(Composite.class).newInstance(shell);
 	}
 
 	/**
 	 * Returns given {@link AbstractBorderComposite} to the list of available.
 	 */
-	private static final void returnBorderComposite(AbstractBorderComposite borderComposite) {
+	private final void returnBorderComposite(AbstractBorderComposite borderComposite) {
 		m_borderComposites.add(borderComposite);
 	}
 
