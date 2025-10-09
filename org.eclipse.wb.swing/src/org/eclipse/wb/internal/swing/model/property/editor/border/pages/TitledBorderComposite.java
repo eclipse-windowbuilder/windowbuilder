@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ComboField;
@@ -112,7 +113,7 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 			m_titleJustificationField.setValue(ourBorder.getTitleJustification());
 			m_titlePositionField.setValue(ourBorder.getTitlePosition());
 			m_titleColorField.setValue(ourBorder.getTitleColor());
-			m_borderField.setBorder(ourBorder.getBorder());
+			m_borderField.setBorderValue(new BorderValue(ourBorder.getBorder()));
 			// OK, this is our Border
 			return true;
 		} else {

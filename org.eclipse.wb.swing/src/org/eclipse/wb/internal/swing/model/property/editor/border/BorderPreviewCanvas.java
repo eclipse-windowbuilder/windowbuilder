@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
@@ -24,6 +24,7 @@ import java.awt.Rectangle;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -90,28 +91,32 @@ public final class BorderPreviewCanvas extends EmbeddedSwingComposite2 {
 	private static final Border ERROR_BORDER = new LineBorder(Color.RED, 5);
 
 	/**
+	 * Sets the {@link BorderValue} to display. Must not be {@code null}. Must be
+	 * called from the AWT event dispatcher thread.
+	 */
+	public void setBorder(final BorderValue borderValue) {
+		Assert.isLegal(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread.");
+		setBorder(borderValue.getValue());
+	}
+
+	/**
 	 * Sets the {@link Border} to display.
 	 */
-	public void setBorder(final Border border) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					if (border != null) {
-						Graphics graphics = m_emptyPanel.getGraphics();
-						graphics.setClip(new Rectangle(0, 0, 0, 0));
-						border.paintBorder(m_emptyPanel, graphics, 0, 0, 0, 0);
-					}
-					// OK, now we know, that this Border can be set on JPanel
-					m_emptyPanel.setBorder(border);
-					m_filledPanel_1.setBorder(border);
-					m_filledPanel_2.setBorder(border);
-					m_awtRoot.validate();
-				} catch (Throwable e) {
-					// oops...this Border can not be used on JPanel
-					setBorder(ERROR_BORDER);
-				}
+	private void setBorder(final Border border) {
+		try {
+			if (border != null) {
+				Graphics graphics = m_emptyPanel.getGraphics();
+				graphics.setClip(new Rectangle(0, 0, 0, 0));
+				border.paintBorder(m_emptyPanel, graphics, 0, 0, 0, 0);
 			}
-		});
+			// OK, now we know, that this Border can be set on JPanel
+			m_emptyPanel.setBorder(border);
+			m_filledPanel_1.setBorder(border);
+			m_filledPanel_2.setBorder(border);
+			m_awtRoot.validate();
+		} catch (Throwable e) {
+			// oops...this Border can not be used on JPanel
+			setBorder(ERROR_BORDER);
+		}
 	}
 }

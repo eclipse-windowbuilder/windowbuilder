@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -123,7 +123,7 @@ IClipboardSourceProvider {
 		{
 			Object value = property.getValue();
 			if (value instanceof Border border) {
-				borderDialog.setBorder(border);
+				borderDialog.setBorderValue(new BorderValue(border));
 			}
 		}
 		// open dialog
