@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.AbstractBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.BevelBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.CompoundBorderComposite;
@@ -71,6 +72,7 @@ public final class BorderDialog extends ResizableDialog {
 	private boolean m_borderModified;
 	private Border m_border;
 	private String m_source;
+	private Shell m_tmpShell;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -118,6 +120,18 @@ public final class BorderDialog extends ResizableDialog {
 	 */
 	public String getBorderSource() {
 		return m_source;
+	}
+
+	/**
+	 * Creates and returns an invisible shell that may be used by all
+	 * {@link BorderField}s within this dialog. This shell only exists while the
+	 * dialog is open.
+	 */
+	public Shell getTemporaryShell() {
+		if (m_tmpShell == null) {
+			m_tmpShell = new Shell(getShell());
+		}
+		return m_tmpShell;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

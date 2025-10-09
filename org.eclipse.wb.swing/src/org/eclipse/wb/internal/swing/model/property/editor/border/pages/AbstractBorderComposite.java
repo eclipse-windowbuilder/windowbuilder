@@ -106,6 +106,13 @@ public abstract class AbstractBorderComposite extends Composite {
 		return null;
 	}
 
+	/**
+	 * Returns the {@link BorderDialog} containing this composite.
+	 */
+	public BorderDialog getDialog() {
+		return m_borderDialog;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Components
