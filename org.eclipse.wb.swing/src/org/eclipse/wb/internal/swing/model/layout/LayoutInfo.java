@@ -23,6 +23,7 @@ import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -39,21 +40,22 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.ButtonPropertyEditorPresentation;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;
-
-import org.osgi.service.prefs.Preferences;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -445,17 +447,19 @@ public class LayoutInfo extends JavaInfo {
 
 	/**
 	 * Removes the previous layout and sets the default layout as specified in the Windowbuilder
-	 * layout preferences
-	 *
-	 * When the Implicit (default) layout option is selected the layout defaults to the GridLayout
+	 * layout preferences.
 	 *
 	 * @throws Exception
 	 */
 	private void setDefaultLayout() throws Exception {
-		Preferences prefs = InstanceScope.INSTANCE.getNode("org.eclipse.wb.swing");
+		IPreferenceStore prefs = getDescription().getToolkit().getPreferences();
 		//when the preferences are set to "Implicit (default) layout" the returned value is null
 		//therefore the default value for that would then default to flowLayout
-		String defaultValue = prefs.get("layout.default", "gridLayout");
+		String defaultValue = prefs.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
+		if (defaultValue.isEmpty()) {
+			delete();
+			return;
+		}
 		List<LayoutDescription> descriptions =
 				LayoutDescriptionHelper.get(getDescription().getToolkit());
 		String creationId = null;
@@ -467,6 +471,11 @@ public class LayoutInfo extends JavaInfo {
 				editorLoader = EditorState.get(getContainer().getEditor()).getEditorLoader();
 				layoutClass = editorLoader.loadClass(description.getLayoutClassName());
 			}
+		}
+		if (layoutClass == null) {
+			DesignerPlugin.log(NLS.bind(ModelMessages.LayoutInfo_unknownDefaultLayout, defaultValue));
+			delete();
+			return;
 		}
 		LayoutInfo defaultLayoutInfo = (LayoutInfo) JavaInfoUtils.createJavaInfo(
 				getContainer().getEditor(),
