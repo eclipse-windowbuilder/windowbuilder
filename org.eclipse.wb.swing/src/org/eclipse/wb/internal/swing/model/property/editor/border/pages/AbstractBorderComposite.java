@@ -103,6 +103,12 @@ public abstract class AbstractBorderComposite extends Composite {
 				return entry.getKey();
 			}
 		}
+		// The generic Swing borders might be of the same type as one that is managed by
+		// one of the other composite classes. It must therefore be given the lowest
+		// priority.
+		if (SwingBorderComposite.contains(clazz)) {
+			return SwingBorderComposite.class;
+		}
 		return null;
 	}
 
