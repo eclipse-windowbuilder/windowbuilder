@@ -42,6 +42,7 @@ public final class BorderField extends AbstractBorderField {
 	private AstEditor m_editor;
 	private Text m_text;
 	private Border m_border;
+	private String m_source;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -66,6 +67,7 @@ public final class BorderField extends AbstractBorderField {
 					borderDialog.setBorder(m_border);
 					if (borderDialog.open() == Window.OK) {
 						m_border = borderDialog.getBorder();
+						m_source = borderDialog.getBorderSource();
 						showBorder();
 						notifyListeners(SWT.Selection, new Event());
 					}
@@ -98,11 +100,16 @@ public final class BorderField extends AbstractBorderField {
 	 */
 	public void setBorder(Border border) throws Exception {
 		m_border = border;
+		m_source = calculateSource();
 		showBorder();
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
+		return m_source;
+	}
+	
+	private String calculateSource() throws Exception{
 		// try to use AbstractBorderComposite's to convert Border into source
 		if (m_border != null) {
 			Class<?> compositeClass = AbstractBorderComposite.getCompositeClass(m_border.getClass());
