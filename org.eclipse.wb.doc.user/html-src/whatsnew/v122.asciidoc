@@ -9,8 +9,18 @@ endif::[]
 - Deprecated support for Applet/JApplet
 
 The Applet API has been deprecated for removal with Java 9 and formally been
-removed with Java 26. Support for those conainers will be removed after the
+removed with Java 26. Support for those containers will be removed after the
 2027-12 release.
+
+When opening a JApplet with the editor, the root element will be annotated
+with _<Deprecated>_
+
+image:images/1.22/JAppletEditor.png[Deprecation indication in Designer editor]
+
+When trying to create a new JApplet with the editor, the entry in the "New"
+wizard and the dialog tile will be annotated with _(Deprecated)_
+
+image:images/1.22/JAppletWizard.png[Deprecation indication in "New JApplet" wizard]
 
 See https://bugs.openjdk.org/browse/JDK-8359053
 
