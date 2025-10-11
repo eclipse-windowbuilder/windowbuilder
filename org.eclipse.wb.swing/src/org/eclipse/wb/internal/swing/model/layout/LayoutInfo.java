@@ -23,14 +23,11 @@ import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
-import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
-import org.eclipse.wb.internal.core.model.description.LayoutDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
+import org.eclipse.wb.internal.core.model.layout.AbstractLayoutInfo;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData.HorizontalAlignment;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData.VerticalAlignment;
@@ -40,20 +37,15 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.ButtonPropertyEditorPresentation;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
-import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
-import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
-import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;
 
@@ -62,7 +54,6 @@ import java.awt.Container;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Abstract model for {@link LayoutManager}.
@@ -71,7 +62,7 @@ import java.util.Objects;
  * @author Marcel du Preez - default layout
  * @coverage swing.model.layout
  */
-public class LayoutInfo extends JavaInfo {
+public class LayoutInfo extends AbstractLayoutInfo<LayoutInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -445,42 +436,8 @@ public class LayoutInfo extends JavaInfo {
 		}
 	}
 
-	/**
-	 * Removes the previous layout and sets the default layout as specified in the Windowbuilder
-	 * layout preferences.
-	 *
-	 * @throws Exception
-	 */
-	private void setDefaultLayout() throws Exception {
-		IPreferenceStore prefs = getDescription().getToolkit().getPreferences();
-		//when the preferences are set to "Implicit (default) layout" the returned value is null
-		//therefore the default value for that would then default to flowLayout
-		String defaultValue = prefs.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
-		if (defaultValue.isEmpty()) {
-			delete();
-			return;
-		}
-		List<LayoutDescription> descriptions =
-				LayoutDescriptionHelper.get(getDescription().getToolkit());
-		String creationId = null;
-		ClassLoader editorLoader = null;
-		Class<?> layoutClass = null;
-		for (LayoutDescription description : descriptions) {
-			if (Objects.equals(defaultValue, description.getId())) {
-				creationId = description.getCreationId();
-				editorLoader = EditorState.get(getContainer().getEditor()).getEditorLoader();
-				layoutClass = editorLoader.loadClass(description.getLayoutClassName());
-			}
-		}
-		if (layoutClass == null) {
-			DesignerPlugin.log(NLS.bind(ModelMessages.LayoutInfo_unknownDefaultLayout, defaultValue));
-			delete();
-			return;
-		}
-		LayoutInfo defaultLayoutInfo = (LayoutInfo) JavaInfoUtils.createJavaInfo(
-				getContainer().getEditor(),
-				layoutClass,
-				new ConstructorCreationSupport(creationId, true));
-		getContainer().setLayout(defaultLayoutInfo);
+	@Override
+	protected void setLayout(LayoutInfo layoutInfo) throws Exception {
+		getContainer().setLayout(layoutInfo);
 	}
 }
