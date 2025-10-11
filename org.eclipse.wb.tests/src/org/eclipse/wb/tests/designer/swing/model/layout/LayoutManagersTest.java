@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,7 +39,6 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.awt.BorderLayout;
@@ -605,7 +604,6 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	/**
 	 * Delete using "Layout" property.
 	 */
-	@Disabled
 	@Test
 	public void test_delete2() throws Exception {
 		ContainerInfo panel =

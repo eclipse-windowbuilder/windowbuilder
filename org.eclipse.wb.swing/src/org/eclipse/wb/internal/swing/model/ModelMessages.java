@@ -175,6 +175,7 @@ public class ModelMessages extends NLS {
 	public static String LafSelectionItem_noDesignPage;
 	public static String LafSelectionItem_select;
 	public static String LafSupport_errCanParse_setLookAndFeel;
+	public static String LayoutInfo_unknownDefaultLayout;
 	public static String LineBorderComposite_color;
 	public static String LineBorderComposite_corners;
 	public static String LineBorderComposite_cornersRounded;
