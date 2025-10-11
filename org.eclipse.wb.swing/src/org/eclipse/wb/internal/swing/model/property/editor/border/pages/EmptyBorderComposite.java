@@ -22,6 +22,7 @@ import java.awt.Insets;
 
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link EmptyBorder}.
@@ -56,7 +57,17 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
 
 	static {
 		// Check for identity because EmptyBorder is sub-classed by MatteBorder
-		COMPOSITE_CLASSES.put(EmptyBorderComposite.class, EmptyBorder.class::equals);
+		COMPOSITE_CLASSES.put(EmptyBorderComposite.class, EmptyBorderComposite::contains);
+	}
+
+	/**
+	 * @return {@code true}, if this composite can manage the given border.
+	 */
+	private static boolean contains(Class<?> border) {
+		if (MatteBorder.class.isAssignableFrom(border)) {
+			return false;
+		}
+		return EmptyBorder.class.isAssignableFrom(border);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

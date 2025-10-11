@@ -69,10 +69,6 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 		m_bordersList.deselectAll();
 	}
 
-	static {
-		COMPOSITE_CLASSES.put(SwingBorderComposite.class, SwingBorderComposite::contains);
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
@@ -126,7 +122,7 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 	/**
 	 * @return {@code true}, if this composite can manage the given border.
 	 */
-	private static boolean contains(Class<?> border) {
+	/* package */ static boolean contains(Class<?> border) {
 		return m_borders.stream().map(Border::getClass).anyMatch(border::equals);
 	}
 
