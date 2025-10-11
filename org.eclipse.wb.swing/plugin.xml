@@ -517,7 +517,7 @@
 		</wizard>
 		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
 			class="org.eclipse.wb.internal.swing.wizards.applet.NewJAppletWizard"
-			icon="icons/wizard/JApplet/wizard.gif" id="org.eclipse.wb.swing.JApplet" name="JApplet">
+			icon="icons/wizard/JApplet/wizard.gif" id="org.eclipse.wb.swing.JApplet" name="(Deprecated) JApplet">
 			<description>Create an empty JApplet</description>
 		</wizard>
 		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
