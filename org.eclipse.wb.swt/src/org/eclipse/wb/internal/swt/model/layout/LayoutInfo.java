@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
+import org.eclipse.wb.internal.core.model.layout.AbstractLayoutInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -64,7 +65,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage swt.model.layout
  */
-public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
+public class LayoutInfo extends AbstractLayoutInfo<LayoutInfo> implements ILayoutInfo<ControlInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -377,7 +378,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 					@Override
 					public void setValue(Object value) throws Exception {
 						if (value == UNKNOWN_VALUE) {
-							delete();
+							setDefaultLayout();
 						}
 					}
 				};
@@ -694,5 +695,10 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 	 * Store general layout data properties for {@link ControlInfo}.
 	 */
 	protected void storeLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {
+	}
+
+	@Override
+	protected void setLayout(LayoutInfo layoutInfo) throws Exception {
+		getComposite().setLayout(layoutInfo);
 	}
 }

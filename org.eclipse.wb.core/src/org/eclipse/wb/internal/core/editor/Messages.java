@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.core.editor;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
+	public static String AbstractLayoutInfo_unknownDefaultLayout;
 	public static String BadNodesErrorPage_nodeGroup;
 	public static String BadNodesErrorPage_nodesGroup;
 	public static String BadNodesParserErrorPage_title;
