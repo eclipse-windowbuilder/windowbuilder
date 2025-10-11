@@ -24,12 +24,10 @@ import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.binding.IDataEditor;
 import org.eclipse.wb.internal.core.utils.binding.providers.StringPreferenceProvider;
 import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
-import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
-import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
-import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -41,6 +39,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -97,44 +96,42 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 	////////////////////////////////////////////////////////////////////////////
 	protected class ContentsComposite extends AbstractBindingComposite {
 		private final CheckboxTableViewer m_table;
+		private final ComboViewer m_layoutCombo;
 
-		public ContentsComposite(Composite parent,
-				DataBindManager bindManager,
-				IPreferenceStore preferences) {
+		public ContentsComposite(Composite parent, DataBindManager bindManager, IPreferenceStore preferences) {
 			super(parent, bindManager, preferences);
-			int gridLayoutColumns = 2;
-			GridLayoutFactory.create(this).noMargins().columns(gridLayoutColumns);
+			setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
+			// prepare default selection
+			final ISelection implicitLayoutSelection = new StructuredSelection(
+					UiMessages.LayoutsPreferencePage_implicitLayout);
+			// prepare layouts
+			final List<LayoutDescription> layouts = LayoutDescriptionHelper.get(m_toolkit);
+			Collections.sort(layouts, Comparator.comparing(LayoutDescription::getName));
 			// default layout
 			{
-				new Label(this, SWT.NONE).setText(UiMessages.LayoutsPreferencePage_defaultLayout);
-				final ISelection implicitLayoutSelection = new StructuredSelection(
-						UiMessages.LayoutsPreferencePage_implicitLayout);
-				final ComboViewer layoutCombo = new ComboViewer(this, SWT.READ_ONLY);
-				layoutCombo.setContentProvider(ArrayContentProvider.getInstance());
-				layoutCombo.setLabelProvider(ColumnLabelProvider.createTextProvider(o -> {
+				final Label layoutText = new Label(this, SWT.NONE);
+				layoutText.setText(UiMessages.LayoutsPreferencePage_defaultLayout);
+				layoutText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
+				m_layoutCombo = new ComboViewer(this, SWT.READ_ONLY);
+				m_layoutCombo.setContentProvider(ArrayContentProvider.getInstance());
+				m_layoutCombo.setLabelProvider(ColumnLabelProvider.createTextProvider(o -> {
 					if (o instanceof LayoutDescription layout) {
 						return layout.getName();
 					}
 					return (String) o;
 				}));
-				GridDataFactory.create(layoutCombo.getCombo()).grabH().fillH();
-				UiUtils.setVisibleItemCount(layoutCombo.getCombo(), 15);
-				// prepare layouts
-				final List<LayoutDescription> layouts = LayoutDescriptionHelper.get(m_toolkit);
-				Collections.sort(layouts, new Comparator<LayoutDescription>() {
-					@Override
-					public int compare(LayoutDescription layout_1, LayoutDescription layout_2) {
-						return layout_1.getName().compareTo(layout_2.getName());
-					}
-				});
+				m_layoutCombo.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+				m_layoutCombo.getCombo().setVisibleItemCount(15);
 				// add items for layouts
-				{
-					layoutCombo.add(UiMessages.LayoutsPreferencePage_implicitLayout);
-					for (LayoutDescription layoutDescription : layouts) {
-						layoutCombo.add(layoutDescription.getName());
-					}
+				m_layoutCombo.add(UiMessages.LayoutsPreferencePage_implicitLayout);
+				for (LayoutDescription layoutDescription : layouts) {
+					m_layoutCombo.add(layoutDescription.getName());
 				}
-				new Label(this, SWT.NONE).setText(UiMessages.LayoutsPreferencePage_availableLayouts);
+			}
+			{
+				Label tableText = new Label(this, SWT.NONE);
+				tableText.setText(UiMessages.LayoutsPreferencePage_availableLayouts);
+				tableText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
 				m_table = CheckboxTableViewer.newCheckList(this, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 				m_table.setContentProvider(ArrayContentProvider.getInstance());
 				m_table.setLabelProvider(
@@ -157,38 +154,48 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 					// If default was set to a layout that is de-selected from available layouts.
 					// The default layout is set back to implicit layout
 					List<Object> input = getLayoutItems();
-					IStructuredSelection selection = layoutCombo.getStructuredSelection();
-					layoutCombo.setInput(input);
+					IStructuredSelection selection = m_layoutCombo.getStructuredSelection();
+					m_layoutCombo.setInput(input);
 					if (!input.contains(selection.getFirstElement())) {
-						layoutCombo.setSelection(implicitLayoutSelection);
+						m_layoutCombo.setSelection(implicitLayoutSelection);
 					} else {
-						layoutCombo.setSelection(selection);
+						m_layoutCombo.setSelection(selection);
 					}
 				});
-				GridDataFactory.create(m_table.getTable()).fillH().spanH(gridLayoutColumns);
+				m_table.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
+			}
+			{
+				// boolean preferences
+				checkButton(
+						this,
+						2,
+						UiMessages.LayoutsPreferencePage_inheritLayout,
+						IPreferenceConstants.P_LAYOUT_OF_PARENT);
+			}
+			{
 				// bind
-				layoutCombo.setInput(getLayoutItems());
+				m_layoutCombo.setInput(getLayoutItems());
 				m_bindManager.bind(new IDataEditor() {
 					@Override
 					public void setValue(Object value) {
 						String id = (String) value;
 						// implicit layout
 						if (StringUtils.isEmpty(id)) {
-							layoutCombo.setSelection(implicitLayoutSelection);
+							m_layoutCombo.setSelection(implicitLayoutSelection);
 							return;
 						}
 						// find layout by id
 						for (int index = 0; index < layouts.size(); index++) {
 							LayoutDescription layout = layouts.get(index);
 							if (layout.getId().equals(id)) {
-								layoutCombo.setSelection(new StructuredSelection(layout));
+								m_layoutCombo.setSelection(new StructuredSelection(layout));
 							}
 						}
 					}
 
 					@Override
 					public Object getValue() {
-						if (layoutCombo.getStructuredSelection()
+						if (m_layoutCombo.getStructuredSelection()
 								.getFirstElement() instanceof LayoutDescription layout) {
 							return layout.getId();
 					}
@@ -197,12 +204,6 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
 					}
 				}, new StringPreferenceProvider(m_preferences, IPreferenceConstants.P_LAYOUT_DEFAULT), true);
 			}
-			// boolean preferences
-			checkButton(
-					this,
-					2,
-					UiMessages.LayoutsPreferencePage_inheritLayout,
-					IPreferenceConstants.P_LAYOUT_OF_PARENT);
 		}
 
 		private List<Object> getLayoutItems() {

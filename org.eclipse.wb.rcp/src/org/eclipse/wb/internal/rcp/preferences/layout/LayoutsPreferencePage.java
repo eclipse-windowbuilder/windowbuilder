@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.rcp.preferences.layout;
 
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
-import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.rcp.preferences.PreferencesMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataNameSupport;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -71,7 +71,7 @@ org.eclipse.wb.internal.core.preferences.LayoutsPreferencePage {
 				new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_layoutVariablePattern);
 				// control
 				Combo templateCombo = new Combo(this, SWT.READ_ONLY);
-				GridDataFactory.create(templateCombo).grabH().fillH();
+				templateCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 				templateCombo.setItems(LayoutNameSupport.TEMPLATES);
 				// bind
 				bindString(templateCombo, IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
@@ -81,7 +81,7 @@ org.eclipse.wb.internal.core.preferences.LayoutsPreferencePage {
 				new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_dataVariablePattern);
 				// control
 				Combo templateCombo = new Combo(this, SWT.READ_ONLY);
-				GridDataFactory.create(templateCombo).grabH().fillH();
+				templateCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 				templateCombo.setItems(LayoutDataNameSupport.TEMPLATES);
 				// bind
 				bindString(templateCombo, IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
