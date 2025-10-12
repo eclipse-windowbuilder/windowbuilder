@@ -78,25 +78,24 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_notGridBagLayout() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints gbc = new GridBagConstraints();",
-						"      add(button, gbc);",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							add(button, gbc);
+						}
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		// check hierarchy
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(button, gbc)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button, gbc)/}",
-				"    {new: java.awt.GridBagConstraints} {local-unique: gbc} {/new GridBagConstraints()/ /add(button, gbc)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(button, gbc)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button, gbc)/}
+						{new: java.awt.GridBagConstraints} {local-unique: gbc} {/new GridBagConstraints()/ /add(button, gbc)/}""");
 	}
 
 	/**
@@ -105,25 +104,24 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_access() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    GridBagLayout layout = new GridBagLayout();",
-						"    layout.columnWidths = new int[] {0, 0};",
-						"    layout.rowHeights = new int[] {0, 0};",
-						"    layout.columnWeights = new double[] {0.0, Double.MIN_VALUE};",
-						"    layout.rowWeights = new double[] {0.0, Double.MIN_VALUE};",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints gbc = new GridBagConstraints();",
-						"      gbc.gridx = 0;",
-						"      gbc.gridy = 0;",
-						"      add(button, gbc);",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						GridBagLayout layout = new GridBagLayout();
+						layout.columnWidths = new int[] {0, 0};
+						layout.rowHeights = new int[] {0, 0};
+						layout.columnWeights = new double[] {0.0, Double.MIN_VALUE};
+						layout.rowWeights = new double[] {0.0, Double.MIN_VALUE};
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 0;
+							gbc.gridy = 0;
+							add(button, gbc);
+						}
+					}
+				}""");
 		panel.refresh();
 		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -135,19 +133,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 
 	@Test
 	public void test_properties() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton('button');",
-						"      add(button, new GridBagConstraints(99, 0, 1, 1, 0.0, 0.0,",
-						"          GridBagConstraints.CENTER, GridBagConstraints.BOTH,",
-						"          new Insets(0, 0, 5, 5), 0, 0));",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							add(button, new GridBagConstraints(99, 0, 1, 1, 0.0, 0.0,
+									GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+									new Insets(0, 0, 5, 5), 0, 0));
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -184,21 +181,20 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_locationRelative_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button_1 = new JButton('button 1');",
-						"      add(button_1, new GridBagConstraints());",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton('button 1');",
-						"      add(button_2, new GridBagConstraints());",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button_1 = new JButton("button 1");
+							add(button_1, new GridBagConstraints());
+						}
+						{
+							JButton button_2 = new JButton("button 1");
+							add(button_2, new GridBagConstraints());
+						}
+					}
+				}""");
 		panel.refresh();
 		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		// button_1
@@ -234,21 +230,20 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_locationRelative_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button_1 = new JButton('button 1');",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton('button 2');",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button_1 = new JButton("button 1");
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton("button 2");
+							add(button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
@@ -298,17 +293,16 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_virtualShort() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton('button');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		String initialSource = m_lastEditor.getSource();
 		// prepare models
@@ -351,18 +345,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, false);
 		Property property = getConstraintsProperty(button, "gridx");
 		property.setValue(1);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton('button');",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.gridx = 1;",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 1;
+							add(button, gbc);
+						}
+					}
+				}""");
 		// new state of "constraints"
 		{
 			{
@@ -391,33 +385,32 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_virtualLong() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton('button');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+						class Test extends JPanel {
+							public Test() {
+								setLayout(new GridBagLayout());
+								{
+									JButton button = new JButton("button");
+									add(button);
+								}
+							}
+						}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set property, so materialize
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
 		Property property = getConstraintsProperty(button, "gridx");
 		property.setValue(1);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton(\"button\");",
-				"      add(button, new GridBagConstraints(1, GridBagConstraints.RELATIVE, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							add(button, new GridBagConstraints(1, GridBagConstraints.RELATIVE, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -426,17 +419,17 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	@Test
 	public void test_moreThanOneConstraints() throws Exception {
 		try {
-			parseContainer(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(new GridBagLayout());",
-					"    {",
-					"      JButton button = new JButton();",
-					"      add(button, new GridBagConstraints());",
-					"      add(button, new GridBagConstraints());",
-					"    }",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test extends JPanel {
+						public Test() {
+							setLayout(new GridBagLayout());
+							{
+								JButton button = new JButton();
+								add(button, new GridBagConstraints());
+								add(button, new GridBagConstraints());
+							}
+						}
+					}""");
 		} catch (Throwable e) {
 			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
 			assertEquals(IExceptionConstants.MORE_THAN_ONE_CONSTRAINTS, de.getCode());
@@ -454,35 +447,34 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_accessMaterialize() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
 		// modify
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, false);
 		constraints.setX(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.gridx = 1;",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 1;
+							add(button, gbc);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -490,36 +482,35 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_accessMaterialize_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
 		// materialize
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, false);
 		constraints.materializeLocation();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.gridx = 0;",
-				"      gbc.gridy = 0;",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 0;
+							gbc.gridy = 0;
+							add(button, gbc);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -527,35 +518,34 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_setX() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
 		// x := 1
 		constraints.setX(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridx = 1;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridx = 1;
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -563,74 +553,73 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_setProperty_gridx() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    GridBagLayout gridBagLayout = new GridBagLayout();",
-						"    gridBagLayout.columnWidths = new int[]{100, 200};",
-						"    gridBagLayout.rowHeights = new int[]{50, 75};",
-						"    setLayout(gridBagLayout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200};
+						gridBagLayout.rowHeights = new int[]{50, 75};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// x := 1, in grid
 		getConstraintsProperty(button, "gridx").setValue(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    GridBagLayout gridBagLayout = new GridBagLayout();",
-				"    gridBagLayout.columnWidths = new int[]{100, 200};",
-				"    gridBagLayout.rowHeights = new int[]{50, 75};",
-				"    setLayout(gridBagLayout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridx = 1;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200};
+						gridBagLayout.rowHeights = new int[]{50, 75};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridx = 1;
+							add(button, c);
+						}
+					}
+				}""");
 		// x := 100, too big, ignored
 		getConstraintsProperty(button, "gridx").setValue(100);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    GridBagLayout gridBagLayout = new GridBagLayout();",
-				"    gridBagLayout.columnWidths = new int[]{100, 200};",
-				"    gridBagLayout.rowHeights = new int[]{50, 75};",
-				"    setLayout(gridBagLayout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridx = 1;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200};
+						gridBagLayout.rowHeights = new int[]{50, 75};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridx = 1;
+							add(button, c);
+						}
+					}
+				}""");
 		// x := 2, expand grid
 		getConstraintsProperty(button, "gridx").setValue(2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    GridBagLayout gridBagLayout = new GridBagLayout();",
-				"    gridBagLayout.columnWidths = new int[]{100, 200, 0};",
-				"    gridBagLayout.rowHeights = new int[]{50, 75};",
-				"    setLayout(gridBagLayout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridx = 2;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200, 0};
+						gridBagLayout.rowHeights = new int[]{50, 75};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridx = 2;
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -638,35 +627,34 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_setY() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
 		// modify
 		constraints.setY(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridy = 1;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridy = 1;
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -674,57 +662,56 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_setProperty_gridy() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    GridBagLayout gridBagLayout = new GridBagLayout();",
-						"    gridBagLayout.columnWidths = new int[]{100, 200};",
-						"    gridBagLayout.rowHeights = new int[]{50, 75};",
-						"    setLayout(gridBagLayout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200};
+						gridBagLayout.rowHeights = new int[]{50, 75};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// y := 1, in grid
 		getConstraintsProperty(button, "gridy").setValue(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    GridBagLayout gridBagLayout = new GridBagLayout();",
-				"    gridBagLayout.columnWidths = new int[]{100, 200};",
-				"    gridBagLayout.rowHeights = new int[]{50, 75};",
-				"    setLayout(gridBagLayout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridy = 1;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200};
+						gridBagLayout.rowHeights = new int[]{50, 75};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridy = 1;
+							add(button, c);
+						}
+					}
+				}""");
 		// y := 3, expand grid
 		getConstraintsProperty(button, "gridy").setValue(3);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    GridBagLayout gridBagLayout = new GridBagLayout();",
-				"    gridBagLayout.columnWidths = new int[]{100, 200};",
-				"    gridBagLayout.rowHeights = new int[]{50, 75, 0, 0};",
-				"    setLayout(gridBagLayout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridy = 3;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout gridBagLayout = new GridBagLayout();
+						gridBagLayout.columnWidths = new int[]{100, 200};
+						gridBagLayout.rowHeights = new int[]{50, 75, 0, 0};
+						setLayout(gridBagLayout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridy = 3;
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -737,35 +724,34 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_accessLocation_width() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
 		// modify
 		constraints.setWidth(2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridwidth = 2;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridwidth = 2;
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -773,35 +759,34 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_accessLocation_height() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
 		// modify
 		constraints.setHeight(2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.gridheight = 2;",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.gridheight = 2;
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -814,18 +799,17 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_accessOther_insets() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints c = new GridBagConstraints();",
-						"      add(button, c);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							add(button, c);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(button);
@@ -834,18 +818,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		// modify
 		constraints.setInsets("right", 5);
 		assertEquals(5, constraints.getInsets("right"));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints c = new GridBagConstraints();",
-				"      c.insets = new Insets(0, 0, 0, 5);",
-				"      add(button, c);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints c = new GridBagConstraints();
+							c.insets = new Insets(0, 0, 0, 5);
+							add(button, c);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -958,19 +942,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_getAlignment_bySource() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints gbc = new GridBagConstraints();",
-						"      gbc.anchor = GridBagConstraints.SOUTHWEST;",
-						"      add(button, gbc);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.anchor = GridBagConstraints.SOUTHWEST;
+							add(button, gbc);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(component);
@@ -985,18 +968,17 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setAlignment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints gbc = new GridBagConstraints();",
-						"      add(button, gbc);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							add(button, gbc);
+						}
+					}
+				}""");
 		panel.refresh();
 		// do checks
 		{
@@ -1181,20 +1163,19 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 			RowInfo.Alignment expectedVerticalAlignment,
 			String expectedAnchorSource,
 			String expectedFillSource) throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints gbc = new GridBagConstraints();",
-						"      gbc.anchor = GridBagConstraints.CENTER;",
-						"      gbc.fill = GridBagConstraints.NONE;",
-						"      add(button, gbc);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.anchor = GridBagConstraints.CENTER;
+							gbc.fill = GridBagConstraints.NONE;
+							add(button, gbc);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare constraints
@@ -1215,19 +1196,19 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		alignmentAction.run();
 		assertSame(expectedHorizontalAlignment, constraints.getHorizontalAlignment());
 		assertSame(expectedVerticalAlignment, constraints.getVerticalAlignment());
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.anchor = GridBagConstraints." + expectedAnchorSource + ";",
-				"      gbc.fill = GridBagConstraints." + expectedFillSource + ";",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.anchor = GridBagConstraints.%s;
+							gbc.fill = GridBagConstraints.%s;
+							add(button, gbc);
+						}
+					}
+				}""".formatted(expectedAnchorSource, expectedFillSource));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1240,25 +1221,24 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_contextMenu_grow() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    GridBagLayout layout = new GridBagLayout();",
-						"    layout.columnWidths = new int[] {0, 0};",
-						"    layout.rowHeights = new int[] {0, 0};",
-						"    layout.columnWeights = new double[] {0.0, Double.MIN_VALUE};",
-						"    layout.rowWeights = new double[] {0.0, Double.MIN_VALUE};",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      GridBagConstraints gbc = new GridBagConstraints();",
-						"      gbc.gridx = 0;",
-						"      gbc.gridy = 0;",
-						"      add(button, gbc);",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						GridBagLayout layout = new GridBagLayout();
+						layout.columnWidths = new int[] {0, 0};
+						layout.rowHeights = new int[] {0, 0};
+						layout.columnWeights = new double[] {0.0, Double.MIN_VALUE};
+						layout.rowWeights = new double[] {0.0, Double.MIN_VALUE};
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 0;
+							gbc.gridy = 0;
+							add(button, gbc);
+						}
+					}
+				}""");
 		panel.refresh();
 		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -1277,24 +1257,24 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 		growAction.setChecked(true);
 		growAction.run();
 		assertTrue(layout.getColumns().get(0).hasWeight());
-		assertEditor(
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    GridBagLayout layout = new GridBagLayout();",
-				"    layout.columnWidths = new int[] {0, 0};",
-				"    layout.rowHeights = new int[] {0, 0};",
-				"    layout.columnWeights = new double[] {1.0, Double.MIN_VALUE};",
-				"    layout.rowWeights = new double[] {0.0, Double.MIN_VALUE};",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.gridx = 0;",
-				"      gbc.gridy = 0;",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					public Test() {
+						GridBagLayout layout = new GridBagLayout();
+						layout.columnWidths = new int[] {0, 0};
+						layout.rowHeights = new int[] {0, 0};
+						layout.columnWeights = new double[] {1.0, Double.MIN_VALUE};
+						layout.rowWeights = new double[] {0.0, Double.MIN_VALUE};
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.gridx = 0;
+							gbc.gridy = 0;
+							add(button, gbc);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1302,18 +1282,17 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	// Code generation: name, based on template
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void check_nameTemplate(String template, String... lines) throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new GridBagLayout());",
-						"    {",
-						"      JButton button = new JButton('button');",
-						"      add(button, new GridBagConstraints());",
-						"    }",
-						"  }",
-						"}");
+	private void check_nameTemplate(String template, String lines) throws Exception {
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							add(button, new GridBagConstraints());
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = getJavaInfoByName("button");
 		Activator.getDefault().getPreferenceStore().setValue(
@@ -1329,19 +1308,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_nameTemplate_useDefaultName() throws Exception {
-		check_nameTemplate(
-				org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT,
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton('button');",
-				"      GridBagConstraints gbc = new GridBagConstraints();",
-				"      gbc.fill = GridBagConstraints.HORIZONTAL;",
-				"      add(button, gbc);",
-				"    }",
-				"  }",
-				"}");
+		check_nameTemplate("org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT", """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							GridBagConstraints gbc = new GridBagConstraints();
+							gbc.fill = GridBagConstraints.HORIZONTAL;
+							add(button, gbc);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1349,19 +1327,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_nameTemplate_alternativeTemplate_1() throws Exception {
-		check_nameTemplate(
-				"${constraintsAcronym}${componentName-cap}",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton('button');",
-				"      GridBagConstraints gbcButton = new GridBagConstraints();",
-				"      gbcButton.fill = GridBagConstraints.HORIZONTAL;",
-				"      add(button, gbcButton);",
-				"    }",
-				"  }",
-				"}");
+		check_nameTemplate("${constraintsAcronym}${componentName-cap}", """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							GridBagConstraints gbcButton = new GridBagConstraints();
+							gbcButton.fill = GridBagConstraints.HORIZONTAL;
+							add(button, gbcButton);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1369,19 +1346,18 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	 */
 	@Test
 	public void test_nameTemplate_alternativeTemplate_2() throws Exception {
-		check_nameTemplate(
-				"${componentName}${constraintsClassName}",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"    {",
-				"      JButton button = new JButton('button');",
-				"      GridBagConstraints buttonGridBagConstraints = new GridBagConstraints();",
-				"      buttonGridBagConstraints.fill = GridBagConstraints.HORIZONTAL;",
-				"      add(button, buttonGridBagConstraints);",
-				"    }",
-				"  }",
-				"}");
+		check_nameTemplate("${componentName}${constraintsClassName}", """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("button");
+							GridBagConstraints buttonGridBagConstraints = new GridBagConstraints();
+							buttonGridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+							add(button, buttonGridBagConstraints);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
