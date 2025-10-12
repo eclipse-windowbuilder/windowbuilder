@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -62,13 +62,12 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_1_implicitLayout_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		assertEquals(1, panel.getChildren().size());
 		assertSame(FlowLayoutInfo.class, panel.getChildren().get(0).getClass());
 		assertSame(panel.getLayout(), panel.getChildren().get(0));
@@ -118,13 +117,13 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 			// target
 			{
 				StatementTarget target = variableSupport.getStatementTarget();
-				assertEditor(
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    FlowLayout flowLayout = (FlowLayout) panel.getLayout();",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test {
+							public static void main(String args[]) {
+								JPanel panel = new JPanel();
+								FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+							}
+						}""");
 				//
 				ClassInstanceCreation panelCreation =
 						((ConstructorCreationSupport) panel.getCreationSupport()).getCreation();
@@ -142,13 +141,12 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_1_implicitLayout_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		LayoutInfo layout = panel.getLayout();
 		assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
 		// materialize by asking for expression
@@ -162,13 +160,13 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 		assertInstanceOf(LocalUniqueVariableSupport.class, layout.getVariableSupport());
 		assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
 		// check source
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    FlowLayout flowLayout = (FlowLayout) getLayout();",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						FlowLayout flowLayout = (FlowLayout) getLayout();
+					}
+				}""");
 	}
 
 	// XXX
@@ -177,14 +175,13 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_1_implicitLayout_3() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    FlowLayout flowLayout = (FlowLayout) getLayout();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				class Test extends JPanel {
+					public Test() {
+						FlowLayout flowLayout = (FlowLayout) getLayout();
+					}
+				}""");
 		{
 			LayoutInfo layout = panel.getLayout();
 			assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
@@ -198,12 +195,12 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 		// check for "de-materializing" implicit layout
 		{
 			panel.getLayout().delete();
-			assertEditor(
-					"// filler filler filler",
-					"class Test extends JPanel {",
-					"  public Test() {",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					class Test extends JPanel {
+						public Test() {
+						}
+					}""");
 			//
 			LayoutInfo layout = panel.getLayout();
 			assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -111,18 +111,17 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getAttchment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -141,18 +140,17 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getSide() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -180,20 +178,19 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 
 	@Test
 	public void test_isVirtual() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-						"      layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, this);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+							layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+							layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, this);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -231,26 +228,25 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getAnchor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final JButton button_1 = new JButton();",
-						"  private final JButton button_2 = new JButton();",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      add(button_1);",
-						"      layout.putConstraint(SpringLayout.WEST, button_1, 5, SpringLayout.WEST, this);",
-						"      layout.putConstraint(SpringLayout.NORTH, button_1, 10, SpringLayout.NORTH, this);",
-						"    }",
-						"    {",
-						"      add(button_2);",
-						"      layout.putConstraint(SpringLayout.WEST, button_2, 5, SpringLayout.EAST, button_1);",
-						"      layout.putConstraint(SpringLayout.NORTH, button_2, 0, SpringLayout.NORTH, button_1);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final JButton button_1 = new JButton();
+					private final JButton button_2 = new JButton();
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							add(button_1);
+							layout.putConstraint(SpringLayout.WEST, button_1, 5, SpringLayout.WEST, this);
+							layout.putConstraint(SpringLayout.NORTH, button_1, 10, SpringLayout.NORTH, this);
+						}
+						{
+							add(button_2);
+							layout.putConstraint(SpringLayout.WEST, button_2, 5, SpringLayout.EAST, button_1);
+							layout.putConstraint(SpringLayout.NORTH, button_2, 0, SpringLayout.NORTH, button_1);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
@@ -313,20 +309,19 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getDistance() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-						"      layout.putConstraint(SpringLayout.SOUTH, button, -10, SpringLayout.SOUTH, this);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+							layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+							layout.putConstraint(SpringLayout.SOUTH, button, -10, SpringLayout.SOUTH, this);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -355,19 +350,18 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_write_existingAttachment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -382,49 +376,48 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		// set offset
 		attachment.setOffset(10);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, button, 10, SpringLayout.WEST, this);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							layout.putConstraint(SpringLayout.WEST, button, 10, SpringLayout.WEST, this);
+							add(button);
+						}
+					}
+				}""");
 		// set anchor side
 		attachment.setAnchorSide(PositionConstants.RIGHT);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, button, 10, SpringLayout.EAST, this);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							layout.putConstraint(SpringLayout.WEST, button, 10, SpringLayout.EAST, this);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_write_newAttachment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -441,22 +434,21 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+							add(button);
+						}
+					}
+				}""");
 		assertEquals(
-				"{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/"
-						+ " /layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this)/}",
-						button.toString());
+				"{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/ /layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this)/}",
+				button.toString());
 		// new state
 		{
 			assertFalse(attachment.isVirtual());
@@ -471,22 +463,21 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_write_newAttachment_lazy() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JButton m_button;",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    add(getButton());",
-						"  }",
-						"  private JButton getButton() {",
-						"    if (m_button == null) {",
-						"      m_button = new JButton();",
-						"    }",
-						"    return m_button;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton m_button;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						add(getButton());
+					}
+					private JButton getButton() {
+						if (m_button == null) {
+							m_button = new JButton();
+						}
+						return m_button;
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -503,29 +494,26 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton m_button;",
-				"  private SpringLayout layout;",
-				"  public Test() {",
-				"    layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    add(getButton());",
-				"  }",
-				"  private JButton getButton() {",
-				"    if (m_button == null) {",
-				"      m_button = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, m_button, 5, SpringLayout.WEST, this);",
-				"    }",
-				"    return m_button;",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton m_button;
+					private SpringLayout layout;
+					public Test() {
+						layout = new SpringLayout();
+						setLayout(layout);
+						add(getButton());
+					}
+					private JButton getButton() {
+						if (m_button == null) {
+							m_button = new JButton();
+							layout.putConstraint(SpringLayout.WEST, m_button, 5, SpringLayout.WEST, this);
+						}
+						return m_button;
+					}
+				}""");
 		assertEquals(
-				"{new: javax.swing.JButton} {lazy: m_button getButton()} {"
-						+ "/new JButton()/ "
-						+ "/m_button/ "
-						+ "/add(getButton())/ /layout.putConstraint(SpringLayout.WEST, m_button, 5, SpringLayout.WEST, this)/}",
-						button.toString());
+				"{new: javax.swing.JButton} {lazy: m_button getButton()} {/new JButton()/ /m_button/ /add(getButton())/ /layout.putConstraint(SpringLayout.WEST, m_button, 5, SpringLayout.WEST, this)/}",
+				button.toString());
 		// new state
 		{
 			assertFalse(attachment.isVirtual());
@@ -540,18 +528,17 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_write_newAttachment_sorted() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -562,18 +549,18 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 			attachment.setAnchorSide(PositionConstants.TOP);
 			attachment.setOffset(5);
 			attachment.write();
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    SpringLayout layout = new SpringLayout();",
-					"    setLayout(layout);",
-					"    {",
-					"      JButton button = new JButton();",
-					"      layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);",
-					"      add(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							SpringLayout layout = new SpringLayout();
+							setLayout(layout);
+							{
+								JButton button = new JButton();
+								layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);
+								add(button);
+							}
+						}
+					}""");
 		}
 		// add LEFT
 		{
@@ -582,19 +569,19 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 			attachment.setAnchorSide(PositionConstants.LEFT);
 			attachment.setOffset(5);
 			attachment.write();
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    SpringLayout layout = new SpringLayout();",
-					"    setLayout(layout);",
-					"    {",
-					"      JButton button = new JButton();",
-					"      layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);",
-					"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-					"      add(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							SpringLayout layout = new SpringLayout();
+							setLayout(layout);
+							{
+								JButton button = new JButton();
+								layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);
+								layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+								add(button);
+							}
+						}
+					}""");
 		}
 		// add BOTTOM
 		{
@@ -603,20 +590,20 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 			attachment.setAnchorSide(PositionConstants.BOTTOM);
 			attachment.setOffset(-5);
 			attachment.write();
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    SpringLayout layout = new SpringLayout();",
-					"    setLayout(layout);",
-					"    {",
-					"      JButton button = new JButton();",
-					"      layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);",
-					"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-					"      layout.putConstraint(SpringLayout.SOUTH, button, -5, SpringLayout.SOUTH, this);",
-					"      add(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							SpringLayout layout = new SpringLayout();
+							setLayout(layout);
+							{
+								JButton button = new JButton();
+								layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);
+								layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+								layout.putConstraint(SpringLayout.SOUTH, button, -5, SpringLayout.SOUTH, this);
+								add(button);
+							}
+						}
+					}""");
 		}
 		// add RIGHT
 		{
@@ -625,38 +612,37 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 			attachment.setAnchorSide(PositionConstants.RIGHT);
 			attachment.setOffset(-5);
 			attachment.write();
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    SpringLayout layout = new SpringLayout();",
-					"    setLayout(layout);",
-					"    {",
-					"      JButton button = new JButton();",
-					"      layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);",
-					"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-					"      layout.putConstraint(SpringLayout.SOUTH, button, -5, SpringLayout.SOUTH, this);",
-					"      layout.putConstraint(SpringLayout.EAST, button, -5, SpringLayout.EAST, this);",
-					"      add(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							SpringLayout layout = new SpringLayout();
+							setLayout(layout);
+							{
+								JButton button = new JButton();
+								layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.NORTH, this);
+								layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+								layout.putConstraint(SpringLayout.SOUTH, button, -5, SpringLayout.SOUTH, this);
+								layout.putConstraint(SpringLayout.EAST, button, -5, SpringLayout.EAST, this);
+								add(button);
+							}
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_write_newAttachment_trailingSide() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -673,18 +659,18 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.RIGHT);
 		attachment.setOffset(-5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      layout.putConstraint(SpringLayout.EAST, button, -5, SpringLayout.EAST, this);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							layout.putConstraint(SpringLayout.EAST, button, -5, SpringLayout.EAST, this);
+							add(button);
+						}
+					}
+				}""");
 		// new state
 		{
 			assertFalse(attachment.isVirtual());
@@ -699,22 +685,21 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_write_newAttachment_backReference() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton buttonA = new JButton();",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      add(buttonB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							add(buttonB);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
@@ -725,31 +710,29 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA);",
-				"      add(buttonB);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA);
+							add(buttonB);
+						}
+					}
+				}""");
 		assertEquals(
-				"{new: javax.swing.JButton} {field-unique: buttonA} {/new JButton()/ /add(buttonA)/"
-						+ " /layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA)/}",
-						buttonA.toString());
+				"{new: javax.swing.JButton} {field-unique: buttonA} {/new JButton()/ /add(buttonA)/ /layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA)/}",
+				buttonA.toString());
 		assertEquals(
-				"{new: javax.swing.JButton} {local-unique: buttonB} {/new JButton()/ /add(buttonB)/"
-						+ " /layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA)/}",
-						buttonB.toString());
+				"{new: javax.swing.JButton} {local-unique: buttonB} {/new JButton()/ /add(buttonB)/ /layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA)/}",
+				buttonB.toString());
 	}
 
 	/**
@@ -757,22 +740,21 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_write_newAttachment_forwardReference() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton buttonA = new JButton();",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      add(buttonB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							add(buttonB);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
@@ -783,44 +765,43 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonA, 5, SpringLayout.WEST, buttonB);",
-				"      add(buttonB);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonA, 5, SpringLayout.WEST, buttonB);
+							add(buttonB);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_write_updateAttachment_backReference() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton buttonA = new JButton();",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, this);",
-						"      add(buttonB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, this);
+							add(buttonB);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
@@ -831,44 +812,43 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA);",
-				"      add(buttonB);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 5, SpringLayout.WEST, buttonA);
+							add(buttonB);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_write_updateAttachment_forwardReference() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton buttonA = new JButton();",
-						"      layout.putConstraint(SpringLayout.WEST, buttonA, 5, SpringLayout.WEST, this);",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      add(buttonB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton buttonA = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonA, 5, SpringLayout.WEST, this);
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							add(buttonB);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo buttonA = panel.getChildrenComponents().get(0);
@@ -879,23 +859,23 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.setAnchorSide(PositionConstants.LEFT);
 		attachment.setOffset(5);
 		attachment.write();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonA, 5, SpringLayout.WEST, buttonB);",
-				"      add(buttonB);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonA, 5, SpringLayout.WEST, buttonB);
+							add(buttonB);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -908,20 +888,19 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_delete() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);",
-						"      layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, this);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+							layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, this);
+							layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, this);
+						}
+					}
+				}""");
 		panel.refresh();
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -935,18 +914,18 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		attachment.delete();
 		assertTrue(attachment.isVirtual());
 		assertSame(null, attachment.getAnchorComponent());
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"      layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, this);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button = new JButton();
+							add(button);
+							layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, this);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -956,24 +935,23 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_adjustAfterComponentMove_source() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JButton buttonA;",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      buttonA = new JButton();",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);",
-						"      add(buttonB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);
+							add(buttonB);
+						}
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
@@ -983,65 +961,64 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		// move "buttonB" before "buttonA", using core
 		panel.startEdit();
 		JavaInfoUtils.move(buttonB, null, panel, buttonA);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);",
-				"      add(buttonB);",
-				"    }",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);
+							add(buttonB);
+						}
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+					}
+				}""");
 		// perform adjustment
 		attachment.adjustAfterComponentMove();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  private JButton buttonB;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      buttonB = new JButton();",
-				"      add(buttonB);",
-				"    }",
-				"    {",
-				"      buttonA = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);",
-				"      add(buttonA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					private JButton buttonB;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonB = new JButton();
+							add(buttonB);
+						}
+						{
+							buttonA = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);
+							add(buttonA);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_adjustAfterComponentMove_anchor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JButton buttonA;",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      buttonA = new JButton();",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);",
-						"      add(buttonB);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton buttonB = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);
+							add(buttonB);
+						}
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
@@ -1050,44 +1027,44 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		// move "buttonA" last, using core
 		panel.startEdit();
 		JavaInfoUtils.move(buttonA, null, panel, null);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      add(buttonB);",
-				"    }",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"    layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton buttonB = new JButton();
+							add(buttonB);
+						}
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);
+					}
+				}""");
 		// perform adjustment
 		SpringAttachmentInfo attachment = layout.getAttachmentLeft(buttonB);
 		attachment.adjustAfterComponentMove();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  private JButton buttonB;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      buttonB = new JButton();",
-				"      add(buttonB);",
-				"    }",
-				"    {",
-				"      buttonA = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);",
-				"      add(buttonA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					private JButton buttonB;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonB = new JButton();
+							add(buttonB);
+						}
+						{
+							buttonA = new JButton();
+							layout.putConstraint(SpringLayout.WEST, buttonB, 0, SpringLayout.WEST, buttonA);
+							add(buttonA);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1095,24 +1072,23 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_adjustAfterComponentMove_anchor2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JButton buttonA;",
-						"  public Test() {",
-						"    SpringLayout layout = new SpringLayout();",
-						"    setLayout(layout);",
-						"    {",
-						"      buttonA = new JButton();",
-						"      add(buttonA);",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      layout.putConstraint(SpringLayout.WEST, button_1, 0, SpringLayout.WEST, buttonA);",
-						"      add(button_1);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						{
+							JButton button_1 = new JButton();
+							layout.putConstraint(SpringLayout.WEST, button_1, 0, SpringLayout.WEST, buttonA);
+							add(button_1);
+						}
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
@@ -1121,43 +1097,43 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		// move "buttonA" last, using core
 		panel.startEdit();
 		JavaInfoUtils.move(buttonA, null, panel, null);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1);",
-				"    }",
-				"    {",
-				"      buttonA = new JButton();",
-				"      add(buttonA);",
-				"    }",
-				"    layout.putConstraint(SpringLayout.WEST, button_1, 0, SpringLayout.WEST, buttonA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							buttonA = new JButton();
+							add(buttonA);
+						}
+						layout.putConstraint(SpringLayout.WEST, button_1, 0, SpringLayout.WEST, buttonA);
+					}
+				}""");
 		// perform adjustment
 		SpringAttachmentInfo attachment = layout.getAttachmentLeft(buttonB);
 		attachment.adjustAfterComponentMove();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton buttonA;",
-				"  private JButton button;",
-				"  public Test() {",
-				"    SpringLayout layout = new SpringLayout();",
-				"    setLayout(layout);",
-				"    {",
-				"      button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      buttonA = new JButton();",
-				"      layout.putConstraint(SpringLayout.WEST, button, 0, SpringLayout.WEST, buttonA);",
-				"      add(buttonA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton buttonA;
+					private JButton button;
+					public Test() {
+						SpringLayout layout = new SpringLayout();
+						setLayout(layout);
+						{
+							button = new JButton();
+							add(button);
+						}
+						{
+							buttonA = new JButton();
+							layout.putConstraint(SpringLayout.WEST, button, 0, SpringLayout.WEST, buttonA);
+							add(buttonA);
+						}
+					}
+				}""");
 	}
 }

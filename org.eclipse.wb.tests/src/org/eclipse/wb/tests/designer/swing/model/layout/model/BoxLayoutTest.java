@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,21 +53,20 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_setLayout() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		setLayout(panel, BoxLayout.class);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BoxLayout(this, BoxLayout.X_AXIS));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+					}
+				}""");
 		assertInstanceOf(BoxLayoutInfo.class, panel.getLayout());
 	}
 
@@ -77,17 +76,16 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_propertyAlignment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BoxLayout(this, BoxLayout.X_AXIS));",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		assertInstanceOf(BoxLayoutInfo.class, panel.getLayout());
 		panel.refresh();
 		// check for "Alignment" property of "button"
@@ -111,13 +109,12 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_noConstructor_targetProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BoxLayout(this, BoxLayout.X_AXIS));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+					}
+				}""");
 		BoxLayoutInfo layout = (BoxLayoutInfo) panel.getLayout();
 		//
 		assertNotNull(PropertyUtils.getByPath(layout, "Constructor/axis"));
@@ -165,13 +162,12 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 * Checks {@link BoxLayoutInfo#isHorizontal()}.
 	 */
 	private void check_isHorizontal(String axisSource, boolean expectedHorizontal) throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BoxLayout(this, " + axisSource + "));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BoxLayout(this, %s));
+					}
+				}""".formatted(axisSource));
 		panel.refresh();
 		BoxLayoutInfo layout = (BoxLayoutInfo) panel.getLayout();
 		assertEquals(expectedHorizontal, layout.isHorizontal());
@@ -188,13 +184,13 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_Box_createHorizontalBox() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JComponent box = Box.createHorizontalBox();",
-				"    add(box);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComponent box = Box.createHorizontalBox();
+						add(box);
+					}
+				}""");
 		refresh();
 		ContainerInfo box = getJavaInfoByName("box");
 		// has BoxLayout
@@ -213,13 +209,13 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_Box_createVerticalBox() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JComponent box = Box.createVerticalBox();",
-				"    add(box);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComponent box = Box.createVerticalBox();
+						add(box);
+					}
+				}""");
 		refresh();
 		ContainerInfo box = getJavaInfoByName("box");
 		// has BoxLayout
@@ -242,23 +238,22 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_BoxSupport_setStrutSize() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    Component strut = Box.createHorizontalStrut(10);",
-						"    add(strut);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						Component strut = Box.createHorizontalStrut(10);
+						add(strut);
+					}
+				}""");
 		ComponentInfo strut = panel.getChildrenComponents().get(0);
 		// set new size
 		BoxSupport.setStrutSize(strut, IntegerConverter.INSTANCE.toJavaSource(panel, 20));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    Component strut = Box.createHorizontalStrut(20);",
-				"    add(strut);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						Component strut = Box.createHorizontalStrut(20);
+						add(strut);
+					}
+				}""");
 	}
 }

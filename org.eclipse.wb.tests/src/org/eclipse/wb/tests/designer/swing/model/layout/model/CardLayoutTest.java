@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -54,21 +54,20 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_setLayout() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		setLayout(panel, CardLayout.class);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout(0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout(0, 0));
+					}
+				}""");
 		// no components
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		assertNull(layout.getCurrentComponent());
@@ -88,14 +87,13 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_dangling() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// create CardLayoutInfo just to have "stack container" broadcast listeners
 		createJavaInfo("java.awt.CardLayout");
 		// add new JButton, during this CardLayoutInfo will be called
@@ -108,28 +106,27 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_managedComponents_excludeJPopupMenu() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button, '0');",
-						"    }",
-						"    {",
-						"      JPopupMenu popup = new JPopupMenu();",
-						"      addPopup(this, popup);",
-						"    }",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new CardLayout())/ /add(button, '0')/ /addPopup(this, popup)/}",
-				"  {new: java.awt.CardLayout} {empty} {/setLayout(new CardLayout())/}",
-				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button, '0')/}",
-				"  {new: javax.swing.JPopupMenu} {local-unique: popup} {/new JPopupMenu()/ /addPopup(this, popup)/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button = new JButton();
+							add(button, "0");
+						}
+						{
+							JPopupMenu popup = new JPopupMenu();
+							addPopup(this, popup);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new CardLayout())/ /add(button, "0")/ /addPopup(this, popup)/}
+					{new: java.awt.CardLayout} {empty} {/setLayout(new CardLayout())/}
+					{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button, "0")/}
+					{new: javax.swing.JPopupMenu} {local-unique: popup} {/new JPopupMenu()/ /addPopup(this, popup)/}""");
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		// only JButton is managed component
@@ -143,37 +140,36 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	public void test_managedComponents_includeExposedComponents() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  private JButton buttonA = new JButton();",
-						"  private JButton buttonB = new JButton();",
-						"  public MyPanel() {",
-						"    setLayout(new CardLayout());",
-						"    add(buttonA, 'A');",
-						"    add(buttonB, 'B');",
-						"  }",
-						"  public JButton getButtonA() {",
-						"    return buttonA;",
-						"  }",
-						"  public JButton getButtonB() {",
-						"    return buttonB;",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyPanel extends JPanel {
+							private JButton buttonA = new JButton();
+							private JButton buttonB = new JButton();
+							public MyPanel() {
+								setLayout(new CardLayout());
+								add(buttonA, "A");
+								add(buttonB, "B");
+							}
+							public JButton getButtonA() {
+								return buttonA;
+							}
+							public JButton getButtonB() {
+								return buttonB;
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {}",
-				"  {implicit-layout: java.awt.CardLayout} {implicit-layout} {}",
-				"  {method: public javax.swing.JButton test.MyPanel.getButtonA()} {property} {}",
-				"  {method: public javax.swing.JButton test.MyPanel.getButtonB()} {property} {}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {}
+					{implicit-layout: java.awt.CardLayout} {implicit-layout} {}
+					{method: public javax.swing.JButton test.MyPanel.getButtonA()} {property} {}
+					{method: public javax.swing.JButton test.MyPanel.getButtonB()} {property} {}""");
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		ComponentInfo buttonA = getJavaInfoByName("getButtonA()");
 		ComponentInfo buttonB = getJavaInfoByName("getButtonB()");
@@ -188,16 +184,15 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_convert() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		refresh();
 		ComponentInfo button = getJavaInfoByName("button");
 		// set layout
@@ -205,16 +200,16 @@ public class CardLayoutTest extends AbstractLayoutTest {
 			CardLayoutInfo layout = createJavaInfo("java.awt.CardLayout");
 			panel.setLayout(layout);
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout(0, 0));",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, '" + getAssociationName(button) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout(0, 0));
+						{
+							JButton button = new JButton();
+							add(button, "%s");
+						}
+					}
+				}""".formatted(getAssociationName(button)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -227,14 +222,13 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    add(new JLabel(), '0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						add(new JLabel(), "0");
+					}
+				}""");
 		panel.refresh();
 		final CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		// currently "label" is selected
@@ -253,17 +247,17 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		assertInstanceOf(InvocationChildAssociation.class, newComponent.getAssociation());
 		// added component should be selected
 		assertSame(newComponent, layout.getCurrentComponent());
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    add(new JLabel(), '0');",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, '" + getAssociationName(newComponent) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						add(new JLabel(), "0");
+						{
+							JButton button = new JButton();
+							add(button, "%s");
+						}
+					}
+				}""".formatted(getAssociationName(newComponent)));
 	}
 
 	/**
@@ -273,15 +267,14 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_JPopupMenu() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    add(new JButton(), '0');",
-						"    add(new JButton(), '1');",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						add(new JButton(), "0");
+						add(new JButton(), "1");
+					}
+				}""");
 		panel.refresh();
 		// prepare components
 		final CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
@@ -321,41 +314,40 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE_reorder() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1, '111');",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2, '222');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2, "222");
+						}
+					}
+				}""");
 		panel.refresh();
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		layout.command_MOVE(button_2, button_1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2, '222');",
-				"    }",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1, '111');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_2 = new JButton();
+							add(button_2, "222");
+						}
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "111");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -363,41 +355,40 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE_reparent_variable() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      add(panel, BorderLayout.NORTH);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        panel.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JPanel panel = new JPanel();
+							add(panel, BorderLayout.NORTH);
+							{
+								JButton button = new JButton();
+								panel.add(button);
+							}
+						}
+					}
+				}""");
 		panel.refresh();
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		layout.command_MOVE(button, null);
 		assertInstanceOf(InvocationChildAssociation.class, button.getAssociation());
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel, BorderLayout.NORTH);",
-				"    }",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, '" + getAssociationName(button) + "');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JPanel panel = new JPanel();
+							add(panel, BorderLayout.NORTH);
+						}
+						{
+							JButton button = new JButton();
+							add(button, "%s");
+						}
+					}
+				}""".formatted(getAssociationName(button)));
 	}
 
 	/**
@@ -405,57 +396,56 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE_reparent_lazy() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JPanel panel;",
-						"  private JButton button;",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    add(getPanel(), '111-222-333-444');",
-						"  }",
-						"  private JPanel getPanel() {",
-						"    if (panel == null) {",
-						"      panel = new JPanel();",
-						"      panel.add(getButton());",
-						"    }",
-						"    return panel;",
-						"  }",
-						"  private JButton getButton() {",
-						"    if (button == null) {",
-						"      button = new JButton();",
-						"    }",
-						"    return button;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JPanel panel;
+					private JButton button;
+					public Test() {
+						setLayout(new CardLayout());
+						add(getPanel(), "111-222-333-444");
+					}
+					private JPanel getPanel() {
+						if (panel == null) {
+							panel = new JPanel();
+							panel.add(getButton());
+						}
+						return panel;
+					}
+					private JButton getButton() {
+						if (button == null) {
+							button = new JButton();
+						}
+						return button;
+					}
+				}""");
 		panel.refresh();
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		layout.command_MOVE(button, null);
 		assertInstanceOf(InvocationChildAssociation.class, button.getAssociation());
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JPanel panel;",
-				"  private JButton button;",
-				"  public Test() {",
-				"    setLayout(new CardLayout());",
-				"    add(getPanel(), '111-222-333-444');",
-				"    add(getButton(), '" + getAssociationName(button) + "');",
-				"  }",
-				"  private JPanel getPanel() {",
-				"    if (panel == null) {",
-				"      panel = new JPanel();",
-				"    }",
-				"    return panel;",
-				"  }",
-				"  private JButton getButton() {",
-				"    if (button == null) {",
-				"      button = new JButton();",
-				"    }",
-				"    return button;",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JPanel panel;
+					private JButton button;
+					public Test() {
+						setLayout(new CardLayout());
+						add(getPanel(), "111-222-333-444");
+						add(getButton(), "%s");
+					}
+					private JPanel getPanel() {
+						if (panel == null) {
+							panel = new JPanel();
+						}
+						return panel;
+					}
+					private JButton getButton() {
+						if (button == null) {
+							button = new JButton();
+						}
+						return button;
+					}
+				}""".formatted(getAssociationName(button)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -465,21 +455,20 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_visibility_JPanel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      add(button_0, '0');",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1, '1');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_0 = new JButton();
+							add(button_0, "0");
+						}
+						{
+							JButton button_1 = new JButton();
+							add(button_1, "1");
+						}
+					}
+				}""");
 		panel.refresh();
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		// prepare components
@@ -499,21 +488,20 @@ public class CardLayoutTest extends AbstractLayoutTest {
 
 	@Test
 	public void test_visibility_JFrame() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    getContentPane().setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      getContentPane().add(button_0, '0');",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      getContentPane().add(button_1, '1');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				public class Test extends JFrame {
+					public Test() {
+						getContentPane().setLayout(new CardLayout());
+						{
+							JButton button_0 = new JButton();
+							getContentPane().add(button_0, "0");
+						}
+						{
+							JButton button_1 = new JButton();
+							getContentPane().add(button_1, "1");
+						}
+					}
+				}""");
 		frame.refresh();
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		CardLayoutInfo layout = (CardLayoutInfo) contentPane.getLayout();
@@ -529,25 +517,24 @@ public class CardLayoutTest extends AbstractLayoutTest {
 
 	@Test
 	public void test_show() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button, '0');",
-						"    }",
-						"    {",
-						"      JLabel label = new JLabel();",
-						"      add(label, '1');",
-						"    }",
-						"    {",
-						"      JTextField text = new JTextField();",
-						"      add(text, '2');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button = new JButton();
+							add(button, "0");
+						}
+						{
+							JLabel label = new JLabel();
+							add(label, "1");
+						}
+						{
+							JTextField text = new JTextField();
+							add(text, "2");
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare components
 		List<ComponentInfo> components = panel.getChildrenComponents();
@@ -577,25 +564,24 @@ public class CardLayoutTest extends AbstractLayoutTest {
 
 	@Test
 	public void test_selecting() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      add(button_0, '0');",
-						"    }",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      add(innerPanel, '1');",
-						"      {",
-						"        JButton button_1 = new JButton();",
-						"        innerPanel.add(button_1);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_0 = new JButton();
+							add(button_0, "0");
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel, "1");
+							{
+								JButton button_1 = new JButton();
+								innerPanel.add(button_1);
+							}
+						}
+					}
+				}""");
 		panel.refresh();
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		// prepare components
@@ -628,21 +614,20 @@ public class CardLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_selecting_deprecatedAdd() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      add('0', button_0);",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add('1', button_1);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							JButton button_0 = new JButton();
+							add("0", button_0);
+						}
+						{
+							JButton button_1 = new JButton();
+							add("1", button_1);
+						}
+					}
+				}""");
 		panel.refresh();
 		CardLayoutInfo layout = (CardLayoutInfo) panel.getLayout();
 		// prepare components
