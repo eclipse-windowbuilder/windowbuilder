@@ -60,19 +60,6 @@ public final class CoordinateUtils {
 	 * @return the given location (in parent of given <code>composite</code>) in display coordinates.
 	 */
 	public static Point getDisplayLocation(Control composite, int x, int y) throws Exception {
-		if (EnvironmentUtils.IS_LINUX && composite instanceof Shell shell) {
-			// In GTK, the bounds of a shell return the top-left position of the window
-			// manager. Because this manager is not part of the actual shell, we need to use
-			// this little workaround to get the REAL position of the shell.
-			// See: https://github.com/eclipse-platform/eclipse.platform.swt/issues/828
-			Point point = composite.toDisplay(0, 0);
-			y = point.y;
-			Menu menuBar = shell.getMenuBar();
-			if (menuBar != null) {
-				var menuBounds = OSSupport.get().getMenuBarBounds(menuBar);
-				y -= menuBounds.height;
-			}
-		}
 		if (!(composite instanceof Shell)) {
 			Composite parent = composite.getParent();
 			if (parent != null) {

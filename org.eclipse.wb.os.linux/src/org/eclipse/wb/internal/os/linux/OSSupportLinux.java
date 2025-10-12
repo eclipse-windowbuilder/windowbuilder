@@ -17,11 +17,15 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -46,6 +50,11 @@ import java.util.function.BiConsumer;
 
 public abstract class OSSupportLinux extends OSSupport {
 	private static Version MINIMUM_VERSION = new Version(3, 126, 0);
+	// constants
+	private static final Color TITLE_BORDER_COLOR_DARKEST = DrawUtils.getShiftedColor(ColorConstants.titleBackground,
+			-24);
+	private static final Color TITLE_BORDER_COLOR_DARKER = DrawUtils.getShiftedColor(ColorConstants.titleBackground,
+			-16);
 
 	static {
 		System.loadLibrary("wbp3");
@@ -177,6 +186,8 @@ public abstract class OSSupportLinux extends OSSupport {
 	public void makeShots(Object controlObject) throws Exception {
 		Shell shell = getShell(controlObject);
 		makeShots0(shell);
+		// check for decorations and draw if needed
+		drawDecorations(shell, shell.getDisplay());
 	}
 
 	/**
@@ -206,6 +217,80 @@ public abstract class OSSupportLinux extends OSSupport {
 		// done, dispose image handles needed to draw internally.
 		for (Image image : disposeImages) {
 			image.dispose();
+		}
+	}
+
+	/**
+	 * Draws decorations if available/applicable.
+	 */
+	private void drawDecorations(Shell shell, final Display display) {
+		Image shellImage = (Image) shell.getData(WBP_IMAGE);
+		// draw title if any
+		if (shellImage != null && (shell.getStyle() & SWT.TITLE) != 0) {
+			Rectangle shellBounds = shell.getBounds();
+			Rectangle imageBounds = shellImage.getBounds();
+			Point offset = shell.toControl(shell.getLocation());
+			offset.x = -offset.x;
+			offset.y = -offset.y;
+			// adjust by menu bar size
+			if (shell.getMenuBar() != null) {
+				offset.y -= getWidgetBounds(shell.getMenuBar()).height;
+			}
+			// draw
+			Image decoratedShellImage = new Image(display, shellBounds);
+			GC gc = new GC(decoratedShellImage);
+			// draw background
+			gc.setBackground(ColorConstants.titleBackground);
+			gc.fillRectangle(0, 0, shellBounds.width, shellBounds.height);
+			// title area gradient
+			gc.setForeground(ColorConstants.titleGradient);
+			gc.fillGradientRectangle(0, 0, shellBounds.width, offset.y, true);
+			int buttonGapX = offset.x - 1;
+			int nextPositionX;
+			// buttons and title
+			{
+				// menu button
+				Image buttonImage = Activator.getImage("decorations/button-menu-icon.png");
+				Rectangle buttonImageBounds = buttonImage.getBounds();
+				int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+				gc.drawImage(buttonImage, buttonGapX, buttonOffsetY);
+				nextPositionX = buttonGapX + buttonImageBounds.width + buttonGapX;
+			}
+			{
+				// close button
+				Image buttonImage = Activator.getImage("decorations/button-close-icon.png");
+				Rectangle buttonImageBounds = buttonImage.getBounds();
+				nextPositionX = shellBounds.width - buttonImageBounds.width - buttonGapX;
+				int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+				gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
+				nextPositionX -= buttonGapX + buttonImageBounds.width;
+			}
+			{
+				// maximize button
+				Image buttonImage = Activator.getImage("decorations/button-max-icon.png");
+				Rectangle buttonImageBounds = buttonImage.getBounds();
+				int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+				gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
+				nextPositionX -= buttonGapX + buttonImageBounds.width;
+			}
+			{
+				// minimize button
+				Image buttonImage = Activator.getImage("decorations/button-min-icon.png");
+				Rectangle buttonImageBounds = buttonImage.getBounds();
+				int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+				gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
+			}
+			// outline
+			gc.setForeground(TITLE_BORDER_COLOR_DARKEST);
+			gc.drawRectangle(offset.x - 1, offset.y - 1, imageBounds.width + 1, imageBounds.height + 1);
+			gc.setForeground(TITLE_BORDER_COLOR_DARKER);
+			gc.drawRectangle(offset.x - 2, offset.y - 2, imageBounds.width + 3, imageBounds.height + 3);
+			// shell screen shot
+			gc.drawImage(shellImage, offset.x, offset.y);
+			// done
+			gc.dispose();
+			shellImage.dispose();
+			shell.setData(WBP_IMAGE, decoratedShellImage);
 		}
 	}
 
@@ -412,7 +497,12 @@ public abstract class OSSupportLinux extends OSSupport {
 	 */
 	@Override
 	public final Rectangle getMenuBarBounds(Menu menu) {
-		return getWidgetBounds(menu);
+		Rectangle bounds = getWidgetBounds(menu);
+		Shell shell = menu.getShell();
+		Point p = shell.toControl(shell.getLocation());
+		p.x = -p.x;
+		p.y = -p.y - bounds.height;
+		return new Rectangle(p.x, p.y, bounds.width, bounds.height);
 	}
 
 	@Override
