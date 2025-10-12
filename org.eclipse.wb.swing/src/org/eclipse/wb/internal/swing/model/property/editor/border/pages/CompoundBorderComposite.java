@@ -22,13 +22,16 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import javax.swing.border.Border;
+import java.util.concurrent.CompletableFuture;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 
 /**
@@ -96,20 +99,23 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 	}
 
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof CompoundBorder ourBorder) {
-			m_outsideField.setBorderValue(new BorderValue(ourBorder.getOutsideBorder()));
-			m_insideField.setBorderValue(new BorderValue(ourBorder.getInsideBorder()));
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
+		if (borderValue.getValue() instanceof CompoundBorder ourBorder) {
+			BorderValue outsideBorder = new BorderValue(ourBorder.getOutsideBorder());
+			BorderValue insideBorder = new BorderValue(ourBorder.getInsideBorder());
 			// OK, this is our Border
-			return true;
-		} else {
-			// no, we don't know this Border
-			return false;
+			return ExecutionUtils.runLogLater(() -> {
+				m_outsideField.setBorderValue(outsideBorder);
+				m_insideField.setBorderValue(insideBorder);
+			});
 		}
+		// no, we don't know this Border
+		return null;
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		String outsideSource = m_outsideField.getSource();
 		String insideSource = m_insideField.getSource();
 		if (outsideSource == null && insideSource == null) {

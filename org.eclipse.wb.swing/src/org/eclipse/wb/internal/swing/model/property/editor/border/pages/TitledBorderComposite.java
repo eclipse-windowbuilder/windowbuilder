@@ -24,9 +24,13 @@ import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorFi
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ComboField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.TextField;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
 
-import javax.swing.border.Border;
+import java.awt.Color;
+import java.util.concurrent.CompletableFuture;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -107,23 +111,29 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 	}
 
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof TitledBorder ourBorder) {
-			m_titleField.setValue(ourBorder.getTitle());
-			m_titleJustificationField.setValue(ourBorder.getTitleJustification());
-			m_titlePositionField.setValue(ourBorder.getTitlePosition());
-			m_titleColorField.setValue(ourBorder.getTitleColor());
-			m_borderField.setBorderValue(new BorderValue(ourBorder.getBorder()));
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
+		if (borderValue.getValue() instanceof TitledBorder ourBorder) {
+			String title = ourBorder.getTitle();
+			int titleJustification = ourBorder.getTitleJustification();
+			int titlePosition = ourBorder.getTitlePosition();
+			Color titleColor = ourBorder.getTitleColor();
+			BorderValue border = new BorderValue(ourBorder.getBorder());
 			// OK, this is our Border
-			return true;
-		} else {
-			// no, we don't know this Border
-			return false;
+			return ExecutionUtils.runLogLater(() -> {
+				m_titleField.setValue(title);
+				m_titleJustificationField.setValue(titleJustification);
+				m_titlePositionField.setValue(titlePosition);
+				m_titleColorField.setValue(titleColor);
+				m_borderField.setBorderValue(border);
+			});
 		}
+		// no, we don't know this Border
+		return null;
 	}
 
 	@Override
-	public String getSource() throws Exception {
+	public String getSource() {
 		String borderSource = m_borderField.getSource();
 		String titleSource = m_titleField.getSource();
 		String titleJustificationSource = m_titleJustificationField.getSource();

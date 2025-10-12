@@ -58,6 +58,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 import javax.swing.border.Border;
 
@@ -224,29 +225,26 @@ public final class BorderDialog extends ResizableDialog {
 	 * Updates GUI using current {@link Border}.
 	 */
 	private void updateGUI() {
-		// select page
-		{
+		SwingUtils.runLogLater(() -> {
+			// select page
 			m_pagesLayout.topControl = m_pages.get(0);
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (AbstractBorderComposite page : m_pages) {
-						// TODO BorderValue
-						boolean understands = page.setBorder(m_borderValue.doGetValue());
-						if (understands && m_borderModified) {
-							m_pagesLayout.topControl = page;
-						}
-					}
+			for (AbstractBorderComposite page : m_pages) {
+				CompletableFuture<?> understands = page.setBorderValue(m_borderValue);
+				if (understands != null && m_borderModified) {
+					m_pagesLayout.topControl = page;
 				}
+			}
+			// update combo
+			ExecutionUtils.runLogLater(() -> {
+				m_pagesComposite.layout();
+				// select in "type" combo
+				m_typeCombo.select(m_pages.indexOf(m_pagesLayout.topControl));
 			});
-			m_pagesComposite.layout();
-			// select in "type" combo
-			m_typeCombo.select(m_pages.indexOf(m_pagesLayout.topControl));
-		}
-		// update preview
-		if (m_previewCanvas != null) {
-			SwingUtils.runLogLater(() -> m_previewCanvas.setBorder(m_borderValue));
-		}
+			// update preview
+			if (m_previewCanvas != null) {
+				m_previewCanvas.setBorder(m_borderValue);
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////

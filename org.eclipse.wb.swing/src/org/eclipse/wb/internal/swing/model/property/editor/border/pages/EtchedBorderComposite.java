@@ -15,12 +15,17 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
 
-import javax.swing.border.Border;
+import java.awt.Color;
+import java.util.concurrent.CompletableFuture;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 
 /**
@@ -66,17 +71,21 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof EtchedBorder ourBorder) {
-			m_typeField.setValue(ourBorder.getEtchType());
-			m_highlightField.setValue(ourBorder.getHighlightColor());
-			m_shadowField.setValue(ourBorder.getShadowColor());
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
+		if (borderValue.getValue() instanceof EtchedBorder ourBorder) {
+			int etchType = ourBorder.getEtchType();
+			Color highlightColor = ourBorder.getHighlightColor();
+			Color shadowColor = ourBorder.getShadowColor();
 			// OK, this is our Border
-			return true;
-		} else {
-			// no, we don't know this Border
-			return false;
+			return ExecutionUtils.runLogLater(() -> {
+				m_typeField.setValue(etchType);
+				m_highlightField.setValue(highlightColor);
+				m_shadowField.setValue(shadowColor);
+			});
 		}
+		// no, we don't know this Border
+		return null;
 	}
 
 	@Override

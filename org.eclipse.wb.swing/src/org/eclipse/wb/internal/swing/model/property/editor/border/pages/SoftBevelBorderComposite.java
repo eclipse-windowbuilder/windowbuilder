@@ -15,13 +15,18 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
 
+import java.awt.Color;
+import java.util.concurrent.CompletableFuture;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
 
 /**
@@ -73,19 +78,25 @@ public final class SoftBevelBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof SoftBevelBorder ourBorder) {
-			m_typeField.setValue(ourBorder.getBevelType());
-			m_highlightOuterField.setValue(ourBorder.getHighlightOuterColor());
-			m_highlightInnerField.setValue(ourBorder.getHighlightInnerColor());
-			m_shadowOuterField.setValue(ourBorder.getShadowOuterColor());
-			m_shadowInnerField.setValue(ourBorder.getShadowInnerColor());
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
+		if (borderValue.getValue() instanceof SoftBevelBorder ourBorder) {
+			int bevelType = ourBorder.getBevelType();
+			Color highlightOuterColor = ourBorder.getHighlightOuterColor();
+			Color highlightInnerColor = ourBorder.getHighlightInnerColor();
+			Color shadowOuterColor = ourBorder.getShadowOuterColor();
+			Color shadowInnerColor = ourBorder.getShadowInnerColor();
 			// OK, this is our Border
-			return true;
-		} else {
-			// no, we don't know this Border
-			return false;
+			return ExecutionUtils.runLogLater(() -> {
+				m_typeField.setValue(bevelType);
+				m_highlightOuterField.setValue(highlightOuterColor);
+				m_highlightInnerField.setValue(highlightInnerColor);
+				m_shadowOuterField.setValue(shadowOuterColor);
+				m_shadowInnerField.setValue(shadowInnerColor);
+			});
 		}
+		// no, we don't know this Border
+		return null;
 	}
 
 	@Override

@@ -60,8 +60,7 @@ public final class BorderValue extends AbstractObservableValue<Border> {
 	}
 
 	@Override
-	public Border doGetValue() {
-		// TODO Make protected
+	protected Border doGetValue() {
 		return border;
 	}
 
