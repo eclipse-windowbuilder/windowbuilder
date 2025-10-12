@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,21 +53,20 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_setLayout() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		setLayout(panel, BorderLayout.class);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+					}
+				}""");
 	}
 
 	/**
@@ -75,17 +74,16 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getComponent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      final JButton button = new JButton();",
-						"      add(button, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							final JButton button = new JButton();
+							add(button, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		//
 		panel.refresh();
@@ -113,13 +111,12 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(new BorderLayout());",
-					"  }",
-			"}"};
+		String lines = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+					}
+				}""";
 		ContainerInfo panel = parseContainer(lines);
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		// add component
@@ -127,16 +124,16 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 		layout.command_CREATE(newComponent, BorderLayout.NORTH);
 		assertInstanceOf(InvocationChildAssociation.class, newComponent.getAssociation());
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, BorderLayout.NORTH);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.NORTH);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -144,13 +141,12 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_nullRegion() throws Exception {
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(new BorderLayout());",
-					"  }",
-			"}"};
+		String lines = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+					}
+				}""";
 		ContainerInfo panel = parseContainer(lines);
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		// add component
@@ -158,16 +154,16 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 		layout.command_CREATE(newComponent, null);
 		assertInstanceOf(InvocationChildAssociation.class, newComponent.getAssociation());
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -175,31 +171,30 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_withTarget() throws Exception {
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(new BorderLayout());",
-					"    add(new JButton(), BorderLayout.NORTH);",
-					"  }",
-			"}"};
+		String lines = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.NORTH);
+					}
+				}""";
 		ContainerInfo panel = parseContainer(lines);
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		ComponentInfo target = panel.getChildrenComponents().get(0);
 		// add component
 		ComponentInfo newComponent = createJButton();
 		layout.command_CREATE(newComponent, BorderLayout.WEST, target);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, BorderLayout.WEST);",
-				"    }",
-				"    add(new JButton(), BorderLayout.NORTH);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.WEST);
+						}
+						add(new JButton(), BorderLayout.NORTH);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -212,16 +207,16 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE() throws Exception {
-		check_MOVE(new String[]{
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, BorderLayout.NORTH);",
-				"    }",
-				"  }",
-		"}"});
+		check_MOVE("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.NORTH);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -229,22 +224,21 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE_lazy() throws Exception {
-		String[] source =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(getButton(), BorderLayout.NORTH);",
-						"  }",
-						"  private JButton button;",
-						"  private JButton getButton() {",
-						"    if (button == null) {",
-						"      button = new JButton();",
-						"    }",
-						"    return button;",
-						"  }",
-		"}"};
-		String[] source2 = replace(source, "NORTH", "SOUTH");
+		String source = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(getButton(), BorderLayout.NORTH);
+					}
+					private JButton button;
+					private JButton getButton() {
+						if (button == null) {
+							button = new JButton();
+						}
+						return button;
+					}
+				}""";
+		String source2 = source.replace("NORTH", "SOUTH");
 		check_MOVE(source, source2);
 	}
 
@@ -253,38 +247,38 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE_implicitCenter() throws Exception {
-		check_MOVE(new String[]{
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-		"}"});
+		check_MOVE("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
 	 * Test for moving to SOUTH.
 	 */
-	private void check_MOVE(String[] lines) throws Exception {
-		check_MOVE(lines, new String[]{
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, BorderLayout.SOUTH);",
-				"    }",
-				"  }",
-		"}"});
+	private void check_MOVE(String lines) throws Exception {
+		check_MOVE(lines, """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.SOUTH);
+						}
+					}
+				}""");
 	}
 
 	/**
 	 * Test for moving to SOUTH.
 	 */
-	private void check_MOVE(String[] lines, String[] expectedLines) throws Exception {
+	private void check_MOVE(String lines, String expectedLines) throws Exception {
 		ContainerInfo panel = parseContainer(lines);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare original association
@@ -307,26 +301,25 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_REGION() throws Exception {
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(new BorderLayout());",
-					"    add(new JButton(), BorderLayout.NORTH);",
-					"  }",
-			"}"};
+		String lines = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.NORTH);
+					}
+				}""";
 		ContainerInfo panel = parseContainer(lines);
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set region
 		layout.command_REGION(button, BorderLayout.WEST);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    add(new JButton(), BorderLayout.WEST);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.WEST);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -339,38 +332,36 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_reparentingVariable() throws Exception {
-		String[] lines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      add(panel, BorderLayout.NORTH);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        button.setEnabled(false);",
-						"        panel.add(button);",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      add(panel, BorderLayout.NORTH);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button, BorderLayout.SOUTH);",
-						"      button.setEnabled(false);",
-						"    }",
-						"  }",
-		"}"};
+		String lines = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JPanel panel = new JPanel();
+							add(panel, BorderLayout.NORTH);
+							{
+								JButton button = new JButton();
+								button.setEnabled(false);
+								panel.add(button);
+							}
+						}
+					}
+				}""";
+		String expectedLines = """
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JPanel panel = new JPanel();
+							add(panel, BorderLayout.NORTH);
+						}
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.SOUTH);
+							button.setEnabled(false);
+						}
+					}
+				}""";
 		check_reparenting(lines, expectedLines);
 	}
 
@@ -379,59 +370,57 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_reparentingLazy() throws Exception {
-		String[] lines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  private JPanel panel;",
-						"  private JButton button;",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(getPanel(), BorderLayout.NORTH);",
-						"  }",
-						"  private JPanel getPanel() {",
-						"    if (panel == null) {",
-						"      panel = new JPanel();",
-						"      panel.add(getButton());",
-						"    }",
-						"    return panel;",
-						"  }",
-						"  private JButton getButton() {",
-						"    if (button == null) {",
-						"      button = new JButton();",
-						"    }",
-						"    return button;",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  private JPanel panel;",
-						"  private JButton button;",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(getPanel(), BorderLayout.NORTH);",
-						"    add(getButton(), BorderLayout.SOUTH);",
-						"  }",
-						"  private JPanel getPanel() {",
-						"    if (panel == null) {",
-						"      panel = new JPanel();",
-						"    }",
-						"    return panel;",
-						"  }",
-						"  private JButton getButton() {",
-						"    if (button == null) {",
-						"      button = new JButton();",
-						"    }",
-						"    return button;",
-						"  }",
-		"}"};
+		String lines = """
+				public class Test extends JPanel {
+					private JPanel panel;
+					private JButton button;
+					public Test() {
+						setLayout(new BorderLayout());
+						add(getPanel(), BorderLayout.NORTH);
+					}
+					private JPanel getPanel() {
+						if (panel == null) {
+							panel = new JPanel();
+							panel.add(getButton());
+						}
+						return panel;
+					}
+					private JButton getButton() {
+						if (button == null) {
+							button = new JButton();
+						}
+						return button;
+					}
+				}""";
+		String expectedLines = """
+				public class Test extends JPanel {
+					private JPanel panel;
+					private JButton button;
+					public Test() {
+						setLayout(new BorderLayout());
+						add(getPanel(), BorderLayout.NORTH);
+						add(getButton(), BorderLayout.SOUTH);
+					}
+					private JPanel getPanel() {
+						if (panel == null) {
+							panel = new JPanel();
+						}
+						return panel;
+					}
+					private JButton getButton() {
+						if (button == null) {
+							button = new JButton();
+						}
+						return button;
+					}
+				}""";
 		check_reparenting(lines, expectedLines);
 	}
 
 	/**
 	 * Test for reparenting to SOUTH.
 	 */
-	private void check_reparenting(String[] lines, String[] expectedLines) throws Exception {
+	private void check_reparenting(String lines, String expectedLines) throws Exception {
 		ContainerInfo panel = parseContainer(lines);
 		// reparent component
 		{
@@ -457,17 +446,16 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_constraintsProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare "Constraints" property
@@ -480,31 +468,30 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 		assertTrue(constraintsProperty.isModified());
 		assertEquals("North", constraintsProperty.getValue());
 		constraintsProperty.setValue("South");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, BorderLayout.SOUTH);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.SOUTH);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_constraintsProperty_unsupportedRegion() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button, BorderLayout.BEFORE_FIRST_LINE);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							add(button, BorderLayout.BEFORE_FIRST_LINE);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare "Constraints" property
@@ -522,14 +509,13 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getEmptyRegion_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(new JButton(), BorderLayout.NORTH);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.NORTH);
+					}
+				}""");
 		panel.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		//
@@ -541,14 +527,13 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getEmptyRegion_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(new JButton(), BorderLayout.SOUTH);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.SOUTH);
+					}
+				}""");
 		panel.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		//
@@ -560,15 +545,14 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getEmptyRegion_3() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(new JButton(), BorderLayout.NORTH);",
-						"    add(new JButton(), BorderLayout.SOUTH);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.NORTH);
+						add(new JButton(), BorderLayout.SOUTH);
+					}
+				}""");
 		panel.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		//
@@ -580,18 +564,17 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getEmptyRegion_4() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    add(new JButton(), BorderLayout.NORTH);",
-						"    add(new JButton(), BorderLayout.SOUTH);",
-						"    add(new JButton(), BorderLayout.WEST);",
-						"    add(new JButton(), BorderLayout.EAST);",
-						"    add(new JButton(), BorderLayout.CENTER);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						add(new JButton(), BorderLayout.NORTH);
+						add(new JButton(), BorderLayout.SOUTH);
+						add(new JButton(), BorderLayout.WEST);
+						add(new JButton(), BorderLayout.EAST);
+						add(new JButton(), BorderLayout.CENTER);
+					}
+				}""");
 		panel.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		//

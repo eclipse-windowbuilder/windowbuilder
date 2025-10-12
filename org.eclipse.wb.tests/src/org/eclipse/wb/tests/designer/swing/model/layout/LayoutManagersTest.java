@@ -74,13 +74,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_isActive() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// prepare implicit layout
 		LayoutInfo oldLayout = panel.getLayout();
 		assertTrue(oldLayout.isActive());
@@ -100,12 +99,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_isActive_forDisconnected() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// prepare new Layout
 		LayoutInfo newLayout = createJavaInfo("java.awt.FlowLayout");
 		assertFalse(newLayout.isActive());
@@ -121,16 +120,15 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		LayoutInfo layout = panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		Assertions.assertThat(layout.getComponents()).containsExactly(button);
@@ -141,16 +139,15 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getComponents_ifNotActive() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		// prepare layouts
 		LayoutInfo oldLayout = panel.getLayout();
@@ -175,13 +172,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_isManagedObject_simpleFalse() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		LayoutInfo layout = panel.getLayout();
 		// not ComponentInfo
 		{
@@ -200,16 +196,15 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_isManagedObject_simpleTrue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		LayoutInfo layout = panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		//
@@ -221,16 +216,15 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_isManagedObject_falseBecauseNotActive() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		// prepare layouts
 		LayoutInfo oldLayout = panel.getLayout();
@@ -252,30 +246,27 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_isManagedObject_falseBecauseIndirectlyExposed() throws Exception {
-		setFileContentSrc(
-				"test/Super.java",
-				getTestSource(
-						"public class Super extends JPanel {",
-						"  private JPanel panel = new JPanel();",
-						"  private JButton button = new JButton();",
-						"  public Super() {",
-						"    setLayout(new GridBagLayout());",
-						"    add(panel);",
-						"    panel.add(button);",
-						"  }",
-						"  public JButton getButton() {",
-						"    return button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Super.java", getTestSource("""
+				public class Super extends JPanel {
+					private JPanel panel = new JPanel();
+					private JButton button = new JButton();
+					public Super() {
+						setLayout(new GridBagLayout());
+						add(panel);
+						panel.add(button);
+					}
+					public JButton getButton() {
+						return button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends Super {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends Super {
+					public Test() {
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("getButton()");
 		assertNotNull(button);
 		// prepare layouts
@@ -294,25 +285,23 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_3_BorderLayout_add_1_local_flat() throws Exception {
-		String[] initialLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"    ",
-						"    JButton button = new JButton(\"New button\");",
-						"    panel.add(button, BorderLayout.NORTH);",
-						"  }",
-		"}"};
+		String initialLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+					}
+				}""";
+		String expectedLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+				\t\t
+						JButton button = new JButton(\"New button\");
+						panel.add(button, BorderLayout.NORTH);
+					}
+				}""";
 		//
 		check_BorderLayout_add(
 				initialLines,
@@ -331,20 +320,16 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_2_BorderLayout() throws Exception {
-		ContainerInfo panel =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test.java",
-						getSourceDQ(
-								"package test;",
-								"import java.awt.*;",
-								"import javax.swing.*;",
-								"class Test {",
-								"  public static void main(String args[]) {",
-								"    JPanel panel = new JPanel();",
-								"    panel.setLayout(new BorderLayout());",
-								"  }",
-								"}"));
+		ContainerInfo panel = (ContainerInfo) parseSource("test", "Test.java", """
+				package test;
+				import java.awt.*;
+				import javax.swing.*;
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+					}
+				}""");
 		assertEquals(1, panel.getChildren().size());
 		assertSame(BorderLayoutInfo.class, panel.getChildren().get(0).getClass());
 		assertSame(panel.getLayout(), panel.getChildren().get(0));
@@ -355,26 +340,24 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_3_BorderLayout_add_2_field_flat() throws Exception {
-		String[] initialLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"class Test {",
-						"  private static JButton button;",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"    ",
-						"    button = new JButton(\"New button\");",
-						"    panel.add(button, BorderLayout.NORTH);",
-						"  }",
-		"}"};
+		String initialLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+					}
+				}""";
+		String expectedLines = """
+				class Test {
+					private static JButton button;
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+				\t\t
+						button = new JButton(\"New button\");
+						panel.add(button, BorderLayout.NORTH);
+					}
+				}""";
 		check_BorderLayout_add(
 				initialLines,
 				FieldUniqueVariableDescription.INSTANCE,
@@ -392,25 +375,23 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_3_BorderLayout_add_fieldInitializer_flat() throws Exception {
-		String[] initialLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"class Test {",
-						"  private static final JButton button = new JButton(\"New button\");",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"    ",
-						"    panel.add(button, BorderLayout.NORTH);",
-						"  }",
-		"}"};
+		String initialLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+					}
+				}""";
+		String expectedLines = """
+				class Test {
+					private static final JButton button = new JButton(\"New button\");
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+				\t\t
+						panel.add(button, BorderLayout.NORTH);
+					}
+				}""";
 		check_BorderLayout_add(
 				initialLines,
 				FieldInitializerVariableDescription.INSTANCE,
@@ -428,26 +409,24 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_3_BorderLayout_add_4_local_block() throws Exception {
-		String[] initialLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"    {",
-						"      JButton button = new JButton(\"New button\");",
-						"      panel.add(button, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-		"}"};
+		String initialLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+					}
+				}""";
+		String expectedLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+						{
+							JButton button = new JButton(\"New button\");
+							panel.add(button, BorderLayout.NORTH);
+						}
+					}
+				}""";
 		check_BorderLayout_add(
 				initialLines,
 				LocalUniqueVariableDescription.INSTANCE,
@@ -465,30 +444,28 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_3_BorderLayout_add_5_lazy() throws Exception {
-		String[] initialLines =
-				new String[]{
-						"class Test {",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"  }",
-		"}"};
-		String[] expectedLines =
-				new String[]{
-						"class Test {",
-						"  private static JButton button;",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"    panel.add(getButton(), BorderLayout.NORTH);",
-						"  }",
-						"  private static JButton getButton() {",
-						"    if (button == null) {",
-						"      button = new JButton(\"New button\");",
-						"    }",
-						"    return button;",
-						"  }",
-		"}"};
+		String initialLines = """
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+					}
+				}""";
+		String expectedLines = """
+				class Test {
+					private static JButton button;
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+						panel.add(getButton(), BorderLayout.NORTH);
+					}
+					private static JButton getButton() {
+						if (button == null) {
+							button = new JButton(\"New button\");
+						}
+						return button;
+					}
+				}""";
 		//
 		ContainerInfo panel =
 				check_BorderLayout_add(
@@ -507,10 +484,10 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 		assert_creation(panel);
 	}
 
-	private ContainerInfo check_BorderLayout_add(String[] initialLines,
+	private ContainerInfo check_BorderLayout_add(String initialLines,
 			VariableSupportDescription variable,
 			StatementGeneratorDescription statement,
-			String[] expectedLines,
+			String expectedLines,
 			String[] expectedChildNodes,
 			String[] expectedParentNodes) throws Exception {
 		ContainerInfo panel = parseContainer(initialLines);
@@ -552,13 +529,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_getPresentation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		LayoutInfo layout = panel.getLayout();
 		assertVisible(layout, false);
 	}
@@ -573,14 +549,13 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_delete() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new java.awt.BorderLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new java.awt.BorderLayout());
+					}
+				}""");
 		// check explicit layout
 		{
 			LayoutInfo layout = panel.getLayout();
@@ -592,12 +567,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 		{
 			LayoutInfo layout = panel.getLayout();
 			assertTrue(layout instanceof FlowLayoutInfo);
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+						}
+					}""");
 		}
 	}
 
@@ -606,24 +581,23 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_delete2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new java.awt.BorderLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new java.awt.BorderLayout());
+					}
+				}""");
 		//
 		Property layoutProperty = panel.getPropertyByTitle("Layout");
 		layoutProperty.setValue(Property.UNKNOWN_VALUE);
 		// check source
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -637,13 +611,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_replace() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+						// filler filler filler
+						public class Test extends JPanel {
+							public Test() {
+							}
+						}""");
 		assertInstanceOf(FlowLayoutInfo.class, panel.getLayout());
 		// set GridLayout
 		LayoutInfo gridLayout =
@@ -654,13 +627,13 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 		panel.setLayout(gridLayout);
 		// check source
 		assertInstanceOf(GridLayoutInfo.class, panel.getLayout());
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, 0, 0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout(1, 0, 0, 0));
+					}
+				}""");
 	}
 
 	/**
@@ -669,13 +642,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_replace2() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+					}
+				}""");
 		// set logger for adding layouts
 		final StringBuffer buffer = new StringBuffer();
 		panel.addBroadcastListener(new ObjectInfoChildAddAfter() {
@@ -696,12 +668,12 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 		// check for added layouts (events)
 		assertEquals("layout added: java.awt.GridLayout", buffer.toString());
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, 0, 0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout(1, 0, 0, 0));
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -714,18 +686,14 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_layoutComplexProperty() throws Exception {
-		ContainerInfo panel =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test.java",
-						getSourceDQ(
-								"package test;",
-								"import javax.swing.*;",
-								"class Test {",
-								"  public static void main(String args[]) {",
-								"    JPanel panel = new JPanel();",
-								"  }",
-								"}"));
+		ContainerInfo panel = (ContainerInfo) parseSource("test", "Test.java", """
+				package test;
+				import javax.swing.*;
+				class Test {
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		Property layoutProperty = panel.getPropertyByTitle("Layout");
 		assertTrue(layoutProperty instanceof ComplexProperty);
 		assertTrue(layoutProperty.isModified());
@@ -756,29 +724,28 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_removeConstraints_whenReplaceLayout() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      Button button = new Button();",
-						"      add(button, BorderLayout.WEST);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							Button button = new Button();
+							add(button, BorderLayout.WEST);
+						}
+					}
+				}""");
 		refresh();
 		//
 		panel.getLayout().delete();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      Button button = new Button();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							Button button = new Button();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -786,67 +753,65 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_removeConstraints_whenReplaceLayout_addDeprecated() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new CardLayout());",
-						"    {",
-						"      Button button = new Button();",
-						"      add('name', button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new CardLayout());
+						{
+							Button button = new Button();
+							add("name", button);
+						}
+					}
+				}""");
 		refresh();
 		//
 		panel.getLayout().delete();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      Button button = new Button();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							Button button = new Button();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_removeConstraints_whenReparent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JPanel inner = new JPanel();",
-						"      inner.setLayout(null);",
-						"      add(inner);",
-						"      {",
-						"        Button button = new Button();",
-						"        button.setBounds(10, 20, 100, 50);",
-						"        inner.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							{
+								Button button = new Button();
+								button.setBounds(10, 20, 100, 50);
+								inner.add(button);
+							}
+						}
+					}
+				}""");
 		ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = inner.getChildrenComponents().get(0);
 		//
 		((FlowLayoutInfo) panel.getLayout()).move(button, null);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JPanel inner = new JPanel();",
-				"      inner.setLayout(null);",
-				"      add(inner);",
-				"    }",
-				"    {",
-				"      Button button = new Button();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+						}
+						{
+							Button button = new Button();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -854,19 +819,18 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	// Code generation: name, based on template
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void check_nameTemplate(String template, String... lines) throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      panel.setLayout(new FlowLayout(FlowLayout.CENTER));",
-						"      add(panel);",
-						"    }",
-						"  }",
-						"}");
+	private void check_nameTemplate(String template, String lines) throws Exception {
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+							add(panel);
+						}
+					}
+				}""");
 		panel.refresh();
 		ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
 		LayoutInfo layout = innerPanel.getLayout();
@@ -885,19 +849,19 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	@Test
 	public void test_nameTemplate_useDefaultName() throws Exception {
 		check_nameTemplate(
-				org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT,
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER);",
-				"      flowLayout.setHgap(7);",
-				"      panel.setLayout(flowLayout);",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+				org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT, """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER);
+							flowLayout.setHgap(7);
+							panel.setLayout(flowLayout);
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -906,19 +870,19 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	@Test
 	public void test_nameTemplate_alternativeTemplate_1() throws Exception {
 		check_nameTemplate(
-				"${layoutAcronym}${containerName-cap}",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      FlowLayout flPanel = new FlowLayout(FlowLayout.CENTER);",
-				"      flPanel.setHgap(7);",
-				"      panel.setLayout(flPanel);",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+				"${layoutAcronym}${containerName-cap}", """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							FlowLayout flPanel = new FlowLayout(FlowLayout.CENTER);
+							flPanel.setHgap(7);
+							panel.setLayout(flPanel);
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -927,19 +891,19 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	@Test
 	public void test_nameTemplate_alternativeTemplate_2() throws Exception {
 		check_nameTemplate(
-				"${containerName}${layoutClassName}",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      FlowLayout panelFlowLayout = new FlowLayout(FlowLayout.CENTER);",
-				"      panelFlowLayout.setHgap(7);",
-				"      panel.setLayout(panelFlowLayout);",
-				"      add(panel);",
-				"    }",
-				"  }",
-				"}");
+				"${containerName}${layoutClassName}", """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							FlowLayout panelFlowLayout = new FlowLayout(FlowLayout.CENTER);
+							panelFlowLayout.setHgap(7);
+							panel.setLayout(panelFlowLayout);
+							add(panel);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -951,42 +915,40 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	public void test_nameTemplate_ignoreDuringParsing() throws Exception {
 		setFileContentSrc(
 				"test/MyLayout.java",
-				getTestSource(
-						"public class MyLayout extends FlowLayout {",
-						"  public MyLayout(Container container) {",
-						"    container.setLayout(this);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyLayout extends FlowLayout {
+							public MyLayout(Container container) {
+								container.setLayout(this);
+							}
+						}"""));
 		setFileContentSrc(
-				"test/MyLayout.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='java.awt.Container' parent='true'/>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
+				"test/MyLayout.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="java.awt.Container" parent="true"/>
+						</constructor>
+					</constructors>
+				</component>""");
 		waitForAutoBuild();
 		// set template
 		Activator.getDefault().getPreferenceStore().setValue(
 				org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE,
 				"${containerName}${layoutClassName}");
 		// parse and check that source was not changed
-		String[] lines =
-			{
-					"class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(null);",
-					"    {",
-					"      JPanel panel = new JPanel();",
-					"      MyLayout layout = new MyLayout(panel);",
-					"      panel.setLayout(layout);",
-					"      add(panel);",
-					"    }",
-					"  }",
-			"}"};
+		String lines = """
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							MyLayout layout = new MyLayout(panel);
+							panel.setLayout(layout);
+							add(panel);
+						}
+					}
+				}""";
 		parseJavaInfo(lines);
 		assertEditor(lines);
 	}
@@ -1003,40 +965,40 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	public void test_customImplementationOf_LayoutManager() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    final LayoutManager layout = new FlowLayout();",
-						"    setLayout(new LayoutManager() {",
-						"      public void addLayoutComponent(String name, Component comp) {",
-						"        layout.addLayoutComponent(name, comp);",
-						"      }",
-						"      public void removeLayoutComponent(Component comp) {",
-						"        layout.removeLayoutComponent(comp);",
-						"      }",
-						"      public Dimension preferredLayoutSize(Container parent) {",
-						"        return layout.preferredLayoutSize(parent);",
-						"      }",
-						"      public Dimension minimumLayoutSize(Container parent) {",
-						"        return layout.minimumLayoutSize(parent);",
-						"      }",
-						"      public void layoutContainer(Container parent) {",
-						"        layout.layoutContainer(parent);",
-						"      }",
-						"    });",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyPanel extends JPanel {
+							public MyPanel() {
+								final LayoutManager layout = new FlowLayout();
+								setLayout(new LayoutManager() {
+									public void addLayoutComponent(String name, Component comp) {
+										layout.addLayoutComponent(name, comp);
+									}
+									public void removeLayoutComponent(Component comp) {
+										layout.removeLayoutComponent(comp);
+									}
+									public Dimension preferredLayoutSize(Container parent) {
+										return layout.preferredLayoutSize(parent);
+									}
+									public Dimension minimumLayoutSize(Container parent) {
+										return layout.minimumLayoutSize(parent);
+									}
+									public void layoutContainer(Container parent) {
+										layout.layoutContainer(parent);
+									}
+								});
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		parseJavaInfo(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {}",
-				"  {implicit-layout: test.MyPanel$1} {implicit-layout} {}");
+		parseJavaInfo("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {}
+					{implicit-layout: test.MyPanel$1} {implicit-layout} {}""");
 	}
 }

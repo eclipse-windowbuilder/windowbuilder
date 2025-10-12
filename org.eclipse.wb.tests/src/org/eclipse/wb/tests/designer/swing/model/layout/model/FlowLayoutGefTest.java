@@ -201,7 +201,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 									m_button = new JButton("Button");
 									add(m_button);
 								}
-							  }
+							}
 						}"""));
 		waitForAutoBuild();
 		// parse

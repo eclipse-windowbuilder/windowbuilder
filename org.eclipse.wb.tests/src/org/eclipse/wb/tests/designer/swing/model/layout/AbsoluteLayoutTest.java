@@ -100,20 +100,19 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	@Test
 	public void test_object() throws Exception {
 		String buttonText = "The Button";
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(null);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setText('" + buttonText + "');",
-						"      button.setBounds(10, 10, 100, 100);",
-						"      panel.add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+						panel.setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setText("%s");
+							button.setBounds(10, 10, 100, 100);
+							panel.add(button);
+						}
+					}
+				}""".formatted(buttonText));
 		// check layout itself
 		{
 			AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) panel.getLayout();
@@ -211,16 +210,15 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 
 	@Test
 	public void test_parseReplacedContentPane() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"public class Test extends JFrame {",
-						"  private JPanel m_contentPane;",
-						"  public Test() {",
-						"    m_contentPane = new JPanel();",
-						"    m_contentPane.setLayout(null);",
-						"    setContentPane(m_contentPane);",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				public class Test extends JFrame {
+					private JPanel m_contentPane;
+					public Test() {
+						m_contentPane = new JPanel();
+						m_contentPane.setLayout(null);
+						setContentPane(m_contentPane);
+					}
+				}""");
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		assertEquals("new JPanel()", m_lastEditor.getSource(contentPane.getCreationSupport().getNode()));
 		// check that "contentPane" has absolute layout
@@ -234,13 +232,12 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_layoutComplexProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						setLayout(null);
+					}
+				}""");
 		Property layoutProperty = panel.getPropertyByTitle("Layout");
 		assertTrue(layoutProperty instanceof ComplexProperty);
 		assertTrue(layoutProperty.isModified());
@@ -256,21 +253,20 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	public void test_implicit() throws Exception {
 		setFileContentSrc(
 				"test/AbsolutePanel.java",
-				getTestSource(
-						"public class AbsolutePanel extends JPanel {",
-						"  public AbsolutePanel() {",
-						"    setLayout(null);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class AbsolutePanel extends JPanel {
+							public AbsolutePanel() {
+								setLayout(null);
+							}
+						}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends AbsolutePanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends AbsolutePanel {
+					public Test() {
+					}
+				}""");
 		LayoutInfo layout = panel.getLayout();
 		assertInstanceOf(AbsoluteLayoutInfo.class, layout);
 		assertInstanceOf(ImplicitLayoutVariableSupport.class, layout.getVariableSupport());
@@ -284,26 +280,25 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		// replace with explicit BorderLayout
 		{
 			setLayout(panel, BorderLayout.class);
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends AbsolutePanel {",
-					"  public Test() {",
-					"    setLayout(new BorderLayout(0, 0));",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends AbsolutePanel {
+						public Test() {
+							setLayout(new BorderLayout(0, 0));
+						}
+					}""");
 			assertInstanceOf(BorderLayoutInfo.class, panel.getLayout());
 		}
 	}
 
 	@Test
 	public void test_absoluteOnContentPane() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"class Test extends JFrame {",
-						"  Test() {",
-						"    getContentPane().setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				class Test extends JFrame {
+					Test() {
+						getContentPane().setLayout(null);
+					}
+				}""");
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		assertEquals(
 				"{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {/getContentPane().setLayout(null)/}",
@@ -327,13 +322,12 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	public void test_initialize_setLayout() throws Exception {
 		addParticipatorExtension(AbsoluteLayout_Participator.class.getName());
 		try {
-			ContainerInfo panel =
-					parseContainer(
-							"class Test extends JPanel {",
-							"  Test() {",
-							"    setLayout(null);",
-							"  }",
-							"}");
+			ContainerInfo panel = parseContainer("""
+					class Test extends JPanel {
+						Test() {
+							setLayout(null);
+						}
+					}""");
 			// should have AbsoluteLayoutInfo
 			assertInstanceOf(AbsoluteLayoutInfo.class, panel.getLayout());
 			// ...and initialized
@@ -354,21 +348,20 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		try {
 			setFileContentSrc(
 					"test/NullPanel.java",
-					getTestSource(
-							"public class NullPanel extends JPanel {",
-							"  public NullPanel() {",
-							"    setLayout(null);",
-							"  }",
-							"}"));
+					getTestSource("""
+							public class NullPanel extends JPanel {
+								public NullPanel() {
+									setLayout(null);
+								}
+							}"""));
 			waitForAutoBuild();
 			// parse
-			ContainerInfo panel =
-					parseContainer(
-							"// filler filler filler",
-							"public class Test extends NullPanel {",
-							"  public Test() {",
-							"  }",
-							"}");
+			ContainerInfo panel = parseContainer("""
+					// filler filler filler
+					public class Test extends NullPanel {
+						public Test() {
+						}
+					}""");
 			// should have AbsoluteLayoutInfo
 			assertInstanceOf(AbsoluteLayoutInfo.class, panel.getLayout());
 			// ...and initialized
@@ -402,17 +395,16 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_setBounds() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    //",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"    button.setBounds(10, 20, 100, 50);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						//
+						JButton button = new JButton();
+						add(button);
+						button.setBounds(10, 20, 100, 50);
+					}
+				}""");
 		ContainerInfo buttonInfo = (ContainerInfo) panel.getChildrenComponents().get(0);
 		//
 		panel.refresh();
@@ -438,18 +430,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_setLocationSize() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    //",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"    button.setLocation(new Point(10, 20));",
-						"    button.setSize(new Dimension(100, 50));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						//
+						JButton button = new JButton();
+						add(button);
+						button.setLocation(new Point(10, 20));
+						button.setSize(new Dimension(100, 50));
+					}
+				}""");
 		ContainerInfo buttonInfo = (ContainerInfo) panel.getChildrenComponents().get(0);
 		//
 		panel.refresh();
@@ -470,13 +461,12 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_setLayout() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+					}
+				}""");
 		assertInstanceOf(AbsoluteLayoutInfo.class, panel.getLayout());
 		//
 		LayoutInfo borderLayout =
@@ -486,12 +476,12 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 						new ConstructorCreationSupport());
 		panel.setLayout(borderLayout);
 		//
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(new BorderLayout(0, 0));
+					}
+				}""");
 		assertSame(borderLayout, panel.getLayout());
 	}
 
@@ -506,35 +496,34 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_removeComponentConstraints() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setLocation(0, 1);",
-						"      button.setLocation(new Point(0, 1));",
-						"      button.setSize(2, 3);",
-						"      button.setSize(new Dimension(2, 3));",
-						"      button.setBounds(0, 1, 2, 3);",
-						"      button.setBounds(new Rectangle(0, 1, 2, 3));",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setLocation(0, 1);
+							button.setLocation(new Point(0, 1));
+							button.setSize(2, 3);
+							button.setSize(new Dimension(2, 3));
+							button.setBounds(0, 1, 2, 3);
+							button.setBounds(new Rectangle(0, 1, 2, 3));
+							add(button);
+						}
+					}
+				}""");
 		// delete AbsoluteLayoutInfo
 		panel.getLayout().delete();
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -542,17 +531,16 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_onSet_setLayout() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// initially "button" in not on absolute layout, so no "Bounds" property
@@ -565,18 +553,18 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		//
 		Dimension preferredSize = button.getPreferredSize();
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setSize(450, 300);",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(208, 5, " + preferredSize.width + ", " + preferredSize.height + ");",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setSize(450, 300);
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(208, 5, %d, %d);
+							add(button);
+						}
+					}
+				}""".formatted(preferredSize.width, preferredSize.height));
 		// now "button" in on absolute layout, so has "Bounds" property
 		assertNotNull(button.getPropertyByTitle("Bounds"));
 	}
@@ -588,26 +576,25 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	public void test_onSet_implicit() throws Exception {
 		setFileContentSrc(
 				"test/AbsolutePanel.java",
-				getTestSource(
-						"public class AbsolutePanel extends JPanel {",
-						"  public AbsolutePanel() {",
-						"    setLayout(null);",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class AbsolutePanel extends JPanel {
+							public AbsolutePanel() {
+								setLayout(null);
+							}
+						}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends AbsolutePanel {",
-						"  public Test() {",
-						"    setLayout(new FlowLayout());",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends AbsolutePanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		//
 		panel.refresh();
 		try {
@@ -629,17 +616,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension preferredSize = button.getPreferredSize();
 		// check source
-		assertEditor(
-				"public class Test extends AbsolutePanel {",
-				"  public Test() {",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(208, 5, " + preferredSize.width + ", " + preferredSize.height + ");",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends AbsolutePanel {
+					public Test() {
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(208, 5, %d, %d);
+							add(button);
+						}
+					}
+				}""".formatted(preferredSize.width, preferredSize.height));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -649,177 +636,172 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_moveUsingPoint() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setBounds(10, 10, 34, 10);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 10, 34, 10);
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, new Point(20, 20), null);
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(20, 20, 34, 10);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(20, 20, 34, 10);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_moveAddBounds() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, new Point(20, 20), new Dimension(34, 10));
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(20, 20, 34, 10);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(20, 20, 34, 10);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_moveChangeBoundsAsRectangle() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setBounds(new Rectangle(10, 10, 34, 10));",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(new Rectangle(10, 10, 34, 10));
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, new Point(20, 20), null);
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(new Rectangle(20, 20, 34, 10));",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(new Rectangle(20, 20, 34, 10));
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_moveUsingSetLocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setLocation(new Point(10, 10));",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setLocation(new Point(10, 10));
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, new Point(20, 20), null);
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setLocation(new Point(20, 20));",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setLocation(new Point(20, 20));
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_moveAddSetLocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setSize(new Dimension(10, 10));",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setSize(new Dimension(10, 10));
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, new Point(20, 20), null);
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setLocation(20, 20);",
-				"      button.setSize(new Dimension(10, 10));",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setLocation(20, 20);
+							button.setSize(new Dimension(10, 10));
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -829,143 +811,139 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_resizeUsingPoint() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setBounds(10, 10, 34, 10);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 10, 34, 10);
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, null, new Dimension(100, 100));
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(10, 10, 100, 100);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 10, 100, 100);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_resizeChangeBoundsAsRectangle() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setBounds(new Rectangle(10, 10, 34, 10));",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(new Rectangle(10, 10, 34, 10));
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, null, new Dimension(100, 100));
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(new Rectangle(10, 10, 100, 100));",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setBounds(new Rectangle(10, 10, 100, 100));
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_resizeUsingSetSize() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setSize(new Dimension(100, 100));",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setSize(new Dimension(100, 100));
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, null, new Dimension(110, 100));
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setSize(new Dimension(110, 100));",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setSize(new Dimension(110, 100));
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_resizeAddSetSize() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    setSize(450, 300);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setLocation(10, 10);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setLocation(10, 10);
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo = panel.getChildrenComponents().get(0);
 		AbsoluteLayoutInfo layoutInfo = (AbsoluteLayoutInfo) panel.getLayout();
 		// perform code modifications
 		layoutInfo.command_BOUNDS(buttonInfo, null, new Dimension(100, 100));
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    setSize(450, 300);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setSize(100, 100);",
-				"      button.setLocation(10, 10);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						setSize(450, 300);
+						{
+							JButton button = new JButton();
+							button.setSize(100, 100);
+							button.setLocation(10, 10);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -978,21 +956,20 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_ordering() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      add(button_0);",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button_0 = new JButton();
+							add(button_0);
+						}
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+					}
+				}""");
 		ComponentInfo button_0 = panel.getChildrenComponents().get(0);
 		// send "button_0" back
 		{
@@ -1003,20 +980,20 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 			action.run();
 		}
 		// check result
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1);",
-				"    }",
-				"    {",
-				"      JButton button_0 = new JButton();",
-				"      add(button_0);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_0 = new JButton();
+							add(button_0);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1037,18 +1014,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_autoSize() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      button.setBounds(10, 20, 200, 100);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							add(button);
+							button.setBounds(10, 20, 200, 100);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Dimension buttonPrefSize = button.getPreferredSize();
@@ -1062,21 +1038,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		}
 		// perform auto-size
 		autoSizeAction.run();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"      button.setBounds(10, 20, "
-						+ buttonPrefSize.width
-						+ ", "
-						+ buttonPrefSize.height
-						+ ");",
-						"    }",
-						"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							add(button);
+							button.setBounds(10, 20, %d, %d);
+						}
+					}
+				}""".formatted(buttonPrefSize.width, buttonPrefSize.height));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1088,18 +1060,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 * Helper method preparing to test "Bounds" property.
 	 */
 	private Property prepareBoundsProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setBounds(10, 30, 100, 200);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 30, 100, 200);
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		Property boundsProperty = panel.getChildrenComponents().get(0).getPropertyByTitle("Bounds");
 		return boundsProperty;
@@ -1140,17 +1111,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		Property subProperty = getBoundsPropertySubProperty("x");
 		assertNotNull(subProperty);
 		subProperty.setValue(0);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(0, 30, 100, 200);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(0, 30, 100, 200);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1176,17 +1147,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		Property subProperty = getBoundsPropertySubProperty("y");
 		assertNotNull(subProperty);
 		subProperty.setValue(5);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(10, 5, 100, 200);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 5, 100, 200);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1209,17 +1180,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		Property subProperty = getBoundsPropertySubProperty("width");
 		assertNotNull(subProperty);
 		subProperty.setValue(150);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(10, 30, 150, 200);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 30, 150, 200);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1242,17 +1213,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		Property subProperty = getBoundsPropertySubProperty("height");
 		assertNotNull(subProperty);
 		subProperty.setValue(220);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(10, 30, 100, 220);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(10, 30, 100, 220);
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1305,26 +1276,25 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	public void test_canMove() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  private JButton m_button = new JButton();",
-						"  public MyPanel() {",
-						"    setLayout(null);",
-						"    add(m_button);",
-						"  }",
-						"  public JButton getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+				getTestSource("""
+						public class MyPanel extends JPanel {
+							private JButton m_button = new JButton();
+							public MyPanel() {
+								setLayout(null);
+								add(m_button);
+							}
+							public JButton getButton() {
+								return m_button;
+							}
+						}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		assertInstanceOf(AbsoluteLayoutInfo.class, panel.getLayout());
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check permissions
@@ -1344,18 +1314,17 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton buttonA = new JButton();",
-						"      add(buttonA);",
-						"      buttonA.setBounds(10, 20, 100, 50);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+							buttonA.setBounds(10, 20, 100, 50);
+						}
+					}
+				}""");
 		panel.refresh();
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) panel.getLayout();
 		ContainerInfo buttonA = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -1363,22 +1332,22 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 		ComponentInfo newButton = createJButton();
 		layout.command_CREATE(newButton, buttonA);
 		layout.command_BOUNDS(newButton, new Point(1, 2), new Dimension(3, 4));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setBounds(1, 2, 3, 4);",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JButton buttonA = new JButton();",
-				"      add(buttonA);",
-				"      buttonA.setBounds(10, 20, 100, 50);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							button.setBounds(1, 2, 3, 4);
+							add(button);
+						}
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+							buttonA.setBounds(10, 20, 100, 50);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1386,45 +1355,44 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_MOVE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton buttonA = new JButton();",
-						"      add(buttonA);",
-						"      buttonA.setBounds(10, 20, 100, 50);",
-						"    }",
-						"    {",
-						"      JButton buttonB = new JButton();",
-						"      add(buttonB);",
-						"      buttonB.setBounds(20, 100, 50, 20);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+							buttonA.setBounds(10, 20, 100, 50);
+						}
+						{
+							JButton buttonB = new JButton();
+							add(buttonB);
+							buttonB.setBounds(20, 100, 50, 20);
+						}
+					}
+				}""");
 		panel.refresh();
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) panel.getLayout();
 		ContainerInfo buttonA = (ContainerInfo) panel.getChildrenComponents().get(0);
 		ContainerInfo buttonB = (ContainerInfo) panel.getChildrenComponents().get(1);
 		// do move
 		layout.command_MOVE(buttonB, buttonA);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton buttonB = new JButton();",
-				"      add(buttonB);",
-				"      buttonB.setBounds(20, 100, 50, 20);",
-				"    }",
-				"    {",
-				"      JButton buttonA = new JButton();",
-				"      add(buttonA);",
-				"      buttonA.setBounds(10, 20, 100, 50);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton buttonB = new JButton();
+							add(buttonB);
+							buttonB.setBounds(20, 100, 50, 20);
+						}
+						{
+							JButton buttonA = new JButton();
+							add(buttonA);
+							buttonA.setBounds(10, 20, 100, 50);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1438,48 +1406,47 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	@Test
 	public void test_BOUNDS_CreationFlow() throws Exception {
 		preferences.setValue(IPreferenceConstants.P_CREATION_FLOW, true);
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button1 = new JButton();",
-						"      add(button1);",
-						"      button1.setBounds(5, 5, 100, 30);",
-						"      button1.setText('Button1');",
-						"    }",
-						"    {",
-						"      JButton button2 = new JButton();",
-						"      add(button2);",
-						"      button2.setBounds(110, 50, 100, 30);",
-						"      button2.setText('Button2');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton button1 = new JButton();
+							add(button1);
+							button1.setBounds(5, 5, 100, 30);
+							button1.setText("Button1");
+						}
+						{
+							JButton button2 = new JButton();
+							add(button2);
+							button2.setBounds(110, 50, 100, 30);
+							button2.setText("Button2");
+						}
+					}
+				}""");
 		panel.refresh();
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) panel.getLayout();
 		ContainerInfo button1 = getJavaInfoByName("button1");
 		// move button1 under button2
 		layout.command_BOUNDS(button1, new Point(110, 90), null);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JButton button2 = new JButton();",
-				"      add(button2);",
-				"      button2.setBounds(110, 50, 100, 30);",
-				"      button2.setText('Button2');",
-				"    }",
-				"    {",
-				"      JButton button1 = new JButton();",
-				"      add(button1);",
-				"      button1.setBounds(110, 90, 100, 30);",
-				"      button1.setText('Button1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton button2 = new JButton();
+							add(button2);
+							button2.setBounds(110, 50, 100, 30);
+							button2.setText("Button2");
+						}
+						{
+							JButton button1 = new JButton();
+							add(button1);
+							button1.setBounds(110, 90, 100, 30);
+							button1.setText("Button1");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1492,22 +1459,21 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 	 */
 	@Test
 	public void test_clipboard() throws Exception {
-		String[] lines1 =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JPanel inner = new JPanel();",
-					"      inner.setLayout(null);",
-					"      add(inner);",
-					"      {",
-					"        JButton button = new JButton();",
-					"        inner.add(button);",
-					"        button.setBounds(1, 2, 3, 4);",
-					"      }",
-					"    }",
-					"  }",
-			"}"};
+		String lines1 = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							{
+								JButton button = new JButton();
+								inner.add(button);
+								button.setBounds(1, 2, 3, 4);
+							}
+						}
+					}
+				}""";
 		final ContainerInfo panel = parseContainer(lines1);
 		panel.refresh();
 		// prepare memento
@@ -1525,41 +1491,40 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 				memento.apply();
 			}
 		});
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JPanel inner = new JPanel();",
-					"      inner.setLayout(null);",
-					"      add(inner);",
-					"      {",
-					"        JButton button = new JButton();",
-					"        inner.add(button);",
-					"        button.setBounds(1, 2, 3, 4);",
-					"      }",
-					"    }",
-					"    {",
-					"      JPanel inner = new JPanel();",
-					"      inner.setLayout(null);",
-					"      add(inner);",
-					"      {",
-					"        JButton button = new JButton();",
-					"        button.setBounds(1, 2, 3, 4);",
-					"        inner.add(button);",
-					"      }",
-					"    }",
-					"  }",
-			"}"};
+		String lines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							{
+								JButton button = new JButton();
+								inner.add(button);
+								button.setBounds(1, 2, 3, 4);
+							}
+						}
+						{
+							JPanel inner = new JPanel();
+							inner.setLayout(null);
+							add(inner);
+							{
+								JButton button = new JButton();
+								button.setBounds(1, 2, 3, 4);
+								inner.add(button);
+							}
+						}
+					}
+				}""";
 		assertEditor(lines);
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(inner)/ /add(inner)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JPanel} {local-unique: inner} {/new JPanel()/ /inner.setLayout(null)/ /add(inner)/ /inner.add(button)/}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /inner.add(button)/ /button.setBounds(1, 2, 3, 4)/}",
-				"    {inner.setLayout(null)} {absolute} {}",
-				"  {new: javax.swing.JPanel} {local-unique: inner} {/new JPanel()/ /add(inner)/ /inner.setLayout(null)/ /inner.add(button)/}",
-				"    {inner.setLayout(null)} {absolute} {}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /inner.add(button)/ /button.setBounds(1, 2, 3, 4)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(inner)/ /add(inner)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JPanel} {local-unique: inner} {/new JPanel()/ /inner.setLayout(null)/ /add(inner)/ /inner.add(button)/}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /inner.add(button)/ /button.setBounds(1, 2, 3, 4)/}
+						{inner.setLayout(null)} {absolute} {}
+					{new: javax.swing.JPanel} {local-unique: inner} {/new JPanel()/ /add(inner)/ /inner.setLayout(null)/ /inner.add(button)/}
+						{inner.setLayout(null)} {absolute} {}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /inner.add(button)/ /button.setBounds(1, 2, 3, 4)/}""");
 	}
 }
