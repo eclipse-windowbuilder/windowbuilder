@@ -12,8 +12,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
+
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
 
+import java.util.concurrent.CompletableFuture;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -38,8 +44,12 @@ public final class NoBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		return border == null;
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
+		if (borderValue.getValue() == null) {
+			return CompletableFuture.completedFuture(null);
+		}
+		return null;
 	}
 
 	@Override

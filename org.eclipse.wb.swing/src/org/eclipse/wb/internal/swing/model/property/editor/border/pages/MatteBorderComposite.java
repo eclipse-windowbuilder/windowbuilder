@@ -12,17 +12,21 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
 
 import java.awt.Color;
 import java.awt.Insets;
+import java.util.concurrent.CompletableFuture;
 
-import javax.swing.border.Border;
+import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -69,20 +73,22 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		if (border instanceof MatteBorder ourBorder) {
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
+		if (borderValue.getValue() instanceof MatteBorder ourBorder) {
 			Insets borderInsets = ourBorder.getBorderInsets();
-			m_colorField.setValue(ourBorder.getMatteColor());
-			m_topField.setValue(borderInsets.top);
-			m_leftField.setValue(borderInsets.left);
-			m_bottomField.setValue(borderInsets.bottom);
-			m_rightField.setValue(borderInsets.right);
+			Color matteColor = ourBorder.getMatteColor();
 			// OK, this is our Border
-			return true;
-		} else {
-			// no, we don't know this Border
-			return false;
+			return ExecutionUtils.runLogLater(() -> {
+				m_colorField.setValue(matteColor);
+				m_topField.setValue(borderInsets.top);
+				m_leftField.setValue(borderInsets.left);
+				m_bottomField.setValue(borderInsets.bottom);
+				m_rightField.setValue(borderInsets.right);
+			});
 		}
+		// no, we don't know this Border
+		return null;
 	}
 
 	@Override

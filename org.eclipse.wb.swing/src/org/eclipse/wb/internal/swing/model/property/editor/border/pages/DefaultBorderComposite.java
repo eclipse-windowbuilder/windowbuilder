@@ -12,7 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
+
 import org.eclipse.swt.widgets.Composite;
+
+import java.util.concurrent.CompletableFuture;
 
 import javax.swing.JComponent;
 import javax.swing.border.Border;
@@ -41,8 +45,8 @@ public final class DefaultBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
-		return false;
+	public CompletableFuture<Void> setBorderValue(BorderValue border) {
+		return null;
 	}
 
 	@Override

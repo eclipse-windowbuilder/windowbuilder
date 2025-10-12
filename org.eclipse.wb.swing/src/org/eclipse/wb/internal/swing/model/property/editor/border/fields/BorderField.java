@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.AbstractBorderComposite;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.window.Window;
@@ -28,9 +29,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import javax.swing.border.Border;
 
@@ -103,7 +102,7 @@ public final class BorderField extends AbstractBorderField {
 	public void setBorderValue(BorderValue borderValue) throws Exception {
 		Assert.isNotNull(borderValue, "Border value must not be null.");
 		m_borderValue = borderValue;
-		m_source = calculateSource();
+		calculateSource();
 		showBorder();
 	}
 
@@ -112,25 +111,25 @@ public final class BorderField extends AbstractBorderField {
 		return m_source;
 	}
 	
-	private String calculateSource() throws Exception{
+	private void calculateSource() throws Exception {
 		// try to use AbstractBorderComposite's to convert Border into source
-		// TODO BorderValue
-		Border border = m_borderValue.doGetValue();
-		if (border != null) {
-			Class<?> compositeClass = AbstractBorderComposite.getCompositeClass(border.getClass());
-			if (compositeClass != null) {
-				AbstractBorderComposite borderComposite = getBorderComposite(compositeClass);
-				try {
-					if (borderComposite.setBorder(border)) {
-						return borderComposite.getSource();
-					}
-				} finally {
-					returnBorderComposite(borderComposite);
+		Class<?> compositeClass = AbstractBorderComposite.getCompositeClass(m_borderValue.getValueType());
+		if (compositeClass != null) {
+			AbstractBorderComposite borderComposite = getBorderComposite(compositeClass);
+			SwingUtils.runLogLater(() -> {
+				CompletableFuture<Void> understands = borderComposite.setBorderValue(m_borderValue);
+				if (understands != null) {
+					understands.thenRunAsync(() -> {
+						m_source = borderComposite.getSource();
+						borderComposite.dispose();
+					}, getDisplay()::asyncExec);
+				} else {
+					// no, we don't understand this Border return null;
+					m_source = null;
+					getDisplay().asyncExec(borderComposite::dispose);
 				}
-			}
+			});
 		}
-		// no, we don't understand this Border
-		return null;
 	}
 
 	@Override
@@ -143,7 +142,6 @@ public final class BorderField extends AbstractBorderField {
 	// Borders
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private final List<AbstractBorderComposite> m_borderComposites = new LinkedList<>();
 
 	/**
 	 * Note, that we can not reuse {@link AbstractBorderComposite}'s, so when we get some
@@ -151,25 +149,10 @@ public final class BorderField extends AbstractBorderField {
 	 *
 	 * @return the instance free of {@link AbstractBorderComposite}.
 	 */
-	private final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)
-			throws Exception {
-		for (Iterator<AbstractBorderComposite> I = m_borderComposites.iterator(); I.hasNext();) {
-			AbstractBorderComposite borderComposite = I.next();
-			if (borderComposite.getClass() == compositeClass) {
-				I.remove();
-				return borderComposite;
-			}
-		}
+	private final AbstractBorderComposite getBorderComposite(Class<?> compositeClass) throws Exception {
 		// create new instance
 		Shell shell = getParent().getDialog().getTemporaryShell();
 		return (AbstractBorderComposite) compositeClass.getConstructor(Composite.class).newInstance(shell);
-	}
-
-	/**
-	 * Returns given {@link AbstractBorderComposite} to the list of available.
-	 */
-	private final void returnBorderComposite(AbstractBorderComposite borderComposite) {
-		m_borderComposites.add(borderComposite);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

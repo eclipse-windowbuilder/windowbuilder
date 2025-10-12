@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.AbstractBorderField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BooleanField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
@@ -30,6 +31,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import javax.swing.border.Border;
@@ -75,17 +77,17 @@ public abstract class AbstractBorderComposite extends Composite {
 	}
 
 	/**
-	 * Sets the {@link Border} to edit.
+	 * Sets the {@link BorderValue} to edit.
 	 *
-	 * @return <code>true</code> if this {@link AbstractBorderComposite} understands given
-	 *         {@link Border}.
+	 * @return A {@link CompletableFuture} if this {@link AbstractBorderComposite}
+	 *         understands given {@link BorderValue}, otherwise {@code null}.
 	 */
-	public abstract boolean setBorder(Border border) throws Exception;
+	public abstract CompletableFuture<Void> setBorderValue(BorderValue borderValue);
 
 	/**
 	 * @return the source for updated {@link Border}.
 	 */
-	public abstract String getSource() throws Exception;
+	public abstract String getSource();
 
 	/**
 	 * Used by the {@link BorderField} for the source code generation.

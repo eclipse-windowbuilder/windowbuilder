@@ -12,11 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.property.editor.border.BorderValue;
 import org.eclipse.wb.internal.swing.model.property.editor.font.FontInfo;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -28,7 +30,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.CompletableFuture;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -75,30 +79,28 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean setBorder(Border border) throws Exception {
+	public CompletableFuture<Void> setBorderValue(BorderValue borderValue) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from the AWT event dispatcher thread");
 		// note, that this algorithm is not ideal, because we can not identify "key" by Border,
 		// and we don't have AST Expression, so we try to do our best, but can fail...
+		Border border = borderValue.getValue();
 		if (border != null) {
 			String borderClassName = border.getClass().getName();
 			if (borderClassName.indexOf('$') != -1) {
 				for (int i = 0; i < m_borders.size(); i++) {
 					if (m_borders.get(i).getClass() == border.getClass()) {
-						m_bordersList.select(i);
-						// when setBorder() invoked, our page may not have size yet, so wait for finishing
-						DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								m_bordersList.showSelection();
-							}
-						});
 						// OK, this is our Border
-						return true;
+						int index = i;
+						return ExecutionUtils.runLogLater(() -> {
+							m_bordersList.select(index);
+							m_bordersList.showSelection();
+						});
 					}
 				}
 			}
 		}
 		// no, we don't know this Border
-		return false;
+		return null;
 	}
 
 	@Override
