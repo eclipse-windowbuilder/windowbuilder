@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -83,7 +83,7 @@ public abstract class MigDimensionInfo {
 	 */
 	public final String getString(boolean withBraces) {
 		AC ac = new AC();
-		ac.setConstaints(new DimConstraint[]{m_constraint});
+		ac.setConstraints(new DimConstraint[]{m_constraint});
 		String constraintString = IDEUtil.getConstraintString(ac, false, m_horizontal);
 		if (!withBraces) {
 			constraintString = StringUtils.strip(constraintString, "[]");
@@ -369,7 +369,7 @@ public abstract class MigDimensionInfo {
 			AC ac = new AC();
 			DimConstraint dimConstraint = new DimConstraint();
 			dimConstraint.setSize(boundSize);
-			ac.setConstaints(new DimConstraint[]{dimConstraint});
+			ac.setConstraints(new DimConstraint[]{dimConstraint});
 			String constraintString = IDEUtil.getConstraintString(ac, false, m_horizontal);
 			return StringUtils.strip(constraintString, "[]");
 		} else {
@@ -403,7 +403,7 @@ public abstract class MigDimensionInfo {
 		}
 		// extract single constraint
 		Assert.equals(1, ac.getCount(), s);
-		return ac.getConstaints()[0];
+		return ac.getConstraints()[0];
 	}
 
 	////////////////////////////////////////////////////////////////////////////
