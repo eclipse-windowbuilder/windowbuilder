@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Widget;
 
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.Version;
@@ -1035,20 +1036,6 @@ public abstract class OSSupportLinux extends OSSupport {
 	}
 
 	/**
-	 * <p>Utility class for calling the internal GTK methods of SWT.</p>
-	 * <p>We can't call those methods directly, as the GTK class isn't available on
-	 * Windows and MacOS and thus would result in compile errors, if this workspace
-	 * is checked out on those systems.</p>
-	 *
-	 * @param methodSignature method signature. e.g. {@code g_object_unref(long)}.
-	 * @param args            method arguments.
-	 * @return method return value. {@code null} for {@code void}.
-	 */
-	protected static final <T> T gtk(String methodSignature, Object... args) {
-		return swt("org.eclipse.swt.internal.gtk.GTK", methodSignature, args);
-	}
-
-	/**
 	 * <p>Utility class for calling interal SWT methods via reflection.</p>
 	 * <p>We can't call those methods directly, as their classes aren't available on
 	 * Windows and MacOS and thus would result in compile errors, if this workspace
@@ -1077,7 +1064,11 @@ public abstract class OSSupportLinux extends OSSupport {
 
 		@Override
 		protected long getHandleValue(Object widget, String fieldName) {
-			return ReflectionUtils.getFieldLong(widget, fieldName);
+			if (ReflectionUtils.getFieldObject(widget, fieldName) instanceof Long longValue) {
+				return longValue;
+			}
+			// field might be shadowed (e.g. in ImageBasedFrame)
+			return 0L;
 		}
 
 		@Override
@@ -1100,7 +1091,16 @@ public abstract class OSSupportLinux extends OSSupport {
 					0);
 		}
 
-		protected Image getImageSurface(long window, BiConsumer<Long, Image> callback) throws Exception {
+		private long findHandleValue(Widget widget) {
+			if (widget instanceof Shell shell) {
+				return getShellHandle(shell);
+			}
+			return getHandleValue(widget, "handle");
+		}
+
+		protected Image getImageSurface(Widget widget, BiConsumer<Long, Image> callback) throws Exception {
+			long handle = findHandleValue(widget);
+			long window = _gtk_widget_get_window(handle);
 			if (!_gdk_window_is_visible(window)) {
 				// don't deal with unmapped windows
 				return null;
@@ -1110,43 +1110,38 @@ public abstract class OSSupportLinux extends OSSupport {
 			_gdk_window_get_geometry(window, x, y, width, height);
 			// force paint. Note, not all widgets do this completely, known so far is GtkTreeViewer.
 			_gdk_window_process_updates(window, true);
-			// access a widget registered with the window
-			long[] widget = new long[1];
-			gdk("gdk_window_get_user_data(long,long[])", window, widget);
 			// take screenshot
 			Image image = super.createImage(window, width[0], height[0]);
 			// get Java code notified
 			if (callback != null) {
-				callback.accept(widget[0], image);
+				callback.accept(handle, image);
 			}
 			// done
 			return image;
 		}
 
-		private Image traverse(long window, BiConsumer<Long, Image> callback) throws Exception {
-			Image image = getImageSurface(window, callback);
+		private Image traverse(Widget widget, BiConsumer<Long, Image> callback) throws Exception {
+			Image image = getImageSurface(widget, callback);
 			if (image == null) {
 				return null;
 			}
-			/* GList */ Long children = gdk("gdk_window_get_children(long)", window);
-			int length = gtk("g_list_length(long)", children);
-			for (int i = 0; i < length; ++i) {
-				Long childWindow = gtk("g_list_nth_data(long,int)", children, i);
-				Image childImage = traverse(childWindow, callback);
-				if (childImage == null) {
-					continue;
-				}
-				if (callback == null) {
-					childImage.dispose();
+			if (widget instanceof Composite composite) {
+				for (Control childWidget : composite.getChildren()) {
+					Image childImage = traverse(childWidget, callback);
+					if (childImage == null) {
+						continue;
+					}
+					if (callback == null) {
+						childImage.dispose();
+					}
 				}
 			}
-			gtk("g_list_free(long)", children);
 			return image;
 		}
 
 		@Override
 		protected Image makeShot(Shell shell, BiConsumer<Long, Image> callback) throws Exception {
-			return traverse(_gtk_widget_get_window(getShellHandle(shell)), callback);
+			return traverse(shell, callback);
 		}
 	}
 }
