@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -83,7 +83,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 							resource.setResourceAttributes(attributes);
 						}
 						// do deleting
-						forceDeleteFile(resource);
+						forceDeleteResource(resource);
 						break;
 					} catch (Exception e) {
 						if (i == maxCount - 1) {
@@ -566,21 +566,21 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 			if (resource instanceof IFolder) {
 				deleteFiles((IFolder) resource);
 			}
-			resource.delete(true, null);
+			forceDeleteResource(resource);
 		}
 	}
 
 	/**
-	 * Force deletes {@link IFile}.
+	 * Force deletes {@link IResource}.
 	 */
-	public static void forceDeleteFile(IFile file) {
-		while (file.exists()) {
+	public static void forceDeleteResource(IResource resource) {
+		while (resource.exists()) {
 			try {
-				file.refreshLocal(IResource.DEPTH_INFINITE, null);
+				resource.refreshLocal(IResource.DEPTH_INFINITE, null);
 			} catch (Throwable e) {
 			}
 			try {
-				file.delete(true, null);
+				resource.delete(true, null);
 			} catch (Throwable e) {
 				waitEventLoop(100);
 			}
