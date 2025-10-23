@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.table;
 
+import org.eclipse.core.runtime.Assert;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -54,6 +57,7 @@ public final class TableColumnDescription {
 	}
 
 	public TableColumnDescription(JTable table, int index) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from AWT event dispatcher thread");
 		TableModel model = table.getModel();
 		TableColumn column = table.getColumnModel().getColumn(index);
 		//
