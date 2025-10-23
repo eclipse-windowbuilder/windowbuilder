@@ -39,7 +39,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.WidgetsObserveTypeContainer;
 import org.eclipse.wb.tests.designer.TestUtils;
-import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoRelatedTest;
+import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 import org.eclipse.wb.tests.gef.TreeRobot;
 import org.eclipse.wb.tests.gef.UiContext;
@@ -73,7 +73,7 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
-public abstract class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
+public abstract class DesignerEditorTestCase extends AbstractJavaInfoTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
