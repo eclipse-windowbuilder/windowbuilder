@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.JTableInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableColumnDescription;
 import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelDescription;
 import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelPropertyEditor;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.assertj.core.api.Assertions;
@@ -395,7 +396,7 @@ public class JTableTest extends SwingModelTest {
 			table = new JTable(model);
 		}
 		// prepare TableModelDescription
-		TableModelDescription modelDescription = new TableModelDescription(table);
+		TableModelDescription modelDescription = createTableModel(table);
 		assertEquals(3, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// column: 0
@@ -441,7 +442,7 @@ public class JTableTest extends SwingModelTest {
 			table = new JTable(model);
 		}
 		// prepare TableModelDescription
-		TableModelDescription modelDescription = new TableModelDescription(table);
+		TableModelDescription modelDescription = createTableModel(table);
 		assertEquals(0, modelDescription.getRowCount());
 		assertEquals(0, modelDescription.getColumnCount());
 		// model source
@@ -481,7 +482,7 @@ public class JTableTest extends SwingModelTest {
 						table = new JTable(model);
 		}
 		// prepare TableModelDescription
-		TableModelDescription modelDescription = new TableModelDescription(table);
+		TableModelDescription modelDescription = createTableModel(table);
 		assertEquals(1, modelDescription.getRowCount());
 		assertEquals(10, modelDescription.getColumnCount());
 		// model source
@@ -532,7 +533,7 @@ public class JTableTest extends SwingModelTest {
 			}
 		}
 		// prepare TableModelDescription
-		TableModelDescription modelDescription = new TableModelDescription(table);
+		TableModelDescription modelDescription = createTableModel(table);
 		assertEquals(1, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// column: 0
@@ -608,7 +609,7 @@ public class JTableTest extends SwingModelTest {
 			table = new JTable(model);
 		}
 		// prepare TableModelDescription
-		TableModelDescription modelDescription = new TableModelDescription(table);
+		TableModelDescription modelDescription = createTableModel(table);
 		assertEquals(1, modelDescription.getRowCount());
 		assertEquals(4, modelDescription.getColumnCount());
 		// column class
@@ -671,8 +672,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// do operation
@@ -719,8 +719,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(3, modelDescription.getColumnCount());
 		// do operation
@@ -766,8 +765,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// set columns: 4
@@ -830,8 +828,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(4, modelDescription.getColumnCount());
 		// move: backward
@@ -917,8 +914,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// do operation
@@ -977,8 +973,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// do operation
@@ -1026,8 +1021,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(3, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// do operation
@@ -1073,8 +1067,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(2, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// set rows: 4
@@ -1138,8 +1131,7 @@ public class JTableTest extends SwingModelTest {
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
-		TableModelDescription modelDescription =
-				new TableModelDescription((JTable) tableInfo.getObject());
+		TableModelDescription modelDescription = createTableModel((JTable) tableInfo.getObject());
 		assertEquals(4, modelDescription.getRowCount());
 		assertEquals(2, modelDescription.getColumnCount());
 		// move: backward
@@ -1193,5 +1185,14 @@ public class JTableTest extends SwingModelTest {
 					}
 				)""",
 				modelDescription.getModelSource());
+	}
+
+	/**
+	 * Utility method that creates a {@link TableModelDescription} in the Swing UI
+	 * thread. This description accesses the JTable model and must therefore not be
+	 * created in the SWT thread.
+	 */
+	private TableModelDescription createTableModel(JTable table) throws Exception {
+		return SwingUtils.runObjectLaterAndWait(() -> new TableModelDescription(table));
 	}
 }

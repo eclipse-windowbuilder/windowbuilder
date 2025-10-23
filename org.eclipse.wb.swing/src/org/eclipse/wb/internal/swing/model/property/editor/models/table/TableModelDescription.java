@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,12 +20,15 @@ import org.eclipse.wb.internal.core.model.property.converter.LongConverter;
 import org.eclipse.wb.internal.core.model.property.converter.ShortConverter;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 
+import org.eclipse.core.runtime.Assert;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -48,10 +51,9 @@ public final class TableModelDescription {
 	// Constructors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public TableModelDescription() {
-	}
 
 	public TableModelDescription(JTable table) {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from AWT event dispatcher thread");
 		TableModel model = table.getModel();
 		m_rowCount = model.getRowCount();
 		m_columnCount = model.getColumnCount();
@@ -334,6 +336,7 @@ public final class TableModelDescription {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public TableModel createTableModel() {
+		Assert.isTrue(SwingUtilities.isEventDispatchThread(), "Must be called from AWT event dispatcher thread");
 		return new DefaultTableModel() {
 			private static final long serialVersionUID = 0L;
 

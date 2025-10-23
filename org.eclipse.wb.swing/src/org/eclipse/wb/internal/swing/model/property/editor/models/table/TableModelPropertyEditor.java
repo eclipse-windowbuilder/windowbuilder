@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Statement;
@@ -74,14 +75,17 @@ public final class TableModelPropertyEditor extends TextDialogPropertyEditor {
 	@Override
 	protected void openDialog(Property property) throws Exception {
 		GenericProperty genericProperty = (GenericProperty) property;
-		JTable table = (JTable) genericProperty.getJavaInfo().getObject();
-		TableModelDescription model = new TableModelDescription(table);
-		TableModelDialog dialog =
-				new TableModelDialog(DesignerPlugin.getShell(), property.getTitle(), model);
-		// open dialog
-		if (dialog.open() == Window.OK) {
-			setModel(genericProperty, model);
-		}
+		SwingUtils.runLogLater(() -> {
+			JTable table = (JTable) genericProperty.getJavaInfo().getObject();
+			TableModelDescription model = new TableModelDescription(table);
+			ExecutionUtils.runLogLater(() -> {
+				TableModelDialog dialog = new TableModelDialog(DesignerPlugin.getShell(), property.getTitle(), model);
+				// open dialog
+				if (dialog.open() == Window.OK) {
+					setModel(genericProperty, model);
+				}
+			});
+		});
 	}
 
 	private static void setModel(final GenericProperty genericProperty,
