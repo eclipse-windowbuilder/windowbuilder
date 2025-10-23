@@ -16,6 +16,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IModuleBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * Implementation of {@link IPackageBinding}.
@@ -123,6 +124,11 @@ final class DesignerPackageBinding implements IPackageBinding {
 
 	@Override
 	public IModuleBinding getModule() {
+		throw new IllegalArgumentException();
+	}
+
+	// @Override Only added with JDT 2025-12
+	public ITypeBinding findTypeBinding(String name) {
 		throw new IllegalArgumentException();
 	}
 }
