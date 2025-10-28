@@ -139,6 +139,7 @@ def void mvn() {
       -Dgpg.passphrase="${KEYRING_PASSPHRASE}" \
       -Dorg.eclipse.justj.p2.manager.build.url=$JOB_URL \
       -Dbuild.type=$BUILD_TYPE \
+      -Dbuild.id=$BUILD_TIMESTAMP \
       -Dgit.commit=$GIT_COMMIT \
       clean \
       verify
