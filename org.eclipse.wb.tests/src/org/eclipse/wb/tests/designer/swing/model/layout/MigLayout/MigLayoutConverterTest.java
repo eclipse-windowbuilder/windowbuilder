@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JTable;
@@ -388,7 +387,6 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
-	@Disabled
 	@Test
 	public void test_oneRow_fill() throws Exception {
 		ContainerInfo panel =
@@ -483,7 +481,6 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
-	@Disabled
 	@Test
 	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel =
@@ -544,7 +541,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
-				"    setLayout(new MigLayout('', '[46px][305px][5px][89px]', '[20px][20px][23px]'));",
+				"    setLayout(new MigLayout('', '[60px][275px][5px][105px]', '[26px][21px][27px]'));",
 				"    {",
 				"      JComboBox comboBox = new JComboBox();",
 				"      add(comboBox, 'cell 1 0,growx,aligny center');",
