@@ -93,8 +93,7 @@ public class SwingImageUtils {
 		final int imageWidth = Math.max(1, componentWidth);
 		final int imageHeight = Math.max(1, componentHeight);
 		// prepare empty image
-		final BufferedImage componentImage = component.getGraphicsConfiguration() //
-				.createCompatibleImage(imageWidth, imageHeight);
+		final BufferedImage componentImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 		// If actual size on component is zero, then we are done.
 		if (componentWidth == 0 || componentHeight == 0) {
 			return componentImage;
