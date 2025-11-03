@@ -147,8 +147,7 @@ public final class SwingScreenshotMaker {
 			double windowZoom = SwingImageUtils.getDisplayZoom(m_window);
 			int windowWidth = Math.max(1, (int) (m_window.getWidth() * windowZoom));
 			int windowHeight = Math.max(1, (int) (m_window.getHeight() * windowZoom));
-			windowImage = m_window.getGraphicsConfiguration() //
-					.createCompatibleImage(windowWidth, windowHeight);
+			windowImage = new BufferedImage(windowWidth, windowHeight, BufferedImage.TYPE_INT_RGB);
 			Graphics2D graphics = windowImage.createGraphics();
 			graphics.scale(windowZoom, windowZoom);
 			m_window.printAll(graphics);
@@ -173,8 +172,8 @@ public final class SwingScreenshotMaker {
 				componentLocation = new Point(p_component.x - p_window.x, p_component.y - p_window.y);
 			}
 			// copy part of window image
-			BufferedImage componentImage = m_component.getGraphicsConfiguration() //
-					.createCompatibleImage(componentWidth, componentHeight);
+			BufferedImage componentImage = new BufferedImage(componentWidth, componentHeight,
+					BufferedImage.TYPE_INT_RGB);
 			Graphics2D graphics = componentImage.createGraphics();
 			graphics.drawImage(
 					windowImage,
