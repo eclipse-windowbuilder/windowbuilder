@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Patrick Ziegler
+ * Copyright (c) 2023, 2025 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -82,7 +82,7 @@ public final class ManagerContainerInfo extends AbstractContainerInfo {
 			}
 
 			@Override
-			public ImageDescriptor getIcon() throws Exception {
+			public ImageDescriptor getIcon() {
 				return Activator.getImageDescriptor("components/manager_container.png");
 			}
 		};

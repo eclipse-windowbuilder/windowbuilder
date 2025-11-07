@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -290,7 +290,7 @@ IPageLayoutTopLevelInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public ImageDescriptor getIcon() throws Exception {
+		public ImageDescriptor getIcon() {
 			return getPresentationIcon();
 		}
 
@@ -308,7 +308,7 @@ IPageLayoutTopLevelInfo {
 	/**
 	 * @return the icon to show in component tree.
 	 */
-	protected abstract ImageDescriptor getPresentationIcon() throws Exception;
+	protected abstract ImageDescriptor getPresentationIcon();
 
 	/**
 	 * @return the text to show in component tree.

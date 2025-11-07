@@ -76,7 +76,7 @@ public final class ActionContainerInfo extends ObjectInfo {
 			}
 
 			@Override
-			public ImageDescriptor getIcon() throws Exception {
+			public ImageDescriptor getIcon() {
 				return CoreImages.FOLDER_OPEN;
 			}
 		};

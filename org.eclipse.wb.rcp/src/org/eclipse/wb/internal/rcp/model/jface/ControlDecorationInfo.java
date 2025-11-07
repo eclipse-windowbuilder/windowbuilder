@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -86,7 +86,7 @@ public final class ControlDecorationInfo extends AbstractComponentInfo {
 	private Image m_iconImage;
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public ImageDescriptor getIcon() throws Exception {
+		public ImageDescriptor getIcon() {
 			if (m_decorationImage != null && m_iconImage != null) {
 				return ImageDescriptor.createFromImage(m_iconImage);
 			}

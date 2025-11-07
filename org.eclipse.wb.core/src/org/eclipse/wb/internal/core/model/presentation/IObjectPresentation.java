@@ -39,7 +39,7 @@ public interface IObjectPresentation {
 	/**
 	 * @return the icon to display for user.
 	 */
-	ImageDescriptor getIcon() throws Exception;
+	ImageDescriptor getIcon();
 
 	/**
 	 * @return the list of {@link ObjectInfo} children to display for user in components tree. This
