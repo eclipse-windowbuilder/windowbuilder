@@ -131,7 +131,7 @@ public final class ButtonGroupContainerInfo extends ObjectInfo {
 	public IObjectPresentation getPresentation() {
 		return new DefaultObjectPresentation(this) {
 			@Override
-			public String getText() throws Exception {
+			public String getText() {
 				return "(button groups)";
 			}
 

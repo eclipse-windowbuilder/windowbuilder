@@ -49,7 +49,7 @@ public final class ViewShortcutInfo extends AbstractShortcutInfo {
 	}
 
 	@Override
-	protected String getPresentationText() throws Exception {
+	protected String getPresentationText() {
 		return "\"" + getViewInfo().getName() + "\" - " + getId();
 	}
 

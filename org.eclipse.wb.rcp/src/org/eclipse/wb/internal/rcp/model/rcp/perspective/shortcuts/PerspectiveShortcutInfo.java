@@ -49,7 +49,7 @@ public final class PerspectiveShortcutInfo extends AbstractShortcutInfo {
 	}
 
 	@Override
-	protected String getPresentationText() throws Exception {
+	protected String getPresentationText() {
 		return "\"" + getPerspectiveInfo().getName() + "\" - " + getId();
 	}
 

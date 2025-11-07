@@ -68,7 +68,7 @@ public final class EditorAreaInfo extends ObjectInfo implements IPageLayoutTopLe
 			}
 
 			@Override
-			public String getText() throws Exception {
+			public String getText() {
 				return "(editor area)";
 			}
 		};

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,7 +64,7 @@ public class TestObjectInfo extends ObjectInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private final DefaultObjectPresentation m_presentation = new DefaultObjectPresentation(this) {
 		@Override
-		public String getText() throws Exception {
+		public String getText() {
 			return TestObjectInfo.this.toString();
 		}
 	};

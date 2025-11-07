@@ -103,7 +103,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 		}
 
 		@Override
-		public String getText() throws Exception {
+		public String getText() {
 			return getPresentationText();
 		}
 	};
@@ -123,7 +123,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 	/**
 	 * @return the text to show in component tree.
 	 */
-	private String getPresentationText() throws Exception {
+	private String getPresentationText() {
 		return "\"" + getViewInfo().getName() + "\" - " + getId();
 	}
 

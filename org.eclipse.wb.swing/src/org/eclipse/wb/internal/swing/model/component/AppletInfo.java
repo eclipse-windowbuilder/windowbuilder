@@ -67,7 +67,7 @@ public final class AppletInfo extends ContainerInfo implements IJavaInfoRenderin
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public String getText() throws Exception {
+		public String getText() {
 			return NLS.bind(ModelMessages.AppletInfo_deprecated, super.getText());
 		}
 	};

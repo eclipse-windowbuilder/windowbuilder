@@ -95,7 +95,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 				}
 
 				@Override
-				public String getText() throws Exception {
+				public String getText() {
 					return DEF_TEXT;
 				}
 			};

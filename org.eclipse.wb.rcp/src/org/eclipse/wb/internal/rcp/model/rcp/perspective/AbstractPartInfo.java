@@ -295,7 +295,7 @@ IPageLayoutTopLevelInfo {
 		}
 
 		@Override
-		public String getText() throws Exception {
+		public String getText() {
 			return getPresentationText();
 		}
 	};
@@ -313,7 +313,7 @@ IPageLayoutTopLevelInfo {
 	/**
 	 * @return the text to show in component tree.
 	 */
-	protected abstract String getPresentationText() throws Exception;
+	protected abstract String getPresentationText();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

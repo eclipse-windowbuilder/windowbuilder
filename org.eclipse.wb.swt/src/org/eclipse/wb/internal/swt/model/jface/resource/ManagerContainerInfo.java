@@ -77,7 +77,7 @@ public final class ManagerContainerInfo extends AbstractContainerInfo {
 	public IObjectPresentation getPresentation() {
 		return new DefaultObjectPresentation(this) {
 			@Override
-			public String getText() throws Exception {
+			public String getText() {
 				return ModelMessages.ManagerContainerInfo_jfaceManagers;
 			}
 
