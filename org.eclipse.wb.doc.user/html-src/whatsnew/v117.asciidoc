@@ -9,4 +9,4 @@
 
 For a full list of all changes, check the link:https://github.com/eclipse-windowbuilder/windowbuilder/milestone/9[1.17.0] milestone.
 
-What's new - xref:v150.adoc[*v1.5.0*]
+What's new - xref:v105.adoc[*v1.5.0*]
