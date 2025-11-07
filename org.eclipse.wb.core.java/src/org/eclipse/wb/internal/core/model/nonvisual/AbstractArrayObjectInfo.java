@@ -100,7 +100,7 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
 			}
 
 			@Override
-			public boolean isVisible() throws Exception {
+			public boolean isVisible() {
 				return !isHideInTree();
 			}
 		};
