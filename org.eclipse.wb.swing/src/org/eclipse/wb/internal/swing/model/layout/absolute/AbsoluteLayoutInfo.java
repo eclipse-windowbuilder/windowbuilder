@@ -135,7 +135,7 @@ public final class AbsoluteLayoutInfo extends AbstractAbsoluteLayoutInfo {
 		}
 
 		@Override
-		public String getTitle() throws Exception {
+		public String getTitle() {
 			throw new IllegalStateException();
 		}
 
