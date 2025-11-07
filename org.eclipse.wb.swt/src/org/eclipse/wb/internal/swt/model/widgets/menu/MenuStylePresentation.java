@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,7 +40,7 @@ public final class MenuStylePresentation extends StylePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void initImages() throws Exception {
+	protected void initImages() {
 		addImage(SWT.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
 		addImage(SWT.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
 		addImage(SWT.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");

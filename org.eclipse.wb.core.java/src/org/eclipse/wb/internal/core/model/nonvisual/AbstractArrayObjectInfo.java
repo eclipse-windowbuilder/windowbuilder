@@ -86,7 +86,7 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
 			}
 
 			@Override
-			public ImageDescriptor getIcon() throws Exception {
+			public ImageDescriptor getIcon() {
 				return CoreImages.FOLDER_OPEN;
 			}
 

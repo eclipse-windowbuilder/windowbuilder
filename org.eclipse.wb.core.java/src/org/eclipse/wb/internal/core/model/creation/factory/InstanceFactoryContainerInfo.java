@@ -81,7 +81,7 @@ public final class InstanceFactoryContainerInfo extends ObjectInfo {
 			}
 
 			@Override
-			public ImageDescriptor getIcon() throws Exception {
+			public ImageDescriptor getIcon() {
 				return CoreImages.FOLDER_OPEN;
 			}
 		};

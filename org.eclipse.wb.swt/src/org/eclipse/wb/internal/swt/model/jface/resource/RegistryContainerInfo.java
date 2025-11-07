@@ -91,7 +91,7 @@ public final class RegistryContainerInfo extends AbstractContainerInfo {
 			}
 
 			@Override
-			public ImageDescriptor getIcon() throws Exception {
+			public ImageDescriptor getIcon() {
 				return CoreImages.FOLDER_OPEN;
 			}
 		};

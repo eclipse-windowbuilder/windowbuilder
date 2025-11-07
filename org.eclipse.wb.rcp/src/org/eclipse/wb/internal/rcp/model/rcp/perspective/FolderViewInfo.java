@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -98,7 +98,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public ImageDescriptor getIcon() throws Exception {
+		public ImageDescriptor getIcon() {
 			return getPresentationIcon();
 		}
 
@@ -116,7 +116,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 	/**
 	 * @return the icon to show in component tree.
 	 */
-	private ImageDescriptor getPresentationIcon() throws Exception {
+	private ImageDescriptor getPresentationIcon() {
 		return getViewInfo().getIcon();
 	}
 

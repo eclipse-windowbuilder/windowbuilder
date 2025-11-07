@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,7 +49,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public ImageDescriptor getIcon() throws Exception {
+	public ImageDescriptor getIcon() {
 		// try to get by style
 		int style = ((WidgetInfo) m_javaInfo).getWidget().getStyle();
 		for (Map.Entry<Integer, ImageDescriptor> entry : getImages().entrySet()) {
@@ -65,7 +65,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	/**
 	 * Fills static map of images using {@link #addImage(int, String)}.
 	 */
-	protected abstract void initImages() throws Exception;
+	protected abstract void initImages();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -77,7 +77,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	/**
 	 * @return the "style to image" map corresponding to this {@link StylePresentation}.
 	 */
-	private Map<Integer, ImageDescriptor> getImages() throws Exception {
+	private Map<Integer, ImageDescriptor> getImages() {
 		Map<Integer, ImageDescriptor> images = m_images.get(getClass());
 		if (images == null) {
 			images = new HashMap<>();
@@ -96,7 +96,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	 * @param imagePath
 	 *          the path relative to current toolkit support bundle.
 	 */
-	protected final void addImage(int style, String imagePath) throws Exception {
+	protected final void addImage(int style, String imagePath) {
 		// load image
 		ImageDescriptor image;
 		{

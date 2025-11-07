@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,7 @@ public final class LabelStylePresentation extends StylePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void initImages() throws Exception {
+	protected void initImages() {
 		addImage(
 				SWT.SEPARATOR | SWT.HORIZONTAL,
 				"wbp-meta/org/eclipse/swt/widgets/Label_separatorHorizontal.gif");

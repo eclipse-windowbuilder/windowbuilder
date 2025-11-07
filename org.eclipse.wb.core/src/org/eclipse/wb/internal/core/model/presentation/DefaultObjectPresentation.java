@@ -81,7 +81,7 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
 	}
 
 	@Override
-	public ImageDescriptor getIcon() throws Exception {
+	public ImageDescriptor getIcon() {
 		return null;
 	}
 

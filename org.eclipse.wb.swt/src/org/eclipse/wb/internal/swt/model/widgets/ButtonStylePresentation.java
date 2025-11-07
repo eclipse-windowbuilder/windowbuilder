@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,7 @@ public final class ButtonStylePresentation extends StylePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void initImages() throws Exception {
+	protected void initImages() {
 		addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/Button_check.gif");
 		addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/Button_radio.gif");
 	}

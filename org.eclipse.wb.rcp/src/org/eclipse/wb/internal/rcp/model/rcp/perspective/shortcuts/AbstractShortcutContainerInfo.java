@@ -109,7 +109,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultObjectPresentation(this) {
 		@Override
-		public ImageDescriptor getIcon() throws Exception {
+		public ImageDescriptor getIcon() {
 			return CoreImages.FOLDER_OPEN;
 		}
 
