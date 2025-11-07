@@ -24,4 +24,16 @@ image:images/1.22/JAppletWizard.png[Deprecation indication in "New JApplet" wiza
 
 See https://bugs.openjdk.org/browse/JDK-8359053
 
+- New error code 1003 if multiple layouts are added to a container
+
+This aligns the behavior of the Swing designer with the behavior of the SWT
+designer. Adding multiple layouts to a composite is generally not supported
+and causes issues when working with e.g. the GridLayout.
+
+The parser now detects such cases and throws an appropriate error message.
+
+image:images/1.22/DoubleLayouts.png[Swing snippet with two 'setLayout()' calls and the error message]
+
+See: https://github.com/eclipse-windowbuilder/windowbuilder/issues/1242
+
 What's new - xref:v110.adoc[*v1.21.0*]

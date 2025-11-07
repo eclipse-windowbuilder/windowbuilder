@@ -13,6 +13,8 @@
 package org.eclipse.wb.internal.core.model.layout;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
+import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -23,10 +25,13 @@ import org.eclipse.wb.internal.core.model.description.LayoutDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.osgi.util.NLS;
+
+import org.apache.commons.lang3.function.FailableBiConsumer;
 
 import java.util.List;
 import java.util.Objects;
@@ -81,4 +86,26 @@ public abstract class AbstractLayoutInfo<T extends JavaInfo> extends JavaInfo {
 	 * Sets new {@code LayoutInfo}.
 	 */
 	protected abstract void setLayout(T layoutInfo) throws Exception;
+
+	/**
+	 * We should not allow to execute {@code setLayout(...)} more than one time, this
+	 * causes problems with implicit layouts and may also cause problems with {@code LayoutInfo}.
+	 */
+	public static void dontAllowDouble_setLayout(JavaInfo javaInfo, FailableBiConsumer<JavaInfo, JavaInfo, DesignerException> checker) {
+		javaInfo.addBroadcastListener(new ObjectInfoTreeComplete() {
+			@Override
+			public void invoke() throws Exception {
+				javaInfo.removeBroadcastListener(this);
+			}
+		});
+		javaInfo.addBroadcastListener((ObjectInfoChildAddBefore) (parent, child, nextChild) -> {
+			if (parent == javaInfo && child instanceof AbstractLayoutInfo) {
+				List<? extends JavaInfo> layouts = parent.getChildren(AbstractLayoutInfo.class);
+				if (!layouts.isEmpty()) {
+					JavaInfo existingLayout = layouts.getFirst();
+					checker.accept(existingLayout, (JavaInfo) child);
+				}
+			}
+		});
+	}
 }

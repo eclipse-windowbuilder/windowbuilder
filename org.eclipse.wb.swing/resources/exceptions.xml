@@ -10,4 +10,8 @@
 			Actions can be graphically added to the JToolBar and JMenu.
 		</pre>
 	</exception>
+	<exception id="1003" title="Double Container.setLayout() invocation.">line {0}: You are attempting to set the
+		layout <b>{3}</b> for the Container <b>{1}</b>. However, the Container already has the layout <b>{2}</b>.
+		Please remove the invalid <i>setLayout()</i> invocation from your source.
+	</exception>
 </exceptions>

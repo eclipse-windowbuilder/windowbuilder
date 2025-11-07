@@ -10,9 +10,9 @@
 	<exception id="2003" title="Incompatible layout data set.">You are attempting to set <b>{0}</b> layout
 		data for <b>{1}</b>. However Composite <b>{2}</b> has <b>{3}</b> and this Layout expects <b>{4}</b>
 		layout data. Please remove the invalid setLayoutData() invocation from your source. </exception>
-	<exception id="2004" title="Double Composite.setLayout() invocation.">You are attempting to set <b>{2}</b>
-		layout for <b>{0}</b>. However Composite already has <b>{1}</b>. Please remove the invalid setLayout()
-		invocation from your source. </exception>
+	<exception id="2004" title="Double Composite.setLayout() invocation.">line {0}: You are attempting to set the
+		layout <b>{3}</b> for the Composite <b>{1}</b>. However, the Composite already has the layout <b>{2}</b>.
+		Please remove the invalid <i>setLayout()</i> invocation from your source.</exception>
 	<exception id="2005" title="Null as parent argument.">Usually this happens because of unsupported code
 		pattern used to create parent.</exception>
 </exceptions>

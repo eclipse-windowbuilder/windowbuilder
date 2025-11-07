@@ -38,6 +38,7 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
 import org.eclipse.wb.internal.core.model.generation.statement.PureFlatStatementGenerator;
+import org.eclipse.wb.internal.core.model.layout.AbstractLayoutInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -46,9 +47,11 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.ImplicitLayoutCreationSupport;
@@ -106,6 +109,15 @@ public class ContainerInfo extends ComponentInfo {
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
 		m_tabOrderProperty = new TabOrderProperty(this);
+		AbstractLayoutInfo.dontAllowDouble_setLayout(this, (existingLayout, newLayout) -> {
+			if (!(existingLayout.getCreationSupport() instanceof ImplicitLayoutCreationSupport)) {
+				throw new DesignerException(IExceptionConstants.DOUBLE_SET_LAYOUT, //
+						m_this.getEditor().getLineNumber(newLayout.getSourcePosition()), //
+						m_this.getPresentation().getText(), //
+						existingLayout.getDescription().getComponentClass().getName(), //
+						newLayout.getDescription().getComponentClass().getName());
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
