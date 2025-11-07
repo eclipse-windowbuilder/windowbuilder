@@ -28,7 +28,6 @@ import org.eclipse.wb.core.model.association.ImplicitObjectAssociation;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
@@ -47,6 +46,7 @@ import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionH
 import org.eclipse.wb.internal.core.model.generation.statement.PureFlatStatementGenerator;
 import org.eclipse.wb.internal.core.model.generation.statement.StatementGenerator;
 import org.eclipse.wb.internal.core.model.generation.statement.block.BlockStatementGenerator;
+import org.eclipse.wb.internal.core.model.layout.AbstractLayoutInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.model.variable.EmptyInvocationVariableSupport;
@@ -62,7 +62,6 @@ import org.eclipse.wb.internal.swt.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.ImplicitLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.ImplicitLayoutVariableSupport;
-import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
@@ -115,7 +114,15 @@ IThisMethodParameterEvaluator {
 		super(editor, description, creationSupport);
 		addBroacastListeners();
 		m_tabOrderProperty = new TabOrderProperty(this);
-		dontAllowDouble_setLayout();
+		AbstractLayoutInfo.dontAllowDouble_setLayout(this, (existingLayout, newLayout) -> {
+			if (!(existingLayout.getCreationSupport() instanceof ImplicitLayoutCreationSupport)) {
+				throw new DesignerException(IExceptionConstants.DOUBLE_SET_LAYOUT, //
+						m_this.getEditor().getLineNumber(newLayout.getSourcePosition()), //
+						m_this.getPresentation().getText(), //
+						existingLayout.getDescription().getComponentClass().getName(), //
+						newLayout.getDescription().getComponentClass().getName());
+			}
+		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -155,37 +162,6 @@ IThisMethodParameterEvaluator {
 	public void createExposedChildren() throws Exception {
 		super.createExposedChildren();
 		initialize_createImplicitLayout();
-	}
-
-	/**
-	 * We should not allow to execute {@link Composite#setLayout(Layout)} more than one time, this
-	 * causes problems with implicit layouts and may also cause problems with {@link LayoutDataInfo}.
-	 */
-	private void dontAllowDouble_setLayout() {
-		addBroadcastListener(new ObjectInfoTreeComplete() {
-			@Override
-			public void invoke() throws Exception {
-				removeBroadcastListener(this);
-			}
-		});
-		addBroadcastListener(new ObjectInfoChildAddBefore() {
-			@Override
-			public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
-					throws Exception {
-				if (parent == m_this && child instanceof LayoutInfo) {
-					List<LayoutInfo> layouts = getChildren(LayoutInfo.class);
-					if (!layouts.isEmpty()) {
-						LayoutInfo existingLayout = layouts.get(0);
-						if (!(existingLayout.getCreationSupport() instanceof ImplicitLayoutCreationSupport)) {
-							throw new DesignerException(IExceptionConstants.DOUBLE_SET_LAYOUT,
-									m_this.toString(),
-									existingLayout.toString(),
-									child.toString());
-						}
-					}
-				}
-			}
-		});
 	}
 
 	/**

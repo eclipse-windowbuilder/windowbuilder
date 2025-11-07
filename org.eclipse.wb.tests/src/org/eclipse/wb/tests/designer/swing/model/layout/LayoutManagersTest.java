@@ -14,6 +14,7 @@ package org.eclipse.wb.tests.designer.swing.model.layout;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddAfter;
+import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.generation.statement.StatementGeneratorDescription;
@@ -29,7 +30,9 @@ import org.eclipse.wb.internal.core.model.variable.description.FieldUniqueVariab
 import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescription;
 import org.eclipse.wb.internal.core.model.variable.description.LocalUniqueVariableDescription;
 import org.eclipse.wb.internal.core.model.variable.description.VariableSupportDescription;
+import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
@@ -62,6 +65,43 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	public void _test_exit() throws Exception {
 		System.exit(0);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Test
+	public void test_parse_setLayout_single() throws Exception {
+		parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new GridLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new GridLayout())/}
+					{new: java.awt.GridLayout} {empty} {/setLayout(new GridLayout())/}""");
+	}
+
+	@Test
+	public void test_parse_setLayout_double() throws Exception {
+		Throwable t = assertThrows(Throwable.class, () -> parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						setLayout(new GridLayout());
+					}
+				}"""));
+		ErrorEntryInfo errorEntry = DesignerExceptionUtils.getErrorEntry(t);
+		assertEquals(IExceptionConstants.DOUBLE_SET_LAYOUT, errorEntry.getCode());
+		assertEquals("""
+				line 8: You are attempting to set the
+						layout <b>java.awt.GridLayout</b> for the Container <b>(javax.swing.JPanel)</b>. However, the Container already has the layout <b>java.awt.FlowLayout</b>.
+						Please remove the invalid <i>setLayout()</i> invocation from your source.
+				\t""",
+				errorEntry.getDescription().replaceAll("\r", ""));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

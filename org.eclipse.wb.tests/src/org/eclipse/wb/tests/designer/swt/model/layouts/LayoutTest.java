@@ -13,7 +13,7 @@
 package org.eclipse.wb.tests.designer.swt.model.layouts;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
@@ -71,18 +71,20 @@ public class LayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_parse_setLayout_double() throws Exception {
-		try {
-			parseComposite(
-					"class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    setLayout(new FillLayout());",
-					"  }",
-					"}");
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(IExceptionConstants.DOUBLE_SET_LAYOUT, e.getCode());
-		}
+		Throwable t = assertThrows(Throwable.class, () -> parseComposite(
+				"class Test extends Shell {",
+				"  public Test() {",
+				"    setLayout(new RowLayout());",
+				"    setLayout(new FillLayout());",
+				"  }",
+				"}"));
+		ErrorEntryInfo errorEntry = DesignerExceptionUtils.getErrorEntry(t);
+		assertEquals(IExceptionConstants.DOUBLE_SET_LAYOUT, errorEntry.getCode());
+		assertEquals("""
+				line 17: You are attempting to set the
+						layout <b>org.eclipse.swt.layout.FillLayout</b> for the Composite <b>(org.eclipse.swt.widgets.Shell)</b>. However, the Composite already has the layout <b>org.eclipse.swt.layout.RowLayout</b>.
+						Please remove the invalid <i>setLayout()</i> invocation from your source.""",
+				errorEntry.getDescription().replaceAll("\r", ""));
 	}
 
 	/**
