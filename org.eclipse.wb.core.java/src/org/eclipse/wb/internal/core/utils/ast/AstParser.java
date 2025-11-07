@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -159,7 +159,7 @@ public final class AstParser {
 		try {
 			return (Statement) findNode(source, position, Statement.class, statementPosition);
 		} catch (DesignerException e) {
-			String problems = e.getParameters()[1];
+			Object problems = e.getParameters()[1];
 			throw new DesignerException(ICoreExceptionConstants.AST_PARSE_ERROR, e, src, problems);
 		}
 	}
@@ -179,7 +179,7 @@ public final class AstParser {
 		try {
 			return (BodyDeclaration) findNode(source, position, BodyDeclaration.class, position);
 		} catch (DesignerException e) {
-			String problems = e.getParameters()[1];
+			Object problems = e.getParameters()[1];
 			throw new DesignerException(ICoreExceptionConstants.AST_PARSE_ERROR, e, src, problems);
 		}
 	}

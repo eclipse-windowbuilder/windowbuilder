@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 public class DesignerException extends Error {
 	private static final long serialVersionUID = 0L;
 	private final int m_code;
-	private final String[] m_parameters;
+	private final Object[] m_parameters;
 	private final Throwable m_cause;
 	private int m_sourcePosition = -1;
 
@@ -35,11 +35,11 @@ public class DesignerException extends Error {
 	// Constructors
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public DesignerException(int code, String... parameters) {
+	public DesignerException(int code, Object... parameters) {
 		this(code, null, parameters);
 	}
 
-	public DesignerException(int code, Throwable cause, String... parameters) {
+	public DesignerException(int code, Throwable cause, Object... parameters) {
 		super(cause);
 		m_code = code;
 		m_parameters = parameters;
@@ -55,7 +55,7 @@ public class DesignerException extends Error {
 		return m_code;
 	}
 
-	public String[] getParameters() {
+	public Object[] getParameters() {
 		return m_parameters;
 	}
 
