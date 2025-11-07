@@ -75,7 +75,7 @@ public final class AbstractPositionInfo extends ObjectInfo {
 			}
 
 			@Override
-			public String getText() throws Exception {
+			public String getText() {
 				return m_method;
 			}
 		};

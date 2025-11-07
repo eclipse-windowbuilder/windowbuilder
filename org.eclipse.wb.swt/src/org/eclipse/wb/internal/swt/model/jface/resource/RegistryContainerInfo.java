@@ -86,7 +86,7 @@ public final class RegistryContainerInfo extends AbstractContainerInfo {
 	public IObjectPresentation getPresentation() {
 		return new DefaultObjectPresentation(this) {
 			@Override
-			public String getText() throws Exception {
+			public String getText() {
 				return ModelMessages.RegistryContainerInfo_jfaceRegistries;
 			}
 

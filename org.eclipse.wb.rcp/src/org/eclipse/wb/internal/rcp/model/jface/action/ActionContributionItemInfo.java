@@ -82,7 +82,7 @@ public final class ActionContributionItemInfo extends ContributionItemInfo {
 		}
 
 		@Override
-		public String getText() throws Exception {
+		public String getText() {
 			if (isAddAction()) {
 				return getAction().getPresentation().getText();
 			}

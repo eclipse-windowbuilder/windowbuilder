@@ -34,7 +34,7 @@ public interface IObjectPresentation {
 	/**
 	 * @return the text to display for user. This can be some static text, variable name, etc.
 	 */
-	String getText() throws Exception;
+	String getText();
 
 	/**
 	 * @return the icon to display for user.

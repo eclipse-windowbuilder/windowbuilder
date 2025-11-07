@@ -40,7 +40,7 @@ public final class MenuItemStylePresentation extends StylePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public String getText() throws Exception {
+	public String getText() {
 		if ((((WidgetInfo) m_javaInfo).getWidget().getStyle() & SWT.SEPARATOR) != 0) {
 			return "<separator>";
 		}
