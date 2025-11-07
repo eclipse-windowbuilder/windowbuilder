@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -328,7 +328,7 @@ public class AssertTest extends Assertions {
 			fail();
 		} catch (DesignerException e) {
 			assertEquals(exceptionCode, e.getCode());
-			String[] parameters = e.getParameters();
+			Object[] parameters = e.getParameters();
 			assertEquals(1, parameters.length);
 			assertSame(message, parameters[0]);
 		}
@@ -344,7 +344,7 @@ public class AssertTest extends Assertions {
 			fail();
 		} catch (DesignerException e) {
 			assertEquals(exceptionCode, e.getCode());
-			String[] parameters = e.getParameters();
+			Object[] parameters = e.getParameters();
 			assertEquals(1, parameters.length);
 			assertEquals("10", parameters[0]);
 		}
@@ -360,7 +360,7 @@ public class AssertTest extends Assertions {
 			fail();
 		} catch (DesignerException e) {
 			assertEquals(exceptionCode, e.getCode());
-			String[] parameters = e.getParameters();
+			Object[] parameters = e.getParameters();
 			assertEquals(1, parameters.length);
 			assertEquals("null", parameters[0]);
 		}

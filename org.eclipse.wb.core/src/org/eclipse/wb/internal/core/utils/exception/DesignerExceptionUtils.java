@@ -57,6 +57,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -338,7 +339,7 @@ public final class DesignerExceptionUtils {
 		Throwable rootException = getDesignerCause(throwable);
 		if (rootException instanceof DesignerException designerException) {
 			int code = designerException.getCode();
-			String[] parameters = designerException.getParameters();
+			Object[] parameters = designerException.getParameters();
 			return getErrorEntry(code, parameters);
 		} else {
 			return getUnexpectedErrorEntryInfo(throwable);
@@ -360,7 +361,7 @@ public final class DesignerExceptionUtils {
 		return new ErrorEntryInfo(e.getCode(), e.isWarning(), e.getTitle(), desc, e.getAltDescription());
 	}
 
-	public static ErrorEntryInfo getErrorEntry(int exceptionCode, String... parameters) {
+	public static ErrorEntryInfo getErrorEntry(int exceptionCode, Object... parameters) {
 		// try to find existing entry
 		{
 			ErrorEntryInfo entry = getErrorEntry0(exceptionCode, parameters);
@@ -379,7 +380,7 @@ public final class DesignerExceptionUtils {
 		}
 	}
 
-	private static ErrorEntryInfo getErrorEntry0(int exceptionCode, String... parameters) {
+	private static ErrorEntryInfo getErrorEntry0(int exceptionCode, Object... parameters) {
 		// get error entry if any and prepare it.
 		ErrorEntryInfo errorEntryInfo = getErrorEntry0(exceptionCode);
 		if (errorEntryInfo != null) {
@@ -412,8 +413,8 @@ public final class DesignerExceptionUtils {
 		return m_codeToDescription.get(exceptionCode);
 	}
 
-	private static String includeExceptionParameter(String html, String searchString, String message) {
-		String messageEscaped = StringEscapeUtils.escapeHtml4(message);
+	private static String includeExceptionParameter(String html, String searchString, Object message) {
+		String messageEscaped = StringEscapeUtils.escapeHtml4(Objects.toString(message));
 		return html.replace(searchString, messageEscaped);
 	}
 

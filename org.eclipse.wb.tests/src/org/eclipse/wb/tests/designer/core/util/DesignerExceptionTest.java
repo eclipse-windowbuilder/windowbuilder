@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,7 +40,7 @@ public class DesignerExceptionTest extends Assertions {
 		DesignerException designerException = new DesignerException(CODE, PARAMETER_0);
 		assertEquals(CODE, designerException.getCode());
 		{
-			String[] parameters = designerException.getParameters();
+			Object[] parameters = designerException.getParameters();
 			assertEquals(parameters.length, 1);
 			assertSame(PARAMETER_0, parameters[0]);
 		}
@@ -51,7 +51,7 @@ public class DesignerExceptionTest extends Assertions {
 		DesignerException designerException = new DesignerException(CODE, PARAMETER_0, PARAMETER_1);
 		assertEquals(CODE, designerException.getCode());
 		{
-			String[] parameters = designerException.getParameters();
+			Object[] parameters = designerException.getParameters();
 			assertEquals(parameters.length, 2);
 			assertSame(PARAMETER_0, parameters[0]);
 			assertSame(PARAMETER_1, parameters[1]);
@@ -65,7 +65,7 @@ public class DesignerExceptionTest extends Assertions {
 		assertEquals(CODE, designerException.getCode());
 		assertSame(cause, designerException.getCause());
 		{
-			String[] parameters = designerException.getParameters();
+			Object[] parameters = designerException.getParameters();
 			assertEquals(parameters.length, 1);
 			assertSame(PARAMETER_0, parameters[0]);
 		}

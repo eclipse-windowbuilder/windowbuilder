@@ -2145,17 +2145,17 @@ public class AstEditorTest extends AbstractJavaTest {
 			DesignerException methodDE = DesignerExceptionUtils.getDesignerException(e);
 			assertEquals(ICoreExceptionConstants.AST_PARSE_ERROR, methodDE.getCode());
 			{
-				String[] parameters = methodDE.getParameters();
+				Object[] parameters = methodDE.getParameters();
 				Assertions.assertThat(parameters).hasSize(2);
 				{
-					String source = parameters[0];
+					String source = (String) parameters[0];
 					Assertions.assertThat(source).doesNotContain("class Test");
 					Assertions.assertThat(source).contains("void foo() {");
 					Assertions.assertThat(source).contains("somethingBadA();");
 					Assertions.assertThat(source).contains("somethingBadB();");
 				}
 				{
-					String problems = parameters[1];
+					String problems = (String) parameters[1];
 					Assertions.assertThat(problems).contains("The method somethingBadA() is undefined for the type Test");
 					Assertions.assertThat(problems).contains("The method somethingBadB() is undefined for the type Test");
 				}
@@ -2164,10 +2164,10 @@ public class AstEditorTest extends AbstractJavaTest {
 			DesignerException nodeDE = (DesignerException) methodDE.getCause();
 			assertEquals(ICoreExceptionConstants.AST_PARSE_ERROR, nodeDE.getCode());
 			{
-				String[] parameters = nodeDE.getParameters();
+				Object[] parameters = nodeDE.getParameters();
 				Assertions.assertThat(parameters).hasSize(2);
 				{
-					String source = parameters[0];
+					String source = (String) parameters[0];
 					Assertions.assertThat(source).contains("class Test");
 					Assertions.assertThat(source).contains("void foo() {");
 					Assertions.assertThat(source).contains("somethingBadA();");
@@ -4768,19 +4768,19 @@ public class AstEditorTest extends AbstractJavaTest {
 			DesignerException statementDE = DesignerExceptionUtils.getDesignerException(e);
 			assertEquals(ICoreExceptionConstants.AST_PARSE_ERROR, statementDE.getCode());
 			{
-				String[] parameters = statementDE.getParameters();
+				Object[] parameters = statementDE.getParameters();
 				Assertions.assertThat(parameters).hasSize(2);
-				Assertions.assertThat(parameters[0]).contains("somethingBad();");
-				Assertions.assertThat(parameters[1]).contains("The method somethingBad() is undefined");
+				Assertions.assertThat((String) parameters[0]).contains("somethingBad();");
+				Assertions.assertThat((String) parameters[1]).contains("The method somethingBad() is undefined");
 			}
 			// ASTNode "parse error" is cause
 			DesignerException nodeDE = (DesignerException) statementDE.getCause();
 			assertEquals(ICoreExceptionConstants.AST_PARSE_ERROR, nodeDE.getCode());
 			{
-				String[] parameters = nodeDE.getParameters();
+				Object[] parameters = nodeDE.getParameters();
 				Assertions.assertThat(parameters).hasSize(2);
-				Assertions.assertThat(parameters[0]).contains("somethingBad();");
-				Assertions.assertThat(parameters[1]).contains("The method somethingBad() is undefined");
+				Assertions.assertThat((String) parameters[0]).contains("somethingBad();");
+				Assertions.assertThat((String) parameters[1]).contains("The method somethingBad() is undefined");
 			}
 		}
 	}
