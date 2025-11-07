@@ -118,7 +118,7 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
 			}
 
 			@Override
-			public boolean isVisible() throws Exception {
+			public boolean isVisible() {
 				return !isHideInTree();
 			}
 		};

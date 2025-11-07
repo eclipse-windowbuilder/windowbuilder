@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,7 +29,7 @@ public interface IObjectPresentation {
 	 * @return <code>true</code> if object should be displayed for user. For example we can display
 	 *         some containers only if there is at least one child.
 	 */
-	boolean isVisible() throws Exception;
+	boolean isVisible();
 
 	/**
 	 * @return the text to display for user. This can be some static text, variable name, etc.
