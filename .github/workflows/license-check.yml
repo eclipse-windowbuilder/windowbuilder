@@ -1,0 +1,12 @@
+name: License Check
+
+on:
+  pull_request:
+    paths:
+      - '**.target'
+
+jobs:
+  check-dash-licenses:
+    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@fce3439d169005fa3a33df074fec5690887ecab3 # 1.1.0
+    with:
+      projectId: tools.windowbuilder

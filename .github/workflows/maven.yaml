@@ -18,11 +18,6 @@ on:
       - labeled
 
 jobs:
-  check-dash-licenses:
-    if: contains(github.event.pull_request.labels.*.name, 'dash-license')
-    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@fce3439d169005fa3a33df074fec5690887ecab3 # 1.1.0
-    with:
-      projectId: tools.windowbuilder
   build:
     strategy:
       fail-fast: false
