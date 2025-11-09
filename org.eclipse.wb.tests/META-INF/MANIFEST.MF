@@ -164,4 +164,4 @@ Import-Package: com.jgoodies.forms.factories;version="[1.9.0,2.0.0]",
  org.assertj.core.util;version="[3.26.0,4.0.0)",
  org.slf4j;version="[1.7.0,2.0.0)"
 Automatic-Module-Name: org.eclipse.wb.tests
-
+Require-Capability: wbp;filter:="(type=os)"
