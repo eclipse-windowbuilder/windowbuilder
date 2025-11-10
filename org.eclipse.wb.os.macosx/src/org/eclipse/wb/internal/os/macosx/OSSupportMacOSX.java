@@ -278,8 +278,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
 	}
 
 	@Override
-	public Rectangle getTabItemBounds(Object item) {
-		TabItem tabItem = (TabItem) item;
+	public Rectangle getTabItemBounds(TabItem tabItem) {
 		TabFolder folder = tabItem.getParent();
 		GC gc = new GC(folder);
 		Point folderSize = folder.getSize();

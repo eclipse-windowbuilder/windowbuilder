@@ -139,9 +139,9 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final Rectangle getTabItemBounds(Object tabItemObject) {
-		TabFolder tabFolder = ((TabItem) tabItemObject).getParent();
-		int index = ArrayUtils.indexOf(tabFolder.getItems(), tabItemObject);
+	public final Rectangle getTabItemBounds(TabItem tabItem) {
+		TabFolder tabFolder = tabItem.getParent();
+		int index = ArrayUtils.indexOf(tabFolder.getItems(), tabItem);
 		int[] bounds = new int[4];
 		getTabItemBounds(tabFolder, index, bounds);
 		// convert into Rectangle

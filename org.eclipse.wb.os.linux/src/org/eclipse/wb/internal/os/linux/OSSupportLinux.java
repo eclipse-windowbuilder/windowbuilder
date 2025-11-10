@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 
@@ -518,7 +519,7 @@ public abstract class OSSupportLinux extends OSSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final Rectangle getTabItemBounds(Object tabItem) {
+	public final Rectangle getTabItemBounds(TabItem tabItem) {
 		return getWidgetBounds(tabItem);
 	}
 
