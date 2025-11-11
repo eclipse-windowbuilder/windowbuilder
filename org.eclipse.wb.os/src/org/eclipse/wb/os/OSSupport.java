@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -86,17 +86,45 @@ public abstract class OSSupport {
 	 * Created image can be requested using {@link ToolkitSupport#getShotImage(Object)}.
 	 *
 	 * Note: the control may have <code>null</code> as image, ex. if the control has the invalid size.
+	 *
+	 * @deprecated Use {@link #makeShots(Control)} instead. This method will be
+	 *             removed after the 2027-12 release.
 	 */
-	public abstract void makeShots(Object control) throws Exception;
+	@Deprecated(forRemoval = true, since = "2025-12")
+	public final void makeShots(Object control) throws Exception {
+		makeShots((Control) control);
+	}
+
+	/**
+	 * Prepares shots for all {@link Control}'s in hierarchy that have flag
+	 * {@link #WBP_NEED_IMAGE}. Created image can be requested using
+	 * {@link ToolkitSupport#getShotImage(Object)}.
+	 *
+	 * Note: the control may have <code>null</code> as image, ex. if the control has
+	 * the invalid size.
+	 */
+	public abstract void makeShots(Control control) throws Exception;
 
 	/**
 	 * Prepares the process of taking screen shot. Overridden in Linux.
 	 *
 	 * @param control
 	 *          the {@link Control}.
+	 * @deprecated Use {@link #beginShot(Control)} instead. This method will be
+	 *             removed after the 2027-12 release.
 	 */
-	public void beginShot(Object controlObject) {
-		Shell shell = layoutShell(controlObject);
+	@Deprecated(forRemoval = true, since = "2025-12")
+	public final void beginShot(Object controlObject) {
+		beginShot((Control) controlObject);
+	}
+
+	/**
+	 * Prepares the process of taking screen shot. Overridden in Linux.
+	 *
+	 * @param control the {@link Control}.
+	 */
+	public void beginShot(Control control) {
+		Shell shell = layoutShell(control);
 		// make visible
 		makeShellVisible(shell);
 	}
@@ -109,8 +137,20 @@ public abstract class OSSupport {
 		shell.setVisible(true);
 	}
 
+	/**
+	 * @deprecated Use {@link #layoutShell(Control)} instead. This method will be
+	 *             removed after the 2027-12 release.
+	 */
+	@Deprecated(forRemoval = true, since = "2025-12")
 	protected final Shell layoutShell(Object controlObject) {
 		Control control = (Control) controlObject;
+		Shell shell = control.getShell();
+		doLayout(shell);
+		fixZeroSizes_begin(shell);
+		return shell;
+	}
+
+	protected final Shell layoutShell(Control control) {
 		Shell shell = control.getShell();
 		doLayout(shell);
 		fixZeroSizes_begin(shell);
@@ -140,9 +180,20 @@ public abstract class OSSupport {
 	 *
 	 * @param control
 	 *          the {@link Control}.
+	 * @deprecated Use {@link #endShot(Control)} instead. This method will
+	 *             be removed after the 2027-12 release.
 	 */
-	public void endShot(Object controlObject) {
-		Control control = (Control) controlObject;
+	@Deprecated(forRemoval = true, since = "2025-12")
+	public final void endShot(Object controlObject) {
+		endShot((Control) controlObject);
+	}
+
+	/**
+	 * Finalizes the process of taking screen shot. Overridden in Linux.
+	 *
+	 * @param control the {@link Control}.
+	 */
+	public void endShot(Control control) {
 		fixZeroSizes_end(control);
 		Shell shell = control.getShell();
 		shell.setVisible(false);
@@ -152,7 +203,7 @@ public abstract class OSSupport {
 	 * Return the {@link Image} of given {@link Control}.
 	 *
 	 * Note: may return <code>null</code> as image, ex. if the control has the invalid size. See also
-	 * {@link OSSupport#makeShots(Object)}.
+	 * {@link OSSupport#makeShots(Control)}.
 	 *
 	 * @return the {@link Image} of given {@link Control}.
 	 */
@@ -211,8 +262,18 @@ public abstract class OSSupport {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the bounds of {@link TabItem}.
+	 * @deprecated Use {@link #getTabItemBounds(TabItem)} instead. This method will
+	 *             be removed after the 2027-12 release.
 	 */
-	public abstract Rectangle getTabItemBounds(Object item);
+	@Deprecated(forRemoval = true, since = "2025-12")
+	public final Rectangle getTabItemBounds(Object item) {
+		return getTabItemBounds((TabItem) item);
+	}
+
+	/**
+	 * @return the bounds of {@link TabItem}.
+	 */
+	public abstract Rectangle getTabItemBounds(TabItem item);
 
 	////////////////////////////////////////////////////////////////////////////
 	//

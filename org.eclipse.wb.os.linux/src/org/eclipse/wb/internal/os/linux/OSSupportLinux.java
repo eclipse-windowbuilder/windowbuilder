@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 
@@ -140,8 +141,8 @@ public abstract class OSSupportLinux extends OSSupport {
 	}
 
 	@Override
-	public void beginShot(Object controlObject) {
-		Shell shell = layoutShell(controlObject);
+	public void beginShot(Control control) {
+		Shell shell = layoutShell(control);
 		// setup key title to be used by compiz WM (if enabled)
 		if (!isWorkaroundsDisabled()) {
 			// prepare
@@ -171,10 +172,10 @@ public abstract class OSSupportLinux extends OSSupport {
 	}
 
 	@Override
-	public void endShot(Object controlObject) {
+	public void endShot(Control control) {
 		// hide shell. The shell should be visible during all the period of fetching visual data.
-		super.endShot(controlObject);
-		Shell shell = getShell(controlObject);
+		super.endShot(control);
+		Shell shell = getShell(control);
 		if (!isWorkaroundsDisabled()) {
 			_gtk_widget_hide(getShellHandle(shell));
 			if (m_eclipseShell != null) {
@@ -184,8 +185,8 @@ public abstract class OSSupportLinux extends OSSupport {
 	}
 
 	@Override
-	public void makeShots(Object controlObject) throws Exception {
-		Shell shell = getShell(controlObject);
+	public void makeShots(Control control) throws Exception {
+		Shell shell = getShell(control);
 		makeShots0(shell);
 		// check for decorations and draw if needed
 		drawDecorations(shell, shell.getDisplay());
@@ -518,7 +519,7 @@ public abstract class OSSupportLinux extends OSSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final Rectangle getTabItemBounds(Object tabItem) {
+	public final Rectangle getTabItemBounds(TabItem tabItem) {
 		return getWidgetBounds(tabItem);
 	}
 

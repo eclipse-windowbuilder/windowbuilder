@@ -67,26 +67,25 @@ public abstract class OSSupportMacOSX extends OSSupport {
 	}
 
 	@Override
-	public void beginShot(Object controlObject) {
+	public void beginShot(Control control) {
 		// disabling shell redraw prevents painting events
 		// to be dispatched to design canvas. These events can
 		// cause painting already disposed images, ex., for action instances,
 		// which are already disposed but image references are still alive
 		// in it's presentation in widgets tree (see Case 40141).
 		DesignerPlugin.getShell().setRedraw(false);
-		super.beginShot(controlObject);
+		super.beginShot(control);
 	}
 
 	@Override
-	public void endShot(Object controlObject) {
-		super.endShot(controlObject);
+	public void endShot(Control control) {
+		super.endShot(control);
 		DesignerPlugin.getShell().setRedraw(true);
 	}
 
 	@Override
-	public void makeShots(Object controlObject) throws Exception {
+	public void makeShots(Control control) throws Exception {
 		// do create shots
-		Control control = (Control) controlObject;
 		try {
 			//			reverseDrawingOrder(control);
 			Image sourceShot = makeShot(control);
@@ -278,8 +277,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
 	}
 
 	@Override
-	public Rectangle getTabItemBounds(Object item) {
-		TabItem tabItem = (TabItem) item;
+	public Rectangle getTabItemBounds(TabItem tabItem) {
 		TabFolder folder = tabItem.getParent();
 		GC gc = new GC(folder);
 		Point folderSize = folder.getSize();
