@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,10 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
+import net.miginfocom.layout.PlatformDefaults;
+import net.miginfocom.layout.UnitValue;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
@@ -41,6 +45,17 @@ public abstract class AbstractMigLayoutTest extends AbstractLayoutTest {
 	static void do_configureNewProject() throws Exception {
 		m_testProject.addPlugin("com.miglayout.core");
 		m_testProject.addPlugin("com.miglayout.swing");
+	}
+
+	/**
+	 * Default values used on Windows. Should be used for all platforms to have
+	 * consistent test results.
+	 */
+	@BeforeAll
+	public static void resetMigLayoutDefaults() {
+		final UnitValue DEFAULT_GAP = new UnitValue(7.0f);
+		PlatformDefaults.setPanelInsets(DEFAULT_GAP, DEFAULT_GAP, DEFAULT_GAP, DEFAULT_GAP);
+		PlatformDefaults.setGridCellGap(DEFAULT_GAP, DEFAULT_GAP);
 	}
 
 	@Override
