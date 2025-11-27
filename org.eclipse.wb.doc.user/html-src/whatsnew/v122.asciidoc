@@ -4,6 +4,19 @@ endif::[]
 
 = What's New - v1.22.0
 
+== General
+
+- Integrity by default
+
+WindowBuilder uses BurningWave to access the internal fields of the Swing
+components. In previous versions, this functionality was enabled by default
+but could be disabled by setting the `wbp.burningwave.enabled` system property
+to `false`. This property is now disabled by default and needs to be
+explicitly enabled.
+
+Users are encouraged to explicitly open the required modules using e.g.
+`--add-opens java.desktop/javax.swing=ALL-UNNAMED`.
+
 == Swing
 
 - Deprecated support for Applet/JApplet

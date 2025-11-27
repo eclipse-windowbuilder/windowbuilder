@@ -232,6 +232,6 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 	private static final String WBP_BURNINGWAVE = "wbp.burningwave.enabled";
 
 	public static boolean isBurningWaveEnabled() {
-		return Boolean.valueOf(System.getProperty(WBP_BURNINGWAVE, Boolean.TRUE.toString()));
+		return Boolean.valueOf(System.getProperty(WBP_BURNINGWAVE, Boolean.FALSE.toString()));
 	}
 }
