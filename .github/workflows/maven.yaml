@@ -23,11 +23,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        java: [ 21, 24 ]
+        java: [ 21, 25 ]
         include:
           - java: 21
             target: 2024-06
-          - java: 24
+          - java: 25
             target: master
     runs-on: ${{ matrix.os }}   
     name: OS ${{ matrix.os }} Java ${{ matrix.java }} ${{ matrix.target }} compile

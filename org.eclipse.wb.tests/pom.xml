@@ -22,7 +22,7 @@
   <packaging>eclipse-test-plugin</packaging>
 
 	<properties>
-		<uitest.vmparams>-Dwbp.burningwave.enabled=false -Dorg.eclipse.swtbot.search.timeout=60000</uitest.vmparams>
+		<uitest.vmparams>-Dorg.eclipse.swtbot.search.timeout=60000</uitest.vmparams>
 	</properties>
 
 	<profiles>
