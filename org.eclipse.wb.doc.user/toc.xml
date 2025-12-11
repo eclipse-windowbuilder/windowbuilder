@@ -2,7 +2,7 @@
 <?NLS TYPE="org.eclipse.help.toc"?>
 <toc label="WindowBuilder Pro User Guide" topic="html/index.html">
 	<topic label="Quick Start" href="html/quick_start.html" />
-	<topic label="What's New" href="html/whatsnew/v122.html" />
+	<topic label="What's New" href="html/whatsnew/v123.html" />
 	<topic label="Installation" href="html/installation/index.html">
 		<link toc="toc_installation.xml" />
 	</topic>

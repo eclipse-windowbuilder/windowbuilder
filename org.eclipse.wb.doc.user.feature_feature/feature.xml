@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.doc.user.feature"
       label="%featureName"
-      version="1.22.0.qualifier"
+      version="1.23.0.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.doc.user"
       license-feature="org.eclipse.license"
