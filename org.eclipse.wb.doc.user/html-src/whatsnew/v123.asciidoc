@@ -1,0 +1,7 @@
+ifdef::env-github[]
+:imagesdir: ../../html/whatsnew
+endif::[]
+
+= What's New - v1.23.0
+
+What's new - xref:v122.adoc[*v1.22.0*]
