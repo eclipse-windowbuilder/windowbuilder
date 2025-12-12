@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -125,21 +125,6 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
 		fixupSeparatorItems(menu, bounds, menuSize, itemsBounds);
 		gc.dispose();
 		return image;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Misc
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public int getAlpha(Shell shell) {
-		return _getAlpha(getID(shell, "window"));
-	}
-
-	@Override
-	public void setAlpha(Shell shell, int alpha) {
-		_setAlpha(getID(shell, "window"), alpha);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
