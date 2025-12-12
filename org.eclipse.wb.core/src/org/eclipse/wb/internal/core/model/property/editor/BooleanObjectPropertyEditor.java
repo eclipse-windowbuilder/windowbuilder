@@ -94,7 +94,7 @@ public final class BooleanObjectPropertyEditor extends PropertyEditor {
 	}
 
 	@Override
-	public void doubleClick(Property property, Point location) throws Exception {
+	public void doubleClick(Property property) throws Exception {
 		invertValue(property);
 	}
 

@@ -2250,7 +2250,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// open "keyPressed" method
 		{
 			PropertyEditor keyPressedEditor = keyPressedProperty.getEditor();
-			keyPressedEditor.doubleClick(keyPressedProperty, null);
+			keyPressedEditor.doubleClick(keyPressedProperty);
 			assertEditor(
 					"class Test extends JPanel {",
 					"  Test() {",

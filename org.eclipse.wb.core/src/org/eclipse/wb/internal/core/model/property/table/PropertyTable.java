@@ -658,7 +658,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 							m_activePropertyInfo.flip();
 						} else {
 							Property property = m_activePropertyInfo.getProperty();
-							property.getEditor().doubleClick(property, getValueRelativeLocation(event.x, event.y));
+							property.getEditor().doubleClick(property);
 						}
 					}
 				} catch (Throwable e) {

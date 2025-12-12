@@ -687,7 +687,7 @@ public class ViewerTest extends RcpModelTest {
 			assertEquals("test.Test.ContentProvider", getPropertyText(property));
 		}
 		// just kick "doubleClick", no result tested
-		propertyEditor.doubleClick(property, null);
+		propertyEditor.doubleClick(property);
 		// use GUI to set "ArrayContentProvider"
 		{
 			String expectedSource = m_lastEditor.getSource().replace("new ContentProvider", "new ArrayContentProvider");

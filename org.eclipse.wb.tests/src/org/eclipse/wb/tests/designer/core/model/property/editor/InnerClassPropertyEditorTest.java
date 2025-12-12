@@ -100,7 +100,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 			IDesignPageSite designerPageSite = mock(IDesignPageSite.class);
 			// use DesignPageSite, open position
 			DesignPageSite.Helper.setSite(button, designerPageSite);
-			propertyEditor.doubleClick(property, null);
+			propertyEditor.doubleClick(property);
 			//
 			verify(designerPageSite).openSourcePosition(expectedPosition);
 			verifyNoMoreInteractions(designerPageSite);

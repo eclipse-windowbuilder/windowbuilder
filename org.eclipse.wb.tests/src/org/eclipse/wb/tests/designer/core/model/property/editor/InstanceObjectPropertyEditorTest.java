@@ -210,7 +210,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
 		// kick "doubleClick"
-		editor.doubleClick(property, null);
+		editor.doubleClick(property);
 		assertEditor(
 				"// filler filler filler",
 				"public class Test extends TestPanel {",
