@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.core.controls;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.window.Window;
@@ -90,7 +89,7 @@ public abstract class GhostWindow extends Window {
 	private final void setup() {
 		Point mouseLocation = DesignerPlugin.getStandardDisplay().getCursorLocation();
 		getShell().setLocation(mouseLocation.x + INITIAL_DISTANCE, mouseLocation.y + INITIAL_DISTANCE);
-		setAlpha(getShell(), (int) (255 - INITIAL_DISTANCE * ALPHA_MULTIPLIER * SQRT_OF_TWO));
+		getShell().setAlpha((int) (255 - INITIAL_DISTANCE * ALPHA_MULTIPLIER * SQRT_OF_TWO));
 		m_listener.setEnabled(true);
 	}
 
@@ -137,22 +136,22 @@ public abstract class GhostWindow extends Window {
 			// if the mouse moved too far then the user don't need this window
 			if (distance > MAX_DISTANCE) {
 				m_enabled = false;
-				setAlpha(m_shell, 0);
+				m_shell.setAlpha(0);
 				// for platforms which doesn't support alpha
-				if (getAlpha(m_shell) == 255) {
+				if (m_shell.getAlpha() == 255) {
 					m_shell.setVisible(false);
 				}
 				return;
 			}
 			// if inside, don't set alpha again and again, this flickering for me
 			if (inside) {
-				if (getAlpha(m_shell) < 255) {
-					setAlpha(m_shell, 255);
+				if (m_shell.getAlpha() < 255) {
+					m_shell.setAlpha(255);
 				}
 			} else {
 				// proportionally set alpha
 				int alpha = 255 - distance * ALPHA_MULTIPLIER;
-				setAlpha(m_shell, alpha > 0 ? alpha : 0);
+				m_shell.setAlpha(alpha > 0 ? alpha : 0);
 			}
 		}
 
@@ -162,18 +161,5 @@ public abstract class GhostWindow extends Window {
 		public final void setEnabled(boolean enabled) {
 			m_enabled = enabled;
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Alpha helpers
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private static void setAlpha(Shell shell, int alpha) {
-		OSSupport.get().setAlpha(shell, alpha);
-	}
-
-	private static int getAlpha(Shell shell) {
-		return OSSupport.get().getAlpha(shell);
 	}
 }

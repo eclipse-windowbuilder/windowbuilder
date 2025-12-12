@@ -534,26 +534,6 @@ public abstract class OSSupportLinux extends OSSupport {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Alpha
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void setAlpha(Shell shell, int alpha) {
-		if (_gtk_widget_is_composited(getShellHandle(shell))) {
-			_gtk_widget_set_opacity(getShellHandle(shell), alpha / 255.0);
-		}
-	}
-
-	@Override
-	public int getAlpha(Shell shell) {
-		if (_gtk_widget_is_composited(getShellHandle(shell))) {
-			return (int) (_gtk_widget_get_opacity(getShellHandle(shell)) * 255);
-		}
-		return 255;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
