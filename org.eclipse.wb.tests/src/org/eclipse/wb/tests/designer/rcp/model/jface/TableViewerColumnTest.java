@@ -600,7 +600,7 @@ public class TableViewerColumnTest extends RcpModelTest {
 			IDesignPageSite designerPageSite = mock(IDesignPageSite.class);
 			// use DesignPageSite, open position
 			DesignPageSite.Helper.setSite(shell, designerPageSite);
-			sorterEditor.doubleClick(sorterProperty, null);
+			sorterEditor.doubleClick(sorterProperty);
 			//
 			verify(designerPageSite).openSourcePosition(positionCapture.capture());
 			// source
