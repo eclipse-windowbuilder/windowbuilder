@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.viewers.TableViewer;
 
@@ -66,7 +65,7 @@ public final class TableViewerColumnSorterPropertyEditor extends TextDisplayProp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void doubleClick(Property _property, Point location) throws Exception {
+	public void doubleClick(Property _property) throws Exception {
 		JavaProperty property = (JavaProperty) _property;
 		final JavaInfo javaInfo = property.getJavaInfo();
 		ASTNode node = (ASTNode) property.getValue();
@@ -108,6 +107,6 @@ public final class TableViewerColumnSorterPropertyEditor extends TextDisplayProp
 			}
 		});
 		// open in source
-		doubleClick(_property, location);
+		doubleClick(_property);
 	}
 }

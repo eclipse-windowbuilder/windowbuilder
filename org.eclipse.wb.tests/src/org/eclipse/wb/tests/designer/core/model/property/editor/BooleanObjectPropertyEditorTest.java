@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,7 +60,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 		Property property = panel.getPropertyByTitle("foo");
 		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
 		// unknown -> true
-		editor.doubleClick(property, null);
+		editor.doubleClick(property);
 		assertEditor(
 				"// filler filler filler",
 				"public class Test extends MyPanel {",
@@ -69,7 +69,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 				"  }",
 				"}");
 		// true -> false
-		editor.doubleClick(property, null);
+		editor.doubleClick(property);
 		assertEditor(
 				"// filler filler filler",
 				"public class Test extends MyPanel {",
@@ -78,7 +78,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 				"  }",
 				"}");
 		// false -> true
-		editor.doubleClick(property, null);
+		editor.doubleClick(property);
 		assertEditor(
 				"// filler filler filler",
 				"public class Test extends MyPanel {",
@@ -107,7 +107,7 @@ public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorT
 		Property property = panel.getPropertyByTitle("foo");
 		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
 		// null -> true
-		editor.doubleClick(property, null);
+		editor.doubleClick(property);
 		assertEditor(
 				"// filler filler filler",
 				"public class Test extends MyPanel {",
