@@ -287,8 +287,12 @@ public abstract class OSSupport {
 	 *          the instance of {@link Shell} to set the alpha.
 	 * @param alpha
 	 *          the value of alpha, 0-255, not validated.
+	 * @deprecated Use {@link Shell#setAlpha(int)} directly.
 	 */
-	public abstract void setAlpha(Shell shell, int alpha);
+	@Deprecated(forRemoval = true, since = "1.23.0")
+	public void setAlpha(Shell shell, int alpha) {
+		shell.setAlpha(alpha);
+	}
 
 	/**
 	 * Returns the current alpha value for given <code>shell</code>.
@@ -296,8 +300,12 @@ public abstract class OSSupport {
 	 * @param shell
 	 *          the instance of {@link Shell} to get the alpha.
 	 * @return the alpha value.
+	 * @deprecated Use {@link Shell#getAlpha()} directly.
 	 */
-	public abstract int getAlpha(Shell shell);
+	@Deprecated(forRemoval = true, since = "1.23.0")
+	public int getAlpha(Shell shell) {
+		return shell.getAlpha();
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
