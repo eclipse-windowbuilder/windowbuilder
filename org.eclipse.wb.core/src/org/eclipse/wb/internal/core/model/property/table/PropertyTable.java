@@ -411,84 +411,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Access: only for testing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the count of properties in "expanded" list.
-	 */
-	public int forTests_getPropertiesCount() {
-		return m_properties.size();
-	}
-
-	/**
-	 * @return the {@link Property} from "expanded" list.
-	 */
-	public Property forTests_getProperty(int index) {
-		return m_properties.get(index).getProperty();
-	}
-
-	/**
-	 * Expands the {@link PropertyInfo} with given index.
-	 */
-	public void forTests_expand(int index) throws Exception {
-		m_properties.get(index).expand();
-	}
-
 	/**
 	 * @return the position of splitter.
 	 */
 	public int getSplitter() {
 		return (int) getProperty(PROP_SPLITTER);
-	}
-
-	/**
-	 * @return the location of state image (plus/minus) for given {@link Property}.
-	 */
-	public org.eclipse.swt.graphics.Point forTests_getStateLocation(Property property) {
-		PropertyInfo propertyInfo = getPropertyInfo(property);
-		if (propertyInfo != null) {
-			PropertyEditPart editPart = getEditPartForModel(propertyInfo);
-			int x = editPart.getTitleX();
-			int y = getAbsoluteBounds(editPart).y();
-			return new org.eclipse.swt.graphics.Point(x, y);
-		}
-		return null;
-	}
-
-	/**
-	 * @return the location of state image (plus/minus) for given {@link Property}.
-	 */
-	public org.eclipse.swt.graphics.Point forTests_getValueLocation(Property property) {
-		PropertyInfo propertyInfo = getPropertyInfo(property);
-		if (propertyInfo != null) {
-			PropertyEditPart editPart = getEditPartForModel(propertyInfo);
-			int x = getSplitter() + 5;
-			int y = getAbsoluteBounds(editPart).y();
-			return new org.eclipse.swt.graphics.Point(x, y);
-		}
-		return null;
-	}
-
-	/**
-	 * @return the active {@link PropertyEditor}.
-	 */
-	public PropertyEditor forTests_getActiveEditor() {
-		return m_activeEditor;
-	}
-
-	/**
-	 * @return the {@link PropertyInfo}for given {@link Property}.
-	 */
-	private PropertyInfo getPropertyInfo(Property property) {
-		for (PropertyInfo propertyInfo : m_properties) {
-			if (propertyInfo.getProperty() == property) {
-				return propertyInfo;
-			}
-		}
-		return null;
 	}
 
 	public final PropertyTableTooltipHelper getTooltipHelper() {
