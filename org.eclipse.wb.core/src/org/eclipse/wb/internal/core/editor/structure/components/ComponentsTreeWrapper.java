@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
 		m_viewer = viewer;
 		m_contentProvider = new EditPartsContentProvider(m_viewer);
 		m_selectionProvider = new EditPartsSelectionProvider(m_viewer);
-		m_viewer.getTree().addTreeListener(new TreeListener() {
+		m_viewer.getControl().addTreeListener(new TreeListener() {
 			@Override
 			public void treeCollapsed(TreeEvent e) {
 				if (m_expandListener != null) {
@@ -85,7 +85,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
 
 	@Override
 	public Object[] getExpandedElements() {
-		TreeItem[] expandedItems = UiUtils.getExpanded(m_viewer.getTree());
+		TreeItem[] expandedItems = UiUtils.getExpanded(m_viewer.getControl());
 		// prepare models
 		Object[] models = new Object[expandedItems.length];
 		for (int i = 0; i < expandedItems.length; i++) {
@@ -106,7 +106,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
 			editParts[i] = (EditPart) m_viewer.getEditPartRegistry().get(element);
 		}
 		// expand using EditPart's
-		UiUtils.setExpandedByData(m_viewer.getTree(), editParts);
+		UiUtils.setExpandedByData(m_viewer.getControl(), editParts);
 	}
 
 	@Override

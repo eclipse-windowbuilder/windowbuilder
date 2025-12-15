@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
@@ -27,7 +28,6 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.SelectionRequest;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -65,15 +65,8 @@ public abstract class TreeToolTest extends GefTestCase {
 			}
 		};
 		// create viewer
-		m_viewer = new TreeViewer(m_shell, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI) {
-			@Override
-			public void expandAll() {
-				super.expandAll();
-				while (Display.getCurrent().readAndDispatch()) {
-					// draw expanded viewer
-				}
-			}
-		};
+		m_viewer = new TreeViewer();
+		m_viewer.createControl(m_shell);
 		m_viewer.getControl().setSize(500, 400);
 		m_viewer.setEditDomain(m_domain);
 		// create sender
@@ -160,6 +153,14 @@ public abstract class TreeToolTest extends GefTestCase {
 	protected static interface ILayoutEditPolicy {
 		boolean isGoodReferenceChild(Request request, EditPart editPart);
 	}
+
+	protected static final void expandAll(TreeViewer viewer) {
+		UiUtils.expandAll(viewer.getControl());
+		while (Display.getCurrent().readAndDispatch()) {
+			// draw expanded viewer
+		}
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// EditPart implementation
