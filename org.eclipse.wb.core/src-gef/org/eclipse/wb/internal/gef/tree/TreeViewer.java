@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.gef.tree;
 
 import org.eclipse.wb.gef.tree.TreeEditPart;
-import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
@@ -23,6 +22,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Cursor;
@@ -41,21 +41,13 @@ import java.util.List;
  * @coverage gef.tree
  */
 public class TreeViewer extends AbstractEditPartViewer {
-	private final Tree m_tree;
-	private final RootEditPart m_rootEditPart;
-	private final TreeEventManager m_eventManager;
+	private Tree m_tree;
+	private RootEditPart m_rootEditPart;
+	private TreeEventManager m_eventManager;
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructors
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public TreeViewer(Composite parent, int style) {
-		this(new Tree(parent, style));
-	}
-
-	public TreeViewer(Tree tree) {
-		m_tree = tree;
+	@Override
+	public Control createControl(Composite parent) {
+		m_tree = new Tree(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		// handle SWT events
 		m_eventManager = new TreeEventManager(m_tree, this);
 		// create root EditPart
@@ -65,6 +57,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 		setRootEditPart(m_rootEditPart);
 		// handle selection events
 		synchronizeSelection();
+		return m_tree;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -72,18 +65,12 @@ public class TreeViewer extends AbstractEditPartViewer {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the {@link Tree} control for this viewer.
-	 */
-	public Tree getTree() {
-		return m_tree;
-	}
 
 	/**
 	 * Returns the SWT <code>Control</code> for this viewer.
 	 */
 	@Override
-	public Control getControl() {
+	public Tree getControl() {
 		return m_tree;
 	}
 
@@ -127,25 +114,6 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public void setCursor(Cursor cursor) {
 		m_tree.setCursor(cursor);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Expansion
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Collapses all items in underlying {@link Tree}.
-	 */
-	public void collapseAll() {
-		UiUtils.collapseAll(m_tree);
-	}
-
-	/**
-	 * Expands all items in underlying {@link Tree}.
-	 */
-	public void expandAll() {
-		UiUtils.expandAll(m_tree);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

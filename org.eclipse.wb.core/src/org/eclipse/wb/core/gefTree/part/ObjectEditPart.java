@@ -68,7 +68,7 @@ public class ObjectEditPart extends TreeEditPart {
 		super.activate();
 		if (m_object.isRoot()) {
 			final TreeViewer viewer = (TreeViewer) getViewer();
-			final Tree tree = viewer.getTree();
+			final Tree tree = viewer.getControl();
 			// update presentation only when EditPart become visible
 			{
 				m_updatePresentationListener = new Listener() {
@@ -146,7 +146,7 @@ public class ObjectEditPart extends TreeEditPart {
 	public void deactivate() {
 		if (m_updatePresentationListener != null) {
 			TreeViewer viewer = (TreeViewer) getViewer();
-			Tree tree = viewer.getTree();
+			Tree tree = viewer.getControl();
 			tree.removeListener(SWT.PaintItem, m_updatePresentationListener);
 		}
 		super.deactivate();

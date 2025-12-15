@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -268,7 +268,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 				"}");
 		ActionInfo action2 = getJavaInfoByName("m_action2");
 		// we need this, because only in this case under Win32 we will able to reproduce problem
-		m_viewerTree.getTree().setFocus();
+		m_viewerTree.getControl().setFocus();
 		// delete
 		tree.expandAll();
 		tree.select(action2);

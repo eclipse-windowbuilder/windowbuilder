@@ -57,7 +57,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		m_viewer.expandAll();
+		expandAll(m_viewer);
 		//
 		Point location = getOnLocation(parent);
 		m_sender.doubleClick(location.x, location.y, 3);
@@ -100,11 +100,11 @@ public class TreeDragToolTest extends TreeToolTest {
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		m_viewer.expandAll();
+		expandAll(m_viewer);
 		//
 		m_viewer.select(child3);
 		//
-		DropTarget dropTarget = (DropTarget) m_viewer.getTree().getData("DropTarget");
+		DropTarget dropTarget = (DropTarget) m_viewer.getControl().getData("DropTarget");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//
@@ -202,11 +202,11 @@ public class TreeDragToolTest extends TreeToolTest {
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		m_viewer.expandAll();
+		expandAll(m_viewer);
 		//
 		m_viewer.select(child3);
 		//
-		DropTarget dropTarget = (DropTarget) m_viewer.getTree().getData("DropTarget");
+		DropTarget dropTarget = (DropTarget) m_viewer.getControl().getData("DropTarget");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//
@@ -250,11 +250,11 @@ public class TreeDragToolTest extends TreeToolTest {
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		m_viewer.expandAll();
+		expandAll(m_viewer);
 		//
 		m_viewer.select(child3);
 		//
-		DropTarget dropTarget = (DropTarget) m_viewer.getTree().getData("DropTarget");
+		DropTarget dropTarget = (DropTarget) m_viewer.getControl().getData("DropTarget");
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//

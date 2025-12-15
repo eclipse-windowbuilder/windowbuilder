@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
-import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 
@@ -73,7 +72,7 @@ public class TreeCreateToolTest extends TreeToolTest {
 		TreeEditPart parent2 = addEditPart(parent, "parent2", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		UiUtils.expandAll(m_viewer.getTree());
+		expandAll(m_viewer);
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//
@@ -163,7 +162,7 @@ public class TreeCreateToolTest extends TreeToolTest {
 		addEditPart(parent, "parent1", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		UiUtils.expandAll(m_viewer.getTree());
+		expandAll(m_viewer);
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//
@@ -206,7 +205,7 @@ public class TreeCreateToolTest extends TreeToolTest {
 		addEditPart(parent, "parent1", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
-		UiUtils.expandAll(m_viewer.getTree());
+		expandAll(m_viewer);
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//

@@ -37,7 +37,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -70,7 +69,8 @@ public final class ComponentsTreePage implements IPage {
 
 	@Override
 	public void createControl(Composite parent) {
-		m_viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
+		m_viewer = new TreeViewer();
+		m_viewer.createControl(parent);
 		m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
 	}
 
@@ -90,7 +90,7 @@ public final class ComponentsTreePage implements IPage {
 			IAction action = new Action() {
 				@Override
 				public void run() {
-					UiUtils.expandAll(m_viewer.getTree());
+					UiUtils.expandAll(m_viewer.getControl());
 				}
 			};
 			toolBarManager.add(action);
@@ -101,7 +101,7 @@ public final class ComponentsTreePage implements IPage {
 			Action action = new Action() {
 				@Override
 				public void run() {
-					UiUtils.collapseAll(m_viewer.getTree());
+					UiUtils.collapseAll(m_viewer.getControl());
 				}
 			};
 			toolBarManager.add(action);

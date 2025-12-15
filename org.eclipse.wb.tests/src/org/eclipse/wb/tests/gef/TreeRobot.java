@@ -81,7 +81,7 @@ public final class TreeRobot {
 	 * Collapses all items.
 	 */
 	public TreeRobot collapseAll() {
-		m_viewer.collapseAll();
+		UiUtils.collapseAll(m_viewer.getControl());
 		waitEventLoop();
 		return this;
 	}
@@ -90,7 +90,7 @@ public final class TreeRobot {
 	 * Expands all items.
 	 */
 	public TreeRobot expandAll() {
-		m_viewer.expandAll();
+		UiUtils.expandAll(m_viewer.getControl());
 		waitEventLoop();
 		return this;
 	}
@@ -209,7 +209,7 @@ public final class TreeRobot {
 	}
 
 	private void notifyDropTarget(int eventType, Event event) {
-		DropTarget dropTarget = (DropTarget) m_viewer.getTree().getData("DropTarget");
+		DropTarget dropTarget = (DropTarget) m_viewer.getControl().getData("DropTarget");
 		dropTarget.notifyListeners(eventType, event);
 	}
 
@@ -459,7 +459,7 @@ public final class TreeRobot {
 	 * @return models of expanded {@link EditPart}s.
 	 */
 	private Object[] getExpandedElements() {
-		TreeItem[] expandedItems = UiUtils.getExpanded(m_viewer.getTree());
+		TreeItem[] expandedItems = UiUtils.getExpanded(m_viewer.getControl());
 		// prepare models
 		Object[] models = new Object[expandedItems.length];
 		for (int i = 0; i < expandedItems.length; i++) {
@@ -484,7 +484,7 @@ public final class TreeRobot {
 		}
 		// no insert
 		{
-			Tree tree = (Tree) m_viewer.getControl();
+			Tree tree = m_viewer.getControl();
 			Object item = tree.getData("_wbp_insertMarkItem");
 			assertNull(item);
 		}
@@ -506,7 +506,7 @@ public final class TreeRobot {
 	}
 
 	private List<TreeItem> getFeedbackSelection() {
-		Tree tree = (Tree) m_viewer.getControl();
+		Tree tree = m_viewer.getControl();
 		List<TreeItem> selectedItems = new ArrayList<>();
 		Collections.addAll(selectedItems, tree.getSelection());
 		for (EditPart selectedEditPart : m_viewer.getSelectedEditParts()) {
@@ -526,7 +526,7 @@ public final class TreeRobot {
 	}
 
 	private void assertFeedback_insert(Object object, boolean before) {
-		Tree tree = (Tree) m_viewer.getControl();
+		Tree tree = m_viewer.getControl();
 		TreeEditPart editPart = getEditPart(object);
 		// item
 		Object item = tree.getData("_wbp_insertMarkItem");
