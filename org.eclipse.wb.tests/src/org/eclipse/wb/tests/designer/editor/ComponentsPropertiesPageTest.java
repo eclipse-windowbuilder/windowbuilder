@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProv
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
+import org.eclipse.wb.tests.utils.PropertyTableUtils;
 
 import org.junit.jupiter.api.Test;
 
@@ -84,7 +85,7 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
 			testBundle.install();
 			try {
 				canvas.select(panel);
-				Property property = m_propertyTable.forTests_getProperty(0);
+				Property property = PropertyTableUtils.getProperty(m_propertyTable, 0);
 				// in normal situation first property is SYSTEM, but we force NORMAL
 				assertSame(PropertyCategory.NORMAL, m_propertyTable.getCategory(property));
 			} finally {
@@ -136,8 +137,8 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
 			try {
 				canvas.select(panel);
 				// all properties are in one
-				assertEquals(1, m_propertyTable.forTests_getPropertiesCount());
-				Property property = m_propertyTable.forTests_getProperty(0);
+				assertEquals(1, PropertyTableUtils.getPropertiesCount(m_propertyTable));
+				Property property = PropertyTableUtils.getProperty(m_propertyTable, 0);
 				assertEquals("ALL", property.getTitle());
 			} finally {
 				testBundle.uninstall();

@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.tests.utils.PropertyTableUtils;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.swt.graphics.Point;
@@ -150,29 +151,29 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 	@Test
 	public void test_expandCollapse() throws Exception {
 		// for not existing property location is "null"
-		assertNull(m_propertyTable.forTests_getStateLocation(null));
+		assertNull(PropertyTableUtils.getStateLocation(m_propertyTable, null));
 		// prepare location
-		Point boundsL = m_propertyTable.forTests_getStateLocation(m_boundsProperty);
+		Point boundsL = PropertyTableUtils.getStateLocation(m_propertyTable, m_boundsProperty);
 		assertNotNull(boundsL);
 		// expand "bounds"
-		assertEquals(6, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(6, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 		m_sender.click(boundsL, 1);
 		waitEventLoop(0);
-		assertEquals(9, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(9, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 		// expand "location"
-		Point locationL = m_propertyTable.forTests_getStateLocation(m_locationProperty);
+		Point locationL = PropertyTableUtils.getStateLocation(m_propertyTable, m_locationProperty);
 		assertNotNull(locationL);
 		m_sender.click(locationL, 1);
 		waitEventLoop(0);
-		assertEquals(11, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(11, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 		// collapse "bounds"
 		m_sender.click(boundsL, 1);
 		waitEventLoop(0);
-		assertEquals(6, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(6, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 		// expand "bounds"
 		m_sender.click(boundsL, 1);
 		waitEventLoop(0);
-		assertEquals(11, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(11, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 	}
 
 	/**
@@ -198,17 +199,17 @@ public class PropertyTableTest extends AbstractPropertyTableTest {
 		m_propertyTable.setInput(new Property[]{complexProperty});
 		waitEventLoop(0);
 		// prepare location
-		Point stateLocation = m_propertyTable.forTests_getStateLocation(complexProperty);
+		Point stateLocation = PropertyTableUtils.getStateLocation(m_propertyTable, complexProperty);
 		assertNotNull(stateLocation);
 		// expand "complex"
-		assertEquals(1, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(1, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 		m_sender.click(stateLocation, 1);
 		waitEventLoop(0);
-		assertEquals(2, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(2, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 		// now update "complexProperty" and include also "propertyB"
 		complexProperty.setProperties(new Property[]{propertyA, propertyB});
 		m_propertyTable.setInput(new Property[]{complexProperty});
 		waitEventLoop(0);
-		assertEquals(3, m_propertyTable.forTests_getPropertiesCount());
+		assertEquals(3, PropertyTableUtils.getPropertiesCount(m_propertyTable));
 	}
 }

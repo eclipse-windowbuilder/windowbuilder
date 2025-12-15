@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.tests.utils.PropertyTableUtils;
 
 import org.eclipse.swt.graphics.Point;
 
@@ -41,11 +42,11 @@ public class PropertyTableEditorsTest extends AbstractPropertyTableTest {
 	public void test_1_noProperty() throws Exception {
 		Property property = new TestProperty("text", true, "New button", stringEditor);
 		m_propertyTable.setInput(new Property[]{property});
-		assertNull(m_propertyTable.forTests_getActiveEditor());
+		assertNull(PropertyTableUtils.getActiveEditor(m_propertyTable));
 		// click empty space - no editor
 		m_sender.click(m_propertyTable.getSplitter() + 10, 100, 1);
 		waitEventLoop(10);
-		assertNull(m_propertyTable.forTests_getActiveEditor());
+		assertNull(PropertyTableUtils.getActiveEditor(m_propertyTable));
 	}
 
 	/**
@@ -64,33 +65,33 @@ public class PropertyTableEditorsTest extends AbstractPropertyTableTest {
 		m_propertyTable.setInput(new Property[]{propertyXY});
 		waitEventLoop(10);
 		// prepare locations
-		assertNull(m_propertyTable.forTests_getValueLocation(null));
-		Point locationSXY = m_propertyTable.forTests_getStateLocation(propertyXY);
+		assertNull(PropertyTableUtils.getValueLocation(m_propertyTable, null));
+		Point locationSXY = PropertyTableUtils.getStateLocation(m_propertyTable, propertyXY);
 		// expand "location"
 		{
 			m_sender.click(locationSXY, 1);
 			waitEventLoop(10);
-			assertNull(m_propertyTable.forTests_getActiveEditor());
+			assertNull(PropertyTableUtils.getActiveEditor(m_propertyTable));
 		}
 		// activate "x"
 		{
-			Point locationVX = m_propertyTable.forTests_getValueLocation(propertyX);
+			Point locationVX = PropertyTableUtils.getValueLocation(m_propertyTable, propertyX);
 			m_sender.click(locationVX, 1);
-			assertSame(xEditor, m_propertyTable.forTests_getActiveEditor());
+			assertSame(xEditor, PropertyTableUtils.getActiveEditor(m_propertyTable));
 			waitEventLoop(10);
 		}
 		// activate "y"
 		{
-			Point locationVY = m_propertyTable.forTests_getValueLocation(propertyY);
+			Point locationVY = PropertyTableUtils.getValueLocation(m_propertyTable, propertyY);
 			m_sender.click(locationVY, 1);
-			assertSame(yEditor, m_propertyTable.forTests_getActiveEditor());
+			assertSame(yEditor, PropertyTableUtils.getActiveEditor(m_propertyTable));
 			waitEventLoop(10);
 		}
 		// collapse "location"
 		{
 			m_sender.click(locationSXY, 1);
 			waitEventLoop(10);
-			assertNull(m_propertyTable.forTests_getActiveEditor());
+			assertNull(PropertyTableUtils.getActiveEditor(m_propertyTable));
 		}
 	}
 }
