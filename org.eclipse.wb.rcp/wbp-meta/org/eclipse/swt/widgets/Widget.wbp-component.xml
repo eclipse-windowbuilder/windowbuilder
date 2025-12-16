@@ -18,6 +18,8 @@
 		<exclude package="org.eclipse.swt.custom"/>
 		<exclude package="org.eclipse.ui.forms.widgets"/>
 	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-hidden names="nativeZoom"/>
 	<!-- PARAMETERS -->
 	<parameters>
 		<parameter name="XWT.hasModel">true</parameter>
