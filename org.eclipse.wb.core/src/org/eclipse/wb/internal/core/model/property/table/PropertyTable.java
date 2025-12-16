@@ -581,7 +581,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 					.getDoubleClickTime()) {
 				try {
 					if (m_activePropertyInfo != null) {
-						if (m_activePropertyInfo.isComplex()) {
+						if (m_activePropertyInfo.isShowComplex()) {
 							m_activePropertyInfo.flip();
 						} else {
 							Property property = m_activePropertyInfo.getProperty();
