@@ -23,9 +23,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        java: [ 21, 25 ]
+        java: [ 24, 25 ]
         include:
-          - java: 21
+          - java: 24
             target: 2024-06
           - java: 25
             target: master
