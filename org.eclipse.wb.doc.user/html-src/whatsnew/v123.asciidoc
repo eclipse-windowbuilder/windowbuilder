@@ -4,4 +4,10 @@ endif::[]
 
 = What's New - v1.23.0
 
+== General
+
+- [Linux] FFMA when using Java 24 or higher
+
+The Linux-specific fragment will use the Foreign Function and Memory API when used with Java 24 or higher.
+
 What's new - xref:v122.adoc[*v1.22.0*]
