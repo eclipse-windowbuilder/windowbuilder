@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,14 +27,13 @@ import org.junit.jupiter.api.Test;
 public class ExpandableCompositeTest extends AbstractFormsTest {
 	@Test
 	public void test_properties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER, ExpandableComposite.TREE_NODE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER, ExpandableComposite.TREE_NODE);
+					}
+				}""");
 		shell.refresh();
 		ExpandableCompositeInfo composite =
 				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
@@ -49,31 +48,30 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_CREATE_setTextClient() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		ExpandableCompositeInfo composite =
 				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
 		// when
 		ControlInfo button = BTestUtils.createButton();
 		composite.command_CREATE(button, "setTextClient");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-				"    {",
-				"      Button button = new Button(composite, SWT.NONE);",
-				"      composite.setTextClient(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);
+						{
+							Button button = new Button(composite, SWT.NONE);
+							composite.setTextClient(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -83,32 +81,31 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_CREATE_setClient() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		ExpandableCompositeInfo composite =
 				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
 		// when
 		ControlInfo button = BTestUtils.createButton();
 		composite.command_CREATE(button, "setClient");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-				"    composite.setExpanded(true);",
-				"    {",
-				"      Button button = new Button(composite, SWT.NONE);",
-				"      composite.setClient(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);
+						composite.setExpanded(true);
+						{
+							Button button = new Button(composite, SWT.NONE);
+							composite.setClient(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -118,34 +115,33 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_MOVE_setClient() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ExpandableCompositeInfo composite =
 				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = shell.getChildrenControls().get(1);
 		// when
 		composite.command_MOVE(button, "setClient");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-				"    composite.setExpanded(true);",
-				"    {",
-				"      Button button = new Button(composite, SWT.NONE);",
-				"      composite.setClient(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);
+						composite.setExpanded(true);
+						{
+							Button button = new Button(composite, SWT.NONE);
+							composite.setClient(button);
+						}
+					}
+				}""");
 	}
 }
