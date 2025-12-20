@@ -243,10 +243,13 @@ public class Messages extends NLS {
 	public static String ProxySettingDialog_hint;
 	public static String ProxySettingDialog_portLabel;
 	public static String ProxySettingDialog_title;
+	public static String RefreshAction_toolTip;
 	public static String SelectionToolEntryInfo_name;
 	public static String SourcePage_name;
 	public static String TabOrderToolEntryInfo_description;
 	public static String TabOrderToolEntryInfo_name;
+	public static String TestAction_text;
+	public static String TestAction_toolTip;
 	public static String TypeParameterComposite_subTypeMessage;
 	public static String TypeParameterComposite_subTypeTitle;
 	public static String TypeParametersDialog_message;

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker11"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="0.7"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="none"
+       markerUnits="strokeWidth">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path11" />
+    </marker>
+    <linearGradient
+       id="linearGradient9">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop9" />
+      <stop
+         style="stop-color:#d1e6f0;stop-opacity:1;"
+         offset="1"
+         id="stop10" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient7">
+      <stop
+         style="stop-color:#b2bfed;stop-opacity:1;"
+         offset="0"
+         id="stop7" />
+      <stop
+         style="stop-color:#2a4872;stop-opacity:1;"
+         offset="1"
+         id="stop8" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4">
+      <stop
+         style="stop-color:#8cbcd5;stop-opacity:1;"
+         offset="0"
+         id="stop4" />
+      <stop
+         style="stop-color:#7f99d7;stop-opacity:1;"
+         offset="1"
+         id="stop5" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2">
+      <stop
+         style="stop-color:#7f99d7;stop-opacity:1;"
+         offset="0"
+         id="stop2" />
+      <stop
+         style="stop-color:#2d5cb3;stop-opacity:1;"
+         offset="1"
+         id="stop3" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient2"
+       id="linearGradient3"
+       x1="1.0516626"
+       y1="1.1051109"
+       x2="15.974169"
+       y2="3.8948891"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient4"
+       id="linearGradient5"
+       x1="1"
+       y1="2.5"
+       x2="16"
+       y2="2.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient7"
+       id="linearGradient8"
+       x1="0.98739779"
+       y1="4.0476108"
+       x2="15.980374"
+       y2="14.98266"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.1000005,0,-1.4500048)" />
+    <linearGradient
+       xlink:href="#linearGradient9"
+       id="linearGradient10"
+       x1="0.98739779"
+       y1="4.0476108"
+       x2="15.980374"
+       y2="14.98266"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.1000005,0,-1.4500048)" />
+    <marker
+       style="overflow:visible"
+       id="marker11-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="0.69999999"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="none"
+       markerUnits="strokeWidth">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path11-5" />
+    </marker>
+  </defs>
+  <g
+     id="layer1">
+    <rect
+       style="fill:url(#linearGradient10);fill-opacity:1;stroke:url(#linearGradient8);stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2"
+       width="14"
+       height="11.000005"
+       x="1.5"
+       y="3.4999976" />
+    <rect
+       style="fill:url(#linearGradient5);fill-opacity:1;stroke:url(#linearGradient3);stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="14"
+       height="2"
+       x="1.5"
+       y="1.5" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#007232;stroke-width:0.65;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker11-7)"
+       d="m 11.645739,9.0264403 c 0,0 -0.05856,0.7174252 -0.529965,1.1888287 -1.1785112,1.178512 -2.8385011,0.811171 -4.4700351,0.811171"
+       id="path10-6" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#007232;stroke-width:0.65;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker11)"
+       d="m 5.3539227,9.0005001 c 0,0 0.05856,-0.717425 0.5299647,-1.1888295 C 7.0623987,6.6331593 8.7223887,7.0005001 10.353923,7.0005001"
+       id="path10" />
+  </g>
+</svg>

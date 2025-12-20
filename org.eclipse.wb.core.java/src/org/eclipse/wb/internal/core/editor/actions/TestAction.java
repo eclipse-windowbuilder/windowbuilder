@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPage;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -37,9 +38,9 @@ public final class TestAction extends Action {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public TestAction() {
-		setText("Test/Preview...");
-		setToolTipText("Quickly test/preview the window without compiling or running it");
-		setImageDescriptor(DesignerPlugin.getImageDescriptor("test.png"));
+		setText(Messages.TestAction_text);
+		setToolTipText(Messages.TestAction_toolTip);
+		setImageDescriptor(CoreImages.EDITOR_TEST);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

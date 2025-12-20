@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,8 +13,9 @@
 package org.eclipse.wb.internal.core.editor.actions;
 
 import org.eclipse.wb.core.editor.IDesignPage;
-import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.DesignPage;
+import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.ui.actions.ActionFactory;
 
@@ -34,8 +35,8 @@ public final class RefreshAction extends DesignPageAction {
 		// copy presentation
 		ActionUtils.copyPresentation(this, ActionFactory.REFRESH);
 		// override presentation
-		setToolTipText("Reparse the source and refresh the design page");
-		setImageDescriptor(DesignerPlugin.getImageDescriptor("editor_refresh.png"));
+		setToolTipText(Messages.RefreshAction_toolTip);
+		setImageDescriptor(CoreImages.EDITOR_REFRESH);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
