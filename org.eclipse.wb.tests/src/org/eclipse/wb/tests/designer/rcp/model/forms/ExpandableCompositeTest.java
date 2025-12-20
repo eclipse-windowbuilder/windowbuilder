@@ -106,6 +106,9 @@ public class ExpandableCompositeTest extends AbstractFormsTest {
 						}
 					}
 				}""");
+		// When the "expanded" property is set, the "isLayoutDeferred()" property is set as well
+		// See https://github.com/eclipse-windowbuilder/windowbuilder/issues/1324
+		assertFalse(composite.getBounds().isEmpty(), "Layout not applied on ExpandableComposite");
 	}
 
 	/**
