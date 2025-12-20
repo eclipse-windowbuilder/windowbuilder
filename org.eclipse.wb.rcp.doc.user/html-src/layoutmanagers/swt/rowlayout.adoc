@@ -1,0 +1,77 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT RowLayout
+
+*RowLayout* determines the size and position of the children of a *Composite* by placing them either in horizontal rows
+or vertical columns within the parent *Composite*. *RowLayout* aligns all controls in one row if the type is set to
+horizontal, and one column if it is set to vertical. It has the ability to wrap, and provides configurable margins and
+spacing. *RowLayout* has a number of configuration fields. In addition, the height and width of each control in a
+*RowLayout* can be specified by setting a *RowData* object into the control using *setLayoutData()*.
+
+* xref:#MainFeatures[Main Features]
+* xref:#GraphicalFeedback[Graphical Feedback]
+
+[#MainFeatures]
+== Main Features
+
+* Select *RowLayout* from the *Layouts* palette and drop it on a Window or Composite
+
+image:images/rl_design_view.gif[image]
+
+* Graphical feedback is provided for all drop and move interactions
+
+image:images/rl_drop1.gif[image] image:images/rl_move1.gif[image]
+
+* Spacing can be specified using the *Property Pane*
+
+--
+image:images/rl_properties_spacing.gif[image]
+image:images/rl_spacing.gif[image]
+--
+
+* Margins can be specified using the *Property Pane*
+
+--
+image:images/rl_properties_margins.gif[image]
+image:images/rl_margins.gif[image]
+--
+
+* Packing can be specified using the *Property Pane*
+
+--
+image:images/rl_properties_pack.gif[image]
+image:images/rl_pack.gif[image]
+--
+
+* Justification can be specified using the Property Pane*
+
+--
+image:images/rl_properties_justify.gif[image]
+image:images/rl_justify.gif[image]
+--
+
+* Orientation can be specified using the *Property Pane*
+
+--
+image:images/rl_properties_type.gif[image]
+image:images/rl_type.gif[image]
+--
+
+* Fill can be specified using the *Property Pane*
+
+--
+image:images/rl_properties_fill.gif[image]
+image:images/rl_fill.gif[image]
+--
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+* When moving a widget or adding a new widget, the current drop point is highlighted in red
+
+--
+image:images/rl_drop1.gif[image] image:images/rl_drop2.gif[image] +
+image:images/rl_move1.gif[image] image:images/rl_move2.gif[image]
+--

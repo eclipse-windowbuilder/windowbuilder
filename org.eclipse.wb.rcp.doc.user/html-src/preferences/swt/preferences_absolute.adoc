@@ -1,0 +1,74 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= Absolute
+
+image:images/preferences_absolute.gif[image]
+
+This page is used to control various *SWT > Layouts > Absolute* options.
+
+== Use 'Free' component placement style
+
+This preference determines whether free mode is used for aligning widgets. Free mode uses widget snapping similar to
+that used for *GroupLayout*.
+
+--
+image:../../layoutmanagers/swt/images/al_snap_baselines.gif[image]
+image:../../layoutmanagers/swt/images/al_snap_align_horizontal.gif[image]
+--
+
+== Component Gaps
+
+This preference determines what default gaps are used between components in free mode.
+
+== Container Gaps
+
+This preference determines what default gaps are used between components and their containers in free mode.
+
+== Apply 'grid' creation flow
+
+This preference determines whether the creation order of the widgets will be adjusted to reflect their positions in a
+left-to-right, top-to-bottom grid flow. This will affect the default tab order.
+
+image:../../layoutmanagers/swt/images/al_grid_flow1.gif[image]
+
+image:../../layoutmanagers/swt/images/al_grid_flow2.gif[image]
+
+== Use Grid Snapping
+
+This preference determines whether grid mode is used for aligning widgets. Grid mode uses a user customizable snapping
+grid.
+
+image:../../layoutmanagers/swt/images/al_grid_5x5.gif[image]
+
+== Grid Step
+
+This preference determines the grid step used in grid mode.
+
+--
+image:../../layoutmanagers/swt/images/al_grid_5x5.gif[image]
+image:../../layoutmanagers/swt/images/al_grid_10x10.gif[image]
+--
+
+== Display Grid
+
+This preference determines whether the grid is displayed in grid mode.
+
+--
+image:../../layoutmanagers/swt/images/al_grid_10x10.gif[image]
+image:../../layoutmanagers/swt/images/al_grid_hide.gif[image]
+--
+
+== Display location/size hints
+
+This preference determines whether location and size hints are shown when moving or sizing widgets.
+
+--
+image:../../layoutmanagers/swt/images/al_hint_show.gif[image]
+image:../../layoutmanagers/swt/images/al_hint_hide.gif[image]
+--
+
+== Automatically autosize component on text/image property change
+
+This preference determines whether a widget is automatically autosized any time its text or image property is changed.

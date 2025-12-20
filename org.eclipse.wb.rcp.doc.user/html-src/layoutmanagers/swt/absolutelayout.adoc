@@ -1,0 +1,87 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT Absolute Layout
+
+*Absolute Layout* or *Null Layout* is a simple x,y oriented layout. During layout, the live component is shown moving
+with a tooltip showing its current location or size. Dynamic snap / alignment points are provided to make it convenient
+to align the component with other components or the window margin. Resizing a component also snaps to the preferred size
+of the resized component or to the size (vertical or horizontal) of any other component on the same parent.
+
+* xref:#MainFeatures[Main Features]
+* xref:#GraphicalFeedback[Graphical Feedback]
+* xref:../../preferences/swt/preferences_absolute.adoc[Preferences]
+
+[#MainFeatures]
+== Main Features
+
+* Select *Absolute Layout* from the *Layouts* palette and drop it on a Window or Composite
+
+image:images/al_design_view.gif[image]
+
+* Graphical feedback is provided for all widget size and position operations
+
+--
+image:images/al_snap_baselines.gif[image]
+image:images/al_snap_size1.gif[image]
+--
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+* Position and size widgets using snapping feedback
+
+--
+image:images/al_snap_baselines2.gif[image]
+image:images/al_snap_size1.gif[image]
+--
+
+* Provide position and size feedback via tooltips
+
+--
+image:images/al_snap_baselines.gif[image]
+image:images/al_snap_size2.gif[image]
+--
+
+* Align widgets horizontally and vertically
+
+image:images/al_snap_align_horizontal.gif[image]
+
+* Indent widgets intelligently
+
+image:images/al_snap_indent.gif[image]
+
+* Align widgets along text baselines
+
+--
+image:images/al_snap_baselines.gif[image]
+image:images/al_snap_baselines2.gif[image]
+--
+
+* Align widgets to margins
+
+image:images/al_snap_margins.gif[image]
+
+* Replicate widget heights and widths
+
+--
+image:images/al_snap_replicate_width.gif[image]
+image:images/al_snap_replicate_height.gif[image]
+--
+
+* Align widgets using optional grid
+
+image:images/al_grid_align.gif[image]
+
+* Align and center widgets using toolbar
+
+image:images/align_toolbar.gif[image]
+
+* Set alignment and size using floating layout assistant
+* Set *size*, *location* and/or *bounds* properties using the *Property Pane*
+
+--
+image:images/al_properties.gif[image]
+image:images/property_editor_rectangle3.gif[image]
+--

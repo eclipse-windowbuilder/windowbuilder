@@ -1,0 +1,63 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/forms
+endif::[]
+
+= Forms MasterDetailsBlock Wizard
+
+image:images/wizard_forms_masterdetailsblock0.gif[image]
+
+Subclasses of the Eclipse Forms *MasterDetailsBlock* class can be created using the *Forms MasterDetailsBlock* wizard.
+The wizard can be selected from the drop down Designer wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+For more information on using Eclipse Forms, see the
+link:https://www.eclipse.org/articles/Article-Forms/article.html[Eclipse Forms Programming Guide].
+
+--
+image:images/wizard_forms_masterdetailsblock1.gif[image]
+image:images/wizard_forms_masterdetailsblock2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.DetailsPart;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.MasterDetailsBlock;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+ 
+public class FormsMasterDetailsBlockTest extends MasterDetailsBlock{
+	public FormsMasterDetailsBlockTest () {
+	}
+
+	protected void createMasterPart(IManagedForm managedForm, Composite parent) {
+		FormToolkit toolkit = managedForm.getToolkit();
+		final Section section = toolkit.createSection(parent,
+			ExpandableComposite.EXPANDED | ExpandableComposite.TITLE_BAR);
+		section.setText("Empty Master Section");
+		final Composite composite = 
+			toolkit.createComposite(section, SWT.NONE);
+		toolkit.paintBordersFor(composite);
+		section.setClient(composite);
+	}
+
+	protected void registerPages(DetailsPart detailsPart) {
+	}
+
+	protected void createToolBarActions(IManagedForm managedForm) {
+	}
+}
+----
+
+When editing Eclipse Forms MasterDetailsBlocks, a set of specialized *Eclipse Forms widgets* is available with their own
+unique widget palette. These widgets provide the "flat" look that is a signature element of the Eclipse Forms API.
+Standard widgets and layout managers can also be used although they won't use the flat look.
+
+image:images/wizard_forms_masterdetailsblock3.gif[image]

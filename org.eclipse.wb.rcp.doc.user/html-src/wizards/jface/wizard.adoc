@@ -1,0 +1,43 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/jface
+endif::[]
+
+= JFace Wizard Wizard
+
+image:images/wizard_jface_wizard0.gif[image]
+
+Subclasses of the JFace *Wizard* class can be created using the *JFace Wizard* wizard. The wizard can be selected from
+the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name, use the
+*Add* button to add individual *WizardPages* that have already been created, and hit the *Finish* button.
+
+--
+image:images/wizard_jface_wizard1.gif[image]
+image:images/wizard_jface_wizard2.gif[image]
+--
+
+image:images/wizard_jface_wizard3.gif[image]
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.jface.wizard.Wizard;
+
+public class JfaceWizardTest extends Wizard {
+	public JfaceWizardTest() {
+		setWindowTitle("New Wizard");
+	}
+
+	public void addPages() {
+		addPage(new FirstPage());
+		addPage(new SecondPage());
+		addPage(new ThirdPage());
+	}
+
+	public boolean performFinish() {
+		return false;
+	}
+}
+----

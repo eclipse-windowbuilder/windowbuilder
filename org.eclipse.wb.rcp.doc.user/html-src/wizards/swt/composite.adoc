@@ -1,0 +1,50 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swt
+endif::[]
+
+= SWT Composite Wizard
+
+image:images/wizard_swt_composite0.gif[image]
+
+Subclasses of the SWT Composite class can be created using the SWT Composite wizard. The wizard can be selected from the
+drop down wizard menu or from the Eclipse New wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the Finish button.
+
+The *org.eclipse.swt.widgets.Composite* class is the default superclass. You can select *org.eclipse.swt.widgets.Group*
+as the superclass if you prefer.
+
+--
+image:images/wizard_swt_composite1.gif[image]
+image:images/wizard_swt_composite2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.swt.widgets.Composite;
+
+public class SwtComposite extends Composite {
+	public SwtComposite(Composite parent, int style) {
+		super(parent, style);
+	}
+
+	protected void checkSubclass() {
+		// Disable the check that prevents subclassing of SWT components
+	}
+}
+----
+
+When editing SWT Composites, all of the standard SWT layouts, containers, widgets and menus are available. Custom or
+third party controls may be added via the *Choose Component* command.
+
+Use the *Expose property...* command added to the *property pane context menu* to expose any widget property as a public
+property of the class. Use the *Expose component...* command added to the popup menu in the *Design View* to add an
+accessor for any widget.
+
+--
+image:images/expose_property_menu.gif[image]
+image:images/expose_component_menu.gif[image]
+--

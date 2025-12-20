@@ -1,0 +1,60 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swt
+endif::[]
+
+= SWT Application Window Wizard
+
+image:images/wizard_swt_application0.gif[image]
+
+The SWT *Application Window* wizard creates a main class that instantiates and shows a top-level Shell. The wizard can
+be selected from the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+--
+image:images/wizard_swt_application1.gif[image]
+image:images/wizard_swt_application2.gif[image]
+--
+
+
+The wizard generates the following code including a *main()* method.
+
+[source,java]
+----
+import org.eclipse.swt.widgets.Shell;
+
+public class SwtApplicationWindow {
+	protected Shell shell;
+
+	public static void main(String[] args) {
+		try {
+			SwtApplicationWindow window = new SwtApplicationWindow();
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void open() {
+		final Display display = Display.getDefault();
+		createContents();
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}
+
+	protected void createContents() {
+		shell = new Shell();
+		shell.setSize(450, 300);
+		shell.setText("SWT Application");
+	}
+}
+----
+
+When editing SWT Application Windows, all of the standard SWT layouts, containers, widgets and menus are available.
+Custom or third party controls may be added via the *Choose Component* command.

@@ -1,0 +1,65 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swt
+endif::[]
+
+= SWT Shell Wizard
+
+image:images/wizard_swt_shell0.gif[image]
+
+Subclasses of the SWT *Shell* class can be created using the *SWT Shell* wizard. The wizard can be selected from the
+drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to
+contain the class. Then enter the class name and hit the *Finish*
+button.
+
+The *org.eclipse.swt.widgets.Shell* class is the default superclass.
+
+--
+image:images/wizard_swt_shell1.gif[image]
+image:images/wizard_swt_shell2.gif[image]
+--
+
+The wizard generates the following code including a *main()* method.
+
+[source,java]
+----
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+public class SwtShell extends Shell {
+	public static void main(String[] args) {
+		try {
+			Display display = Display.getDefault();
+			SwtShell shell = new SwtShell(display, SWT.SHELL_TRIM);
+			shell.open();
+			shell.layout();
+			while (!shell.isDisposed()) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public SwtShell(Display display, int style) {
+		super(display, style);
+		createContents();
+	}
+
+	protected void createContents() {
+		setText("SWT Application");
+		setSize(450, 300);
+	}
+
+	protected void checkSubclass() {
+		// Disable the check that prevents subclassing of SWT components
+	}
+}
+----
+
+When editing SWT Shells, all of the standard SWT layouts, containers, widgets and menus are available. Custom or third
+party controls may be added via the *Choose Component* command.

@@ -1,0 +1,106 @@
+ifdef::env-github[]
+:imagesdir: ../../../../html/features/swt/data_binding
+endif::[]
+
+= Create Data Binding Wizard
+The tool provides two ways to quickly create new Data Bindings: the *Data Bindings* menu and the *bindings property* in
+the property pane.
+
+[cols="1,1"]
+|===
+a|
+== Data Binding Menu
+
+The *Data Bindings* menu provides the ability to quickly create a data binding for a widget. If the widget does not have
+any data bindings, the menu immediately cascades out to show the available properties of the widget that can be bound to
+a model property. If the widget has existing data bindings, those are shown at the top of the cascaded menu and a list 
+of widget properties is shown in a submenu. Clicking on an unbound property will open the *Create Data Binding* wizard.
+a|
+== Bindings Property
+
+The *bindings property* in the property pane opens up to show a list of all bindable properties of the widget. Clicking
+the image:images/dot-dot-dot-button.gif[image] button next to an unbound property will open the *Create Data Binding*
+wizard.
+| image:images/data_binding_menu.gif[image]
+| image:images/data_binding_property_pane1.gif[image]
+|===
+
+== Choose Model
+
+The first page of the *Create Data Binding* wizard is used to select the model and property to bind the selected target
+property to. Two types of targets and models are supported: image:images/data_binding_beans_button.gif[image] *Beans*
+and image:images/data_binding_widgets_button.gif[image] *Widgets*. The filter field above the list can be used to filter
+the list of items. The image:images/clear_filter_button.gif[image] clear button can be used to clear the filter and
+restore the full list.
+
+[cols="2%,49%,49%"]
+|===
+.2+|image:images/create_data_binding1.gif[image]
+a|
+* image:images/data_binding_beans_button.gif[image] *Beans*: any field of the current compilation unit may be selected.
+|image:images/create_data_binding_model_beans.gif[image]
+a|
+* *image:images/data_binding_widgets_button.gif[image] Widgets*: any widget in the current compilation unit may be
+  selected.
+|image:images/create_data_binding_model_widgets.gif[image]
+|===
+
+When any *Model* object is selected, its properties (bean fields or predefined SWT widget properties) are shown in the
+associated *Properties* list. A drop down filter menu is available to filter the Property list by type. Supported
+filters are *String*, *Boolean*, *Numbers*, *Color* and *Font*. A second filter image:images/filter_button2.gif[image]
+is also available that only shows the properties that match the source property in type.
+
+--
+image:images/properties.gif[image]
+image:images/properties_filtered.gif[image]
+image:images/filter_button.gif[image]
+--
+
+If the model object is another binding object, it is possible to bind to the validation status. If the object is already
+an *IObservableValue* (like a *WritableValue*), it can be bound to directly.
+
+--
+image:images/validation_status.gif[image]
+image:images/observable_value.gif[image]
+--
+
+Once the model property has been selected, click the *Finish* button to create a new data binding using default options.
+If you wish to customize the properties of the data binding, click the *Next* button to go to the second page of the
+wizard.
+
+== Properties
+
+The second page of the *Create Data Binding* wizard is used to customize the properties of the data binding itself. When
+creating a binding, the update strategy from *target to model* and *model to target* may be specified as well as any
+strategy-specific properties (validators and converters). 
+
+[cols="1%,99%"]
+|===
+.2+|image:images/create_data_binding2.gif[image]
+a|
+When the Target or Model is a Text widget and the text property is selected, the triggering event may be specified as
+*SWT.Modify*, *SWT.FocusOut* or *SWT.NONE*.
+
+image:images/text_events.gif[image]
+a|
+Predefined update value strategies - *POLICY_UPDATE*, *POLICY_NEVER*, *POLICY_ON_REQUEST* and *POLICY_CONVERT* - may be
+selected or a custom strategy class may chosen.
+
+--
+image:images/update_value_strategy1.gif[image]    
+image:images/update_value_strategy2.gif[image]
+--
+|===
+
+== Source
+
+Clicking the *Finish* button will generate the necessary data binding code which may then be seen in the *Source* view.
+An *initDataBindings()* method is created, if it does not already exist and a call to that method is added to the end of
+the widget creation process. Any needed observables are created first followed by the creation of the
+*Data Binding Context*. The data bindings are then created using the new context.
+
+image:images/data_binding_source2.gif[image]
+
+WARNING: _do not edit the *initDataBinding()* method by hand (without carefully matching the code generation pattern
+used by the tool) as it will be regenerated in its entirety any time the tool needs to add, remove or update a data
+binding._

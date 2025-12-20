@@ -1,0 +1,64 @@
+ifdef::env-github[]
+:imagesdir: ../../../../html/features/swt/data_binding
+endif::[]
+
+= EMF Data Bindings
+
+Click the *Bindings* tab in the editor to created and edit data bindings.
+
+image:../../../wizards/databinding/images/data_binding_tab.gif[image]
+
+image:images/data_binding_emf1.gif[image]
+
+SWT uses simple bindings between targets and models.
+
+== Target & Model Types
+
+In addition to the standard *Beans* and *Widgets* bindings, and additional EMF binding type is available when EMF
+projects/model objects are detected.
+
+*image:images/data_binding_emf_button.gif[image] Eclipse Modeling Framework (EMF)*: any EMF model object present in the
+current compilation unit may be selected. The filter field above the list can be used to filter the list of models. The
+image:images/clear_filter_button.gif[image] clear button can be used to clear the filter and restore the full list.
+
+image:images/model_emf.gif[image]
+
+== Properties
+
+When any *Target* or *Model* object is selected, its EMF model properties are shown in the associated *Properties* list.
+A drop down filter menu is available to filter the Property list by type. Supported filters are *String*, *Boolean*,
+*Numbers*, *Color* and *Font*.
+
+--
+image:images/properties_emf1.gif[image]
+image:images/properties_emf2.gif[image]
+--
+
+== New EMF Bindings
+
+New bindings are created by selecting a *Target*, a *Target Property*, a *Source*, a *Source Property* and clicking the
+image:images/binding_button.gif[image] *Bind* button. When creating a binding, the update strategy from *target to model* and
+*model to target* may be specified as well as any strategy-specific properties (validators and converters).
+
+image:images/bind_properties_emf1.gif[image]
+
+When new bindings are created between a *Viewer* and a list of model objects, the *Content Provider* and
+*Label Provider* may be specified. 
+
+image:images/bind_properties_emf2.gif[image]
+
+== Source
+
+As bindings are created or edited on the Bindings tab, the necessary data binding code is generated which may then be
+seen in the *Source* view. An *initDataBindings()* method is created, if it does not already exist and a call to that
+method is added to the end of the widget creation process.
+
+Within the *initDataBindings()* method, any needed observables are created first followed by the creation of the
+*Data Binding Context*. Simple SWT data bindings are then created using the new context followed by any EMF model
+bindings that are needed. 
+
+image:images/data_binding_source_emf.gif[image]
+
+WARNING: _do not edit the *initDataBinding()* method by hand (without carefully matching the code generation pattern
+used by the tool) as it will be regenerated in its entirety any time the tool needs to add, remove or update a data
+binding._

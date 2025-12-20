@@ -1,0 +1,51 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/forms
+endif::[]
+
+= Forms Composite Wizard
+
+image:images/wizard_forms_composite0.gif[image]
+
+Subclasses of the SWT *Composite* class can be created using the *Forms Composite* wizard. The wizard can be selected
+from the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+For more information on using Eclipse Forms, see the
+link:https://www.eclipse.org/articles/Article-Forms/article.html[Eclipse Forms Programming Guide].
+
+--
+image:images/wizard_forms_composite1.gif[image]
+image:images/wizard_forms_composite2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+
+public class FormsComposite extends Composite {
+	private final FormToolkit toolkit = new FormToolkit(Display.getCurrent());
+	public FormsComposite(Composite parent, int style) {
+		super(parent, style);
+		toolkit.adapt(this);
+		toolkit.paintBordersFor(this);
+	}
+}
+----
+
+When editing SWT Composites, all of the standard SWT layouts, containers, widgets and menus are available. Custom or
+third party controls may be added via the *Choose Component* command.
+
+Use the *Expose property...* command added to the *property pane context menu* to expose any widget property as a public
+property of the class. Use the *Expose component...* command added to the popup menu in the *Design View* to add an
+accessor for any widget.
+
+--
+image:../swt/images/expose_property_menu.gif[image]
+image:../swt/images/expose_component_menu.gif[image]
+--

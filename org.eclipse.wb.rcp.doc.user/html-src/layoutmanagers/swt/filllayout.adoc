@@ -1,0 +1,56 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT FillLayout
+
+*FillLayout* is the simplest layout class. It lays out controls in a single row or column, forcing them to be the same
+size. Initially, the controls will all be as tall as the tallest control, and as wide as the widest. *FillLayout* does
+not wrap, but you can specify margins and spacing. You might use it to lay out buttons in a task bar or tool bar, or to
+stack checkboxes in a Group. *FillLayout* can also be used when a *Composite* only has one child. For example, if a
+*Shell* has a single Group child, *FillLayout* will cause the *Group* to completely fill the *Shell* (if margins are 0).
+
+* xref:#MainFeatures[Main Features]
+* xref:#GraphicalFeedback[Graphical Feedback]
+
+[#MainFeatures]
+== Main Features
+
+* Select *FillLayout* from the *Layouts* palette and drop it on a Window or Composite
+
+image:images/fl_design_view.gif[image]
+
+* Graphical feedback is provided for all drop and move interactions
+
+image:images/fl_drop1.gif[image] image:images/fl_move1.gif[image]
+
+* Spacing can be specified using the *Property Pane*
+
+--
+image:images/fl_properties_spacing.gif[image]
+image:images/fl_spacing.gif[image]
+--
+
+* Margins can be specified using the *Property Pane*
+
+--
+image:images/fl_properties_margins.gif[image]
+image:images/fl_margins.gif[image]
+--
+
+* Orientation can be specified using the *Property Pane*
+
+--
+image:images/fl_properties_type.gif[image]
+image:images/fl_type.gif[image]
+--
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+* When moving a widget or adding a new widget, the current drop point is highlighted in red
+
+--
+image:images/fl_drop1.gif[image] image:images/fl_drop2.gif[image] +
+image:images/fl_move1.gif[image] image:images/fl_move2.gif[image]
+--

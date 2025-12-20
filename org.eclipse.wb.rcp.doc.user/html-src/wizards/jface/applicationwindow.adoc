@@ -1,0 +1,103 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/jface
+endif::[]
+
+= JFace Application Window Wizard
+
+image:images/wizard_jface_applicationwindow0.gif[image]
+
+Subclasses of the JFace *ApplicationWindow* class can be created using the *JFace ApplicationWindow* wizard. The wizard
+can be selected from the drop down Designer wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+By default, the wizard will generate a template using a standard SWT ToolBar. The wizard presents two templates - one
+using a ToolBar and one with a CoolBar.
+
+The menubar is composed of MenuManagers and JFace Actions, and the toolbar is composed of ToolBarManagers and JFace
+Actions. A special xref:#MenusToolBars[*JFace Actions*] palette is provided to manage this.
+
+--
+image:images/wizard_jface_applicationwindow1.gif[image]
+image:images/wizard_jface_applicationwindow2.gif[image]
+--
+
+The wizard generates the following code including a *main()* method (when the ToolBar template is selected).
+
+[source,java]
+----
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.StatusLineManager;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.window.ApplicationWindow;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
+ 
+public class JFaceApplicationWindow extends ApplicationWindow {
+	public JFaceApplicationWindow() {
+		super(null);
+		createActions();
+		addToolBar(SWT.NONE);
+		addMenuBar();
+		addStatusLine();
+	}
+
+	protected Control createContents(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		return container;
+	}
+
+	private void createActions() {
+	}
+
+	protected MenuManager createMenuManager() {
+		MenuManager result = new MenuManager("menu");
+		return result;
+	}
+
+	protected ToolBarManager createToolBarManager(int arg) {
+		ToolBarManager toolBarManager = 
+			new ToolBarManager(SWT.FLAT | SWT.WRAP);
+		return toolBarManager;
+	}
+
+	protected StatusLineManager createStatusLineManager() {
+		StatusLineManager statusLineManager = new StatusLineManager();
+		statusLineManager.setMessage(null, "");
+		return statusLineManager;
+	}
+
+	public static void main(String args[]) {
+		try {
+			JFaceAppWindowTest window = new JFaceAppWindowTest();
+			window.setBlockOnOpen(true);
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText("New Application");
+	}
+
+	protected Point getInitialSize() {
+		return new Point(500, 375);
+	}
+}
+----
+
+[#MenusToolBars]
+== Menus & ToolBars
+
+JFace ApplicationWindows manage their menubars and toolbars automatically. They do not support adding normal menubars
+from the palette. Instead, when editing JFace ApplicationWindows, the tool adds an additional palette category,
+xref:../../palettes/swt_palette.adoc#JFaceActions[*JFace Actions*], that can be used to create new actions or add
+existing actions to the window's toolbar or menubar. Newly created actions are added to the palette automatically.
+
+image:images/wizard_jface_applicationwindow3.gif[image]

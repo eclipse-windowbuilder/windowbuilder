@@ -1,0 +1,102 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/forms
+endif::[]
+
+= Forms DetailsPage Wizard
+
+image:images/wizard_forms_detailspage0.gif[image]
+
+Subclasses of the Eclipse Forms *DetailsPage* class can be created using the *Forms DetailsPage* wizard. The wizard can
+be selected from the drop down Designer wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+For more information on using Eclipse Forms, see the
+link:https://www.eclipse.org/articles/Article-Forms/article.html[Eclipse Forms Programming Guide].
+
+--
+image:images/wizard_forms_detailspage1.gif[image]
+image:images/wizard_forms_detailspage2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.IDetailsPage;
+import org.eclipse.ui.forms.IFormPart;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+ 
+public class FormsDetailsPage implements IDetailsPage {
+	private IManagedForm managedForm;
+
+	public FormsDetailsPage() {
+	}
+
+	public void initialize(IManagedForm managedForm) {
+		this.managedForm = managedForm;
+	}
+
+	public void createContents(Composite parent) {
+		FormToolkit toolkit = managedForm.getToolkit();
+		parent.setLayout(new FillLayout());
+		final Section section = toolkit.createSection(parent,
+			ExpandableComposite.EXPANDED | ExpandableComposite.TITLE_BAR);
+		section.setText("Empty Section");
+ 
+		final Composite composite = 
+			toolkit.createComposite(section, SWT.NONE);
+		toolkit.paintBordersFor(composite);
+		section.setClient(composite);
+	}
+
+	public void dispose() {
+	}
+
+	public void setFocus() {
+	}
+
+	private void update() {
+	}
+
+	public boolean setFormInput(Object input) {
+		return false;
+	}
+
+	public void selectionChanged(IFormPart part, ISelection selection) {
+		IStructuredSelection structuredSelection = 
+			(IStructuredSelection) selection;
+		update();
+	}
+
+	public void commit(boolean onSave) {
+	}
+
+	public boolean isDirty() {
+		return false;
+	}
+
+	public boolean isStale() {
+		return false;
+	}
+
+	public void refresh() {
+		update();
+	}
+}
+----
+
+When editing Eclipse Forms DetailsPages, a set of specialized *Eclipse Forms widgets* is available with their own unique
+widget palette. These widgets provide the "flat" look that is a signature element of the Eclipse Forms API. Standard
+widgets and layout managers can also be used although they won't use the flat look.
+
+image:images/wizard_forms_detailspage3.gif[image]

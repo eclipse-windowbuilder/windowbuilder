@@ -1,0 +1,46 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= FormLayout
+
+--
+image:images/preferences_formlayout.gif[image]
+image:images/preferences_formlayout_classic.gif[image]
+--
+
+This page is used to control various *SWT > Layouts > FormLayout* options.
+
+== FormLayout editing mode
+
+This preference controls whether *FormLayout* editing is in *Automatic Placement* mode or *Classic* mode. In
+*Automatic Mode*, attachments are determined automatically based on the position of the widgets themselves. In *Classic*
+mode, full control over the attachments on each widget side is available.
+
+== Window margin
+
+This preference determines how far away from the window edge the margin snap point appears.
+
+== Percent offset
+
+This preference determines how far away from the percentage lines the offset snap points should appears.
+
+== Widget offset
+
+This preference determines how far away from the widget edges the offset snap points should appears.
+
+== Default percentage points
+
+This preference determines where percentage snap points will appear. The values can be integers from 1 to 99 inclusive
+(50 would be the center of the container).
+
+== Snap sensitivity (Classic mode only)
+
+This preference determines the maximum number of pixels that the control can be away from the snap point for the control
+to be “grabbed” by the snap point.
+
+== Keep attachments style in align operations (Classic mode only)
+
+This preference controls whether the attachment styles for a control changes when the alignment buttons are used. If it
+is unchecked, the attachment styles of the sides of the controls you are aligning will be changed to the alignment
+styles of the control you are aligning to.

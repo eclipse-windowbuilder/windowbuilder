@@ -1,0 +1,44 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/jface
+endif::[]
+
+= JFace WizardPage Wizard
+
+image:images/wizard_jface_wizardpage0.gif[image]
+
+Subclasses of the JFace *WizardPage* class can be created using the *JFace WizardPage* wizard. The wizard can be
+selected from the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+--
+image:images/wizard_jface_wizardpage1.gif[image]
+image:images/wizard_jface_wizardpage2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+ 
+public class JFaceWizardPage extends WizardPage {
+	public JFaceWizardPage() {
+		super("wizardPage");
+		setTitle("Wizard Page title");
+		setDescription("Wizard Page description");
+	}
+
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		setControl(container);
+	}
+}
+----
+
+When editing JFace WizardPages, widgets may only be added to the main content area.
+
+image:images/wizard_jface_wizardpage3.gif[image]

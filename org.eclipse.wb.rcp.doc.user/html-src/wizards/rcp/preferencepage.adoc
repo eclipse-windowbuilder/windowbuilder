@@ -1,0 +1,84 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/rcp
+endif::[]
+
+= RCP PreferencePage Wizard
+
+image:images/wizard_rcp_preferencepage0.gif[image]
+
+Subclasses of the RCP *ViewPart* class can be created using the *RCP PreferencePage* wizard. The wizard can be selected
+from the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name,
+view name/title and hit the *Finish* button.
+
+--
+image:images/wizard_rcp_preferencepage1.gif[image]
+image:images/wizard_rcp_preferencepage2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
+
+public class RcpPreferencePage extends PreferencePage {
+
+	public RcpPreferencePage() {
+		super();
+	}
+
+	@Override
+	public Control createContents(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		return container;
+	}
+
+	public void init(IWorkbench workbench) {
+		// Initialize the preference page
+	}
+}
+----
+
+When editing RCP PreferencePages, all of the standard SWT layouts, containers and widgets are available. Standard
+Preference Pages can use any widget and layout manager, but the preference value getting and setting must be coded by
+hand.
+
+image:images/wizard_rcp_preferencepage3.gif[image]
+
+The wizard generates the following code for [#FieldEditor]#Field Editor# Preference Pages.
+
+[source,java]
+----
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.ui.IWorkbench;
+
+public class RcpPreferencePage extends FieldEditorPreferencePage {
+	public RcpPreferencePage() {
+		super(FLAT);
+	}
+	protected void createFieldEditors() {
+		// Create the field editors
+	}
+	public void init(IWorkbench workbench) {
+		// Initialize the preference page
+	}
+}
+----
+
+Field Editor Preference Pages use a GridLayout and a set of
+xref:../../palettes/swt_palette.adoc#FieldEditors[specialized field editor widgets] with their own unique
+widget palette. Standard widgets and layout managers can't be used.
+
+--
+image:images/wizard_rcp_preferencepage4.gif[image]
+image:images/wizard_rcp_preferencepage5.gif[image]
+--
+
+[#FieldLayout]#Field Layout# Preference Pages are a hybrid that can use either regular widgets or field editors.

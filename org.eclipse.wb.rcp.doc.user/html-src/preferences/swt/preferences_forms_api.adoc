@@ -1,0 +1,19 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= Forms API
+
+image:images/preferences_forms_api.gif[image,width=448,height=450]
+
+This page is used to control various *SWT > Forms API* options.
+
+== Generate paintBordersFor() for new Composites
+
+This preference controls whether a call to paintBordersFor() method is generated for each added composite. When borders
+are turned on for a composite, various widgets are automatically drawn with a flat border. When borders are turned off,
+widgets are drawn without borders.
+
+== Automatically adapt() new non-form Controls
+
+This preference controls whether new non-form controls are automatically adapted using the form toolkit

@@ -1,0 +1,136 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT FormLayout
+
+FormLayout class that implements an constraint-based layout manager. With constraint-based layout, you have independent
+control over the sizing behavior of each of the four sides of a widget. The top, bottom, left, and right sides can be
+independently attached to the sides of the parent container or the sides of any sibling widget within the same container
+using either fixed or relative offsets. This proves to be surprisingly powerful and can be used to emulate almost any of
+the other layout managers. The FormLayout class is very simple and only specifies the margins of the container. The real
+power is in the FormData object, which holds up to four different FormConstraint objects.
+
+In *Automatic Mode*, attachments are determined automatically based on the position of the widgets themselves. In
+*Classic* mode, full control over the attachments on each widget side is available.
+
+* xref:#MainFeatures[Main Features]
+* xref:#GraphicalFeedback[Graphical Feedback]
+* xref:../../preferences/swt/preferences_formlayout.adoc[Preferences]
+
+[#MainFeatures]
+== Main Features
+
+* Select *FormLayout* from the *Layouts* palette and drop it on a Window or Composite
+
+image:images/frml_design_view.gif[image]
+
+* Graphical feedback is provided for all widget size and position operations
+
+--
+image:images/frml_indent1.gif[image]
+image:images/frml_margins3.gif[image]
+--
+
+* Support for *Automatic Placement* mode and *Classic* mode.
+
+--
+image:images/frml_alignment6.gif[image]
+image:images/frml_alignment6c.gif[image]
+--
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+* Position and size widgets using FormLayout constraints
+
+--
+image:images/frml_position1.gif[image]
+image:images/frml_size1.gif[image]
+--
+
+* Align widgets horizontally and vertically
+
+--
+image:images/frml_alignment7.gif[image]
+image:images/frml_alignment8.gif[image]
+--
+
+* Indent widgets intelligently
+
+--
+image:images/frml_indent1.gif[image]
+image:images/frml_indent2.gif[image]
+--
+
+* Align widgets to margins
+
+--
+image:images/frml_margins1.gif[image]
+image:images/frml_margins2.gif[image]
+--
+
+image:images/frml_margins3.gif[image]
+
+* Anchor widgets to the left, right or both sides
+
+--
+image:images/frml_alignment1.gif[image]
+image:images/frml_alignment2.gif[image]
+--
+
+--
+image:images/frml_alignment3.gif[image]
+image:images/frml_alignment3c.gif[image]
+--
+
+* Anchor widgets to the top, bottom or both sides
+
+--
+image:images/frml_alignment4.gif[image]
+image:images/frml_alignment5.gif[image]
+--
+
+--
+image:images/frml_alignment6.gif[image]
+image:images/frml_alignment6c.gif[image]
+--
+
+* Align widgets to percentage offsets
+
+--
+image:images/frml_percentage1.gif[image]
+image:images/frml_percentage2.gif[image]
+--
+
+--
+image:images/frml_percentage3.gif[image]
+image:images/frml_percentage4.gif[image]
+--
+
+* Set anchors via popup context menus
+
+--
+image:images/frml_alignment_menu1.gif[image]
+image:images/frml_alignment_menu2.gif[image]
+--
+
+--
+image:images/frml_alignment_menu3.gif[image]
+image:images/frml_alignment_menu4.gif[image]
+--
+
+* Set anchors and offsets via the *Property Pane*
+
+image:images/frml_properties.gif[image]
+
+* Align and center widgets using toolbar
+
+image:images/align_toolbar.gif[image]
+
+* Set anchors and alignment using floating layout assistant mage:images/assistant.gif[image]
+
+--
+image:images/frml_assistant1.gif[image]
+image:images/frml_assistant2.gif[image]
+--
