@@ -153,6 +153,9 @@ public abstract class OSSupport {
 	protected final Shell layoutShell(Control control) {
 		Shell shell = control.getShell();
 		doLayout(shell);
+		// Implicitly calls `runDeferredLayouts()`
+		// see https://github.com/eclipse-windowbuilder/windowbuilder/issues/1324
+		shell.getDisplay().readAndDispatch();
 		fixZeroSizes_begin(shell);
 		return shell;
 	}
