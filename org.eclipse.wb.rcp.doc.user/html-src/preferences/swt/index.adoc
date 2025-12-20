@@ -1,0 +1,70 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= Preferences - SWT
+
+image:images/preferences_swt.gif[image]
+
+Here is the list of *SWT Designer* preference pages:
+
+* xref:preferences_code_generation.adoc[*Code Generation*]
+** xref:preferences_event_handlers.adoc[*Event Handlers*]
+** xref:preferences_jface_data_bindings.adoc[*JFace Data Bindings*]
+** xref:preferences_nls.adoc[*NLS*]
+** xref:preferences_variables.adoc[*Variables*]
+* xref:preferences_forms_api.adoc[*Forms API*]
+* xref:preferences_layouts.adoc[*Layouts*]
+** xref:preferences_absolute.adoc[*Absolute*]
+** xref:preferences_formlayout.adoc[*FormLayout*]
+** xref:preferences_gridlayout.adoc[*GridLayout*]
+* xref:preferences_preferencepage.adoc[*PreferencePage*]
+
+== Default form width & height
+
+These preferences control the default form size used for any window or dialog created by *SWT Designer*.
+
+== Highlight containers without borders
+
+This preference determines whether *SWT Designer* draws a dotted rectangle around borderless JPanels.
+
+image:images/show_borders.gif[image,width=248,height=202]
+
+== Show text in components tree
+
+This preference determines whether the text label of a widget (like a button, label, etc.) is shown next to the widget's
+name in the *Component Tree*.
+
+--
+image:images/tree_text_on.gif[image]
+image:images/tree_text_off.gif[image]
+--
+
+== Show important properties dialog on component adding
+
+This preference controls whether the important properties dialog is shown whenever a new widget is created. The
+important properties dialog provides access to the widget's name, text and icon properties and style settings.
+
+image:images/important_properties.gif[image]
+
+== Automatically activate direct edit on component adding
+
+This preference controls whether *direct edit* mode is automatically invoked when a new component is added to the
+window. When this option is enabled, it makes it easy to immediately set the text label on a widget as soon as it is
+created.
+
+image:images/direct_edit.gif[image,width=230,height=147]
+
+== Use ResourceManager for color/font/image access
+
+This preference determines whether the *ResourceManager* class is used is code generation for accessing colors, fonts
+and images.
+
+== Show style property popup menu cascaded
+
+This preference determines whether the *Style* menu is shown cascaded or not.
+
+--
+image:images/style_menu_flat.gif[image]
+image:images/style_menu_cascaded.gif[image]
+--

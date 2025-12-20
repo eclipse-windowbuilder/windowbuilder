@@ -1,0 +1,122 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= Code Generation
+
+image:images/preferences_code_generation.gif[image]
+
+== Use the existing creation style when it can be deduced
+
+This preference determines whether *SWT Designer* attempts to use the existing code creation style already in a file to
+generate code. *SWT Designer* checks a file when it is opened in the editor to see if one style or the other is used.
+If only one of the styles is being used in a file, it will continue generating code in that style, regardless of what
+the other code generation settings. If no style is detected (no controls have been created yet) or if more than one
+style is detected, the *SWT Designer* will generate code as specified in the other settings.
+
+== Method name for new statements
+
+image:images/code_generation_method_name.gif[image]
+
+This preference determines in which method components will be created by default (in the event that a suitable method
+has not already be defined for the current class). If the method does not exist, it will be created and a call to it
+added to the constructor for the class. Various default choices are provided to match the code generation patterns of
+other GUI builders.
+
+== Default code generation settings
+
+*SWT Designer* supports a wide variety of code generation styles and can emulate most other Java GUI builders including
+NetBeans, JBuilder, the Eclipse Visual Editor, etc. Choose a xref:#Variable[*Variable Generation*] style
+(xref:#Local[*Local*] or xref:#Field[*Field*]) and a xref:#Statement[*Statement Generation*] style (xref:#Flat[*Flat*]
+or xref:#Block[*Block*]). Many of the styles have additional options that can be set. Once any combination of settings
+is selected, you can see a preview of that code generation style in the *Preview* pane.
+
+[#Variable]
+== Variable generation
+
+*SWT Designer* supports several *Variable Generation* styles including xref:#Local[*Local*] or xref:#Field[*Field*].
+
+[#Local]
+== Local Variable Mode
+
+image:images/code_generation_local.gif[image]
+
+In the *Local* variable generation style, each component is assigned to a unique local variable and initialized at the
+point of declaration. An option is provided to declare each variable as *final*. Note that component types marked as
+*As Field* on the xref:preferences_variables.adoc#TypeSpecific[*Variables > Type Specific*] preference page will always
+be assigned to fields.
+
+[cols="^1,^1"]
+|===
+|*Local Variables / Flat Mode*
+
+image:images/code_generation_local_source.gif[image]
+|*Final Local Variables / Flat Mode*
+
+image:images/code_generation_local_source_final.gif[image]
+|*Local Variables / Block Mode*
+
+image:images/code_generation_local_source_block.gif[image]
+|*Final Local Variables / Block Mode*
+
+image:images/code_generation_local_source_final_block.gif[image]
+|===
+
+[#Field]
+== Field Mode
+
+image:images/code_generation_field.gif[image]
+
+In the *Field* generation style, each component is assigned to a unique field and initialized at the point where it is
+first used. An option is provided to prefix each field reference with *this*.
+
+[cols="^1,^1"]
+|===
+|*Fields / Flat Mode*
+
+image:images/code_generation_field_source.gif[image]
+|*This Fields / Flat Mode*
+
+image:images/code_generation_field_source_this.gif[image]
+|*Fields / Block Mode*
+
+image:images/code_generation_field_source_block.gif[image]
+|*This Fields / Block Mode*
+
+image:images/code_generation_field_source_this_block.gif[image]
+|===
+
+[#Statement]
+== Statement generation
+
+*SWT Designer* supports *flat* mode and *block* mode generation modes.
+
+[cols="^1,^1"]
+|===
+a| [#Flat]
+*Flat Mode*
+
+image:images/code_generation_flat.gif[image]
+
+In *flat* mode, each component is created in the same scope at the same indentation level. An option is provided to
+prefix the creation of each component with either a blank line or a comment.
+a| [#Block]
+*Block Mode*
+
+image:images/code_generation_block.gif[image]
+
+In *block* mode, each component is created in its own scoped code block. Child components are created in nested blocks.
+
+|*Local Variables / Flat Mode*
+
+image:images/code_generation_local_source.gif[image]
+|*Local Variables / Block Mode*
+
+image:images/code_generation_local_source_block.gif[image]
+|*Fields / Flat Mode*
+
+image:images/code_generation_field_source.gif[image]
+|*Fields / Block Mode*
+
+image:images/code_generation_field_source_block.gif[image]
+|===

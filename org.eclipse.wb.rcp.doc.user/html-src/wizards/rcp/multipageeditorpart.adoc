@@ -1,0 +1,55 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/rcp
+endif::[]
+
+= RCP MultiPageEditorPart Wizard
+
+image:images/wizard_rcp_multipageeditorpart0.gif[image]
+
+Subclasses of the RCP *MultiPageEditorPart* class can be created using the *RCP MultiPageEditorPart* wizard. The wizard
+can be selected from the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name, use the
+*Add* button to add individual *EditorParts* that have already been created, and hit the *Finish* button.
+
+--
+image:images/wizard_rcp_multipageeditorpart1.gif[image]
+image:images/wizard_rcp_multipageeditorpart2.gif[image]
+--
+
+image:images/wizard_rcp_multipageeditorpart3.gif[image]
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.part.MultiPageEditorPart;
+
+public class RcpMultiPageEditorTtest extends MultiPageEditorPart {
+	public static final String ID = "sample.rcp.RcpMultiPageEditorTtest"; //$NON-NLS-1$
+
+	public RcpMultiPageEditorTtest() {
+	}
+
+	protected void createPages() {
+		try {
+			addPage(new FirstEditorPage(), (org.eclipse.ui.IEditorInput) null);
+			addPage(new SecondEditorPage(), (org.eclipse.ui.IEditorInput) null);
+			addPage(new ThirdEditorPage(), (org.eclipse.ui.IEditorInput) null);
+		} catch (PartInitException e) {
+		}
+	}
+
+	public boolean isSaveAsAllowed() {
+		return false;
+	}
+
+	public void doSave(IProgressMonitor monitor) {
+	}
+
+	public void doSaveAs() {
+	}
+}
+----

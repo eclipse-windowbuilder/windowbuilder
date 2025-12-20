@@ -1,0 +1,30 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= GridLayout
+
+image:images/preferences_gridlayout.gif[image]
+
+This page is used to control various *SWT > Layouts > GridLayout* options.
+
+== Use automatic horizontal/vertical grab
+
+This preference controls whether new text-oriented widgets (*Text*, *Combo*, etc.) are set to grab horizontally when
+they are added to the window and whether new *Table* and *Tree* widgets are set to grab horizontally and vertically when
+they are added to the window.
+
+--
+image:../../layoutmanagers/swt/images/gl_auto_grab1.gif[image]
+image:../../layoutmanagers/swt/images/gl_auto_grab2.gif[image]
+--
+
+== Automatically align right Label-like components before Text components
+
+This preference controls whether *Labels* should be right aligned when they are to the left of a *Text* or *Combo*
+widget.
+
+--
+image:../../layoutmanagers/swt/images/gl_auto_right_label1.gif[image]
+image:../../layoutmanagers/swt/images/gl_auto_right_label2.gif[image]
+--

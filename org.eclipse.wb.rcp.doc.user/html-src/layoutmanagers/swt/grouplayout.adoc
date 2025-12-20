@@ -1,0 +1,133 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+== SWT GroupLayout
+
+*GroupLayout* is a LayoutManager that hierarchically groups components in order to position them in a Container.
+*GroupLayout* is intended for use by builders, but may be hand-coded as well. Grouping is done by instances of the
+*Group* class. *GroupLayout* supports two types of groups. A sequential group positions its child elements sequentially,
+one after another. A parallel group aligns its child elements in one of four ways.
+
+Each group may contain any number of elements, where an element is a *Group*, *Component*, or gap. A gap can be thought
+of as an invisible component with a minimum, preferred and maximum size. In addition GroupLayout supports a preferred
+gap, whose value comes from *LayoutStyle*.
+
+Elements are similar to a spring. Each element has a range as specified by a minimum, preferred and maximum. Gaps have
+either a developer-specified range, or a range determined by *LayoutStyle*. The range for Components is determined from
+the Component's *getMinimumSize*, *getPreferredSize* and *getMaximumSize* methods. In addition, when adding Components
+you may specify a particular range to use instead of that from the component. The range for a *Group* is determined by
+the type of group. A *ParallelGroup's* range is the maximum of the ranges of its elements. A *SequentialGroup's* range
+is the sum of the ranges of its elements.
+
+*GroupLayout* treats each axis independently. That is, there is a group representing the horizontal axis, and a group
+representing the vertical axis. The horizontal group is responsible for determining the minimum, preferred and maximum
+size along the horizontal axis as well as setting the x and width of the components contained in it. The vertical group
+is responsible for determining the minimum, preferred and maximum size along the vertical axis as well as setting the y
+and height of the components contained in it. Each Component must exist in both a horizontal and vertical group,
+otherwise an *IllegalStateException* is thrown during layout, or when the minimum, preferred or maximum size is
+requested.
+
+* xref:#MainFeatures[Main Features]
+* xref:#GraphicalFeedback[Graphical Feedback]
+
+[#MainFeatures]
+== Main Features
+
+* Select *GroupLayout* from the *Layouts* palette and drop it on a Shell or Composite
+
+
+image:images/group_design_view.gif[image]
+
+* Graphical feedback is provided for all widget size and position operations
+
+--
+image:images/group_indent1.gif[image]
+image:images/group_align2.gif[image]
+--
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+* Position and size widgets using GroupLayout constraints
+
+--
+image:images/group_align3.gif[image]
+image:images/group_align4.gif[image]
+--
+
+* Align widgets horizontally and vertically
+
+--
+image:images/group_align1.gif[image]
+image:images/group_align2.gif[image]
+--
+
+* Indent widgets intelligently
+
+--
+image:images/group_indent1.gif[image]
+image:images/group_indent2.gif[image]
+--
+
+* Insert widgets intelligently
+
+--
+image:images/group_insert1.gif[image]
+image:images/group_insert2.gif[image]
+--
+
+* Align widgets along text baselines
+
+--
+image:images/group_baseline1.gif[image]
+image:images/group_baseline2.gif[image]
+--
+
+* Align widgets to margins
+
+--
+image:images/group_margin1.gif[image]
+image:images/group_margin2.gif[image]
+--
+
+* Anchor widgets to the left, right or both sides
+
+--
+image:images/group_anchor1.gif[image]
+image:images/group_anchor2.gif[image]
+image:images/group_anchor3.gif[image]
+--
+
+* Anchor widgets to the top, bottom or both sides
+
+--
+image:images/group_anchor1.gif[image]
+image:images/group_anchor4.gif[image]
+image:images/group_anchor5.gif[image]
+--
+
+* Set anchors via popup context menus
+
+--
+image:images/group_anchor6.gif[image]
+image:images/group_anchor7.gif[image]
+--
+
+* Set widget anchoring and resizing via context menu
+
+--
+image:images/group_menu_anchor.gif[image]
+image:images/group_menu_resizing.gif[image]
+--
+
+* Align and center widgets using toolbar
+
+image:images/align_toolbar.gif[image]
+
+* Set alignment, size and spacing using floating layout assistant
+
+--
+image:images/group_layout_assistant1.gif[image]
+image:images/group_layout_assistant2.gif[image]
+--

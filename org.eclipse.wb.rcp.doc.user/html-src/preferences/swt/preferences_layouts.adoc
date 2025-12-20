@@ -1,0 +1,46 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= Layouts
+
+image:images/preferences_layouts.gif[image]
+
+This page is used to control various *SWT > Layouts* options.
+
+== Default layout manager
+
+This preference controls the default layout manager that *SWT Designer* uses for any new frame or panel. The default is
+to use the implicit layout manager already in effect for each container (e.g., BorderLayout for JFrames and FlowLayout
+for JPanels).
+
+== Layouts to use
+
+This preference controls the layouts which can be selected in the default layout manager and also which layouts are
+available in the Design editor page.
+
+If a layout is unchecked that is currently set as default layout, the selection in the default layout manager control is
+cleared, with the implict layout being used as default again.
+
+== Containers automatically use layout manager type of parent
+
+This preference determines whether new panels will use the layout manager of their parent's by default.
+
+== Create variable for Layout using pattern
+
+This preference determines what pattern will be used to generate layout variables. The following styles are supported:
+
+* $\{layoutAcronym}_$\{compositeName} -- gl_composite
+* $\{layoutAcronym}$\{compositeName-cap} -- glComposite
+* $\{compositeName}$\{layoutClassName} -- compositeGridLayout
+* $\{dataDefaultName} -- gridLayout_1
+
+== Create variable for LayoutData using pattern
+
+This preference determines what pattern will be used to generate layout data variables. The following styles are
+supported:
+
+* $\{dataAcronym}_$\{controlName} -- gd_helloWorldButton
+* $\{dataAcronym}$\{controlName-cap} -- gdHelloWorldButton
+* $\{controlName}$\{dataClassName} -- helloWorldGridData
+* $\{dataDefaultName} -- gridData_1

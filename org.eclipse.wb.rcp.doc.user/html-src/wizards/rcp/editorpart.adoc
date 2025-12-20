@@ -1,0 +1,80 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/rcp
+endif::[]
+
+= RCP EditorPart Wizard
+
+image:images/wizard_rcp_editorpart0.gif[image]
+
+Subclasses of the Eclipse RCP *EditorPart* class can be created using the *RCP EditorPart* wizard. The wizard can be
+selected from the drop down Designer wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and
+editor name and hit the *Finish* button.
+
+--
+image:images/wizard_rcp_editorpart1.gif[image]
+image:images/wizard_rcp_editorpart2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.part.EditorPart;
+ 
+public class EclipseEditorPartTest extends EditorPart {
+	public static final String ID = "com.test.RcpEditorPart"; //$NON-NLS-1$
+
+	public RcpEditorPart() {
+	}
+
+	@Override
+	public void createPartControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+	}
+
+	@Override
+	public void setFocus() {
+		// Set the focus
+	}
+
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		// Do the Save operation
+	}
+	@Override
+	public void doSaveAs() {
+		// Do the Save As operation
+	}
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
+		// Initialize the editor part
+	}
+
+	@Override
+	public boolean isDirty() {
+		return false;
+	}
+
+	@Override
+	public boolean isSaveAsAllowed() {
+		return false;
+	}
+}
+----
+
+When editing RCP EditorParts, all of the standard SWT layouts, containers and widgets are available.
+
+If the EditorPart is created in an existing plugin project, the plugin.xml file is also updated with the appropriate
+editor declaration.
+
+image:images/wizard_rcp_editorpart3.gif[image]

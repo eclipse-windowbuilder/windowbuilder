@@ -1,0 +1,164 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT GridLayout
+
+
+*GridLayout* lays out the control children of a Composite in a grid. *GridLayout* has a number of configuration fields,
+and the controls it lays out can have an associated layout data object, called *GridData*. The power of *GridLayout*
+lies in the ability to configure *GridData* for each control in the layout. The *numColumns* field is the most important
+field in a *GridLayout*. Widgets are laid out in columns from left to right, and a new row is created when
+*numColumns + 1* controls are added to the Composite.
+
+* xref:#MainFeatures[Main Features]
+* xref:#PopupHeaderMenu[Popup Header Menu]
+* xref:#GraphicalFeedback[Graphical Feedback]
+* xref:#CellEditing[Cell Editing]
+* xref:#Preferences[Preferences]
+* xref:#SourceCodeGenerationParsing[Source Code Generation & Parsing]
+
+[#MainFeatures]
+== Main Features
+
+* Select *GridLayout* from the *Layouts* palette and drop it on a Window or Composite
+
+image:images/gl_design_view.gif[image,width=708,height=454]
+
+* Graphical feedback is provided for all column, row and cell interactions
+* Column and row properties may be changed via a popup menu
+* Convert existing layouts (null, *FormLayout*, etc.) to *GridLayout* with intelligent column and row creation
+
+image:images/null_convert.gif[image] image:images/gl_convert.gif[image]
+
+[#PopupHeaderMenu]
+== Popup Header Menu
+
+* Right-click on the header area to access the popup header menu
+
+--
+image:images/gl_menu_row.gif[image,width=170,height=154] 
+image:images/gl_menu_column.gif[image,width=170,height=154]
+--
+
+* Delete entire columns or rows
+* Set the column alignment to left, center, right or fill
+* Set the row alignment to top, center, bottom or fill
+* Specify that the column or row should grab any excess space
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+* When moving a widget or adding a new widget, open cells are highlighted green while populated cells are highlighted
+  red and insertion points are highlighted in yellow +
+
+--
+image:images/gl_add1.gif[image] image:images/gl_add2.gif[image]
+image:images/gl_add3.gif[image] +
+--
+
+* Phantom drop point to the right and below the current cells will create new columns, rows and gaps as needed
+
+image:images/gl_move1.gif[image] image:images/gl_move2.gif[image]
+
+* The currently selected cell shows its column and row spanning handles, sizing handles and alignment handles
+
+image:images/gl_alignment_one.gif[image]
+
+* Set the alignment of a cell using its popup alignment menu or the toolbar
+
+image:images/gl_toolbar.gif[image]
+
+--
+image:images/gl_cell_align1.gif[image]
+image:images/gl_cell_align2.gif[image]
+--
+
+* Set the grab property by right-clicking (or double-clicking) on a column or row
+
+image:images/gl_grab1.gif[image] image:images/gl_grab2.gif[image]
+
+* Width and height sizing handles make it easy to set the size of a widget
+
+--
+image:images/gl_sizing1.gif[image]
+image:images/gl_sizing2.gif[image]
+--
+
+* Right-click a widget to set is horizontal or vertical alignment values, grab property or to clear its width or height hint
+
+image:images/gl_clear_span.gif[image,width=328,height=146]
+
+* Reorder columns and rows by dragging them (with their associated gap columns or rows)
+
+--
+image:images/gl_reorder_row1.gif[image]
+image:images/gl_reorder_row2.gif[image]
+image:images/gl_reorder_row3.gif[image]
+--
+
+* Column and rows borders are indicated with gray lines
+
+image:images/gl_borders.gif[image]
+
+* Interactive column and row spanning feedback is provided
+
+image:images/gl_span1.gif[image] image:images/gl_span2.gif[image]
+
+* Full keyboard support for quickly changing alignment values
+
+[cols="30%,70%"]
+|===
+2+h|Cells
+| F
+| fill horizontal
+| Shift+F
+| fill vertical
+| H
+| grow horizontal
+| V
+| grow vertical
+| L, C, R
+| left/center/right for horizontal
+|T, M, B
+| top/middle/bottom for vertical
+|===
+
+[#CellEditing]
+== Cell Editing
+
+* Floating layout assistant image:images/assistant.gif[image]
+
+--
+image:images/gl_layout_assistant1.gif[image]
+image:images/gl_layout_assistant2.gif[image]
+--
+
+* Edit individual layout data properties for each widget in the *Property Pane*.
+
+image:images/gl_properties.gif[image]
+
+[#Preferences]
+== xref:../../preferences/swt/preferences_gridlayout.adoc[Preferences]
+
+* Control whether automatic grab is used for text widgets, comboboxes, tables, etc.
+
+--
+image:images/gl_auto_grab1.gif[image]
+image:images/gl_auto_grab2.gif[image]
+--
+
+* Control whether labels are automatically right-aligned when next to a text widget
+
+--
+image:images/gl_auto_right_label1.gif[image]
+image:images/gl_auto_right_label2.gif[image]
+--
+
+[#SourceCodeGenerationParsing]
+== Source Code Generation & Parsing
+
+* Intelligently convert existing layouts (null, *FormLayout*, etc.) to *GridLayout* with column and row creation
+* Parser can understand long or short constructor style for *GridData*
+
+image:images/gl_source1.gif[image]

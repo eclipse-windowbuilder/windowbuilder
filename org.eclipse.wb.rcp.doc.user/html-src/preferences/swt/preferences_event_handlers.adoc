@@ -1,0 +1,94 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= Event Handlers
+
+image:images/preferences_event_handlers.gif[image]
+
+This page is used to control various *SWT > Code Generation > Event Handler* options.
+
+== Event code generation
+
+This preference determines how event handlers are generated. The first option, *Create anonymous class*, generates an
+anonymous adapter class located inline with the widget definition. For example:
+
+[source,java]
+----
+Button button = new Button(shell, SWT.NONE);
+button.addSelectionListener(new SelectionAdapter() {
+	public void widgetSelected(SelectionEvent e) {
+	}
+});
+----
+
+The second option, *Create inner class*, generates an adapter class as an inner class. Options are provided to add the
+inner class at the beginning or end of the class as well as specify the pattern used to name the inner class. For
+example:
+
+[source,java]
+----
+private class ButtonSelectionListener extends SelectionAdapter {
+	public void widgetSelected(SelectionEvent e) {
+	}
+}
+...
+Button button = new Button(shell, SWT.NONE);
+button.addSelectionListener(new ButtonSelectionListener());
+----
+
+The pattern can include the template variables (names enclosed between "$\{" and "}") shown below. Capitalizing the name
+of any variable will cause the value of the variable to be capitalized before it is inserted into the resulting text.
+
+* *component_name* - the name of the component to which the handler is being attached
+* *component_class_name* - the name of the class of the component to which the handler is being attached
+* *listener_name* - the name of the event being handled
+* *listener_className* - the name of the event listener
+
+The third option, *Implement listener interface in parent class*, adds the the listener interface to the parent class
+and adds the appropriate methods to the class definition. For example:
+
+[source,java]
+----
+public class MyClass implements SelectionListener {
+	...
+	Button button = new Button(shell, SWT.NONE);
+	button.addSelectionListener(this);
+	...
+	public void widgetSelected(SelectionEvent e) {
+	}
+	public void widgetDefaultSelected(SelectionEvent e) {
+	}
+}
+----
+
+== Create stub event handler methods named
+
+This preference determines whether the text field below it is enabled. Now whenever an event handler is added, a method
+stub is created with the name given in the text field. A line of code is also added to the event handler which calls
+the newly created method. If you move your mouse over the text field, a tool tip will appear which gives you
+information on how to specify the names of the method stubs generated.
+
+Use this field to change the pattern used to generate the name of the method that will be invoked from within the event
+handler. The pattern can include the template variables (names enclosed between "$\{" and "}") shown below. Capitalizing
+the name of any variable will cause the value of the variable to be capitalized before it is inserted into the resulting
+text.
+
+* *component_name* - the name of the component to which the handler is being attached
+* *component_class_name* - the name of the class of the component to which the handler is being attached
+* *event_name* - the name of the event being handled")
+
+== Delete stub event handler methods on component delete
+
+This preference determines whether handler methods associated with a component are deleted when the component is
+deleted.
+
+== Declare parameters in event handlers as 'final'
+
+This preference determines whether 'final' is added to the parameters in event handlers.
+
+== Show icon decorator for components with events
+
+This preference controls whether components with event handlers are shown with an icon decorator.
+
+image:images/event_icon_decorator.gif[image,width=248,height=181]

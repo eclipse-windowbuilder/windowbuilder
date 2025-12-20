@@ -1,0 +1,141 @@
+ifdef::env-github[]
+:imagesdir: ../../../../html/features/swt/data_binding
+endif::[]
+
+= SWT Data Bindings
+
+Click the *Bindings* tab in the editor to created and edit data bindings.
+
+image:../../../wizards/databinding/images/data_binding_tab.gif[image]
+
+image:images/data_binding_swt1.gif[image]
+
+SWT uses simple bindings between targets and models.
+
+== Target & Model Types
+
+Two types of targets and models are supported:
+
+* image:images/data_binding_beans_button.gif[image] *Beans*: any field of the current compilation unit may be selected.
+  The filter field above the list can be used to filter the list of beans. The
+  image:images/clear_filter_button.gif[image] clear button can be used to clear the filter and restore the full list.
+  *Beans* are the primary data source for bindings (usually the model). Any property of the *Bean* may be observed.
+  Individual beans may also be expanded to reveal their direct sub properties. +
+  image:images/model_beans.gif[image]
+  image:images/model_beans_filtered.gif[image]
+  image:images/model_beans_expanded.gif[image]
+ 
+* *image:images/data_binding_widgets_button.gif[image] *Widgets*: any widget or JFace viewer in the current compilation
+  unit may be selected. If a widget is not a field, it will be converted to a field automatically. The filter field
+  above the list can be used to filter the list of widgets. The image:images/clear_filter_button.gif[image] clear button
+  can be used to clear the filter and restore the full list. Only the following predefined SWT control properties may be
+  observed: *enabled*, *visible*, *toolTipText*, *selection*, *min*, *max*, *text*, *items*, *selectionIndex*,
+  *foreground*, *background*, *font* and *editable*. Any JFace viewer with a *selection* property of type
+  *org.eclipse.jface.viewers.IStructuredSelection* may be selected. If the selection contains a Java Bean, it can be
+  bound to another object as either target or source. Typically, the selection of one viewer is bound to the input of
+  another viewer in a master-detail relationship. If a selection is not a field, it will be converted to a field
+  automatically. +
+  image:images/target_widgets.gif[image]
+  image:images/target_widgets_filtered.gif[image]
+
+== Properties
+
+When any *Target* or *Model* object is selected, its properties (bean fields or predefined SWT widget properties) are
+shown in the associated *Properties* list. A drop down filter menu is available to filter the Property list by type.
+Supported filters are *String*, *Boolean*, *Numbers*, *Color* and *Font*.
+
+--
+image:images/properties.gif[image]
+image:images/properties_filtered.gif[image]
+image:images/filter_button.gif[image]
+--
+
+If the model object is another binding object, it is possible to bind to the validation status. If the object is already
+an *IObservableValue* (like a *WritableValue*), it can be bound to directly.
+
+--
+image:images/validation_status.gif[image]  
+image:images/observable_value.gif[image]
+--
+
+== New SWT Bindings
+
+New bindings are created by selecting a *Target*, a *Target Property*, a *Source*, a *Source Property* and clicking the
+image:images/binding_button.gif[image] *Bind* button. When creating a binding, the update strategy from
+*target to model* and *model to target* may be specified as well as any strategy-specific properties (validators and
+converters).
+
+image:images/bind_properties_swt1.gif[image]
+
+When the Target or Model is a Text widget and the text property is selected, the triggering event may be specified as
+*SWT.Modify*, *SWT.FocusOut* or *SWT.NONE*.
+
+image:images/text_events.gif[image]
+
+Predefined update value strategies - *POLICY_UPDATE*, *POLICY_NEVER*, *POLICY_ON_REQUEST* and *POLICY_CONVERT* - may be
+selected or a custom strategy class may chosen.
+
+--
+image:images/update_value_strategy1.gif[image]
+image:images/update_value_strategy2.gif[image]
+--
+
+When binding to a *selection* object, the entire object may be bound to using the *Selection as object* radio button or
+one of its fields may be bound to using the *Part of selection* radio button. When *Part of selection* is chosen, the
+type of the selection should be specified in the *Class* field. A property specific to the specified class may then be
+specified.
+
+image:images/bind_properties_swt2.gif[image]
+
+If the *Strategy Properties* section is expanded for either the *Target* or *Model*, validators (AfterConvert, AfterGet
+and BeforeSet) and converters can be specified.
+
+image:images/edit_binding_strategy_properties.gif[image]
+
+If necessary, the resulting binding object can be assigned to a field. This can be useful when you need to bind to the
+*validationStatus* of the binding itself.
+
+--
+image:images/assign_binding_to_field.gif[image]  
+image:images/validation_status.gif[image]
+--
+
+== Existing SWT Bindings
+
+At the top of the page, existing *Bound Properties* are listed. The *Target* and *Model* are shown as well as the
+*Target Strategy* and the *Model Strategy*.
+
+image:images/bound_properties_swt.gif[image]
+
+Clicking the image:images/data_binding_edit_button.gif[image] *Edit* button or *Edit* menu opens the *Edit Binding*
+dialog where the update strategies may be modified.
+
+--
+image:images/edit_binding_swt1.gif[image]
+image:images/edit_binding_swt2.gif[image]
+--
+
+The image:images/data_binding_delete_button.gif[image] *Delete* button or *Delete* menu is used to delete the selected
+bound property while the image:images/data_binding_delete_all_button.gif[image] *Delete All* button or *Delete All* menu
+is used to delete all of the bound properties.
+
+The image:images/data_binding_move_up_button.gif[image] *Move Up* and 
+image:images/data_binding_move_down_button.gif[image] *Move Down* buttons and menus are used to change the order of the
+bindings while the image:images/data_binding_goto_definition_button.gif[image] *Goto Definition* button and menu are
+used to jump to the generated code for the binding.
+
+== Source
+
+As bindings are created or edited on the Bindings tab, the necessary data binding code is generated which may then be
+seen in the *Source* view. An *initDataBindings()* method is created, if it does not already exist and a call to that
+method is added to the end of the widget creation process.
+
+Within the *initDataBindings()* method, any needed observables are created first followed by the creation of the
+*Data Binding Context*. Simple SWT data bindings are then created using the new context followed by any JFace content
+providers, list providers and inputs that are needed.
+
+image:images/data_binding_source.gif[image]
+
+WARNING: _do not edit the *initDataBinding()* method by hand (without carefully matching the code generation pattern
+used by the tool) as it will be regenerated in its entirety any time the tool needs to add, remove or update a data
+binding._

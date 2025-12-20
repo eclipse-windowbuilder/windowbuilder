@@ -1,0 +1,201 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/databinding
+endif::[]
+
+= Automatic Data Binding Wizard
+
+image:images/automatic_data_binding0.gif[image]
+
+The *JFace Automatic Data Binding* wizard can be used to create new user interface classes (Composites, Dialogs or
+Windows) complete with widgets, layouts and data bindings from arbitrary domain model (bean) classes.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Next* button. If a domain class was selected when the wizard was opened, a default name for the new UI class will
+be generated.
+
+The *org.eclipse.swt.widgets.Composite* class is the default superclass. You can select either
+*org.eclipse.jface.dialogs.Dialog* or *org.eclipse.swt.widgets.Shell* as alternative superclasses.
+
+image:images/automatic_data_binding1.gif[image]
+image:images/automatic_data_binding2.gif[image]
+
+The second page of the wizard is used to specify the bean class, properties and widgets used for the new user interface.
+Click the "*...*" button to select a bean type, if it has not already been selected. The *Properties* list will show a
+list of bindable properties discovered by inspecting the class (basically any properties with getter/setter pairs with
+bindable data types). Next to "..." button is a filter button that can be use to show other properties that can't be
+bound (like *class*).
+
+image:images/automatic_data_binding3.gif[image]
+image:images/automatic_data_binding4.gif[image]
+
+Select or deselect all of the properties using the *Select All* or *Deselect All* buttons. The order of the properties
+may be changed using the *Up* and *Down* buttons or via drag and drop. Check each property that should be bound to a
+user interface widget. Only checked properties will appear in the user interface. For each property, you can select a
+widget type and update strategy. *String* properties will be defaulted to *Text* widgets and *Boolean* properties will
+be defaulted to *Button* (*CheckBox*) widgets. The update strategy can be bi-directional, from widget to bean, bean to
+widget, or nothing. When you are satisfied with your suggestions, click *Finish* to generate the class.
+
+image:images/automatic_data_binding5.gif[image]
+image:images/automatic_data_binding6.gif[image]
+
+The generated user interface will consist of a two-column  xref:../../layoutmanagers/swt/gridlayout.adoc[*GridLayout*]
+with labels in the first column and editable widgets (text fields, checkboxes,spinners, etc.) in the second column. The
+generated layout is fully editable in the editor.
+
+image:images/automatic_data_binding7.gif[image]
+
+Click the *Bindings* tab in the *WindowBuilder* editor to review the generated bindings. All of the bindings may be
+edited and new ones added.
+
+image:images/data_binding_tab.gif[image]
+image:images/automatic_data_binding8.gif[image]
+
+Given a data model (bean) class like this:
+
+[source,java]
+----
+public class Person extends AbstractModelObject {
+	private String m_name;
+	private String m_phone;
+	private String m_email;
+	private int m_age;
+	private boolean m_male;
+
+	public String getName() {
+		return m_name;
+	}
+
+	public void setName(String name) {
+		m_name = name;
+	}
+
+	public String getPhone() {
+		return m_phone;
+	}
+
+	public void setPhone(String phone) {
+		m_phone = phone;
+	}
+
+	public String getEmail() {
+		return m_email;
+	}
+
+	public void setEmail(String email) {
+		m_email = email;
+	}
+
+	public int getAge() {
+		return m_age;
+	}
+
+	public void setAge(int age) {
+		m_age = age;
+	}
+
+	public boolean isMale() {
+		return m_male;
+	}
+
+	public void setMale(boolean male) {
+		m_male = male;
+	}
+
+}
+----
+
+The generated source looks like this:
+
+[source,java]
+----
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Text;
+
+public class PersonComposite extends Composite {
+	private DataBindingContext m_bindingContext;
+	private auto.Person person = new auto.Person();
+	private Text nameText;
+	private Text emailText;
+	private Text phoneText;
+	private Spinner ageSpinner;
+	private Button maleButton;
+
+	/**
+	 * Create the composite.
+	 * @param parent
+	 * @param style
+	 */
+	public PersonComposite(Composite parent, int style) {
+		super(parent, style);
+
+		setLayout(new GridLayout(2, false));
+
+		new Label(this, SWT.NONE).setText("Name:");
+		nameText = new Text(this, SWT.BORDER | SWT.SINGLE);
+		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+		new Label(this, SWT.NONE).setText("Email:");
+		emailText = new Text(this, SWT.BORDER | SWT.SINGLE);
+		emailText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+		new Label(this, SWT.NONE).setText("Phone:");
+		phoneText = new Text(this, SWT.BORDER | SWT.SINGLE);
+		phoneText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+		new Label(this, SWT.NONE).setText("Age:");
+		ageSpinner = new Spinner(this, SWT.NONE);
+		ageSpinner.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+		new Label(this, SWT.NONE).setText("Male:");
+		maleButton = new Button(this, SWT.CHECK);
+		maleButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+		m_bindingContext = initDataBindings();
+	}
+
+	@Override
+	protected void checkSubclass() {
+		// Disable the check that prevents subclassing of SWT components
+	}
+
+	private DataBindingContext initDataBindings() {
+		IObservableValue nameObserveWidget = SWTObservables.observeText(nameText, SWT.Modify);
+		IObservableValue nameObserveValue = BeansObservables.observeValue(person, "name");
+		IObservableValue emailObserveWidget = SWTObservables.observeText(emailText, SWT.Modify);
+		IObservableValue emailObserveValue = BeansObservables.observeValue(person, "email");
+		IObservableValue phoneObserveWidget = SWTObservables.observeText(phoneText, SWT.Modify);
+		IObservableValue phoneObserveValue = BeansObservables.observeValue(person, "phone");
+		IObservableValue ageObserveWidget = SWTObservables.observeSelection(ageSpinner);
+		IObservableValue ageObserveValue = BeansObservables.observeValue(person, "age");
+		IObservableValue maleObserveWidget = SWTObservables.observeSelection(maleButton);
+		IObservableValue maleObserveValue = BeansObservables.observeValue(person, "male");
+
+		DataBindingContext bindingContext = new DataBindingContext();
+		bindingContext.bindValue(nameObserveWidget, nameObserveValue, null, null);
+		bindingContext.bindValue(emailObserveWidget, emailObserveValue, null, null);
+		bindingContext.bindValue(phoneObserveWidget, phoneObserveValue, null, null);
+		bindingContext.bindValue(ageObserveWidget, ageObserveValue, null, null);
+		bindingContext.bindValue(maleObserveWidget, maleObserveValue, null, null);
+
+		return bindingContext;
+	}
+
+	public void setBean(auto.Person bean) {
+		person = bean;
+		if (m_bindingContext != null) {
+			m_bindingContext.dispose();
+			m_bindingContext = initDataBindings();
+		}
+	}
+}
+----

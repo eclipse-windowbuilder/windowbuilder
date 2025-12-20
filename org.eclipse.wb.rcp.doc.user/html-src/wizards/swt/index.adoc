@@ -1,0 +1,43 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swt
+endif::[]
+
+= SWT Designer Wizards
+
+*SWT Designer* provides a large number of SWT, JFace, RCP & Forms wizards.
+
+[width="100%",cols="50%,50%",]
+|===
+ |image:images/wizards_swt.gif[image]
+a|
+* xref:project.adoc[*SWT/JFace Java Project*]
+* *SWT*
+** xref:application_window.adoc[*Application Window*]
+** xref:composite.adoc[*Composite*]
+** xref:dialog.adoc[*Dialog*]
+** xref:shell.adoc[*Shell*]
+* *JFace*
+** xref:../jface/dialog.adoc[*Dialog*]
+** xref:../jface/titleareadialog.adoc[*TitleAreaDialog*]
+** xref:../jface/applicationwindow.adoc[*ApplicationWindow*]
+** xref:../jface/wizard.adoc[*Wizard*]
+** xref:../jface/wizardpage.adoc[*WizardPage*]
+* *RCP*
+** xref:../rcp/viewpart.adoc[*ViewPart*]
+** xref:../rcp/editorpart.adoc[*EditorPart*]
+** xref:../rcp/multipageeditorpart.adoc[*MultiPageEditorPart*]
+** xref:../rcp/preferencepage.adoc[*PreferencePage*]
+** xref:../rcp/propertypage.adoc[*PropertyPage*]
+** xref:../rcp/pagebookviewpage.adoc[*PageBookViewPage*]
+** xref:../rcp/perspective.adoc[*Perspective*]
+** xref:../rcp/actionbaradvisor.adoc[*ActionBarAdvisor*]
+* *Forms*
+** xref:../forms/formpage.adoc[*FormPage*]
+** xref:../forms/sectionpart.adoc[*SectionPart*]
+** xref:../forms/detailspage.adoc[*DetailsPage*]
+** xref:../forms/masterdetailsblock.adoc[*MasterDetailsBlock*]
+** xref:../forms/viewpart.adoc[*ViewPart*]
+** xref:../forms/composite.adoc[*Composite*]
+* *Databinding*
+** xref:../databinding/automatic.adoc[*JFace Automatic Databinding*]
+|===

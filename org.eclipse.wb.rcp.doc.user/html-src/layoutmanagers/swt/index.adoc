@@ -1,0 +1,47 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT Designer Layout Managers
+
+*SWT Designer* supports the following layout managers.
+
+[cols="^34%,^33%,^33%",]
+|===
+a|
+xref:absolutelayout.adoc[*Absolute Layout*]
+
+image:images/al_small.gif[image]
+a|
+xref:filllayout.adoc[*FillLayout*]
+
+image:images/fl_small.gif[image]
+a|
+xref:formlayout.adoc[*FormLayout*]
+
+image:images/frml_small.gif[image]
+a|
+xref:gridlayout.adoc[*GridLayout*]
+
+image:images/gl_small.gif[image]
+a|
+xref:rowlayout.adoc[*RowLayout*]
+
+image:images/rl_small.gif[image]
+a|
+xref:stacklayout.adoc[*StackLayout*]
+
+image:images/sl_small.gif[image]
+a|
+xref:swing/borderlayout.adoc[*Swing BorderLayout*]
+
+image:swing/images/bl_small.gif[image]
+a|
+xref:swing/boxlayout.adoc[*Swing BoxLayout*]
+
+image:swing/images/boxl_small.gif[image]
+a|
+xref:grouplayout.adoc[*GroupLayout*]
+
+image:images/group_small.gif[image]
+|===

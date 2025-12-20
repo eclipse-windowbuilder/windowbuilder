@@ -1,0 +1,74 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/jface
+endif::[]
+
+= JFace TitleAreaDialog Wizard
+
+image:images/wizard_jface_titleareadialog0.gif[image]
+
+Subclasses of the JFace *TitleAreaDialog* class can be created using the *JFace TitleAreaDialog* wizard. The wizard can
+be selected from the drop down Designer wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+--
+image:images/wizard_jface_titleareadialog1.gif[image]
+image:images/wizard_jface_titleareadialog2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
+ 
+public class JFaceTitleAreaDialog extends TitleAreaDialog {
+	public JFaceTitleAreaDialog(Shell parentShell) {
+		super(parentShell);
+	}
+
+	protected Control createDialogArea(Composite parent) {
+		Composite area = (Composite) super.createDialogArea(parent);
+		Composite container = new Composite(area, SWT.NONE);
+		container.setLayoutData(new GridData(GridData.FILL_BOTH));
+		return area;
+	}
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, IDialogConstants.OK_ID,
+			IDialogConstants.OK_LABEL, true);
+		createButton(parent, IDialogConstants.CANCEL_ID,
+		IDialogConstants.CANCEL_LABEL, false);
+	}
+
+	protected Point getInitialSize() {
+		return new Point(500, 375);
+	}
+}
+----
+
+When editing JFace TitleAreaDialogs, any widget may be added to the main content area. In the button bar area, only
+*Dialog Buttons* may be added (on the JFace Viewers palette).
+
+image:images/wizard_jface_titleareadialog3.gif[image]
+
+When adding a new dialog button, you can select an ID from a predefined list by clicking on the "..." button in the *ID*
+property. The *Standard ID's* shown are all of the standard button ID's defined in the *IDialogConstants* interface.
+
+image:images/wizard_jface_dialog4.gif[image]
+
+You can create news IDs by clicking on the *New* button. ID names need to be valid Java identifiers (preferably
+uppercase). The ID values are then defined as offsets from *IDialogConstants*.*ID_CLIENT*.
+
+image:images/wizard_jface_dialog5.gif[image]
+
+Any new IDs are then listed in the *Custom ID's* list.
+
+image:images/wizard_jface_dialog6.gif[image]

@@ -1,0 +1,13 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties
+endif::[]
+
+= SWT Style Editor
+
+SWT Styles may be edited by expanding the *Style* property in the *Property Pane*. Boolean sub-properties can be toggled
+on and off via their checkboxes and other property values selected from their drop down lists.
+
+--
+image:images/property_editor_swt_style1.gif[image]
+image:images/property_editor_swt_style2.gif[image]
+--

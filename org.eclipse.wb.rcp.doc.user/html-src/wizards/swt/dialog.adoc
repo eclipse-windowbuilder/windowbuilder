@@ -1,0 +1,65 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swt
+endif::[]
+
+= SWT Dialog Wizard
+
+image:images/wizard_swt_dialog0.gif[image]
+
+Subclasses of the SWT *Dialog* class can be created using the *SWT Dialog* wizard. The wizard can be selected from the
+drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name and hit
+the *Finish* button.
+
+The *org.eclipse.swt.widgets.Dialog* class is the default superclass.
+
+--
+image:images/wizard_swt_dialog1.gif[image]
+image:images/wizard_swt_dialog2.gif[image]
+--
+
+The wizard generates the following code including a *open()* method.
+
+[source,java]
+----
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Dialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+public class SwtDialog extends Dialog {
+	protected Object result;
+	protected Shell shell;
+
+	public SwtDialog(Shell parent, int style) {
+		super(parent, style)
+	}
+
+	public SwtDialog(Shell parent) {
+		this(parent, SWT.NONE)
+	}
+
+	public Object open() {
+		createContents();
+		shell.open();
+		shell.layout();
+		Display display = getParent().getDisplay();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+		return result;
+	}
+
+	protected void createContents() {
+		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		shell.setSize(450, 300);
+		shell.setText("SWT Dialog");
+	}
+}
+----
+
+When editing SWT Dialogs, all of the standard SWT layouts, containers, widgets and menus are available. Custom or third
+party controls may be added via the *Choose Component* command.

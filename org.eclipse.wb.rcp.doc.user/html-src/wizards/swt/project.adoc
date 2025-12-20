@@ -1,0 +1,52 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/swt
+endif::[]
+
+= SWT Java Project Wizard
+
+In order to use Eclipse SWT and JFace components, you need to make sure that all of the appropriate SWT and JFace jar
+files are on your classpath. The *SWT Java Project* wizard creates a standard Java project which has all of the needed
+libraries added. The wizard can be selected from the drop down wizard menu or from the Eclipse *New* or *New Project*
+wizards.
+
+To use the wizard, enter the project name and specify where the project should be located. In addition, specify the
+location of your SWT installation, choose whether to create some initial sample content and hit the *Finish* button.
+
+--
+image:images/wizard_swt_project1.gif[image]
+image:images/wizard_swt_project2.gif[image]
+--
+
+The wizard creates a Java project and generates content for the *.classpath* file similar to the following.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.osgi_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.osgi.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.ui.forms_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.ui.forms.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.core.commands_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.core.commands.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.equinox.common_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.equinox.common.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.equinox.registry_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.equinox.registry.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.core.runtime_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.core.runtime.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.text_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.text.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.swt.os.platform_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.swt.os.platform.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.jface_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.jface.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.jface.text_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.jface.text.source_X.X.X.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.ui.workbench_X.X.X.jar"
+		sourcepath="C:/eclipse/plugins/org.eclipse.ui.workbench.source_X.X.X.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+----

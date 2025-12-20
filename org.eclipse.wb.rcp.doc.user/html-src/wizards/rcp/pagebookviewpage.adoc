@@ -1,0 +1,87 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/wizards/rcp
+endif::[]
+
+= RCP PageBookViewPage Wizard
+
+image:images/wizard_rcp_pagebookviewpage0.gif[image]
+
+Subclasses of the RCP *Page* class can be created using the *RCP PageBookViewPage* wizard. The wizard can be selected
+from the drop down wizard menu or from the Eclipse *New* wizard.
+
+To use the wizard, select the project source folder and package to contain the class. Then enter the class name, view
+name/title and hit the *Finish* button.
+
+--
+image:images/wizard_rcp_pagebookviewpage1.gif[image]
+image:images/wizard_rcp_pagebookviewpage2.gif[image]
+--
+
+The wizard generates the following code.
+
+[source,java]
+----
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.part.IPageSite;
+import org.eclipse.ui.part.Page;
+
+public class RcpPageBookView extends Page {
+	private Composite m_control;
+	public RcpPageBookView() {
+	}
+
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		m_control = container;
+	}
+
+	public Control getControl() {
+		return m_control;
+	}
+
+	public void init(IPageSite pageSite) {
+		super.init(pageSite);
+		createActions();
+		initializeToolBar();
+		initializeMenu();
+	}
+
+	public void setFocus() {
+		// Set the focus
+	}
+
+	private void createActions() {
+		// Create the actions
+	}
+
+	private void initializeToolBar() {
+		IToolBarManager toolbarManager = getSite().getActionBars().getToolBarManager();
+	}
+
+	private void initializeMenu() {
+		IMenuManager menuManager = getSite().getActionBars().getMenuManager();
+	}
+}
+----
+
+When editing RCP Pages, all of the standard SWT layouts, containers and widgets are available.
+
+When editing Pages, SWT Designer adds a new Palette category, *JFace Actions*, for defining actions and assigning them
+to the view's toolbar and menu.
+
+image:images/wizard_rcp_pagebookviewpage3.gif[image]
+
+New actions may be created using the *New* command, and existing actions may be added using the *External* command. New
+actions are created as inner classes of the current class and are automatically added to the palette for easy access.
+Any existing actions may be deleted using the *Delete* key. Selecting an action allows you to edit its icons, label and
+tool tip text within the property pane.
+
+The view's toolbar is live and actions may be dropped on it. Actions and separators may be dragged from the palette and
+dropped on the toolbar. Toolbar actions may be rearranged using drag/drop and deleted using the *Delete* key.
+
+The view's menu is also live and actions may be dropped on it. Actions, separators and menu managers may be dragged from
+the palette and dropped into the menu. Menus may be rearranged using drag/drop and deleted using the *Delete* key.

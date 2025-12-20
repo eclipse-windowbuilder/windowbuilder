@@ -1,0 +1,13 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swt
+endif::[]
+
+= PreferencePage
+
+image:images/preferences_preferencepage.gif[image,width=421,height=442]
+
+This page is used to control various *SWT > PreferencePage* options.
+
+== FieldEditor use same code generation settings as Control
+
+This preference determines whether new field editors use the same code generation settings as new controls.

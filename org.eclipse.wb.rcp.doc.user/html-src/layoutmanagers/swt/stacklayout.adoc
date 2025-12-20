@@ -1,0 +1,39 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swt
+endif::[]
+
+= SWT StackLayout
+
+A *StackLayout* object is a layout manager for a container. It treats each component in the container as a card. Only
+one card is visible at a time, and the container acts as a stack of cards. The first component added to a *StackLayout*
+object is the visible component when the container is first displayed. The ordering of cards is determined by the
+container's own internal ordering of its component objects. *StackLayout* defines a set of methods that allow an
+application to flip through these cards sequentially, or to show a specified card.
+
+[#MainFeatures]
+== Main Features
+
+* Select *StackLayout* from the *Layouts* palette and drop it on a Window or Composite
+
+image:images/sl_design_view.gif[image]
+
+* When adding a new widget, the current drop point is highlighted in green
+
+--
+image:images/sl_drop1.gif[image]
+image:images/sl_drop2.gif[image]
+--
+
+* Switch between cards using the up/down arrows in the upper right corner
+
+--
+image:images/sl_switch1.gif[image]
+image:images/sl_switch2.gif[image]
+--
+
+* Horizontal and vertical margins can be specified using the *Property Pane*
+
+--
+image:images/sl_properties.gif[image]
+image:images/sl_gaps.gif[image]
+--

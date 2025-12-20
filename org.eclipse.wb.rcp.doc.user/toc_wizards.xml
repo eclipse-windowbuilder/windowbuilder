@@ -34,12 +34,6 @@
 			<topic href="html/wizards/forms/viewpart.html" label="ViewPart"/>
 			<topic href="html/wizards/forms/composite.html" label="Composite"/>
 		</topic>
-		<topic href="html/wizards/xwt/application.html" label="XWT" >
-			<topic href="html/wizards/xwt/application.html" label="Application"/>
-			<topic href="html/wizards/xwt/composite.html" label="Composite"/>
-			<topic href="html/wizards/xwt/forms_application.html" label="Forms Application"/>
-			<topic href="html/wizards/xwt/forms_composite.html" label="Forms Composite"/>
-		</topic>
 		<topic href="html/wizards/databinding/automatic.html" label="Data Binding" >
 			<topic href="html/wizards/databinding/automatic.html" label="Automatic Data Binding"/>
 		</topic>
