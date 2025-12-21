@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,6 +33,7 @@ import org.eclipse.wb.internal.core.model.variable.ThisVariableSupport;
 import org.eclipse.wb.internal.core.parser.IJavaInfoParseResolver;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
 import org.eclipse.wb.internal.core.parser.ParseRootContext;
+import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
@@ -199,7 +200,12 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 		}
 		// E4 part
 		for (MethodDeclaration method : typeDeclaration.getMethods()) {
-			IAnnotationBinding[] annotations = method.resolveBinding().getAnnotations();
+			IMethodBinding methodBinding = method.resolveBinding();
+			if (methodBinding == null) {
+				Debug.println("Unable to resolve method binding for: " + method.getName());
+				continue;
+			}
+			IAnnotationBinding[] annotations = methodBinding.getAnnotations();
 			for (IAnnotationBinding annotation : annotations) {
 				String annotationName = annotation.getAnnotationType().getQualifiedName();
 				if ("jakarta.annotation.PostConstruct".equals(annotationName)
