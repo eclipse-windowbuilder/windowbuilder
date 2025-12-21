@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -97,10 +97,6 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
 	 */
 	protected abstract void finishPage(IProgressMonitor monitor) throws Exception;
 
-	protected boolean canRunForked() {
-		return true;
-	}
-
 	protected void handleFinishException(Shell shell, InvocationTargetException e) {
 		ExceptionHandler.perform(
 				e,
@@ -139,7 +135,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
 			} else {
 				runnable = new WorkbenchRunnableAdapter(op, rule, true);
 			}
-			getContainer().run(canRunForked(), true, runnable);
+			getContainer().run(true, true, runnable);
 		} catch (InvocationTargetException e) {
 			handleFinishException(getShell(), e);
 			return false;
