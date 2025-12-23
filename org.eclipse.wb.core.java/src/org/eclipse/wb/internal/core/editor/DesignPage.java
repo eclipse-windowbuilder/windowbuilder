@@ -455,6 +455,7 @@ public final class DesignPage implements IDesignPage {
 		final Display display = Display.getCurrent();
 		IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
+			@SuppressWarnings("removal")
 			public void run(final IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
 				monitor.beginTask("Opening Design page.", 7);
