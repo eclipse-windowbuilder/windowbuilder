@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -128,7 +128,9 @@ public abstract class DesignPageSite implements IDesignPageSite {
 	 * @return the {@link IProgressMonitor} to use for displaying progress during parsing (initiated
 	 *         by {@link IDesignPage}). If parsing was complete, or we run tests, then
 	 *         {@link NullProgressMonitor} will be returned. Never returns <code>null</code>.
+	 * @deprecated The progress monitor should never be used outside of the parsing context.
 	 */
+	@Deprecated(forRemoval = true, since = "2026-03")
 	public static IProgressMonitor getProgressMonitor() {
 		return m_progressMonitor != null ? m_progressMonitor : NULL_PROGRESS_MONITOR;
 	}
@@ -139,7 +141,9 @@ public abstract class DesignPageSite implements IDesignPageSite {
 	 *
 	 * @param progressMonitor
 	 *          the {@link IProgressMonitor} to use, may be <code>null</code>.
+	 * @deprecated The progress monitor should never be used outside of the parsing context.
 	 */
+	@Deprecated(forRemoval = true, since = "2026-03")
 	public static void setProgressMonitor(IProgressMonitor progressMonitor) {
 		m_progressMonitor = progressMonitor;
 	}
